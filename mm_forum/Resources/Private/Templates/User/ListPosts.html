@@ -1,0 +1,27 @@
+{namespace mmf=Tx_MmForum_ViewHelpers}
+<f:layout name="default" />
+
+
+
+	<!-- MAIN Section -->
+<f:section name="main">
+
+	<f:render partial="User/ListPostPageBrowser"
+			  arguments="{user: user, elements: totalTopicCount, currentPage: page, configuration:settings.userController.listPosts.pagebrowser}" />
+
+	<div class="tx-mmforum-header">
+		<f:translate key="User_ListPosts" arguments="{0: user.username}" />
+	</div>
+	<f:render partial="Topic/List" arguments="{topics: topics, settings: settings}" />
+	<div class="tx-mmforum-header-end"></div>
+	
+	<f:render partial="User/ListPostPageBrowser"
+			  arguments="{user: user, elements: totalTopicCount, currentPage: page, configuration:settings.userController.listPosts.pagebrowser}" />
+
+</f:section>
+
+
+
+	<!-- MENU Section -->
+<f:section name="menu">
+</f:section>

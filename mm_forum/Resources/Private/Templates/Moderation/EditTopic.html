@@ -1,0 +1,47 @@
+{namespace mmf=Tx_MmForum_ViewHelpers}
+<f:layout name="default" />
+
+
+
+<f:section name="main">
+	<f:render partial="formErrors" />
+
+	<div class="tx-mmforum-header">
+		<mmf:forum.topicIcon topic="{topic}" width="24" />
+		<f:translate key="Moderation_EditTopic" default="TODO: Moderate topic" />
+	</div>
+	<f:form name="topic" object="{topic}" controller="Moderation" action="updateTopic" id="topic">
+		<div class="tx-mmforum-form-row tx-mmforum-odd">
+			<div class="tx-mmforum-form-left"><label for="subject"><f:translate key="Moderation_EditTopic_Sticky" default="TODO: Sticky" /></label></div>
+			<div class="tx-mmforum-form-right">
+				<f:form.checkbox property="sticky" value="1" />
+			</div>
+		</div>
+		<div class="tx-mmforum-form-row tx-mmforum-even">
+			<div class="tx-mmforum-form-left"><label for="subject"><f:translate key="Moderation_EditTopic_Closed" default="TODO: Closed" /></label></div>
+			<div class="tx-mmforum-form-right">
+				<f:form.checkbox property="closed" value="1" />
+			</div>
+		</div>
+		<div class="tx-mmforum-form-row tx-mmforum-odd">
+			<div class="tx-mmforum-form-left"><label for="subject"><f:translate key="Moderation_EditTopic_Move" default="TODO: Move" /></label></div>
+			<div class="tx-mmforum-form-right">
+				<f:form.checkbox name="moveTopic" value="1" onclick="document.getElementById('moveTopicTarget').style.display=this.checked?'':'none';" />
+				<mmf:form.forumSelect name="moveTopicTarget" value="{topic.forum}" id="moveTopicTarget" style="display:none" />
+			</div>
+		</div>
+		<div class="tx-mmforum-form-row" style="display:none;">
+			<div class="tx-mmforum-form-right">
+				<f:form.submit value="{f:translate(key:'Moderation_EditTopic_Submit', default:'TODO: Submit')}" />
+			</div>
+		</div>
+	</f:form>
+	<div class="tx-mmforum-header-end"></div>
+</f:section>
+
+
+
+<f:section name="menu">
+	<mmf:control.bigButton controller="Topic" action="show" arguments="{topic: topic}" iconAction="back"><f:translate key="Button_Back" /></mmf:control.bigButton>
+	<mmf:control.submitButton form="topic"><f:translate key="Moderation_EditTopic_Submit" /></mmf:control.submitButton>
+</f:section>

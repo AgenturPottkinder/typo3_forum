@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<T3DataStructure>
+	<sheets>
+		<behaviour>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<switchableControllerActions>
+						<TCEforms>
+							<label>LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action</label>
+							<config>
+								<type>select</type>
+								<maxitems>1</maxitems>
+								<size>6</size>
+								<items>
+									<numIndex index="0">
+										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Forum</numIndex>
+										<numIndex index="1">Forum->index;Forum->show;Topic->show;Topic->new;Topic->create;Post->show;Post->new;Post->create;Post->edit;Post->update;User->subscribe;Report->new;Report->create;Moderation->editTopic;Moderation->updateTopic</numIndex>
+									</numIndex>
+									<numIndex index="1">
+										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_User_Index</numIndex>
+										<numIndex index="1">User->index;User->show;User->listPosts</numIndex>
+									</numIndex>
+									<numIndex index="2">
+										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_User_Show</numIndex>
+										<numIndex index="1">User->show;User->listPosts</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</switchableControllerActions>
+				</el>
+			</ROOT>
+		</behaviour>
+		<pages>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Pages</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<settings.pids.Forum>
+						<TCEforms>
+							<label>LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Pages_Forum</label>
+							<config>
+								<type>group</type>
+								<internal_type>db</internal_type>
+								<allowed>pages</allowed>
+								<maxitems>1</maxitems>
+								<size>1</size>
+								<wizards>
+									<suggest>
+										<type>suggest</type>
+									</suggest>
+								</wizards>
+							</config>
+						</TCEforms>
+					</settings.pids.Forum>
+					<settings.pids.UserShow>
+						<TCEforms>
+							<label>LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Pages_User_Show</label>
+							<config>
+								<type>group</type>
+								<internal_type>db</internal_type>
+								<allowed>pages</allowed>
+								<maxitems>1</maxitems>
+								<size>1</size>
+								<wizards>
+									<suggest>
+										<type>suggest</type>
+									</suggest>
+								</wizards>
+							</config>
+						</TCEforms>
+					</settings.pids.UserShow>
+				</el>
+			</ROOT>
+		</pages>
+	</sheets>
+</T3DataStructure> 

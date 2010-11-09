@@ -27,11 +27,18 @@
 
 
 	/**
-	 * 
+	 *
+	 * Controller for the post object. This class implements all post-related functions,
+	 * like displaying, creating or editing posts.
+	 *
 	 * @author     Martin Helmich <m.helmich@mittwald.de>
 	 * @package    MmForum
 	 * @subpackage Controller
-	 * @version    $Id$
+	 * @version    $Id: PostController.php 24 2010-11-03 13:52:13Z helmich $
+	 *
+	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+	 *             Mittwald CM Service GmbH & Co. KG
+	 *             http://www.mittwald.de
 	 * @license    GNU Public License, version 2
 	 *             http://opensource.org/licenses/gpl-license.php
 	 */
@@ -74,6 +81,13 @@ Class Tx_MmForum_Controller_PostController Extends Tx_MmForum_Controller_Abstrac
 		 */
 	Protected $postFactory;
 
+		/**
+		 * A notification service. This is used when topic subscribers have to be
+		 * notified about new posts.
+		 * @var Tx_MmForum_Service_NotificationService
+		 */
+	Protected $notificationService;
+
 
 
 
@@ -88,7 +102,7 @@ Class Tx_MmForum_Controller_PostController Extends Tx_MmForum_Controller_Abstrac
 
 		/**
 		 *
-		 * Initializes the current action
+		 * Initializes the current action.
 		 * @return void
 		 *
 		 */
@@ -113,6 +127,10 @@ Class Tx_MmForum_Controller_PostController Extends Tx_MmForum_Controller_Abstrac
 	Protected Function initializeCreateAction() {
 		$this->topicRepository =&
 			t3lib_div::makeInstance('Tx_MmForum_Domain_Repository_Forum_TopicRepository');
+		$this->notificationService =&
+			t3lib_div::makeInstance('Tx_MmForum_Service_NotificationService');
+		$this->notificationService->injectControllerContext($this->buildControllerContext());
+		$this->notificationService->injectMailingService($this->buildMailingService());
 	}
 
 
@@ -138,6 +156,33 @@ Class Tx_MmForum_Controller_PostController Extends Tx_MmForum_Controller_Abstrac
 		 */
 
 
+		/**
+		 *
+		 * Show action for a single post. The method simply redirects the user to the
+		 * topic that contains the requested post.
+		 *
+		 * @param Tx_MmForum_Domain_Model_Forum_Post $post The post
+		 * @return void
+		 *
+		 */
+	Public Function showAction ( Tx_MmForum_Domain_Model_Forum_Post $post ) {
+			# Assert authentication
+		$this->authenticationService->assertReadAuthorization($post);
+
+			# Determine the page number of the requested post.
+		$postNumber =  0;
+		$posts      =& $post->getTopic()->getPosts();
+		$postCount  =  count($posts);
+		For($postNumber = 0; $postNumber < $postCount; $postNumber ++)
+			If($posts[$postNumber] == $post) Break;
+
+		$itemsPerPage = (int)$this->settings['topicController']['show']['pagebrowser']['itemsPerPage'];
+		$pageNumber   = ceil($postNumber / $itemsPerPage);
+
+			# Redirect to the topic->show action.
+		$this->redirect('show', 'Topic', NULL, Array('topic' => $post->getTopic(), 'page' => $pageNumber));
+	}
+
 
 
 
@@ -146,7 +191,12 @@ Class Tx_MmForum_Controller_PostController Extends Tx_MmForum_Controller_Abstrac
 		 * Displays the form for creating a new post.
 		 *
 		 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic
+		 *                             The topic in which the new post is to be created.
 		 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+		 *                             The new post.
+		 * @param Tx_MmForum_Domain_Model_Forum_Post $quote
+		 *                             An optional post that will be quoted within the
+		 *                             bodytext of the new post.
 		 * @dontvalidate $post
 		 *
 		 */
@@ -155,11 +205,15 @@ Class Tx_MmForum_Controller_PostController Extends Tx_MmForum_Controller_Abstrac
 	                            Tx_MmForum_Domain_Model_Forum_Post  $post  = NULL,
 								Tx_MmForum_Domain_Model_Forum_Post  $quote = NULL ) {
 
+			# Assert authorization
 		$this->authenticationService->assertNewPostAuthorization($topic);
 
+			# If no post is specified, create an optionally pre-filled post (if a quoted
+			# post was specified).
 		If($post === NULL)
 			$post = ($quote !== NULL) ? $this->postFactory->createPostWithQuote($quote) : $this->postFactory->createEmptyPost();
 
+			# Display view
 		$this->view->assign('topic', $topic)
 		           ->assign('post',  $post);
 	}
@@ -170,21 +224,33 @@ Class Tx_MmForum_Controller_PostController Extends Tx_MmForum_Controller_Abstrac
 		 *
 		 * Creates a new post.
 		 *
+		 * TODO: Needs to be able to handle attachments. But we will not implement this
+		 *       until Extbase itself has a decent file upload handling!
+		 *
 		 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic
+		 *                             The topic in which the new post is to be created.
 		 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+		 *                             The new post.
 		 * @return void
 		 *
 		 */
 
-	Public Function createAction(Tx_MmForum_Domain_Model_Forum_Topic $topic, Tx_MmForum_Domain_Model_Forum_Post $post) {
+	Public Function createAction ( Tx_MmForum_Domain_Model_Forum_Topic $topic,
+	                               Tx_MmForum_Domain_Model_Forum_Post $post ) {
 
+			# Assert authorization
 		$this->authenticationService->assertNewPostAuthorization($topic);
 
+			# Create new post, add the new post to the topic and persist the topic.
 		$this->postFactory->assignUserToPost($post);
 		$topic->addPost($post);
 		$this->topicRepository->update($topic);
 
-		$this->flashMessages->add('Beitrag gespeichert.');
+			# Notify topic and forum subscribers about the new post.
+		$this->notificationService->notifySubscribers($topic, $post);
+
+			# Display flash message and redirect to topic->show action.
+		$this->flashMessages->add(Tx_MmForum_Utility_Localization::translate('Post_Create_Success'));
 		$this->redirect('show', 'Topic', NULL, Array('topic' => $topic));
 	}
 
@@ -195,35 +261,51 @@ Class Tx_MmForum_Controller_PostController Extends Tx_MmForum_Controller_Abstrac
 		 * Displays a form for editing a post.
 		 *
 		 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+		 *                             The post that is to be edited.
 		 * @return void
+		 * @dontvalidate $post
 		 * 
 		 */
 
 	Public Function editAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
-
 		$this->authenticationService->assertEditPostAuthorization($post);
 		$this->view->assign('post', $post);
-
 	}
 
 
 
 		/**
 		 *
-		 * Updates a post
+		 * Updates a post.
+		 *
 		 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+		 *                             The post that is to be updated.
 		 * @return void
 		 * 
 		 */
+	
 	Public Function updateAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
-
 		$this->authenticationService->assertEditPostAuthorization($post);
-
 		$this->postRepository->update($post);
-
-		$this->flashMessages->add('Post successfully edited.');
+		$this->flashMessages->add(Tx_MmForum_Utility_Localization::translate('Post_Update_Success'));
 		$this->redirect('show', 'Topic', NULL, array('topic' => $post->getTopic()));
+	}
 
+
+
+		/**
+		 *
+		 * Delets a post.
+		 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+		 *                             The post that is to be deleted.
+		 *
+		 */
+	
+	Public Function deleteAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
+		$this->authenticationService->assertDeletePostAuthorization($post);
+		$this->postFactory->deletePost($post);
+		$this->flashMessages->add(Tx_MmForum_Utility_Localization::translate('Post_Delete_Success'));
+		$this->redirect('show', 'Topic', NULL, array('topic' => $post->getTopic()));
 	}
 
 }

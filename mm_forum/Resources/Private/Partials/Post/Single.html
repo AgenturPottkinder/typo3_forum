@@ -4,23 +4,14 @@
 	<div class="tx-mmforum-topic-show-post-menu">
 		<f:render partial="Post/Menu" arguments="{post: post}" />
 	</div>
-	<div class="tx-mmforum-topic-show-post-user">
-		<mmf:user.avatar user="{post.author}" width="64" alt="{post.author.username}" class="tx-mmforum-topic-show-post-user-icon" />
-		<div>
-			<f:link.action controller="User" action="show" arguments="{user: post.author}" class="tx-mmforum-topic-show-post-user-link">{post.author.username}</f:link.action>
-		</div>
-		<div>Dabei seit <f:format.date format="d. m. Y">{post.author.timestamp}</f:format.date></div>
-		<div>{post.author.postCount} Beiträge</div>
-	</div>
+	<f:render partial="User/InformationRow" arguments="{user: post.author, settings:settings}" />
 	<div class="tx-mmforum-topic-show-post-text">
-		<mmf:format.textParser>
-			{post.text}
-		</mmf:format.textParser>
+		<mmf:format.textParser content="{post.text}" />
 		
 		<f:if condition="{post.attachments}">
 			<div class="tx-mmforum-topic-show-post-attachments">
 				<div class="tx-mmforum-topic-show-post-attachments-header">
-					Attachments (<f:count subject="{post.attachments}" />)
+					<f:translate key="Post_Show_Attachments" /> (<f:count subject="{post.attachments}" />)
 				</div>
 				<table>
 					<f:for each="{post.attachments}" as="attachment">
@@ -32,11 +23,16 @@
 							</td>
 							<td>{attachment.mimeType}</td>
 							<td><mmf:format.fileSize>{attachment.filesize}</mmf:format.fileSize></td>
-							<td>Downloaded {attachment.downloadCount} times</td>
+							<td><f:translate key="Post_Show_Attachment_DownloadCount" arguments="{0: attachment.downloadCount}" /></td>
 						</tr>
 					</f:for>
 				</table>
 			</div>
 		</f:if>
 	</div>
+	<f:if condition="{post.author.signature}">
+		<div class="tx-mmforum-topic-show-post-signature">
+			<mmf:format.textParser content="{post.author.signature}" />
+		</div>
+	</f:if>
 </div>

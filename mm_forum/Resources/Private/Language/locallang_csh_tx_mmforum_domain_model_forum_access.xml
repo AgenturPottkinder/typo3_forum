@@ -7,10 +7,12 @@
     </meta>
     <data type="array">
         <languageKey index="default" type="array">
-			<label index="operation.description">operation</label>
-			<label index="negate.description">negate</label>
-			<label index="forum.description">forum</label>
-			<label index="group.description">group</label>
+			<label index="login_level.description">The required login level. This defines whether this access entry affects all users, only users that are currently logged in, or users that are members of a specific user group.</label>
+			<label index="operation.description">The operation that is described by this access entry.</label>
+			<label index="negate.description">Check this field in order to negate this access entry. So instead of explicitly granting access to a certain operation, you now deny it.</label>
+			<label index="forum.description">The forum that this access entry is assigned to.</label>
+			<label index="group.alttitle">User group</label>
+			<label index="group.description">The user group that this access entry is assigned to.</label>
 		</languageKey>
     </data>
 </T3locallang>

@@ -28,12 +28,14 @@
 
 	/**
 	 *
-	 * Write me!
+	 * A single topic. Each topic can contain an infinite number of
+	 * posts. Topic are submitted to the access control mechanism and
+	 * can be subscribed by users.
 	 *
 	 * @author     Martin Helmich <m.helmich@mittwald.de>
 	 * @package    MmForum
 	 * @subpackage Domain_Model_Forum
-	 * @version    $Id$
+	 * @version    $Id: Topic.php 28 2010-11-04 10:06:07Z helmich $
 	 * @license    GNU Public License, version 2
 	 *             http://opensource.org/licenses/gpl-license.php
 	 *
@@ -42,7 +44,9 @@
 Class Tx_MmForum_Domain_Model_Forum_Topic
 	Extends    Tx_Extbase_DomainObject_AbstractEntity
 	Implements Tx_MmForum_Domain_Model_AccessibleInterface,
-	           Tx_MmForum_Domain_Model_SubscribeableInterface {
+	           Tx_MmForum_Domain_Model_SubscribeableInterface,
+	           Tx_MmForum_Domain_Model_NotifiableInterface,
+	           Tx_MmForum_Domain_Model_ReadableInterface {
 
 
 
@@ -62,13 +66,13 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 		 * @validate NotEmpty
 		 */
 	Protected $subject;
-	
+
 		/**
 		 * The posts in this topic
 		 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Post>
 		 */
 	Protected $posts;
-	
+
 		/**
 		 * The user who created the topic
 		 * @var Tx_MmForum_Domain_Model_User_FrontendUser
@@ -76,18 +80,19 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 	Protected $author;
 
 		/**
+		 * All users who have subscribed this topic.
 		 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser>
 		 * @lazy
 		 */
 	Protected $subscribers;
-	
+
 		/**
 		 * A pointer to the last post in this topic.
 		 * @var Tx_MmForum_Domain_Model_Forum_Post
 		 * @lazy
 		 */
 	Protected $lastPost;
-	
+
 		/**
 		 * The forum in which this topic is located
 		 * @var Tx_MmForum_Domain_Model_Forum_Forum
@@ -111,6 +116,20 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 		 * @var DateTime
 		 */
 	Protected $crdate;
+
+		/**
+		 * All users who have read this topic.
+		 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser>
+		 * @lazy
+		 */
+	Protected $readers;
+
+		/**
+		 * Helper variable to store if the parent object was modified. This is necessary
+		 * due to http://forge.typo3.org/issues/8952
+		 * @var boolean
+		 */
+	Private $_modifiedParent = FALSE;
 
 
 
@@ -154,9 +173,7 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 		 *
 		 */
 
-	Public Function getSubject() {
-		Return $this->subject;
-	}
+	Public Function getSubject() { Return $this->subject; }
 
 
 
@@ -166,10 +183,31 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 		 * @return string The subject
 		 *
 		 */
-	
-	Public Function getTitle() {
-		Return $this->getSubject();
-	}
+
+	Public Function getTitle() { Return $this->getSubject(); }
+
+
+
+		/**
+		 *
+		 * Alias for getSubject. Necessary to implement the NofifiableInterface.
+		 * @return string  The subject
+		 *
+		 */
+
+	Public Function getName() { Return $this->getSubject(); }
+
+
+
+		/**
+		 *
+		 * Delegate function to call getText() of the first post. Necessary to implement
+		 * the NofifiableInterface.
+		 * @return string The description
+		 *
+		 */
+
+	Public Function getDescription() { Return $this->posts[0]->getText(); }
 
 
 
@@ -180,9 +218,7 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 		 *
 		 */
 
-	Public Function getAuthor() {
-		Return $this->author;
-	}
+	Public Function getAuthor() { Return $this->author; }
 
 
 
@@ -193,9 +229,7 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 		 *
 		 */
 
-	Public Function getSubscribers() {
-		Return $this->subscribers;
-	}
+	Public Function getSubscribers() { Return $this->subscribers; }
 
 
 
@@ -206,9 +240,7 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 		 *
 		 */
 
-	Public Function getPosts() {
-		Return $this->posts;
-	}
+	Public Function getPosts() { Return $this->posts; }
 
 
 
@@ -220,9 +252,7 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 		 *
 		 */
 
-	Public Function getPostCount() {
-		Return count($this->posts);
-	}
+	Public Function getPostCount() { Return count($this->posts); }
 
 
 
@@ -233,9 +263,7 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 		 *
 		 */
 
-	Public Function getReplyCount() {
-		Return $this->getPostCount() - 1;
-	}
+	Public Function getReplyCount() { Return $this->getPostCount() - 1; }
 
 
 
@@ -246,9 +274,7 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 		 *
 		 */
 
-	Public Function isClosed() {
-		Return $this->closed;
-	}
+	Public Function isClosed() { Return $this->closed; }
 
 
 
@@ -260,21 +286,21 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 		 */
 
 	Public Function getLastPost() {
-		Return $this->lastPost;
+		If($this->lastPost InstanceOf Tx_Extbase_Persistence_LazyLoadingProxy) {
+			Return $this->lastPost->_loadRealInstance();
+		} Return $this->lastPost;
 	}
 
 
 
 		/**
 		 *
-		 * Gets the forum
+		 * Gets the forum.
 		 * @return Tx_MmForum_Domain_Model_Forum_Forum A forum
 		 *
 		 */
 
-	Public Function getForum() {
-		Return $this->forum;
-	}
+	Public Function getForum() { Return $this->forum; }
 
 
 
@@ -282,12 +308,10 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 		 *
 		 * Gets the creation time of this topic.
 		 * @return DateTime
-		 * 
+		 *
 		 */
 
-	Public Function getTimestamp() {
-		Return $this->crdate;
-	}
+	Public Function getTimestamp() { Return $this->crdate; }
 
 
 
@@ -298,8 +322,21 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 		 *
 		 */
 
-	Public Function isSticky() {
-		Return $this->sticky;
+	Public Function isSticky() { Return $this->sticky; }
+
+
+
+		/**
+		 *
+		 * Determines whether this topic has been read by a certain user.
+		 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $reader
+		 *                             The user who is to be checked.
+		 * @return boolean             TRUE, if the user did read this topic, otherwise
+		 *                             FALSE.
+		 */
+	
+	Public Function hasBeenReadByUser(Tx_MmForum_Domain_Model_User_FrontendUser $reader=NULL) {
+		Return $reader ? $this->readers->contains($reader) : TRUE;
 	}
 
 
@@ -309,8 +346,8 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 		 * Checks if a user may perform a certain operation (read, answer...) with this
 		 * topic.
 		 *
-		 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
-		 * @param string $accessType
+		 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
+		 * @param  string $accessType
 		 * @return boolean
 		 *
 		 */
@@ -330,7 +367,7 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 		 *
 		 * Checks if a user may reply to this topic.
 		 *
-		 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+		 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
 		 * @return boolean
 		 *
 		 */
@@ -343,20 +380,36 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 
 	}
 
-	
-	
+
+
+		/**
+		 *
+		 * Checks if a user has moderative access to this topic.
+		 *
+		 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
+		 * @return boolean
+		 *
+		 */
+
+	Public Function checkModerationAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
+		Return ($user === NULL) ? FALSE : $this->getForum()->checkModerationAccess($user);
+
+	}
+
+
+
 		/**
 		 *
 		 * Workaround to prevent endless-recursive object persisting.
-		 * 
-		 * @param mixed $previousValue
-		 * @param mixed $currentValue
-		 * @return boolean 
-		 * 
+		 *
+		 * @param  mixed $previousValue
+		 * @param  mixed $currentValue
+		 * @return boolean
+		 *
 		 */
-	
+
 	Protected Function isPropertyDirty($previousValue, $currentValue) {
-		If($currentValue InstanceOf Tx_MmForum_Domain_Model_Forum_Forum) Return FALSE;
+		If($currentValue InstanceOf Tx_MmForum_Domain_Model_Forum_Forum) Return $this->_modifiedParent;
 		Else Return parent::isPropertyDirty ($previousValue, $currentValue);
 	}
 
@@ -374,15 +427,17 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 
 		/**
 		 *
-		 * Adds a Post
+		 * Adds a Post. By adding a new post, this topic is automatically marked unread
+		 * for all users who have read this topic before.
 		 *
-		 * @param Tx_MmForum_Domain_Model_Forum_Post The Post to be added
+		 * @param  Tx_MmForum_Domain_Model_Forum_Post The Post to be added
 		 * @return void
 		 *
 		 */
 
 	Public Function addPost(Tx_MmForum_Domain_Model_Forum_Post $post) {
 		$this->posts->attach($post);
+		$this->removeAllReaders();
 
 		If($this->lastPost === NULL || $this->lastPost->getTimestamp() < $post->getTimestamp())
 			$this->setLastPost($post);
@@ -391,27 +446,34 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 	}
 
 
-	
+
 		/**
 		 *
-		 * Removes a Post
+		 * Removes a Post.
 		 *
-		 * @param Tx_MmForum_Domain_Model_Forum_Post The Post to be removed
+		 * @param  Tx_MmForum_Domain_Model_Forum_Post The Post to be removed
 		 * @return void
 		 *
 		 */
 
 	Public Function removePost(Tx_MmForum_Domain_Model_Forum_Post $post) {
 		$this->posts->detach($post);
+
+		If($this->lastPost === $post)
+			$this->setLastPost($this->posts->offsetGet($this->posts->count()-1));
+		If($this->forum->getLastPost() === $post) {
+			$this->forum->resetLastPost();
+			$this->_modifiedParent = TRUE;
+		}
 	}
 
 
 
 		/**
 		 *
-		 * Setter for author
+		 * Sets the topic author.
 		 *
-		 * @param Tx_MmForum_Domain_Model_User_FrontendUser $author author
+		 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $author The topic author.
 		 * @return void
 		 *
 		 */
@@ -424,9 +486,10 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 
 		/**
 		 *
-		 * Setter for lastPost
+		 * Sets the last post. This method is not publicy accessible; is is called
+		 * automatically when a new post is added to this topic.
 		 *
-		 * @param Tx_MmForum_Domain_Model_Forum_Post $lastPost lastPost
+		 * @param  Tx_MmForum_Domain_Model_Forum_Post $lastPost The last post.
 		 * @return void
 		 *
 		 */
@@ -439,9 +502,9 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 
 		/**
 		 *
-		 * Setter for subject
+		 * Sets the subject of this topic.
 		 *
-		 * @param string $subject subject
+		 * @param  string $subject The subject
 		 * @return void
 		 *
 		 */
@@ -454,14 +517,87 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 
 		/**
 		 *
-		 * Sets the forum
-		 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
+		 * Sets the forum.
+		 *
+		 * @param  Tx_MmForum_Domain_Model_Forum_Forum $forum The forum
+		 * @return void
 		 *
 		 */
 
 	Public Function setForum(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
 		$this->forum = $forum;
 	}
-	
+
+
+
+		/**
+		 *
+		 * Sets this topic to closed.
+		 *
+		 * @param  boolean $closed TRUE to close this topic, FALSE to re-open it.
+		 * @return void
+		 *
+		 */
+
+	Public Function setClosed($closed) {
+		$this->closed = (boolean)$closed;
+	}
+
+
+
+		/**
+		 *
+		 * Sets this topic to sticky. Sticky topics will always remain at the top of the
+		 * forum list, regardless of the timestamp of the last post.
+		 *
+		 * @param  boolean $sticky TRUE to make this topic sticky, FALSE to reset this.
+		 * @return void
+		 *
+		 */
+
+	Public Function setSticky($sticky) {
+		$this->sticky = (boolean)$sticky;
+	}
+
+
+
+		/**
+		 *
+		 * Marks this topic as read by a certain user.
+		 * @param Tx_MmForum_Domain_Model_User_FrontendUser $reader
+		 *                             The user who read this topic.
+		 *
+		 */
+
+	Public Function addReader(Tx_MmForum_Domain_Model_User_FrontendUser $reader) {
+		$this->readers->attach($reader);
+	}
+
+
+
+		/**
+		 *
+		 * Mark this topic as unread for a certain user.
+		 * @param Tx_MmForum_Domain_Model_User_FrontendUser $reader
+		 *                             The user for whom to mark this topic as unread.
+		 *
+		 */
+
+	Public Function removeReader(Tx_MmForum_Domain_Model_User_FrontendUser $reader) {
+		$this->readers->detach($reader);
+	}
+
+
+
+		/**
+		 *
+		 * Mark this topic as unread for all users.
+		 *
+		 */
+
+	Public Function removeAllReaders() {
+		$this->readers = New Tx_Extbase_Persistence_ObjectStorage();
+	}
+
 }
 ?>

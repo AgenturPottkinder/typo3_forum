@@ -1,0 +1,56 @@
+{namespace mmf=Tx_MmForum_ViewHelpers}
+<f:layout name="default" />
+
+
+
+<f:section name="main">
+	<f:render partial="formErrors" />
+
+	<div class="tx-mmforum-header">
+		<mmf:forum.forumIcon forum="{forum}" width="24" />
+		<f:translate key="Topic_New" />
+	</div>
+	<f:form name="post" object="{post}" controller="Topic" action="create" id="topic">
+		<div class="tx-mmforum-form-row tx-mmforum-odd">
+			<div class="tx-mmforum-form-left"><label for="subject"><f:translate key="Topic_New_Subject" /></label></div>
+			<div class="tx-mmforum-form-right">
+				<f:form.textfield name="subject" value="{subject}" class="tx-mmforum-editor" />
+			</div>
+		</div>
+		<div class="tx-mmforum-form-row tx-mmforum-even">
+			<div class="tx-mmforum-form-left"><label for="text"><f:translate key="Topic_New_Text" /></label></div>
+			<div class="tx-mmforum-form-right">
+				<mmf:form.bbCodeEditor class="tx-mmforum-editor" property="text" id="mmforum_editor" rows="20" cols="80" />
+			</div>
+		</div>
+		<mmf:authentication.ifAccess object="{forum}" accessType="newAttachment">
+			<div class="tx-mmforum-form-row tx-mmforum-odd">
+				<div class="tx-mmforum-form-left"><label for="text"><f:translate key="Topic_New_Attachments" /></label></div>
+				<div class="tx-mmforum-form-right">
+					<f:if condition="{post.attachments}">
+						<f:for each="{post.attachments}" as="attachment">
+							<div>
+								{attachment.filename}, <mmf:format.fileSize>{attachment.filesize}</mmf:format.fileSize>
+							</div>
+						</f:for>
+					</f:if>
+					<f:form.upload name="attachment[]" />
+				</div>
+			</div>
+		</mmf:authentication.ifAccess>
+		<div class="tx-mmforum-form-row" style="display:none">
+			<div class="tx-mmforum-form-right">
+				<f:form.hidden name="forum" value="{forum}" />
+				<f:form.submit value="{f:translate(key:'Topic_New_Submit')}" />
+			</div>
+		</div>
+	</f:form>
+	<div class="tx-mmforum-header-end"></div>
+</f:section>
+
+
+
+<f:section name="menu">
+	<mmf:control.bigButton controller="Forum" action="show" arguments="{forum: forum}" iconAction="back"><f:translate key="Button_Back" /></mmf:control.bigButton>
+	<mmf:control.submitButton form="topic"><f:translate key="Topic_New_Submit" /></mmf:control.submitButton>
+</f:section>

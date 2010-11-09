@@ -18,11 +18,15 @@
 			<label index="tx_mmforum_domain_model_forum_forum.subscribers">Subscribers</label>
 
 			<label index="tx_mmforum_domain_model_forum_topic">Topic</label>
+			<label index="tx_mmforum_domain_model_forum_topic.type">Type</label>
+			<label index="tx_mmforum_domain_model_forum_topic.type.0">Regular topic</label>
+			<label index="tx_mmforum_domain_model_forum_topic.type.1">Shadow topic</label>
 			<label index="tx_mmforum_domain_model_forum_topic.subject">Subject</label>
 			<label index="tx_mmforum_domain_model_forum_topic.posts">Posts</label>
 			<label index="tx_mmforum_domain_model_forum_topic.author">Author</label>
 			<label index="tx_mmforum_domain_model_forum_topic.last_post">Last Post</label>
 			<label index="tx_mmforum_domain_model_forum_topic.subscribers">Subscribers</label>
+			<label index="tx_mmforum_domain_model_forum_topic.target">Target topic</label>
 
 			<label index="tx_mmforum_domain_model_forum_post">Post</label>
 			<label index="tx_mmforum_domain_model_forum_post.text">Text</label>
@@ -37,6 +41,13 @@
 
 			<label index="tx_mmforum_domain_model_forum_access">Access</label>
 			<label index="tx_mmforum_domain_model_forum_access.operation">Operation</label>
+			<label index="tx_mmforum_domain_model_forum_access.operation.read">Read</label>
+			<label index="tx_mmforum_domain_model_forum_access.operation.newPost">Write posts</label>
+			<label index="tx_mmforum_domain_model_forum_access.operation.editPost">Edit posts</label>
+			<label index="tx_mmforum_domain_model_forum_access.operation.newTopic">Create new topics</label>
+			<label index="tx_mmforum_domain_model_forum_access.operation.newAttachment">Post attachments</label>
+			<label index="tx_mmforum_domain_model_forum_access.operation.moderation">Moderate</label>
+			<label index="tx_mmforum_domain_model_forum_access.operation.deletePost">Delete post</label>
 			<label index="tx_mmforum_domain_model_forum_access.negate">Negate</label>
 			<label index="tx_mmforum_domain_model_forum_access.forum">Forum</label>
 			<label index="tx_mmforum_domain_model_forum_access.group">Group</label>
@@ -46,11 +57,18 @@
 			<label index="tx_mmforum_domain_model_forum_access.login_level.specific">Specific group</label>
 
 			<label index="tx_mmforum_domain_model_user_userfield_userfield">Userfield</label>
-			<label index="tx_mmforum_domain_model_user_userfield_userfield.name">Name</label>
-			<label index="tx_mmforum_domain_model_user_userfield_userfield.type">Type</label>
+			<label index="tx_mmforum_domain_model_user_userfield_userfield.name">Name:</label>
+			<label index="tx_mmforum_domain_model_user_userfield_userfield.type">Type:</label>
 			<label index="tx_mmforum_domain_model_user_userfield_userfield.type.undefined">Undefined</label>
 			<label index="tx_mmforum_domain_model_user_userfield_userfield.type.typoscript">TypoScript</label>
-			<label index="tx_mmforum_domain_model_user_userfield_userfield.typoscript_path">TypoScript path</label>
+			<label index="tx_mmforum_domain_model_user_userfield_userfield.type.text">Text</label>
+			<label index="tx_mmforum_domain_model_user_userfield_userfield.typoscript_path">TypoScript path:</label>
+			<label index="tx_mmforum_domain_model_user_userfield_userfield.map_to_user_object">Map to fe_users column:</label>
+
+			<label index="tx_mmforum_domain_model_user_userfield_value">Userfield value</label>
+			<label index="tx_mmforum_domain_model_user_userfield_value.user">User</label>
+			<label index="tx_mmforum_domain_model_user_userfield_value.userfield">Userfield</label>
+			<label index="tx_mmforum_domain_model_user_userfield_value.value">Value</label>
 
 			<label index="tx_mmforum_domain_model_format_textparser">Text parsing component</label>
 			<label index="tx_mmforum_domain_model_format_textparser.name">Name</label>
@@ -87,7 +105,8 @@
 			<label index="fe_users.tx_mmforum_topic_subscriptions">Subscribed topics</label>
 			<label index="fe_users.tx_mmforum_forum_subscriptions">Subscribed forums</label>
 			<label index="fe_users.tx_mmforum.tab.settings">mm_forum Settings</label>
-			<label index="fe_users.signature">Signature</label>
+			<label index="fe_users.tx_mmforum_signature">Signature</label>
+			<label index="fe_users.tx_mmforum_userfield_values">Userfield values</label>
 		</languageKey>
 	</data>
 </T3locallang>

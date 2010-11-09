@@ -7,16 +7,18 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	array(
 		'Forum' => 'index, show, new, create, edit, update, delete',
 		'Topic' => 'index, show, new, create, edit, update, delete',
-		'Post' => 'new, create, edit, update, delete',
+		'Post' => 'show, new, create, edit, update, delete',
 		'User' => 'index, subscribe, show',
-		'Report' => 'new, create'
+		'Report' => 'new, create',
+		'Moderation' => 'editTopic, updateTopic'
 	),
 	array(
 		'Forum' => 'index, show, new, create, edit, update, delete',
 		'Topic' => 'index, show, new, create, edit, update, delete',
-		'Post' => 'new, create, edit, update, delete',
+		'Post' => 'show, new, create, edit, update, delete',
 		'User' => 'index, subscribe, show',
-		'Report' => 'new, create'
+		'Report' => 'new, create',
+		'Moderation' => 'editTopic, updateTopic'
 	)
 );
 

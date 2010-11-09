@@ -1,0 +1,6 @@
+Hallo {subscriber.username},
+
+es gibt einen neuen Beitrag!
+
+Schöne Grüße,
+Das Forum-Team

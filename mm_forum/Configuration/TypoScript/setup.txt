@@ -8,8 +8,14 @@ config.tx_extbase.persistence.classes {
 
 }
 
+plugin.tx_srfeuserregister_pi1 {
+	create {
+		overrideValues.tx_extbase_type = Tx_MmForum_Domain_Model_User_FrontendUser
+		fields := addToList(tx_extbase_type)
+	}
+}
+
 config.tx_extbase.persistence.classes {
-#plugin.tx_mmforum.persistence.classes {
 
 	Tx_MmForum_Domain_Model_User_FrontendUser {
 		mapping {
@@ -17,9 +23,11 @@ config.tx_extbase.persistence.classes {
 			recordType = Tx_MmForum_Domain_Model_User_FrontendUser
 
 			columns {
+				tx_mmforum_signature.mapOnProperty = signature
 				tx_mmforum_post_count.mapOnProperty = postCount
 				tx_mmforum_topic_subscriptions.mapOnProperty = topicSubscriptions
 				tx_mmforum_forum_subscriptions.mapOnProperty = forumSubscriptions
+				tx_mmforum_read_topics.mapOnProperty = readTopics
 			}
 		}
 	}
@@ -39,6 +47,7 @@ config.tx_extbase.persistence.classes {
 
 		subclasses {
 			Tx_MmForum_Domain_Model_User_Userfield_TyposcriptUserfield = Tx_MmForum_Domain_Model_User_Userfield_TyposcriptUserfield
+			Tx_MmForum_Domain_Model_User_Userfield_TextUserfield = Tx_MmForum_Domain_Model_User_Userfield_TextUserfield
 		}
 	}
 
@@ -46,6 +55,17 @@ config.tx_extbase.persistence.classes {
 		mapping {
 			tableName = tx_mmforum_domain_model_user_userfield_userfield
 			recordType = Tx_MmForum_Domain_Model_User_Userfield_TyposcriptUserfield
+		}
+
+		subclasses {
+			Tx_MmForum_Domain_Model_User_Userfield_TextUserfield = Tx_MmForum_Domain_Model_User_Userfield_TextUserfield
+		}
+	}
+
+	Tx_MmForum_Domain_Model_User_Userfield_TextUserfield {
+		mapping {
+			tableName = tx_mmforum_domain_model_user_userfield_userfield
+			recordType = Tx_MmForum_Domain_Model_User_Userfield_TextUserfield
 		}
 	}
 
@@ -66,6 +86,25 @@ config.tx_extbase.persistence.classes {
 			tableName = tx_mmforum_domain_model_format_textparser
 			recordType = Tx_MmForum_Domain_Model_Format_BBCode
 		}
+
+		subclasses {
+			Tx_MmForum_Domain_Model_Format_QuoteBBCode = Tx_MmForum_Domain_Model_Format_QuoteBBCode
+			Tx_MmForum_Domain_Model_Format_ListBBCode = Tx_MmForum_Domain_Model_Format_ListBBCode
+		}
+	}
+
+	Tx_MmForum_Domain_Model_Format_QuoteBBCode {
+		mapping {
+			tableName = tx_mmforum_domain_model_format_textparser
+			recordType = Tx_MmForum_Domain_Model_Format_QuoteBBCode
+		}
+	}
+
+	Tx_MmForum_Domain_Model_Format_ListBBCode {
+		mapping {
+			tableName = tx_mmforum_domain_model_format_textparser
+			recordType = Tx_MmForum_Domain_Model_Format_ListBBCode
+		}
 	}
 
 	Tx_MmForum_Domain_Model_Format_Smilie {
@@ -81,36 +120,226 @@ config.tx_extbase.persistence.classes {
 			recordType = Tx_MmForum_Domain_Model_Format_SyntaxHighlighting
 		}
 	}
+
+	Tx_MmForum_Domain_Model_Forum_Topic {
+		mapping {
+			tableName = tx_mmforum_domain_model_forum_topic
+			recordType = 0
+		}
+		subclasses {
+			Tx_MmForum_Domain_Model_Forum_ShadowTopic = Tx_MmForum_Domain_Model_Forum_ShadowTopic
+		}
+	}
+
+	Tx_MmForum_Domain_Model_Forum_ShadowTopic {
+		mapping {
+			tableName = tx_mmforum_domain_model_forum_topic
+			recordType = 1
+		}
+	}
 }
 
 plugin.tx_mmforum.settings {
 	debug = 1
 	debug {
-		disableACLs = 1
+		disableACLs = 0
+	}
+
+	pids {
+		Forum =
+		UserShow =
+		UserList =
+	}
+
+	pagebrowser {
+		itemsPerPage = 20
 	}
 
 	forumController.show {
-		pagebrowser {
-			itemsPerPage = 20
-		}
+		pagebrowser < plugin.tx_mmforum.settings.pagebrowser
+	}
+
+	topicController.show {
+		pagebrowser < plugin.tx_mmforum.settings.pagebrowser
+	}
+
+	userController.index {
+		pagebrowser < plugin.tx_mmforum.settings.pagebrowser
+	}
+
+	userController.listPosts {
+		pagebrowser < plugin.tx_mmforum.settings.pagebrowser
 	}
 
 	textParsing {
 		enabledServices {
+			basic = Tx_MmForum_TextParser_Service_BasicParserService
 			bbCodes = Tx_MmForum_TextParser_Service_BBCodeParserService
 			smilies = Tx_MmForum_TextParser_Service_SmilieParserService
 			syntax = Tx_MmForum_TextParser_Service_SyntaxHighlightingParserService
 			quotes = Tx_MmForum_TextParser_Service_QuoteParserService
 			lists = Tx_MmForum_TextParser_Service_ListParserService
+			tidy = Tx_MmForum_TextParser_Service_TidyService
 		}
 
 		editorPanel {
 			panels {
-				bbCodes = Tx_MmForum_TextParser_Panel_BBCodePanel
-				smilies = Tx_MmForum_TextParser_Panel_SmiliePanel
-				syntax = Tx_MmForum_TextParser_Panel_SyntaxHighlightingPanel
+				bbCodes {
+					className = Tx_MmForum_TextParser_Panel_BBCodePanel
+					title = LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:Editor_Panel_Formatting
+				}
+				syntax {
+					className = Tx_MmForum_TextParser_Panel_SyntaxHighlightingPanel
+					title = LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:Editor_Panel_SyntaxHighlighting
+				}
+				smilies {
+					className = Tx_MmForum_TextParser_Panel_SmiliePanel
+					title = LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:Editor_Panel_Smilies
+					icon = EXT:mm_forum/Resources/Public/Images/Icons/Editor/Smilie.png
+				}
 			}
 		}
+	}
+
+	services {
+		mailing {
+			serviceClass = Tx_MmForum_Service_Mailing_PlainMailingService
+			sender.name = mm_forum
+			sender.address = noreply@domain.tld
+		}
+
+		authentication {
+			serviceClass = Tx_MmForum_Domain_Service_AuthenticationService
+		}
+	}
+
+	userfields.core_fields {
+		username {
+			class = Tx_MmForum_Domain_Model_User_Userfield_TextUserfield
+			properties {
+				name = LLL:EXT:mm_forum/Resources/Private/Language/locallang_user.xml:Username
+				mapToUserObject = username
+			}
+		}
+		registered_since {
+			class = Tx_MmForum_Domain_Model_User_Userfield_DateUserfield
+			properties {
+				name = LLL:EXT:mm_forum/Resources/Private/Language/locallang_user.xml:RegisteredSince
+				mapToUserObject = crdate
+			}
+		}
+		real_name {
+			class = Tx_MmForum_Domain_Model_User_Userfield_TextUserfield
+			properties {
+				name = LLL:EXT:mm_forum/Resources/Private/Language/locallang_user.xml:RealName
+				mapToUserObject = name
+			}
+		}
+	}
+}
+
+plugin.tx_mmforum.settings.icons {
+	forum = IMAGE
+	forum {
+		file = GIFBUILDER
+		file {
+			XY = 32,32
+			format = png
+			transparentBackground = 1
+
+			10 = IMAGE
+			10.file = EXT:mm_forum/Resources/Public/Images/Icons/Forum/BaseIcon.png
+			10.offset = 0,0
+
+			21 = IMAGE
+			21.file = EXT:mm_forum/Resources/Public/Images/Icons/Forum/OverlayNew.png
+			21.offset = 16,0
+			21.if.isTrue.field = new
+
+			22 = IMAGE
+			22.file = EXT:mm_forum/Resources/Public/Images/Icons/Forum/OverlayLocked.png
+			22.offset = 0,16
+			22.if.isTrue.field = closed
+		}
+	}
+
+	topic = IMAGE
+	topic {
+		file = GIFBUILDER
+		file {
+			XY = 32,32
+			format = png
+			transparentBackground = 1
+
+			10 = IMAGE
+			10.file = EXT:mm_forum/Resources/Public/Images/Icons/Topic/BaseIcon.png
+			10.offset = 0,0
+
+			20 = IMAGE
+			20.file = EXT:mm_forum/Resources/Public/Images/Icons/Topic/OverlayImportant.png
+			20.offset = 0,0
+			20.if.isTrue.field = important
+
+			21 = IMAGE
+			21.file = EXT:mm_forum/Resources/Public/Images/Icons/Topic/OverlayNew.png
+			21.offset = 16,0
+			21.if.isTrue.field = new
+
+			22 = IMAGE
+			22.file = EXT:mm_forum/Resources/Public/Images/Icons/Topic/OverlayLocked.png
+			22.offset = 0,16
+			22.if.isTrue.field = closed
+
+			23 = IMAGE
+			23.file = EXT:mm_forum/Resources/Public/Images/Icons/Topic/OverlaySolved.png
+			23.offset = 16,16
+			23.if.isTrue.field = solved
+
+			24 = IMAGE
+			24.file = EXT:mm_forum/Resources/Public/Images/Icons/Topic/OverlayMoved.png
+			24.offset = 16,16
+			24.if.isTrue.field = moved
+
+			25 = IMAGE
+			25.file = EXT:mm_forum/Resources/Public/Images/Icons/Topic/OverlaySticky.png
+			25.offset = 16,0
+			25.if.isTrue.field = sticky
+		}
+	}
+}
+
+plugin.tx_mmforum.userfields {
+	text.output = TEXT
+	text.output {
+		current = 1
+	}
+
+	date.output = TEXT
+	date.output {
+		current = 1
+		date = d. m. Y
+	}
+
+	country.output = CONTENT
+	country.output {
+		select {
+			selectFields = cn_official_name_local
+			andWhere.current = 1
+			andWhere.wrap = cn_iso_3="|"
+			pidInList = 0
+		}
+		table = static_countries
+		renderObj = TEXT
+		renderObj.field = cn_official_name_local
+	}
+
+	gender.output = CASE
+	gender.output {
+		0 = TEXT
+		0.value = Male
+		1 = TEXT
+		1.value = Female
+		key.current = 1
 	}
 }
 

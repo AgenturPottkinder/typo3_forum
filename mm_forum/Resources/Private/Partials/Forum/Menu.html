@@ -1,17 +1,17 @@
 {namespace mmf=Tx_MmForum_ViewHelpers}
 
 <f:if condition="{forum.parent.parent}">
-	<f:then><mmf:control.bigButton controller="Forum" action="show" iconAction="back" arguments="{forum: forum.parent}">Back</mmf:control.bigButton></f:then>
-	<f:else><mmf:control.bigButton controller="Forum" action="index" iconAction="back">Back</mmf:control.bigButton></f:else>
+	<f:then><mmf:control.bigButton controller="Forum" action="show" iconAction="back" arguments="{forum: forum.parent}">{f:translate(key:'Button_Back')}</mmf:control.bigButton></f:then>
+	<f:else><mmf:control.bigButton controller="Forum" action="index" iconAction="back">{f:translate(key:'Button_Back')}</mmf:control.bigButton></f:else>
 </f:if>
 
 <mmf:authentication.ifAccess object="{forum}" accessType="newTopic">
-	<mmf:control.bigButton controller="Topic" action="new" arguments="{forum: forum}">New Topic</mmf:control.bigButton>
+	<mmf:control.bigButton controller="Topic" action="new" arguments="{forum: forum}">{f:translate(key:'Button_Topic_New')}</mmf:control.bigButton>
 </mmf:authentication.ifAccess>
 
 <mmf:authentication.ifLoggedIn>
 	<mmf:user.ifSubscribed object="{forum}">
-		<f:then><mmf:control.bigButton controller="User" action="subscribe" iconAction="unsubscribe" arguments="{forum: forum, unsubscribe: 1}">Unsubscribe</mmf:control.bigButton></f:then>
-		<f:else><mmf:control.bigButton controller="User" action="subscribe" arguments="{forum: forum}">Subscribe</mmf:control.bigButton></f:else>
+		<f:then><mmf:control.bigButton controller="User" action="subscribe" iconAction="unsubscribe" arguments="{forum: forum, unsubscribe: 1}">{f:translate(key:'Button_Unsubscribe')}</mmf:control.bigButton></f:then>
+		<f:else><mmf:control.bigButton controller="User" action="subscribe" arguments="{forum: forum}">{f:translate(key:'Button_Subscribe')}</mmf:control.bigButton></f:else>
 	</mmf:user.ifSubscribed>
 </mmf:authentication.ifLoggedIn>

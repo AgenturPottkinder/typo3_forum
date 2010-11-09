@@ -1,0 +1,13 @@
+<f:layout name="default" />
+
+<f:section name="main">
+
+	<f:flashMessages />
+
+	<f:for each="{forums}" as="forum">
+		<f:render partial="Forum/List" arguments="{category: forum, header: forum.title, settings: settings}" />
+	</f:for>
+
+</f:section>
+
+<f:section name="menu" />

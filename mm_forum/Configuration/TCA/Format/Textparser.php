@@ -4,11 +4,11 @@ if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 $TCA['tx_mmforum_domain_model_format_textparser'] = array(
 	'ctrl' => $TCA['tx_mmforum_domain_model_format_textparser']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'type,name,icon,regular_expression,regular_expression_replacement,smilie_shortcut,language'
+		'showRecordFieldList' => 'type,name,icon,bbcode_wrap,regular_expression,regular_expression_replacement,smilie_shortcut,language'
 	),
 	'types' => array(
 		'1' => array('showitem' => 'type'),
-		'Tx_MmForum_Domain_Model_Format_BBCode' => array('showitem' => 'type,name,icon,regular_expression,regular_expression_replacement'),
+		'Tx_MmForum_Domain_Model_Format_BBCode' => array('showitem' => 'type,name,icon,bbcode_wrap,regular_expression,regular_expression_replacement'),
 		'Tx_MmForum_Domain_Model_Format_QuoteBBCode' => array('showitem' => 'type,name,icon'),
 		'Tx_MmForum_Domain_Model_Format_ListBBCode' => array('showitem' => 'type,name,icon'),
 		'Tx_MmForum_Domain_Model_Format_Smilie' => array('showitem' => 'type,name,icon,smilie_shortcut'),
@@ -97,6 +97,15 @@ $TCA['tx_mmforum_domain_model_format_textparser'] = array(
 				'maxitems' => 1,
 				'allowed' => '*',
 				'disallowed' => ''
+			)
+		),
+		'bbcode_wrap' => array(
+			'exclude' => 1,
+			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_format_textparser.bbcode_wrap',
+			'config'  => array(
+				'type' => 'input',
+				'size' => 30,
+				'eval' => 'trim,required'
 			)
 		),
 		'regular_expression' => array(

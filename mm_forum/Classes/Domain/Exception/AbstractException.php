@@ -33,7 +33,11 @@
 	 * @author     Martin Helmich <m.helmich@mittwald.de>
 	 * @package    MmForum
 	 * @subpackage Domain_Exception
-	 * @version    $Id$
+	 * @version    $Id: AbstractException.php 20 2010-11-03 09:50:22Z helmich $
+	 *
+	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+	 *             Mittwald CM Service GmbH & Co. KG
+	 *             http://www.mittwald.de
 	 * @license    GNU Public License, version 2
 	 *             http://opensource.org/licenses/gpl-license.php
 	 *

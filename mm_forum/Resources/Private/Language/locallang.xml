@@ -6,6 +6,20 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
+			<label index="Generic_By">by</label>
+			<label index="Generic_More">more</label>
+
+			<label index="Button_Back">Back</label>
+			<label index="Button_Topic_New">New topic</label>
+			<label index="Button_Subscribe">Subscribe</label>
+			<label index="Button_Unsubscribe">Unsubscribe</label>
+			<label index="Button_Quote">Quote</label>
+			<label index="Button_Report">Report</label>
+			<label index="Button_Edit">Edit</label>
+			<label index="Button_Reply">Reply</label>
+			<label index="Button_Moderate">Moderate</label>
+			<label index="Button_Delete">Delete</label>
+
 			<label index="Forum_Index_Name">Forum</label>
 			<label index="Forum_Index_Posts">Posts</label>
 			<label index="Forum_Index_Topics">Topics</label>
@@ -16,13 +30,70 @@
 			<label index="Forum_Show_Topic_Author">Author</label>
 			<label index="Forum_Show_Topic_Posts">Replies</label>
 			<label index="Forum_Show_Topic_LastPost">Last post</label>
+			<label index="Forum_Show_Empty">No topics</label>
+
+			<label index="Topic_New">New topic</label>
+			<label index="Topic_New_Subject">Subject</label>
+			<label index="Topic_New_Text">Post text</label>
+			<label index="Topic_New_Attachments">Attachments</label>
+			<label index="Topic_New_Submit">Create topic</label>
+
+			<label index="Topic_Create_Success">The topic has successfully been created.</label>
+
+			<label index="Post_Show_QuoteBy">Quote by</label>
+			<label index="Post_Show_Attachments">Attachments</label>
+			<label index="Post_Show_Attachment_DownloadCount">Downloaded %d times</label>
+
+			<label index="Post_New">Reply to: %s</label>
+			<label index="Post_New_Text">Post text</label>
+			<label index="Post_New_Attachments">Attachments</label>
+			<label index="Post_New_Submit">Create post</label>
+
+			<label index="Post_Create_Success">The post has successfully been created.</label>
+
+			<label index="Post_Edit">Edit post</label>
+			<label index="Post_Edit_Submit">Update post</label>
+
+			<label index="Post_Update_Success">The post has successfully been updated.</label>
+
+			<label index="Post_Delete_Success">The post has successfully been deleted.</label>
+
+			<label index="User_Index">User list</label>
+			<label index="User_Index_Username">Username</label>
+			<label index="User_Index_MemberSince">Registered since</label>
+			<label index="User_Index_Posts">Posts</label>
+			<label index="User_Index_Contact">Contact</label>
+			<label index="User_Index_Message">Message</label>
+
+			<label index="User_ListPosts">All posts of %s</label>
+
+			<label index="User_Show">User details: %s</label>
+			<label index="User_Show_MemberSince">Member since</label>
+			<label index="User_Show_PostCount">%d posts</label>
+			<label index="User_Show_LastPosts">Last posts</label>
 
 			<label index="User_Subscribe_Forum_Success">The Forum "%s" has successfully been subscribed.</label>
 			<label index="User_Subscribe_Topic_Success">The Topic "%s" has successfully been subscribed.</label>
 			<label index="User_Unsubscribe_Forum_Success">The Forum "%s" has successfully been unsubscribed.</label>
 			<label index="User_Unsubscribe_Topic_Success">The Topic "%s" has successfully been unsubscribed.</label>
 
+			<label index="Report_New">Report this post</label>
+			<label index="Report_New_Author">Post author</label>
+			<label index="Report_New_OriginalText">Original post text</label>
+			<label index="Report_New_Reason">Reason</label>
+			<label index="Report_New_Submit">Report post</label>
 			<label index="Report_New_Success">Your report has been submitted to a forum moderator.</label>
+
+			<label index="Moderation_EditTopic">Moderate topic</label>
+			<label index="Moderation_EditTopic_Sticky">Sticky</label>
+			<label index="Moderation_EditTopic_Closed">Closed</label>
+			<label index="Moderation_EditTopic_Move">Move</label>
+			<label index="Moderation_EditTopic_Submit">Submit</label>
+			<label index="Moderation_UpdateTopic_Success">The topic has successfully been updated.</label>
+
+			<label index="Editor_Panel_Formatting">Formatting</label>
+			<label index="Editor_Panel_SyntaxHighlighting">Syntax highlighting</label>
+			<label index="Editor_Panel_Smilies">Smilies</label>
 		</languageKey>
 	</data>
 </T3locallang>

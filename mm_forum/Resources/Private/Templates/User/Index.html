@@ -1,0 +1,48 @@
+{namespace mmf=Tx_MmForum_ViewHelpers}
+<f:layout name="default" />
+
+
+
+	<!-- MAIN Section -->
+<f:section name="main">
+
+	<f:render partial="User/IndexPageBrowser"
+			  arguments="{elements: totalUserCount, currentPage: page, configuration:settings.userController.index.pagebrowser}" />
+
+	<div class="tx-mmforum-header">
+		<f:translate key="User_Index" />
+	</div>
+	<table class="tx-mmforum-table">
+		<tr class="tx-mmforum-table-legend">
+			<th></th>
+			<th><f:translate key="User_Index_Username" /></th>
+			<th><f:translate key="User_Index_MemberSince" /></th>
+			<th><f:translate key="User_Index_Posts" /></th>
+			<th><f:translate key="User_Index_Contact" /></th>
+		</tr>
+		<f:for each="{users}" as="user">
+			<f:cycle values="{0: 'odd', 1: 'even'}" as="zebra">
+			<tr class="tx-mmforum-{zebra}">
+				<td style="width:1px;"><mmf:user.avatar user="{user}" width="24" alt="" /></td>
+				<td><f:link.action controller="User" action="show" arguments="{user: user}" pageUid="{settings.pids.UserShow}">{user.username}</f:link.action></td>
+				<td><f:format.date format="d. m. Y">{user.timestamp}</f:format.date></td>
+				<td>{user.postCount}</td>
+				<td>
+					<f:translate key="User_Index_Message" />
+				</td>
+			</tr>
+			</f:cycle>
+		</f:for>
+	</table>
+	<div class="tx-mmforum-header-end"></div>
+
+	<f:render partial="User/IndexPageBrowser"
+			  arguments="{elements: totalUserCount, currentPage: page, configuration:settings.userController.index.pagebrowser}" />
+
+</f:section>
+
+
+
+	<!-- MENU Section -->
+<f:section name="menu">
+</f:section>

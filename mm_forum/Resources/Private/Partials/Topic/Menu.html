@@ -3,10 +3,10 @@
 <mmf:control.bigButton controller="Forum"
 					   action="show"
 					   iconAction="back"
-					   arguments="{forum: topic.forum}">Back</mmf:control.bigButton>
+					   arguments="{forum: topic.forum}"><f:translate key="Button_Back" /></mmf:control.bigButton>
 
 <mmf:authentication.ifAccess object="{topic}" accessType="newPost">
-	<mmf:control.bigButton controller="Post" action="new" arguments="{topic: topic}">Reply</mmf:control.bigButton>
+	<mmf:control.bigButton controller="Post" action="new" arguments="{topic: topic}"><f:translate key="Button_Reply" /></mmf:control.bigButton>
 </mmf:authentication.ifAccess>
 
 <mmf:authentication.ifLoggedIn>
@@ -16,9 +16,13 @@
 								   action="subscribe"
 								   iconAction="unsubscribe"
 								   arguments="{topic: topic, unsubscribe: 1}">
-				Unsubscribe
+				<f:translate key="Button_Unsubscribe" />
 			</mmf:control.bigButton>
 		</f:then>
-		<f:else><mmf:control.bigButton controller="User" action="subscribe" arguments="{topic: topic}">Subscribe</mmf:control.bigButton></f:else>
+		<f:else><mmf:control.bigButton controller="User" action="subscribe" arguments="{topic: topic}"><f:translate key="Button_Subscribe" /></mmf:control.bigButton></f:else>
 	</mmf:user.ifSubscribed>
 </mmf:authentication.ifLoggedIn>
+
+<mmf:authentication.ifAccess object="{topic}" accessType="moderate">
+	<mmf:control.bigButton controller="Moderation" action="editTopic" arguments="{topic: topic}"><f:translate key="Button_Moderate" /></mmf:control.bigButton>
+</mmf:authentication.ifAccess>

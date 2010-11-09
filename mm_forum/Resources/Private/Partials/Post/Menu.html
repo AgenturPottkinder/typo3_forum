@@ -1,11 +1,14 @@
 {namespace mmf=Tx_MmForum_ViewHelpers}
 
 <mmf:authentication.ifAccess object="{post.topic}" accessType="newPost">
-	<mmf:control.smallButton controller="Post" action="new" iconAction="quote" arguments="{topic: post.topic, quote: post}">Quote</mmf:control.smallButton>
+	<mmf:control.smallButton controller="Post" action="new" iconAction="quote" arguments="{topic: post.topic, quote: post}"><f:translate key="Button_Quote" /></mmf:control.smallButton>
 </mmf:authentication.ifAccess>
 <mmf:authentication.ifLoggedIn>
-	<mmf:control.smallButton controller="Report" action="new" arguments="{post: post}">Report</mmf:control.smallButton>
+	<mmf:control.smallButton controller="Report" action="new" arguments="{post: post}"><f:translate key="Button_Report" /></mmf:control.smallButton>
 </mmf:authentication.ifLoggedIn>
 <mmf:authentication.ifAccess object="{post}" accessType="editPost">
-	<mmf:control.smallButton controller="Post" action="edit" arguments="{post: post}">Edit</mmf:control.smallButton>
+	<mmf:control.smallButton controller="Post" action="edit" arguments="{post: post}"><f:translate key="Button_Edit" /></mmf:control.smallButton>
+</mmf:authentication.ifAccess>
+<mmf:authentication.ifAccess object="{post}" accessType="deletePost">
+	<mmf:control.smallButton controller="Post" action="delete" arguments="{post: post}"><f:translate key="Button_Delete" /></mmf:control.smallButton>
 </mmf:authentication.ifAccess>

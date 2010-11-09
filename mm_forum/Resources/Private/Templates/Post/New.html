@@ -1,0 +1,22 @@
+{namespace mmf=Tx_MmForum_ViewHelpers}
+<f:layout name="default" />
+
+
+
+<f:section name="main">
+	<f:render partial="formErrors" />
+
+	<div class="tx-mmforum-header">
+		<mmf:forum.topicIcon topic="{topic}" width="24" />
+		<f:translate key="Post_New" arguments="{0: topic.subject}" />
+	</div>
+	<f:render partial="Post/Form" arguments="{post: post, topic: topic, action: 'create'}" />
+	<div class="tx-mmforum-header-end"></div>
+</f:section>
+
+
+
+<f:section name="menu">
+	<mmf:control.bigButton controller="Topic" action="show" arguments="{topic: topic}" iconAction="back"><f:translate key="Button_Back" /></mmf:control.bigButton>
+	<mmf:control.submitButton form="post"><f:translate key="Post_New_Submit" /></mmf:control.submitButton>
+</f:section>

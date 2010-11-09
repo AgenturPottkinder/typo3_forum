@@ -1,0 +1,44 @@
+{namespace mmf=Tx_MmForum_ViewHelpers}
+<f:layout name="default" />
+
+
+
+<f:section name="main">
+	<f:render partial="formErrors" />
+
+	<div class="tx-mmforum-header"><f:translate key="Report_New" /></div>
+	<f:form name="firstComment" object="{firstComment}" controller="Report" action="create" id="report">
+		<div class="tx-mmforum-form-row tx-mmforum-odd">
+			<div class="tx-mmforum-form-left"><f:translate key="Report_New_Author" /></div>
+			<div class="tx-mmforum-form-right">
+				<f:link.action controller="User" action="show" arguments="{user: post.author}" pageUid="{settings.pids.UserShow}">{post.author.username}</f:link.action>
+			</div>
+		</div>
+		<div class="tx-mmforum-form-row tx-mmforum-even">
+			<div class="tx-mmforum-form-left"><f:translate key="Report_New_OriginalText" /></div>
+			<div class="tx-mmforum-form-right">
+				<mmf:format.textParser content="{post.text}" />
+			</div>
+		</div>
+		<div class="tx-mmforum-form-row tx-mmforum-odd">
+			<div class="tx-mmforum-form-left"><f:translate key="Report_New_Reason" /></div>
+			<div class="tx-mmforum-form-right">
+				<mmf:form.bbCodeEditor class="tx-mmforum-editor" property="text" id="mmforum_editor" rows="5" cols="80" />
+			</div>
+		</div>
+		<div class="tx-mmforum-form-row" style="display: none">
+			<div class="tx-mmforum-form-right">
+				<f:form.hidden name="post" value="{post}" />
+				<f:form.submit value="{f:translate(key:'Report_New_Submit')}" />
+			</div>
+		</div>
+	</f:form>
+	<div class="tx-mmforum-header-end"></div>
+</f:section>
+
+
+
+<f:section name="menu">
+	<mmf:control.bigButton controller="Topic" action="show" arguments="{topic: post.topic}" iconAction="back"><f:translate key="Button_Back" /></mmf:control.bigButton>
+	<mmf:control.submitButton form="report"><f:translate key="Report_New_Submit" /></mmf:control.submitButton>
+</f:section>

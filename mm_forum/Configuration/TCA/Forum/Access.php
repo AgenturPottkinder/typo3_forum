@@ -4,12 +4,12 @@ if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 $TCA['tx_mmforum_domain_model_forum_access'] = array(
 	'ctrl' => $TCA['tx_mmforum_domain_model_forum_access']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'login_level,operation,negate,forum,group'
+		'showRecordFieldList' => 'login_level,operation,negate,forum,affected_group'
 	),
 	'types' => array(
 		'0' => array('showitem' => 'login_level,operation,negate,forum'),
 		'1' => array('showitem' => 'login_level,operation,negate,forum'),
-		'2' => array('showitem' => 'login_level,operation,negate,forum,group'),
+		'2' => array('showitem' => 'login_level,operation,negate,forum,affected_group'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => '')
@@ -64,9 +64,17 @@ $TCA['tx_mmforum_domain_model_forum_access'] = array(
 			'exclude' => 1,
 			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_access.operation',
 			'config'  => array(
-				'type' => 'input',
-				'size' => 30,
-				'eval' => 'trim,required'
+				'type' => 'select',
+				'maxitems' => 1,
+				'items' => array(
+					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_access.operation.read', 'read'),
+					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_access.operation.newTopic', 'newTopic'),
+					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_access.operation.newPost', 'newPost'),
+					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_access.operation.newAttachment', 'newAttachment'),
+					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_access.operation.editPost', 'editPost'),
+					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_access.operation.deletePost', 'deletePost'),
+					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_access.operation.moderation', 'moderate'),
+				)
 			)
 		),
 		'negate' => array(
@@ -87,7 +95,7 @@ $TCA['tx_mmforum_domain_model_forum_access'] = array(
 				'maxitems' => 1
 			)
 		),
-		'group' => array(
+		'affected_group' => array(
 			'exclude' => 1,
 			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_access.group',
 			'config'  => array(

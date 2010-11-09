@@ -28,12 +28,17 @@
 
 	/**
 	 *
-	 * Controller for the Forum object
+	 * Controller for the Forum object. This class implements basic forum-related
+	 * operations, like listing forums and subforums, and the respective topic lists.
 	 *
 	 * @author     Martin Helmich <m.helmich@mittwald.de>
 	 * @package    MmForum
 	 * @subpackage Controller
-	 * @version    $Id$
+	 * @version    $Id: ForumController.php 20 2010-11-03 09:50:22Z helmich $
+	 *
+	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+	 *             Mittwald CM Service GmbH & Co. KG
+	 *             http://www.mittwald.de
 	 * @license    GNU Public License, version 2
 	 *             http://opensource.org/licenses/gpl-license.php
 	 *
@@ -79,7 +84,7 @@ Class Tx_MmForum_Controller_ForumController Extends Tx_MmForum_Controller_Abstra
 
 		/**
 		 *
-		 * Initializes the current action
+		 * Initializes the current action.
 		 * @return void
 		 *
 		 */
@@ -135,8 +140,9 @@ Class Tx_MmForum_Controller_ForumController Extends Tx_MmForum_Controller_Abstra
 		 * Show action. Displays a single forum, all subforums of this forum and the
 		 * topics contained in this forum.
 		 *
-		 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum The forum to be displayed.
-		 * @param integer $page The page
+		 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
+		 *                             The forum that is to be displayed.
+		 * @param integer $page        The page
 		 * @return void
 		 *
 		 */
@@ -146,6 +152,7 @@ Class Tx_MmForum_Controller_ForumController Extends Tx_MmForum_Controller_Abstra
 		$this->authenticationService->assertReadAuthorization($forum);
 		$this->view->assign('forum', $forum)
 		           ->assign('topics', $this->topicRepository->findForIndex($forum, $page, $this->localSettings['show']['pagebrowser']['itemsPerPage']))
+		           ->assign('topicCount', $this->topicRepository->countForIndex($forum))
 		           ->assign('page', $page);
 
 	}

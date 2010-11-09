@@ -34,7 +34,11 @@
 	 * @author     Martin Helmich <m.helmich@mittwald.de>
 	 * @package    MmForum
 	 * @subpackage Controller
-	 * @version    $Id$
+	 * @version    $Id: ReportController.php 20 2010-11-03 09:50:22Z helmich $
+	 *
+	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+	 *             Mittwald CM Service GmbH & Co. KG
+	 *             http://www.mittwald.de
 	 * @license    GNU Public License, version 2
 	 *             http://opensource.org/licenses/gpl-license.php
 	 *
@@ -56,11 +60,13 @@ Class Tx_MmForum_Controller_ReportController
 
 
 		/**
+		 * A report factory class.
 		 * @var Tx_MmForum_Domain_Factory_Moderation_ReportFactory
 		 */
 	Protected $reportFactory;
 
 		/**
+		 * The report repository.
 		 * @var Tx_MmForum_Domain_Repository_Moderation_ReportRepository
 		 */
 	Protected $reportRepository;
@@ -151,12 +157,15 @@ Class Tx_MmForum_Controller_ReportController
 	Public Function createAction ( Tx_MmForum_Domain_Model_Forum_Post               $post,
 	                               Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment ) {
 
+			# Assert authorization
 		$this->authenticationService->assertReadAuthorization($post);
-		
+
+			# Create the new report using the factory class and persist the new object
 		$report = $this->reportFactory->createReport($firstComment, $post);
 		$this->reportRepository->add($report);
-		$this->flashMessages->add(Tx_Extbase_Utility_Localization::translate('Report_New_Success','MmForum'));
 
+			# Display success message and redirect to topic->show action.
+		$this->flashMessages->add(Tx_Extbase_Utility_Localization::translate('Report_New_Success','MmForum'));
 		$this->redirect('show', 'Topic', NULL, array('topic' => $post->getTopic()));
 
 	}

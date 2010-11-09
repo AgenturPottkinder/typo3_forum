@@ -28,12 +28,13 @@
 
 	/**
 	 *
-	 * Write me!
+	 * A forum. Forums can be infinitely nested and contain a number of topics. Forums
+	 * are submitted to the access control mechanism and can be subscribed by users.
 	 *
 	 * @author     Martin Helmich <m.helmich@mittwald.de>
 	 * @package    MmForum
 	 * @subpackage Domain_Model_Forum
-	 * @version    $Id$
+	 * @version    $Id: Forum.php 31 2010-11-04 14:46:15Z helmich $
 	 * @license    GNU Public License, version 2
 	 *             http://opensource.org/licenses/gpl-license.php
 	 *
@@ -70,45 +71,49 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 	Protected $description;
 
 		/**
-		 * children
+		 * The child forums
 		 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Forum>
 		 */
 	Protected $children;
 
 		/**
-		 * topics
+		 * The topics in this forum
 		 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Topic>
 		 */
 	Protected $topics;
 
 		/**
-		 * acls
+		 * All access rules
 		 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Access>
 		 */
 	Protected $acls;
 
 		/**
-		 * lastTopic
+		 * The last topic.
 		 * @var Tx_MmForum_Domain_Model_Forum_Topic
 		 */
 	Protected $lastTopic;
 
 		/**
-		 * lastPost
+		 * The last post
 		 * @var Tx_MmForum_Domain_Model_Forum_Post
+		 * @lazy
 		 */
 	Protected $lastPost;
 
 		/**
-		 * A forum
+		 * The parent forum
 		 * @var Tx_MmForum_Domain_Model_Forum_Forum
 		 */
 	Protected $forum;
 
 		/**
+		 * All subscribers of this forum
 		 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser>
 		 */
 	Protected $subscribers;
+
+	Private $_modifiedParent = FALSE;
 
 
 
@@ -148,105 +153,96 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 
 		/**
 		 *
-		 * Getter for title
+		 * Gets the forum title
 		 * @return string The title of the forum
 		 *
 		 */
 
-	Public Function getTitle() {
-		Return $this->title;
-	}
+	Public Function getTitle() { Return $this->title; }
 
 
 
 		/**
 		 *
-		 * Getter for description
+		 * Gets the forum description
 		 * @return string A description for the forum
 		 *
 		 */
 
-	Public Function getDescription() {
-		Return $this->description;
-	}
+	Public Function getDescription() {Return $this->description; }
 
 
 
 		/**
 		 *
-		 * Getter for children
-		 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Forum> children
+		 * Gets all child forums
+		 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Forum>
+		 *                             All child forums
 		 *
 		 */
 
-	Public Function getChildren() {
-		Return $this->children;
-	}
+	Public Function getChildren() { Return $this->children; }
 
 
 
 		/**
 		 *
-		 * Getter for topics
-		 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Topic> topics
+		 * Gets all topics
+		 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Topic>
+		 *                             All topics in this forum
 		 *
 		 */
 
-	Public Function getTopics() {
-		Return $this->topics;
-	}
+	Public Function getTopics() { Return $this->topics; }
 
 
 
 		/**
 		 *
-		 * Getter for acls
-		 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Access> acls
+		 * Gets all access rules.
+		 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Access>
+		 *                             All access rules for this forum.
 		 *
 		 */
 
-	Public Function getAcls() {
-		Return $this->acls;
-	}
+	Public Function getAcls() { Return $this->acls; }
 
 
 
 		/**
 		 *
-		 * Getter for lastTopic
-		 * @return Tx_MmForum_Domain_Model_Forum_Topic lastTopic
+		 * Gets the last topic.
+		 * @return Tx_MmForum_Domain_Model_Forum_Topic The last topic
 		 *
 		 */
 
-	Public Function getLastTopic() {
-		Return $this->lastTopic;
-	}
+	Public Function getLastTopic() { Return $this->lastTopic; }
 
 
 
 		/**
 		 *
-		 * Getter for lastPost
-		 * @return Tx_MmForum_Domain_Model_Forum_Post lastPost
+		 * Gets the last post.
+		 * @return Tx_MmForum_Domain_Model_Forum_Post The last post
 		 *
 		 */
 
 	Public Function getLastPost() {
-		Return $this->lastPost;
+		If($this->lastPost InstanceOf Tx_Extbase_Persistence_LazyLoadingProxy) {
+			$this->lastPost->_loadRealInstance();
+		} Return $this->lastPost;
 	}
 
 
 
 		/**
 		 *
-		 * Getter for forum
+		 * Gets the parent forum.
 		 * @return Tx_MmForum_Domain_Model_Forum_Forum The parent forum
 		 *
 		 */
 
-	Public Function getForum() {
-		Return $this->forum;
-	}
+	Public Function getForum() { Return $this->forum; }
 
 		/**
 		 *
@@ -254,13 +250,13 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 * @return Tx_MmForum_Domain_Model_Forum_Forum The parent forum
 		 *
 		 */
-	Public Function getParent() {
-		Return $this->getForum();
-	}
+	Public Function getParent() { Return $this->getForum(); }
 
 
 
 		/**
+		 *
+		 * Gets the amount of topics in this forum.
 		 *
 		 * @todo   Performance!
 		 * @return integer The number of topics in this forum
@@ -269,8 +265,7 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 
 	Public Function getTopicCount() {
 		$count = count($this->topics);
-		ForEach($this->getChildren() As $child)
-			$count += $child->getTopicCount();
+		ForEach($this->getChildren() As $child) $count += $child->getTopicCount();
 		Return $count;
 	}
 
@@ -286,11 +281,9 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 */
 
 	Public Function getPostCount() {
-		ForEach($this->getTopics() As $topic)
-			$count += $topic->getPostCount();
-		ForEach($this->getChildren() As $child)
-			$count += $child->getPostCount();
-		Return $count;
+		ForEach($this->getTopics() As $topic)   $count += $topic->getPostCount();
+		ForEach($this->getChildren() As $child) $count += $child->getPostCount();
+		Return (int)$count;
 	}
 
 
@@ -299,13 +292,47 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 * Gets all users who have subscribes to this forum.
 		 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser>
+		 *                             All subscribers of this forum.
 		 *
 		 */
 
-	Public Function getSubscribers() {
-		Return $this->subscribers;
+	Public Function getSubscribers() { Return $this->subscribers; }
+
+
+
+		/**
+		 *
+		 * Determines if this forum (i.e. all topics in it) has been read by the
+		 * currently logged in user.
+		 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+		 *                             The user.
+		 * @return boolean             TRUE, if all topics in this forum have been read,
+		 *                             otherwise FALSE.
+		 *
+		 */
+	Public Function hasBeenReadByUser(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
+		ForEach($this->getTopics() As $topic) {
+			If(!$topic->hasBeenReadByUser($user)) Return FALSE;
+		} Return TRUE;
 	}
 
+
+
+		/**
+		 *
+		 * Performs an access check for this forum.
+		 *
+		 * *INTERAL USE ONLY!*
+		 *
+		 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
+		 *                             The user that is to be checked against the access
+		 *                             rules of this forum.
+		 * @param  string $accessType  The operation
+		 * @return boolean             TRUE, if the user has access to the requested
+		 *                             operation, otherwise FALSE.
+		 *
+		 */
+	
 	Public Function _checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL, $accessType='read') {
 		If(count($this->acls) == 0) {
 			If($this->getParent() != NULL) Return $this->getParent()->_checkAccess($user, $accessType);
@@ -323,17 +350,65 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		}
 	}
 
+
+
+		/**
+		 *
+		 * Checks if a user has read access to this forum.
+		 *
+		 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
+		 *                             The user that is to be checked.
+		 * @return boolean             TRUE if the user has read access, otherwise FALSE.
+		 *
+		 */
+
 	Public Function checkReadAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
 		Return $this->_checkAccess($user, 'read');
 	}
+
+
+
+		/**
+		 *
+		 * Checks if a user has access to create new posts in this forum.
+		 *
+		 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
+		 *                             The user that is to be checked.
+		 * @return boolean             TRUE if the user has access, otherwise FALSE.
+		 *
+		 */
 
 	Public Function checkNewPostAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
 		Return $this->_checkAccess($user, 'newPost');
 	}
 
+
+
+		/**
+		 *
+		 * Checks if a user has access to create new topics in this forum.
+		 *
+		 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
+		 *                             The user that is to be checked.
+		 * @return boolean             TRUE if the user has access, otherwise FALSE.
+		 *
+		 */
+
 	Public Function checkNewTopicAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
 		Return $this->_checkAccess($user, 'newTopic');
 	}
+
+
+
+		/**
+		 *
+		 * Checks if a user has access to moderate in this forum.
+		 *
+		 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
+		 *                             The user that is to be checked.
+		 * @return boolean             TRUE if the user has access, otherwise FALSE.
+		 *
+		 */
 
 	Public Function checkModerationAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
 		If($user === NULL) Return FALSE;
@@ -354,22 +429,20 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 
 		/**
 		 *
-		 * Setter for title
+		 * Sets the title
 		 *
 		 * @param string $title The title of the forum
 		 * @return void
 		 *
 		 */
 
-	Public Function setTitle($title) {
-		$this->title = $title;
-	}
+	Public Function setTitle($title) { $this->title = $title; }
 
 
 
 		/**
 		 *
-		 * Setter for description
+		 * Sets the description
 		 *
 		 * @param string $description A description for the forum
 		 * @return void
@@ -384,7 +457,7 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 
 		/**
 		 *
-		 * Adds a Forum
+		 * Adds a child forum
 		 *
 		 * @param Tx_MmForum_Domain_Model_Forum_Forum The Forum to be added
 		 * @return void
@@ -399,7 +472,7 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 
 		/**
 		 *
-		 * Removes a Forum
+		 * Removes a child forum
 		 *
 		 * @param Tx_MmForum_Domain_Model_Forum_Forum The Forum to be removed
 		 * @return void
@@ -414,7 +487,7 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 
 		/**
 		 *
-		 * Adds a Topic
+		 * Adds a topic
 		 *
 		 * @param Tx_MmForum_Domain_Model_Forum_Topic The Topic to be added
 		 * @return void
@@ -423,9 +496,9 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 
 	Public Function addTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
 
-		If($this->lastTopic->getTimestamp() <= $topic->getTimestamp())
+		If($this->lastTopic === NULL || $this->lastTopic->getTimestamp() <= $topic->getTimestamp())
 			$this->setLastTopic($topic);
-		If($this->lastPost->getTimestamp() <= $topic->getLastPost()->getTimestamp())
+		If($this->lastPost === NULL || $this->lastPost->getTimestamp() <= $topic->getLastPost()->getTimestamp())
 			$this->setLastPost($topic->getLastPost());
 
 		$this->topics->attach($topic);
@@ -435,7 +508,7 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 
 		/**
 		 *
-		 * Removes a Topic
+		 * Removes a topic
 		 *
 		 * @param Tx_MmForum_Domain_Model_Forum_Topic The Topic to be removed
 		 * @return void
@@ -444,13 +517,18 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 
 	Public Function removeTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
 		$this->topics->detach($topic);
+
+		If($this->lastTopic === $topic)
+			$this->resetLastTopic();
+		If($this->lastPost->getTopic() === $topic)
+			$this->setLastPost($this->lastTopic->getLastPost());
 	}
 
 
 
 		/**
 		 *
-		 * Setter for acls
+		 * Sets the access rules for this forum
 		 *
 		 * @param Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Access> $acls acls
 		 * @return void
@@ -465,9 +543,9 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 
 		/**
 		 *
-		 * Adds a Access
+		 * Adds a new access rule
 		 *
-		 * @param Tx_MmForum_Domain_Model_Forum_Access The Access to be added
+		 * @param Tx_MmForum_Domain_Model_Forum_Access The access rule to be added
 		 * @return void
 		 *
 		 */
@@ -480,9 +558,9 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 
 		/**
 		 *
-		 * Removes a Access
+		 * Removes a access rule
 		 *
-		 * @param Tx_MmForum_Domain_Model_Forum_Access The Access to be removed
+		 * @param Tx_MmForum_Domain_Model_Forum_Access The access rule to be removed
 		 * @return void
 		 *
 		 */
@@ -495,9 +573,9 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 
 		/**
 		 *
-		 * Setter for lastTopic
+		 * Sets the last topic.
 		 *
-		 * @param Tx_MmForum_Domain_Model_Forum_Topic $lastTopic lastTopic
+		 * @param Tx_MmForum_Domain_Model_Forum_Topic $lastTopic The last topic
 		 * @return void
 		 *
 		 */
@@ -508,29 +586,57 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		$this->_memorizePropertyCleanState('lastTopic');
 		$this->lastTopic = $lastTopic;
 
-		If($this->getParent() && $this->getParent()->getLastTopic()->getTimestamp() < $lastTopic->getTimestamp())
+		If($this->getParent() && ($this->getParent()->getLastTopic() === NULL || $this->getParent()->getLastTopic()->getTimestamp() < $lastTopic->getTimestamp())) {
 			$this->getParent()->setLastTopic ($lastTopic);
+			$this->_modifiedParent = TRUE;
+		}
 	}
 
 
 
 		/**
 		 *
-		 * Setter for lastPost
+		 * Sets the last post.
 		 *
-		 * @param Tx_MmForum_Domain_Model_Forum_Post $lastPost lastPost
+		 * @param Tx_MmForum_Domain_Model_Forum_Post $lastPost The last post.
 		 * @return void
 		 *
 		 */
 
 	Public Function setLastPost(Tx_MmForum_Domain_Model_Forum_Post $lastPost) {
-
 		$this->lastPost = NULL;
 		$this->_memorizePropertyCleanState('lastPost');
 		$this->lastPost = $lastPost;
 
-		If($this->getParent() && $this->getParent()->getLastPost()->getTimestamp() < $lastPost->getTimestamp())
+		If($this->getParent() && ($this->getParent()->getLastPost() === NULL || $this->getParent()->getLastPost()->getTimestamp() < $lastPost->getTimestamp())) {
 			$this->getParent()->setLastPost($lastPost);
+			$this->_modifiedParent = TRUE;
+		}
+	}
+
+
+
+		/**
+		 *
+		 * Resets the last posts.
+		 * @return void
+		 *
+		 */
+	
+	Public Function resetLastPost() {
+		$lastPost = NULL;
+		ForEach($this->topics As $topic) {
+			If($lastPost === NULL || $topic->getLastPost()->getTimestamp() < $lastPost->getTimestamp())
+				$lastPost = $topic->getLastPost();
+		} $this->setLastPost($lastPost);
+	}
+
+	Public Function resetLastTopic() {
+		$lastTopic = NULL;
+		ForEach($this->topics As $topic) {
+			If($lastTopic === NULL || $topic->getLastPost()->getTimestamp() < $lastTopic->getTimestamp())
+				$lastTopic = $topic;
+		} $this->setLastTopic($lastTopic);
 	}
 
 }

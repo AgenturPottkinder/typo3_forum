@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for the mm_forum extension in the FRONTEND</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="Behaviour">Plugin behaviour</label>
+			<label index="Behaviour_Action">Action</label>
+			<label index="Behaviour_Action_Forum">Forum</label>
+			<label index="Behaviour_Action_User_Index">User list</label>
+			<label index="Behaviour_Action_User_Show">User profile</label>
+
+			<label index="Pages">Pages</label>
+			<label index="Pages_Forum">Forum page</label>
+			<label index="Pages_User_Show">User profile</label>
+		</languageKey>
+	</data>
+</T3locallang>

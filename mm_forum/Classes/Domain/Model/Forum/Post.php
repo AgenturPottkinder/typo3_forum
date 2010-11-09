@@ -1,39 +1,49 @@
 <?php
 
-/***************************************************************
-*  Copyright notice
-*
-*  (c) 2010 Martin Helmich <m.helmich@mittwald.de>, Mittwald CM Service
-*
-*  All rights reserved
-*
-*  This script is part of the TYPO3 project. The TYPO3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-*
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-*
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
+/*                                                                      *
+ *  COPYRIGHT NOTICE                                                    *
+ *                                                                      *
+ *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
+ *           Mittwald CM Service GmbH & Co KG                           *
+ *           All rights reserved                                        *
+ *                                                                      *
+ *  This script is part of the TYPO3 project. The TYPO3 project is      *
+ *  free software; you can redistribute it and/or modify                *
+ *  it under the terms of the GNU General Public License as published   *
+ *  by the Free Software Foundation; either version 2 of the License,   *
+ *  or (at your option) any later version.                              *
+ *                                                                      *
+ *  The GNU General Public License can be found at                      *
+ *  http://www.gnu.org/copyleft/gpl.html.                               *
+ *                                                                      *
+ *  This script is distributed in the hope that it will be useful,      *
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of      *
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the       *
+ *  GNU General Public License for more details.                        *
+ *                                                                      *
+ *  This copyright notice MUST APPEAR in all copies of the script!      *
+ *                                                                      */
 
-/**
- * Post
- *
- * @version $Id$
- * @copyright Copyright belongs to the respective authors
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- */
+
+
+	/**
+	 *
+	 * A forum post. Forum posts are submitted to the access control mechanism and can be
+	 * subscribed by users.
+	 *
+	 * @author     Martin Helmich <m.helmich@mittwald.de>
+	 * @package    MmForum
+	 * @subpackage Domain_Model_Format
+	 * @version    $Id: Post.php 19 2010-11-02 14:35:44Z helmich $
+	 * @license    GNU Public License, version 2
+	 *             http://opensource.org/licenses/gpl-license.php
+	 *
+	 */
+
 Class Tx_MmForum_Domain_Model_Forum_Post
-	Extends Tx_Extbase_DomainObject_AbstractEntity
-	Implements Tx_MmForum_Domain_Model_AccessibleInterface{
+	Extends    Tx_Extbase_DomainObject_AbstractEntity
+	Implements Tx_MmForum_Domain_Model_AccessibleInterface,
+	           Tx_MmForum_Domain_Model_NotifiableInterface {
 
 
 
@@ -48,32 +58,33 @@ Class Tx_MmForum_Domain_Model_Forum_Post
 
 
 		/**
-		 * text
+		 * The post text.
 		 * @var string
+		 * @validate NotEmpty
 		 */
 	Protected $text;
 
 		/**
-		 * author
+		 * The post author.
 		 * @var Tx_MmForum_Domain_Model_User_FrontendUser
 		 * @lazy
 		 */
 	Protected $author;
 
 		/**
-		 * A topic
+		 * The topic.
 		 * @var Tx_MmForum_Domain_Model_Forum_Topic
 		 */
 	Protected $topic;
 
 		/**
-		 * Creation date
+		 * Creation date.
 		 * @var DateTime
 		 */
 	Protected $crdate;
 
 		/**
-		 * Attachments
+		 * Attachments.
 		 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Attachment>
 		 */
 	Protected $attachments;
@@ -115,20 +126,40 @@ Class Tx_MmForum_Domain_Model_Forum_Post
 
 		/**
 		 *
-		 * Getter for text
-		 * @return string text
+		 * Gets the text.
+		 * @return string The text
 		 *
 		 */
 
-	Public Function getText() {
-		Return $this->text;
-	}
+	Public Function getText() { Return $this->text; }
 
 
 
 		/**
 		 *
-		 * Getter for author
+		 * Gets the post name. This is just an alias for the topic->getTitle method.
+		 * @return The post name.
+		 *
+		 */
+	
+	Public Function getName() { Return $this->topic->getTitle(); }
+
+
+
+		/**
+		 *
+		 * Alias for getText(). Necessary to implement the NotifiableInterface.
+		 * @return string The post text.
+		 *
+		 */
+
+	Public Function getDescription() { Return $this->getText(); }
+
+
+
+		/**
+		 *
+		 * Gets the post author.
 		 * @return Tx_MmForum_Domain_Model_User_FrontendUser author
 		 *
 		 */
@@ -143,57 +174,52 @@ Class Tx_MmForum_Domain_Model_Forum_Post
 
 		/**
 		 *
-		 * Getter for topic
+		 * Gets the topic.
 		 * @return Tx_MmForum_Domain_Model_Forum_Topic A topic
 		 *
 		 */
 
-	Public Function getTopic() {
-		Return $this->topic;
-	}
+	Public Function getTopic() { Return $this->topic; }
 
 
 
 		/**
 		 *
-		 * Gets the forum
+		 * Gets the forum.
 		 * @return Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 */
 
-	Public Function getForum() {
-		Return $this->topic->getForum();
-	}
+	Public Function getForum() { Return $this->topic->getForum(); }
 
 
 
 		/**
 		 *
-		 * Gets the post's timestamp
+		 * Gets the post's timestamp.
 		 * @return DateTime
 		 *
 		 */
 
-	Public Function getTimestamp() {
-		Return $this->crdate;
-	}
+	Public Function getTimestamp() { Return $this->crdate; }
 
 
 
 		/**
 		 *
-		 * Gets the post's attachments
+		 * Gets the post's attachments.
 		 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Attachment>
 		 *
 		 */
 
-	Public Function getAttachments() {
-		Return $this->attachments;
-	}
+	Public Function getAttachments() { Return $this->attachments; }
 
 
 
 		/**
+		 *
+		 * Overrides the isPropertyDirty method. See http://forge.typo3.org/issues/8952
+		 * for further information.
 		 *
 		 * @param mixed $previousValue
 		 * @param mixed $currentValue
@@ -230,22 +256,58 @@ Class Tx_MmForum_Domain_Model_Forum_Post
 
 		/**
 		 *
-		 * Determines if a user may edit this post.
+		 * Determines if a user may edit this post. This is only possible if EITHER:
+		 *
+		 * a1.) The user is the author of this post, AND
+		 * a2.) This post is the last post in the topic, AND
+		 * a3.) The topic generally permits posts to be edited (this would not be the
+		 *      case if the topic would e.g. be closed).
+		 *
+		 * OR:
+		 *
+		 * b.)  The current user has moderator access to the forum.
 		 *
 		 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
-		 * @return boolean
+		 *                             The user for which the authenication is to be
+		 *                             checked.
+		 * @return boolean             TRUE, if the user is allowed to edit this post,
+		 *                             otherwise FALSE.
 		 *
 		 */
 
 	Public Function checkEditPostAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
 
-		If($user === NULL)
-			Return FALSE;
-		If($this->getForum()->checkModerationAccess($user))
-			Return TRUE;
-		If($user->getUid() === $this->getAuthor()->getUid() && $this->getTopic()->_checkAccess($user, 'editPost'))
-			Return TRUE;
+		If ( $user === NULL)                                        Return FALSE;
+		If ( $this->getForum()->checkModerationAccess($user))       Return TRUE;
+		If (    $user->getUid() === $this->getAuthor()->getUid()
+		     && $this === $this->getTopic()->getLastPost()
+		     && $this->getTopic()->_checkAccess($user, 'editPost')) Return TRUE;
+		Else                                                        Return FALSE;
 
+	}
+
+
+
+		/**
+		 *
+		 * Determines if a user may delete this post. For deleting posts, the same
+		 * conditions apply as for editing posts (see above).
+		 *
+		 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+		 *                             The user for which the authenication is to be
+		 *                             checked.
+		 * @return boolean             TRUE, if the user is allowed to delete this post,
+		 *                             otherwise FALSE.
+		 *
+		 */
+
+	Public Function checkDeletePostAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
+		If ( $user === NULL)                                           Return FALSE;
+		If ( $this->getForum()->checkModerationAccess($user))          Return TRUE;
+		If (    $user === $this->getAuthor()
+		     && $this === $this->getTopic()->getLastPost()
+		     && $this->getTopic()->_checkAccess($user, 'deletePost') ) Return TRUE;
+		Else                                                           Return FALSE;
 	}
 
 
@@ -262,9 +324,9 @@ Class Tx_MmForum_Domain_Model_Forum_Post
 
 		/**
 		 *
-		 * Setter for author
+		 * Sets the post author.
 		 *
-		 * @param Tx_MmForum_Domain_Model_User_FrontendUser $author author
+		 * @param Tx_MmForum_Domain_Model_User_FrontendUser $author The post author.
 		 * @return void
 		 *
 		 */
@@ -277,23 +339,37 @@ Class Tx_MmForum_Domain_Model_Forum_Post
 
 		/**
 		 *
-		 * Setter for text
+		 * Sets the post text.
 		 *
-		 * @param string $text text
+		 * @param string $text The post text.
 		 * @return void
 		 *
 		 */
 
-	Public Function setText($text) {
-		$this->text = $text;
+	Public Function setText($text) { $this->text = $text; }
+
+
+
+		/**
+		 *
+		 * Sets the attachments.
+		 *
+		 * @param  Tx_Extbase_Persistence_ObjectStorage $attachments The attachments.
+		 * @return void
+		 *
+		 */
+
+	Public Function setAttachments(Tx_Extbase_Persistence_ObjectStorage $attachments) {
+		$this->attachments = $attachments;
 	}
 
 
 
 		/**
 		 *
-		 * Adds an attachment
-		 * @param Tx_MmForum_Domain_Model_Forum_Attachment $attachment
+		 * Adds an attachment.
+		 * @param  Tx_MmForum_Domain_Model_Forum_Attachment $attachment The attachment.
+		 * @return void
 		 *
 		 */
 
@@ -305,8 +381,9 @@ Class Tx_MmForum_Domain_Model_Forum_Post
 
 		/**
 		 *
-		 * Removes an attachment
-		 * @param Tx_MmForum_Domain_Model_Forum_Attachment $attachment
+		 * Removes an attachment.
+		 * @param  Tx_MmForum_Domain_Model_Forum_Attachment $attachment The attachment.
+		 * @return void
 		 *
 		 */
 

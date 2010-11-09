@@ -1,0 +1,34 @@
+{namespace mmf=Tx_MmForum_ViewHelpers}
+<f:layout name="default" />
+
+
+
+	<!-- MAIN Section -->
+<f:section name="main">
+
+	<div class="tx-mmforum-header">
+		<f:translate key="User_Show" arguments="{0: user.username}" />
+	</div>
+	<f:render partial="User/InformationRow" arguments="{user: user, settings:settings}" />
+	<table class="tx-mmforum-table">
+		<f:for each="{userfields}" as="userfield">
+			<tr>
+				<td><f:translate key="{userfield.name}" default="{userfield.name}" /></td>
+				<td><mmf:user.userfield user="{user}" userfield="{userfield}" /></td>
+			</tr>
+		</f:for>
+		<tr>
+			<td><f:translate key="User_Show_LastPosts" /></td>
+			<td><f:link.action action="listPosts" arguments="{user: user}">(<f:translate key="Generic_More" />)</f:link.action></td>
+		</tr>
+	</table>
+	<f:render partial="Topic/List" arguments="{topics: topics}" />
+	<div class="tx-mmforum-header-end"></div>
+
+</f:section>
+
+
+
+	<!-- MENU Section -->
+<f:section name="menu">
+</f:section>
