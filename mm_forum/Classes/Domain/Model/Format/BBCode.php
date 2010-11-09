@@ -34,7 +34,7 @@
 	 * @author     Martin Helmich <m.helmich@mittwald.de>
 	 * @package    MmForum
 	 * @subpackage Domain_Model_Format
-	 * @version    $Id: BBCode.php 19 2010-11-02 14:35:44Z helmich $
+	 * @version    $Id$
 	 * @license    GNU Public License, version 2
 	 *             http://opensource.org/licenses/gpl-license.php
 	 *

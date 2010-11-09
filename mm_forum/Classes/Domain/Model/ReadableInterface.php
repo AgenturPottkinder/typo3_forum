@@ -33,7 +33,7 @@
 	 * @author     Martin Helmich <m.helmich@mittwald.de>
 	 * @package    MmForum
 	 * @subpackage Domain_Model
-	 * @version    $Id: ReadableInterface.php 25 2010-11-03 13:52:46Z helmich $
+	 * @version    $Id$
 	 *
 	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
 	 *             Mittwald CM Service GmbH & Co. KG

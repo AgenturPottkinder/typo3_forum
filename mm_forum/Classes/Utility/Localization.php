@@ -33,7 +33,7 @@
 	 * @author     Martin Helmich <m.helmich@mittwald.de>
 	 * @package    MmForum
 	 * @subpackage Utility
-	 * @version    $Id: Localization.php 23 2010-11-03 10:41:24Z helmich $
+	 * @version    $Id$
 	 *
 	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
 	 *             Mittwald CM Service GmbH & Co. KG

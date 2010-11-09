@@ -34,7 +34,7 @@
 	 * @author     Martin Helmich <m.helmich@mittwald.de>
 	 * @package    MmForum
 	 * @subpackage Controller
-	 * @version    $Id: ReportController.php 20 2010-11-03 09:50:22Z helmich $
+	 * @version    $Id$
 	 *
 	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
 	 *             Mittwald CM Service GmbH & Co. KG

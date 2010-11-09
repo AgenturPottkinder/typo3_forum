@@ -13,7 +13,7 @@
  * aliased.php/file.name.ext.
  *
  * @author  Ross Golder <ross@golder.org>
- * @version $Id: aliased.php 18 2010-11-02 13:52:30Z helmich $
+ * @version $Id$
  */
 
 // Your config here

@@ -33,7 +33,7 @@
 	 * @author     Martin Helmich <m.helmich@mittwald.de>
 	 * @package    MmForum
 	 * @subpackage TextParser_Panel
-	 * @version    $Id: SmiliePanel.php 21 2010-11-03 10:00:02Z helmich $
+	 * @version    $Id$
 	 *
 	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
 	 *             Mittwald CM Service GmbH & Co. KG

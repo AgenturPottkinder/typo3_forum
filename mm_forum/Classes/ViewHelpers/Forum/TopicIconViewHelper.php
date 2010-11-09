@@ -33,7 +33,7 @@
 	 * @author     Martin Helmich <m.helmich@mittwald.de>
 	 * @package    MmForum
 	 * @subpackage ViewHelpers_Forum
-	 * @version    $Id: TopicIconViewHelper.php 28 2010-11-04 10:06:07Z helmich $
+	 * @version    $Id$
 	 *
 	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
 	 *             Mittwald CM Service GmbH & Co. KG

@@ -6,7 +6,7 @@
  * and the language files in subdirectory "../geshi/")
  *
  * @author  Nigel McNie
- * @version $Id: example.php 18 2010-11-02 13:52:30Z helmich $
+ * @version $Id$
  */
 header('Content-Type: text/html; charset=utf-8');
 

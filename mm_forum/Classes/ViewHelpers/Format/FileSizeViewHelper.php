@@ -35,7 +35,7 @@
 	 * @author     Martin Helmich <m.helmich@mittwald.de>
 	 * @package    MmForum
 	 * @subpackage ViewHelpers_Format
-	 * @version    $Id: FileSizeViewHelper.php 24 2010-11-03 13:52:13Z helmich $
+	 * @version    $Id$
 	 *
 	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
 	 *             Mittwald CM Service GmbH & Co. KG
