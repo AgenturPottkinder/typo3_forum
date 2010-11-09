@@ -1,0 +1,31 @@
+<f:layout name="default" />
+
+This Template is responsible for viewing a message.
+
+<f:section name="main">
+
+    <div style="float: left;"><f:translate key="privateMessageSubject" /></div>
+    <div class="formMargin">{message.subject}</div>
+    
+    <div style="float: left;"><f:translate key="privateMessageFrom" /></div>
+    <div class="formMargin">{message.sender.username}</div>
+    
+    <div style="float: left;"><f:translate key="privateMessageDate" /></div>
+    <div class="formMargin"><f:format.date format="d.m.Y H:i">{message.crdate}</f:format.date></div>
+    
+    <div style="float: left;"><f:translate key="privateMessageMessage" /></div>
+    <div class="formMargin"><f:format.nl2br>{message.text}</f:format.nl2br></div>
+    
+    <br /><br />
+    
+    <f:link.action action="new" arguments="{replyTo : message}"><f:image src="typo3conf/ext/mm_forum/Resources/Public/Images/Icons/Post_new.png"
+                                           alt="<f:translate key='privateMessageAnswer' />" /></f:link.action>
+    <f:link.action action="index" arguments="{unread : 1}"><f:image src="typo3conf/ext/mm_messaging/Resources/Public/Images/Icons/pm_unread_big.png"
+                                           alt="<f:translate key='privateMessageUnread' />" /></f:link.action> 
+    <f:link.action action="archive" onclick="return confirm(<f:translate key='privateMessageConfirm1' />);" arguments="{message:message}"><f:image src="typo3conf/ext/mm_messaging/Resources/Public/Images/Icons/pm_bin_big.png"
+                                           alt="<f:translate key='privateMessageDelete' />" /></f:link.action>
+    <f:link.action action="index"><f:image src="typo3conf/ext/mm_forum/Resources/Public/Images/Icons/Forum_back.png"   
+                                           alt="<f:translate key='privateMessageBack' />"   /></f:link.action>
+    
+
+</f:section>

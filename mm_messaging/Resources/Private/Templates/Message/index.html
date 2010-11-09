@@ -1,0 +1,67 @@
+<f:layout name="default" />
+
+This Template is responsible for listing all messages of user X.
+
+<f:section name="main">
+
+    <f:link.action action="index"><f:image src="typo3conf/ext/mm_messaging/Resources/Public/Images/Icons/pm_inbox.png" alt="<f:translate key='privateMessageInbox' />" title="<f:translate key='privateMessageInbox' />" /></f:link.action>                                                      
+    <f:link.action action="index" arguments="{mode : 1}"><f:image src="typo3conf/ext/mm_messaging/Resources/Public/Images/Icons/pm_outbox.png" alt="<f:translate key='privateMessageOutbox' />" title="<f:translate key='privateMessageOutbox' />" /></f:link.action> 
+    <f:link.action action="index" arguments="{mode : 2}"><f:image src="typo3conf/ext/mm_messaging/Resources/Public/Images/Icons/pm_archiv.png" alt="<f:translate key='privateMessageBin' />" title="<f:translate key='privateMessageBin' />" /></f:link.action> 
+    <br />
+
+    <table id="privateMessageTable">
+        <tr id="privateMessageheader">
+            <td class="subjectRow"><f:translate key="privateMessageSubject" /></td>
+            <td class="fromRow"><f:translate key="privateMessageFrom" /></td>
+            <td class="dateRow"><f:translate key="privateMessageDate" /></td>
+            <td class="actionMenuRow"></td>
+        </tr>
+
+    <f:if condition="{messages}">
+        <f:then>      
+           <f:for each="{messages}" as="message"> 
+                <tr class="privateMessageEntry">
+                    <td class="subjectRow" style="text-align: left;">
+                       <f:form.checkbox name="marked" value="{message.uid}" /><f:link.action action="show" arguments="{message : message}">{message.subject}</f:link.action>
+                    </td>
+                    <td class="fromRow">
+                        {message.sender.username}
+                    </td>  
+                    <td class="dateRow">
+                        <f:format.date format="d.m.Y H:i">{message.crdate}</f:format.date>        
+                    </td> 
+                    <td class="actionMenuRow">
+                        <f:link.action onclick="return confirm(<f:translate key='privateMessageConfirm1' />);" action="archive" arguments="{message:message}"><f:image src="typo3conf/ext/mm_messaging/Resources/Public/Images/Icons/pm_bin.png" alt="<f:translate key='privateMessageDelete' />" title="<f:translate key='privateMessageDelete' />" /></f:link.action>
+                        <f:link.action action="markUnread" arguments="{message:message}"><f:image src="typo3conf/ext/mm_messaging/Resources/Public/Images/Icons/pm_unread.png" alt="<f:translate key='privateMessageUnread' />" title="<f:translate key='privateMessageUnread' />" /></f:link.action>
+                    </td>
+                </tr>
+           </f:for>
+        </f:then>
+        <f:else>
+            <tr class="privateMessageEntry">
+                <f:if condition="{mode} == 1">
+                    <f:then> 
+                        <td colspan="4" style="text-align: center;"><b><f:translate key='privateMessageNoOutboxMessage' />!</b></td>
+                    </f:then>
+                    <f:else>
+                        <f:if condition="{mode} == 2">
+                            <f:then> 
+                                <td colspan="4" style="text-align: center;"><b><f:translate key='privateMessageNoArchiveMessage' />!</b></td>
+                            </f:then>
+                            <f:else>
+                                <td colspan="4" style="text-align: center;"><b><f:translate key='privateMessageNoInboxMessage' />!</b></td>
+                            </f:else>
+                        </f:if>
+                    </f:else>
+                </f:if>
+           </tr>
+        </f:else>
+    </f:if>
+    </table>
+            
+    <div id="buttonbar">
+        <f:link.action action="new"><f:image src="typo3conf/ext/mm_messaging/Resources/Public/Images/Icons/pm_write.png" alt="<f:translate key='privateMessageNewMessage' />" title="<f:translate key='privateMessageNewMessage' />" /></f:link.action>
+        <f:link.action action="search"><f:image src="typo3conf/ext/mm_messaging/Resources/Public/Images/Icons/pm_search.png" alt="<f:translate key='privateMessageSearch' />" title="<f:translate key='privateMessageSearch' />" /></f:link.action>    
+    </div>  
+
+</f:section>

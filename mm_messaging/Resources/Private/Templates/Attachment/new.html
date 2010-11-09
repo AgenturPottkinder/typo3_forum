@@ -1,0 +1,21 @@
+<f:layout name="default" />
+
+This template displays a NEW form for the current domain object.
+
+<f:section name="main">
+<h1>New Attachment</h1>
+
+<f:flashMessages />
+
+<f:render partial="formErrors" />
+
+<f:form method="post" action="create" name="newAttachment" object="{newAttachment}">
+	<label for="title"><f:translate key="tx_mmmessaging_domain_model_attachment.name" /></label><br />
+	<f:form.textbox property="name" /><br />
+	<label for="title"><f:translate key="tx_mmmessaging_domain_model_attachment.type" /></label><br />
+	<f:form.textbox property="type" /><br />
+	<label for="title"><f:translate key="tx_mmmessaging_domain_model_attachment.size" /></label><br />
+	<f:form.textbox property="size" /><br />
+	<f:form.submit value="Create new" />
+</f:form>
+</f:section>

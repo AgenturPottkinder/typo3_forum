@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for the mm_forum Messenger extension in the FRONTEND</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tx_mmmessaging_domain_model_message">Message</label>
+			<label index="tx_mmmessaging_domain_model_message.recipient">userID from the recipient</label>
+			<label index="tx_mmmessaging_domain_model_message.sender">userID from the sender</label>
+			<label index="tx_mmmessaging_domain_model_message.subject">subject of the message</label>
+			<label index="tx_mmmessaging_domain_model_message.text">text of the message</label>
+			<label index="tx_mmmessaging_domain_model_message.user_read">userRead</label>
+			<label index="tx_mmmessaging_domain_model_message.attachments">attachments</label>
+			<label index="tx_mmmessaging_domain_model_message.anwers">anwers</label>
+			<label index="tx_mmmessaging_domain_model_attachment">Attachments which the user can  upload on the messanger</label>
+			<label index="tx_mmmessaging_domain_model_attachment.name">name</label>
+			<label index="tx_mmmessaging_domain_model_attachment.type">type</label>
+			<label index="tx_mmmessaging_domain_model_attachment.size">size</label>
+            <label index="privateMessageNewMessage">New Message</label>
+            <label index="privateMessageSubject">Subject</label>  
+            <label index="privateMessageFrom">From</label>  
+            <label index="privateMessageDate">Date</label>  
+            <label index="privateMessageNew">New</label>  
+            <label index="privateMessageDelete">Delete</label>  
+            <label index="privateMessageUnread">Mark as unread</label>  
+            <label index="privateMessageMessage">Message</label>  
+            <label index="privateMessageNext">Next</label>  
+            <label index="privateMessageBack">Back</label>   
+            <label index="privateMessageRecipient">Recipient</label>  
+            <label index="privateMessageSend">Send</label>   
+            <label index="privateMessageSucessfullSend">Your Message has been sucessfully send</label>
+            <label index="privateMessageNoInboxMessage">Your inbox is empty</label>
+            <label index="privateMessageNoOutboxMessage">Your outbox is empty</label>
+            <label index="privateMessageNoArchiveMessage">Your archive is empty</label>
+            <label index="privateMessageSearch">Search</label>
+            <label index="privateMessageInbox">Inbox</label> 
+            <label index="privateMessageOutbox">Outbox</label> 
+            <label index="privateMessageBin">Archive</label>
+            <label index="privateMessageConfirm1">Do you really want to delete this message?</label>  
+		</languageKey>
+	</data>
+</T3locallang>

@@ -1,0 +1,21 @@
+<f:layout name="default" />
+
+This template displays a EDIT form for the current domain object.
+
+<f:section name="main">
+<h1>Edit Attachment</h1>
+
+<f:flashMessages />
+
+<f:render partial="formErrors" />
+
+<f:form method="post" action="update" name="attachment" object="{attachment}">
+	<label for="title"><f:translate key="tx_mmmessaging_domain_model_attachment.name" /></label><br />
+	<f:form.textbox property="name" /><br />
+	<label for="title"><f:translate key="tx_mmmessaging_domain_model_attachment.type" /></label><br />
+	<f:form.textbox property="type" /><br />
+	<label for="title"><f:translate key="tx_mmmessaging_domain_model_attachment.size" /></label><br />
+	<f:form.textbox property="size" /><br />
+	<f:form.submit value="Edit" />
+</f:form>
+</f:section>

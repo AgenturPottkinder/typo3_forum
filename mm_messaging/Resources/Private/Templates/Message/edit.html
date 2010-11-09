@@ -1,0 +1,27 @@
+<f:layout name="default" />
+
+This template displays a EDIT form for the current domain object.
+
+<f:section name="main">
+<h1>Edit Message</h1>
+
+<f:flashMessages />
+
+<f:render partial="formErrors" />
+
+<f:form method="post" action="update" name="message" object="{message}">
+	<label for="title"><f:translate key="tx_mmmessaging_domain_model_message.recipient" /></label><br />
+	<f:form.textbox property="recipient" /><br />
+	<label for="title"><f:translate key="tx_mmmessaging_domain_model_message.sender" /></label><br />
+	<f:form.textbox property="sender" /><br />
+	<label for="title"><f:translate key="tx_mmmessaging_domain_model_message.subject" /></label><br />
+	<f:form.textbox property="subject" /><br />
+	<label for="title"><f:translate key="tx_mmmessaging_domain_model_message.text" /></label><br />
+	<f:form.textbox property="text" /><br />
+	<label for="title"><f:translate key="tx_mmmessaging_domain_model_message.date" /></label><br />
+	<f:form.textbox property="date" /><br />
+	<label for="title"><f:translate key="tx_mmmessaging_domain_model_message.user_read" /></label><br />
+	<f:form.textbox property="userRead" /><br />
+	<f:form.submit value="Edit" />
+</f:form>
+</f:section>

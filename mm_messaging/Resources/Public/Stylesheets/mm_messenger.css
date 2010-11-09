@@ -1,0 +1,47 @@
+    #privateMessageTable {
+        width: 100%;
+        border-spacing: 0px;
+        border: 0px;
+
+    }
+   
+    #privateMessageheader {
+        background-color: #234479;
+        font-size: 12px;
+        color: #FFF;
+    }
+
+    .privateMessageEntry {
+       width: 100%;    
+       background: #E0E0E0;
+       font-size: 14px; 
+       height: 24px;
+    }
+    
+    .subjectRow {
+        width:auto;
+        text-align: center;
+    }
+
+    .fromRow {
+        width: 100px;
+        text-align: center;
+    }
+
+    .dateRow {
+        width: 120px;
+        text-align: center;
+    }
+
+    .actionMenuRow {
+        width: 60px;
+    }
+
+    .formMargin {
+        margin-left: 100px;
+    }
+    
+    #buttonbar {
+        margin-top:25px;
+    }
+    

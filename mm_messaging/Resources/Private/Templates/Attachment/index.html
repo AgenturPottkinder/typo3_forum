@@ -1,0 +1,31 @@
+<f:layout name="default" />
+
+This Template is responsible for creating a table of domain objects.
+
+<f:section name="main">
+<h1>Listing for Attachment</h1>
+
+<f:flashMessages />
+
+<table>
+	<tr>
+		<th><f:translate key="tx_mmmessaging_domain_model_attachment.name" /></th>
+		<th><f:translate key="tx_mmmessaging_domain_model_attachment.type" /></th>
+		<th><f:translate key="tx_mmmessaging_domain_model_attachment.size" /></th>
+		<th> </th>
+		<th> </th>
+	</tr>
+
+	<f:for each="{attachments}" as="attachment">
+		<tr>
+			<td><f:link.action action="show" arguments="{attachment : attachment}"> {attachment.name}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{attachment : attachment}"> {attachment.type}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{attachment : attachment}"> {attachment.size}</f:link.action></td>
+			<td><f:link.action action="edit" arguments="{attachment : attachment}">Edit</f:link.action></td>
+			<td><f:link.action action="delete" arguments="{attachment : attachment}">Delete</f:link.action></td>
+		</tr>
+	</f:for>
+</table>
+
+<f:link.action action="new">New Attachment</f:link.action>
+</f:section>

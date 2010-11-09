@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <description>Context Sensitive Help (CSH) for table tx_mmmessaging_domain_model_message</description>
+        <type>CSH</type>
+        <csh_table>tx_mmmessaging_domain_model_message</csh_table>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+			<label index="recipient.description">userID from the recipient</label>
+			<label index="sender.description">userID from the sender</label>
+			<label index="subject.description">subject of the message</label>
+			<label index="text.description">text of the message</label>
+			<label index="user_read.description">userRead</label>
+			<label index="attachments.description">attachments</label>
+			<label index="anwers.description">anwers</label>
+		</languageKey>
+    </data>
+</T3locallang>

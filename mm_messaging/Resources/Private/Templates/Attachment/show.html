@@ -1,0 +1,28 @@
+<f:layout name="default" />
+
+This Template is responsible for creating a single view for a domain object
+
+<f:section name="main">
+<h1>Single View for Attachment</h1>
+
+<f:flashMessages />
+
+<table>
+	<tr>
+		<td><f:translate key="tx_mmmessaging_domain_model_attachment.name" /></td>
+		<td>{attachment.name}</td>
+	</tr>
+	<tr>
+		<td><f:translate key="tx_mmmessaging_domain_model_attachment.type" /></td>
+		<td>{attachment.type}</td>
+	</tr>
+	<tr>
+		<td><f:translate key="tx_mmmessaging_domain_model_attachment.size" /></td>
+		<td>{attachment.size}</td>
+	</tr>
+</table>
+<f:link.action action="edit" arguments="{attachment : attachment}">Edit</f:link.action>
+<f:link.action action="delete" arguments="{attachment : attachment}">Delete</f:link.action>
+
+<f:link.action action="index">Back to listing</f:link.action>
+</f:section>

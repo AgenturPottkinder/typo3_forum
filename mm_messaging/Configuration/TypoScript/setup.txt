@@ -1,0 +1,24 @@
+plugin.tx_mmmessaging.settings < plugin.tx_mmforum.settings
+
+plugin.tx_mmmessaging._CSS_DEFAULT_STYLE (
+	input.f3-form-error {
+		background-color:#FF9F9F;
+		border: 1px #FF0000 solid;
+	}
+
+	.tx-mmmessaging-pi1 table {
+		border-collapse:separate;
+		border-spacing:10px;
+	}
+
+	.tx-mmmessaging-pi1 table th {
+		font-weight:bold;
+	}
+
+	.tx-mmmessaging-pi1 table td {
+		vertical-align:top;
+	}
+    
+)
+
+    page.includeCSS.mm_messe= EXT:mm_messaging/Resources/Public/Stylesheets/mm_messenger.css  

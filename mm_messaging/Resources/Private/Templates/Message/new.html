@@ -1,0 +1,23 @@
+<f:layout name="default" />
+
+This template displays a NEW form for the current domain object.
+
+<f:section name="main">
+<h1><f:translate key="privateMessageNewMessage" /></h1>
+
+<f:flashMessages />
+<f:render partial="formErrors" /> 
+
+<f:form method="post" action="create" name="newMessage" object="{newMessage}">  
+    <div style="float: left;"><f:translate key="privateMessageSubject" />:</div> 
+    <div class="formMargin"><f:form.textbox property="subject" name="subject" /></div>
+     
+    <div style="float: left;"><f:translate key="privateMessageRecipient" />:</div>
+    <div class="formMargin"><f:form.textbox name="recipientName" value="{recipientName}" /></div>
+    
+    <div style="float: left;"><f:translate key="privateMessageMessage" />:</div>
+    <div class="formMargin"><f:form.textarea property="text" name="text" rows="6" cols="46" /></div> 
+    
+    <div class="formMargin"><f:form.submit value="<f:translate key='privateMessageSend' />" /></div> 
+</f:form>
+</f:section>
