@@ -1,0 +1,117 @@
+config.tx_extbase.persistence.classes {
+
+	Tx_Extbase_Domain_Model_FrontendUser {
+		subclasses {
+			Tx_MmForum_Domain_Model_User_FrontendUser = Tx_MmForum_Domain_Model_User_FrontendUser
+		}
+	}
+
+}
+
+config.tx_extbase.persistence.classes {
+#plugin.tx_mmforum.persistence.classes {
+
+	Tx_MmForum_Domain_Model_User_FrontendUser {
+		mapping {
+			tableName = fe_users
+			recordType = Tx_MmForum_Domain_Model_User_FrontendUser
+
+			columns {
+				tx_mmforum_post_count.mapOnProperty = postCount
+				tx_mmforum_topic_subscriptions.mapOnProperty = topicSubscriptions
+				tx_mmforum_forum_subscriptions.mapOnProperty = forumSubscriptions
+			}
+		}
+	}
+
+	Tx_MmForum_Domain_Model_User_FrontendUserGroup {
+		mapping {
+			tableName = fe_groups
+			recordType = Tx_MmForum_Domain_Model_User_FrontendUserGroup
+		}
+	}
+
+	Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield {
+		mapping {
+			tableName = tx_mmforum_domain_model_user_userfield_userfield
+			recordType = Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield
+		}
+
+		subclasses {
+			Tx_MmForum_Domain_Model_User_Userfield_TyposcriptUserfield = Tx_MmForum_Domain_Model_User_Userfield_TyposcriptUserfield
+		}
+	}
+
+	Tx_MmForum_Domain_Model_User_Userfield_TyposcriptUserfield {
+		mapping {
+			tableName = tx_mmforum_domain_model_user_userfield_userfield
+			recordType = Tx_MmForum_Domain_Model_User_Userfield_TyposcriptUserfield
+		}
+	}
+
+	Tx_MmForum_Domain_Model_Format_AbstractTextParserElement {
+		mapping {
+			tableName = tx_mmforum_domain_model_format_textparser
+		}
+
+		subclasses {
+			Tx_MmForum_Domain_Model_Format_BBCode = Tx_MmForum_Domain_Model_Format_BBCode
+			Tx_MmForum_Domain_Model_Format_Smilie = Tx_MmForum_Domain_Model_Format_Smilie
+			Tx_MmForum_Domain_Model_Format_SyntaxHighlighting = Tx_MmForum_Domain_Model_Format_SyntaxHighlighting
+		}
+	}
+
+	Tx_MmForum_Domain_Model_Format_BBCode {
+		mapping {
+			tableName = tx_mmforum_domain_model_format_textparser
+			recordType = Tx_MmForum_Domain_Model_Format_BBCode
+		}
+	}
+
+	Tx_MmForum_Domain_Model_Format_Smilie {
+		mapping {
+			tableName = tx_mmforum_domain_model_format_textparser
+			recordType = Tx_MmForum_Domain_Model_Format_Smilie
+		}
+	}
+
+	Tx_MmForum_Domain_Model_Format_SyntaxHighlighting {
+		mapping {
+			tableName = tx_mmforum_domain_model_format_textparser
+			recordType = Tx_MmForum_Domain_Model_Format_SyntaxHighlighting
+		}
+	}
+}
+
+plugin.tx_mmforum.settings {
+	debug = 1
+	debug {
+		disableACLs = 1
+	}
+
+	forumController.show {
+		pagebrowser {
+			itemsPerPage = 20
+		}
+	}
+
+	textParsing {
+		enabledServices {
+			bbCodes = Tx_MmForum_TextParser_Service_BBCodeParserService
+			smilies = Tx_MmForum_TextParser_Service_SmilieParserService
+			syntax = Tx_MmForum_TextParser_Service_SyntaxHighlightingParserService
+			quotes = Tx_MmForum_TextParser_Service_QuoteParserService
+			lists = Tx_MmForum_TextParser_Service_ListParserService
+		}
+
+		editorPanel {
+			panels {
+				bbCodes = Tx_MmForum_TextParser_Panel_BBCodePanel
+				smilies = Tx_MmForum_TextParser_Panel_SmiliePanel
+				syntax = Tx_MmForum_TextParser_Panel_SyntaxHighlightingPanel
+			}
+		}
+	}
+}
+
+page.includeCSS.mm_forum = EXT:mm_forum/Resources/Public/Stylesheets/mm_forum.css

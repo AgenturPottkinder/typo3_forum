@@ -1,0 +1,9 @@
+#!/bin/bash
+
+SEARCH="$1"
+REPLACE="$2"
+
+grep -rl "$1" . | while read FILE ; do
+	echo $FILE
+	sed -i "${FILE}" -e "s;${SEARCH};${REPLACE};g"
+done

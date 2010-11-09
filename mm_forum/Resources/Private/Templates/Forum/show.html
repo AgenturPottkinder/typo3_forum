@@ -1,0 +1,50 @@
+{namespace mmf=Tx_MmForum_ViewHelpers}
+<f:layout name="default" />
+
+
+
+	<!-- MAIN Section -->
+<f:section name="main">
+
+	<f:if condition="{forum.children}">
+		<f:render partial="Forum/List" arguments="{category: forum, header: 'Subforums', settings: settings}" />
+	</f:if>
+
+	<f:render partial="Forum/PageBrowser" arguments="{forum: forum, elements: forum.topicCount, currentPage: page, configuration:settings.forumController.show.pagebrowser}" />
+
+	<div class="tx-mmforum-header">
+		<mmf:forum.forumIcon forum="{forum}" width="24" />
+		{forum.title}
+	</div>
+	<table class="tx-mmforum-table">
+		<tr class="tx-mmforum-table-legend">
+			<th></th>
+			<th><f:translate key="Forum_Show_Topic_Subject" /></th>
+			<th><f:translate key="Forum_Show_Topic_Author" /></th>
+			<th><f:translate key="Forum_Show_Topic_Posts" /></th>
+			<th><f:translate key="Forum_Show_Topic_LastPost" /></th>
+		</tr>
+		<f:for each="{topics}" as="topic">
+			<f:cycle values="{0: 'odd', 1: 'even'}" as="zebra">
+			<tr class="tx-mmforum-{zebra}">
+				<td style="width:1px;"><mmf:forum.topicIcon topic="{topic}" width="32" /></td>
+				<td><f:link.action controller="Topic" action="show" arguments="{topic: topic}">{topic.subject}</f:link.action></td>
+				<td><f:link.action controller="User" action="show" arguments="{user : topic.author}">{topic.author.username}</f:link.action></td>
+				<td>{topic.replyCount}</td>
+				<td><f:render partial="Post/Summary" arguments="{post: topic.lastPost}" /></td>
+			</tr>
+			</f:cycle>
+		</f:for>
+	</table>
+	<div class="tx-mmforum-header-end"></div>
+
+	<f:render partial="Forum/PageBrowser" arguments="{forum: forum, elements: forum.topicCount, currentPage: page, configuration:settings.forumController.show.pagebrowser}" />
+
+</f:section>
+
+
+
+	<!-- MENU Section -->
+<f:section name="menu">
+	<f:render partial="Forum/Menu" arguments="{forum: forum}" />
+</f:section>

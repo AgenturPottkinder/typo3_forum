@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'mm_forum'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tx_mmforum_domain_model_forum_forum">Forum</label>
+			<label index="tx_mmforum_domain_model_forum_forum.title">Title</label>
+			<label index="tx_mmforum_domain_model_forum_forum.description">Description</label>
+			<label index="tx_mmforum_domain_model_forum_forum.children">Children</label>
+			<label index="tx_mmforum_domain_model_forum_forum.topics">Topics</label>
+			<label index="tx_mmforum_domain_model_forum_forum.acls">Acls</label>
+			<label index="tx_mmforum_domain_model_forum_forum.last_topic">Last Topic</label>
+			<label index="tx_mmforum_domain_model_forum_forum.last_post">Last Post</label>
+			<label index="tx_mmforum_domain_model_forum_forum.forum">Parent forum</label>
+			<label index="tx_mmforum_domain_model_forum_forum.subscribers">Subscribers</label>
+
+			<label index="tx_mmforum_domain_model_forum_topic">Topic</label>
+			<label index="tx_mmforum_domain_model_forum_topic.subject">Subject</label>
+			<label index="tx_mmforum_domain_model_forum_topic.posts">Posts</label>
+			<label index="tx_mmforum_domain_model_forum_topic.author">Author</label>
+			<label index="tx_mmforum_domain_model_forum_topic.last_post">Last Post</label>
+			<label index="tx_mmforum_domain_model_forum_topic.subscribers">Subscribers</label>
+
+			<label index="tx_mmforum_domain_model_forum_post">Post</label>
+			<label index="tx_mmforum_domain_model_forum_post.text">Text</label>
+			<label index="tx_mmforum_domain_model_forum_post.author">Author</label>
+			<label index="tx_mmforum_domain_model_forum_post.topic">Topic</label>
+			<label index="tx_mmforum_domain_model_forum_post.attachments">Attachments</label>
+			
+			<label index="tx_mmforum_domain_model_forum_attachment">Attachment</label>
+			<label index="tx_mmforum_domain_model_forum_attachment.filename">Attachment</label>
+			<label index="tx_mmforum_domain_model_forum_attachment.mime_type">MIME type</label>
+			<label index="tx_mmforum_domain_model_forum_attachment.download_count">Download count</label>
+
+			<label index="tx_mmforum_domain_model_forum_access">Access</label>
+			<label index="tx_mmforum_domain_model_forum_access.operation">Operation</label>
+			<label index="tx_mmforum_domain_model_forum_access.negate">Negate</label>
+			<label index="tx_mmforum_domain_model_forum_access.forum">Forum</label>
+			<label index="tx_mmforum_domain_model_forum_access.group">Group</label>
+			<label index="tx_mmforum_domain_model_forum_access.login_level">Login level</label>
+			<label index="tx_mmforum_domain_model_forum_access.login_level.everyone">Everyone</label>
+			<label index="tx_mmforum_domain_model_forum_access.login_level.anylogin">Any login</label>
+			<label index="tx_mmforum_domain_model_forum_access.login_level.specific">Specific group</label>
+
+			<label index="tx_mmforum_domain_model_user_userfield_userfield">Userfield</label>
+			<label index="tx_mmforum_domain_model_user_userfield_userfield.name">Name</label>
+			<label index="tx_mmforum_domain_model_user_userfield_userfield.type">Type</label>
+			<label index="tx_mmforum_domain_model_user_userfield_userfield.type.undefined">Undefined</label>
+			<label index="tx_mmforum_domain_model_user_userfield_userfield.type.typoscript">TypoScript</label>
+			<label index="tx_mmforum_domain_model_user_userfield_userfield.typoscript_path">TypoScript path</label>
+
+			<label index="tx_mmforum_domain_model_format_textparser">Text parsing component</label>
+			<label index="tx_mmforum_domain_model_format_textparser.name">Name</label>
+			<label index="tx_mmforum_domain_model_format_textparser.type">Type</label>
+			<label index="tx_mmforum_domain_model_format_textparser.type.bbcode">BB Code</label>
+			<label index="tx_mmforum_domain_model_format_textparser.type.quote">Quotation</label>
+			<label index="tx_mmforum_domain_model_format_textparser.type.list">List</label>
+			<label index="tx_mmforum_domain_model_format_textparser.type.smilie">Smilie</label>
+			<label index="tx_mmforum_domain_model_format_textparser.type.syntax">Syntax highlighting</label>
+			<label index="tx_mmforum_domain_model_format_textparser.icon">Icon</label>
+			<label index="tx_mmforum_domain_model_format_textparser.regular_expression">Regular expression</label>
+			<label index="tx_mmforum_domain_model_format_textparser.regular_expression_replacement">Replacement pattern</label>
+			<label index="tx_mmforum_domain_model_format_textparser.smilie_shortcut">Smilie shortcut</label>
+			<label index="tx_mmforum_domain_model_format_textparser.language">Language</label>
+
+			<label index="tx_mmforum_domain_model_moderation_report">Report</label>
+			<label index="tx_mmforum_domain_model_moderation_report.post">Post</label>
+			<label index="tx_mmforum_domain_model_moderation_report.reporter">Reporter</label>
+			<label index="tx_mmforum_domain_model_moderation_report.moderator">Assigned moderator</label>
+			<label index="tx_mmforum_domain_model_moderation_report.comments">Comments</label>
+			<label index="tx_mmforum_domain_model_moderation_report.workflow_status">Status</label>
+
+			<label index="tx_mmforum_domain_model_moderation_reportcomment">Report comment</label>
+			<label index="tx_mmforum_domain_model_moderation_reportcomment.author">Author</label>
+			<label index="tx_mmforum_domain_model_moderation_reportcomment.report">Report</label>
+			<label index="tx_mmforum_domain_model_moderation_reportcomment.text">Comment</label>
+
+			<label index="tx_mmforum_domain_model_moderation_reportworkflowstatus">Workflow status</label>
+			<label index="tx_mmforum_domain_model_moderation_reportworkflowstatus.name">Name</label>
+			<label index="tx_mmforum_domain_model_moderation_reportworkflowstatus.followup_status">Followup status</label>
+			<label index="tx_mmforum_domain_model_moderation_reportworkflowstatus.initial">Initial status</label>
+
+			<label index="fe_users.tx_mmforum_post_count">Post count</label>
+			<label index="fe_users.tx_mmforum_topic_subscriptions">Subscribed topics</label>
+			<label index="fe_users.tx_mmforum_forum_subscriptions">Subscribed forums</label>
+			<label index="fe_users.tx_mmforum.tab.settings">mm_forum Settings</label>
+			<label index="fe_users.signature">Signature</label>
+		</languageKey>
+	</data>
+</T3locallang>

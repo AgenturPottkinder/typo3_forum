@@ -1,0 +1,17 @@
+<f:layout name="default" />
+
+This Template is responsible for creating a single view for a domain object
+
+<f:section name="main">
+<h1>Single View for User</h1>
+
+<f:flashMessages />
+
+<table>
+	
+</table>
+<f:link.action action="edit" arguments="{user : user}">Edit</f:link.action>
+<f:link.action action="delete" arguments="{user : user}">Delete</f:link.action>
+
+<f:link.action action="index">Back to listing</f:link.action>
+</f:section>

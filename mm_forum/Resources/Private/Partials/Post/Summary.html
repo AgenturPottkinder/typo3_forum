@@ -1,0 +1,7 @@
+<div>
+	<f:link.action controller="Topic" action="show" arguments="{topic: post.topic}">{post.topic.subject}</f:link.action>
+</div>
+<div>
+	<f:format.date format="d.m.Y H:i">{post.timestamp}</f:format.date> von
+	<f:link.action controller="User" action="show" arguments="{user : post.author}">{post.author.username}</f:link.action>
+</div>

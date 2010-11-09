@@ -1,0 +1,17 @@
+<f:layout name="default" />
+
+This template displays a EDIT form for the current domain object.
+
+<f:section name="main">
+<h1>Edit Forum</h1>
+
+<f:render partial="formErrors" />
+
+<f:form method="post" action="update" name="forum" object="{forum}">
+	<label for="title"><f:translate key="tx_mmforum_domain_model_forum_forum.title" /> <span class="required">(required)</span></label><br />
+	<f:form.textbox property="title" /><br />
+	<label for="title"><f:translate key="tx_mmforum_domain_model_forum_forum.description" /></label><br />
+	<f:form.textbox property="description" /><br />
+	<f:form.submit value="Edit" />
+</f:form>
+</f:section>

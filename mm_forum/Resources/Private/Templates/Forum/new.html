@@ -1,0 +1,17 @@
+<f:layout name="default" />
+
+This template displays a NEW form for the current domain object.
+
+<f:section name="main">
+<h1>New Forum</h1>
+
+<f:render partial="formErrors" />
+
+<f:form method="post" action="create" name="newForum" object="{newForum}">
+	<label for="title"><f:translate key="tx_mmforum_domain_model_forum_forum.title" /></label><br />
+	<f:form.textbox property="title" /><br />
+	<label for="title"><f:translate key="tx_mmforum_domain_model_forum_forum.description" /></label><br />
+	<f:form.textbox property="description" /><br />
+	<f:form.submit value="Create new" />
+</f:form>
+</f:section>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for the mm_forum extension in the FRONTEND</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="Forum_Index_Name">Forum</label>
+			<label index="Forum_Index_Posts">Posts</label>
+			<label index="Forum_Index_Topics">Topics</label>
+			<label index="Forum_Index_LastPost">Last post</label>
+			<label index="Forum_Index_Empty">No forums found</label>
+
+			<label index="Forum_Show_Topic_Subject">Subject</label>
+			<label index="Forum_Show_Topic_Author">Author</label>
+			<label index="Forum_Show_Topic_Posts">Replies</label>
+			<label index="Forum_Show_Topic_LastPost">Last post</label>
+
+			<label index="User_Subscribe_Forum_Success">The Forum "%s" has successfully been subscribed.</label>
+			<label index="User_Subscribe_Topic_Success">The Topic "%s" has successfully been subscribed.</label>
+			<label index="User_Unsubscribe_Forum_Success">The Forum "%s" has successfully been unsubscribed.</label>
+			<label index="User_Unsubscribe_Topic_Success">The Topic "%s" has successfully been unsubscribed.</label>
+
+			<label index="Report_New_Success">Your report has been submitted to a forum moderator.</label>
+		</languageKey>
+	</data>
+</T3locallang>

@@ -1,0 +1,15 @@
+<div class="tx-mmforum-header">An error has occured</div>
+<div class="tx-mmforum-exception">
+	<div style="font-weight: bold;">
+		<f:translate key="Error_Subtitle" arguments="{0: exception.code}" />
+	</div>
+	<div>
+		<f:translate key="Error_{exception.code}" default="{exception.message}" />
+	</div>
+	<f:if condition="{settings.debug}">
+		<div style="color: #666; font-size: 10px; margin: 12px;">
+			<f:format.nl2br>{exception.traceAsString}</f:format.nl2br>
+		</div>
+	</f:if>
+</div>
+<div class="tx-mmforum-header-end"></div>

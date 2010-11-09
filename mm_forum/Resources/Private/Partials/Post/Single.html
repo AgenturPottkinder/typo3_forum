@@ -1,0 +1,42 @@
+{namespace mmf=Tx_MmForum_ViewHelpers}
+
+<div class="tx-mmforum-topic-show-post tx-mmforum-{zebra}">
+	<div class="tx-mmforum-topic-show-post-menu">
+		<f:render partial="Post/Menu" arguments="{post: post}" />
+	</div>
+	<div class="tx-mmforum-topic-show-post-user">
+		<mmf:user.avatar user="{post.author}" width="64" alt="{post.author.username}" class="tx-mmforum-topic-show-post-user-icon" />
+		<div>
+			<f:link.action controller="User" action="show" arguments="{user: post.author}" class="tx-mmforum-topic-show-post-user-link">{post.author.username}</f:link.action>
+		</div>
+		<div>Dabei seit <f:format.date format="d. m. Y">{post.author.timestamp}</f:format.date></div>
+		<div>{post.author.postCount} Beiträge</div>
+	</div>
+	<div class="tx-mmforum-topic-show-post-text">
+		<mmf:format.textParser>
+			{post.text}
+		</mmf:format.textParser>
+		
+		<f:if condition="{post.attachments}">
+			<div class="tx-mmforum-topic-show-post-attachments">
+				<div class="tx-mmforum-topic-show-post-attachments-header">
+					Attachments (<f:count subject="{post.attachments}" />)
+				</div>
+				<table>
+					<f:for each="{post.attachments}" as="attachment">
+						<tr>
+							<td>
+								<f:link.action controller="Post" action="downloadAttachment" arguments="{attachment: attachment}">
+									{attachment.filename}
+								</f:link.action>
+							</td>
+							<td>{attachment.mimeType}</td>
+							<td><mmf:format.fileSize>{attachment.filesize}</mmf:format.fileSize></td>
+							<td>Downloaded {attachment.downloadCount} times</td>
+						</tr>
+					</f:for>
+				</table>
+			</div>
+		</f:if>
+	</div>
+</div>
