@@ -18,7 +18,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'author_email' => 'm.helmich@mittwald.de',
 	'author_company' => 'Mittwald CM Service',
 	'shy' => '',
-	'dependencies' => 'cms,extbase,fluid',
+	'dependencies' => 'cms,extbase,fluid,sr_feuser_register,static_info_tables',
 	'conflicts' => '',
 	'priority' => '',
 	'module' => '',
@@ -29,12 +29,15 @@ $EM_CONF[$_EXTKEY] = array(
 	'modify_tables' => 'fe_users',
 	'clearCacheOnLoad' => 0,
 	'lockType' => '',
-	'version' => '1.0.0-alpha1',
+	'version' => '2.0.0-alpha1',
 	'constraints' => array(
 		'depends' => array(
 			'cms' => '',
-			'extbase' => '',
-			'fluid' => '',
+			'extbase' => '1.2.0',
+			'fluid' => '1.2.0',
+			'sr_feuser_register' => '',
+			'static_info_tables' => '',
+			'php' => '5.3'
 		),
 		'conflicts' => array(
 		),
