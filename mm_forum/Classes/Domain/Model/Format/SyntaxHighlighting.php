@@ -51,6 +51,12 @@ Class Tx_MmForum_Domain_Model_Format_SyntaxHighlighting
 		 */
 
 	Protected $language;
+		
+		/**
+		 * The default smilie directory.
+		 * @var string
+		 */
+	Protected $defaultIconDir = 'Syntax/';
 
 
 
