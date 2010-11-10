@@ -5,36 +5,6 @@
 
 
 #
-# Table structure for table "tx_mmforum_domain_model_format_bbcode"
-#
-CREATE TABLE tx_mmforum_domain_model_format_bbcode (
-  uid int(11) NOT NULL auto_increment,
-  pid int(11) NOT NULL default '0',
-  name tinytext,
-  regular_expression tinytext,
-  image tinytext,
-  tstamp int(11) unsigned NOT NULL default '0',
-  crdate int(11) unsigned NOT NULL default '0',
-  deleted tinyint(4) unsigned NOT NULL default '0',
-  hidden tinyint(4) unsigned NOT NULL default '0',
-  t3ver_oid int(11) NOT NULL default '0',
-  t3ver_id int(11) NOT NULL default '0',
-  t3ver_wsid int(11) NOT NULL default '0',
-  t3ver_label varchar(30) NOT NULL default '',
-  t3ver_state tinyint(4) NOT NULL default '0',
-  t3ver_stage tinyint(4) NOT NULL default '0',
-  t3ver_count int(11) NOT NULL default '0',
-  t3ver_tstamp int(11) NOT NULL default '0',
-  t3_origuid int(11) NOT NULL default '0',
-  sys_language_uid int(11) NOT NULL default '0',
-  l18n_parent int(11) NOT NULL default '0',
-  l18n_diffsource mediumblob NOT NULL,
-  PRIMARY KEY (uid),
-  KEY parent (pid)
-);
-
-
-#
 # Table structure for table "tx_mmforum_domain_model_format_textparser"
 #
 CREATE TABLE tx_mmforum_domain_model_format_textparser (
