@@ -415,4 +415,5 @@ CREATE TABLE fe_users (
   tx_mmforum_forum_subscriptions int(11) unsigned default '0',
   tx_mmforum_signature text,
   tx_mmforum_userfield_values int(11) unsigned NOT NULL default '0'
+  tx_mmforum_read_topics int(11) unsigned NOT NULL default '0'
 );

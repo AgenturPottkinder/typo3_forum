@@ -219,7 +219,7 @@ Class Tx_MmForum_Controller_TopicController Extends Tx_MmForum_Controller_Abstra
 			# Create the new post; add the new post to a new topic and add the new topic
 			# to the forum. Then persist the forum object.
 		$this->postFactory->assignUserToPost($post);
-		$this->topicFactory->createTopic($forum, $post, $subject);
+		$topic = $this->topicFactory->createTopic($forum, $post, $subject);
 
 			# Notify forum subscribers.
 		$this->notificationService->notifySubscribers($forum, $topic);
