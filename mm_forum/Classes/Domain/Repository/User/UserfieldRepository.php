@@ -152,7 +152,9 @@ Class Tx_MmForum_Domain_Repository_User_UserfieldRepository
 		 */
 
 	Public Function findAll() {
-		return array_merge($this->findCoreUserfields(), parent::findAll());
+		$query = $this->createQuery();
+		$query->getQuerySettings()->setRespectStoragePage(FALSE);
+		return array_merge($this->findCoreUserfields(), $query->execute());
 	}
 
 }

@@ -44,6 +44,14 @@
 	 */
 
 Class Tx_MmForum_Domain_Repository_Format_SmilieRepository
-	Extends Tx_Extbase_Persistence_Repository { }
+	Extends Tx_Extbase_Persistence_Repository {
+	
+	Public Function findAll() {
+		$query = $this->createQuery();
+		$query->getQuerySettings()->setRespectStoragePage(FALSE);
+		Return $query->execute();
+	}
+
+}
 
 ?>
