@@ -73,41 +73,16 @@ Class Tx_MmForum_Controller_ReportController
 
 
 
-
-
 		/*
-		 * INITIALIZATION METHODS
+		 * DEPENDENCY INJECTORS
 		 */
 
-
-
-
-
-		/**
-		 *
-		 * Initializes all actions.
-		 * @return void
-		 *
-		 */
-
-	Protected Function initializeAction() {
-		parent::initializeAction();
-		$this->reportRepository =&
-			t3lib_div::makeInstance('Tx_MmForum_Domain_Repository_Moderation_ReportRepository');
+	public function injectReportRepository(Tx_MmForum_Domain_Repository_Moderation_ReportRepository $reportRepository) {
+		$this->reportRepository = $reportRepository;
 	}
-
-
-
-		/**
-		 *
-		 * Initializes the create action.
-		 * @return void
-		 *
-		 */
-
-	Protected Function initializeCreateAction() {
-		$this->reportFactory =&
-			t3lib_div::makeInstance('Tx_MmForum_Domain_Factory_Moderation_ReportFactory');
+	
+	public function injectReportFactory(Tx_MmForum_Domain_Factory_Moderation_ReportFactory $reportFactory) {
+		$this->reportFactory = $reportFactory;
 	}
 
 

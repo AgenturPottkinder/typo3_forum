@@ -43,8 +43,8 @@
 	 *
 	 */
 
-Abstract Class Tx_MmForum_Domain_Factory_AbstractFactory
-	Implements t3lib_Singleton {
+abstract class Tx_MmForum_Domain_Factory_AbstractFactory
+	implements t3lib_Singleton {
 
 
 
@@ -63,9 +63,22 @@ Abstract Class Tx_MmForum_Domain_Factory_AbstractFactory
 		 * @var Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 		 */
 
-	Protected $frontendUserRepository = NULL;
+	protected $frontendUserRepository = NULL;
+	
+	protected $objectManager = NULL;
 
 
+		/*
+		 * DEPENDENCY INJECTORS
+		 */
+	
+	public function injectFrontendUserRepository(Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository) {
+		$this->frontendUserRepository = $frontendUserRepository;
+	}
+	
+	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
+		$this->objectManager = $objectManager;
+	}
 
 
 
@@ -84,11 +97,11 @@ Abstract Class Tx_MmForum_Domain_Factory_AbstractFactory
 		 *
 		 */
 
-	Protected Function getClassName() {
+	protected function getClassName() {
 		$thisClass = get_class($this);
 		$thisClass = preg_replace('/_Factory_/', '_Model_', $thisClass);
 		$thisClass = preg_replace('/Factory$/', '', $thisClass);
-		Return $thisClass;
+		return $thisClass;
 	}
 
 
@@ -101,8 +114,8 @@ Abstract Class Tx_MmForum_Domain_Factory_AbstractFactory
 		 *
 		 */
 	
-	Protected Function getClassInstance() {
-		Return t3lib_div::makeInstance($this->getClassName());
+	protected function getClassInstance() {
+		return $this->objectManager->create($this->getClassName());
 	}
 
 
@@ -117,11 +130,8 @@ Abstract Class Tx_MmForum_Domain_Factory_AbstractFactory
 		 *
 		 */
 	
-	Protected Function getCurrentUser() {
-		If($this->frontendUserRepository === NULL)
-			$this->frontendUserRepository =&
-				t3lib_div::makeInstance('Tx_MmForum_Domain_Repository_User_FrontendUserRepository');
-		Return $this->frontendUserRepository->findCurrent();
+	protected function getCurrentUser() {
+		return $this->frontendUserRepository->findCurrent();
 	}
 
 }

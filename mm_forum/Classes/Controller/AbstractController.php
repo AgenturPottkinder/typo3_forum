@@ -45,7 +45,8 @@
 	 *
 	 */
 
-Abstract Class Tx_MmForum_Controller_AbstractController Extends Tx_Extbase_MVC_Controller_ActionController {
+abstract class Tx_MmForum_Controller_AbstractController
+	extends Tx_Extbase_MVC_Controller_ActionController {
 
 
 
@@ -63,27 +64,89 @@ Abstract Class Tx_MmForum_Controller_AbstractController Extends Tx_Extbase_MVC_C
 		 * A repository for frontend users.
 		 * @var Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 		 */
-	Protected $frontendUserRepository;
+	protected $frontendUserRepository;
 
 		/**
 		 * An authentication service. Handles the authentication mechanism.
-		 * @var Tx_MmForum_Domain_Service_AuthenticationService
+		 * @var Tx_MmForum_Service_AuthenticationServiceInterface
 		 */
-	Protected $authenticationService;
-
+	protected $authenticationService;
+	
 		/**
-		 * A service class that handles the sending of emails. This service is
-		 * instantiated on-demand only.
-		 * @var Tx_MmForum_Service_Mailing_AbstractMailingService
+		 * A mailing service. Handles the sending of mails to frontend users
+		 * (e.g. notifications about new posts/topics, etc.)
+		 * @var Tx_MmForum_Service_Mailing_MailingServiceInterface
 		 */
-	Protected $mailingService;
+	protected $mailingService;
 
 		/**
 		 * An array with controller-specific settings. This is read from
 		 * plugin.tx_mmforum.settings.[controller-name].
 		 * @var array
 		 */
-	Protected $localSettings;
+	protected $localSettings;
+	
+		/**
+		 * The non-namespaced class name of this controller (e.g. ForumController
+		 * instead of Tx_MmForum_Controller_ForumController).
+		 * @var string
+		 */
+	protected $className;
+	
+	
+	
+	
+	
+		/*
+		 * DEPENDENCY INJECTORS
+		 */
+	
+	
+	
+	
+	
+		/**
+		 * 
+		 * Injects a frontend user repository.
+		 * @param  Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository
+		 *                             A frontend user repository.
+		 * @return void
+		 * 
+		 */
+	
+	public function injectFrontendUserRepository(Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository) {
+		$this->frontendUserRepository = $frontendUserRepository;
+	}
+	
+	
+	
+		/**
+		 * 
+		 * Injects an authentication service.
+		 * @param  Tx_MmForum_Service_Authentication_AuthenticationServiceInterface $authenticationService
+		 *                             An authentication service.
+		 * @return void
+		 * 
+		 */
+	
+	public function injectAuthenticationService(Tx_MmForum_Service_Authentication_AuthenticationServiceInterface $authenticationService) {
+		$this->authenticationService = $authenticationService;
+	}
+	
+	
+	
+		/**
+		 * 
+		 * Injects a mailing service.
+		 * @param  Tx_MmForum_Service_Mailing_MailingServiceInterface $mailingService
+		 *                             A mailing service.
+		 * @return void
+		 * 
+		 */
+	
+	public function injectMailingService(Tx_MmForum_Service_Mailing_MailingServiceInterface $mailingService) {
+		$this->mailingService = $mailingService;
+	}
 
 
 
@@ -110,7 +173,7 @@ Abstract Class Tx_MmForum_Controller_AbstractController Extends Tx_Extbase_MVC_C
 		 *
 		 */
 
-	Protected Function handleError(Tx_MmForum_Domain_Exception_AbstractException $e) {
+	protected function handleError(Tx_MmForum_Domain_Exception_AbstractException $e) {
 		$controllerContext = $this->buildControllerContext();
 		$controllerContext->getRequest()->setControllerName('Default');
 		$controllerContext->getRequest()->setControllerActionName('error');
@@ -134,10 +197,10 @@ Abstract Class Tx_MmForum_Controller_AbstractController Extends Tx_Extbase_MVC_C
 		 *
 		 */
 
-	Protected Function callActionMethod() {
-		Try {
+	protected function callActionMethod() {
+		try {
 			parent::callActionMethod();
-		} Catch(Tx_MmForum_Domain_Exception_AbstractException $e) {
+		} catch(Tx_MmForum_Domain_Exception_AbstractException $e) {
 			$this->handleError($e);
 		}
 	}
@@ -152,15 +215,14 @@ Abstract Class Tx_MmForum_Controller_AbstractController Extends Tx_Extbase_MVC_C
 		 *
 		 */
 
-	Protected Function  initializeAction() {
-		$this->frontendUserRepository =&
-			t3lib_div::makeInstance('Tx_MmForum_Domain_Repository_User_FrontendUserRepository');
+	protected function initializeAction() {
+		$this->className = array_pop(explode('_',  get_class($this)));
+		$this->localSettings = $this->settings[lcfirst($this->className)];
 
-		$this->buildAuthenticationService();
-		$this->localSettings = $this->settings[lcfirst(array_pop(explode('_',  get_class($this))))];
-
-		ForEach($this->settings['pids'] As $key => &$value)
-			If(!$value) $value = $GLOBALS['TSFE']->id;
+		foreach($this->settings['pids'] As $key => &$value)
+			if(!$value) $value = $GLOBALS['TSFE']->id;
+			
+		$this->on('initialize');
 	}
 
 
@@ -176,83 +238,21 @@ Abstract Class Tx_MmForum_Controller_AbstractController Extends Tx_Extbase_MVC_C
 		 *
 		 */
 
-	Protected Function getCurrentUser() {
-		Return $this->frontendUserRepository->findCurrent();
+	protected function getCurrentUser() {
+		return $this->frontendUserRepository->findCurrent();
 	}
-
-
-
-		/**
-		 *
-		 * Generates a mailing service class. The class name of the mailing service is
-		 * configured dynamically using the plugin.tx_mmforum.settings.mailing.serviceClass
-		 * settings. This allows the user to override the mailing service with a custom
-		 * class. This class, however, must be a descendant of the
-		 * Tx_MmForum_Service_Mailing_AbstractMailingService class.
-		 *
-		 * @return Tx_MmForum_Service_Mailing_AbstractMailingService
-		 *                             An instance of the mailing service class.
-		 *
-		 */
-
-	Protected Function buildMailingService() {
-		If($this->mailingService === NULL) {
-			$this->mailingService =& $this->buildService('mailing', 'Tx_MmForum_Service_Mailing_AbstractMailingService');
-		} Return $this->mailingService;
-	}
-
-
-
-		/**
-		 *
-		 * Generates an authentication service class. The class name of the authentication
-		 * service is configured dynamically using the plugin.tx_mmforum.settings.authentication.serviceClass
-		 * settings. This allows the user to override the authentication service with a
-		 * custom class. This class, however, must implement the Tx_MmForum_Domain_Service_AuthenticationServiceInterface
-		 * interface.
-		 *
-		 * @return Tx_MmForum_Domain_Service_AuthenticationServiceInterface
-		 *                             An instance of the authentication service.
-		 *
-		 */
-
-	Protected Function buildAuthenticationService() {
-		If($this->authenticationService === NULL) {
-			$this->authenticationService =& $this->buildService('authentication', 'Tx_MmForum_Domain_Service_AuthenticationServiceInterface');
-			$this->authenticationService->injectFrontendUser($this->frontendUserRepository->findCurrent());
-		} Return $this->authenticationService;
-	}
-
-
-
-		/**
-		 *
-		 * Generic method for building a new service instance.
-		 *
-		 * @param  string $serviceName The name of the service that is to be generated.
-		 *                             This value must be a valid index of the
-		 *                             plugin.tx_mmforum.settings.services array.
-		 * @param  string $expectedInterface
-		 *                             The class/interface name that the new service
-		 *                             class must be an instance of.
-		 * @return Tx_MmForum_Service_AbstractService
-		 *                             The service class.
-		 *
-		 */
-
-	Protected Function buildService($serviceName, $expectedInterface='Tx_MmForum_Service_AbstractService') {
-		$className = $this->settings['services'][$serviceName]['serviceClass'];
-		If(!class_exists($className))
-			Throw New Tx_Extbase_Object_UnknownClass ( "The class specified in plugin."
-				. "tx_mmforum.settings.$serviceName.serviceClass ($className) does not exist!",
-				1288018736);
-		$service =& t3lib_div::makeInstance($className);
-		If(!$service InstanceOf $expectedInterface)
-			Throw New Tx_Extbase_Object_InvalidClass ( "plugin.tx_mmforum.settings."
-				. "$serviceName.serviceClass must be an instance of $expectedInterface,"
-				. get_class($this->mailingService) . " given!", 1288018644);
-		$service->injectSettings($this->settings);
-		Return $service;
+	
+	protected function on($event, array $arguments=array()) {
+		$functionName = 'on'.ucfirst($event);
+		$listeners = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['mm_forum'][$this->className][$functionName];
+		array_unshift($arguments, $this);
+		foreach($listeners as $listener) {
+			$listenerInstance = $this->objectManager->get($listener);
+			$listenerInstance->setView($this->view);
+			$listenerInstance->setControllerContext($this->controllerContext);
+			$listenerInstance->setSettings($this->settings);
+			$listenerInstance->handleEvent($event, $arguments);
+		}
 	}
 
 }

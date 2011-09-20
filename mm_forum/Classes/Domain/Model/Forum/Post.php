@@ -3,23 +3,23 @@
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2011 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
  *  free software; you can redistribute it and/or modify                *
- *  it under the terms of the GNU General Public License as published   *
+ *  it under the terms of the GNU General public License as published   *
  *  by the Free Software Foundation; either version 2 of the License,   *
  *  or (at your option) any later version.                              *
  *                                                                      *
- *  The GNU General Public License can be found at                      *
+ *  The GNU General public License can be found at                      *
  *  http://www.gnu.org/copyleft/gpl.html.                               *
  *                                                                      *
  *  This script is distributed in the hope that it will be useful,      *
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of      *
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the       *
- *  GNU General Public License for more details.                        *
+ *  GNU General public License for more details.                        *
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
@@ -35,14 +35,18 @@
 	 * @package    MmForum
 	 * @subpackage Domain_Model_Format
 	 * @version    $Id$
-	 * @license    GNU Public License, version 2
+	 * 
+	 * @copyright  2011 Martin Helmich <m.helmich@mittwald.de>
+	 *             Mittwald CM Service GmbH & Co. KG
+	 *             http://www.mittwald.de
+	 * @license    GNU public License, version 2
 	 *             http://opensource.org/licenses/gpl-license.php
 	 *
 	 */
 
-Class Tx_MmForum_Domain_Model_Forum_Post
-	Extends    Tx_Extbase_DomainObject_AbstractEntity
-	Implements Tx_MmForum_Domain_Model_AccessibleInterface,
+class Tx_MmForum_Domain_Model_Forum_Post
+	extends    Tx_Extbase_DomainObject_AbstractEntity
+	implements Tx_MmForum_Domain_Model_AccessibleInterface,
 	           Tx_MmForum_Domain_Model_NotifiableInterface {
 
 
@@ -62,32 +66,41 @@ Class Tx_MmForum_Domain_Model_Forum_Post
 		 * @var string
 		 * @validate NotEmpty
 		 */
-	Protected $text;
+	protected $text;
+	
+		/**
+		 * The rendered post text (contains raw HTML). This attribute has been
+		 * implemented for performance reasons. When being rendered (i.e. bb
+		 * codes being replaced with corresponding HTML codes, etc.), the
+		 * rendered output is cached in this property.
+		 * @var string
+		 */
+	protected $renderedText;
 
 		/**
 		 * The post author.
 		 * @var Tx_MmForum_Domain_Model_User_FrontendUser
 		 * @lazy
 		 */
-	Protected $author;
+	protected $author;
 
 		/**
 		 * The topic.
 		 * @var Tx_MmForum_Domain_Model_Forum_Topic
 		 */
-	Protected $topic;
+	protected $topic;
 
 		/**
 		 * Creation date.
 		 * @var DateTime
 		 */
-	Protected $crdate;
+	protected $crdate;
 
 		/**
 		 * Attachments.
 		 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Attachment>
 		 */
-	Protected $attachments;
+	protected $attachments;
 
 
 
@@ -107,7 +120,7 @@ Class Tx_MmForum_Domain_Model_Forum_Post
 		 *
 		 */
 	
-	Public Function __construct() {
+	public function __construct() {
 		$this->attachments = new Tx_Extbase_Persistence_ObjectStorage();
 		$this->crdate      = new DateTime();
 	}
@@ -131,7 +144,7 @@ Class Tx_MmForum_Domain_Model_Forum_Post
 		 *
 		 */
 
-	Public Function getText() { Return $this->text; }
+	public function getText() { return $this->text; }
 
 
 
@@ -142,7 +155,7 @@ Class Tx_MmForum_Domain_Model_Forum_Post
 		 *
 		 */
 	
-	Public Function getName() { Return $this->topic->getTitle(); }
+	public function getName() { return $this->topic->getTitle(); }
 
 
 
@@ -153,7 +166,7 @@ Class Tx_MmForum_Domain_Model_Forum_Post
 		 *
 		 */
 
-	Public Function getDescription() { Return $this->getText(); }
+	public function getDescription() { return $this->getText(); }
 
 
 
@@ -164,10 +177,10 @@ Class Tx_MmForum_Domain_Model_Forum_Post
 		 *
 		 */
 
-	Public Function getAuthor() {
-		If($this->author InstanceOf Tx_Extbase_Persistence_LazyLoadingProxy)
+	public function getAuthor() {
+		if($this->author InstanceOf Tx_Extbase_Persistence_LazyLoadingProxy)
 			$this->author->_loadRealInstance();
-		Return $this->author;
+		return $this->author;
 	}
 
 
@@ -179,7 +192,7 @@ Class Tx_MmForum_Domain_Model_Forum_Post
 		 *
 		 */
 
-	Public Function getTopic() { Return $this->topic; }
+	public function getTopic() { return $this->topic; }
 
 
 
@@ -190,7 +203,7 @@ Class Tx_MmForum_Domain_Model_Forum_Post
 		 *
 		 */
 
-	Public Function getForum() { Return $this->topic->getForum(); }
+	public function getForum() { return $this->topic->getForum(); }
 
 
 
@@ -201,7 +214,7 @@ Class Tx_MmForum_Domain_Model_Forum_Post
 		 *
 		 */
 
-	Public Function getTimestamp() { Return $this->crdate; }
+	public function getTimestamp() { return $this->crdate; }
 
 
 
@@ -212,7 +225,7 @@ Class Tx_MmForum_Domain_Model_Forum_Post
 		 *
 		 */
 
-	Public Function getAttachments() { Return $this->attachments; }
+	public function getAttachments() { return $this->attachments; }
 
 
 
@@ -227,10 +240,10 @@ Class Tx_MmForum_Domain_Model_Forum_Post
 		 *
 		 */
 
-	Protected Function isPropertyDirty($previousValue, $currentValue) {
-		If (   $currentValue InstanceOf Tx_MmForum_Domain_Model_Forum_Forum
-		    || $currentValue InstanceOf Tx_MmForum_Domain_Model_Forum_Topic ) Return FALSE;
-		Else Return parent::isPropertyDirty ($previousValue, $currentValue);
+	protected function isPropertyDirty($previousValue, $currentValue) {
+		if (   $currentValue InstanceOf Tx_MmForum_Domain_Model_Forum_Forum
+		    || $currentValue InstanceOf Tx_MmForum_Domain_Model_Forum_Topic ) return FALSE;
+		else return parent::isPropertyDirty ($previousValue, $currentValue);
 	}
 
 
@@ -245,10 +258,11 @@ Class Tx_MmForum_Domain_Model_Forum_Post
 		 *
 		 */
 
-	Public Function  _checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL, $accessType = 'read') {
-		Switch($accessType) {
-			Case 'editPost': Return $this->checkEditPostAccess($user);
-			Default: Return $this->topic->_checkAccess($user, $accessType);
+	public function  _checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL, $accessType = 'read') {
+		switch($accessType) {
+			case 'editPost': return $this->checkEditPostAccess($user);
+			case 'deletePost': return $this->checkDeletePostAccess($user);
+			default: return $this->topic->_checkAccess($user, $accessType);
 		}
 	}
 
@@ -275,14 +289,14 @@ Class Tx_MmForum_Domain_Model_Forum_Post
 		 *
 		 */
 
-	Public Function checkEditPostAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
+	public function checkEditPostAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
 
-		If ( $user === NULL)                                        Return FALSE;
-		If ( $this->getForum()->checkModerationAccess($user))       Return TRUE;
-		If (    $user->getUid() === $this->getAuthor()->getUid()
+		if ( $user === NULL)                                        return FALSE;
+		if ( $this->getForum()->checkModerationAccess($user))       return TRUE;
+		if (    $user->getUid() === $this->getAuthor()->getUid()
 		     && $this === $this->getTopic()->getLastPost()
-		     && $this->getTopic()->_checkAccess($user, 'editPost')) Return TRUE;
-		Else                                                        Return FALSE;
+		     && $this->getTopic()->_checkAccess($user, 'editPost')) return TRUE;
+		else                                                        return FALSE;
 
 	}
 
@@ -301,13 +315,13 @@ Class Tx_MmForum_Domain_Model_Forum_Post
 		 *
 		 */
 
-	Public Function checkDeletePostAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
-		If ( $user === NULL)                                           Return FALSE;
-		If ( $this->getForum()->checkModerationAccess($user))          Return TRUE;
-		If (    $user === $this->getAuthor()
+	public function checkDeletePostAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
+		if ( $user === NULL)                                           return FALSE;
+		if ( $this->getForum()->checkModerationAccess($user))          return TRUE;
+		if (    $user === $this->getAuthor()
 		     && $this === $this->getTopic()->getLastPost()
-		     && $this->getTopic()->_checkAccess($user, 'deletePost') ) Return TRUE;
-		Else                                                           Return FALSE;
+		     && $this->getTopic()->_checkAccess($user, 'deletePost') ) return TRUE;
+		else                                                           return FALSE;
 	}
 
 
@@ -331,7 +345,7 @@ Class Tx_MmForum_Domain_Model_Forum_Post
 		 *
 		 */
 
-	Public Function setAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $author) {
+	public function setAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $author) {
 		$this->author = $author;
 	}
 
@@ -346,7 +360,12 @@ Class Tx_MmForum_Domain_Model_Forum_Post
 		 *
 		 */
 
-	Public Function setText($text) { $this->text = $text; }
+	public function setText($text) {
+		$this->text = $text;
+			# Reset the rendered text. It will be filled again when the post
+			# is rendered.
+		$this->renderedText = '';
+	}
 
 
 
@@ -359,7 +378,7 @@ Class Tx_MmForum_Domain_Model_Forum_Post
 		 *
 		 */
 
-	Public Function setAttachments(Tx_Extbase_Persistence_ObjectStorage $attachments) {
+	public function setAttachments(Tx_Extbase_Persistence_ObjectStorage $attachments) {
 		$this->attachments = $attachments;
 	}
 
@@ -373,7 +392,7 @@ Class Tx_MmForum_Domain_Model_Forum_Post
 		 *
 		 */
 
-	Public Function addAttachment(Tx_MmForum_Domain_Model_Forum_Attachment $attachment) {
+	public function addAttachment(Tx_MmForum_Domain_Model_Forum_Attachment $attachment) {
 		$this->attachments->attach($attachment);
 	}
 
@@ -387,7 +406,7 @@ Class Tx_MmForum_Domain_Model_Forum_Post
 		 *
 		 */
 
-	Public Function removeAttachment(Tx_MmForum_Domain_Model_Forum_Attachment $attachment) {
+	public function removeAttachment(Tx_MmForum_Domain_Model_Forum_Attachment $attachment) {
 		$this->attachments->detach($attachment);
 	}
 

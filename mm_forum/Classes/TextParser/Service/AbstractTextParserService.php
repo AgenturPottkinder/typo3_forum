@@ -43,39 +43,47 @@
 	 *
 	 */
 
-Abstract Class Tx_MmForum_TextParser_Service_AbstractTextParserService
-	Extends Tx_MmForum_Service_AbstractService {
+abstract class Tx_MmForum_TextParser_Service_AbstractTextParserService
+	extends Tx_MmForum_Service_AbstractService {
+
 
 		/**
-		 * A variable container. This needs to be injected if this service is called
-		 * from a view helper context.
-		 * @var Tx_Fluid_Core_ViewHelper_ViewHelperVariableContainer
+		 * The configuration of this service.
+		 * @var array
 		 */
-	Protected $viewHelperVariableContainer;
+	protected $settings = NULL;
+	
+		/**
+		 * The current controller context
+		 * @var Tx_Extbase_MVC_Controller_ControllerContext
+		 */
+	protected $controllerContext = NULL;
 
-
-
+	
+	
 		/**
 		 *
 		 * Creates a new instance of this service.
 		 *
 		 */
 
-	Public Function __construct() {}
-
-
+	public function __construct() {}
+	
+	
 	
 		/**
-		 *
-		 * Injects the variable container.
-		 * @param  Tx_Fluid_Core_ViewHelper_ViewHelperVariableContainer $viewHelperVariableContainer
-		 *                             The variable container.
-		 * @return void
-		 *
+		 * 
+		 * Injects this service's configuration.
+		 * @param array $settings The configuration for this service.
+		 * 
 		 */
-
-	Public Function injectViewHelperVariableContainer(Tx_Fluid_Core_ViewHelper_ViewHelperVariableContainer $viewHelperVariableContainer) {
-		$this->viewHelperVariableContainer = $viewHelperVariableContainer;
+	
+	public function setSettings(array $settings) {
+		$this->settings = $settings;
+	}
+	
+	public function setControllerContext(Tx_Extbase_MVC_Controller_ControllerContext $controllerContext) {
+		$this->controllerContext = $controllerContext;
 	}
 
 
@@ -89,7 +97,7 @@ Abstract Class Tx_MmForum_TextParser_Service_AbstractTextParserService
 		 *
 		 */
 
-	Abstract Function getParsedText($text);
+	abstract function getParsedText($text);
 
 }
 

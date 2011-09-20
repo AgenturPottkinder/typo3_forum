@@ -95,6 +95,12 @@ Class Tx_MmForum_TextParser_Service_TidyService
 
 	Public Function __construct() {
 		parent::__construct();
+		
+		if(!class_exists('tidy'))
+			throw new Tx_MmForum_Domain_Exception_TextParser_Exception(
+				'The TIDY library could not be loaded. Please install the tidy
+				 module for PHP or disable the tidy service in your typoscript
+				 setup', 1315857493);
 		$this->tidy = New tidy();
 	}
 

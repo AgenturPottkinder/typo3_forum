@@ -118,10 +118,11 @@ Class Tx_MmForum_Domain_Repository_Forum_TopicRepository
 		 */
 
 	Public Function findForIndex(Tx_MmForum_Domain_Model_Forum_Forum $forum, $page=1, $itemsPerPage=30) {
-		$sql = $this->getPaginatedQuery(self::QUERY_FIND_FOR_INDEX, $page, $itemsPerPage);
 		$query = $this->createQuery();
-		$query->statement ( $sql, array ( $forum->getUid() ));
-		Return $query->execute();
+		$query
+			->matching($query->equals('forum', $forum))
+			->setOrderings(array('sticky' => 'DESC', 'last_post_crdate' => 'DESC'));
+		return $query->execute();
 	}
 
 

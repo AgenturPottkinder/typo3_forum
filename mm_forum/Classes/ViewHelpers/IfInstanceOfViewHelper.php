@@ -44,8 +44,8 @@
 	 *
 	 */
 
-Class Tx_MmForum_ViewHelpers_IfInstanceOfViewHelper
-	Extends Tx_Fluid_ViewHelpers_IfViewHelper {
+class Tx_MmForum_ViewHelpers_IfInstanceOfViewHelper
+	extends Tx_Fluid_ViewHelpers_IfViewHelper {
 
 
 
@@ -61,8 +61,8 @@ Class Tx_MmForum_ViewHelpers_IfInstanceOfViewHelper
 		 *
 		 */
 
-	Public Function render(Tx_Extbase_DomainObject_AbstractDomainObject $object, $className) {
-		Return $object InstanceOf $className ? $this->renderThenChild() : $this->renderElseChild();
+	public function render(Tx_Extbase_DomainObject_AbstractDomainObject $object, $className) {
+		return $object instanceof $className ? $this->renderThenChild() : $this->renderElseChild();
 	}
 
 }

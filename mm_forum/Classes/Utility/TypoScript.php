@@ -43,9 +43,13 @@
 	 *
 	 */
 
-Class Tx_MmForum_Utility_TypoScript {
+class Tx_MmForum_Utility_TypoScript {
 
-
+	protected $configurationManager = NULL;
+	
+	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
+		$this->configurationManager = $configurationManager;
+	}
 
 		/**
 		 *
@@ -57,19 +61,18 @@ Class Tx_MmForum_Utility_TypoScript {
 		 *
 		 */
 
-	Public Static Function loadTyposcriptFromPath($configurationPath) {
-		$configurationManager = Tx_Extbase_Dispatcher::getConfigurationManager();
-		$setup = $configurationManager->loadTypoScriptSetup();
+	public function loadTyposcriptFromPath($configurationPath) {
+		$setup = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
 
 		$pathSegments = t3lib_div::trimExplode('.', $configurationPath);
 
 		$lastSegment = array_pop($pathSegments);
-		ForEach ($pathSegments As $segment) {
-			If (!array_key_exists($segment . '.', $setup))
-				Throw New Tx_MmForum_Domain_Exception_TextParser_Exception (
+		foreach ($pathSegments As $segment) {
+			if (!array_key_exists($segment . '.', $setup))
+				throw new Tx_MmForum_Domain_Exception_TextParser_Exception (
 					'TypoScript object path "' . htmlspecialchars($configurationPath) . '" does not exist' , 1253191023);
 			$setup = $setup[$segment . '.'];
-		} Return $setup[$lastSegment.'.'];
+		} return $setup[$lastSegment.'.'];
 	}
 
 }

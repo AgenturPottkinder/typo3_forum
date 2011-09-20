@@ -49,8 +49,6 @@ Class Tx_MmForum_ViewHelpers_Authentication_IfAccessViewHelper
 
 
 
-
-
 		/**
 		 * The frontend user repository.
 		 * @var Tx_MmForum_Domain_Repository_User_FrontendUserRepository
@@ -59,18 +57,17 @@ Class Tx_MmForum_ViewHelpers_Authentication_IfAccessViewHelper
 
 
 
-
-
 		/**
-		 *
-		 * Initializes this ViewHelper.
+		 * 
+		 * Injects a frontend user repository.
+		 * @param  Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository
+		 *                             A frontend user repository.
 		 * @return void
-		 *
+		 * 
 		 */
-
-	Public Function initialize() {
-		parent::initialize();
-		$this->frontendUserRepository =& t3lib_div::makeInstance('Tx_MmForum_Domain_Repository_User_FrontendUserRepository');
+	
+	public function injectFrontendUserRepository(Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository) {
+		$this->frontendUserRepository = $frontendUserRepository;
 	}
 
 

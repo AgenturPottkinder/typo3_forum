@@ -18,10 +18,8 @@
 			</div>
 		</div>
 		<div class="tx-mmforum-form-row tx-mmforum-even">
-			<div class="tx-mmforum-form-left"><label for="text"><f:translate key="Topic_New_Text" /></label></div>
-			<div class="tx-mmforum-form-right">
-				<mmf:form.bbCodeEditor class="tx-mmforum-editor" property="text" id="mmforum_editor" rows="20" cols="80" />
-			</div>
+			<label for="text"><f:translate key="Topic_New_Text" /></label>
+			<mmf:form.bbCodeEditor class="tx-mmforum-editor" property="text" id="mmforum_editor" rows="20" cols="40" />
 		</div>
 		<mmf:authentication.ifAccess object="{forum}" accessType="newAttachment">
 			<div class="tx-mmforum-form-row tx-mmforum-odd">
@@ -38,7 +36,7 @@
 				</div>
 			</div>
 		</mmf:authentication.ifAccess>
-		<div class="tx-mmforum-form-row" style="display:none">
+		<div class="tx-mmforum-form-row">
 			<div class="tx-mmforum-form-right">
 				<f:form.hidden name="forum" value="{forum}" />
 				<f:form.submit value="{f:translate(key:'Topic_New_Submit')}" />
@@ -52,5 +50,4 @@
 
 <f:section name="menu">
 	<mmf:control.bigButton controller="Forum" action="show" arguments="{forum: forum}" iconAction="back"><f:translate key="Button_Back" /></mmf:control.bigButton>
-	<mmf:control.submitButton form="topic"><f:translate key="Topic_New_Submit" /></mmf:control.submitButton>
 </f:section>

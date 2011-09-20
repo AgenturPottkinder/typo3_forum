@@ -43,27 +43,7 @@
 	 *
 	 */
 
-Class Tx_MmForum_ViewHelpers_Control_SubmitButtonViewHelper
-	Extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
-
-
-
-		/**
-		 *
-		 * Renders the big submit button.
-		 * @param  string $form The id of the form that is to be submitted.
-		 * @return string       HTML content
-		 *
-		 */
-
-	Public Function render($form) {
-		$arguments = Array ( 'form' => $form,
-		                     'buttonLabel' => $this->renderChildren(),
-		                     'imgPath' => t3lib_extMgm::siteRelPath('mm_forum').'Resources/Public/Images');
-		Return $this->viewHelperVariableContainer->getView()->renderPartial(
-			'Control/SubmitButton', '', $arguments, $this->viewHelperVariableContainer);
-	}
-
-}
+class Tx_MmForum_ViewHelpers_Control_SubmitButtonViewHelper
+	extends Tx_Fluid_ViewHelpers_Form_SubmitViewHelper { }
 
 ?>

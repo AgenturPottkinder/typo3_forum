@@ -186,7 +186,7 @@ Class Tx_MmForum_Domain_Model_User_FrontendUser Extends Tx_Extbase_Domain_Model_
 		 */
 
 	Public Function isInGroup(Tx_MmForum_Domain_Model_User_FrontendUserGroup $checkGroup) {
-		ForEach($this->getUsergroups() As $group) {
+		ForEach($this->getUsergroup() As $group) {
 			If($group == $checkGroup) Return TRUE;
 		} Return FALSE;
 	}

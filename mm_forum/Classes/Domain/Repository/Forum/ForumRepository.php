@@ -46,6 +46,11 @@
 Class Tx_MmForum_Domain_Repository_Forum_ForumRepository Extends Tx_Extbase_Persistence_Repository {
 
 
+	protected $authenticationService = NULL;
+	
+	public function injectAuthenticationService(Tx_MmForum_Service_Authentication_AuthenticationServiceInterface $authenticationService) {
+		$this->authenticationService = $authenticationService;
+	}
 
 		/**
 		 *
@@ -71,8 +76,17 @@ Class Tx_MmForum_Domain_Repository_Forum_ForumRepository Extends Tx_Extbase_Pers
 
 	Public Function findRootForums() {
 		$query = $this->createQuery();
-		Return $query->matching($query->equals('forum', array(NULL,0)))
+		$result = $query->matching($query->equals('forum', array(NULL,0)))
 			->execute();
+		return $this->filterByAccess($result, 'read');
+	}
+	
+	protected function filterByAccess(Iterator $objects, $action='read') {
+		$result = array();
+		foreach($objects as $forum) {
+			if($this->authenticationService->checkAuthorization($forum, $action))
+				$result[] = $forum;
+		} return $result;
 	}
 
 }

@@ -9,17 +9,17 @@
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
  *  free software; you can redistribute it and/or modify                *
- *  it under the terms of the GNU General Public License as published   *
+ *  it under the terms of the GNU General public License as published   *
  *  by the Free Software Foundation; either version 2 of the License,   *
  *  or (at your option) any later version.                              *
  *                                                                      *
- *  The GNU General Public License can be found at                      *
+ *  The GNU General public License can be found at                      *
  *  http://www.gnu.org/copyleft/gpl.html.                               *
  *                                                                      *
  *  This script is distributed in the hope that it will be useful,      *
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of      *
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the       *
- *  GNU General Public License for more details.                        *
+ *  GNU General public License for more details.                        *
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
@@ -35,13 +35,13 @@
 	 * @package    MmForum
 	 * @subpackage Domain_Model_Format
 	 * @version    $Id$
-	 * @license    GNU Public License, version 2
+	 * @license    GNU public License, version 2
 	 *             http://opensource.org/licenses/gpl-license.php
 	 *
 	 */
 
-Abstract Class Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
-	Extends Tx_Extbase_DomainObject_AbstractValueObject {
+abstract class Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
+	extends Tx_Extbase_DomainObject_AbstractValueObject {
 
 
 
@@ -56,22 +56,22 @@ Abstract Class Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
 
 
 		/**
-		 * The icon that is to be used for this text parser element.
+		 * The CSS class that will be used to render this element's button.
 		 * @var string
 		 */
-	Protected $icon;
+	protected $iconClass;
 
 		/**
 		 * The name of this element. Can also be a locallang label.
 		 * @var string
 		 */
-	Protected $name;
+	protected $name;
 
 		/**
 		 * The default icon directory. This may be overridden by subclasses.
 		 * @var string
 		 */
-	Protected $defaultIconDir = 'Editor/';
+	protected $defaultIconDir = 'Editor/';
 
 
 
@@ -92,7 +92,7 @@ Abstract Class Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
 		 *
 		 */
 
-	Public Function getIcon() { Return $this->icon; }
+	public function getIconClass() { return $this->iconClass; }
 
 
 
@@ -103,34 +103,7 @@ Abstract Class Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
 		 *
 		 */
 
-	Public Function getName() { Return $this->name; }
-
-
-
-		/**
-		 *
-		 * Gets the full icon filename. This method first looks for the filename in the
-		 * upload directory that is configured in the TCA; as a fallback, this method
-		 * looks in the /Resources folder in the extension directory.
-		 *
-		 * @return string The absolute icon filename.
-		 *
-		 */
-
-	Public Function getIconFilename() {
-		global $TCA;
-		$GLOBALS['TSFE']->includeTCA();
-		t3lib_div::loadTCA('tx_mmforum_domain_model_format_textparser');
-
-		$uploadPaths = Array(
-			$TCA['tx_mmforum_domain_model_format_textparser']['columns']['icon']['config']['uploadfolder'],
-			t3lib_extMgm::siteRelPath('mm_forum').'Resources/Public/Images/Icons/'.$this->defaultIconDir
-		);
-
-		ForEach($uploadPaths As $path)
-			If(file_exists($path.$this->getIcon())) Return $path . $this->getIcon();
-		Throw New Tx_MmForum_Domain_Exception_TextParser_Exception("The file {$this->getIcon()} could not be found! I looked in: ".print_r($uploadPaths, TRUE), 1288178589);
-	}
+	public function getName() { return $this->name; }
 
 
 
@@ -146,13 +119,13 @@ Abstract Class Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
 
 		/**
 		 *
-		 * Sets the icon filename.
-		 * @param string $icon The icon filename.
+		 * Sets the icon CSS class.
+		 * @param string $iconClass The icon CSS class.
 		 *
 		 */
 
-	Public Function setIcon($icon) {
-		$this->icon = $icon;
+	public function setIconClass($iconClass) {
+		$this->iconClass = $iconClass;
 	}
 
 
@@ -164,7 +137,7 @@ Abstract Class Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
 		 *
 		 */
 	
-	Public Function setName($name) {
+	public function setName($name) {
 		$this->name = $name;
 	}
 

@@ -3,7 +3,7 @@
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2011 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -72,6 +72,13 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 		 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Post>
 		 */
 	Protected $posts;
+	
+		/**
+		 * The amount of posts in this topic (of course, we could simply do
+		 * count($this->posts), however this is much more performant).
+		 * @var int
+		 */
+	protected $postCount;
 
 		/**
 		 * The user who created the topic
@@ -92,6 +99,13 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 		 * @lazy
 		 */
 	Protected $lastPost;
+	
+		/**
+		 * The creation timestamp of the last post. Enables sorting topics
+		 * without a SQL join on the posts table.
+		 * @var DateTime
+		 */
+	protected $lastPostCrdate;
 
 		/**
 		 * The forum in which this topic is located
@@ -247,12 +261,11 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 		/**
 		 *
 		 * Gets the post count
-		 * @todo   Performance!
 		 * @return integer Post count
 		 *
 		 */
 
-	Public Function getPostCount() { Return count($this->posts); }
+	Public Function getPostCount() { return $this->postCount; }
 
 
 
@@ -437,7 +450,11 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 
 	Public Function addPost(Tx_MmForum_Domain_Model_Forum_Post $post) {
 		$this->posts->attach($post);
+		$this->postCount ++;
 		$this->removeAllReaders();
+		
+		$this->forum->_increasePostCount(+1);
+		$this->_modifiedParent = TRUE;
 
 		If($this->lastPost === NULL || $this->lastPost->getTimestamp() < $post->getTimestamp())
 			$this->setLastPost($post);
@@ -458,12 +475,18 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 
 	Public Function removePost(Tx_MmForum_Domain_Model_Forum_Post $post) {
 		$this->posts->detach($post);
+		$this->postCount --;
+		
+		$this->forum->_increasePostCount(-1);
+		$this->_modifiedParent = TRUE;
 
-		If($this->lastPost === $post)
-			$this->setLastPost($this->posts->offsetGet($this->posts->count()-1));
+		If($this->lastPost->getUid() === $post->getUid()) {
+			$postsArray = $this->posts->toArray();
+			$this->setLastPost(array_pop($postsArray));
+		}
+		
 		If($this->forum->getLastPost() === $post) {
-			$this->forum->resetLastPost();
-			$this->_modifiedParent = TRUE;
+			$this->forum->_resetLastPost();
 		}
 	}
 
@@ -496,6 +519,7 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 
 	Protected Function setLastPost(Tx_MmForum_Domain_Model_Forum_Post $lastPost) {
 		$this->lastPost = $lastPost;
+		$this->lastPostCrdate = $lastPost->getTimestamp();
 	}
 
 
@@ -600,4 +624,3 @@ Class Tx_MmForum_Domain_Model_Forum_Topic
 	}
 
 }
-?>

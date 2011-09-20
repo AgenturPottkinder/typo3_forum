@@ -43,7 +43,8 @@
 	 *
 	 */
 
-Class Tx_MmForum_ViewHelpers_User_UserfieldViewHelper Extends Tx_Fluid_ViewHelpers_CObjectViewHelper {
+class Tx_MmForum_ViewHelpers_User_UserfieldViewHelper
+	extends Tx_Fluid_ViewHelpers_CObjectViewHelper {
 
 
 
@@ -53,7 +54,7 @@ Class Tx_MmForum_ViewHelpers_User_UserfieldViewHelper Extends Tx_Fluid_ViewHelpe
 		 *
 		 */
 
-	Public Function initializeArguments() { /* Empty! Haw, haw! */ }
+	public function initializeArguments() { /* Empty! Haw, haw! */ }
 
 
 
@@ -70,15 +71,15 @@ Class Tx_MmForum_ViewHelpers_User_UserfieldViewHelper Extends Tx_Fluid_ViewHelpe
 		 *
 		 */
 
-	Public Function render ( Tx_MmForum_Domain_Model_User_FrontendUser $user,
+	public function render ( Tx_MmForum_Domain_Model_User_FrontendUser $user,
 	                         Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield $userfield ) {
 
-		If($userfield InstanceOf Tx_MmForum_Domain_Model_User_Userfield_TyposcriptUserfield) {
+		if($userfield instanceof Tx_MmForum_Domain_Model_User_Userfield_TyposcriptUserfield) {
 			$data = $userfield->getValueForUser($user);
 			$data = $this->convertDataToString($data);
 			return parent::render($userfield->getTyposcriptPath().'.output', implode(' ',$data));
-		} Else {
-			Return 'Do not know what to do!';
+		} else {
+			return 'Do not know what to do!';
 		}
 
 	}
@@ -94,13 +95,13 @@ Class Tx_MmForum_ViewHelpers_User_UserfieldViewHelper Extends Tx_Fluid_ViewHelpe
 		 *
 		 */
 	
-	Protected Function convertDataToString($data) {
-		If(is_array($data)) {
-			ForEach($data As $k => &$v) $v = $this->convertDataToString($v);
-			Return $data;
-		} Else {
-			If($data InstanceOf DateTime) Return $data->format ('U');
-			Else Return $data;
+	protected function convertDataToString($data) {
+		if(is_array($data)) {
+			foreach($data as $k => &$v) $v = $this->convertDataToString($v);
+			return $data;
+		} else {
+			if($data instanceof DateTime) return $data->format ('U');
+			else return $data;
 		}
 	}
 

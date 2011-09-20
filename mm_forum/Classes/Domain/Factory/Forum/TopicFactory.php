@@ -137,6 +137,7 @@ Class Tx_MmForum_Domain_Factory_Forum_TopicFactory
 		$topic->setAuthor($this->getCurrentUser());
 
 		$forum->addTopic($topic);
+		$forum->_resetCounters();
 		$this->forumRepository->update($forum);
 
 		Return $topic;
@@ -176,7 +177,7 @@ Class Tx_MmForum_Domain_Factory_Forum_TopicFactory
 		 */
 
 	Public Function createShadowTopic ( Tx_MmForum_Domain_Model_Forum_Topic $topic ) {
-		$shadowTopic = t3lib_div::makeInstance('Tx_MmForum_Domain_Model_Forum_ShadowTopic');
+		$shadowTopic = $this->objectManager->create('Tx_MmForum_Domain_Model_Forum_ShadowTopic');
 		$shadowTopic->setTarget($topic);
 
 		Return $shadowTopic;

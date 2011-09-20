@@ -9,17 +9,17 @@
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
  *  free software; you can redistribute it and/or modify                *
- *  it under the terms of the GNU General Public License as published   *
+ *  it under the terms of the GNU General public License as published   *
  *  by the Free Software Foundation; either version 2 of the License,   *
  *  or (at your option) any later version.                              *
  *                                                                      *
- *  The GNU General Public License can be found at                      *
+ *  The GNU General public License can be found at                      *
  *  http://www.gnu.org/copyleft/gpl.html.                               *
  *                                                                      *
  *  This script is distributed in the hope that it will be useful,      *
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of      *
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the       *
- *  GNU General Public License for more details.                        *
+ *  GNU General public License for more details.                        *
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
@@ -35,14 +35,14 @@
 	 * @package    MmForum
 	 * @subpackage Domain_Model_Forum
 	 * @version    $Id$
-	 * @license    GNU Public License, version 2
+	 * @license    GNU public License, version 2
 	 *             http://opensource.org/licenses/gpl-license.php
 	 *
 	 */
 
-Class Tx_MmForum_Domain_Model_Forum_Forum
-	Extends    Tx_Extbase_DomainObject_AbstractEntity
-	Implements Tx_MmForum_Domain_Model_AccessibleInterface,
+class Tx_MmForum_Domain_Model_Forum_Forum
+	extends    Tx_Extbase_DomainObject_AbstractEntity
+	implements Tx_MmForum_Domain_Model_AccessibleInterface,
 	           Tx_MmForum_Domain_Model_SubscribeableInterface {
 
 
@@ -62,58 +62,83 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 * @var string
 		 * @validate NotEmpty
 		 */
-	Protected $title;
+	protected $title;
 
 		/**
 		 * A description for the forum
 		 * @var string
 		 */
-	Protected $description;
+	protected $description;
 
 		/**
 		 * The child forums
 		 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Forum>
 		 */
-	Protected $children;
+	protected $children;
+	
+		/**
+		 * The VISIBLE child forums of this forum, i.e. all forums that the
+		 * currently logged in user has read access to.
+		 * @var ArrayObject<Tx_MmForum_Domain_Model_Forum_Forum>
+		 */
+	protected $visibleChildren = NULL;
 
 		/**
 		 * The topics in this forum
 		 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Topic>
 		 */
-	Protected $topics;
+	protected $topics;
+	
+		/**
+		 * Amount of topics in this forum.
+		 * @var int
+		 */
+	protected $topicCount;
+	
+		/**
+		 * The amount of post in this forum.
+		 * @var int
+		 */
+	protected $postCount;
 
 		/**
 		 * All access rules
 		 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Access>
 		 */
-	Protected $acls;
+	protected $acls;
 
 		/**
 		 * The last topic.
 		 * @var Tx_MmForum_Domain_Model_Forum_Topic
 		 */
-	Protected $lastTopic;
+	protected $lastTopic;
 
 		/**
 		 * The last post
 		 * @var Tx_MmForum_Domain_Model_Forum_Post
 		 * @lazy
 		 */
-	Protected $lastPost;
+	protected $lastPost;
 
 		/**
 		 * The parent forum
 		 * @var Tx_MmForum_Domain_Model_Forum_Forum
 		 */
-	Protected $forum;
+	protected $forum;
 
 		/**
 		 * All subscribers of this forum
 		 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser>
 		 */
-	Protected $subscribers;
+	protected $subscribers;
 
-	Private $_modifiedParent = FALSE;
+	private $_modifiedParent = FALSE;
+	
+		/**
+		 * An instance of the Extbase object manager. 
+		 * @var Tx_Extbase_Object_ObjectManagerInstance
+		 */
+	protected $objectManager = NULL;
 
 
 
@@ -133,10 +158,14 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 */
 
-	Public Function __construct() {
+	public function __construct() {
 		$this->children = new Tx_Extbase_Persistence_ObjectStorage();
 		$this->topics = new Tx_Extbase_Persistence_ObjectStorage();
 		$this->acls = new Tx_Extbase_Persistence_ObjectStorage();
+	}
+	
+	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
+		$this->objectManager = $objectManager;
 	}
 
 
@@ -158,7 +187,7 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 */
 
-	Public Function getTitle() { Return $this->title; }
+	public function getTitle() { return $this->title; }
 
 
 
@@ -169,19 +198,33 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 */
 
-	Public Function getDescription() {Return $this->description; }
+	public function getDescription() {return $this->description; }
 
 
 
 		/**
 		 *
-		 * Gets all child forums
+		 * Gets all VISIBLE child forums. This function does NOT simply return
+		 * all child forums, but performs an access check on each forum, so
+		 * that only forums visible to the current user are returned.
+		 * 
 		 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Forum>
-		 *                             All child forums
+		 *                             All visible child forums
 		 *
 		 */
 
-	Public Function getChildren() { Return $this->children; }
+	public function getChildren() {
+		if($this->visibleChildren === NULL) {
+			$this->visibleChildren = new ArrayObject();
+			
+				# Dependency injection doesn't work on domain objects, apparently. :(
+			$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
+			$authenticationService = $objectManager->get('Tx_MmForum_Service_Authentication_AuthenticationServiceInterface');
+			foreach($this->children as $child)
+				if($authenticationService->checkAuthorization($child, 'read'))
+					$this->visibleChildren->append($child);
+		} return $this->visibleChildren;
+	}
 
 
 
@@ -193,7 +236,7 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 */
 
-	Public Function getTopics() { Return $this->topics; }
+	public function getTopics() { return $this->topics; }
 
 
 
@@ -205,7 +248,7 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 */
 
-	Public Function getAcls() { Return $this->acls; }
+	public function getAcls() { return $this->acls; }
 
 
 
@@ -216,7 +259,7 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 */
 
-	Public Function getLastTopic() { Return $this->lastTopic; }
+	public function getLastTopic() { return $this->lastTopic; }
 
 
 
@@ -227,10 +270,10 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 */
 
-	Public Function getLastPost() {
-		If($this->lastPost InstanceOf Tx_Extbase_Persistence_LazyLoadingProxy) {
+	public function getLastPost() {
+		if($this->lastPost InstanceOf Tx_Extbase_Persistence_LazyLoadingProxy) {
 			$this->lastPost->_loadRealInstance();
-		} Return $this->lastPost;
+		} return $this->lastPost;
 	}
 
 
@@ -242,7 +285,7 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 */
 
-	Public Function getForum() { Return $this->forum; }
+	public function getForum() { return $this->forum; }
 
 		/**
 		 *
@@ -250,23 +293,19 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 * @return Tx_MmForum_Domain_Model_Forum_Forum The parent forum
 		 *
 		 */
-	Public Function getParent() { Return $this->getForum(); }
+	public function getParent() { return $this->getForum(); }
 
 
 
 		/**
 		 *
 		 * Gets the amount of topics in this forum.
-		 *
-		 * @todo   Performance!
 		 * @return integer The number of topics in this forum
 		 *
 		 */
 
-	Public Function getTopicCount() {
-		$count = count($this->topics);
-		ForEach($this->getChildren() As $child) $count += $child->getTopicCount();
-		Return $count;
+	public function getTopicCount() {
+		return $this->topicCount;
 	}
 
 
@@ -274,16 +313,12 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		/**
 		 *
 		 * Gets the amount of posts in this forum and all subforums.
-		 *
-		 * @todo   Make this performant!
 		 * @return integer The amount of posts in this forum and all subforums.
 		 *
 		 */
 
-	Public Function getPostCount() {
-		ForEach($this->getTopics() As $topic)   $count += $topic->getPostCount();
-		ForEach($this->getChildren() As $child) $count += $child->getPostCount();
-		Return (int)$count;
+	public function getPostCount() {
+		return $this->postCount;
 	}
 
 
@@ -296,7 +331,7 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 */
 
-	Public Function getSubscribers() { Return $this->subscribers; }
+	public function getSubscribers() { return $this->subscribers; }
 
 
 
@@ -310,10 +345,10 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *                             otherwise FALSE.
 		 *
 		 */
-	Public Function hasBeenReadByUser(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
-		ForEach($this->getTopics() As $topic) {
-			If(!$topic->hasBeenReadByUser($user)) Return FALSE;
-		} Return TRUE;
+	public function hasBeenReadByUser(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
+		foreach($this->getTopics() As $topic) {
+			if(!$topic->hasBeenReadByUser($user)) return FALSE;
+		} return TRUE;
 	}
 
 
@@ -333,21 +368,29 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 */
 	
-	Public Function _checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL, $accessType='read') {
-		If(count($this->acls) == 0) {
-			If($this->getParent() != NULL) Return $this->getParent()->_checkAccess($user, $accessType);
-			Else Return $accessType == 'read';
-		} Else {
-			$found = FALSE;
-			ForEach($this->acls As $acl) {
-				If($acl->getOperation() !== $accessType) Continue;
-				Else {
-					If($acl->isEveryone() || ($user !== NULL && (($acl->getGroup !== NULL && $user->isInGroup($acl->getGroup())) || $acl->isAnyLogin()))) {
-						If($acl->isNegated()) Return FALSE; Else $found = TRUE;
-					}
-				}
-			} Return $found ? TRUE : ($this->getParent() != NULL ? $this->getParent()->_checkAccess($user, $accessType) : FALSE);
+	public function _checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL, $accessType='read') {
+		
+			# If there aren't any access rules defined for this forum, delegate
+			# the access check to the parent forum. If there is no parent forum
+			# either, simply deny access (except for 'read' operations).
+		if(count($this->acls) === 0) {
+			if($this->getParent() != NULL) return $this->getParent()->_checkAccess($user, $accessType);
+			else return $accessType === 'read';
 		}
+		
+			# Iterate over all access rules, until a matching rule is found
+			# that explicitly grants or denies access. If no matching rule is
+			# found, delegate to the parent object or deny access (grant read
+			# access, if no parent is set).
+		$found = FALSE;
+		foreach($this->acls As $acl) {
+			if($acl->getOperation() !== $accessType) Continue;
+			
+			if($acl->isEveryone() || ($user !== NULL && (($acl->getGroup() !== NULL && $user->isInGroup($acl->getGroup())) || $acl->isAnyLogin()))) {
+				if($acl->isNegated()) return FALSE;
+				else $found = TRUE;
+			}
+		} return $found ? TRUE : ($this->getParent() != NULL ? $this->getParent()->_checkAccess($user, $accessType) : $accessType === 'read');
 	}
 
 
@@ -362,8 +405,8 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 */
 
-	Public Function checkReadAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
-		Return $this->_checkAccess($user, 'read');
+	public function checkReadAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
+		return $this->_checkAccess($user, 'read');
 	}
 
 
@@ -378,8 +421,8 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 */
 
-	Public Function checkNewPostAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
-		Return $this->_checkAccess($user, 'newPost');
+	public function checkNewPostAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
+		return $this->_checkAccess($user, 'newPost');
 	}
 
 
@@ -394,8 +437,8 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 */
 
-	Public Function checkNewTopicAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
-		Return $this->_checkAccess($user, 'newTopic');
+	public function checkNewTopicAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
+		return $this->_checkAccess($user, 'newTopic');
 	}
 
 
@@ -410,9 +453,9 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 */
 
-	Public Function checkModerationAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
-		If($user === NULL) Return FALSE;
-		Return $this->_checkAccess($user, 'moderate');
+	public function checkModerationAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
+		if($user === NULL) return FALSE;
+		return $this->_checkAccess($user, 'moderate');
 	}
 
 
@@ -436,7 +479,7 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 */
 
-	Public Function setTitle($title) { $this->title = $title; }
+	public function setTitle($title) { $this->title = $title; }
 
 
 
@@ -449,7 +492,7 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 */
 
-	Public Function setDescription($description) {
+	public function setDescription($description) {
 		$this->description = $description;
 	}
 
@@ -464,7 +507,7 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 */
 
-	Public Function addChild(Tx_MmForum_Domain_Model_Forum_Forum $child) {
+	public function addChild(Tx_MmForum_Domain_Model_Forum_Forum $child) {
 		$this->children->attach($child);
 	}
 
@@ -479,7 +522,7 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 */
 
-	Public Function removeChild(Tx_MmForum_Domain_Model_Forum_Forum $child) {
+	public function removeChild(Tx_MmForum_Domain_Model_Forum_Forum $child) {
 		$this->children->detach($child);
 	}
 
@@ -494,14 +537,17 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 */
 
-	Public Function addTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
+	public function addTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
 
-		If($this->lastTopic === NULL || $this->lastTopic->getTimestamp() <= $topic->getTimestamp())
+		if($this->lastTopic === NULL || $this->lastTopic->getTimestamp() <= $topic->getTimestamp())
 			$this->setLastTopic($topic);
-		If($this->lastPost === NULL || $this->lastPost->getTimestamp() <= $topic->getLastPost()->getTimestamp())
+		if($this->lastPost === NULL || $this->lastPost->getTimestamp() <= $topic->getLastPost()->getTimestamp())
 			$this->setLastPost($topic->getLastPost());
 
 		$this->topics->attach($topic);
+		$this->_increaseTopicCount(+1);
+		$this->_increasePostCount($topic->getPostCount());
+		
 	}
 
 
@@ -515,12 +561,14 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 */
 
-	Public Function removeTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
+	public function removeTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
 		$this->topics->detach($topic);
+		$this->_increaseTopicCount(-1);
+		$this->_increasePostCount(-$topic->getPostCount());
 
-		If($this->lastTopic === $topic)
-			$this->resetLastTopic();
-		If($this->lastPost->getTopic() === $topic)
+		if($this->lastTopic === $topic)
+			$this->_resetLastTopic();
+		if($this->lastPost->getTopic() === $topic)
 			$this->setLastPost($this->lastTopic->getLastPost());
 	}
 
@@ -535,7 +583,7 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 */
 
-	Public Function setAcls(Tx_Extbase_Persistence_ObjectStorage $acls) {
+	public function setAcls(Tx_Extbase_Persistence_ObjectStorage $acls) {
 		$this->acls = $acls;
 	}
 
@@ -550,7 +598,7 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 */
 
-	Public Function addAcl(Tx_MmForum_Domain_Model_Forum_Access $acl) {
+	public function addAcl(Tx_MmForum_Domain_Model_Forum_Access $acl) {
 		$this->acls->attach($acl);
 	}
 
@@ -565,7 +613,7 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 */
 
-	Public Function removeAcl(Tx_MmForum_Domain_Model_Forum_Access $acl) {
+	public function removeAcl(Tx_MmForum_Domain_Model_Forum_Access $acl) {
 		$this->acls->detach($acl);
 	}
 
@@ -580,13 +628,12 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 */
 
-	Public Function setLastTopic(Tx_MmForum_Domain_Model_Forum_Topic $lastTopic) {
-
+	public function setLastTopic(Tx_MmForum_Domain_Model_Forum_Topic $lastTopic) {
 		$this->lastTopic = NULL;
 		$this->_memorizePropertyCleanState('lastTopic');
 		$this->lastTopic = $lastTopic;
 
-		If($this->getParent() && ($this->getParent()->getLastTopic() === NULL || $this->getParent()->getLastTopic()->getTimestamp() < $lastTopic->getTimestamp())) {
+		if($this->getParent() && ($this->getParent()->getLastTopic() === NULL || $this->getParent()->getLastTopic()->getTimestamp() < $lastTopic->getTimestamp())) {
 			$this->getParent()->setLastTopic ($lastTopic);
 			$this->_modifiedParent = TRUE;
 		}
@@ -603,12 +650,12 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 		 *
 		 */
 
-	Public Function setLastPost(Tx_MmForum_Domain_Model_Forum_Post $lastPost) {
+	public function setLastPost(Tx_MmForum_Domain_Model_Forum_Post $lastPost) {
 		$this->lastPost = NULL;
 		$this->_memorizePropertyCleanState('lastPost');
 		$this->lastPost = $lastPost;
 
-		If($this->getParent() && ($this->getParent()->getLastPost() === NULL || $this->getParent()->getLastPost()->getTimestamp() < $lastPost->getTimestamp())) {
+		if($this->getParent() && ($this->getParent()->getLastPost() === NULL || $this->getParent()->getLastPost()->getTimestamp() < $lastPost->getTimestamp())) {
 			$this->getParent()->setLastPost($lastPost);
 			$this->_modifiedParent = TRUE;
 		}
@@ -618,26 +665,107 @@ Class Tx_MmForum_Domain_Model_Forum_Forum
 
 		/**
 		 *
-		 * Resets the last posts.
+		 * Resets the last post. This method iterates over all topics in this
+		 * forum and looks for the latest post.
+		 * 
+		 * INTERNAL USE ONLY!
+		 * 
 		 * @return void
 		 *
 		 */
 	
-	Public Function resetLastPost() {
+	public function _resetLastPost() {
 		$lastPost = NULL;
-		ForEach($this->topics As $topic) {
-			If($lastPost === NULL || $topic->getLastPost()->getTimestamp() < $lastPost->getTimestamp())
+		foreach($this->topics As $topic) {
+			if($lastPost === NULL || $topic->getLastPost()->getTimestamp() > $lastPost->getTimestamp())
 				$lastPost = $topic->getLastPost();
 		} $this->setLastPost($lastPost);
 	}
 
-	Public Function resetLastTopic() {
+	
+	
+		/**
+		 * 
+		 * Resets the last topic. This method iterates over all topics in this
+		 * forum and looks for the latest topic.
+		 * 
+		 * INTERNAL USE ONLY!
+		 * 
+		 */
+	
+	public function _resetLastTopic() {
 		$lastTopic = NULL;
-		ForEach($this->topics As $topic) {
-			If($lastTopic === NULL || $topic->getLastPost()->getTimestamp() < $lastTopic->getTimestamp())
+		foreach($this->topics As $topic) {
+			if($lastTopic === NULL || $topic->getLastPost()->getTimestamp() > $lastTopic->getTimestamp())
 				$lastTopic = $topic;
 		} $this->setLastTopic($lastTopic);
 	}
+	
+	
+	
+		/**
+		 * 
+		 * Increases (or decreases) the post count of this forum, and of ALL
+		 * PARENT FORUMS.
+		 * 
+		 * INTERNAL USE ONLY!
+		 * 
+		 * @param  int $amount The amount by which to increase the post count
+		 *                     (set a negative amount to decrease).
+		 * @return void
+		 * 
+		 */
+	
+	public function _increasePostCount($amount=1) {
+		$this->postCount += $amount;
+		if($this->getParent()) {
+			$this->getParent()->_increasePostCount($amount);
+			$this->_modifiedParent = TRUE;
+		}
+	}
+	
+	
+	
+		/**
+		 * 
+		 * Increases (or decreases) the topic count of this forum, and of ALL
+		 * PARENT FORUMS.
+		 * 
+		 * INTERNAL USE ONLY!
+		 * 
+		 * @param  int $amount The amount by which to increase the topic count
+		 *                     (set a negative amount to decrease).
+		 * @return void
+		 * 
+		 */
+	
+	public function _increaseTopicCount($amount=1) {
+		$this->topicCount += $amount;
+		if($this->getParent()) {
+			$this->getParent()->_increaseTopicCount($amount);
+			$this->_modifiedParent = TRUE;
+		}
+	}
+	
+	public function _resetCounters() {
+		$this->_resetTopicCount();
+		$this->_resetPostCount();
+	}
+	
+	public function _resetPostCount() {
+		$this->postCount = 0;
+		foreach($this->children as $child)
+			$this->postCount += $child->getPostCount();
+		foreach($this->topics as $topic)
+			$this->postCount += $topic->getPostCount();
+		if($this->getParent()) $this->getParent()->_resetPostCount();
+	}
+	
+	public function _resetTopicCount() {
+		$this->topicCount = $this->topics->count();
+		foreach($this->children as $child)
+			$this->topicCount += $child->getPostCount();
+		if($this->getParent()) $this->getParent()->_resetTopicCount();
+	}
 
 }
-?>

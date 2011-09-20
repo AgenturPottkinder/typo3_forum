@@ -12,7 +12,7 @@ CREATE TABLE tx_mmforum_domain_model_format_textparser (
   pid int(11) NOT NULL default '0',
   type varchar(64) NOT NULL default 'Tx_MmForum_Domain_Model_Format_BBCode',
   name tinytext,
-  icon tinytext,
+  icon_class tinytext,
   bbcode_wrap varchar(64) default '',
   regular_expression tinytext,
   regular_expression_replacement tinytext,
@@ -101,6 +101,8 @@ CREATE TABLE tx_mmforum_domain_model_forum_forum (
   description tinytext,
   children int(11) unsigned NOT NULL default '0',
   topics int(11) unsigned NOT NULL default '0',
+  topic_count int(11) unsigned NOT NULL default '0',
+  post_count int(11) unsigned NOT NULL default '0',
   acls int(11) unsigned NOT NULL default '0',
   last_topic int(11) unsigned default '0',
   last_post int(11) unsigned default '0',
@@ -134,6 +136,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_post (
   pid int(11) NOT NULL default '0',
   topic int(11) unsigned NOT NULL default '0',
   text text,
+  rendered_text blob,
   author int(11) unsigned default '0',
   tstamp int(11) unsigned NOT NULL default '0',
   crdate int(11) unsigned NOT NULL default '0',
@@ -167,12 +170,14 @@ CREATE TABLE tx_mmforum_domain_model_forum_topic (
   forum int(11) unsigned NOT NULL default '0',
   subject tinytext,
   posts int(11) unsigned NOT NULL default '0',
+  post_count int(11) unsigned NOT NULL default '0',
   author int(11) unsigned default '0',
   subscribers int(11) unsigned default '0',
   last_post int(11) unsigned default '0',
+  last_post_crdate int(11) unsigned default '0',
   closed tinyint(1) unsigned default '0',
   sticky tinyint(1) unsigned default '0',
-  target int(10) unsigned default '',
+  target int(11) unsigned default '0',
   readers int(11) unsigned NOT NULL default '0',
   tstamp int(11) unsigned NOT NULL default '0',
   crdate int(11) unsigned NOT NULL default '0',
@@ -203,8 +208,8 @@ CREATE TABLE tx_mmforum_domain_model_moderation_report (
   pid int(11) NOT NULL default '0',
   post int(11) unsigned NOT NULL default '0',
   reporter int(11) unsigned NOT NULL default '0',
-  moderator int(11) unsigned default '',
-  workflow_status int(11) unsigned default '',
+  moderator int(11) unsigned default '0',
+  workflow_status int(11) unsigned default '0',
   comments int(11) unsigned NOT NULL default '0',
   tstamp int(11) unsigned NOT NULL default '0',
   crdate int(11) unsigned NOT NULL default '0',
@@ -417,3 +422,30 @@ CREATE TABLE fe_users (
   tx_mmforum_userfield_values int(11) unsigned NOT NULL default '0'
   tx_mmforum_read_topics int(11) unsigned NOT NULL default '0'
 );
+
+
+#
+# Table structure for table 'tx_mmforum_cache'
+#
+CREATE TABLE tx_mmforum_cache (
+    id int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+    identifier varchar(250) DEFAULT '' NOT NULL,
+    crdate int(11) UNSIGNED DEFAULT '0' NOT NULL,
+    content mediumblob,
+    lifetime int(11) UNSIGNED DEFAULT '0' NOT NULL,
+    PRIMARY KEY (id),
+    KEY cache_id (identifier)
+) ENGINE=InnoDB;
+ 
+
+#
+# Table structure for table 'tx_mmforum_cache_tags'
+#
+CREATE TABLE tx_mmforum_cache_tags (
+    id int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+    identifier varchar(250) DEFAULT '' NOT NULL,
+    tag varchar(250) DEFAULT '' NOT NULL,
+    PRIMARY KEY (id),
+    KEY cache_id (identifier),
+    KEY cache_tag (tag)
+) ENGINE=InnoDB;

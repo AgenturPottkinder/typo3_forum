@@ -72,6 +72,13 @@ $TCA['tx_mmforum_domain_model_forum_post'] = array(
 				'type' => 'text'
 			)
 		),
+		'rendered_text' => array(
+			'exclude' => 1,
+			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_post.rendered_text',
+			'config'  => array(
+				'type' => 'text'
+			)
+		),
 		'author' => array(
 			'exclude' => 1,
 			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_post.author',

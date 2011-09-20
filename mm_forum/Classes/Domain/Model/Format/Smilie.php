@@ -39,8 +39,9 @@
 	 *
 	 */
 
-Class Tx_MmForum_Domain_Model_Format_Smilie
-	Extends Tx_MmForum_Domain_Model_Format_AbstractTextParserElement {
+class Tx_MmForum_Domain_Model_Format_Smilie
+	extends Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
+	implements Tx_MmForum_TextParser_Panel_MarkItUpExportableInterface {
 
 
 
@@ -87,6 +88,24 @@ Class Tx_MmForum_Domain_Model_Format_Smilie
 	
 	Public Function getSmilieShortcut() {
 		Return $this->smilieShortcut;
+	}
+	
+	
+	
+		/**
+		 * 
+		 * Exports this smilie object as a plain array, that can be used in
+		 * a MarkItUp configuration object.
+		 * @return array A plain array describing this smilie
+		 * 
+		 */
+	
+	public function exportForMarkItUp() {
+		return array(
+			'name' => $this->getName(),
+			'className' => $this->getIconClass(),
+			'replaceWith' => $this->getSmilieShortcut()
+		);
 	}
 
 }

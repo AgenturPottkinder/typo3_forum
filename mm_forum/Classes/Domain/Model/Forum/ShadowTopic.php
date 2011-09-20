@@ -96,6 +96,21 @@ Class Tx_MmForum_Domain_Model_Forum_ShadowTopic
 		 * @return boolean TRUE, if the user can create new posts. Always FALSE.
 		 *
 		 */
+	
+	public function _checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user, $accessType) {
+		if($accessType === 'newPost') return FALSE;
+		else return parent::checkAccess($user, $accessType);
+	}
+
+		/**
+		 *
+		 * Checks if a user can create new posts inside this topic. Since this topic is
+		 * only a shadow topic, this method will ALWAYS return FALSE.
+		 *
+		 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user The user.
+		 * @return boolean TRUE, if the user can create new posts. Always FALSE.
+		 *
+		 */
 
 	Public Function checkNewPostAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
 		Return FALSE;

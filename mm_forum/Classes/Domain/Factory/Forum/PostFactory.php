@@ -70,6 +70,24 @@ Class Tx_MmForum_Domain_Factory_Forum_PostFactory
 		 * @var Tx_MmForum_Domain_Repository_Forum_TopicRepository
 		 */
 	Protected $topicRepository = NULL;
+	
+	protected $topicFactory = NULL;
+	
+		/*
+		 * DEPENDENCY INJECTORS
+		 */
+	
+	public function injectPostRepository(Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository) {
+		$this->postRepository = $postRepository;
+	}
+	
+	public function injectTopicRepository(Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository) {
+		$this->topicRepository = $topicRepository;
+	}
+	
+	public function injectTopicFactory(Tx_MmForum_Domain_Factory_Forum_TopicFactory $topicFactory) {
+		$this->topicFactory = $topicFactory;
+	}
 
 
 
@@ -164,14 +182,10 @@ Class Tx_MmForum_Domain_Factory_Forum_PostFactory
 			# If the post is the only one in the topic, delete the whole topic instead of
 			# this single post. Empty topics are not allowed.
 		If($topic->getPostCount() === 1) {
-			$topicFactory
-				=& t3lib_div::makeInstance('Tx_MmForum_Domain_Factory_Forum_TopicFactory');
-			$topicFactory->deleteTopic($topic);
+			$this->topicFactory->deleteTopic($topic);
 		} Else {
-			$this->topicRepository
-				=& t3lib_div::makeInstance('Tx_MmForum_Domain_Repository_Forum_TopicRepository');
 			$post->getAuthor()->decreasePostCount();
-			$this->frontendUserRepository->update($user);
+			$this->frontendUserRepository->update($post->getAuthor());
 			$topic->removePost($post);
 			$this->topicRepository->update($topic);
 		}

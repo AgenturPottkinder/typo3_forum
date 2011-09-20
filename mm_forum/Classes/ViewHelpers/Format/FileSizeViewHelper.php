@@ -45,14 +45,14 @@
 	 *
 	 */
 
-Class Tx_MmForum_ViewHelpers_Format_FileSizeViewHelper
-	Extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_MmForum_ViewHelpers_Format_FileSizeViewHelper
+	extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
 		/**
 		 * Diffentently scaled units for file sizes.
 		 * @var array
 		 */
-	Protected $suffixes = Array(
+	protected $suffixes = array(
 		0 => 'B', 1 => 'KiB', 2 => 'MiB', 3 => 'GiB', 4 => 'TiB'
 	);
 
@@ -69,10 +69,10 @@ Class Tx_MmForum_ViewHelpers_Format_FileSizeViewHelper
 		 *
 		 */
 
-	Public Function render($decimals = 2, $decimalSeparator = ',', $thousandsSeparator = '.') {
+	public function render($decimals = 2, $decimalSeparator = ',', $thousandsSeparator = '.') {
 		$fileSize = $this->renderChildren(); $suffix = 0;
-		While($fileSize >= 1024) { $fileSize /= 1024; $suffix ++; }
-		Return number_format($fileSize, $decimals, $decimalSeparator, $thousandsSeparator).' '.$this->suffixes[$suffix];
+		while($fileSize >= 1024) { $fileSize /= 1024; $suffix ++; }
+		return number_format($fileSize, $decimals, $decimalSeparator, $thousandsSeparator).' '.$this->suffixes[$suffix];
 	}
 
 }

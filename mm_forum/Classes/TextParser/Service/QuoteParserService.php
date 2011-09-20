@@ -3,7 +3,7 @@
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2011 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -43,8 +43,8 @@
 	 *
 	 */
 
-Class Tx_MmForum_TextParser_Service_QuoteParserService
-	Extends Tx_MmForum_TextParser_Service_AbstractTextParserService {
+class Tx_MmForum_TextParser_Service_QuoteParserService
+	extends Tx_MmForum_TextParser_Service_AbstractTextParserService {
 
 
 
@@ -54,22 +54,31 @@ Class Tx_MmForum_TextParser_Service_QuoteParserService
 		 * The post repository
 		 * @var Tx_MmForum_Domain_Repository_Forum_PostRepository
 		 */
-	Protected $postRepository;
-
-
-
+	protected $postRepository;
 	
+		/**
+		 * A standalone fluid view, used to render each individual quote.
+		 * @var Tx_Fluid_View_StandaloneView
+		 */
+	protected $standaloneView;
+
+
 
 		/**
-		 *
-		 * Creates a new instance of this service.
-		 *
+		 * 
+		 * Injects an instance of the post repository class.
+		 * @param  Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository
+		 *                             An instance of the post repository class
+		 * @return void
+		 * 
 		 */
-
-	Public Function  __construct() {
-		parent::__construct();
-		$this->postRepository =&
-			t3lib_div::makeInstance('Tx_MmForum_Domain_Repository_Forum_PostRepository');
+	
+	public function injectPostRepository(Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository) {
+		$this->postRepository = $postRepository;
+	}
+	
+	public function injectView(Tx_Fluid_View_StandaloneView $view) {
+		$this->view = $view;
 	}
 
 
@@ -83,8 +92,8 @@ Class Tx_MmForum_TextParser_Service_QuoteParserService
 		 *
 		 */
 
-	Public Function getParsedText($text) {
-		Return preg_replace_callback ( '/\[quote=([0-9]+)\](.*?)\[\/quote\]\w*/is',
+	public function getParsedText($text) {
+		return preg_replace_callback ( '/\[quote=([0-9]+)\](.*?)\[\/quote\]\w*/is',
 		                               Array($this,'replaceCallback'), $text );
 	}
 
@@ -99,10 +108,16 @@ Class Tx_MmForum_TextParser_Service_QuoteParserService
 		 */
 
 	Protected Function replaceCallback($matches) {
-		$arguments = Array ( 'post' => $this->postRepository->findByUid((int)$matches[1]),
+		$this->view->setControllerContext($this->controllerContext);
+		$this->view->setTemplatePathAndFilename(Tx_MmForum_Utility_File::replaceSiteRelPath($this->settings['template']));
+		$this->view
+			->assign('post', $this->postRepository->findByUid((int)$matches[1]))
+			->assign('quote', trim($matches[2]));
+		return $this->view->render();
+		/*$arguments = Array ( 'post' => $this->postRepository->findByUid((int)$matches[1]),
 		                     'quote' => trim($matches[2]) );
 		Return $this->viewHelperVariableContainer->getView()->renderPartial (
-			'Format/Quote', '', $arguments, $this->viewHelperVariableContainer);
+			'Format/Quote', '', $arguments, $this->viewHelperVariableContainer);*/
 	}
 
 }

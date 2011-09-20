@@ -44,7 +44,8 @@
 	 *
 	 */
 
-Class Tx_MmForum_Controller_ForumController Extends Tx_MmForum_Controller_AbstractController {
+class Tx_MmForum_Controller_ForumController
+	extends Tx_MmForum_Controller_AbstractController {
 
 
 
@@ -62,20 +63,20 @@ Class Tx_MmForum_Controller_ForumController Extends Tx_MmForum_Controller_Abstra
 		 * A forum repository.
 		 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
 		 */
-	Protected $forumRepository;
+	protected $forumRepository;
 
 		/**
 		 * A topic repository
 		 * @var Tx_MmForum_Domain_Repository_Forum_TopicRepository
 		 */
-	Protected $topicRepository;
+	protected $topicRepository;
 
 
 
 
 
 		/*
-		 * INITIALIZATION METHODS
+		 * DEPENDENCY INJECTION METHODS
 		 */
 
 
@@ -84,29 +85,30 @@ Class Tx_MmForum_Controller_ForumController Extends Tx_MmForum_Controller_Abstra
 
 		/**
 		 *
-		 * Initializes the current action.
+		 * Injects a forum repository.
+		 * @param  Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository
+		 *                             A forum repository.
 		 * @return void
 		 *
 		 */
 
-	Protected Function initializeAction() {
-		parent::initializeAction();
-		$this->forumRepository =&
-			t3lib_div::makeInstance('Tx_MmForum_Domain_Repository_Forum_ForumRepository');
+	public function injectForumRepository(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository) {
+		$this->forumRepository = $forumRepository;
 	}
 
 
 
 		/**
 		 *
-		 * Initializes the show action.
+		 * Injects a topic repository.
+		 * @param  Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository
+		 *                             A topic repository.
 		 * @return void
 		 *
 		 */
 
-	Protected Function initializeShowAction() {
-		$this->topicRepository =&
-			t3lib_div::makeInstance('Tx_MmForum_Domain_Repository_Forum_TopicRepository');
+	public function injectTopicRepository(Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository) {
+		$this->topicRepository = $topicRepository;
 	}
 
 
@@ -128,7 +130,7 @@ Class Tx_MmForum_Controller_ForumController Extends Tx_MmForum_Controller_Abstra
 		 *
 		 */
 
-	Public Function indexAction() {
+	public Function indexAction() {
 		$forums = $this->forumRepository->findForIndex();
 		$this->view->assign('forums', $forums);
 	}
@@ -147,8 +149,7 @@ Class Tx_MmForum_Controller_ForumController Extends Tx_MmForum_Controller_Abstra
 		 *
 		 */
 
-	Public Function showAction(Tx_MmForum_Domain_Model_Forum_Forum $forum, $page=1) {
-
+	public function showAction(Tx_MmForum_Domain_Model_Forum_Forum $forum, $page=1) {
 		$this->authenticationService->assertReadAuthorization($forum);
 		$this->view->assign('forum', $forum)
 		           ->assign('topics', $this->topicRepository->findForIndex($forum, $page, $this->localSettings['show']['pagebrowser']['itemsPerPage']))

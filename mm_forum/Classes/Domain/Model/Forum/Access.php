@@ -115,7 +115,7 @@ Class Tx_MmForum_Domain_Model_Forum_Access Extends Tx_Extbase_DomainObject_Abstr
 		 * relevant if $loginLevel == LOGIN_LEVEL_SPECIFIC.
 		 * @var Tx_MmForum_Domain_Model_User_FrontendUserGroup
 		 */
-	Protected $affected_group;
+	Protected $affectedGroup;
 	
 
 
@@ -185,7 +185,7 @@ Class Tx_MmForum_Domain_Model_Forum_Access Extends Tx_Extbase_DomainObject_Abstr
 		 */
 
 	Public Function getGroup() {
-		Return $this->affected_group;
+		Return $this->affectedGroup;
 	}
 
 
@@ -262,8 +262,8 @@ Class Tx_MmForum_Domain_Model_Forum_Access Extends Tx_Extbase_DomainObject_Abstr
 		 */
 	
 	Public Function setGroup(Tx_MmForum_Domain_Model_User_FrontendUserGroup $group) {
-		$this->affected_group = $group;
+		$this->affectedGroup = $group;
 	}
 	
 }
-?>
+

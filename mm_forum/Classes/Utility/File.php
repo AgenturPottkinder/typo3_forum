@@ -43,7 +43,7 @@
 	 *
 	 */
 
-Class Tx_MmForum_Utility_File {
+class Tx_MmForum_Utility_File {
 
 
 
@@ -57,9 +57,9 @@ Class Tx_MmForum_Utility_File {
 		 *
 		 */
 	
-	Public Static Function replaceSiteRelPath($string) {
-		Return preg_replace_callback ( ',EXT:([0-9a-z_-]+)/,',
-		                               Function($matches) { Return t3lib_extMgm::siteRelPath($matches[1]); },
+	public static function replaceSiteRelPath($string) {
+		return preg_replace_callback ( ',EXT:([0-9a-z_-]+)/,',
+		                               function($matches) { return t3lib_extMgm::siteRelPath($matches[1]); },
 		                               $string );
 	}
 

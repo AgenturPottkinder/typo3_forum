@@ -28,8 +28,6 @@
 
 	/**
 	 *
-	 * Panel for displaying smilie buttons.
-	 *
 	 * @author     Martin Helmich <m.helmich@mittwald.de>
 	 * @package    MmForum
 	 * @subpackage TextParser_Panel
@@ -43,94 +41,29 @@
 	 *
 	 */
 
-Class Tx_MmForum_TextParser_Panel_SmiliePanel
-	Extends Tx_MmForum_TextParser_Panel_DropdownPanel {
-
-
-
-
-
-		/*
-		 * ATTRIBUTES
-		 */
-
-
-
-
+class Tx_MmForum_TextParser_Panel_SmiliePanel
+	extends Tx_MmForum_TextParser_Panel_AbstractPanel {
 	
-		/**
-		 * The smilie repository.
-		 * @var Tx_MmForum_Domain_Repository_Format_SmilieRepository
-		 */
-	Protected $smilieRepository;
-
-
-
-
-
-		/*
-		 * INITIALIZATION
-		 */
-
-
-
-
-
-		/**
-		 *
-		 * Creates a new instance of this panel.
-		 *
-		 */
+	protected $smilieRepository = NULL;
 	
-	Public Function __construct() {
-		parent::__construct();
-		$this->smilieRepository =&
-			t3lib_div::makeInstance('Tx_MmForum_Domain_Repository_Format_SmilieRepository');
+	protected $smilies = NULL;
+	
+	public function injectSmilieRepository(Tx_MmForum_Domain_Repository_Format_SmilieRepository $smilieRepository) {
+		$this->smilieRepository = $smilieRepository;
+		$this->smilies = $this->smilieRepository->findAll();
 	}
-
-
-
-
-
-		/*
-		 * HELPER METHODS
-		 */
-
-
-
-
-
-		/**
-		 *
-		 * Gets all items that are to be rendered.
-		 * @return array<Tx_MmForum_Domain_Model_Format_AbstractTextParserElement>
-		 *                             All items that are to be rendered.
-		 *
-		 */
-
-	Protected Function getItems() {
-		Return $this->smilieRepository->findAll();
-	}
-
-
-
-		/**
-		 *
-		 * Builds the onclick function of a textparser item.
-		 *
-		 * @param  Tx_MmForum_Domain_Model_Format_AbstractTextParserElement $item
-		 *                             The item for which to build the onclick function.
-		 * @return string              The onclick function.
-		 *
-		 */
-
-	Protected Function buildOnclickFunction(Tx_MmForum_Domain_Model_Format_AbstractTextParserElement $item) {
-		If(!$item InstanceOf Tx_MmForum_Domain_Model_Format_Smilie)
-			Throw New Tx_Extbase_Object_InvalidClass (
-				"Instance of Tx_MmForum_Domain_Model_Format_Smilie expected, ".get_class($item)." given!", 1288188529);
-		Return '$(\'#'.$this->editorId.'\').insertAtCaret(\''.$item->getSmilieShortcut().'\');';
+	
+	public function getItems() {
+		$result = array();
+		
+		foreach($this->smilies as $smilie)
+			$result[] = $smilie->exportForMarkItUp();
+		return array(array(
+			'name' => $this->settings['title'],
+			'className' => $this->settings['iconClassName'],
+			'replaceWith' => $this->smilies[0]->getSmilieShortcut(),
+			'dropMenu' => $result
+		));
 	}
 
 }
-
-?>

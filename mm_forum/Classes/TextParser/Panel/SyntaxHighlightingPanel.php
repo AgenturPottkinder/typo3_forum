@@ -28,8 +28,6 @@
 
 	/**
 	 *
-	 * Panel for displaying syntax highlighting buttons.
-	 *
 	 * @author     Martin Helmich <m.helmich@mittwald.de>
 	 * @package    MmForum
 	 * @subpackage TextParser_Panel
@@ -43,45 +41,30 @@
 	 *
 	 */
 
-Class Tx_MmForum_TextParser_Panel_SyntaxHighlightingPanel
-	Extends Tx_MmForum_TextParser_Panel_BBCodePanel {
-
-
-
-		/**
-		 * The syntax highlighting repository.
-		 * @var Tx_MmForum_Domain_Repository_Format_SyntaxHighlightingRepository
-		 */
-
-	Protected $syntaxHighlightingRepository;
-
-
-
-		/**
-		 *
-		 * Creates a new instance of this panel
-		 *
-		 */
-
-	Public Function __construct() {
-		$this->syntaxHighlightingRepository =&
-			t3lib_div::makeInstance('Tx_MmForum_Domain_Repository_Format_SyntaxHighlightingRepository');
-	}
-
+class Tx_MmForum_TextParser_Panel_SyntaxHighlightingPanel
+	extends Tx_MmForum_TextParser_Panel_AbstractPanel {
 	
-
-		/**
-		 *
-		 * Gets all items that are to be rendered.
-		 * @return array<Tx_MmForum_Domain_Model_Format_AbstractTextParserElement>
-		 *                             All items that are to be rendered.
-		 *
-		 */
-
-	Protected Function getItems() {
-		Return $this->syntaxHighlightingRepository->findAll();
+	protected $syntaxHighlightingRepository = NULL;
+	
+	protected $syntaxHighlightings = NULL;
+	
+	public function injectSyntaxHighlightingRepository(Tx_MmForum_Domain_Repository_Format_SyntaxHighlightingRepository $syntaxHighlightingRepository) {
+		$this->syntaxHighlightingRepository = $syntaxHighlightingRepository;
+		$this->syntaxHighlightings = $this->syntaxHighlightingRepository->findAll();
+	}
+	
+	public function getItems() {
+		$result = array();
+		
+		foreach($this->syntaxHighlightings as $syntaxHighlighting)
+			$result[] = $syntaxHighlighting->exportForMarkItUp();
+		return array(array(
+			'name' => $this->settings['title'],
+			'className' => $this->settings['iconClassName'],
+			'openWith' => '[code]',
+			'closeWith' => '[/code]',
+			'dropMenu' => $result
+		));
 	}
 
 }
-
-?>

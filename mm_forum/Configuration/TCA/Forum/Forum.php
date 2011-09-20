@@ -104,6 +104,20 @@ $TCA['tx_mmforum_domain_model_forum_forum'] = array(
 				),
 			)
 		),
+		'topic_count' => array(
+			'exclude' => 0,
+			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_forum.topic_count',
+			'config'  => array(
+				'type' => 'display'
+			)
+		),
+		'post_count' => array(
+			'exclude' => 0,
+			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_forum.post_count',
+			'config'  => array(
+				'type' => 'display'
+			)
+		),
 		'acls' => array(
 			'exclude' => 0,
 			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_forum.acls',

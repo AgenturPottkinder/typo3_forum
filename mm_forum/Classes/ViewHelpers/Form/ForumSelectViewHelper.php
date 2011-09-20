@@ -62,7 +62,7 @@ Class Tx_MmForum_ViewHelpers_Form_ForumSelectViewHelper
 		 * The forum repository.
 		 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
 		 */
-	Protected $forumRepository = NULL;
+	protected $forumRepository = NULL;
 
 
 
@@ -78,15 +78,15 @@ Class Tx_MmForum_ViewHelpers_Form_ForumSelectViewHelper
 
 		/**
 		 *
-		 * Initializes the view helper.
+		 * Injects a forum repository.
+		 * @param  Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository
+		 *                             A forum repository.
 		 * @return void
 		 *
 		 */
 
-	Public Function initialize() {
-		parent::initialize();
-		$this->forumRepository =&
-			t3lib_div::makeInstance('Tx_MmForum_Domain_Repository_Forum_ForumRepository');
+	public function injectForumRepository(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository) {
+		$this->forumRepository = $forumRepository;
 	}
 
 

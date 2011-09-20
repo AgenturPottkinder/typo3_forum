@@ -88,52 +88,39 @@ Class Tx_MmForum_Controller_TopicController Extends Tx_MmForum_Controller_Abstra
 
 		/**
 		 * A service class for notifying forum subscribers about new topics.
-		 * @var Tx_MmForum_Service_NotificationService
+		 * @var Tx_MmForum_Service_NotificationServiceInterface
 		 */
 	Protected $notificationService;
 
 
 
 
-
 		/*
-		 * INITIALIZATION METHODS
+		 * DEPENDENCY INJECTORS
 		 */
-
-
-
-
-
-		/**
-		 *
-		 * Initializes the show action.
-		 * @return void
-		 *
-		 */
-
-	Protected Function initializeShowAction() {
-		$this->postRepository =&
-			t3lib_div::makeInstance('Tx_MmForum_Domain_Repository_Forum_PostRepository');
+	
+	public function injectForumRepository(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository) {
+		$this->forumRepository = $forumRepository;
 	}
-
-		/**
-		 *
-		 * Initializes the create action.
-		 * @return void
-		 *
-		 */
-
-	Protected Function initializeCreateAction() {
-		$this->topicRepository =&
-			t3lib_div::makeInstance('Tx_MmForum_Domain_Repository_Forum_TopicRepository');
-		$this->topicFactory =&
-			t3lib_div::makeInstance('Tx_MmForum_Domain_Factory_Forum_TopicFactory');
-		$this->postFactory =&
-			t3lib_div::makeInstance('Tx_MmForum_Domain_Factory_Forum_PostFactory');
-		$this->notificationService =&
-			t3lib_div::makeInstance('Tx_MmForum_Service_NotificationService');
-		$this->notificationService->injectControllerContext($this->buildControllerContext());
-		$this->notificationService->injectMailingService($this->buildMailingService());
+	
+	public function injectTopicRepository(Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository) {
+		$this->topicRepository = $topicRepository;
+	}
+	
+	public function injectPostRepository(Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository) {
+		$this->postRepository = $postRepository;
+	}
+	
+	public function injectTopicFactory(Tx_MmForum_Domain_Factory_Forum_TopicFactory $topicFactory) {
+		$this->topicFactory = $topicFactory;
+	}
+	
+	public function injectPostFactory(Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory) {
+		$this->postFactory = $postFactory;
+	}
+	
+	public function injectNotificationService(Tx_MmForum_Service_Notification_NotificationServiceInterface $notificationService) {
+		$this->notificationService = $notificationService;
 	}
 
 

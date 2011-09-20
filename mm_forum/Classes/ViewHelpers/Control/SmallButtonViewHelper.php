@@ -43,33 +43,12 @@
 	 *
 	 */
 
-Class Tx_MmForum_ViewHelpers_Control_SmallButtonViewHelper
-	Extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
-
-
-
-		/**
-		 *
-		 * Renders the small button.
-		 *
-		 * @param  string $controller  Target controller
-		 * @param  string $action      Target action
-		 * @param   array $arguments   Additional link action
-		 * @param  string $iconAction  Optional different action name for use in the icon
-		 *                             filename.
-		 * @return                     The HTML code of the big button.
-		 *
-		 */
-
-	Public Function render($controller, $action, $arguments = Array(), $iconAction=NULL) {
-		$arguments = Array ( 'controller'  => $controller,
-		                     'action'      => $action,
-		                     'arguments'   => $arguments,
-		                     'buttonLabel' => $this->renderChildren(),
-		                     'iconAction'  => $iconAction ? $iconAction : $action,
-		                     'imgPath'     => t3lib_extMgm::siteRelPath('mm_forum').'Resources/Public/Images' );
-		Return $this->viewHelperVariableContainer->getView()->renderPartial(
-			'Control/SmallButton', '', $arguments, $this->viewHelperVariableContainer);
+class Tx_MmForum_ViewHelpers_Control_SmallButtonViewHelper
+	extends Tx_MmForum_ViewHelpers_Control_BigButtonViewHelper {
+		
+	public function initialize() {
+		parent::initialize();
+		$this->tag->addAttribute('class', 'tx-mmforum-button-small');
 	}
 
 }

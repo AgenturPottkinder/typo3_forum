@@ -106,7 +106,7 @@ Class Tx_MmForum_TextParser_Service_SmilieParserService
 		 */
 
 	Public Function getParsedText($text) {
-		ForEach($this->smilies As &$smilie) {
+		ForEach($this->smilies As $smilie) {
 			$text = str_replace ( $smilie->getSmilieShortcut(),
 			                      $this->getSmilieIcon($smilie), $text );
 		} Return $text;

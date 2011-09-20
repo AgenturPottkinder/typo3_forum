@@ -44,8 +44,9 @@
 	 *
 	 */
 
-Abstract Class Tx_MmForum_Service_Mailing_AbstractMailingService
-	Extends Tx_MmForum_Service_AbstractService {
+abstract class Tx_MmForum_Service_Mailing_AbstractMailingService
+	extends Tx_MmForum_Service_AbstractService
+	implements Tx_MmForum_Service_Mailing_MailingServiceInterface {
 
 
 
@@ -59,8 +60,8 @@ Abstract Class Tx_MmForum_Service_Mailing_AbstractMailingService
 
 
 
-	Const MAILING_FORMAT_HTML = 'html';
-	Const MAILING_FORMAT_PLAIN = 'txt';
+	const MAILING_FORMAT_HTML = 'html';
+	const MAILING_FORMAT_PLAIN = 'txt';
 
 
 
@@ -79,7 +80,7 @@ Abstract Class Tx_MmForum_Service_Mailing_AbstractMailingService
 		 * 'html' or 'txt'.
 		 * @var string
 		 */
-	Protected $format = Tx_MmForum_Service_Mailing_AbstractMailingService::MAILING_FORMAT_HTML;
+	protected $format = Tx_MmForum_Service_Mailing_AbstractMailingService::MAILING_FORMAT_HTML;
 
 
 
@@ -107,7 +108,7 @@ Abstract Class Tx_MmForum_Service_Mailing_AbstractMailingService
 		 *
 		 */
 
-	Abstract Public Function sendMail(Tx_Extbase_Domain_Model_FrontendUser $recipient, $subject, $bodytext);
+	public function sendMail(Tx_Extbase_Domain_Model_FrontendUser $recipient, $subject, $bodytext) {}
 
 
 
@@ -118,7 +119,7 @@ Abstract Class Tx_MmForum_Service_Mailing_AbstractMailingService
 		 *
 		 */
 
-	Public Function getFormat() { Return $this->format; }
+	public function getFormat() { return $this->format; }
 
 
 
@@ -139,8 +140,8 @@ Abstract Class Tx_MmForum_Service_Mailing_AbstractMailingService
 		 *
 		 */
 
-	Protected Function getDefaultSenderName() {
-		Return $this->settings['mailing.']['sender.']['name'];
+	protected function getDefaultSenderName() {
+		return $this->settings['mailing.']['sender.']['name'];
 	}
 
 
@@ -152,8 +153,8 @@ Abstract Class Tx_MmForum_Service_Mailing_AbstractMailingService
 		 *
 		 */
 
-	Protected Function getDefaultSenderAddress() {
-		Return $this->settings['mailing.']['sender.']['address'];
+	protected function getDefaultSenderAddress() {
+		return $this->settings['mailing.']['sender.']['address'];
 	}
 
 
@@ -166,8 +167,8 @@ Abstract Class Tx_MmForum_Service_Mailing_AbstractMailingService
 		 *
 		 */
 
-	Protected Function getDefaultSender() {
-		Return $this->getDefaultSenderName().' <'.$this->getDefaultSenderAddress().'>';
+	protected function getDefaultSender() {
+		return $this->getDefaultSenderName().' <'.$this->getDefaultSenderAddress().'>';
 	}
 
 
@@ -180,8 +181,8 @@ Abstract Class Tx_MmForum_Service_Mailing_AbstractMailingService
 		 *
 		 */
 	
-	Protected Function getCharset() {
-		Return $GLOBALS['TSFE']->renderCharset;
+	protected function getCharset() {
+		return $GLOBALS['TSFE']->renderCharset;
 	}
 
 }

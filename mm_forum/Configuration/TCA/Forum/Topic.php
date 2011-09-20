@@ -103,6 +103,13 @@ $TCA['tx_mmforum_domain_model_forum_topic'] = array(
 				),
 			)
 		),
+		'post_count' => array(
+			'exclude' => 1,
+			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_topic.post_count',
+			'config'  => array(
+				'type' => 'display'
+			)
+		),
 		'author' => array(
 			'exclude' => 0,
 			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_topic.author',
@@ -121,6 +128,13 @@ $TCA['tx_mmforum_domain_model_forum_topic'] = array(
 				'foreign_table' => 'tx_mmforum_domain_model_forum_post',
 				'minitems' => 1,
 				'maxitems' => 1,
+			)
+		),
+		'last_post_crdate' => array(
+			'exclude' => 0,
+			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_topic.last_post_crdate',
+			'config'  => array(
+				'type' => 'display',
 			)
 		),
 		'forum' => array(

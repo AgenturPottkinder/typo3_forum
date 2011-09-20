@@ -43,7 +43,7 @@
 	 *
 	 */
 
-Class Tx_MmForum_Utility_Localization {
+class Tx_MmForum_Utility_Localization {
 
 
 	
@@ -61,9 +61,9 @@ Class Tx_MmForum_Utility_Localization {
 		 *
 		 */
 
-	Public Static Function translate($key, $default=NULL, $arguments=Array()) {
+	public static function translate($key, $default=NULL, $arguments=Array()) {
 		$l = Tx_Extbase_Utility_Localization::translate($key, 'MmForum', $arguments);
-		Return $l === NULL ? $default : $l;
+		return $l === NULL ? $default : $l;
 	}
 
 }

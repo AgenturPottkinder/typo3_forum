@@ -44,8 +44,8 @@
 	 * 
 	 */
 
-Class Tx_MmForum_Controller_UserController
-	Extends Tx_MmForum_Controller_AbstractController {
+class Tx_MmForum_Controller_UserController
+	extends Tx_MmForum_Controller_AbstractController {
 
 
 
@@ -63,64 +63,26 @@ Class Tx_MmForum_Controller_UserController
 		 * The userfield repository.
 		 * @var Tx_MmForum_Domain_Repository_User_UserfieldRepository
 		 */
-	Protected $userfieldRepository = NULL;
+	protected $userfieldRepository = NULL;
 
 		/**
 		 * The topic repository
 		 * @var Tx_MmForum_Domain_Repository_Forum_TopicRepository
 		 */
-	Protected $topicRepository = NULL;
-
-
+	protected $topicRepository = NULL;
 
 
 
 		/*
-		 * INITIALIZATION METHODS
+		 * DEPENDENCY INJECTORS
 		 */
-
-
-
-
-
-		/**
-		 *
-		 * Initializes all action methods.
-		 * @return void
-		 *
-		 */
-
-	Protected Function initializeAction() {
-		parent::initializeAction();
+	
+	public function injectTopicRepository(Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository) {
+		$this->topicRepository = $topicRepository;
 	}
-
-
-
-		/**
-		 *
-		 * Initializes the list post action.
-		 * @return void
-		 *
-		 */
-	Protected Function initializeListPostsAction() {
-		$this->topicRepository =&
-			t3lib_div::makeInstance('Tx_MmForum_Domain_Repository_Forum_TopicRepository');
-	}
-
-
-
-		/**
-		 *
-		 * Initializes the show action.
-		 * @return void
-		 *
-		 */
-
-	Protected Function initializeShowAction() {
-		$this->userfieldRepository =&
-			t3lib_div::makeInstance('Tx_MmForum_Domain_Repository_User_UserfieldRepository');
-		$this->topicRepository =&
-			t3lib_div::makeInstance('Tx_MmForum_Domain_Repository_Forum_TopicRepository');
+	
+	public function injectUserfieldRepository(Tx_MmForum_Domain_Repository_User_UserfieldRepository $userfieldRepository) {
+		$this->userfieldRepository = $userfieldRepository;
 	}
 
 
@@ -143,7 +105,7 @@ Class Tx_MmForum_Controller_UserController
 		 * @return void
 		 *
 		 */
-	Public Function indexAction($page=1) {
+	public function indexAction($page=1) {
 		$this->view->assign('users', $this->frontendUserRepository->findForIndex((int)$this->localSettings['index']['pagebrowser']['itemsPerPage'], $page))
 			->assign('page', $page)
 			->assign('totalUserCount', $this->frontendUserRepository->countAll());
@@ -156,9 +118,9 @@ Class Tx_MmForum_Controller_UserController
 		 * @return void
 		 *
 		 */
-	Public Function listPostsAction(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL, $page=1) {
-		If($user === NULL) $user = $this->getCurrentUser();
-		If($user === NULL) Throw New Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException (
+	public function listPostsAction(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL, $page=1) {
+		if($user === NULL) $user = $this->getCurrentUser();
+		if($user === NULL) throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException (
 			"You need to be logged in to view your own posts.", 1288084981 );
 		$this->view->assign('topics', $this->topicRepository->findByPostAuthor($user, $page, (int)$this->localSettings['listPosts']['pagebrowser']['itemsPerPage']))
 			->assign('user', $user)->assign('page', $page)
@@ -177,7 +139,7 @@ Class Tx_MmForum_Controller_UserController
 		 *
 		 */
 
-	Public Function showAction(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+	public function showAction(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
 		$this->view->assign('user', $user)
 			->assign('userfields', $this->userfieldRepository->findAll())
 			->assign('topics', $this->topicRepository->findByPostAuthor($user,1,5));
@@ -199,20 +161,20 @@ Class Tx_MmForum_Controller_UserController
 		 * 
 		 */
 
-	Public Function subscribeAction ( Tx_MmForum_Domain_Model_Forum_Forum $forum=NULL,
+	public function subscribeAction ( Tx_MmForum_Domain_Model_Forum_Forum $forum=NULL,
 	                                  Tx_MmForum_Domain_Model_Forum_Topic $topic=NULL,
 	                                  $unsubscribe=FALSE ) {
 
 			# Validate arguments
-		If($forum === NULL && $topic === NULL)
-			Throw New Tx_Extbase_MVC_Exception_InvalidArgumentValue ("You need to subscribe a Forum or Topic!", 1285059341);
+		if($forum === NULL && $topic === NULL)
+			throw new Tx_Extbase_MVC_Exception_InvalidArgumentValue ("You need to subscribe a Forum or Topic!", 1285059341);
 
 			# Create subscription
 		$object =  $forum ? $forum : $topic;
 		$user   =& $this->getCurrentUser();
 
-		If($unsubscribe) $user->removeSubscription($object);
-		Else             $user->addSubscription($object);
+		if($unsubscribe) $user->removeSubscription($object);
+		else             $user->addSubscription($object);
 
 			# Update user and redirect to subscription object.
 		$this->frontendUserRepository->update($user);
@@ -245,10 +207,10 @@ Class Tx_MmForum_Controller_UserController
 		 *
 		 */
 
-	Protected Function redirectToSubscriptionObject(Tx_MmForum_Domain_Model_SubscribeableInterface $object) {
-		If($object InstanceOf Tx_MmForum_Domain_Model_Forum_Forum)
+	protected function redirectToSubscriptionObject(Tx_MmForum_Domain_Model_SubscribeableInterface $object) {
+		if($object instanceof Tx_MmForum_Domain_Model_Forum_Forum)
 			$this->redirect ('show', 'Forum', NULL, array('forum' => $object));
-		If($object InstanceOf Tx_MmForum_Domain_Model_Forum_Topic)
+		if($object instanceof Tx_MmForum_Domain_Model_Forum_Topic)
 			$this->redirect ('show', 'Topic', NULL, array('topic' => $object));
 	}
 
@@ -263,10 +225,10 @@ Class Tx_MmForum_Controller_UserController
 		 *
 		 */
 
-	Protected Function getSubscriptionFlashMessage(Tx_MmForum_Domain_Model_SubscribeableInterface $object, $unsubscribe=FALSE) {
+	protected function getSubscriptionFlashMessage(Tx_MmForum_Domain_Model_SubscribeableInterface $object, $unsubscribe=FALSE) {
 		$type = array_pop(explode('_',get_class($object)));
 		$key  = 'User_'.($unsubscribe ? 'Uns' : 'S').'ubscribe_'.$type.'_Success';
-		Return Tx_Extbase_Utility_Localization::translate($key, 'MmForum', Array($object->getTitle()));
+		return Tx_Extbase_Utility_Localization::translate($key, 'MmForum', array($object->getTitle()));
 	}
 	
 }

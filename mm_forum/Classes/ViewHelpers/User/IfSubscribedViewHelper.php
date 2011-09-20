@@ -44,8 +44,8 @@
 	 *
 	 */
 
-Class Tx_MmForum_ViewHelpers_User_IfSubscribedViewHelper
-	Extends Tx_Fluid_ViewHelpers_IfViewHelper {
+class Tx_MmForum_ViewHelpers_User_IfSubscribedViewHelper
+	extends Tx_Fluid_ViewHelpers_IfViewHelper {
 
 
 
@@ -63,14 +63,14 @@ Class Tx_MmForum_ViewHelpers_User_IfSubscribedViewHelper
 		 *
 		 */
 
-	Public Function render ( Tx_MmForum_Domain_Model_SubscribeableInterface $object,
+	public function render ( Tx_MmForum_Domain_Model_SubscribeableInterface $object,
 	                         Tx_MmForum_Domain_Model_User_FrontendUser      $user = NULL ) {
-		If($user === NULL)
+		if($user === NULL)
 			$user =& t3lib_div::makeInstance('Tx_MmForum_Domain_Repository_User_FrontendUserRepository')->findCurrent();
 
-		ForEach($object->getSubscribers() As $subscriber) {
-			If($subscriber->getUid() == $user->getUid()) Return $this->renderThenChild();
-		} Return $this->renderElseChild();
+		foreach($object->getSubscribers() As $subscriber) {
+			if($subscriber->getUid() == $user->getUid()) return $this->renderThenChild();
+		} return $this->renderElseChild();
 	}
 
 }

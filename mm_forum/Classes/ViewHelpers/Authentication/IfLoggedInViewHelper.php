@@ -44,8 +44,8 @@
 	 *
 	 */
 
-Class Tx_MmForum_ViewHelpers_Authentication_IfLoggedInViewHelper
-	Extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_MmForum_ViewHelpers_Authentication_IfLoggedInViewHelper
+	extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
 
 
@@ -56,8 +56,8 @@ Class Tx_MmForum_ViewHelpers_Authentication_IfLoggedInViewHelper
 		 *
 		 */
 	
-	Public Function render() {
-		Return $GLOBALS['TSFE']->fe_user->user['uid'] ? $this->renderChildren() : '';
+	public function render() {
+		return $GLOBALS['TSFE']->fe_user->user['uid'] ? $this->renderChildren() : '';
 	}
 
 }

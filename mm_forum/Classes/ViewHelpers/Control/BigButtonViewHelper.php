@@ -43,33 +43,36 @@
 	 *
 	 */
 
-Class Tx_MmForum_ViewHelpers_Control_BigButtonViewHelper
-	Extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_MmForum_ViewHelpers_Control_BigButtonViewHelper
+	extends Tx_Fluid_ViewHelpers_Link_ActionViewHelper {
 
-
-
-		/**
-		 *
-		 * Renders the big button.
-		 *
-		 * @param  string $controller  Target controller
-		 * @param  string $action      Target action
-		 * @param   array $arguments   Additional link action
-		 * @param  string $iconAction  Optional different action name for use in the icon
-		 *                             filename.
-		 * @return                     The HTML code of the big button.
-		 *
-		 */
-
-	Public Function render($controller, $action, $arguments = Array(), $iconAction=NULL) {
-		$arguments = Array ( 'controller'  => $controller,
-		                     'action'      => $action,
-		                     'arguments'   => $arguments,
-		                     'buttonLabel' => $this->renderChildren(),
-		                     'iconAction'  => $iconAction ? $iconAction : $action,
-		                     'imgPath'     => t3lib_extMgm::siteRelPath('mm_forum').'Resources/Public/Images' );
-		Return $this->viewHelperVariableContainer->getView()->renderPartial(
-			'Control/BigButton', '', $arguments, $this->viewHelperVariableContainer);
+	public function initializeArguments() {
+		parent::initializeArguments();
+		
+		$this->registerArgument('iconAction', 'string', 'Deprecated!');
+		$this->registerArgument('icon', 'string', 'Icon name');
+		$this->registerArgument('iconClass', 'string', 'Classname for the icon');
+	}
+	
+	public function initialize() {
+		parent::initialize();
+		$this->tag->addAttribute('class', 'tx-mmforum-button-big');
+	}
+		
+	protected function renderChildren() {
+		$content = parent::renderChildren();
+		$iconClass = NULL; 
+		
+		if($this->arguments['iconClass'])
+				$iconClass = $this->arguments['iconClass'];
+		elseif($this->arguments['icon'])
+				$iconClass = 'tx-mmforum-icon-'.$this->arguments['icon'];
+		elseif($this->arguments['iconAction'])
+				$iconClass = 'tx-mmforum-icon-'.$this->arguments['iconAction'];
+		
+		if($iconClass)
+				$content = '<div class="'.$iconClass.'"></div> '.$content;
+		return $content;
 	}
 
 }

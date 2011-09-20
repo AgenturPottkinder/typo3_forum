@@ -25,7 +25,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'state' => 'alpha',
 	'internal' => '',
 	'uploadfolder' => 0,
-	'createDirs' => '',
+	'createDirs' => 'typo3temp/mm_forum',
 	'modify_tables' => 'fe_users',
 	'clearCacheOnLoad' => 0,
 	'lockType' => '',
@@ -33,15 +33,15 @@ $EM_CONF[$_EXTKEY] = array(
 	'constraints' => array(
 		'depends' => array(
 			'cms' => '',
-			'extbase' => '1.2.0',
-			'fluid' => '1.2.0',
-			'sr_feuser_register' => '',
+			'extbase' => '1.3.0',
+			'fluid' => '1.3.0',
 			'static_info_tables' => '',
 			'php' => '5.3'
 		),
 		'conflicts' => array(
 		),
 		'suggests' => array(
+			'sr_feuser_register' => '',
 		),
 	),
 );

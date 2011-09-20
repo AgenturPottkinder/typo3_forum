@@ -43,8 +43,8 @@
 	 *
 	 */
 
-Class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper
-	Extends Tx_Fluid_ViewHelpers_Form_TextareaViewHelper {
+class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper
+	extends Tx_Fluid_ViewHelpers_Form_TextareaViewHelper {
 
 
 
@@ -55,20 +55,28 @@ Class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper
 		 */
 
 
-
-
+		
+	protected $cache = NULL;
 
 		/**
-		 * Configuration array
+		 * Instance of the mm_forum TypoScript reader class. This class is used
+		 * to read a bbcode editor's configuration from the typoscript setup.
+		 * @var unknown_type
+		 */
+	protected $typoscriptReader = NULL;
+
+		/**
+		 * Configuration array. This array is read from the typoscript setup by
+		 * the typoscript reader instance (see above).
 		 * @var array
 		 */
-	Protected $configuration = NULL;
+	protected $configuration = NULL;
 
 		/**
 		 * Panels that contain bb code buttons.
 		 * @var array<Tx_MmForum_TextParser_Panel_AbstractPanel>
 		 */
-	Protected $panels;
+	protected $panels = array();
 
 
 
@@ -80,8 +88,24 @@ Class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper
 
 
 
+	public function injectCache(Tx_MmForum_Cache_Cache $cache) {
+		$this->cache = $cache;
+	}
 
+		/**
+		 * 
+		 * Injects an instance of the mm_forum typoscript reader.
+		 * @param  Tx_MmForum_Utility_TypoScript $typoscriptReader
+		 *                             An instance of the mm_forum typoscript reader
+		 * @return void
+		 */
+	
+	public function injectTyposcriptReader(Tx_MmForum_Utility_TypoScript $typoscriptReader) {
+		$this->typoscriptReader = $typoscriptReader;
+	}
 
+	
+	
 		/**
 		 *
 		 * Initializes the view helper arguments.
@@ -89,7 +113,7 @@ Class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper
 		 *
 		 */
 
-	Public Function initializeArguments() {
+	public function initializeArguments() {
 		parent::initializeArguments();
 		$this->registerArgument('configuration', 'string', 'Path to TS configuration', FALSE, 'plugin.tx_mmforum.settings.textParsing.editorPanel');
 	}
@@ -106,20 +130,26 @@ Class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper
 		 *
 		 */
 
-	Protected Function loadConfiguration($configurationPath) {
-		If($this->configuration !== NULL) Return;
+	protected function initializeJavascriptSetupFromConfiguration($configurationPath) {
+		$this->configuration = $this->typoscriptReader->loadTyposcriptFromPath($configurationPath);
+		if($this->cache->has('bbcodeeditor-jsonconfig'))
+			return $this->javascriptSetup = $this->cache->get('bbcodeeditor-jsonconfig');
 
-		$this->configuration = Tx_MmForum_Utility_TypoScript::loadTyposcriptFromPath($configurationPath);
-		ForEach($this->configuration['panels.'] As $name => $configuration) {
-			$className = $configuration['className'];
-			$newService = t3lib_div::makeInstance($className);
-			$newService->injectSettings($configuration);
-			$newService->setEditorId($this->arguments->offsetGet('id'));
-			If(!$newService InstanceOf Tx_MmForum_TextParser_Panel_AbstractPanel)
-				Throw New Tx_Extbase_Object_InvalidClass (
-					"All classes in $configurationpath.panels must be instances of Tx_MmForum_TextParser_Panel_AbstractPanel!", 1285143384);
-			$this->panels[] = $newService;
+		foreach($this->configuration['panels.'] as $key => $panelConfiguration) {
+			$panel = $this->objectManager->get($panelConfiguration['className']);
+			if(!$panel instanceof Tx_MmForum_TextParser_Panel_PanelInterface)
+				throw new Tx_Extbase_Object_InvalidClass('Expected an implementation of the Tx_MmForum_TextParser_Panel_PanelInterface interface!', 1315835842);
+			$panel->setSettings($panelConfiguration);
+			$this->panels[] = $panel;
 		}
+		
+		$this->javascriptSetup = '<script language="javascript">'.
+			'var bbcodeSettings = '.json_encode($this->getPanelSettings()).';'.
+			'$(document).ready(function()	{'.
+			'$(\'#'.$this->arguments['id'].'\').markItUp(bbcodeSettings);'.
+			'}); </script>';
+		$this->cache->set('bbcodeeditor-jsonconfig', $this->javascriptSetup);
+		return $this->javascriptSetup;
 	}
 
 
@@ -144,38 +174,38 @@ Class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper
 		 *
 		 */
 
-	Public Function render() {
+	public function render() {
 
-		$this->loadConfiguration($this->arguments['configuration']);
+		$this->initializeJavascriptSetupFromConfiguration($this->arguments['configuration']);
 
-		$GLOBALS['TSFE']->additionalHeaderData['mm_forum_JQuery']
-			= '<script src="'.t3lib_extMgm::siteRelPath('mm_forum').'Resources/Public/Javascript/jquery-1.4.3.min.js" type="text/javascript"></script>';
-		$GLOBALS['TSFE']->additionalHeaderData['mm_forum_Editor']
-			= '<script src="'.t3lib_extMgm::siteRelPath('mm_forum').'Resources/Public/Javascript/BBCodeEditor.js" type="text/javascript"></script>';
+		foreach($this->configuration['includeJs.'] as $key => $filename)
+			$GLOBALS['TSFE']->additionalHeaderData['MmForum_Js_'.$key]
+				= '<script src="'.Tx_MmForum_Utility_File::replaceSiteRelPath($filename).'" type="text/javascript"></script>';
+		foreach($this->configuration['includeCss.'] as $key => $filename)
+			$GLOBALS['TSFE']->additionalHeaderData['MmForum_Css_'.$key]
+				= '<link rel="stylesheet" type="text/css" href="'.Tx_MmForum_Utility_File::replaceSiteRelPath($filename).'" />';
 
-		$content  = $this->getParserOptionsPanel();
-		$content .= parent::render();
-
-		Return $content;
+		return $this->javascriptSetup . parent::render();
 	}
-
-
-
-		/**
-		 *
-		 * Renders the bb code panels.
-		 * @return string HTML content
-		 *
-		 */
-
-	Protected Function getParserOptionsPanel() {
-		$panelContent = '';
-
-		ForEach($this->panels As $panel) {
-			$panelContent .= $panel->render();
-		} $panelContent .= '<div style="clear:left;"></div>';
-
-		Return $panelContent;
+	
+	protected function getPanelSettings() {
+		$settings = array();
+		foreach($this->panels as $panel) {
+			$settings = array_merge($settings, $panel->getItems());
+			$settings[] = array('separator' => '---------------');
+		}
+		
+		$settings[] = array(
+			'name' => 'Preview',
+			'className' => 'preview',
+			'call' => 'preview'
+		);
+		
+		return array(
+			'previewParserPath' => 'index.php?eID=mm_forum&tx_mmforum_ajax[controller]=Post&tx_mmforum_ajax[action]=preview&p='.$GLOBALS['TSFE']->id,
+			'previewParserVar' => 'tx_mmforum_ajax[text]',
+			'markupSet' => $settings
+		);
 	}
 
 }
