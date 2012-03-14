@@ -1,0 +1,15 @@
+{namespace m=Tx_MmForum_ViewHelpers}
+
+<f:layout name="Backend" />
+
+<f:section name="main">
+	<script type="text/javascript">
+		Ext.onReady(function() {
+			var mm_forum;
+
+			mm_forum = MM.Forum.Application;
+			mm_forum.run({m:format.json(data: '{ renderTo: "mmforum-main" }')});
+		});
+	</script>
+	<div id="mmforum-main"></div>
+</f:section>

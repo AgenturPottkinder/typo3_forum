@@ -7,6 +7,22 @@ Tx_Extbase_Utility_Extension::registerPlugin(
 	'mm_forum'
 );
 
+if (TYPO3_MODE === 'BE') {
+	Tx_Extbase_Utility_Extension::registerModule (
+		$_EXTKEY, # Extension-Key
+		'web', # Kategorie
+		'tx_mmforum_m1', # Modulname
+		'', # Position
+		array ( 'Backend' => 'index' ), # Controller
+		array ( 
+			'access' => 'user,group', # Konfiguration
+			'icon' => 'EXT:'.$_EXTKEY.'/ext_icon.gif',
+			'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_mod.xml',
+			'navigationComponentId' => 'typo3-pagetree',
+		)
+	);
+}
+
 t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'mm_forum');
 
 $pluginSignature = strtolower(t3lib_div::underscoredToUpperCamelCase($_EXTKEY)).'_pi1';
