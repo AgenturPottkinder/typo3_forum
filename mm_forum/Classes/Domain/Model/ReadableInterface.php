@@ -58,6 +58,6 @@ interface Tx_MmForum_Domain_Model_Readableinterface
 
 
 
-	public function hasBeenReadByUser(Tx_MmForum_Domain_Model_User_FrontendUser $reader);
+	public function hasBeenReadByUser(Tx_MmForum_Domain_Model_User_FrontendUser $reader = NULL);
 
 }

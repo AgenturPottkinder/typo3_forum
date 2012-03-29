@@ -385,7 +385,7 @@ class Tx_MmForum_Domain_Model_Forum_Topic
 	 * @return boolean			 TRUE, if the user did read this topic, otherwise
 	 *							 FALSE.
 	 */
-	public function hasBeenReadByUser(Tx_MmForum_Domain_Model_User_FrontendUser $reader)
+	public function hasBeenReadByUser(Tx_MmForum_Domain_Model_User_FrontendUser $reader = NULL)
 	{
 		return $reader ? $this->readers->contains($reader) : TRUE;
 	}

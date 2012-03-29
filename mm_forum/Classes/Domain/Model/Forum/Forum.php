@@ -391,8 +391,11 @@ class Tx_MmForum_Domain_Model_Forum_Forum
 	 */
 	public function hasBeenReadByUser(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL)
 	{
+		if ($user === NULL) return TRUE;
+
 		foreach ($this->getTopics() As $topic)
 		{
+			/** @var $topic Tx_MmForum_Domain_Model_Forum_Topic */
 			if (!$topic->hasBeenReadByUser($user))
 				return FALSE;
 		}
