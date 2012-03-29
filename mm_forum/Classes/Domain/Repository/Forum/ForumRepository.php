@@ -1,9 +1,9 @@
 <?php
 
-/*                                                                      *
+/*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -26,68 +26,96 @@
 
 
 
+/**
+ *
+ * Repository class for forum objects.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Repository_Forum
+ * @version    $Id$
+ *
+ * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+class Tx_MmForum_Domain_Repository_Forum_ForumRepository
+	extends Tx_Extbase_Persistence_Repository
+{
+
+
+
 	/**
-	 *
-	 * Repository class for forum objects.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Repository_Forum
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
+	 * @var Tx_MmForum_Service_Authentication_AuthenticationServiceInterface
 	 */
-
-Class Tx_MmForum_Domain_Repository_Forum_ForumRepository Extends Tx_Extbase_Persistence_Repository {
-
-
 	protected $authenticationService = NULL;
-	
-	public function injectAuthenticationService(Tx_MmForum_Service_Authentication_AuthenticationServiceInterface $authenticationService) {
+
+
+
+	/**
+	 * @param Tx_MmForum_Service_Authentication_AuthenticationServiceInterface $authenticationService
+	 */
+	public function injectAuthenticationService(Tx_MmForum_Service_Authentication_AuthenticationServiceInterface $authenticationService)
+	{
 		$this->authenticationService = $authenticationService;
 	}
 
-		/**
-		 *
-		 * Finds all forums for the index view.
-		 *
-		 * @return Array<Tx_MmForum_Domain_Model_Forum_Forum>
-		 *                             All forums for the index view.
-		 *
-		 */
-
-	Public Function findForIndex() { Return $this->findRootForums(); }
 
 
+	/**
+	 *
+	 * Finds all forums for the index view.
+	 *
+	 * @return array<Tx_MmForum_Domain_Model_Forum_Forum> All forums for the index view.
+	 *
+	 */
+	public function findForIndex()
+	{
+		return $this->findRootForums();
+	}
 
-		/**
-		 *
-		 * Finds all root forums.
-		 *
-		 * @return Array<Tx_MmForum_Domain_Model_Forum_Forum>
-		 *                             All forums for the index view.
-		 *
-		 */
 
-	Public Function findRootForums() {
-		$query = $this->createQuery();
-		$result = $query->matching($query->equals('forum', array(NULL,0)))
+
+	/**
+	 *
+	 * Finds all root forums.
+	 *
+	 * @return array<Tx_MmForum_Domain_Model_Forum_Forum> All forums for the index view.
+	 *
+	 */
+	public function findRootForums()
+	{
+		$query  = $this->createQuery();
+		$result = $query->matching($query->equals('forum', array(NULL, 0)))
 			->execute();
 		return $this->filterByAccess($result, 'read');
 	}
-	
-	protected function filterByAccess(Iterator $objects, $action='read') {
+
+
+
+	/**
+	 * @param Iterator $objects
+	 * @param string   $action
+	 *
+	 * @return array
+	 */
+	protected function filterByAccess(Iterator $objects, $action = 'read')
+	{
 		$result = array();
-		foreach($objects as $forum) {
-			if($this->authenticationService->checkAuthorization($forum, $action))
+		foreach ($objects as $forum)
+		{
+			if ($this->authenticationService->checkAuthorization($forum, $action))
+			{
 				$result[] = $forum;
-		} return $result;
+			}
+		}
+
+		return $result;
 	}
 
+
+
 }
-?>

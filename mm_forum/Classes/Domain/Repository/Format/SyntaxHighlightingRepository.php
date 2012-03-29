@@ -1,9 +1,9 @@
 <?php
 
-/*                                                                      *
+/*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -26,32 +26,36 @@
 
 
 
-	/**
-	 *
-	 * Repository class for syntax highlighting elements.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Repository_Format
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
-	 */
+/**
+ *
+ * Repository class for syntax highlighting elements.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Repository_Format
+ * @version    $Id$
+ *
+ * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+class Tx_MmForum_Domain_Repository_Format_SyntaxHighlightingRepository
+	extends Tx_MmForum_Domain_Repository_AbstractRepository
+{
 
-Class Tx_MmForum_Domain_Repository_Format_SyntaxHighlightingRepository
-	Extends Tx_Extbase_Persistence_Repository {
-	
-	Public Function findAll() {
-		$query = $this->createQuery();
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
-		Return $query->execute();
+
+
+	/**
+	 * @return array|Tx_Extbase_Persistence_QueryResultInterface
+	 */
+	public function findAll()
+	{
+		return $this->createQueryWithFallbackStoragePage()->execute();
 	}
 
-}
 
-?>
+
+}

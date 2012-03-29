@@ -26,53 +26,70 @@
 
 
 
+/**
+ *
+ * Utility module for TypoScript related functions.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Utility
+ * @version    $Id$
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+
+class Tx_MmForum_Utility_TypoScript
+{
+
+
+
 	/**
-	 *
-	 * Utility module for TypoScript related functions.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Utility
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
+	 * TODO
+	 * @var Tx_Extbase_Configuration_ConfigurationManagerInterface
 	 */
-
-class Tx_MmForum_Utility_TypoScript {
-
 	protected $configurationManager = NULL;
-	
-	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
+
+
+
+	/**
+	 * TODO
+	 * @param Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager
+	 */
+	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager)
+	{
 		$this->configurationManager = $configurationManager;
 	}
 
-		/**
-		 *
-		 * Loads the typoscript configuration from a certain setup path.
-		 *
-		 * @param  string $configurationPath The typoscript path
-		 * @return  array                    The typoscript configuration for the
-		 *                                   specified path.
-		 *
-		 */
 
-	public function loadTyposcriptFromPath($configurationPath) {
+
+	/**
+	 * Loads the typoscript configuration from a certain setup path.
+	 *
+	 * @param  string $configurationPath The typoscript path
+	 *
+	 * @return  array                    The typoscript configuration for the
+	 *                                   specified path.
+	 */
+	public function loadTyposcriptFromPath($configurationPath)
+	{
 		$setup = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
 
 		$pathSegments = t3lib_div::trimExplode('.', $configurationPath);
 
 		$lastSegment = array_pop($pathSegments);
-		foreach ($pathSegments As $segment) {
+		foreach ($pathSegments As $segment)
+		{
 			if (!array_key_exists($segment . '.', $setup))
 				throw new Tx_MmForum_Domain_Exception_TextParser_Exception (
-					'TypoScript object path "' . htmlspecialchars($configurationPath) . '" does not exist' , 1253191023);
+					'TypoScript object path "' . htmlspecialchars($configurationPath) . '" does not exist', 1253191023);
 			$setup = $setup[$segment . '.'];
-		} return $setup[$lastSegment.'.'];
+		}
+		return $setup[$lastSegment . '.'];
 	}
 
 }

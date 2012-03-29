@@ -1,9 +1,9 @@
 <?php
 
-/*                                                                      *
+/*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -26,106 +26,105 @@
 
 
 
+/**
+ *
+ * Text parser class for cleaning the HTML output. For this, the tidy library is
+ * used.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage TextParser_Service
+ * @version    $Id$
+ *
+ * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+
+class Tx_MmForum_TextParser_Service_TidyService
+	extends Tx_MmForum_TextParser_Service_AbstractTextParserService
+{
+
+
+
+	/*
+		  * ATTRIBUTES
+		  */
+
+
+
+	/**
+	 * The tidy configuration.
+	 *
+	 * @var array
+	 */
+	protected $tidyConfig = Array('indent'         => FALSE,
+	                              'output-xhtml'   => TRUE,
+	                              'wrap'           => 0,
+	                              'show-body-only' => TRUE,
+	                              'enclose-text'   => TRUE);
+
+
+
+	/**
+	 * Instance of tidy.
+	 *
+	 * @var tidy
+	 */
+	protected $tidy = NULL;
+
+
+
+	/*
+		  * METHODS
+		  */
+
+
+
 	/**
 	 *
-	 * Text parser class for cleaning the HTML output. For this, the tidy library is
-	 * used.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage TextParser_Service
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
+	 * Creates a new instance of this service.
 	 *
 	 */
 
-Class Tx_MmForum_TextParser_Service_TidyService
-	Extends Tx_MmForum_TextParser_Service_AbstractTextParserService {
-
-
-
-
-
-		/*
-		 * ATTRIBUTES
-		 */
-
-
-
-
-
-		/**
-		 * The tidy configuration.
-		 * @var array
-		 */
-	Protected $tidyConfig = Array ( 'indent'         => FALSE,
-	                                'output-xhtml'   => TRUE,
-	                                'wrap'           => 0,
-	                                'show-body-only' => TRUE,
-	                                'enclose-text'   => TRUE );
-
-		/**
-		 * Instance of tidy.
-		 * @var tidy
-		 */
-	Protected $tidy = NULL;
-
-	
-	
-	
-	
-		/*
-		 * METHODS
-		 */
-	
-	
-	
-	
-	
-		/**
-		 *
-		 * Creates a new instance of this service.
-		 *
-		 */
-
-	Public Function __construct() {
+	public function __construct()
+	{
 		parent::__construct();
-		
-		if(!class_exists('tidy'))
+
+		if (!class_exists('tidy'))
 			throw new Tx_MmForum_Domain_Exception_TextParser_Exception(
 				'The TIDY library could not be loaded. Please install the tidy
 				 module for PHP or disable the tidy service in your typoscript
 				 setup', 1315857493);
-		$this->tidy = New tidy();
+		$this->tidy = new tidy();
 	}
 
 
 
-		/**
-		 *
-		 * Renders the parsed text.
-		 *
-		 * @param  string $text The text to be parsed.
-		 * @return string       The parsed text.
-		 *
-		 */
+	/**
+	 *
+	 * Renders the parsed text.
+	 *
+	 * @param  string $text The text to be parsed.
+	 *
+	 * @return string       The parsed text.
+	 *
+	 */
 
-	Public Function getParsedText($text) {
+	public function getParsedText($text)
+	{
+		return $text;
 		$this->tidy->parseString($text, $this->tidyConfig, 'utf8');
 		$this->tidy->cleanRepair();
 
-		$text = $this->tidy."";
-		$text = preg_replace(',<p>\s*(<br />\s*)+,','<p>', $text);
-		$text = preg_replace(',(<br />\s*)+\s*<\/p>,','</p>', $text);
+		$text = $this->tidy . "";
+		$text = preg_replace(',<p>\s*(<br />\s*)+,', '<p>', $text);
+		$text = preg_replace(',(<br />\s*)+\s*<\/p>,', '</p>', $text);
 
-		Return $text;
+		return $text;
 	}
 
 }
-
-?>

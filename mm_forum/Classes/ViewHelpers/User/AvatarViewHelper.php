@@ -1,9 +1,9 @@
 <?php
 
-/*                                                                      *
+/*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -26,59 +26,85 @@
 
 
 
+/**
+ *
+ * ViewHelper that renders a user's avatar.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage ViewHelpers_User
+ * @version    $Id$
+ *
+ * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+class Tx_MmForum_ViewHelpers_User_AvatarViewHelper
+		extends Tx_Fluid_ViewHelpers_ImageViewHelper {
+
+
+
+	/**
+	 * An instance of the Extbase Signal-/Slot-Dispatcher.
+	 * @var Tx_Extbase_SignalSlot_Dispatcher
+	 */
+	protected $slots;
+
+
+
 	/**
 	 *
-	 * ViewHelper that renders a user's avatar.
+	 * Injector for the Signal-/Slot-Dispatcher.
 	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage ViewHelpers_User
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
+	 * @param Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher
+	 *                                 An instance of the Extbase Signal-/Slot-
+	 *                                 Dispatcher.
+	 * @return void
 	 *
 	 */
+	public function injectSignalSlotDispatcher(Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher) {
+		$this->slots = $signalSlotDispatcher;
+	}
 
-Class Tx_MmForum_ViewHelpers_User_AvatarViewHelper Extends Tx_Fluid_ViewHelpers_ImageViewHelper {
 
 
-
-		/**
-		 *
-		 * Initializes the view helper's arguments.
-		 *
-		 */
-
-	Public Function initializeArguments() {
+	/**
+	 *
+	 * Initializes the view helper's arguments.
+	 *
+	 */
+	public function initializeArguments() {
 		parent::initializeArguments();
 	}
 
 
 
-		/**
-		 *
-		 * Renders the avatar.
-		 *
-		 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
-		 *                             The user whose avatar is to be rendered.
-		 * @param  integer $width      The desired avatar width
-		 * @param  integer $height     The desired avatar height
-		 * @return  string             HTML content
-		 * 
-		 */
+	/**
+	 *
+	 * Renders the avatar.
+	 *
+	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 *                             The user whose avatar is to be rendered.
+	 * @param  integer $width      The desired avatar width
+	 * @param  integer $height     The desired avatar height
+	 * @return string              HTML content
+	 *
+	 */
+	public function render(Tx_MmForum_Domain_Model_User_FrontendUser $user,
+			$width=NULL, $height=NULL) {
+		$avatarFilename = NULL;
+		$avatarFilename = $user->getImagePath();
 
-	Public Function render(Tx_MmForum_Domain_Model_User_FrontendUser $user, $width=NULL, $height=NULL) {
-		If($user->getImage()) {
+		if ($avatarFilename === NULL) {
+			$avatarFilename = t3lib_extMgm::siteRelPath('mm_forum') . 'Resources/Public/Images/Icons/AvatarEmpty.png';
+		}
 
-		} Else {
-			$src = t3lib_extMgm::siteRelPath('mm_forum').'Resources/Public/Images/Icons/AvatarEmpty.png';
-		} Return parent::render($src, $width, $height);
+		return parent::render($avatarFilename, $width, $height);
 	}
 
-}
 
-?>
+
+}

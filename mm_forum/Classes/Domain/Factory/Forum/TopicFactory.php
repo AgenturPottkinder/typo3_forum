@@ -1,9 +1,9 @@
 <?php
 
-/*                                                                      *
+/*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -26,109 +26,95 @@
 
 
 
-	/**
-	 *
-	 * Topic factory class. Is used to encapsulate topic creation logic from the
-	 * controller classes.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Factory_Forum
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
+/**
+ *
+ * Topic factory class. Is used to encapsulate topic creation logic from the
+ * controller classes.
+ *
+ * @author	 Martin Helmich <m.helmich@mittwald.de>
+ * @package	MmForum
+ * @subpackage Domain_Factory_Forum
+ * @version	$Id$
+ *
+ * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
+ *			 Mittwald CM Service GmbH & Co. KG
+ *			 http://www.mittwald.de
+ * @license	GNU Public License, version 2
+ *			 http://opensource.org/licenses/gpl-license.php
+ *
+ */
+class Tx_MmForum_Domain_Factory_Forum_TopicFactory
+	extends Tx_MmForum_Domain_Factory_AbstractFactory
+{
+
+
+
+	/*
+	 * ATTRIBUTES
 	 */
 
-Class Tx_MmForum_Domain_Factory_Forum_TopicFactory
-	Extends Tx_MmForum_Domain_Factory_AbstractFactory {
+
+
+	/**
+	 * The frontend user repository
+	 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
+	 * @inject
+	 */
+	protected $forumRepository = NULL;
 
 
 
-
-
-		/*
-		 * ATTRIBUTES
-		 */
-
-
-
-
-
-		/**
-		 * The frontend user repository
-		 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
-		 */
-	Protected $forumRepository = NULL;
-
-		/**
-		 * The post repository.
-		 * @var Tx_MmForum_Domain_Repository_Forum_PostRepository
-		 */
-	Protected $postRepository = NULL;
-
-		/**
-		 * The topic repository.
-		 * @var Tx_MmForum_Domain_Repository_Forum_TopicRepository
-		 */
-	Protected $topicRepository = NULL;
-
-		/**
-		 * The post factory.
-		 * @var Tx_MmForum_Domain_Factory_Forum_PostFactory
-		 */
-	Protected $postFactory = NULL;
+	/**
+	 * The post repository.
+	 * @var Tx_MmForum_Domain_Repository_Forum_PostRepository
+	 * @inject
+	 */
+	protected $postRepository = NULL;
 
 
 
-
-
-		/*
-		 * METHODS
-		 */
-
-
-
-
-
-		/**
-		 *
-		 * Creates a new topic factory.
-		 *
-		 */
-
-	Public Function __construct() {
-		$this->forumRepository
-			=& t3lib_div::makeInstance('Tx_MmForum_Domain_Repository_Forum_ForumRepository');
-		$this->topicRepository
-			=& t3lib_div::makeInstance('Tx_MmForum_Domain_Repository_Forum_TopicRepository');
-		$this->postRepository
-			=& t3lib_div::makeInstance('Tx_MmForum_Domain_Repository_Forum_PostRepository');
-	}
+	/**
+	 * The topic repository.
+	 * @var Tx_MmForum_Domain_Repository_Forum_TopicRepository
+	 * @inject
+	 */
+	protected $topicRepository = NULL;
 
 
 
-		/**
-		 *
-		 * Creates a new topic.
-		 *
-		 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
-		 *                             The forum in which the new topic is to be created.
-		 * @param Tx_MmForum_Domain_Model_Forum_Post $firstPost
-		 *                             The first post of the new topic.
-		 * @param string $subject      The subject of the new topic
-		 * @return Tx_MmForum_Domain_Model_Forum_Topic
-		 *                             The new topic.
-		 *
-		 */
-	
-	Public Function createTopic ( Tx_MmForum_Domain_Model_Forum_Forum $forum,
-	                              Tx_MmForum_Domain_Model_Forum_Post  $firstPost,
-	                              $subject) {
+	/**
+	 * The post factory.
+	 * @var Tx_MmForum_Domain_Factory_Forum_PostFactory
+	 * @inject
+	 */
+	protected $postFactory = NULL;
+
+
+
+	/*
+	 * METHODS
+	 */
+
+
+
+	/**
+	 *
+	 * Creates a new topic.
+	 *
+	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 *														  The forum in which the new topic is to be created.
+	 * @param Tx_MmForum_Domain_Model_Forum_Post  $firstPost
+	 *														  The first post of the new topic.
+	 * @param string							  $subject	  The subject of the new topic
+	 *
+	 * @return Tx_MmForum_Domain_Model_Forum_Topic
+	 *							 The new topic.
+	 *
+	 */
+	public function createTopic(Tx_MmForum_Domain_Model_Forum_Forum $forum,
+								Tx_MmForum_Domain_Model_Forum_Post $firstPost, $subject)
+	{
+		/** @var $topic Tx_MmForum_Domain_Model_Forum_Topic */
 		$topic = $this->getClassInstance();
 		$topic->setForum($forum);
 		$topic->addPost($firstPost);
@@ -140,20 +126,23 @@ Class Tx_MmForum_Domain_Factory_Forum_TopicFactory
 		$forum->_resetCounters();
 		$this->forumRepository->update($forum);
 
-		Return $topic;
+		return $topic;
 	}
 
 
 
-		/**
-		 *
-		 * Deletes a topic and all posts contained in it.
-		 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic
-		 *
-		 */
-
-	Public Function deleteTopic ( Tx_MmForum_Domain_Model_Forum_Topic $topic ) {
-		ForEach($topic->getPosts() As $post) {
+	/**
+	 *
+	 * Deletes a topic and all posts contained in it.
+	 *
+	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic
+	 *
+	 */
+	public function deleteTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic)
+	{
+		foreach ($topic->getPosts() as $post)
+		{
+			/** @var $post Tx_MmForum_Domain_Model_Forum_Post */
 			$post->getAuthor()->decreasePostCount();
 			$this->frontendUserRepository->update($post->getAuthor());
 		}
@@ -164,19 +153,21 @@ Class Tx_MmForum_Domain_Factory_Forum_TopicFactory
 
 
 
-		/**
-		 *
-		 * Creates a new shadow topic.
-		 *
-		 * @param  Tx_MmForum_Domain_Model_Forum_Topic $topic
-		 *                             The original topic. The newly created shadow topic
-		 *                             will then point towards this topic.
-		 * @return Tx_MmForum_Domain_Model_Forum_ShadowTopic
-		 *                             The newly created shadow topic.
-		 *
-		 */
-
-	Public Function createShadowTopic ( Tx_MmForum_Domain_Model_Forum_Topic $topic ) {
+	/**
+	 *
+	 * Creates a new shadow topic.
+	 *
+	 * @param  Tx_MmForum_Domain_Model_Forum_Topic $topic
+	 *							 The original topic. The newly created shadow topic
+	 *							 will then point towards this topic.
+	 *
+	 * @return Tx_MmForum_Domain_Model_Forum_ShadowTopic
+	 *							 The newly created shadow topic.
+	 *
+	 */
+	public function createShadowTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic)
+	{
+		/** @var $shadowTopic Tx_MmForum_Domain_Model_Forum_ShadowTopic */
 		$shadowTopic = $this->objectManager->create('Tx_MmForum_Domain_Model_Forum_ShadowTopic');
 		$shadowTopic->setTarget($topic);
 
@@ -185,24 +176,24 @@ Class Tx_MmForum_Domain_Factory_Forum_TopicFactory
 
 
 
-		/**
-		 *
-		 * Moves a topic from one forum to another. This method will create a shadow
-		 * topic in the original place that will point to the new location of the
-		 * topic.
-		 *
-		 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic
-		 *                             The topic that is to be moved.
-		 * @param Tx_MmForum_Domain_Model_Forum_Forum $targetForum
-		 *                             The target forum. The topic will be moved to this
-		 *                             location.
-		 *
-		 */
-	
-	Public Function moveTopic ( Tx_MmForum_Domain_Model_Forum_Topic $topic,
-	                            Tx_MmForum_Domain_Model_Forum_Forum $targetForum ) {
-		If($topic InstanceOf Tx_MmForum_Domain_Model_Forum_ShadowTopic)
-			Throw New Tx_Extbase_Object_InvalidClass ("Topic is already a shadow topic", 1288702422);
+	/**
+	 *
+	 * Moves a topic from one forum to another. This method will create a shadow
+	 * topic in the original place that will point to the new location of the
+	 * topic.
+	 *
+	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic
+	 *							 The topic that is to be moved.
+	 * @param Tx_MmForum_Domain_Model_Forum_Forum $targetForum
+	 *							 The target forum. The topic will be moved to this
+	 *							 location.
+	 *
+	 */
+	public function moveTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic,
+							  Tx_MmForum_Domain_Model_Forum_Forum $targetForum)
+	{
+		if ($topic instanceof Tx_MmForum_Domain_Model_Forum_ShadowTopic)
+			throw new Tx_Extbase_Object_InvalidClass("Topic is already a shadow topic", 1288702422);
 		$shadowTopic = $this->createShadowTopic($topic);
 
 		$topic->getForum()->removeTopic($topic);
@@ -213,6 +204,6 @@ Class Tx_MmForum_Domain_Factory_Forum_TopicFactory
 		$this->forumRepository->update($targetForum);
 	}
 
-}
 
-?>
+
+}

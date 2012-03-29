@@ -1,9 +1,9 @@
 <?php
 
-/*                                                                      *
+/*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -26,119 +26,193 @@
 
 
 
-	/**
-	 *
-	 * A report workflow status.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Model_Moderation
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
+/**
+ *
+ * A report workflow status.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Model_Moderation
+ * @version    $Id$
+ *
+ * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus
+		extends Tx_Extbase_DomainObject_AbstractValueObject
+{
+
+
+
+	/*
+	 * ATTRIBUTES
 	 */
 
-Class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus
-	Extends Tx_Extbase_DomainObject_AbstractValueObject {
+
+
+	/**
+	 * The name.
+	 * @var string
+	 */
+	protected $name;
+
+
+	/**
+	 * A list of allowed follow-up status.
+	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus>
+	 */
+	protected $followupStatus;
+
+
+	/**
+	 * Defines whether this status shall be used as initial status for new reports.
+	 * @var boolean
+	 */
+	protected $initial;
+
+
+	/**
+	 * Defines whether this status marks a final status of a report.
+	 * @var boolean
+	 */
+	protected $final = FALSE;
+
+
+	/**
+	 * An icon filename.
+	 * @var string
+	 */
+	protected $icon;
 
 
 
 
 
-		/*
-		 * ATTRIBUTES
-		 */
+	/*
+	 * GETTERS
+	 */
 
 
 
-
-
-		/**
-		 * The name.
-		 * @var string
-		 */
-	Protected $name;
-
-		/**
-		 * A list of allowed follow-up status.
-		 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus>
-		 */
-	Protected $followupStatus;
-
-		/**
-		 * Defines whether this status shall be used as initial status for new reports.
-		 * @var boolean
-		 */
-	Protected $initial;
-
-
-
-
-
-		/*
-		 * GETTERS
-		 */
-
-
-
-
-
-		/**
-		 *
-		 * Gets the status name.
-		 * @return string The status name.
-		 *
-		 */
-	
-	Public Function getName() { Return $this->name; }
-
-
-
-		/**
-		 *
-		 * Gets the allowed follow-up status.
-		 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus>
-		 *                             The allowed follow-up status.
-		 *
-		 */
-	Public Function getFollowupStatus() { Return $this->followupStatus; }
-
-
-
-		/**
-		 *
-		 * Determines if a workflow status is an allowed follow-up status for this status.
-		 *
-		 * @param  Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $status
-		 *                             The status that is to be checked.
-		 * @return boolean             TRUE, if $status is a valid follow-up status,
-		 *                             otherwise FALSE.
-		 *
-		 */
-
-	Public Function hasFollowupStatus(Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $status) {
-		ForEach($this->followupStatus As $followupStatus)
-			If($followupStatus->getUid() == $status->getUid()) Return TRUE;
-		Return FALSE;
+	/**
+	 *
+	 * Gets the status name.
+	 * @return string The status name.
+	 *
+	 */
+	public function getName()
+	{
+		return $this->name;
 	}
 
 
 
-		/**
-		 *
-		 * Determines if this status is the initial status for newly created reports.
-		 * @return boolean TRUE, if this status is the initial status for newly created
-		 *                 reports, otherwise FALSE.
-		 *
-		 */
-	
-	Public Function isInitial() { Return $this->initial; }
+	/**
+	 *
+	 * Gets the allowed follow-up status.
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus>
+	 *                             The allowed follow-up status.
+	 *
+	 */
+	public function getFollowupStatus()
+	{
+		return $this->followupStatus;
+	}
+
+
+
+	/**
+	 *
+	 * Determines if a workflow status is an allowed follow-up status for this status.
+	 *
+	 * @param  Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $status
+	 *                             The status that is to be checked.
+	 * @return boolean             TRUE, if $status is a valid follow-up status,
+	 *                             otherwise FALSE.
+	 *
+	 */
+	public function hasFollowupStatus(Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $status)
+	{
+		foreach ($this->followupStatus As $followupStatus)
+		{
+			if ($followupStatus->getUid() == $status->getUid())
+				return TRUE;
+		}
+		return FALSE;
+	}
+
+
+
+	/**
+	 *
+	 * Determines if this status is the initial status for newly created reports.
+	 * @return boolean TRUE, if this status is the initial status for newly created
+	 *                 reports, otherwise FALSE.
+	 *
+	 */
+	public function isInitial()
+	{
+		return $this->initial;
+	}
+
+
+
+	/**
+	 *
+	 * Determines if this status is a final status for edited reports.
+	 * @return boolean TRUE, if this status is a final status for edited reports, otherwise FALSE.
+	 *
+	 */
+	public function isFinal()
+	{
+		return $this->final;
+	}
+
+
+
+	/**
+	 * 
+	 * @return string The icon filename.
+	 * 
+	 */
+	public function getIcon()
+	{
+		return $this->icon;
+	}
+
+
+
+	/**
+	 *
+	 * Returns the site relative path of this status' icon. This method first
+	 * looks in the configured upload directory (uploads/tx_mmforum/workflowstatus
+	 * by default) and the extensions' Resources/Public directory as fallback.
+	 * 
+	 * @global type $TCA
+	 * @return string The site relative path of this status' icon.
+	 * 
+	 */
+	public function getIconFullpath()
+	{
+		t3lib_div::loadTCA(strtolower(__CLASS__));
+		global $TCA;
+
+		$imageDirectoryName = $TCA[strtolower(__CLASS__)]['columns']['icon']['config']['uploadfolder'];
+		$imageFilename = rtrim($imageDirectoryName, '/') . '/' . $this->icon;
+
+		if (!file_exists(PATH_site . '/' . $imageFilename))
+		{
+			$imageDirectoryName = t3lib_extMgm::siteRelPath('mm_forum') . 'Resources/Public/Images/Icons/Moderation';
+			$imageFilename = "$imageDirectoryName/{$this->icon}";
+		}
+
+		return file_exists(PATH_site . '/' . $imageFilename) ? $imageFilename : NULL;
+	}
+
+
 
 }
-
-?>

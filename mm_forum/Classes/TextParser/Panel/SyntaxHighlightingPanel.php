@@ -26,45 +26,77 @@
 
 
 
-	/**
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage TextParser_Panel
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
-	 */
+/**
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage TextParser_Panel
+ * @version    $Id$
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
 
 class Tx_MmForum_TextParser_Panel_SyntaxHighlightingPanel
-	extends Tx_MmForum_TextParser_Panel_AbstractPanel {
-	
+	extends Tx_MmForum_TextParser_Panel_AbstractPanel
+{
+
+
+
+	/**
+	 * TODO
+	 *
+	 * @var Tx_MmForum_Domain_Repository_Format_SyntaxHighlightingRepository
+	 */
 	protected $syntaxHighlightingRepository = NULL;
-	
+
+
+
+	/**
+	 * TODO
+	 *
+	 * @var array<Tx_MmForum_Domain_Model_Format_SyntaxHighlighting>
+	 */
 	protected $syntaxHighlightings = NULL;
-	
-	public function injectSyntaxHighlightingRepository(Tx_MmForum_Domain_Repository_Format_SyntaxHighlightingRepository $syntaxHighlightingRepository) {
+
+
+
+	/**
+	 * TODO
+	 *
+	 * @param Tx_MmForum_Domain_Repository_Format_SyntaxHighlightingRepository $syntaxHighlightingRepository
+	 *
+	 * @return void
+	 */
+	public function injectSyntaxHighlightingRepository(Tx_MmForum_Domain_Repository_Format_SyntaxHighlightingRepository $syntaxHighlightingRepository)
+	{
 		$this->syntaxHighlightingRepository = $syntaxHighlightingRepository;
-		$this->syntaxHighlightings = $this->syntaxHighlightingRepository->findAll();
+		$this->syntaxHighlightings          = $this->syntaxHighlightingRepository->findAll();
 	}
-	
-	public function getItems() {
+
+
+
+	/**
+	 * TODO
+	 * @return array<array>
+	 */
+	public function getItems()
+	{
 		$result = array();
-		
-		foreach($this->syntaxHighlightings as $syntaxHighlighting)
+
+		foreach ($this->syntaxHighlightings as $syntaxHighlighting)
 			$result[] = $syntaxHighlighting->exportForMarkItUp();
 		return array(array(
-			'name' => $this->settings['title'],
-			'className' => $this->settings['iconClassName'],
-			'openWith' => '[code]',
-			'closeWith' => '[/code]',
-			'dropMenu' => $result
-		));
+			             'name'      => $this->settings['title'],
+			             'className' => $this->settings['iconClassName'],
+			             'openWith'  => '[code]',
+			             'closeWith' => '[/code]',
+			             'dropMenu'  => $result
+		             ));
 	}
 
 }

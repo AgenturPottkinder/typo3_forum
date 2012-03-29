@@ -100,7 +100,12 @@
 			<label index="tx_mmforum_domain_model_moderation_reportworkflowstatus.name">Name</label>
 			<label index="tx_mmforum_domain_model_moderation_reportworkflowstatus.followup_status">Followup status</label>
 			<label index="tx_mmforum_domain_model_moderation_reportworkflowstatus.initial">Initial status</label>
+			<label index="tx_mmforum_domain_model_moderation_reportworkflowstatus.final">Final status</label>
+			<label index="tx_mmforum_domain_model_moderation_reportworkflowstatus.icon">Icon</label>
 
+			<label index="fe_users.use_gravatar">Use gravatar image (if no local image)</label>
+			<label index="fe_users.contact">Contact addresses and social network profiles (JSON encoded)</label>
+			<label index="fe_users.tx_extbase_type.mm_forum">mm_forum user</label>
 			<label index="fe_users.tx_mmforum_post_count">Post count</label>
 			<label index="fe_users.tx_mmforum_topic_subscriptions">Subscribed topics</label>
 			<label index="fe_users.tx_mmforum_forum_subscriptions">Subscribed forums</label>

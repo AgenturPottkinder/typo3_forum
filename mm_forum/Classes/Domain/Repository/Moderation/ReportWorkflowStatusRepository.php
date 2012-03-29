@@ -1,9 +1,9 @@
 <?php
 
-/*                                                                      *
+/*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -26,44 +26,61 @@
 
 
 
+/**
+ *
+ * Repository class for workflow status objects.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Repository_Moderation
+ * @version    $Id$
+ *
+ * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+class Tx_MmForum_Domain_Repository_Moderation_ReportWorkflowStatusRepository
+	extends Tx_MmForum_Domain_Repository_AbstractRepository
+{
+
+
+
 	/**
 	 *
-	 * Repository class for workflow status objects.
+	 * Finds the initial status that is to be used for new reports.
 	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Repository_Moderation
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
+	 * @return Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus
+	 *                             The initial status that is to be used for new
+	 *                             reports.
 	 *
 	 */
-
-Class Tx_MmForum_Domain_Repository_Moderation_ReportWorkflowStatusRepository
-	Extends Tx_MmForum_Domain_Repository_AbstractRepository {
-
-
-
-		/**
-		 *
-		 * Finds the initial status that is to be used for new reports.
-		 *
-		 * @return Tx_MmForum_Domain_Model_Moderation_Report
-		 *                             The initial status that is to be used for new
-		 *                             reports.
-		 *
-		 */
-	
-	Public Function findInitial() {
-		$query = $this->createQuery();
-		Return array_pop($query->matching($query->equals('initial', TRUE))
-			->setLimit(1)->execute());
+	public function findInitial()
+	{
+		$query = $this->createQueryWithFallbackStoragePage();
+		return $query
+			->matching($query->equals('initial', TRUE))
+			->setLimit(1)->execute()->getFirst();
 	}
 
-}
 
-?>
+
+	/**
+	 * @return Tx_Extbase_Persistence_QueryInterface
+	 */
+	public function createQuery()
+	{
+		$query = parent::createQuery();
+
+		$storagePageIds   = $query->getQuerySettings()->getStoragePageIds();
+		$storagePageIds[] = 0;
+
+		$query->getQuerySettings()->setStoragePageIds($storagePageIds);
+		return $query;
+	}
+
+
+
+}

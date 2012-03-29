@@ -1,6 +1,6 @@
 <?php
 
-/*                                                                      *
+/*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
  *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
@@ -26,45 +26,51 @@
 
 
 
+/**
+ *
+ * Abstract base class for all mm_forum service classes.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Service
+ * @version    $Id$
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+
+Abstract Class Tx_MmForum_Service_AbstractService Implements t3lib_Singleton
+{
+
+
+
 	/**
+	 * The settings array.
 	 *
-	 * Abstract base class for all mm_forum service classes.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Service
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
+	 * @var array
 	 */
-
-Abstract Class Tx_MmForum_Service_AbstractService Implements t3lib_Singleton {
-
-	
-	
-		/**
-		 * The settings array.
-		 * @var array
-		 */
 	Protected $settings = NULL;
 
 
 
-		/**
-		 *
-		 * Injects the settings array.
-		 *
-		 * @param  array $settings The settings array.
-		 * @return void
-		 *
-		 */
+	/**
+	 *
+	 * Injects the settings array.
+	 *
+	 * @param  array $settings The settings array.
+	 *
+	 * @return void
+	 *
+	 */
 
-	Public Function injectSettings($settings) { $this->settings = $settings; }
+	Public Function injectSettings($settings)
+	{
+		$this->settings = $settings;
+	}
 
 }
 

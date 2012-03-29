@@ -1,9 +1,9 @@
 <?php
 
-/*                                                                      *
+/*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -26,90 +26,80 @@
 
 
 
+/**
+ *
+ * Repository class for frontend suers.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Repository_User
+ * @version    $Id$
+ *
+ * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
+	extends Tx_Extbase_Domain_Repository_FrontendUserRepository
+{
+
+
+
 	/**
 	 *
-	 * Repository class for frontend suers.
+	 * Finds the user that is currently logged in, or NULL if no user is logged in.
 	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Repository_User
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
+	 * @return Tx_MmForum_Domain_Model_User_FrontendUser
+	 *                             The user that is currently logged in, or NULL if
+	 *                             no user is logged in.
 	 *
 	 */
-
-Class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
-	Extends Tx_Extbase_Domain_Repository_FrontendUserRepository {
-
-
-
-		/**
-		 *
-		 * Finds the user that is currently logged in, or NULL if no user is logged in.
-		 *
-		 * @return Tx_MmForum_Domain_Model_User_FrontendUser
-		 *                             The user that is currently logged in, or NULL if
-		 *                             no user is logged in.
-		 *
-		 */
-
-	Public Function findCurrent() {
+	public function findCurrent()
+	{
 		$currentUserUid = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
-		Return $currentUserUid ? $this->findByUid($currentUserUid) : NULL;
+		return $currentUserUid ? $this->findByUid($currentUserUid) : NULL;
 	}
 
 
 
-		/**
-		 *
-		 * Finds a user by his/her username. Please note that in difference to the usual
-		 * findBy* methods, this method does NOT return an array of values, but instead
-		 * a single user object, or NULL. This behaviour is due to the fact that
-		 * usernames are supposed to be unique; consequently, in any case this method
-		 * should not return more than one user.
-		 *
-		 * @param  string $username    The username.
-		 * @return Tx_MmForum_Domain_Model_User_FrontendUser
-		 *                             The frontend user with the specified username.
-		 *
-		 */
-
-	Public Function findByUsername($username) {
-		$users = parent::findByUsername($username);
-		If(count($users) == 0) Return NULL;
-		Else Return $users[0];
+	/**
+	 *
+	 * Finds a user by his/her username. Please note that in difference to the usual
+	 * findBy* methods, this method does NOT return an array of values, but instead
+	 * a single user object, or NULL. This behaviour is due to the fact that
+	 * usernames are supposed to be unique; consequently, in any case this method
+	 * should not return more than one user.
+	 *
+	 * Technically, this method is just an alias for "findOneByUsername".
+	 *
+	 * @param  string $username                          The username.
+	 *
+	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The frontend user with the specified username.
+	 *
+	 */
+	public function findByUsername($username)
+	{
+		return $this->findOneByUsername($username);
 	}
 
 
 
-		/**
-		 *
-		 * Finds users for the user index view. Sorting and page navigation is possible.
-		 *
-		 * @param  integer $usersPerPage The number of users to be displayed on one page.
-		 * @param  integer $page         The current page.
-		 * @param  string  $orderBy      The name of the property that is to be used for
-		 *                               ordering the users.
-		 * @param  string  $orderMode    Ordering mode. May either be ascending or
-		 *                               descending.
-		 * @return Array<Tx_MmForum_Domain_Model_User_FrontendUser>
-		 *                               The selected subset of users.
-		 *
-		 */
-
-	Public Function findForIndex($usersPerPage=30, $page=1, $orderBy='username', $orderMode=Tx_Extbase_Persistence_Query::ORDER_ASCENDING) {
-		$query = $this->createQuery();
-		Return $query->setOrderings(Array($orderBy => $orderMode))
-			->setLimit($usersPerPage)
-			->setOffset(($page-1)*$usersPerPage)
-			->execute();
+	/**
+	 *
+	 * Finds users for the user index view. Sorting and page navigation to be
+	 * handled in controller/view.
+	 *
+	 * @return Traversable<Tx_MmForum_Domain_Model_User_FrontendUser> All users.
+	 *
+	 */
+	public function findForIndex()
+	{
+		return $this->findAll();
 	}
+
+
 
 }
-
-?>

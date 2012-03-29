@@ -13,7 +13,7 @@ CREATE TABLE tx_mmforum_domain_model_format_textparser (
   pid int(11) NOT NULL default '0',
   type varchar(64) NOT NULL default 'Tx_MmForum_Domain_Model_Format_BBCode',
   name tinytext,
-  icon tinytext,
+  icon_class tinytext,
   bbcode_wrap varchar(64) default '',
   regular_expression tinytext,
   regular_expression_replacement tinytext,
@@ -40,17 +40,17 @@ CREATE TABLE tx_mmforum_domain_model_format_textparser (
 );
 
 
-INSERT INTO tx_mmforum_domain_model_format_textparser VALUES ('1', '0', 'Tx_MmForum_Domain_Model_Format_BBCode', 'Bold', 'Bold.png', '[b]|[/b]', '/\\[b\\](.*)\\[\\/b\\]/i', '<b>\\1</b>', NULL, NULL, '1288879482', '1284727514', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', 'a:5:{s:4:"type";N;s:4:"name";N;s:4:"icon";N;s:18:"regular_expression";N;s:30:"regular_expression_replacement";N;}');
-INSERT INTO tx_mmforum_domain_model_format_textparser VALUES ('2', '0', 'Tx_MmForum_Domain_Model_Format_BBCode', 'Italic', 'Italic.png', '[i]|[/i]', '/\\[i\\](.*)\\[\\/i\\]/i', '<i>\\1</i>', NULL, NULL, '1288879482', '1284727514', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', 'a:5:{s:4:"type";N;s:4:"name";N;s:4:"icon";N;s:18:"regular_expression";N;s:30:"regular_expression_replacement";N;}');
-INSERT INTO tx_mmforum_domain_model_format_textparser VALUES ('3', '0', 'Tx_MmForum_Domain_Model_Format_QuoteBBCode', 'Quotation', 'Quote.png', '', NULL, NULL, NULL, NULL, '1288180606', '1288180540', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', 'a:3:{s:4:"type";N;s:4:"name";N;s:4:"icon";N;}');
-INSERT INTO tx_mmforum_domain_model_format_textparser VALUES ('4', '0', 'Tx_MmForum_Domain_Model_Format_BBCode', 'Image', 'Image.png', '[img]|[/img]', '/\\[img\\](.*)\\[\\/img\\]/i', '<img src="\\1" />', NULL, NULL, '1288879482', '1288183634', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', 'a:6:{s:4:"type";N;s:4:"name";N;s:4:"icon";N;s:11:"bbcode_wrap";N;s:18:"regular_expression";N;s:30:"regular_expression_replacement";N;}');
+INSERT INTO tx_mmforum_domain_model_format_textparser VALUES ('1', '0', 'Tx_MmForum_Domain_Model_Format_BBCode', 'Bold', 'tx-mmforum-miu-bold', '[b]|[/b]', '/\\[b\\](.*)\\[\\/b\\]/i', '<b>\\1</b>', NULL, NULL, '1288879482', '1284727514', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', 'a:5:{s:4:"type";N;s:4:"name";N;s:4:"icon";N;s:18:"regular_expression";N;s:30:"regular_expression_replacement";N;}');
+INSERT INTO tx_mmforum_domain_model_format_textparser VALUES ('2', '0', 'Tx_MmForum_Domain_Model_Format_BBCode', 'Italic', 'tx-mmforum-miu-italic', '[i]|[/i]', '/\\[i\\](.*)\\[\\/i\\]/i', '<i>\\1</i>', NULL, NULL, '1288879482', '1284727514', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', 'a:5:{s:4:"type";N;s:4:"name";N;s:4:"icon";N;s:18:"regular_expression";N;s:30:"regular_expression_replacement";N;}');
+INSERT INTO tx_mmforum_domain_model_format_textparser VALUES ('3', '0', 'Tx_MmForum_Domain_Model_Format_QuoteBBCode', 'Quote', 'tx-mmforum-miu-quote', '', NULL, NULL, NULL, NULL, '1288180606', '1288180540', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', 'a:3:{s:4:"type";N;s:4:"name";N;s:4:"icon";N;}');
+INSERT INTO tx_mmforum_domain_model_format_textparser VALUES ('4', '0', 'Tx_MmForum_Domain_Model_Format_BBCode', 'Image', 'tx-mmforum-miu-picture', '[img]|[/img]', '/\\[img\\](.*)\\[\\/img\\]/i', '<img src="\\1" />', NULL, NULL, '1288879482', '1288183634', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', 'a:6:{s:4:"type";N;s:4:"name";N;s:4:"icon";N;s:11:"bbcode_wrap";N;s:18:"regular_expression";N;s:30:"regular_expression_replacement";N;}');
 INSERT INTO tx_mmforum_domain_model_format_textparser VALUES ('5', '0', 'Tx_MmForum_Domain_Model_Format_Smilie', 'Smile', 'smile.gif', NULL, NULL, NULL, ':)', NULL, '1288879482', '1288184040', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', 'a:4:{s:4:"type";N;s:4:"name";N;s:4:"icon";N;s:15:"smilie_shortcut";N;}');
 INSERT INTO tx_mmforum_domain_model_format_textparser VALUES ('6', '0', 'Tx_MmForum_Domain_Model_Format_Smilie', 'Wink', 'wink.gif', NULL, NULL, NULL, ';)', NULL, '1288879482', '1288188000', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', 'a:4:{s:4:"type";N;s:4:"name";N;s:4:"icon";N;s:15:"smilie_shortcut";N;}');
 INSERT INTO tx_mmforum_domain_model_format_textparser VALUES ('7', '0', 'Tx_MmForum_Domain_Model_Format_Smilie', 'Neutral', 'neutral.gif', NULL, NULL, NULL, ':|', NULL, '1288879482', '1288188066', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', 'a:4:{s:4:"type";N;s:4:"name";N;s:4:"icon";N;s:15:"smilie_shortcut";N;}');
 INSERT INTO tx_mmforum_domain_model_format_textparser VALUES ('8', '0', 'Tx_MmForum_Domain_Model_Format_Smilie', 'Angry', 'mad.gif', NULL, NULL, NULL, '>:(', NULL, '1288879482', '1288188107', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', 'a:4:{s:4:"type";N;s:4:"name";N;s:4:"icon";N;s:15:"smilie_shortcut";N;}');
 INSERT INTO tx_mmforum_domain_model_format_textparser VALUES ('9', '0', 'Tx_MmForum_Domain_Model_Format_Smilie', 'Sad', 'sad.gif', NULL, NULL, NULL, ':(', NULL, '1288879482', '1288188126', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', 'a:4:{s:4:"type";N;s:4:"name";N;s:4:"icon";N;s:15:"smilie_shortcut";N;}');
 INSERT INTO tx_mmforum_domain_model_format_textparser VALUES ('10', '0', 'Tx_MmForum_Domain_Model_Format_Smilie', 'Confused', 'confused.gif', NULL, NULL, NULL, ':/', NULL, '1288879482', '1288188156', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', 'a:4:{s:4:"type";N;s:4:"name";N;s:4:"icon";N;s:15:"smilie_shortcut";N;}');
-INSERT INTO tx_mmforum_domain_model_format_textparser VALUES ('11', '0', 'Tx_MmForum_Domain_Model_Format_ListBBCode', 'Unordered List', 'List_Unordered.png', NULL, NULL, NULL, NULL, NULL, '1288248587', '1288248572', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', 'a:3:{s:4:"type";N;s:4:"name";N;s:4:"icon";N;}');
+INSERT INTO tx_mmforum_domain_model_format_textparser VALUES ('11', '0', 'Tx_MmForum_Domain_Model_Format_ListBBCode', 'Unordered List', 'tx-mmforum-miu-olist', NULL, NULL, NULL, NULL, NULL, '1288248587', '1288248572', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', 'a:3:{s:4:"type";N;s:4:"name";N;s:4:"icon";N;}');
 INSERT INTO tx_mmforum_domain_model_format_textparser VALUES ('12', '0', 'Tx_MmForum_Domain_Model_Format_SyntaxHighlighting', 'PHP', 'software-php.png', NULL, NULL, NULL, NULL, 'php', '1288865100', '1288274212', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', 'a:4:{s:4:"type";N;s:4:"name";N;s:4:"icon";N;s:8:"language";N;}');
 
 
@@ -69,8 +69,10 @@ CREATE TABLE tx_mmforum_domain_model_moderation_reportworkflowstatus (
   uid int(11) NOT NULL auto_increment,
   pid int(11) NOT NULL default '0',
   name tinytext,
+  icon tinytext,
   followup_status int(11) unsigned NOT NULL default '0',
   initial tinyint(1) NOT NULL default '0',
+  final tinyint(1) NOT NULL default '0',
   tstamp int(11) unsigned NOT NULL default '0',
   crdate int(11) unsigned NOT NULL default '0',
   deleted tinyint(4) unsigned NOT NULL default '0',
@@ -92,10 +94,10 @@ CREATE TABLE tx_mmforum_domain_model_moderation_reportworkflowstatus (
 );
 
 
-INSERT INTO tx_mmforum_domain_model_moderation_reportworkflowstatus VALUES ('1', '0', 'New', '2', '1', '1288789972', '1285078017', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', 'a:2:{s:4:"name";N;s:15:"followup_status";N;}');
-INSERT INTO tx_mmforum_domain_model_moderation_reportworkflowstatus VALUES ('2', '0', 'On hold', '1', '0', '1288789972', '1285078026', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', 'a:2:{s:4:"name";N;s:15:"followup_status";N;}');
-INSERT INTO tx_mmforum_domain_model_moderation_reportworkflowstatus VALUES ('3', '0', 'In progress', '2', '0', '1288789972', '1285078034', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', 'a:2:{s:4:"name";N;s:15:"followup_status";N;}');
-INSERT INTO tx_mmforum_domain_model_moderation_reportworkflowstatus VALUES ('4', '0', 'Closed', '0', '0', '1288789972', '1285078039', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', 'a:2:{s:4:"name";N;s:15:"followup_status";N;}');
+INSERT INTO tx_mmforum_domain_model_moderation_reportworkflowstatus VALUES ('1', '0', 'New', 'Status-New-16.png', '2', '1', '0', '1288789972', '1285078017', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', 'a:2:{s:4:"name";N;s:15:"followup_status";N;}');
+INSERT INTO tx_mmforum_domain_model_moderation_reportworkflowstatus VALUES ('2', '0', 'On hold', 'Status-OnHold-16.png', '1', '0', '0', '1288789972', '1285078026', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', 'a:2:{s:4:"name";N;s:15:"followup_status";N;}');
+INSERT INTO tx_mmforum_domain_model_moderation_reportworkflowstatus VALUES ('3', '0', 'In progress', 'Status-InProgress-16.png', '2', '0', '0', '1288789972', '1285078034', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', 'a:2:{s:4:"name";N;s:15:"followup_status";N;}');
+INSERT INTO tx_mmforum_domain_model_moderation_reportworkflowstatus VALUES ('4', '0', 'Closed', 'Status-Closed-16.png', '0', '0', '1', '1288789972', '1285078039', '0', '0', '0', '0', '0', '', '0', '0', '0', '0', '0', '0', '0', 'a:2:{s:4:"name";N;s:15:"followup_status";N;}');
 
 
 # TYPO3 Extension Manager dump 1.1

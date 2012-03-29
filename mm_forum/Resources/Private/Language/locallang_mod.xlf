@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2012-03-27T21:15:43Z">
+		<header>
+			<generator>LFEditor</generator>
+			<type>module</type>
+			<authorName>Martin Helmich</authorName>
+			<authorEmail>m.helmich@mittwald.de</authorEmail>
+		</header>
+		<body>
+		<trans-unit id="ForumIndex_EditForum_Cancel" xml:space="preserve">
+			<source>Cancel</source>
+		</trans-unit>
+		<trans-unit id="ForumIndex_EditForum_Field_Description" xml:space="preserve">
+			<source>Description</source>
+		</trans-unit>
+		<trans-unit id="ForumIndex_EditForum_Field_Title" xml:space="preserve">
+			<source>Title</source>
+		</trans-unit>
+		<trans-unit id="ForumIndex_EditForum_Save" xml:space="preserve">
+			<source>Save forum</source>
+		</trans-unit>
+		<trans-unit id="ForumIndex_EditForum_Saving" xml:space="preserve">
+			<source>Saving...</source>
+		</trans-unit>
+		<trans-unit id="ForumIndex_EditForum_Success" xml:space="preserve">
+			<source>The forum has successfully been saved.</source>
+		</trans-unit>
+		<trans-unit id="ForumIndex_EditForum_Success_Title" xml:space="preserve">
+			<source>Saved forum</source>
+		</trans-unit>
+		<trans-unit id="ForumIndex_EditForum_Title" xml:space="preserve">
+			<source>Edit forum</source>
+		</trans-unit>
+		<trans-unit id="ForumIndex_Grid_Column_PostCount" xml:space="preserve">
+			<source>Posts</source>
+		</trans-unit>
+		<trans-unit id="ForumIndex_Grid_Column_Title" xml:space="preserve">
+			<source>Title</source>
+		</trans-unit>
+		<trans-unit id="ForumIndex_Grid_Column_TopicCount" xml:space="preserve">
+			<source>Topics</source>
+		</trans-unit>
+		<trans-unit id="ForumIndex_Grid_Context_Edit" xml:space="preserve">
+			<source>Edit forum</source>
+		</trans-unit>
+		<trans-unit id="ForumIndex_Grid_Context_EditAcls" xml:space="preserve">
+			<source>Edit access rules</source>
+		</trans-unit>
+		<trans-unit id="ForumIndex_Grid_Context_UpdateTitle" xml:space="preserve">
+			<source>Change title</source>
+		</trans-unit>
+		<trans-unit id="ForumIndex_Grid_Title" xml:space="preserve">
+			<source>Tree view</source>
+		</trans-unit>
+		<trans-unit id="ForumIndex_Tree_Root" xml:space="preserve">
+			<source>Forum root</source>
+		</trans-unit>
+		<trans-unit id="Loading" xml:space="preserve">
+			<source>Loading...</source>
+		</trans-unit>
+		<trans-unit id="mlang_labels_tablabel" xml:space="preserve">
+			<source>mm_forum Administration module</source>
+		</trans-unit>
+		<trans-unit id="mlang_tabs_tab" xml:space="preserve">
+			<source>mm_forum</source>
+		</trans-unit>
+		</body>
+	</file>
+</xliff>

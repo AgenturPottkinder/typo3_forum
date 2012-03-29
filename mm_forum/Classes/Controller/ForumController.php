@@ -1,9 +1,9 @@
 <?php
 
-/*                                                                      *
+/*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -26,137 +26,139 @@
 
 
 
-	/**
-	 *
-	 * Controller for the Forum object. This class implements basic forum-related
-	 * operations, like listing forums and subforums, and the respective topic lists.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Controller
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
+/**
+ *
+ * Controller for the Forum object. This class implements basic forum-related
+ * operations, like listing forums and subforums, and the respective topic lists.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Controller
+ * @version    $Id$
+ *
+ * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+class Tx_MmForum_Controller_ForumController
+	extends Tx_MmForum_Controller_AbstractController
+{
+
+
+
+	/*
+	 * ATTRIBUTES
 	 */
 
-class Tx_MmForum_Controller_ForumController
-	extends Tx_MmForum_Controller_AbstractController {
 
 
-
-
-
-		/*
-		 * ATTRIBUTES
-		 */
-
-
-
-
-
-		/**
-		 * A forum repository.
-		 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
-		 */
+	/**
+	 * A forum repository.
+	 *
+	 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
+	 */
 	protected $forumRepository;
 
-		/**
-		 * A topic repository
-		 * @var Tx_MmForum_Domain_Repository_Forum_TopicRepository
-		 */
+
+
+	/**
+	 * A topic repository
+	 *
+	 * @var Tx_MmForum_Domain_Repository_Forum_TopicRepository
+	 */
 	protected $topicRepository;
 
 
 
-
-
-		/*
-		 * DEPENDENCY INJECTION METHODS
-		 */
-
+	/*
+	 * DEPENDENCY INJECTION METHODS
+	 */
 
 
 
-
-		/**
-		 *
-		 * Injects a forum repository.
-		 * @param  Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository
-		 *                             A forum repository.
-		 * @return void
-		 *
-		 */
-
-	public function injectForumRepository(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository) {
+	/**
+	 *
+	 * Constructor of this controller. Needs to get all required repositories
+	 * injected.
+	 *
+	 * @param Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository
+	 *                                 An instance of the forum repository.
+	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository
+	 *                                 An instance of the topic repository.
+	 *
+	 */
+	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
+	                            Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository)
+	{
+		parent::__construct();
 		$this->forumRepository = $forumRepository;
-	}
-
-
-
-		/**
-		 *
-		 * Injects a topic repository.
-		 * @param  Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository
-		 *                             A topic repository.
-		 * @return void
-		 *
-		 */
-
-	public function injectTopicRepository(Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository) {
 		$this->topicRepository = $topicRepository;
 	}
 
 
 
-
-
-		/*
-		 * ACTION METHODS
-		 */
-
+	/*
+	 * ACTION METHODS
+	 */
 
 
 
-
-		/**
-		 *
-		 * Index action. Displays the first two levels of the forum tree.
-		 * @return void
-		 *
-		 */
-
-	public Function indexAction() {
+	/**
+	 *
+	 * Index action. Displays the first two levels of the forum tree.
+	 *
+	 * @return void
+	 *
+	 */
+	public Function indexAction()
+	{
 		$forums = $this->forumRepository->findForIndex();
 		$this->view->assign('forums', $forums);
 	}
 
 
 
-		/**
-		 *
-		 * Show action. Displays a single forum, all subforums of this forum and the
-		 * topics contained in this forum.
-		 *
-		 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
-		 *                             The forum that is to be displayed.
-		 * @param integer $page        The page
-		 * @return void
-		 *
-		 */
-
-	public function showAction(Tx_MmForum_Domain_Model_Forum_Forum $forum, $page=1) {
+	/**
+	 *
+	 * Show action. Displays a single forum, all subforums of this forum and the
+	 * topics contained in this forum.
+	 *
+	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 *                             The forum that is to be displayed.
+	 *
+	 * @return void
+	 *
+	 */
+	public function showAction(Tx_MmForum_Domain_Model_Forum_Forum $forum)
+	{
 		$this->authenticationService->assertReadAuthorization($forum);
-		$this->view->assign('forum', $forum)
-		           ->assign('topics', $this->topicRepository->findForIndex($forum, $page, $this->localSettings['show']['pagebrowser']['itemsPerPage']))
-		           ->assign('topicCount', $this->topicRepository->countForIndex($forum))
-		           ->assign('page', $page);
-
+		$this->view
+			->assign('forum', $forum)
+			->assign('topics', $this->topicRepository->findForIndex($forum));
 	}
 
+
+
+	/**
+	 *
+	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 *
+	 * @dontverifyrequesthash
+	 *
+	 */
+	public function updateAction(Tx_MmForum_Domain_Model_Forum_Forum $forum)
+	{
+		$this->authenticationService->assertAdministrationAuthorization($forum);
+
+		$this->forumRepository->update($forum);
+
+		$this->addLocalizedFlashmessage('Forum_Update_Success');
+		$this->redirect('index');
+	}
+
+
+
 }
-?>

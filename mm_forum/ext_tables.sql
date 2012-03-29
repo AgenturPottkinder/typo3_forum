@@ -247,6 +247,7 @@ CREATE TABLE tx_mmforum_domain_model_moderation_reportworkflowstatus (
   name tinytext,
   followup_status int(11) unsigned NOT NULL default '0',
   initial tinyint(1) NOT NULL default '0',
+  final tinyint(1) NOT NULL default '0',
   tstamp int(11) unsigned NOT NULL default '0',
   crdate int(11) unsigned NOT NULL default '0',
   deleted tinyint(4) unsigned NOT NULL default '0',
@@ -420,7 +421,9 @@ CREATE TABLE fe_users (
   tx_mmforum_forum_subscriptions int(11) unsigned default '0',
   tx_mmforum_signature text,
   tx_mmforum_userfield_values int(11) unsigned NOT NULL default '0'
-  tx_mmforum_read_topics int(11) unsigned NOT NULL default '0'
+  tx_mmforum_read_topics int(11) unsigned NOT NULL default '0',
+  tx_mmforum_use_gravatar tinyint(1) unsigned default '0',
+  tx_mmforum_contact text
 );
 
 

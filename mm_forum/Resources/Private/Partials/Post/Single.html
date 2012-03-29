@@ -1,12 +1,12 @@
 {namespace mmf=Tx_MmForum_ViewHelpers}
 
-<div class="tx-mmforum-topic-show-post tx-mmforum-{zebra}">
+<div class="well">
 	<div class="tx-mmforum-topic-show-post-menu">
 		<f:render partial="Post/Menu" arguments="{post: post}" />
 	</div>
 	<f:render partial="User/InformationRow" arguments="{user: post.author, settings:settings}" />
 	<div class="tx-mmforum-topic-show-post-text">
-		<mmf:format.textParser post="{post}" />
+<mmf:format.textParser post="{post}" />
 		
 		<f:if condition="{post.attachments}">
 			<div class="tx-mmforum-topic-show-post-attachments">
@@ -35,4 +35,7 @@
 			<mmf:format.textParser content="{post.author.signature}" />
 		</div>
 	</f:if>
+	<div class="tx-mmforum-topic-show-post-date">
+		<f:format.date format="{settings.format.dateTimeFormat}">{post.timestamp}</f:format.date>
+	</div>
 </div>

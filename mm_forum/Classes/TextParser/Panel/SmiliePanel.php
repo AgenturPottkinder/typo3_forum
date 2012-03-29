@@ -26,44 +26,77 @@
 
 
 
-	/**
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage TextParser_Panel
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
-	 */
+/**
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage TextParser_Panel
+ * @version    $Id$
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
 
 class Tx_MmForum_TextParser_Panel_SmiliePanel
-	extends Tx_MmForum_TextParser_Panel_AbstractPanel {
-	
+	extends Tx_MmForum_TextParser_Panel_AbstractPanel
+{
+
+
+
+	/**
+	 * TODO
+	 *
+	 * @var Tx_MmForum_Domain_Repository_Format_SmilieRepository
+	 */
 	protected $smilieRepository = NULL;
-	
+
+
+
+	/**
+	 * TODO
+	 *
+	 * @var array<Tx_MmForum_Domain_Model_Format_Smilie>
+	 */
 	protected $smilies = NULL;
-	
-	public function injectSmilieRepository(Tx_MmForum_Domain_Repository_Format_SmilieRepository $smilieRepository) {
+
+
+
+	/**
+	 * TODO
+	 *
+	 * @param Tx_MmForum_Domain_Repository_Format_SmilieRepository $smilieRepository
+	 *
+	 * @return void
+	 */
+	public function injectSmilieRepository(Tx_MmForum_Domain_Repository_Format_SmilieRepository $smilieRepository)
+	{
 		$this->smilieRepository = $smilieRepository;
-		$this->smilies = $this->smilieRepository->findAll();
+		$this->smilies          = $this->smilieRepository->findAll();
 	}
-	
-	public function getItems() {
+
+
+
+	/**
+	 * TODO
+	 *
+	 * @return array
+	 */
+	public function getItems()
+	{
 		$result = array();
-		
-		foreach($this->smilies as $smilie)
+
+		foreach ($this->smilies as $smilie)
 			$result[] = $smilie->exportForMarkItUp();
 		return array(array(
-			'name' => $this->settings['title'],
-			'className' => $this->settings['iconClassName'],
-			'replaceWith' => $this->smilies[0]->getSmilieShortcut(),
-			'dropMenu' => $result
-		));
+			             'name'        => $this->settings['title'],
+			             'className'   => $this->settings['iconClassName'],
+			             'replaceWith' => $this->smilies[0]->getSmilieShortcut(),
+			             'dropMenu'    => $result
+		             ));
 	}
 
 }

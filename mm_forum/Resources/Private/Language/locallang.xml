@@ -3,97 +3,175 @@
 	<meta type="array">
 		<type>module</type>
 		<description>Language labels for the mm_forum extension in the FRONTEND</description>
+		<generator>LFEditor</generator>
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="Generic_By">by</label>
-			<label index="Generic_More">more</label>
-
 			<label index="Button_Back">Back</label>
-			<label index="Button_Topic_New">New topic</label>
-			<label index="Button_Subscribe">Subscribe</label>
-			<label index="Button_Unsubscribe">Unsubscribe</label>
-			<label index="Button_Quote">Quote</label>
-			<label index="Button_Report">Report</label>
-			<label index="Button_Edit">Edit</label>
-			<label index="Button_Reply">Reply</label>
-			<label index="Button_Moderate">Moderate</label>
 			<label index="Button_Delete">Delete</label>
-
+			<label index="Button_Edit">Edit</label>
+			<label index="Button_Moderate">Moderate</label>
+			<label index="Button_Quote">Quote</label>
+			<label index="Button_Reply">Reply</label>
+			<label index="Button_Report">Report</label>
+			<label index="Button_Subscribe">Subscribe</label>
+			<label index="Button_Topic_New">New topic</label>
+			<label index="Button_Unsubscribe">Unsubscribe</label>
+			<label index="Button_User_Profile">User profile</label>
+			<label index="Editor_Panel_Formatting">Formatting</label>
+			<label index="Editor_Panel_Smilies">Smilies</label>
+			<label index="Editor_Panel_SyntaxHighlighting">Syntax highlighting</label>
+			<label index="Error_Exception_Title">Whoops!</label>
+			<label index="Error_Form_Body">Some errors occurred while processing your input. Please check your inputs.</label>
+			<label index="Error_Form_Title">Whoopsi!</label>
+			<label index="Forum_Index_Empty">No forums found</label>
+			<label index="Forum_Index_LastPost">Last post</label>
 			<label index="Forum_Index_Name">Forum</label>
 			<label index="Forum_Index_Posts">Posts</label>
 			<label index="Forum_Index_Topics">Topics</label>
-			<label index="Forum_Index_LastPost">Last post</label>
-			<label index="Forum_Index_Empty">No forums found</label>
-
-			<label index="Forum_Show_Topic_Subject">Subject</label>
-			<label index="Forum_Show_Topic_Author">Author</label>
-			<label index="Forum_Show_Topic_Posts">Replies</label>
-			<label index="Forum_Show_Topic_LastPost">Last post</label>
 			<label index="Forum_Show_Empty">No topics</label>
-
-			<label index="Topic_New">New topic</label>
-			<label index="Topic_New_Subject">Subject</label>
-			<label index="Topic_New_Text">Post text</label>
-			<label index="Topic_New_Attachments">Attachments</label>
-			<label index="Topic_New_Submit">Create topic</label>
-
-			<label index="Topic_Create_Success">The topic has successfully been created.</label>
-
-			<label index="Post_Show_QuoteBy">Quote by</label>
-			<label index="Post_Show_Attachments">Attachments</label>
-			<label index="Post_Show_Attachment_DownloadCount">Downloaded %d times</label>
-
-			<label index="Post_New">Reply to: %s</label>
-			<label index="Post_New_Text">Post text</label>
-			<label index="Post_New_Attachments">Attachments</label>
-			<label index="Post_New_Submit">Create post</label>
-
+			<label index="Forum_Show_Topic_Author">Author</label>
+			<label index="Forum_Show_Topic_LastPost">Last post</label>
+			<label index="Forum_Show_Topic_Posts">Replies</label>
+			<label index="Forum_Show_Topic_Subject">Subject</label>
+			<label index="Generic_By">by</label>
+			<label index="Generic_More">more</label>
+			<label index="Moderation_EditTopic">Moderate topic</label>
+			<label index="Moderation_EditTopic_Closed">Closed</label>
+			<label index="Moderation_EditTopic_Move">Move</label>
+			<label index="Moderation_EditTopic_Sticky">Sticky</label>
+			<label index="Moderation_EditTopic_Submit">Submit</label>
+			<label index="Moderation_UpdateTopic_Success">The topic has successfully been updated.</label>
 			<label index="Post_Create_Success">The post has successfully been created.</label>
-
+			<label index="Post_Delete_Success">The post has successfully been deleted.</label>
 			<label index="Post_Edit">Edit post</label>
 			<label index="Post_Edit_Submit">Update post</label>
-
+			<label index="Post_New">Reply to: %s</label>
+			<label index="Post_New_Attachments">Attachments</label>
+			<label index="Post_New_Error_Text_1221560718">Please specify a content for the new post.</label>
+			<label index="Post_New_Submit">Create post</label>
+			<label index="Post_New_Text">Post text</label>
+			<label index="Post_Show_Attachment_DownloadCount">Downloaded %d times</label>
+			<label index="Post_Show_Attachments">Attachments</label>
+			<label index="Post_Show_QuoteBy">Quote by</label>
 			<label index="Post_Update_Success">The post has successfully been updated.</label>
-
-			<label index="Post_Delete_Success">The post has successfully been deleted.</label>
-
-			<label index="User_Index">User list</label>
-			<label index="User_Index_Username">Username</label>
-			<label index="User_Index_MemberSince">Registered since</label>
-			<label index="User_Index_Posts">Posts</label>
-			<label index="User_Index_Contact">Contact</label>
-			<label index="User_Index_Message">Message</label>
-
-			<label index="User_ListPosts">All posts of %s</label>
-
-			<label index="User_Show">User details: %s</label>
-			<label index="User_Show_MemberSince">Member since</label>
-			<label index="User_Show_PostCount">%d posts</label>
-			<label index="User_Show_LastPosts">Last posts</label>
-
-			<label index="User_Subscribe_Forum_Success">The Forum "%s" has successfully been subscribed.</label>
-			<label index="User_Subscribe_Topic_Success">The Topic "%s" has successfully been subscribed.</label>
-			<label index="User_Unsubscribe_Forum_Success">The Forum "%s" has successfully been unsubscribed.</label>
-			<label index="User_Unsubscribe_Topic_Success">The Topic "%s" has successfully been unsubscribed.</label>
-
+			<label index="Report_Edit_Comments">Comments</label>
+			<label index="Report_Edit_Comments_New">New comment</label>
+			<label index="Report_Edit_Content">Content</label>
+			<label index="Report_Edit_Date">Date</label>
+			<label index="Report_Edit_General">General report information</label>
+			<label index="Report_Edit_Post">Reported post</label>
+			<label index="Report_Edit_Reportee">Post's author</label>
+			<label index="Report_Edit_Reporter">Reported by</label>
+			<label index="Report_Edit_SetStatus">Set status to &quot;%s&quot;</label>
+			<label index="Report_Edit_Status">Current workflow status</label>
+			<label index="Report_Edit_Topic">Topic</label>
 			<label index="Report_New">Report this post</label>
+			<label index="Report_NewComment">Write a new comment</label>
+			<label index="Report_NewComment_Error_Text_1221560718">Please specify a comment.</label>
+			<label index="Report_NewComment_Submit">Create comment</label>
+			<label index="Report_NewComment_Success">The comment has successfully been saved.</label>
+			<label index="Report_NewComment_Text">Comment text</label>
 			<label index="Report_New_Author">Post author</label>
+			<label index="Report_New_Error_Reason_1221560718">Please specify a reason why you believe this post to be inappropriate.</label>
 			<label index="Report_New_OriginalText">Original post text</label>
 			<label index="Report_New_Reason">Reason</label>
 			<label index="Report_New_Submit">Report post</label>
 			<label index="Report_New_Success">Your report has been submitted to a forum moderator.</label>
-
-			<label index="Moderation_EditTopic">Moderate topic</label>
-			<label index="Moderation_EditTopic_Sticky">Sticky</label>
-			<label index="Moderation_EditTopic_Closed">Closed</label>
-			<label index="Moderation_EditTopic_Move">Move</label>
-			<label index="Moderation_EditTopic_Submit">Submit</label>
-			<label index="Moderation_UpdateTopic_Success">The topic has successfully been updated.</label>
-
-			<label index="Editor_Panel_Formatting">Formatting</label>
-			<label index="Editor_Panel_SyntaxHighlighting">Syntax highlighting</label>
-			<label index="Editor_Panel_Smilies">Smilies</label>
+			<label index="Report_UpdateStatus_Success">The status of report #%s has successfully been set to %s.</label>
+			<label index="Topic_Create_Success">The topic has successfully been created.</label>
+			<label index="Topic_New">New topic</label>
+			<label index="Topic_New_Attachments">Attachments</label>
+			<label index="Topic_New_Error_Post_Text_1221560718">Please specify a content for the new topic.</label>
+			<label index="Topic_New_Error_Subject_1221560718">Please specify a subject for the new topic.</label>
+			<label index="Topic_New_Subject">Subject</label>
+			<label index="Topic_New_Submit">Create topic</label>
+			<label index="Topic_New_Subscribe">Subscribe</label>
+			<label index="Topic_New_SubscribeMore">Notify me via email when someone answers this topic.</label>
+			<label index="Topic_New_Text">Post text</label>
+			<label index="User_Index">User list</label>
+			<label index="User_Index_Contact">Contact</label>
+			<label index="User_Index_MemberSince">Registered since</label>
+			<label index="User_Index_Message">Message</label>
+			<label index="User_Index_Posts">Posts</label>
+			<label index="User_Index_Username">Username</label>
+			<label index="User_ListPosts">All posts of %s</label>
+			<label index="User_Show">User details</label>
+			<label index="User_Show_LastPosts">Last posts</label>
+			<label index="User_Show_MemberSince">Member since</label>
+			<label index="User_Show_PostCount">%d posts</label>
+			<label index="User_Subscribe_Forum_Success">The Forum &quot;%s&quot; has successfully been subscribed.</label>
+			<label index="User_Subscribe_Topic_Success">The Topic &quot;%s&quot; has successfully been subscribed.</label>
+			<label index="User_Unsubscribe_Forum_Success">The Forum &quot;%s&quot; has successfully been unsubscribed.</label>
+			<label index="User_Unsubscribe_Topic_Success">The Topic &quot;%s&quot; has successfully been unsubscribed.</label>
 		</languageKey>
+		<languageKey index="af"></languageKey>
+		<languageKey index="ar"></languageKey>
+		<languageKey index="bs"></languageKey>
+		<languageKey index="bg"></languageKey>
+		<languageKey index="ca"></languageKey>
+		<languageKey index="ch"></languageKey>
+		<languageKey index="cs"></languageKey>
+		<languageKey index="da"></languageKey>
+		<languageKey index="de" type="array">
+			<label index="Button_Back">ZurÃ¼ck</label>
+			<label index="Button_Delete">LÃ¶schen</label>
+			<label index="Button_Edit">Bearbeiten</label>
+			<label index="Button_Moderate">Moderieren</label>
+			<label index="Button_Quote">Zitieren</label>
+			<label index="Button_Reply">Antworten</label>
+			<label index="Button_Report">Melden</label>
+			<label index="Button_Subscribe">Abonnieren</label>
+			<label index="Button_Topic_New">Neues Thema</label>
+			<label index="Button_Unsubscribe">Abonnement beenden</label>
+			<label index="Button_User_Profile">Benutzerprofil</label>
+			<label index="Editor_Panel_Formatting">Formatierung</label>
+			<label index="Editor_Panel_Smilies">Smilies</label>
+			<label index="Editor_Panel_SyntaxHighlighting">Syntax-Hervorhebung</label>
+			<label index="Error_Exception_Title">Hoppla!</label>
+			<label index="Error_Form_Body">Bei der Verarbeitung Ihrer Eingaben sind einige Fehler aufgetreten. Bitte Ã¼berprÃ¼fen Sie Ihre Eingaben.</label>
+		</languageKey>
+		<languageKey index="el"></languageKey>
+		<languageKey index="eo"></languageKey>
+		<languageKey index="es"></languageKey>
+		<languageKey index="et"></languageKey>
+		<languageKey index="eu"></languageKey>
+		<languageKey index="fa"></languageKey>
+		<languageKey index="fi"></languageKey>
+		<languageKey index="fo"></languageKey>
+		<languageKey index="fr"></languageKey>
+		<languageKey index="fr_CA"></languageKey>
+		<languageKey index="gl"></languageKey>
+		<languageKey index="he"></languageKey>
+		<languageKey index="hi"></languageKey>
+		<languageKey index="hr"></languageKey>
+		<languageKey index="hu"></languageKey>
+		<languageKey index="is"></languageKey>
+		<languageKey index="it"></languageKey>
+		<languageKey index="ja"></languageKey>
+		<languageKey index="ka"></languageKey>
+		<languageKey index="kl"></languageKey>
+		<languageKey index="km"></languageKey>
+		<languageKey index="ko"></languageKey>
+		<languageKey index="lt"></languageKey>
+		<languageKey index="lv"></languageKey>
+		<languageKey index="ms"></languageKey>
+		<languageKey index="nl"></languageKey>
+		<languageKey index="no"></languageKey>
+		<languageKey index="pl"></languageKey>
+		<languageKey index="pt"></languageKey>
+		<languageKey index="pt_BR"></languageKey>
+		<languageKey index="ro"></languageKey>
+		<languageKey index="ru"></languageKey>
+		<languageKey index="sk"></languageKey>
+		<languageKey index="sl"></languageKey>
+		<languageKey index="sq"></languageKey>
+		<languageKey index="sr"></languageKey>
+		<languageKey index="sv"></languageKey>
+		<languageKey index="th"></languageKey>
+		<languageKey index="tr"></languageKey>
+		<languageKey index="uk"></languageKey>
+		<languageKey index="vi"></languageKey>
+		<languageKey index="zh"></languageKey>
 	</data>
 </T3locallang>

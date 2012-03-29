@@ -26,180 +26,186 @@
 
 
 
-	/**
-	 *
-	 * A file attachment. These attachments can be attached to any forum post.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Model_Format
-	 * @version    $Id$
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
+/**
+ *
+ * A file attachment. These attachments can be attached to any forum post.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Model_Format
+ * @version    $Id$
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+
+class Tx_MmForum_Domain_Model_Forum_Attachment extends Tx_Extbase_DomainObject_AbstractEntity
+{
+
+
+
+	/*
+	 * ATTRIBUTES
 	 */
 
-Class Tx_MmForum_Domain_Model_Forum_Attachment Extends Tx_Extbase_DomainObject_AbstractEntity {
+
+
+	/**
+	 * The attachment file name
+	 *
+	 * @var string
+	 */
+	protected $filename;
 
 
 
-
-
-		/*
-		 * ATTRIBUTES
-		 */
-
-
-
-
-
-		/**
-		 * The attachment file name
-		 * @var string
-		 */
-	Protected $filename;
-
-		/**
-		 * The MIME type of the attachment
-		 * @var string
-		 */
-	Protected $mimeType;
-
-		/**
-		 * A download counter
-		 * @var integer
-		 */
-	Protected $downloadCount;
+	/**
+	 * The MIME type of the attachment
+	 *
+	 * @var string
+	 */
+	protected $mimeType;
 
 
 
+	/**
+	 * A download counter
+	 *
+	 * @var integer
+	 */
+	protected $downloadCount;
 
 
-		/*
-		 * GETTERS
-		 */
+
+	/*
+	 * GETTERS
+	 */
 
 
 
-
-
-		/**
-		 *
-		 * Gets the attachment's filename
-		 * @return string The attachment's filename
-		 *
-		 */
-
-	Public Function getFilename() {
-		Return $this->filename;
+	/**
+	 *
+	 * Gets the attachment's filename
+	 *
+	 * @return string The attachment's filename
+	 *
+	 */
+	public function getFilename()
+	{
+		return $this->filename;
 	}
 
 
 
-		/**
-		 *
-		 * Gets the absolute filename of this attachment
-		 * @return string The absolute filename of this attachment
-		 *
-		 */
-
-	Public Function getAbsoluteFilename() {
+	/**
+	 *
+	 * Gets the absolute filename of this attachment
+	 *
+	 * @return string The absolute filename of this attachment
+	 *
+	 */
+	public function getAbsoluteFilename()
+	{
 		global $TCA;
 		$GLOBALS['TSFE']->includeTCA();
 		t3lib_div::loadTCA('tx_mmforum_domain_model_forum_attachment');
 
 		$uploadPath = $TCA['tx_mmforum_domain_model_forum_attachment']['columns']['filename']['config']['uploadfolder'];
-		Return $uploadPath . $this->getFilename();
+		return $uploadPath . $this->getFilename();
 	}
 
 
 
-		/**
-		 *
-		 * Gets the filesize.
-		 * @return integer The filesize
-		 *
-		 */
-
-	Public Function getFilesize() {
-		Return filesize($this->getAbsoluteFilename());
+	/**
+	 *
+	 * Gets the filesize.
+	 *
+	 * @return integer The filesize
+	 *
+	 */
+	public function getFilesize()
+	{
+		return filesize($this->getAbsoluteFilename());
 	}
 
 
 
-		/**
-		 *
-		 * Gets the MIME type.
-		 * @return string The MIME type
-		 *
-		 */
-
-	Public Function getMimeType() {
-		Return $this->mimeType;
+	/**
+	 *
+	 * Gets the MIME type.
+	 *
+	 * @return string The MIME type
+	 *
+	 */
+	public function getMimeType()
+	{
+		return $this->mimeType;
 	}
 
 
 
-		/**
-		 *
-		 * Gets the download count.
-		 * @return integer The download count
-		 *
-		 */
-
-	Public Function getDownloadCount() {
-		Return $this->downloadCount;
+	/**
+	 *
+	 * Gets the download count.
+	 *
+	 * @return integer The download count
+	 *
+	 */
+	public function getDownloadCount()
+	{
+		return $this->downloadCount;
 	}
 
 
 
-
-
-		/*
-		 * SETTERS
-		 */
-
+	/*
+	 * SETTERS
+	 */
 
 
 
-
-		/**
-		 *
-		 * Sets the filename.
-		 * @param string $filename The filename
-		 * @return void
-		 *
-		 */
-
-	Public Function setFilename($filename) {
+	/**
+	 *
+	 * Sets the filename.
+	 *
+	 * @param string $filename The filename
+	 *
+	 * @return void
+	 *
+	 */
+	public function setFilename($filename)
+	{
 		$this->filename = $filename;
 	}
 
-		/**
-		 *
-		 * Sets the MIME type.
-		 * @param string $mimeType The MIME type
-		 * @return void
-		 *
-		 */
 
-	Public Function setMimeType($mimeType) {
+
+	/**
+	 *
+	 * Sets the MIME type.
+	 *
+	 * @param string $mimeType The MIME type
+	 *
+	 * @return void
+	 *
+	 */
+	public function setMimeType($mimeType)
+	{
 		$this->mimeType = $mimeType;
 	}
 
 
 
-		/**
-		 *
-		 * Increases the download counter by 1.
-		 * @return void
-		 *
-		 */
-	
-	Public Function increaseDownloadCount() {
-		$this->downloadCount ++;
+	/**
+	 *
+	 * Increases the download counter by 1.
+	 *
+	 * @return void
+	 *
+	 */
+	public function increaseDownloadCount()
+	{
+		$this->downloadCount++;
 	}
 
 }
-
-?>

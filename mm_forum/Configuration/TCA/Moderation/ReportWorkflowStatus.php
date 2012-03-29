@@ -4,10 +4,10 @@ if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 $TCA['tx_mmforum_domain_model_moderation_reportworkflowstatus'] = array(
 	'ctrl' => $TCA['tx_mmforum_domain_model_moderation_reportworkflowstatus']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'name,followup_status,initial'
+		'showRecordFieldList' => 'name,icon,followup_status,initial,final'
 	),
 	'types' => array(
-		'1' => array('showitem' => 'name,followup_status,initial')
+		'1' => array('showitem' => 'name,icon,followup_status,initial,final')
 	),
 	'palettes' => array(
 		'1' => array('showitem' => '')
@@ -54,6 +54,26 @@ $TCA['tx_mmforum_domain_model_moderation_reportworkflowstatus'] = array(
 				'type' => 'check'
 			)
 		),
+		'final' => array(
+			'exclude' => 0,
+			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_reportworkflowstatus.final',
+			'config'  => array(
+				'type' => 'check'
+			)
+		),
+		'icon' => array(
+			'exclude' => 0,
+			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_reportworkflowstatus.icon',
+			'config'  => array(
+				'type' => 'group',
+				'internal_type' => 'file',
+				'uploadfolder' => 'uploads/tx_mmforum/workflowstatus/',
+				'minitems' => 1,
+				'maxitems' => 1,
+				'allowed' => '*',
+				'disallowed' => ''
+			)
+		)
 	),
 );
 ?>

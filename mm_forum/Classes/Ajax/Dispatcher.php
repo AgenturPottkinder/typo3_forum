@@ -1,9 +1,9 @@
 <?php
 
-/*                                                                      *
+/*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2011 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -26,114 +26,110 @@
 
 
 
-	/**
-	 * 
-	 * This class implements a simple dispatcher for a mm_form eID script.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Ajax
-	 * @version    $Id: AbstractController.php 39978 2010-11-09 14:19:52Z mhelmich $
-	 *
-	 * @copyright  2011 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
+/**
+ * 
+ * This class implements a simple dispatcher for a mm_form eID script.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Ajax
+ * @version    $Id: AbstractController.php 39978 2010-11-09 14:19:52Z mhelmich $
+ *
+ * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+final class Tx_MmForum_Ajax_Dispatcher
+		implements t3lib_Singleton {
+
+
+
+	/*
+	 * ATTRIBUTES
 	 */
 
-final class Tx_MmForum_Ajax_Dispatcher
-	implements t3lib_Singleton {
-	
-		
-		
-		
-		
-		/*
-		 * ATTRIBUTES
-		 */
-		
-		
-		
-		
-		
-		/**
-		 * The current extension name.
-		 * CAUTION: This is NOT the extension KEY (so not "mm_forum", but
-		 * "MmForum" instead!)
-		 * 
-		 * @var string
-		 */
+
+
+	/**
+	 * The current extension name.
+	 * CAUTION: This is NOT the extension KEY (so not "mm_forum", but
+	 * "MmForum" instead!)
+	 *
+	 * @var string
+	 */
 	protected $extensionKey = 'MmForum';
-		
-		/**
-		 * An instance of the extbase bootstrapping class.
-		 * @var Tx_Extbase_Core_Bootstrap
-		 */
+
+
+	/**
+	 * An instance of the extbase bootstrapping class.
+	 * @var Tx_Extbase_Core_Bootstrap
+	 */
 	protected $extbaseBootstap = NULL;
-	
-		/**
-		 * An instance of the extbase object manager.
-		 * @var Tx_Extbase_Object_ObjectManagerInterface
-		 */
+
+
+	/**
+	 * An instance of the extbase object manager.
+	 * @var Tx_Extbase_Object_ObjectManagerInterface
+	 */
 	protected $objectManager = NULL;
-	
-		/**
-		 * An instance of the extbase request builder.
-		 * @var Tx_Extbase_MVC_Web_RequestBuilder
-		 */
+
+
+	/**
+	 * An instance of the extbase request builder.
+	 * @var Tx_Extbase_MVC_Web_RequestBuilder
+	 */
 	protected $requestBuilder = NULL;
-	
-		/**
-		 * An instance of the extbase dispatcher.
-		 * @var Tx_Extbase_MVC_Dispatcher
-		 */
+
+
+	/**
+	 * An instance of the extbase dispatcher.
+	 * @var Tx_Extbase_MVC_Dispatcher
+	 */
 	protected $dispatcher = NULL;
-	
-	
-	
-	
-	
-		/*
-		 * INITIALIZATION
-		 */
-	
-	
-	
-	
-	
-		/**
-		 * 
-		 * Initialize the dispatcher.
-		 * @return void
-		 * 
-		 */
-	
+
+
+
+
+
+	/*
+	 * INITIALIZATION
+	 */
+
+
+
+	/**
+	 * 
+	 * Initialize the dispatcher.
+	 * @return void
+	 * 
+	 */
 	protected function init() {
 		$this->initTYPO3();
 		$this->initExtbase();
 	}
-	
-	
-	
-		/**
-		 * 
-		 * Initialize the global TSFE object.
-		 * 
-		 * Most of the code was adapted from the df_tools extension by Stefan
-		 * Galinski.
-		 * 
-		 * @return void.
-		 * 
-		 */
-	
-	protected function initTYPO3() {
-		tslib_eidtools::connectDB(); 
 
-			# The following code was adapted from the df_tools extension.
-			# Credits go to Stefan Galinski.
-		$GLOBALS['TSFE'] = t3lib_div::makeInstance('tslib_fe', $GLOBALS['TYPO3_CONF_VARS'], (int)$_GET['p'], 0);
+
+
+	/**
+	 * 
+	 * Initialize the global TSFE object.
+	 * 
+	 * Most of the code was adapted from the df_tools extension by Stefan
+	 * Galinski.
+	 * 
+	 * @return void.
+	 * 
+	 */
+	protected function initTYPO3() {
+		tslib_eidtools::connectDB();
+
+		# The following code was adapted from the df_tools extension.
+		# Credits go to Stefan Galinski.
+		$GLOBALS['TSFE'] = t3lib_div::makeInstance('tslib_fe',
+						$GLOBALS['TYPO3_CONF_VARS'], (int) $_GET['p'], 0);
 		$GLOBALS['TSFE']->sys_page = t3lib_div::makeInstance('t3lib_pageSelect');
 		$GLOBALS['TSFE']->getPageAndRootline();
 		$GLOBALS['TSFE']->initTemplate();
@@ -141,11 +137,11 @@ final class Tx_MmForum_Ajax_Dispatcher
 		$GLOBALS['TSFE']->initFEuser();
 		$GLOBALS['TSFE']->initUserGroups();
 		$GLOBALS['TSFE']->getCompressedTCarray();
-		
+
 		$GLOBALS['TSFE']->no_cache = TRUE;
 		$GLOBALS['TSFE']->tmpl->start($GLOBALS['TSFE']->rootLine);
 		$GLOBALS['TSFE']->no_cache = FALSE;
-		
+
 		$GLOBALS['TSFE']->config = array();
 		$GLOBALS['TSFE']->config['config'] = array(
 			'sys_language_uid' => intval(t3lib_div::_GP('L')),
@@ -156,65 +152,61 @@ final class Tx_MmForum_Ajax_Dispatcher
 		);
 		$GLOBALS['TSFE']->settingLanguage();
 	}
-	
-	
-	
-		/**
-		 * 
-		 * Initializes the Extbase framework by instantiating the bootstrap
-		 * class and the extbase object manager.
-		 * 
-		 * @return void
-		 * 
-		 */
-	
+
+
+
+	/**
+	 * 
+	 * Initializes the Extbase framework by instantiating the bootstrap
+	 * class and the extbase object manager.
+	 * 
+	 * @return void
+	 * 
+	 */
 	protected function initExtbase() {
 		$this->extbaseBootstap = t3lib_div::makeInstance('Tx_Extbase_Core_Bootstrap');
 		$this->objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
 	}
-	
-	
-	
-	
-	
-		/*
-		 * DISPATCHING METHODS
-		 */
-	
-	
-	
-	
-	
-		/**
-		 * 
-		 * Initializes this class and starts the dispatching process.
-		 * @return void
-		 * 
-		 */
-	
+
+
+
+	/*
+	 * DISPATCHING METHODS
+	 */
+
+
+
+	/**
+	 * 
+	 * Initializes this class and starts the dispatching process.
+	 * @return void
+	 * 
+	 */
 	public function run() {
 		$this->init();
 		$this->dispatch();
 	}
-	
-	
-	
-		/**
-		 * 
-		 * Dispatches a request.
-		 * @return void
-		 * 
-		 */
-	
+
+
+
+	/**
+	 * 
+	 * Dispatches a request.
+	 * @return void
+	 * 
+	 */
 	public function dispatch() {
-		echo $this->extbaseBootstap->run('', array(
+		echo $this->extbaseBootstap->run('',
+				array(
 			'extensionName' => $this->extensionKey,
 			'pluginName' => 'Ajax'
 		));
 	}
-		
+
+
+
 }
 
-	# Instantiate and start dispatcher.
+# Instantiate and start dispatcher.
 $dispatcher = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_MmForum_Ajax_Dispatcher');
 $dispatcher->run();

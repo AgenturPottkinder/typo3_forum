@@ -1,9 +1,9 @@
 <?php
 
-/*                                                                      *
+/*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -26,136 +26,157 @@
 
 
 
-	/**
-	 *
-	 * A report comment. Each moderation report consists of a set -- and at least one --
-	 * of these comments.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Model_Moderation
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
+/**
+ *
+ * A report comment. Each moderation report consists of a set -- and at least one --
+ * of these comments.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Model_Moderation
+ * @version    $Id$
+ *
+ * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+class Tx_MmForum_Domain_Model_Moderation_ReportComment
+		extends Tx_Extbase_DomainObject_AbstractEntity
+{
+
+
+
+	/*
+	 * ATTRIBUTES
 	 */
 
-Class Tx_MmForum_Domain_Model_Moderation_ReportComment
-	Extends Tx_Extbase_DomainObject_AbstractEntity {
+
+
+	/**
+	 * The comment author
+	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+	 */
+	protected $author;
+
+
+	/**
+	 * The comment
+	 * @var string
+	 * @validate NotEmpty
+	 */
+	protected $text;
+
+
+	/**
+	 * The report this comment belongs to.
+	 * @var Tx_MmForum_Domain_Model_Moderation_Report
+	 */
+	protected $report;
+
+
+	/**
+	 * This comment's creation timestamp.
+	 * @var DateTime
+	 */
+	protected $crdate = NULL;
 
 
 
 
 
-		/*
-		 * ATTRIBUTES
-		 */
+	/*
+	 * GETTERS
+	 */
 
 
 
-
-
-		/**
-		 * The comment author
-		 * @var Tx_MmForum_Domain_Model_User_FrontendUser
-		 */
-	Protected $author;
-
-		/**
-		 * The comment
-		 * @var string
-		 */
-	Protected $text;
-
-		/**
-		 * The report this comment belongs to.
-		 * @var Tx_MmForum_Domain_Model_Moderation_Report
-		 */
-	Protected $report;
+	/**
+	 *
+	 * Gets the comment author.
+	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The comment author.
+	 *
+	 */
+	public function getAuthor()
+	{
+		return $this->author;
+	}
 
 
 
-
-
-		/*
-		 * GETTERS
-		 */
-
-
-
-
-
-		/**
-		 *
-		 * Gets the comment author.
-		 * @return Tx_MmForum_Domain_Model_User_FrontendUser The comment author.
-		 *
-		 */
-
-	Public Function getAuthor() { Return $this->author; }
+	/**
+	 *
+	 * Gets the comment text.
+	 * @return string The comment text.
+	 *
+	 */
+	public function getText()
+	{
+		return $this->text;
+	}
 
 
 
-		/**
-		 *
-		 * Gets the comment text.
-		 * @return string The comment text.
-		 *
-		 */
-
-	Public Function getText() { Return $this->text; }
-
-
-
-		/**
-		 *
-		 * Gets the parent report.
-		 * @return Tx_MmForum_Domain_Model_Moderation_Report The report.
-		 *
-		 */
-
-	Public Function getReport() { Return $this->report; }
+	/**
+	 *
+	 * Gets the parent report.
+	 * @return Tx_MmForum_Domain_Model_Moderation_Report The report.
+	 *
+	 */
+	public function getReport()
+	{
+		return $this->report;
+	}
 
 
 
+	/**
+	 *
+	 * Gets this comment's creation timestamp.
+	 * @return DateTime The timestamp.
+	 *
+	 */
+	public function getTimestamp()
+	{
+		return $this->crdate;
+	}
 
 
-		/*
-		 * SETTERS
-		 */
+
+	/*
+	 * SETTERS
+	 */
 
 
 
-
-
-		/**
-		 *
-		 * Sets the comment's author.
-		 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $author The author.
-		 * @return void
-		 *
-		 */
-
-	Public Function setAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $author) {
+	/**
+	 *
+	 * Sets the comment's author.
+	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $author The author.
+	 * @return void
+	 *
+	 */
+	public function setAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $author)
+	{
 		$this->author = $author;
 	}
 
 
 
-		/**
-		 *
-		 * Sets the comment text.
-		 * @param string $text The comment text.
-		 * @return void
-		 *
-		 */
+	/**
+	 *
+	 * Sets the comment text.
+	 * @param string $text The comment text.
+	 * @return void
+	 *
+	 */
+	public function setText($text)
+	{
+		$this->text = $text;
+	}
 
-	Public Function setText($text) { $this->text = $text; }
+
 
 }
-
-?>

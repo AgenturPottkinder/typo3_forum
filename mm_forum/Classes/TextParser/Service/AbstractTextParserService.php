@@ -26,79 +26,91 @@
 
 
 
+/**
+ *
+ * Abstract base class for all kinds of text parsing services.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage TextParser_Service
+ * @version    $Id$
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+
+abstract class Tx_MmForum_TextParser_Service_AbstractTextParserService
+	extends Tx_MmForum_Service_AbstractService
+{
+
+
+
+	/**
+	 * The configuration of this service.
+	 *
+	 * @var array
+	 */
+	protected $settings = NULL;
+
+
+
+	/**
+	 * The current controller context
+	 *
+	 * @var Tx_Extbase_MVC_Controller_ControllerContext
+	 */
+	protected $controllerContext = NULL;
+
+
+
 	/**
 	 *
-	 * Abstract base class for all kinds of text parsing services.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage TextParser_Service
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
+	 * Creates a new instance of this service.
 	 *
 	 */
 
-abstract class Tx_MmForum_TextParser_Service_AbstractTextParserService
-	extends Tx_MmForum_Service_AbstractService {
+	public function __construct()
+	{
+	}
 
 
-		/**
-		 * The configuration of this service.
-		 * @var array
-		 */
-	protected $settings = NULL;
-	
-		/**
-		 * The current controller context
-		 * @var Tx_Extbase_MVC_Controller_ControllerContext
-		 */
-	protected $controllerContext = NULL;
 
-	
-	
-		/**
-		 *
-		 * Creates a new instance of this service.
-		 *
-		 */
+	/**
+	 * Injects this service's configuration.
+	 *
+	 * @param array $settings The configuration for this service.
+	 */
 
-	public function __construct() {}
-	
-	
-	
-		/**
-		 * 
-		 * Injects this service's configuration.
-		 * @param array $settings The configuration for this service.
-		 * 
-		 */
-	
-	public function setSettings(array $settings) {
+	public function setSettings(array $settings)
+	{
 		$this->settings = $settings;
 	}
-	
-	public function setControllerContext(Tx_Extbase_MVC_Controller_ControllerContext $controllerContext) {
+
+
+
+	/**
+	 * TODO
+	 * @param Tx_Extbase_MVC_Controller_ControllerContext $controllerContext
+	 */
+	public function setControllerContext(Tx_Extbase_MVC_Controller_ControllerContext $controllerContext)
+	{
 		$this->controllerContext = $controllerContext;
 	}
 
 
 
-		/**
-		 *
-		 * Renders the parsed text.
-		 *
-		 * @param  string $text The text to be parsed.
-		 * @return string       The parsed text.
-		 *
-		 */
+	/**
+	 * Renders the parsed text.
+	 *
+	 * @param  string $text The text to be parsed.
+	 *
+	 * @return string       The parsed text.
+	 */
 
 	abstract function getParsedText($text);
 
 }
-
-?>

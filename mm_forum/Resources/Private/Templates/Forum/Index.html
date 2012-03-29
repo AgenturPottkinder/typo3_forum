@@ -5,7 +5,7 @@
 	<f:flashMessages />
 
 	<f:for each="{forums}" as="forum">
-		<f:render partial="Forum/List" arguments="{category: forum, header: forum.title, settings: settings}" />
+		<f:render partial="Forum/List" arguments="{category: forum, header: forum.title}" />
 	</f:for>
 
 </f:section>

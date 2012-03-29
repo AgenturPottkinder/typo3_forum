@@ -437,7 +437,7 @@
 			// open preview window
 			function preview() {
 				if (!previewWindow || previewWindow.closed) {
-					previewDiv = $('<div class="markItUpPreviewDiv">LALALA</div>');
+					previewDiv = $('<div class="markItUpPreviewDiv"></div>');
 					previewDiv.insertAfter(footer);
 					previewWindow = previewDiv;
 				} else if (altKey === true) {

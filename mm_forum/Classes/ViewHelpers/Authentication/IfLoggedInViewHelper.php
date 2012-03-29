@@ -26,40 +26,39 @@
 
 
 
-	/**
-	 *
-	 * ViewHelper that renders its contents if there is a user currently logged
-	 * in.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage ViewHelpers_Authentication
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
-	 */
+/**
+ *
+ * ViewHelper that renders its contents if there is a user currently logged
+ * in.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage ViewHelpers_Authentication
+ * @version    $Id$
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
 
 class Tx_MmForum_ViewHelpers_Authentication_IfLoggedInViewHelper
-	extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+	extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper
+{
 
 
 
-		/**
-		 *
-		 * Renders the ViewHelper contents if there is a user logged in.
-		 * @return string HTML content
-		 *
-		 */
-	
-	public function render() {
+	/**
+	 * Renders the ViewHelper contents if there is a user logged in.
+	 *
+	 * @return string HTML content
+	 */
+
+	public function render()
+	{
 		return $GLOBALS['TSFE']->fe_user->user['uid'] ? $this->renderChildren() : '';
 	}
 
 }
-
-?>

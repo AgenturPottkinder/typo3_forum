@@ -26,42 +26,42 @@
 
 
 
+/**
+ *
+ * Utility module for localization related functions.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Utility
+ * @version    $Id$
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+
+class Tx_MmForum_Utility_Localization
+{
+
+
+
 	/**
+	 * Translates something. Basically, this is just a wrapper function for the
+	 * Tx_Extbase_Utility_Localization::translate method. However, this methods
+	 * offers the possibility to give a default value, in case that a label is not
+	 * found.
 	 *
-	 * Utility module for localization related functions.
+	 * @param  string $key       The label key.
+	 * @param  string $default   The default value.
+	 * @param  array  $arguments Arguments that are to be replaced
 	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Utility
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
+	 * @return string            The translated value.
 	 */
-
-class Tx_MmForum_Utility_Localization {
-
-
-	
-		/**
-		 *
-		 * Translates something. Basically, this is just a wrapper function for the
-		 * Tx_Extbase_Utility_Localization::translate method. However, this methods
-		 * offers the possibility to give a default value, in case that a label is not
-		 * found.
-		 *
-		 * @param  string $key       The label key.
-		 * @param  string $default   The default value.
-		 * @param   array $arguments Arguments that are to be replaced
-		 * @return string            The translated value.
-		 *
-		 */
-
-	public static function translate($key, $default=NULL, $arguments=Array()) {
+	public static function translate($key, $default = NULL, $arguments = Array())
+	{
 		$l = Tx_Extbase_Utility_Localization::translate($key, 'MmForum', $arguments);
 		return $l === NULL ? $default : $l;
 	}

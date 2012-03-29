@@ -26,105 +26,110 @@
 
 
 
-	/**
-	 *
-	 * Text parser class for parsing smilies.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage TextParser_Service
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
-	 */
+/**
+ *
+ * Text parser class for parsing smilies.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage TextParser_Service
+ * @version    $Id$
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
 
 Class Tx_MmForum_TextParser_Service_SmilieParserService
-	Extends Tx_MmForum_TextParser_Service_AbstractTextParserService {
+	Extends Tx_MmForum_TextParser_Service_AbstractTextParserService
+{
 
 
 
-
-
-		/*
-		 * ATTRIBUTES
-		 */
-
+	/*
+		  * ATTRIBUTES
+		  */
 
 
 
-
-		/**
-		 * The smilie repository
-		 * @var Tx_MmForum_Domain_Repository_Format_SmilieRepository
-		 */
+	/**
+	 * The smilie repository
+	 *
+	 * @var Tx_MmForum_Domain_Repository_Format_SmilieRepository
+	 */
 	Protected $smilieRepository;
 
-		/**
-		 * All smilies.
-		 * @var array<Tx_MmForum_Domain_Model_Format_Smilie>
-		 */
+
+
+	/**
+	 * All smilies.
+	 *
+	 * @var array<Tx_MmForum_Domain_Model_Format_Smilie>
+	 */
 	Protected $smilies;
 
 
 
-
-
-		/*
-		 * METHODS
-		 */
-
+	/*
+		  * METHODS
+		  */
 
 
 
+	/**
+	 *
+	 * Creates a new instance of this service.
+	 *
+	 */
 
-		/**
-		 *
-		 * Creates a new instance of this service.
-		 *
-		 */
-
-	Public Function  __construct() {
+	Public Function  __construct()
+	{
 		$this->smilieRepository =&
 			t3lib_div::makeInstance('Tx_MmForum_Domain_Repository_Format_SmilieRepository');
-		$this->smilies = $this->smilieRepository->findAll();
+		$this->smilies          = $this->smilieRepository->findAll();
 	}
 
 
 
-		/**
-		 *
-		 * Renders the parsed text.
-		 *
-		 * @param  string $text The text to be parsed.
-		 * @return string       The parsed text.
-		 *
-		 */
+	/**
+	 *
+	 * Renders the parsed text.
+	 *
+	 * @param  string $text The text to be parsed.
+	 *
+	 * @return string       The parsed text.
+	 *
+	 */
 
-	Public Function getParsedText($text) {
-		ForEach($this->smilies As $smilie) {
-			$text = str_replace ( $smilie->getSmilieShortcut(),
-			                      $this->getSmilieIcon($smilie), $text );
-		} Return $text;
+	Public Function getParsedText($text)
+	{
+		ForEach ($this->smilies As $smilie)
+		{
+			$text = str_replace($smilie->getSmilieShortcut(),
+			                    $this->getSmilieIcon($smilie), $text);
+		}
+		Return $text;
 	}
 
 
 
-		/**
-		 *
-		 * Renders a smilie icon.
-		 * @param  Tx_MmForum_Domain_Model_Format_Smilie $smilie
-		 *                             The smilie that is to be rendered.
-		 * @return string              The smilie as HTML code.
-		 *
-		 */
+	/**
+	 *
+	 * Renders a smilie icon.
+	 *
+	 * @param  Tx_MmForum_Domain_Model_Format_Smilie $smilie
+	 *                             The smilie that is to be rendered.
+	 *
+	 * @return string              The smilie as HTML code.
+	 *
+	 */
 
-	Protected Function getSmilieIcon(Tx_MmForum_Domain_Model_Format_Smilie $smilie) {
-		Return '<img src="'.$smilie->getIconFilename().'" alt="'.$smilie->getSmilieShortcut().'" />';
+	Protected Function getSmilieIcon(Tx_MmForum_Domain_Model_Format_Smilie $smilie)
+	{
+		Return '<img src="' . $smilie->getIconFilename() . '" alt="' . $smilie->getSmilieShortcut() . '" />';
 	}
 
 }

@@ -1,9 +1,9 @@
 <?php
 
-/*                                                                      *
+/*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -26,24 +26,49 @@
 
 
 
+/**
+ *
+ * Repository class for report objects.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Repository_Moderation
+ * @version    $Id$
+ *
+ * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+class Tx_MmForum_Domain_Repository_Moderation_ReportRepository
+	extends Tx_MmForum_Domain_Repository_AbstractRepository
+{
+
+
+
 	/**
 	 *
-	 * Repository class for report objects.
+	 * Finds all reports have not yet been ultimately closed.
 	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Repository_Moderation
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
+	 * @return Iterable<Tx_MmForum_Domain_Model_Moderation_Report> All reports have not yet been ultimately closed.
 	 *
 	 */
+	public function findOpen()
+	{
+		$query = $this->createQuery();
 
-Class Tx_MmForum_Domain_Repository_Moderation_ReportRepository
-	Extends Tx_MmForum_Domain_Repository_AbstractRepository { }
+		// Special case: As statically imported data, some workflow status might
+		// have pid=0, so we have to respect 0 as possible storage page id.
+		$storagePageIds   = $query->getQuerySettings()->getStoragePageIds();
+		$storagePageIds[] = 0;
+		$query->getQuerySettings()->setStoragePageIds($storagePageIds);
 
-?>
+		$query->matching($query->equals('workflowStatus.final', 0));
+		return $query->execute();
+	}
+
+
+
+}

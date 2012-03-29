@@ -1,0 +1,7 @@
+plugin.tx_mmforum.view {
+	templateRootPath = EXT:mm_forum/Resources/Private/Templates
+}
+
+plugin.tx_mmforum.persistence {
+	storagePid =
+}

@@ -1,9 +1,9 @@
 <?php
 
-/*                                                                      *
+/*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2011 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -26,40 +26,56 @@
 
 
 
-	/**
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Cache
-	 * @version    $Id: TextParserService.php 39978 2010-11-09 14:19:52Z mhelmich $
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
-	 */
+/**
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Cache
+ * @version    $Id: TextParserService.php 39978 2010-11-09 14:19:52Z mhelmich $
+ *
+ * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+class Tx_MmForum_Cache_CacheManager
+{
 
-class Tx_MmForum_Cache_CacheManager {
-	
-	protected $fileCachePath = 'typo3temp/mm_forum';
-	
-	public function clearAll() {
-		
-			# Neither the Extbase autoloader nor the TYPO3 internal autoloader
-			# appear to be doing anything at this point, so we have to include
-			# manually... :(
-		require_once t3lib_extMgm::extPath('mm_forum').'Classes/Cache/Cache.php';
+
+
+	protected $fileCachePaths = array('typo3temp/mm_forum', 'typo3temp/mm_forum/gravatar');
+
+
+
+	public function clearAll()
+	{
+		// Neither the Extbase autoloader nor the TYPO3 internal autoloader
+		// appear to be doing anything at this point, so we have to include
+		// manually... :(
+		require_once t3lib_extMgm::extPath('mm_forum') . 'Classes/Cache/Cache.php';
 		$cache = t3lib_div::makeInstance('Tx_MmForum_Cache_Cache');
 		$cache->flush();
-		
+
 		$this->deleteTemporaryFiles();
 	}
-	
-	protected function deleteTemporaryFiles() {
-		$files = glob(PATH_site.$this->fileCachePath.'/*');
-		foreach($files as $file) unlink($file);
+
+
+
+	protected function deleteTemporaryFiles()
+	{
+		foreach ($this->fileCachePaths as $fileCachePath)
+		{
+			$files = glob(PATH_site . $fileCachePath . '/*');
+			foreach ($files as $file)
+			{
+				if (is_file($file))
+					unlink($file);
+			}
+		}
 	}
-	
+
+
+
 }

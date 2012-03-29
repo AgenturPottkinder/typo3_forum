@@ -26,27 +26,39 @@
 
 
 
-	/**
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage TextParser_Panel
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
-	 */
+/**
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage TextParser_Panel
+ * @version    $Id$
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
 
 abstract class Tx_MmForum_TextParser_Panel_AbstractPanel
-	implements Tx_MmForum_TextParser_Panel_PanelInterface {
-	
+	implements Tx_MmForum_TextParser_Panel_PanelInterface
+{
+
+
+
+	/**
+	 * @var null
+	 */
 	protected $settings = NULL;
-		
-	public function setSettings(array $settings) {
+
+
+
+	/**
+	 * @param array $settings
+	 */
+	public function setSettings(array $settings)
+	{
 		$this->settings = $settings;
 	}
 

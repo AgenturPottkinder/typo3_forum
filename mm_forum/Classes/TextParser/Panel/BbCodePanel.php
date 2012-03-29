@@ -1,6 +1,6 @@
 <?php
 
-/*                                                                      *
+/* *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
  *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
@@ -26,39 +26,63 @@
 
 
 
-	/**
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage TextParser_Panel
-	 * @version    $Id: BasicParserService.php 39978 2010-11-09 14:19:52Z mhelmich $
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
-	 */
-
+/**
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage TextParser_Panel
+ * @version    $Id: BasicParserService.php 39978 2010-11-09 14:19:52Z mhelmich $
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
 class Tx_MmForum_TextParser_Panel_BbCodePanel
-	extends Tx_MmForum_TextParser_Panel_AbstractPanel {
-	
+	extends Tx_MmForum_TextParser_Panel_AbstractPanel
+{
+
+
+
+	/**
+	 * @var Tx_MmForum_Domain_Repository_Format_BBCodeRepository
+	 */
 	protected $bbCodeRepository = NULL;
-	
+
+
+
+	/**
+	 * @var array<Tx_MmForum_Domain_Model_Format_BBCode>
+	 */
 	protected $bbCodes = NULL;
-	
-	public function injectBbCodeRepository(Tx_MmForum_Domain_Repository_Format_BBCodeRepository $bbCodeRepository) {
+
+
+
+	/**
+	 * @param Tx_MmForum_Domain_Repository_Format_BBCodeRepository $bbCodeRepository
+	 */
+	public function injectBbCodeRepository(Tx_MmForum_Domain_Repository_Format_BBCodeRepository $bbCodeRepository)
+	{
 		$this->bbCodeRepository = $bbCodeRepository;
-		$this->bbCodes = $this->bbCodeRepository->findAll();
+		$this->bbCodes          = $this->bbCodeRepository->findAll();
 	}
-	
-	public function getItems() {
+
+
+
+	/**
+	 * @return array
+	 */
+	public function getItems()
+	{
 		$result = array();
-		
-		foreach($this->bbCodes as $bbCode)
+
+		foreach ($this->bbCodes as $bbCode)
 			$result[] = $bbCode->exportForMarkItUp();
 		return $result;
 	}
+
+
 
 }

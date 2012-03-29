@@ -1,9 +1,9 @@
 <?php
 
-/*                                                                      *
+/*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -26,29 +26,36 @@
 
 
 
+/**
+ *
+ * Service class for notifications. This service notifies subscribers of
+ * forums and topic about new posts within the subscribed objects.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Service
+ * @version    $Id: NotificationService.php 39978 2010-11-09 14:19:52Z mhelmich $
+ *
+ * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+interface Tx_MmForum_Service_Notification_NotificationServiceInterface
+{
+
+
+
 	/**
+	 * @abstract
 	 *
-	 * Service class for notifications. This service notifies subscribers of
-	 * forums and topic about new posts within the subscribed objects.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Service
-	 * @version    $Id: NotificationService.php 39978 2010-11-09 14:19:52Z mhelmich $
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
-	 */
+	 * @param Tx_MmForum_Domain_Model_SubscribeableInterface $subscriptionObject
+	 * @param Tx_MmForum_Domain_Model_NotifiableInterface    $notificationObject
+	 */public function notifySubscribers(Tx_MmForum_Domain_Model_SubscribeableInterface $subscriptionObject,
+	                                  Tx_MmForum_Domain_Model_NotifiableInterface $notificationObject);
 
-interface Tx_MmForum_Service_Notification_NotificationServiceInterface {
 
-	public function notifySubscribers ( Tx_MmForum_Domain_Model_SubscribeableInterface $subscriptionObject,
-	                                    Tx_MmForum_Domain_Model_NotifiableInterface    $notificationObject );
 
 }
-
-?>

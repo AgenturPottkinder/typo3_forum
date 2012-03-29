@@ -12,13 +12,13 @@
 						<TCEforms>
 							<label>LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action</label>
 							<config>
-								<type>select</type>
-								<maxitems>1</maxitems>
-								<size>6</size>
+								<type>radio</type>
+								<!--<maxitems>1</maxitems>
+								<size>6</size>-->
 								<items>
 									<numIndex index="0">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Forum</numIndex>
-										<numIndex index="1">Forum->index;Forum->show;Topic->show;Topic->new;Topic->create;Post->show;Post->new;Post->create;Post->edit;Post->update;Post->delete;User->subscribe;Report->new;Report->create;Moderation->editTopic;Moderation->updateTopic</numIndex>
+										<numIndex index="1">Forum->index;Forum->show;Topic->show;Topic->new;Topic->create;Post->show;Post->new;Post->create;Post->edit;Post->update;Post->confirmDelete;Post->delete;User->subscribe;Report->new;Report->create;Moderation->editTopic;Moderation->updateTopic</numIndex>
 									</numIndex>
 									<numIndex index="1">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_User_Index</numIndex>
@@ -27,6 +27,10 @@
 									<numIndex index="2">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_User_Show</numIndex>
 										<numIndex index="1">User->show;User->listPosts</numIndex>
+									</numIndex>
+									<numIndex index="3">
+										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Moderation_Reports</numIndex>
+										<numIndex index="1">Moderation->indexReport;Moderation->editReport;Moderation->updateReportStatus;Moderation->newReportComment;Moderation->createReportComment</numIndex>
 									</numIndex>
 								</items>
 							</config>

@@ -11,6 +11,7 @@
 			<label index="Behaviour_Action_Forum">Forum</label>
 			<label index="Behaviour_Action_User_Index">User list</label>
 			<label index="Behaviour_Action_User_Show">User profile</label>
+			<label index="Behaviour_Action_Moderation_Reports">Moderation/Reports: List and edit reports.</label>
 
 			<label index="Pages">Pages</label>
 			<label index="Pages_Forum">Forum page</label>

@@ -26,22 +26,29 @@
 
 
 
-	/**
-	 *
-	 * A bb code element. This class implements the abstract AbstractTextParserElement
-	 * class.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Model_Format
-	 * @version    $Id: BBCode.php 39978 2010-11-09 14:19:52Z mhelmich $
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
-	 */
+/**
+ *
+ * A bb code element. This class implements the abstract AbstractTextParserElement
+ * class.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Model_Format
+ * @version    $Id: BBCode.php 39978 2010-11-09 14:19:52Z mhelmich $
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
 
-interface Tx_MmForum_TextParser_Panel_MarkItUpExportableInterface {
-	
+interface Tx_MmForum_TextParser_Panel_MarkItUpExportableInterface
+{
+
+
+
+	/**
+	 * @abstract
+	 * @todo
+	 */
 	public function exportForMarkItUp();
-	
+
 }

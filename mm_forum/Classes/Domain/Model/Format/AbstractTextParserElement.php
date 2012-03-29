@@ -1,9 +1,9 @@
 <?php
 
-/*                                                                      *
+/*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -26,120 +26,113 @@
 
 
 
-	/**
-	 *
-	 * An abstract text parser element. This may later be a bb code, a smilie or anything
-	 * you want.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Model_Format
-	 * @version    $Id$
-	 * @license    GNU public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
+/**
+ *
+ * An abstract text parser element. This may later be a bb code, a smilie or anything
+ * you want.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Model_Format
+ * @version    $Id$
+ * @license    GNU public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+abstract class Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
+		extends Tx_Extbase_DomainObject_AbstractValueObject {
+
+
+
+	/*
+	 * ATTRIBUTES
 	 */
 
-abstract class Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
-	extends Tx_Extbase_DomainObject_AbstractValueObject {
 
 
-
-
-
-		/*
-		 * ATTRIBUTES
-		 */
-
-
-
-
-
-		/**
-		 * The CSS class that will be used to render this element's button.
-		 * @var string
-		 */
+	/**
+	 * The CSS class that will be used to render this element's button.
+	 * @var string
+	 */
 	protected $iconClass;
 
-		/**
-		 * The name of this element. Can also be a locallang label.
-		 * @var string
-		 */
+
+	/**
+	 * The name of this element. Can also be a locallang label.
+	 * @var string
+	 */
 	protected $name;
 
-		/**
-		 * The default icon directory. This may be overridden by subclasses.
-		 * @var string
-		 */
+
+	/**
+	 * The default icon directory. This may be overridden by subclasses.
+	 * @var string
+	 */
 	protected $defaultIconDir = 'Editor/';
 
 
 
 
 
-		/*
-		 * GETTER METHODS
-		 */
+	/*
+	 * GETTER METHODS
+	 */
 
 
 
-
-
-		/**
-		 *
-		 * Gets the icon filename.
-		 * @return string The icon filename.
-		 *
-		 */
-
-	public function getIconClass() { return $this->iconClass; }
-
-
-
-		/**
-		 *
-		 * Gets the text parser element name.
-		 * @return string The text parser element name
-		 *
-		 */
-
-	public function getName() { return $this->name; }
+	/**
+	 *
+	 * Gets the icon filename.
+	 * @return string The icon filename.
+	 *
+	 */
+	public function getIconClass() {
+		return $this->iconClass;
+	}
 
 
 
+	/**
+	 *
+	 * Gets the text parser element name.
+	 * @return string The text parser element name
+	 *
+	 */
+	public function getName() {
+		return $this->name;
+	}
 
 
-		/*
-		 * SETTERS
-		 */
+
+	/*
+	 * SETTERS
+	 */
 
 
 
-
-
-		/**
-		 *
-		 * Sets the icon CSS class.
-		 * @param string $iconClass The icon CSS class.
-		 *
-		 */
-
+	/**
+	 *
+	 * Sets the icon CSS class.
+	 * @param string $iconClass The icon CSS class.
+	 *
+	 */
 	public function setIconClass($iconClass) {
 		$this->iconClass = $iconClass;
 	}
 
 
 
-		/**
-		 *
-		 * Sets the element name.
-		 * @param string $name The element name.
-		 *
-		 */
-	
+	/**
+	 *
+	 * Sets the element name.
+	 * @param string $name The element name.
+	 *
+	 */
 	public function setName($name) {
 		$this->name = $name;
 	}
+
+
 
 }
 

@@ -1,6 +1,6 @@
 <?php
 
-/*                                                                      *
+/*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
  *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
@@ -26,54 +26,73 @@
 
 
 
-	/**
-	 *
-	 * ViewHelper that renders a big button.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage ViewHelpers_Control
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
-	 */
-
+/**
+ *
+ * ViewHelper that renders a big button.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage ViewHelpers_Control
+ * @version    $Id$
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
 class Tx_MmForum_ViewHelpers_Control_BigButtonViewHelper
-	extends Tx_Fluid_ViewHelpers_Link_ActionViewHelper {
+		extends Tx_Fluid_ViewHelpers_Link_ActionViewHelper
+{
 
-	public function initializeArguments() {
+
+
+	protected $iconBaseClass = 'tx-mmforum-icon-32-';
+
+
+
+	public function initializeArguments()
+	{
 		parent::initializeArguments();
-		
+
 		$this->registerArgument('iconAction', 'string', 'Deprecated!');
 		$this->registerArgument('icon', 'string', 'Icon name');
 		$this->registerArgument('iconClass', 'string', 'Classname for the icon');
 	}
-	
-	public function initialize() {
+
+
+
+	public function initialize()
+	{
 		parent::initialize();
 		$this->tag->addAttribute('class', 'tx-mmforum-button-big');
 	}
-		
-	protected function renderChildren() {
+
+
+
+	public function renderChildren()
+	{
 		$content = parent::renderChildren();
-		$iconClass = NULL; 
-		
-		if($this->arguments['iconClass'])
-				$iconClass = $this->arguments['iconClass'];
-		elseif($this->arguments['icon'])
-				$iconClass = 'tx-mmforum-icon-'.$this->arguments['icon'];
-		elseif($this->arguments['iconAction'])
-				$iconClass = 'tx-mmforum-icon-'.$this->arguments['iconAction'];
-		
-		if($iconClass)
-				$content = '<div class="'.$iconClass.'"></div> '.$content;
+		$iconClass = NULL;
+
+		if ($this->arguments['iconClass'])
+			$iconClass = $this->arguments['iconClass'];
+		elseif ($this->arguments['icon'])
+			$iconClass = $this->iconBaseClass . $this->arguments['icon'];
+		elseif ($this->arguments['iconAction'])
+			$iconClass = $this->iconBaseClass . $this->arguments['iconAction'];
+		elseif ($this->arguments['action'])
+			$iconClass = $this->iconBaseClass . $this->arguments['action'];
+
+		$this->tag->addAttribute('title', $content);
+
+		if ($iconClass)
+			$content = '<div class="' . $iconClass . '"></div><div class="tx-mmforum-button-text">' . $content . '</div>';
 		return $content;
 	}
+
+
 
 }
 

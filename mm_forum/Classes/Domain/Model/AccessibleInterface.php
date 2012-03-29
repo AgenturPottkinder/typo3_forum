@@ -26,36 +26,36 @@
 
 
 
+/**
+ * Interface definition for objects that are submitted to the access control
+ * mechanism of the mm_forum.
+ *
+ * @author         Martin Helmich <m.helmich@mittwald.de>
+ * @package        MmForum
+ * @subpackage     Domain_Model_User
+ * @version        $Id$
+ * @copyright      2010 Martin Helmich <m.helmich@mittwald.de>
+ *                 Mittwald CM Service GmbH & Co. KG
+ *                 http://www.mittwald.de
+ * @license        GNU Public License, version 2
+ *                 http://opensource.org/licenses/gpl-license.php
+ */
+
+interface Tx_MmForum_Domain_Model_AccessibleInterface
+{
+
+
+
 	/**
+	 * Checks if a certain frontend user has access to a specific operation.
 	 *
-	 * Interface definition for objects that are submitted to the access control
-	 * mechanism of the mm_forum.
+	 * @param \Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param string									 $accessType
 	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Model_User
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
+	 * @return boolean
+
 	 */
 
-Interface Tx_MmForum_Domain_Model_AccessibleInterface {
-
-
-
-		/**
-		 *
-		 * Checks if a certain frontend user has access to a specific operation.
-		 *
-		 */
-	
-	Public Function _checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user, $accessType);
+	public function _checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'read');
 
 }
-
-?>

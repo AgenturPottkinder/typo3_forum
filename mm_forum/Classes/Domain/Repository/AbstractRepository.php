@@ -1,9 +1,9 @@
 <?php
 
-/*                                                                      *
+/*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -26,77 +26,42 @@
 
 
 
+/**
+ *
+ * Abstract base class for all mm_forum repositories.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Repository_User
+ * @version    $Id$
+ *
+ * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+abstract class Tx_MmForum_Domain_Repository_AbstractRepository
+	extends Tx_Extbase_Persistence_Repository
+{
+
+
+
 	/**
-	 *
-	 * Abstract base class for all mm_forum repositories. This provides basic
-	 * methods for the use of hard-coded SQL queries to the database. Although
-	 * this is not the way that was intended by extbase, however at the moment
-	 * there is no way to model complex joins using the extbase methods
-	 * (see http://forge.typo3.org/issues/10212), so we'll have to do this by
-	 * ourselves.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Repository_User
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
+	 * @return Tx_Extbase_Persistence_QueryInterface
 	 */
+	protected function createQueryWithFallbackStoragePage()
+	{
+		$query = $this->createQuery();
 
-Abstract Class Tx_MmForum_Domain_Repository_AbstractRepository
-	Extends Tx_Extbase_Persistence_Repository {
+		$storagePageIds   = $query->getQuerySettings()->getStoragePageIds();
+		$storagePageIds[] = 0;
 
-
-
-		/**
-		 *
-		 * Returns the list of parent page-UIDs.
-		 * @return array<integer> The list of parent page-UIDs
-		 *
-		 */
-
-	Protected Function getPidList() {
-		$extbaseFrameworkConfiguration = Tx_Extbase_Dispatcher::getExtbaseFrameworkConfiguration();
-		Return t3lib_div::intExplode(',', $extbaseFrameworkConfiguration['persistence']['storagePid']);
+		$query->getQuerySettings()->setStoragePageIds($storagePageIds);
+		return $query;
 	}
 
 
-
-		/**
-		 *
-		 * Generates a custom MySQL query.
-		 *
-		 * @param  string $sql A SQL query template
-		 * @return string      The SQL query.
-		 *
-		 */
-
-	Protected Function getQuery($sql) {
-		Return str_replace('###PIDS###', implode(',',$this->getPidList()), $sql);
-	}
-
-
-
-		/**
-		 *
-		 * Generates a customer MySQL query with page navigation.
-		 *
-		 * @param  string  $sql          A SQL query template
-		 * @param  integer $page         The current page
-		 * @param  integer $itemsPerPage The amount of items per page
-		 * @return string                The SQL query
-		 *
-		 */
-	
-	Protected Function getPaginatedQuery($sql, $page, $itemsPerPage) {
-		Return $this->getQuery($sql) . " LIMIT ".intval(($page-1)*$itemsPerPage).", ".intval($itemsPerPage);
-	}
 
 }
-
-?>

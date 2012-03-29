@@ -1,5 +1,7 @@
 <?php
-if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
+
+if (!defined('TYPO3_MODE'))
+	die('Access denied.');
 
 $TCA['tx_mmforum_domain_model_moderation_report'] = array(
 	'ctrl' => $TCA['tx_mmforum_domain_model_moderation_report']['ctrl'],
@@ -15,21 +17,21 @@ $TCA['tx_mmforum_domain_model_moderation_report'] = array(
 	'columns' => array(
 		'hidden' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
-			'config'  => array(
+			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
+			'config' => array(
 				'type' => 'check'
 			)
 		),
 		'crdate' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:lang/locallang_general.xml:LGL.crdate',
-			'config'  => array(
+			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.crdate',
+			'config' => array(
 				'type' => 'passthrough'
 			)
 		),
 		'post' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.post',
+			'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.post',
 			'config' => array(
 				'type' => 'select',
 				'foreign_table' => 'tx_mmforum_domain_model_forum_post',
@@ -38,7 +40,7 @@ $TCA['tx_mmforum_domain_model_moderation_report'] = array(
 		),
 		'reporter' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.reporter',
+			'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.reporter',
 			'config' => array(
 				'type' => 'select',
 				'foreign_table' => 'fe_users',
@@ -47,7 +49,7 @@ $TCA['tx_mmforum_domain_model_moderation_report'] = array(
 		),
 		'moderator' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.moderator',
+			'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.moderator',
 			'config' => array(
 				'type' => 'select',
 				'foreign_table' => 'fe_users',
@@ -56,7 +58,7 @@ $TCA['tx_mmforum_domain_model_moderation_report'] = array(
 		),
 		'workflow_status' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.workflow_status',
+			'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.workflow_status',
 			'config' => array(
 				'type' => 'select',
 				'foreign_table' => 'tx_mmforum_domain_model_moderation_reportworkflowstatus',
@@ -65,18 +67,18 @@ $TCA['tx_mmforum_domain_model_moderation_report'] = array(
 		),
 		'comments' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.comments',
+			'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.comments',
 			'config' => array(
 				'type' => 'inline',
 				'foreign_table' => 'tx_mmforum_domain_model_moderation_reportcomment',
 				'foreign_field' => 'report',
 				'maxitems' => 9999,
+				'foreign_sortby' => 'crdate',
 				'appearance' => array(
-					'collapse' => 0,
-					'newRecordLinkPosition' => 'bottom',
+					'collapseAll' => TRUE,
+					'levelLinksPosition' => 'top'
 				),
 			)
 		),
 	),
 );
-?>

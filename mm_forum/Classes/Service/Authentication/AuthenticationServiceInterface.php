@@ -1,9 +1,9 @@
 <?php
 
-/*                                                                      *
+/*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -26,40 +26,100 @@
 
 
 
+/**
+ *
+ * An interface for authentication services, in case anyone wants to
+ * implement his own solution... ;)
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Service
+ * @version    $Id: AuthenticationServiceInterface.php 39978 2010-11-09 14:19:52Z mhelmich $
+ *
+ * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+interface Tx_MmForum_Service_Authentication_AuthenticationServiceInterface
+{
+
+
+
 	/**
+	 * @abstract
 	 *
-	 * An interface for authentication services, in case anyone wants to
-	 * implement his own solution... ;)
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Service
-	 * @version    $Id: AuthenticationServiceInterface.php 39978 2010-11-09 14:19:52Z mhelmich $
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
+	 * @param Tx_MmForum_Domain_Model_AccessibleInterface $object
 	 */
-
-interface Tx_MmForum_Service_Authentication_AuthenticationServiceInterface {
-
 	public function assertReadAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object);
 
+
+
+	/**
+	 * @abstract
+	 *
+	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 */
 	public function assertNewTopicAuthorization(Tx_MmForum_Domain_Model_Forum_Forum $forum);
 
+
+
+	/**
+	 * @abstract
+	 *
+	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic
+	 */
 	public function assertNewPostAuthorization(Tx_MmForum_Domain_Model_Forum_Topic $topic);
 
+
+
+	/**
+	 * @abstract
+	 *
+	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 */
 	public function assertEditPostAuthorization(Tx_MmForum_Domain_Model_Forum_Post $post);
 
+
+
+	/**
+	 * @abstract
+	 *
+	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 */
 	public function assertDeletePostAuthorization(Tx_MmForum_Domain_Model_Forum_Post $post);
 
+
+
+	/**
+	 * @abstract
+	 *
+	 * @param Tx_MmForum_Domain_Model_AccessibleInterface $object
+	 */
 	public function assertModerationAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object);
-	
-	public function checkAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object, $action);
+
+
+
+	/**
+	 * @abstract
+	 *
+	 * @param Tx_MmForum_Domain_Model_AccessibleInterface $object
+	 */
+	public function assertAdministrationAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object);
+
+
+
+	/**
+	 * @abstract
+	 *
+	 * @param Tx_MmForum_Domain_Model_AccessibleInterface $object
+	 * @param                                             $action
+	 */
+	public function checkAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object,
+	                                   $action);
+
+
 
 }
-
-?>

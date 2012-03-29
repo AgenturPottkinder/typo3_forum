@@ -26,69 +26,66 @@
 
 
 
-	/**
-	 *
-	 * Text parser class for parsing complex lists.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage TextParser_Service
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
-	 */
+/**
+ *
+ * Text parser class for parsing complex lists.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage TextParser_Service
+ * @version    $Id$
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
 
 Class Tx_MmForum_TextParser_Service_ListParserService
-	Extends Tx_MmForum_TextParser_Service_AbstractTextParserService {
+	Extends Tx_MmForum_TextParser_Service_AbstractTextParserService
+{
 
 
 
+	/*
+		  * CONSTANTS
+		  */
 
 
-		/*
-		 * CONSTANTS
-		 */
-	
-	
-	
-	
-	
-		/**
-		 * The regular expression for matching lists.
-		 * @var string
-		 */
+
+	/**
+	 * The regular expression for matching lists.
+	 *
+	 * @var string
+	 */
 	Const PREG_MATCH_LIST = ',\[list\]\s*(.*?)\s*\[\/list\],is';
 
 
 
-
-
-		/*
-		 * METHODS
-		 */
-
+	/*
+		  * METHODS
+		  */
 
 
 
+	/**
+	 *
+	 * Parses lists inside a text.
+	 *
+	 * @param  string $text The text
+	 *
+	 * @return string       The parsed text.
+	 *
+	 */
 
-		/**
-		 *
-		 * Parses lists inside a text.
-		 *
-		 * @param  string $text The text
-		 * @return string       The parsed text.
-		 *
-		 */
-
-	Public Function getParsedText($text) {
-		$callback = Function($matches) {
+	Public Function getParsedText($text)
+	{
+		$callback = Function($matches)
+		{
 			$items = array_filter(t3lib_div::trimExplode('[*]', $matches[1]));
-			Return '<ul><li>'.implode('</li><li>',$items).'</li></ul>';
+			Return '<ul><li>' . implode('</li><li>', $items) . '</li></ul>';
 		};
 		Return preg_replace_callback(self::PREG_MATCH_LIST, $callback, $text);
 	}

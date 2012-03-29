@@ -26,33 +26,38 @@
 
 
 
-	/**
-	 *
-	 * Interface definition for objects that can be read by individual users.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Model
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
-	 */
+/**
+ * interface definition for objects that can be read by individual users.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Model
+ * @version    $Id$
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
 
-Interface Tx_MmForum_Domain_Model_ReadableInterface {
+ */
 
-	Public Function addReader(Tx_MmForum_Domain_Model_User_FrontendUser $reader);
+interface Tx_MmForum_Domain_Model_Readableinterface
+{
 
-	Public Function removeReader(Tx_MmForum_Domain_Model_User_FrontendUser $reader);
 
-	Public Function removeAllReaders();
 
-	Public Function hasBeenReadByUser(Tx_MmForum_Domain_Model_User_FrontendUser $reader);
+	public function addReader(Tx_MmForum_Domain_Model_User_FrontendUser $reader);
+
+
+
+	public function removeReader(Tx_MmForum_Domain_Model_User_FrontendUser $reader);
+
+
+
+	public function removeAllReaders();
+
+
+
+	public function hasBeenReadByUser(Tx_MmForum_Domain_Model_User_FrontendUser $reader);
 
 }
-
-?>

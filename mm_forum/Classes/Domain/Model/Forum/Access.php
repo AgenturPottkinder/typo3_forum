@@ -26,244 +26,246 @@
 
 
 
-	/**
-	 *
-	 * Models a single ACL entry. This entry grants or denies access to a specific
-	 * operation (read, write posts, create topics...) to a single user group. These
-	 * ACL entries can be assigned to any Tx_MmForum_Domain_Model_Forum_Forum object and
-	 * are inherited down the forum tree unto each single post.
-	 *
-	 * Every object that implements the Tx_MmForum_Domain_Model_AccessibleInterface
-	 * provides methods to check the ACLs of the parent forums.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Model_Forum
-	 * @version    $Id$
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
+/**
+ *
+ * Models a single ACL entry. This entry grants or denies access to a specific
+ * operation (read, write posts, create topics...) to a single user group. These
+ * ACL entries can be assigned to any Tx_MmForum_Domain_Model_Forum_Forum object and
+ * are inherited down the forum tree unto each single post.
+ *
+ * Every object that implements the Tx_MmForum_Domain_Model_AccessibleInterface
+ * provides methods to check the ACLs of the parent forums.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Model_Forum
+ * @version    $Id$
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+
+class Tx_MmForum_Domain_Model_Forum_Access extends Tx_Extbase_DomainObject_AbstractValueObject
+{
+
+
+
+	/*
+	 * CONSTANTS
 	 */
 
-Class Tx_MmForum_Domain_Model_Forum_Access Extends Tx_Extbase_DomainObject_AbstractValueObject {
+
+
+	/**
+	 * Anyone.
+	 */
+	const LOGIN_LEVEL_EVERYONE = 0;
 
 
 
-
-
-		/*
-		 * CONSTANTS
-		 */
-
-
+	/**
+	 * Any logged in user
+	 */
+	const LOGIN_LEVEL_ANYLOGIN = 1;
 
 
 
-		/**
-		 * Anyone.
-		 */
-	Const LOGIN_LEVEL_EVERYONE=0;
-
-		/**
-		 * Any logged in user
-		 */
-	Const LOGIN_LEVEL_ANYLOGIN=1;
-
-		/**
-		 * A specifiy user group
-		 */
-	Const LOGIN_LEVEL_SPECIFIC=2;
+	/**
+	 * A specifiy user group
+	 */
+	const LOGIN_LEVEL_SPECIFIC = 2;
 
 
 
-
-
-		/*
-		 * ATTRIBUTES
-		 */
-
+	/*
+	 * ATTRIBUTES
+	 */
 
 
 
-
-		/**
-		 * The operation that is to be granted or denied.
-		 * @var string
-		 */
-	Protected $operation;
-	
-		/**
-		 * Whether this entry is negated
-		 * @var boolean
-		 */
-	Protected $negate;
-
-		/**
-		 * The required login level. See the LOGIN_LEVEL_* constants.
-		 * @var integer
-		 */
-	Protected $loginLevel;
-	
-		/**
-		 * The forum this ACL entry belongs to.
-		 * @var Tx_MmForum_Domain_Model_Forum_Forum
-		 */
-	Protected $forum;
-	
-		/**
-		 * The user group that is affected by this ACL entry. This property is only
-		 * relevant if $loginLevel == LOGIN_LEVEL_SPECIFIC.
-		 * @var Tx_MmForum_Domain_Model_User_FrontendUserGroup
-		 */
-	Protected $affectedGroup;
-	
+	/**
+	 * The operation that is to be granted or denied.
+	 *
+	 * @var string
+	 */
+	protected $operation;
 
 
 
-
-		/*
-		 * GETTER METHODS
-		 */
-
-
-
-
-
-		/**
-		 *
-		 * Gets the affected operation.
-		 * @return string The affected operation.
-		 *
-		 */
-
-	Public Function getOperation() { Return $this->operation; }
+	/**
+	 * Whether this entry is negated
+	 *
+	 * @var boolean
+	 */
+	protected $negate;
 
 
 
-		/**
-		 *
-		 * Determines if this ACL entry is negated.
-		 * @return boolean TRUE, if this entry is negated.
-		 *
-		 */
-
-	Public Function getNegated() { Return $this->negate; }
+	/**
+	 * The required login level. See the LOGIN_LEVEL_* constants.
+	 *
+	 * @var integer
+	 */
+	protected $loginLevel;
 
 
 
-		/**
-		 *
-		 * Determines if this ACL entry is negated.
-		 * @return boolean TRUE, if this entry is negated.
-		 *
-		 */
+	/**
+	 * The forum this ACL entry belongs to.
+	 *
+	 * @var Tx_MmForum_Domain_Model_Forum_Forum
+	 */
+	protected $forum;
 
-	Public Function isNegated() {
-		Return $this->negate;
+
+
+	/**
+	 * The user group that is affected by this ACL entry. This property is only
+	 * relevant if $loginLevel == LOGIN_LEVEL_SPECIFIC.
+	 *
+	 * @var Tx_MmForum_Domain_Model_User_FrontendUserGroup
+	 */
+	protected $affectedGroup;
+
+
+
+	/*
+	 * GETTER METHODS
+	 */
+
+
+
+	/**
+	 * Gets the affected operation.
+	 *
+	 * @return string The affected operation.
+	 */
+	public function getOperation()
+	{
+		return $this->operation;
 	}
 
 
 
-		/**
-		 *
-		 * Gets the forum for this entry.
-		 * @return Tx_MmForum_Domain_Model_Forum_Forum The forum for this entry.
-		 *
-		 */
-
-	Public Function getForum() {
-		Return $this->forum;
+	/**
+	 * Determines if this ACL entry is negated.
+	 *
+	 * @return boolean TRUE, if this entry is negated.
+	 */
+	public function getNegated()
+	{
+		return $this->negate;
 	}
 
 
 
-		/**
-		 *
-		 * Gets the group for this entry.
-		 * @return Tx_MmForum_Domain_Model_User_FrontendUserGroup group The group
-		 *
-		 */
-
-	Public Function getGroup() {
-		Return $this->affectedGroup;
+	/**
+	 * Determines if this ACL entry is negated.
+	 *
+	 * @return boolean TRUE, if this entry is negated.
+	 */
+	public function isNegated()
+	{
+		return $this->negate;
 	}
 
 
 
-		/**
-		 *
-		 * Determines whether this entry affects all visitors.
-		 * @return boolean TRUE, when this entry affects all visitors, otherwise FALSE.
-		 *
-		 */
-
-	Public Function isEveryone(){
-		Return $this->loginLevel == Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_EVERYONE;
+	/**
+	 * Gets the forum for this entry.
+	 *
+	 * @return Tx_MmForum_Domain_Model_Forum_Forum The forum for this entry.
+	 */
+	public function getForum()
+	{
+		return $this->forum;
 	}
 
 
 
-		/**
-		 *
-		 * Determines whether this entry requires any login.
-		 * @return boolean TRUE when this entry requires any login, otherwise FALSE.
-		 *
-		 */
-
-	Public Function isAnyLogin() {
-		Return $this->loginLevel == Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN;
+	/**
+	 * Gets the group for this entry.
+	 *
+	 * @return Tx_MmForum_Domain_Model_User_FrontendUserGroup group The group
+	 */
+	public function getGroup()
+	{
+		return $this->affectedGroup;
 	}
 
 
 
+	/**
+	 * Determines whether this entry affects all visitors.
+	 *
+	 * @return boolean TRUE, when this entry affects all visitors, otherwise FALSE.
+	 */
+
+	public function isEveryone()
+	{
+		return $this->loginLevel == Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_EVERYONE;
+	}
 
 
-		/*
-		 * SETTERS
-		 */
+
+	/**
+	 * Determines whether this entry requires any login.
+	 *
+	 * @return boolean TRUE when this entry requires any login, otherwise FALSE.
+	 */
+	public function isAnyLogin()
+	{
+		return $this->loginLevel == Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN;
+	}
 
 
 
+	/*
+	 * SETTERS
+	 */
 
 
-		/**
-		 *
-		 * Sets the affected operation.
-		 * @param string $operation The affected operation
-		 * @return void
-		 *
-		 */
 
-	Public Function setOperation($operation) {
+	/**
+	 * Sets the affected operation.
+	 *
+	 * @param string $operation The affected operation
+	 *
+	 * @return void
+	 */
+
+	public function setOperation($operation)
+	{
 		$this->operation = $operation;
 	}
 
 
 
-		/**
-		 *
-		 * Negates this entry.
-		 * @param boolean $negate TRUE to negate
-		 * @return void
-		 *
-		 */
-	Public Function setNegated($negate) {
+	/**
+	 * Negates this entry.
+	 *
+	 * @param boolean $negate TRUE to negate
+	 *
+	 * @return void
+	 */
+	public function setNegated($negate)
+	{
 		$this->negate = $negate;
 	}
 
 
 
-		/**
-		 *
-		 * Sets the group.
-		 * @param Tx_MmForum_Domain_Model_User_FrontendUserGroup $group The group
-		 * @return void
-		 *
-		 */
-	
-	Public Function setGroup(Tx_MmForum_Domain_Model_User_FrontendUserGroup $group) {
+	/**
+	 * Sets the group.
+	 *
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUserGroup $group The group
+	 *
+	 * @return void
+	 */
+	public function setGroup(Tx_MmForum_Domain_Model_User_FrontendUserGroup $group)
+	{
 		$this->affectedGroup = $group;
 	}
-	
+
 }
 

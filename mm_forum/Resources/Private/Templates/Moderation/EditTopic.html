@@ -4,44 +4,58 @@
 
 
 <f:section name="main">
-	<f:render partial="formErrors" />
+	<f:render partial="FormErrors" />
 
-	<div class="tx-mmforum-header">
-		<mmf:forum.topicIcon topic="{topic}" width="24" />
-		<f:translate key="Moderation_EditTopic" default="TODO: Moderate topic" />
-	</div>
-	<f:form name="topic" object="{topic}" controller="Moderation" action="updateTopic" id="topic">
-		<div class="tx-mmforum-form-row tx-mmforum-odd">
-			<div class="tx-mmforum-form-left"><label for="subject"><f:translate key="Moderation_EditTopic_Sticky" default="TODO: Sticky" /></label></div>
-			<div class="tx-mmforum-form-right">
-				<f:form.checkbox property="sticky" value="1" />
+	<f:form name="topic" object="{topic}" controller="Moderation" action="updateTopic" id="topic" class="form-horizontal">
+		<fieldset>
+			<legend>
+				<f:translate key="Moderation_EditTopic" default="TODO: Moderate topic" />
+			</legend>
+			<div class="control-group">
+				<label for="sticky" class="control-label">
+					<f:translate key="Moderation_EditTopic_Sticky" default="TODO: Sticky" />
+				</label>
+				<div class="controls">
+					<f:form.checkbox property="sticky" value="1" />
+				</div>
 			</div>
-		</div>
-		<div class="tx-mmforum-form-row tx-mmforum-even">
-			<div class="tx-mmforum-form-left"><label for="subject"><f:translate key="Moderation_EditTopic_Closed" default="TODO: Closed" /></label></div>
-			<div class="tx-mmforum-form-right">
-				<f:form.checkbox property="closed" value="1" />
+			<div class="control-group">
+				<label for="closed" class="control-label">
+					<f:translate key="Moderation_EditTopic_Closed" default="TODO: Closed" />
+				</label>
+				<div class="controls">
+					<f:form.checkbox property="closed" value="1" />
+				</div>
 			</div>
-		</div>
-		<div class="tx-mmforum-form-row tx-mmforum-odd">
-			<div class="tx-mmforum-form-left"><label for="subject"><f:translate key="Moderation_EditTopic_Move" default="TODO: Move" /></label></div>
-			<div class="tx-mmforum-form-right">
-				<f:form.checkbox name="moveTopic" value="1" onclick="document.getElementById('moveTopicTarget').style.display=this.checked?'':'none';" />
-				<mmf:form.forumSelect name="moveTopicTarget" value="{topic.forum}" id="moveTopicTarget" style="display:none" />
+			<div class="control-group">
+				<label for="moveTopicTarget" class="control-label">
+					<f:translate key="Moderation_EditTopic_Move" default="TODO: Move" />
+				</label>
+				<div class="controls">
+					<f:form.checkbox id="tx-mmforum-movetopic" name="moveTopic" value="1" />
+					<mmf:form.forumSelect name="moveTopicTarget" value="{topic.forum}" id="tx-mmforum-movetopic-target" disabled="disabled" />
+				</div>
 			</div>
-		</div>
-		<div class="tx-mmforum-form-row" style="display:none;">
-			<div class="tx-mmforum-form-right">
-				<f:form.submit value="{f:translate(key:'Moderation_EditTopic_Submit', default:'TODO: Submit')}" />
+			<div class="form-actions">
+				<f:link.action controller="Topic" action="show" arguments="{topic: topic}" class="btn">
+					<f:translate key="Button_Back" />
+				</f:link.action>
+				<f:form.submit value="{f:translate(key:'Moderation_EditTopic_Submit', default:'TODO: Submit')}" class="btn btn-primary" />
 			</div>
-		</div>
+		</fieldset>
 	</f:form>
-	<div class="tx-mmforum-header-end"></div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#tx-mmforum-movetopic').click(function() {
+				if($(this).attr('checked'))
+					$('#tx-mmforum-movetopic-target').removeAttr('disabled');
+				else $('#tx-mmforum-movetopic-target').attr('disabled','disabled');
+			});
+		});
+	</script>
 </f:section>
 
 
 
 <f:section name="menu">
-	<mmf:control.bigButton controller="Topic" action="show" arguments="{topic: topic}" iconAction="back"><f:translate key="Button_Back" /></mmf:control.bigButton>
-	<mmf:control.submitButton form="topic"><f:translate key="Moderation_EditTopic_Submit" /></mmf:control.submitButton>
 </f:section>

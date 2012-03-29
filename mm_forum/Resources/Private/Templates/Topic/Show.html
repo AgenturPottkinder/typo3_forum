@@ -6,21 +6,16 @@
 	<!-- MAIN section -->
 <f:section name="main">
 
-	<f:render partial="Topic/PageBrowser" arguments="{topic: topic, elements: postCount, currentPage: page, configuration: settings.topicController.show.pagebrowser}" />
+	<h2>{topic.subject}</h2>
 
-	<div class="tx-mmforum-header">
-		<mmf:forum.topicIcon topic="{topic}" width="24" />
-		{topic.subject}
-	</div>
-	<f:for each="{posts}" as="post">
-		<f:cycle values="{0: 'odd', 1: 'even'}" as="zebra">
-			<f:render partial="Post/Single" arguments="{post: post, settings: settings, zebra: zebra}" />
-		</f:cycle>
-	</f:for>
-	<div class="tx-mmforum-header-end"></div>
+	<mmf:forum.rootline rootline="{topic.rootline}" />
+
+	<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.topicController.show.pagebrowser}">
+		<f:for each="{paginatedPosts}" as="post">
+			<f:render partial="Post/Single" arguments="{post: post}" />
+		</f:for>
+	</f:widget.paginate>
 	
-	<f:render partial="Topic/PageBrowser" arguments="{topic: topic, elements: postCount, currentPage: page, configuration: settings.topicController.show.pagebrowser}" />
-
 </f:section>
 
 

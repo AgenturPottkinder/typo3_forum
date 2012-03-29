@@ -1,9 +1,9 @@
 <?php
 
-/*                                                                      *
+/*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -26,301 +26,423 @@
 
 
 
-	/**
-	 *
-	 * A frontend user.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Model_User
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
+/**
+ *
+ * A frontend user.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Model_User
+ * @version    $Id$
+ *
+ * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+class Tx_MmForum_Domain_Model_User_FrontendUser
+		extends Tx_Extbase_Domain_Model_FrontendUser
+{
+
+
+
+	/*
+	 * ATTRIBUTES
 	 */
 
-Class Tx_MmForum_Domain_Model_User_FrontendUser Extends Tx_Extbase_Domain_Model_FrontendUser {
+
+
+	/**
+	 * Forum post count
+	 * @var integer
+	 */
+	protected $postCount;
+
+
+	/**
+	 * The signature. This will be displayed below this user's posts.
+	 * @var string
+	 */
+	protected $signature;
+
+
+	/**
+	 * Subscribed topics.
+	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Topic>
+	 * @lazy
+	 */
+	protected $topicSubscriptions;
+
+
+	/**
+	 * Subscribed forums.
+	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Forum>
+	 * @lazy
+	 */
+	protected $forumSubscriptions;
+
+
+	/**
+	 * The creation date of this user.
+	 * @var DateTime
+	 */
+	protected $crdate;
+
+
+	/**
+	 * Userfield values.
+	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_Userfield_Value>
+	 */
+	protected $userfieldValues;
+
+
+	/**
+	 * Read topics.
+	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Topic>
+	 */
+	protected $readTopics;
+
+
+	/**
+	 * The country.
+	 * @var string
+	 */
+	protected $staticInfoCountry;
+
+
+	/**
+	 * The gender.
+	 * @var integer
+	 */
+	protected $gender;
+
+
+	/**
+	 * Defines whether to use a "gravatar" if no user image is available.
+	 * @var boolean
+	 */
+	protected $useGravatar = FALSE;
+
+
+	/**
+	 * JSON encoded contact addresses and social network profile names. Stored
+	 * unstructuredly in order to add more types of addresses without extending
+	 * the database for each social network.
+	 * @var string
+	 */
+	protected $contact = '';
 
 
 
-
-
-		/*
-		 * ATTRIBUTES
-		 */
-
-
-
-
-
-		/**
-		 * Forum post count
-		 * @var integer
-		 */
-	Protected $postCount;
-
-		/**
-		 * The signature. This will be displayed below this user's posts.
-		 * @var string
-		 */
-	Protected $signature;
-
-		/**
-		 * Subscribed topics.
-		 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Topic>
-		 * @lazy
-		 */
-	Protected $topicSubscriptions;
-
-		/**
-		 * Subscribed forums.
-		 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Forum>
-		 * @lazy
-		 */
-	Protected $forumSubscriptions;
-
-		/**
-		 * The creation date of this user.
-		 * @var DateTime
-		 */
-	Protected $crdate;
-
-		/**
-		 * Userfield values.
-		 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_Userfield_Value>
-		 */
-	Protected $userfieldValues;
-
-		/**
-		 * Read topics.
-		 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Topic>
-		 */
-	Protected $readTopics;
-
-		/**
-		 * The country.
-		 * @var string
-		 */
-	Protected $staticInfoCountry;
-
-		/**
-		 * The gender.
-		 * @var integer
-		 */
-	Protected $gender;
-
-
-
-
-	Public Function  __construct($username = '', $password = '') {
+	/**
+	 *
+	 * Constructor.
+	 * 
+	 * @param string $username The user's username.
+	 * @param string $password The user's password.
+	 * 
+	 */
+	public function __construct($username = '', $password = '')
+	{
 		parent::__construct($username, $password);
-
-		$this->readTopics = New Tx_Extbase_Persistence_ObjectStorage();
-	}
-
-		/*
-		 * GETTERS
-		 */
-
-
-
-
-
-		/**
-		 *
-		 * Gets the post count of this user.
-		 * @return integer The post count.
-		 *
-		 */
-
-	Public Function getPostCount() { Return $this->postCount; }
-
-
-
-		/**
-		 *
-		 * Gets the subscribed topics.
-		 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Topic>
-		 *                             The subscribed topics.
-		 *
-		 */
-
-	Public Function getTopicSubscriptions() { Return $this->topicSubscriptions; }
-
-
-
-		/**
-		 *
-		 * Gets the subscribed forums.
-		 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Forum>
-		 *                             The subscribed forums.
-		 *
-		 */
-
-	Public Function getForumSubscriptions() { Return $this->forumSubscriptions; }
-
-
-
-		/**
-		 *
-		 * Gets the user's registration date.
-		 * @return DateTime The registration date
-		 *
-		 */
-
-	Public Function getTimestamp() { Return $this->crdate; }
-
-
-
-		/**
-		 *
-		 * Determines if this user is member of a specific group.
-		 *
-		 * @param Tx_MmForum_Domain_Model_User_FrontendUserGroup $checkGroup
-		 * @return boolean
-		 *
-		 */
-
-	Public Function isInGroup(Tx_MmForum_Domain_Model_User_FrontendUserGroup $checkGroup) {
-		ForEach($this->getUsergroup() As $group) {
-			If($group == $checkGroup) Return TRUE;
-		} Return FALSE;
+		$this->readTopics = new Tx_Extbase_Persistence_ObjectStorage();
 	}
 
 
 
-		/**
-		 *
-		 * Gets the user's signature.
-		 * @return string The signature.
-		 *
-		 */
-
-	Public Function getSignature() { Return $this->signature; }
+	/*
+	 * GETTERS
+	 */
 
 
 
-		/**
-		 *
-		 * Gets the userfield values for this user.
-		 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_Userfield_Value>
-		 *
-		 */
-
-	Public Function getUserfieldValues() { Return $this->userfieldValues; }
-
-
-
-
-
-		/*
-		 * SETTERS
-		 */
+	/**
+	 *
+	 * Gets the post count of this user.
+	 * @return integer The post count.
+	 *
+	 */
+	public function getPostCount()
+	{
+		return $this->postCount;
+	}
 
 
 
+	/**
+	 *
+	 * Gets the subscribed topics.
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Topic>
+	 *                             The subscribed topics.
+	 *
+	 */
+	public function getTopicSubscriptions()
+	{
+		return $this->topicSubscriptions;
+	}
 
 
-		/**
-		 *
-		 * Subscribes this user to a subscribeable object, like a topic or a forum.
-		 *
-		 * @param Tx_MmForum_Domain_Model_SubscribeableInterface $object
-		 *                             The object that is to be subscribed. This may
-		 *                             either be a topic or a forum.
-		 * @return void
-		 *
-		 */
 
-	Public Function addSubscription(Tx_MmForum_Domain_Model_SubscribeableInterface $object) {
-		If($object InstanceOf Tx_MmForum_Domain_Model_Forum_Topic)
+	/**
+	 *
+	 * Gets the subscribed forums.
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Forum>
+	 *                             The subscribed forums.
+	 *
+	 */
+	public function getForumSubscriptions()
+	{
+		return $this->forumSubscriptions;
+	}
+
+
+
+	/**
+	 *
+	 * Gets the user's registration date.
+	 * @return DateTime The registration date
+	 *
+	 */
+	public function getTimestamp()
+	{
+		return $this->crdate;
+	}
+
+
+
+	/**
+	 *
+	 * Determines if this user is member of a specific group.
+	 *
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUserGroup $checkGroup
+	 * @return boolean
+	 *
+	 */
+	public function isInGroup(Tx_MmForum_Domain_Model_User_FrontendUserGroup $checkGroup)
+	{
+		foreach ($this->getUsergroup() As $group)
+		{
+			if ($group == $checkGroup)
+				return TRUE;
+		} return FALSE;
+	}
+
+
+
+	/**
+	 *
+	 * Gets the user's signature.
+	 * @return string The signature.
+	 *
+	 */
+	public function getSignature()
+	{
+		return $this->signature;
+	}
+
+
+
+	/**
+	 *
+	 * Gets the userfield values for this user.
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_Userfield_Value>
+	 *
+	 */
+	public function getUserfieldValues()
+	{
+		return $this->userfieldValues;
+	}
+
+
+
+	/**
+	 *
+	 * Returns the absolute path of this user's avatar image (if existent).
+	 * 
+	 * @global array $TCA
+	 * @return string The absolute path of this user's avatar image (if existent).
+	 * 
+	 */
+	public function getImagePath()
+	{
+
+		// If an image is defined for this user, retrieve the upload folder from
+		// the TCA (uploads/pics be default, but can be overridden, for example
+		// by the sr_feuser_register extension, so it's better to check).
+		if ($this->image)
+		{
+			t3lib_div::loadTCA('fe_users');
+			global $TCA;
+
+			$imageDirectoryName = $TCA['fe_users']['columns']['image']['config']['uploadfolder'];
+			$imageFilename = rtrim($imageDirectoryName, '/') . '/' . $this->image;
+
+			return file_exists($imageFilename) ? $imageFilename : NULL;
+		}
+
+		// If the user enabled the use of "Gravatars", then load this user's
+		// gravatar using the official API (it's quite simple, actually: Just
+		// use the MD5 checksum of the user's email address in the gravatar URL
+		// and you're fine (http://de.gravatar.com/site/implement/images/).
+		if ($this->useGravatar)
+		{
+			$emailHash = md5(strtolower($this->email));
+			$temporaryFilename = 'typo3temp/mm_forum/gravatar/' . $emailHash . '.jpg';
+			if (!file_exists(PATH_site . $temporaryFilename))
+			{
+				$image = t3lib_div::getUrl('https://secure.gravatar.com/avatar/' . $emailHash . '.jpg');
+				file_put_contents(PATH_site . $temporaryFilename, $image);
+			}
+			return $temporaryFilename;
+		}
+
+		return NULL;
+	}
+
+
+
+	public function getContactData()
+	{
+		$decoded = json_decode($this->contact, TRUE);
+		if ($decoded === NULL)
+			return array();
+		return $decoded;
+	}
+
+
+
+	/*
+	 * SETTERS
+	 */
+
+
+
+	/**
+	 *
+	 * Subscribes this user to a subscribeable object, like a topic or a forum.
+	 *
+	 * @param Tx_MmForum_Domain_Model_SubscribeableInterface $object
+	 *                             The object that is to be subscribed. This may
+	 *                             either be a topic or a forum.
+	 * @return void
+	 *
+	 */
+	public function addSubscription(Tx_MmForum_Domain_Model_SubscribeableInterface $object)
+	{
+		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Topic)
 			$this->topicSubscriptions->attach($object);
-		ElseIf($object InstanceOf Tx_MmForum_Domain_Model_Forum_Forum)
+		elseif ($object instanceof Tx_MmForum_Domain_Model_Forum_Forum)
 			$this->forumSubscriptions->attach($object);
 	}
 
 
 
-		/**
-		 *
-		 * Unsubscribes this user from a subscribeable object.
-		 *
-		 * @param Tx_MmForum_Domain_Model_SubscribeableInterface $object
-		 *                             The object that is to be unsubscribed.
-		 * @return void
-		 *
-		 */
-
-	Public Function removeSubscription(Tx_MmForum_Domain_Model_SubscribeableInterface $object) {
-		If($object InstanceOf Tx_MmForum_Domain_Model_Forum_Topic)
+	/**
+	 *
+	 * Unsubscribes this user from a subscribeable object.
+	 *
+	 * @param Tx_MmForum_Domain_Model_SubscribeableInterface $object
+	 *                             The object that is to be unsubscribed.
+	 * @return void
+	 *
+	 */
+	public function removeSubscription(Tx_MmForum_Domain_Model_SubscribeableInterface $object)
+	{
+		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Topic)
 			$this->topicSubscriptions->detach($object);
-		ElseIf($object InstanceOf Tx_MmForum_Domain_Model_Forum_Forum)
+		elseif ($object instanceof Tx_MmForum_Domain_Model_Forum_Forum)
 			$this->forumSubscriptions->detach($object);
 	}
 
 
 
-		/**
-		 *
-		 * Adds a readable object to the list of objects read by this user.
-		 *
-		 * @param  Tx_MmForum_Domain_Model_ReadableInterface $readObject
-		 *                             The object that is to be marked as read.
-		 * @return void
-		 *
-		 */
-
-	Public Function addReadObject(Tx_MmForum_Domain_Model_ReadableInterface $readObject) {
-		If($readObject InstanceOf Tx_MmForum_Domain_Model_Forum_Topic)
+	/**
+	 *
+	 * Adds a readable object to the list of objects read by this user.
+	 *
+	 * @param  Tx_MmForum_Domain_Model_ReadableInterface $readObject
+	 *                             The object that is to be marked as read.
+	 * @return void
+	 *
+	 */
+	public function addReadObject(Tx_MmForum_Domain_Model_ReadableInterface $readObject)
+	{
+		if ($readObject instanceof Tx_MmForum_Domain_Model_Forum_Topic)
 			$this->readTopics->attach($readObject);
 	}
 
 
 
-		/**
-		 *
-		 * Removes a readable object from the list of objects read by this user.
-		 *
-		 * @param  Tx_MmForum_Domain_Model_ReadableInterface $readObject
-		 *                             The object that is to be marked as unread.
-		 * @return void
-		 *
-		 */
-
-	Public Function removeReadObject(Tx_MmForum_Domain_Model_ReadableInterface $readObject) {
-		If($readObject InstanceOf Tx_MmForum_Domain_Model_Forum_Topic)
+	/**
+	 *
+	 * Removes a readable object from the list of objects read by this user.
+	 *
+	 * @param  Tx_MmForum_Domain_Model_ReadableInterface $readObject
+	 *                             The object that is to be marked as unread.
+	 * @return void
+	 *
+	 */
+	public function removeReadObject(Tx_MmForum_Domain_Model_ReadableInterface $readObject)
+	{
+		if ($readObject instanceof Tx_MmForum_Domain_Model_Forum_Topic)
 			$this->readTopics->detach($readObject);
 	}
 
 
 
-		/**
-		 *
-		 * Decrease the user's post count.
-		 * @return void
-		 *
-		 */
-
-	Public Function decreasePostCount() {
-		$this->postCount --;
+	/**
+	 *
+	 * Decrease the user's post count.
+	 * @return void
+	 *
+	 */
+	public function decreasePostCount()
+	{
+		$this->postCount--;
 	}
 
 
 
-		/**
-		 *
-		 * Increase the user's post count.
-		 * @return void;
-		 *
-		 */
-
-	Public Function increasePostCount() {
-		$this->postCount ++;
+	/**
+	 *
+	 * Increase the user's post count.
+	 * @return void;
+	 *
+	 */
+	public function increasePostCount()
+	{
+		$this->postCount++;
 	}
+
+
+
+	public function setContactData($values)
+	{
+		$this->contact = json_encode($values);
+	}
+
+
+
+	public function setContactDataItem($type, $value)
+	{
+		$contactData = $this->getContactData();
+		if (!$value)
+		{
+			if (array_key_exists($type, $contactData))
+			{
+				unset($contactData[$type]);
+			}
+		}
+		else
+		{
+			$contactData[$type] = $value;
+		}
+
+		$this->contact = json_encode($contactData);
+	}
+
+
 
 }
-?>

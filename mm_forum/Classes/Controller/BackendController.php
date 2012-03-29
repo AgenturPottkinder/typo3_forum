@@ -1,9 +1,9 @@
 <?php
 
-/*                                                                      *
+/*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2011 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -26,28 +26,46 @@
 
 
 
+/**
+ *
+ * ...
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Controller
+ * @version    $Id: ForumController.php 52309 2011-09-20 18:54:26Z mhelmich $
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+class Tx_MmForum_Controller_BackendController
+	extends Tx_MmForum_Controller_AbstractBackendController
+{
+
+
+
 	/**
 	 *
-	 * ...
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Controller
-	 * @version    $Id: ForumController.php 52309 2011-09-20 18:54:26Z mhelmich $
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
 	 */
-
-class Tx_MmForum_Controller_BackendController
-	extends Tx_MmForum_Controller_AbstractBackendController {
-		
-	public function indexAction() {
-		
+	public function indexForumAction()
+	{
+		$this->view->assign('pageUid', $this->pageId);
 	}
-		
+
+
+
+	/**
+	 * @param null|Tx_MmForum_Domain_Model_Forum_Forum $parent
+	 */
+	public function readForumTreeNodeAction(Tx_MmForum_Domain_Model_Forum_Forum $parent = NULL)
+	{
+
+	}
+
+
+
 }
