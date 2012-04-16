@@ -40,9 +40,7 @@
  *             http://opensource.org/licenses/gpl-license.php
 
  */
-class Tx_MmForum_Domain_Model_Forum_ShadowTopic
-	extends Tx_MmForum_Domain_Model_Forum_Topic
-{
+class Tx_MmForum_Domain_Model_Forum_ShadowTopic extends Tx_MmForum_Domain_Model_Forum_Topic {
 
 
 
@@ -54,7 +52,6 @@ class Tx_MmForum_Domain_Model_Forum_ShadowTopic
 
 	/**
 	 * The target topic, i.e. the topic this shadow is pointing to.
-	 *
 	 * @var Tx_MmForum_Domain_Model_Forum_Topic
 	 */
 	protected $target = NULL;
@@ -69,11 +66,9 @@ class Tx_MmForum_Domain_Model_Forum_ShadowTopic
 
 	/**
 	 * Gets the target topic, i.e. the topic this shadow is pointing to.
-	 *
 	 * @return Tx_MmForum_Domain_Model_Forum_Topic The target topic
 	 */
-	public function getTarget()
-	{
+	public function getTarget() {
 		return $this->target;
 	}
 
@@ -88,13 +83,12 @@ class Tx_MmForum_Domain_Model_Forum_ShadowTopic
 	 *
 	 * @return boolean TRUE, if the user can create new posts. Always FALSE.
 	 */
-	public function _checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL,
-	                             $accessType = 'read')
-	{
-		if ($accessType === 'newPost')
+	public function _checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'read') {
+		if ($accessType === 'newPost') {
 			return FALSE;
-		else
+		} else {
 			return parent::checkAccess($user, $accessType);
+		}
 	}
 
 
@@ -104,11 +98,9 @@ class Tx_MmForum_Domain_Model_Forum_ShadowTopic
 	 * only a shadow topic, this method will ALWAYS return FALSE.
 	 *
 	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user The user.
-	 *
 	 * @return boolean TRUE, if the user can create new posts. Always FALSE.
 	 */
-	public function checkNewPostAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL)
-	{
+	public function checkNewPostAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
 		return FALSE;
 	}
 
@@ -125,11 +117,9 @@ class Tx_MmForum_Domain_Model_Forum_ShadowTopic
 	 * from the target object.
 	 *
 	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic The target topic.
-	 *
 	 * @return void
 	 */
-	public function setTarget(Tx_MmForum_Domain_Model_Forum_Topic $topic)
-	{
+	public function setTarget(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
 		$this->target         = $topic;
 		$this->lastPost       = $topic->getLastPost();
 		$this->lastPostCrdate = $this->lastPost->getTimestamp();

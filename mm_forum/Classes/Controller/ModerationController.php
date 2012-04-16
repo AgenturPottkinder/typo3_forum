@@ -42,9 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Controller_ModerationController
-	extends Tx_MmForum_Controller_AbstractController
-{
+class Tx_MmForum_Controller_ModerationController extends Tx_MmForum_Controller_AbstractController {
 
 
 
@@ -92,8 +90,7 @@ class Tx_MmForum_Controller_ModerationController
 	 *
 	 * @return void
 	 */
-	public function injectTopicRepository(Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository)
-	{
+	public function injectTopicRepository(Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository) {
 		$this->topicRepository = $topicRepository;
 	}
 
@@ -106,8 +103,7 @@ class Tx_MmForum_Controller_ModerationController
 	 *
 	 * @return void
 	 */
-	public function injectTopicFactory(Tx_MmForum_Domain_Factory_Forum_TopicFactory $topicFactory)
-	{
+	public function injectTopicFactory(Tx_MmForum_Domain_Factory_Forum_TopicFactory $topicFactory) {
 		$this->topicFactory = $topicFactory;
 	}
 
@@ -120,8 +116,7 @@ class Tx_MmForum_Controller_ModerationController
 	 *
 	 * @return void
 	 */
-	public function injectReportRepository(Tx_MmForum_Domain_Repository_Moderation_ReportRepository $reportRepository)
-	{
+	public function injectReportRepository(Tx_MmForum_Domain_Repository_Moderation_ReportRepository $reportRepository) {
 		$this->reportRepository = $reportRepository;
 	}
 
@@ -136,8 +131,7 @@ class Tx_MmForum_Controller_ModerationController
 	/**
 	 * @return void
 	 */
-	public function indexReportAction()
-	{
+	public function indexReportAction() {
 		$this->view->assign('reports', $this->reportRepository->findOpen());
 	}
 
@@ -152,8 +146,7 @@ class Tx_MmForum_Controller_ModerationController
 	 */
 	public function updateReportStatusAction(Tx_MmForum_Domain_Model_Moderation_Report $report,
 	                                         Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $status,
-	                                         $redirect = 'index')
-	{
+	                                         $redirect = 'index') {
 		// Assert authorization
 		$this->authenticationService->assertModerationAuthorization($report->getTopic()->getForum());
 
@@ -162,18 +155,16 @@ class Tx_MmForum_Controller_ModerationController
 		$report->setWorkflowStatus($status);
 		$comment = $this->objectManager->create('Tx_MmForum_Domain_Model_Moderation_ReportComment');
 		$comment->setAuthor($this->getCurrentUser());
-		$comment->setText(Tx_MmForum_Utility_Localization::translate('Report_Edit_SetStatus',
-		                                                             'MmForum', array($status->getName())));
+		$comment->setText(Tx_MmForum_Utility_Localization::translate('Report_Edit_SetStatus', 'MmForum',
+		                                                             array($status->getName())));
 		$report->addComment($comment);
 		$this->reportRepository->update($report);
 
 		// Add flash message and clear cache.
-		$this->addLocalizedFlashmessage(
-			'Report_UpdateStatus_Success', array($report->getUid(), $status->getName()));
+		$this->addLocalizedFlashmessage('Report_UpdateStatus_Success', array($report->getUid(), $status->getName()));
 		$this->clearCacheForCurrentPage();
 
-		if ($redirect === 'show')
-		{
+		if ($redirect === 'show') {
 			$this->redirect('editReport', NULL, NULL, array('report' => $report));
 		}
 
@@ -185,8 +176,7 @@ class Tx_MmForum_Controller_ModerationController
 	/**
 	 * @param Tx_MmForum_Domain_Model_Moderation_Report $report
 	 */
-	public function editReportAction(Tx_MmForum_Domain_Model_Moderation_Report $report)
-	{
+	public function editReportAction(Tx_MmForum_Domain_Model_Moderation_Report $report) {
 		// Assert authorization
 		$this->authenticationService->assertModerationAuthorization($report->getTopic()->getForum());
 		$this->view->assignMultiple(array('report' => $report));
@@ -201,12 +191,9 @@ class Tx_MmForum_Controller_ModerationController
 	 * @dontvalidate $comment
 	 */
 	public function newReportCommentAction(Tx_MmForum_Domain_Model_Moderation_Report $report,
-	                                       Tx_MmForum_Domain_Model_Moderation_ReportComment $comment = NULL)
-	{
-		$this->view->assignMultiple(array(
-		                                 'report'  => $report,
-		                                 'comment' => $comment
-		                            ));
+	                                       Tx_MmForum_Domain_Model_Moderation_ReportComment $comment = NULL) {
+		$this->view->assignMultiple(array('report'  => $report,
+		                                 'comment'  => $comment));
 	}
 
 
@@ -216,8 +203,7 @@ class Tx_MmForum_Controller_ModerationController
 	 * @param Tx_MmForum_Domain_Model_Moderation_ReportComment $comment
 	 */
 	public function createReportCommentAction(Tx_MmForum_Domain_Model_Moderation_Report $report,
-	                                          Tx_MmForum_Domain_Model_Moderation_ReportComment $comment)
-	{
+	                                          Tx_MmForum_Domain_Model_Moderation_ReportComment $comment) {
 		$report->addComment($comment);
 		$this->reportRepository->update($report);
 
@@ -235,8 +221,7 @@ class Tx_MmForum_Controller_ModerationController
 	 *
 	 * @return void
 	 */
-	public function editTopicAction(Tx_MmForum_Domain_Model_Forum_Topic $topic)
-	{
+	public function editTopicAction(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
 		$this->authenticationService->assertModerationAuthorization($topic->getForum());
 		$this->view->assign('topic', $topic);
 	}
@@ -252,15 +237,14 @@ class Tx_MmForum_Controller_ModerationController
 	 *
 	 * @return void
 	 */
-	public function updateTopicAction(Tx_MmForum_Domain_Model_Forum_Topic $topic,
-	                                  $moveTopic = FALSE,
-	                                  Tx_MmForum_Domain_Model_Forum_Forum $moveTopicTarget = NULL)
-	{
+	public function updateTopicAction(Tx_MmForum_Domain_Model_Forum_Topic $topic, $moveTopic = FALSE,
+	                                  Tx_MmForum_Domain_Model_Forum_Forum $moveTopicTarget = NULL) {
 		$this->authenticationService->assertModerationAuthorization($topic->getForum());
 		$this->topicRepository->update($topic);
 
-		if ($moveTopic)
+		if ($moveTopic) {
 			$this->topicFactory->moveTopic($topic, $moveTopicTarget);
+		}
 
 		$this->flashMessageContainer->add(Tx_MmForum_Utility_Localization::translate('Moderation_UpdateTopic_Success',
 		                                                                             'MmForum'));

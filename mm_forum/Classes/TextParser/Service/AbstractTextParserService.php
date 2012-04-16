@@ -42,16 +42,12 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-
-abstract class Tx_MmForum_TextParser_Service_AbstractTextParserService
-	extends Tx_MmForum_Service_AbstractService
-{
+abstract class Tx_MmForum_TextParser_Service_AbstractTextParserService extends Tx_MmForum_Service_AbstractService {
 
 
 
 	/**
 	 * The configuration of this service.
-	 *
 	 * @var array
 	 */
 	protected $settings = NULL;
@@ -59,8 +55,7 @@ abstract class Tx_MmForum_TextParser_Service_AbstractTextParserService
 
 
 	/**
-	 * The current controller context
-	 *
+	 * The current controller context.
 	 * @var Tx_Extbase_MVC_Controller_ControllerContext
 	 */
 	protected $controllerContext = NULL;
@@ -68,36 +63,31 @@ abstract class Tx_MmForum_TextParser_Service_AbstractTextParserService
 
 
 	/**
-	 *
 	 * Creates a new instance of this service.
-	 *
 	 */
 
-	public function __construct()
-	{
+	public function __construct() {
 	}
 
 
 
 	/**
 	 * Injects this service's configuration.
-	 *
 	 * @param array $settings The configuration for this service.
 	 */
 
-	public function setSettings(array $settings)
-	{
+	public function setSettings(array $settings) {
 		$this->settings = $settings;
 	}
 
 
 
 	/**
-	 * TODO
+	 * Sets the extbase controller context.
 	 * @param Tx_Extbase_MVC_Controller_ControllerContext $controllerContext
+	 * @return void
 	 */
-	public function setControllerContext(Tx_Extbase_MVC_Controller_ControllerContext $controllerContext)
-	{
+	public function setControllerContext(Tx_Extbase_MVC_Controller_ControllerContext $controllerContext) {
 		$this->controllerContext = $controllerContext;
 	}
 
@@ -107,7 +97,6 @@ abstract class Tx_MmForum_TextParser_Service_AbstractTextParserService
 	 * Renders the parsed text.
 	 *
 	 * @param  string $text The text to be parsed.
-	 *
 	 * @return string       The parsed text.
 	 */
 

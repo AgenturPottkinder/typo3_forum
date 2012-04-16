@@ -3,7 +3,7 @@
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2011 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -26,54 +26,68 @@
 
 
 
-	/**
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Cache
-	 * @version    $Id: TextParserService.php 39978 2010-11-09 14:19:52Z mhelmich $
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
-	 */
+/**
+ *
+ * This class provides access to the TYPO3 caching framework to the mm_forum components.
+ * Basically, this class is just a very thin wrapper around the TYPO3 caching framework.
+ * It encapsulated creation and retrieval of the appropriate caches and can be very
+ * easily obtained using dependency injection.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Cache
+ * @version    $Id: TextParserService.php 39978 2010-11-09 14:19:52Z mhelmich $
+ *
+ * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
 
-class Tx_MmForum_Cache_Cache
-	implements t3lib_singleton {
-	
+class Tx_MmForum_Cache_Cache implements t3lib_singleton {
+
+
+
 	protected $cacheInstance = NULL;
-		
+
+
+
 	public function __construct() {
 		t3lib_cache::initializeCachingFramework();
 		try {
 			$this->cacheInstance = $GLOBALS['typo3CacheManager']->getCache('mmforum_main');
 		} catch (t3lib_cache_exception_NoSuchCache $e) {
-			$this->cacheInstance = $GLOBALS['typo3CacheFactory']->create(
-				'mmforum_main',
-				$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['mmforum_main']['frontend'],
-				$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['mmforum_main']['backend'],
-				$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['mmforum_main']['options']
-			);
+			$this->cacheInstance = $GLOBALS['typo3CacheFactory']->create('mmforum_main',
+			                                                             $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['mmforum_main']['frontend'],
+			                                                             $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['mmforum_main']['backend'],
+			                                                             $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['mmforum_main']['options']);
 		}
 	}
-	
+
+
+
 	public function has($identifier) {
 		return $this->cacheInstance->has($identifier);
 	}
-	
+
+
+
 	public function get($identifier) {
 		return $this->cacheInstance->get($identifier);
 	}
-	
-	public function set($identifier, $value, array $tags=array(), $lifetime=NULL) {
+
+
+
+	public function set($identifier, $value, array $tags = array(), $lifetime = NULL) {
 		$this->cacheInstance->set($identifier, $value, $tags, $lifetime);
 	}
-	
+
+
+
 	public function flush() {
 		$this->cacheInstance->flush();
 	}
-	
+
 }

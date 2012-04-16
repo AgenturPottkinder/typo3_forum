@@ -40,9 +40,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_MmForum_Controller_AbstractBackendController
-	extends Tx_Extbase_MVC_Controller_ActionController
-{
+abstract class Tx_MmForum_Controller_AbstractBackendController extends Tx_Extbase_MVC_Controller_ActionController {
 
 
 
@@ -92,8 +90,7 @@ abstract class Tx_MmForum_Controller_AbstractBackendController
 	/**
 	 * @param template $template
 	 */
-	public function injectTemplate(template $template)
-	{
+	public function injectTemplate(template $template) {
 		$this->template     = $template;
 		$this->pageRenderer = $this->template->getPageRenderer();
 	}
@@ -103,8 +100,7 @@ abstract class Tx_MmForum_Controller_AbstractBackendController
 	/**
 	 * @param Tx_Extbase_Object_Container_Container $objectContainer
 	 */
-	public function injectObjectContainer(Tx_Extbase_Object_Container_Container $objectContainer)
-	{
+	public function injectObjectContainer(Tx_Extbase_Object_Container_Container $objectContainer) {
 		$this->objectContainer = $objectContainer;
 	}
 
@@ -120,16 +116,13 @@ abstract class Tx_MmForum_Controller_AbstractBackendController
 	 * @return void
 	 */
 	public function processRequest(Tx_Extbase_MVC_RequestInterface $request,
-	                               Tx_Extbase_MVC_ResponseInterface $response)
-	{
+	                               Tx_Extbase_MVC_ResponseInterface $response) {
 		$GLOBALS['SOBE']      = new stdClass();
 		$GLOBALS['SOBE']->doc = $this->template;
 
 		parent::processRequest($request, $response);
 
-		$pageHeader = $this->template->startpage(
-			$GLOBALS['LANG']->sL('LLL:EXT:mm_forum/Resources/Private/Language/locallang_mod.xml:module.title')
-		);
+		$pageHeader = $this->template->startpage($GLOBALS['LANG']->sL('LLL:EXT:mm_forum/Resources/Private/Language/locallang_mod.xml:module.title'));
 		$pageEnd    = $this->template->endPage();
 
 		$response->setContent($pageHeader . $response->getContent() . $pageEnd);
@@ -142,24 +135,21 @@ abstract class Tx_MmForum_Controller_AbstractBackendController
 	 *
 	 * @return void
 	 */
-	protected function initializeAction()
-	{
+	protected function initializeAction() {
 		$this->registerAlternativeImplementations();
 
 		$this->pageId = intval(t3lib_div::_GP('id'));
 
-		$this->pageRenderer->addInlineLanguageLabelArray(array(
-		                                                      'title'      => $GLOBALS['LANG']->getLL('title'),
-		                                                      'path'       => $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.path'),
-		                                                      'table'      => $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.table'),
-		                                                      'depth'      => $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_mod_web_perm.xml:Depth'),
-		                                                      'depth_0'    => $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.depth_0'),
-		                                                      'depth_1'    => $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.depth_1'),
-		                                                      'depth_2'    => $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.depth_2'),
-		                                                      'depth_3'    => $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.depth_3'),
-		                                                      'depth_4'    => $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.depth_4'),
-		                                                      'depth_infi' => $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.depth_infi'),
-		                                                 ));
+		$this->pageRenderer->addInlineLanguageLabelArray(array('title'      => $GLOBALS['LANG']->getLL('title'),
+		                                                      'path'        => $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.path'),
+		                                                      'table'       => $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.table'),
+		                                                      'depth'       => $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_mod_web_perm.xml:Depth'),
+		                                                      'depth_0'     => $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.depth_0'),
+		                                                      'depth_1'     => $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.depth_1'),
+		                                                      'depth_2'     => $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.depth_2'),
+		                                                      'depth_3'     => $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.depth_3'),
+		                                                      'depth_4'     => $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.depth_4'),
+		                                                      'depth_infi'  => $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.depth_infi'),));
 
 		$this->pageRenderer->addInlineLanguageLabelFile('EXT:mm_forum/Resources/Private/Language/locallang_mod.xml');
 
@@ -180,8 +170,7 @@ abstract class Tx_MmForum_Controller_AbstractBackendController
 	/**
 	 *
 	 */
-	protected function registerAlternativeImplementations()
-	{
+	protected function registerAlternativeImplementations() {
 		//		$this->objectContainer->registerImplementation(
 		//			'Tx_MmForum_Service_Authentication_AuthenticationServiceInterface',
 		//			'Tx_MmForum_Service_Authentication_BackendAuthenticationService');
@@ -192,15 +181,13 @@ abstract class Tx_MmForum_Controller_AbstractBackendController
 	/**
 	 * @param $path
 	 */
-	protected function includeJavascriptFromPath($path)
-	{
+	protected function includeJavascriptFromPath($path) {
 		$resourcePath    = t3lib_extMgm::extRelPath('mm_forum') . $path;
 		$absResourcePath = t3lib_extMgm::extPath('mm_forum') . $path;
 
 		$jsFiles = glob($absResourcePath . '*.js');
 
-		foreach ($jsFiles as $jsFile)
-		{
+		foreach ($jsFiles as $jsFile) {
 			$jsFile = str_replace($absResourcePath, $resourcePath, $jsFile);
 			$this->pageRenderer->addJsFile($jsFile, 'text/javascript', FALSE);
 		}
@@ -211,15 +198,13 @@ abstract class Tx_MmForum_Controller_AbstractBackendController
 	/**
 	 * @param $path
 	 */
-	protected function includeCssFromPath($path)
-	{
+	protected function includeCssFromPath($path) {
 		$resourcePath    = t3lib_extMgm::extRelPath('mm_forum') . $path;
 		$absResourcePath = t3lib_extMgm::extPath('mm_forum') . $path;
 
 		$cssFiles = glob($absResourcePath . '*.css');
 
-		foreach ($cssFiles as $cssFile)
-		{
+		foreach ($cssFiles as $cssFile) {
 			$cssFile = str_replace($absResourcePath, $resourcePath, $cssFile);
 			$this->pageRenderer->addCssFile($cssFile);
 		}

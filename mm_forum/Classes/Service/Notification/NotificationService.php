@@ -43,10 +43,8 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Service_Notification_NotificationService
-	extends Tx_MmForum_Service_AbstractService
-	implements Tx_MmForum_Service_Notification_NotificationServiceInterface
-{
+class Tx_MmForum_Service_Notification_NotificationService extends Tx_MmForum_Service_AbstractService
+	implements Tx_MmForum_Service_Notification_NotificationServiceInterface {
 
 
 
@@ -66,16 +64,6 @@ class Tx_MmForum_Service_Notification_NotificationService
 
 
 	/**
-	 * The current controller context. Needs to be injected by the calling
-	 * controller class.
-	 *
-	 * @var Tx_Extbase_MVC_Controller_ControllerContext
-	 */
-	protected $controllerContext;
-
-
-
-	/**
 	 * The mailing service. Needs to be injected, too.
 	 *
 	 * @var Tx_MmForum_Service_Mailing_AbstractMailingService
@@ -91,18 +79,13 @@ class Tx_MmForum_Service_Notification_NotificationService
 
 
 	/**
-	 *
-	 * Injects the mailing service.
+	 * Creates a new instance of this object.
 	 *
 	 * @param  Tx_MmForum_Service_Mailing_MailingServiceInterface $mailingService
 	 *                             The mailing service. This needs to be injected by
 	 *                             the calling controller.
-	 *
-	 * @return void
-	 *
 	 */
-	public function injectMailingService(Tx_MmForum_Service_Mailing_MailingServiceInterface $mailingService)
-	{
+	public function __construct(Tx_MmForum_Service_Mailing_MailingServiceInterface $mailingService) {
 		$this->mailingService = $mailingService;
 	}
 
@@ -115,12 +98,11 @@ class Tx_MmForum_Service_Notification_NotificationService
 	 * @return void
 	 *
 	 */
-	protected function initialize()
-	{
+	protected function initialize() {
 		$this->notificationView = new Tx_Fluid_View_StandaloneView();
 		$this->notificationView->setFormat($this->mailingService->getFormat());
-		$this->notificationView->setTemplatePathAndFilename(
-			t3lib_extMgm::extPath('mm_forum') . '/Resources/Private/Templates/Topic/Notify.' . $this->mailingService->getFormat());
+		// TODO: Make template path configurable!
+		$this->notificationView->setTemplatePathAndFilename(t3lib_extMgm::extPath('mm_forum') . '/Resources/Private/Templates/Topic/Notify.' . $this->mailingService->getFormat());
 	}
 
 
@@ -149,18 +131,16 @@ class Tx_MmForum_Service_Notification_NotificationService
 	 *
 	 */
 	public function notifySubscribers(Tx_MmForum_Domain_Model_SubscribeableInterface $subscriptionObject,
-	                                  Tx_MmForum_Domain_Model_NotifiableInterface $notificationObject)
-	{
+	                                  Tx_MmForum_Domain_Model_NotifiableInterface $notificationObject) {
 		$this->initialize();
 		$subscribers = $subscriptionObject->getSubscribers();
-		foreach ($subscribers As $subscriber)
-		{
-			$this->notificationView->assignMultiple(Array(
-			                                             'settings'         => $this->settings,
+		foreach ($subscribers as $subscriber) {
+			$this->notificationView->assignMultiple(array('settings'        => $this->settings,
 			                                             'subscribedObject' => $subscriptionObject,
 			                                             'newObject'        => $notificationObject,
 			                                             'subscriber'       => $subscriber));
 			$text = $this->notificationView->render();
+			// TODO: Read subject from locallang!
 			$this->mailingService->sendMail($subscriber, "Hallo", $text);
 		}
 	}

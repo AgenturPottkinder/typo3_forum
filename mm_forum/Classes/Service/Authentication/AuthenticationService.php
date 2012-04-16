@@ -42,10 +42,8 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Service_Authentication_AuthenticationService
-	extends Tx_MmForum_Service_AbstractService
-	implements Tx_MmForum_Service_Authentication_AuthenticationServiceInterface
-{
+class Tx_MmForum_Service_Authentication_AuthenticationService extends Tx_MmForum_Service_AbstractService
+	implements Tx_MmForum_Service_Authentication_AuthenticationServiceInterface {
 
 
 
@@ -57,7 +55,6 @@ class Tx_MmForum_Service_Authentication_AuthenticationService
 
 	/**
 	 * A frontend user repository.
-	 *
 	 * @var Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 	 */
 	protected $frontendUserRepository = NULL;
@@ -66,7 +63,6 @@ class Tx_MmForum_Service_Authentication_AuthenticationService
 
 	/**
 	 * An instance of the mm_forum cache class.
-	 *
 	 * @var Tx_MmForum_Cache_Cache
 	 */
 	protected $cache = NULL;
@@ -75,10 +71,16 @@ class Tx_MmForum_Service_Authentication_AuthenticationService
 
 	/**
 	 * The current frontend user.
-	 *
 	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
 	 */
-	protected $user = NULL;
+	protected $user = -1;
+
+
+	/**
+	 * TRUE to treat logged in backend users as administrators.
+	 * @var bool
+	 */
+	protected $implicitAdministratorInBackend = TRUE;
 
 
 
@@ -93,38 +95,33 @@ class Tx_MmForum_Service_Authentication_AuthenticationService
 
 
 	/*
-	  * INITIALIZATION
-	  */
-
+	 * INITIALIZATION
+	 */
 
 
 	/**
-	 * Injects a frontend user repository
+	 * Constructor of this class.
 	 *
-	 * @param Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository
-	 *                             A frontend user repository.
-	 *
-	 * @return void
+	 * @param Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository A frontend user repository.
+	 * @param Tx_MmForum_Cache_Cache                                   $cache                  An instance of the mm_forum cache.
 	 */
-	public function injectFrontendUserRepository(Tx_MmForum_Domain_Repository_User_FrontendUserRepository
-	                                             $frontendUserRepository = NULL)
-	{
+	public function __construct(Tx_MmForum_Domain_Repository_User_FrontendUserRepository
+	                            $frontendUserRepository, Tx_MmForum_Cache_Cache $cache) {
 		$this->frontendUserRepository = $frontendUserRepository;
-		$this->user                   = $this->frontendUserRepository->findCurrent();
+		$this->cache                  = $cache;
 	}
 
 
 
 	/**
-	 * Injects the mm_forum cache.
-	 *
-	 * @param  Tx_MmForum_Cache_Cache $cache The mm_forum cache.
+	 * Disables the implicit treatment of logged in backend users as administrator
+	 * users. This feature is necessary to make this class unittestable (probably bad
+	 * practice, feel free to correct this...).
 	 *
 	 * @return void
 	 */
-	public function injectCache(Tx_MmForum_Cache_Cache $cache)
-	{
-		$this->cache = $cache;
+	public function disableImplicitAdministrationInBackend() {
+		$this->implicitAdministratorInBackend = FALSE;
 	}
 
 
@@ -143,8 +140,7 @@ class Tx_MmForum_Service_Authentication_AuthenticationService
 	 *
 	 * @return void
 	 */
-	public function assertReadAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object)
-	{
+	public function assertReadAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object) {
 		$this->assertAuthorization($object, 'read');
 	}
 
@@ -159,8 +155,7 @@ class Tx_MmForum_Service_Authentication_AuthenticationService
 	 *
 	 * @return void
 	 */
-	public function assertNewTopicAuthorization(Tx_MmForum_Domain_Model_Forum_Forum $forum)
-	{
+	public function assertNewTopicAuthorization(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
 		$this->assertAuthorization($forum, 'newTopic');
 	}
 
@@ -175,8 +170,7 @@ class Tx_MmForum_Service_Authentication_AuthenticationService
 	 *
 	 * @return void
 	 */
-	public function assertNewPostAuthorization(Tx_MmForum_Domain_Model_Forum_Topic $topic)
-	{
+	public function assertNewPostAuthorization(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
 		$this->assertAuthorization($topic, 'newPost');
 	}
 
@@ -190,8 +184,7 @@ class Tx_MmForum_Service_Authentication_AuthenticationService
 	 *
 	 * @return void
 	 */
-	public function assertEditPostAuthorization(Tx_MmForum_Domain_Model_Forum_Post $post)
-	{
+	public function assertEditPostAuthorization(Tx_MmForum_Domain_Model_Forum_Post $post) {
 		$this->assertAuthorization($post, 'editPost');
 	}
 
@@ -205,8 +198,7 @@ class Tx_MmForum_Service_Authentication_AuthenticationService
 	 *
 	 * @return void
 	 */
-	public function assertDeletePostAuthorization(Tx_MmForum_Domain_Model_Forum_Post $post)
-	{
+	public function assertDeletePostAuthorization(Tx_MmForum_Domain_Model_Forum_Post $post) {
 		$this->assertAuthorization($post, 'deletePost');
 	}
 
@@ -220,8 +212,7 @@ class Tx_MmForum_Service_Authentication_AuthenticationService
 	 *
 	 * @return void
 	 */
-	public function assertModerationAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object)
-	{
+	public function assertModerationAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object) {
 		$this->assertAuthorization($object, 'moderate');
 	}
 
@@ -236,8 +227,7 @@ class Tx_MmForum_Service_Authentication_AuthenticationService
 	 *
 	 * @return void
 	 */
-	public function assertAdministrationAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object)
-	{
+	public function assertAdministrationAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object) {
 		$this->assertAuthorization($object, 'administrate');
 	}
 
@@ -256,12 +246,10 @@ class Tx_MmForum_Service_Authentication_AuthenticationService
 	 * @return void
 	 * @throws Tx_MmForum_Domain_Exception_Authentication_NoAccessException
 	 */
-	public function assertAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object,
-	                                    $action)
-	{
-		if ($this->checkAuthorization($object, $action) === FALSE)
-			throw new Tx_MmForum_Domain_Exception_Authentication_NoAccessException(
-				"You are not authorized to perform this action!", 1284709852);
+	public function assertAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object, $action) {
+		if ($this->checkAuthorization($object, $action) === FALSE) {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NoAccessException("You are not authorized to perform this action!", 1284709852);
+		}
 	}
 
 
@@ -270,30 +258,27 @@ class Tx_MmForum_Service_Authentication_AuthenticationService
 	 * Checks whether the current user is authorized to perform a certain
 	 * action on an object.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_AccessibleInterface $object
-	 *                                                                  The object for which the access is to be
-	 *                                                                  checked.
-	 * @param  string                                      $action      The action for which the access check is
-	 *                                                                  to be performed.
+	 * @param  Tx_MmForum_Domain_Model_AccessibleInterface $object The object for which the access is to be checked.
+	 * @param  string                                      $action The action for which the access check is to be
+	 *                                                             performed.
 	 *
 	 * @return boolean             TRUE, when the user is authorized,
 	 *                             otherwise FALSE.
 	 */
-	public function checkAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object,
-	                                   $action)
-	{
+	public function checkAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object, $action) {
 		// ACLs can be disabled for debugging. Also, in Backend mode, the ACL
 		// mechanism does not work (no fe_users!).
 		/** @noinspection PhpUndefinedConstantInspection */
-		if ($this->settings['debug']['disableACLs'] || TYPO3_MODE === 'BE')
+		if ($this->settings['debug']['disableACLs'] || (TYPO3_MODE === 'BE' && $this->implicitAdministratorInBackend === TRUE)) {
 			return TRUE;
+		}
 
 		$cacheIdentifier = $this->getCacheIdentifier($object, $action);
-		if ($this->cache->has($cacheIdentifier))
+		if ($this->cache->has($cacheIdentifier)) {
 			$value = $this->cache->get($cacheIdentifier);
-		else
-			$this->cache->set($cacheIdentifier,
-			                  $value = $object->_checkAccess($this->user, $action));
+		} else {
+			$this->cache->set($cacheIdentifier, $value = $object->_checkAccess($this->getUser(), $action));
+		}
 		return $value;
 	}
 
@@ -304,19 +289,16 @@ class Tx_MmForum_Service_Authentication_AuthenticationService
 	 * check.
 	 * INTERNAL USE ONLY!
 	 *
-	 * @param  Tx_MmForum_Domain_Model_AccessibleInterface $object
-	 *                                                                  The object for which the access is to be
-	 *                                                                  checked.
-	 * @param  string                                      $action      The action for which the access check is
-	 *                                                                  to be performed.
+	 * @param  Tx_MmForum_Domain_Model_AccessibleInterface $object The object for which the access is to be checked.
+	 * @param  string                                      $action The action for which the access check is to be
+	 *                                                             performed.
 	 *
 	 * @return string              The cache identifier.
 	 * @access private
 	 */
-	protected function getCacheIdentifier(Tx_MmForum_Domain_Model_AccessibleInterface $object,
-	                                      $action)
-	{
+	protected function getCacheIdentifier(Tx_MmForum_Domain_Model_AccessibleInterface $object, $action) {
 		$className = array_pop(explode('_', get_class($object)));
+		/** @noinspection PhpUndefinedMethodInspection */
 		return 'acl-' . $className . '-' . $object->getUid() . '-' . $this->getUserGroupIdentifier() . '-' . $action;
 	}
 
@@ -328,21 +310,30 @@ class Tx_MmForum_Service_Authentication_AuthenticationService
 	 *
 	 * @return string An identifier for all current user groups.
 	 */
-	protected function getUserGroupIdentifier()
-	{
-		if ($this->userGroupIdentifier === NULL)
-		{
-			if ($this->user === NULL)
+	protected function getUserGroupIdentifier() {
+		if ($this->userGroupIdentifier === NULL) {
+			$user = $this->getUser();
+			if ($user === NULL) {
 				$this->userGroupIdentifier = 'n';
-			else
-			{
+			} else {
 				$groupUids = array();
-				foreach ($this->user->getUsergroup() as $group)
+				foreach ($user->getUsergroup() as $group) {
+					/** @var Tx_MmForum_Domain_Model_User_FrontendUserGroup $group */
 					$groupUids[] = $group->getUid();
+				}
 				$this->userGroupIdentifier = implode('g', $groupUids);
 			}
 		}
 		return $this->userGroupIdentifier;
+	}
+
+
+
+	protected function getUser() {
+		if ($this->user === -1) {
+			$this->user = $this->frontendUserRepository->findCurrent();
+		}
+		return $this->user;
 	}
 
 

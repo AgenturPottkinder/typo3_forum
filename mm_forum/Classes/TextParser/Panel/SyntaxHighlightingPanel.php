@@ -41,9 +41,7 @@
  *
  */
 
-class Tx_MmForum_TextParser_Panel_SyntaxHighlightingPanel
-	extends Tx_MmForum_TextParser_Panel_AbstractPanel
-{
+class Tx_MmForum_TextParser_Panel_SyntaxHighlightingPanel extends Tx_MmForum_TextParser_Panel_AbstractPanel {
 
 
 
@@ -72,8 +70,7 @@ class Tx_MmForum_TextParser_Panel_SyntaxHighlightingPanel
 	 *
 	 * @return void
 	 */
-	public function injectSyntaxHighlightingRepository(Tx_MmForum_Domain_Repository_Format_SyntaxHighlightingRepository $syntaxHighlightingRepository)
-	{
+	public function injectSyntaxHighlightingRepository(Tx_MmForum_Domain_Repository_Format_SyntaxHighlightingRepository $syntaxHighlightingRepository) {
 		$this->syntaxHighlightingRepository = $syntaxHighlightingRepository;
 		$this->syntaxHighlightings          = $this->syntaxHighlightingRepository->findAll();
 	}
@@ -84,19 +81,17 @@ class Tx_MmForum_TextParser_Panel_SyntaxHighlightingPanel
 	 * TODO
 	 * @return array<array>
 	 */
-	public function getItems()
-	{
+	public function getItems() {
 		$result = array();
 
-		foreach ($this->syntaxHighlightings as $syntaxHighlighting)
+		foreach ($this->syntaxHighlightings as $syntaxHighlighting) {
 			$result[] = $syntaxHighlighting->exportForMarkItUp();
-		return array(array(
-			             'name'      => $this->settings['title'],
-			             'className' => $this->settings['iconClassName'],
-			             'openWith'  => '[code]',
-			             'closeWith' => '[/code]',
-			             'dropMenu'  => $result
-		             ));
+		}
+		return array(array('name'      => $this->settings['title'],
+		                   'className' => $this->settings['iconClassName'],
+		                   'openWith'  => '[code]',
+		                   'closeWith' => '[/code]',
+		                   'dropMenu'  => $result));
 	}
 
 }

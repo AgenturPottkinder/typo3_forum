@@ -43,8 +43,7 @@
  *
  */
 class Tx_MmForum_TextParser_Service_BBCodeParserService
-	extends Tx_MmForum_TextParser_Service_AbstractTextParserService
-{
+	extends Tx_MmForum_TextParser_Service_AbstractTextParserService {
 
 
 
@@ -56,7 +55,6 @@ class Tx_MmForum_TextParser_Service_BBCodeParserService
 
 	/**
 	 * The bb code repository.
-	 *
 	 * @var Tx_MmForum_Domain_Repository_Format_BBCodeRepository
 	 */
 	protected $bbCodeRepository;
@@ -65,7 +63,6 @@ class Tx_MmForum_TextParser_Service_BBCodeParserService
 
 	/**
 	 * All bb codes.
-	 *
 	 * @var array<Tx_MmForum_Domain_Model_Format_BBCode>
 	 */
 	protected $bbCodes;
@@ -79,14 +76,12 @@ class Tx_MmForum_TextParser_Service_BBCodeParserService
 
 
 	/**
-	 * Creates a new instance of this service.
+	 * Injects an instance of the bbcode repository.
+	 * @param \Tx_MmForum_Domain_Repository_Format_BBCodeRepository $bbCodeRepository
 	 */
-	public function __construct()
-	{
-		parent::__construct();
-		$this->bbCodeRepository =&
-			t3lib_div::makeInstance('Tx_MmForum_Domain_Repository_Format_BBCodeRepository');
-		$this->bbCodes          =& $this->bbCodeRepository->findAll();
+	public function injectBbCodeRepository(Tx_MmForum_Domain_Repository_Format_BBCodeRepository $bbCodeRepository) {
+		$this->bbCodeRepository = $bbCodeRepository;
+		$this->bbCodes          = $this->bbCodeRepository->findAll();
 	}
 
 
@@ -95,17 +90,14 @@ class Tx_MmForum_TextParser_Service_BBCodeParserService
 	 * Parses the text. Replaces all bb codes in the text with appropriate HTML tags.
 	 *
 	 * @param  string $text The text that is to be parsed.
-	 *
 	 * @return string       The parsed text.
 	 */
-	public function getParsedText($text)
-	{
-		foreach ($this->bbCodes as $bbCode)
-		{
+	public function getParsedText($text) {
+		foreach ($this->bbCodes as $bbCode) {
 			/** @var $bbCode Tx_MmForum_Domain_Model_Format_BBCode */
-			if ($bbCode instanceof Tx_MmForum_Domain_Model_Format_QuoteBBCode
-				|| $bbCode instanceof Tx_MmForum_Domain_Model_Format_ListBBCode
-			) continue;
+			if ($bbCode instanceof Tx_MmForum_Domain_Model_Format_QuoteBBCode || $bbCode instanceof Tx_MmForum_Domain_Model_Format_ListBBCode) {
+				continue;
+			}
 			$text = preg_replace($bbCode->getRegularExpression(), $bbCode->getRegularExpressionReplacement(), $text);
 		}
 		return $text;

@@ -41,9 +41,7 @@
  * @license    GNU Public License, version 2
  *             http://opensource.org/licenses/gpl-license.php
  */
-class Tx_MmForum_Controller_TopicController
-	extends Tx_MmForum_Controller_AbstractController
-{
+class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_AbstractController {
 
 
 
@@ -117,8 +115,7 @@ class Tx_MmForum_Controller_TopicController
 	                            Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
 	                            Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository,
 	                            Tx_MmForum_Domain_Factory_Forum_TopicFactory $topicFactory,
-	                            Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory)
-	{
+	                            Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory) {
 		parent::__construct();
 		$this->forumRepository = $forumRepository;
 		$this->topicRepository = $topicRepository;
@@ -143,20 +140,15 @@ class Tx_MmForum_Controller_TopicController
 	 *
 	 * @return void
 	 */
-	public function showAction(Tx_MmForum_Domain_Model_Forum_Topic $topic)
-	{
+	public function showAction(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
 		$this->authenticationService->assertReadAuthorization($topic);
 		$this->markTopicRead($topic);
-		/** @noinspection PhpUndefinedMethodInspection */
-		$this->view
-			->assign('topic', $topic)
-			->assign('posts', $this->postRepository->findForTopic($topic));
+		$this->view->assign('topic', $topic)->assign('posts', $this->postRepository->findForTopic($topic));
 	}
 
 
 
 	/**
-	 *
 	 * New action. Displays a form for creating a new topic.
 	 *
 	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
@@ -166,36 +158,27 @@ class Tx_MmForum_Controller_TopicController
 	 * @param string                              $subject      The subject of the new topic
 	 *
 	 * @dontvalidate $post
-	 *
 	 */
 	public function newAction(Tx_MmForum_Domain_Model_Forum_Forum $forum,
-	                          Tx_MmForum_Domain_Model_Forum_Post $post = NULL, $subject = NULL)
-	{
+	                          Tx_MmForum_Domain_Model_Forum_Post $post = NULL, $subject = NULL) {
 		$this->authenticationService->assertNewTopicAuthorization($forum);
-		$this->view->assign('forum', $forum)
-			->assign('post', $post)
-			->assign('subject', $subject);
+		$this->view->assign('forum', $forum)->assign('post', $post)->assign('subject', $subject);
 	}
 
 
 
 	/**
-	 *
 	 * Creates a new topic.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
-	 *                                                          The forum in which the new topic is to be created.
-	 * @param Tx_MmForum_Domain_Model_Forum_Post  $post
-	 *                                                          The first post of the new topic.
-	 * @param string                              $subject      The subject of the new topic
+	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum       The forum in which the new topic is to be created.
+	 * @param Tx_MmForum_Domain_Model_Forum_Post  $post        The first post of the new topic.
+	 * @param string                              $subject     The subject of the new topic
+	 * @param array                               $attachments File attachments for the post.
 	 *
 	 * @validate $subject NotEmpty
-	 *
 	 */
-	public function createAction(Tx_MmForum_Domain_Model_Forum_Forum $forum,
-	                             Tx_MmForum_Domain_Model_Forum_Post $post, $subject)
-	{
-
+	public function createAction(Tx_MmForum_Domain_Model_Forum_Forum $forum, Tx_MmForum_Domain_Model_Forum_Post $post,
+	                             $subject, array $attachments = array()) {
 		// Assert authorization
 		$this->authenticationService->assertNewTopicAuthorization($forum);
 
@@ -206,8 +189,8 @@ class Tx_MmForum_Controller_TopicController
 		$topic = $this->topicFactory->createTopic($forum, $post, $subject);
 
 		// Notify potential listeners.
-		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Topic',
-		                                      'topicCreated', array('topic' => $topic));
+		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Topic', 'topicCreated',
+		                                      array('topic' => $topic));
 
 		// Redirect to single forum display view
 		$this->flashMessageContainer->add(Tx_MmForum_Utility_Localization::translate('Topic_Create_Success'));
@@ -223,24 +206,18 @@ class Tx_MmForum_Controller_TopicController
 
 
 	/**
-	 *
 	 * Marks a topic as read by the current user.
 	 *
 	 * @param  Tx_MmForum_Domain_Model_Forum_Topic $topic
 	 *                             The topic that is to be marked as read.
 	 *
 	 * @return void
-	 *
 	 */
-	protected function markTopicRead(Tx_MmForum_Domain_Model_Forum_Topic $topic)
-	{
-		$currentUser = & $this->getCurrentUser();
-		if ($currentUser === NULL)
-		{
+	protected function markTopicRead(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
+		$currentUser = $this->getCurrentUser();
+		if ($currentUser === NULL) {
 			return;
-		}
-		else
-		{
+		} else {
 			$currentUser->addReadObject($topic);
 			$this->frontendUserRepository->update($currentUser);
 		}
@@ -250,4 +227,3 @@ class Tx_MmForum_Controller_TopicController
 
 }
 
-?>

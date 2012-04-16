@@ -42,17 +42,14 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Repository_Format_BBCodeRepository
-	extends Tx_MmForum_Domain_Repository_AbstractRepository
-{
+class Tx_MmForum_Domain_Repository_Format_BBCodeRepository extends Tx_MmForum_Domain_Repository_AbstractRepository {
 
 
 
 	/**
 	 * @return array|Tx_Extbase_Persistence_QueryResultInterface
 	 */
-	public function findAll()
-	{
+	public function findAll() {
 		return $this->createQueryWithFallbackStoragePage()->execute();
 	}
 

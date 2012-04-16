@@ -26,23 +26,27 @@
 
 
 
-	/**
-	 *
-	 * Abstract exception class for all domain errors that might occur in this extension.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Exception
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
-	 */
+/**
+ *
+ * Abstract exception class for all domain errors that might occur in this extension.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Exception
+ * @version    $Id$
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
 
-Abstract Class Tx_MmForum_Domain_Exception_AbstractException Extends Tx_Extbase_Exception { }
+Abstract Class Tx_MmForum_Domain_Exception_AbstractException Extends Tx_Extbase_Exception {
+
+
+
+}
 
 ?>

@@ -40,7 +40,7 @@
  *
  */
 abstract class Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
-		extends Tx_Extbase_DomainObject_AbstractValueObject {
+	extends Tx_Extbase_DomainObject_AbstractValueObject {
 
 
 
@@ -72,11 +72,9 @@ abstract class Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
 
 
 
-
-
 	/*
-	 * GETTER METHODS
-	 */
+	  * GETTER METHODS
+	  */
 
 
 
@@ -130,6 +128,15 @@ abstract class Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
 	 */
 	public function setName($name) {
 		$this->name = $name;
+	}
+
+
+
+	/**
+	 * @param string $defaultIconDir
+	 */
+	public function setDefaultIconDir($defaultIconDir) {
+		$this->defaultIconDir = $defaultIconDir;
 	}
 
 

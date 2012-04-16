@@ -40,9 +40,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_User_LinkViewHelper
-		extends Tx_Fluid_ViewHelpers_CObjectViewHelper
-{
+class Tx_MmForum_ViewHelpers_User_LinkViewHelper extends Tx_Fluid_ViewHelpers_CObjectViewHelper {
 
 
 
@@ -53,16 +51,14 @@ class Tx_MmForum_ViewHelpers_User_LinkViewHelper
 
 
 
-	public function initialize()
-	{
+	public function initialize() {
 		parent::initialize();
 		$this->settings = $this->templateVariableContainer->get('settings');
 	}
 
 
 
-	public function initializeArguments()
-	{
+	public function initializeArguments() {
 		parent::initializeArguments();
 		$this->registerArgument('class', 'string', 'CSS class.');
 		$this->registerArgument('style', 'string', 'CSS inline styles.');
@@ -73,22 +69,17 @@ class Tx_MmForum_ViewHelpers_User_LinkViewHelper
 	/**
 	 *
 	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 * @param boolean $withoutWrap
+	 * @param boolean                                   $withoutWrap
 	 *
 	 */
-	public function render(Tx_MmForum_Domain_Model_User_FrontendUser $user,
-			$withoutWrap=FALSE)
-	{
+	public function render(Tx_MmForum_Domain_Model_User_FrontendUser $user, $withoutWrap = FALSE) {
 		$class = 'nav nav-pills';
-		if ($this->hasArgument('class'))
-		{
+		if ($this->hasArgument('class')) {
 			$class .= ' ' . $this->arguments['class'];
 		}
 
-		$tagContent = parent::render('plugin.tx_mmforum.renderer.navigation.userlink',
-						$this->getDataArray($user));
-		if ($withoutWrap === TRUE)
-		{
+		$tagContent = parent::render('plugin.tx_mmforum.renderer.navigation.userlink', $this->getDataArray($user));
+		if ($withoutWrap === TRUE) {
 			return $tagContent;
 		}
 
@@ -97,21 +88,16 @@ class Tx_MmForum_ViewHelpers_User_LinkViewHelper
 
 
 
-	protected function getDataArray(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL)
-	{
-		if ($user === NULL)
-		{
+	protected function getDataArray(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
+		if ($user === NULL) {
 			return array();
 		}
 
-		$data = array(
-			'uid' => $user->getUid(),
-			'username' => $user->getUsername(),
-			'profilePageUid' => (int) $this->settings['pids']['UserShow']
-		);
+		$data = array('uid'            => $user->getUid(),
+		              'username'       => $user->getUsername(),
+		              'profilePageUid' => (int)$this->settings['pids']['UserShow']);
 
-		foreach ($user->getContactData() as $type => $value)
-		{
+		foreach ($user->getContactData() as $type => $value) {
 			$data['contact_' . $type] = $value;
 		}
 

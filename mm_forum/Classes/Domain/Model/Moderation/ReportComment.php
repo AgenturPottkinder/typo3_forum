@@ -43,9 +43,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Model_Moderation_ReportComment
-		extends Tx_Extbase_DomainObject_AbstractEntity
-{
+class Tx_MmForum_Domain_Model_Moderation_ReportComment extends Tx_Extbase_DomainObject_AbstractEntity {
 
 
 
@@ -85,61 +83,65 @@ class Tx_MmForum_Domain_Model_Moderation_ReportComment
 
 
 
-
-
 	/*
-	 * GETTERS
+	 * CONSTRUCTOR
 	 */
 
 
 
 	/**
-	 *
+	 * Constructor
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $author
+	 * @param                                           $text.
+	 */
+	public function __construct(Tx_MmForum_Domain_Model_User_FrontendUser $author, $text) {
+		$this->author = $author;
+		$this->text   = $text;
+	}
+
+
+
+	/*
+	  * GETTERS
+	  */
+
+
+
+	/**
 	 * Gets the comment author.
 	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The comment author.
-	 *
 	 */
-	public function getAuthor()
-	{
+	public function getAuthor() {
 		return $this->author;
 	}
 
 
 
 	/**
-	 *
 	 * Gets the comment text.
 	 * @return string The comment text.
-	 *
 	 */
-	public function getText()
-	{
+	public function getText() {
 		return $this->text;
 	}
 
 
 
 	/**
-	 *
 	 * Gets the parent report.
 	 * @return Tx_MmForum_Domain_Model_Moderation_Report The report.
-	 *
 	 */
-	public function getReport()
-	{
+	public function getReport() {
 		return $this->report;
 	}
 
 
 
 	/**
-	 *
 	 * Gets this comment's creation timestamp.
 	 * @return DateTime The timestamp.
-	 *
 	 */
-	public function getTimestamp()
-	{
+	public function getTimestamp() {
 		return $this->crdate;
 	}
 
@@ -152,28 +154,22 @@ class Tx_MmForum_Domain_Model_Moderation_ReportComment
 
 
 	/**
-	 *
 	 * Sets the comment's author.
 	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $author The author.
 	 * @return void
-	 *
 	 */
-	public function setAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $author)
-	{
+	public function setAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $author) {
 		$this->author = $author;
 	}
 
 
 
 	/**
-	 *
 	 * Sets the comment text.
 	 * @param string $text The comment text.
 	 * @return void
-	 *
 	 */
-	public function setText($text)
-	{
+	public function setText($text) {
 		$this->text = $text;
 	}
 

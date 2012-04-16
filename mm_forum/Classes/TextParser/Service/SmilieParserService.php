@@ -43,75 +43,61 @@
  *
  */
 
-Class Tx_MmForum_TextParser_Service_SmilieParserService
-	Extends Tx_MmForum_TextParser_Service_AbstractTextParserService
-{
+class Tx_MmForum_TextParser_Service_SmilieParserService
+	extends Tx_MmForum_TextParser_Service_AbstractTextParserService {
 
 
 
 	/*
-		  * ATTRIBUTES
-		  */
+	 * ATTRIBUTES
+	 */
 
 
 
 	/**
-	 * The smilie repository
-	 *
+	 * The smilie repository.
 	 * @var Tx_MmForum_Domain_Repository_Format_SmilieRepository
 	 */
-	Protected $smilieRepository;
+	protected $smilieRepository;
 
 
 
 	/**
 	 * All smilies.
-	 *
 	 * @var array<Tx_MmForum_Domain_Model_Format_Smilie>
 	 */
-	Protected $smilies;
+	protected $smilies;
 
 
 
 	/*
-		  * METHODS
-		  */
+	 * METHODS
+	 */
 
 
 
 	/**
-	 *
-	 * Creates a new instance of this service.
-	 *
+	 * Injects an instance of the smilie repository.
+	 * @param \Tx_MmForum_Domain_Repository_Format_SmilieRepository $smilieRepository An instance of the smilie repository.
 	 */
-
-	Public Function  __construct()
-	{
-		$this->smilieRepository =&
-			t3lib_div::makeInstance('Tx_MmForum_Domain_Repository_Format_SmilieRepository');
+	public function injectSmilieRepository(Tx_MmForum_Domain_Repository_Format_SmilieRepository $smilieRepository) {
+		$this->smilieRepository = $smilieRepository;
 		$this->smilies          = $this->smilieRepository->findAll();
 	}
 
 
 
 	/**
-	 *
 	 * Renders the parsed text.
 	 *
 	 * @param  string $text The text to be parsed.
-	 *
 	 * @return string       The parsed text.
-	 *
 	 */
-
-	Public Function getParsedText($text)
-	{
-		ForEach ($this->smilies As $smilie)
-		{
-			$text = str_replace($smilie->getSmilieShortcut(),
-			                    $this->getSmilieIcon($smilie), $text);
+	public function getParsedText($text) {
+		foreach ($this->smilies as $smilie) {
+			$text = str_replace($smilie->getSmilieShortcut(), $this->getSmilieIcon($smilie), $text);
 		}
-		Return $text;
+		return $text;
 	}
 
 
@@ -127,9 +113,8 @@ Class Tx_MmForum_TextParser_Service_SmilieParserService
 	 *
 	 */
 
-	Protected Function getSmilieIcon(Tx_MmForum_Domain_Model_Format_Smilie $smilie)
-	{
-		Return '<img src="' . $smilie->getIconFilename() . '" alt="' . $smilie->getSmilieShortcut() . '" />';
+	protected function getSmilieIcon(Tx_MmForum_Domain_Model_Format_Smilie $smilie) {
+		return '<img src="' . $smilie->getIconFilename() . '" alt="' . $smilie->getSmilieShortcut() . '" />';
 	}
 
 }

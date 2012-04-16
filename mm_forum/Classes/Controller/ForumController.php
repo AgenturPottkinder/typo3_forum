@@ -25,48 +25,41 @@
  *                                                                      */
 
 
-
 /**
  *
  * Controller for the Forum object. This class implements basic forum-related
  * operations, like listing forums and subforums, and the respective topic lists.
  *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage Controller
- * @version    $Id$
+ * @author        Martin Helmich <m.helmich@mittwald.de>
+ * @package       MmForum
+ * @subpackage    Controller
+ * @version       $Id$
  *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
+ * @copyright     2012 Martin Helmich <m.helmich@mittwald.de>
+ *                Mittwald CM Service GmbH & Co. KG
+ *                http://www.mittwald.de
+ * @license       GNU Public License, version 2
+ *                http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Controller_ForumController
-	extends Tx_MmForum_Controller_AbstractController
-{
+class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_AbstractController {
 
 
 
 	/*
-	 * ATTRIBUTES
-	 */
-
+	   * ATTRIBUTES
+	   */
 
 
 	/**
 	 * A forum repository.
-	 *
 	 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
 	 */
 	protected $forumRepository;
 
 
-
 	/**
-	 * A topic repository
-	 *
+	 * A topic repository.
 	 * @var Tx_MmForum_Domain_Repository_Forum_TopicRepository
 	 */
 	protected $topicRepository;
@@ -74,9 +67,8 @@ class Tx_MmForum_Controller_ForumController
 
 
 	/*
-	 * DEPENDENCY INJECTION METHODS
-	 */
-
+	  * DEPENDENCY INJECTION METHODS
+	  */
 
 
 	/**
@@ -84,15 +76,11 @@ class Tx_MmForum_Controller_ForumController
 	 * Constructor of this controller. Needs to get all required repositories
 	 * injected.
 	 *
-	 * @param Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository
-	 *                                 An instance of the forum repository.
-	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository
-	 *                                 An instance of the topic repository.
-	 *
+	 * @param Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository An instance of the forum repository.
+	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository An instance of the topic repository.
 	 */
 	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
-	                            Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository)
-	{
+	                            Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository) {
 		parent::__construct();
 		$this->forumRepository = $forumRepository;
 		$this->topicRepository = $topicRepository;
@@ -101,20 +89,15 @@ class Tx_MmForum_Controller_ForumController
 
 
 	/*
-	 * ACTION METHODS
-	 */
-
+	   * ACTION METHODS
+	   */
 
 
 	/**
-	 *
 	 * Index action. Displays the first two levels of the forum tree.
-	 *
 	 * @return void
-	 *
 	 */
-	public Function indexAction()
-	{
+	public function indexAction() {
 		$forums = $this->forumRepository->findForIndex();
 		$this->view->assign('forums', $forums);
 	}
@@ -122,35 +105,27 @@ class Tx_MmForum_Controller_ForumController
 
 
 	/**
-	 *
 	 * Show action. Displays a single forum, all subforums of this forum and the
 	 * topics contained in this forum.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
-	 *                             The forum that is to be displayed.
-	 *
+	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum The forum that is to be displayed.
 	 * @return void
-	 *
 	 */
-	public function showAction(Tx_MmForum_Domain_Model_Forum_Forum $forum)
-	{
+	public function showAction(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
 		$this->authenticationService->assertReadAuthorization($forum);
-		$this->view
-			->assign('forum', $forum)
-			->assign('topics', $this->topicRepository->findForIndex($forum));
+		$this->view->assign('forum', $forum)->assign('topics', $this->topicRepository->findForIndex($forum));
 	}
 
 
 
 	/**
+	 * Updates a forum.
+	 * This action method updates a forum. Admin authorization is required.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
-	 *
+	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum The forum to be updated.
 	 * @dontverifyrequesthash
-	 *
 	 */
-	public function updateAction(Tx_MmForum_Domain_Model_Forum_Forum $forum)
-	{
+	public function updateAction(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
 		$this->authenticationService->assertAdministrationAuthorization($forum);
 
 		$this->forumRepository->update($forum);
@@ -159,6 +134,30 @@ class Tx_MmForum_Controller_ForumController
 		$this->redirect('index');
 	}
 
+
+
+	/**
+	 * Creates a forum.
+	 * This action method creates a new forum. Admin authorization is required for
+	 * creating child forums, root forums may only be created from backend.
+	 *
+	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum The forum to be created.
+	 *
+	 * @throws Tx_MmForum_Domain_Exception_Authentication_NoAccessException
+	 * @dontverifyrequesthash
+	 */
+	public function createAction(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
+		if ($forum->getParent() !== NULL) {
+			$this->authenticationService->assertAdministrationAuthorization($forum->getParent());
+		} /** @noinspection PhpUndefinedConstantInspection */ elseif (TYPO3_MODE !== 'BE') {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NoAccessException("You are not authorized to perform this action!", 1284709852);
+		}
+
+		$this->forumRepository->add($forum);
+
+		$this->addLocalizedFlashmessage('Forum_Create_Success');
+		$this->redirect('index');
+	}
 
 
 }

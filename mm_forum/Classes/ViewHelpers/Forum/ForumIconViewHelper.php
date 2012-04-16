@@ -42,9 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Forum_ForumIconViewHelper
-		extends Tx_Fluid_ViewHelpers_CObjectViewHelper
-{
+class Tx_MmForum_ViewHelpers_Forum_ForumIconViewHelper extends Tx_Fluid_ViewHelpers_CObjectViewHelper {
 
 
 
@@ -57,15 +55,14 @@ class Tx_MmForum_ViewHelpers_Forum_ForumIconViewHelper
 
 
 	/**
-	 * 
+	 *
 	 * Injects a frontend user repository.
 	 * @param  Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository
 	 *                             A frontend user repository.
 	 * @return void
-	 * 
+	 *
 	 */
-	public function injectFrontendUserRepository(Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository)
-	{
+	public function injectFrontendUserRepository(Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository) {
 		$this->frontendUserRepository = $frontendUserRepository;
 	}
 
@@ -77,8 +74,7 @@ class Tx_MmForum_ViewHelpers_Forum_ForumIconViewHelper
 	 * @return void
 	 *
 	 */
-	public function initializeArguments()
-	{
+	public function initializeArguments() {
 
 	}
 
@@ -89,17 +85,14 @@ class Tx_MmForum_ViewHelpers_Forum_ForumIconViewHelper
 	 * Renders the forum icon.
 	 *
 	 * @param  Tx_MmForum_Domain_Model_Forum_Forum $forum
-	 *                            The forum for which the icon is to be rendered.
-	 * @param  integer $width     Image width
-	 * @param  string $alt        Alt text
+	 *                                                         The forum for which the icon is to be rendered.
+	 * @param  integer                             $width      Image width
+	 * @param  string                              $alt        Alt text
 	 * @return string             The rendered icon.
 	 *
 	 */
-	public function render(Tx_MmForum_Domain_Model_Forum_Forum $forum=NULL,
-			$width=NULL, $alt="")
-	{
-		return parent::render('plugin.tx_mmforum.renderer.icons.forum',
-						$this->getDataArray($forum));
+	public function render(Tx_MmForum_Domain_Model_Forum_Forum $forum = NULL, $width = NULL, $alt = "") {
+		return parent::render('plugin.tx_mmforum.renderer.icons.forum', $this->getDataArray($forum));
 	}
 
 
@@ -113,17 +106,13 @@ class Tx_MmForum_ViewHelpers_Forum_ForumIconViewHelper
 	 * @return array               The data array for the typoscript object.
 	 *
 	 */
-	protected function getDataArray(Tx_MmForum_Domain_Model_Forum_Forum $forum=NULL)
-	{
-		if ($forum === NULL)
-		{
+	protected function getDataArray(Tx_MmForum_Domain_Model_Forum_Forum $forum = NULL) {
+		if ($forum === NULL) {
 			return array();
-		}
-		else
-		{
+		} else {
 			$user = & $this->frontendUserRepository->findCurrent();
-			return array('new' => !$forum->hasBeenReadByUser($user),
-				'closed' => !$forum->checkNewPostAccess($user));
+			return array('new'    => !$forum->hasBeenReadByUser($user),
+			             'closed' => !$forum->checkNewPostAccess($user));
 		}
 	}
 

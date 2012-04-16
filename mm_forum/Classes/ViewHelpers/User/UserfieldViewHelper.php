@@ -26,58 +26,58 @@
 
 
 
+/**
+ *
+ * ViewHelper that renders the value of a specific userfield for a user.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage ViewHelpers_User
+ * @version    $Id$
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+
+class Tx_MmForum_ViewHelpers_User_UserfieldViewHelper extends Tx_Fluid_ViewHelpers_CObjectViewHelper {
+
+
+
 	/**
 	 *
-	 * ViewHelper that renders the value of a specific userfield for a user.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage ViewHelpers_User
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
+	 * Initializes the view helper arguments.
 	 *
 	 */
 
-class Tx_MmForum_ViewHelpers_User_UserfieldViewHelper
-	extends Tx_Fluid_ViewHelpers_CObjectViewHelper {
+	public function initializeArguments() { /* Empty! Haw, haw! */
+	}
 
 
 
-		/**
-		 *
-		 * Initializes the view helper arguments.
-		 *
-		 */
+	/**
+	 *
+	 * Renders the userfield value.
+	 *
+	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser                $user
+	 *                             The user for whom the userfield value is to be
+	 *                             rendered.
+	 * @param  Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield $userfield
+	 *                             The userfield.
+	 * @return string              HTML content
+	 *
+	 */
 
-	public function initializeArguments() { /* Empty! Haw, haw! */ }
+	public function render(Tx_MmForum_Domain_Model_User_FrontendUser $user,
+	                       Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield $userfield) {
 
-
-
-		/**
-		 *
-		 * Renders the userfield value.
-		 *
-		 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
-		 *                             The user for whom the userfield value is to be
-		 *                             rendered.
-		 * @param  Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield $userfield
-		 *                             The userfield.
-		 * @return string              HTML content
-		 *
-		 */
-
-	public function render ( Tx_MmForum_Domain_Model_User_FrontendUser $user,
-	                         Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield $userfield ) {
-
-		if($userfield instanceof Tx_MmForum_Domain_Model_User_Userfield_TyposcriptUserfield) {
+		if ($userfield instanceof Tx_MmForum_Domain_Model_User_Userfield_TyposcriptUserfield) {
 			$data = $userfield->getValueForUser($user);
 			$data = $this->convertDataToString($data);
-			return parent::render($userfield->getTyposcriptPath().'.output', implode(' ',$data));
+			return parent::render($userfield->getTyposcriptPath() . '.output', implode(' ', $data));
 		} else {
 			return 'Do not know what to do!';
 		}
@@ -86,22 +86,27 @@ class Tx_MmForum_ViewHelpers_User_UserfieldViewHelper
 
 
 
-		/**
-		 *
-		 * Helper method that converts any type of variable to a string.
-		 *
-		 * @param   mixed $data Anything
-		 * @return string       Anything converted to a string
-		 *
-		 */
-	
+	/**
+	 *
+	 * Helper method that converts any type of variable to a string.
+	 *
+	 * @param   mixed $data Anything
+	 * @return string       Anything converted to a string
+	 *
+	 */
+
 	protected function convertDataToString($data) {
-		if(is_array($data)) {
-			foreach($data as $k => &$v) $v = $this->convertDataToString($v);
+		if (is_array($data)) {
+			foreach ($data as $k => &$v) {
+				$v = $this->convertDataToString($v);
+			}
 			return $data;
 		} else {
-			if($data instanceof DateTime) return $data->format ('U');
-			else return $data;
+			if ($data instanceof DateTime) {
+				return $data->format('U');
+			} else {
+				return $data;
+			}
 		}
 	}
 

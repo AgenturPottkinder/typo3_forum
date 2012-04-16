@@ -43,8 +43,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-interface Tx_MmForum_Service_Notification_NotificationServiceInterface
-{
+interface Tx_MmForum_Service_Notification_NotificationServiceInterface {
 
 
 
@@ -53,7 +52,8 @@ interface Tx_MmForum_Service_Notification_NotificationServiceInterface
 	 *
 	 * @param Tx_MmForum_Domain_Model_SubscribeableInterface $subscriptionObject
 	 * @param Tx_MmForum_Domain_Model_NotifiableInterface    $notificationObject
-	 */public function notifySubscribers(Tx_MmForum_Domain_Model_SubscribeableInterface $subscriptionObject,
+	 */
+	public function notifySubscribers(Tx_MmForum_Domain_Model_SubscribeableInterface $subscriptionObject,
 	                                  Tx_MmForum_Domain_Model_NotifiableInterface $notificationObject);
 
 

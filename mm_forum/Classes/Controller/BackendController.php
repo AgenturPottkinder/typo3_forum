@@ -42,17 +42,14 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Controller_BackendController
-	extends Tx_MmForum_Controller_AbstractBackendController
-{
+class Tx_MmForum_Controller_BackendController extends Tx_MmForum_Controller_AbstractBackendController {
 
 
 
 	/**
 	 *
 	 */
-	public function indexForumAction()
-	{
+	public function indexForumAction() {
 		$this->view->assign('pageUid', $this->pageId);
 	}
 
@@ -61,8 +58,7 @@ class Tx_MmForum_Controller_BackendController
 	/**
 	 * @param null|Tx_MmForum_Domain_Model_Forum_Forum $parent
 	 */
-	public function readForumTreeNodeAction(Tx_MmForum_Domain_Model_Forum_Forum $parent = NULL)
-	{
+	public function readForumTreeNodeAction(Tx_MmForum_Domain_Model_Forum_Forum $parent = NULL) {
 
 	}
 

@@ -43,9 +43,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Controller_UserController
-	extends Tx_MmForum_Controller_AbstractController
-{
+class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_AbstractController {
 
 
 
@@ -85,8 +83,7 @@ class Tx_MmForum_Controller_UserController
 	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository
 	 *                                 An instance of the topic repository.
 	 */
-	public function injectTopicRepository(Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository)
-	{
+	public function injectTopicRepository(Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository) {
 		$this->topicRepository = $topicRepository;
 	}
 
@@ -98,8 +95,7 @@ class Tx_MmForum_Controller_UserController
 	 * @param Tx_MmForum_Domain_Repository_User_UserfieldRepository $userfieldRepository
 	 *                                 An instance of the userfield repository.
 	 */
-	public function injectUserfieldRepository(Tx_MmForum_Domain_Repository_User_UserfieldRepository $userfieldRepository)
-	{
+	public function injectUserfieldRepository(Tx_MmForum_Domain_Repository_User_UserfieldRepository $userfieldRepository) {
 		$this->userfieldRepository = $userfieldRepository;
 	}
 
@@ -116,10 +112,8 @@ class Tx_MmForum_Controller_UserController
 	 *
 	 * @return void
 	 */
-	public function indexAction()
-	{
-		$this->view
-			->assign('users', $this->frontendUserRepository->findForIndex());
+	public function indexAction() {
+		$this->view->assign('users', $this->frontendUserRepository->findForIndex());
 	}
 
 
@@ -129,16 +123,14 @@ class Tx_MmForum_Controller_UserController
 	 *
 	 * @return void
 	 */
-	public function listPostsAction(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL)
-	{
-		if ($user === NULL)
+	public function listPostsAction(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
+		if ($user === NULL) {
 			$user = $this->getCurrentUser();
-		if ($user === NULL)
-			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException(
-				"You need to be logged in to view your own posts.", 1288084981);
-		$this->view
-			->assign('topics', $this->topicRepository->findByPostAuthor($user))
-			->assign('user', $user);
+		}
+		if ($user === NULL) {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
+		}
+		$this->view->assign('topics', $this->topicRepository->findByPostAuthor($user))->assign('user', $user);
 	}
 
 
@@ -151,13 +143,10 @@ class Tx_MmForum_Controller_UserController
 	 *
 	 * @return void
 	 */
-	public function showAction(Tx_MmForum_Domain_Model_User_FrontendUser $user)
-	{
+	public function showAction(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
 		/** @noinspection PhpUndefinedMethodInspection */
 		$lastFiveTopics = $this->topicRepository->findByPostAuthor($user)->getQuery()->setLimit(5)->execute();
-		$this->view
-			->assign('user', $user)
-			->assign('userfields', $this->userfieldRepository->findAll())
+		$this->view->assign('user', $user)->assign('userfields', $this->userfieldRepository->findAll())
 			->assign('topics', $lastFiveTopics);
 	}
 
@@ -177,26 +166,26 @@ class Tx_MmForum_Controller_UserController
 	 *
 	 */
 	public function subscribeAction(Tx_MmForum_Domain_Model_Forum_Forum $forum = NULL,
-	                                Tx_MmForum_Domain_Model_Forum_Topic $topic = NULL, $unsubscribe = FALSE)
-	{
+	                                Tx_MmForum_Domain_Model_Forum_Topic $topic = NULL, $unsubscribe = FALSE) {
 
 		# Validate arguments
-		if ($forum === NULL && $topic === NULL)
+		if ($forum === NULL && $topic === NULL) {
 			throw new Tx_Extbase_MVC_Exception_InvalidArgumentValue("You need to subscribe a Forum or Topic!", 1285059341);
+		}
 
 		# Create subscription
 		$object = $forum ? $forum : $topic;
 		$user   = & $this->getCurrentUser();
 
-		if ($unsubscribe)
+		if ($unsubscribe) {
 			$user->removeSubscription($object);
-		else
+		} else {
 			$user->addSubscription($object);
+		}
 
 		# Update user and redirect to subscription object.
 		$this->frontendUserRepository->update($user);
-		$this->flashMessageContainer->add($this->getSubscriptionFlashMessage($object,
-		                                                                     $unsubscribe));
+		$this->flashMessageContainer->add($this->getSubscriptionFlashMessage($object, $unsubscribe));
 		$this->redirectToSubscriptionObject($object);
 	}
 
@@ -221,12 +210,13 @@ class Tx_MmForum_Controller_UserController
 	 * @return void
 	 *
 	 */
-	protected function redirectToSubscriptionObject(Tx_MmForum_Domain_Model_SubscribeableInterface $object)
-	{
-		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Forum)
+	protected function redirectToSubscriptionObject(Tx_MmForum_Domain_Model_SubscribeableInterface $object) {
+		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Forum) {
 			$this->redirect('show', 'Forum', NULL, array('forum' => $object));
-		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Topic)
+		}
+		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Topic) {
 			$this->redirect('show', 'Topic', NULL, array('topic' => $object));
+		}
 	}
 
 
@@ -242,12 +232,10 @@ class Tx_MmForum_Controller_UserController
 	 * @return string A flash message.
 	 */
 	protected function getSubscriptionFlashMessage(Tx_MmForum_Domain_Model_SubscribeableInterface $object,
-	                                               $unsubscribe = FALSE)
-	{
+	                                               $unsubscribe = FALSE) {
 		$type = array_pop(explode('_', get_class($object)));
 		$key  = 'User_' . ($unsubscribe ? 'Uns' : 'S') . 'ubscribe_' . $type . '_Success';
-		return Tx_Extbase_Utility_Localization::translate($key, 'MmForum',
-		                                                  array($object->getTitle()));
+		return Tx_Extbase_Utility_Localization::translate($key, 'MmForum', array($object->getTitle()));
 	}
 
 

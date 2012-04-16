@@ -43,15 +43,24 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-interface Tx_MmForum_Domain_Model_NotifiableInterface
-{
+interface Tx_MmForum_Domain_Model_NotifiableInterface {
 
 
 
+	/**
+	 * Gets this object's name (e.g. the topic subject or the forum title).
+	 * @return string
+	 */
 	public function getName();
 
 
 
+	/**
+	 * Gets this object's description (e.g. the first post's content or the forum
+	 * description).
+	 *
+	 * @return string
+	 */
 	public function getDescription();
 
 

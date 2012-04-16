@@ -40,9 +40,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Forum_RootlineViewHelper
-		extends Tx_Fluid_Core_ViewHelper_AbstractTagBasedViewHelper
-{
+class Tx_MmForum_ViewHelpers_Forum_RootlineViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractTagBasedViewHelper {
 
 
 
@@ -59,16 +57,14 @@ class Tx_MmForum_ViewHelpers_Forum_RootlineViewHelper
 
 
 
-	public function initializeArguments()
-	{
+	public function initializeArguments() {
 		parent::initializeArguments();
 		$this->registerUniversalTagAttributes();
 	}
 
 
 
-	public function initialize()
-	{
+	public function initialize() {
 		parent::initialize();
 		$this->settings = $this->templateVariableContainer->get('settings');
 	}
@@ -77,25 +73,23 @@ class Tx_MmForum_ViewHelpers_Forum_RootlineViewHelper
 
 	/**
 	 *
-	 * @param array $rootline
+	 * @param array   $rootline
 	 * @param boolean $reverse
 	 *
 	 */
-	public function render(array $rootline, $reverse=FALSE)
-	{
-		if ($reverse)
-		{
+	public function render(array $rootline, $reverse = FALSE) {
+		if ($reverse) {
 			array_reverse($rootline);
 		}
 
 		$class = 'nav nav-pills nav-pills-condensed';
-		if ($this->arguments['class'])
+		if ($this->arguments['class']) {
 			$class .= ' ' . $this->arguments['class'];
+		}
 		$this->tag->addAttribute('class', $class);
 
 		$content = '';
-		foreach ($rootline as $element)
-		{
+		foreach ($rootline as $element) {
 			$content .= $this->renderNavigationNode($element);
 		}
 		$content .= '';
@@ -106,26 +100,20 @@ class Tx_MmForum_ViewHelpers_Forum_RootlineViewHelper
 
 
 
-	protected function renderNavigationNode($object)
-	{
-		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Forum)
-		{
+	protected function renderNavigationNode($object) {
+		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Forum) {
 			$controller = 'Forum';
-			$arguments = array('forum' => $object);
-			$icon = 'tx-mmforum-icon-16-forum';
-		}
-		else
-		{
+			$arguments  = array('forum' => $object);
+			$icon       = 'tx-mmforum-icon-16-forum';
+		} else {
 			$controller = 'Topic';
-			$arguments = array('topic' => $object);
-			$icon = 'tx-mmforum-icon-16-topic';
+			$arguments  = array('topic' => $object);
+			$icon       = 'tx-mmforum-icon-16-topic';
 		}
 
 		$uriBuilder = $this->controllerContext->getUriBuilder();
-		$uri = $uriBuilder
-				->reset()
-				->setTargetPageUid((int) $this->settings['pids']['Forum'])
-				->uriFor('show', $arguments, $controller);
+		$uri        = $uriBuilder->reset()->setTargetPageUid((int)$this->settings['pids']['Forum'])
+			->uriFor('show', $arguments, $controller);
 
 		return '<li><a href="' . $uri . '"><i class="' . $icon . '"></i> ' . $object->getTitle() . '</a></li>';
 	}

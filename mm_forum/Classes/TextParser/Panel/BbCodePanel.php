@@ -40,9 +40,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_TextParser_Panel_BbCodePanel
-	extends Tx_MmForum_TextParser_Panel_AbstractPanel
-{
+class Tx_MmForum_TextParser_Panel_BbCodePanel extends Tx_MmForum_TextParser_Panel_AbstractPanel {
 
 
 
@@ -63,8 +61,7 @@ class Tx_MmForum_TextParser_Panel_BbCodePanel
 	/**
 	 * @param Tx_MmForum_Domain_Repository_Format_BBCodeRepository $bbCodeRepository
 	 */
-	public function injectBbCodeRepository(Tx_MmForum_Domain_Repository_Format_BBCodeRepository $bbCodeRepository)
-	{
+	public function injectBbCodeRepository(Tx_MmForum_Domain_Repository_Format_BBCodeRepository $bbCodeRepository) {
 		$this->bbCodeRepository = $bbCodeRepository;
 		$this->bbCodes          = $this->bbCodeRepository->findAll();
 	}
@@ -74,12 +71,12 @@ class Tx_MmForum_TextParser_Panel_BbCodePanel
 	/**
 	 * @return array
 	 */
-	public function getItems()
-	{
+	public function getItems() {
 		$result = array();
 
-		foreach ($this->bbCodes as $bbCode)
+		foreach ($this->bbCodes as $bbCode) {
 			$result[] = $bbCode->exportForMarkItUp();
+		}
 		return $result;
 	}
 

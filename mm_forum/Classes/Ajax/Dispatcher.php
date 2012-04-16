@@ -27,7 +27,7 @@
 
 
 /**
- * 
+ *
  * This class implements a simple dispatcher for a mm_form eID script.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
@@ -42,8 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-final class Tx_MmForum_Ajax_Dispatcher
-		implements t3lib_Singleton {
+final class Tx_MmForum_Ajax_Dispatcher implements t3lib_Singleton {
 
 
 
@@ -92,19 +91,15 @@ final class Tx_MmForum_Ajax_Dispatcher
 
 
 
-
-
 	/*
-	 * INITIALIZATION
-	 */
+	  * INITIALIZATION
+	  */
 
 
 
 	/**
-	 * 
 	 * Initialize the dispatcher.
 	 * @return void
-	 * 
 	 */
 	protected function init() {
 		$this->initTYPO3();
@@ -114,22 +109,20 @@ final class Tx_MmForum_Ajax_Dispatcher
 
 
 	/**
-	 * 
 	 * Initialize the global TSFE object.
-	 * 
+	 *
 	 * Most of the code was adapted from the df_tools extension by Stefan
 	 * Galinski.
-	 * 
+	 *
 	 * @return void.
-	 * 
 	 */
 	protected function initTYPO3() {
 		tslib_eidtools::connectDB();
 
-		# The following code was adapted from the df_tools extension.
-		# Credits go to Stefan Galinski.
-		$GLOBALS['TSFE'] = t3lib_div::makeInstance('tslib_fe',
-						$GLOBALS['TYPO3_CONF_VARS'], (int) $_GET['p'], 0);
+		// The following code was adapted from the df_tools extension.
+		// Credits go to Stefan Galinski.
+		$GLOBALS['TSFE']           = t3lib_div::makeInstance('tslib_fe', $GLOBALS['TYPO3_CONF_VARS'], (int)$_GET['p'],
+		                                                     0);
 		$GLOBALS['TSFE']->sys_page = t3lib_div::makeInstance('t3lib_pageSelect');
 		$GLOBALS['TSFE']->getPageAndRootline();
 		$GLOBALS['TSFE']->initTemplate();
@@ -142,30 +135,26 @@ final class Tx_MmForum_Ajax_Dispatcher
 		$GLOBALS['TSFE']->tmpl->start($GLOBALS['TSFE']->rootLine);
 		$GLOBALS['TSFE']->no_cache = FALSE;
 
-		$GLOBALS['TSFE']->config = array();
-		$GLOBALS['TSFE']->config['config'] = array(
-			'sys_language_uid' => intval(t3lib_div::_GP('L')),
-			'sys_language_mode' => 'content_fallback;0',
-			'sys_language_overlay' => 'hideNonTranslated',
-			'sys_language_softMergeIfNotBlank' => '',
-			'sys_language_softExclude' => '',
-		);
+		$GLOBALS['TSFE']->config           = array();
+		$GLOBALS['TSFE']->config['config'] = array('sys_language_uid'                 => intval(t3lib_div::_GP('L')),
+		                                           'sys_language_mode'                => 'content_fallback;0',
+		                                           'sys_language_overlay'             => 'hideNonTranslated',
+		                                           'sys_language_softMergeIfNotBlank' => '',
+		                                           'sys_language_softExclude'         => '',);
 		$GLOBALS['TSFE']->settingLanguage();
 	}
 
 
 
 	/**
-	 * 
 	 * Initializes the Extbase framework by instantiating the bootstrap
 	 * class and the extbase object manager.
-	 * 
+	 *
 	 * @return void
-	 * 
 	 */
 	protected function initExtbase() {
 		$this->extbaseBootstap = t3lib_div::makeInstance('Tx_Extbase_Core_Bootstrap');
-		$this->objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
+		$this->objectManager   = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
 	}
 
 
@@ -177,10 +166,8 @@ final class Tx_MmForum_Ajax_Dispatcher
 
 
 	/**
-	 * 
 	 * Initializes this class and starts the dispatching process.
 	 * @return void
-	 * 
 	 */
 	public function run() {
 		$this->init();
@@ -190,23 +177,18 @@ final class Tx_MmForum_Ajax_Dispatcher
 
 
 	/**
-	 * 
 	 * Dispatches a request.
 	 * @return void
-	 * 
 	 */
 	public function dispatch() {
-		echo $this->extbaseBootstap->run('',
-				array(
-			'extensionName' => $this->extensionKey,
-			'pluginName' => 'Ajax'
-		));
+		echo $this->extbaseBootstap->run('', array('extensionName' => $this->extensionKey,
+		                                          'pluginName'     => 'Ajax'));
 	}
 
 
 
 }
 
-# Instantiate and start dispatcher.
+// Instantiate and start dispatcher.
 $dispatcher = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_MmForum_Ajax_Dispatcher');
 $dispatcher->run();

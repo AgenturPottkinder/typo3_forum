@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2012-03-27T21:15:43Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2012-03-30T10:26:25Z">
 		<header>
 			<generator>LFEditor</generator>
 			<type>module</type>
@@ -60,6 +60,10 @@
 			<source>Edit access rules</source>
 			<target>Zugriffsregeln bearbeiten</target>
 		</trans-unit>
+		<trans-unit id="ForumIndex_Grid_Context_New" approved="yes" xml:space="preserve">
+			<source>New Forum</source>
+			<target>Neues Forum</target>
+		</trans-unit>
 		<trans-unit id="ForumIndex_Grid_Context_UpdateTitle" approved="yes" xml:space="preserve">
 			<source>Change title</source>
 			<target>Bezeichnung Ã¤ndern</target>
@@ -67,6 +71,10 @@
 		<trans-unit id="ForumIndex_Grid_Title" approved="yes" xml:space="preserve">
 			<source>Tree view</source>
 			<target>Baumansicht</target>
+		</trans-unit>
+		<trans-unit id="ForumIndex_NewForum_DefaultTitle" approved="yes" xml:space="preserve">
+			<source>New Forum</source>
+			<target>Neues Forum</target>
 		</trans-unit>
 		<trans-unit id="ForumIndex_Tree_Root" approved="yes" xml:space="preserve">
 			<source>Forum root</source>

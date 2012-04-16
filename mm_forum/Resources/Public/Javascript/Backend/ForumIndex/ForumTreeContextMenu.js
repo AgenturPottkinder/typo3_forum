@@ -30,6 +30,22 @@ MmForum.ForumIndex.ForumTreeContextMenu = Ext.extend(Ext.menu.Menu, {
 	{
 		config.items = [
 			new Ext.menu.Item({
+				text   : TYPO3.l10n.localize('ForumIndex_Grid_Context_New'),
+				iconCls: 'tx-mmforum-icon-16-forum-new',
+				scope  : this,
+				handler: function ()
+				{
+					var newForumNode = new Ext.tree.TreeNode({
+						text    : TYPO3.l10n.localize('ForumIndex_NewForum_DefaultTitle'),
+						iconCls : 'tx-mmforum-icon-16-forum',
+						children: []
+					})
+					this.selectedNode.appendChild(newForumNode);
+					this.tree.treeEditor.triggerEdit(newForumNode);
+				}
+			}),
+			new Ext.menu.Separator({}),
+			this.updateTitleItem = new Ext.menu.Item({
 				text   : TYPO3.l10n.localize('ForumIndex_Grid_Context_UpdateTitle'),
 				iconCls: 'tx-mmforum-icon-16-forum-edit',
 				scope  : this,
@@ -38,7 +54,7 @@ MmForum.ForumIndex.ForumTreeContextMenu = Ext.extend(Ext.menu.Menu, {
 					this.tree.treeEditor.triggerEdit(this.selectedNode);
 				}
 			}),
-			new Ext.menu.Item({
+			this.editItem = new Ext.menu.Item({
 				text   : TYPO3.l10n.localize('ForumIndex_Grid_Context_Edit'),
 				iconCls: 'tx-mmforum-icon-16-edit',
 				scope  : this,
@@ -47,12 +63,31 @@ MmForum.ForumIndex.ForumTreeContextMenu = Ext.extend(Ext.menu.Menu, {
 					this.tree.editForum(this.selectedNode);
 				}
 			}),
-			new Ext.menu.Item({
+			this.editAclsItem = new Ext.menu.Item({
 				text   : TYPO3.l10n.localize('ForumIndex_Grid_Context_EditAcls'),
 				iconCls: 'tx-mmforum-icon-16-forum-acledit'
 			})
 		]
 
 		MmForum.ForumIndex.ForumTreeContextMenu.superclass.constructor.call(this, config);
+	},
+
+	setSelectedNode: function (node)
+	{
+		this.selectedNode = node;
+		console.log(this.items);
+
+		if (node.id == 'forum-root')
+		{
+			this.editItem.disable();
+			this.updateTitleItem.disable();
+			this.editAclsItem.disable();
+		}
+		else
+		{
+			this.editItem.enable();
+			this.updateTitleItem.enable();
+			this.editAclsItem.enable();
+		}
 	}
 });

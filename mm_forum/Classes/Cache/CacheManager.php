@@ -40,8 +40,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Cache_CacheManager
-{
+class Tx_MmForum_Cache_CacheManager {
 
 
 
@@ -49,8 +48,7 @@ class Tx_MmForum_Cache_CacheManager
 
 
 
-	public function clearAll()
-	{
+	public function clearAll() {
 		// Neither the Extbase autoloader nor the TYPO3 internal autoloader
 		// appear to be doing anything at this point, so we have to include
 		// manually... :(
@@ -63,15 +61,13 @@ class Tx_MmForum_Cache_CacheManager
 
 
 
-	protected function deleteTemporaryFiles()
-	{
-		foreach ($this->fileCachePaths as $fileCachePath)
-		{
+	protected function deleteTemporaryFiles() {
+		foreach ($this->fileCachePaths as $fileCachePath) {
 			$files = glob(PATH_site . $fileCachePath . '/*');
-			foreach ($files as $file)
-			{
-				if (is_file($file))
+			foreach ($files as $file) {
+				if (is_file($file)) {
 					unlink($file);
+				}
 			}
 		}
 	}

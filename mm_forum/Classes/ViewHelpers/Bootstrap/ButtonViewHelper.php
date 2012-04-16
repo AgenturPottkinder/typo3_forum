@@ -40,14 +40,11 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Bootstrap_ButtonViewHelper
-		extends Tx_Fluid_ViewHelpers_Link_ActionViewHelper
-{
+class Tx_MmForum_ViewHelpers_Bootstrap_ButtonViewHelper extends Tx_Fluid_ViewHelpers_Link_ActionViewHelper {
 
 
 
-	public function initializeArguments()
-	{
+	public function initializeArguments() {
 		parent::initializeArguments();
 
 		$this->registerArgument('primary', 'boolean', 'Primary button', FALSE, FALSE);
@@ -57,28 +54,27 @@ class Tx_MmForum_ViewHelpers_Bootstrap_ButtonViewHelper
 
 
 
-	public function initialize()
-	{
+	public function initialize() {
 		parent::initialize();
 
 		$class = 'btn';
 
-		if ($this->arguments['primary'] === TRUE)
+		if ($this->arguments['primary'] === TRUE) {
 			$class .= ' btn-primary';
+		}
 
 		$this->tag->addAttribute('class', $class);
 	}
 
 
 
-	public function renderChildren()
-	{
-		if ($this->arguments['icon'])
+	public function renderChildren() {
+		if ($this->arguments['icon']) {
 			$content = '<i class="tx-mmforum-icon-16-' . $this->arguments['icon'] . '"></i> ';
-		else
+		} else {
 			$content = '';
-		$content .= Tx_Extbase_Utility_Localization::translate($this->arguments['label'],
-						'mm_forum');
+		}
+		$content .= Tx_Extbase_Utility_Localization::translate($this->arguments['label'], 'mm_forum');
 		return $content;
 	}
 

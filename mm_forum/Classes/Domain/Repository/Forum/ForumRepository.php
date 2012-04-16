@@ -42,9 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Repository_Forum_ForumRepository
-	extends Tx_Extbase_Persistence_Repository
-{
+class Tx_MmForum_Domain_Repository_Forum_ForumRepository extends Tx_Extbase_Persistence_Repository {
 
 
 
@@ -58,8 +56,7 @@ class Tx_MmForum_Domain_Repository_Forum_ForumRepository
 	/**
 	 * @param Tx_MmForum_Service_Authentication_AuthenticationServiceInterface $authenticationService
 	 */
-	public function injectAuthenticationService(Tx_MmForum_Service_Authentication_AuthenticationServiceInterface $authenticationService)
-	{
+	public function injectAuthenticationService(Tx_MmForum_Service_Authentication_AuthenticationServiceInterface $authenticationService) {
 		$this->authenticationService = $authenticationService;
 	}
 
@@ -72,8 +69,7 @@ class Tx_MmForum_Domain_Repository_Forum_ForumRepository
 	 * @return array<Tx_MmForum_Domain_Model_Forum_Forum> All forums for the index view.
 	 *
 	 */
-	public function findForIndex()
-	{
+	public function findForIndex() {
 		return $this->findRootForums();
 	}
 
@@ -86,11 +82,9 @@ class Tx_MmForum_Domain_Repository_Forum_ForumRepository
 	 * @return array<Tx_MmForum_Domain_Model_Forum_Forum> All forums for the index view.
 	 *
 	 */
-	public function findRootForums()
-	{
+	public function findRootForums() {
 		$query  = $this->createQuery();
-		$result = $query->matching($query->equals('forum', array(NULL, 0)))
-			->execute();
+		$result = $query->matching($query->equals('forum', array(NULL, 0)))->execute();
 		return $this->filterByAccess($result, 'read');
 	}
 
@@ -102,13 +96,10 @@ class Tx_MmForum_Domain_Repository_Forum_ForumRepository
 	 *
 	 * @return array
 	 */
-	protected function filterByAccess(Iterator $objects, $action = 'read')
-	{
+	protected function filterByAccess(Iterator $objects, $action = 'read') {
 		$result = array();
-		foreach ($objects as $forum)
-		{
-			if ($this->authenticationService->checkAuthorization($forum, $action))
-			{
+		foreach ($objects as $forum) {
+			if ($this->authenticationService->checkAuthorization($forum, $action)) {
 				$result[] = $forum;
 			}
 		}

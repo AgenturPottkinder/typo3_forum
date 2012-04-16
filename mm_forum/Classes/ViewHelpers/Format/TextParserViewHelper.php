@@ -42,9 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Format_TextParserViewHelper
-		extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper
-{
+class Tx_MmForum_ViewHelpers_Format_TextParserViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
 
 
@@ -65,30 +63,28 @@ class Tx_MmForum_ViewHelpers_Format_TextParserViewHelper
 
 
 	/**
-	 * 
+	 *
 	 * Injects an instance of the text parser service.
 	 * @param  Tx_MmForum_TextParser_TextParserService $textParserService
 	 *                             An instance of the text parser service.
 	 * @return void
-	 * 
+	 *
 	 */
-	public function injectTextParserService(Tx_MmForum_TextParser_TextParserService $textParserService)
-	{
+	public function injectTextParserService(Tx_MmForum_TextParser_TextParserService $textParserService) {
 		$this->textParserService = $textParserService;
 	}
 
 
 
 	/**
-	 * 
+	 *
 	 * Injects an instance of the post repository class.
 	 * @param  Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository
 	 *                             An instance of the post repository class.
 	 * @return void
-	 * 
+	 *
 	 */
-	public function injectPostRepository(Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository)
-	{
+	public function injectPostRepository(Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository) {
 		$this->postRepository = $postRepository;
 	}
 
@@ -98,29 +94,25 @@ class Tx_MmForum_ViewHelpers_Format_TextParserViewHelper
 	 *
 	 * Renders the input text.
 	 *
-	 * @param  string $configuration The configuration path
+	 * @param  string                             $configuration The configuration path
 	 * @param  Tx_MmForum_Domain_Model_Forum_Post $post
-	 * @param  string $content       The content to be rendered. If NULL, the node
-	 *                               content will be rendered instead.
+	 * @param  string                             $content       The content to be rendered. If NULL, the node
+	 *                                                           content will be rendered instead.
 	 * @return string                The rendered text
 	 *
 	 */
-	public function render($configuration='plugin.tx_mmforum.settings.textParsing',
-			Tx_MmForum_Domain_Model_Forum_Post $post=NULL, $content=NULL)
-	{
+	public function render($configuration = 'plugin.tx_mmforum.settings.textParsing',
+	                       Tx_MmForum_Domain_Model_Forum_Post $post = NULL, $content = NULL) {
 		$this->textParserService->setControllerContext($this->controllerContext);
 		$this->textParserService->loadConfiguration($configuration);
 
-		if ($post !== NULL)
-		{
+		if ($post !== NULL) {
 			#if(!$post->_getProperty('renderedText')) {
 			$renderedText = $this->textParserService->parseText($post->getText());
 			#	$post->_setProperty('renderedText', $renderedText);
 			#	$this->postRepository->update($post);
 			#} else $renderedText = $post->_getProperty('renderedText');
-		}
-		else
-		{
+		} else {
 			$renderedText = $this->textParserService->parseText($content ? $content : trim($this->renderChildren()));
 		}
 

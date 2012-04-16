@@ -40,8 +40,7 @@
  *
  */
 
-interface Tx_MmForum_TextParser_Panel_MarkItUpExportableInterface
-{
+interface Tx_MmForum_TextParser_Panel_MarkItUpExportableInterface {
 
 
 

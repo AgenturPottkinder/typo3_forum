@@ -31,9 +31,7 @@
  * @author  Stefan Galinski <sgalinski@df.eu>
  * @package df_tools
  */
-class Tx_MmForum_Service_ExtBaseConnectorService
-	extends Tx_Extbase_Core_Bootstrap
-{
+class Tx_MmForum_Service_ExtBaseConnectorService extends Tx_Extbase_Core_Bootstrap {
 
 
 
@@ -71,8 +69,7 @@ class Tx_MmForum_Service_ExtBaseConnectorService
 	 *
 	 * @return void
 	 */
-	public function setExtensionKey($extensionKey)
-	{
+	public function setExtensionKey($extensionKey) {
 		$this->extensionKey = $extensionKey;
 	}
 
@@ -85,8 +82,7 @@ class Tx_MmForum_Service_ExtBaseConnectorService
 	 *
 	 * @return void
 	 */
-	public function setModuleOrPluginKey($moduleOrPluginKey)
-	{
+	public function setModuleOrPluginKey($moduleOrPluginKey) {
 		$this->moduleOrPluginKey = $moduleOrPluginKey;
 	}
 
@@ -99,8 +95,7 @@ class Tx_MmForum_Service_ExtBaseConnectorService
 	 *
 	 * @return void
 	 */
-	public function setParameters(array $parameters)
-	{
+	public function setParameters(array $parameters) {
 		$this->parameters = $parameters;
 	}
 
@@ -115,30 +110,22 @@ class Tx_MmForum_Service_ExtBaseConnectorService
 	 * @throws InvalidArgumentException
 	 * @return array
 	 */
-	public function runControllerAction($controller, $action)
-	{
-		if ($controller === '' || $action === '')
-		{
+	public function runControllerAction($controller, $action) {
+		if ($controller === '' || $action === '') {
 			throw new InvalidArgumentException('Invalid Controller/Action Combination!');
 		}
 
-		$configuration = array(
-			'extensionName'               => $this->extensionKey,
-			'pluginName'                  => $this->moduleOrPluginKey,
-			'switchableControllerActions' => array(
-				$controller => array($action)
-			),
-		);
+		$configuration = array('extensionName'               => $this->extensionKey,
+		                       'pluginName'                  => $this->moduleOrPluginKey,
+		                       'switchableControllerActions' => array($controller => array($action)),);
 
 		$this->initialize($configuration);
 
 		/** @var $extensionService Tx_Extbase_Service_ExtensionService */
 		$extensionService   = $this->objectManager->get('Tx_Extbase_Service_ExtensionService');
-		$parameterNamespace = $extensionService->getPluginNamespace($this->extensionKey,
-		                                                            $this->moduleOrPluginKey);
+		$parameterNamespace = $extensionService->getPluginNamespace($this->extensionKey, $this->moduleOrPluginKey);
 
-		if (is_array($this->parameters))
-		{
+		if (is_array($this->parameters)) {
 			$_POST[$parameterNamespace]           = $this->parameters;
 			$_POST[$parameterNamespace]['format'] = 'json';
 		}

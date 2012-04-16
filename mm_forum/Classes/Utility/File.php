@@ -26,41 +26,36 @@
 
 
 
-	/**
-	 *
-	 * Utility module that contains file system-related functions.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Utility
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
-	 */
+/**
+ * Utility module that contains file system-related functions.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Utility
+ * @version    $Id$
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ */
 
 class Tx_MmForum_Utility_File {
 
 
 
-		/**
-		 *
-		 * Replaces extension path references (EXT:...) inside path with the actual paths
-		 * relative to the site root.
-		 *
-		 * @param  string $string The path that is to be parsed
-		 * @return string         The parsed path.
-		 *
-		 */
-	
+	/**
+	 * Replaces extension path references (EXT:...) inside path with the actual paths
+	 * relative to the site root.
+	 *
+	 * @param  string $string The path that is to be parsed
+	 * @return string         The parsed path.
+	 */
 	public static function replaceSiteRelPath($string) {
-		return preg_replace_callback ( ',EXT:([0-9a-z_-]+)/,',
-		                               function($matches) { return t3lib_extMgm::siteRelPath($matches[1]); },
-		                               $string );
+		return preg_replace_callback(',EXT:([0-9a-z_-]+)/,', function($matches) {
+			return t3lib_extMgm::siteRelPath($matches[1]);
+		}, $string);
 	}
 
 }

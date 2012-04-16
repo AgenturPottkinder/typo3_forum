@@ -3,7 +3,7 @@
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -26,39 +26,53 @@
 
 
 
+/**
+ * Interface definition for objects that can be subscribed by users.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Model_User
+ * @version    $Id$
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ */
+interface Tx_MmForum_Domain_Model_SubscribeableInterface {
+
+
+
 	/**
-	 *
-	 * Interface definition for objects that can be subscribed by users.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Model_User
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
+	 * Returns all users that have subscribed to this object.
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser> All subscribers.
 	 */
+	public function getSubscribers();
 
-Interface Tx_MmForum_Domain_Model_SubscribeableInterface {
 
-		/**
-		 *
-		 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser>
-		 *
-		 */
-	Public Function getSubscribers();
 
-		/**
-		 *
-		 * @return string
-		 *
-		 */
-	Public Function getTitle();
+	/**
+	 * Returns this object's title.
+	 * @return string This object's title.
+	 */
+	public function getTitle();
+
+
+
+	/**
+	 * Adds a new subscriber.
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user The new subscriber.
+	 * @return void
+	 */
+	public function addSubscriber(Tx_MmForum_Domain_Model_User_FrontendUser $user);
+
+
+
+	/**
+	 * Removes a subscriber.
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user The subscriber to be removed.
+	 */
+	public function removeSubscriber(Tx_MmForum_Domain_Model_User_FrontendUser $user);
 
 }
-
-?>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2012-03-27T21:15:43Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2012-03-30T10:26:25Z">
 		<header>
 			<generator>LFEditor</generator>
 			<type>module</type>
@@ -47,11 +47,17 @@
 		<trans-unit id="ForumIndex_Grid_Context_EditAcls" xml:space="preserve">
 			<source>Edit access rules</source>
 		</trans-unit>
+		<trans-unit id="ForumIndex_Grid_Context_New" xml:space="preserve">
+			<source>New Forum</source>
+		</trans-unit>
 		<trans-unit id="ForumIndex_Grid_Context_UpdateTitle" xml:space="preserve">
 			<source>Change title</source>
 		</trans-unit>
 		<trans-unit id="ForumIndex_Grid_Title" xml:space="preserve">
 			<source>Tree view</source>
+		</trans-unit>
+		<trans-unit id="ForumIndex_NewForum_DefaultTitle" xml:space="preserve">
+			<source>New Forum</source>
 		</trans-unit>
 		<trans-unit id="ForumIndex_Tree_Root" xml:space="preserve">
 			<source>Forum root</source>

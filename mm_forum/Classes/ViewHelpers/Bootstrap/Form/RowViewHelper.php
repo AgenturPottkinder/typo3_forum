@@ -40,9 +40,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Bootstrap_Form_RowViewHelper
-		extends Tx_Fluid_Core_ViewHelper_AbstractTagBasedViewHelper
-{
+class Tx_MmForum_ViewHelpers_Bootstrap_Form_RowViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractTagBasedViewHelper {
 
 
 
@@ -53,68 +51,55 @@ class Tx_MmForum_ViewHelpers_Bootstrap_Form_RowViewHelper
 	/**
 	 * @return void
 	 */
-	public function initialize()
-	{
+	public function initialize() {
 		parent::initialize();
 	}
 
 
 
-	public function initializeArguments()
-	{
+	public function initializeArguments() {
 		parent::initializeArguments();
-		$this->registerArgument('llLabel', 'string', 'Locallang key for label.',
-				FALSE, '');
-		$this->registerArgument('label', 'string',
-				'Hardcoded label (better to use llLabel instead).', FALSE, '');
+		$this->registerArgument('llLabel', 'string', 'Locallang key for label.', FALSE, '');
+		$this->registerArgument('label', 'string', 'Hardcoded label (better to use llLabel instead).', FALSE, '');
 		$this->registerArgument('error', 'string', 'Error property path.', FALSE);
-		$this->registerArgument('errorLLPrefix', 'string',
-				'Error label locallang prefix.', FALSE);
+		$this->registerArgument('errorLLPrefix', 'string', 'Error label locallang prefix.', FALSE);
 	}
 
 
 
-	public function render()
-	{
+	public function render() {
 		$class = 'control-group';
 
-		if ($this->arguments['llLabel'])
-		{
-			$label = Tx_Extbase_Utility_Localization::translate($this->arguments['llLabel'],
-							'mm_forum');
-		}
-		else
-		{
+		if ($this->arguments['llLabel']) {
+			$label = Tx_Extbase_Utility_Localization::translate($this->arguments['llLabel'], 'mm_forum');
+		} else {
 			$label = $this->arguments['label'];
 		}
 
-		if ($this->arguments['error'])
-		{
-			$errors = $this->controllerContext->getRequest()->getErrors();
+		if ($this->arguments['error']) {
+			$errors       = $this->controllerContext->getRequest()->getErrors();
 			$propertyPath = explode('.', $this->arguments['error']);
-			foreach ($propertyPath as $currentPropertyName)
-			{
+			foreach ($propertyPath as $currentPropertyName) {
 				$errors = $this->getErrorsForProperty($currentPropertyName, $errors);
 			}
 
-			if (count($errors) > 0)
-			{
+			if (count($errors) > 0) {
 				$class .= ' error';
 				$errorContent = '';
-				foreach ($errors as $error)
-				{
+				foreach ($errors as $error) {
 					$errorText = Tx_Extbase_Utility_Localization::translate($this->arguments['errorLLPrefix'] . '_' . $error->getCode(),
-									'mm_forum');
-					if (!$errorText)
+					                                                        'mm_forum');
+					if (!$errorText) {
 						$errorText = 'TRANSLATE: ' . $this->arguments['errorLLPrefix'] . '_' . $error->getCode();
+					}
 					$errorContent .= '<p class="help-block">' . $errorText . '</p>';
 				}
 			}
-		}
-		else
+		} else {
 			$errorText = '';
+		}
 
-		$label = '<label class="control-label">' . $label . '</label>';
+		$label   = '<label class="control-label">' . $label . '</label>';
 		$content = '<div class="controls">' . $this->renderChildren() . $errorContent . '</div>';
 
 		$this->tag->addAttribute('class', $class);
@@ -129,17 +114,13 @@ class Tx_MmForum_ViewHelpers_Bootstrap_Form_RowViewHelper
 	 * Find errors for a specific property in the given errors array
 	 *
 	 * @param string $propertyName The property name to look up
-	 * @param array $errors An array of Tx_Fluid_Error_Error objects
+	 * @param array  $errors       An array of Tx_Fluid_Error_Error objects
 	 * @return array An array of errors for $propertyName
 	 */
-	protected function getErrorsForProperty($propertyName, $errors)
-	{
-		foreach ($errors as $error)
-		{
-			if ($error instanceof Tx_Extbase_Validation_PropertyError)
-			{
-				if ($error->getPropertyName() === $propertyName)
-				{
+	protected function getErrorsForProperty($propertyName, $errors) {
+		foreach ($errors as $error) {
+			if ($error instanceof Tx_Extbase_Validation_PropertyError) {
+				if ($error->getPropertyName() === $propertyName) {
 					return $error->getErrors();
 				}
 			}

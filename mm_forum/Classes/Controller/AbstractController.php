@@ -44,9 +44,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_MmForum_Controller_AbstractController
-	extends Tx_Extbase_MVC_Controller_ActionController
-{
+abstract class Tx_MmForum_Controller_AbstractController extends Tx_Extbase_MVC_Controller_ActionController {
 
 
 
@@ -154,8 +152,7 @@ abstract class Tx_MmForum_Controller_AbstractController
 	 * @return void
 	 *
 	 */
-	public function injectFrontendUserRepository(Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository)
-	{
+	public function injectFrontendUserRepository(Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository) {
 		$this->frontendUserRepository = $frontendUserRepository;
 	}
 
@@ -171,8 +168,7 @@ abstract class Tx_MmForum_Controller_AbstractController
 	 * @return void
 	 *
 	 */
-	public function injectAuthenticationService(Tx_MmForum_Service_Authentication_AuthenticationServiceInterface $authenticationService)
-	{
+	public function injectAuthenticationService(Tx_MmForum_Service_Authentication_AuthenticationServiceInterface $authenticationService) {
 		$this->authenticationService = $authenticationService;
 	}
 
@@ -189,8 +185,7 @@ abstract class Tx_MmForum_Controller_AbstractController
 	 * @return void
 	 *
 	 */
-	public function injectSignalSlotDispatcher(Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher)
-	{
+	public function injectSignalSlotDispatcher(Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher) {
 		$this->signalSlotDispatcher = $signalSlotDispatcher;
 	}
 
@@ -213,8 +208,7 @@ abstract class Tx_MmForum_Controller_AbstractController
 	 * @return void
 	 *
 	 */
-	protected function handleError(Tx_MmForum_Domain_Exception_AbstractException $e)
-	{
+	protected function handleError(Tx_MmForum_Domain_Exception_AbstractException $e) {
 		$controllerContext = $this->buildControllerContext();
 		$controllerContext->getRequest()->setControllerName('Default');
 		$controllerContext->getRequest()->setControllerActionName('error');
@@ -237,14 +231,10 @@ abstract class Tx_MmForum_Controller_AbstractController
 	 * @return void
 	 *
 	 */
-	protected function callActionMethod()
-	{
-		try
-		{
+	protected function callActionMethod() {
+		try {
 			parent::callActionMethod();
-		}
-		catch (Tx_MmForum_Domain_Exception_AbstractException $e)
-		{
+		} catch (Tx_MmForum_Domain_Exception_AbstractException $e) {
 			$this->handleError($e);
 		}
 	}
@@ -259,15 +249,14 @@ abstract class Tx_MmForum_Controller_AbstractController
 	 * @return void
 	 *
 	 */
-	protected function initializeAction()
-	{
+	protected function initializeAction() {
 		$this->className     = array_pop(explode('_', get_class($this)));
 		$this->localSettings = $this->settings[lcfirst($this->className)];
 
-		foreach ($this->settings['pids'] as &$value)
-		{
-			if (!$value)
+		foreach ($this->settings['pids'] as &$value) {
+			if (!$value) {
 				$value = $GLOBALS['TSFE']->id;
+			}
 		}
 	}
 
@@ -283,8 +272,7 @@ abstract class Tx_MmForum_Controller_AbstractController
 	 *                             NULL if no user is logged in.
 	 *
 	 */
-	protected function getCurrentUser()
-	{
+	protected function getCurrentUser() {
 		return $this->frontendUserRepository->findCurrent();
 	}
 
@@ -297,8 +285,7 @@ abstract class Tx_MmForum_Controller_AbstractController
 	 * @return boolean Always FALSE.
 	 *
 	 */
-	protected function getErrorFlashMessage()
-	{
+	protected function getErrorFlashMessage() {
 		return FALSE;
 	}
 
@@ -316,8 +303,7 @@ abstract class Tx_MmForum_Controller_AbstractController
 	 * @return void
 	 *
 	 */
-	protected function clearCacheForCurrentPage()
-	{
+	protected function clearCacheForCurrentPage() {
 		$this->cacheService->clearPageCache((int)$GLOBALS['TSFE']->id);
 	}
 
@@ -338,12 +324,10 @@ abstract class Tx_MmForum_Controller_AbstractController
 	 *
 	 * @return void
 	 */
-	protected function addLocalizedFlashmessage($key, array $arguments = array(),
-	                                            $titleKey = NULL, $severity = t3lib_FlashMessage::OK)
-	{
-		$this->flashMessageContainer->add(
-			Tx_MmForum_Utility_Localization::translate($key, 'MmForum', $arguments),
-			Tx_MmForum_Utility_Localization::translate($titleKey, 'MmForum'), $severity);
+	protected function addLocalizedFlashmessage($key, array $arguments = array(), $titleKey = NULL,
+	                                            $severity = t3lib_FlashMessage::OK) {
+		$this->flashMessageContainer->add(Tx_MmForum_Utility_Localization::translate($key, 'MmForum', $arguments),
+		                                  Tx_MmForum_Utility_Localization::translate($titleKey, 'MmForum'), $severity);
 	}
 
 
@@ -359,18 +343,13 @@ abstract class Tx_MmForum_Controller_AbstractController
 	 *
 	 * @return void
 	 */
-	protected function redirect($actionName, $controllerName = NULL,
-	                            $extensionName = NULL, array $arguments = NULL, $pageUid = NULL, $delay = 0,
-	                            $statusCode = 303)
-	{
-		if ($this->context === self::CONTEXT_WEB && $this->request->getFormat() === 'html')
-		{
+	protected function redirect($actionName, $controllerName = NULL, $extensionName = NULL, array $arguments = NULL,
+	                            $pageUid = NULL, $delay = 0, $statusCode = 303) {
+		if ($this->context === self::CONTEXT_WEB && $this->request->getFormat() === 'html') {
 			/** @noinspection PhpInconsistentReturnPointsInspection */
-			return parent::redirect($actionName, $controllerName, $extensionName,
-			                        $arguments, $pageUid, $delay, $statusCode);
-		}
-		else
-		{
+			return parent::redirect($actionName, $controllerName, $extensionName, $arguments, $pageUid, $delay,
+			                        $statusCode);
+		} else {
 			// Ignore for now...
 			/** @noinspection PhpInconsistentReturnPointsInspection */
 			return;
@@ -382,10 +361,8 @@ abstract class Tx_MmForum_Controller_AbstractController
 	/**
 	 * @return mixed|null
 	 */
-	protected function resolveViewObjectName()
-	{
-		if ($this->context === self::CONTEXT_WEB)
-		{
+	protected function resolveViewObjectName() {
+		if ($this->context === self::CONTEXT_WEB) {
 			return parent::resolveViewObjectName();
 		}
 
@@ -397,8 +374,7 @@ abstract class Tx_MmForum_Controller_AbstractController
 	/**
 	 * @param $context
 	 */
-	public function setContext($context)
-	{
+	public function setContext($context) {
 		$this->context = $context;
 	}
 

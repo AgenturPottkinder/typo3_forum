@@ -42,9 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Control_BigButtonViewHelper
-		extends Tx_Fluid_ViewHelpers_Link_ActionViewHelper
-{
+class Tx_MmForum_ViewHelpers_Control_BigButtonViewHelper extends Tx_Fluid_ViewHelpers_Link_ActionViewHelper {
 
 
 
@@ -52,8 +50,7 @@ class Tx_MmForum_ViewHelpers_Control_BigButtonViewHelper
 
 
 
-	public function initializeArguments()
-	{
+	public function initializeArguments() {
 		parent::initializeArguments();
 
 		$this->registerArgument('iconAction', 'string', 'Deprecated!');
@@ -63,32 +60,32 @@ class Tx_MmForum_ViewHelpers_Control_BigButtonViewHelper
 
 
 
-	public function initialize()
-	{
+	public function initialize() {
 		parent::initialize();
 		$this->tag->addAttribute('class', 'tx-mmforum-button-big');
 	}
 
 
 
-	public function renderChildren()
-	{
-		$content = parent::renderChildren();
+	public function renderChildren() {
+		$content   = parent::renderChildren();
 		$iconClass = NULL;
 
-		if ($this->arguments['iconClass'])
+		if ($this->arguments['iconClass']) {
 			$iconClass = $this->arguments['iconClass'];
-		elseif ($this->arguments['icon'])
+		} elseif ($this->arguments['icon']) {
 			$iconClass = $this->iconBaseClass . $this->arguments['icon'];
-		elseif ($this->arguments['iconAction'])
+		} elseif ($this->arguments['iconAction']) {
 			$iconClass = $this->iconBaseClass . $this->arguments['iconAction'];
-		elseif ($this->arguments['action'])
+		} elseif ($this->arguments['action']) {
 			$iconClass = $this->iconBaseClass . $this->arguments['action'];
+		}
 
 		$this->tag->addAttribute('title', $content);
 
-		if ($iconClass)
+		if ($iconClass) {
 			$content = '<div class="' . $iconClass . '"></div><div class="tx-mmforum-button-text">' . $content . '</div>';
+		}
 		return $content;
 	}
 

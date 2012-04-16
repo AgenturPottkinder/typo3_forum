@@ -42,14 +42,12 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-final class Tx_MmForum_Service_Notification_SubscriptionListener
-{
+final class Tx_MmForum_Service_Notification_SubscriptionListener {
 
 
 
 	/**
 	 * An instance of the notification service.
-	 *
 	 * @var Tx_MmForum_Service_Notification_NotificationServiceInterface
 	 */
 	protected $notificationService = NULL;
@@ -57,55 +55,40 @@ final class Tx_MmForum_Service_Notification_SubscriptionListener
 
 
 	/**
-	 *
 	 * Injects an instance of the notification service.
 	 *
 	 * @param Tx_MmForum_Service_Notification_NotificationServiceInterface $notificationService
 	 *                                 An instance of the notification service.
-	 *
 	 * @return void
-	 *
 	 */
-	public function injectNotificationService(Tx_MmForum_Service_Notification_NotificationServiceInterface $notificationService)
-	{
+	public function injectNotificationService(Tx_MmForum_Service_Notification_NotificationServiceInterface $notificationService) {
 		$this->notificationService = $notificationService;
 	}
 
 
 
 	/**
-	 *
 	 * Is fired when a new post is created.
 	 *
 	 * @param  Tx_MmForum_Domain_Model_Forum_Post $post Event data.
-	 *
 	 * @return void
-	 *
 	 */
-	public function onPostCreated($post)
-	{
-		if ($post instanceof Tx_MmForum_Domain_Model_Forum_Post)
-		{
-			$this->notificationService->notifySubscribers($post->getTopic(),
-			                                              $post);
+	public function onPostCreated($post) {
+		if ($post instanceof Tx_MmForum_Domain_Model_Forum_Post) {
+			$this->notificationService->notifySubscribers($post->getTopic(), $post);
 		}
 	}
 
 
 
 	/**
-	 *
 	 * Is fired when a new topic is created.
 	 *
 	 * @param  Tx_MmForum_Domain_Model_Forum_Topic $topic Event data.
-	 *
 	 * @return void
-	 *
 	 */
-	public function onTopicCreated($topic)
-	{
-		if ($topic instanceof Tx_MmForum_Domain_Model_Forum_Topic)
-		{
+	public function onTopicCreated($topic) {
+		if ($topic instanceof Tx_MmForum_Domain_Model_Forum_Topic) {
 			$this->notificationService->notifySubscribers($topic->getForum(), $topic);
 		}
 	}

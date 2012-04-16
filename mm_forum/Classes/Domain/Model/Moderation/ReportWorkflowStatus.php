@@ -42,9 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus
-		extends Tx_Extbase_DomainObject_AbstractValueObject
-{
+class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends Tx_Extbase_DomainObject_AbstractValueObject {
 
 
 
@@ -90,57 +88,66 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus
 
 
 
-
-
 	/*
-	 * GETTERS
+	 * CONSTRUCTOR
 	 */
 
 
 
 	/**
-	 *
+	 * Constructor.
+	 * @param string  $name    The status name
+	 * @param boolean $initial TRUE to mark this status as initial status.
+	 * @param boolean $final   TRUE to mark this status as final status.
+	 */
+	public function __construct($name = NULL, $initial = NULL, $final = NULL) {
+		$this->name    = $name;
+		$this->initial = $initial;
+		$this->final   = $final;
+	}
+
+
+
+	/*
+	  * GETTERS
+	  */
+
+
+
+	/**
 	 * Gets the status name.
 	 * @return string The status name.
-	 *
 	 */
-	public function getName()
-	{
+	public function getName() {
 		return $this->name;
 	}
 
 
 
 	/**
-	 *
 	 * Gets the allowed follow-up status.
 	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus>
 	 *                             The allowed follow-up status.
-	 *
 	 */
-	public function getFollowupStatus()
-	{
+	public function getFollowupStatus() {
 		return $this->followupStatus;
 	}
 
 
 
 	/**
-	 *
 	 * Determines if a workflow status is an allowed follow-up status for this status.
 	 *
 	 * @param  Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $status
 	 *                             The status that is to be checked.
 	 * @return boolean             TRUE, if $status is a valid follow-up status,
 	 *                             otherwise FALSE.
-	 *
 	 */
-	public function hasFollowupStatus(Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $status)
-	{
-		foreach ($this->followupStatus As $followupStatus)
-		{
-			if ($followupStatus->getUid() == $status->getUid())
+	public function hasFollowupStatus(Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $status) {
+		foreach ($this->followupStatus As $followupStatus) {
+			if ($followupStatus->getUid() == $status->getUid()) {
 				return TRUE;
+			}
 		}
 		return FALSE;
 	}
@@ -148,66 +155,54 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus
 
 
 	/**
-	 *
 	 * Determines if this status is the initial status for newly created reports.
 	 * @return boolean TRUE, if this status is the initial status for newly created
 	 *                 reports, otherwise FALSE.
-	 *
 	 */
-	public function isInitial()
-	{
+	public function isInitial() {
 		return $this->initial;
 	}
 
 
 
 	/**
-	 *
 	 * Determines if this status is a final status for edited reports.
 	 * @return boolean TRUE, if this status is a final status for edited reports, otherwise FALSE.
-	 *
 	 */
-	public function isFinal()
-	{
+	public function isFinal() {
 		return $this->final;
 	}
 
 
 
 	/**
-	 * 
+	 * Return the icon filename.
 	 * @return string The icon filename.
-	 * 
 	 */
-	public function getIcon()
-	{
+	public function getIcon() {
 		return $this->icon;
 	}
 
 
 
 	/**
-	 *
 	 * Returns the site relative path of this status' icon. This method first
 	 * looks in the configured upload directory (uploads/tx_mmforum/workflowstatus
 	 * by default) and the extensions' Resources/Public directory as fallback.
-	 * 
+	 *
 	 * @global type $TCA
 	 * @return string The site relative path of this status' icon.
-	 * 
 	 */
-	public function getIconFullpath()
-	{
+	public function getIconFullpath() {
 		t3lib_div::loadTCA(strtolower(__CLASS__));
 		global $TCA;
 
 		$imageDirectoryName = $TCA[strtolower(__CLASS__)]['columns']['icon']['config']['uploadfolder'];
-		$imageFilename = rtrim($imageDirectoryName, '/') . '/' . $this->icon;
+		$imageFilename      = rtrim($imageDirectoryName, '/') . '/' . $this->icon;
 
-		if (!file_exists(PATH_site . '/' . $imageFilename))
-		{
+		if (!file_exists(PATH_site . '/' . $imageFilename)) {
 			$imageDirectoryName = t3lib_extMgm::siteRelPath('mm_forum') . 'Resources/Public/Images/Icons/Moderation';
-			$imageFilename = "$imageDirectoryName/{$this->icon}";
+			$imageFilename      = "$imageDirectoryName/{$this->icon}";
 		}
 
 		return file_exists(PATH_site . '/' . $imageFilename) ? $imageFilename : NULL;

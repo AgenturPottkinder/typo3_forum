@@ -43,9 +43,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Controller_ReportController
-	extends Tx_MmForum_Controller_AbstractController
-{
+class Tx_MmForum_Controller_ReportController extends Tx_MmForum_Controller_AbstractController {
 
 
 
@@ -82,8 +80,7 @@ class Tx_MmForum_Controller_ReportController
 	/**
 	 * @param Tx_MmForum_Domain_Repository_Moderation_ReportRepository $reportRepository
 	 */
-	public function injectReportRepository(Tx_MmForum_Domain_Repository_Moderation_ReportRepository $reportRepository)
-	{
+	public function injectReportRepository(Tx_MmForum_Domain_Repository_Moderation_ReportRepository $reportRepository) {
 		$this->reportRepository = $reportRepository;
 	}
 
@@ -92,8 +89,7 @@ class Tx_MmForum_Controller_ReportController
 	/**
 	 * @param Tx_MmForum_Domain_Factory_Moderation_ReportFactory $reportFactory
 	 */
-	public function injectReportFactory(Tx_MmForum_Domain_Factory_Moderation_ReportFactory $reportFactory)
-	{
+	public function injectReportFactory(Tx_MmForum_Domain_Factory_Moderation_ReportFactory $reportFactory) {
 		$this->reportFactory = $reportFactory;
 	}
 
@@ -115,12 +111,9 @@ class Tx_MmForum_Controller_ReportController
 	 * @return void
 	 */
 	public function newAction(Tx_MmForum_Domain_Model_Forum_Post $post,
-	                          Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment = NULL)
-	{
+	                          Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment = NULL) {
 		$this->authenticationService->assertReadAuthorization($post);
-		$this->view
-			->assign('firstComment', $firstComment)
-			->assign('post', $post);
+		$this->view->assign('firstComment', $firstComment)->assign('post', $post);
 	}
 
 
@@ -134,8 +127,7 @@ class Tx_MmForum_Controller_ReportController
 	 * @return void
 	 */
 	public function createAction(Tx_MmForum_Domain_Model_Forum_Post $post,
-	                             Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment)
-	{
+	                             Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment) {
 		// Assert authorization
 		$this->authenticationService->assertReadAuthorization($post);
 
@@ -144,13 +136,11 @@ class Tx_MmForum_Controller_ReportController
 		$this->reportRepository->add($report);
 
 		// Notify observers.
-		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Moderation_Report',
-		                                      'reportCreated', array('report' => $report));
+		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Moderation_Report', 'reportCreated',
+		                                      array('report' => $report));
 
 		// Display success message and redirect to topic->show action.
-		$this->flashMessageContainer
-			->add(Tx_Extbase_Utility_Localization::translate('Report_New_Success',
-			                                                 'MmForum'));
+		$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('Report_New_Success', 'MmForum'));
 		$this->redirect('show', 'Topic', NULL, array('topic' => $post->getTopic()));
 	}
 

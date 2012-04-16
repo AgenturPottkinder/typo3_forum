@@ -42,9 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Service_Mailing_PlainMailingService
-	extends Tx_MmForum_Service_Mailing_AbstractMailingService
-{
+class Tx_MmForum_Service_Mailing_PlainMailingService extends Tx_MmForum_Service_Mailing_AbstractMailingService {
 
 
 
@@ -83,14 +81,10 @@ class Tx_MmForum_Service_Mailing_PlainMailingService
 	 * @return void
 	 *
 	 */
-	public function sendMail(Tx_Extbase_Domain_Model_FrontendUser $recipient,
-	                         $subject, $bodytext)
-	{
-		if ($recipient->getEmail())
-		{
-			t3lib_div::plainMailEncoded(
-				$recipient->getEmail(), $subject, $bodytext,
-				$this->getHeaders($recipient, $subject, $bodytext));
+	public function sendMail(Tx_Extbase_Domain_Model_FrontendUser $recipient, $subject, $bodytext) {
+		if ($recipient->getEmail()) {
+			t3lib_div::plainMailEncoded($recipient->getEmail(), $subject, $bodytext,
+			                            $this->getHeaders($recipient, $subject, $bodytext));
 		}
 	}
 
@@ -114,17 +108,12 @@ class Tx_MmForum_Service_Mailing_PlainMailingService
 	 * @return string              The mail headers.
 	 *
 	 */
-	protected function getHeaders(Tx_Extbase_Domain_Model_FrontendUser $recipient,
-	                              $subject, $bodytext)
-	{
-		$headerArray  = array(
-			'From'         => $this->getDefaultSender(),
-			'Content-Type' => 'text/plain; charset=' . $this->getCharset()
-		);
+	protected function getHeaders(Tx_Extbase_Domain_Model_FrontendUser $recipient, $subject, $bodytext) {
+		$headerArray  = array('From'         => $this->getDefaultSender(),
+		                      'Content-Type' => 'text/plain; charset=' . $this->getCharset());
 		$headerString = "";
 
-		foreach ($headerArray as $headerKey => $headerValue)
-		{
+		foreach ($headerArray as $headerKey => $headerValue) {
 			$headerString .= "$headerKey: $headerValue\r\n";
 		}
 

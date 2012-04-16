@@ -43,10 +43,8 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_MmForum_Service_Mailing_AbstractMailingService
-	extends Tx_MmForum_Service_AbstractService
-	implements Tx_MmForum_Service_Mailing_MailingServiceInterface
-{
+abstract class Tx_MmForum_Service_Mailing_AbstractMailingService extends Tx_MmForum_Service_AbstractService
+	implements Tx_MmForum_Service_Mailing_MailingServiceInterface {
 
 
 
@@ -57,14 +55,14 @@ abstract class Tx_MmForum_Service_Mailing_AbstractMailingService
 
 
 	/**
-	 *
+	 * HTML mail format.
 	 */
 	const MAILING_FORMAT_HTML = 'html';
 
 
 
 	/**
-	 *
+	 * Plaintext mail format.
 	 */
 	const MAILING_FORMAT_PLAIN = 'txt';
 
@@ -77,9 +75,7 @@ abstract class Tx_MmForum_Service_Mailing_AbstractMailingService
 
 
 	/**
-	 * The format in which this service sends mails. Usually, this would be either
-	 * 'html' or 'txt'.
-	 *
+	 * The format in which this service sends mails. Usually, this would be either 'html' or 'txt'.
 	 * @var string
 	 */
 	protected $format = Tx_MmForum_Service_Mailing_AbstractMailingService::MAILING_FORMAT_HTML;
@@ -93,36 +89,10 @@ abstract class Tx_MmForum_Service_Mailing_AbstractMailingService
 
 
 	/**
-	 *
-	 * Sends a mail with a certain subject and bodytext to a recipient in form of a
-	 * frontend user.
-	 *
-	 * @param         Tx_Extbase_Domain_Model_FrontendUser @recipient
-	 *                                                     The recipient of the mail. This is a plain
-	 *                                                     frontend user.
-	 * @param  string $subject                             The mail's subject
-	 * @param  string $bodytext                            The mail's bodytext
-	 *
-	 * @return void
-	 *
-	 */
-	public function sendMail(Tx_Extbase_Domain_Model_FrontendUser $recipient,
-	                         $subject, $bodytext)
-	{
-
-	}
-
-
-
-	/**
-	 *
 	 * Gets the preferred format of this mailing service.
-	 *
 	 * @return string The preferred format of this mailing service.
-	 *
 	 */
-	public function getFormat()
-	{
+	public function getFormat() {
 		return $this->format;
 	}
 
@@ -135,58 +105,44 @@ abstract class Tx_MmForum_Service_Mailing_AbstractMailingService
 
 
 	/**
-	 *
 	 * Gets the default sender name. Can be configured in the typoscript setup.
-	 *
 	 * @return string The default sender name.
-	 *
 	 */
-	protected function getDefaultSenderName()
-	{
+	protected function getDefaultSenderName() {
 		return $this->settings['mailing.']['sender.']['name'];
 	}
 
 
 
 	/**
-	 *
 	 * Gets the default sender address. Can be configured in the typoscript setup.
-	 *
 	 * @return string The default sender address.
-	 *
 	 */
-	protected function getDefaultSenderAddress()
-	{
+	protected function getDefaultSenderAddress() {
 		return $this->settings['mailing.']['sender.']['address'];
 	}
 
 
 
 	/**
-	 *
 	 * Gets the default sender. This is composed of the default sender name and the
 	 * default sender address.
 	 *
 	 * @return string The default sender.
-	 *
 	 */
-	protected function getDefaultSender()
-	{
+	protected function getDefaultSender() {
 		return $this->getDefaultSenderName() . ' <' . $this->getDefaultSenderAddress() . '>';
 	}
 
 
 
 	/**
-	 *
 	 * Gets the preferred character set for sent mails. This usually is TYPO3's
 	 * renderCharset.
 	 *
 	 * @return string The preferred charset.
-	 *
 	 */
-	protected function getCharset()
-	{
+	protected function getCharset() {
 		return $GLOBALS['TSFE']->renderCharset;
 	}
 

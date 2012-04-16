@@ -43,9 +43,7 @@
  *
  */
 
-Class Tx_MmForum_Service_Mailing_HTMLMailingService
-	Extends Tx_MmForum_Service_Mailing_AbstractMailingService
-{
+Class Tx_MmForum_Service_Mailing_HTMLMailingService Extends Tx_MmForum_Service_Mailing_AbstractMailingService {
 
 
 
@@ -76,8 +74,7 @@ Class Tx_MmForum_Service_Mailing_HTMLMailingService
 	 *
 	 */
 
-	public function __construct()
-	{
+	public function __construct() {
 		$this->htmlMail =& t3lib_div::makeInstance('t3lib_htmlmail');
 	}
 
@@ -98,8 +95,7 @@ Class Tx_MmForum_Service_Mailing_HTMLMailingService
 	 *
 	 */
 
-	public function sendMail(Tx_Extbase_Domain_Model_FrontendUser $recipient, $subject, $bodytext)
-	{
+	public function sendMail(Tx_Extbase_Domain_Model_FrontendUser $recipient, $subject, $bodytext) {
 		$this->htmlMail->start();
 		$this->htmlMail->recipient  = $recipient->getName() . ' <' . $recipient->getEmail() . '>';
 		$this->htmlMail->subject    = $subject;

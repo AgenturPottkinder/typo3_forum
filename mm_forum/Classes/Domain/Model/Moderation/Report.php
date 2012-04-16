@@ -48,9 +48,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Model_Moderation_Report
-		extends Tx_Extbase_DomainObject_AbstractEntity
-{
+class Tx_MmForum_Domain_Model_Moderation_Report extends Tx_Extbase_DomainObject_AbstractEntity {
 
 
 
@@ -103,21 +101,16 @@ class Tx_MmForum_Domain_Model_Moderation_Report
 
 
 
-
-
 	/*
-	 * CONSTRUCTOR
-	 */
+	  * CONSTRUCTOR
+	  */
 
 
 
 	/**
-	 *
 	 * Creates a new report.
-	 *
 	 */
-	public function __construct()
-	{
+	public function __construct() {
 		$this->comments = New Tx_Extbase_Persistence_ObjectStorage();
 	}
 
@@ -130,103 +123,82 @@ class Tx_MmForum_Domain_Model_Moderation_Report
 
 
 	/**
-	 *
 	 * Gets the reported post.
 	 * @return Tx_MmForum_Domain_Model_Forum_Post The reported post.
-	 *
 	 */
-	public function getPost()
-	{
+	public function getPost() {
 		return $this->post;
 	}
 
 
 
 	/**
-	 *
 	 * Gets the topic to which the reported post belongs to.
 	 * @return Tx_MmForum_Domain_Model_Forum_Topic The topic.
-	 *
 	 */
-	public function getTopic()
-	{
+	public function getTopic() {
 		return $this->post->getTopic();
 	}
 
 
 
 	/**
-	 *
 	 * Gets the reporter of this report.
 	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The reporter
-	 *
 	 */
-	public function getReporter()
-	{
+	public function getReporter() {
 		return $this->reporter;
 	}
 
 
 
 	/**
-	 *
 	 * Gets the moderator that is assigned to this report.
 	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The moderator
-	 *
 	 */
-	public function getModerator()
-	{
+	public function getModerator() {
 		return $this->moderator;
 	}
 
 
 
 	/**
-	 *
 	 * Gets the current status of this report.
 	 * @return Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus
 	 *                             The current workflow status of this report.
-	 *
 	 */
-	public function getWorkflowStatus()
-	{
+	public function getWorkflowStatus() {
 		return $this->workflowStatus;
 	}
 
 
 
 	/**
-	 *
 	 * Gets all comments for this report.
 	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Moderation_ReportComment>
 	 *                             All comments for this report.
-	 *
 	 */
-	public function getComments()
-	{
+	public function getComments() {
 		return $this->comments;
 	}
 
 
 
 	/**
-	 *
 	 * Returns the first comment for this report.
 	 * @return Tx_MmForum_Domain_Model_Moderation_ReportComment The first comment.
-	 * 
 	 */
-	public function getFirstComment()
-	{
+	public function getFirstComment() {
 		return array_shift($this->comments->toArray());
 	}
 
 
 
 	/**
-	 * @return DateTime The crdate.
+	 * Returns the creation time of this report.
+	 * @return DateTime The creation time.
 	 */
-	public function getCrdate()
-	{
+	public function getCrdate() {
 		return $this->crdate;
 	}
 
@@ -239,86 +211,75 @@ class Tx_MmForum_Domain_Model_Moderation_Report
 
 
 	/**
-	 *
 	 * Sets the post.
 	 *
 	 * @param  Tx_MmForum_Domain_Model_Forum_Post $post The post
 	 * @return void
-	 *
 	 */
-	public function setPost(Tx_MmForum_Domain_Model_Forum_Post $post)
-	{
+	public function setPost(Tx_MmForum_Domain_Model_Forum_Post $post) {
 		$this->post = $post;
 	}
 
 
 
 	/**
-	 *
 	 * Sets the reporter.
+	 *
 	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $reporter The reporter.
 	 * @return void
 	 */
-	public function setReporter(Tx_MmForum_Domain_Model_User_FrontendUser $reporter)
-	{
+	public function setReporter(Tx_MmForum_Domain_Model_User_FrontendUser $reporter) {
 		$this->reporter = $reporter;
 	}
 
 
 
 	/**
-	 *
 	 * Sets the moderator.
+	 *
 	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $moderator The moderator.
 	 * @return void
-	 *
 	 */
-	public function setModerator(Tx_MmForum_Domain_Model_User_FrontendUser $moderator)
-	{
+	public function setModerator(Tx_MmForum_Domain_Model_User_FrontendUser $moderator) {
 		$this->moderator = $moderator;
 	}
 
 
 
 	/**
-	 *
 	 * Sets the current workflow status.
+	 *
 	 * @param  Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $workflowStatus
 	 *                             The workflow status.
 	 * @return void
-	 *
 	 */
-	public function setWorkflowStatus(Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $workflowStatus)
-	{
-		If (!$this->workflowStatus || ($this->workflowStatus && $this->workflowStatus->hasFollowupStatus($workflowStatus)))
+	public function setWorkflowStatus(Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $workflowStatus) {
+		If (!$this->workflowStatus || ($this->workflowStatus && $this->workflowStatus->hasFollowupStatus($workflowStatus))) {
 			$this->workflowStatus = $workflowStatus;
+		}
 	}
 
 
 
 	/**
-	 *
 	 * Adds a comment to this report.
+	 *
 	 * @param  Tx_MmForum_Domain_Model_Moderation_ReportComment $comment A comment
 	 * @return void
-	 *
 	 */
-	public function addComment(Tx_MmForum_Domain_Model_Moderation_ReportComment $comment)
-	{
+	public function addComment(Tx_MmForum_Domain_Model_Moderation_ReportComment $comment) {
 		$this->comments->attach($comment);
 	}
 
 
 
 	/**
-	 *
 	 * Removes a comment from this report.
+	 *
 	 * @param  Tx_MmForum_Domain_Model_Moderation_ReportComment $comment A comment.
 	 * @return void
-	 *
 	 */
-	public function removeComment(Tx_MmForum_Domain_Model_Moderation_ReportComment $comment)
-	{
+	public function removeComment(Tx_MmForum_Domain_Model_Moderation_ReportComment $comment) {
 		$this->comments->detatch($comment);
 	}
 

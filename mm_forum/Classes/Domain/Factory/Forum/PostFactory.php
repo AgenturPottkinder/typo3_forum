@@ -30,22 +30,19 @@
  * Post factory class. Is used to encapsulate post creation logic from the controller
  * classes.
  *
- * @author	 Martin Helmich <m.helmich@mittwald.de>
- * @package	MmForum
- * @subpackage Domain_Factory_Forum
- * @version	$Id$
+ * @author        Martin Helmich <m.helmich@mittwald.de>
+ * @package       MmForum
+ * @subpackage    Controller
+ * @version       $Id$
  *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *			 Mittwald CM Service GmbH & Co. KG
- *			 http://www.mittwald.de
- * @license	GNU Public License, version 2
- *			 http://opensource.org/licenses/gpl-license.php
+ * @copyright     2012 Martin Helmich <m.helmich@mittwald.de>
+ *                Mittwald CM Service GmbH & Co. KG
+ *                http://www.mittwald.de
+ * @license       GNU Public License, version 2
+ *                http://opensource.org/licenses/gpl-license.php
  *
  */
-
-class Tx_MmForum_Domain_Factory_Forum_PostFactory
-	extends Tx_MmForum_Domain_Factory_AbstractFactory
-{
+class Tx_MmForum_Domain_Factory_Forum_PostFactory extends Tx_MmForum_Domain_Factory_AbstractFactory {
 
 
 
@@ -71,7 +68,8 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory
 
 
 	/**
-	 * @var null
+	 * The topic factory.
+	 * @var Tx_MmForum_Domain_Factory_Forum_TopicFactory
 	 */
 	protected $topicFactory = NULL;
 
@@ -81,11 +79,12 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory
 	 * DEPENDENCY INJECTORS
 	 */
 
+
+
 	/**
 	 * @param Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository
 	 */
-	public function injectPostRepository(Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository)
-	{
+	public function injectPostRepository(Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository) {
 		$this->postRepository = $postRepository;
 	}
 
@@ -94,8 +93,7 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory
 	/**
 	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository
 	 */
-	public function injectTopicRepository(Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository)
-	{
+	public function injectTopicRepository(Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository) {
 		$this->topicRepository = $topicRepository;
 	}
 
@@ -104,8 +102,7 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory
 	/**
 	 * @param Tx_MmForum_Domain_Factory_Forum_TopicFactory $topicFactory
 	 */
-	public function injectTopicFactory(Tx_MmForum_Domain_Factory_Forum_TopicFactory $topicFactory)
-	{
+	public function injectTopicFactory(Tx_MmForum_Domain_Factory_Forum_TopicFactory $topicFactory) {
 		$this->topicFactory = $topicFactory;
 	}
 
@@ -116,33 +113,29 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory
 	 */
 
 
+
 	/**
-	 *
 	 * Creates an empty post
 	 * @return Tx_MmForum_Domain_Model_Forum_Post An empty post.
-	 *
 	 */
-	public function createEmptyPost()
-	{
+	public function createEmptyPost() {
 		return $this->getClassInstance();
 	}
 
 
 
 	/**
-	 *
 	 * Creates a new post that quotes an already existing post.
 	 *
 	 * @param Tx_MmForum_Domain_Model_Forum_Post $quotedPost
-	 *							 The post that is to be quoted. The post text of
-	 *							 this post will be wrapped in [quote] bb codes.
-	 *
+	 *                                 The post that is to be quoted. The post
+	 *                                 text of this post will be wrapped in
+	 *                                 [quote] bb codes.
 	 * @return Tx_MmForum_Domain_Model_Forum_Post
-	 *							 The new post.
-	 *
+	 *                                 The new post.
 	 */
-	public function createPostWithQuote(Tx_MmForum_Domain_Model_Forum_Post $quotedPost)
-	{
+	public function createPostWithQuote(Tx_MmForum_Domain_Model_Forum_Post $quotedPost) {
+		/** @var $post Tx_MmForum_Domain_Model_Forum_Post */
 		$post = $this->getClassInstance();
 		$post->setText('[quote=' . $quotedPost->getUid() . ']' . $quotedPost->getText() . '[/quote]');
 
@@ -152,35 +145,34 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory
 
 
 	/**
-	 *
 	 * Assigns a user to a forum post and increases the user's post count.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post		$post
-	 *							 The post to which a user is to be assigned.
+	 * @param Tx_MmForum_Domain_Model_Forum_Post        $post
+	 *                             The post to which a user is to be assigned.
 	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 *							 The user that is to be assigned to the post. If
-	 *							 this value is NULL, the currently logged in user
-	 *							 will be used instead.
-	 *
+	 *                             The user that is to be assigned to the post. If
+	 *                             this value is NULL, the currently logged in user
+	 *                             will be used instead.
 	 */
 	public function assignUserToPost(Tx_MmForum_Domain_Model_Forum_Post $post,
-									 Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL)
-	{
-
-		# If no user is set, use current user is set.
-		if ($user === NULL) $user = $this->getCurrentUser();
-
-		# If still no user is set, abort.
-		if ($user === NULL) Throw New Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException();
-
-		# If the post's author is already set, decrease this user's post count.
-		if ($post->getAuthor() !== NULL)
-		{
-			$post->getAuthor()->decreasePostCount();
-			$this->userRepository->update($post->getAuthor());
+	                                 Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
+		// If no user is set, use current user is set.
+		if ($user === NULL) {
+			$user = $this->getCurrentUser();
 		}
 
-		# Increase the new user's post count.
+		// If still no user is set, abort.
+		if ($user === NULL) {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException();
+		}
+
+		// If the post's author is already set, decrease this user's post count.
+		if ($post->getAuthor() !== NULL) {
+			$post->getAuthor()->decreasePostCount();
+			$this->frontendUserRepository->update($post->getAuthor());
+		}
+
+		// Increase the new user's post count.
 		$post->setAuthor($user);
 		$user->increasePostCount();
 		$this->frontendUserRepository->update($user);
@@ -196,18 +188,14 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory
 	 *
 	 */
 
-	public function deletePost(Tx_MmForum_Domain_Model_Forum_Post $post)
-	{
+	public function deletePost(Tx_MmForum_Domain_Model_Forum_Post $post) {
 		$topic = $post->getTopic();
 
-		# If the post is the only one in the topic, delete the whole topic instead of
-		# this single post. Empty topics are not allowed.
-		if ($topic->getPostCount() === 1)
-		{
+		// If the post is the only one in the topic, delete the whole topic instead of
+		// this single post. Empty topics are not allowed.
+		if ($topic->getPostCount() === 1) {
 			$this->topicFactory->deleteTopic($topic);
-		}
-		else
-		{
+		} else {
 			$post->getAuthor()->decreasePostCount();
 			$this->frontendUserRepository->update($post->getAuthor());
 			$topic->removePost($post);

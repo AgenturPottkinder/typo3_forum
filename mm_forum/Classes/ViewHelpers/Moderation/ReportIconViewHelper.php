@@ -40,9 +40,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Moderation_ReportIconViewHelper
-		extends Tx_Fluid_ViewHelpers_CObjectViewHelper
-{
+class Tx_MmForum_ViewHelpers_Moderation_ReportIconViewHelper extends Tx_Fluid_ViewHelpers_CObjectViewHelper {
 
 
 
@@ -52,8 +50,7 @@ class Tx_MmForum_ViewHelpers_Moderation_ReportIconViewHelper
 	 * @return void
 	 *
 	 */
-	public function initializeArguments()
-	{
+	public function initializeArguments() {
 
 	}
 
@@ -64,17 +61,14 @@ class Tx_MmForum_ViewHelpers_Moderation_ReportIconViewHelper
 	 * Renders the report icon.
 	 *
 	 * @param  Tx_MmForum_Domain_Model_Moderation_Report $report
-	 *                            The report for which the icon is to be rendered.
-	 * @param  integer $width     Image width
-	 * @param  string $alt        Alt text
+	 *                                                               The report for which the icon is to be rendered.
+	 * @param  integer                                   $width      Image width
+	 * @param  string                                    $alt        Alt text
 	 * @return string             The rendered icon.
 	 *
 	 */
-	public function render(Tx_MmForum_Domain_Model_Moderation_Report $report=NULL,
-			$width=NULL, $alt="")
-	{
-		return parent::render('plugin.tx_mmforum.renderer.icons.report',
-						$this->getDataArray($report));
+	public function render(Tx_MmForum_Domain_Model_Moderation_Report $report = NULL, $width = NULL, $alt = "") {
+		return parent::render('plugin.tx_mmforum.renderer.icons.report', $this->getDataArray($report));
 	}
 
 
@@ -88,17 +82,11 @@ class Tx_MmForum_ViewHelpers_Moderation_ReportIconViewHelper
 	 * @return array               The data array for the typoscript object.
 	 *
 	 */
-	protected function getDataArray(Tx_MmForum_Domain_Model_Moderation_Report $report=NULL)
-	{
-		if ($report === NULL)
-		{
+	protected function getDataArray(Tx_MmForum_Domain_Model_Moderation_Report $report = NULL) {
+		if ($report === NULL) {
 			return array();
-		}
-		else
-		{
-			return array(
-				'statusIcon' => $report->getWorkflowStatus()->getIconFullpath()
-			);
+		} else {
+			return array('statusIcon' => $report->getWorkflowStatus()->getIconFullpath());
 		}
 	}
 

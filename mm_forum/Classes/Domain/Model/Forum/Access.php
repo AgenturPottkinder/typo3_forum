@@ -3,7 +3,7 @@
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -45,8 +45,7 @@
  *
  */
 
-class Tx_MmForum_Domain_Model_Forum_Access extends Tx_Extbase_DomainObject_AbstractValueObject
-{
+class Tx_MmForum_Domain_Model_Forum_Access extends Tx_Extbase_DomainObject_AbstractValueObject {
 
 
 
@@ -62,12 +61,10 @@ class Tx_MmForum_Domain_Model_Forum_Access extends Tx_Extbase_DomainObject_Abstr
 	const LOGIN_LEVEL_EVERYONE = 0;
 
 
-
 	/**
 	 * Any logged in user
 	 */
 	const LOGIN_LEVEL_ANYLOGIN = 1;
-
 
 
 	/**
@@ -85,38 +82,30 @@ class Tx_MmForum_Domain_Model_Forum_Access extends Tx_Extbase_DomainObject_Abstr
 
 	/**
 	 * The operation that is to be granted or denied.
-	 *
 	 * @var string
 	 */
 	protected $operation;
 
 
-
 	/**
 	 * Whether this entry is negated
-	 *
 	 * @var boolean
 	 */
 	protected $negate;
 
 
-
 	/**
 	 * The required login level. See the LOGIN_LEVEL_* constants.
-	 *
 	 * @var integer
 	 */
 	protected $loginLevel;
 
 
-
 	/**
 	 * The forum this ACL entry belongs to.
-	 *
 	 * @var Tx_MmForum_Domain_Model_Forum_Forum
 	 */
 	protected $forum;
-
 
 
 	/**
@@ -130,6 +119,22 @@ class Tx_MmForum_Domain_Model_Forum_Access extends Tx_Extbase_DomainObject_Abstr
 
 
 	/*
+	 * CONSTRUCTOR
+	 */
+
+
+
+	public function __construct(Tx_MmForum_Domain_Model_Forum_Forum $forum = NULL, $operation = NULL, $level = NULL,
+	                            Tx_MmForum_Domain_Model_User_FrontendUserGroup $group = NULL) {
+		$this->forum         = $forum;
+		$this->operation     = $operation;
+		$this->loginLevel    = $level;
+		$this->affectedGroup = $group;
+	}
+
+
+
+	/*
 	 * GETTER METHODS
 	 */
 
@@ -137,11 +142,9 @@ class Tx_MmForum_Domain_Model_Forum_Access extends Tx_Extbase_DomainObject_Abstr
 
 	/**
 	 * Gets the affected operation.
-	 *
 	 * @return string The affected operation.
 	 */
-	public function getOperation()
-	{
+	public function getOperation() {
 		return $this->operation;
 	}
 
@@ -149,11 +152,9 @@ class Tx_MmForum_Domain_Model_Forum_Access extends Tx_Extbase_DomainObject_Abstr
 
 	/**
 	 * Determines if this ACL entry is negated.
-	 *
 	 * @return boolean TRUE, if this entry is negated.
 	 */
-	public function getNegated()
-	{
+	public function getNegated() {
 		return $this->negate;
 	}
 
@@ -161,11 +162,9 @@ class Tx_MmForum_Domain_Model_Forum_Access extends Tx_Extbase_DomainObject_Abstr
 
 	/**
 	 * Determines if this ACL entry is negated.
-	 *
 	 * @return boolean TRUE, if this entry is negated.
 	 */
-	public function isNegated()
-	{
+	public function isNegated() {
 		return $this->negate;
 	}
 
@@ -173,11 +172,9 @@ class Tx_MmForum_Domain_Model_Forum_Access extends Tx_Extbase_DomainObject_Abstr
 
 	/**
 	 * Gets the forum for this entry.
-	 *
 	 * @return Tx_MmForum_Domain_Model_Forum_Forum The forum for this entry.
 	 */
-	public function getForum()
-	{
+	public function getForum() {
 		return $this->forum;
 	}
 
@@ -185,11 +182,9 @@ class Tx_MmForum_Domain_Model_Forum_Access extends Tx_Extbase_DomainObject_Abstr
 
 	/**
 	 * Gets the group for this entry.
-	 *
 	 * @return Tx_MmForum_Domain_Model_User_FrontendUserGroup group The group
 	 */
-	public function getGroup()
-	{
+	public function getGroup() {
 		return $this->affectedGroup;
 	}
 
@@ -197,12 +192,10 @@ class Tx_MmForum_Domain_Model_Forum_Access extends Tx_Extbase_DomainObject_Abstr
 
 	/**
 	 * Determines whether this entry affects all visitors.
-	 *
 	 * @return boolean TRUE, when this entry affects all visitors, otherwise FALSE.
 	 */
 
-	public function isEveryone()
-	{
+	public function isEveryone() {
 		return $this->loginLevel == Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_EVERYONE;
 	}
 
@@ -210,11 +203,9 @@ class Tx_MmForum_Domain_Model_Forum_Access extends Tx_Extbase_DomainObject_Abstr
 
 	/**
 	 * Determines whether this entry requires any login.
-	 *
 	 * @return boolean TRUE when this entry requires any login, otherwise FALSE.
 	 */
-	public function isAnyLogin()
-	{
+	public function isAnyLogin() {
 		return $this->loginLevel == Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN;
 	}
 
@@ -230,12 +221,9 @@ class Tx_MmForum_Domain_Model_Forum_Access extends Tx_Extbase_DomainObject_Abstr
 	 * Sets the affected operation.
 	 *
 	 * @param string $operation The affected operation
-	 *
 	 * @return void
 	 */
-
-	public function setOperation($operation)
-	{
+	public function setOperation($operation) {
 		$this->operation = $operation;
 	}
 
@@ -245,11 +233,9 @@ class Tx_MmForum_Domain_Model_Forum_Access extends Tx_Extbase_DomainObject_Abstr
 	 * Negates this entry.
 	 *
 	 * @param boolean $negate TRUE to negate
-	 *
 	 * @return void
 	 */
-	public function setNegated($negate)
-	{
+	public function setNegated($negate) {
 		$this->negate = $negate;
 	}
 
@@ -259,11 +245,9 @@ class Tx_MmForum_Domain_Model_Forum_Access extends Tx_Extbase_DomainObject_Abstr
 	 * Sets the group.
 	 *
 	 * @param Tx_MmForum_Domain_Model_User_FrontendUserGroup $group The group
-	 *
 	 * @return void
 	 */
-	public function setGroup(Tx_MmForum_Domain_Model_User_FrontendUserGroup $group)
-	{
+	public function setGroup(Tx_MmForum_Domain_Model_User_FrontendUserGroup $group) {
 		$this->affectedGroup = $group;
 	}
 

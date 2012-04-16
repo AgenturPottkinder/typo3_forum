@@ -27,7 +27,7 @@
 
 
 /**
- * interface definition for objects that can be read by individual users.
+ * Interface definition for objects that can be read by individual users.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
  * @package    MmForum
@@ -41,23 +41,42 @@
 
  */
 
-interface Tx_MmForum_Domain_Model_Readableinterface
-{
+interface Tx_MmForum_Domain_Model_Readableinterface {
 
 
 
+	/**
+	 * Adds a reader to this object.
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $reader The reader.
+	 * @return void
+	 */
 	public function addReader(Tx_MmForum_Domain_Model_User_FrontendUser $reader);
 
 
 
+	/**
+	 * Removes a reader from this object.
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $reader The reader.
+	 * @return void
+	 */
 	public function removeReader(Tx_MmForum_Domain_Model_User_FrontendUser $reader);
 
 
 
+	/**
+	 * Removes all readers from this object.
+	 * @return void
+	 */
 	public function removeAllReaders();
 
 
 
+	/**
+	 * Determines whether a certain user (NULL for anonymous) has read this object.
+	 *
+	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $reader The reader
+	 * @return boolean
+	 */
 	public function hasBeenReadByUser(Tx_MmForum_Domain_Model_User_FrontendUser $reader = NULL);
 
 }

@@ -42,9 +42,7 @@
  * @license    GNU public License, version 2
  *             http://opensource.org/licenses/gpl-license.php
  */
-class Tx_MmForum_Controller_PostController
-	extends Tx_MmForum_Controller_AbstractController
-{
+class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_AbstractController {
 
 
 
@@ -106,8 +104,7 @@ class Tx_MmForum_Controller_PostController
 	 * @return void
 	 *
 	 */
-	public function injectForumRepository(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository)
-	{
+	public function injectForumRepository(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository) {
 		$this->forumRepository = $forumRepository;
 	}
 
@@ -123,8 +120,7 @@ class Tx_MmForum_Controller_PostController
 	 * @return void
 	 *
 	 */
-	public function injectTopicRepository(Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository)
-	{
+	public function injectTopicRepository(Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository) {
 		$this->topicRepository = $topicRepository;
 	}
 
@@ -140,8 +136,7 @@ class Tx_MmForum_Controller_PostController
 	 * @return void
 	 *
 	 */
-	public function injectPostRepository(Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository)
-	{
+	public function injectPostRepository(Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository) {
 		$this->postRepository = $postRepository;
 	}
 
@@ -157,8 +152,7 @@ class Tx_MmForum_Controller_PostController
 	 * @return void
 	 *
 	 */
-	public function injectPostFactory(Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory)
-	{
+	public function injectPostFactory(Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory) {
 		$this->postFactory = $postFactory;
 	}
 
@@ -180,27 +174,25 @@ class Tx_MmForum_Controller_PostController
 	 * @return void
 	 *
 	 */
-	public function showAction(Tx_MmForum_Domain_Model_Forum_Post $post)
-	{
+	public function showAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
 		// Assert authentication
 		$this->authenticationService->assertReadAuthorization($post);
 
 		// Determine the page number of the requested post.
 		$posts     = & $post->getTopic()->getPosts();
 		$postCount = count($posts);
-		for ($postNumber = 0; $postNumber < $postCount; $postNumber++)
-		{
-			if ($posts[$postNumber] == $post)
+		for ($postNumber = 0; $postNumber < $postCount; $postNumber++) {
+			if ($posts[$postNumber] == $post) {
 				break;
+			}
 		}
 
 		$itemsPerPage = (int)$this->settings['topicController']['show']['pagebrowser']['itemsPerPage'];
 		$pageNumber   = ceil($postNumber / $itemsPerPage);
 
 		// Redirect to the topic->show action.
-		$this->redirect('show', 'Topic', NULL,
-		                array('topic' => $post->getTopic(),
-		                     'page'   => $pageNumber));
+		$this->redirect('show', 'Topic', NULL, array('topic' => $post->getTopic(),
+		                                            'page'   => $pageNumber));
 	}
 
 
@@ -224,20 +216,19 @@ class Tx_MmForum_Controller_PostController
 	 */
 	public function newAction(Tx_MmForum_Domain_Model_Forum_Topic $topic,
 	                          Tx_MmForum_Domain_Model_Forum_Post $post = NULL,
-	                          Tx_MmForum_Domain_Model_Forum_Post $quote = NULL)
-	{
+	                          Tx_MmForum_Domain_Model_Forum_Post $quote = NULL) {
 		// Assert authorization
 		$this->authenticationService->assertNewPostAuthorization($topic);
 
 		// If no post is specified, create an optionally pre-filled post (if a
 		// quoted post was specified).
-		if ($post === NULL)
+		if ($post === NULL) {
 			$post = ($quote !== NULL) ? $this->postFactory->createPostWithQuote($quote) : $this->postFactory->createEmptyPost();
+		}
 
 		// Display view
-		$this->view->assignMultiple(array(
-		                                 'topic' => $topic,
-		                                 'post'  => $post));
+		$this->view->assignMultiple(array('topic' => $topic,
+		                                 'post'   => $post));
 	}
 
 
@@ -256,9 +247,7 @@ class Tx_MmForum_Controller_PostController
 	 * @return void
 	 *
 	 */
-	public function createAction(Tx_MmForum_Domain_Model_Forum_Topic $topic,
-	                             Tx_MmForum_Domain_Model_Forum_Post $post)
-	{
+	public function createAction(Tx_MmForum_Domain_Model_Forum_Topic $topic, Tx_MmForum_Domain_Model_Forum_Post $post) {
 		// Assert authorization
 		$this->authenticationService->assertNewPostAuthorization($topic);
 
@@ -268,8 +257,8 @@ class Tx_MmForum_Controller_PostController
 		$this->topicRepository->update($topic);
 
 		// All potential listeners (Signal-Slot FTW!)
-		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Post',
-		                                      'postCreated', array('post' => $post));
+		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Post', 'postCreated',
+		                                      array('post' => $post));
 
 		// Display flash message and redirect to topic->show action.
 		$this->flashMessageContainer->add(Tx_MmForum_Utility_Localization::translate('Post_Create_Success'));
@@ -290,8 +279,7 @@ class Tx_MmForum_Controller_PostController
 	 * @return void
 	 *
 	 */
-	public function editAction(Tx_MmForum_Domain_Model_Forum_Post $post)
-	{
+	public function editAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
 		$this->authenticationService->assertEditPostAuthorization($post);
 		$this->view->assign('post', $post);
 	}
@@ -308,13 +296,12 @@ class Tx_MmForum_Controller_PostController
 	 * @return void
 	 *
 	 */
-	public function updateAction(Tx_MmForum_Domain_Model_Forum_Post $post)
-	{
+	public function updateAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
 		$this->authenticationService->assertEditPostAuthorization($post);
 		$this->postRepository->update($post);
 
-		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Post',
-		                                      'postUpdate', array('post' => $post));
+		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Post', 'postUpdate',
+		                                      array('post' => $post));
 		$this->flashMessageContainer->add(Tx_MmForum_Utility_Localization::translate('Post_Update_Success'));
 		$this->redirect('show', 'Topic', NULL, array('topic' => $post->getTopic()));
 	}
@@ -332,8 +319,7 @@ class Tx_MmForum_Controller_PostController
 	 * @return void
 	 *
 	 */
-	public function confirmDeleteAction(Tx_MmForum_Domain_Model_Forum_Post $post)
-	{
+	public function confirmDeleteAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
 		$this->authenticationService->assertDeletePostAuthorization($post);
 		$this->view->assign('post', $post);
 	}
@@ -350,8 +336,7 @@ class Tx_MmForum_Controller_PostController
 	 * @return void
 	 *
 	 */
-	public function deleteAction(Tx_MmForum_Domain_Model_Forum_Post $post)
-	{
+	public function deleteAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
 		// Assert authorization
 		$this->authenticationService->assertDeletePostAuthorization($post);
 
@@ -361,18 +346,15 @@ class Tx_MmForum_Controller_PostController
 		$this->flashMessageContainer->add(Tx_MmForum_Utility_Localization::translate('Post_Delete_Success'));
 
 		// Notify observers.
-		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Post',
-		                                      'postDeleted', array('post' => $post));
+		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Post', 'postDeleted',
+		                                      array('post' => $post));
 
 		// If there is still on post left in the topic, redirect to the topic
 		// view. If we have deleted the last post of a topic (i.e. the topic
 		// itself), redirect to the forum view instead.
-		if ($postCount > 1)
-		{
+		if ($postCount > 1) {
 			$this->redirect('show', 'Topic', NULL, array('topic' => $post->getTopic()));
-		}
-		else
-		{
+		} else {
 			$this->redirect('show', 'Forum', NULL, array('forum' => $post->getForum()));
 		}
 	}
@@ -386,8 +368,7 @@ class Tx_MmForum_Controller_PostController
 	 * @param string $text The content.
 	 *
 	 */
-	public function previewAction($text)
-	{
+	public function previewAction($text) {
 		$this->view->assign('text', $text);
 	}
 

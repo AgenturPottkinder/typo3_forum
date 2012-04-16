@@ -42,14 +42,12 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-
-class Tx_MmForum_Utility_TypoScript
-{
+class Tx_MmForum_Utility_TypoScript {
 
 
 
 	/**
-	 * TODO
+	 * The extbase configuration manager.
 	 * @var Tx_Extbase_Configuration_ConfigurationManagerInterface
 	 */
 	protected $configurationManager = NULL;
@@ -57,11 +55,10 @@ class Tx_MmForum_Utility_TypoScript
 
 
 	/**
-	 * TODO
+	 * Injects an instance of the Extbase configuration manager.
 	 * @param Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager
 	 */
-	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager)
-	{
+	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
 		$this->configurationManager = $configurationManager;
 	}
 
@@ -75,18 +72,17 @@ class Tx_MmForum_Utility_TypoScript
 	 * @return  array                    The typoscript configuration for the
 	 *                                   specified path.
 	 */
-	public function loadTyposcriptFromPath($configurationPath)
-	{
+	public function loadTyposcriptFromPath($configurationPath) {
 		$setup = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
 
 		$pathSegments = t3lib_div::trimExplode('.', $configurationPath);
 
 		$lastSegment = array_pop($pathSegments);
-		foreach ($pathSegments As $segment)
-		{
-			if (!array_key_exists($segment . '.', $setup))
-				throw new Tx_MmForum_Domain_Exception_TextParser_Exception (
-					'TypoScript object path "' . htmlspecialchars($configurationPath) . '" does not exist', 1253191023);
+		foreach ($pathSegments As $segment) {
+			if (!array_key_exists($segment . '.', $setup)
+			) {
+				throw new Tx_MmForum_Domain_Exception_TextParser_Exception ('TypoScript object path "' . htmlspecialchars($configurationPath) . '" does not exist', 1253191023);
+			}
 			$setup = $setup[$segment . '.'];
 		}
 		return $setup[$lastSegment . '.'];

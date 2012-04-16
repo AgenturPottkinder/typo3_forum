@@ -42,9 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Repository_Forum_TopicRepository
-	extends Tx_MmForum_Domain_Repository_AbstractRepository
-{
+class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Domain_Repository_AbstractRepository {
 
 
 
@@ -65,13 +63,10 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository
 	 *                               The selected subset of topics.
 	 *
 	 */
-	public function findForIndex(Tx_MmForum_Domain_Model_Forum_Forum $forum)
-	{
+	public function findForIndex(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
 		$query = $this->createQuery();
-		$query
-			->matching($query->equals('forum', $forum))
-			->setOrderings(array('sticky'           => 'DESC',
-			                    'last_post_crdate'  => 'DESC'));
+		$query->matching($query->equals('forum', $forum))->setOrderings(array('sticky'           => 'DESC',
+		                                                                     'last_post_crdate'  => 'DESC'));
 		return $query->execute();
 	}
 
@@ -90,12 +85,9 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository
 	 *                               user.
 	 *
 	 */
-	public function findByPostAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $user)
-	{
+	public function findByPostAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
 		$query = $this->createQuery();
-		$query
-			->matching($query->equals('posts.author', $user))
-			->setOrderings(array('posts.crdate' => 'DESC'));
+		$query->matching($query->equals('posts.author', $user))->setOrderings(array('posts.crdate' => 'DESC'));
 		return $query->execute();
 	}
 
@@ -112,8 +104,7 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository
 	 *                               specified user.
 	 *
 	 */
-	public function countByPostAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $user)
-	{
+	public function countByPostAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
 		return $this->findByPostAuthor($user)->count();
 	}
 
@@ -129,8 +120,7 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository
 	 * @return integer             The topic count.
 	 *
 	 */
-	public function countForIndex(Tx_MmForum_Domain_Model_Forum_Forum $forum)
-	{
+	public function countForIndex(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
 		return $this->countByForum($forum);
 	}
 

@@ -43,8 +43,7 @@
  *
  */
 class Tx_MmForum_Domain_Repository_Moderation_ReportWorkflowStatusRepository
-	extends Tx_MmForum_Domain_Repository_AbstractRepository
-{
+	extends Tx_MmForum_Domain_Repository_AbstractRepository {
 
 
 
@@ -57,12 +56,9 @@ class Tx_MmForum_Domain_Repository_Moderation_ReportWorkflowStatusRepository
 	 *                             reports.
 	 *
 	 */
-	public function findInitial()
-	{
+	public function findInitial() {
 		$query = $this->createQueryWithFallbackStoragePage();
-		return $query
-			->matching($query->equals('initial', TRUE))
-			->setLimit(1)->execute()->getFirst();
+		return $query->matching($query->equals('initial', TRUE))->setLimit(1)->execute()->getFirst();
 	}
 
 
@@ -70,8 +66,7 @@ class Tx_MmForum_Domain_Repository_Moderation_ReportWorkflowStatusRepository
 	/**
 	 * @return Tx_Extbase_Persistence_QueryInterface
 	 */
-	public function createQuery()
-	{
+	public function createQuery() {
 		$query = parent::createQuery();
 
 		$storagePageIds   = $query->getQuerySettings()->getStoragePageIds();

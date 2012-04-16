@@ -26,88 +26,76 @@
 
 
 
-	/**
-	 *
-	 * A smilie. This class implements the abstract AbstractTextParserElement class.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Model_Format
-	 * @version    $Id$
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
-	 */
+/**
+ *
+ * A smilie. This class implements the abstract AbstractTextParserElement class.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Model_Format
+ * @version    $Id$
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
 
-class Tx_MmForum_Domain_Model_Format_Smilie
-	extends Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
+class Tx_MmForum_Domain_Model_Format_Smilie extends Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
 	implements Tx_MmForum_TextParser_Panel_MarkItUpExportableInterface {
 
 
 
-
-
-		/*
-		 * ATTRIBUTES
-		 */
-
+	/*
+	 * ATTRIBUTES
+	 */
 
 
 
-
-		/**
-		 * The smilie shortcut, e.g. ":)" or ":/"
-		 * @var string
-		 */
-	Protected $smilieShortcut;
-
-		/**
-		 * The default smilie directory.
-		 * @var string
-		 */
-	Protected $defaultIconDir = 'Smilie/';
+	/**
+	 * The smilie shortcut, e.g. ":)" or ":/"
+	 * @var string
+	 */
+	protected $smilieShortcut;
 
 
+	/**
+	 * The default smilie directory.
+	 * @var string
+	 */
+	protected $defaultIconDir = 'Smilie/';
 
 
 
-		/*
-		 * GETTERS
-		 */
+	/*
+	 * GETTERS
+	 */
 
 
 
+	/**
+	 *
+	 * Gets the smilie shortcut.
+	 * @return string The smilie shortcut.
+	 *
+	 */
 
-
-		/**
-		 *
-		 * Gets the smilie shortcut.
-		 * @return string The smilie shortcut.
-		 *
-		 */
-	
-	Public Function getSmilieShortcut() {
-		Return $this->smilieShortcut;
+	public function getSmilieShortcut() {
+		return $this->smilieShortcut;
 	}
-	
-	
-	
-		/**
-		 * 
-		 * Exports this smilie object as a plain array, that can be used in
-		 * a MarkItUp configuration object.
-		 * @return array A plain array describing this smilie
-		 * 
-		 */
-	
+
+
+
+	/**
+	 *
+	 * Exports this smilie object as a plain array, that can be used in
+	 * a MarkItUp configuration object.
+	 * @return array A plain array describing this smilie
+	 *
+	 */
+
 	public function exportForMarkItUp() {
-		return array(
-			'name' => $this->getName(),
-			'className' => $this->getIconClass(),
-			'replaceWith' => $this->getSmilieShortcut()
-		);
+		return array('name'        => $this->getName(),
+		             'className'   => $this->getIconClass(),
+		             'replaceWith' => $this->getSmilieShortcut());
 	}
 
 }
-
-?>

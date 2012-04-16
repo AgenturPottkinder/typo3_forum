@@ -43,8 +43,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-interface Tx_MmForum_Service_Authentication_AuthenticationServiceInterface
-{
+interface Tx_MmForum_Service_Authentication_AuthenticationServiceInterface {
 
 
 
@@ -117,8 +116,7 @@ interface Tx_MmForum_Service_Authentication_AuthenticationServiceInterface
 	 * @param Tx_MmForum_Domain_Model_AccessibleInterface $object
 	 * @param                                             $action
 	 */
-	public function checkAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object,
-	                                   $action);
+	public function checkAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object, $action);
 
 
 

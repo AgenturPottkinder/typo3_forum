@@ -42,9 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Factory_Moderation_ReportFactory
-		extends Tx_MmForum_Domain_Factory_AbstractFactory
-{
+class Tx_MmForum_Domain_Factory_Moderation_ReportFactory extends Tx_MmForum_Domain_Factory_AbstractFactory {
 
 
 
@@ -69,13 +67,10 @@ class Tx_MmForum_Domain_Factory_Moderation_ReportFactory
 
 
 	/**
-	 *
+	 * Constructor.
 	 * @param Tx_MmForum_Domain_Repository_Moderation_ReportWorkflowStatusRepository $workflowStatusRepository
-	 * @return void
-	 *
 	 */
-	public function injectWorkflowStatusRepository(Tx_MmForum_Domain_Repository_Moderation_ReportWorkflowStatusRepository $workflowStatusRepository)
-	{
+	public function __construct(Tx_MmForum_Domain_Repository_Moderation_ReportWorkflowStatusRepository $workflowStatusRepository) {
 		$this->workflowStatusRepository = $workflowStatusRepository;
 	}
 
@@ -93,15 +88,14 @@ class Tx_MmForum_Domain_Factory_Moderation_ReportFactory
 	 *
 	 * @param Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment
 	 *                             The first report comment for this report.
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @param Tx_MmForum_Domain_Model_Forum_Post               $post
 	 *                             The post that is to be reported.
 	 * @return Tx_MmForum_Domain_Model_Moderation_Report
 	 *                             The new report.
 	 *
 	 */
 	public function createReport(Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment,
-			Tx_MmForum_Domain_Model_Forum_Post $post)
-	{
+	                             Tx_MmForum_Domain_Model_Forum_Post $post) {
 		$user = & $this->getCurrentUser();
 
 		$firstComment->setAuthor($user);

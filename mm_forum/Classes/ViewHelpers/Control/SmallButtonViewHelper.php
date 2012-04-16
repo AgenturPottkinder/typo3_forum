@@ -42,8 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Control_SmallButtonViewHelper
-		extends Tx_MmForum_ViewHelpers_Control_BigButtonViewHelper {
+class Tx_MmForum_ViewHelpers_Control_SmallButtonViewHelper extends Tx_MmForum_ViewHelpers_Control_BigButtonViewHelper {
 
 
 

@@ -26,98 +26,97 @@
 
 
 
+/**
+ *
+ * A userfield value. This class models an association between userfields,
+ * users and a specific userfield value.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Model_User_Userfield
+ * @version    $Id$
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+
+Class Tx_MmForum_Domain_Model_User_Userfield_Value Extends Tx_Extbase_DomainObject_AbstractValueObject {
+
+
+
+	/*
+		  * ATTRIBUTES
+		  */
+
+
+
 	/**
-	 *
-	 * A userfield value. This class models an association between userfields,
-	 * users and a specific userfield value.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Model_User_Userfield
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
+	 * The userfield.
+	 * @var Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield
 	 */
-
-Class Tx_MmForum_Domain_Model_User_Userfield_Value
-	Extends Tx_Extbase_DomainObject_AbstractValueObject {
-
-
-
-
-
-		/*
-		 * ATTRIBUTES
-		 */
-
-
-
-
-
-		/**
-		 * The userfield.
-		 * @var Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield
-		 */
 	Protected $userfield;
 
-		/**
-		 * The user.
-		 * @var Tx_MmForum_Domain_Model_User_FrontendUser
-		 */
+
+	/**
+	 * The user.
+	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+	 */
 	Protected $user;
 
-		/**
-		 * The value.
-		 * @var string
-		 */
+
+	/**
+	 * The value.
+	 * @var string
+	 */
 	Protected $value;
 
 
 
-
-
-		/*
-		 * GETTER METHODS
-		 */
-
+	/*
+		  * GETTER METHODS
+		  */
 
 
 
+	/**
+	 *
+	 * Gets the userfield.
+	 * @return Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield The userfield.
+	 *
+	 */
 
-		/**
-		 *
-		 * Gets the userfield.
-		 * @return Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield The userfield.
-		 *
-		 */
-
-	Public Function getUserfield() { Return $this->userfield; }
-
-
-
-		/**
-		 *
-		 * Gets the user.
-		 * @return Tx_MmForum_Domain_Model_User_FrontendUser The user
-		 *
-		 */
-	Public Function getUser() { Return $this->user; }
+	Public Function getUserfield() {
+		Return $this->userfield;
+	}
 
 
 
-		/**
-		 *
-		 * Gets the value.
-		 * @return string The value
-		 *
-		 */
-	
-	Public Function getValue() { Return $this->value; }
+	/**
+	 *
+	 * Gets the user.
+	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The user
+	 *
+	 */
+	Public Function getUser() {
+		Return $this->user;
+	}
+
+
+
+	/**
+	 *
+	 * Gets the value.
+	 * @return string The value
+	 *
+	 */
+
+	Public Function getValue() {
+		Return $this->value;
+	}
 
 }
 

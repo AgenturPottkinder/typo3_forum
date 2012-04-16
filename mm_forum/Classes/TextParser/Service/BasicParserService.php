@@ -44,9 +44,7 @@
  *
  */
 
-class Tx_MmForum_TextParser_Service_BasicParserService
-	extends Tx_MmForum_TextParser_Service_AbstractTextParserService
-{
+class Tx_MmForum_TextParser_Service_BasicParserService extends Tx_MmForum_TextParser_Service_AbstractTextParserService {
 
 
 
@@ -57,8 +55,7 @@ class Tx_MmForum_TextParser_Service_BasicParserService
 
 
 	/**
-	 * The text
-	 *
+	 * The text.
 	 * @var string
 	 */
 	protected $text;
@@ -67,7 +64,6 @@ class Tx_MmForum_TextParser_Service_BasicParserService
 
 	/**
 	 * Protected parts of the parsed text. In these parts, no parsing will be done.
-	 *
 	 * @var array
 	 */
 	private $protectedParts = array();
@@ -83,8 +79,7 @@ class Tx_MmForum_TextParser_Service_BasicParserService
 	/**
 	 * Creates a new instance of this service.
 	 */
-	public function __construct()
-	{
+	public function __construct() {
 		parent::__construct();
 	}
 
@@ -103,15 +98,11 @@ class Tx_MmForum_TextParser_Service_BasicParserService
 	 *
 	 * @return string       The parsed text.
 	 */
-	public function getParsedText($text)
-	{
+	public function getParsedText($text) {
 		$this->text = $text;
 
 		$this->extractProtectedParts();
-		$this
-			->escape()
-			->paragraphs()
-			->lineBreaks();
+		$this->escape()->paragraphs()->lineBreaks();
 		$this->restoreProtectedParts();
 
 		Return $this->text;
@@ -130,8 +121,7 @@ class Tx_MmForum_TextParser_Service_BasicParserService
 	 *
 	 * @return void
 	 */
-	protected function extractProtectedParts()
-	{
+	protected function extractProtectedParts() {
 		$pattern = ',\[code language=[a-z0-9]+\](.*?)\[\/code\],is';
 		preg_match_all($pattern, $this->text, $this->protectedParts);
 		$this->text = preg_replace($pattern, '###MMFORUM_PROTECTED###', $this->text);
@@ -144,10 +134,8 @@ class Tx_MmForum_TextParser_Service_BasicParserService
 	 *
 	 * @return void
 	 */
-	protected function restoreProtectedParts()
-	{
-		while (($s = strpos($this->text, '###MMFORUM_PROTECTED###')) !== FALSE)
-		{
+	protected function restoreProtectedParts() {
+		while (($s = strpos($this->text, '###MMFORUM_PROTECTED###')) !== FALSE) {
 			$this->text = substr_replace($this->text, array_shift($this->protectedParts[0]), $s,
 			                             strlen('###MMFORUM_PROTECTED###'));
 		}
@@ -161,8 +149,7 @@ class Tx_MmForum_TextParser_Service_BasicParserService
 	 * @return Tx_MmForum_TextParser_Service_BasicParserService
 	 *                             $this, for chaining
 	 */
-	protected function escape()
-	{
+	protected function escape() {
 		$this->text = htmlspecialchars($this->text);
 		Return $this;
 	}
@@ -175,8 +162,7 @@ class Tx_MmForum_TextParser_Service_BasicParserService
 	 * @return Tx_MmForum_TextParser_Service_BasicParserService
 	 *                             $this, for chaining
 	 */
-	protected function paragraphs()
-	{
+	protected function paragraphs() {
 		$this->text = str_replace("\r", '', $this->text);
 		$this->text = preg_replace(';\n{2,};s', "\n\n", $this->text);
 
@@ -193,8 +179,7 @@ class Tx_MmForum_TextParser_Service_BasicParserService
 	 * @return Tx_MmForum_TextParser_Service_BasicParserService
 	 *                             $this, for chaining
 	 */
-	protected function lineBreaks()
-	{
+	protected function lineBreaks() {
 		$this->text = $this->removeUnneccesaryLinebreaks($this->text);
 		$this->text = nl2br($this->text);
 		Return $this;
@@ -209,8 +194,7 @@ class Tx_MmForum_TextParser_Service_BasicParserService
 	 *
 	 * @return string       The text with less linebreaks.
 	 */
-	protected function removeUnneccesaryLinebreaks($text)
-	{
+	protected function removeUnneccesaryLinebreaks($text) {
 		$text = preg_replace(',(\[[a-z0-9 ]+\])\s*,is', '$1', $text);
 		Return $text;
 	}

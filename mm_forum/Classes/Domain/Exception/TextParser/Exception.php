@@ -26,36 +26,38 @@
 
 
 
+/**
+ *
+ * General text parser exception.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Exception
+ * @version    $Id$
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+
+Class Tx_MmForum_Domain_Exception_TextParser_Exception Extends Tx_MmForum_Domain_Exception_AbstractException {
+
+
+
 	/**
-	 *
-	 * General text parser exception.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Exception
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
+	 * Exception message.
+	 * @var string
 	 */
-
-Class Tx_MmForum_Domain_Exception_TextParser_Exception
-	Extends Tx_MmForum_Domain_Exception_AbstractException {
-
-		/**
-		 * Exception message.
-		 * @var string
-		 */
 	Protected $message = "Textparser error.";
 
-		/**
-		 * Exception code
-		 * @var int
-		 */
+
+	/**
+	 * Exception code
+	 * @var int
+	 */
 	Protected $code = 1284730638;
 
 }

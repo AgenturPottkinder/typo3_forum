@@ -26,46 +26,45 @@
 
 
 
+/**
+ *
+ * A special quote bb code element.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Model_Format
+ * @version    $Id$
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+
+class Tx_MmForum_Domain_Model_Format_QuoteBBCode extends Tx_MmForum_Domain_Model_Format_BBCode {
+
+
+
 	/**
 	 *
-	 * A special quote bb code element.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Model_Format
-	 * @version    $Id$
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
+	 * Return the left (opening) bb code tag.
+	 * @return string The left bb code tag.
 	 *
 	 */
 
-Class Tx_MmForum_Domain_Model_Format_QuoteBBCode
-	Extends Tx_MmForum_Domain_Model_Format_BBCode {
-
-
-
-		/**
-		 *
-		 * Return the left (opening) bb code tag.
-		 * @return string The left bb code tag.
-		 *
-		 */
-
-	Public Function getLeftBBCode() {
-		Return '[quote]';
+	public function getLeftBBCode() {
+		return '[quote]';
 	}
 
 
 
-		/**
-		 *
-		 * Return the right (closing) bb code tag.
-		 * @return string The right bb code tag.
-		 *
-		 */
+	/**
+	 *
+	 * Return the right (closing) bb code tag.
+	 * @return string The right bb code tag.
+	 *
+	 */
 
-	Public Function getRightBBCode() {
-		Return '[/quote]';
+	public function getRightBBCode() {
+		return '[/quote]';
 	}
 
 }

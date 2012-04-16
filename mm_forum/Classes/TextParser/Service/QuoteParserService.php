@@ -42,16 +42,12 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-
-class Tx_MmForum_TextParser_Service_QuoteParserService
-	extends Tx_MmForum_TextParser_Service_AbstractTextParserService
-{
+class Tx_MmForum_TextParser_Service_QuoteParserService extends Tx_MmForum_TextParser_Service_AbstractTextParserService {
 
 
 
 	/**
-	 * The post repository
-	 *
+	 * The post repository.
 	 * @var Tx_MmForum_Domain_Repository_Forum_PostRepository
 	 */
 	protected $postRepository;
@@ -60,7 +56,6 @@ class Tx_MmForum_TextParser_Service_QuoteParserService
 
 	/**
 	 * A standalone fluid view, used to render each individual quote.
-	 *
 	 * @var Tx_Fluid_View_StandaloneView
 	 */
 	protected $standaloneView;
@@ -68,44 +63,40 @@ class Tx_MmForum_TextParser_Service_QuoteParserService
 
 
 	/**
-	 *
 	 * Injects an instance of the post repository class.
 	 *
 	 * @param  Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository
 	 *                             An instance of the post repository class
-	 *
 	 * @return void
-	 *
 	 */
 
-	public function injectPostRepository(Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository)
-	{
+	public function injectPostRepository(Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository) {
 		$this->postRepository = $postRepository;
 	}
 
 
 
-	public function injectView(Tx_Fluid_View_StandaloneView $view)
-	{
+	/**
+	 * Injects an instance of the fluid standalone view.
+	 * @param  Tx_Fluid_View_StandaloneView $view An instance of the fluid standalone view.
+	 * @return void
+	 */
+	public function injectView(Tx_Fluid_View_StandaloneView $view) {
 		$this->view = $view;
 	}
 
 
 
 	/**
-	 *
 	 * Renders the parsed text.
 	 *
 	 * @param  string $text The text to be parsed.
-	 *
 	 * @return string       The parsed text.
-	 *
 	 */
 
-	public function getParsedText($text)
-	{
-		return preg_replace_callback('/\[quote=([0-9]+)\](.*?)\[\/quote\]\w*/is',
-		                             Array($this, 'replaceCallback'), $text);
+	public function getParsedText($text) {
+		return preg_replace_callback('/\[quote=([0-9]+)\](.*?)\[\/quote\]\w*/is', array($this, 'replaceCallback'),
+		                             $text);
 	}
 
 
@@ -120,18 +111,12 @@ class Tx_MmForum_TextParser_Service_QuoteParserService
 	 *
 	 */
 
-	Protected Function replaceCallback($matches)
-	{
+	protected function replaceCallback($matches) {
 		$this->view->setControllerContext($this->controllerContext);
 		$this->view->setTemplatePathAndFilename(Tx_MmForum_Utility_File::replaceSiteRelPath($this->settings['template']));
-		$this->view
-			->assign('post', $this->postRepository->findByUid((int)$matches[1]))
+		$this->view->assign('post', $this->postRepository->findByUid((int)$matches[1]))
 			->assign('quote', trim($matches[2]));
 		return $this->view->render();
-		/*$arguments = Array ( 'post' => $this->postRepository->findByUid((int)$matches[1]),
-		                     'quote' => trim($matches[2]) );
-		Return $this->viewHelperVariableContainer->getView()->renderPartial (
-			'Format/Quote', '', $arguments, $this->viewHelperVariableContainer);*/
 	}
 
 }

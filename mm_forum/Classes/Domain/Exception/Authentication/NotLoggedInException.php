@@ -26,25 +26,29 @@
 
 
 
-	/**
-	 *
-	 * An exception that is thrown when the current user is not logged in although he
-	 * should be.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Exception
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
-	 */
+/**
+ *
+ * An exception that is thrown when the current user is not logged in although he
+ * should be.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Exception
+ * @version    $Id$
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
 
 Class Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
-	Extends Tx_MmForum_Domain_Exception_AbstractException { }
+	Extends Tx_MmForum_Domain_Exception_AbstractException {
+
+
+
+}
 
 ?>

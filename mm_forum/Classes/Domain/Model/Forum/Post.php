@@ -41,11 +41,8 @@
  *             http://opensource.org/licenses/gpl-license.php
 
  */
-class Tx_MmForum_Domain_Model_Forum_Post
-	extends Tx_Extbase_DomainObject_AbstractEntity
-	implements Tx_MmForum_Domain_Model_AccessibleInterface,
-	           Tx_MmForum_Domain_Model_NotifiableInterface
-{
+class Tx_MmForum_Domain_Model_Forum_Post extends Tx_Extbase_DomainObject_AbstractEntity
+	implements Tx_MmForum_Domain_Model_AccessibleInterface, Tx_MmForum_Domain_Model_NotifiableInterface {
 
 
 
@@ -89,7 +86,6 @@ class Tx_MmForum_Domain_Model_Forum_Post
 
 	/**
 	 * The topic.
-	 *
 	 * @var Tx_MmForum_Domain_Model_Forum_Topic
 	 */
 	protected $topic;
@@ -98,7 +94,6 @@ class Tx_MmForum_Domain_Model_Forum_Post
 
 	/**
 	 * Creation date.
-	 *
 	 * @var DateTime
 	 */
 	protected $crdate;
@@ -107,7 +102,6 @@ class Tx_MmForum_Domain_Model_Forum_Post
 
 	/**
 	 * Attachments.
-	 *
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Attachment>
 	 */
 	protected $attachments;
@@ -122,11 +116,12 @@ class Tx_MmForum_Domain_Model_Forum_Post
 
 	/**
 	 * Creates a new post.
+	 * @param string $text The post text.
 	 */
-	public function __construct()
-	{
+	public function __construct($text = '') {
 		$this->attachments = new Tx_Extbase_Persistence_ObjectStorage();
 		$this->crdate      = new DateTime();
+		$this->text        = $text;
 	}
 
 
@@ -139,11 +134,9 @@ class Tx_MmForum_Domain_Model_Forum_Post
 
 	/**
 	 * Gets the text.
-	 *
 	 * @return string The text
 	 */
-	public function getText()
-	{
+	public function getText() {
 		return $this->text;
 	}
 
@@ -151,11 +144,9 @@ class Tx_MmForum_Domain_Model_Forum_Post
 
 	/**
 	 * Gets the post name. This is just an alias for the topic->getTitle method.
-	 *
 	 * @return The post name.
 	 */
-	public function getName()
-	{
+	public function getName() {
 		return $this->topic->getTitle();
 	}
 
@@ -163,11 +154,9 @@ class Tx_MmForum_Domain_Model_Forum_Post
 
 	/**
 	 * Alias for getText(). Necessary to implement the NotifiableInterface.
-	 *
 	 * @return string The post text.
 	 */
-	public function getDescription()
-	{
+	public function getDescription() {
 		return $this->getText();
 	}
 
@@ -175,13 +164,9 @@ class Tx_MmForum_Domain_Model_Forum_Post
 
 	/**
 	 * Gets the post author.
-	 *
 	 * @return Tx_MmForum_Domain_Model_User_FrontendUser author
 	 */
-	public function getAuthor()
-	{
-		if ($this->author InstanceOf Tx_Extbase_Persistence_LazyLoadingProxy)
-			$this->author->_loadRealInstance();
+	public function getAuthor() {
 		return $this->author;
 	}
 
@@ -189,11 +174,9 @@ class Tx_MmForum_Domain_Model_Forum_Post
 
 	/**
 	 * Gets the topic.
-	 *
 	 * @return Tx_MmForum_Domain_Model_Forum_Topic A topic
 	 */
-	public function getTopic()
-	{
+	public function getTopic() {
 		return $this->topic;
 	}
 
@@ -201,11 +184,9 @@ class Tx_MmForum_Domain_Model_Forum_Post
 
 	/**
 	 * Gets the forum.
-	 *
 	 * @return Tx_MmForum_Domain_Model_Forum_Forum
 	 */
-	public function getForum()
-	{
+	public function getForum() {
 		return $this->topic->getForum();
 	}
 
@@ -213,11 +194,9 @@ class Tx_MmForum_Domain_Model_Forum_Post
 
 	/**
 	 * Gets the post's timestamp.
-	 *
 	 * @return DateTime
 	 */
-	public function getTimestamp()
-	{
+	public function getTimestamp() {
 		return $this->crdate;
 	}
 
@@ -225,11 +204,9 @@ class Tx_MmForum_Domain_Model_Forum_Post
 
 	/**
 	 * Gets the post's attachments.
-	 *
 	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Attachment>
 	 */
-	public function getAttachments()
-	{
+	public function getAttachments() {
 		return $this->attachments;
 	}
 
@@ -241,17 +218,15 @@ class Tx_MmForum_Domain_Model_Forum_Post
 	 *
 	 * @param mixed $previousValue
 	 * @param mixed $currentValue
-	 *
 	 * @return boolean
 	 */
-	protected function isPropertyDirty($previousValue, $currentValue)
-	{
-		if ($currentValue InstanceOf Tx_MmForum_Domain_Model_Forum_Forum
-			|| $currentValue InstanceOf Tx_MmForum_Domain_Model_Forum_Topic
-		)
+	protected function isPropertyDirty($previousValue, $currentValue) {
+		if ($currentValue InstanceOf Tx_MmForum_Domain_Model_Forum_Forum || $currentValue InstanceOf Tx_MmForum_Domain_Model_Forum_Topic
+		) {
 			return FALSE;
-		else
+		} else {
 			return parent::isPropertyDirty($previousValue, $currentValue);
+		}
 	}
 
 
@@ -259,16 +234,13 @@ class Tx_MmForum_Domain_Model_Forum_Post
 	/**
 	 * Performs an access check for this post.
 	 *
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 * @param string                                    $accessType
-	 *
+	 * @access private
+	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param  string                                    $accessType
 	 * @return boolean
 	 */
-	public function _checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL,
-	                             $accessType = 'read')
-	{
-		switch ($accessType)
-		{
+	public function _checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'read') {
+		switch ($accessType) {
 			case 'editPost':
 				return $this->checkEditPostAccess($user);
 			case 'deletePost':
@@ -296,25 +268,19 @@ class Tx_MmForum_Domain_Model_Forum_Post
 	 * @return boolean             TRUE, if the user is allowed to edit this post,
 	 *                             otherwise FALSE.
 	 */
-	public function checkEditPostAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL)
-	{
+	public function checkEditPostAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
 
-		if ($user === NULL)
-		{
+		if ($user === NULL) {
 			return FALSE;
-		}
-		else
-		{
-			if ($this->getForum()->checkModerationAccess($user))
-			{
+		} else {
+			if ($this->getForum()->checkModerationAccess($user)
+			) {
 				return TRUE;
 			}
 
-			if ($user->getUid() === $this->getAuthor()->getUid()
-				&& $this === $this->getTopic()->getLastPost()
-				&& $this->getTopic()->_checkAccess($user, 'editPost')
-			)
-			{
+			if ($user->getUid() === $this->getAuthor()->getUid() && $this === $this->getTopic()->getLastPost() && $this
+				->getTopic()->_checkAccess($user, 'editPost')
+			) {
 				return TRUE;
 			}
 		}
@@ -331,28 +297,21 @@ class Tx_MmForum_Domain_Model_Forum_Post
 	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
 	 *                             The user for which the authenication is to be
 	 *                             checked.
-	 *
 	 * @return boolean             TRUE, if the user is allowed to delete this post,
 	 *                             otherwise FALSE.
 	 */
-	public function checkDeletePostAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL)
-	{
-		if ($user === NULL)
-		{
+	public function checkDeletePostAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
+		if ($user === NULL) {
 			return FALSE;
-		}
-		else
-		{
-			if ($this->getForum()->checkModerationAccess($user))
-			{
+		} else {
+			if ($this->getForum()->checkModerationAccess($user)
+			) {
 				return TRUE;
 			}
 
-			if ($user === $this->getAuthor()
-				&& $this === $this->getTopic()->getLastPost()
-				&& $this->getTopic()->_checkAccess($user, 'deletePost')
-			)
-			{
+			if ($user === $this->getAuthor() && $this === $this->getTopic()->getLastPost() && $this->getTopic()
+				->_checkAccess($user, 'deletePost')
+			) {
 				return TRUE;
 			}
 		}
@@ -372,11 +331,9 @@ class Tx_MmForum_Domain_Model_Forum_Post
 	 * Sets the post author.
 	 *
 	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $author The post author.
-	 *
 	 * @return void
 	 */
-	public function setAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $author)
-	{
+	public function setAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $author) {
 		$this->author = $author;
 	}
 
@@ -386,11 +343,9 @@ class Tx_MmForum_Domain_Model_Forum_Post
 	 * Sets the post text.
 	 *
 	 * @param string $text The post text.
-	 *
 	 * @return void
 	 */
-	public function setText($text)
-	{
+	public function setText($text) {
 		$this->text = $text;
 		// Reset the rendered text. It will be filled again when the post
 		// is rendered.
@@ -403,11 +358,9 @@ class Tx_MmForum_Domain_Model_Forum_Post
 	 * Sets the attachments.
 	 *
 	 * @param  Tx_Extbase_Persistence_ObjectStorage $attachments The attachments.
-	 *
 	 * @return void
 	 */
-	public function setAttachments(Tx_Extbase_Persistence_ObjectStorage $attachments)
-	{
+	public function setAttachments(Tx_Extbase_Persistence_ObjectStorage $attachments) {
 		$this->attachments = $attachments;
 	}
 
@@ -417,11 +370,9 @@ class Tx_MmForum_Domain_Model_Forum_Post
 	 * Adds an attachment.
 	 *
 	 * @param  Tx_MmForum_Domain_Model_Forum_Attachment $attachment The attachment.
-	 *
 	 * @return void
 	 */
-	public function addAttachment(Tx_MmForum_Domain_Model_Forum_Attachment $attachment)
-	{
+	public function addAttachment(Tx_MmForum_Domain_Model_Forum_Attachment $attachment) {
 		$this->attachments->attach($attachment);
 	}
 
@@ -431,11 +382,9 @@ class Tx_MmForum_Domain_Model_Forum_Post
 	 * Removes an attachment.
 	 *
 	 * @param  Tx_MmForum_Domain_Model_Forum_Attachment $attachment The attachment.
-	 *
 	 * @return void
 	 */
-	public function removeAttachment(Tx_MmForum_Domain_Model_Forum_Attachment $attachment)
-	{
+	public function removeAttachment(Tx_MmForum_Domain_Model_Forum_Attachment $attachment) {
 		$this->attachments->detach($attachment);
 	}
 
@@ -443,11 +392,9 @@ class Tx_MmForum_Domain_Model_Forum_Post
 
 	/**
 	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic
-	 *
 	 * @return void
 	 */
-	public function setTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic)
-	{
+	public function setTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
 		$this->topic = $topic;
 	}
 

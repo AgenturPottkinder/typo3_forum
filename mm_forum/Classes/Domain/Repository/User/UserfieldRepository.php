@@ -48,9 +48,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Repository_User_UserfieldRepository
-	extends Tx_MmForum_Domain_Repository_AbstractRepository
-{
+class Tx_MmForum_Domain_Repository_User_UserfieldRepository extends Tx_MmForum_Domain_Repository_AbstractRepository {
 
 
 
@@ -78,8 +76,7 @@ class Tx_MmForum_Domain_Repository_User_UserfieldRepository
 	/**
 	 * Creates a new instance of the userfield repository.
 	 */
-	public function __construct()
-	{
+	public function __construct() {
 		parent::__construct();
 		$this->objectType = 'Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield';
 	}
@@ -100,28 +97,27 @@ class Tx_MmForum_Domain_Repository_User_UserfieldRepository
 	 *                             The core userfields that are generated from the
 	 *                             typoscript configuration.
 	 */
-	protected function findCoreUserfields()
-	{
-		if ($this->coreUserfields === NULL)
-		{
+	protected function findCoreUserfields() {
+		if ($this->coreUserfields === NULL) {
 			$conf                 = Tx_Extbase_Dispatcher::getExtbaseFrameworkConfiguration();
 			$this->coreUserfields = array();
 
-			foreach ($conf['settings']['userfields']['core_fields'] as $coreFieldKey => $coreFieldValues)
-			{
+			foreach ($conf['settings']['userfields']['core_fields'] as $coreFieldKey => $coreFieldValues) {
 				$className = $coreFieldValues['class'];
-				if (!class_exists($className))
+				if (!class_exists($className)) {
 					throw new Tx_Extbase_Object_UnknownClass("The class $className does not exist!", 1287756385);
+				}
 
 				$object = $this->objectManager->create($className);
 
-				if (!$object instanceof Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield)
+				if (!$object instanceof Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield) {
 					throw new Tx_Extbase_Object_InvalidClass("The class $className is not a subclass of Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield", 1287756386);
+				}
 
-				foreach ($coreFieldValues['properties'] as $propertyName => $propertyValue)
-				{
-					if ($object->_hasProperty($propertyName))
+				foreach ($coreFieldValues['properties'] as $propertyName => $propertyValue) {
+					if ($object->_hasProperty($propertyName)) {
 						$object->_setProperty($propertyName, $propertyValue);
+					}
 				}
 				$this->coreUserfields[] = $object;
 			}
@@ -141,8 +137,7 @@ class Tx_MmForum_Domain_Repository_User_UserfieldRepository
 	 *                             All userfields, both from the database and
 	 *                             the core typoscript setup.
 	 */
-	public function findAll()
-	{
+	public function findAll() {
 		$query = $this->createQueryWithFallbackStoragePage();
 		return array_merge($this->findCoreUserfields(), $query->execute()->toArray());
 	}

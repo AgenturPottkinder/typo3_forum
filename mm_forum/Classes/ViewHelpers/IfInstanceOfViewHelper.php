@@ -26,40 +26,39 @@
 
 
 
+/**
+ *
+ * ViewHelper that renders its contents if a certain object is an instance
+ * of a specific class.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage ViewHelpers
+ * @version    $Id$
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+
+class Tx_MmForum_ViewHelpers_IfInstanceOfViewHelper extends Tx_Fluid_ViewHelpers_IfViewHelper {
+
+
+
 	/**
 	 *
-	 * ViewHelper that renders its contents if a certain object is an instance
-	 * of a specific class.
+	 * Renders the contents of this view helper if $object is an instance of
+	 * $className.
 	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage ViewHelpers
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
+	 * @param  Tx_Extbase_DomainObject_AbstractDomainObject $object
+	 *                                                                   The object.
+	 * @param  string                                       $className   The class.
+	 * @return string              HTML content.
 	 *
 	 */
-
-class Tx_MmForum_ViewHelpers_IfInstanceOfViewHelper
-	extends Tx_Fluid_ViewHelpers_IfViewHelper {
-
-
-
-		/**
-		 *
-		 * Renders the contents of this view helper if $object is an instance of
-		 * $className.
-		 *
-		 * @param  Tx_Extbase_DomainObject_AbstractDomainObject $object
-		 *                             The object.
-		 * @param  string $className   The class.
-		 * @return string              HTML content.
-		 *
-		 */
 
 	public function render(Tx_Extbase_DomainObject_AbstractDomainObject $object, $className) {
 		return $object instanceof $className ? $this->renderThenChild() : $this->renderElseChild();

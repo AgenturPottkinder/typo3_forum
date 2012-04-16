@@ -26,45 +26,47 @@
 
 
 
-	/**
-	 *
-	 * Userfield that renders its content using a previously defined typoscript
-	 * object.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Model_User_Userfield
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
-	 */
+/**
+ *
+ * Userfield that renders its content using a previously defined typoscript
+ * object.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Model_User_Userfield
+ * @version    $Id$
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
 
 Class Tx_MmForum_Domain_Model_User_Userfield_TyposcriptUserfield
 	Extends Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield {
 
 
 
-		/**
-		 * The typoscript path that is to be used for rendering this field.
-		 * @var string
-		 */
+	/**
+	 * The typoscript path that is to be used for rendering this field.
+	 * @var string
+	 */
 	Protected $typoscriptPath;
 
 
 
-		/**
-		 *
-		 * Gets the typoscript path.
-		 * @return string The typoscript path.
-		 *
-		 */
+	/**
+	 *
+	 * Gets the typoscript path.
+	 * @return string The typoscript path.
+	 *
+	 */
 
-	Public Function getTyposcriptPath() { Return $this->typoscriptPath; }
+	Public Function getTyposcriptPath() {
+		Return $this->typoscriptPath;
+	}
 
 }
 

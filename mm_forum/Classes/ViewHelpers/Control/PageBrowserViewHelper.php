@@ -26,69 +26,68 @@
 
 
 
+/**
+ *
+ * ViewHelper that renders a page browser.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage ViewHelpers_Control
+ * @version    $Id$
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+
+Class Tx_MmForum_ViewHelpers_Control_PageBrowserViewHelper Extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+
+
+
 	/**
 	 *
-	 * ViewHelper that renders a page browser.
+	 * Renders the page browser.
 	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage ViewHelpers_Control
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
+	 * @param  integer $elements     Number of elements
+	 * @param  integer $itemsPerPage Number of items per page
+	 * @param  integer $currentPage  Current page
+	 * @return  string               HTML content of the page browser.
 	 *
 	 */
 
-Class Tx_MmForum_ViewHelpers_Control_PageBrowserViewHelper
-	Extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+	Public Function render($elements, $itemsPerPage, $currentPage = 1) {
 
-
-
-		/**
-		 *
-		 * Renders the page browser.
-		 *
-		 * @param  integer $elements     Number of elements
-		 * @param  integer $itemsPerPage Number of items per page
-		 * @param  integer $currentPage  Current page
-		 * @return  string               HTML content of the page browser.
-		 *
-		 */
-	
-	Public Function render($elements, $itemsPerPage, $currentPage=1) {
-
-		$output = '';
+		$output    = '';
 		$pageCount = ceil($elements / $itemsPerPage);
 
 		$output .= $this->renderChildItemWithPage(1, '«');
-		$output .= $this->renderChildItemWithPage(max($currentPage-1,1), '‹');
+		$output .= $this->renderChildItemWithPage(max($currentPage - 1, 1), '‹');
 
-		For($page = 1; $page <= $pageCount; $page ++) {
+		For ($page = 1; $page <= $pageCount; $page++) {
 			$output .= $this->renderChildItemWithPage($page, $page);
 		}
 
-		$output .= $this->renderChildItemWithPage(min($currentPage+1,$pageCount), '›');
+		$output .= $this->renderChildItemWithPage(min($currentPage + 1, $pageCount), '›');
 		$output .= $this->renderChildItemWithPage($pageCount, '»');
 
 		Return $output;
-		
+
 	}
 
 
-	
-		/**
-		 *
-		 * Renders a single page link.
-		 *
-		 * @param  integer $pageNum   The page number
-		 * @param  integer $pageLabel Page label
-		 * @return  string            Rendered page link
-		 *
-		 */
+
+	/**
+	 *
+	 * Renders a single page link.
+	 *
+	 * @param  integer $pageNum   The page number
+	 * @param  integer $pageLabel Page label
+	 * @return  string            Rendered page link
+	 *
+	 */
 
 	Private Function renderChildItemWithPage($pageNum, $pageLabel) {
 		$this->templateVariableContainer->add('pageLabel', $pageLabel);

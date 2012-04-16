@@ -26,135 +26,165 @@
 
 
 
-	/**
-	 *
-	 * A bb code element. This class implements the abstract AbstractTextParserElement
-	 * class.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Model_Format
-	 * @version    $Id$
-	 * @license    GNU public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
-	 */
+/**
+ *
+ * A bb code element. This class implements the abstract AbstractTextParserElement
+ * class.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Model_Format
+ * @version    $Id$
+ * @license    GNU public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
 
-class Tx_MmForum_Domain_Model_Format_BBCode
-	extends Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
+class Tx_MmForum_Domain_Model_Format_BBCode extends Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
 	implements Tx_MmForum_TextParser_Panel_MarkItUpExportableInterface {
 
 
 
-
-
-		/*
-		 * ATTRIBUTES
-		 */
-
+	/*
+		  * ATTRIBUTES
+		  */
 
 
 
-
-		/**
-		 * The regular expression that will be used to match the bb code.
-		 * @var string
-		 */
+	/**
+	 * The regular expression that will be used to match the bb code.
+	 * @var string
+	 */
 	protected $regularExpression;
 
-		/**
-		 * The replacement pattern or the regular expression.
-		 * @var string
-		 */
+
+	/**
+	 * The replacement pattern or the regular expression.
+	 * @var string
+	 */
 	protected $regularExpressionReplacement;
 
-		/**
-		 * The bb code wrap. This string specifies which bb codes are to be inserted into
-		 * the post text by the bb code editor.
-		 * @var string
-		 */
+
+	/**
+	 * The bb code wrap. This string specifies which bb codes are to be inserted into
+	 * the post text by the bb code editor.
+	 * @var string
+	 */
 	protected $bbcodeWrap;
 
 
 
-
-
-		/*
-		 * GETTERS
-		 */
-
+	/*
+	 * CONSTRUCTOR
+	 */
 
 
 
+	/**
+	 * Constructor.
+	 * @param string $bbcodeWrap
+	 * @param string $regularExpression
+	 * @param string $regularExpressionReplacement
+	 */
+	public function __construct($bbcodeWrap = NULL, $regularExpression = NULL, $regularExpressionReplacement = NULL) {
+		$this->bbcodeWrap                   = $bbcodeWrap;
+		$this->regularExpression            = $regularExpression;
+		$this->regularExpressionReplacement = $regularExpressionReplacement;
+	}
 
-		/**
-		 *
-		 * Get the regular expression.
-		 * @return string The regular expression
-		 *
-		 */
 
+
+	/*
+	  * GETTERS
+	  */
+
+
+
+	/**
+	 * Get the regular expression.
+	 * @return string The regular expression
+	 */
 	public function getRegularExpression() {
 		return $this->regularExpression;
 	}
 
 
 
-		/**
-		 *
-		 * Gets the replacement pattern for the regular expression.
-		 * @return string The replacement pattern for the regular expression.
-		 *
-		 */
-
+	/**
+	 * Gets the replacement pattern for the regular expression.
+	 * @return string The replacement pattern for the regular expression.
+	 */
 	public function getRegularExpressionReplacement() {
 		return $this->regularExpressionReplacement;
 	}
 
 
 
-		/**
-		 *
-		 * Return the left (opening) bb code tag.
-		 * @return string The left bb code tag.
-		 *
-		 */
-
+	/**
+	 * Return the left (opening) bb code tag.
+	 * @return string The left bb code tag.
+	 */
 	public function getLeftBBCode() {
-		return array_shift(explode('|',$this->bbcodeWrap));
+		return array_shift(explode('|', $this->bbcodeWrap));
 	}
 
 
 
-		/**
-		 *
-		 * Return the right (closing) bb code tag.
-		 * @return string The right bb code tag.
-		 *
-		 */
-
+	/**
+	 * Return the right (closing) bb code tag.
+	 * @return string The right bb code tag.
+	 */
 	public function getRightBBCode() {
-		return array_pop(explode('|',$this->bbcodeWrap));
+		return array_pop(explode('|', $this->bbcodeWrap));
 	}
-	
-	
-	
-		/**
-		 * 
-		 * Exports this bb code object as a plain array, that can be used in
-		 * a MarkItUp configuration object.
-		 * @return array A plain array describing this bb code
-		 * 
-		 */
-	
+
+
+
+	/**
+	 * Exports this bb code object as a plain array, that can be used in
+	 * a MarkItUp configuration object.
+	 * @return array A plain array describing this bb code
+	 */
 	public function exportForMarkItUp() {
-		return array(
-			'name' => $this->getName(),
-			'className' => $this->getIconClass(),
-			'openWith' => $this->getLeftBBCode(),
-			'closeWith' => $this->getRightBBCode()
-		);
+		return array('name'      => $this->getName(),
+		             'className' => $this->getIconClass(),
+		             'openWith'  => $this->getLeftBBCode(),
+		             'closeWith' => $this->getRightBBCode());
 	}
+
+
+
+	/*
+	 * SETTERS
+	 */
+
+
+
+	/**
+	 * @param string $bbcodeWrap
+	 */
+	public function setBbcodeWrap($bbcodeWrap) {
+		$this->bbcodeWrap = $bbcodeWrap;
+	}
+
+
+
+	/**
+	 * @param string $regularExpression
+	 */
+	public function setRegularExpression($regularExpression) {
+		$this->regularExpression = $regularExpression;
+	}
+
+
+
+	/**
+	 * @param string $regularExpressionReplacement
+	 */
+	public function setRegularExpressionReplacement($regularExpressionReplacement) {
+		$this->regularExpressionReplacement = $regularExpressionReplacement;
+	}
+
 
 }
 

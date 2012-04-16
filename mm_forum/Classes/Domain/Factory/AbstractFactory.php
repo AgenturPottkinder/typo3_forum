@@ -42,9 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_MmForum_Domain_Factory_AbstractFactory
-		implements t3lib_Singleton
-{
+abstract class Tx_MmForum_Domain_Factory_AbstractFactory implements t3lib_Singleton {
 
 
 
@@ -59,24 +57,37 @@ abstract class Tx_MmForum_Domain_Factory_AbstractFactory
 	 * @var Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 	 */
 	protected $frontendUserRepository = NULL;
+
+
+	/**
+	 * An instance of the extbase object manager.
+	 * @var Tx_Extbase_Object_ObjectManagerInterface
+	 */
 	protected $objectManager = NULL;
 
 
+
 	/*
-	 * DEPENDENCY INJECTORS
+	  * DEPENDENCY INJECTORS
+	  */
+
+
+
+	/**
+	 * Injects an instance of the frontend user repository.
+	 * @param Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository
 	 */
-
-
-
-	public function injectFrontendUserRepository(Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository)
-	{
+	public function injectFrontendUserRepository(Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository) {
 		$this->frontendUserRepository = $frontendUserRepository;
 	}
 
 
 
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager)
-	{
+	/**
+	 * Injects an instance of the extbase object manager.
+	 * @param Tx_Extbase_Object_ObjectManagerInterface $objectManager
+	 */
+	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
 		$this->objectManager = $objectManager;
 	}
 
@@ -94,8 +105,7 @@ abstract class Tx_MmForum_Domain_Factory_AbstractFactory
 	 * @return string The class name
 	 *
 	 */
-	protected function getClassName()
-	{
+	protected function getClassName() {
 		$thisClass = get_class($this);
 		$thisClass = preg_replace('/_Factory_/', '_Model_', $thisClass);
 		$thisClass = preg_replace('/Factory$/', '', $thisClass);
@@ -111,8 +121,7 @@ abstract class Tx_MmForum_Domain_Factory_AbstractFactory
 	 *                             An instance of the domain object.
 	 *
 	 */
-	protected function getClassInstance()
-	{
+	protected function getClassInstance() {
 		return $this->objectManager->create($this->getClassName());
 	}
 
@@ -127,8 +136,7 @@ abstract class Tx_MmForum_Domain_Factory_AbstractFactory
 	 *                             The user that is currently logged in.
 	 *
 	 */
-	protected function getCurrentUser()
-	{
+	protected function getCurrentUser() {
 		return $this->frontendUserRepository->findCurrent();
 	}
 

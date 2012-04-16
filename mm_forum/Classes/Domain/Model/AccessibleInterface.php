@@ -41,8 +41,7 @@
  *                 http://opensource.org/licenses/gpl-license.php
  */
 
-interface Tx_MmForum_Domain_Model_AccessibleInterface
-{
+interface Tx_MmForum_Domain_Model_AccessibleInterface {
 
 
 
@@ -50,12 +49,10 @@ interface Tx_MmForum_Domain_Model_AccessibleInterface
 	 * Checks if a certain frontend user has access to a specific operation.
 	 *
 	 * @param \Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 * @param string									 $accessType
+	 * @param string                                     $accessType
 	 *
 	 * @return boolean
-
 	 */
-
 	public function _checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'read');
 
 }

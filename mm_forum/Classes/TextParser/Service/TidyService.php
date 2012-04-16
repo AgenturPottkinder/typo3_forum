@@ -44,21 +44,18 @@
  *
  */
 
-class Tx_MmForum_TextParser_Service_TidyService
-	extends Tx_MmForum_TextParser_Service_AbstractTextParserService
-{
+class Tx_MmForum_TextParser_Service_TidyService extends Tx_MmForum_TextParser_Service_AbstractTextParserService {
 
 
 
 	/*
-		  * ATTRIBUTES
-		  */
+	 * ATTRIBUTES
+	 */
 
 
 
 	/**
 	 * The tidy configuration.
-	 *
 	 * @var array
 	 */
 	protected $tidyConfig = Array('indent'         => FALSE,
@@ -71,7 +68,6 @@ class Tx_MmForum_TextParser_Service_TidyService
 
 	/**
 	 * Instance of tidy.
-	 *
 	 * @var tidy
 	 */
 	protected $tidy = NULL;
@@ -79,44 +75,36 @@ class Tx_MmForum_TextParser_Service_TidyService
 
 
 	/*
-		  * METHODS
-		  */
+	 * METHODS
+	 */
 
 
 
 	/**
-	 *
 	 * Creates a new instance of this service.
-	 *
 	 */
 
-	public function __construct()
-	{
+	public function __construct() {
 		parent::__construct();
 
-		if (!class_exists('tidy'))
-			throw new Tx_MmForum_Domain_Exception_TextParser_Exception(
-				'The TIDY library could not be loaded. Please install the tidy
+		if (!class_exists('tidy')) {
+			throw new Tx_MmForum_Domain_Exception_TextParser_Exception('The TIDY library could not be loaded. Please install the tidy
 				 module for PHP or disable the tidy service in your typoscript
 				 setup', 1315857493);
+		}
 		$this->tidy = new tidy();
 	}
 
 
 
 	/**
-	 *
 	 * Renders the parsed text.
 	 *
 	 * @param  string $text The text to be parsed.
-	 *
 	 * @return string       The parsed text.
-	 *
 	 */
 
-	public function getParsedText($text)
-	{
-		return $text;
+	public function getParsedText($text) {
 		$this->tidy->parseString($text, $this->tidyConfig, 'utf8');
 		$this->tidy->cleanRepair();
 

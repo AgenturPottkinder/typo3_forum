@@ -3,7 +3,7 @@
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -26,62 +26,55 @@
 
 
 
+/**
+ *
+ * A syntax highlighting element. This class implements the abstract
+ * AbstractTextParserElement class.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Model_Format
+ * @version    $Id$
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+
+class Tx_MmForum_Domain_Model_Format_SyntaxHighlighting extends Tx_MmForum_Domain_Model_Format_BBCode {
+
+
+
 	/**
-	 *
-	 * A syntax highlighting element. This class implements the abstract
-	 * AbstractTextParserElement class.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Model_Format
-	 * @version    $Id$
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
+	 * The language key.
+	 * @var string
 	 */
-
-Class Tx_MmForum_Domain_Model_Format_SyntaxHighlighting
-	Extends Tx_MmForum_Domain_Model_Format_BBCode {
+	protected $language;
 
 
-
-		/**
-		 * The language key.
-		 * @var string
-		 */
-
-	Protected $language;
-		
-		/**
-		 * The default smilie directory.
-		 * @var string
-		 */
-	Protected $defaultIconDir = 'Syntax/';
+	/**
+	 * The default smilie directory.
+	 * @var string
+	 */
+	protected $defaultIconDir = 'Syntax/';
 
 
 
-		/**
-		 *
-		 * Return the left (opening) bb code tag.
-		 * @return string The left bb code tag.
-		 *
-		 */
-
-	Public Function getLeftBBCode() {
-		Return "[code language={$this->language}]\n";
+	/**
+	 * Return the left (opening) bb code tag.
+	 * @return string The left bb code tag.
+	 */
+	public function getLeftBBCode() {
+		return "[code language={$this->language}]\n";
 	}
 
 
 
-		/**
-		 *
-		 * Return the right (closing) bb code tag.
-		 * @return string The right bb code tag.
-		 *
-		 */
-
-	Public Function getRightBBCode() {
-		Return '[/code]';
+	/**
+	 * Return the right (closing) bb code tag.
+	 * @return string The right bb code tag.
+	 */
+	public function getRightBBCode() {
+		return '[/code]';
 	}
 
 

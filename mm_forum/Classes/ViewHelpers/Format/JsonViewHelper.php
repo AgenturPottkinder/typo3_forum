@@ -26,25 +26,26 @@
 
 
 
-	/**
-	 *
-	 * ...
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage ViewHelpers_Format
-	 * @version    $Id: FileSizeViewHelper.php 52309 2011-09-20 18:54:26Z mhelmich $
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
-	 */
+/**
+ *
+ * ...
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage ViewHelpers_Format
+ * @version    $Id: FileSizeViewHelper.php 52309 2011-09-20 18:54:26Z mhelmich $
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
 
-class Tx_MmForum_ViewHelpers_Format_JsonViewHelper
-	extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_MmForum_ViewHelpers_Format_JsonViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+
+
 
 	public function render(array $data) {
 		return json_encode($data);

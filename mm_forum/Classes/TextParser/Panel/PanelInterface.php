@@ -43,8 +43,7 @@
  *
  */
 
-interface Tx_MmForum_TextParser_Panel_PanelInterface
-{
+interface Tx_MmForum_TextParser_Panel_PanelInterface {
 
 
 

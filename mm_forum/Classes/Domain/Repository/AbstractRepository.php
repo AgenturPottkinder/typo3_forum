@@ -42,17 +42,14 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_MmForum_Domain_Repository_AbstractRepository
-	extends Tx_Extbase_Persistence_Repository
-{
+abstract class Tx_MmForum_Domain_Repository_AbstractRepository extends Tx_Extbase_Persistence_Repository {
 
 
 
 	/**
 	 * @return Tx_Extbase_Persistence_QueryInterface
 	 */
-	protected function createQueryWithFallbackStoragePage()
-	{
+	protected function createQueryWithFallbackStoragePage() {
 		$query = $this->createQuery();
 
 		$storagePageIds   = $query->getQuerySettings()->getStoragePageIds();

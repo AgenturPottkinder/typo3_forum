@@ -26,53 +26,61 @@
 
 
 
+/**
+ *
+ * ViewHelper that formats an integer value into a file size. The unit
+ * which is to be used for the file size (B, KiB, MiB, ...) is determined
+ * automatically.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage ViewHelpers_Format
+ * @version    $Id$
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+
+class Tx_MmForum_ViewHelpers_Format_FileSizeViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+
+
+
+	/**
+	 * Diffentently scaled units for file sizes.
+	 * @var array
+	 */
+	protected $suffixes = array(0 => 'B',
+	                            1 => 'KiB',
+	                            2 => 'MiB',
+	                            3 => 'GiB',
+	                            4 => 'TiB');
+
+
+
 	/**
 	 *
-	 * ViewHelper that formats an integer value into a file size. The unit
-	 * which is to be used for the file size (B, KiB, MiB, ...) is determined
-	 * automatically.
+	 * Renders the file size.
 	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage ViewHelpers_Format
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
+	 * @param  integer $decimals           Amount of decimal places (default 2)
+	 * @param  integer $decimalSeparator   Decimal separator (default ',')
+	 * @param  integer $thousandsSeparator Thousands seperator (default '.')
+	 * @return  string                     The formatted file size.
 	 *
 	 */
 
-class Tx_MmForum_ViewHelpers_Format_FileSizeViewHelper
-	extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
-
-		/**
-		 * Diffentently scaled units for file sizes.
-		 * @var array
-		 */
-	protected $suffixes = array(
-		0 => 'B', 1 => 'KiB', 2 => 'MiB', 3 => 'GiB', 4 => 'TiB'
-	);
-
-
-
-		/**
-		 *
-		 * Renders the file size.
-		 *
-		 * @param  integer $decimals           Amount of decimal places (default 2)
-		 * @param  integer $decimalSeparator   Decimal separator (default ',')
-		 * @param  integer $thousandsSeparator Thousands seperator (default '.')
-		 * @return  string                     The formatted file size.
-		 *
-		 */
-
 	public function render($decimals = 2, $decimalSeparator = ',', $thousandsSeparator = '.') {
-		$fileSize = $this->renderChildren(); $suffix = 0;
-		while($fileSize >= 1024) { $fileSize /= 1024; $suffix ++; }
-		return number_format($fileSize, $decimals, $decimalSeparator, $thousandsSeparator).' '.$this->suffixes[$suffix];
+		$fileSize = $this->renderChildren();
+		$suffix   = 0;
+		while ($fileSize >= 1024) {
+			$fileSize /= 1024;
+			$suffix++;
+		}
+		return number_format($fileSize, $decimals, $decimalSeparator,
+		                     $thousandsSeparator) . ' ' . $this->suffixes[$suffix];
 	}
 
 }

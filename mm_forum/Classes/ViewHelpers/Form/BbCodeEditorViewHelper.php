@@ -42,8 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper
-		extends Tx_Fluid_ViewHelpers_Form_TextareaViewHelper {
+class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper extends Tx_Fluid_ViewHelpers_Form_TextareaViewHelper {
 
 
 
@@ -87,11 +86,9 @@ class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper
 
 
 
-
-
 	/*
-	 * INITIALIZATION
-	 */
+	  * INITIALIZATION
+	  */
 
 
 
@@ -102,12 +99,12 @@ class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper
 
 
 	/**
-	 * 
+	 *
 	 * Injects an instance of the mm_forum typoscript reader.
 	 * @param  Tx_MmForum_Utility_TypoScript $typoscriptReader
 	 *                             An instance of the mm_forum typoscript reader
 	 * @return void
-	 * 
+	 *
 	 */
 	public function injectTyposcriptReader(Tx_MmForum_Utility_TypoScript $typoscriptReader) {
 		$this->typoscriptReader = $typoscriptReader;
@@ -118,10 +115,10 @@ class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper
 	/**
 	 *
 	 * Injects an instance of the Extbase object manager.
-	 * @param  Tx_Extbase_Object_ObjectManagerInterface $objectManager 
+	 * @param  Tx_Extbase_Object_ObjectManagerInterface $objectManager
 	 *                                 An instance of the Extbase object manager.
 	 * @return void
-	 * 
+	 *
 	 */
 	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
 		$this->objectManager = $objectManager;
@@ -137,8 +134,8 @@ class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper
 	 */
 	public function initializeArguments() {
 		parent::initializeArguments();
-		$this->registerArgument('configuration', 'string', 'Path to TS configuration',
-				FALSE, 'plugin.tx_mmforum.settings.textParsing.editorPanel');
+		$this->registerArgument('configuration', 'string', 'Path to TS configuration', FALSE,
+		                        'plugin.tx_mmforum.settings.textParsing.editorPanel');
 	}
 
 
@@ -154,22 +151,20 @@ class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper
 	 */
 	protected function initializeJavascriptSetupFromConfiguration($configurationPath) {
 		$this->configuration = $this->typoscriptReader->loadTyposcriptFromPath($configurationPath);
-		if ($this->cache->has('bbcodeeditor-jsonconfig'))
+		if ($this->cache->has('bbcodeeditor-jsonconfig')) {
 			return $this->javascriptSetup = $this->cache->get('bbcodeeditor-jsonconfig');
+		}
 
 		foreach ($this->configuration['panels.'] as $key => $panelConfiguration) {
 			$panel = $this->objectManager->get($panelConfiguration['className']);
-			if (!$panel instanceof Tx_MmForum_TextParser_Panel_PanelInterface)
+			if (!$panel instanceof Tx_MmForum_TextParser_Panel_PanelInterface) {
 				throw new Tx_Extbase_Object_InvalidClass('Expected an implementation of the Tx_MmForum_TextParser_Panel_PanelInterface interface!', 1315835842);
+			}
 			$panel->setSettings($panelConfiguration);
 			$this->panels[] = $panel;
 		}
 
-		$this->javascriptSetup = '<script language="javascript">' .
-				'var bbcodeSettings = ' . json_encode($this->getPanelSettings()) . ';' .
-				'$(document).ready(function()	{' .
-				'$(\'#' . $this->arguments['id'] . '\').markItUp(bbcodeSettings);' .
-				'}); </script>';
+		$this->javascriptSetup = '<script language="javascript">' . 'var bbcodeSettings = ' . json_encode($this->getPanelSettings()) . ';' . '$(document).ready(function()	{' . '$(\'#' . $this->arguments['id'] . '\').markItUp(bbcodeSettings);' . '}); </script>';
 		$this->cache->set('bbcodeeditor-jsonconfig', $this->javascriptSetup);
 		return $this->javascriptSetup;
 	}
@@ -195,12 +190,12 @@ class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper
 
 		$this->initializeJavascriptSetupFromConfiguration($this->arguments['configuration']);
 
-//		foreach ($this->configuration['includeJs.'] as $key => $filename)
-//			$GLOBALS['TSFE']->additionalHeaderData['MmForum_Js_' . $key]
-//					= '<script src="' . Tx_MmForum_Utility_File::replaceSiteRelPath($filename) . '" type="text/javascript"></script>';
-//		foreach ($this->configuration['includeCss.'] as $key => $filename)
-//			$GLOBALS['TSFE']->additionalHeaderData['MmForum_Css_' . $key]
-//					= '<link rel="stylesheet" type="text/css" href="' . Tx_MmForum_Utility_File::replaceSiteRelPath($filename) . '" />';
+		//		foreach ($this->configuration['includeJs.'] as $key => $filename)
+		//			$GLOBALS['TSFE']->additionalHeaderData['MmForum_Js_' . $key]
+		//					= '<script src="' . Tx_MmForum_Utility_File::replaceSiteRelPath($filename) . '" type="text/javascript"></script>';
+		//		foreach ($this->configuration['includeCss.'] as $key => $filename)
+		//			$GLOBALS['TSFE']->additionalHeaderData['MmForum_Css_' . $key]
+		//					= '<link rel="stylesheet" type="text/css" href="' . Tx_MmForum_Utility_File::replaceSiteRelPath($filename) . '" />';
 
 		return $this->javascriptSetup . parent::render();
 	}
@@ -210,21 +205,17 @@ class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper
 	protected function getPanelSettings() {
 		$settings = array();
 		foreach ($this->panels as $panel) {
-			$settings = array_merge($settings, $panel->getItems());
+			$settings   = array_merge($settings, $panel->getItems());
 			$settings[] = array('separator' => '---------------');
 		}
 
-		$settings[] = array(
-			'name' => 'Preview',
-			'className' => 'preview',
-			'call' => 'preview'
-		);
+		$settings[] = array('name'      => 'Preview',
+		                    'className' => 'preview',
+		                    'call'      => 'preview');
 
-		return array(
-			'previewParserPath' => 'index.php?eID=mm_forum&tx_mmforum_ajax[controller]=Post&tx_mmforum_ajax[action]=preview&p=' . $GLOBALS['TSFE']->id,
-			'previewParserVar' => 'tx_mmforum_ajax[text]',
-			'markupSet' => $settings
-		);
+		return array('previewParserPath' => 'index.php?eID=mm_forum&tx_mmforum_ajax[controller]=Post&tx_mmforum_ajax[action]=preview&p=' . $GLOBALS['TSFE']->id,
+		             'previewParserVar'  => 'tx_mmforum_ajax[text]',
+		             'markupSet'         => $settings);
 	}
 
 

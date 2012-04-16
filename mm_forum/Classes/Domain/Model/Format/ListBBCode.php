@@ -3,7 +3,7 @@
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -26,46 +26,38 @@
 
 
 
+/**
+ *
+ * A special bb code element that implements an unordered list.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Model_Format
+ * @version    $Id$
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
+class Tx_MmForum_Domain_Model_Format_ListBBCode extends Tx_MmForum_Domain_Model_Format_BBCode {
+
+
+
 	/**
-	 *
-	 * A special bb code element that implements an unordered list.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Model_Format
-	 * @version    $Id$
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
+	 * Return the left (opening) bb code tag.
+	 * @return string The left bb code tag.
 	 */
-
-Class Tx_MmForum_Domain_Model_Format_ListBBCode
-	Extends Tx_MmForum_Domain_Model_Format_BBCode {
-
-
-
-		/**
-		 *
-		 * Return the left (opening) bb code tag.
-		 * @return string The left bb code tag.
-		 *
-		 */
-
-	Public Function getLeftBBCode() {
-		Return "[list]\n[*] ";
+	public function getLeftBBCode() {
+		return "[list]\n[*] ";
 	}
 
 
 
-		/**
-		 *
-		 * Return the right (closing) bb code tag.
-		 * @return string The right bb code tag.
-		 *
-		 */
-
-	Public Function getRightBBCode() {
-		Return "\n[\list]";
+	/**
+	 * Return the right (closing) bb code tag.
+	 * @return string The right bb code tag.
+	 */
+	public function getRightBBCode() {
+		return "\n[\list]";
 	}
 
 }

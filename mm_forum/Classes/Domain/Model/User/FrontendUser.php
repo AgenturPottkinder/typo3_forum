@@ -42,9 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Model_User_FrontendUser
-		extends Tx_Extbase_Domain_Model_FrontendUser
-{
+class Tx_MmForum_Domain_Model_User_FrontendUser extends Tx_Extbase_Domain_Model_FrontendUser {
 
 
 
@@ -137,15 +135,12 @@ class Tx_MmForum_Domain_Model_User_FrontendUser
 
 
 	/**
-	 *
 	 * Constructor.
-	 * 
+	 *
 	 * @param string $username The user's username.
 	 * @param string $password The user's password.
-	 * 
 	 */
-	public function __construct($username = '', $password = '')
-	{
+	public function __construct($username = '', $password = '') {
 		parent::__construct($username, $password);
 		$this->readTopics = new Tx_Extbase_Persistence_ObjectStorage();
 	}
@@ -159,125 +154,101 @@ class Tx_MmForum_Domain_Model_User_FrontendUser
 
 
 	/**
-	 *
 	 * Gets the post count of this user.
 	 * @return integer The post count.
-	 *
 	 */
-	public function getPostCount()
-	{
+	public function getPostCount() {
 		return $this->postCount;
 	}
 
 
 
 	/**
-	 *
 	 * Gets the subscribed topics.
 	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Topic>
 	 *                             The subscribed topics.
-	 *
 	 */
-	public function getTopicSubscriptions()
-	{
+	public function getTopicSubscriptions() {
 		return $this->topicSubscriptions;
 	}
 
 
 
 	/**
-	 *
 	 * Gets the subscribed forums.
 	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Forum>
 	 *                             The subscribed forums.
-	 *
 	 */
-	public function getForumSubscriptions()
-	{
+	public function getForumSubscriptions() {
 		return $this->forumSubscriptions;
 	}
 
 
 
 	/**
-	 *
 	 * Gets the user's registration date.
 	 * @return DateTime The registration date
-	 *
 	 */
-	public function getTimestamp()
-	{
+	public function getTimestamp() {
 		return $this->crdate;
 	}
 
 
 
 	/**
-	 *
 	 * Determines if this user is member of a specific group.
 	 *
 	 * @param Tx_MmForum_Domain_Model_User_FrontendUserGroup $checkGroup
 	 * @return boolean
-	 *
 	 */
-	public function isInGroup(Tx_MmForum_Domain_Model_User_FrontendUserGroup $checkGroup)
-	{
-		foreach ($this->getUsergroup() As $group)
-		{
-			if ($group == $checkGroup)
+	public function isInGroup(Tx_MmForum_Domain_Model_User_FrontendUserGroup $checkGroup) {
+		foreach ($this->getUsergroup() As $group) {
+			if ($group == $checkGroup) {
 				return TRUE;
-		} return FALSE;
+			}
+		}
+		return FALSE;
 	}
 
 
 
 	/**
-	 *
 	 * Gets the user's signature.
 	 * @return string The signature.
-	 *
 	 */
-	public function getSignature()
-	{
+	public function getSignature() {
 		return $this->signature;
 	}
 
 
 
 	/**
-	 *
 	 * Gets the userfield values for this user.
 	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_Userfield_Value>
-	 *
 	 */
-	public function getUserfieldValues()
-	{
+	public function getUserfieldValues() {
 		return $this->userfieldValues;
 	}
 
 
 
 	/**
-	 *
 	 * Returns the absolute path of this user's avatar image (if existent).
-	 * 
+	 *
 	 * @global array $TCA
 	 * @return string The absolute path of this user's avatar image (if existent).
-	 * 
 	 */
-	public function getImagePath()
-	{
+	public function getImagePath() {
 
 		// If an image is defined for this user, retrieve the upload folder from
 		// the TCA (uploads/pics be default, but can be overridden, for example
 		// by the sr_feuser_register extension, so it's better to check).
-		if ($this->image)
-		{
+		if ($this->image) {
 			t3lib_div::loadTCA('fe_users');
 			global $TCA;
 
 			$imageDirectoryName = $TCA['fe_users']['columns']['image']['config']['uploadfolder'];
-			$imageFilename = rtrim($imageDirectoryName, '/') . '/' . $this->image;
+			$imageFilename      = rtrim($imageDirectoryName, '/') . '/' . $this->image;
 
 			return file_exists($imageFilename) ? $imageFilename : NULL;
 		}
@@ -286,12 +257,10 @@ class Tx_MmForum_Domain_Model_User_FrontendUser
 		// gravatar using the official API (it's quite simple, actually: Just
 		// use the MD5 checksum of the user's email address in the gravatar URL
 		// and you're fine (http://de.gravatar.com/site/implement/images/).
-		if ($this->useGravatar)
-		{
-			$emailHash = md5(strtolower($this->email));
+		if ($this->useGravatar) {
+			$emailHash         = md5(strtolower($this->email));
 			$temporaryFilename = 'typo3temp/mm_forum/gravatar/' . $emailHash . '.jpg';
-			if (!file_exists(PATH_site . $temporaryFilename))
-			{
+			if (!file_exists(PATH_site . $temporaryFilename)) {
 				$image = t3lib_div::getUrl('https://secure.gravatar.com/avatar/' . $emailHash . '.jpg');
 				file_put_contents(PATH_site . $temporaryFilename, $image);
 			}
@@ -303,11 +272,18 @@ class Tx_MmForum_Domain_Model_User_FrontendUser
 
 
 
-	public function getContactData()
-	{
+	/**
+	 * Returns all this user's contact information. In order to keep this extensible and
+	 * not to add too many columns to the already overloaded fe_users table, these data is
+	 * stored in JSON serialized format in a single column.
+	 *
+	 * @return array All contact information for this user.
+	 */
+	public function getContactData() {
 		$decoded = json_decode($this->contact, TRUE);
-		if ($decoded === NULL)
+		if ($decoded === NULL) {
 			return array();
+		}
 		return $decoded;
 	}
 
@@ -320,123 +296,118 @@ class Tx_MmForum_Domain_Model_User_FrontendUser
 
 
 	/**
-	 *
 	 * Subscribes this user to a subscribeable object, like a topic or a forum.
 	 *
 	 * @param Tx_MmForum_Domain_Model_SubscribeableInterface $object
 	 *                             The object that is to be subscribed. This may
 	 *                             either be a topic or a forum.
 	 * @return void
-	 *
 	 */
-	public function addSubscription(Tx_MmForum_Domain_Model_SubscribeableInterface $object)
-	{
-		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Topic)
+	public function addSubscription(Tx_MmForum_Domain_Model_SubscribeableInterface $object) {
+		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Topic) {
 			$this->topicSubscriptions->attach($object);
-		elseif ($object instanceof Tx_MmForum_Domain_Model_Forum_Forum)
+		} elseif ($object instanceof Tx_MmForum_Domain_Model_Forum_Forum) {
 			$this->forumSubscriptions->attach($object);
+		}
 	}
 
 
 
 	/**
-	 *
 	 * Unsubscribes this user from a subscribeable object.
 	 *
 	 * @param Tx_MmForum_Domain_Model_SubscribeableInterface $object
 	 *                             The object that is to be unsubscribed.
 	 * @return void
-	 *
 	 */
-	public function removeSubscription(Tx_MmForum_Domain_Model_SubscribeableInterface $object)
-	{
-		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Topic)
+	public function removeSubscription(Tx_MmForum_Domain_Model_SubscribeableInterface $object) {
+		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Topic) {
 			$this->topicSubscriptions->detach($object);
-		elseif ($object instanceof Tx_MmForum_Domain_Model_Forum_Forum)
+		} elseif ($object instanceof Tx_MmForum_Domain_Model_Forum_Forum) {
 			$this->forumSubscriptions->detach($object);
+		}
 	}
 
 
 
 	/**
-	 *
 	 * Adds a readable object to the list of objects read by this user.
 	 *
 	 * @param  Tx_MmForum_Domain_Model_ReadableInterface $readObject
 	 *                             The object that is to be marked as read.
 	 * @return void
-	 *
 	 */
-	public function addReadObject(Tx_MmForum_Domain_Model_ReadableInterface $readObject)
-	{
-		if ($readObject instanceof Tx_MmForum_Domain_Model_Forum_Topic)
+	public function addReadObject(Tx_MmForum_Domain_Model_ReadableInterface $readObject) {
+		if ($readObject instanceof Tx_MmForum_Domain_Model_Forum_Topic) {
 			$this->readTopics->attach($readObject);
+		}
 	}
 
 
 
 	/**
-	 *
 	 * Removes a readable object from the list of objects read by this user.
 	 *
 	 * @param  Tx_MmForum_Domain_Model_ReadableInterface $readObject
 	 *                             The object that is to be marked as unread.
 	 * @return void
-	 *
 	 */
-	public function removeReadObject(Tx_MmForum_Domain_Model_ReadableInterface $readObject)
-	{
-		if ($readObject instanceof Tx_MmForum_Domain_Model_Forum_Topic)
+	public function removeReadObject(Tx_MmForum_Domain_Model_ReadableInterface $readObject) {
+		if ($readObject instanceof Tx_MmForum_Domain_Model_Forum_Topic) {
 			$this->readTopics->detach($readObject);
+		}
 	}
 
 
 
 	/**
-	 *
 	 * Decrease the user's post count.
 	 * @return void
-	 *
 	 */
-	public function decreasePostCount()
-	{
+	public function decreasePostCount() {
 		$this->postCount--;
 	}
 
 
 
 	/**
-	 *
 	 * Increase the user's post count.
-	 * @return void;
-	 *
+	 * @return void
 	 */
-	public function increasePostCount()
-	{
+	public function increasePostCount() {
 		$this->postCount++;
 	}
 
 
 
-	public function setContactData($values)
-	{
+	/**
+	 * Resets the whole contact data array of this user. This array will be stored in
+	 * a JSON serialized format.
+	 *
+	 * @param  array $values All contact data of this user.
+	 * @return void
+	 */
+	public function setContactData(array $values) {
 		$this->contact = json_encode($values);
 	}
 
 
 
-	public function setContactDataItem($type, $value)
-	{
+	/**
+	 * Sets a single contact data record. A contact data record can be unset by setting
+	 * it to a empty or FALSE value.
+	 *
+	 * @param  $type  The contact record key (e.g. "twitter", "facebook", "icq", ...)
+	 * @param  $value The new value. Set to a FALSE value to unset.
+	 * @return void
+	 */
+	public function setContactDataItem($type, $value) {
 		$contactData = $this->getContactData();
-		if (!$value)
-		{
-			if (array_key_exists($type, $contactData))
-			{
+		if (!$value) {
+			if (array_key_exists($type, $contactData)) {
 				unset($contactData[$type]);
 			}
-		}
-		else
-		{
+		} else {
 			$contactData[$type] = $value;
 		}
 

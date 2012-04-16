@@ -26,31 +26,24 @@
 
 
 /**
- *
- * ViewHelper that renders a big button.
+ * View that renders the result of a forum update action.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
  * @package    MmForum
- * @subpackage ViewHelpers_Control
+ * @subpackage View\Forum
  * @version    $Id: BigButtonViewHelper.php 52309 2011-09-20 18:54:26Z mhelmich $
  *
  * @copyright  2012 Martin Helmich <typo3@martin-helmich.de>
  *             http://www.martin-helmich.de
  * @license    GNU Public License, version 2
  *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class Tx_MmForum_View_Forum_UpdateJson
-	extends Tx_Extbase_MVC_View_AbstractView
-{
+class Tx_MmForum_View_Forum_UpdateJson extends Tx_Extbase_MVC_View_AbstractView {
 
 
 
-	public function render()
-	{
-		return serialize(array(
-			'success' => TRUE
-		));
+	public function render() {
+		return serialize(array('success' => TRUE));
 	}
 
 

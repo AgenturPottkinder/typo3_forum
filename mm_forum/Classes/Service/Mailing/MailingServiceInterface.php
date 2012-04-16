@@ -43,25 +43,28 @@
  *
  */
 
-interface Tx_MmForum_Service_Mailing_MailingServiceInterface
-{
+interface Tx_MmForum_Service_Mailing_MailingServiceInterface {
 
 
 
 	/**
-	 * @abstract
+	 * Sends a mail with a certain subject and bodytext to a recipient in form of a
+	 * frontend user.
 	 *
-	 * @param Tx_Extbase_Domain_Model_FrontendUser $recipient
-	 * @param                                      $subject
-	 * @param                                      $bodytext
-	 */public function sendMail(Tx_Extbase_Domain_Model_FrontendUser $recipient, $subject, $bodytext);
+	 * @param  Tx_Extbase_Domain_Model_FrontendUser $recipient The recipient of the mail. This is a plain frontend user.
+	 * @param  string                               $subject   The mail's subject.
+	 * @param  string                               $bodytext  The mail's bodytext.
+	 * @return void
+	 */
+	public function sendMail(Tx_Extbase_Domain_Model_FrontendUser $recipient, $subject, $bodytext);
 
 
 
 	/**
-	 * @abstract
-	 *
-	 */public function getFormat();
+	 * Gets the preferred format of this mailing service.
+	 * @return string The preferred format of this mailing service.
+	 */
+	public function getFormat();
 
 }
 

@@ -26,23 +26,27 @@
 
 
 
-	/**
-	 *
-	 * A frontend user group.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage Domain_Model_User
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
-	 */
+/**
+ *
+ * A frontend user group.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage Domain_Model_User
+ * @version    $Id$
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
 
-Class Tx_MmForum_Domain_Model_User_FrontendUserGroup Extends Tx_Extbase_Domain_Model_FrontendUserGroup {}
+class Tx_MmForum_Domain_Model_User_FrontendUserGroup extends Tx_Extbase_Domain_Model_FrontendUserGroup {
+
+
+
+}
 
 ?>

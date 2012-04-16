@@ -41,9 +41,7 @@
  *
  */
 
-abstract class Tx_MmForum_TextParser_Panel_AbstractPanel
-	implements Tx_MmForum_TextParser_Panel_PanelInterface
-{
+abstract class Tx_MmForum_TextParser_Panel_AbstractPanel implements Tx_MmForum_TextParser_Panel_PanelInterface {
 
 
 
@@ -57,8 +55,7 @@ abstract class Tx_MmForum_TextParser_Panel_AbstractPanel
 	/**
 	 * @param array $settings
 	 */
-	public function setSettings(array $settings)
-	{
+	public function setSettings(array $settings) {
 		$this->settings = $settings;
 	}
 

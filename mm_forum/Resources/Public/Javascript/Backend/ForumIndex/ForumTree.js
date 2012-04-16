@@ -88,18 +88,18 @@ MmForum.ForumIndex.ForumTree = Ext.extend(Ext.tree.TreePanel, {
 		config.loader = new Ext.tree.TreeLoader({
 			directFn: config.dataProvider.getTreeNode
 		});
-		config.bbar = new Ext.Toolbar({
-			plain    : true,
-			ddGroup  : this.ddGroup,
-			items    : [
-				{
-					text: 'New Forum (drag me!)'
-				}
-			],
-			listeners: {
-				render: this.createNewForumDragZone
-			}
-		});
+//		config.bbar = new Ext.Toolbar({
+//			plain    : true,
+//			ddGroup  : this.ddGroup,
+//			items    : [
+//				{
+//					text: 'New Forum (drag me!)'
+//				}
+//			],
+//			listeners: {
+//				render: this.createNewForumDragZone
+//			}
+//		});
 
 		MmForum.ForumIndex.ForumTree.superclass.constructor.call(this, config);
 
@@ -122,12 +122,9 @@ MmForum.ForumIndex.ForumTree = Ext.extend(Ext.tree.TreePanel, {
 
 		this.on('contextmenu', function (node, event)
 		{
-			if (node.id != 'forum-root')
-			{
-				node.select();
-				this.contextMenu.selectedNode = node;
-				this.contextMenu.showAt(event.getXY());
-			}
+			node.select();
+			this.contextMenu.setSelectedNode(node);
+			this.contextMenu.showAt(event.getXY());
 		}, this);
 
 		this.on('nodedrop', function (dropEvent)
@@ -145,38 +142,38 @@ MmForum.ForumIndex.ForumTree = Ext.extend(Ext.tree.TreePanel, {
 
 	},
 
-	createNewForumDragZone: function ()
-	{
-		this.dragZone = new Ext.dd.DragZone(this.getEl(), {
-			ddGroup    : this.ddGroup,
-			getDragData: function (event)
-			{
-				this.proxyElement = document.createElement('div');
-				var node = Ext.getCmp(event.getTarget('.x-btn').id);
-				node.shouldCreateNewNode = true;
-
-				return {
-					ddel: this.proxyElement,
-					item: node
-				}
-			},
-			onInitDrag : function ()
-			{
-//				this.topPanel.app.activeTree.dontSetOverClass = true;
-//				var clickedButton = this.dragData.item;
-//				var cls = clickedButton.initialConfig.iconCls;
-
-				this.proxyElement.shadow = false;
-				this.proxyElement.innerHTML = '<div class="x-dd-drag-ghost-pagetree">' +
-					'<span class="x-dd-drag-ghost-pagetree-icon tx-mmforum-icon-16-forum">&nbsp;</span>' +
-					'<span class="x-dd-drag-ghost-pagetree-text"> New Forum' + '' + '</span>' +
-					'</div>';
-
-				this.proxy.update(this.proxyElement);
-			}
-
-		});
-	},
+//	createNewForumDragZone: function ()
+//	{
+//		this.dragZone = new Ext.dd.DragZone(this.getEl(), {
+//			ddGroup    : this.ddGroup,
+//			getDragData: function (event)
+//			{
+//				this.proxyElement = document.createElement('div');
+//				var node = Ext.getCmp(event.getTarget('.x-btn').id);
+//				node.shouldCreateNewNode = true;
+//
+//				return {
+//					ddel: this.proxyElement,
+//					item: node
+//				}
+//			},
+//			onInitDrag : function ()
+//			{
+////				this.topPanel.app.activeTree.dontSetOverClass = true;
+////				var clickedButton = this.dragData.item;
+////				var cls = clickedButton.initialConfig.iconCls;
+//
+//				this.proxyElement.shadow = false;
+//				this.proxyElement.innerHTML = '<div class="x-dd-drag-ghost-pagetree">' +
+//					'<span class="x-dd-drag-ghost-pagetree-icon tx-mmforum-icon-16-forum">&nbsp;</span>' +
+//					'<span class="x-dd-drag-ghost-pagetree-text"> New Forum' + '' + '</span>' +
+//					'</div>';
+//
+//				this.proxy.update(this.proxyElement);
+//			}
+//
+//		});
+//	},
 
 	editForum: function (node)
 	{

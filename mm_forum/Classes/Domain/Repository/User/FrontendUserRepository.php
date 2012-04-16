@@ -43,8 +43,7 @@
  *
  */
 class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
-	extends Tx_Extbase_Domain_Repository_FrontendUserRepository
-{
+	extends Tx_Extbase_Domain_Repository_FrontendUserRepository {
 
 
 
@@ -57,8 +56,7 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 	 *                             no user is logged in.
 	 *
 	 */
-	public function findCurrent()
-	{
+	public function findCurrent() {
 		$currentUserUid = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
 		return $currentUserUid ? $this->findByUid($currentUserUid) : NULL;
 	}
@@ -80,8 +78,7 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The frontend user with the specified username.
 	 *
 	 */
-	public function findByUsername($username)
-	{
+	public function findByUsername($username) {
 		return $this->findOneByUsername($username);
 	}
 
@@ -95,8 +92,7 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 	 * @return Traversable<Tx_MmForum_Domain_Model_User_FrontendUser> All users.
 	 *
 	 */
-	public function findForIndex()
-	{
+	public function findForIndex() {
 		return $this->findAll();
 	}
 

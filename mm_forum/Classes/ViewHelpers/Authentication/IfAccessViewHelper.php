@@ -44,9 +44,7 @@
  *
  */
 
-Class Tx_MmForum_ViewHelpers_Authentication_IfAccessViewHelper
-	Extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper
-{
+Class Tx_MmForum_ViewHelpers_Authentication_IfAccessViewHelper Extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
 
 
@@ -67,8 +65,7 @@ Class Tx_MmForum_ViewHelpers_Authentication_IfAccessViewHelper
 	 *
 	 * @return void
 	 */
-	public function injectFrontendUserRepository(Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository)
-	{
+	public function injectFrontendUserRepository(Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository) {
 		$this->frontendUserRepository = $frontendUserRepository;
 	}
 
@@ -84,10 +81,9 @@ Class Tx_MmForum_ViewHelpers_Authentication_IfAccessViewHelper
 	 * @return string              The ViewHelper contents if the user has access to
 	 *                             the specified operation.
 	 */
-	Public Function render(Tx_MmForum_Domain_Model_AccessibleInterface $object, $accessType = 'read')
-	{
-		Return $object->_checkAccess($this->frontendUserRepository->findCurrent(), $accessType)
-			? $this->renderChildren() : '';
+	Public Function render(Tx_MmForum_Domain_Model_AccessibleInterface $object, $accessType = 'read') {
+		Return $object->_checkAccess($this->frontendUserRepository->findCurrent(),
+		                             $accessType) ? $this->renderChildren() : '';
 	}
 
 }

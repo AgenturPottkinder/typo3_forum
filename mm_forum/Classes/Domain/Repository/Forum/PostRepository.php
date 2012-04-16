@@ -42,9 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Repository_Forum_PostRepository
-	extends Tx_MmForum_Domain_Repository_AbstractRepository
-{
+class Tx_MmForum_Domain_Repository_Forum_PostRepository extends Tx_MmForum_Domain_Repository_AbstractRepository {
 
 
 
@@ -66,13 +64,10 @@ class Tx_MmForum_Domain_Repository_Forum_PostRepository
 	 *                               topic.
 	 *
 	 */
-	public function findForTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic)
-	{
+	public function findForTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
 		$query = $this->createQuery();
-		return $query
-			->matching($query->equals('topic', $topic))
-			->setOrderings(array('crdate' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING))
-			->execute();
+		return $query->matching($query->equals('topic', $topic))
+			->setOrderings(array('crdate' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING))->execute();
 	}
 
 
@@ -89,15 +84,11 @@ class Tx_MmForum_Domain_Repository_Forum_PostRepository
 	 *                             The last post of the specified topic.
 	 *
 	 */
-	public function findLastByTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic)
-	{
+	public function findLastByTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
 		$query = $this->createQuery();
-		return $query
-			->matching($query->equals('topic', $topic))
-			->setOrderings(Array('crdate' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING))
-			->setLimit(1)
-			->execute()
-			->getFirst();
+		return $query->matching($query->equals('topic', $topic))
+			->setOrderings(Array('crdate' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING))->setLimit(1)
+			->execute()->getFirst();
 	}
 
 
@@ -113,15 +104,10 @@ class Tx_MmForum_Domain_Repository_Forum_PostRepository
 	 *                             The last post of the specified forum.
 	 *
 	 */
-	public function findLastByForum(Tx_MmForum_Domain_Model_Forum_Forum $forum)
-	{
+	public function findLastByForum(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
 		$query = $this->createQuery();
-		return $query
-			->matching($query->equals('topic.forum', $forum))
-			->setOrderings(array('crdate' => 'DESC'))
-			->setLimit(1)
-			->execute()
-			->getFirst();
+		return $query->matching($query->equals('topic.forum', $forum))->setOrderings(array('crdate' => 'DESC'))
+			->setLimit(1)->execute()->getFirst();
 	}
 
 

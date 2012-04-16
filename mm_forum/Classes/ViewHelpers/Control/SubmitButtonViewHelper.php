@@ -26,24 +26,27 @@
 
 
 
-	/**
-	 *
-	 * ViewHelper that renders a big submit button.
-	 *
-	 * @author     Martin Helmich <m.helmich@mittwald.de>
-	 * @package    MmForum
-	 * @subpackage ViewHelpers_Control
-	 * @version    $Id$
-	 *
-	 * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
-	 *             Mittwald CM Service GmbH & Co. KG
-	 *             http://www.mittwald.de
-	 * @license    GNU Public License, version 2
-	 *             http://opensource.org/licenses/gpl-license.php
-	 *
-	 */
+/**
+ *
+ * ViewHelper that renders a big submit button.
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
+ * @subpackage ViewHelpers_Control
+ * @version    $Id$
+ *
+ * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
+ */
 
-class Tx_MmForum_ViewHelpers_Control_SubmitButtonViewHelper
-	extends Tx_Fluid_ViewHelpers_Form_SubmitViewHelper { }
+class Tx_MmForum_ViewHelpers_Control_SubmitButtonViewHelper extends Tx_Fluid_ViewHelpers_Form_SubmitViewHelper {
+
+
+
+}
 
 ?>

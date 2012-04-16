@@ -43,8 +43,7 @@
  *
  */
 
-Abstract Class Tx_MmForum_Service_AbstractService Implements t3lib_Singleton
-{
+Abstract Class Tx_MmForum_Service_AbstractService Implements t3lib_Singleton {
 
 
 
@@ -67,8 +66,7 @@ Abstract Class Tx_MmForum_Service_AbstractService Implements t3lib_Singleton
 	 *
 	 */
 
-	Public Function injectSettings($settings)
-	{
+	Public Function injectSettings($settings) {
 		$this->settings = $settings;
 	}
 

@@ -3,7 +3,7 @@
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -39,8 +39,7 @@
  *
  */
 
-class Tx_MmForum_Domain_Model_Forum_Attachment extends Tx_Extbase_DomainObject_AbstractEntity
-{
+class Tx_MmForum_Domain_Model_Forum_Attachment extends Tx_Extbase_DomainObject_AbstractEntity {
 
 
 
@@ -51,8 +50,7 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends Tx_Extbase_DomainObject_A
 
 
 	/**
-	 * The attachment file name
-	 *
+	 * The attachment file name.
 	 * @var string
 	 */
 	protected $filename;
@@ -60,8 +58,7 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends Tx_Extbase_DomainObject_A
 
 
 	/**
-	 * The MIME type of the attachment
-	 *
+	 * The MIME type of the attachment.
 	 * @var string
 	 */
 	protected $mimeType;
@@ -69,8 +66,7 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends Tx_Extbase_DomainObject_A
 
 
 	/**
-	 * A download counter
-	 *
+	 * A download counter.
 	 * @var integer
 	 */
 	protected $downloadCount;
@@ -84,28 +80,20 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends Tx_Extbase_DomainObject_A
 
 
 	/**
-	 *
-	 * Gets the attachment's filename
-	 *
-	 * @return string The attachment's filename
-	 *
+	 * Gets the attachment's filename.
+	 * @return string The attachment's filename.
 	 */
-	public function getFilename()
-	{
+	public function getFilename() {
 		return $this->filename;
 	}
 
 
 
 	/**
-	 *
-	 * Gets the absolute filename of this attachment
-	 *
-	 * @return string The absolute filename of this attachment
-	 *
+	 * Gets the absolute filename of this attachment.
+	 * @return string The absolute filename of this attachment.
 	 */
-	public function getAbsoluteFilename()
-	{
+	public function getAbsoluteFilename() {
 		global $TCA;
 		$GLOBALS['TSFE']->includeTCA();
 		t3lib_div::loadTCA('tx_mmforum_domain_model_forum_attachment');
@@ -117,42 +105,30 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends Tx_Extbase_DomainObject_A
 
 
 	/**
-	 *
 	 * Gets the filesize.
-	 *
-	 * @return integer The filesize
-	 *
+	 * @return integer The filesize.
 	 */
-	public function getFilesize()
-	{
+	public function getFilesize() {
 		return filesize($this->getAbsoluteFilename());
 	}
 
 
 
 	/**
-	 *
 	 * Gets the MIME type.
-	 *
-	 * @return string The MIME type
-	 *
+	 * @return string The MIME type.
 	 */
-	public function getMimeType()
-	{
+	public function getMimeType() {
 		return $this->mimeType;
 	}
 
 
 
 	/**
-	 *
 	 * Gets the download count.
-	 *
-	 * @return integer The download count
-	 *
+	 * @return integer The download count.
 	 */
-	public function getDownloadCount()
-	{
+	public function getDownloadCount() {
 		return $this->downloadCount;
 	}
 
@@ -165,46 +141,34 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends Tx_Extbase_DomainObject_A
 
 
 	/**
-	 *
 	 * Sets the filename.
 	 *
 	 * @param string $filename The filename
-	 *
 	 * @return void
-	 *
 	 */
-	public function setFilename($filename)
-	{
+	public function setFilename($filename) {
 		$this->filename = $filename;
 	}
 
 
 
 	/**
-	 *
 	 * Sets the MIME type.
 	 *
-	 * @param string $mimeType The MIME type
-	 *
+	 * @param string $mimeType The MIME type.
 	 * @return void
-	 *
 	 */
-	public function setMimeType($mimeType)
-	{
+	public function setMimeType($mimeType) {
 		$this->mimeType = $mimeType;
 	}
 
 
 
 	/**
-	 *
 	 * Increases the download counter by 1.
-	 *
 	 * @return void
-	 *
 	 */
-	public function increaseDownloadCount()
-	{
+	public function increaseDownloadCount() {
 		$this->downloadCount++;
 	}
 

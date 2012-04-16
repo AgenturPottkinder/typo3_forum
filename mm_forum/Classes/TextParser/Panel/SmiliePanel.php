@@ -41,9 +41,7 @@
  *
  */
 
-class Tx_MmForum_TextParser_Panel_SmiliePanel
-	extends Tx_MmForum_TextParser_Panel_AbstractPanel
-{
+class Tx_MmForum_TextParser_Panel_SmiliePanel extends Tx_MmForum_TextParser_Panel_AbstractPanel {
 
 
 
@@ -72,8 +70,7 @@ class Tx_MmForum_TextParser_Panel_SmiliePanel
 	 *
 	 * @return void
 	 */
-	public function injectSmilieRepository(Tx_MmForum_Domain_Repository_Format_SmilieRepository $smilieRepository)
-	{
+	public function injectSmilieRepository(Tx_MmForum_Domain_Repository_Format_SmilieRepository $smilieRepository) {
 		$this->smilieRepository = $smilieRepository;
 		$this->smilies          = $this->smilieRepository->findAll();
 	}
@@ -85,18 +82,16 @@ class Tx_MmForum_TextParser_Panel_SmiliePanel
 	 *
 	 * @return array
 	 */
-	public function getItems()
-	{
+	public function getItems() {
 		$result = array();
 
-		foreach ($this->smilies as $smilie)
+		foreach ($this->smilies as $smilie) {
 			$result[] = $smilie->exportForMarkItUp();
-		return array(array(
-			             'name'        => $this->settings['title'],
-			             'className'   => $this->settings['iconClassName'],
-			             'replaceWith' => $this->smilies[0]->getSmilieShortcut(),
-			             'dropMenu'    => $result
-		             ));
+		}
+		return array(array('name'        => $this->settings['title'],
+		                   'className'   => $this->settings['iconClassName'],
+		                   'replaceWith' => $this->smilies[0]->getSmilieShortcut(),
+		                   'dropMenu'    => $result));
 	}
 
 }
