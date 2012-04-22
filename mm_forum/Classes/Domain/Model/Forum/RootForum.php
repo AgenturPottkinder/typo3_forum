@@ -67,12 +67,15 @@ class Tx_MmForum_Domain_Model_Forum_RootForum extends Tx_MmForum_Domain_Model_Fo
 
 
 
+
+
 	public function checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'read') {
 		if ($accessType === 'read') {
 			return TRUE;
 		}
 
-		return TYPO3_MODE === 'BE';
+		return FALSE;
+		#return TYPO3_MODE === 'BE';
 	}
 
 

@@ -136,7 +136,7 @@ class Tx_MmForum_Controller_ForumControllerTest extends Tx_MmForum_Controller_Ab
 
 
 	public function testCreateActionCallsAddMethodOnRepository() {
-		$forum = $this->getMock('Tx_MmForum_Domain_Model_Forum_Forum');
+		$forum = $this->objectManager->create('Tx_MmForum_Domain_Model_Forum_Forum');
 		$this->forumRepositoryMock->expects($this->once())->method('add')
 			->with($this->isInstanceOf('Tx_MmForum_Domain_Model_Forum_Forum'));
 		$this->fixture->createAction($forum);

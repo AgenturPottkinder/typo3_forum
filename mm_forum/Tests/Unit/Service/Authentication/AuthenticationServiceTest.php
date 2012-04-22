@@ -64,7 +64,7 @@ class Tx_MmForum_Service_Authentication_AuthenticationServiceTest extends Tx_Ext
 		$this->group = new Tx_MmForum_Domain_Model_User_FrontendUserGroup('Users');
 		$this->user = new Tx_MmForum_Domain_Model_User_FrontendUser('martin', 'secret');
 		$this->user->addUsergroup($this->group);
-		$this->forum = new Tx_MmForum_Domain_Model_Forum_Forum('Forum', NULL);
+		$this->forum = $this->objectManager->create('Tx_MmForum_Domain_Model_Forum_Forum', 'Forum', NULL);
 
 		$this->userRepositoryMock = $this->getMock('Tx_MmForum_Domain_Repository_User_FrontendUserRepository');
 		$this->userRepositoryMock

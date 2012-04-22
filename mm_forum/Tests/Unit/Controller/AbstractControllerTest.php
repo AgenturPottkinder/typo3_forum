@@ -117,7 +117,13 @@ abstract class Tx_MmForum_Controller_AbstractControllerTest extends Tx_Extbase_T
 			foreach ($method->getParameters() as $parameter) {
 				/** @var $parameter ReflectionParameter */
 				if ($parameter->getClass() !== NULL) {
-					$parameters[] = $this->getMock($parameter->getClass()->getName());
+					if ($parameter->getClass()->getName() === 'Tx_MmForum_Domain_Model_Forum_Forum') {
+						$forum = new Tx_MmForum_Domain_Model_Forum_Forum();
+						$forum->injectObjectManager(t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager'));
+						$parameters[] = $forum;
+					} else {
+						$parameters[] = $this->getMock($parameter->getClass()->getName());
+					}
 				} elseif ($parameter->isArray() === TRUE) {
 					$parameters[] = array(1, 2, 3);
 				} else {

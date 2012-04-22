@@ -50,7 +50,7 @@ class Tx_MmForum_Domain_Model_Forum_TopicTest extends Tx_MmForum_Unit_BaseTestCa
 
 
 	public function setUp() {
-		$this->fixture = new Tx_MmForum_Domain_Model_Forum_Topic();
+		$this->fixture = $this->objectManager->create('Tx_MmForum_Domain_Model_Forum_Topic');
 	}
 
 
@@ -310,7 +310,8 @@ class Tx_MmForum_Domain_Model_Forum_TopicTest extends Tx_MmForum_Unit_BaseTestCa
 
 
 	public function testDeniesNewPostAccessOnClosedTopicsToRegularUsersWithAccess() {
-		$forum = new Tx_MmForum_Domain_Model_Forum_Forum();
+		/** @var $forum Tx_MmForum_Domain_Model_Forum_Forum */
+		$forum = $this->objectManager->create('Tx_MmForum_Domain_Model_Forum_Forum');
 		$forum->addAcl(new Tx_MmForum_Domain_Model_Forum_Access('newPost', Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN));
 		$user = new Tx_MmForum_Domain_Model_User_FrontendUser('martin');
 

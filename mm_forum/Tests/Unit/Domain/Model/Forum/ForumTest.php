@@ -463,8 +463,7 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 */
 	public function testDelegatesAccessCheckToParentIfNoAclsAreSet($operation = 'newTopic') {
 		$parent = $this->getMock('Tx_MmForum_Domain_Model_Forum_Forum');
-		$parent->expects($this->once())->method('checkAccess')->with(NULL, $operation)
-			->will($this->returnValue(FALSE));
+		$parent->expects($this->once())->method('checkAccess')->with(NULL, $operation)->will($this->returnValue(FALSE));
 		$this->fixture->setParent($parent);
 
 		$this->assertFalse($this->fixture->checkAccess(NULL, $operation));
@@ -569,13 +568,19 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 */
 	public function testDelegatesAccessCheckToParentIfNoAclMatches($operation = 'newTopic') {
 		$parent = $this->getMock('Tx_MmForum_Domain_Model_Forum_Forum');
-		$parent->expects($this->once())->method('checkAccess')->with(NULL, $operation)
-			->will($this->returnValue(FALSE));
+		$parent->expects($this->once())->method('checkAccess')->with(NULL, $operation)->will($this->returnValue(FALSE));
 
 		$this->fixture->addAcl(new Tx_MmForum_Domain_Model_Forum_Access('not_matching_operation', Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN));
 		$this->fixture->setParent($parent);
 
 		$this->assertFalse($this->fixture->checkAccess(NULL, $operation));
+	}
+
+
+
+	public function testGetParentReturnsVirtualRootForumIfNoneIsSet() {
+		$this->assertInstanceOf('Tx_MmForum_Domain_Model_Forum_RootForum', $this->fixture->getParent());
+		$this->assertInstanceOf('Tx_MmForum_Domain_Model_Forum_RootForum', $this->fixture->getForum());
 	}
 
 

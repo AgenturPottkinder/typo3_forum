@@ -166,16 +166,14 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 	/**
 	 * Constructor. Initializes all Tx_Extbase_Persistence_ObjectStorage instances.
 	 * @param string                               $title  The forum title.
-	 * @param \Tx_MmForum_Domain_Model_Forum_Forum $parent The parent forum.
 	 */
-	public function __construct($title = '', Tx_MmForum_Domain_Model_Forum_Forum $parent = NULL) {
+	public function __construct($title = '') {
 		$this->children    = new Tx_Extbase_Persistence_ObjectStorage();
 		$this->topics      = new Tx_Extbase_Persistence_ObjectStorage();
 		$this->acls        = new Tx_Extbase_Persistence_ObjectStorage();
 		$this->subscribers = new Tx_Extbase_Persistence_ObjectStorage();
 
 		$this->title = $title;
-		$this->forum = $parent;
 	}
 
 
@@ -440,11 +438,7 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 		// the access check to the parent forum. If there is no parent forum
 		// either, simply deny access (except for 'read' operations).
 		if (count($this->acls) === 0) {
-			if ($this->getParent() != NULL) {
-				return $this->getParent()->checkAccess($user, $accessType);
-			} else {
-				return $accessType === 'read';
-			}
+			return $this->getParent()->checkAccess($user, $accessType);
 		}
 
 		// Iterate over all access rules, until a matching rule is found
@@ -463,8 +457,7 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 			}
 
 		}
-		return $this->getParent() != NULL ? $this->getParent()
-			->checkAccess($user, $accessType) : $accessType === 'read';
+		return $this->getParent()->checkAccess($user, $accessType);
 	}
 
 
