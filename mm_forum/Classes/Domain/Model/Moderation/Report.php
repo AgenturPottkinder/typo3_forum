@@ -268,6 +268,7 @@ class Tx_MmForum_Domain_Model_Moderation_Report extends Tx_Extbase_DomainObject_
 	 * @return void
 	 */
 	public function addComment(Tx_MmForum_Domain_Model_Moderation_ReportComment $comment) {
+		$comment->setReport($this);
 		$this->comments->attach($comment);
 	}
 
@@ -280,7 +281,10 @@ class Tx_MmForum_Domain_Model_Moderation_Report extends Tx_Extbase_DomainObject_
 	 * @return void
 	 */
 	public function removeComment(Tx_MmForum_Domain_Model_Moderation_ReportComment $comment) {
-		$this->comments->detatch($comment);
+		if (count($this->comments) === 1) {
+			throw new Tx_MmForum_Domain_Exception_InvalidOperationException('You cannot delete the last remaining comment!', 1334687977);
+		}
+		$this->comments->detach($comment);
 	}
 
 

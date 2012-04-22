@@ -101,9 +101,10 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends Tx_Extbase
 	 * @param boolean $final   TRUE to mark this status as final status.
 	 */
 	public function __construct($name = NULL, $initial = NULL, $final = NULL) {
-		$this->name    = $name;
-		$this->initial = $initial;
-		$this->final   = $final;
+		$this->followupStatus = new Tx_Extbase_Persistence_ObjectStorage();
+		$this->name           = $name;
+		$this->initial        = $initial;
+		$this->final          = $final;
 	}
 
 
@@ -144,12 +145,7 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends Tx_Extbase
 	 *                             otherwise FALSE.
 	 */
 	public function hasFollowupStatus(Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $status) {
-		foreach ($this->followupStatus As $followupStatus) {
-			if ($followupStatus->getUid() == $status->getUid()) {
-				return TRUE;
-			}
-		}
-		return FALSE;
+		return $this->followupStatus->contains($status);
 	}
 
 
@@ -206,6 +202,22 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends Tx_Extbase
 		}
 
 		return file_exists(PATH_site . '/' . $imageFilename) ? $imageFilename : NULL;
+	}
+
+
+
+	/*
+	 * SETTERS
+	 */
+
+
+
+	/**
+	 * Adds an additional allowed followup status.
+	 * @param Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $followupStatus
+	 */
+	public function addAllowedFollowupStatus(Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $followupStatus) {
+		$this->followupStatus->attach($followupStatus);
 	}
 
 

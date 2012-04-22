@@ -102,13 +102,6 @@ class Tx_MmForum_Domain_Model_Forum_Access extends Tx_Extbase_DomainObject_Abstr
 
 
 	/**
-	 * The forum this ACL entry belongs to.
-	 * @var Tx_MmForum_Domain_Model_Forum_Forum
-	 */
-	protected $forum;
-
-
-	/**
 	 * The user group that is affected by this ACL entry. This property is only
 	 * relevant if $loginLevel == LOGIN_LEVEL_SPECIFIC.
 	 *
@@ -124,9 +117,8 @@ class Tx_MmForum_Domain_Model_Forum_Access extends Tx_Extbase_DomainObject_Abstr
 
 
 
-	public function __construct(Tx_MmForum_Domain_Model_Forum_Forum $forum = NULL, $operation = NULL, $level = NULL,
+	public function __construct($operation = NULL, $level = NULL,
 	                            Tx_MmForum_Domain_Model_User_FrontendUserGroup $group = NULL) {
-		$this->forum         = $forum;
 		$this->operation     = $operation;
 		$this->loginLevel    = $level;
 		$this->affectedGroup = $group;
@@ -171,16 +163,6 @@ class Tx_MmForum_Domain_Model_Forum_Access extends Tx_Extbase_DomainObject_Abstr
 
 
 	/**
-	 * Gets the forum for this entry.
-	 * @return Tx_MmForum_Domain_Model_Forum_Forum The forum for this entry.
-	 */
-	public function getForum() {
-		return $this->forum;
-	}
-
-
-
-	/**
 	 * Gets the group for this entry.
 	 * @return Tx_MmForum_Domain_Model_User_FrontendUserGroup group The group
 	 */
@@ -207,6 +189,35 @@ class Tx_MmForum_Domain_Model_Forum_Access extends Tx_Extbase_DomainObject_Abstr
 	 */
 	public function isAnyLogin() {
 		return $this->loginLevel == Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN;
+	}
+
+
+
+	/**
+	 * Matches a certain user against this access rule.
+	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 *                                 The user to be matched. Can also be NULL (for anonymous
+	 *                                 users).
+	 * @return bool                    TRUE if this access rule matches the given user, otherwise
+	 *                                 FALSE. This result may be negated using the "negate" property.
+	 */
+	public function matches(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
+		$result = FALSE;
+		if ($this->loginLevel === self::LOGIN_LEVEL_EVERYONE) {
+			$result = TRUE;
+		}
+
+		if ($this->loginLevel === self::LOGIN_LEVEL_ANYLOGIN && $user !== NULL) {
+			$result = TRUE;
+		}
+
+		if ($this->loginLevel === self::LOGIN_LEVEL_SPECIFIC && $user !== NULL && $user->getUsergroup()
+			->contains($this->affectedGroup)
+		) {
+			$result = TRUE;
+		}
+
+		return $result;
 	}
 
 

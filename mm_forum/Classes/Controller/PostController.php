@@ -41,6 +41,7 @@
  *             http://www.mittwald.de
  * @license    GNU public License, version 2
  *             http://opensource.org/licenses/gpl-license.php
+ *
  */
 class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_AbstractController {
 
@@ -54,7 +55,6 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 
 	/**
 	 * A forum repository.
-	 *
 	 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
 	 */
 	protected $forumRepository;
@@ -63,7 +63,6 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 
 	/**
 	 * A topic repository.
-	 *
 	 * @var Tx_MmForum_Domain_Repository_Forum_TopicRepository
 	 */
 	protected $topicRepository;
@@ -72,7 +71,6 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 
 	/**
 	 * A post repository.
-	 *
 	 * @var Tx_MmForum_Domain_Repository_Forum_PostRepository
 	 */
 	protected $postRepository;
@@ -81,7 +79,6 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 
 	/**
 	 * A post factory.
-	 *
 	 * @var Tx_MmForum_Domain_Factory_Forum_PostFactory
 	 */
 	protected $postFactory;
@@ -89,71 +86,27 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 
 
 	/*
-	  * DEPENDENCY INJECTORS
-	  */
+	 * DEPENDENCY INJECTORS
+	 */
 
 
 
 	/**
+	 * Constructor. Used primarily for dependency injection.
 	 *
-	 * Injects an instance of the forum repository.
-	 *
-	 * @param  Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository
-	 *                             An instance of the forum repository
-	 *
-	 * @return void
-	 *
+	 * @param Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository
+	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository
+	 * @param Tx_MmForum_Domain_Repository_Forum_PostRepository  $postRepository
+	 * @param Tx_MmForum_Domain_Factory_Forum_PostFactory        $postFactory
 	 */
-	public function injectForumRepository(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository) {
+	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
+	                            Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
+	                            Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository,
+	                            Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory) {
 		$this->forumRepository = $forumRepository;
-	}
-
-
-
-	/**
-	 *
-	 * Injects an instance of the topic repository.
-	 *
-	 * @param  Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository
-	 *                             An instance of the topic repository.
-	 *
-	 * @return void
-	 *
-	 */
-	public function injectTopicRepository(Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository) {
 		$this->topicRepository = $topicRepository;
-	}
-
-
-
-	/**
-	 *
-	 * Injects an instance of the post repository.
-	 *
-	 * @param  Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository
-	 *                             An instance of the post repository.
-	 *
-	 * @return void
-	 *
-	 */
-	public function injectPostRepository(Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository) {
-		$this->postRepository = $postRepository;
-	}
-
-
-
-	/**
-	 *
-	 * Injects an instance of the post factory.
-	 *
-	 * @param  Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory
-	 *                             An instance of the post factory.
-	 *
-	 * @return void
-	 *
-	 */
-	public function injectPostFactory(Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory) {
-		$this->postFactory = $postFactory;
+		$this->postRepository  = $postRepository;
+		$this->postFactory     = $postFactory;
 	}
 
 
@@ -165,21 +118,18 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 
 
 	/**
-	 *
 	 * Show action for a single post. The method simply redirects the user to the
 	 * topic that contains the requested post.
 	 *
 	 * @param Tx_MmForum_Domain_Model_Forum_Post $post The post
-	 *
 	 * @return void
-	 *
 	 */
 	public function showAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
 		// Assert authentication
 		$this->authenticationService->assertReadAuthorization($post);
 
 		// Determine the page number of the requested post.
-		$posts     = & $post->getTopic()->getPosts();
+		$posts     = $post->getTopic()->getPosts();
 		$postCount = count($posts);
 		for ($postNumber = 0; $postNumber < $postCount; $postNumber++) {
 			if ($posts[$postNumber] == $post) {
@@ -198,21 +148,15 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 
 
 	/**
-	 *
 	 * Displays the form for creating a new post.
 	 *
 	 * @dontvalidate $post
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Topic $topic
-	 *                             The topic in which the new post is to be created.
-	 * @param  Tx_MmForum_Domain_Model_Forum_Post  $post
-	 *                             The new post.
-	 * @param  Tx_MmForum_Domain_Model_Forum_Post  $quote
-	 *                             An optional post that will be quoted within the
-	 *                             bodytext of the new post.
-	 *
+	 * @param  Tx_MmForum_Domain_Model_Forum_Topic $topic The topic in which the new post is to be created.
+	 * @param  Tx_MmForum_Domain_Model_Forum_Post  $post  The new post.
+	 * @param  Tx_MmForum_Domain_Model_Forum_Post  $quote An optional post that will be quoted within the
+	 *                                                    bodytext of the new post.
 	 * @return void
-	 *
 	 */
 	public function newAction(Tx_MmForum_Domain_Model_Forum_Topic $topic,
 	                          Tx_MmForum_Domain_Model_Forum_Post $post = NULL,
@@ -234,18 +178,12 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 
 
 	/**
-	 *
 	 * Creates a new post.
-	 *
 	 * TODO: Needs to be able to handle attachments. But we will not implement this until Extbase itself has a decent file upload handling!
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic
-	 *                             The topic in which the new post is to be created.
-	 * @param Tx_MmForum_Domain_Model_Forum_Post  $post
-	 *                             The new post.
-	 *
+	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic The topic in which the new post is to be created.
+	 * @param Tx_MmForum_Domain_Model_Forum_Post  $post  The new post.
 	 * @return void
-	 *
 	 */
 	public function createAction(Tx_MmForum_Domain_Model_Forum_Topic $topic, Tx_MmForum_Domain_Model_Forum_Post $post) {
 		// Assert authorization
@@ -268,16 +206,11 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 
 
 	/**
-	 *
 	 * Displays a form for editing a post.
 	 *
 	 * @dontvalidate $post
-	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
-	 *                             The post that is to be edited.
-	 *
+	 * @param Tx_MmForum_Domain_Model_Forum_Post $post The post that is to be edited.
 	 * @return void
-	 *
 	 */
 	public function editAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
 		$this->authenticationService->assertEditPostAuthorization($post);
@@ -287,20 +220,16 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 
 
 	/**
-	 *
 	 * Updates a post.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
-	 *                             The post that is to be updated.
-	 *
+	 * @param Tx_MmForum_Domain_Model_Forum_Post $post The post that is to be updated.
 	 * @return void
-	 *
 	 */
 	public function updateAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
 		$this->authenticationService->assertEditPostAuthorization($post);
 		$this->postRepository->update($post);
 
-		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Post', 'postUpdate',
+		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Post', 'postUpdated',
 		                                      array('post' => $post));
 		$this->flashMessageContainer->add(Tx_MmForum_Utility_Localization::translate('Post_Update_Success'));
 		$this->redirect('show', 'Topic', NULL, array('topic' => $post->getTopic()));
@@ -309,15 +238,11 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 
 
 	/**
-	 *
 	 * Displays a confirmation screen in which the user is prompted if a post
 	 * should really be deleted.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
-	 *                                 The post that is to be deleted.
-	 *
+	 * @param Tx_MmForum_Domain_Model_Forum_Post $post The post that is to be deleted.
 	 * @return void
-	 *
 	 */
 	public function confirmDeleteAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
 		$this->authenticationService->assertDeletePostAuthorization($post);
@@ -327,14 +252,10 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 
 
 	/**
-	 *
 	 * Deletes a post.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
-	 *                             The post that is to be deleted.
-	 *
+	 * @param Tx_MmForum_Domain_Model_Forum_Post $post The post that is to be deleted.
 	 * @return void
-	 *
 	 */
 	public function deleteAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
 		// Assert authorization
@@ -362,11 +283,8 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 
 
 	/**
-	 *
 	 * Displays a preview of a rendered post text.
-	 *
 	 * @param string $text The content.
-	 *
 	 */
 	public function previewAction($text) {
 		$this->view->assign('text', $text);

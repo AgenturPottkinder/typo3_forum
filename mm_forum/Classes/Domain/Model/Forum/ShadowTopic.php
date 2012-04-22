@@ -83,7 +83,7 @@ class Tx_MmForum_Domain_Model_Forum_ShadowTopic extends Tx_MmForum_Domain_Model_
 	 *
 	 * @return boolean TRUE, if the user can create new posts. Always FALSE.
 	 */
-	public function _checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'read') {
+	public function checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'read') {
 		if ($accessType === 'newPost') {
 			return FALSE;
 		} else {

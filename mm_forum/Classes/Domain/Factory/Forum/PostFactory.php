@@ -32,7 +32,7 @@
  *
  * @author        Martin Helmich <m.helmich@mittwald.de>
  * @package       MmForum
- * @subpackage    Controller
+ * @subpackage    Domain\Factory\Forum
  * @version       $Id$
  *
  * @copyright     2012 Martin Helmich <m.helmich@mittwald.de>
@@ -49,13 +49,6 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory extends Tx_MmForum_Domain_Fact
 	/*
 	 * ATTRIBUTES
 	 */
-
-
-	/**
-	 * The post repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_PostRepository
-	 */
-	protected $postRepository = NULL;
 
 
 
@@ -78,15 +71,6 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory extends Tx_MmForum_Domain_Fact
 	/*
 	 * DEPENDENCY INJECTORS
 	 */
-
-
-
-	/**
-	 * @param Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository
-	 */
-	public function injectPostRepository(Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository) {
-		$this->postRepository = $postRepository;
-	}
 
 
 

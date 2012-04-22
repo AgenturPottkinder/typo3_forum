@@ -1,6 +1,6 @@
 <?php
 
-/*                                                                    - *
+/*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
  *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
@@ -58,13 +58,11 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 	protected $title;
 
 
-
 	/**
 	 * A description for the forum
 	 * @var string
 	 */
 	protected $description;
-
 
 
 	/**
@@ -73,7 +71,6 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 	 * @lazy
 	 */
 	protected $children;
-
 
 
 	/**
@@ -85,14 +82,12 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 	protected $visibleChildren = NULL;
 
 
-
 	/**
 	 * The topics in this forum.
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Topic>
 	 * @lazy
 	 */
 	protected $topics;
-
 
 
 	/**
@@ -102,7 +97,6 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 	protected $topicCount;
 
 
-
 	/**
 	 * The amount of post in this forum.
 	 * @var int
@@ -110,13 +104,11 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 	protected $postCount;
 
 
-
 	/**
 	 * All access rules.
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Access>
 	 */
 	protected $acls;
-
 
 
 	/**
@@ -127,14 +119,12 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 	protected $lastTopic;
 
 
-
 	/**
 	 * The last post.
 	 * @var Tx_MmForum_Domain_Model_Forum_Post
 	 * @lazy
 	 */
 	protected $lastPost;
-
 
 
 	/**
@@ -144,21 +134,12 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 	protected $forum;
 
 
-
 	/**
 	 * All subscribers of this forum.
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser>
 	 * @lazy
 	 */
 	protected $subscribers;
-
-
-
-	/**
-	 * @var bool
-	 */
-	private $_modifiedParent = FALSE;
-
 
 
 	/**
@@ -302,6 +283,7 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 		$lastTopic = $this->lastTopic;
 		foreach ($this->getChildren() as $child) {
 			/** @var $child Tx_MmForum_Domain_Model_Forum_Forum */
+			/** @noinspection PhpUndefinedMethodInspection */
 			if ($lastTopic === NULL || ($child->getLastTopic() !== NULL && $child->getLastTopic()->getLastPost()
 				->getTimestamp() > $lastTopic->getLastPost()->getTimestamp())
 			) {
@@ -337,6 +319,9 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 	 * @return Tx_MmForum_Domain_Model_Forum_Forum The parent forum
 	 */
 	public function getForum() {
+		if ($this->forum == NULL) {
+			return $this->objectManager->get('Tx_MmForum_Domain_Model_Forum_RootForum');
+		}
 		return $this->forum;
 	}
 
@@ -452,14 +437,14 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 	 * @return boolean             TRUE, if the user has access to the requested
 	 *                             operation, otherwise FALSE.
 	 */
-	public function _checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'read') {
+	public function checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'read') {
 
 		// If there aren't any access rules defined for this forum, delegate
 		// the access check to the parent forum. If there is no parent forum
 		// either, simply deny access (except for 'read' operations).
 		if (count($this->acls) === 0) {
 			if ($this->getParent() != NULL) {
-				return $this->getParent()->_checkAccess($user, $accessType);
+				return $this->getParent()->checkAccess($user, $accessType);
 			} else {
 				return $accessType === 'read';
 			}
@@ -476,16 +461,13 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 				continue;
 			}
 
-			if ($acl->isEveryone() || ($user !== NULL && (($acl->getGroup() !== NULL && $user->isInGroup($acl->getGroup())) || $acl->isAnyLogin()))) {
-				if ($acl->isNegated()) {
-					return FALSE;
-				} else {
-					$found = TRUE;
-				}
+			if ($acl->matches($user)) {
+				return !$acl->isNegated();
 			}
+
 		}
-		return $found ? TRUE : ($this->getParent() != NULL ? $this->getParent()
-			->_checkAccess($user, $accessType) : $accessType === 'read');
+		return $this->getParent() != NULL ? $this->getParent()
+			->checkAccess($user, $accessType) : $accessType === 'read';
 	}
 
 
@@ -498,7 +480,7 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 	 * @return boolean             TRUE if the user has read access, otherwise FALSE.
 	 */
 	public function checkReadAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
-		return $this->_checkAccess($user, 'read');
+		return $this->checkAccess($user, 'read');
 	}
 
 
@@ -511,7 +493,7 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 	 * @return boolean             TRUE if the user has access, otherwise FALSE.
 	 */
 	public function checkNewPostAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
-		return $this->_checkAccess($user, 'newPost');
+		return $this->checkAccess($user, 'newPost');
 	}
 
 
@@ -524,7 +506,7 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 	 * @return boolean             TRUE if the user has access, otherwise FALSE.
 	 */
 	public function checkNewTopicAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
-		return $this->_checkAccess($user, 'newTopic');
+		return $this->checkAccess($user, 'newTopic');
 	}
 
 
@@ -540,7 +522,7 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 		if ($user === NULL) {
 			return FALSE;
 		}
-		return $this->_checkAccess($user, 'moderate');
+		return $this->checkAccess($user, 'moderate');
 	}
 
 
@@ -635,8 +617,6 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 		$topic->setForum($this);
 		$this->topics->attach($topic);
 		$this->_resetCounters();
-		//		$this->_increaseTopicCount(+1);
-		//		$this->_increasePostCount($topic->getPostCount());
 	}
 
 
@@ -650,16 +630,11 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 	public function removeTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
 		$this->topics->detach($topic);
 		$this->_resetCounters();
-//		$this->_increaseTopicCount(-1);
-//		$this->_increasePostCount(-$topic->getPostCount());
 
 		if ($this->lastTopic === $topic) {
 			$this->_resetLastTopic();
 			$this->_resetLastPost();
 		}
-		//		if ($this->lastPost->getTopic() === $topic) {
-		//			$this->setLastPost($this->lastTopic->getLastPost());
-		//		}
 	}
 
 
@@ -707,16 +682,7 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 	 * @return void
 	 */
 	protected function setLastTopic(Tx_MmForum_Domain_Model_Forum_Topic $lastTopic) {
-//		$this->lastTopic = NULL;
-//		$this->_memorizePropertyCleanState('lastTopic');
 		$this->lastTopic = $lastTopic;
-
-//		if ($this->getParent() && ($this->getParent()->getLastTopic() === NULL || $this->getParent()->getLastTopic()
-//			->getTimestamp() < $lastTopic->getTimestamp())
-//		) {
-//			$this->getParent()->setLastTopic($lastTopic);
-//			$this->_modifiedParent = TRUE;
-//		}
 	}
 
 
@@ -727,17 +693,8 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 	 * @param Tx_MmForum_Domain_Model_Forum_Post $lastPost The last post.
 	 * @return void
 	 */
-	protected function setLastPost(Tx_MmForum_Domain_Model_Forum_Post $lastPost) {
-//		$this->lastPost = NULL;
-//		$this->_memorizePropertyCleanState('lastPost');
+	public function setLastPost(Tx_MmForum_Domain_Model_Forum_Post $lastPost) {
 		$this->lastPost = $lastPost;
-
-//		if ($this->getParent() && ($this->getParent()->getLastPost() === NULL || $this->getParent()->getLastPost()
-//			->getTimestamp() < $lastPost->getTimestamp())
-//		) {
-//			$this->getParent()->setLastPost($lastPost);
-//			$this->_modifiedParent = TRUE;
-//		}
 	}
 
 
@@ -784,14 +741,6 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 		}
 
 		$this->lastPost = $lastPost;
-		//		if ($lastPost !== NULL) {
-		//			$this->setLastPost($lastPost);
-		//		} else {
-		//			$this->lastPost = NULL;
-		//			if ($this->getParent() !== NULL) {
-		//				$this->getParent()->_resetLastPost();
-		//			}
-		//		}
 	}
 
 
@@ -815,14 +764,6 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 		}
 
 		$this->lastTopic = $lastTopic;
-		//		if ($lastTopic !== NULL) {
-		//			$this->setLastTopic($lastTopic);
-		//		} else {
-		//			$this->lastTopic = NULL;
-		//			if ($this->getParent() !== NULL) {
-		//				$this->getParent()->_resetLastTopic();
-		//			}
-		//		}
 	}
 
 
@@ -840,10 +781,6 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 	 */
 	public function _increasePostCount($amount = 1) {
 		$this->postCount += $amount;
-		//		if ($this->getParent()) {
-		//			$this->getParent()->_increasePostCount($amount);
-		//			$this->_modifiedParent = TRUE;
-		//		}
 	}
 
 
@@ -860,10 +797,6 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 	 */
 	public function _increaseTopicCount($amount = 1) {
 		$this->topicCount += $amount;
-		//		if ($this->getParent()) {
-		//			$this->getParent()->_increaseTopicCount($amount);
-		//			$this->_modifiedParent = TRUE;
-		//		}
 	}
 
 
@@ -875,10 +808,6 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 	public function _resetCounters() {
 		$this->_resetTopicCount();
 		$this->_resetPostCount();
-		//
-		//		if ($this->getParent() !== NULL) {
-		//			$this->getParent()->_resetCounters();
-		//		}
 	}
 
 
@@ -889,17 +818,10 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 	 */
 	public function _resetPostCount() {
 		$this->postCount = 0;
-		//		foreach ($this->children as $child) {
-		//			/** @var $child Tx_MmForum_Domain_Model_Forum_Forum */
-		//			$this->postCount += $child->getPostCount();
-		//		}
 		foreach ($this->topics as $topic) {
 			/** @var $topic Tx_MmForum_Domain_Model_Forum_Topic */
 			$this->postCount += $topic->getPostCount();
 		}
-		//		if ($this->getParent() !== NULL) {
-		//			$this->getParent()->_resetPostCount();
-		//		}
 	}
 
 
@@ -910,13 +832,6 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 	 */
 	public function _resetTopicCount() {
 		$this->topicCount = count($this->topics);
-		//		foreach ($this->children as $child) {
-		//			/** @var $child Tx_MmForum_Domain_Model_Forum_Forum */
-		//			$this->topicCount += $child->getPostCount();
-		//		}
-		//		if ($this->getParent() !== NULL) {
-		//			$this->getParent()->_resetTopicCount();
-		//		}
 	}
 
 

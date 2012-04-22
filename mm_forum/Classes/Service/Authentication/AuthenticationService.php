@@ -277,7 +277,7 @@ class Tx_MmForum_Service_Authentication_AuthenticationService extends Tx_MmForum
 		if ($this->cache->has($cacheIdentifier)) {
 			$value = $this->cache->get($cacheIdentifier);
 		} else {
-			$this->cache->set($cacheIdentifier, $value = $object->_checkAccess($this->getUser(), $action));
+			$this->cache->set($cacheIdentifier, $value = $object->checkAccess($this->getUser(), $action));
 		}
 		return $value;
 	}

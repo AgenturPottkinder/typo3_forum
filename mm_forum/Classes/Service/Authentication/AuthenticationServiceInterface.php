@@ -48,8 +48,6 @@ interface Tx_MmForum_Service_Authentication_AuthenticationServiceInterface {
 
 
 	/**
-	 * @abstract
-	 *
 	 * @param Tx_MmForum_Domain_Model_AccessibleInterface $object
 	 */
 	public function assertReadAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object);
@@ -57,8 +55,6 @@ interface Tx_MmForum_Service_Authentication_AuthenticationServiceInterface {
 
 
 	/**
-	 * @abstract
-	 *
 	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
 	 */
 	public function assertNewTopicAuthorization(Tx_MmForum_Domain_Model_Forum_Forum $forum);
@@ -66,8 +62,6 @@ interface Tx_MmForum_Service_Authentication_AuthenticationServiceInterface {
 
 
 	/**
-	 * @abstract
-	 *
 	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic
 	 */
 	public function assertNewPostAuthorization(Tx_MmForum_Domain_Model_Forum_Topic $topic);
@@ -75,8 +69,6 @@ interface Tx_MmForum_Service_Authentication_AuthenticationServiceInterface {
 
 
 	/**
-	 * @abstract
-	 *
 	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
 	 */
 	public function assertEditPostAuthorization(Tx_MmForum_Domain_Model_Forum_Post $post);
@@ -84,8 +76,6 @@ interface Tx_MmForum_Service_Authentication_AuthenticationServiceInterface {
 
 
 	/**
-	 * @abstract
-	 *
 	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
 	 */
 	public function assertDeletePostAuthorization(Tx_MmForum_Domain_Model_Forum_Post $post);
@@ -93,8 +83,6 @@ interface Tx_MmForum_Service_Authentication_AuthenticationServiceInterface {
 
 
 	/**
-	 * @abstract
-	 *
 	 * @param Tx_MmForum_Domain_Model_AccessibleInterface $object
 	 */
 	public function assertModerationAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object);
@@ -102,8 +90,6 @@ interface Tx_MmForum_Service_Authentication_AuthenticationServiceInterface {
 
 
 	/**
-	 * @abstract
-	 *
 	 * @param Tx_MmForum_Domain_Model_AccessibleInterface $object
 	 */
 	public function assertAdministrationAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object);
@@ -111,8 +97,14 @@ interface Tx_MmForum_Service_Authentication_AuthenticationServiceInterface {
 
 
 	/**
-	 * @abstract
-	 *
+	 * @param Tx_MmForum_Domain_Model_AccessibleInterface $object
+	 * @param                                             $action
+	 */
+	public function assertAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object, $action);
+
+
+
+	/**
 	 * @param Tx_MmForum_Domain_Model_AccessibleInterface $object
 	 * @param                                             $action
 	 */

@@ -53,43 +53,34 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 
 	/**
 	 * The topic repository.
-	 *
 	 * @var Tx_MmForum_Domain_Repository_Forum_TopicRepository
 	 */
 	protected $topicRepository;
 
 
-
 	/**
 	 * The forum repository.
-	 *
 	 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
 	 */
 	protected $forumRepository;
 
 
-
 	/**
 	 * The post repository.
-	 *
 	 * @var Tx_MmForum_Domain_Repository_Forum_PostRepository
 	 */
 	protected $postRepository;
 
 
-
 	/**
 	 * A factory class for creating topics.
-	 *
 	 * @var Tx_MmForum_Domain_Factory_Forum_TopicFactory
 	 */
 	protected $topicFactory;
 
 
-
 	/**
 	 * A factory class for creating posts.
-	 *
 	 * @var Tx_MmForum_Domain_Factory_Forum_PostFactory
 	 */
 	protected $postFactory;

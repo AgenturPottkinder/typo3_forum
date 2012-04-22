@@ -239,14 +239,13 @@ class Tx_MmForum_Domain_Model_Forum_Post extends Tx_Extbase_DomainObject_Abstrac
 	 * @param  string                                    $accessType
 	 * @return boolean
 	 */
-	public function _checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'read') {
+	public function checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'read') {
 		switch ($accessType) {
 			case 'editPost':
-				return $this->checkEditPostAccess($user);
 			case 'deletePost':
-				return $this->checkDeletePostAccess($user);
+				return $this->checkEditOrDeletePostAccess($user, $accessType);
 			default:
-				return $this->topic->_checkAccess($user, $accessType);
+				return $this->topic->checkAccess($user, $accessType);
 		}
 	}
 
@@ -264,54 +263,24 @@ class Tx_MmForum_Domain_Model_Forum_Post extends Tx_Extbase_DomainObject_Abstrac
 	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
 	 *                             The user for which the authenication is to be
 	 *                             checked.
-	 *
+	 * @param                                           $operation
 	 * @return boolean             TRUE, if the user is allowed to edit this post,
 	 *                             otherwise FALSE.
 	 */
-	public function checkEditPostAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
+	public function checkEditOrDeletePostAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $operation) {
 
 		if ($user === NULL) {
 			return FALSE;
 		} else {
-			if ($this->getForum()->checkModerationAccess($user)
-			) {
+			if ($this->getForum()->checkModerationAccess($user)) {
 				return TRUE;
 			}
 
-			if ($user->getUid() === $this->getAuthor()->getUid() && $this === $this->getTopic()->getLastPost() && $this
-				->getTopic()->_checkAccess($user, 'editPost')
-			) {
-				return TRUE;
-			}
-		}
+			$currentUserIsAuthor   = ($user === $this->getAuthor());
+			$postIsLastPostInTopic = ($this === $this->getTopic()->getLastPost());
+			$topicGrantsAccess     = $this->getTopic()->checkAccess($user, $operation);
 
-		return FALSE;
-	}
-
-
-
-	/**
-	 * Determines if a user may delete this post. For deleting posts, the same
-	 * conditions apply as for editing posts (see above).
-	 *
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 *                             The user for which the authenication is to be
-	 *                             checked.
-	 * @return boolean             TRUE, if the user is allowed to delete this post,
-	 *                             otherwise FALSE.
-	 */
-	public function checkDeletePostAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
-		if ($user === NULL) {
-			return FALSE;
-		} else {
-			if ($this->getForum()->checkModerationAccess($user)
-			) {
-				return TRUE;
-			}
-
-			if ($user === $this->getAuthor() && $this === $this->getTopic()->getLastPost() && $this->getTopic()
-				->_checkAccess($user, 'deletePost')
-			) {
+			if ($currentUserIsAuthor && $postIsLastPostInTopic && $topicGrantsAccess) {
 				return TRUE;
 			}
 		}

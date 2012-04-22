@@ -175,4 +175,16 @@ class Tx_MmForum_Domain_Model_Moderation_ReportComment extends Tx_Extbase_Domain
 
 
 
+	/**
+	 * Sets the comment's report.
+	 *
+	 * @param Tx_MmForum_Domain_Model_Moderation_Report $report
+	 * @return void
+	 */
+	public function setReport(Tx_MmForum_Domain_Model_Moderation_Report $report) {
+		$this->report = $report;
+	}
+
+
+
 }

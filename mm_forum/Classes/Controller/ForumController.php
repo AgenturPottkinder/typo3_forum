@@ -65,6 +65,12 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 	protected $topicRepository;
 
 
+	/**
+	 * @var Tx_MmForum_Domain_Model_Forum_RootForum
+	 */
+	protected $rootForum;
+
+
 
 	/*
 	  * DEPENDENCY INJECTION METHODS
@@ -80,10 +86,12 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository An instance of the topic repository.
 	 */
 	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
-	                            Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository) {
+	                            Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
+	                            Tx_MmForum_Domain_Model_Forum_RootForum $rootForum) {
 		parent::__construct();
 		$this->forumRepository = $forumRepository;
 		$this->topicRepository = $topicRepository;
+		$this->rootForum       = $rootForum;
 	}
 
 
@@ -98,6 +106,7 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 	 * @return void
 	 */
 	public function indexAction() {
+		$this->authenticationService->assertReadAuthorization($this->rootForum);
 		$forums = $this->forumRepository->findForIndex();
 		$this->view->assign('forums', $forums);
 	}
@@ -147,11 +156,7 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 	 * @dontverifyrequesthash
 	 */
 	public function createAction(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
-		if ($forum->getParent() !== NULL) {
-			$this->authenticationService->assertAdministrationAuthorization($forum->getParent());
-		} /** @noinspection PhpUndefinedConstantInspection */ elseif (TYPO3_MODE !== 'BE') {
-			throw new Tx_MmForum_Domain_Exception_Authentication_NoAccessException("You are not authorized to perform this action!", 1284709852);
-		}
+		$this->authenticationService->assertAdministrationAuthorization($forum->getParent());
 
 		$this->forumRepository->add($forum);
 

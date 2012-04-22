@@ -165,7 +165,7 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends Tx_Extbase_DomainObject_Abstra
 	 *
 	 * @var boolean
 	 */
-	private $_modifiedParent = FALSE;
+//	private $_modifiedParent = FALSE;
 
 
 
@@ -182,6 +182,7 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends Tx_Extbase_DomainObject_Abstra
 	public function __construct($subject = '') {
 		$this->posts       = new Tx_Extbase_Persistence_ObjectStorage();
 		$this->subscribers = new Tx_Extbase_Persistence_ObjectStorage();
+		$this->readers     = new Tx_Extbase_Persistence_ObjectStorage();
 		$this->crdate      = new DateTime();
 		$this->subject     = $subject;
 	}
@@ -232,7 +233,7 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends Tx_Extbase_DomainObject_Abstra
 	 */
 	public function getDescription() {
 		/** @noinspection PhpUndefinedMethodInspection */
-		return $this->posts[0]->getText();
+		return $this->posts->current()->getText();
 	}
 
 
@@ -375,13 +376,14 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends Tx_Extbase_DomainObject_Abstra
 	 * @param  string                                    $accessType The access type to be checked.
 	 * @return boolean
 	 */
-	public function _checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'read') {
-
+	public function checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'read') {
 		switch ($accessType) {
 			case 'newPost':
 				return $this->checkNewPostAccess($user);
+			case 'moderate':
+				return $this->checkModerationAccess($user);
 			default:
-				return $this->forum->_checkAccess($user, $accessType);
+				return $this->forum->checkAccess($user, $accessType);
 		}
 	}
 
@@ -394,7 +396,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends Tx_Extbase_DomainObject_Abstra
 	 * @return boolean
 	 */
 	public function checkNewPostAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
-
 		if ($user === NULL) {
 			return FALSE;
 		}
@@ -423,13 +424,13 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends Tx_Extbase_DomainObject_Abstra
 	 * @param  mixed $currentValue
 	 * @return boolean
 	 */
-	protected function isPropertyDirty($previousValue, $currentValue) {
-		if ($currentValue instanceof Tx_MmForum_Domain_Model_Forum_Forum) {
-			return $this->_modifiedParent;
-		} else {
-			return parent::isPropertyDirty($previousValue, $currentValue);
-		}
-	}
+//	protected function isPropertyDirty($previousValue, $currentValue) {
+//		if ($currentValue instanceof Tx_MmForum_Domain_Model_Forum_Forum) {
+//			return $this->_modifiedParent;
+//		} else {
+//			return parent::isPropertyDirty($previousValue, $currentValue);
+//		}
+//	}
 
 
 
@@ -452,15 +453,21 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends Tx_Extbase_DomainObject_Abstra
 		$this->postCount++;
 		$this->removeAllReaders();
 
-		if ($this->forum !== NULL) {
-			$this->forum->_increasePostCount(+1);
-			$this->_modifiedParent = TRUE;
-		}
+		//		if ($this->forum !== NULL) {
+		//			$this->_modifiedParent = TRUE;
+		//		}
 
+		// If the added posts is the first post or has a newer timestamp than the
+		// latest post in this topic, mark then new post at the latest post in this
+		// topic.
 		if ($this->lastPost === NULL || $this->lastPost->getTimestamp() < $post->getTimestamp()) {
 			$this->setLastPost($post);
 		}
+
+		// Increase the parent's forum post counter by one and mark the new post as
+		// the forums latest post if necessary.
 		if ($this->forum !== NULL) {
+			$this->forum->_increasePostCount(+1);
 			if ($this->forum->getLastPost() === NULL || $this->forum->getLastPost()
 				->getTimestamp() < $post->getTimestamp()
 			) {
@@ -478,20 +485,26 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends Tx_Extbase_DomainObject_Abstra
 	 * @return void
 	 */
 	public function removePost(Tx_MmForum_Domain_Model_Forum_Post $post) {
+		if ($this->postCount === 1) {
+			throw new Tx_MmForum_Domain_Exception_InvalidOperationException('You cannot delete the last post of a topic without deleting the topic itself (use Tx_MmForum_Domain_Factory_Forum_TopicFactory::deleteTopic for that).', 1334603895);
+		}
+
 		$this->posts->detach($post);
 		$this->postCount--;
 
-		$this->forum->_increasePostCount(-1);
-		$this->_modifiedParent = TRUE;
-
-		if ($this->lastPost->getUid() === $post->getUid()) {
+		if ($this->lastPost == $post) {
 			$postsArray = $this->posts->toArray();
 			$this->setLastPost(array_pop($postsArray));
 		}
 
-		if ($this->forum->getLastPost() === $post) {
-			$this->forum->_resetLastPost();
+		if ($this->forum !== NULL) {
+			$this->forum->_increasePostCount(-1);
+			if ($this->forum->getLastPost() === $post) {
+				$this->forum->_resetLastPost();
+			}
+			//		    $this->_modifiedParent = TRUE;
 		}
+
 	}
 
 
