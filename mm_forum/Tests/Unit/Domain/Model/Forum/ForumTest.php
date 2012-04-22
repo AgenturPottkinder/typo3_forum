@@ -419,7 +419,7 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 
 
 	public function testAddAclAddsAcl() {
-		$acl = new Tx_MmForum_Domain_Model_Forum_Access(NULL, 'newTopic', Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN);
+		$acl = new Tx_MmForum_Domain_Model_Forum_Access('newTopic', Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN);
 		$this->fixture->addAcl($acl);
 
 		$this->assertContainsOnly($acl, $this->fixture->getAcls());
@@ -431,7 +431,7 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @depends testAddAclAddsAcl
 	 */
 	public function testRemoveAclRemovesAcl() {
-		$acl = new Tx_MmForum_Domain_Model_Forum_Access(NULL, 'newTopic', Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN);
+		$acl = new Tx_MmForum_Domain_Model_Forum_Access('newTopic', Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN);
 		$this->fixture->addAcl($acl);
 		$this->fixture->removeAcl($acl);
 
@@ -442,7 +442,7 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 
 
 	public function testGrantsReadAccessForRootForumsWithoutAcls() {
-		$this->assertTrue($this->fixture->_checkAccess(NULL, 'read'));
+		$this->assertTrue($this->fixture->checkAccess(NULL, 'read'));
 	}
 
 
@@ -452,7 +452,7 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @param string $operation
 	 */
 	public function testDeniesNonreadAccessForRootForumsWithoutAcls($operation = 'newTopic') {
-		$this->assertFalse($this->fixture->_checkAccess(NULL, $operation));
+		$this->assertFalse($this->fixture->checkAccess(NULL, $operation));
 	}
 
 
@@ -463,11 +463,11 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 */
 	public function testDelegatesAccessCheckToParentIfNoAclsAreSet($operation = 'newTopic') {
 		$parent = $this->getMock('Tx_MmForum_Domain_Model_Forum_Forum');
-		$parent->expects($this->once())->method('_checkAccess')->with(NULL, $operation)
+		$parent->expects($this->once())->method('checkAccess')->with(NULL, $operation)
 			->will($this->returnValue(FALSE));
 		$this->fixture->setParent($parent);
 
-		$this->assertFalse($this->fixture->_checkAccess(NULL, $operation));
+		$this->assertFalse($this->fixture->checkAccess(NULL, $operation));
 	}
 
 
@@ -478,8 +478,8 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @param string $operation
 	 */
 	public function testGrantsAccessToEveryoneIfGrantingAclIsFound($operation = 'newTopic') {
-		$this->fixture->addAcl(new Tx_MmForum_Domain_Model_Forum_Access(NULL, $operation, Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_EVERYONE));
-		$this->assertTrue($this->fixture->_checkAccess(NULL, $operation));
+		$this->fixture->addAcl(new Tx_MmForum_Domain_Model_Forum_Access($operation, Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_EVERYONE));
+		$this->assertTrue($this->fixture->checkAccess(NULL, $operation));
 	}
 
 
@@ -490,10 +490,10 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @param string $operation
 	 */
 	public function testDeniesAccessToEveryoneIfDenyingAclIsFound($operation = 'newTopic') {
-		$acl = new Tx_MmForum_Domain_Model_Forum_Access(NULL, $operation, Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_EVERYONE);
+		$acl = new Tx_MmForum_Domain_Model_Forum_Access($operation, Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_EVERYONE);
 		$acl->setNegated(TRUE);
 		$this->fixture->addAcl($acl);
-		$this->assertFalse($this->fixture->_checkAccess(NULL, $operation));
+		$this->assertFalse($this->fixture->checkAccess(NULL, $operation));
 	}
 
 
@@ -504,8 +504,8 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @param string $operation
 	 */
 	public function testGrantsAccessToAnyLoginIfGrantingAclForAnyLoginIsFound($operation = 'newTopic') {
-		$this->fixture->addAcl(new Tx_MmForum_Domain_Model_Forum_Access(NULL, $operation, Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN));
-		$this->assertTrue($this->fixture->_checkAccess($this->createUser(), $operation));
+		$this->fixture->addAcl(new Tx_MmForum_Domain_Model_Forum_Access($operation, Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN));
+		$this->assertTrue($this->fixture->checkAccess($this->createUser(), $operation));
 	}
 
 
@@ -516,8 +516,8 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @param string $operation
 	 */
 	public function testDeniesAccessToAnonymousIfGrantingAclForAnyLoginIsFound($operation = 'newTopic') {
-		$this->fixture->addAcl(new Tx_MmForum_Domain_Model_Forum_Access(NULL, $operation, Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN));
-		$this->assertFalse($this->fixture->_checkAccess(NULL, $operation));
+		$this->fixture->addAcl(new Tx_MmForum_Domain_Model_Forum_Access($operation, Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN));
+		$this->assertFalse($this->fixture->checkAccess(NULL, $operation));
 	}
 
 
@@ -530,8 +530,8 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	public function testGrantsAccessToMemberIfGrantingAclForGroupIsFound($operation = 'newTopic') {
 		$user = $this->createUser();
 		$user->addUsergroup($group = new Tx_MmForum_Domain_Model_User_FrontendUserGroup('GROUP'));
-		$this->fixture->addAcl(new Tx_MmForum_Domain_Model_Forum_Access(NULL, $operation, Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_SPECIFIC, $group));
-		$this->assertTrue($this->fixture->_checkAccess($user, $operation));
+		$this->fixture->addAcl(new Tx_MmForum_Domain_Model_Forum_Access($operation, Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_SPECIFIC, $group));
+		$this->assertTrue($this->fixture->checkAccess($user, $operation));
 	}
 
 
@@ -544,8 +544,8 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	public function testDeniesAccessToAnyLoginIfGrantingAclForGroupIsFound($operation = 'newTopic') {
 		$user  = $this->createUser();
 		$group = new Tx_MmForum_Domain_Model_User_FrontendUserGroup('GROUP');
-		$this->fixture->addAcl(new Tx_MmForum_Domain_Model_Forum_Access(NULL, $operation, Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_SPECIFIC, $group));
-		$this->assertFalse($this->fixture->_checkAccess($user, $operation));
+		$this->fixture->addAcl(new Tx_MmForum_Domain_Model_Forum_Access($operation, Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_SPECIFIC, $group));
+		$this->assertFalse($this->fixture->checkAccess($user, $operation));
 	}
 
 
@@ -556,8 +556,8 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @param string $operation
 	 */
 	public function testDeniesNonreadAccessForRootForumsWithoutMatchingAcl($operation = 'newTopic') {
-		$this->fixture->addAcl(new Tx_MmForum_Domain_Model_Forum_Access(NULL, 'not_matching_operation', Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN));
-		$this->assertFalse($this->fixture->_checkAccess($this->createUser(), $operation));
+		$this->fixture->addAcl(new Tx_MmForum_Domain_Model_Forum_Access('not_matching_operation', Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN));
+		$this->assertFalse($this->fixture->checkAccess($this->createUser(), $operation));
 	}
 
 
@@ -569,13 +569,13 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 */
 	public function testDelegatesAccessCheckToParentIfNoAclMatches($operation = 'newTopic') {
 		$parent = $this->getMock('Tx_MmForum_Domain_Model_Forum_Forum');
-		$parent->expects($this->once())->method('_checkAccess')->with(NULL, $operation)
+		$parent->expects($this->once())->method('checkAccess')->with(NULL, $operation)
 			->will($this->returnValue(FALSE));
 
-		$this->fixture->addAcl(new Tx_MmForum_Domain_Model_Forum_Access(NULL, 'not_matching_operation', Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN));
+		$this->fixture->addAcl(new Tx_MmForum_Domain_Model_Forum_Access('not_matching_operation', Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN));
 		$this->fixture->setParent($parent);
 
-		$this->assertFalse($this->fixture->_checkAccess(NULL, $operation));
+		$this->assertFalse($this->fixture->checkAccess(NULL, $operation));
 	}
 
 

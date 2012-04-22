@@ -99,6 +99,36 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactoryTest extends Tx_Extbase_Tests_U
 	/**
 	 * @test
 	 */
+	public function postIsAssignedToCurrentUserWhenNoUserSpecified() {
+		$post = new Tx_MmForum_Domain_Model_Forum_Post('Content');
+		$user = $this->getMock('Tx_MmForum_Domain_Model_User_FrontendUser');
+		$user->expects($this->once())->method('increasePostCount');
+		$this->userRepositoryMock->expects($this->any())->method('findCurrent')->will($this->returnValue($user));
+		$this->userRepositoryMock->expects($this->once())->method('update')
+			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_MmForum_Domain_Model_User_FrontendUser'));
+
+		$this->fixture->assignUserToPost($post);
+
+		$this->assertTrue($post->getAuthor() == $user);
+	}
+
+
+
+	/**
+	 * @test
+	 * @expectedException Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 */
+	public function exceptionIsThrownWhenAssigningPostToNullUser() {
+		$post = new Tx_MmForum_Domain_Model_Forum_Post('Content');
+		$this->userRepositoryMock->expects($this->any())->method('findCurrent')->will($this->returnValue(NULL));
+		$this->fixture->assignUserToPost($post);
+	}
+
+
+
+	/**
+	 * @test
+	 */
 	public function userPostCountsAreDecreasedAndIncreasedWhenPostIsReassigned() {
 		$newUser = $this->getMock('Tx_MmForum_Domain_Model_User_FrontendUser');
 		$newUser->expects($this->once())->method('increasePostCount');

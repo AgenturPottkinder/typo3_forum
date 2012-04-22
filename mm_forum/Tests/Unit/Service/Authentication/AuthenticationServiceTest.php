@@ -91,7 +91,7 @@ class Tx_MmForum_Service_Authentication_AuthenticationServiceTest extends Tx_Ext
 	 * @param $operation
 	 */
 	public function authorizationIsGrantedOnAccessForLoggedInUser($operation) {
-		$acl = new Tx_MmForum_Domain_Model_Forum_Access($this->forum, $operation, Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_SPECIFIC, $this->group);
+		$acl = new Tx_MmForum_Domain_Model_Forum_Access($operation, Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_SPECIFIC, $this->group);
 		$this->forum->addAcl($acl);
 
 		$this->assertTrue($this->fixture->checkAuthorization($this->forum, $operation));
@@ -131,7 +131,7 @@ class Tx_MmForum_Service_Authentication_AuthenticationServiceTest extends Tx_Ext
 	 * @param $operation
 	 */
 	public function authorizationIsDeniedOnDeniedAccessForLoggedInUser($operation) {
-		$acl = new Tx_MmForum_Domain_Model_Forum_Access($this->forum, $operation, Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_SPECIFIC, $this->group);
+		$acl = new Tx_MmForum_Domain_Model_Forum_Access($operation, Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_SPECIFIC, $this->group);
 		$acl->setNegated(TRUE);
 		$this->forum->addAcl($acl);
 
