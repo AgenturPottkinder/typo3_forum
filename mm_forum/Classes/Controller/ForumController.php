@@ -156,7 +156,11 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 	 * @dontverifyrequesthash
 	 */
 	public function createAction(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
-		$this->authenticationService->assertAdministrationAuthorization($forum->getParent());
+		if ($forum->getParent() !== NULL) {
+			$this->authenticationService->assertAdministrationAuthorization($forum->getParent());
+		} elseif (TYPO3_MODE !== 'BE') {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NoAccessException('This operation is allowed only from the TYPO3 backend.');
+		}
 
 		$this->forumRepository->add($forum);
 
