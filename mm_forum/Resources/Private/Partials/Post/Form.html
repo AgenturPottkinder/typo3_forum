@@ -14,7 +14,7 @@
 		</legend>
         <f:if condition="{currentUser.anonymous}">
             <f:then>
-                <b:form.row llLabel="Post_New_Author" error="post.authorName">
+                <b:form.row llLabel="Post_New_Author" error="post.authorName" errorLLPrefix="Post_New_Error_Author">
                     <f:form.textfield property="authorName" class="span8" />
                 </b:form.row>
             </f:then>

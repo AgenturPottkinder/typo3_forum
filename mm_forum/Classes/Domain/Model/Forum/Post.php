@@ -86,6 +86,7 @@ class Tx_MmForum_Domain_Model_Forum_Post extends Tx_Extbase_DomainObject_Abstrac
 	/**
 	 * The author's username. Necessary for anonymous postings.
 	 * @var string
+	 * @validate Tx_MmForum_Domain_Validator_Forum_AuthorNameValidator
 	 */
 	protected $authorName = '';
 

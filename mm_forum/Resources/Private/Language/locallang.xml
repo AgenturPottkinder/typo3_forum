@@ -49,6 +49,7 @@
 			<label index="Post_New">Reply to: %s</label>
 			<label index="Post_New_Attachments">Attachments</label>
 			<label index="Post_New_Author">Your name</label>
+			<label index="Post_New_Error_Author_1335106565">Please specify your name or log in with your user account.</label>
 			<label index="Post_New_Error_Text_1221560718">Please specify a content for the new post.</label>
 			<label index="Post_New_Submit">Create post</label>
 			<label index="Post_New_Text">Post text</label>
@@ -131,6 +132,7 @@
 			<label index="Error_Exception_Title">Hoppla!</label>
 			<label index="Error_Form_Body">Bei der Verarbeitung Ihrer Eingaben sind einige Fehler aufgetreten. Bitte Ã¼berprÃ¼fen Sie Ihre Eingaben.</label>
 			<label index="Post_New_Author">Ihr Name</label>
+			<label index="Post_New_Error_Author_1335106565">Bitte geben Sie Ihren Namen an oder melden Sie sich mit Ihrem Benutzerkonto an.</label>
 		</languageKey>
 		<languageKey index="el"></languageKey>
 		<languageKey index="eo"></languageKey>
