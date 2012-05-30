@@ -14,6 +14,13 @@
     <f:form name="post" object="{post}" controller="Topic" action="create" id="topic" class="form-horizontal">
         <fieldset>
             <legend>Create a new topic</legend>
+            <f:if condition="{currentUser.anonymous}">
+                <f:then>
+                    <b:form.row llLabel="Post_New_Author" error="post.authorName" errorLLPrefix="Post_New_Error_Author">
+                        <f:form.textfield property="authorName" class="span8" />
+                    </b:form.row>
+                </f:then>
+            </f:if>
             <b:form.row llLabel="Topic_New_Subject" error="subject" errorLLPrefix="Topic_New_Error_Subject">
                 <f:form.textfield name="subject" value="{subject}" class="span8"/>
             </b:form.row>
