@@ -317,6 +317,9 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 	 * @return Tx_MmForum_Domain_Model_Forum_Forum The parent forum
 	 */
 	public function getForum() {
+		if ($this->forum == NULL) {
+			return $this->objectManager->get('Tx_MmForum_Domain_Model_Forum_RootForum');
+		}
 		return $this->forum;
 	}
 
