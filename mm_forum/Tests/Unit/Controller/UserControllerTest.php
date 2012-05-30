@@ -85,6 +85,17 @@ class Tx_MmForum_Controller_UserControllerTest extends Tx_MmForum_Controller_Abs
 
 
 
+	/**
+	 * @expectedException Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 */
+	public function testListPostsActionThrowsExceptionWhenNoUserIsSpecifiedAndNoUserIsLoggedIn() {
+		$this->userRepositoryMock->expects($this->any())->method('findCurrent')
+			->will($this->returnValue(new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser()));
+		$this->fixture->listPostsAction();
+	}
+
+
+
 	public function getActionsThatRequireALoggedInUser() {
 		return array(array('subscribeAction',
 		                   $this->getMockParametersForActionMethod(new ReflectionMethod($this->fixtureClassName, 'subscribeAction'))),

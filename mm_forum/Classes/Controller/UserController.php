@@ -111,15 +111,16 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 
 
 	/**
+	 * Lists all posts of a specific user. If no user is specified, this action lists all
+	 * posts of the current user.
 	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 *
 	 * @return void
 	 */
 	public function listPostsAction(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
 		if ($user === NULL) {
 			$user = $this->getCurrentUser();
 		}
-		if ($user === NULL) {
+		if ($user->isAnonymous()) {
 			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
 		}
 		$this->view->assign('topics', $this->topicRepository->findByPostAuthor($user))->assign('user', $user);
@@ -130,9 +131,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	/**
 	 * Displays a single user.
 	 *
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 *                             The user whose profile is to be displayed.
-	 *
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user The user whose profile is to be displayed.
 	 * @return void
 	 */
 	public function showAction(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
