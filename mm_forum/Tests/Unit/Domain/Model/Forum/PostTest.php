@@ -113,6 +113,27 @@ class Tx_MmForum_Domain_Model_Forum_PostTest extends Tx_MmForum_Unit_BaseTestCas
 
 
 
+	public function testGetAuthorReturnsAnonymousUserIfNoAuthorIsSet() {
+		$this->assertInstanceOf('Tx_MmForum_Domain_Model_User_AnonymousFrontendUser', $this->fixture->getAuthor());
+	}
+
+
+
+	public function testGetAuthorNameReturnsNameOfAnonymousUserIfNoAuthorIsSet() {
+		$this->fixture->setAuthorName('martin');
+		$this->assertEquals('martin', $this->fixture->getAuthorName());
+	}
+
+
+
+	public function testGetAuthorNameReturnsNameOfUserIsAuthorIsSet() {
+		$this->fixture->setAuthor(new Tx_MmForum_Domain_Model_User_FrontendUser('martin'));
+		$this->fixture->setAuthorName('horst');
+		$this->assertEquals('martin', $this->fixture->getAuthorName());
+	}
+
+
+
 	/**
 	 * @dataProvider getPostDeleteAndEditAccessRightsCombinations
 	 * @param $operation

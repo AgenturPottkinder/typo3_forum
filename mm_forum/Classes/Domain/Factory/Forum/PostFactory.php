@@ -151,7 +151,7 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory extends Tx_MmForum_Domain_Fact
 		}
 
 		// If the post's author is already set, decrease this user's post count.
-		if ($post->getAuthor() !== NULL) {
+		if (!$post->getAuthor()->isAnonymous()) {
 			$post->getAuthor()->decreasePostCount();
 			$this->frontendUserRepository->update($post->getAuthor());
 		}

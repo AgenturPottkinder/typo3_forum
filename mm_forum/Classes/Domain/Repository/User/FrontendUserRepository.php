@@ -48,13 +48,11 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 
 
 	/**
-	 *
 	 * Finds the user that is currently logged in, or NULL if no user is logged in.
 	 *
 	 * @return Tx_MmForum_Domain_Model_User_FrontendUser
 	 *                             The user that is currently logged in, or NULL if
 	 *                             no user is logged in.
-	 *
 	 */
 	public function findCurrent() {
 		$currentUserUid = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
@@ -64,7 +62,16 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 
 
 	/**
-	 *
+	 * Returns an anonymous frontend user.
+	 * @return Tx_MmForum_Domain_Model_User_AnonymousFrontendUser An anonymous frontend user.
+	 */
+	public function findAnonymous() {
+		return new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
+	}
+
+
+
+	/**
 	 * Finds a user by his/her username. Please note that in difference to the usual
 	 * findBy* methods, this method does NOT return an array of values, but instead
 	 * a single user object, or NULL. This behaviour is due to the fact that
@@ -74,9 +81,7 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 	 * Technically, this method is just an alias for "findOneByUsername".
 	 *
 	 * @param  string $username                          The username.
-	 *
 	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The frontend user with the specified username.
-	 *
 	 */
 	public function findByUsername($username) {
 		return $this->findOneByUsername($username);
@@ -85,12 +90,10 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 
 
 	/**
-	 *
 	 * Finds users for the user index view. Sorting and page navigation to be
 	 * handled in controller/view.
 	 *
-	 * @return Traversable<Tx_MmForum_Domain_Model_User_FrontendUser> All users.
-	 *
+	 * @return Tx_MmForum_Domain_Model_User_FrontendUser[] All users.
 	 */
 	public function findForIndex() {
 		return $this->findAll();
