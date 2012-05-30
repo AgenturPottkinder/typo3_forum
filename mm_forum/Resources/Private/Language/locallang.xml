@@ -99,6 +99,9 @@
 			<label index="User_Index_Posts">Posts</label>
 			<label index="User_Index_Username">Username</label>
 			<label index="User_ListPosts">All posts of %s</label>
+			<label index="User_ListSubscriptions">Subscribed Forums and Topics</label>
+			<label index="User_ListSubscriptions_Goto">Go to</label>
+			<label index="User_ListSubscriptions_Unsubscribe">Unsubscribe</label>
 			<label index="User_Show">User details</label>
 			<label index="User_Show_LastPosts">Last posts</label>
 			<label index="User_Show_MemberSince">Member since</label>
@@ -136,6 +139,9 @@
 			<label index="Error_Form_Body">Bei der Verarbeitung Ihrer Eingaben sind einige Fehler aufgetreten. Bitte Ã¼berprÃ¼fen Sie Ihre Eingaben.</label>
 			<label index="Post_New_Author">Ihr Name</label>
 			<label index="Post_New_Error_Author_1335106565">Bitte geben Sie Ihren Namen an oder melden Sie sich mit Ihrem Benutzerkonto an.</label>
+			<label index="User_ListSubscriptions">Abonnierte Foren und Themen</label>
+			<label index="User_ListSubscriptions_Goto">Gehe zu</label>
+			<label index="User_ListSubscriptions_Unsubscribe">Entfernen</label>
 		</languageKey>
 		<languageKey index="el"></languageKey>
 		<languageKey index="eo"></languageKey>
