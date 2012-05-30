@@ -101,12 +101,21 @@ class Tx_MmForum_Controller_TopicControllerTest extends Tx_MmForum_Controller_Ab
 
 
 
-	public function testShowActionAddsTopicToUsersReadTopics() {
+	public function testShowActionAddsTopicToUsersReadTopicsIfUserIsLoggedIn() {
 		$this->userRepositoryMock->expects($this->any())->method('findCurrent')
 			->will($this->returnValue($user = $this->getMock('Tx_MmForum_Domain_Model_User_FrontendUser')));
 		$this->userRepositoryMock->expects($this->atLeastOnce())->method('update');
 		$user->expects($this->once())->method('addReadObject')
 			->with($this->isInstanceOf('Tx_MmForum_Domain_Model_Forum_Topic'));
+		$this->fixture->showAction($topic = $this->getMock('Tx_MmForum_Domain_Model_Forum_Topic'));
+	}
+
+
+
+	public function testShowActionDoesNotAddTopicToUsersReadTopicsIfNoUserIsLoggedIn() {
+		$this->userRepositoryMock->expects($this->any())->method('findCurrent')
+			->will($this->returnValue($user = new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser()));
+		$this->userRepositoryMock->expects($this->never())->method('update');
 		$this->fixture->showAction($topic = $this->getMock('Tx_MmForum_Domain_Model_Forum_Topic'));
 	}
 
@@ -118,6 +127,16 @@ class Tx_MmForum_Controller_TopicControllerTest extends Tx_MmForum_Controller_Ab
 		$this->assertTrue($this->viewMock->containsKeyValuePair('forum', $forum));
 		$this->assertTrue($this->viewMock->containsKeyValuePair('post', $post));
 		$this->assertTrue($this->viewMock->containsKeyValuePair('subject', 'Foo'));
+	}
+
+
+
+	public function testNewActionAssignsCurrentUserToView() {
+		$this->userRepositoryMock->expects($this->any())->method('findCurrent')
+			->will($this->returnValue($user = $this->getMock('Tx_MmForum_Domain_Model_User_FrontendUser')));
+		$this->fixture->newAction($forum = $this->getMock('Tx_MmForum_Domain_Model_Forum_Forum'),
+		                          $post = $this->getMock('Tx_MmForum_Domain_Model_Forum_Post'), 'Foo');
+		$this->assertViewContains('currentUser', $user);
 	}
 
 

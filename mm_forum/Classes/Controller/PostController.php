@@ -171,8 +171,8 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 		}
 
 		// Display view
-		$this->view->assignMultiple(array('topic' => $topic,
-		                                 'post'   => $post));
+		$this->view->assign('topic', $topic)->assign('post', $post)
+			->assign('currentUser', $this->frontendUserRepository->findCurrent());
 	}
 
 

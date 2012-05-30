@@ -153,7 +153,8 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	public function newAction(Tx_MmForum_Domain_Model_Forum_Forum $forum,
 	                          Tx_MmForum_Domain_Model_Forum_Post $post = NULL, $subject = NULL) {
 		$this->authenticationService->assertNewTopicAuthorization($forum);
-		$this->view->assign('forum', $forum)->assign('post', $post)->assign('subject', $subject);
+		$this->view->assign('forum', $forum)->assign('post', $post)->assign('subject', $subject)
+			->assign('currentUser', $this->frontendUserRepository->findCurrent());
 	}
 
 
@@ -207,7 +208,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 */
 	protected function markTopicRead(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
 		$currentUser = $this->getCurrentUser();
-		if ($currentUser === NULL) {
+		if ($currentUser === NULL || $currentUser->isAnonymous()) {
 			return;
 		} else {
 			$currentUser->addReadObject($topic);

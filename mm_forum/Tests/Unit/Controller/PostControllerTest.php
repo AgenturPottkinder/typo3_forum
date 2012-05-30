@@ -104,6 +104,15 @@ class Tx_MmForum_Controller_PostControllerTest extends Tx_MmForum_Controller_Abs
 
 
 
+	public function testNewActionAssignsCurrentUserToView() {
+		$this->userRepositoryMock->expects($this->any())->method('findCurrent')
+			->will($this->returnValue($user = $this->getMock('Tx_MmForum_Domain_Model_User_FrontendUser')));
+		$this->fixture->newAction($this->getMock('Tx_MmForum_Domain_Model_Forum_Topic'));
+		$this->assertViewContains('currentUser', $user);
+	}
+
+
+
 	public function testNewActionWithoutPostButWithQuoteCreatesPostFromQuote() {
 		$this->postFactoryMock->expects($this->once())->method('createPostWithQuote')
 			->with($this->isInstanceOf('Tx_MmForum_Domain_Model_Forum_Post'))
