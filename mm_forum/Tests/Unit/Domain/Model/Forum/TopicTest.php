@@ -338,7 +338,7 @@ class Tx_MmForum_Domain_Model_Forum_TopicTest extends Tx_MmForum_Unit_BaseTestCa
 
 
 	public function testDelegatesAccessChecksOtherThanNewpostToParentForum() {
-		$user = new Tx_MmForum_Domain_Model_User_FrontendUser('martin');
+		$user  = new Tx_MmForum_Domain_Model_User_FrontendUser('martin');
 		$forum = $this->getMock('Tx_MmForum_Domain_Model_Forum_Forum');
 		$forum->expects($this->atLeastOnce())->method('checkAccess')
 			->with(self::isInstanceOf('Tx_MmForum_Domain_Model_User_FrontendUser'), 'read')
@@ -346,6 +346,21 @@ class Tx_MmForum_Domain_Model_Forum_TopicTest extends Tx_MmForum_Unit_BaseTestCa
 
 		$this->fixture->setForum($forum);
 		$this->assertFalse($this->fixture->checkAccess($user, 'read'));
+	}
+
+
+
+	public function testGetAuthorReturnsAnonymousUserIfNoAuthorIsSet() {
+		$this->assertInstanceOf('Tx_MmForum_Domain_Model_User_AnonymousFrontendUser', $this->fixture->getAuthor());
+	}
+
+
+
+	public function testGetAuthorReturnsAnonymousUserFromFirstPostIfNoAuthorIsSet() {
+		$post = new Tx_MmForum_Domain_Model_Forum_Post();
+		$post->setAuthorName('martin');
+		$this->fixture->addPost($post);
+		$this->assertEquals('martin', $this->fixture->getAuthor()->getUsername());
 	}
 
 

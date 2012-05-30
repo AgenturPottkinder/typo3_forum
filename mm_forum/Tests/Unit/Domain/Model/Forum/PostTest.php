@@ -69,6 +69,13 @@ class Tx_MmForum_Domain_Model_Forum_PostTest extends Tx_MmForum_Unit_BaseTestCas
 
 
 
+	public function testSetAuthorToAnonymousSetsAuthorToNull() {
+		$this->fixture->setAuthor($user = new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser());
+		$this->assertNull($this->fixture->_getProperty('author'));
+	}
+
+
+
 	public function testSetTextSetsText() {
 		$this->fixture->setText('FOO');
 		$this->assertEquals('FOO', $this->fixture->getText());
@@ -126,6 +133,16 @@ class Tx_MmForum_Domain_Model_Forum_PostTest extends Tx_MmForum_Unit_BaseTestCas
 
 
 
+	/**
+	 * @depends testGetAuthorReturnsAnonymousUserIfNoAuthorIsSet
+	 */
+	public function testGetAuthorReturnsAnonymousUserWithAuthorNameIfNoAuthorIsSet() {
+		$this->fixture->setAuthorName('martin');
+		$this->assertEquals('martin', $this->fixture->getAuthor()->getUsername());
+	}
+
+
+
 	public function testGetAuthorNameReturnsNameOfUserIsAuthorIsSet() {
 		$this->fixture->setAuthor(new Tx_MmForum_Domain_Model_User_FrontendUser('martin'));
 		$this->fixture->setAuthorName('horst');
@@ -169,10 +186,52 @@ class Tx_MmForum_Domain_Model_Forum_PostTest extends Tx_MmForum_Unit_BaseTestCas
 
 
 
+	/**
+	 * @dataProvider getPostDeleteAndEditAccessRightsCombinationsForAnonymousPosts
+	 * @param $operation
+	 * @param $user
+	 * @param $moderator
+	 * @param $expectedOutcome
+	 */
+	public function testDeleteAndEditAccessRightsForAnonymousPostsInDependenceOfLoginAndModeratorStatus($operation,
+	                                                                                                    $user,
+	                                                                                                    $moderator,
+	                                                                                                    $expectedOutcome) {
+		$forum = $this->getMock('Tx_MmForum_Domain_Model_Forum_Forum');
+		$forum->expects($this->any())->method('checkModerationAccess')->will($this->returnValue($moderator));
+
+		$topic = $this->getMock('Tx_MmForum_Domain_Model_Forum_Topic');
+		$topic->expects($this->any())->method('getLastPost')->will($this->returnValue($this->fixture));
+		if (!$moderator) {
+			$topic->expects($this->any())->method('checkAccess')
+				->with(self::isInstanceOf('Tx_MmForum_Domain_Model_User_FrontendUser'), $operation)
+				->will($this->returnValue(TRUE));
+		}
+		$topic->expects($this->any())->method('getForum')->will($this->returnValue($forum));
+
+		$this->fixture->setTopic($topic);
+		$this->fixture->setAuthor(new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser());
+
+		$this->assertEquals($expectedOutcome, $this->fixture->checkAccess($user, $operation));
+	}
+
+
+
 	public function getPostDeleteAndEditAccessRightsCombinations() {
 		return array(array('deletePost', FALSE, FALSE, FALSE), array('deletePost', TRUE, FALSE, TRUE),
 		             array('deletePost', FALSE, TRUE, TRUE), array('editPost', FALSE, FALSE, FALSE),
 		             array('editPost', TRUE, FALSE, TRUE), array('editPost', FALSE, TRUE, TRUE));
+	}
+
+
+
+	public function getPostDeleteAndEditAccessRightsCombinationsForAnonymousPosts() {
+		return array(array('deletePost', new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser(), FALSE, FALSE),
+		             array('deletePost', new Tx_MmForum_Domain_Model_User_FrontendUser(), FALSE, FALSE),
+		             array('deletePost', new Tx_MmForum_Domain_Model_User_FrontendUser(), TRUE, TRUE),
+		             array('editPost', new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser(), FALSE, FALSE),
+		             array('editPost', new Tx_MmForum_Domain_Model_User_FrontendUser(), FALSE, FALSE),
+		             array('editPost', new Tx_MmForum_Domain_Model_User_FrontendUser(), TRUE, TRUE));
 	}
 
 

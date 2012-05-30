@@ -116,6 +116,19 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactoryTest extends Tx_Extbase_Tests_U
 
 	/**
 	 * @test
+	 */
+	public function postIsNotAssignedIfCurrentUserIsAnonymous() {
+		$post = new Tx_MmForum_Domain_Model_Forum_Post('Content');
+		$this->userRepositoryMock->expects($this->any())->method('findCurrent')
+			->will($this->returnValue(new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser()));
+		$this->userRepositoryMock->expects($this->never())->method('update');
+		$this->fixture->assignUserToPost($post);
+	}
+
+
+
+	/**
+	 * @test
 	 * @expectedException Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
 	 */
 	public function exceptionIsThrownWhenAssigningPostToNullUser() {
