@@ -70,17 +70,23 @@ class Tx_MmForum_ViewHelpers_User_LinkViewHelper extends Tx_Fluid_ViewHelpers_CO
 	 *
 	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
 	 * @param boolean                                   $withoutWrap
-	 *
+	 * @param null                                      $alternativeUsername
+	 * @return string
 	 */
-	public function render(Tx_MmForum_Domain_Model_User_FrontendUser $user, $withoutWrap = FALSE) {
+	public function render(Tx_MmForum_Domain_Model_User_FrontendUser $user, $withoutWrap = FALSE,
+	                       $alternativeUsername = NULL) {
 		$class = 'nav nav-pills';
 		if ($this->hasArgument('class')) {
 			$class .= ' ' . $this->arguments['class'];
 		}
 
-		$tagContent = parent::render('plugin.tx_mmforum.renderer.navigation.userlink', $this->getDataArray($user));
-		if ($withoutWrap === TRUE) {
-			return $tagContent;
+		if (!$user->isAnonymous()) {
+			$tagContent = parent::render('plugin.tx_mmforum.renderer.navigation.userlink', $this->getDataArray($user));
+			if ($withoutWrap === TRUE) {
+				return $tagContent;
+			}
+		} else {
+			$tagContent = $alternativeUsername;
 		}
 
 		return '<ul class="' . $class . '">' . $tagContent . '</ul>';

@@ -4,7 +4,10 @@
 	<div class="tx-mmforum-topic-show-post-menu">
 		<f:render partial="Post/Menu" arguments="{post: post}" />
 	</div>
-	<f:render partial="User/InformationRow" arguments="{user: post.author, settings:settings}" />
+    <f:if condition="{post.author.anonymous}">
+        <f:then><f:render partial="User/AnonymousInformationRow" arguments="{user: post.author, settings: settings}" /></f:then>
+        <f:else><f:render partial="User/InformationRow" arguments="{user: post.author, settings: settings}" /></f:else>
+    </f:if>
 	<div class="tx-mmforum-topic-show-post-text">
 <mmf:format.textParser post="{post}" />
 		

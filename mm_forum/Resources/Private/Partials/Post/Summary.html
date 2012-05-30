@@ -4,6 +4,11 @@
 	</div>
 	<div>
 		<f:format.date format="d.m.Y H:i">{post.timestamp}</f:format.date> <f:translate key="Generic_By" />
-		<f:link.action controller="User" action="show" arguments="{user : post.author}" pageUid="{settings.pids.UserShow}">{post.author.username}</f:link.action>
+        <f:if condition="{post.author.anonymous}">
+            <f:then>{post.author.username}</f:then>
+            <f:else>
+                <f:link.action controller="User" action="show" arguments="{user : post.author}" pageUid="{settings.pids.UserShow}">{post.author.username}</f:link.action>
+            </f:else>
+        </f:if>
 	</div>
 </f:if>
