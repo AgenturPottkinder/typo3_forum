@@ -21,6 +21,7 @@
 			<label index="Editor_Panel_Formatting">Formatting</label>
 			<label index="Editor_Panel_Smilies">Smilies</label>
 			<label index="Editor_Panel_SyntaxHighlighting">Syntax highlighting</label>
+			<label index="Error_1335120249">You need to be logged in to view your own subscriptions.</label>
 			<label index="Error_Exception_Title">Whoops!</label>
 			<label index="Error_Form_Body">Some errors occurred while processing your input. Please check your inputs.</label>
 			<label index="Error_Form_Title">Whoopsi!</label>
@@ -107,6 +108,7 @@
 			<label index="User_Unsubscribe_Forum_Success">The Forum &quot;%s&quot; has successfully been unsubscribed.</label>
 			<label index="User_Unsubscribe_Topic_Success">The Topic &quot;%s&quot; has successfully been unsubscribed.</label>
 		</languageKey>
+		<languageKey index="af"></languageKey>
 		<languageKey index="ar"></languageKey>
 		<languageKey index="bs"></languageKey>
 		<languageKey index="bg"></languageKey>
@@ -129,6 +131,7 @@
 			<label index="Editor_Panel_Formatting">Formatierung</label>
 			<label index="Editor_Panel_Smilies">Smilies</label>
 			<label index="Editor_Panel_SyntaxHighlighting">Syntax-Hervorhebung</label>
+			<label index="Error_1335120249">Sie mÃ¼ssen eingeloggt sein, um Ihre eigenen Abonnements betrachten zu kÃ¶nnen.</label>
 			<label index="Error_Exception_Title">Hoppla!</label>
 			<label index="Error_Form_Body">Bei der Verarbeitung Ihrer Eingaben sind einige Fehler aufgetreten. Bitte Ã¼berprÃ¼fen Sie Ihre Eingaben.</label>
 			<label index="Post_New_Author">Ihr Name</label>

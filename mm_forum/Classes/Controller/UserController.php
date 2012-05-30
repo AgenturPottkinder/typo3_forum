@@ -80,30 +80,22 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	/**
 	 * Injects an instance of the topic repository.
 	 *
-	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository
+	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository    $topicRepository
 	 *                                 An instance of the topic repository.
-	 */
-	public function injectTopicRepository(Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository) {
-		$this->topicRepository = $topicRepository;
-	}
-
-
-
-	/**
-	 * Injects an instance of the userfield repository.
-	 *
 	 * @param Tx_MmForum_Domain_Repository_User_UserfieldRepository $userfieldRepository
 	 *                                 An instance of the userfield repository.
 	 */
-	public function injectUserfieldRepository(Tx_MmForum_Domain_Repository_User_UserfieldRepository $userfieldRepository) {
+	public function __construct(Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
+	                            Tx_MmForum_Domain_Repository_User_UserfieldRepository $userfieldRepository) {
+		$this->topicRepository     = $topicRepository;
 		$this->userfieldRepository = $userfieldRepository;
 	}
 
 
 
 	/*
-	 * ACTION METHODS
-	 */
+	  * ACTION METHODS
+	  */
 
 
 
@@ -168,14 +160,17 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	public function subscribeAction(Tx_MmForum_Domain_Model_Forum_Forum $forum = NULL,
 	                                Tx_MmForum_Domain_Model_Forum_Topic $topic = NULL, $unsubscribe = FALSE) {
 
-		# Validate arguments
+		// Validate arguments
 		if ($forum === NULL && $topic === NULL) {
 			throw new Tx_Extbase_MVC_Exception_InvalidArgumentValue("You need to subscribe a Forum or Topic!", 1285059341);
+		}
+		$user = $this->getCurrentUser();
+		if ($user->isAnonymous()) {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException('You need to be logged in to subscribe or unsubscribe an object.', 1335121482);
 		}
 
 		# Create subscription
 		$object = $forum ? $forum : $topic;
-		$user   = & $this->getCurrentUser();
 
 		if ($unsubscribe) {
 			$user->removeSubscription($object);
@@ -186,6 +181,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 		# Update user and redirect to subscription object.
 		$this->frontendUserRepository->update($user);
 		$this->flashMessageContainer->add($this->getSubscriptionFlashMessage($object, $unsubscribe));
+		$this->clearCacheForCurrentPage();
 		$this->redirectToSubscriptionObject($object);
 	}
 
@@ -195,6 +191,10 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	 * Displays all topics and forums subscribed by the current user.
 	 */
 	public function listSubscriptionsAction() {
+		if ($this->getCurrentUser()->isAnonymous()) {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException('You need to be logged in to view your own subscriptions!', 1335120249);
+		}
+
 		$user = $this->getCurrentUser();
 		$this->view->assign('forums', $user->getForumSubscriptions())->assign('topics', $user->getTopicSubscriptions())
 			->assign('user', $user);
