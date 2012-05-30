@@ -44,6 +44,13 @@ class Tx_MmForum_Domain_Model_User_AnonymousFrontendUser extends Tx_MmForum_Doma
 
 
 
+	public function __construct($username = '', $password = '') {
+		parent::__construct($username, $password);
+		$this->uid = 0;
+	}
+
+
+
 	public function isAnonymous() {
 		return TRUE;
 	}
