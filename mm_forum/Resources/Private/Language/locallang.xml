@@ -48,6 +48,7 @@
 			<label index="Post_Edit_Submit">Update post</label>
 			<label index="Post_New">Reply to: %s</label>
 			<label index="Post_New_Attachments">Attachments</label>
+			<label index="Post_New_Author">Your name</label>
 			<label index="Post_New_Error_Text_1221560718">Please specify a content for the new post.</label>
 			<label index="Post_New_Submit">Create post</label>
 			<label index="Post_New_Text">Post text</label>
@@ -105,7 +106,6 @@
 			<label index="User_Unsubscribe_Forum_Success">The Forum &quot;%s&quot; has successfully been unsubscribed.</label>
 			<label index="User_Unsubscribe_Topic_Success">The Topic &quot;%s&quot; has successfully been unsubscribed.</label>
 		</languageKey>
-		<languageKey index="af"></languageKey>
 		<languageKey index="ar"></languageKey>
 		<languageKey index="bs"></languageKey>
 		<languageKey index="bg"></languageKey>
@@ -130,6 +130,7 @@
 			<label index="Editor_Panel_SyntaxHighlighting">Syntax-Hervorhebung</label>
 			<label index="Error_Exception_Title">Hoppla!</label>
 			<label index="Error_Form_Body">Bei der Verarbeitung Ihrer Eingaben sind einige Fehler aufgetreten. Bitte Ã¼berprÃ¼fen Sie Ihre Eingaben.</label>
+			<label index="Post_New_Author">Ihr Name</label>
 		</languageKey>
 		<languageKey index="el"></languageKey>
 		<languageKey index="eo"></languageKey>

@@ -9,7 +9,7 @@
 	<h2>
 		<f:translate key="Post_New" arguments="{0: topic.subject}" />
 	</h2>
-	<f:render partial="Post/Form" arguments="{post: post, topic: topic, action: 'create'}" />
+	<f:render partial="Post/Form" arguments="{post: post, topic: topic, action: 'create', currentUser: currentUser}" />
 </f:section>
 
 

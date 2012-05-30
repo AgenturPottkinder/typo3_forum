@@ -12,6 +12,13 @@
 				</f:else>
 			</f:if>
 		</legend>
+        <f:if condition="{currentUser.anonymous}">
+            <f:then>
+                <b:form.row llLabel="Post_New_Author" error="post.authorName">
+                    <f:form.textfield property="authorName" class="span8" />
+                </b:form.row>
+            </f:then>
+        </f:if>
 		<b:form.row llLabel="Topic_New_Subject">
 			<span class="input-xlarge uneditable-input span8">{topic.subject}</span>
 		</b:form.row>
