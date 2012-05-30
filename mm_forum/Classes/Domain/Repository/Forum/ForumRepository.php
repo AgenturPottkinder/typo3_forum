@@ -84,7 +84,9 @@ class Tx_MmForum_Domain_Repository_Forum_ForumRepository extends Tx_Extbase_Pers
 	 */
 	public function findRootForums() {
 		$query  = $this->createQuery();
-		$result = $query->matching($query->equals('forum', array(NULL, 0)))->execute();
+		$result = $query
+			->matching($query->equals('forum', array(NULL, 0)))
+			->execute();
 		return $this->filterByAccess($result, 'read');
 	}
 
@@ -105,6 +107,16 @@ class Tx_MmForum_Domain_Repository_Forum_ForumRepository extends Tx_Extbase_Pers
 		}
 
 		return $result;
+	}
+
+
+
+	public function findBySubscriber(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+		$query = $this->createQuery();
+		$query
+			->matching($query->contains('subscribers', $user))
+			->setOrderings(array('lastPost.crdate' => 'ASC'));
+		return $query->execute();
 	}
 
 

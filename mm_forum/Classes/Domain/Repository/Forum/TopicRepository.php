@@ -53,75 +53,87 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 
 
 	/**
-	 *
 	 * Finds topics for the forum show view. Page navigation is possible.
 	 *
 	 * @param  Tx_MmForum_Domain_Model_Forum_Forum $forum
 	 *                               The forum for which to load the topics.
-	 *
-	 * @return Array<Tx_MmForum_Domain_Model_Forum_Topic>
+	 * @return Tx_MmForum_Domain_Model_Forum_Topic[]
 	 *                               The selected subset of topics.
-	 *
 	 */
 	public function findForIndex(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
 		$query = $this->createQuery();
-		$query->matching($query->equals('forum', $forum))->setOrderings(array('sticky'           => 'DESC',
-		                                                                     'last_post_crdate'  => 'DESC'));
+		$query
+			->matching($query->equals('forum', $forum))
+			->setOrderings(array('sticky'           => 'DESC',
+			                    'last_post_crdate'  => 'DESC'));
 		return $query->execute();
 	}
 
 
 
 	/**
-	 *
 	 * Finds topics by post authors, i.e. all topics that contain at least one post
 	 * by a specific author. Page navigation is possible.
 	 *
 	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
 	 *                               The frontend user whose topics are to be loaded.
-	 *
-	 * @return Array<Tx_MmForum_Domain_Model_Forum_Topic>
+	 * @return Tx_MmForum_Domain_Model_Forum_Topic[]
 	 *                               All topics that contain a post by the specified
 	 *                               user.
-	 *
 	 */
 	public function findByPostAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
 		$query = $this->createQuery();
-		$query->matching($query->equals('posts.author', $user))->setOrderings(array('posts.crdate' => 'DESC'));
+		$query
+			->matching($query->equals('posts.author', $user))
+			->setOrderings(array('posts.crdate' => 'DESC'));
 		return $query->execute();
 	}
 
 
 
 	/**
-	 *
 	 * Counts topics by post authors. See findByPostAuthor.
 	 *
 	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
 	 *                               The frontend user whose topics are to be loaded.
-	 *
 	 * @return integer               The number of topics that contain a post by the
 	 *                               specified user.
-	 *
 	 */
 	public function countByPostAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
-		return $this->findByPostAuthor($user)->count();
+		return $this
+			->findByPostAuthor($user)
+			->count();
 	}
 
 
 
 	/**
-	 *
 	 * Counts all topics for the forum show view.
 	 *
 	 * @param  Tx_MmForum_Domain_Model_Forum_Forum $forum
 	 *                             The forum for which the topics are to be counted.
-	 *
 	 * @return integer             The topic count.
-	 *
 	 */
 	public function countForIndex(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
 		return $this->countByForum($forum);
+	}
+
+
+
+	/**
+	 * Finds all topic that have been subscribed by a certain user.
+	 *
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 *                             The user for whom the subscribed topics are to be loaded.
+	 * @return Tx_Extbase_Persistence_QueryInterface
+	 *                             The topics subscribed by the given user.
+	 */
+	public function findBySubscriber(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+		$query = $this->createQuery();
+		$query
+			->matching($query->contains('subscribers', $user))
+			->setOrderings(array('lastPost.crdate' => 'ASC'));
+		return $query->execute();
 	}
 
 
