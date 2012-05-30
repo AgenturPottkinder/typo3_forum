@@ -83,6 +83,13 @@ class Tx_MmForum_Domain_Model_Forum_Post extends Tx_Extbase_DomainObject_Abstrac
 	protected $author;
 
 
+	/**
+	 * The author's username. Necessary for anonymous postings.
+	 * @var string
+	 */
+	protected $authorName = '';
+
+
 
 	/**
 	 * The topic.
@@ -167,7 +174,30 @@ class Tx_MmForum_Domain_Model_Forum_Post extends Tx_Extbase_DomainObject_Abstrac
 	 * @return Tx_MmForum_Domain_Model_User_FrontendUser author
 	 */
 	public function getAuthor() {
+		if ($this->author === NULL) {
+			return new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
+		}
+
+		if ($this->author instanceof Tx_Extbase_Persistence_LazyLoadingProxy) {
+			$this->author->_loadRealInstance();
+		}
 		return $this->author;
+	}
+
+
+
+	/**
+	 * Gets the post author's name. Diffentiates between posts created by logged in
+	 * users (in this case this user's username is returned) and posts by anonymous
+	 * users.
+	 * @return string The author's username.
+	 */
+	public function getAuthorName() {
+		if ($this->getAuthor()->isAnonymous()) {
+			return $this->authorName;
+		} else {
+			return $this->getAuthor()->getUsername();
+		}
 	}
 
 
@@ -304,6 +334,16 @@ class Tx_MmForum_Domain_Model_Forum_Post extends Tx_Extbase_DomainObject_Abstrac
 	 */
 	public function setAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $author) {
 		$this->author = $author;
+	}
+
+
+
+	/**
+	 * Sets the post author's name. Necessary for anonymous postings.
+	 * @param $authorName The author's name.
+	 */
+	public function setAuthorName($authorName) {
+		$this->authorName = $authorName;
 	}
 
 

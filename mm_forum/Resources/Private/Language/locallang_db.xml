@@ -31,6 +31,7 @@
 			<label index="tx_mmforum_domain_model_forum_post">Post</label>
 			<label index="tx_mmforum_domain_model_forum_post.text">Text</label>
 			<label index="tx_mmforum_domain_model_forum_post.author">Author</label>
+			<label index="tx_mmforum_domain_model_forum_post.author_name">Author name (if posted by anonymous user)</label>
 			<label index="tx_mmforum_domain_model_forum_post.topic">Topic</label>
 			<label index="tx_mmforum_domain_model_forum_post.attachments">Attachments</label>
 			

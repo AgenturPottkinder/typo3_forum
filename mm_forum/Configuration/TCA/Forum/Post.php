@@ -89,6 +89,13 @@ $TCA['tx_mmforum_domain_model_forum_post'] = array(
 				'maxitems' => 1
 			)
 		),
+		'author_name' => array(
+			'exclude' => 1,
+			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_post.author_name',
+			'config'  => array(
+				'type' => 'text'
+			)
+		),
 		'topic' => array(
 			'exclude' => 1,
 			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_post.topic',

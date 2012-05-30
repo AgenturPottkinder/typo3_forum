@@ -138,6 +138,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_post (
   text text,
   rendered_text blob,
   author int(11) unsigned default '0',
+  author_name tinytext,
   tstamp int(11) unsigned NOT NULL default '0',
   crdate int(11) unsigned NOT NULL default '0',
   deleted tinyint(4) unsigned NOT NULL default '0',
