@@ -110,7 +110,6 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 
 	/**
 	 * Displays a list of all existing users.
-	 *
 	 * @return void
 	 */
 	public function indexAction() {
@@ -161,17 +160,14 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 
 
 	/**
-	 *
 	 * Subscribes the current user to a forum or a topic.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
-	 *                                                         The forum that is to be subscribed. Either this
+	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum       The forum that is to be subscribed. Either this
 	 *                                                         value or the $topic parameter must be != NULL.
-	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic
-	 *                                                         The topic that is to be subscribed. Either this
+	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic       The topic that is to be subscribed. Either this
 	 *                                                         value or the $forum parameter must be != NULL.
 	 * @param boolean                             $unsubscribe TRUE to unsubscribe the forum or topic instead.
-	 *
+	 * @return void
 	 */
 	public function subscribeAction(Tx_MmForum_Domain_Model_Forum_Forum $forum = NULL,
 	                                Tx_MmForum_Domain_Model_Forum_Topic $topic = NULL, $unsubscribe = FALSE) {
@@ -228,7 +224,6 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 
 
 	/**
-	 *
 	 * Redirects the user to the display view of a subscribeable object. This may
 	 * either be a forum or a topic, so this method redirects either to the
 	 * Forum->show or the Topic->show action.
@@ -236,9 +231,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	 * @param Tx_MmForum_Domain_Model_SubscribeableInterface $object
 	 *                             A subscribeable object, i.e. either a forum or a
 	 *                             topic.
-	 *
 	 * @return void
-	 *
 	 */
 	protected function redirectToSubscriptionObject(Tx_MmForum_Domain_Model_SubscribeableInterface $object) {
 		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Forum) {
@@ -252,13 +245,11 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 
 
 	/**
-	 *
 	 * Generates a flash message for when a subscription has successfully been
 	 * created or removed.
 	 *
 	 * @param \Tx_MmForum_Domain_Model_SubscribeableInterface $object
 	 * @param bool                                            $unsubscribe
-	 *
 	 * @return string A flash message.
 	 */
 	protected function getSubscriptionFlashMessage(Tx_MmForum_Domain_Model_SubscribeableInterface $object,
