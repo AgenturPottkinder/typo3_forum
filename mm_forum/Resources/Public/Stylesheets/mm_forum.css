@@ -560,7 +560,7 @@ img.tx-mmforum-topic-show-post-user-icon {
   float: left;
   margin-right: 8px; }
 
-a.tx-mmforum-topic-show-post-user-link {
+.tx-mmforum-topic-show-post-user-link {
   font-size: 1.33em; }
 
 div.tx-mmforum-topic-show-post-text, div.tx-mmforum-topic-show-post-signature {
