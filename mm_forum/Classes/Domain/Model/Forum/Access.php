@@ -207,7 +207,7 @@ class Tx_MmForum_Domain_Model_Forum_Access extends Tx_Extbase_DomainObject_Abstr
 			$result = TRUE;
 		}
 
-		if ($this->loginLevel === self::LOGIN_LEVEL_ANYLOGIN && $user !== NULL) {
+		if ($this->loginLevel === self::LOGIN_LEVEL_ANYLOGIN && $user !== NULL && !$user->isAnonymous()) {
 			$result = TRUE;
 		}
 

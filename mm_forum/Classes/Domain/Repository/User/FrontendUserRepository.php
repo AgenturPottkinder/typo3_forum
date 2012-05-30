@@ -58,7 +58,7 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 	 */
 	public function findCurrent() {
 		$currentUserUid = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
-		return $currentUserUid ? $this->findByUid($currentUserUid) : NULL;
+		return $currentUserUid ? $this->findByUid($currentUserUid) : new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
 	}
 
 

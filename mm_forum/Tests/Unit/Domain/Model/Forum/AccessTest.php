@@ -68,9 +68,16 @@ class Tx_MmForum_Domain_Model_Forum_AccessTest extends Tx_MmForum_Unit_BaseTestC
 
 
 
-	public function testMatchesAnonymousUserAgainstEveryone() {
+	public function testMatchesNullAgainstEveryone() {
 		$this->fixture = new Tx_MmForum_Domain_Model_Forum_Access('read', Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_EVERYONE);
 		$this->assertTrue($this->fixture->matches(NULL));
+	}
+
+
+
+	public function testMatchesAnonymousUserAgainstEveryone() {
+		$this->fixture = new Tx_MmForum_Domain_Model_Forum_Access('read', Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_EVERYONE);
+		$this->assertTrue($this->fixture->matches(new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser()));
 	}
 
 
@@ -82,9 +89,14 @@ class Tx_MmForum_Domain_Model_Forum_AccessTest extends Tx_MmForum_Unit_BaseTestC
 
 
 
-	public function testMismatchesAnonymousUserAgainstAnyLogin() {
+	public function testMismatchesNullAgainstAnyLogin() {
 		$this->fixture = new Tx_MmForum_Domain_Model_Forum_Access('read', Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN);
 		$this->assertFalse($this->fixture->matches(NULL));
+	}
+
+	public function testMismatchesAnonymousUserAgainstAnyLogin() {
+		$this->fixture = new Tx_MmForum_Domain_Model_Forum_Access('read', Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN);
+		$this->assertFalse($this->fixture->matches(new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser()));
 	}
 
 

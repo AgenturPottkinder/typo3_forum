@@ -289,6 +289,26 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends Tx_Extbase_Domain_Model_
 
 
 
+	/**
+	 * Determines whether is user is an anonymous user.
+	 * @return bool TRUE when this user is an anonymous user.
+	 */
+	public function isAnonymous() {
+		return FALSE;
+	}
+
+
+
+	/**
+	 * Alias for isAnonymous().
+	 * @return bool TRUE when this user is an anonymous user.
+	 */
+	public function getAnonymous() {
+		return $this->isAnonymous();
+	}
+
+
+
 	/*
 	 * SETTERS
 	 */
