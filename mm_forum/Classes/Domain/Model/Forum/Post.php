@@ -176,7 +176,9 @@ class Tx_MmForum_Domain_Model_Forum_Post extends Tx_Extbase_DomainObject_Abstrac
 	 */
 	public function getAuthor() {
 		if ($this->author === NULL) {
-			return new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
+			$author = new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
+			$author->setUsername($this->authorName);
+			return $author;
 		}
 
 		if ($this->author instanceof Tx_Extbase_Persistence_LazyLoadingProxy) {
@@ -300,7 +302,7 @@ class Tx_MmForum_Domain_Model_Forum_Post extends Tx_Extbase_DomainObject_Abstrac
 	 */
 	public function checkEditOrDeletePostAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $operation) {
 
-		if ($user === NULL) {
+		if ($user === NULL || $user->isAnonymous()) {
 			return FALSE;
 		} else {
 			if ($this->getForum()->checkModerationAccess($user)) {
@@ -334,7 +336,11 @@ class Tx_MmForum_Domain_Model_Forum_Post extends Tx_Extbase_DomainObject_Abstrac
 	 * @return void
 	 */
 	public function setAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $author) {
-		$this->author = $author;
+		if ($author->isAnonymous()) {
+			$this->author = NULL;
+		} else {
+			$this->author = $author;
+		}
 	}
 
 

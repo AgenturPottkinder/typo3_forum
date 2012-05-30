@@ -157,9 +157,11 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory extends Tx_MmForum_Domain_Fact
 		}
 
 		// Increase the new user's post count.
-		$post->setAuthor($user);
-		$user->increasePostCount();
-		$this->frontendUserRepository->update($user);
+		if (!$user->isAnonymous()) {
+			$post->setAuthor($user);
+			$user->increasePostCount();
+			$this->frontendUserRepository->update($user);
+		}
 	}
 
 

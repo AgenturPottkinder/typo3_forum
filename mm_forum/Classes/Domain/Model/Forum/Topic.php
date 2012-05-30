@@ -60,13 +60,11 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends Tx_Extbase_DomainObject_Abstra
 	protected $subject;
 
 
-
 	/**
 	 * The posts in this topic.
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Post>
 	 */
 	protected $posts;
-
 
 
 	/**
@@ -78,13 +76,11 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends Tx_Extbase_DomainObject_Abstra
 	protected $postCount;
 
 
-
 	/**
 	 * The user who created the topic.
 	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
 	 */
 	protected $author;
-
 
 
 	/**
@@ -96,7 +92,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends Tx_Extbase_DomainObject_Abstra
 	protected $subscribers;
 
 
-
 	/**
 	 * A pointer to the last post in this topic.
 	 *
@@ -104,7 +99,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends Tx_Extbase_DomainObject_Abstra
 	 * @lazy
 	 */
 	protected $lastPost;
-
 
 
 	/**
@@ -116,13 +110,11 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends Tx_Extbase_DomainObject_Abstra
 	protected $lastPostCrdate;
 
 
-
 	/**
 	 * The forum in which this topic is located.
 	 * @var Tx_MmForum_Domain_Model_Forum_Forum
 	 */
 	protected $forum;
-
 
 
 	/**
@@ -132,7 +124,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends Tx_Extbase_DomainObject_Abstra
 	protected $closed;
 
 
-
 	/**
 	 * Defines whether this topic is sticky.
 	 * @var boolean
@@ -140,13 +131,11 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends Tx_Extbase_DomainObject_Abstra
 	protected $sticky;
 
 
-
 	/**
 	 * The topic date.
 	 * @var DateTime
 	 */
 	protected $crdate;
-
 
 
 	/**
@@ -170,8 +159,8 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends Tx_Extbase_DomainObject_Abstra
 
 
 	/*
-	  * CONSTRUCTOR
-	  */
+	 * CONSTRUCTOR
+	 */
 
 
 
@@ -243,6 +232,14 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends Tx_Extbase_DomainObject_Abstra
 	 * @return Tx_MmForum_Domain_Model_User_FrontendUser author
 	 */
 	public function getAuthor() {
+		if ($this->author === NULL) {
+			if (count($this->posts) > 0) {
+				$posts = $this->posts->toArray();
+				return $posts[0]->getAuthor();
+			} else {
+				return new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
+			}
+		}
 		return $this->author;
 	}
 
