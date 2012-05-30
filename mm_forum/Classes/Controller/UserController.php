@@ -191,6 +191,17 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 
 
 
+	/**
+	 * Displays all topics and forums subscribed by the current user.
+	 */
+	public function listSubscriptionsAction() {
+		$user = $this->getCurrentUser();
+		$this->view->assign('forums', $user->getForumSubscriptions())->assign('topics', $user->getTopicSubscriptions())
+			->assign('user', $user);
+	}
+
+
+
 	/*
 	 * HELPER METHODS
 	 */
