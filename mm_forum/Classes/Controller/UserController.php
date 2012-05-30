@@ -55,19 +55,23 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 
 	/**
 	 * The userfield repository.
-	 *
 	 * @var Tx_MmForum_Domain_Repository_User_UserfieldRepository
 	 */
 	protected $userfieldRepository = NULL;
 
 
-
 	/**
-	 * The topic repository
-	 *
+	 * The topic repository.
 	 * @var Tx_MmForum_Domain_Repository_Forum_TopicRepository
 	 */
 	protected $topicRepository = NULL;
+
+
+	/**
+	 * The forum repository.
+	 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
+	 */
+	protected $forumRepository = NULL;
 
 
 
@@ -78,15 +82,20 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 
 
 	/**
-	 * Injects an instance of the topic repository.
+	 * Constructor. Used primarily for dependency injection.
 	 *
-	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository    $topicRepository
+	 * @param \Tx_MmForum_Domain_Repository_Forum_ForumRepository    $forumRepository
+	 *                                 An instance of the forum repository.
+	 * @param \Tx_MmForum_Domain_Repository_Forum_TopicRepository    $topicRepository
 	 *                                 An instance of the topic repository.
-	 * @param Tx_MmForum_Domain_Repository_User_UserfieldRepository $userfieldRepository
+	 * @param \Tx_MmForum_Domain_Repository_User_UserfieldRepository $userfieldRepository
 	 *                                 An instance of the userfield repository.
 	 */
-	public function __construct(Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
+	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
+	                            Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
 	                            Tx_MmForum_Domain_Repository_User_UserfieldRepository $userfieldRepository) {
+		parent::__construct();
+		$this->forumRepository     = $forumRepository;
 		$this->topicRepository     = $topicRepository;
 		$this->userfieldRepository = $userfieldRepository;
 	}
@@ -123,7 +132,9 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 		if ($user->isAnonymous()) {
 			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
 		}
-		$this->view->assign('topics', $this->topicRepository->findByPostAuthor($user))->assign('user', $user);
+		$this->view
+			->assign('topics', $this->topicRepository->findByPostAuthor($user))
+			->assign('user', $user);
 	}
 
 
@@ -136,8 +147,14 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	 */
 	public function showAction(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
 		/** @noinspection PhpUndefinedMethodInspection */
-		$lastFiveTopics = $this->topicRepository->findByPostAuthor($user)->getQuery()->setLimit(5)->execute();
-		$this->view->assign('user', $user)->assign('userfields', $this->userfieldRepository->findAll())
+		$lastFiveTopics = $this->topicRepository
+			->findByPostAuthor($user)
+			->getQuery()
+			->setLimit(5)
+			->execute();
+		$this->view
+			->assign('user', $user)
+			->assign('userfields', $this->userfieldRepository->findAll())
 			->assign('topics', $lastFiveTopics);
 	}
 
@@ -188,14 +205,17 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 
 	/**
 	 * Displays all topics and forums subscribed by the current user.
+	 * @return void
 	 */
 	public function listSubscriptionsAction() {
-		if ($this->getCurrentUser()->isAnonymous()) {
+		$user = $this->getCurrentUser();
+		if ($user->isAnonymous()) {
 			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException('You need to be logged in to view your own subscriptions!', 1335120249);
 		}
 
-		$user = $this->getCurrentUser();
-		$this->view->assign('forums', $user->getForumSubscriptions())->assign('topics', $user->getTopicSubscriptions())
+		$this->view
+			->assign('forums', $this->forumRepository->findBySubscriber($user))
+			->assign('topics', $this->topicRepository->findBySubscriber($user))
 			->assign('user', $user);
 	}
 

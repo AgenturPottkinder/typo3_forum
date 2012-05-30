@@ -43,16 +43,18 @@ class Tx_MmForum_Controller_UserControllerTest extends Tx_MmForum_Controller_Abs
 	/**
 	 * @var PHPUnit_Framework_MockObject_MockObject
 	 */
-	protected $topicRepositoryMock, $userfieldRepositoryMock, $userMock;
+	protected $topicRepositoryMock, $userfieldRepositoryMock, $forumRepositoryMock, $userMock;
 
 
 
 	public function setUp() {
 		$this->topicRepositoryMock     = $this->getMock('Tx_MmForum_Domain_Repository_Forum_TopicRepository');
+		$this->forumRepositoryMock     = $this->getMock('Tx_MmForum_Domain_Repository_Forum_ForumRepository');
 		$this->userfieldRepositoryMock = $this->getMock('Tx_MmForum_Domain_Repository_User_UserfieldRepository');
 		$this->userMock                = $this->getMock('Tx_MmForum_Domain_Model_User_FrontendUser');
 
-		$this->buildFixture($this->fixtureClassName, array($this->topicRepositoryMock, $this->userfieldRepositoryMock));
+		$this->buildFixture($this->fixtureClassName, array($this->forumRepositoryMock, $this->topicRepositoryMock,
+		                                                  $this->userfieldRepositoryMock));
 	}
 
 
@@ -63,7 +65,9 @@ class Tx_MmForum_Controller_UserControllerTest extends Tx_MmForum_Controller_Abs
 	 * @param array $parameters
 	 */
 	public function testModifyingActionsClearPageCache($actionMethodName, array $parameters) {
-		$this->userRepositoryMock->expects($this->any())->method('findCurrent')
+		$this->userRepositoryMock
+			->expects($this->any())
+			->method('findCurrent')
 			->will($this->returnValue($this->userMock));
 		parent::testModifyingActionsClearPageCache($actionMethodName, $parameters);
 	}
@@ -78,7 +82,9 @@ class Tx_MmForum_Controller_UserControllerTest extends Tx_MmForum_Controller_Abs
 	 */
 	public function testActionsThatRequireALoggedInUserThrowExceptionWhenNoUserIsLoggedIn($actionMethodName,
 	                                                                                      $parameters) {
-		$this->userRepositoryMock->expects($this->any())->method('findCurrent')
+		$this->userRepositoryMock
+			->expects($this->any())
+			->method('findCurrent')
 			->will($this->returnValue(new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser()));
 		call_user_func_array(array($this->fixture, $actionMethodName), $parameters);
 	}
@@ -89,7 +95,9 @@ class Tx_MmForum_Controller_UserControllerTest extends Tx_MmForum_Controller_Abs
 	 * @expectedException Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
 	 */
 	public function testListPostsActionThrowsExceptionWhenNoUserIsSpecifiedAndNoUserIsLoggedIn() {
-		$this->userRepositoryMock->expects($this->any())->method('findCurrent')
+		$this->userRepositoryMock
+			->expects($this->any())
+			->method('findCurrent')
 			->will($this->returnValue(new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser()));
 		$this->fixture->listPostsAction();
 	}
@@ -101,6 +109,32 @@ class Tx_MmForum_Controller_UserControllerTest extends Tx_MmForum_Controller_Abs
 		                   $this->getMockParametersForActionMethod(new ReflectionMethod($this->fixtureClassName, 'subscribeAction'))),
 		             array('listSubscriptionsAction',
 		                   $this->getMockParametersForActionMethod(new ReflectionMethod($this->fixtureClassName, 'listSubscriptionsAction'))));
+	}
+
+
+
+	public function testListSubscriptionsActionLoadsSubscribedTopicsFromRepository() {
+		$this->topicRepositoryMock
+			->expects($this->once())
+			->method('findBySubscriber');
+		$this->userRepositoryMock
+			->expects($this->any())
+			->method('findCurrent')
+			->will($this->returnValue($this->userMock));
+		$this->fixture->listSubscriptionsAction();
+	}
+
+
+
+	public function testListSubscriptionsActionLoadsSubscribedForumsFromRepository() {
+		$this->forumRepositoryMock
+			->expects($this->once())
+			->method('findBySubscriber');
+		$this->userRepositoryMock
+			->expects($this->any())
+			->method('findCurrent')
+			->will($this->returnValue($this->userMock));
+		$this->fixture->listSubscriptionsAction();
 	}
 
 
