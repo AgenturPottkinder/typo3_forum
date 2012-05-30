@@ -80,13 +80,9 @@ class Tx_MmForum_ViewHelpers_User_LinkViewHelper extends Tx_Fluid_ViewHelpers_CO
 			$class .= ' ' . $this->arguments['class'];
 		}
 
-		if (!$user->isAnonymous()) {
-			$tagContent = parent::render('plugin.tx_mmforum.renderer.navigation.userlink', $this->getDataArray($user));
-			if ($withoutWrap === TRUE) {
-				return $tagContent;
-			}
-		} else {
-			$tagContent = $alternativeUsername;
+		$tagContent = parent::render('plugin.tx_mmforum.renderer.navigation.userlink', $this->getDataArray($user));
+		if ($withoutWrap === TRUE) {
+			return $tagContent;
 		}
 
 		return '<ul class="' . $class . '">' . $tagContent . '</ul>';

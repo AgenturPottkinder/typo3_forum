@@ -258,13 +258,24 @@ plugin.tx_mmforum.renderer.navigation {
 	userlink {
 		stdWrap.wrap = <li class="dropdown"> | </li>
 
-		10 = TEXT
-		10.field = username
-		10.noTrimWrap = |<a class="dropdown-toggle" data-toggle="dropdown" href="#" style="padding-top: 4px; padding-bottom: 4px;"><i class="tx-mmforum-icon-16-user"></i> | <b class="caret"></b></a>|
+		10 = CASE
+		10 {
+			key.field = uid
+			0 = TEXT
+			0.field = username
+			0.noTrimWrap = |<a style="padding-top: 4px; padding-bottom: 4px;" href="#"><i class="tx-mmforum-icon-16-user"></i> |</a>|
+
+			default = TEXT
+			default.field = username
+			default.noTrimWrap = |<a class="dropdown-toggle" data-toggle="dropdown" href="#" style="padding-top: 4px; padding-bottom: 4px;"><i class="tx-mmforum-icon-16-user"></i> | <b class="caret"></b></a>|
+		}
+
 
 		20 = COA
 		20 {
 			stdWrap.wrap = <ul class="dropdown-menu"> | </ul>
+			stdWrap.if.value = 0
+			stdWrap.if.isGreaterThan.field = uid
 
 			10 = TEXT
 			10.data = LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:Button_User_Profile
@@ -278,6 +289,8 @@ plugin.tx_mmforum.renderer.navigation {
 			10.wrap = <li>|</li>
 
 			50 = TEXT
+			50.if.value.field = contact_twitter
+			50.if.isTrue = 1
 			50.value = Twitter
 			50.wrap = <li>|</li>
 			50.typolink {
