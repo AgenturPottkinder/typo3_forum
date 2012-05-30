@@ -185,6 +185,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 
 		// Redirect to single forum display view
 		$this->flashMessageContainer->add(Tx_MmForum_Utility_Localization::translate('Topic_Create_Success'));
+		$this->clearCacheForCurrentPage();
 		$this->redirect('show', 'Forum', NULL, array('forum' => $forum));
 	}
 

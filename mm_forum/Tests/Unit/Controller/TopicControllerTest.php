@@ -138,4 +138,8 @@ class Tx_MmForum_Controller_TopicControllerTest extends Tx_MmForum_Controller_Ab
 	}
 
 
+
+	public function getModifyingActions() {
+		return array('createAction');
+	}
 }

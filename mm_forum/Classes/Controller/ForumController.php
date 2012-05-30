@@ -139,6 +139,7 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 
 		$this->forumRepository->update($forum);
 
+		$this->clearCacheForCurrentPage();
 		$this->addLocalizedFlashmessage('Forum_Update_Success');
 		$this->redirect('index');
 	}
@@ -164,6 +165,7 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 
 		$this->forumRepository->add($forum);
 
+		$this->clearCacheForCurrentPage();
 		$this->addLocalizedFlashmessage('Forum_Create_Success');
 		$this->redirect('index');
 	}

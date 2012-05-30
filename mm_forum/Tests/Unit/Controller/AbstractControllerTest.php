@@ -90,7 +90,8 @@ abstract class Tx_MmForum_Controller_AbstractControllerTest extends Tx_Extbase_T
 		$this->requestMock->expects($this->any())->method('getFormat')->will($this->returnValue('html'));
 		$this->signalSlotDispatcherMock = $this->getMock('Tx_Extbase_SignalSlot_Dispatcher');
 
-		$this->fixture = $this->getAccessibleMock($className, array('redirect'), $constructorArguments);
+		$this->fixture = $this->getAccessibleMock($className, array('redirect', 'clearCacheForCurrentPage'),
+		                                          $constructorArguments);
 		$this->fixture->injectObjectManager($this->objectManager);
 		$this->fixture->injectFrontendUserRepository($this->userRepositoryMock);
 		$this->fixture->injectAuthenticationService($this->authenticationServiceMock);
@@ -113,28 +114,34 @@ abstract class Tx_MmForum_Controller_AbstractControllerTest extends Tx_Extbase_T
 				continue;
 			}
 
-			$parameters = array();
-			foreach ($method->getParameters() as $parameter) {
-				/** @var $parameter ReflectionParameter */
-				if ($parameter->getClass() !== NULL) {
-					if ($parameter->getClass()->getName() === 'Tx_MmForum_Domain_Model_Forum_Forum') {
-						$forum = new Tx_MmForum_Domain_Model_Forum_Forum();
-						$forum->injectObjectManager(t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager'));
-						$parameters[] = $forum;
-					} else {
-						$parameters[] = $this->getMock($parameter->getClass()->getName());
-					}
-				} elseif ($parameter->isArray() === TRUE) {
-					$parameters[] = array(1, 2, 3);
-				} else {
-					$parameters[] = 1337;
-				}
-			}
-
-			$data[] = array($method->getName(), $parameters);
+			$data[] = array($method->getName(), $this->getMockParametersForActionMethod($method));
 		}
 
 		return $data;
+	}
+
+
+
+	protected function getMockParametersForActionMethod(ReflectionMethod $method) {
+		$parameters = array();
+		foreach ($method->getParameters() as $parameter) {
+			/** @var $parameter ReflectionParameter */
+			if ($parameter->getClass() !== NULL) {
+				if ($parameter->getClass()->getName() === 'Tx_MmForum_Domain_Model_Forum_Forum') {
+					$forum = new Tx_MmForum_Domain_Model_Forum_Forum();
+					$forum->injectObjectManager(t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager'));
+					$parameters[] = $forum;
+				} else {
+					$parameters[] = $this->getMock($parameter->getClass()->getName());
+				}
+			} elseif ($parameter->isArray() === TRUE) {
+				$parameters[] = array(1, 2, 3);
+			} else {
+				$parameters[] = 1337;
+			}
+		}
+
+		return $parameters;
 	}
 
 
@@ -165,6 +172,33 @@ abstract class Tx_MmForum_Controller_AbstractControllerTest extends Tx_Extbase_T
 
 	protected function assertViewContains($key, $value) {
 		$this->assertTrue($this->viewMock->containsKeyValuePair($key, $value), 'View did not contain key ' . $key);
+	}
+
+
+
+	/**
+	 * @dataProvider getModifyingActionsWithParameters
+	 * @param       $actionMethodName
+	 * @param array $parameters
+	 */
+	public function testModifyingActionsClearPageCache($actionMethodName, array $parameters) {
+		$this->fixture->expects($this->atLeastOnce())->method('clearCacheForCurrentPage');
+		call_user_func_array(array($this->fixture, $actionMethodName), $parameters);
+	}
+
+
+
+	abstract public function getModifyingActions();
+
+
+
+	public function getModifyingActionsWithParameters() {
+		$result = array();
+		foreach ($this->getModifyingActions() as $modifyingAction) {
+			$result[] = array($modifyingAction,
+			                  $this->getMockParametersForActionMethod(new ReflectionMethod($this->fixtureClassName, $modifyingAction)));
+		}
+		return $result;
 	}
 
 

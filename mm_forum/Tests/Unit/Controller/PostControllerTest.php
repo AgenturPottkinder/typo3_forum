@@ -264,4 +264,7 @@ class Tx_MmForum_Controller_PostControllerTest extends Tx_MmForum_Controller_Abs
 
 
 
+	public function getModifyingActions() {
+		return array('updateAction', 'createAction', 'deleteAction');
+	}
 }

@@ -200,6 +200,7 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 
 		// Display flash message and redirect to topic->show action.
 		$this->flashMessageContainer->add(Tx_MmForum_Utility_Localization::translate('Post_Create_Success'));
+		$this->clearCacheForCurrentPage();
 		$this->redirect('show', 'Topic', NULL, array('topic' => $topic));
 	}
 
@@ -232,6 +233,7 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Post', 'postUpdated',
 		                                      array('post' => $post));
 		$this->flashMessageContainer->add(Tx_MmForum_Utility_Localization::translate('Post_Update_Success'));
+		$this->clearCacheForCurrentPage();
 		$this->redirect('show', 'Topic', NULL, array('topic' => $post->getTopic()));
 	}
 
@@ -266,9 +268,10 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 		$this->postFactory->deletePost($post);
 		$this->flashMessageContainer->add(Tx_MmForum_Utility_Localization::translate('Post_Delete_Success'));
 
-		// Notify observers.
+		// Notify observers and clear cache.
 		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Post', 'postDeleted',
 		                                      array('post' => $post));
+		$this->clearCacheForCurrentPage();
 
 		// If there is still on post left in the topic, redirect to the topic
 		// view. If we have deleted the last post of a topic (i.e. the topic
