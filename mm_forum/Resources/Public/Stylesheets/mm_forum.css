@@ -7,10 +7,6 @@
 /*
  * OTHER DEFINITIONS
 */
-/*@mixin rounded-corner($side1, $side2, $radius) {*/
-/*-moz-border-radius-#{$side1}#{$side2}: $radius;*/
-/*-webkit-border-#{$side1}-#{$side2}-radius: $radius;*/
-/*}*/
 /*
  * GENERAL STYLES
 */

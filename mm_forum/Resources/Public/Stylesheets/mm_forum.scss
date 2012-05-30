@@ -28,11 +28,6 @@ $darkSuccessColor: darken($successColor, lightness($successColor) * 0.5);
 $baseFontSize: 0.75em;
 
 
-/*@mixin rounded-corner($side1, $side2, $radius) {*/
-	/*-moz-border-radius-#{$side1}#{$side2}: $radius;*/
-/*-webkit-border-#{$side1}-#{$side2}-radius: $radius;*/
-/*}*/
-
 @mixin vgradient($top, $bottom) {
 	background: $top; /* Old browsers */
 	background: -moz-linear-gradient(top, $top 0%, $bottom 100%); /* FF3.6+ */
