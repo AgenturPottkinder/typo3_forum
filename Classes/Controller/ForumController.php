@@ -46,9 +46,10 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 
 
 
-	/*
-	   * ATTRIBUTES
-	   */
+	//
+	// ATTRIBUTES
+	//
+
 
 
 	/**
@@ -66,24 +67,25 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 
 
 	/**
+	 * The virtual root forum.
 	 * @var Tx_MmForum_Domain_Model_Forum_RootForum
 	 */
 	protected $rootForum;
 
 
 
-	/*
-	  * DEPENDENCY INJECTION METHODS
-	  */
+	//
+	// DEPENDENCY INJECTION METHODS
+	//
+
 
 
 	/**
-	 *
-	 * Constructor of this controller. Needs to get all required repositories
-	 * injected.
+	 * Constructor of this controller. Needs to get all required repositories injected.
 	 *
 	 * @param Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository An instance of the forum repository.
 	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository An instance of the topic repository.
+	 * @param Tx_MmForum_Domain_Model_Forum_RootForum            $rootForum       An instance of the virtual root forum.
 	 */
 	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
 	                            Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
@@ -96,9 +98,10 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 
 
 
-	/*
-	   * ACTION METHODS
-	   */
+	//
+	// ACTION METHODS
+	//
+
 
 
 	/**
@@ -122,7 +125,9 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 	 */
 	public function showAction(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
 		$this->authenticationService->assertReadAuthorization($forum);
-		$this->view->assign('forum', $forum)->assign('topics', $this->topicRepository->findForIndex($forum));
+		$this->view
+			->assign('forum', $forum)
+			->assign('topics', $this->topicRepository->findForIndex($forum));
 	}
 
 
@@ -159,7 +164,7 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 	public function createAction(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
 		if ($forum->getParent() !== NULL) {
 			$this->authenticationService->assertAdministrationAuthorization($forum->getParent());
-		} elseif (TYPO3_MODE !== 'BE') {
+		} /** @noinspection PhpUndefinedConstantInspection */ elseif (TYPO3_MODE !== 'BE') {
 			throw new Tx_MmForum_Domain_Exception_Authentication_NoAccessException('This operation is allowed only from the TYPO3 backend.');
 		}
 

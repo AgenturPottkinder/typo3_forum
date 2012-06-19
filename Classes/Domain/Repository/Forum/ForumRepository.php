@@ -63,11 +63,8 @@ class Tx_MmForum_Domain_Repository_Forum_ForumRepository extends Tx_Extbase_Pers
 
 
 	/**
-	 *
 	 * Finds all forums for the index view.
-	 *
-	 * @return array<Tx_MmForum_Domain_Model_Forum_Forum> All forums for the index view.
-	 *
+	 * @return Tx_MmForum_Domain_Model_Forum_Forum[] All forums for the index view.
 	 */
 	public function findForIndex() {
 		return $this->findRootForums();
@@ -76,11 +73,8 @@ class Tx_MmForum_Domain_Repository_Forum_ForumRepository extends Tx_Extbase_Pers
 
 
 	/**
-	 *
 	 * Finds all root forums.
-	 *
-	 * @return array<Tx_MmForum_Domain_Model_Forum_Forum> All forums for the index view.
-	 *
+	 * @return Tx_MmForum_Domain_Model_Forum_Forum[] All forums for the index view.
 	 */
 	public function findRootForums() {
 		$query  = $this->createQuery();
