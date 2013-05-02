@@ -79,9 +79,9 @@ class Tx_MmForum_Domain_Repository_Forum_ForumRepository extends Tx_Extbase_Pers
 	public function findRootForums() {
 		$query  = $this->createQuery();
 		$result = $query
-			->matching($query->equals('forum', array(NULL, 0)))
+			->matching($query->equals('forum', 0))
 			->execute();
-		return $this->filterByAccess($result, 'read');
+        return $this->filterByAccess($result, 'read');
 	}
 
 
@@ -94,12 +94,11 @@ class Tx_MmForum_Domain_Repository_Forum_ForumRepository extends Tx_Extbase_Pers
 	 */
 	protected function filterByAccess(Iterator $objects, $action = 'read') {
 		$result = array();
-		foreach ($objects as $forum) {
+        foreach ($objects as $forum) {
 			if ($this->authenticationService->checkAuthorization($forum, $action)) {
 				$result[] = $forum;
 			}
 		}
-
 		return $result;
 	}
 

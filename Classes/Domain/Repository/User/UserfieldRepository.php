@@ -65,28 +65,39 @@ class Tx_MmForum_Domain_Repository_User_UserfieldRepository extends Tx_MmForum_D
 	 */
 	private $coreUserfields = NULL;
 
-
+    /**
+     * ConfigurationManagerInterface
+     * @var Tx_Extbase_Configuration_ConfigurationManagerInterface
+     */
+    protected $configurationManagerInterface = NULL;
 
 	/*
 	 * CONSTRUCTOR
 	 */
 
 
-
 	/**
 	 * Creates a new instance of the userfield repository.
+     *
 	 */
 	public function __construct() {
 		parent::__construct();
 		$this->objectType = 'Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield';
+
 	}
+
+    /**
+    * @param Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManagerInterface
+    */
+    public function injectConfigurationManagerInterface(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManagerInterface) {
+        $this->configurationManagerInterface = $configurationManagerInterface;
+    }
 
 
 
 	/*
 	 * REPOSITORY METHODS
 	 */
-
 
 
 	/**
@@ -99,7 +110,7 @@ class Tx_MmForum_Domain_Repository_User_UserfieldRepository extends Tx_MmForum_D
 	 */
 	protected function findCoreUserfields() {
 		if ($this->coreUserfields === NULL) {
-			$conf                 = Tx_Extbase_Dispatcher::getExtbaseFrameworkConfiguration();
+			$conf                 =  $this->configurationManagerInterface->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 			$this->coreUserfields = array();
 
 			foreach ($conf['settings']['userfields']['core_fields'] as $coreFieldKey => $coreFieldValues) {

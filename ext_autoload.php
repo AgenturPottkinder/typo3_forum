@@ -3,6 +3,7 @@
 // This file was generated on 2012-04-21 15:51
 
 $extensionPath = t3lib_extMgm::extPath('mm_forum');
+
 return array(
 	'tx_mmforum_ajax_dispatcher' => $extensionPath . 'Classes/Ajax/Dispatcher.php',
 	'tx_mmforum_cache_cache' => $extensionPath . 'Classes/Cache/Cache.php',

@@ -21,9 +21,9 @@ config.tx_extbase.persistence.classes {
 
 	Tx_MmForum_Domain_Model_User_FrontendUser {
 	
-		subclasses {
-			Tx_MmForum_Domain_Model_User_FrontendUser = Tx_MmForum_Domain_Model_User_FrontendUser
-		}
+		#subclasses {
+		#	Tx_MmForum_Domain_Model_User_FrontendUser = Tx_MmForum_Domain_Model_User_FrontendUser
+		#}
 		
 		mapping {
 			tableName = fe_users

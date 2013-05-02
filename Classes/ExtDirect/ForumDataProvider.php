@@ -40,6 +40,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
+
 class Tx_MmForum_ExtDirect_ForumDataProvider extends Tx_MmForum_ExtDirect_AbstractDataProvider {
 
 
