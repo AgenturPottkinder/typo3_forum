@@ -163,7 +163,7 @@ plugin.tx_mmforum.settings {
 
 	pagebrowser {
 		itemsPerPage = 20
-		insertAbove = 1
+		insertAbove = 0
 		insertBelow = 1
 		maximumNumberOfLinks = 10
 	}
@@ -250,6 +250,9 @@ plugin.tx_mmforum.settings {
 
 plugin.tx_mmforum.view {
     widget.Tx_Fluid_ViewHelpers_Widget_PaginateViewHelper.templateRootPath = {$plugin.tx_mmforum.view.templateRootPath}
+    templateRootPath = {$plugin.tx_mmforum.view.templateRootPath}
+    partialRootPath = {$plugin.tx_mmforum.view.partialRootPath}
+    layoutRootPath = {$plugin.tx_mmforum.view.layoutRootPath}
 }
 
 plugin.tx_mmforum.renderer.navigation {
@@ -263,11 +266,11 @@ plugin.tx_mmforum.renderer.navigation {
 			key.field = uid
 			0 = TEXT
 			0.field = username
-			0.noTrimWrap = |<a style="padding-top: 4px; padding-bottom: 4px;" href="#"><i class="tx-mmforum-icon-16-user"></i> |</a>|
+			0.noTrimWrap = |<a style="padding-top: 4px; padding-bottom: 4px;" href="#"> |</a>|
 
 			default = TEXT
 			default.field = username
-			default.noTrimWrap = |<a class="dropdown-toggle" data-toggle="dropdown" href="#" style="padding-top: 4px; padding-bottom: 4px;"><i class="tx-mmforum-icon-16-user"></i> | <b class="caret"></b></a>|
+			default.noTrimWrap = |<a class="dropdown-toggle" data-toggle="dropdown" href="#" style="padding-top: 4px; padding-bottom: 4px;"> | <b class="caret"></b></a>|
 		}
 
 

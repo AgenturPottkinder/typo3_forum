@@ -73,6 +73,7 @@ class Tx_MmForum_ExtDirect_ForumDataProvider extends Tx_MmForum_ExtDirect_Abstra
 	 * @return array
 	 */
 	public function getTreeNode($nodeId) {
+
 		if ($nodeId === 'forum-root') {
 			$forumId = NULL;
 			$forums  = $this->forumRepository->findRootForums();
@@ -80,7 +81,6 @@ class Tx_MmForum_ExtDirect_ForumDataProvider extends Tx_MmForum_ExtDirect_Abstra
 			$forumId = (int)str_replace('forum-', '', $nodeId);
 			$forums  = $this->forumRepository->findByUid($forumId)->getChildren();
 		}
-
 		$result = array();
 		foreach ($forums as $forum) {
 			$forumNode = array('text'       => $forum->getTitle(),

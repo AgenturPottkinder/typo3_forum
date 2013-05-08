@@ -42,7 +42,7 @@ if (!is_array($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['mmforum
 	$TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['mmforum_main'] = array();
 }
 
-if (t3lib_div::int_from_ver(TYPO3_version) < '4006000')
+if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) < '4006000')
 {
 	if (!isset($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['mmforum_main']['frontend']))
 		$TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['mmforum_main']['frontend'] = 't3lib_cache_frontend_VariableFrontend';

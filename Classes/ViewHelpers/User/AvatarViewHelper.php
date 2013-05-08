@@ -95,7 +95,6 @@ class Tx_MmForum_ViewHelpers_User_AvatarViewHelper extends Tx_Fluid_ViewHelpers_
 	public function render(Tx_MmForum_Domain_Model_User_FrontendUser $user, $width = NULL, $height = NULL) {
 		$avatarFilename = NULL;
 		$avatarFilename = $user->getImagePath();
-
 		if ($avatarFilename === NULL) {
 			$avatarFilename = t3lib_extMgm::siteRelPath('mm_forum') . 'Resources/Public/Images/Icons/AvatarEmpty.png';
 		}

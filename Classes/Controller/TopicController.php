@@ -121,7 +121,13 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 * ACTION METHODS
 	 */
 
-
+    /**
+     * Index action. Displays the all topics
+     * @return void
+     */
+    public function indexAction() {
+        $this->view->assign('topics', $this->topicRepository->findAll());
+    }
 
 	/**
 	 * Show action. Displays a single topic and all posts contained in this topic.

@@ -51,7 +51,6 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 	 */
 
 
-
 	/**
 	 * Finds topics for the forum show view. Page navigation is possible.
 	 *
@@ -68,7 +67,6 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 			                    'last_post_crdate'  => 'DESC'));
 		return $query->execute();
 	}
-
 
 
 	/**
