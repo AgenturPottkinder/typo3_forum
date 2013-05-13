@@ -94,7 +94,14 @@ class Tx_MmForum_ViewHelpers_Forum_TopicIconViewHelper extends Tx_Fluid_ViewHelp
 	 *
 	 */
 	public function render(Tx_MmForum_Domain_Model_Forum_Topic $topic = NULL, $width = NULL) {
-		return parent::render('plugin.tx_mmforum.renderer.icons.topic', $this->getDataArray($topic));
+        $data =  $this->getDataArray($topic);
+
+        if($data['new']){
+            return parent::render('plugin.tx_mmforum.renderer.icons.topic_new',$data);
+        }else{
+            return parent::render('plugin.tx_mmforum.renderer.icons.topic',$data);
+        }
+
 	}
 
 

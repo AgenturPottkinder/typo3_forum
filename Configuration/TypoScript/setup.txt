@@ -328,20 +328,23 @@ plugin.tx_mmforum.renderer.icons {
 		21.file.import.field = statusIcon
 		21.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-br" style="background-image: url(|)"></div>
 	}
-
-	forum < .abstract_icon
+    forum < .abstract_icon
 	forum {
 		10.file = EXT:mm_forum/Resources/Public/Images/Icons/Forum/BaseIcon.png
 
 		21 = IMG_RESOURCE
-		21.file = EXT:mm_forum/Resources/Public/Images/Icons/Forum/OverlayNew.png
-		21.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-br" style="background-image: url(|)"></div>
-		21.stdWrap.if.isTrue.field = new
+		21.file = EXT:mm_forum/Resources/Public/Images/Icons/Forum/OverlayLocked.png
+		21.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-bl" style="background-image: url(|)"></div>
+		21.stdWrap.if.isTrue.field = closed
+	}
+	forum_new < .forum
+	forum_new {
+		10.file = EXT:mm_forum/Resources/Public/Images/Icons/Forum/BaseIcon.png
 
-		22 = IMG_RESOURCE
-		22.file = EXT:mm_forum/Resources/Public/Images/Icons/Forum/OverlayLocked.png
-		22.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-bl" style="background-image: url(|)"></div>
-		22.stdWrap.if.isTrue.field = closed
+		21 = IMG_RESOURCE
+		21.file = EXT:mm_forum/Resources/Public/Images/Icons/Forum/OverlayLocked.png
+		21.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-bl" style="background-image: url(|)"></div>
+		21.stdWrap.if.isTrue.field = closed
 	}
 
 	topic < .abstract_icon
@@ -352,11 +355,6 @@ plugin.tx_mmforum.renderer.icons {
 		20.file = EXT:mm_forum/Resources/Public/Images/Icons/Topic/OverlayImportant.png
 		20.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-tl" style="background-image: url(|)"></div>
 		20.stdWrap.if.isTrue.field = important
-
-		21 = IMG_RESOURCE
-		21.file = EXT:mm_forum/Resources/Public/Images/Icons/Topic/OverlayNew.png
-		21.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-br" style="background-image: url(|)"></div>
-		21.stdWrap.if.isTrue.field = new
 
 		22 = IMG_RESOURCE
 		22.file = EXT:mm_forum/Resources/Public/Images/Icons/Topic/OverlayLocked.png
@@ -378,6 +376,12 @@ plugin.tx_mmforum.renderer.icons {
 		25.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-tr" style="background-image: url(|)"></div>
 		25.stdWrap.if.isTrue.field = sticky
 	}
+    topic_new < .topic
+	topic_new  {
+	    10.file = EXT:mm_forum/Resources/Public/Images/Icons/Topic/BaseIcon.png
+	}
+
+
 }
 
 plugin.tx_mmforum.userfields {
