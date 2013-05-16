@@ -56,9 +56,9 @@ class Tx_MmForum_Utility_TypoScript {
 
 	/**
 	 * Injects an instance of the Extbase configuration manager.
-	 * @param Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager
+	 * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager
 	 */
-	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
+	public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager) {
 		$this->configurationManager = $configurationManager;
 	}
 
@@ -73,9 +73,9 @@ class Tx_MmForum_Utility_TypoScript {
 	 *                                   specified path.
 	 */
 	public function loadTyposcriptFromPath($configurationPath) {
-		$setup = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+		$setup = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
 
-		$pathSegments = t3lib_div::trimExplode('.', $configurationPath);
+		$pathSegments = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode('.', $configurationPath);
 
 		$lastSegment = array_pop($pathSegments);
 		foreach ($pathSegments As $segment) {

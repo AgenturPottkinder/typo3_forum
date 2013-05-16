@@ -39,7 +39,7 @@
  *
  */
 
-class Tx_MmForum_Domain_Model_Forum_Attachment extends Tx_Extbase_DomainObject_AbstractEntity {
+class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 
 
@@ -96,7 +96,7 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends Tx_Extbase_DomainObject_A
 	public function getAbsoluteFilename() {
 		global $TCA;
 		$GLOBALS['TSFE']->includeTCA();
-		t3lib_div::loadTCA('tx_mmforum_domain_model_forum_attachment');
+		\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA('tx_mmforum_domain_model_forum_attachment');
 
 		$uploadPath = $TCA['tx_mmforum_domain_model_forum_attachment']['columns']['filename']['config']['uploadfolder'];
 		return $uploadPath . $this->getFilename();

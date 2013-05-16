@@ -43,7 +43,7 @@
  *
  */
 
-class Tx_MmForum_ViewHelpers_Control_SubmitButtonViewHelper extends Tx_Fluid_ViewHelpers_Form_SubmitViewHelper {
+class Tx_MmForum_ViewHelpers_Control_SubmitButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SubmitViewHelper {
 
 
 

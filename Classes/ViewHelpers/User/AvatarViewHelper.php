@@ -42,13 +42,13 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_User_AvatarViewHelper extends Tx_Fluid_ViewHelpers_ImageViewHelper {
+class Tx_MmForum_ViewHelpers_User_AvatarViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\ImageViewHelper {
 
 
 
 	/**
 	 * An instance of the Extbase Signal-/Slot-Dispatcher.
-	 * @var Tx_Extbase_SignalSlot_Dispatcher
+	 * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
 	 */
 	protected $slots;
 
@@ -58,13 +58,13 @@ class Tx_MmForum_ViewHelpers_User_AvatarViewHelper extends Tx_Fluid_ViewHelpers_
 	 *
 	 * Injector for the Signal-/Slot-Dispatcher.
 	 *
-	 * @param Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher
+	 * @param \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher
 	 *                                 An instance of the Extbase Signal-/Slot-
 	 *                                 Dispatcher.
 	 * @return void
 	 *
 	 */
-	public function injectSignalSlotDispatcher(Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher) {
+	public function injectSignalSlotDispatcher(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher) {
 		$this->slots = $signalSlotDispatcher;
 	}
 
@@ -96,7 +96,7 @@ class Tx_MmForum_ViewHelpers_User_AvatarViewHelper extends Tx_Fluid_ViewHelpers_
 		$avatarFilename = NULL;
 		$avatarFilename = $user->getImagePath();
 		if ($avatarFilename === NULL) {
-			$avatarFilename = t3lib_extMgm::siteRelPath('mm_forum') . 'Resources/Public/Images/Icons/AvatarEmpty.png';
+			$avatarFilename = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('mm_forum') . 'Resources/Public/Images/Icons/AvatarEmpty.png';
 		}
 
 		return parent::render($avatarFilename, $width, $height);

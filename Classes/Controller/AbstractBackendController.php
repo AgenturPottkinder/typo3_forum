@@ -40,7 +40,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_MmForum_Controller_AbstractBackendController extends Tx_Extbase_MVC_Controller_ActionController {
+abstract class Tx_MmForum_Controller_AbstractBackendController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 
 
@@ -88,9 +88,9 @@ abstract class Tx_MmForum_Controller_AbstractBackendController extends Tx_Extbas
 
 
 	/**
-	 * @param template $template
+	 * @param \TYPO3\CMS\Backend\Template\DocumentTemplate $template
 	 */
-	public function injectTemplate(template $template) {
+	public function injectTemplate(\TYPO3\CMS\Backend\Template\DocumentTemplate $template) {
 		$this->template     = $template;
 		$this->pageRenderer = $this->template->getPageRenderer();
 	}
@@ -98,9 +98,9 @@ abstract class Tx_MmForum_Controller_AbstractBackendController extends Tx_Extbas
 
 
 	/**
-	 * @param Tx_Extbase_Object_Container_Container $objectContainer
+	 * @param \TYPO3\CMS\Extbase\Object\Container\Container $objectContainer
 	 */
-	public function injectObjectContainer(Tx_Extbase_Object_Container_Container $objectContainer) {
+	public function injectObjectContainer(\TYPO3\CMS\Extbase\Object\Container\Container $objectContainer) {
 		$this->objectContainer = $objectContainer;
 	}
 
@@ -109,14 +109,13 @@ abstract class Tx_MmForum_Controller_AbstractBackendController extends Tx_Extbas
 	/**
 	 * Processes a general request. The result can be returned by altering the given response.
 	 *
-	 * @param Tx_Extbase_MVC_RequestInterface  $request  The request object
-	 * @param Tx_Extbase_MVC_ResponseInterface $response The response, modified by this handler
+	 * @param \TYPO3\CMS\Extbase\Mvc\RequestInterface  $request  The request object
+	 * @param \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response The response, modified by this handler
 	 *
 	 * @throws Tx_Extbase_MVC_Exception_UnsupportedRequestType if the controller doesn't support the current request type
 	 * @return void
 	 */
-	public function processRequest(Tx_Extbase_MVC_RequestInterface $request,
-	                               Tx_Extbase_MVC_ResponseInterface $response) {
+	public function processRequest(\TYPO3\CMS\Extbase\Mvc\RequestInterface $request, \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response) {
 		$GLOBALS['SOBE']      = new stdClass();
 		$GLOBALS['SOBE']->doc = $this->template;
 
@@ -138,7 +137,7 @@ abstract class Tx_MmForum_Controller_AbstractBackendController extends Tx_Extbas
 	protected function initializeAction() {
 		$this->registerAlternativeImplementations();
 
-		$this->pageId = intval(t3lib_div::_GP('id'));
+		$this->pageId = intval(\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id'));
 
 		$this->pageRenderer->addInlineLanguageLabelArray(array('title'      => $GLOBALS['LANG']->getLL('title'),
 		                                                      'path'        => $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.path'),
@@ -156,13 +155,13 @@ abstract class Tx_MmForum_Controller_AbstractBackendController extends Tx_Extbas
 		$this->pageRenderer->loadExtJS();
 		$this->pageRenderer->enableExtJSQuickTips();
 
-		$this->pageRenderer->addJsFile(t3lib_extMgm::extRelPath('lang') . 'res/js/be/typo3lang.js');
+		$this->pageRenderer->addJsFile(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('lang') . 'res/js/be/typo3lang.js');
 		$this->pageRenderer->addJsFile($this->backPath . '../t3lib/js/extjs/ux/Ext.ux.FitToParent.js');
 		$this->includeJavascriptFromPath('Resources/Public/Javascript/Backend/ExtJS/');
 		$this->includeJavascriptFromPath('Resources/Public/Javascript/Backend/ForumIndex/');
 
 		$this->includeCssFromPath('Resources/Public/Javascript/Backend/ExtJS/');
-		$this->pageRenderer->addCssFile(t3lib_extMgm::extRelPath('mm_forum') . 'Resources/Public/Stylesheets/mm_forum-backend.css');
+		$this->pageRenderer->addCssFile(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('mm_forum') . 'Resources/Public/Stylesheets/mm_forum-backend.css');
 	}
 
 
@@ -182,8 +181,8 @@ abstract class Tx_MmForum_Controller_AbstractBackendController extends Tx_Extbas
 	 * @param $path
 	 */
 	protected function includeJavascriptFromPath($path) {
-		$resourcePath    = t3lib_extMgm::extRelPath('mm_forum') . $path;
-		$absResourcePath = t3lib_extMgm::extPath('mm_forum') . $path;
+		$resourcePath    = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('mm_forum') . $path;
+		$absResourcePath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mm_forum') . $path;
 
 		$jsFiles = glob($absResourcePath . '*.js');
 
@@ -199,8 +198,8 @@ abstract class Tx_MmForum_Controller_AbstractBackendController extends Tx_Extbas
 	 * @param $path
 	 */
 	protected function includeCssFromPath($path) {
-		$resourcePath    = t3lib_extMgm::extRelPath('mm_forum') . $path;
-		$absResourcePath = t3lib_extMgm::extPath('mm_forum') . $path;
+		$resourcePath    = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('mm_forum') . $path;
+		$absResourcePath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mm_forum') . $path;
 
 		$cssFiles = glob($absResourcePath . '*.css');
 

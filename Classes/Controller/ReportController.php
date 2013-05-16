@@ -140,7 +140,11 @@ class Tx_MmForum_Controller_ReportController extends Tx_MmForum_Controller_Abstr
 		                                      array('report' => $report));
 
 		// Display success message and redirect to topic->show action.
-		$this->flashMessageContainer->add(Tx_Extbase_Utility_Localization::translate('Report_New_Success', 'MmForum'));
+		$this->controllerContext->getFlashMessageQueue()->addMessage(
+			new \TYPO3\CMS\Core\Messaging\FlashMessage(
+				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('Report_New_Success', 'MmForum')
+			)
+		);
 		$this->redirect('show', 'Topic', NULL, array('topic' => $post->getTopic()));
 	}
 

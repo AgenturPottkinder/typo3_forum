@@ -174,7 +174,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 
 		// Validate arguments
 		if ($forum === NULL && $topic === NULL) {
-			throw new Tx_Extbase_MVC_Exception_InvalidArgumentValue("You need to subscribe a Forum or Topic!", 1285059341);
+			throw new \TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException("You need to subscribe a Forum or Topic!", 1285059341);
 		}
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
@@ -192,9 +192,17 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 
 		# Update user and redirect to subscription object.
 		$this->frontendUserRepository->update($user);
-		$this->flashMessageContainer->add($this->getSubscriptionFlashMessage($object, $unsubscribe));
+		$this->controllerContext->getFlashMessageQueue()->addMessage(
+			new \TYPO3\CMS\Core\Messaging\FlashMessage(
+				$this->getSubscriptionFlashMessage($object, $unsubscribe)
+			)
+		);
 		$this->clearCacheForCurrentPage();
-		$this->redirectToSubscriptionObject($object);
+		if ($unsubscribe) {
+			$this->redirect('listSubscriptions');
+		} else {
+			$this->redirectToSubscriptionObject($object);
+		}
 	}
 
 
@@ -256,7 +264,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	                                               $unsubscribe = FALSE) {
 		$type = array_pop(explode('_', get_class($object)));
 		$key  = 'User_' . ($unsubscribe ? 'Uns' : 'S') . 'ubscribe_' . $type . '_Success';
-		return Tx_Extbase_Utility_Localization::translate($key, 'MmForum', array($object->getTitle()));
+		return \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($key, 'MmForum', array($object->getTitle()));
 	}
 
 

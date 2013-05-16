@@ -167,7 +167,7 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 	 */
 	public function createShadowTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
 		/** @var $shadowTopic Tx_MmForum_Domain_Model_Forum_ShadowTopic */
-		$shadowTopic = $this->objectManager->create('Tx_MmForum_Domain_Model_Forum_ShadowTopic');
+		$shadowTopic = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_MmForum_Domain_Model_Forum_ShadowTopic');
 		$shadowTopic->setTarget($topic);
 
 		Return $shadowTopic;
@@ -186,7 +186,7 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 	public function moveTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic,
 	                          Tx_MmForum_Domain_Model_Forum_Forum $targetForum) {
 		if ($topic instanceof Tx_MmForum_Domain_Model_Forum_ShadowTopic) {
-			throw new Tx_Extbase_Object_InvalidClass("Topic is already a shadow topic", 1288702422);
+			throw new \TYPO3\CMS\Extbase\Object\InvalidClassException("Topic is already a shadow topic", 1288702422);
 		}
 		$shadowTopic = $this->createShadowTopic($topic);
 

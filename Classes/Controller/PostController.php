@@ -25,7 +25,6 @@
  *                                                                      */
 
 
-
 /**
  *
  * Controller for the post object. This class implements all post-related functions,
@@ -46,11 +45,9 @@
 class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_AbstractController {
 
 
-
 	/*
 	 * ATTRIBUTES
 	 */
-
 
 
 	/**
@@ -60,13 +57,11 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	protected $forumRepository;
 
 
-
 	/**
 	 * A topic repository.
 	 * @var Tx_MmForum_Domain_Repository_Forum_TopicRepository
 	 */
 	protected $topicRepository;
-
 
 
 	/**
@@ -76,7 +71,6 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	protected $postRepository;
 
 
-
 	/**
 	 * A post factory.
 	 * @var Tx_MmForum_Domain_Factory_Forum_PostFactory
@@ -84,11 +78,9 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	protected $postFactory;
 
 
-
 	/*
 	 * DEPENDENCY INJECTORS
 	 */
-
 
 
 	/**
@@ -96,25 +88,23 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	 *
 	 * @param Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository
 	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository
-	 * @param Tx_MmForum_Domain_Repository_Forum_PostRepository  $postRepository
-	 * @param Tx_MmForum_Domain_Factory_Forum_PostFactory        $postFactory
+	 * @param Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository
+	 * @param Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory
 	 */
 	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
-	                            Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
-	                            Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository,
-	                            Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory) {
+								Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
+								Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository,
+								Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory) {
 		$this->forumRepository = $forumRepository;
 		$this->topicRepository = $topicRepository;
-		$this->postRepository  = $postRepository;
-		$this->postFactory     = $postFactory;
+		$this->postRepository = $postRepository;
+		$this->postFactory = $postFactory;
 	}
-
 
 
 	/*
 	 * ACTION METHODS
 	 */
-
 
 
 	/**
@@ -129,7 +119,7 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 		$this->authenticationService->assertReadAuthorization($post);
 
 		// Determine the page number of the requested post.
-		$posts     = $post->getTopic()->getPosts();
+		$posts = $post->getTopic()->getPosts();
 		$postCount = count($posts);
 		for ($postNumber = 0; $postNumber < $postCount; $postNumber++) {
 			if ($posts[$postNumber] == $post) {
@@ -138,13 +128,12 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 		}
 
 		$itemsPerPage = (int)$this->settings['topicController']['show']['pagebrowser']['itemsPerPage'];
-		$pageNumber   = ceil($postNumber / $itemsPerPage);
+		$pageNumber = ceil($postNumber / $itemsPerPage);
 
 		// Redirect to the topic->show action.
 		$this->redirect('show', 'Topic', NULL, array('topic' => $post->getTopic(),
-		                                            'page'   => $pageNumber));
+			'page' => $pageNumber));
 	}
-
 
 
 	/**
@@ -153,14 +142,14 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	 * @dontvalidate $post
 	 *
 	 * @param  Tx_MmForum_Domain_Model_Forum_Topic $topic The topic in which the new post is to be created.
-	 * @param  Tx_MmForum_Domain_Model_Forum_Post  $post  The new post.
-	 * @param  Tx_MmForum_Domain_Model_Forum_Post  $quote An optional post that will be quoted within the
+	 * @param  Tx_MmForum_Domain_Model_Forum_Post $post  The new post.
+	 * @param  Tx_MmForum_Domain_Model_Forum_Post $quote An optional post that will be quoted within the
 	 *                                                    bodytext of the new post.
 	 * @return void
 	 */
 	public function newAction(Tx_MmForum_Domain_Model_Forum_Topic $topic,
-	                          Tx_MmForum_Domain_Model_Forum_Post $post = NULL,
-	                          Tx_MmForum_Domain_Model_Forum_Post $quote = NULL) {
+							  Tx_MmForum_Domain_Model_Forum_Post $post = NULL,
+							  Tx_MmForum_Domain_Model_Forum_Post $quote = NULL) {
 		// Assert authorization
 		$this->authenticationService->assertNewPostAuthorization($topic);
 
@@ -176,13 +165,12 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	}
 
 
-
 	/**
 	 * Creates a new post.
 	 * TODO: Needs to be able to handle attachments. But we will not implement this until Extbase itself has a decent file upload handling!
 	 *
 	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic The topic in which the new post is to be created.
-	 * @param Tx_MmForum_Domain_Model_Forum_Post  $post  The new post.
+	 * @param Tx_MmForum_Domain_Model_Forum_Post $post  The new post.
 	 * @return void
 	 */
 	public function createAction(Tx_MmForum_Domain_Model_Forum_Topic $topic, Tx_MmForum_Domain_Model_Forum_Post $post) {
@@ -196,14 +184,17 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 
 		// All potential listeners (Signal-Slot FTW!)
 		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Post', 'postCreated',
-		                                      array('post' => $post));
+			array('post' => $post));
 
 		// Display flash message and redirect to topic->show action.
-		$this->flashMessageContainer->add(Tx_MmForum_Utility_Localization::translate('Post_Create_Success'));
+		$this->controllerContext->getFlashMessageQueue()->addMessage(
+			new \TYPO3\CMS\Core\Messaging\FlashMessage(
+				Tx_MmForum_Utility_Localization::translate('Post_Create_Success')
+			)
+		);
 		$this->clearCacheForCurrentPage();
 		$this->redirect('show', 'Topic', NULL, array('topic' => $topic));
 	}
-
 
 
 	/**
@@ -219,7 +210,6 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	}
 
 
-
 	/**
 	 * Updates a post.
 	 *
@@ -231,12 +221,15 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 		$this->postRepository->update($post);
 
 		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Post', 'postUpdated',
-		                                      array('post' => $post));
-		$this->flashMessageContainer->add(Tx_MmForum_Utility_Localization::translate('Post_Update_Success'));
+			array('post' => $post));
+		$this->controllerContext->getFlashMessageQueue()->addMessage(
+			new \TYPO3\CMS\Core\Messaging\FlashMessage(
+				Tx_MmForum_Utility_Localization::translate('Post_Update_Success')
+			)
+		);
 		$this->clearCacheForCurrentPage();
 		$this->redirect('show', 'Topic', NULL, array('topic' => $post->getTopic()));
 	}
-
 
 
 	/**
@@ -252,7 +245,6 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	}
 
 
-
 	/**
 	 * Deletes a post.
 	 *
@@ -266,11 +258,15 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 		// Delete the post.
 		$postCount = $post->getTopic()->getPostCount();
 		$this->postFactory->deletePost($post);
-		$this->flashMessageContainer->add(Tx_MmForum_Utility_Localization::translate('Post_Delete_Success'));
+		$this->controllerContext->getFlashMessageQueue()->addMessage(
+			new \TYPO3\CMS\Core\Messaging\FlashMessage(
+				Tx_MmForum_Utility_Localization::translate('Post_Delete_Success')
+			)
+		);
 
 		// Notify observers and clear cache.
 		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Post', 'postDeleted',
-		                                      array('post' => $post));
+			array('post' => $post));
 		$this->clearCacheForCurrentPage();
 
 		// If there is still on post left in the topic, redirect to the topic
@@ -284,7 +280,6 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	}
 
 
-
 	/**
 	 * Displays a preview of a rendered post text.
 	 * @param string $text The content.
@@ -292,7 +287,6 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	public function previewAction($text) {
 		$this->view->assign('text', $text);
 	}
-
 
 
 }

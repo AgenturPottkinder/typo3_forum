@@ -61,7 +61,7 @@ class Tx_MmForum_TextParser_Service_SyntaxHighlightingParserService
 	 */
 	public function __construct() {
 		parent::__construct();
-		require_once t3lib_extMgm::extPath('mm_forum') . 'Resources/Private/Libraries/GeSHi/geshi.php';
+		require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mm_forum') . 'Resources/Private/Libraries/GeSHi/geshi.php';
 		$this->geshi = new GeSHi();
 	}
 

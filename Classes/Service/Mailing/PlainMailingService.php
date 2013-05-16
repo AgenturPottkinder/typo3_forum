@@ -72,16 +72,16 @@ class Tx_MmForum_Service_Mailing_PlainMailingService extends Tx_MmForum_Service_
 	 * Sends a mail with a certain subject and bodytext to a recipient in form of a
 	 * frontend user.
 	 *
-	 * @param         Tx_Extbase_Domain_Model_FrontendUser @recipient
-	 *                                                     The recipient of the mail. This is a plain
-	 *                                                     frontend user.
-	 * @param  string $subject                             The mail's subject
-	 * @param  string $bodytext                            The mail's bodytext
+	 * @param         \TYPO3\CMS\Extbase\Domain\Model\FrontendUser @recipient
+	 *                                                             The recipient of the mail. This is a plain
+	 *                                                             frontend user.
+	 * @param  string $subject                                     The mail's subject
+	 * @param  string $bodytext                                    The mail's bodytext
 	 *
 	 * @return void
 	 *
 	 */
-	public function sendMail(Tx_Extbase_Domain_Model_FrontendUser $recipient, $subject, $bodytext) {
+	public function sendMail(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $recipient, $subject, $bodytext) {
 		if ($recipient->getEmail()) {
 			t3lib_div::plainMailEncoded($recipient->getEmail(), $subject, $bodytext,
 			                            $this->getHeaders($recipient, $subject, $bodytext));
@@ -100,7 +100,7 @@ class Tx_MmForum_Service_Mailing_PlainMailingService extends Tx_MmForum_Service_
 	 *
 	 * Generates the e-mail headers for a certain recipient, subject and bodytext.
 	 *
-	 * @param  Tx_Extbase_Domain_Model_FrontendUser $recipient
+	 * @param  \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $recipient
 	 *                                                           The recipient of the email.
 	 * @param  string                               $subject     The mail's subject.
 	 * @param  string                               $bodytext    The mail's bodytext.
@@ -108,7 +108,7 @@ class Tx_MmForum_Service_Mailing_PlainMailingService extends Tx_MmForum_Service_
 	 * @return string              The mail headers.
 	 *
 	 */
-	protected function getHeaders(Tx_Extbase_Domain_Model_FrontendUser $recipient, $subject, $bodytext) {
+	protected function getHeaders(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $recipient, $subject, $bodytext) {
 		$headerArray  = array('From'         => $this->getDefaultSender(),
 		                      'Content-Type' => 'text/plain; charset=' . $this->getCharset());
 		$headerString = "";

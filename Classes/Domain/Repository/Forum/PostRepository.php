@@ -67,7 +67,7 @@ class Tx_MmForum_Domain_Repository_Forum_PostRepository extends Tx_MmForum_Domai
 	public function findForTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
 		$query = $this->createQuery();
 		return $query->matching($query->equals('topic', $topic))
-			->setOrderings(array('crdate' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING))->execute();
+			->setOrderings(array('crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING))->execute();
 	}
 
 
@@ -87,7 +87,7 @@ class Tx_MmForum_Domain_Repository_Forum_PostRepository extends Tx_MmForum_Domai
 	public function findLastByTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
 		$query = $this->createQuery();
 		return $query->matching($query->equals('topic', $topic))
-			->setOrderings(Array('crdate' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING))->setLimit(1)
+			->setOrderings(Array('crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING))->setLimit(1)
 			->execute()->getFirst();
 	}
 

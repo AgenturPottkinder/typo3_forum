@@ -46,7 +46,7 @@
  *
  */
 
-class Tx_MmForum_Cache_Cache implements t3lib_singleton {
+class Tx_MmForum_Cache_Cache implements \TYPO3\CMS\Core\SingletonInterface {
 
 
 
@@ -55,10 +55,10 @@ class Tx_MmForum_Cache_Cache implements t3lib_singleton {
 
 
 	public function __construct() {
-		t3lib_cache::initializeCachingFramework();
+		\TYPO3\CMS\Core\Cache\Cache::initializeCachingFramework();
 		try {
 			$this->cacheInstance = $GLOBALS['typo3CacheManager']->getCache('mmforum_main');
-		} catch (t3lib_cache_exception_NoSuchCache $e) {
+		} catch (\TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException $e) {
 			$this->cacheInstance = $GLOBALS['typo3CacheFactory']->create('mmforum_main',
 			                                                             $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['mmforum_main']['frontend'],
 			                                                             $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['mmforum_main']['backend'],

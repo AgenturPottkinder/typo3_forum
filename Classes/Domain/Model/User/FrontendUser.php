@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Model_User_FrontendUser extends Tx_Extbase_Domain_Model_FrontendUser {
+class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
 
 
 
@@ -142,7 +142,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends Tx_Extbase_Domain_Model_
 	 */
 	public function __construct($username = '', $password = '') {
 		parent::__construct($username, $password);
-		$this->readTopics = new Tx_Extbase_Persistence_ObjectStorage();
+		$this->readTopics = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 
 
@@ -244,7 +244,9 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends Tx_Extbase_Domain_Model_
 		// the TCA (uploads/pics be default, but can be overridden, for example
 		// by the sr_feuser_register extension, so it's better to check).
 		if ($this->image) {
-			t3lib_div::loadTCA('fe_users');
+			if (version_compare(TYPO3_branch, '6.1', '<')) {
+				\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA('fe_users');
+			}
 			global $TCA;
 
 			$imageDirectoryName = $TCA['fe_users']['columns']['image']['config']['uploadfolder'];
@@ -261,7 +263,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends Tx_Extbase_Domain_Model_
 			$emailHash         = md5(strtolower($this->email));
 			$temporaryFilename = 'typo3temp/mm_forum/gravatar/' . $emailHash . '.jpg';
 			if (!file_exists(PATH_site . $temporaryFilename)) {
-				$image = t3lib_div::getUrl('https://secure.gravatar.com/avatar/' . $emailHash . '.jpg');
+				$image = \TYPO3\CMS\Core\Utility\GeneralUtility::getUrl('https://secure.gravatar.com/avatar/' . $emailHash . '.jpg');
 				file_put_contents(PATH_site . $temporaryFilename, $image);
 			}
 			return $temporaryFilename;

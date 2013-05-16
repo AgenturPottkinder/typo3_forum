@@ -54,7 +54,7 @@ class Tx_MmForum_Utility_File {
 	 */
 	public static function replaceSiteRelPath($string) {
 		return preg_replace_callback(',EXT:([0-9a-z_-]+)/,', function($matches) {
-			return t3lib_extMgm::siteRelPath($matches[1]);
+			return \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath($matches[1]);
 		}, $string);
 	}
 

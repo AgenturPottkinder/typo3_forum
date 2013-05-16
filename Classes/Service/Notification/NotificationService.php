@@ -99,10 +99,10 @@ class Tx_MmForum_Service_Notification_NotificationService extends Tx_MmForum_Ser
 	 *
 	 */
 	protected function initialize() {
-		$this->notificationView = new Tx_Fluid_View_StandaloneView();
+		$this->notificationView = new \TYPO3\CMS\Fluid\View\StandaloneView();
 		$this->notificationView->setFormat($this->mailingService->getFormat());
 		// TODO: Make template path configurable!
-		$this->notificationView->setTemplatePathAndFilename(t3lib_extMgm::extPath('mm_forum') . '/Resources/Private/Templates/Topic/Notify.' . $this->mailingService->getFormat());
+		$this->notificationView->setTemplatePathAndFilename(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mm_forum') . '/Resources/Private/Templates/Topic/Notify.' . $this->mailingService->getFormat());
 	}
 
 

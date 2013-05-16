@@ -38,7 +38,7 @@
  *             http://opensource.org/licenses/gpl-license.php
 
  */
-class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_AbstractEntity
+class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	implements Tx_MmForum_Domain_Model_AccessibleInterface, Tx_MmForum_Domain_Model_SubscribeableInterface {
 
 
@@ -144,7 +144,7 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 
 	/**
 	 * An instance of the Extbase object manager.
-	 * @var Tx_Extbase_Object_ObjectManagerInterface
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
 	 */
 	protected $objectManager = NULL;
 
@@ -168,10 +168,10 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 	 * @param string                               $title  The forum title.
 	 */
 	public function __construct($title = '') {
-		$this->children    = new Tx_Extbase_Persistence_ObjectStorage();
-		$this->topics      = new Tx_Extbase_Persistence_ObjectStorage();
-		$this->acls        = new Tx_Extbase_Persistence_ObjectStorage();
-		$this->subscribers = new Tx_Extbase_Persistence_ObjectStorage();
+		$this->children    = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->topics      = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->acls        = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->subscribers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 
 		$this->title = $title;
 	}
@@ -180,9 +180,9 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 
 	/**
 	 * Injects an instance of the extbase object manager.
-	 * @param Tx_Extbase_Object_ObjectManagerInterface $objectManager
+	 * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
 	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
+	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
 		$this->objectManager = $objectManager;
 	}
 
@@ -638,7 +638,7 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends Tx_Extbase_DomainObject_Abstra
 	 * @param Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Access> $acls acls
 	 * @return void
 	 */
-	public function setAcls(Tx_Extbase_Persistence_ObjectStorage $acls) {
+	public function setAcls(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $acls) {
 		$this->acls = $acls;
 	}
 

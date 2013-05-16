@@ -59,7 +59,7 @@ class Tx_MmForum_Utility_Localization {
 	 * @return string            The translated value.
 	 */
 	public static function translate($key, $default = NULL, $arguments = Array()) {
-		$l = Tx_Extbase_Utility_Localization::translate($key, 'MmForum', $arguments);
+		$l = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($key, 'MmForum', $arguments);
 		return $l === NULL ? $default : $l;
 	}
 

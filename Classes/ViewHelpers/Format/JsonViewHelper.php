@@ -43,7 +43,7 @@
  *
  */
 
-class Tx_MmForum_ViewHelpers_Format_JsonViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_MmForum_ViewHelpers_Format_JsonViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 
 

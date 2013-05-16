@@ -39,7 +39,7 @@
  *             http://opensource.org/licenses/gpl-license.php
 
  */
-class Tx_MmForum_Domain_Model_Forum_Topic extends Tx_Extbase_DomainObject_AbstractEntity
+class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	implements Tx_MmForum_Domain_Model_AccessibleInterface, Tx_MmForum_Domain_Model_SubscribeableInterface,
 	           Tx_MmForum_Domain_Model_NotifiableInterface, Tx_MmForum_Domain_Model_ReadableInterface {
 
@@ -169,9 +169,9 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends Tx_Extbase_DomainObject_Abstra
 	 * @param string $subject The topic's subject.
 	 */
 	public function __construct($subject = '') {
-		$this->posts       = new Tx_Extbase_Persistence_ObjectStorage();
-		$this->subscribers = new Tx_Extbase_Persistence_ObjectStorage();
-		$this->readers     = new Tx_Extbase_Persistence_ObjectStorage();
+		$this->posts       = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->subscribers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->readers     = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->crdate      = new DateTime();
 		$this->subject     = $subject;
 	}
@@ -610,7 +610,7 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends Tx_Extbase_DomainObject_Abstra
 	 * @return void
 	 */
 	public function removeAllReaders() {
-		$this->readers = New Tx_Extbase_Persistence_ObjectStorage();
+		$this->readers = New \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 
 

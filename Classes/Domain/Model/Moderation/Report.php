@@ -48,7 +48,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Model_Moderation_Report extends Tx_Extbase_DomainObject_AbstractEntity {
+class Tx_MmForum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 
 
@@ -111,7 +111,7 @@ class Tx_MmForum_Domain_Model_Moderation_Report extends Tx_Extbase_DomainObject_
 	 * Creates a new report.
 	 */
 	public function __construct() {
-		$this->comments = New Tx_Extbase_Persistence_ObjectStorage();
+		$this->comments = New \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 
 

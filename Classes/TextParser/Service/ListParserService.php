@@ -76,7 +76,7 @@ class Tx_MmForum_TextParser_Service_ListParserService extends Tx_MmForum_TextPar
 
 	public function getParsedText($text) {
 		$callback = function($matches) {
-			$items = array_filter(t3lib_div::trimExplode('[*]', $matches[1]));
+			$items = array_filter(\TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode('[*]', $matches[1]));
 			return '<ul><li>' . implode('</li><li>', $items) . '</li></ul>';
 		};
 		return preg_replace_callback(self::PREG_MATCH_LIST, $callback, $text);

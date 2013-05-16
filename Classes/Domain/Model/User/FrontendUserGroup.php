@@ -43,7 +43,7 @@
  *
  */
 
-class Tx_MmForum_Domain_Model_User_FrontendUserGroup extends Tx_Extbase_Domain_Model_FrontendUserGroup {
+class Tx_MmForum_Domain_Model_User_FrontendUserGroup extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup {
 
 
 

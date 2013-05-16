@@ -25,7 +25,7 @@
 
 
 
-class Tx_MmForum_View_ViewMock implements Tx_Extbase_MVC_View_ViewInterface {
+class Tx_MmForum_View_ViewMock implements \TYPO3\CMS\Extbase\Mvc\View\ViewInterface {
 
 
 
@@ -36,10 +36,10 @@ class Tx_MmForum_View_ViewMock implements Tx_Extbase_MVC_View_ViewInterface {
 	/**
 	 * Sets the current controller context
 	 *
-	 * @param Tx_Extbase_MVC_Controller_ControllerContext $controllerContext
+	 * @param \TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext $controllerContext
 	 * @return void
 	 */
-	public function setControllerContext(Tx_Extbase_MVC_Controller_ControllerContext $controllerContext) {
+	public function setControllerContext(\TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext $controllerContext) {
 
 	}
 
@@ -80,11 +80,11 @@ class Tx_MmForum_View_ViewMock implements Tx_Extbase_MVC_View_ViewInterface {
 	/**
 	 * Tells if the view implementation can render the view for the given context.
 	 *
-	 * @param Tx_Extbase_MVC_Controller_ControllerContext $controllerContext
+	 * @param \TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext $controllerContext
 	 * @return boolean TRUE if the view has something useful to display, otherwise FALSE
 	 * @api
 	 */
-	public function canRender(Tx_Extbase_MVC_Controller_ControllerContext $controllerContext) {
+	public function canRender(\TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext $controllerContext) {
 		return TRUE;
 	}
 

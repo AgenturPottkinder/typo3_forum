@@ -44,7 +44,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_MmForum_Controller_AbstractController extends Tx_Extbase_MVC_Controller_ActionController {
+abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 
 
@@ -178,14 +178,14 @@ abstract class Tx_MmForum_Controller_AbstractController extends Tx_Extbase_MVC_C
 	 *
 	 * Injects an instance of the Extbase SignalSlot-Dispatcher.
 	 *
-	 * @param Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher
+	 * @param \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher
 	 *                                 An instance of the Extbase SignalSlot
 	 *                                 Dispatcher.
 	 *
 	 * @return void
 	 *
 	 */
-	public function injectSignalSlotDispatcher(Tx_Extbase_SignalSlot_Dispatcher $signalSlotDispatcher) {
+	public function injectSignalSlotDispatcher(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher) {
 		$this->signalSlotDispatcher = $signalSlotDispatcher;
 	}
 
@@ -320,14 +320,18 @@ abstract class Tx_MmForum_Controller_AbstractController extends Tx_Extbase_MVC_C
 	 *                                  flash messages.
 	 * @param  array  $arguments        Arguments for the flash message.
 	 * @param  string $titleKey         Optional language key for the message's title.
-	 * @param  string $severity         Message severity (see t3lib_FlashMessage::*)
+	 * @param  string $severity         Message severity (see \TYPO3\CMS\Core\Messaging\FlashMessage::*)
 	 *
 	 * @return void
 	 */
 	protected function addLocalizedFlashmessage($key, array $arguments = array(), $titleKey = NULL,
-	                                            $severity = t3lib_FlashMessage::OK) {
-		$this->flashMessageContainer->add(Tx_MmForum_Utility_Localization::translate($key, 'MmForum', $arguments),
-		                                  Tx_MmForum_Utility_Localization::translate($titleKey, 'MmForum'), $severity);
+	                                            $severity = \TYPO3\CMS\Core\Messaging\FlashMessage::OK) {
+		$this->controllerContext->getFlashMessageQueue()->addMessage(
+			new \TYPO3\CMS\Core\Messaging\FlashMessage(
+				Tx_MmForum_Utility_Localization::translate($key, 'MmForum', $arguments),
+				Tx_MmForum_Utility_Localization::translate($titleKey, 'MmForum'), $severity
+			)
+		);
 	}
 
 

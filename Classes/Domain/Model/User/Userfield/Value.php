@@ -44,7 +44,7 @@
  *
  */
 
-Class Tx_MmForum_Domain_Model_User_Userfield_Value Extends Tx_Extbase_DomainObject_AbstractValueObject {
+Class Tx_MmForum_Domain_Model_User_Userfield_Value Extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
 
 
 

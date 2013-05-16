@@ -40,7 +40,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Bootstrap_ButtonViewHelper extends Tx_Fluid_ViewHelpers_Link_ActionViewHelper {
+class Tx_MmForum_ViewHelpers_Bootstrap_ButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper {
 
 
 
@@ -74,7 +74,7 @@ class Tx_MmForum_ViewHelpers_Bootstrap_ButtonViewHelper extends Tx_Fluid_ViewHel
 		} else {
 			$content = '';
 		}
-		$content .= Tx_Extbase_Utility_Localization::translate($this->arguments['label'], 'mm_forum');
+		$content .= \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($this->arguments['label'], 'mm_forum');
 		return $content;
 	}
 

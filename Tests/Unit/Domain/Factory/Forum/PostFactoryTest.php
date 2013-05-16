@@ -25,7 +25,7 @@
  *                                                                      */
 
 
-class Tx_MmForum_Domain_Factory_Forum_PostFactoryTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+class Tx_MmForum_Domain_Factory_Forum_PostFactoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 
 
 

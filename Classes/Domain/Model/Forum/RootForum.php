@@ -38,7 +38,7 @@
  * @license    GNU public License, version 2
  *             http://opensource.org/licenses/gpl-license.php
  */
-class Tx_MmForum_Domain_Model_Forum_RootForum extends Tx_MmForum_Domain_Model_Forum_Forum implements t3lib_Singleton {
+class Tx_MmForum_Domain_Model_Forum_RootForum extends Tx_MmForum_Domain_Model_Forum_Forum implements \TYPO3\CMS\Core\SingletonInterface {
 
 
 

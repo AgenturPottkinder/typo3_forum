@@ -40,7 +40,7 @@
  *
  */
 abstract class Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
-	extends Tx_Extbase_DomainObject_AbstractValueObject {
+	extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
 
 
 

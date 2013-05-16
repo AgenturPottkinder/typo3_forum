@@ -75,7 +75,7 @@ Class Tx_MmForum_Service_Mailing_HTMLMailingService Extends Tx_MmForum_Service_M
 	 */
 
 	public function __construct() {
-		$this->htmlMail =& t3lib_div::makeInstance('t3lib_htmlmail');
+		$this->htmlMail =& \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('t3lib_htmlmail');
 	}
 
 
@@ -85,7 +85,7 @@ Class Tx_MmForum_Service_Mailing_HTMLMailingService Extends Tx_MmForum_Service_M
 	 * Sends a mail with a certain subject and bodytext to a recipient in form of a
 	 * frontend user.
 	 *
-	 * @param         Tx_Extbase_Domain_Model_FrontendUser @recipient
+	 * @param         \TYPO3\CMS\Extbase\Domain\Model\FrontendUser @recipient
 	 *                                                     The recipient of the mail. This is a plain
 	 *                                                     frontend user.
 	 * @param  string $subject                             The mail's subject
@@ -95,7 +95,7 @@ Class Tx_MmForum_Service_Mailing_HTMLMailingService Extends Tx_MmForum_Service_M
 	 *
 	 */
 
-	public function sendMail(Tx_Extbase_Domain_Model_FrontendUser $recipient, $subject, $bodytext) {
+	public function sendMail(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $recipient, $subject, $bodytext) {
 		$this->htmlMail->start();
 		$this->htmlMail->recipient  = $recipient->getName() . ' <' . $recipient->getEmail() . '>';
 		$this->htmlMail->subject    = $subject;

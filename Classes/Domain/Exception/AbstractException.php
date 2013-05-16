@@ -43,7 +43,7 @@
  *
  */
 
-Abstract Class Tx_MmForum_Domain_Exception_AbstractException Extends Tx_Extbase_Exception {
+Abstract Class Tx_MmForum_Domain_Exception_AbstractException Extends \TYPO3\CMS\Extbase\Exception {
 
 
 

@@ -55,7 +55,7 @@ class Tx_MmForum_TextParser_TextParserService extends Tx_MmForum_Service_Abstrac
 
 	/**
 	 * An instance of the Extbase object manager.
-	 * @var Tx_Extbase_Object_ObjectManagerInterface
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
 	 */
 	protected $objectManager;
 
@@ -106,11 +106,11 @@ class Tx_MmForum_TextParser_TextParserService extends Tx_MmForum_Service_Abstrac
 	/**
 	 * Injects the viewHelperVariableContainer.
 	 *
-	 * @param  Tx_Fluid_Core_ViewHelper_ViewHelperVariableContainer $viewHelperVariableContainer
+	 * @param  \TYPO3\CMS\Fluid\Core\ViewHelper\ViewHelperVariableContainer $viewHelperVariableContainer
 	 *                             The viewHelperVariableContainer.
 	 * @return void
 	 */
-	public function injectViewHelperVariableContainer(Tx_Fluid_Core_ViewHelper_ViewHelperVariableContainer $viewHelperVariableContainer) {
+	public function injectViewHelperVariableContainer(\TYPO3\CMS\Fluid\Core\ViewHelper\ViewHelperVariableContainer $viewHelperVariableContainer) {
 		$this->viewHelperVariableContainer = $viewHelperVariableContainer;
 	}
 
@@ -128,9 +128,9 @@ class Tx_MmForum_TextParser_TextParserService extends Tx_MmForum_Service_Abstrac
 
 	/**
 	 * Injects an instance of the Extbase object manager.
-	 * @param Tx_Extbase_Object_ObjectManagerInterface $objectManager An instance of the Extbase object manager.
+	 * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager An instance of the Extbase object manager.
 	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
+	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
 		$this->objectManager = $objectManager;
 	}
 
@@ -138,9 +138,9 @@ class Tx_MmForum_TextParser_TextParserService extends Tx_MmForum_Service_Abstrac
 
 	/**
 	 * Sets the current Extbase controller context.
-	 * @param Tx_Extbase_MVC_Controller_ControllerContext $controllerContext
+	 * @param \TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext $controllerContext
 	 */
-	public function setControllerContext(Tx_Extbase_MVC_Controller_ControllerContext $controllerContext) {
+	public function setControllerContext(\TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext $controllerContext) {
 		$this->controllerContext = $controllerContext;
 	}
 

@@ -41,7 +41,7 @@
  *             http://opensource.org/licenses/gpl-license.php
 
  */
-class Tx_MmForum_Domain_Model_Forum_Post extends Tx_Extbase_DomainObject_AbstractEntity
+class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	implements Tx_MmForum_Domain_Model_AccessibleInterface, Tx_MmForum_Domain_Model_NotifiableInterface {
 
 
@@ -127,7 +127,7 @@ class Tx_MmForum_Domain_Model_Forum_Post extends Tx_Extbase_DomainObject_Abstrac
 	 * @param string $text The post text.
 	 */
 	public function __construct($text = '') {
-		$this->attachments = new Tx_Extbase_Persistence_ObjectStorage();
+		$this->attachments = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->crdate      = new DateTime();
 		$this->text        = $text;
 	}
@@ -181,7 +181,7 @@ class Tx_MmForum_Domain_Model_Forum_Post extends Tx_Extbase_DomainObject_Abstrac
 			return $author;
 		}
 
-		if ($this->author instanceof Tx_Extbase_Persistence_LazyLoadingProxy) {
+		if ($this->author instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
 			$this->author->_loadRealInstance();
 		}
 		return $this->author;
@@ -373,10 +373,10 @@ class Tx_MmForum_Domain_Model_Forum_Post extends Tx_Extbase_DomainObject_Abstrac
 	/**
 	 * Sets the attachments.
 	 *
-	 * @param  Tx_Extbase_Persistence_ObjectStorage $attachments The attachments.
+	 * @param  \TYPO3\CMS\Extbase\Persistence\ObjectStorage $attachments The attachments.
 	 * @return void
 	 */
-	public function setAttachments(Tx_Extbase_Persistence_ObjectStorage $attachments) {
+	public function setAttachments(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $attachments) {
 		$this->attachments = $attachments;
 	}
 

@@ -43,7 +43,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Model_Moderation_ReportComment extends Tx_Extbase_DomainObject_AbstractEntity {
+class Tx_MmForum_Domain_Model_Moderation_ReportComment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 
 

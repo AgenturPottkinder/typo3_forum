@@ -87,9 +87,9 @@ class Tx_MmForum_Domain_Repository_User_UserfieldRepository extends Tx_MmForum_D
 	}
 
     /**
-    * @param Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManagerInterface
+    * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManagerInterface
     */
-    public function injectConfigurationManagerInterface(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManagerInterface) {
+    public function injectConfigurationManagerInterface(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManagerInterface) {
         $this->configurationManagerInterface = $configurationManagerInterface;
     }
 
@@ -110,19 +110,19 @@ class Tx_MmForum_Domain_Repository_User_UserfieldRepository extends Tx_MmForum_D
 	 */
 	protected function findCoreUserfields() {
 		if ($this->coreUserfields === NULL) {
-			$conf                 =  $this->configurationManagerInterface->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+			$conf                 =  $this->configurationManagerInterface->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 			$this->coreUserfields = array();
 
 			foreach ($conf['settings']['userfields']['core_fields'] as $coreFieldKey => $coreFieldValues) {
 				$className = $coreFieldValues['class'];
 				if (!class_exists($className)) {
-					throw new Tx_Extbase_Object_UnknownClass("The class $className does not exist!", 1287756385);
+					throw new \TYPO3\CMS\Extbase\Object\UnknownClassException("The class $className does not exist!", 1287756385);
 				}
 
-				$object = $this->objectManager->create($className);
+				$object = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($className);
 
 				if (!$object instanceof Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield) {
-					throw new Tx_Extbase_Object_InvalidClass("The class $className is not a subclass of Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield", 1287756386);
+					throw new \TYPO3\CMS\Extbase\Object\UnknownClassException("The class $className is not a subclass of Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield", 1287756386);
 				}
 
 				foreach ($coreFieldValues['properties'] as $propertyName => $propertyValue) {

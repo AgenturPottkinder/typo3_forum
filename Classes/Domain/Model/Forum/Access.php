@@ -45,7 +45,7 @@
  *
  */
 
-class Tx_MmForum_Domain_Model_Forum_Access extends Tx_Extbase_DomainObject_AbstractValueObject {
+class Tx_MmForum_Domain_Model_Forum_Access extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
 
 
 

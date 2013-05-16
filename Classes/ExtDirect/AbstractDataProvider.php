@@ -46,7 +46,7 @@ abstract class Tx_MmForum_ExtDirect_AbstractDataProvider {
 
 
 	/**
-	 * @var Tx_Extbase_Object_ObjectManagerInterface
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
 	 */
 	protected $objectManager = NULL;
 
@@ -57,14 +57,14 @@ abstract class Tx_MmForum_ExtDirect_AbstractDataProvider {
 	 */
 	public function __construct() {
 		$key                    = 'web_MmForumTxMmforumM1';
-		$this->extBaseConnector = t3lib_div::makeInstance('Tx_MmForum_Service_ExtBaseConnectorService');
+		$this->extBaseConnector = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_MmForum_Service_ExtBaseConnectorService');
 		$this->extBaseConnector->setExtensionKey('MmForum');
 		$this->extBaseConnector->setModuleOrPluginKey($key);
 		$this->extBaseConnector->initialize(array('extensionName'               => 'MmForum',
 		                                         'pluginName'                   => 'web_MmForumTxMmforumM1',
 		                                         'switchableControllerActions'  => array('Backend' => array('forumIndex')),));
 
-		$this->objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
+		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager');
 	}
 
 

@@ -40,7 +40,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Moderation_ReportIconViewHelper extends Tx_Fluid_ViewHelpers_CObjectViewHelper {
+class Tx_MmForum_ViewHelpers_Moderation_ReportIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
 
 
 

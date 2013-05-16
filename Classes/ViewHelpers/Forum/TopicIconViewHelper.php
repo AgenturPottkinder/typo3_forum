@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Forum_TopicIconViewHelper extends Tx_Fluid_ViewHelpers_CObjectViewHelper {
+class Tx_MmForum_ViewHelpers_Forum_TopicIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
 
 
 

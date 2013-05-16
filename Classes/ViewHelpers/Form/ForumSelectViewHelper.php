@@ -43,7 +43,7 @@
  *
  */
 
-Class Tx_MmForum_ViewHelpers_Form_ForumSelectViewHelper Extends Tx_Fluid_ViewHelpers_Form_SelectViewHelper {
+Class Tx_MmForum_ViewHelpers_Form_ForumSelectViewHelper Extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper {
 
 
 
@@ -90,7 +90,7 @@ Class Tx_MmForum_ViewHelpers_Form_ForumSelectViewHelper Extends Tx_Fluid_ViewHel
 	 */
 
 	Public Function initializeArguments() {
-		Tx_Fluid_ViewHelpers_Form_AbstractFormFieldViewHelper::initializeArguments();
+		\TYPO3\CMS\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper::initializeArguments();
 		$this->registerUniversalTagAttributes();
 		$this->registerTagAttribute('multiple', 'string', 'if set, multiple select field');
 		$this->registerTagAttribute('size', 'string', 'Size of input field');

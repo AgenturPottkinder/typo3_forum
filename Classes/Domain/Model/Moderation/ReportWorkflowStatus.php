@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends Tx_Extbase_DomainObject_AbstractValueObject {
+class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
 
 
 
@@ -101,7 +101,7 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends Tx_Extbase
 	 * @param boolean $final   TRUE to mark this status as final status.
 	 */
 	public function __construct($name = NULL, $initial = NULL, $final = NULL) {
-		$this->followupStatus = new Tx_Extbase_Persistence_ObjectStorage();
+		$this->followupStatus = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->name           = $name;
 		$this->initial        = $initial;
 		$this->final          = $final;
@@ -190,14 +190,16 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends Tx_Extbase
 	 * @return string The site relative path of this status' icon.
 	 */
 	public function getIconFullpath() {
-		t3lib_div::loadTCA(strtolower(__CLASS__));
+		if (version_compare(TYPO3_branch, '6.1', '<')) {
+			\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA(strtolower(__CLASS__));
+		}
 		global $TCA;
 
 		$imageDirectoryName = $TCA[strtolower(__CLASS__)]['columns']['icon']['config']['uploadfolder'];
 		$imageFilename      = rtrim($imageDirectoryName, '/') . '/' . $this->icon;
 
 		if (!file_exists(PATH_site . '/' . $imageFilename)) {
-			$imageDirectoryName = t3lib_extMgm::siteRelPath('mm_forum') . 'Resources/Public/Images/Icons/Moderation';
+			$imageDirectoryName = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('mm_forum') . 'Resources/Public/Images/Icons/Moderation';
 			$imageFilename      = "$imageDirectoryName/{$this->icon}";
 		}
 

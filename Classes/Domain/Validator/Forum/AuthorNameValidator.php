@@ -41,7 +41,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Validator_Forum_AuthorNameValidator extends Tx_Extbase_Validation_Validator_AbstractValidator {
+class Tx_MmForum_Domain_Validator_Forum_AuthorNameValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
 
 
 

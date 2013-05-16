@@ -43,7 +43,7 @@
  *
  */
 class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
-	extends Tx_Extbase_Domain_Repository_FrontendUserRepository {
+	extends \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository {
 
 
 

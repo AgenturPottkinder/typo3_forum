@@ -38,7 +38,7 @@
  * @license    GNU Public License, version 2
  *             http://opensource.org/licenses/gpl-license.php
  */
-class Tx_MmForum_View_Forum_UpdateJson extends Tx_Extbase_MVC_View_AbstractView {
+class Tx_MmForum_View_Forum_UpdateJson extends \TYPO3\CMS\Extbase\Mvc\View\AbstractView {
 
 
 

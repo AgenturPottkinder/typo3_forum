@@ -24,7 +24,7 @@
  *                                                                      */
 
 
-abstract class Tx_MmForum_Controller_AbstractControllerTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+abstract class Tx_MmForum_Controller_AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 
 
 
@@ -129,7 +129,7 @@ abstract class Tx_MmForum_Controller_AbstractControllerTest extends Tx_Extbase_T
 			if ($parameter->getClass() !== NULL) {
 				if ($parameter->getClass()->getName() === 'Tx_MmForum_Domain_Model_Forum_Forum') {
 					$forum = new Tx_MmForum_Domain_Model_Forum_Forum();
-					$forum->injectObjectManager(t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager'));
+					$forum->injectObjectManager(\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager'));
 					$parameters[] = $forum;
 				} else {
 					$parameters[] = $this->getMock($parameter->getClass()->getName());
@@ -147,7 +147,7 @@ abstract class Tx_MmForum_Controller_AbstractControllerTest extends Tx_Extbase_T
 
 
 	protected function buildForumMockList() {
-		$list = new Tx_Extbase_Persistence_ObjectStorage();
+		$list = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$list->attach($this->getMock('Tx_MmForum_Domain_Model_Forum_Forum'));
 		return $list;
 	}
@@ -155,7 +155,7 @@ abstract class Tx_MmForum_Controller_AbstractControllerTest extends Tx_Extbase_T
 
 
 	protected function buildTopicMockList() {
-		$list = new Tx_Extbase_Persistence_ObjectStorage();
+		$list = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$list->attach($this->getMock('Tx_MmForum_Domain_Model_Forum_Topic'));
 		return $list;
 	}
@@ -163,7 +163,7 @@ abstract class Tx_MmForum_Controller_AbstractControllerTest extends Tx_Extbase_T
 
 
 	protected function buildPostMockList() {
-		$list = new Tx_Extbase_Persistence_ObjectStorage();
+		$list = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$list->attach($this->getMock('Tx_MmForum_Domain_Model_Forum_Post'));
 		return $list;
 	}

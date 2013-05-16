@@ -166,7 +166,7 @@ class Tx_MmForum_TextParser_Service_BasicParserService extends Tx_MmForum_TextPa
 		$this->text = str_replace("\r", '', $this->text);
 		$this->text = preg_replace(';\n{2,};s', "\n\n", $this->text);
 
-		$paragraphs = t3lib_div::trimExplode("\n\n", $this->text);
+		$paragraphs = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode("\n\n", $this->text);
 		$this->text = '<p>' . implode('</p><p>', $paragraphs) . '</p>';
 		Return $this;
 	}

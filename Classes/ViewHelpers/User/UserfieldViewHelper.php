@@ -43,7 +43,7 @@
  *
  */
 
-class Tx_MmForum_ViewHelpers_User_UserfieldViewHelper extends Tx_Fluid_ViewHelpers_CObjectViewHelper {
+class Tx_MmForum_ViewHelpers_User_UserfieldViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
 
 
 

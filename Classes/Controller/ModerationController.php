@@ -153,7 +153,7 @@ class Tx_MmForum_Controller_ModerationController extends Tx_MmForum_Controller_A
 		// Set status and update the report. Add a comment to the report that
 		// documents the status change.
 		$report->setWorkflowStatus($status);
-		$comment = $this->objectManager->create('Tx_MmForum_Domain_Model_Moderation_ReportComment');
+		$comment = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_MmForum_Domain_Model_Moderation_ReportComment');
 		$comment->setAuthor($this->getCurrentUser());
 		$comment->setText(Tx_MmForum_Utility_Localization::translate('Report_Edit_SetStatus', 'MmForum',
 		                                                             array($status->getName())));
@@ -207,7 +207,11 @@ class Tx_MmForum_Controller_ModerationController extends Tx_MmForum_Controller_A
 		$report->addComment($comment);
 		$this->reportRepository->update($report);
 
-		$this->flashMessageContainer->add(Tx_MmForum_Utility_Localization::translate('Report_NewComment_Success'));
+		$this->controllerContext->getFlashMessageQueue()->addMessage(
+			new \TYPO3\CMS\Core\Messaging\FlashMessage(
+				Tx_MmForum_Utility_Localization::translate('Report_NewComment_Success')
+			)
+		);
 		$this->clearCacheForCurrentPage();
 		$this->redirect('editReport', NULL, NULL, array('report' => $report));
 	}
@@ -246,8 +250,12 @@ class Tx_MmForum_Controller_ModerationController extends Tx_MmForum_Controller_A
 			$this->topicFactory->moveTopic($topic, $moveTopicTarget);
 		}
 
-		$this->flashMessageContainer->add(Tx_MmForum_Utility_Localization::translate('Moderation_UpdateTopic_Success',
-		                                                                             'MmForum'));
+		$this->controllerContext->getFlashMessageQueue()->addMessage(
+			new \TYPO3\CMS\Core\Messaging\FlashMessage(
+				Tx_MmForum_Utility_Localization::translate('Moderation_UpdateTopic_Success',
+				'MmForum')
+			)
+		);
 		$this->clearCacheForCurrentPage();
 		$this->redirect('show', 'Topic', NULL, Array('topic' => $topic));
 	}

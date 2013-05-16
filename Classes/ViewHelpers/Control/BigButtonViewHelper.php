@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Control_BigButtonViewHelper extends Tx_Fluid_ViewHelpers_Link_ActionViewHelper {
+class Tx_MmForum_ViewHelpers_Control_BigButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper {
 
 
 

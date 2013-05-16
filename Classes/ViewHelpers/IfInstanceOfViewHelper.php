@@ -44,7 +44,7 @@
  *
  */
 
-class Tx_MmForum_ViewHelpers_IfInstanceOfViewHelper extends Tx_Fluid_ViewHelpers_IfViewHelper {
+class Tx_MmForum_ViewHelpers_IfInstanceOfViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\IfViewHelper {
 
 
 
@@ -53,14 +53,14 @@ class Tx_MmForum_ViewHelpers_IfInstanceOfViewHelper extends Tx_Fluid_ViewHelpers
 	 * Renders the contents of this view helper if $object is an instance of
 	 * $className.
 	 *
-	 * @param  Tx_Extbase_DomainObject_AbstractDomainObject $object
+	 * @param  \TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject $object
 	 *                                                                   The object.
 	 * @param  string                                       $className   The class.
 	 * @return string              HTML content.
 	 *
 	 */
 
-	public function render(Tx_Extbase_DomainObject_AbstractDomainObject $object, $className) {
+	public function render(\TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject $object, $className) {
 		return $object instanceof $className ? $this->renderThenChild() : $this->renderElseChild();
 	}
 

@@ -3,7 +3,7 @@
 if (!defined('TYPO3_MODE'))
 	die('Access denied.');
 
-Tx_Extbase_Utility_Extension::configurePlugin(
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 		$_EXTKEY, 'Pi1',
 		array(
 	'Forum' => 'index, show, new, create, edit, update, delete',
@@ -23,7 +23,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 		)
 );
 
-Tx_Extbase_Utility_Extension::configurePlugin(
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 		$_EXTKEY, 'Ajax', array(
 	'Forum' => 'index',
 	'Post' => 'preview'
@@ -42,7 +42,7 @@ if (!is_array($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['mmforum
 	$TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['mmforum_main'] = array();
 }
 
-if (t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) < '4006000')
+if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < '4006000')
 {
 	if (!isset($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['mmforum_main']['frontend']))
 		$TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['mmforum_main']['frontend'] = 't3lib_cache_frontend_VariableFrontend';
@@ -60,7 +60,7 @@ $TYPO3_CONF_VARS['FE']['eID_include']['mm_forum'] = 'EXT:mm_forum/Classes/Ajax/D
 
 // Connect signals to slots. Some parts of extbase suck, but the signal-slot
 // pattern is really cool! :P
-$signalSlotDispatcher = t3lib_div::makeInstance('Tx_Extbase_SignalSlot_Dispatcher');
+$signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\SignalSlot\Dispatcher');
 $signalSlotDispatcher->connect('Tx_MmForum_Domain_Model_Forum_Post',
 		'postCreated', 'Tx_MmForum_Service_Notification_SubscriptionListener',
 		'onPostCreated');

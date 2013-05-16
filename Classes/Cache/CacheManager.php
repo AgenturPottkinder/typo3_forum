@@ -52,8 +52,8 @@ class Tx_MmForum_Cache_CacheManager {
 		// Neither the Extbase autoloader nor the TYPO3 internal autoloader
 		// appear to be doing anything at this point, so we have to include
 		// manually... :(
-		require_once t3lib_extMgm::extPath('mm_forum') . 'Classes/Cache/Cache.php';
-		$cache = t3lib_div::makeInstance('Tx_MmForum_Cache_Cache');
+		require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mm_forum') . 'Classes/Cache/Cache.php';
+		$cache = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_MmForum_Cache_Cache');
 		$cache->flush();
 
 		$this->deleteTemporaryFiles();

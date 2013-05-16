@@ -25,7 +25,7 @@
 
 
 
-abstract class Tx_MmForum_Unit_BaseTestCase extends Tx_Extbase_Tests_Unit_BaseTestCase {
+abstract class Tx_MmForum_Unit_BaseTestCase extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 
 
 

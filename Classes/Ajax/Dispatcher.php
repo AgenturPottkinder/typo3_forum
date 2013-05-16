@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-final class Tx_MmForum_Ajax_Dispatcher implements t3lib_Singleton {
+final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInterface {
 
 
 
@@ -71,7 +71,7 @@ final class Tx_MmForum_Ajax_Dispatcher implements t3lib_Singleton {
 
 	/**
 	 * An instance of the extbase object manager.
-	 * @var Tx_Extbase_Object_ObjectManagerInterface
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
 	 */
 	protected $objectManager = NULL;
 
@@ -117,13 +117,14 @@ final class Tx_MmForum_Ajax_Dispatcher implements t3lib_Singleton {
 	 * @return void.
 	 */
 	protected function initTYPO3() {
-		tslib_eidtools::connectDB();
-
+		if (version_compare(TYPO3_branch, '6.1', '<')) {
+			\TYPO3\CMS\Frontend\Utility\EidUtility::connectDB();
+		}
 		// The following code was adapted from the df_tools extension.
 		// Credits go to Stefan Galinski.
-		$GLOBALS['TSFE']           = t3lib_div::makeInstance('tslib_fe', $GLOBALS['TYPO3_CONF_VARS'], (int)$_GET['p'],
-		                                                     0);
-		$GLOBALS['TSFE']->sys_page = t3lib_div::makeInstance('t3lib_pageSelect');
+		$GLOBALS['TSFE']           = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController',
+																							$GLOBALS['TYPO3_CONF_VARS'], (int)$_GET['p'],0);
+		$GLOBALS['TSFE']->sys_page = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Frontend\Page\PageRepository');
 		$GLOBALS['TSFE']->getPageAndRootline();
 		$GLOBALS['TSFE']->initTemplate();
 		$GLOBALS['TSFE']->forceTemplateParsing = TRUE;
@@ -136,7 +137,7 @@ final class Tx_MmForum_Ajax_Dispatcher implements t3lib_Singleton {
 		$GLOBALS['TSFE']->no_cache = FALSE;
 
 		$GLOBALS['TSFE']->config           = array();
-		$GLOBALS['TSFE']->config['config'] = array('sys_language_uid'                 => intval(t3lib_div::_GP('L')),
+		$GLOBALS['TSFE']->config['config'] = array('sys_language_uid'                 => intval(\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('L')),
 		                                           'sys_language_mode'                => 'content_fallback;0',
 		                                           'sys_language_overlay'             => 'hideNonTranslated',
 		                                           'sys_language_softMergeIfNotBlank' => '',
@@ -153,8 +154,8 @@ final class Tx_MmForum_Ajax_Dispatcher implements t3lib_Singleton {
 	 * @return void
 	 */
 	protected function initExtbase() {
-		$this->extbaseBootstap = t3lib_div::makeInstance('Tx_Extbase_Core_Bootstrap');
-		$this->objectManager   = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
+		$this->extbaseBootstap = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Core\Bootstrap');
+		$this->objectManager   = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager');
 	}
 
 
@@ -190,5 +191,5 @@ final class Tx_MmForum_Ajax_Dispatcher implements t3lib_Singleton {
 }
 
 // Instantiate and start dispatcher.
-$dispatcher = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager')->get('Tx_MmForum_Ajax_Dispatcher');
+$dispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_MmForum_Ajax_Dispatcher');
 $dispatcher->run();

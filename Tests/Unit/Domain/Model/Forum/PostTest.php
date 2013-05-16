@@ -84,7 +84,7 @@ class Tx_MmForum_Domain_Model_Forum_PostTest extends Tx_MmForum_Unit_BaseTestCas
 
 
 	public function testSetAttachmentsSetsAttachments() {
-		$attachments = new Tx_Extbase_Persistence_ObjectStorage();
+		$attachments = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$attachments->attach(new Tx_MmForum_Domain_Model_Forum_Attachment());
 
 		$this->fixture->setAttachments($attachments);

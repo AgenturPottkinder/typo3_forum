@@ -40,7 +40,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Bootstrap_Form_RowViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractTagBasedViewHelper {
+class Tx_MmForum_ViewHelpers_Bootstrap_Form_RowViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
 
 
 
@@ -71,7 +71,7 @@ class Tx_MmForum_ViewHelpers_Bootstrap_Form_RowViewHelper extends Tx_Fluid_Core_
 		$class = 'control-group';
 
 		if ($this->arguments['llLabel']) {
-			$label = Tx_Extbase_Utility_Localization::translate($this->arguments['llLabel'], 'mm_forum');
+			$label = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($this->arguments['llLabel'], 'mm_forum');
 		} else {
 			$label = $this->arguments['label'];
 		}
@@ -87,7 +87,7 @@ class Tx_MmForum_ViewHelpers_Bootstrap_Form_RowViewHelper extends Tx_Fluid_Core_
 				$class .= ' error';
 				$errorContent = '';
 				foreach ($errors as $error) {
-					$errorText = Tx_Extbase_Utility_Localization::translate($this->arguments['errorLLPrefix'] . '_' . $error->getCode(),
+					$errorText = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($this->arguments['errorLLPrefix'] . '_' . $error->getCode(),
 					                                                        'mm_forum');
 					if (!$errorText) {
 						$errorText = 'TRANSLATE: ' . $this->arguments['errorLLPrefix'] . '_' . $error->getCode();
@@ -119,10 +119,8 @@ class Tx_MmForum_ViewHelpers_Bootstrap_Form_RowViewHelper extends Tx_Fluid_Core_
 	 */
 	protected function getErrorsForProperty($propertyName, $errors) {
 		foreach ($errors as $error) {
-			if ($error instanceof Tx_Extbase_Validation_PropertyError) {
-				if ($error->getPropertyName() === $propertyName) {
-					return $error->getErrors();
-				}
+			if ($error->getPropertyName() === $propertyName) {
+				return $error->getErrors();
 			}
 		}
 		return array();

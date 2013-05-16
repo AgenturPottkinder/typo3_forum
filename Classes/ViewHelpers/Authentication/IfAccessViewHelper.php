@@ -44,7 +44,7 @@
  *
  */
 
-Class Tx_MmForum_ViewHelpers_Authentication_IfAccessViewHelper Extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+Class Tx_MmForum_ViewHelpers_Authentication_IfAccessViewHelper Extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 
 

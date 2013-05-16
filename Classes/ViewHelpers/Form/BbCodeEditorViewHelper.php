@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper extends Tx_Fluid_ViewHelpers_Form_TextareaViewHelper {
+class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\TextareaViewHelper {
 
 
 
@@ -80,7 +80,7 @@ class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper extends Tx_Fluid_ViewHe
 
 	/**
 	 * An Instance of the Extbase Object Manager class.
-	 * @var Tx_Extbase_Object_ObjectManagerInterface
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
 	 */
 	protected $objectManager = NULL;
 
@@ -115,12 +115,12 @@ class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper extends Tx_Fluid_ViewHe
 	/**
 	 *
 	 * Injects an instance of the Extbase object manager.
-	 * @param  Tx_Extbase_Object_ObjectManagerInterface $objectManager
+	 * @param  \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
 	 *                                 An instance of the Extbase object manager.
 	 * @return void
 	 *
 	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
+	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
 		$this->objectManager = $objectManager;
 	}
 
@@ -158,7 +158,7 @@ class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper extends Tx_Fluid_ViewHe
 		foreach ($this->configuration['panels.'] as $key => $panelConfiguration) {
 			$panel = $this->objectManager->get($panelConfiguration['className']);
 			if (!$panel instanceof Tx_MmForum_TextParser_Panel_PanelInterface) {
-				throw new Tx_Extbase_Object_InvalidClass('Expected an implementation of the Tx_MmForum_TextParser_Panel_PanelInterface interface!', 1315835842);
+				throw new \TYPO3\CMS\Extbase\Object\InvalidClassException('Expected an implementation of the Tx_MmForum_TextParser_Panel_PanelInterface interface!', 1315835842);
 			}
 			$panel->setSettings($panelConfiguration);
 			$this->panels[] = $panel;

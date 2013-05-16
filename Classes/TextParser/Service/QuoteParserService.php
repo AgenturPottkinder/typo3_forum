@@ -78,10 +78,10 @@ class Tx_MmForum_TextParser_Service_QuoteParserService extends Tx_MmForum_TextPa
 
 	/**
 	 * Injects an instance of the fluid standalone view.
-	 * @param  Tx_Fluid_View_StandaloneView $view An instance of the fluid standalone view.
+	 * @param  \TYPO3\CMS\Fluid\View\StandaloneView $view An instance of the fluid standalone view.
 	 * @return void
 	 */
-	public function injectView(Tx_Fluid_View_StandaloneView $view) {
+	public function injectView(\TYPO3\CMS\Fluid\View\StandaloneView $view) {
 		$this->view = $view;
 	}
 

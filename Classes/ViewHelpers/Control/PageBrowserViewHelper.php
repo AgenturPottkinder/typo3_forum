@@ -43,7 +43,7 @@
  *
  */
 
-Class Tx_MmForum_ViewHelpers_Control_PageBrowserViewHelper Extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+Class Tx_MmForum_ViewHelpers_Control_PageBrowserViewHelper Extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 
 

@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_MmForum_Domain_Repository_AbstractRepository extends Tx_Extbase_Persistence_Repository {
+abstract class Tx_MmForum_Domain_Repository_AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 
 

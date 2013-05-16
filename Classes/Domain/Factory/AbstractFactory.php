@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_MmForum_Domain_Factory_AbstractFactory implements t3lib_Singleton {
+abstract class Tx_MmForum_Domain_Factory_AbstractFactory implements \TYPO3\CMS\Core\SingletonInterface {
 
 
 
@@ -61,7 +61,7 @@ abstract class Tx_MmForum_Domain_Factory_AbstractFactory implements t3lib_Single
 
 	/**
 	 * An instance of the extbase object manager.
-	 * @var Tx_Extbase_Object_ObjectManagerInterface
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
 	 */
 	protected $objectManager = NULL;
 
@@ -85,9 +85,9 @@ abstract class Tx_MmForum_Domain_Factory_AbstractFactory implements t3lib_Single
 
 	/**
 	 * Injects an instance of the extbase object manager.
-	 * @param Tx_Extbase_Object_ObjectManagerInterface $objectManager
+	 * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
 	 */
-	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
+	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
 		$this->objectManager = $objectManager;
 	}
 
