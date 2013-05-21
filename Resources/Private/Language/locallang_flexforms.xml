@@ -14,7 +14,13 @@
 			<label index="Behaviour_Action_User_ListSubscriptions">Subscribed topics and forums</label>
 			<label index="Behaviour_Action_Moderation_Reports">Moderation/Reports: List and edit reports.</label>
 			<label index="Behaviour_Action_Support_Queries">Support Queries Helpbox</label>
-			<label index="Behaviour_Action_Newest_Posts_ListView">Posts List Views</label>
+			<label index="Behaviour_Action_Posts_ListView">Posts List Views</label>
+
+			<label index="Display">Display View</label>
+			<label index="Display_NewestPosts">Newest Posts</label>
+			<label index="Display_PopularPosts">Popular Posts</label>
+			<label index="Display_ActiveUser">Active User</label>
+			<label index="Display_HelpfulUser">Helpful User</label>
 
 			<label index="Pages">Pages</label>
 			<label index="Pages_Forum">Forum page</label>

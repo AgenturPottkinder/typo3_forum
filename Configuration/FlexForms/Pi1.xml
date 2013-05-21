@@ -38,16 +38,58 @@
 									</numIndex>
                                     <numIndex index="5">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Support_Queries</numIndex>
-										<numIndex index="1">Topic->index</numIndex>
+										<numIndex index="1">Helper->index</numIndex>
 									</numIndex>
 									<numIndex index="6">
-										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Newest_Posts_ListView</numIndex>
-										<numIndex index="1">Topic->index</numIndex>
+										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Posts_ListView</numIndex>
+										<numIndex index="1">Post->list</numIndex>
 									</numIndex>
 								</items>
 							</config>
+							<onChange>reload</onChange>
 						</TCEforms>
 					</switchableControllerActions>
+
+					<listViewPosts>
+						<TCEforms>
+							<label>LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display</label>
+							<config>
+								<type>select</type>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_NewestPosts</numIndex>
+										<numIndex index="1">1</numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_PopularPosts</numIndex>
+										<numIndex index="1">2</numIndex>
+									</numIndex>
+								</items>
+							</config>
+							<displayCond>FIELD:switchableControllerActions:=:Post->list</displayCond>
+						</TCEforms>
+					</listViewPosts>
+
+					<listViewUser>
+						<TCEforms>
+							<label>LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display</label>
+							<config>
+								<type>select</type>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_ActiveUser</numIndex>
+										<numIndex index="1">1</numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_HelpfulUser</numIndex>
+										<numIndex index="1">2</numIndex>
+									</numIndex>
+								</items>
+							</config>
+							<displayCond>FIELD:switchableControllerActions:=:User->index;User->show;User->listPosts</displayCond>
+						</TCEforms>
+					</listViewUser>
+
 				</el>
 			</ROOT>
 		</behaviour>
