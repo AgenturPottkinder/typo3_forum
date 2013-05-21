@@ -9,10 +9,12 @@
 			<label index="Behaviour">Plugin behaviour</label>
 			<label index="Behaviour_Action">Action</label>
 			<label index="Behaviour_Action_Forum">Forum</label>
-			<label index="Behaviour_Action_User_Index">User list</label>
+			<label index="Behaviour_Action_User_Index">User List Views</label>
 			<label index="Behaviour_Action_User_Show">User profile</label>
 			<label index="Behaviour_Action_User_ListSubscriptions">Subscribed topics and forums</label>
 			<label index="Behaviour_Action_Moderation_Reports">Moderation/Reports: List and edit reports.</label>
+			<label index="Behaviour_Action_Support_Queries">Support Queries Helpbox</label>
+			<label index="Behaviour_Action_Newest_Posts_ListView">Posts List Views</label>
 
 			<label index="Pages">Pages</label>
 			<label index="Pages_Forum">Forum page</label>

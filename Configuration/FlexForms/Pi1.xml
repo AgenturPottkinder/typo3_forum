@@ -37,9 +37,13 @@
 										<numIndex index="1">Moderation->indexReport;Moderation->editReport;Moderation->updateReportStatus;Moderation->newReportComment;Moderation->createReportComment</numIndex>
 									</numIndex>
                                     <numIndex index="5">
-                                        <numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Moderation_Reports</numIndex>
-                                        <numIndex index="1">Topic->index</numIndex>
-                                    </numIndex>
+										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Support_Queries</numIndex>
+										<numIndex index="1">Topic->index</numIndex>
+									</numIndex>
+									<numIndex index="6">
+										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Newest_Posts_ListView</numIndex>
+										<numIndex index="1">Topic->index</numIndex>
+									</numIndex>
 								</items>
 							</config>
 						</TCEforms>
