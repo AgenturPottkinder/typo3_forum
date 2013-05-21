@@ -30,7 +30,7 @@
 									</numIndex>
 									<numIndex index="3">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_User_ListSubscriptions</numIndex>
-										<numIndex index="1">User->listSubscriptions;User->subscribe</numIndex>
+										<numIndex index="1">User->listSubscriptions;User->show;User->subscribe</numIndex>
 									</numIndex>
 									<numIndex index="4">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Moderation_Reports</numIndex>
