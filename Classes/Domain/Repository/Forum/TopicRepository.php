@@ -68,6 +68,19 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 		return $query->execute();
 	}
 
+	/**
+	 * Finds topics with questions flag.
+	 */
+	public function findQuestions() {
+		$query = $this->createQuery();
+		$query
+			->matching($query->equals('question', '1'))
+			->setOrderings(array('sticky'           => 'DESC',
+								 'crdate'  => 'DESC'));
+		return $query->execute();
+	}
+
+
 
 	/**
 	 * Finds topics by post authors, i.e. all topics that contain at least one post

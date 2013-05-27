@@ -37,11 +37,11 @@
 										<numIndex index="1">Moderation->indexReport;Moderation->editReport;Moderation->updateReportStatus;Moderation->newReportComment;Moderation->createReportComment</numIndex>
 									</numIndex>
                                     <numIndex index="5">
-										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Support_Queries</numIndex>
-										<numIndex index="1">Helper->index</numIndex>
+										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Topics_List</numIndex>
+										<numIndex index="1">Topic->list</numIndex>
 									</numIndex>
 									<numIndex index="6">
-										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Posts_ListView</numIndex>
+										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Posts_List</numIndex>
 										<numIndex index="1">Post->list</numIndex>
 									</numIndex>
 								</items>
@@ -49,6 +49,27 @@
 							<onChange>reload</onChange>
 						</TCEforms>
 					</switchableControllerActions>
+
+
+					<settings.listTopics>
+						<TCEforms>
+							<label>LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display</label>
+							<config>
+								<type>select</type>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_Questionslist</numIndex>
+										<numIndex index="1">1</numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_QuestionBox</numIndex>
+										<numIndex index="1">2</numIndex>
+									</numIndex>
+								</items>
+							</config>
+							<displayCond>FIELD:switchableControllerActions:=:Topic->list</displayCond>
+						</TCEforms>
+					</settings.listTopics>
 
 					<listViewPosts>
 						<TCEforms>

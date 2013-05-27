@@ -132,6 +132,13 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 
 
 	/**
+	 * Defines whether this topic is a question.
+	 * @var int
+	 */
+	protected $question;
+
+
+	/**
 	 * The topic date.
 	 * @var DateTime
 	 */
@@ -334,6 +341,13 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	}
 
 
+	/**
+	 * Checks if this topic is a question.
+	 * @return int
+	 */
+	public function getQuestion() {
+		return $this->question;
+	}
 
 	/**
 	 * Determines whether this topic has been read by a certain user.
@@ -577,6 +591,18 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	 */
 	public function setSticky($sticky) {
 		$this->sticky = (boolean)$sticky;
+	}
+
+
+
+	/**
+	 * Sets this topic to a question. Question topics will be shown at the support queries helpbox.
+	 *
+	 * @param  int $question TRUE to make this topic a question, FALSE to reset this.
+	 * @return void
+	 */
+	public function setQuestion($question) {
+		$this->question = (int)$question;
 	}
 
 

@@ -86,6 +86,13 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	protected $postFactory;
 
 
+	/**
+	 * The criteria repository.
+	 * @var Tx_MmForum_Domain_Repository_Forum_CriteriaRepository
+	 */
+	protected $criteraRepository;
+
+
 
 	/*
 	 * CONSTRUCTOR
@@ -96,23 +103,26 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	/**
 	 * Constructor of this controller. Used primarily for dependency injection.
 	 *
-	 * @param Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository
-	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository
-	 * @param Tx_MmForum_Domain_Repository_Forum_PostRepository  $postRepository
-	 * @param Tx_MmForum_Domain_Factory_Forum_TopicFactory       $topicFactory
-	 * @param Tx_MmForum_Domain_Factory_Forum_PostFactory        $postFactory
+	 * @param Tx_MmForum_Domain_Repository_Forum_ForumRepository	$forumRepository
+	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository	$topicRepository
+	 * @param Tx_MmForum_Domain_Repository_Forum_PostRepository		$postRepository
+	 * @param Tx_MmForum_Domain_Factory_Forum_TopicFactory			$topicFactory
+	 * @param Tx_MmForum_Domain_Factory_Forum_PostFactory			$postFactory
+	 * @param Tx_MmForum_Domain_Repository_Forum_CriteriaRepository $criteraRepository
 	 */
 	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
 	                            Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
 	                            Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository,
 	                            Tx_MmForum_Domain_Factory_Forum_TopicFactory $topicFactory,
-	                            Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory) {
+	                            Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory,
+								Tx_MmForum_Domain_Repository_Forum_CriteriaRepository $criteraRepository=NULL) {
 		parent::__construct();
-		$this->forumRepository = $forumRepository;
-		$this->topicRepository = $topicRepository;
-		$this->postRepository  = $postRepository;
-		$this->topicFactory    = $topicFactory;
-		$this->postFactory     = $postFactory;
+		$this->forumRepository		= $forumRepository;
+		$this->topicRepository		= $topicRepository;
+		$this->postRepository		= $postRepository;
+		$this->topicFactory			= $topicFactory;
+		$this->postFactory			= $postFactory;
+		$this->criteraRepository	= $criteraRepository;
 	}
 
 
@@ -121,13 +131,27 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 * ACTION METHODS
 	 */
 
-    /**
-     * Index action. Displays the all topics
-     * @return void
-     */
-    public function indexAction() {
-        $this->view->assign('topics', $this->topicRepository->findAll());
-    }
+
+	/**
+	 *  QuestionsHelpBox Action.
+	 * @return void
+	 */
+	public function listAction() {
+		switch($this->settings['listTopics']){
+			case '2':
+				$dataset = $this->topicRepository->findQuestions();
+				$partial = 'Topic/QuestionBox';
+				break;
+			default:
+				$dataset = $this->topicRepository->findQuestions();
+				$partial = 'Topic/List';
+				break;
+		}
+		$this->view->assign('partial', $partial);
+		$this->view->assign('topics',$dataset);
+	}
+
+
 
 	/**
 	 * Show action. Displays a single topic and all posts contained in this topic.
@@ -160,7 +184,8 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	                          Tx_MmForum_Domain_Model_Forum_Post $post = NULL, $subject = NULL) {
 		$this->authenticationService->assertNewTopicAuthorization($forum);
 		$this->view->assign('forum', $forum)->assign('post', $post)->assign('subject', $subject)
-			->assign('currentUser', $this->frontendUserRepository->findCurrent());
+			->assign('currentUser', $this->frontendUserRepository->findCurrent())
+			->assign('criteria', $this->criteraRepository->findForForum($forum));
 	}
 
 
@@ -172,11 +197,12 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 * @param Tx_MmForum_Domain_Model_Forum_Post  $post        The first post of the new topic.
 	 * @param string                              $subject     The subject of the new topic
 	 * @param array                               $attachments File attachments for the post.
+	 * @param int                                 $question    The qada
 	 *
 	 * @validate $subject NotEmpty
 	 */
 	public function createAction(Tx_MmForum_Domain_Model_Forum_Forum $forum, Tx_MmForum_Domain_Model_Forum_Post $post,
-	                             $subject, array $attachments = array()) {
+	                             $subject, array $attachments = array(), $question = 0) {
 		// Assert authorization
 		$this->authenticationService->assertNewTopicAuthorization($forum);
 
@@ -184,7 +210,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 		// topic to the forum. Then persist the forum object. Not as complicated
 		// as is sounds, honestly!
 		$this->postFactory->assignUserToPost($post);
-		$topic = $this->topicFactory->createTopic($forum, $post, $subject);
+		$topic = $this->topicFactory->createTopic($forum, $post, $subject, intval($question));
 
 		// Notify potential listeners.
 		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Topic', 'topicCreated',
@@ -220,7 +246,8 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 		$currentUser = $this->getCurrentUser();
 		if ($currentUser === NULL || $currentUser->isAnonymous()) {
 			return;
-		} else {
+		}
+		else {
 			$currentUser->addReadObject($topic);
 			$this->frontendUserRepository->update($currentUser);
 		}
