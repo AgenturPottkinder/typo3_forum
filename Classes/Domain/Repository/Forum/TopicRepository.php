@@ -71,12 +71,15 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 	/**
 	 * Finds topics with questions flag.
 	 */
-	public function findQuestions() {
+	public function findQuestions($limit = NULL) {
 		$query = $this->createQuery();
 		$query
 			->matching($query->equals('question', '1'))
 			->setOrderings(array('sticky'           => 'DESC',
 								 'crdate'  => 'DESC'));
+			if($limit != NULL && is_numeric($limit)) {
+				$query->setLimit($limit);
+			}
 		return $query->execute();
 	}
 

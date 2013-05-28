@@ -137,16 +137,20 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 * @return void
 	 */
 	public function listAction() {
+
+		$showPaginate = false;
 		switch($this->settings['listTopics']){
 			case '2':
-				$dataset = $this->topicRepository->findQuestions();
+				$dataset = $this->topicRepository->findQuestions(6);
 				$partial = 'Topic/QuestionBox';
 				break;
 			default:
 				$dataset = $this->topicRepository->findQuestions();
 				$partial = 'Topic/List';
+				$showPaginate = true;
 				break;
 		}
+		$this->view->assign('showPaginate', $showPaginate);
 		$this->view->assign('partial', $partial);
 		$this->view->assign('topics',$dataset);
 	}
