@@ -83,8 +83,11 @@ class Tx_MmForum_Service_Mailing_PlainMailingService extends Tx_MmForum_Service_
 	 */
 	public function sendMail(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $recipient, $subject, $bodytext) {
 		if ($recipient->getEmail()) {
-			t3lib_div::plainMailEncoded($recipient->getEmail(), $subject, $bodytext,
-			                            $this->getHeaders($recipient, $subject, $bodytext));
+			$mail = new Swift_Message();
+			$mail->setTo(array($recipient->getEmail()))
+				->setSubject($subject)
+				->setBody($bodytext)
+				->send();
 		}
 	}
 
