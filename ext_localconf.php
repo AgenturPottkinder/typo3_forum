@@ -9,7 +9,7 @@ if (!defined('TYPO3_MODE'))
 	'Forum' => 'index, show, new, create, edit, update, delete',
 	'Topic' => 'index, show, new, create, edit, update, delete, questionsHelpBox',
 	'Post' => 'show, new, create, edit, update, delete',
-	'User' => 'index, subscribe, show',
+	'User' => 'index, list, subscribe, show',
 	'Report' => 'new, create',
 	'Moderation' => 'editTopic, updateTopic, updateReportStatus, newReportComment, createReportComment'
 		),

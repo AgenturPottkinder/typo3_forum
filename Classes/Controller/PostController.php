@@ -106,6 +106,28 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	 * ACTION METHODS
 	 */
 
+	/**
+	 *  Listing Action.
+	 * @return void
+	 */
+	public function listAction() {
+
+		$showPaginate = false;
+		switch($this->settings['listPosts']){
+			case '2':
+				$dataset = $this->postRepository->findByFilter(6, array('crdate' => 'DESC'));
+				$partial = 'Post/LatestBox';
+				break;
+			default:
+				$dataset = $this->postRepository->findByFilter();
+				$partial = 'Post/List';
+				$showPaginate = true;
+				break;
+		}
+		$this->view->assign('showPaginate', $showPaginate);
+		$this->view->assign('partial', $partial);
+		$this->view->assign('posts',$dataset);
+	}
 
 	/**
 	 * Show action for a single post. The method simply redirects the user to the

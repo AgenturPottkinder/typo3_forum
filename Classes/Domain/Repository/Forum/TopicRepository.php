@@ -50,6 +50,27 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 	 * REPOSITORY METHODS
 	 */
 
+	/**
+	 *
+	 * Finds topics for a specific filterset. Page navigation is possible.
+	 *
+	 * @param  integer $limit
+	 * @param  array $orderings
+	 *
+	 * @return Array<Tx_MmForum_Domain_Model_Forum_Topic>
+	 *                               The selected subset of posts
+	 *
+	 */
+	public function findByFilter($limit = '', $orderings = array()) {
+		$query = $this->createQuery();
+		if (!empty($limit)) {
+			$query->setLimit($limit);
+		}
+		if (!empty($orderings)) {
+			$query->setOrderings($orderings);
+		}
+		return $query->execute();
+	}
 
 	/**
 	 * Finds topics for the forum show view. Page navigation is possible.

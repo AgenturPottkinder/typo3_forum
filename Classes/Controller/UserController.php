@@ -116,7 +116,29 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 		$this->view->assign('users', $this->frontendUserRepository->findForIndex());
 	}
 
+	/**
+	 *  Listing Action.
+	 * @return void
+	 */
+	public function listAction() {
 
+		$showPaginate = false;
+		switch($this->settings['listUsers']){
+			case '2':
+				$dataset = $this->frontendUserRepository->findByFilter(6, array('postCount' => 'DESC'));
+				$partial = 'User/ActiveBox';
+				break;
+			default:
+				$dataset = $this->frontendUserRepository->findAll();
+				$partial = 'Post/List';
+				$showPaginate = true;
+				break;
+		}
+
+		$this->view->assign('showPaginate', $showPaginate);
+		$this->view->assign('partial', $partial);
+		$this->view->assign('users',$dataset);
+	}
 
 	/**
 	 * Lists all posts of a specific user. If no user is specified, this action lists all
@@ -216,7 +238,6 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 		if ($user->isAnonymous()) {
 			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException('You need to be logged in to view your own subscriptions!', 1335120249);
 		}
-
 		$this->view
 			->assign('forums', $this->forumRepository->findBySubscriber($user))
 			->assign('topics', $this->topicRepository->findBySubscriber($user))

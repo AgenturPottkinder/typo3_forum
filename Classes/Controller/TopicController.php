@@ -133,19 +133,23 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 
 
 	/**
-	 *  QuestionsHelpBox Action.
+	 *  Listing Action.
 	 * @return void
 	 */
 	public function listAction() {
 
 		$showPaginate = false;
 		switch($this->settings['listTopics']){
-			case '2':
+			case '3':
 				$dataset = $this->topicRepository->findQuestions(6);
 				$partial = 'Topic/QuestionBox';
 				break;
+			case '4':
+				$dataset = $this->topicRepository->findByFilter(6, array('postCount' => 'DESC'));
+				$partial = 'Topic/ListBox';
+				break;
 			default:
-				$dataset = $this->topicRepository->findQuestions();
+				$dataset = $this->topicRepository->findAll();
 				$partial = 'Topic/List';
 				$showPaginate = true;
 				break;

@@ -60,6 +60,28 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 	}
 
 
+	/**
+	 *
+	 * Finds users for a specific filterset. Page navigation is possible.
+	 *
+	 * @param  integer $limit
+	 * @param  array $orderings
+	 *
+	 * @return Array<Tx_MmForum_Domain_Model_User_FrontendUser>
+	 *                               The selected subset of posts
+	 *
+	 */
+	public function findByFilter($limit = '', $orderings = array()) {
+		$query = $this->createQuery();
+		if (!empty($limit)) {
+			$query->setLimit($limit);
+		}
+		if (!empty($orderings)) {
+			$query->setOrderings($orderings);
+		}
+		return $query->execute();
+	}
+
 
 	/**
 	 * Returns an anonymous frontend user.
