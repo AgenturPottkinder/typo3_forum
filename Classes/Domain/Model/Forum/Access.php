@@ -211,10 +211,15 @@ class Tx_MmForum_Domain_Model_Forum_Access extends \TYPO3\CMS\Extbase\DomainObje
 			$result = TRUE;
 		}
 
-		if ($this->loginLevel === self::LOGIN_LEVEL_SPECIFIC && $user !== NULL && $user->getUsergroup()
-			->contains($this->affectedGroup)
-		) {
-			$result = TRUE;
+		if ($this->loginLevel === self::LOGIN_LEVEL_SPECIFIC) {
+
+			foreach($user->getUsergroup() as $group) {
+				/** @var $group Tx_MmForum_Domain_Model_User_FrontendUserGroup */
+				if ($group->getUid() === $this->affectedGroup->getUid()) {
+					$result = TRUE;
+					break;
+				}
+			}
 		}
 
 		return $result;
@@ -258,7 +263,7 @@ class Tx_MmForum_Domain_Model_Forum_Access extends \TYPO3\CMS\Extbase\DomainObje
 	 * @param Tx_MmForum_Domain_Model_User_FrontendUserGroup $group The group
 	 * @return void
 	 */
-	public function setGroup(Tx_MmForum_Domain_Model_User_FrontendUserGroup $group) {
+	public function setAffectedGroup(Tx_MmForum_Domain_Model_User_FrontendUserGroup $group) {
 		$this->affectedGroup = $group;
 	}
 
