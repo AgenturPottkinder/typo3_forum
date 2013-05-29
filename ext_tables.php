@@ -228,8 +228,11 @@ $TCA['fe_users']['types']['Tx_MmForum_Domain_Model_User_FrontendUser']['showitem
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem('fe_users', 'tx_extbase_type',
 	array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_extbase_type.mm_forum', 'Tx_MmForum_Domain_Model_User_FrontendUser'));
 
+$TCA['fe_groups']['types']['Tx_MmForum_Domain_Model_User_FrontendUserGroup'] = $TCA['fe_groups']['types']['0'];
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem('fe_groups', 'tx_extbase_type',
+	array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_groups.tx_extbase_type.mm_forum', 'Tx_MmForum_Domain_Model_User_FrontendUserGroup'));
 
-t3lib_extMgm::addLLrefForTCAdescr('tx_mmforum_domain_model_forum_access',
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_mmforum_domain_model_forum_access',
 	'EXT:mm_forum/Resources/Private/Language/locallang_csh_tx_mmforum_domain_model_forum_access.xml');
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_mmforum_domain_model_forum_access');
 $TCA['tx_mmforum_domain_model_forum_access'] = array(

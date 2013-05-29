@@ -113,6 +113,8 @@
 			<label index="fe_users.tx_mmforum.tab.settings">mm_forum Settings</label>
 			<label index="fe_users.tx_mmforum_signature">Signature</label>
 			<label index="fe_users.tx_mmforum_userfield_values">Userfield values</label>
+
+			<label index="fe_groups.tx_extbase_type.mm_forum">mm_forum group</label>
 		</languageKey>
 	</data>
 </T3locallang>
