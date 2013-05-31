@@ -108,6 +108,7 @@
 			<label index="fe_users.contact">Contact addresses and social network profiles (JSON encoded)</label>
 			<label index="fe_users.tx_extbase_type.mm_forum">mm_forum user</label>
 			<label index="fe_users.tx_mmforum_post_count">Post count</label>
+			<label index="fe_users.tx_mmforum_helpful_count">Helpful count</label>
 			<label index="fe_users.tx_mmforum_topic_subscriptions">Subscribed topics</label>
 			<label index="fe_users.tx_mmforum_forum_subscriptions">Subscribed forums</label>
 			<label index="fe_users.tx_mmforum.tab.settings">mm_forum Settings</label>

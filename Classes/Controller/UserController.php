@@ -127,6 +127,10 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 				$dataset = $this->frontendUserRepository->findByFilter(6, array('postCount' => 'DESC'));
 				$partial = 'User/ActiveBox';
 				break;
+			case 'helpfulUserWidget':
+				$dataset = $this->frontendUserRepository->findByFilter(6, array('helpfulCount' => 'DESC'));
+				$partial = 'User/HelpfulBox';
+				break;
 			default:
 				$dataset = $this->frontendUserRepository->findByFilter(6, array('postCount' => 'DESC'));
 				$partial = 'User/List';

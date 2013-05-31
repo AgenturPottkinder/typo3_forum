@@ -58,6 +58,12 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 */
 	protected $postCount;
 
+	/**
+	 * Forum post count
+	 * @var integer
+	 */
+	protected $helpfulCount;
+
 
 	/**
 	 * The signature. This will be displayed below this user's posts.
@@ -172,6 +178,13 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 		return $this->topicSubscriptions;
 	}
 
+	/**
+	 * Gets the post count of this user.
+	 * @return integer The post count.
+	 */
+	public function getHelpfulCount() {
+		return $this->helpfulCount;
+	}
 
 
 	/**
