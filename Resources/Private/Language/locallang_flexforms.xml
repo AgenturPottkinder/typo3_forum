@@ -22,6 +22,7 @@
 			<label index="Display_Latest_Box">Latest Posts Box</label>
 			<label index="Display_Active_User_Widget">Active User</label>
 			<label index="Display_Helpful_User_Widget">Helpful User</label>
+			<label index="Display_Online_User_Widget">Online User</label>
 			<label index="Display_QuestionBox">Latest Questions Box</label>
 			<label index="Display_Questionslist">Questions List</label>
 			<label index="Display_PopularBox">Popular Topics  Box</label>

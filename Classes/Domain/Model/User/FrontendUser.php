@@ -223,7 +223,16 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 		return FALSE;
 	}
 
-
+	/**
+	 * Get the online status of a User
+	 * @return boolean.
+	 */
+	public function isOnline() {
+		if((time() - $this->is_online) < 300){
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * Gets the user's signature.

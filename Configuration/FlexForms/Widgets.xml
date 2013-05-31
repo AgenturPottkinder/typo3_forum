@@ -39,6 +39,10 @@
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_Helpful_User_Widget</numIndex>
 										<numIndex index="1">helpfulUserWidget</numIndex>
 									</numIndex>
+									<numIndex index="2" type="array">
+										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_Online_User_Widget</numIndex>
+										<numIndex index="1">onlineUserWidget</numIndex>
+									</numIndex>
 								</items>
 							</config>
 							<displayCond>FIELD:switchableControllerActions:=:User->list</displayCond>

@@ -124,22 +124,27 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 		$showPaginate = false;
 		switch($this->settings['listUsers']){
 			case 'activeUserWidget':
-				$dataset = $this->frontendUserRepository->findByFilter(6, array('postCount' => 'DESC'));
+				$dataset['users'] = $this->frontendUserRepository->findByFilter(6, array('postCount' => 'DESC'));
 				$partial = 'User/ActiveBox';
 				break;
 			case 'helpfulUserWidget':
-				$dataset = $this->frontendUserRepository->findByFilter(6, array('helpfulCount' => 'DESC'));
+				$dataset['users'] = $this->frontendUserRepository->findByFilter(6, array('helpfulCount' => 'DESC'));
 				$partial = 'User/HelpfulBox';
 				break;
+			case 'onlineUserWidget':
+				$dataset['count'] = $this->frontendUserRepository->countByFilter(TRUE);
+				$dataset['users'] = $this->frontendUserRepository->findByFilter(4, array('is_online' => 'DESC'), TRUE);
+				$partial = 'User/OnlineBox';
+				break;
 			default:
-				$dataset = $this->frontendUserRepository->findByFilter(6, array('postCount' => 'DESC'));
+				$dataset['users'] = $this->frontendUserRepository->findByFilter(6, array('postCount' => 'DESC'));
 				$partial = 'User/List';
 				break;
 		}
 
 		$this->view->assign('showPaginate', $showPaginate);
 		$this->view->assign('partial', $partial);
-		$this->view->assign('users',$dataset);
+		$this->view->assign('dataset',$dataset);
 	}
 
 	/**

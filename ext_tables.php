@@ -10,7 +10,6 @@ if (!defined('TYPO3_MODE'))
 	$_EXTKEY, 'Widget', 'mm_forum Widgets'
 );
 
-
 $extPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY);
 
 if (TYPO3_MODE === 'BE')
