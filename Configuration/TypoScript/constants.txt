@@ -3,5 +3,5 @@ plugin.tx_mmforum.view {
 }
 
 plugin.tx_mmforum.persistence {
-	storagePid =
+	storagePid = 30
 }

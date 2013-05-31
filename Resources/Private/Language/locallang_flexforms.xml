@@ -20,8 +20,8 @@
 			<label index="Display">Display View</label>
 			<label index="Display_Default">Default</label>
 			<label index="Display_Latest_Box">Latest Posts Box</label>
-			<label index="Display_ActiveUser">Active User</label>
-			<label index="Display_HelpfulUser">Helpful User</label>
+			<label index="Display_Active_User_Widget">Active User</label>
+			<label index="Display_Helpful_User_Widget">Helpful User</label>
 			<label index="Display_QuestionBox">Latest Questions Box</label>
 			<label index="Display_Questionslist">Questions List</label>
 			<label index="Display_PopularBox">Popular Topics  Box</label>

@@ -21,30 +21,26 @@
 										<numIndex index="1">Forum->index;Forum->show;Topic->show;Topic->new;Topic->create;Post->show;Post->new;Post->create;Post->edit;Post->update;Post->confirmDelete;Post->delete;User->subscribe;Report->new;Report->create;Moderation->editTopic;Moderation->updateTopic</numIndex>
 									</numIndex>
 									<numIndex index="1">
-										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_User_Index</numIndex>
-										<numIndex index="1">User->index;User->show;User->listPosts</numIndex>
-									</numIndex>
-									<numIndex index="2">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_User_Show</numIndex>
 										<numIndex index="1">User->show;User->listPosts</numIndex>
 									</numIndex>
-									<numIndex index="3">
+									<numIndex index="2">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_User_ListSubscriptions</numIndex>
 										<numIndex index="1">User->listSubscriptions;User->show;User->subscribe</numIndex>
 									</numIndex>
-									<numIndex index="4">
+									<numIndex index="3">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Moderation_Reports</numIndex>
 										<numIndex index="1">Moderation->indexReport;Moderation->editReport;Moderation->updateReportStatus;Moderation->newReportComment;Moderation->createReportComment</numIndex>
 									</numIndex>
-                                    <numIndex index="5">
+                                    <numIndex index="4">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Topics_List</numIndex>
 										<numIndex index="1">Topic->list</numIndex>
 									</numIndex>
-									<numIndex index="6">
+									<numIndex index="5">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Posts_List</numIndex>
 										<numIndex index="1">Post->list</numIndex>
 									</numIndex>
-									<numIndex index="7">
+									<numIndex index="6">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Users_List</numIndex>
 										<numIndex index="1">User->list</numIndex>
 									</numIndex>
@@ -61,11 +57,7 @@
 								<items type="array">
 									<numIndex index="0" type="array">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_Default</numIndex>
-										<numIndex index="1">1</numIndex>
-									</numIndex>
-									<numIndex index="1" type="array">
-										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_Active_Box</numIndex>
-										<numIndex index="1">2</numIndex>
+										<numIndex index="1">default</numIndex>
 									</numIndex>
 								</items>
 							</config>
@@ -144,49 +136,5 @@
 				</el>
 			</ROOT>
 		</behaviour>
-		<pages>
-			<ROOT>
-				<TCEforms>
-					<sheetTitle>LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Pages</sheetTitle>
-				</TCEforms>
-				<type>array</type>
-				<el>
-					<settings.pids.Forum>
-						<TCEforms>
-							<label>LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Pages_Forum</label>
-							<config>
-								<type>group</type>
-								<internal_type>db</internal_type>
-								<allowed>pages</allowed>
-								<maxitems>1</maxitems>
-								<size>1</size>
-								<wizards>
-									<suggest>
-										<type>suggest</type>
-									</suggest>
-								</wizards>
-							</config>
-						</TCEforms>
-					</settings.pids.Forum>
-					<settings.pids.UserShow>
-						<TCEforms>
-							<label>LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Pages_User_Show</label>
-							<config>
-								<type>group</type>
-								<internal_type>db</internal_type>
-								<allowed>pages</allowed>
-								<maxitems>1</maxitems>
-								<size>1</size>
-								<wizards>
-									<suggest>
-										<type>suggest</type>
-									</suggest>
-								</wizards>
-							</config>
-						</TCEforms>
-					</settings.pids.UserShow>
-				</el>
-			</ROOT>
-		</pages>
 	</sheets>
 </T3DataStructure> 

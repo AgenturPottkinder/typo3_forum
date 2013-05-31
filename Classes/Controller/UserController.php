@@ -121,17 +121,15 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	 * @return void
 	 */
 	public function listAction() {
-
 		$showPaginate = false;
 		switch($this->settings['listUsers']){
-			case '2':
+			case 'activeUserWidget':
 				$dataset = $this->frontendUserRepository->findByFilter(6, array('postCount' => 'DESC'));
 				$partial = 'User/ActiveBox';
 				break;
 			default:
-				$dataset = $this->frontendUserRepository->findAll();
-				$partial = 'Post/List';
-				$showPaginate = true;
+				$dataset = $this->frontendUserRepository->findByFilter(6, array('postCount' => 'DESC'));
+				$partial = 'User/List';
 				break;
 		}
 

@@ -86,14 +86,17 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 	 * @param Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository An instance of the forum repository.
 	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository An instance of the topic repository.
 	 * @param Tx_MmForum_Domain_Model_Forum_RootForum            $rootForum       An instance of the virtual root forum.
+	 * @param Tx_MmForum_Service_SessionHandlingService $sessionHandling
 	 */
 	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
 	                            Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
-	                            Tx_MmForum_Domain_Model_Forum_RootForum $rootForum) {
+	                            Tx_MmForum_Domain_Model_Forum_RootForum $rootForum,
+								Tx_MmForum_Service_SessionHandlingService $sessionHandling) {
 		parent::__construct();
 		$this->forumRepository = $forumRepository;
 		$this->topicRepository = $topicRepository;
 		$this->rootForum       = $rootForum;
+		$this->sessionHandling		= $sessionHandling;
 	}
 
 
@@ -124,10 +127,29 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 	 * @return void
 	 */
 	public function showAction(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
+		$topics = $this->topicRepository->findForIndex($forum);
+		// AdHandling Start
+		$actDatetime = new DateTime();
+		if(!$this->sessionHandling->get('adTime')){
+			$this->sessionHandling->set('adTime', $actDatetime);
+			$adDateTime = $actDatetime;
+		}else{
+			$adDateTime = $this->sessionHandling->get('adTime');
+		}
+		if($actDatetime->getTimestamp() - $adDateTime->getTimestamp() > $this->settings['ads']['timeInterval']){
+			$this->sessionHandling->set('adTime', $actDatetime);
+			$max = count($topics);
+			if ($max > $this->settings['topicController']['show']['pagebrowser']['itemsPerPage']) {
+				$max = $this->settings['topicController']['show']['pagebrowser']['itemsPerPage'];
+			}
+			$showAd = array('enabled' => TRUE, 'position' => mt_rand(1,$max-1));
+			$this->view->assign('showAd', $showAd);
+		}
+		// AdHandling End
 		$this->authenticationService->assertReadAuthorization($forum);
 		$this->view
 			->assign('forum', $forum)
-			->assign('topics', $this->topicRepository->findForIndex($forum));
+			->assign('topics', $topics);
 	}
 
 

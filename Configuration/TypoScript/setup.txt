@@ -159,6 +159,11 @@ plugin.tx_mmforum.settings {
 		Forum =
 		UserShow =
 		UserList =
+		QuestionList =
+	}
+
+	ads {
+		timeInterval = 30
 	}
 
 	pagebrowser {

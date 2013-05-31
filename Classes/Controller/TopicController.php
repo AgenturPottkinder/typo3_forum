@@ -93,6 +93,13 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	protected $criteraRepository;
 
 
+	/**
+	 * SessionHandling
+	 * @var Tx_MmForum_Service_SessionHandlingService
+	 */
+	protected $sessionHandling;
+
+
 
 	/*
 	 * CONSTRUCTOR
@@ -103,26 +110,29 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	/**
 	 * Constructor of this controller. Used primarily for dependency injection.
 	 *
-	 * @param Tx_MmForum_Domain_Repository_Forum_ForumRepository	$forumRepository
-	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository	$topicRepository
-	 * @param Tx_MmForum_Domain_Repository_Forum_PostRepository		$postRepository
-	 * @param Tx_MmForum_Domain_Factory_Forum_TopicFactory			$topicFactory
-	 * @param Tx_MmForum_Domain_Factory_Forum_PostFactory			$postFactory
+	 * @param Tx_MmForum_Domain_Repository_Forum_ForumRepository    $forumRepository
+	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository    $topicRepository
+	 * @param Tx_MmForum_Domain_Repository_Forum_PostRepository     $postRepository
+	 * @param Tx_MmForum_Domain_Factory_Forum_TopicFactory          $topicFactory
+	 * @param Tx_MmForum_Domain_Factory_Forum_PostFactory           $postFactory
 	 * @param Tx_MmForum_Domain_Repository_Forum_CriteriaRepository $criteraRepository
+	 * @param Tx_MmForum_Service_SessionHandlingService             $sessionHandling
 	 */
 	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
-	                            Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
-	                            Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository,
-	                            Tx_MmForum_Domain_Factory_Forum_TopicFactory $topicFactory,
-	                            Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory,
-								Tx_MmForum_Domain_Repository_Forum_CriteriaRepository $criteraRepository=NULL) {
+								Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
+								Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository,
+								Tx_MmForum_Domain_Factory_Forum_TopicFactory $topicFactory,
+								Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory,
+								Tx_MmForum_Domain_Repository_Forum_CriteriaRepository $criteraRepository = NULL,
+								Tx_MmForum_Service_SessionHandlingService $sessionHandling) {
 		parent::__construct();
-		$this->forumRepository		= $forumRepository;
-		$this->topicRepository		= $topicRepository;
-		$this->postRepository		= $postRepository;
-		$this->topicFactory			= $topicFactory;
-		$this->postFactory			= $postFactory;
-		$this->criteraRepository	= $criteraRepository;
+		$this->forumRepository   = $forumRepository;
+		$this->topicRepository   = $topicRepository;
+		$this->postRepository    = $postRepository;
+		$this->topicFactory      = $topicFactory;
+		$this->postFactory       = $postFactory;
+		$this->sessionHandling   = $sessionHandling;
+		$this->criteraRepository = $criteraRepository;
 	}
 
 
@@ -138,8 +148,8 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 */
 	public function listAction() {
 
-		$showPaginate = false;
-		switch($this->settings['listTopics']){
+		$showPaginate = FALSE;
+		switch ($this->settings['listTopics']) {
 			case '3':
 				$dataset = $this->topicRepository->findQuestions(6);
 				$partial = 'Topic/QuestionBox';
@@ -149,14 +159,14 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 				$partial = 'Topic/ListBox';
 				break;
 			default:
-				$dataset = $this->topicRepository->findAll();
-				$partial = 'Topic/List';
-				$showPaginate = true;
+				$dataset      = $this->topicRepository->findAll();
+				$partial      = 'Topic/List';
+				$showPaginate = TRUE;
 				break;
 		}
 		$this->view->assign('showPaginate', $showPaginate);
 		$this->view->assign('partial', $partial);
-		$this->view->assign('topics',$dataset);
+		$this->view->assign('topics', $dataset);
 	}
 
 
@@ -170,9 +180,30 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 * @return void
 	 */
 	public function showAction(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
+		$posts = $this->postRepository->findForTopic($topic);
+		// AdHandling Start
+		$actDatetime = new DateTime();
+		if (!$this->sessionHandling->get('adTime')) {
+			$this->sessionHandling->set('adTime', $actDatetime);
+			$adDateTime = $actDatetime;
+		}
+		else {
+			$adDateTime = $this->sessionHandling->get('adTime');
+		}
+		if ($actDatetime->getTimestamp() - $adDateTime->getTimestamp() > $this->settings['ads']['timeInterval']) {
+			$this->sessionHandling->set('adTime', $actDatetime);
+			$this->view->assign('showAd', TRUE);
+			$max = count($posts);
+			if ($max > $this->settings['topicController']['show']['pagebrowser']['itemsPerPage']) {
+				$max = $this->settings['topicController']['show']['pagebrowser']['itemsPerPage'];
+			}
+			$showAd = array('enabled' => TRUE, 'position' => mt_rand(1,$max-1));
+			$this->view->assign('showAd', $showAd);
+		}
+		// AdHandling End
 		$this->authenticationService->assertReadAuthorization($topic);
 		$this->markTopicRead($topic);
-		$this->view->assign('topic', $topic)->assign('posts', $this->postRepository->findForTopic($topic));
+		$this->view->assign('topic', $topic)->assign('posts', $posts);
 	}
 
 
@@ -189,7 +220,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 * @dontvalidate $post
 	 */
 	public function newAction(Tx_MmForum_Domain_Model_Forum_Forum $forum,
-	                          Tx_MmForum_Domain_Model_Forum_Post $post = NULL, $subject = NULL) {
+							  Tx_MmForum_Domain_Model_Forum_Post $post = NULL, $subject = NULL) {
 		$this->authenticationService->assertNewTopicAuthorization($forum);
 		$this->view->assign('forum', $forum)->assign('post', $post)->assign('subject', $subject)
 			->assign('currentUser', $this->frontendUserRepository->findCurrent())
@@ -210,7 +241,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 * @validate $subject NotEmpty
 	 */
 	public function createAction(Tx_MmForum_Domain_Model_Forum_Forum $forum, Tx_MmForum_Domain_Model_Forum_Post $post,
-	                             $subject, array $attachments = array(), $question = 0) {
+								 $subject, array $attachments = array(), $question = 0) {
 		// Assert authorization
 		$this->authenticationService->assertNewTopicAuthorization($forum);
 
@@ -222,7 +253,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 
 		// Notify potential listeners.
 		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Topic', 'topicCreated',
-		                                      array('topic' => $topic));
+											  array('topic' => $topic));
 
 		// Redirect to single forum display view
 		$this->controllerContext->getFlashMessageQueue()->addMessage(
