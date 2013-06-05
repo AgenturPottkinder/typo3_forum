@@ -129,7 +129,7 @@ abstract class Tx_MmForum_Controller_AbstractControllerTest extends \TYPO3\CMS\E
 			if ($parameter->getClass() !== NULL) {
 				if ($parameter->getClass()->getName() === 'Tx_MmForum_Domain_Model_Forum_Forum') {
 					$forum = new Tx_MmForum_Domain_Model_Forum_Forum();
-					$forum->injectObjectManager(\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager'));
+					$forum->injectObjectManager(\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager'));
 					$parameters[] = $forum;
 				} else {
 					$parameters[] = $this->getMock($parameter->getClass()->getName());
