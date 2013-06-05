@@ -117,17 +117,20 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum      The forum in which the new topic is to be created.
 	 * @param Tx_MmForum_Domain_Model_Forum_Post  $firstPost  The first post of the new topic.
 	 * @param string                              $subject    The subject of the new topic
+	 * @param int								  $question   The flag if the new topic is declared as question
 	 *
 	 * @return Tx_MmForum_Domain_Model_Forum_Topic The new topic.
 	 */
 	public function createTopic(Tx_MmForum_Domain_Model_Forum_Forum $forum,
-	                            Tx_MmForum_Domain_Model_Forum_Post $firstPost, $subject) {
+	                            Tx_MmForum_Domain_Model_Forum_Post $firstPost,
+								$subject, $question = 0) {
 		/** @var $topic Tx_MmForum_Domain_Model_Forum_Topic */
 		$topic = $this->getClassInstance();
 
 		$topic->setForum($forum);
 		$topic->setSubject($subject);
 		$topic->setAuthor($this->getCurrentUser());
+		$topic->setQuestion($question);
 		$topic->addPost($firstPost);
 
 		$forum->addTopic($topic);
