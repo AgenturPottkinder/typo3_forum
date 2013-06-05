@@ -92,6 +92,7 @@
 			<label index="Topic_New_Subscribe">Subscribe</label>
 			<label index="Topic_New_SubscribeMore">Notify me via email when someone answers this topic.</label>
 			<label index="Topic_New_Text">Post text</label>
+			<label index="Topic_New_Question">Declare as question</label>
 			<label index="User_Index">User list</label>
 			<label index="User_Index_Contact">Contact</label>
 			<label index="User_Index_MemberSince">Registered since</label>
@@ -207,6 +208,7 @@
 			<label index="Topic_New_Subscribe">Abonnieren</label>
 			<label index="Topic_New_SubscribeMore">Ich möchte E-Mails erhalten, wenn Beiträge zu diesem Thema hinzugefügt werden.</label>
 			<label index="Topic_New_Text">Inhalt</label>
+			<label index="Topic_New_Question">Als Frage deklarieren</label>
 			<label index="User_Index">Mitgliederliste</label>
 			<label index="User_Index_Contact">Kontakt</label>
 			<label index="User_Index_MemberSince">Registriert seit</label>
