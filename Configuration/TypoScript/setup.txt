@@ -148,6 +148,13 @@ config.tx_extbase.persistence.classes {
 			recordType = 1
 		}
 	}
+
+	Tx_MmForum_Domain_Model_Forum_CriteriaOption {
+		mapping {
+			tableName = tx_mmforum_domain_model_forum_criteria_options
+			recordType = 1
+		}
+	}
 }
 
 plugin.tx_mmforum.settings {

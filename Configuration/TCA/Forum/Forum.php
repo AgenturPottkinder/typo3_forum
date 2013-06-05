@@ -4,10 +4,10 @@ if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 $TCA['tx_mmforum_domain_model_forum_forum'] = array(
 	'ctrl' => $TCA['tx_mmforum_domain_model_forum_forum']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'title,description,children,topics,acls,last_topic,last_post,subscribers'
+		'showRecordFieldList' => 'title,description,children,topics,acls,criteria,last_topic,last_post,subscribers'
 	),
 	'types' => array(
-		'1' => array('showitem' => 'title,description,children,topics,acls,last_topic,last_post,subscribers')
+		'1' => array('showitem' => 'title,description,children,topics,acls,criteria,last_topic,last_post,subscribers')
 	),
 	'palettes' => array(
 		'1' => array('showitem' => '')
@@ -103,6 +103,17 @@ $TCA['tx_mmforum_domain_model_forum_forum'] = array(
 					'newRecordLinkPosition' => 'bottom',
 				),
 			)
+		),
+		'criteria' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_criteria',
+			'config' => array(
+				'type'          => 'select',
+				'size'          => 10,
+				'maxitems'      => 99999,
+				'foreign_table' => 'tx_mmforum_domain_model_forum_criteria',
+				'MM' => 'tx_mmforum_domain_model_forum_criteria_forum'
+			),
 		),
 		'topic_count' => array(
 			'exclude' => 0,

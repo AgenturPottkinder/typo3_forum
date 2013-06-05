@@ -91,6 +91,14 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 
 
 	/**
+	 * The criterias of this forum.
+	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Criteria>
+	 * @lazy
+	 */
+	protected $criteria;
+
+
+	/**
 	 * Amount of topics in this forum.
 	 * @var int
 	 */
@@ -170,6 +178,7 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 	public function __construct($title = '') {
 		$this->children    = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->topics      = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->criteria    = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->acls        = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->subscribers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 
@@ -261,6 +270,13 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 	}
 
 
+	/**
+	 * Get all criterias of this forum.
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Criteria>                           
+	 */
+	public function getCriteria() {
+		return $this->criteria;
+	}
 
 	/**
 	 * Gets all access rules.
@@ -536,6 +552,14 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 		$this->title = $title;
 	}
 
+	/**
+	 * Set the criteria of this forum..
+	 * @param Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Criteria> $criteria
+	 * @return void
+	 */
+	public function setCriteria(Tx_Extbase_Persistence_ObjectStorage $criteria) {
+		$this->criteria = $criteria;
+	}
 
 
 	/**

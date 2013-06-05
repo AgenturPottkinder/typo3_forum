@@ -110,11 +110,11 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	/**
 	 * Constructor of this controller. Used primarily for dependency injection.
 	 *
-	 * @param Tx_MmForum_Domain_Repository_Forum_ForumRepository    $forumRepository
-	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository    $topicRepository
-	 * @param Tx_MmForum_Domain_Repository_Forum_PostRepository     $postRepository
-	 * @param Tx_MmForum_Domain_Factory_Forum_TopicFactory          $topicFactory
-	 * @param Tx_MmForum_Domain_Factory_Forum_PostFactory           $postFactory
+	 * @param Tx_MmForum_Domain_Repository_Forum_ForumRepository	$forumRepository
+	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository	$topicRepository
+	 * @param Tx_MmForum_Domain_Repository_Forum_PostRepository		$postRepository
+	 * @param Tx_MmForum_Domain_Factory_Forum_TopicFactory			$topicFactory
+	 * @param Tx_MmForum_Domain_Factory_Forum_PostFactory			$postFactory
 	 * @param Tx_MmForum_Domain_Repository_Forum_CriteriaRepository $criteraRepository
 	 * @param Tx_MmForum_Service_SessionHandlingService             $sessionHandling
 	 */
@@ -224,7 +224,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 		$this->authenticationService->assertNewTopicAuthorization($forum);
 		$this->view->assign('forum', $forum)->assign('post', $post)->assign('subject', $subject)
 			->assign('currentUser', $this->frontendUserRepository->findCurrent())
-			->assign('criteria', $this->criteraRepository->findForForum($forum));
+			->assign('criteria', $forum->getCriteria());
 	}
 
 

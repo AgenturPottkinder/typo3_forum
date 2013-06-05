@@ -101,6 +101,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_forum (
   description tinytext,
   children int(11) unsigned NOT NULL default '0',
   topics int(11) unsigned NOT NULL default '0',
+  criteria int(11) unsigned NOT NULL default '0',
   topic_count int(11) unsigned NOT NULL default '0',
   post_count int(11) unsigned NOT NULL default '0',
   acls int(11) unsigned NOT NULL default '0',
@@ -410,6 +411,61 @@ CREATE TABLE tx_mmforum_domain_model_user_userfield_value (
   l18n_diffsource mediumblob NOT NULL,
   PRIMARY KEY (uid),
   KEY parent (pid)
+);
+
+
+#
+# Table structure for table 'tx_mmforum_domain_model_forum_criteria'
+#
+CREATE TABLE IF NOT EXISTS tx_mmforum_domain_model_forum_criteria (
+  uid int(11) unsigned NOT NULL auto_increment,
+  pid int(11) unsigned NOT NULL default '0',
+  tstamp int(11) unsigned NOT NULL default '0',
+  deleted tinyint(3) unsigned NOT NULL default '0',
+  `name` varchar(64) NOT NULL,
+  options int(11) unsigned NOT NULL default '0',
+  PRIMARY KEY  (uid)
+);
+
+
+#
+# Table structure for table 'tx_mmforum_domain_model_forum_criteria_forum'
+#
+CREATE TABLE tx_mmforum_domain_model_forum_criteria_forum (
+	uid_local int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	uid_foreign int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	sorting int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	sorting_foreign int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	KEY uid_local (uid_local),
+	KEY uid_foreign (uid_foreign)
+);
+
+
+#
+# Table structure for table 'tx_mmforum_domain_model_forum_criteria_options'
+#
+CREATE TABLE IF NOT EXISTS tx_mmforum_domain_model_forum_criteria_options (
+  uid int(11) unsigned NOT NULL auto_increment,
+  pid int(11) unsigned NOT NULL default '0',
+  tstamp int(11) unsigned NOT NULL default '0',
+  deleted tinyint(3) NOT NULL default '0',
+  criteria_uid int(11) unsigned NOT NULL,
+  `value` varchar(64) NOT NULL,
+  PRIMARY KEY  (uid),
+  KEY criteria_uid (criteria_uid)
+);
+
+
+#
+# Table structure for table 'tx_mmforum_domain_model_forum_criteria_topic_options'
+#
+CREATE TABLE tx_mmforum_domain_model_forum_criteria_topic_options (
+	uid_local int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	uid_foreign int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	sorting int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	sorting_foreign int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	KEY uid_local (uid_local),
+	KEY uid_foreign (uid_foreign)
 );
 
 

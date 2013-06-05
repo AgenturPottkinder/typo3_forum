@@ -390,4 +390,32 @@ $TCA['tx_mmforum_domain_model_moderation_reportworkflowstatus'] = array(
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/Moderation/ReportWorkflowStatus.png'
 	)
 );
+
+
+
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_mmforum_domain_model_forum_criteria');
+$TCA['tx_mmforum_domain_model_forum_criteria'] = array(
+	'ctrl' => array(
+		'title' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_criteria',
+		'label' => 'name',
+		'tstamp' => 'tstamp',
+		'delete' => 'deleted',
+		'icon' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/Forum/Access.png',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Forum/Criteria.php',
+	)
+);
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_mmforum_domain_model_forum_criteria_options');
+$TCA['tx_mmforum_domain_model_forum_criteria_options'] = array(
+	'ctrl' => array(
+		'title' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_criteria_options',
+		'label' => 'name',
+		'tstamp' => 'tstamp',
+		'delete' => 'deleted',
+		'icon' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/Forum/Access.png',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Forum/CriteriaOption.php',
+	)
+);
+
 ?>
