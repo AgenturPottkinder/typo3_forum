@@ -136,9 +136,9 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 		}else{
 			$adDateTime = $this->sessionHandling->get('adTime');
 		}
-		if($actDatetime->getTimestamp() - $adDateTime->getTimestamp() > $this->settings['ads']['timeInterval']){
+		$max = count($topics);
+		if($actDatetime->getTimestamp() - $adDateTime->getTimestamp() > $this->settings['ads']['timeInterval'] && $max > 3){
 			$this->sessionHandling->set('adTime', $actDatetime);
-			$max = count($topics);
 			if ($max > $this->settings['topicController']['show']['pagebrowser']['itemsPerPage']) {
 				$max = $this->settings['topicController']['show']['pagebrowser']['itemsPerPage'];
 			}
