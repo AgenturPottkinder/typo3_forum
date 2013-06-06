@@ -27,6 +27,9 @@
 			<label index="tx_mmforum_domain_model_forum_topic.last_post">Last Post</label>
 			<label index="tx_mmforum_domain_model_forum_topic.subscribers">Subscribers</label>
 			<label index="tx_mmforum_domain_model_forum_topic.target">Target topic</label>
+			<label index="tx_mmforum_domain_model_forum_topic.closed">Closed</label>
+			<label index="tx_mmforum_domain_model_forum_topic.sticky">Sticky</label>
+			<label index="tx_mmforum_domain_model_forum_topic.question">Question</label>
 
 			<label index="tx_mmforum_domain_model_forum_post">Post</label>
 			<label index="tx_mmforum_domain_model_forum_post.text">Text</label>
@@ -43,7 +46,7 @@
 			<label index="tx_mmforum_domain_model_forum_criteria">Criteria</label>
 			<label index="tx_mmforum_domain_model_forum_criteria_name">Criteria Name</label>
 			<label index="tx_mmforum_domain_model_forum_criteria_options">Criteria Options</label>
-			<label index="tx_mmforum_domain_model_forum_criteria_options_value">Criteria Option Value</label>
+			<label index="tx_mmforum_domain_model_forum_criteria_options_name">Criteria Option Name</label>
 			<label index="tx_mmforum_domain_model_forum_criteria_options_criteria_uid">Criteria Option Relation</label>
 
 			<label index="tx_mmforum_domain_model_forum_access">Access</label>

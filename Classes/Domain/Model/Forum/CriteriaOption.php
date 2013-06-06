@@ -38,28 +38,53 @@
 class Tx_MmForum_Domain_Model_Forum_CriteriaOption extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
-	 * The value of the criteria
+	 * The criteria_uid of a option.
+	 * @var int
+	 */
+	protected $criteriaUid;
+
+	/**
+	 * The name of the option
 	 * @var string
 	 */
-	protected $value;
+	protected $name;
 
 
 	/**
-	 * Gets the value of criteria.
-	 * @return string The value of criteria.
+	 * Get the criteria_uid of a option.
+	 * @return int The criteria_uid of a option.
 	 */
-	public function getValue() {
-		return $this->value;
+	public function getCriteriaUid() {
+		return $this->criteriaUid;
+	}
+
+	/**
+	 * Gets the value of criteria.
+	 * @return string The name of a option.
+	 */
+	public function getName() {
+		return $this->name;
+	}
+
+
+	/**
+	 * Sets the criteria_uid of a option.
+	 *
+	 * @param int $criteriaUid The criteria_uid of a option
+	 * @return void
+	 */
+	public function setCriteriaUid($criteriaUid) {
+		$this->criteriaUid = $criteriaUid;
 	}
 
 	/**
 	 * Sets the value.
 	 *
-	 * @param string $value The value of a criteria
+	 * @param string $name The name of a option
 	 * @return void
 	 */
-	public function setValue($value) {
-		$this->value = $value;
+	public function setName($name) {
+		$this->name = $name;
 	}
 
 }

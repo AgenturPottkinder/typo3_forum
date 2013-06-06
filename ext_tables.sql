@@ -181,6 +181,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_topic (
   sticky tinyint(1) unsigned default '0',
   target int(11) unsigned default '0',
   readers int(11) unsigned NOT NULL default '0',
+  criteria_options int(11) unsigned NOT NULL default '0',
   tstamp int(11) unsigned NOT NULL default '0',
   crdate int(11) unsigned NOT NULL default '0',
   deleted tinyint(4) unsigned NOT NULL default '0',
@@ -450,7 +451,7 @@ CREATE TABLE IF NOT EXISTS tx_mmforum_domain_model_forum_criteria_options (
   tstamp int(11) unsigned NOT NULL default '0',
   deleted tinyint(3) NOT NULL default '0',
   criteria_uid int(11) unsigned NOT NULL,
-  `value` varchar(64) NOT NULL,
+  `name` varchar(64) NOT NULL,
   PRIMARY KEY  (uid),
   KEY criteria_uid (criteria_uid)
 );
