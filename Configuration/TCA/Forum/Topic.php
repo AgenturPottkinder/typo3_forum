@@ -4,11 +4,11 @@ if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 $TCA['tx_mmforum_domain_model_forum_topic'] = array(
 	'ctrl' => $TCA['tx_mmforum_domain_model_forum_topic']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'type,subject,posts,author,subscribers,last_post,forum,target,criteria_options'
+		'showRecordFieldList' => 'type,subject,posts,author,subscribers,last_post,forum,target,question,criteria_options'
 	),
 	'types' => array(
 		'1' => array('showitem' => 'type,subject,forum,last_post,target'),
-		'0' => array('showitem' => 'type,subject,posts,author,subscribers,last_post,forum,readers,criteria_options')
+		'0' => array('showitem' => 'type,subject,posts,author,subscribers,last_post,forum,readers,question,criteria_options')
 	),
 	'palettes' => array(
 		'1' => array('showitem' => '')

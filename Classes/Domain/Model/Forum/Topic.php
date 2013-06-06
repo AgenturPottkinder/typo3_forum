@@ -357,7 +357,7 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	}
 
 	/**
-	 * Checks if this topic is a question.
+	 * Get all criteria options
 	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_CriteriaOption>
 	 */
 	public function getCriteriaOptions() {
