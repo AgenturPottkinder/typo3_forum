@@ -182,11 +182,12 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	 * @param string $subject The topic's subject.
 	 */
 	public function __construct($subject = '') {
-		$this->posts       = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->subscribers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->readers     = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->crdate      = new DateTime();
-		$this->subject     = $subject;
+		$this->posts           = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->subscribers     = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->readers         = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->criteriaOptions = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->crdate          = new DateTime();
+		$this->subject         = $subject;
 	}
 
 
@@ -501,6 +502,18 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 		}
 	}
 
+
+
+
+	/**
+	 * Adds a criteria option to the repository.
+	 *
+	 * @param  Tx_MmForum_Domain_Model_Forum_CriteriaOption $option The Option to be added
+	 * @return void
+	 */
+	public function addCriteriaOption(Tx_MmForum_Domain_Model_Forum_CriteriaOption $option) {
+		$this->criteriaOptions->attach($option);
+	}
 
 
 	/**

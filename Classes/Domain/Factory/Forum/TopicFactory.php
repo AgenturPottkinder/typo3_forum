@@ -85,6 +85,14 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 
 
 
+	/**
+	 * The criteria option repository.
+	 * @var Tx_MmForum_Domain_Repository_Forum_CriteriaOptionRepository
+	 */
+	protected $criteriaOptionRepository = NULL;
+
+
+
 	/*
 	 * METHODS
 	 */
@@ -102,11 +110,13 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
 	                            Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
 	                            Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository,
-	                            Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory) {
-		$this->forumRepository = $forumRepository;
-		$this->topicRepository = $topicRepository;
-		$this->postRepository  = $postRepository;
-		$this->postFactory     = $postFactory;
+	                            Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory,
+								Tx_MmForum_Domain_Repository_Forum_CriteriaOptionRepository $criteriaOptionRepository) {
+		$this->forumRepository  = $forumRepository;
+		$this->topicRepository  = $topicRepository;
+		$this->postRepository   = $postRepository;
+		$this->postFactory      = $postFactory;
+		$this->criteriaOptionRepository = $criteriaOptionRepository;
 	}
 
 
@@ -118,12 +128,13 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 	 * @param Tx_MmForum_Domain_Model_Forum_Post  $firstPost  The first post of the new topic.
 	 * @param string                              $subject    The subject of the new topic
 	 * @param int								  $question   The flag if the new topic is declared as question
+	 * @param array $criteriaOptions    All submitted criteria with option.
 	 *
 	 * @return Tx_MmForum_Domain_Model_Forum_Topic The new topic.
 	 */
 	public function createTopic(Tx_MmForum_Domain_Model_Forum_Forum $forum,
 	                            Tx_MmForum_Domain_Model_Forum_Post $firstPost,
-								$subject, $question = 0) {
+								$subject, $question = 0, array $criteriaOptions = array()) {
 		/** @var $topic Tx_MmForum_Domain_Model_Forum_Topic */
 		$topic = $this->getClassInstance();
 
@@ -132,6 +143,13 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 		$topic->setAuthor($this->getCurrentUser());
 		$topic->setQuestion($question);
 		$topic->addPost($firstPost);
+
+		if($criteriaOptions !== array()) {
+			foreach($criteriaOptions AS $criteria_uid => $option_uid) {
+				$obj = $this->criteriaOptionRepository->findByUid($option_uid);
+				$topic->addCriteriaOption($obj);
+			}
+		}
 
 		$forum->addTopic($topic);
 		$this->forumRepository->update($forum);
