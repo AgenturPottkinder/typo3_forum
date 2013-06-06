@@ -154,8 +154,8 @@ final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInter
 	 * @return void
 	 */
 	protected function initExtbase() {
-		$this->extbaseBootstap = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Core\Bootstrap');
-		$this->objectManager   = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager');
+		$this->extbaseBootstap = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Core\Bootstrap');
+		$this->objectManager   = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
 	}
 
 
@@ -191,5 +191,5 @@ final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInter
 }
 
 // Instantiate and start dispatcher.
-$dispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_MmForum_Ajax_Dispatcher');
+$dispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_MmForum_Ajax_Dispatcher');
 $dispatcher->run();

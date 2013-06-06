@@ -64,7 +64,7 @@ abstract class Tx_MmForum_ExtDirect_AbstractDataProvider {
 		                                         'pluginName'                   => 'web_MmForumTxMmforumM1',
 		                                         'switchableControllerActions'  => array('Backend' => array('forumIndex')),));
 
-		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Object\ObjectManager');
+		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
 	}
 
 
