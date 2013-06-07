@@ -237,11 +237,11 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 * Creates a new topic.
 	 *
 	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum       The forum in which the new topic is to be created.
-	 * @param Tx_MmForum_Domain_Model_Forum_Post  $post        The first post of the new topic.
-	 * @param string                              $subject     The subject of the new topic
-	 * @param array                               $attachments File attachments for the post.
-	 * @param int								  $question    The flag if the new topic is declared as question
-	 * @param array								  $criteria    All submitted criteria with option.
+	 * @param Tx_MmForum_Domain_Model_Forum_Post $post        The first post of the new topic.
+	 * @param string $subject     The subject of the new topic
+	 * @param array $attachments File attachments for the post.
+	 * @param int $question    The flag if the new topic is declared as question
+	 * @param array $criteria    All submitted criteria with option.
 	 *
 	 * @validate $subject NotEmpty
 	 */
@@ -255,7 +255,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 		// topic to the forum. Then persist the forum object. Not as complicated
 		// as is sounds, honestly!
 		$this->postFactory->assignUserToPost($post);
-		$topic = $this->topicFactory->createTopic($forum, $post, $subject, intval($question));
+		$topic = $this->topicFactory->createTopic($forum, $post, $subject, intval($question), $criteria);
 
 		// Notify potential listeners.
 		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Topic', 'topicCreated',
