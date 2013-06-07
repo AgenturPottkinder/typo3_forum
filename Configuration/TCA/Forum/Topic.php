@@ -8,7 +8,7 @@ $TCA['tx_mmforum_domain_model_forum_topic'] = array(
 	),
 	'types' => array(
 		'1' => array('showitem' => 'type,subject,forum,last_post,target'),
-		'0' => array('showitem' => 'type,subject,posts,author,subscribers,last_post,forum,readers,question,criteria_options')
+		'0' => array('showitem' => 'type,subject,posts,author,subscribers,last_post,forum,readers,question')
 	),
 	'palettes' => array(
 		'1' => array('showitem' => '')

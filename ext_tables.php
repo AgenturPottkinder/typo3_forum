@@ -401,7 +401,7 @@ $TCA['tx_mmforum_domain_model_forum_criteria'] = array(
 		'label' => 'name',
 		'tstamp' => 'tstamp',
 		'delete' => 'deleted',
-		'icon' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/Forum/Access.png',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/Forum/Criteria.png',
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Forum/Criteria.php',
 	)
 );
@@ -413,7 +413,7 @@ $TCA['tx_mmforum_domain_model_forum_criteria_options'] = array(
 		'label' => 'name',
 		'tstamp' => 'tstamp',
 		'delete' => 'deleted',
-		'icon' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/Forum/Access.png',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/Forum/CriteriaOption.png',
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Forum/CriteriaOption.php',
 	)
 );
