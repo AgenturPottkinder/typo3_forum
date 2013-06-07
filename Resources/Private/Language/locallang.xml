@@ -35,6 +35,7 @@
 			<label index="Forum_Show_Topic_LastPost">Last post</label>
 			<label index="Forum_Show_Topic_Posts">Replies</label>
 			<label index="Forum_Show_Topic_Subject">Subject</label>
+			<label index="Forum_Show_Topic_Question">Question</label>
 			<label index="Generic_By">by</label>
 			<label index="Generic_More">more</label>
 			<label index="Moderation_EditTopic">Moderate topic</label>
@@ -151,6 +152,7 @@
 			<label index="Forum_Show_Topic_LastPost">Letzter Beitrag</label>
 			<label index="Forum_Show_Topic_Posts">Antworten</label>
 			<label index="Forum_Show_Topic_Subject">Betreff</label>
+			<label index="Forum_Show_Topic_Question">Frage</label>
 			<label index="Generic_By">von</label>
 			<label index="Generic_More">mehr</label>
 			<label index="Moderation_EditTopic">Moderate Thema</label>
