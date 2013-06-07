@@ -92,7 +92,7 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 
 	/**
 	 * The criterias of this forum.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Criteria>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Criteria>
 	 * @lazy
 	 */
 	protected $criteria;
@@ -272,10 +272,32 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 
 	/**
 	 * Get all criterias of this forum.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Criteria>                           
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Criteria>
 	 */
 	public function getCriteria() {
-		return $this->criteria;
+		/* @var Tx_MmForum_Domain_Model_Forum_Criteria */
+		$obj =  new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+
+		$criteria = $this->getCriteriaRecursive(array($this,$obj));
+		$obj = $criteria[1];
+		return $obj;
+	}
+
+	/**
+	 * Get all criterias recursive.
+	 * Please don't call this function. Use getCriteria()!!!
+	 * @param array $array
+	 * @return array
+	 */
+	private function getCriteriaRecursive($array) {
+		//$array[0] current object. Will be repleaced with the parent object in the next call
+		//$array[1] object storage with the desired criteria data. Will be filled in every call.
+		$array[1]->attach($array[0]->criteria);
+		if($array[0]->getParent()->getUid() > 0) {
+			$tmp = $this->getCriteriaRecursive(array($array[0]->getParent(),$array[1]));
+			$array[1] = $tmp[1];
+		}
+		return $array;
 	}
 
 	/**
@@ -554,10 +576,10 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 
 	/**
 	 * Set the criteria of this forum..
-	 * @param Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Criteria> $criteria
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Criteria> $criteria
 	 * @return void
 	 */
-	public function setCriteria(Tx_Extbase_Persistence_ObjectStorage $criteria) {
+	public function setCriteria(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $criteria) {
 		$this->criteria = $criteria;
 	}
 
