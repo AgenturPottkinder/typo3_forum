@@ -7,7 +7,7 @@ $TCA['tx_mmforum_domain_model_forum_criteria'] = array(
 		'showRecordFieldList' => 'name,options'
 	),
 	'types' => array(
-		'1' => array('showitem' => 'name,options')
+		'1' => array('showitem' => 'name')
 	),
 	'palettes' => array(
 		'1' => array('showitem' => '')
@@ -26,7 +26,7 @@ $TCA['tx_mmforum_domain_model_forum_criteria'] = array(
 			'config' => array(
 				'type' => 'inline',
 				'foreign_table' => 'tx_mmforum_domain_model_forum_criteria_options',
-				'foreign_field' => 'criteria_uid',
+				'foreign_field' => 'criteria',
 				'maxitems'      => 9999,
 				'appearance' => array(
 					'collapseAll' => 1,
