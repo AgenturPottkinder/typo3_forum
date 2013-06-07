@@ -154,6 +154,12 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	protected $readers;
 
 
+	/**
+	 * Get all options of a criteria of this topic
+	 *
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_CriteriaOption>
+	 */
+	protected $criteriaOptions;
 
 	/**
 	 * Helper variable to store if the parent object was modified. This is necessary
@@ -347,6 +353,14 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	 */
 	public function getQuestion() {
 		return $this->question;
+	}
+
+	/**
+	 * Checks if this topic is a question.
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_CriteriaOption>
+	 */
+	public function getCriteriaOptions() {
+		return $this->criteriaOptions;
 	}
 
 	/**
@@ -605,6 +619,16 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 		$this->question = (int)$question;
 	}
 
+
+
+	/**
+	 * Set all criteria and options
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $criteriaOptions
+	 * @return void
+	 */
+	public function setCriteriaOptions(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $criteriaOptions) {
+		$this->criteriaOptions = $criteriaOptions;
+	}
 
 
 	/**

@@ -194,6 +194,10 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 			$this->sessionHandling->set('adTime', $actDatetime);
 			$this->view->assign('showAd', TRUE);
 			$max = count($posts);
+			if($max == 1) {
+				// Needed for case mt_rand(1,1-1) => mt_rand(1,0) => php warning
+				$max++;
+			}
 			if ($max > $this->settings['topicController']['show']['pagebrowser']['itemsPerPage']) {
 				$max = $this->settings['topicController']['show']['pagebrowser']['itemsPerPage'];
 			}
