@@ -12,7 +12,7 @@ if (!defined('TYPO3_MODE')) {
 		 'Post'       => 'show, new, create, edit, update, delete',
 		 'User'       => 'index, list, subscribe, show',
 		 'Report'     => 'new, create',
-		 'Moderation' => 'editTopic, updateTopic, updateReportStatus, newReportComment, createReportComment'
+		 'Moderation' => 'editTopic, updateTopic, updateReportStatus, newReportComment, createReportComment, topicConformDelete'
 	),
 	array(
 		 'Forum'      => ' new, create, edit, update, delete',

@@ -138,7 +138,9 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 		if (!empty($criteriaOptions)) {
 			foreach ($criteriaOptions AS $criteria_uid => $option_uid) {
 				$obj = $this->criteriaOptionRepository->findByUid($option_uid);
-				$topic->addCriteriaOption($obj);
+				if($obj->getCriteria()->getUid() == $criteria_uid) {
+					$topic->addCriteriaOption($obj);
+				}
 			}
 		}
 

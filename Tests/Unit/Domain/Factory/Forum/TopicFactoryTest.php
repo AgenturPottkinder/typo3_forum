@@ -63,6 +63,7 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactoryTest extends Tx_MmForum_Unit_B
 		$user = $this->getMock('Tx_MmForum_Domain_Model_User_FrontendUser');
 		$option = new Tx_MmForum_Domain_Model_Forum_CriteriaOption();
 		$option->setName('test');
+		$option->setCriteria(new Tx_MmForum_Domain_Model_Forum_Criteria());
 		$post = new Tx_MmForum_Domain_Model_Forum_Post('Content');
 		$post->setAuthor($user);
 
