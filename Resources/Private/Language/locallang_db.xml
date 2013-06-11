@@ -47,7 +47,7 @@
 			<label index="tx_mmforum_domain_model_forum_criteria_name">Criteria Name</label>
 			<label index="tx_mmforum_domain_model_forum_criteria_options">Criteria Options</label>
 			<label index="tx_mmforum_domain_model_forum_criteria_options_name">Criteria Option Name</label>
-			<label index="tx_mmforum_domain_model_forum_criteria_options_criteria_uid">Criteria Option Relation</label>
+			<label index="tx_mmforum_domain_model_forum_criteria_options_criteria">Criteria Option Relation</label>
 
 			<label index="tx_mmforum_domain_model_forum_access">Access</label>
 			<label index="tx_mmforum_domain_model_forum_access.operation">Operation</label>

@@ -450,10 +450,10 @@ CREATE TABLE IF NOT EXISTS tx_mmforum_domain_model_forum_criteria_options (
   pid int(11) unsigned NOT NULL default '0',
   tstamp int(11) unsigned NOT NULL default '0',
   deleted tinyint(3) NOT NULL default '0',
-  criteria_uid int(11) unsigned NOT NULL,
+  criteria int(11) unsigned NOT NULL,
   `name` varchar(64) NOT NULL,
   PRIMARY KEY  (uid),
-  KEY criteria_uid (criteria_uid)
+  KEY criteria (criteria)
 );
 
 

@@ -38,10 +38,10 @@
 class Tx_MmForum_Domain_Model_Forum_CriteriaOption extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
-	 * The criteria_uid of a option.
-	 * @var int
+	 * The criteria object.
+	 * @var Tx_MmForum_Domain_Model_Forum_Criteria
 	 */
-	protected $criteriaUid;
+	protected $criteria;
 
 	/**
 	 * The name of the option
@@ -51,11 +51,11 @@ class Tx_MmForum_Domain_Model_Forum_CriteriaOption extends \TYPO3\CMS\Extbase\Do
 
 
 	/**
-	 * Get the criteria_uid of a option.
-	 * @return int The criteria_uid of a option.
+	 * Get the criteria object.
+	 * @return Tx_MmForum_Domain_Model_Forum_Criteria
 	 */
-	public function getCriteriaUid() {
-		return $this->criteriaUid;
+	public function getCriteria() {
+		return $this->criteria;
 	}
 
 	/**
@@ -68,13 +68,13 @@ class Tx_MmForum_Domain_Model_Forum_CriteriaOption extends \TYPO3\CMS\Extbase\Do
 
 
 	/**
-	 * Sets the criteria_uid of a option.
+	 * Sets the criteria object.
 	 *
-	 * @param int $criteriaUid The criteria_uid of a option
+	 * @param Tx_MmForum_Domain_Model_Forum_Criteria $criteria The criteria object
 	 * @return void
 	 */
-	public function setCriteriaUid($criteriaUid) {
-		$this->criteriaUid = $criteriaUid;
+	public function setCriteria(Tx_MmForum_Domain_Model_Forum_Criteria $criteria) {
+		$this->criteria = $criteria;
 	}
 
 	/**
