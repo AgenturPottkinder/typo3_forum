@@ -28,7 +28,6 @@
 class Tx_MmForum_Domain_Factory_Forum_TopicFactoryTest extends Tx_MmForum_Unit_BaseTestCase {
 
 
-
 	/**
 	 * @var Tx_MmForum_Domain_Factory_Forum_TopicFactory
 	 */
@@ -38,22 +37,22 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactoryTest extends Tx_MmForum_Unit_B
 	/**
 	 * @var PHPUnit_Framework_MockObject_MockObject
 	 */
-	protected $userRepositoryMock, $forumRepositoryMock, $topicRepositoryMock, $postRepositoryMock, $postFactoryMock;
-
+	protected $userRepositoryMock, $forumRepositoryMock, $topicRepositoryMock, $postRepositoryMock, $postFactoryMock, $criteriaRepositoryMock;
 
 
 	public function setUp() {
-		$this->userRepositoryMock  = $this->getMock('Tx_MmForum_Domain_Repository_User_FrontendUserRepository');
+		$this->userRepositoryMock = $this->getMock('Tx_MmForum_Domain_Repository_User_FrontendUserRepository');
 		$this->forumRepositoryMock = $this->getMock('Tx_MmForum_Domain_Repository_Forum_ForumRepository');
 		$this->topicRepositoryMock = $this->getMock('Tx_MmForum_Domain_Repository_Forum_TopicRepository');
-		$this->postRepositoryMock  = $this->getMock('Tx_MmForum_Domain_Repository_Forum_PostRepository');
-		$this->postFactoryMock     = $this->getMock('Tx_MmForum_Domain_Factory_Forum_PostFactory');
+		$this->postRepositoryMock = $this->getMock('Tx_MmForum_Domain_Repository_Forum_PostRepository');
+		$this->postFactoryMock = $this->getMock('Tx_MmForum_Domain_Factory_Forum_PostFactory');
+		$this->criteriaRepositoryMock = $this->getMock('Tx_MmForum_Domain_Repository_Forum_CriteriaOptionRepository');
 
-		$this->fixture = new Tx_MmForum_Domain_Factory_Forum_TopicFactory($this->forumRepositoryMock, $this->topicRepositoryMock, $this->postRepositoryMock, $this->postFactoryMock);
+
+		$this->fixture = new Tx_MmForum_Domain_Factory_Forum_TopicFactory($this->forumRepositoryMock, $this->topicRepositoryMock, $this->postRepositoryMock, $this->postFactoryMock, $this->criteriaRepositoryMock);
 		$this->fixture->injectObjectManager($this->objectManager);
 		$this->fixture->injectFrontendUserRepository($this->userRepositoryMock);
 	}
-
 
 
 	/**
@@ -61,8 +60,10 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactoryTest extends Tx_MmForum_Unit_B
 	 */
 	public function topicCanBeCreated() {
 		$forum = $this->getMock('Tx_MmForum_Domain_Model_Forum_Forum');
-		$user  = $this->getMock('Tx_MmForum_Domain_Model_User_FrontendUser');
-		$post  = new Tx_MmForum_Domain_Model_Forum_Post('Content');
+		$user = $this->getMock('Tx_MmForum_Domain_Model_User_FrontendUser');
+		$option = new Tx_MmForum_Domain_Model_Forum_CriteriaOption();
+		$option->setName('test');
+		$post = new Tx_MmForum_Domain_Model_Forum_Post('Content');
 		$post->setAuthor($user);
 
 		$forum->expects($this->once())->method('addTopic')
@@ -70,15 +71,20 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactoryTest extends Tx_MmForum_Unit_B
 		$this->forumRepositoryMock->expects($this->once())->method('update')
 			->with($this->isInstance('Tx_MmForum_Domain_Model_Forum_Forum'));
 		$this->userRepositoryMock->expects($this->any())->method('findCurrent')->will($this->returnValue($user));
+		$this->topicRepositoryMock->expects($this->any())->method('addCriteriaOption')
+			->with($option);
+		$this->criteriaRepositoryMock->expects($this->any())->method('findByUid')->with(1337)
+			->will($this->returnValue($option));
 
-		$topic = $this->fixture->createTopic($forum, $post, 'Subject');
+		$topic = $this->fixture->createTopic($forum, $post, 'Subject', 1, array(1 => 1337));
 
 		$this->assertEquals('Subject', $topic->getSubject());
 		$this->assertTrue($topic->getAuthor() == $user);
 		$this->assertEquals(1, count($topic->getPosts()));
+		$this->assertEquals(1, $topic->getQuestion());
+		$this->assertInstanceOf('TYPO3\CMS\Extbase\Persistence\ObjectStorage', $topic->getCriteriaOptions());
 		$this->assertTrue($topic->getForum() == $forum);
 	}
-
 
 
 	/**
@@ -110,12 +116,11 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactoryTest extends Tx_MmForum_Unit_B
 	}
 
 
-
 	/**
 	 * @test
 	 */
 	public function shadowTopicCanBeCreated() {
-		$post  = new Tx_MmForum_Domain_Model_Forum_Post();
+		$post = new Tx_MmForum_Domain_Model_Forum_Post();
 		$topic = new Tx_MmForum_Domain_Model_Forum_Topic('Subject');
 		$topic->addPost($post);
 
@@ -127,7 +132,6 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactoryTest extends Tx_MmForum_Unit_B
 	}
 
 
-
 	/**
 	 * @test
 	 */
@@ -135,7 +139,7 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactoryTest extends Tx_MmForum_Unit_B
 		$sourceForum = $this->getMock('Tx_MmForum_Domain_Model_Forum_Forum');
 		$targetForum = $this->getMock('Tx_MmForum_Domain_Model_Forum_Forum');
 
-		$post  = new Tx_MmForum_Domain_Model_Forum_Post();
+		$post = new Tx_MmForum_Domain_Model_Forum_Post();
 		$topic = new Tx_MmForum_Domain_Model_Forum_Topic('Subject');
 		$topic->addPost($post);
 		$topic->setForum($sourceForum);
@@ -154,7 +158,6 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactoryTest extends Tx_MmForum_Unit_B
 	}
 
 
-
 	/**
 	 * @test
 	 * @expectedException Tx_Extbase_Object_InvalidClass
@@ -165,7 +168,6 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactoryTest extends Tx_MmForum_Unit_B
 
 		$this->fixture->moveTopic($shadowTopic, $targetForum);
 	}
-
 
 
 }

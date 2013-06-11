@@ -31,26 +31,24 @@
  * Topic factory class. Is used to encapsulate topic creation logic from the
  * controller classes.
  *
- * @author	 Martin Helmich <m.helmich@mittwald.de>
- * @package	MmForum
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    MmForum
  * @subpackage Domain_Factory_Forum
- * @version	$Id$
+ * @version    $Id$
  *
  * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *			 Mittwald CM Service GmbH & Co. KG
- *			 http://www.mittwald.de
- * @license	GNU Public License, version 2
- *			 http://opensource.org/licenses/gpl-license.php
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
  *
  */
 class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Factory_AbstractFactory {
 
 
-
 	/*
 	 * ATTRIBUTES
 	 */
-
 
 
 	/**
@@ -60,13 +58,11 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 	protected $forumRepository = NULL;
 
 
-
 	/**
 	 * The post repository.
 	 * @var Tx_MmForum_Domain_Repository_Forum_PostRepository
 	 */
 	protected $postRepository = NULL;
-
 
 
 	/**
@@ -76,13 +72,11 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 	protected $topicRepository = NULL;
 
 
-
 	/**
 	 * The post factory.
 	 * @var Tx_MmForum_Domain_Factory_Forum_PostFactory
 	 */
 	protected $postFactory = NULL;
-
 
 
 	/**
@@ -92,11 +86,9 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 	protected $criteriaOptionRepository = NULL;
 
 
-
 	/*
 	 * METHODS
 	 */
-
 
 
 	/**
@@ -104,36 +96,35 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 	 *
 	 * @param Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository
 	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository
-	 * @param Tx_MmForum_Domain_Repository_Forum_PostRepository  $postRepository
-	 * @param Tx_MmForum_Domain_Factory_Forum_PostFactory        $postFactory
+	 * @param Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository
+	 * @param Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory
 	 */
 	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
-	                            Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
-	                            Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository,
-	                            Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory,
+								Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
+								Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository,
+								Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory,
 								Tx_MmForum_Domain_Repository_Forum_CriteriaOptionRepository $criteriaOptionRepository) {
-		$this->forumRepository  = $forumRepository;
-		$this->topicRepository  = $topicRepository;
-		$this->postRepository   = $postRepository;
-		$this->postFactory      = $postFactory;
+		$this->forumRepository = $forumRepository;
+		$this->topicRepository = $topicRepository;
+		$this->postRepository = $postRepository;
+		$this->postFactory = $postFactory;
 		$this->criteriaOptionRepository = $criteriaOptionRepository;
 	}
-
 
 
 	/**
 	 * Creates a new topic.
 	 *
 	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum      The forum in which the new topic is to be created.
-	 * @param Tx_MmForum_Domain_Model_Forum_Post  $firstPost  The first post of the new topic.
-	 * @param string                              $subject    The subject of the new topic
-	 * @param int								  $question   The flag if the new topic is declared as question
+	 * @param Tx_MmForum_Domain_Model_Forum_Post $firstPost  The first post of the new topic.
+	 * @param string $subject    The subject of the new topic
+	 * @param int $question   The flag if the new topic is declared as question
 	 * @param array $criteriaOptions    All submitted criteria with option.
 	 *
 	 * @return Tx_MmForum_Domain_Model_Forum_Topic The new topic.
 	 */
 	public function createTopic(Tx_MmForum_Domain_Model_Forum_Forum $forum,
-	                            Tx_MmForum_Domain_Model_Forum_Post $firstPost,
+								Tx_MmForum_Domain_Model_Forum_Post $firstPost,
 								$subject, $question = 0, array $criteriaOptions = array()) {
 		/** @var $topic Tx_MmForum_Domain_Model_Forum_Topic */
 		$topic = $this->getClassInstance();
@@ -144,8 +135,8 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 		$topic->setQuestion($question);
 		$topic->addPost($firstPost);
 
-		if($criteriaOptions !== array()) {
-			foreach($criteriaOptions AS $criteria_uid => $option_uid) {
+		if (!empty($criteriaOptions)) {
+			foreach ($criteriaOptions AS $criteria_uid => $option_uid) {
 				$obj = $this->criteriaOptionRepository->findByUid($option_uid);
 				$topic->addCriteriaOption($obj);
 			}
@@ -156,7 +147,6 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 
 		return $topic;
 	}
-
 
 
 	/**
@@ -173,7 +163,6 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 		$topic->getForum()->removeTopic($topic);
 		$this->forumRepository->update($topic->getForum());
 	}
-
 
 
 	/**
@@ -195,7 +184,6 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 	}
 
 
-
 	/**
 	 * Moves a topic from one forum to another. This method will create a shadow
 	 * topic in the original place that will point to the new location of the
@@ -205,7 +193,7 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 	 * @param Tx_MmForum_Domain_Model_Forum_Forum $targetForum The target forum. The topic will be moved to this location.
 	 */
 	public function moveTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic,
-	                          Tx_MmForum_Domain_Model_Forum_Forum $targetForum) {
+							  Tx_MmForum_Domain_Model_Forum_Forum $targetForum) {
 		if ($topic instanceof Tx_MmForum_Domain_Model_Forum_ShadowTopic) {
 			throw new \TYPO3\CMS\Extbase\Object\InvalidClassException("Topic is already a shadow topic", 1288702422);
 		}
@@ -218,7 +206,6 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 		$this->forumRepository->update($topic->getForum());
 		$this->forumRepository->update($targetForum);
 	}
-
 
 
 }
