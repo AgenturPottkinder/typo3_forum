@@ -157,6 +157,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_post (
   l18n_parent int(11) NOT NULL default '0',
   l18n_diffsource mediumblob NOT NULL,
   attachments int(11) unsigned NOT NULL default '0',
+  helpful_count int(11) unsigned NOT NULL default '0',
   PRIMARY KEY (uid),
   KEY parent (pid)
 );

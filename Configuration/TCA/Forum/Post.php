@@ -4,10 +4,10 @@ if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 $TCA['tx_mmforum_domain_model_forum_post'] = array(
 	'ctrl' => $TCA['tx_mmforum_domain_model_forum_post']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'text,author,topic,attachments'
+		'showRecordFieldList' => 'text,author,topic,attachments, helpful_count'
 	),
 	'types' => array(
-		'1' => array('showitem' => 'text,author,topic,attachments')
+		'1' => array('showitem' => 'text,author,topic,attachments, helpful_count')
 	),
 	'palettes' => array(
 		'1' => array('showitem' => '')
@@ -114,6 +114,13 @@ $TCA['tx_mmforum_domain_model_forum_post'] = array(
 				'foreign_table' => 'tx_mmforum_domain_model_forum_attachment',
 				'foreign_field' => 'post',
 				'maxitems' => 10
+			)
+		),
+		'helpful_count' => array(
+			'exclude' => 0,
+			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_post.helpful_count',
+			'config'  => array(
+				'type' => 'text'
 			)
 		),
 	),

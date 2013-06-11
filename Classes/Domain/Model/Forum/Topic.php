@@ -353,7 +353,7 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	 * @return int
 	 */
 	public function getQuestion() {
-		return $this->question;
+		return (int)$this->question;
 	}
 
 	/**

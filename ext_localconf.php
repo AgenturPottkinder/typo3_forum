@@ -32,20 +32,11 @@ if (!defined('TYPO3_MODE')) {
 		 'User' => 'list',
 	)
 );
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	$_EXTKEY, 'Widget',
-	array(
-		 'User' => 'list',
-	),
-	array(
-		 'User' => 'list',
-	)
-);
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 	$_EXTKEY, 'Ajax', array(
 						   'Forum' => 'index',
-						   'Post'  => 'preview'
+						   'Post'  => 'preview, helpful'
 					  ), array(
 							  'Forum' => 'index',
 							  'Post'  => 'preview'

@@ -114,7 +114,11 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 	 */
 	protected $attachments;
 
-
+	/**
+	 * helpfull count
+	 * @var integer
+	 */
+	protected $helpfulCount;
 
 	/*
 	  * CONSTRUCTOR
@@ -130,6 +134,7 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 		$this->attachments = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->crdate      = new DateTime();
 		$this->text        = $text;
+
 	}
 
 
@@ -138,7 +143,13 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 	 * GETTERS
 	 */
 
-
+	/**
+	 * Gets the helpful count of this post.
+	 * @return integer The helpful count.
+	 */
+	public function getHelpfulCount() {
+		return $this->helpfulCount;
+	}
 
 	/**
 	 * Gets the text.
@@ -327,7 +338,25 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 	 * SETTERS
 	 */
 
+	/**
+	 * Sets the helpfulCount value +1
+	 *
+	 * @return void
+	 * @api
+	 */
+	public function setHelpful() {
+		$this->setHelpfulCount($this->getHelpfulCount()+1);
+	}
 
+	/**
+	 * Sets the city value
+	 *
+	 * @return void
+	 * @api
+	 */
+	public function setHelpfulCount($count) {
+		$this->helpfulCount = $count;
+	}
 
 	/**
 	 * Sets the post author.

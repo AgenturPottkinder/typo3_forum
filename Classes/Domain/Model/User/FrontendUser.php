@@ -59,7 +59,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	protected $postCount;
 
 	/**
-	 * Forum post count
+	 * Forum helpful count
 	 * @var integer
 	 */
 	protected $helpfulCount;
@@ -179,13 +179,32 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	}
 
 	/**
-	 * Gets the post count of this user.
-	 * @return integer The post count.
+	 * Gets the helpful count of this user.
+	 * @return integer The helpful count.
 	 */
 	public function getHelpfulCount() {
 		return $this->helpfulCount;
 	}
 
+	/**
+	 * Sets the helpfulCount value +1
+	 *
+	 * @return void
+	 * @api
+	 */
+	public function setHelpful() {
+		$this->setHelpfulCount($this->getHelpfulCount()+1);
+	}
+
+	/**
+	 * Sets the city value
+	 *
+	 * @return void
+	 * @api
+	 */
+	public function setHelpfulCount($count) {
+		$this->helpfulCount = $count;
+	}
 
 	/**
 	 * Gets the subscribed forums.

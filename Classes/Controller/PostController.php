@@ -78,6 +78,13 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	protected $postFactory;
 
 
+	/**
+	 * A post factory.
+	 * @var Tx_MmForum_Domain_Repository_Forum_AttachmentRepository
+	 */
+	protected $attachmentRepository;
+
+
 	/*
 	 * DEPENDENCY INJECTORS
 	 */
@@ -90,15 +97,21 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository
 	 * @param Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository
 	 * @param Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory
+	 * @param Tx_MmForum_Domain_Repository_Forum_AttachmentRepository $attachmentRepository
+	 * @param Tx_MmForum_Service_SessionHandlingService $sessionHandling
 	 */
 	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
 								Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
 								Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository,
-								Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory) {
+								Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory,
+								Tx_MmForum_Domain_Repository_Forum_AttachmentRepository $attachmentRepository,
+								Tx_MmForum_Service_SessionHandlingService $sessionHandling) {
 		$this->forumRepository = $forumRepository;
 		$this->topicRepository = $topicRepository;
 		$this->postRepository = $postRepository;
 		$this->postFactory = $postFactory;
+		$this->attachmentRepository = $attachmentRepository;
+		$this->sessionHandling		= $sessionHandling;
 	}
 
 
@@ -112,7 +125,7 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	 */
 	public function listAction() {
 
-		$showPaginate = false;
+		$showPaginate = FALSE;
 		switch($this->settings['listPosts']){
 			case '2':
 				$dataset = $this->postRepository->findByFilter(6, array('crdate' => 'DESC'));
@@ -121,12 +134,68 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 			default:
 				$dataset = $this->postRepository->findByFilter();
 				$partial = 'Post/List';
-				$showPaginate = true;
+				$showPaginate = TRUE;
 				break;
 		}
 		$this->view->assign('showPaginate', $showPaginate);
 		$this->view->assign('partial', $partial);
 		$this->view->assign('posts',$dataset);
+	}
+
+	/**
+	 *  helpful Action.
+	 *
+	 * @return void
+	 */
+	public function helpfulAction() {
+		/**
+		 * @todo  remove it!
+		 * "Argumente werden nicht gemappt beim Aufruf durch eID!"
+		 * Daher Testweise manuelle durchführung.
+		 */
+		if(!$this->request->hasArgument('post')){
+			throw new Exception;
+		}
+
+		/**
+		 * @var Tx_MmForum_Domain_Model_Forum_Post $post
+		 */
+		$post = $this->postRepository->findByUid(intval($this->request->getArgument('post')));
+		/**
+		 * -------------------------------------------------------
+		 */
+
+		// Assert authentication
+		$currentUser = 	$this->authenticationService->getUser();
+
+		// Return if User not logged in
+		if ($currentUser === NULL || $currentUser->isAnonymous()) {
+				return json_encode(array("error" => true, "error_msg" => "not_logged_in"));
+		}
+
+		// get markedHelpfulPosts of currentUser
+		$markedHelpfulPosts =$this->sessionHandling->get('markedHelpfulPosts');
+
+		if (array_key_exists($post->getUid(), $markedHelpfulPosts)) {
+			return json_encode(array("error" => true, "error_msg" => "already_marked"));
+		}
+
+		// Set helpfulCount for Author of Post
+		$author = $post->getAuthor();
+		$author->setHelpful();
+		$this->frontendUserRepository->update($author);
+
+		// Set helpfulCount for Post
+		$post->setHelpful();
+		$this->postRepository->update($post);
+
+		// Set helpfulCount in Session
+		$markedHelpfulPosts[$post->getUid()] = time();
+		$this->sessionHandling->set('markedHelpfulPosts', $markedHelpfulPosts);
+
+		// output new Data
+		return json_encode(array("error" => false, "postHelpfulCount" => $post->getHelpfulCount(), "userHelpfulCount" => $author->getHelpfulCount()));
+
 	}
 
 	/**
@@ -193,14 +262,29 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	 *
 	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic The topic in which the new post is to be created.
 	 * @param Tx_MmForum_Domain_Model_Forum_Post $post  The new post.
+	 * @param array $attachments File attachments for the post.
 	 * @return void
 	 */
-	public function createAction(Tx_MmForum_Domain_Model_Forum_Topic $topic, Tx_MmForum_Domain_Model_Forum_Post $post) {
+	public function createAction(Tx_MmForum_Domain_Model_Forum_Topic $topic, Tx_MmForum_Domain_Model_Forum_Post $post, array $attachments = array()) {
 		// Assert authorization
 		$this->authenticationService->assertNewPostAuthorization($topic);
 
 		// Create new post, add the new post to the topic and persist the topic.
 		$this->postFactory->assignUserToPost($post);
+
+		if(!empty($attachments)) {
+			$objAttachments = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+			foreach($attachments AS $attachment) {
+				$file = new Tx_MmForum_Domain_Model_Forum_Attachment();
+				$file->setFilename($attachment['name']);
+				$file->setRealFilename(sha1($attachment['name'].time()));
+				$file->setMimeType($attachment['type']);
+
+				$objAttachments->attach($file);
+			}
+			$post->setAttachments($objAttachments);
+		}
+
 		$topic->addPost($post);
 		$this->topicRepository->update($topic);
 
@@ -308,6 +392,20 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	 */
 	public function previewAction($text) {
 		$this->view->assign('text', $text);
+	}
+
+	
+	/**
+	 * Test
+	 * @param int downloadAttachmentAction Test.
+	 */
+	public function downloadAttachmentAction($attachment) {
+		$file = $this->attachmentRepository->findByUid(intval($attachment));
+
+		header('Content-type: '.$file->getMimeType());
+		header("Content-Type: application/download");
+		header('Content-Disposition: attachment; filename="'.$file->getFilename().'"');
+		readfile($file->getAbsoluteFilename());
 	}
 
 

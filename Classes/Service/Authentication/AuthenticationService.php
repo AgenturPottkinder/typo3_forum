@@ -329,7 +329,7 @@ class Tx_MmForum_Service_Authentication_AuthenticationService extends Tx_MmForum
 
 
 
-	protected function getUser() {
+	public function getUser() {
 		if ($this->user === -1) {
 			$this->user = $this->frontendUserRepository->findCurrent();
 		}
