@@ -261,5 +261,27 @@ class Tx_MmForum_Controller_ModerationController extends Tx_MmForum_Controller_A
 	}
 
 
+	/**
+	 * Delete a topic from repository!
+	 *
+	 * @param  Tx_MmForum_Domain_Model_Forum_Topic  $topic           The topic that is be deleted.
+	 *
+	 * @return void
+	 */
+	public function topicConformDeleteAction(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
+		$this->authenticationService->assertModerationAuthorization($topic->getForum());
+		$this->topicRepository->remove($topic);
+
+		$this->controllerContext->getFlashMessageQueue()->addMessage(
+			new \TYPO3\CMS\Core\Messaging\FlashMessage(
+				Tx_MmForum_Utility_Localization::translate('Moderation_DeleteTopic_Success',
+					'MmForum')
+			)
+		);
+		$this->clearCacheForCurrentPage();
+		$this->redirect('show', 'Forum', NULL, Array('forum' => $topic->getForum()));
+	}
+
+
 
 }
