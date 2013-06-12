@@ -258,11 +258,9 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 		// as is sounds, honestly!
 		$this->postFactory->assignUserToPost($post);
 
-
+		if($attachments[0]['name']=='') $attachments = array(); //Submitted without params
 		if(!empty($attachments)) {
-			$attachment = new Tx_MmForum_Domain_Model_Forum_Attachment();
-			$objStorage = $attachment->addAttachments($attachments);
-			$post->setAttachments($objStorage);
+			$error = $post->addAttachment($attachments);
 		}
 
 		$topic = $this->topicFactory->createTopic($forum, $post, $subject, intval($question), $criteria);

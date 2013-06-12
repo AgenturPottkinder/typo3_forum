@@ -232,30 +232,4 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\Domain
 	}
 
 
-	/**
-	 * Adds an attachment.
-	 * @param array $attachments
-	 * @return  \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Attachment>
-	 */
-	public function addAttachments(array $attachments){
-		$objAttachments = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		foreach($attachments AS $attachmentID => $attachment) {
-			$tmp_name = $_FILES['tx_mmforum_pi1']['tmp_name']['attachments'][$attachmentID];
-			//Security part
-			$mime_type = mime_content_type($tmp_name);
-			if(array_search($mime_type,$this->getAllowedMimeTypes()) === false) continue;
-			if($_FILES['tx_mmforum_pi1']['size']['attachments'][$attachmentID] > $this->getAllowedMaxSize())
-				continue;
-			//Save in Repository and in file system
-			$this->setFilename($attachment['name']);
-			$this->setRealFilename(sha1($attachment['name'].time()));
-			$this->setMimeType($mime_type);
-			$res = \TYPO3\CMS\Core\Utility\GeneralUtility::upload_copy_move($tmp_name,$this->getAbsoluteFilename());
-			if($res === true) {
-				$objAttachments->attach($this);
-			}
-		}
-		return $objAttachments;
-	}
-
 }

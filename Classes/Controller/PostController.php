@@ -269,17 +269,9 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 		// Create new post, add the new post to the topic and persist the topic.
 		$this->postFactory->assignUserToPost($post);
 
+		if($attachments[0]['name']=='') $attachments = array(); //Submitted without params
 		if(!empty($attachments)) {
-			$objAttachments = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-			foreach($attachments AS $attachment) {
-				$file = new Tx_MmForum_Domain_Model_Forum_Attachment();
-				$file->setFilename($attachment['name']);
-				$file->setRealFilename(sha1($attachment['name'].time()));
-				$file->setMimeType($attachment['type']);
-
-				$objAttachments->attach($file);
-			}
-			$post->setAttachments($objAttachments);
+			$post->addAttachment($attachments);
 		}
 
 		$topic->addPost($post);
