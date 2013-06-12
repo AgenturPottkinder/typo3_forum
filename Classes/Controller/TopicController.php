@@ -150,7 +150,11 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 
 		$showPaginate = FALSE;
 		switch ($this->settings['listTopics']) {
-			case '3':
+            case '2':
+                $dataset = $this->topicRepository->findQuestions();
+                $partial = 'Topic/List';
+                break;
+            case '3':
 				$dataset = $this->topicRepository->findQuestions(6);
 				$partial = 'Topic/QuestionBox';
 				break;

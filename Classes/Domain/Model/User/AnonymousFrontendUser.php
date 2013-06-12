@@ -50,7 +50,6 @@ class Tx_MmForum_Domain_Model_User_AnonymousFrontendUser extends Tx_MmForum_Doma
 	}
 
 
-
 	public function isAnonymous() {
 		return TRUE;
 	}
