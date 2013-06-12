@@ -79,6 +79,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_attachment (
   pid int(11) NOT NULL default '0',
   post int(11) unsigned default '0',
   filename tinytext,
+  real_filename tinytext,
   mime_type tinytext,
   download_count int(11) unsigned NOT NULL default '0',
   tstamp int(11) unsigned NOT NULL default '0',

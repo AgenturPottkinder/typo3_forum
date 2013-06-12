@@ -40,7 +40,8 @@
 			<label index="tx_mmforum_domain_model_forum_post.helpful_count">Helpful count</label>
 
 			<label index="tx_mmforum_domain_model_forum_attachment">Attachment</label>
-			<label index="tx_mmforum_domain_model_forum_attachment.filename">Attachment</label>
+			<label index="tx_mmforum_domain_model_forum_attachment.filename">Attachment Viewname</label>
+			<label index="tx_mmforum_domain_model_forum_attachment.real_filename">Attachment Filename (warning: no auto hash! Must be unique!)</label>
 			<label index="tx_mmforum_domain_model_forum_attachment.mime_type">MIME type</label>
 			<label index="tx_mmforum_domain_model_forum_attachment.download_count">Download count</label>
 

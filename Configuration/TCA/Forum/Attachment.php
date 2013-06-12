@@ -4,10 +4,10 @@ if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 $TCA['tx_mmforum_domain_model_forum_attachment'] = array(
 	'ctrl' => $TCA['tx_mmforum_domain_model_forum_attachment']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'filename,mime_type,download_count'
+		'showRecordFieldList' => 'filename,real_filename,mime_type,download_count'
 	),
 	'types' => array(
-		'1' => array('showitem' => 'filename,mime_type,download_count')
+		'1' => array('showitem' => 'filename,real_filename,mime_type,download_count')
 	),
 	'palettes' => array(
 		'1' => array('showitem' => '')
@@ -42,9 +42,21 @@ $TCA['tx_mmforum_domain_model_forum_attachment'] = array(
 			'exclude' => 1,
 			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_attachment.filename',
 			'config'  => array(
+				'type' => 'input',
+				'size' => 30,
+				'eval' => 'trim'
+			)
+		),
+		'real_filename' => array(
+			'exclude' => 1,
+			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_attachment.real_filename',
+			'config'  => array(
 				'type' => 'group',
 				'internal_type' => 'file',
 				'uploadfolder' => 'uploads/tx_mmforum/attachments/',
+				'allowedMimeTypes' => array('application/pdf','application/xml','text/plain',
+											'image/gif','image/jpeg','image/png'),
+				'allowedSizeInByte' => 1024,
 				'minitems' => 1,
 				'maxitems' => 1,
 				'allowed' => '*',

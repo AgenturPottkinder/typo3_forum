@@ -156,7 +156,6 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 		if(!$this->request->hasArgument('post')){
 			throw new Exception;
 		}
-
 		/**
 		 * @var Tx_MmForum_Domain_Model_Forum_Post $post
 		 */
@@ -164,7 +163,6 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 		/**
 		 * -------------------------------------------------------
 		 */
-
 		// Assert authentication
 		$currentUser = 	$this->authenticationService->getUser();
 
@@ -258,7 +256,6 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 
 	/**
 	 * Creates a new post.
-	 * TODO: Needs to be able to handle attachments. But we will not implement this until Extbase itself has a decent file upload handling!
 	 *
 	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic The topic in which the new post is to be created.
 	 * @param Tx_MmForum_Domain_Model_Forum_Post $post  The new post.
@@ -396,11 +393,13 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 
 	
 	/**
-	 * Test
-	 * @param int downloadAttachmentAction Test.
+	 * Downloads a attachment and increase the download counter
+	 * @param int Uid of Attachment
 	 */
 	public function downloadAttachmentAction($attachment) {
 		$file = $this->attachmentRepository->findByUid(intval($attachment));
+		$file->increaseDownloadCount();
+		$this->attachmentRepository->update($file);
 
 		header('Content-type: '.$file->getMimeType());
 		header("Content-Type: application/download");

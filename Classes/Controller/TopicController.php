@@ -251,10 +251,20 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 		// Assert authorization
 		$this->authenticationService->assertNewTopicAuthorization($forum);
 
+
+
 		// Create the new post; add the new post to a new topic and add the new
 		// topic to the forum. Then persist the forum object. Not as complicated
 		// as is sounds, honestly!
 		$this->postFactory->assignUserToPost($post);
+
+
+		if(!empty($attachments)) {
+			$attachment = new Tx_MmForum_Domain_Model_Forum_Attachment();
+			$objStorage = $attachment->addAttachments($attachments);
+			$post->setAttachments($objStorage);
+		}
+
 		$topic = $this->topicFactory->createTopic($forum, $post, $subject, intval($question), $criteria);
 
 		// Notify potential listeners.
