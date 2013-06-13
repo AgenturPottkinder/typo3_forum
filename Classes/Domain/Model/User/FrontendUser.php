@@ -124,6 +124,13 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 
 
 	/**
+	 * Timestamp of last action of the user
+	 * @var integer
+	 */
+	protected $isOnline;
+
+
+	/**
 	 * Defines whether to use a "gravatar" if no user image is available.
 	 * @var boolean
 	 */
@@ -246,11 +253,12 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 * Get the online status of a User
 	 * @return boolean.
 	 */
-	public function isOnline() {
-		if((time() - $this->is_online) < 300){
+	public function getIsOnline() {
+		if(time() - $this->isOnline < 300) {
 			return true;
+		} else {
+			return false;
 		}
-		return false;
 	}
 
 	/**

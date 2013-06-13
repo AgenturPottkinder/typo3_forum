@@ -69,43 +69,23 @@ class Tx_MmForum_ViewHelpers_User_LinkViewHelper extends \TYPO3\CMS\Fluid\ViewHe
 	/**
 	 *
 	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 * @param boolean                                   $withoutWrap
-	 * @param null                                      $alternativeUsername
+	 * @param boolean                                   $showOnlineStatus
 	 * @return string
 	 */
-	public function render(Tx_MmForum_Domain_Model_User_FrontendUser $user, $withoutWrap = FALSE,
-	                       $alternativeUsername = NULL) {
-		$class = 'nav nav-pills';
+	public function render(Tx_MmForum_Domain_Model_User_FrontendUser $user, $showOnlineStatus = true) {
+		$class = 'user-link';
 		if ($this->hasArgument('class')) {
 			$class .= ' ' . $this->arguments['class'];
 		}
-
-		$tagContent = parent::render('plugin.tx_mmforum.renderer.navigation.userlink', $this->getDataArray($user));
-		if ($withoutWrap === TRUE) {
-			return $tagContent;
+		$uriBuilder = $this->controllerContext->getUriBuilder()->setArguments(array('tx_mmforum_pi1[user]' => $user->getUid(), 'tx_mmforum_pi1[controller]' => 'User', 'tx_mmforum_pi1[action]' => 'show'));
+		$uri = $uriBuilder->setTargetPageUid($this->settings['pids']['UserShow'])->build();
+		if($user->getIsOnline()){
+			$onlineStatus = 'ON';
 		}
-
-		return '<ul class="' . $class . '">' . $tagContent . '</ul>';
+		else{
+			$onlineStatus = 'OFF';
+		}
+		return '<a href="'.$uri.'" class="' . $class . '">' . $user->getUsername() .' '.$onlineStatus.'</a>';
 	}
-
-
-
-	protected function getDataArray(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
-		if ($user === NULL) {
-			return array();
-		}
-
-		$data = array('uid'            => $user->getUid(),
-		              'username'       => $user->getUsername(),
-		              'profilePageUid' => (int)$this->settings['pids']['UserShow']);
-
-		foreach ($user->getContactData() as $type => $value) {
-			$data['contact_' . $type] = $value;
-		}
-
-		return $data;
-	}
-
-
 
 }

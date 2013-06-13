@@ -147,6 +147,10 @@ $tempColumns = array(
 		'exclude' => 1,
 		'config' => array('type' => 'passthrough')
 	),
+	'is_online' => array(
+		'exclude' => 1,
+		'config' => array('type' => 'passthrough')
+	),
 	'tx_mmforum_post_count' => array(
 		'exclude' => 1,
 		'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_mmforum_post_count',
