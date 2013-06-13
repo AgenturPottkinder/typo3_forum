@@ -255,8 +255,6 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 		// Assert authorization
 		$this->authenticationService->assertNewTopicAuthorization($forum);
 
-
-
 		// Create the new post; add the new post to a new topic and add the new
 		// topic to the forum. Then persist the forum object. Not as complicated
 		// as is sounds, honestly!

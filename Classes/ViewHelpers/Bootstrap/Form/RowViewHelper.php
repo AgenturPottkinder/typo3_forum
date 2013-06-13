@@ -99,8 +99,8 @@ class Tx_MmForum_ViewHelpers_Bootstrap_Form_RowViewHelper extends \TYPO3\CMS\Flu
 			$errorText = '';
 		}
 
-		$label   = '<label class="control-label">' . $label . '</label>';
-		$content = '<div class="controls">' . $this->renderChildren() . $errorContent . '</div>';
+		$label   = '<label>' . $label . '</label>';
+		$content = '<div>' . $this->renderChildren() . $errorContent . '</div>';
 
 		$this->tag->addAttribute('class', $class);
 		$this->tag->setContent($label . $content);
