@@ -24,7 +24,6 @@
  *                                                                      */
 
 
-
 /**
  *
  * ViewHelper that renders a big button.
@@ -43,12 +42,10 @@
 class Tx_MmForum_ViewHelpers_User_LinkViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
 
 
-
 	/**
 	 * @var array
 	 */
 	protected $settings = NULL;
-
 
 
 	public function initialize() {
@@ -57,35 +54,47 @@ class Tx_MmForum_ViewHelpers_User_LinkViewHelper extends \TYPO3\CMS\Fluid\ViewHe
 	}
 
 
-
 	public function initializeArguments() {
 		parent::initializeArguments();
 		$this->registerArgument('class', 'string', 'CSS class.');
 		$this->registerArgument('style', 'string', 'CSS inline styles.');
 	}
 
-
-
 	/**
 	 *
 	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 * @param boolean                                   $showOnlineStatus
+	 * @param boolean $showOnlineStatus
 	 * @return string
 	 */
-	public function render(Tx_MmForum_Domain_Model_User_FrontendUser $user, $showOnlineStatus = true) {
+	public function render(Tx_MmForum_Domain_Model_User_FrontendUser $user, $showOnlineStatus = TRUE) {
+
+		// if user anonymous: show only the username
+		if ($user->isAnonymous()) {
+			return $user->getUsername();
+		}
+		// use uribuilder to genreate the uri for the userprofile
+		$uriBuilder = $this->controllerContext->getUriBuilder();
+		$uri = $uriBuilder->setTargetPageUid($this->settings['pids']['UserShow'])->setArguments(array('tx_mmforum_pi1[user]' => $user->getUid(), 'tx_mmforum_pi1[controller]' => 'User', 'tx_mmforum_pi1[action]' => 'show'))->build();
+
 		$class = 'user-link';
+
 		if ($this->hasArgument('class')) {
 			$class .= ' ' . $this->arguments['class'];
 		}
-		$uriBuilder = $this->controllerContext->getUriBuilder()->setArguments(array('tx_mmforum_pi1[user]' => $user->getUid(), 'tx_mmforum_pi1[controller]' => 'User', 'tx_mmforum_pi1[action]' => 'show'));
-		$uri = $uriBuilder->setTargetPageUid($this->settings['pids']['UserShow'])->build();
-		if($user->getIsOnline()){
-			$onlineStatus = 'ON';
-		}
-		else{
-			$onlineStatus = 'OFF';
-		}
-		return '<a href="'.$uri.'" class="' . $class . '">' . $user->getUsername() .' '.$onlineStatus.'</a>';
-	}
 
+		if ($showOnlineStatus) {
+			if ($user->getIsOnline()) {
+				$onlineStatus['icon'] = $this->settings['user']['iconClass_online'];
+				$onlineStatus['title'] = 'online';
+			} else {
+				$onlineStatus['icon'] = $this->settings['user']['iconClass_offline'];
+				$onlineStatus['title'] = 'offline';
+			}
+			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $user->getUsername() . ' (' . $onlineStatus['title'] . ')">' . $user->getUsername() . ' <i class="'.$onlineStatus['icon'].'"></i></a>';
+		} else {
+			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $user->getUsername() . '">' . $user->getUsername() . '</a>';
+		}
+
+		return $link;
+	}
 }

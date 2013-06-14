@@ -170,6 +170,11 @@ plugin.tx_mmforum.settings {
 		QuestionList =
 	}
 
+	user {
+		iconClass_online = iconset-14-user-online
+		iconClass_offline = iconset-14-user-offline
+	}
+
 	ads {
 		timeInterval = 30
 	}
