@@ -77,10 +77,11 @@ class Tx_MmForum_ViewHelpers_Bootstrap_Form_RowViewHelper extends \TYPO3\CMS\Flu
 		}
 
 		if ($this->arguments['error']) {
-			$errors       = $this->controllerContext->getRequest()->getErrors();
+			$results = $this->controllerContext->getRequest()->getOriginalRequestMappingResults()->getSubResults();
+
 			$propertyPath = explode('.', $this->arguments['error']);
 			foreach ($propertyPath as $currentPropertyName) {
-				$errors = $this->getErrorsForProperty($currentPropertyName, $errors);
+				$errors = $this->getErrorsForProperty($currentPropertyName, $results);
 			}
 
 			if (count($errors) > 0) {
@@ -118,8 +119,8 @@ class Tx_MmForum_ViewHelpers_Bootstrap_Form_RowViewHelper extends \TYPO3\CMS\Flu
 	 * @return array An array of errors for $propertyName
 	 */
 	protected function getErrorsForProperty($propertyName, $errors) {
-		foreach ($errors as $error) {
-			if ($error->getPropertyName() === $propertyName) {
+		foreach ($errors as $name => $error) {
+			if ($name === $propertyName) {
 				return $error->getErrors();
 			}
 		}

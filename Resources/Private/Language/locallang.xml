@@ -88,6 +88,8 @@
 			<label index="Topic_New_Attachments">Attachments</label>
 			<label index="Topic_New_Error_Post_Text_1221560718">Please specify a content for the new topic.</label>
 			<label index="Topic_New_Error_Subject_1221560718">Please specify a subject for the new topic.</label>
+			<label index="Topic_New_Error_Attachment_Text_1371041777">Your submitted Mime-Type is not allowed!</label>
+			<label index="Topic_New_Error_Attachment_Text_1371041888">Your attachment size is to big!</label>
 			<label index="Topic_New_Subject">Subject</label>
 			<label index="Topic_New_Submit">Create topic</label>
 			<label index="Topic_New_Subscribe">Subscribe</label>
@@ -206,6 +208,8 @@
 			<label index="Topic_New_Attachments">Anhänge</label>
 			<label index="Topic_New_Error_Post_Text_1221560718">Bitte geben Sie einen Inhalt an.</label>
 			<label index="Topic_New_Error_Subject_1221560718">Bitte geben Sie einen Betreff an.</label>
+			<label index="Topic_New_Error_Attachment_Text_1371041777">Der Dateityp ist nicht erlaubt!</label>
+			<label index="Topic_New_Error_Attachment_Text_1371041888">Die Datei überschreitet die maximale Dateigröße!</label>
 			<label index="Topic_New_Subject">Betreff</label>
 			<label index="Topic_New_Submit">Thema erstellen</label>
 			<label index="Topic_New_Subscribe">Abonnieren</label>

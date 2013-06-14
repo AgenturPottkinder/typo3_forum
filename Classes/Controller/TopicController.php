@@ -247,6 +247,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 * @param int $question    The flag if the new topic is declared as question
 	 * @param array $criteria    All submitted criteria with option.
 	 *
+	 * @validate $attachments Tx_MmForum_Domain_Validator_Forum_AttachmentValidator
 	 * @validate $subject NotEmpty
 	 */
 	public function createAction(Tx_MmForum_Domain_Model_Forum_Forum $forum, Tx_MmForum_Domain_Model_Forum_Post $post,

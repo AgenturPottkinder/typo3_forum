@@ -47,14 +47,14 @@ class Tx_MmForum_Domain_Validator_Forum_AttachmentValidator extends \TYPO3\CMS\E
 	 * Check if $value is valid. If it is not valid, needs to add an error
 	 * to Result.
 	 *
-	 * @param $attachments
+	 * @param $value
 	 * @return bool
 	 */
-	protected function isValid($attachments) {
+	public function isValid($value) {
 		$result = TRUE;
 		$attachmentObj = new Tx_MmForum_Domain_Model_Forum_Attachment();
-
-		foreach($attachments AS $attachmentID => $attachment) {
+		foreach($value AS $attachmentID => $attachment) {
+			if($attachment['type'] == '') continue; //skip empty attachment submit
 
 			if(array_search($attachment['type'],$attachmentObj->getAllowedMimeTypes()) === false) {
 				$this->addError('The submitted mime-type is not allowed!.', 1371041777);

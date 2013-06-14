@@ -80,6 +80,20 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\Domain
 	protected $downloadCount;
 
 
+	/**
+	 * Whole TypoScript mm_forum settings
+	 * @var array
+	 */
+	protected $settings;
+
+
+
+	public function __construct() {
+		$service = new \TYPO3\CMS\Extbase\Service\TypoScriptService();
+		$ts = $service->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
+		$this->settings = $ts['plugin']['tx_mmforum']['settings'];
+	}
+
 
 	/*
 	 * GETTERS
@@ -136,8 +150,15 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\Domain
 	 * @return array The allowed mime types.
 	 */
 	public function getAllowedMimeTypes() {
-		$tca = $this->getTCAConfig();
-		return $tca['columns']['real_filename']['config']['allowedMimeTypes'];
+		$mime_types = explode(',',$this->settings['attachment']['allowedMimeTypes']);
+		if(empty($mime_types)) {
+			$res = array('text/plain');
+		} else {
+			foreach($mime_types AS $mime_type) {
+				$res[] = trim($mime_type);
+			}
+		}
+		return $res;
 	}
 
 
@@ -146,8 +167,11 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\Domain
 	 * @return int The allowed max size of a attachment.
 	 */
 	public function getAllowedMaxSize() {
-		$tca = $this->getTCAConfig();
-		return $tca['columns']['real_filename']['config']['allowedSizeInByte'];
+		if($this->settings['attachment']['allowedSizeInByte'] == false) {
+			return 4096;
+		} else {
+			return intval($this->settings['attachment']['allowedSizeInByte']);
+		}
 	}
 
 

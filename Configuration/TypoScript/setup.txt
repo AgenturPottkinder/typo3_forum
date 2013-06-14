@@ -11,11 +11,11 @@ config.tx_extbase.objects {
 
 config.tx_extbase.persistence.classes {
 
-	Tx_Extbase_Domain_Model_FrontendUser.subclasses {
+	\TYPO3\CMS\Extbase\Domain\Model\FrontendUser.subclasses {
 		Tx_MmForum_Domain_Model_User_FrontendUser = Tx_MmForum_Domain_Model_User_FrontendUser
 	}
 	
-	Tx_Extbase_Domain_Model_FrontendUserGroup.subclasses {
+	\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup.subclasses {
 		Tx_MmForum_Domain_Model_User_FrontendUserGroup = Tx_MmForum_Domain_Model_User_FrontendUserGroup
 	}
 
@@ -169,10 +169,25 @@ plugin.tx_mmforum.settings {
 		UserList =
 		QuestionList =
 	}
-
+	
 	user {
 		iconClass_online = iconset-14-user-online
 		iconClass_offline = iconset-14-user-offline
+	}
+	
+	attachment {
+		allowedMimeTypes = image/gif,image/jpeg,image/png,application/pdf,application/xml,text/plain
+		allowedSizeInByte = 4096
+		#uploadfolder can be found in the Attachment TCA
+	}
+
+	forum {
+		post {
+			helpfulBtn {
+				iconClass = iconset-22-helpful
+				eID = mm_forum
+			}
+		}
 	}
 
 	ads {
@@ -444,11 +459,11 @@ page.includeCSS {
 }
 
 page.includeJS {
-	#jquery = EXT:mm_forum/Resources/Public/Javascript/jquery-1.6.3.min.js
 	jquery = https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js
 	jquery.external = 1
 	bootstrap = EXT:mm_forum/Resources/Public/Bootstrap/js/bootstrap.min.js
 	markitup = EXT:mm_forum/Resources/Public/Javascript/markitup-1.1.12/jquery.markitup.js
+	mmforum = EXT:mm_forum/Resources/Public/Javascript/mm-forum.js
 }
 
 module.tx_mmforum.persistence {
