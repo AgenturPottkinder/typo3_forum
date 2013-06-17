@@ -180,6 +180,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_topic (
   subscribers int(11) unsigned default '0',
   last_post int(11) unsigned default '0',
   last_post_crdate int(11) unsigned default '0',
+  solution int(11) unsigned NOT NULL default '0',
   closed tinyint(1) unsigned default '0',
   sticky tinyint(1) unsigned default '0',
   target int(11) unsigned default '0',

@@ -93,6 +93,15 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 
 
 	/**
+	 * The as solution marked post
+	 *
+	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Post>
+	 * @lazy
+	 */
+	protected $solution;
+
+
+	/**
 	 * A pointer to the last post in this topic.
 	 *
 	 * @var Tx_MmForum_Domain_Model_Forum_Post
@@ -268,6 +277,13 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	}
 
 
+	/**
+	 * Get the as solution marked post
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Post>
+	 */
+	public function getSolution() {
+		return $this->solution;
+	}
 
 	/**
 	 * Gets all posts.
@@ -584,6 +600,14 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	}
 
 
+	/**
+	 * Set a post as solution
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $solution
+	 * @return void
+	 */
+	public function setSolution(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $solution) {
+		$this->solution = $solution;
+	}
 
 	/**
 	 * Sets the forum.

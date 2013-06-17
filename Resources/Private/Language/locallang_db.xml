@@ -22,6 +22,7 @@
 			<label index="tx_mmforum_domain_model_forum_topic.type.0">Regular topic</label>
 			<label index="tx_mmforum_domain_model_forum_topic.type.1">Shadow topic</label>
 			<label index="tx_mmforum_domain_model_forum_topic.subject">Subject</label>
+			<label index="tx_mmforum_domain_model_forum_topic.solution">Solution</label>
 			<label index="tx_mmforum_domain_model_forum_topic.posts">Posts</label>
 			<label index="tx_mmforum_domain_model_forum_topic.author">Author</label>
 			<label index="tx_mmforum_domain_model_forum_topic.last_post">Last Post</label>
