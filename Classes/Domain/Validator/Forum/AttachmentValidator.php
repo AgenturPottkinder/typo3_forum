@@ -52,15 +52,12 @@ class Tx_MmForum_Domain_Validator_Forum_AttachmentValidator extends \TYPO3\CMS\E
 	 */
 	public function isValid($value) {
 		$result = TRUE;
-		$attachmentObj = new Tx_MmForum_Domain_Model_Forum_Attachment();
-		foreach($value AS $attachmentID => $attachment) {
-			if($attachment['type'] == '') continue; //skip empty attachment submit
-
-			if(array_search($attachment['type'],$attachmentObj->getAllowedMimeTypes()) === false) {
+		foreach($value as $attachment){
+			if(array_search($attachment->getMimeType(), $attachment->getAllowedMimeTypes()) == false){
 				$this->addError('The submitted mime-type is not allowed!.', 1371041777);
 				$result = FALSE;
 			}
-			if($_FILES['tx_mmforum_pi1']['size']['attachments'][$attachmentID] > $attachmentObj->getAllowedMaxSize()) {
+			if($attachment->getFilesize() > $attachment->getAllowedMaxSize){
 				$this->addError('The submitted file is to big!.', 1371041888);
 				$result = FALSE;
 			}
