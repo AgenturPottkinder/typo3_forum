@@ -84,6 +84,10 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	 */
 	protected $attachmentRepository;
 
+	/**
+	 * @var Tx_MmForum_Service_AttachmentService
+	 */
+	protected $attachmentService = NULL;
 
 	/*
 	 * DEPENDENCY INJECTORS
@@ -99,21 +103,23 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	 * @param Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory
 	 * @param Tx_MmForum_Domain_Repository_Forum_AttachmentRepository $attachmentRepository
 	 * @param Tx_MmForum_Service_SessionHandlingService $sessionHandling
+	 * @param Tx_MmForum_Service_AttachmentService $attachmentService
 	 */
 	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
 								Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
 								Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository,
 								Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory,
 								Tx_MmForum_Domain_Repository_Forum_AttachmentRepository $attachmentRepository,
-								Tx_MmForum_Service_SessionHandlingService $sessionHandling) {
+								Tx_MmForum_Service_SessionHandlingService $sessionHandling,
+								Tx_MmForum_Service_AttachmentService $attachmentService) {
 		$this->forumRepository = $forumRepository;
 		$this->topicRepository = $topicRepository;
 		$this->postRepository = $postRepository;
 		$this->postFactory = $postFactory;
 		$this->attachmentRepository = $attachmentRepository;
 		$this->sessionHandling		= $sessionHandling;
+		$this->attachmentService = $attachmentService;
 	}
-
 
 	/*
 	 * ACTION METHODS
@@ -255,6 +261,16 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 			->assign('currentUser', $this->frontendUserRepository->findCurrent());
 	}
 
+//	/**
+//	 * initializeCreateAction
+//	 *
+//	 * manipulate attachments
+//	 */
+//	public function initializeCreateAction() {
+//		$this->request->setArgument('attachments', $this->attachmentService->initAttachments($this->request->getArgument('attachments')));
+//		$this->mapRequestArgumentsToControllerArguments();
+//
+//	}
 
 	/**
 	 * Creates a new post.
@@ -262,8 +278,10 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic The topic in which the new post is to be created.
 	 * @param Tx_MmForum_Domain_Model_Forum_Post $post  The new post.
 	 * @param array $attachments File attachments for the post.
-	 * @return void
+	 *
+	 * @validate $attachments Tx_MmForum_Domain_Validator_Forum_AttachmentPlainValidator
 	 */
+
 	public function createAction(Tx_MmForum_Domain_Model_Forum_Topic $topic, Tx_MmForum_Domain_Model_Forum_Post $post, array $attachments = array()) {
 		// Assert authorization
 		$this->authenticationService->assertNewPostAuthorization($topic);
@@ -271,9 +289,9 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 		// Create new post, add the new post to the topic and persist the topic.
 		$this->postFactory->assignUserToPost($post);
 
-		if($attachments[0]['name']=='') $attachments = array(); //Submitted without params
 		if(!empty($attachments)) {
-			$post->addAttachment($attachments);
+			$attachments = $this->attachmentService->initAttachments($attachments);
+			$post->setAttachments($attachments);
 		}
 
 		$topic->addPost($post);

@@ -100,6 +100,12 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	protected $sessionHandling;
 
 
+	/**
+	 * @var Tx_MmForum_Service_AttachmentService
+	 */
+	protected $attachmentService = NULL;
+
+
 
 	/*
 	 * CONSTRUCTOR
@@ -117,6 +123,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 * @param Tx_MmForum_Domain_Factory_Forum_PostFactory			$postFactory
 	 * @param Tx_MmForum_Domain_Repository_Forum_CriteriaRepository $criteraRepository
 	 * @param Tx_MmForum_Service_SessionHandlingService             $sessionHandling
+	 * @param Tx_MmForum_Service_AttachmentService $attachmentService
 	 */
 	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
 								Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
@@ -124,7 +131,8 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 								Tx_MmForum_Domain_Factory_Forum_TopicFactory $topicFactory,
 								Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory,
 								Tx_MmForum_Domain_Repository_Forum_CriteriaRepository $criteraRepository = NULL,
-								Tx_MmForum_Service_SessionHandlingService $sessionHandling) {
+								Tx_MmForum_Service_SessionHandlingService $sessionHandling,
+								Tx_MmForum_Service_AttachmentService $attachmentService) {
 		parent::__construct();
 		$this->forumRepository   = $forumRepository;
 		$this->topicRepository   = $topicRepository;
@@ -133,6 +141,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 		$this->postFactory       = $postFactory;
 		$this->sessionHandling   = $sessionHandling;
 		$this->criteraRepository = $criteraRepository;
+		$this->attachmentService = $attachmentService;
 	}
 
 
@@ -236,6 +245,15 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	}
 
 
+//	/**
+//	 * initializeCreateAction
+//	 *
+//	 * manipulate attachments
+//	 */
+//	public function initializeCreateAction() {
+//		$this->request->setArgument('attachments', $this->attachmentService->initAttachments($this->request->getArgument('attachments')));
+//	}
+
 
 	/**
 	 * Creates a new topic.
@@ -247,12 +265,12 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 * @param int $question    The flag if the new topic is declared as question
 	 * @param array $criteria    All submitted criteria with option.
 	 *
-	 * @validate $attachments Tx_MmForum_Domain_Validator_Forum_AttachmentValidator
+	 * @validate $attachments Tx_MmForum_Domain_Validator_Forum_AttachmentPlainValidator
 	 * @validate $subject NotEmpty
 	 */
 	public function createAction(Tx_MmForum_Domain_Model_Forum_Forum $forum, Tx_MmForum_Domain_Model_Forum_Post $post,
 								 $subject, array $attachments = array(), $question = 0, array $criteria = array()) {
-		
+
 		// Assert authorization
 		$this->authenticationService->assertNewTopicAuthorization($forum);
 
@@ -261,11 +279,10 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 		// as is sounds, honestly!
 		$this->postFactory->assignUserToPost($post);
 
-		if($attachments[0]['name']=='') $attachments = array(); //Submitted without params
 		if(!empty($attachments)) {
-			$error = $post->addAttachment($attachments);
+			$attachments = $this->attachmentService->initAttachments($attachments);
+			$post->setAttachments($attachments);
 		}
-
 		$topic = $this->topicFactory->createTopic($forum, $post, $subject, intval($question), $criteria);
 
 		// Notify potential listeners.

@@ -107,11 +107,17 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 	protected $crdate;
 
 
+	/**
+	 * All subscribers of this forum.
+	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser>
+	 * @lazy
+	 */
+	protected $supporters;
+
 
 	/**
 	 * Attachments.
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Attachment>
-	 * @validate Tx_MmForum_Domain_Validator_Forum_AttachmentValidator
 	 */
 	protected $attachments;
 
@@ -125,17 +131,15 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 	  * CONSTRUCTOR
 	  */
 
-
-
 	/**
 	 * Creates a new post.
 	 * @param string $text The post text.
 	 */
 	public function __construct($text = '') {
 		$this->attachments = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->supporters = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->crdate      = new DateTime();
 		$this->text        = $text;
-
 	}
 
 
@@ -143,6 +147,16 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 	/*
 	 * GETTERS
 	 */
+
+	/**
+	 * Gets all users who have subscribed to this forum.
+	 *
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser>
+	 *                             All subscribers of this forum.
+	 */
+	public function getSupporters() {
+		return $this->supporters;
+	}
 
 	/**
 	 * Gets the helpful count of this post.
@@ -404,6 +418,7 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 	 * Sets the attachments.
 	 *
 	 * @param  \TYPO3\CMS\Extbase\Persistence\ObjectStorage $attachments The attachments.
+	 * @validate $attachments Tx_MmForum_Domain_Validator_Forum_AttachmentValidator
 	 * @return void
 	 */
 	public function setAttachments(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $attachments) {
@@ -416,34 +431,13 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 	 * Adds an or more attachments.
 	 *
 	 * @param  array $attachments The attachment.
-	 * @return array
+	 * @return void
 	 */
-	public function addAttachment(array $attachments) {
+	public function addAttachments(array $attachments) {
 		/* @var Tx_MmForum_Domain_Model_Forum_Attachment */
-		$objAttachments = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-
-		foreach($attachments AS $attachmentID => $attachment) {
-			if($attachment['name'] == '') continue;
-			$attachmentObj = new Tx_MmForum_Domain_Model_Forum_Attachment();
-			$tmp_name = $_FILES['tx_mmforum_pi1']['tmp_name']['attachments'][$attachmentID];
-			$mime_type = mime_content_type($tmp_name);
-
-			//Save in ObjectStorage and in file system
-			$attachmentObj->setFilename($attachment['name']);
-			$attachmentObj->setRealFilename(sha1($attachment['name'].time()));
-			$attachmentObj->setMimeType($mime_type);
-
-			$res = \TYPO3\CMS\Core\Utility\GeneralUtility::upload_copy_move($tmp_name,$attachmentObj->getAbsoluteFilename());
-			if($res === true) {
-				$objAttachments->attach($attachmentObj);
-			}
-		}
-		//Save ObjectStorage in Repository
+		$objAttachments = $this->attachmentService->initAttachments($attachments);
 		$this->setAttachments($objAttachments);
-		return array();
 	}
-
-
 
 	/**
 	 * Removes an attachment.

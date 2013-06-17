@@ -217,6 +217,17 @@ $tempColumns = array(
 			'minitems' => 0
 		)
 	),
+	'tx_mmforum_support_posts' => array(
+		'exclude' => 1,
+		'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_mmforum_support_posts',
+		'config' => array(
+			'type' => 'select',
+			'foreign_table' => 'tx_mmforum_domain_model_forum_post',
+			'MM' => 'tx_mmforum_domain_model_user_supportpost',
+			'multiple' => TRUE,
+			'minitems' => 0
+		)
+	),
 	'tx_mmforum_use_gravatar' => array(
 		'exclude' => 0,
 		'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.use_gravatar',

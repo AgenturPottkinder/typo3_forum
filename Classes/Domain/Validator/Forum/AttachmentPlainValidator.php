@@ -39,9 +39,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Validator_Forum_AttachmentValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
-
-
+class Tx_MmForum_Domain_Validator_Forum_AttachmentPlainValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
 
 	/**
 	 * Check if $value is valid. If it is not valid, needs to add an error
@@ -52,12 +50,14 @@ class Tx_MmForum_Domain_Validator_Forum_AttachmentValidator extends \TYPO3\CMS\E
 	 */
 	public function isValid($value) {
 		$result = TRUE;
+		$attachmentObj = new Tx_MmForum_Domain_Model_Forum_Attachment();
 		foreach($value as $attachment){
-			if(array_search($attachment->getMimeType(), $attachment->getAllowedMimeTypes()) == false){
+			if(empty($attachment['name'])) continue;
+			if(array_search($attachment['type'], $attachmentObj->getAllowedMimeTypes()) == false){
 				$this->addError('The submitted mime-type is not allowed!.', 1371041777);
 				$result = FALSE;
 			}
-			if($attachment->getFilesize() > $attachment->getAllowedMaxSize){
+			if($attachment->$attachment['size'] > $attachmentObj->getAllowedMaxSize){
 				$this->addError('The submitted file is to big!.', 1371041888);
 				$result = FALSE;
 			}

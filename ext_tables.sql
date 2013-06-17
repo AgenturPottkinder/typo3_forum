@@ -158,6 +158,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_post (
   l18n_parent int(11) NOT NULL default '0',
   l18n_diffsource mediumblob NOT NULL,
   attachments int(11) unsigned NOT NULL default '0',
+  supporters int(11) unsigned NOT NULL default '0',
   helpful_count int(11) unsigned NOT NULL default '0',
   PRIMARY KEY (uid),
   KEY parent (pid)
@@ -334,6 +335,25 @@ CREATE TABLE tx_mmforum_domain_model_user_readtopic (
   KEY uid_foreign (uid_foreign)
 );
 
+#
+# Table structure for table "tx_mmforum_domain_model_user_supportpost"
+#
+CREATE TABLE tx_mmforum_domain_model_user_supportpost (
+  uid int(10) NOT NULL auto_increment,
+  pid int(11) NOT NULL default '0',
+  uid_local int(11) unsigned NOT NULL default '0',
+  uid_foreign int(11) unsigned NOT NULL default '0',
+  sorting int(11) unsigned NOT NULL default '0',
+  sorting_foreign int(11) unsigned NOT NULL default '0',
+  tstamp int(10) unsigned NOT NULL default '0',
+  crdate int(10) unsigned NOT NULL default '0',
+  hidden tinyint(3) unsigned NOT NULL default '0',
+  PRIMARY KEY (uid),
+  KEY parent (pid),
+  KEY uid_local (uid_local),
+  KEY uid_foreign (uid_foreign)
+);
+
 
 #
 # Table structure for table "tx_mmforum_domain_model_user_topicsubscription"
@@ -483,6 +503,7 @@ CREATE TABLE fe_users (
   tx_mmforum_signature text,
   tx_mmforum_userfield_values int(11) unsigned NOT NULL default '0'
   tx_mmforum_read_topics int(11) unsigned NOT NULL default '0',
+  tx_mmforum_support_posts int(11) unsigned NOT NULL default '0',
   tx_mmforum_use_gravatar tinyint(1) unsigned default '0',
   tx_mmforum_contact text
 );

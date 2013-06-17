@@ -108,6 +108,12 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 */
 	protected $readTopics;
 
+	/**
+	 * Read topics.
+	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Post>
+	 */
+	protected $supportPosts;
+
 
 	/**
 	 * The country.
@@ -220,6 +226,15 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 */
 	public function getForumSubscriptions() {
 		return $this->forumSubscriptions;
+	}
+
+	/**
+	 * Gets the subscribed forums.
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Post>
+	 *                             The subscribed forums.
+	 */
+	public function getSupportPosts() {
+		return $this->supportPosts;
 	}
 
 
