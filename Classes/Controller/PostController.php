@@ -166,9 +166,9 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 		// Assert authentication
 		$currentUser = 	$this->authenticationService->getUser();
 
-		// Return if User not logged in
-		if ($currentUser === NULL || $currentUser->isAnonymous()) {
-				return json_encode(array("error" => true, "error_msg" => "not_logged_in"));
+		// Return if User not logged in or user is post author
+		if ($currentUser === NULL || $currentUser->isAnonymous() || $currentUser === $post->getAuthor()) {
+				return json_encode(array("error" => true, "error_msg" => "not_allowed"));
 		}
 
 		// get markedHelpfulPosts of currentUser
@@ -178,10 +178,12 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 			return json_encode(array("error" => true, "error_msg" => "already_marked"));
 		}
 
-		// Set helpfulCount for Author of Post
+		// Set helpfulCount for Author of Post (only if is registered user)
 		$author = $post->getAuthor();
-		$author->setHelpful();
-		$this->frontendUserRepository->update($author);
+		if($author->isAnonymous() == FALSE){
+			$author->setHelpful();
+			$this->frontendUserRepository->update($author);
+		}
 
 		// Set helpfulCount for Post
 		$post->setHelpful();

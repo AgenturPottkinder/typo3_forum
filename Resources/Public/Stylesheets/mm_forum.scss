@@ -76,6 +76,23 @@ $baseFontSize: 0.75em;
 	}
 }
 
+.tx-mmforum-helpfull-btn {
+	cursor: pointer;
+}
+.tx-mmforum-posts-listing .tx-mmforum-ajax-loader {
+  width: 16px;
+  height: 16px;
+  background-image: url("../Images/loader_main_bg.gif");
+  background-repeat: no-repeat;
+}
+
+.tx-mmforum-posts-listing .topic .tx-mmforum-ajax-loader {
+  width: 16px;
+  height: 16px;
+  background-image: url("../Images/loader_main.gif");
+  background-repeat: no-repeat;
+}
+
 
 /*
  * BASIC TABLE STYLES

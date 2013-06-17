@@ -1,0 +1,23 @@
+/*
+Errno::ENOENT: No such file or directory - style.scss
+
+Backtrace:
+/var/lib/gems/1.9.1/gems/sass-3.2.9/lib/sass/plugin/compiler.rb:360:in `read'
+/var/lib/gems/1.9.1/gems/sass-3.2.9/lib/sass/plugin/compiler.rb:360:in `update_stylesheet'
+/var/lib/gems/1.9.1/gems/sass-3.2.9/lib/sass/plugin/compiler.rb:203:in `block in update_stylesheets'
+/var/lib/gems/1.9.1/gems/sass-3.2.9/lib/sass/plugin/compiler.rb:201:in `each'
+/var/lib/gems/1.9.1/gems/sass-3.2.9/lib/sass/plugin/compiler.rb:201:in `update_stylesheets'
+/var/lib/gems/1.9.1/gems/sass-3.2.9/lib/sass/plugin/compiler.rb:235:in `watch'
+/var/lib/gems/1.9.1/gems/sass-3.2.9/lib/sass/plugin.rb:107:in `method_missing'
+/var/lib/gems/1.9.1/gems/sass-3.2.9/lib/sass/exec.rb:452:in `watch_or_update'
+/var/lib/gems/1.9.1/gems/sass-3.2.9/lib/sass/exec.rb:315:in `process_result'
+/var/lib/gems/1.9.1/gems/sass-3.2.9/lib/sass/exec.rb:41:in `parse'
+/var/lib/gems/1.9.1/gems/sass-3.2.9/lib/sass/exec.rb:21:in `parse!'
+/var/lib/gems/1.9.1/gems/sass-3.2.9/bin/sass:9:in `<top (required)>'
+/usr/local/bin/sass:23:in `load'
+/usr/local/bin/sass:23:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Errno::ENOENT: No such file or directory - style.scss"; }
