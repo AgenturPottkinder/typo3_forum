@@ -189,18 +189,6 @@ plugin.tx_mmforum.settings {
 			}
 		}
 	}
-<<<<<<< Updated upstream
-
-	forum {
-		post {
-			helpfulBtn {
-				iconClass = iconset-22-helpful
-				eID = mm_forum
-			}
-		}
-	}
-=======
->>>>>>> Stashed changes
 	ads {
 		timeInterval = 30
 	}
@@ -484,9 +472,3 @@ module.tx_mmforum.persistence {
 plugin.tx_mmforum.persistence {
 	storagePid = {$plugin.tx_mmforum.persistence.storagePid}
 }
-
-<<<<<<< Updated upstream
-plugin.tx_mmforum.features.rewrittenPropertyMapper = 0
-=======
-plugin.tx_mmforum.features.rewrittenPropertyMapper = 0
->>>>>>> Stashed changes
