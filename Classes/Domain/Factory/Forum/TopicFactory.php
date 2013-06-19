@@ -210,4 +210,18 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 	}
 
 
+	/**
+	 * Sets a post as solution
+	 *
+	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic
+	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @return void
+	 */
+	public function setPostAsSolution(Tx_MmForum_Domain_Model_Forum_Topic $topic, Tx_MmForum_Domain_Model_Forum_Post $post) {
+		$topic->setSolution($post);
+		$this->topicRepository->update($topic);
+		$this->forumRepository->update($topic->getForum());
+	}
+
+
 }

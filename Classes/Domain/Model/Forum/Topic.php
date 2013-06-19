@@ -95,7 +95,7 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	/**
 	 * The as solution marked post
 	 *
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Post>
+	 * @var Tx_MmForum_Domain_Model_Forum_Post
 	 * @lazy
 	 */
 	protected $solution;
@@ -279,7 +279,7 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 
 	/**
 	 * Get the as solution marked post
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Post>
+	 * @return Tx_MmForum_Domain_Model_Forum_Post
 	 */
 	public function getSolution() {
 		return $this->solution;
@@ -408,6 +408,16 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 		return $rootline;
 	}
 
+	/**
+	 * Get the first post of a topic
+	 * @return Tx_MmForum_Domain_Model_Forum_Post
+	 */
+	public function getFirstPost() {
+		foreach($this->getPosts() AS $post) {
+			return $post;
+		}
+		return false;
+	}
 
 
 	/**
@@ -602,10 +612,10 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 
 	/**
 	 * Set a post as solution
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $solution
+	 * @param Tx_MmForum_Domain_Model_Forum_Post $solution
 	 * @return void
 	 */
-	public function setSolution(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $solution) {
+	public function setSolution(Tx_MmForum_Domain_Model_Forum_Post $solution) {
 		$this->solution = $solution;
 	}
 

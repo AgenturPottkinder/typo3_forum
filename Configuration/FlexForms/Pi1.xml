@@ -18,7 +18,7 @@
 								<items>
 									<numIndex index="0">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Forum</numIndex>
-										<numIndex index="1">Forum->index;Forum->show;Topic->show;Topic->new;Topic->create;Post->show;Post->new;Post->create;Post->edit;Post->update;Post->confirmDelete;Post->delete;Post->downloadAttachment;User->subscribe;Report->new;Report->create;Moderation->editTopic;Moderation->updateTopic;Moderation->topicConformDelete</numIndex>
+										<numIndex index="1">Forum->index;Forum->show;Topic->show;Topic->new;Topic->create;Topic->solution;Post->show;Post->new;Post->create;Post->edit;Post->update;Post->confirmDelete;Post->delete;Post->downloadAttachment;User->subscribe;Report->new;Report->create;Moderation->editTopic;Moderation->updateTopic;Moderation->topicConformDelete</numIndex>
 									</numIndex>
 									<numIndex index="1">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_User_Show</numIndex>

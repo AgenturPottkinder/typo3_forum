@@ -300,6 +300,16 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	}
 
 
+	/**
+	 * Sets a post as solution
+	 *
+	 * @param Tx_MmForum_Domain_Model_Forum_Post $post  The post to be marked as solution.
+	 * @return void
+	 */
+	public function solutionAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
+		$this->topicFactory->setPostAsSolution($post->getTopic(),$post);
+		$this->redirect('show', 'Topic', NULL, array('topic' => $post->getTopic()));
+	}
 
 	/*
 	 * HELPER METHODS
