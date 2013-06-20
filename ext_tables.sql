@@ -494,6 +494,23 @@ CREATE TABLE tx_mmforum_domain_model_forum_criteria_topic_options (
 
 
 #
+# Table structure for table 'tx_mmforum_domain_model_forum_ads'
+#
+CREATE TABLE tx_mmforum_domain_model_forum_ads (
+  uid int(11) unsigned NOT NULL auto_increment,
+  pid int(11) unsigned NOT NULL default '0',
+  tstamp int(11) unsigned NOT NULL default '0',
+  deleted tinyint(3) NOT NULL default '0',
+  active tinyint(3) unsigned NOT NULL default '0',
+  category tinyint(3) unsigned NOT NULL default '0',
+  `name` varchar(64) NOT NULL,
+  alt_text tinytext NULL default NULL,
+  path varchar(128) NOT NULL
+  PRIMARY KEY  (uid)
+);
+
+
+#
 # Table structure for table "fe_users"
 #
 CREATE TABLE fe_users (
