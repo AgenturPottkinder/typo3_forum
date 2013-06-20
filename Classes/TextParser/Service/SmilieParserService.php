@@ -114,7 +114,7 @@ class Tx_MmForum_TextParser_Service_SmilieParserService
 	 */
 
 	protected function getSmilieIcon(Tx_MmForum_Domain_Model_Format_Smilie $smilie) {
-		return '<img src="' . $smilie->getIconFilename() . '" alt="' . $smilie->getSmilieShortcut() . '" />';
+		return '<i class="' . $smilie->getIconClass() . '"></i>';
 	}
 
 }

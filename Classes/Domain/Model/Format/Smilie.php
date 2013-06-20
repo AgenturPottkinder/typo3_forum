@@ -82,6 +82,17 @@ class Tx_MmForum_Domain_Model_Format_Smilie extends Tx_MmForum_Domain_Model_Form
 		return $this->smilieShortcut;
 	}
 
+	/**
+	 *
+	 * Gets the smilie IconClass.
+	 * @return string The smilie IconClass.
+	 *
+	 */
+
+	public function getIconClass() {
+		return $this->iconClass;
+	}
+
 
 
 	/**

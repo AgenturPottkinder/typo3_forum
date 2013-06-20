@@ -100,7 +100,10 @@ class Tx_MmForum_ViewHelpers_Post_HelpfulButtonViewHelper extends \TYPO3\CMS\Flu
 		if ($this->hasArgument('class')) {
 			$class .= ' ' . $this->arguments['class'];
 		}
-		$class .= ' tx-mmforum-helpfull-btn';
+		if($post->getAuthor() != $this->authenticationService->getUser()){
+			$class .= ' tx-mmforum-helpfull-btn';
+		}
+
 		if ($post->hasBeenSupportedByUser($this->authenticationService->getUser())) {
 			$class .= ' supported';
 		}
