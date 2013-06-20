@@ -220,7 +220,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 		// AdHandling End
 		$this->authenticationService->assertReadAuthorization($topic);
 		$this->markTopicRead($topic);
-		$this->view->assign('topic', $topic)->assign('posts', $posts);
+		$this->view->assign('topic', $topic)->assign('posts', $posts)->assign('user',$this->authenticationService->getUser());
 	}
 
 
@@ -304,9 +304,14 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 * Sets a post as solution
 	 *
 	 * @param Tx_MmForum_Domain_Model_Forum_Post $post  The post to be marked as solution.
+	 *
+	 * @throws Tx_MmForum_Domain_Exception_Authentication_NoAccessException
 	 * @return void
 	 */
 	public function solutionAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
+		if($post->getAuthor() != $this->authenticationService->getUser()) {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NoAccessException('Not allowed to set solution by current user.');
+		}
 		$this->topicFactory->setPostAsSolution($post->getTopic(),$post);
 		$this->redirect('show', 'Topic', NULL, array('topic' => $post->getTopic()));
 	}

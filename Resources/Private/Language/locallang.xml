@@ -58,6 +58,8 @@
 			<label index="Post_Show_Attachment_DownloadCount">Downloaded %d times</label>
 			<label index="Post_Show_Attachments">Attachments</label>
 			<label index="Post_Show_QuoteBy">Quote by</label>
+			<label index="Post_Show_Solution_New">Is solution</label>
+			<label index="Post_Show_Solution_Edit">Replace solution</label>
 			<label index="Post_Update_Success">The post has successfully been updated.</label>
 			<label index="Report_Edit_Comments">Comments</label>
 			<label index="Report_Edit_Comments_New">New comment</label>
@@ -178,6 +180,8 @@
 			<label index="Post_Show_Attachment_DownloadCount">%d heruntergeladen</label>
 			<label index="Post_Show_Attachments">Anhänge</label>
 			<label index="Post_Show_QuoteBy">Zitiert von:</label>
+			<label index="Post_Show_Solution_New">Ist Lösung</label>
+			<label index="Post_Show_Solution_Edit">Lösung ersetzen</label>
 			<label index="Post_Update_Success">Der Beitrag wurde erfolgreich aktualisiert.</label>
 			<label index="Report_Edit_Comments">Kommentare</label>
 			<label index="Report_Edit_Comments_New">Neuer Kommentar</label>
