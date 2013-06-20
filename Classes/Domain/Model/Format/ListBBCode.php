@@ -57,7 +57,7 @@ class Tx_MmForum_Domain_Model_Format_ListBBCode extends Tx_MmForum_Domain_Model_
 	 * @return string The right bb code tag.
 	 */
 	public function getRightBBCode() {
-		return "\n[\list]";
+		return "\n[/list]";
 	}
 
 }

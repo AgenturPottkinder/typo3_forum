@@ -218,6 +218,7 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 				break;
 			}
 		}
+		$post = ($quote !== NULL) ? $this->postFactory->createPostWithQuote($quote) : $this->postFactory->createEmptyPost();
 
 		$itemsPerPage = (int)$this->settings['topicController']['show']['pagebrowser']['itemsPerPage'];
 		$pageNumber = ceil($postNumber / $itemsPerPage);
