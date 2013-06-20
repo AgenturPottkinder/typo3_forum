@@ -347,21 +347,9 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 		return FALSE;
 	}
 
-
-
 	/*
 	 * SETTERS
 	 */
-
-	/**
-	 * Sets the helpfulCount value +1
-	 *
-	 * @return void
-	 * @api
-	 */
-	public function setHelpful() {
-		$this->setHelpfulCount($this->getHelpfulCount()+1);
-	}
 
 	/**
 	 * Sets the city value
@@ -449,7 +437,15 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 		$this->attachments->detach($attachment);
 	}
 
-
+    /**
+     * Determines whether this topic has been read by a certain user.
+     *
+     * @param  Tx_MmForum_Domain_Model_User_FrontendUser $supporter The user who is to be checked.
+     * @return boolean                                           TRUE, if the user did read this topic, otherwise FALSE.
+     */
+    public function hasBeenSupportedByUser(Tx_MmForum_Domain_Model_User_FrontendUser $supporter = NULL) {
+        return $supporter ? $this->supporters->contains($supporter) : TRUE;
+    }
 
 	/**
 	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic
@@ -459,6 +455,38 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 		$this->topic = $topic;
 	}
 
+	/**
+	 * Marks this topic as read by a certain user.
+	 *
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $supporter The user who read this topic.
+	 * @return void
+	 */
+	public function addSupporter(Tx_MmForum_Domain_Model_User_FrontendUser $supporter) {
+		$this->setHelpfulCount($this->getHelpfulCount()+1);
+		$this->supporters->attach($supporter);
+	}
 
+
+
+	/**
+	 * Mark this topic as unread for a certain user.
+	 *
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $supporter The user for whom to mark this topic as unread.
+	 * @return void
+	 */
+	public function removeSupporter(Tx_MmForum_Domain_Model_User_FrontendUser $supporter) {
+		$this->setHelpfulCount($this->getHelpfulCount()-1);
+		$this->supporters->detach($supporter);
+	}
+
+
+
+	/**
+	 * Mark this topic as unread for all users.
+	 * @return void
+	 */
+	public function removeAllSupporters() {
+		$this->readers = New \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+	}
 
 }

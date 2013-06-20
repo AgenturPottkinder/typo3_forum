@@ -120,7 +120,7 @@ $TCA['tx_mmforum_domain_model_forum_post'] = array(
 			'exclude' => 0,
 			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_post.helpful_count',
 			'config'  => array(
-				'type' => 'display'
+				'type' => 'none'
 			)
 		),
 		'supporters' => array(

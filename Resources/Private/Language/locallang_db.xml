@@ -31,6 +31,7 @@
 			<label index="tx_mmforum_domain_model_forum_topic.closed">Closed</label>
 			<label index="tx_mmforum_domain_model_forum_topic.sticky">Sticky</label>
 			<label index="tx_mmforum_domain_model_forum_topic.question">Question</label>
+			<label index="tx_mmforum_domain_model_forum_topic.supporters">Supporters</label>
 
 			<label index="tx_mmforum_domain_model_forum_post">Post</label>
 			<label index="tx_mmforum_domain_model_forum_post.text">Text</label>
@@ -51,6 +52,13 @@
 			<label index="tx_mmforum_domain_model_forum_criteria_options">Criteria Options</label>
 			<label index="tx_mmforum_domain_model_forum_criteria_options_name">Criteria Option Name</label>
 			<label index="tx_mmforum_domain_model_forum_criteria_options_criteria">Criteria Option Relation</label>
+
+			<label index="tx_mmforum_domain_model_forum_ads">Advertisements</label>
+			<label index="tx_mmforum_domain_model_forum_ads_name">Name</label>
+			<label index="tx_mmforum_domain_model_forum_ads_alt">Alt-Text</label>
+			<label index="tx_mmforum_domain_model_forum_ads_path">Path To Image</label>
+			<label index="tx_mmforum_domain_model_forum_ads_category">Category</label>
+			<label index="tx_mmforum_domain_model_forum_ads_active">Active</label>
 
 			<label index="tx_mmforum_domain_model_forum_access">Access</label>
 			<label index="tx_mmforum_domain_model_forum_access.operation">Operation</label>
@@ -126,6 +134,7 @@
 			<label index="fe_users.tx_mmforum.tab.settings">mm_forum Settings</label>
 			<label index="fe_users.tx_mmforum_signature">Signature</label>
 			<label index="fe_users.tx_mmforum_userfield_values">Userfield values</label>
+			<label index="fe_users.tx_mmforum_support_posts">Supported posts</label>
 
 			<label index="fe_groups.tx_extbase_type.mm_forum">mm_forum group</label>
 		</languageKey>

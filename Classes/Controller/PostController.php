@@ -149,58 +149,53 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	}
 
 	/**
-	 *  helpful Action.
-	 *
+	 *  add Supporter Action.
+	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
 	 * @return void
 	 */
-	public function helpfulAction() {
-		/**
-		 * @todo  remove it!
-		 * "Argumente werden nicht gemappt beim Aufruf durch eID!"
-		 * Daher Testweise manuelle durchführung.
-		 */
-		if(!$this->request->hasArgument('post')){
-			throw new Exception;
-		}
-		/**
-		 * @var Tx_MmForum_Domain_Model_Forum_Post $post
-		 */
-		$post = $this->postRepository->findByUid(intval($this->request->getArgument('post')));
-		/**
-		 * -------------------------------------------------------
-		 */
+	public function addSupporterAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
 		// Assert authentication
 		$currentUser = 	$this->authenticationService->getUser();
 
-		// Return if User not logged in or user is post author
-		if ($currentUser === NULL || $currentUser->isAnonymous() || $currentUser === $post->getAuthor()) {
+		// Return if User not logged in or user is post author or user has already supported the post
+		if ($currentUser === NULL || $currentUser->isAnonymous() || $currentUser === $post->getAuthor() || $post->hasBeenSupportedByUser($currentUser) || $post->getAuthor()->isAnonymous()) {
 				return json_encode(array("error" => true, "error_msg" => "not_allowed"));
 		}
 
-		// get markedHelpfulPosts of currentUser
-		$markedHelpfulPosts =$this->sessionHandling->get('markedHelpfulPosts');
-
-		if (array_key_exists($post->getUid(), $markedHelpfulPosts)) {
-			return json_encode(array("error" => true, "error_msg" => "already_marked"));
-		}
-
-		// Set helpfulCount for Author of Post (only if is registered user)
-		$author = $post->getAuthor();
-		if($author->isAnonymous() == FALSE){
-			$author->setHelpful();
-			$this->frontendUserRepository->update($author);
-		}
-
-		// Set helpfulCount for Post
-		$post->setHelpful();
+		// Set helpfulCount for Author
+		$post->addSupporter($currentUser);
 		$this->postRepository->update($post);
 
-		// Set helpfulCount in Session
-		$markedHelpfulPosts[$post->getUid()] = time();
-		$this->sessionHandling->set('markedHelpfulPosts', $markedHelpfulPosts);
+		$post->getAuthor()->setHelpfulCount($post->getAuthor()->getHelpfulCount()+1);
+		$this->frontendUserRepository->update($post->getAuthor());
 
 		// output new Data
-		return json_encode(array("error" => false, "postHelpfulCount" => $post->getHelpfulCount(), "userHelpfulCount" => $author->getHelpfulCount()));
+		return json_encode(array("error" => false, "add" => 0, "postHelpfulCount" => $post->getHelpfulCount(), "userHelpfulCount" => $post->getAuthor()->getHelpfulCount()));
+
+	}
+
+	/**
+	 *  remove Supporter Action.
+	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @return void
+	 */
+	public function removeSupporterAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
+		// Assert authentication
+		$currentUser = 	$this->authenticationService->getUser();
+
+		if(!$post->hasBeenSupportedByUser($currentUser)) {
+			return json_encode(array("error" => true, "error_msg" => "not_allowed"));
+		}
+
+		// Set helpfulCount for Author
+		$post->removeSupporter($currentUser);
+		$this->postRepository->update($post);
+
+		$post->getAuthor()->setHelpfulCount($post->getAuthor()->getHelpfulCount()-1);
+		$this->frontendUserRepository->update($post->getAuthor());
+
+		// output new Data
+		return json_encode(array("error" => false, "add" => 1, "postHelpfulCount" => $post->getHelpfulCount(), "userHelpfulCount" => $post->getAuthor()->getHelpfulCount()));
 
 	}
 
