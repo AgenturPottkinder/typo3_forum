@@ -44,7 +44,7 @@
  *
  */
 
-Class Tx_MmForum_ViewHelpers_Authentication_IfAccessViewHelper Extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+Class Tx_MmForum_ViewHelpers_Authentication_IfAccessViewHelper Extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper {
 
 
 
@@ -82,8 +82,12 @@ Class Tx_MmForum_ViewHelpers_Authentication_IfAccessViewHelper Extends \TYPO3\CM
 	 *                             the specified operation.
 	 */
 	Public Function render(Tx_MmForum_Domain_Model_AccessibleInterface $object, $accessType = 'read') {
-		Return $object->checkAccess($this->frontendUserRepository->findCurrent(),
-		                             $accessType) ? $this->renderChildren() : '';
+		if ($object->checkAccess($this->frontendUserRepository->findCurrent(),
+			$accessType)) {
+			return $this->renderThenChild();
+		} else {
+			return $this->renderElseChild();
+		}
 	}
 
 }
