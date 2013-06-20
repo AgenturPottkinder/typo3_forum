@@ -73,10 +73,23 @@ class Tx_MmForum_Domain_Model_Forum_Ads extends \TYPO3\CMS\Extbase\DomainObject\
 
 	/**
 	 * Gets the flag if ad is visible.
-	 * @return int The flag is ad is visible
+	 * @return int The flag if the ad is visible
 	 */
 	public function getActive() {
 		return $this->active;
+	}
+
+	
+	/**
+	 * Gets the flag if ad is visible as boolean.
+	 * @return bool The flag if the ad is visible
+	 */
+	public function isActive() {
+		if($this->getActive() == 1) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
