@@ -37,7 +37,8 @@ class Tx_MmForum_Controller_TopicControllerTest extends Tx_MmForum_Controller_Ab
 	/**
 	 * @var PHPUnit_Framework_MockObject_MockObject
 	 */
-	protected $forumRepositoryMock, $topicRepositoryMock, $postRepositoryMock, $topicFactoryMock, $postFactoryMock;
+	protected $forumRepositoryMock, $topicRepositoryMock, $postRepositoryMock, $topicFactoryMock, $postFactoryMock,
+			  $criteraRepositoryMock, $sessionHandlingMock, $attachmentServiceMock;
 
 
 	/**
@@ -48,16 +49,22 @@ class Tx_MmForum_Controller_TopicControllerTest extends Tx_MmForum_Controller_Ab
 
 
 	public function setUp() {
-		$this->forumRepositoryMock = $this->getMock('Tx_MmForum_Domain_Repository_Forum_ForumRepository');
-		$this->topicRepositoryMock = $this->getMock('Tx_MmForum_Domain_Repository_Forum_TopicRepository');
-		$this->postRepositoryMock  = $this->getMock('Tx_MmForum_Domain_Repository_Forum_PostRepository');
-		$this->topicFactoryMock    = $this->getMock('Tx_MmForum_Domain_Factory_Forum_TopicFactory', array(), array(),
-		                                            '', FALSE);
-		$this->postFactoryMock     = $this->getMock('Tx_MmForum_Domain_Factory_Forum_PostFactory', array(), array(), '',
-		                                            FALSE);
+		$this->forumRepositoryMock		= $this->getMock('Tx_MmForum_Domain_Repository_Forum_ForumRepository');
+		$this->topicRepositoryMock		= $this->getMock('Tx_MmForum_Domain_Repository_Forum_TopicRepository');
+		$this->postRepositoryMock		= $this->getMock('Tx_MmForum_Domain_Repository_Forum_PostRepository');
+		$this->topicFactoryMock			= $this->getMock('Tx_MmForum_Domain_Factory_Forum_TopicFactory', array(), array(),
+														'', FALSE);
+		$this->postFactoryMock			= $this->getMock('Tx_MmForum_Domain_Factory_Forum_PostFactory', array(), array(), '',
+														FALSE);
+		$this->criteraRepositoryMock	= $this->getMock('Tx_MmForum_Domain_Repository_Forum_CriteriaRepository');
+		$this->sessionHandlingMock		= $this->getMock('Tx_MmForum_Service_SessionHandlingService');
+		$this->attachmentServiceMock	= $this->getMock('Tx_MmForum_Service_AttachmentService');
+
 		$this->buildFixture('Tx_MmForum_Controller_TopicController',
 		                    array($this->forumRepositoryMock, $this->topicRepositoryMock, $this->postRepositoryMock,
-		                         $this->topicFactoryMock, $this->postFactoryMock));
+		                         $this->topicFactoryMock, $this->postFactoryMock, $this->criteraRepositoryMock,
+								 $this->sessionHandlingMock, $this->attachmentServiceMock
+							));
 	}
 
 
@@ -156,6 +163,28 @@ class Tx_MmForum_Controller_TopicControllerTest extends Tx_MmForum_Controller_Ab
 		                             $post = $this->getMock('Tx_MmForum_Domain_Model_Forum_Post'), 'Foo');
 	}
 
+
+	public function testSolutionActionSetsSolution() {
+		$post = $this->getMock('Tx_MmForum_Domain_Model_Forum_Post');
+		$topic = $this->getMock('Tx_MmForum_Domain_Model_Forum_Topic');
+		$post->expects($this->any())->method('setSolution');
+		$post->expects($this->any())->method('getTopic')->will($this->returnValue($topic));
+
+		$this->fixture->solutionAction($post);
+		$this->assertTrue(true);
+	}
+
+
+	/**
+	 * @expectedException Tx_MmForum_Domain_Exception_Authentication_NoAccessException
+	 */
+	public function testSolutionUnauthorizedAccessThrowsException() {
+		$post = $this->getMock('Tx_MmForum_Domain_Model_Forum_Post');
+		$this->authenticationServiceMock->expects($this->any())->method('getUser')->will($this->returnValue('Foo'));
+		$post->expects($this->any())->method('getAuthor')->will($this->returnValue('Bar'));
+
+		$this->fixture->solutionAction($post);
+	}
 
 
 	public function getModifyingActions() {

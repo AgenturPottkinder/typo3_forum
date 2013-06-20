@@ -290,12 +290,6 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 											  array('topic' => $topic));
 
 		// Redirect to single forum display view
-		$this->controllerContext->getFlashMessageQueue()->addMessage(
-			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				Tx_MmForum_Utility_Localization::translate('Topic_Create_Success')
-			)
-		);
-		$this->clearCacheForCurrentPage();
 		$this->redirect('show', 'Forum', NULL, array('forum' => $forum));
 	}
 
