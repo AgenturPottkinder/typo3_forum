@@ -268,14 +268,14 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 * @param Tx_MmForum_Domain_Model_Forum_Post $post        The first post of the new topic.
 	 * @param string $subject     The subject of the new topic
 	 * @param array $attachments File attachments for the post.
-	 * @param int $question    The flag if the new topic is declared as question
+	 * @param string $question    The flag if the new topic is declared as question
 	 * @param array $criteria    All submitted criteria with option.
 	 *
 	 * @validate $attachments Tx_MmForum_Domain_Validator_Forum_AttachmentPlainValidator
 	 * @validate $subject NotEmpty
 	 */
 	public function createAction(Tx_MmForum_Domain_Model_Forum_Forum $forum, Tx_MmForum_Domain_Model_Forum_Post $post,
-								 $subject, array $attachments = array(), $question = 0, array $criteria = array()) {
+								 $subject, array $attachments = array(), $question = '', array $criteria = array()) {
 
 		// Assert authorization
 		$this->authenticationService->assertNewTopicAuthorization($forum);
@@ -296,16 +296,25 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 											  array('topic' => $topic));
 
 		// Redirect to single forum display view
-		$this->controllerContext->getFlashMessageQueue()->addMessage(
-			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				Tx_MmForum_Utility_Localization::translate('Topic_Create_Success')
-			)
-		);
-		$this->clearCacheForCurrentPage();
 		$this->redirect('show', 'Forum', NULL, array('forum' => $forum));
 	}
 
 
+	/**
+	 * Sets a post as solution
+	 *
+	 * @param Tx_MmForum_Domain_Model_Forum_Post $post  The post to be marked as solution.
+	 *
+	 * @throws Tx_MmForum_Domain_Exception_Authentication_NoAccessException
+	 * @return void
+	 */
+	public function solutionAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
+		if($post->getAuthor() != $this->authenticationService->getUser()) {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NoAccessException('Not allowed to set solution by current user.');
+		}
+		$this->topicFactory->setPostAsSolution($post->getTopic(),$post);
+		$this->redirect('show', 'Topic', NULL, array('topic' => $post->getTopic()));
+	}
 
 	/*
 	 * HELPER METHODS
