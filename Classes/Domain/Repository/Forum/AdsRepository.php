@@ -42,5 +42,35 @@
  */
 class Tx_MmForum_Domain_Repository_Forum_AdsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
+	/**
+	 * Find all advertisements for the forum view (random sort)
+	 * @param int $limit How many results should come back
+	 * @return Tx_MmForum_Domain_Model_Forum_Ads[]
+	 */
+	public function findForForumView($limit=1) {
+		$query = $this->createQuery();
+		$constraints = array($query->in('category', array(0, 1)),
+			$query->equals('active', 1));
+		$query->matching($query->logicalAnd($constraints))
+			->setLimit(intval($limit))
+			->setOrderings(array('RAND()' => \TYPO3\CMS\Extbase\Persistence\Generic\Query::ORDER_ASCENDING));
+		return $query->execute();
+	}
+
+
+	/**
+	 * Find all advertisements for the topic view (random sort)
+	 * @param int $limit How many results should come back
+	 * @return Tx_MmForum_Domain_Model_Forum_Ads[]
+	 */
+	public function findForTopicView($limit=1) {
+		$query = $this->createQuery();
+		$constraints = array($query->in('category', array(0, 2)),
+			$query->equals('active', 1));
+		$query->matching($query->logicalAnd($constraints))
+			->setLimit(intval($limit))
+			->setOrderings(array('RAND()' => \TYPO3\CMS\Extbase\Persistence\Generic\Query::ORDER_ASCENDING));
+		return $query->execute();
+	}
 
 }
