@@ -48,21 +48,21 @@ class Tx_MmForum_TextParser_Service_SyntaxHighlightingParserService
 
 
 	/**
-	 * An instance of the GeSHi class.
-	 *
-	 * @var GeSHi
+	 * @var Tx_MmForum_TextParser_Service_AbstractGeshiService
 	 */
-	protected $geshi;
+	protected $xtGeshi;
 
 
+	/*
+	 * METHODS
+	 */
 
 	/**
-	 * Creates a new instance of this class.
+	 * Injects an instance of the smilie repository.
+	 * @param Tx_MmForum_TextParser_Service_AbstractGeshiService $xtGeshi
 	 */
-	public function __construct() {
-		parent::__construct();
-		require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mm_forum') . 'Resources/Private/Libraries/GeSHi/geshi.php';
-		$this->geshi = new GeSHi();
+	public function injectAbstractGeshiService(Tx_MmForum_TextParser_Service_AbstractGeshiService $xtGeshi) {
+		$this->xtGeshi = $xtGeshi;
 	}
 
 
@@ -87,9 +87,7 @@ class Tx_MmForum_TextParser_Service_SyntaxHighlightingParserService
 	 * @return string         The rendered source code block.
 	 */
 	protected function parseSourceCode($matches) {
-		$this->geshi->set_language(trim($matches[1]));
-		$this->geshi->set_source(trim($matches[2]));
-		return $this->geshi->parse_code();
+		return $this->xtGeshi->getFormattedText(trim($matches[2]), trim($matches[1]));
 	}
 
 
