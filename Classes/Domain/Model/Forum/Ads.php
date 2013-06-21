@@ -50,6 +50,13 @@ class Tx_MmForum_Domain_Model_Forum_Ads extends \TYPO3\CMS\Extbase\DomainObject\
 	 */
 	protected $name;
 
+
+	/**
+	 * The url to a website
+	 * @var string
+	 */
+	protected $url;
+
 	/**
 	 * The alt-text of the advertisement
 	 * @var string
@@ -90,6 +97,14 @@ class Tx_MmForum_Domain_Model_Forum_Ads extends \TYPO3\CMS\Extbase\DomainObject\
 		} else {
 			return false;
 		}
+	}
+
+	/**
+	 * Gets the URL to a website.
+	 * @return string The URL to a website.
+	 */
+	public function getUrl() {
+		return $this->url;
 	}
 
 	/**
@@ -134,6 +149,16 @@ class Tx_MmForum_Domain_Model_Forum_Ads extends \TYPO3\CMS\Extbase\DomainObject\
 	 */
 	public function setActive($active) {
 		$this->active = intval($active);
+	}
+
+	/**
+	 * Sets the url.
+	 *
+	 * @param string $url URL of a website
+	 * @return void
+	 */
+	public function setUrl($url) {
+		$this->url = $url;
 	}
 
 	/**

@@ -47,14 +47,8 @@ class Tx_MmForum_Domain_Repository_Forum_AdsRepository extends \TYPO3\CMS\Extbas
 	 * @param int $limit How many results should come back
 	 * @return Tx_MmForum_Domain_Model_Forum_Ads[]
 	 */
-	public function findForForumView($limit=1) {
-		$query = $this->createQuery();
-		$constraints = array($query->in('category', array(0, 1)),
-			$query->equals('active', 1));
-		$query->matching($query->logicalAnd($constraints))
-			->setLimit(intval($limit))
-			->setOrderings(array('RAND()' => \TYPO3\CMS\Extbase\Persistence\Generic\Query::ORDER_ASCENDING));
-		return $query->execute();
+	public function findForForumView($limit = 0) {
+		return $this->findAdByCategories(array(0, 1));
 	}
 
 
@@ -63,14 +57,48 @@ class Tx_MmForum_Domain_Repository_Forum_AdsRepository extends \TYPO3\CMS\Extbas
 	 * @param int $limit How many results should come back
 	 * @return Tx_MmForum_Domain_Model_Forum_Ads[]
 	 */
-	public function findForTopicView($limit=1) {
+	public function findForTopicView($limit = 0) {
+		return $this->findAdByCategories(array(0, 2), $limit);
+	}
+
+
+	/**
+	 * Find all advertisements of a specific category
+	 * @TODO: If extbase 6.3 is released, use ORDER BY RAND()
+	 *
+	 * @param array $categories Which categories should be shown? (0=all,1=forum,2=topic)
+	 * @param int How many results should come back
+	 * @return Tx_MmForum_Domain_Model_Forum_Ads[]
+	 */
+	private function findAdByCategories(array $categories = array(), $limit = 0) {
+		if(empty($categories)) $categories = array(0);
+
 		$query = $this->createQuery();
-		$constraints = array($query->in('category', array(0, 2)),
+		$constraints = array($query->in('category', $categories),
 			$query->equals('active', 1));
-		$query->matching($query->logicalAnd($constraints))
-			->setLimit(intval($limit))
-			->setOrderings(array('RAND()' => \TYPO3\CMS\Extbase\Persistence\Generic\Query::ORDER_ASCENDING));
+
+		//work around for ORDER BY RAND() due to bug: http://forge.typo3.org/issues/14026
+		$count = $this->countAdsByConstraint($constraints);
+		$rows = mt_rand(0, max(0, ($count - 1))) - $limit;
+		if ($rows < 0) $rows = 0;
+
+		$query->matching($query->logicalAnd($constraints))->setOffset($rows);
+		if ($limit > 0) {
+			$query->setLimit(intval($limit));
+		}
 		return $query->execute();
+	}
+
+	/**
+	 * Count all Ads
+	 * @param $constraints
+	 * @return int The amount of ads
+	 *
+	 * @deprecated: will be removed when extbase 6.3 is released
+	 */
+	private function countAdsByConstraint($constraints) {
+		$query = $this->createQuery();
+		return $query->matching($query->logicalAnd($constraints))->execute()->count();
 	}
 
 }

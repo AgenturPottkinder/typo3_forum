@@ -504,6 +504,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_ads (
   active tinyint(3) unsigned NOT NULL default '0',
   category tinyint(3) unsigned NOT NULL default '0',
   `name` varchar(64) NOT NULL,
+  `url` varchar(128) NOT NULL,
   alt_text tinytext NULL default NULL,
   path varchar(128) NOT NULL
   PRIMARY KEY  (uid)

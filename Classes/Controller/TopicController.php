@@ -73,6 +73,13 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 
 
 	/**
+	 * The ads repository.
+	 * @var Tx_MmForum_Domain_Repository_Forum_AdsRepository
+	 */
+	protected $adsRepository;
+
+
+	/**
 	 * A factory class for creating topics.
 	 * @var Tx_MmForum_Domain_Factory_Forum_TopicFactory
 	 */
@@ -107,6 +114,8 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 
 
 
+
+
 	/*
 	 * CONSTRUCTOR
 	 */
@@ -123,16 +132,18 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 * @param Tx_MmForum_Domain_Factory_Forum_PostFactory			$postFactory
 	 * @param Tx_MmForum_Domain_Repository_Forum_CriteriaRepository $criteraRepository
 	 * @param Tx_MmForum_Service_SessionHandlingService             $sessionHandling
-	 * @param Tx_MmForum_Service_AttachmentService $attachmentService
+	 * @param Tx_MmForum_Service_AttachmentService					$attachmentService
+	 * @param Tx_MmForum_Domain_Repository_Forum_AdsRepository		$adsRepository
 	 */
 	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
 								Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
 								Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository,
 								Tx_MmForum_Domain_Factory_Forum_TopicFactory $topicFactory,
 								Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory,
-								Tx_MmForum_Domain_Repository_Forum_CriteriaRepository $criteraRepository = NULL,
+								Tx_MmForum_Domain_Repository_Forum_CriteriaRepository $criteraRepository,
 								Tx_MmForum_Service_SessionHandlingService $sessionHandling,
-								Tx_MmForum_Service_AttachmentService $attachmentService) {
+								Tx_MmForum_Service_AttachmentService $attachmentService,
+								Tx_MmForum_Domain_Repository_Forum_AdsRepository $adsRepository) {
 		parent::__construct();
 		$this->forumRepository   = $forumRepository;
 		$this->topicRepository   = $topicRepository;
@@ -142,6 +153,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 		$this->sessionHandling   = $sessionHandling;
 		$this->criteraRepository = $criteraRepository;
 		$this->attachmentService = $attachmentService;
+		$this->adsRepository	 = $adsRepository;
 	}
 
 
@@ -215,7 +227,8 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 			if ($max > $this->settings['topicController']['show']['pagebrowser']['itemsPerPage']) {
 				$max = $this->settings['topicController']['show']['pagebrowser']['itemsPerPage'];
 			}
-			$showAd = array('enabled' => TRUE, 'position' => mt_rand(1,$max-1));
+			$ads = $this->adsRepository->findForTopicView();
+			$showAd = array('enabled' => TRUE, 'position' => mt_rand(1,$max-1), 'ads' => $ads);
 			$this->view->assign('showAd', $showAd);
 		}
 

@@ -55,6 +55,7 @@
 
 			<label index="tx_mmforum_domain_model_forum_ads">Advertisements</label>
 			<label index="tx_mmforum_domain_model_forum_ads_name">Name</label>
+			<label index="tx_mmforum_domain_model_forum_ads_url">URL</label>
 			<label index="tx_mmforum_domain_model_forum_ads_alt">Alt-Text</label>
 			<label index="tx_mmforum_domain_model_forum_ads_path">Path To Image</label>
 			<label index="tx_mmforum_domain_model_forum_ads_category">Category</label>

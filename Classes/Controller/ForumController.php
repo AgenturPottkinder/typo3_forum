@@ -67,6 +67,12 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 
 
 	/**
+	 * The ads repository.
+	 * @var Tx_MmForum_Domain_Repository_Forum_AdsRepository
+	 */
+	protected $adsRepository;
+
+	/**
 	 * The virtual root forum.
 	 * @var Tx_MmForum_Domain_Model_Forum_RootForum
 	 */
@@ -87,16 +93,19 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository An instance of the topic repository.
 	 * @param Tx_MmForum_Domain_Model_Forum_RootForum            $rootForum       An instance of the virtual root forum.
 	 * @param Tx_MmForum_Service_SessionHandlingService $sessionHandling
+	 * @param Tx_MmForum_Domain_Repository_Forum_AdsRepository   $adsRepository
 	 */
 	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
 	                            Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
 	                            Tx_MmForum_Domain_Model_Forum_RootForum $rootForum,
-								Tx_MmForum_Service_SessionHandlingService $sessionHandling) {
+								Tx_MmForum_Service_SessionHandlingService $sessionHandling,
+								Tx_MmForum_Domain_Repository_Forum_AdsRepository $adsRepository) {
 		parent::__construct();
-		$this->forumRepository = $forumRepository;
-		$this->topicRepository = $topicRepository;
-		$this->rootForum       = $rootForum;
-		$this->sessionHandling		= $sessionHandling;
+		$this->forumRepository	= $forumRepository;
+		$this->topicRepository	= $topicRepository;
+		$this->rootForum		= $rootForum;
+		$this->sessionHandling	= $sessionHandling;
+		$this->adsRepository	= $adsRepository;
 	}
 
 
@@ -142,7 +151,8 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 			if ($max > $this->settings['topicController']['show']['pagebrowser']['itemsPerPage']) {
 				$max = $this->settings['topicController']['show']['pagebrowser']['itemsPerPage'];
 			}
-			$showAd = array('enabled' => TRUE, 'position' => mt_rand(1,$max-1));
+			$ads = $this->adsRepository->findForForumView();
+			$showAd = array('enabled' => TRUE, 'position' => mt_rand(1,$max-1), 'ads' => $ads);
 			$this->view->assign('showAd', $showAd);
 		}
 		// AdHandling End
