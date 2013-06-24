@@ -17,12 +17,17 @@
 			<label index="Behaviour_Action_Posts_List">Posts List</label>
 			<label index="Behaviour_Action_Topics_List">Topics List</label>
 			<label index="Behaviour_Action_Users_List">Users List</label>
+			<label index="Behaviour_Action_Dashboard">Dashboard</label>
 			<label index="Display">Display View</label>
 			<label index="Display_Default">Default</label>
 			<label index="Display_Latest_Box">Latest Posts Box</label>
 			<label index="Display_Active_User_Widget">Active User</label>
 			<label index="Display_Helpful_User_Widget">Helpful User</label>
 			<label index="Display_Online_User_Widget">Online User</label>
+			<label index="Display_My_Topics_Widget">My Topics for current User</label>
+			<label index="Display_Notification_Widget">Notification for current User</label>
+			<label index="Display_Message_Widget">Messages for current User</label>
+			<label index="Display_Favorite_Widget">Favorites for current User</label>
 			<label index="Display_QuestionBox">Latest Questions Box</label>
 			<label index="Display_Questionslist">Questions List</label>
 			<label index="Display_PopularBox">Popular Topics  Box</label>

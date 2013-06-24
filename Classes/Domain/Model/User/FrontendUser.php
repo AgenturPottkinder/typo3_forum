@@ -144,6 +144,12 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 
 
 	/**
+	 * @var string
+	 */
+	protected $rank;
+
+
+	/**
 	 * JSON encoded contact addresses and social network profile names. Stored
 	 * unstructuredly in order to add more types of addresses without extending
 	 * the database for each social network.
@@ -180,7 +186,21 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 		return $this->postCount;
 	}
 
+	/**
+	 * @return int
+	 */
+	public function getGender() {
+		return $this->gender;
+	}
 
+
+	/**
+	 * Dummy function
+	 * @return string
+	 */
+	public function getRank() {
+		return '-';
+	}
 
 	/**
 	 * Gets the subscribed topics.

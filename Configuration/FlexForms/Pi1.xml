@@ -44,6 +44,10 @@
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Users_List</numIndex>
 										<numIndex index="1">User->list</numIndex>
 									</numIndex>
+									<numIndex index="7">
+										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Dashboard</numIndex>
+										<numIndex index="1">User->dashboard</numIndex>
+									</numIndex>
 								</items>
 							</config>
 							<onChange>reload</onChange>
@@ -58,6 +62,22 @@
 									<numIndex index="0" type="array">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_Default</numIndex>
 										<numIndex index="1">default</numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_Notification_Widget</numIndex>
+										<numIndex index="1">notificationList</numIndex>
+									</numIndex>
+									<numIndex index="2" type="array">
+										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_Message_Widget</numIndex>
+										<numIndex index="1">messageList</numIndex>
+									</numIndex>
+									<numIndex index="3" type="array">
+										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_Favorite_Widget</numIndex>
+										<numIndex index="1">favoriteList</numIndex>
+									</numIndex>
+									<numIndex index="4" type="array">
+										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_My_Topics_Widget</numIndex>
+										<numIndex index="1">myTopicsList</numIndex>
 									</numIndex>
 								</items>
 							</config>

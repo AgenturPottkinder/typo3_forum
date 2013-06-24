@@ -102,6 +102,15 @@
 			<label index="User_Index_Contact">Contact</label>
 			<label index="User_Index_MemberSince">Registered since</label>
 			<label index="User_Index_Message">Message</label>
+			<label index="User_Index_Messages">Messages</label>
+			<label index="User_Index_Notifications">Notifications</label>
+			<label index="User_Index_Favorites">My favorites</label>
+			<label index="User_Index_MyTopics">My topics</label>
+			<label index="User_Index_Dashboard">My Dashboard</label>
+			<label index="User_Index_All_Notifications">all notifications</label>
+			<label index="User_Index_All_Messages">all messages</label>
+			<label index="User_Index_All_Favorites">all favorites</label>
+			<label index="User_Index_All_MyTopics">all topics</label>
 			<label index="User_Index_Posts">Posts</label>
             <label index="User_Index_Helpful_Posts">Helpful Posts</label>
 			<label index="User_Index_Username">Username</label>
@@ -113,12 +122,14 @@
 			<label index="User_Show_LastPosts">Last posts</label>
 			<label index="User_Show_MemberSince">Member since</label>
 			<label index="User_Show_PostCount">%d posts</label>
+			<label index="User_Show_Rank">Rank</label>
 			<label index="User_Subscribe_Forum_Success">The Forum &quot;%s&quot; has successfully been subscribed.</label>
 			<label index="User_Subscribe_Topic_Success">The Topic &quot;%s&quot; has successfully been subscribed.</label>
 			<label index="User_Unsubscribe_Forum_Success">The Forum &quot;%s&quot; has successfully been unsubscribed.</label>
 			<label index="User_Unsubscribe_Topic_Success">The Topic &quot;%s&quot; has successfully been unsubscribed.</label>
 			<label index="Subforums">Subforums</label>
 			<label index="Notice">Notice:</label>
+			<label index="Link_Edit_Profile">Edit profile</label>
 		</languageKey>
 		<languageKey index="af"></languageKey>
 		<languageKey index="ar"></languageKey>
@@ -224,6 +235,15 @@
 			<label index="User_Index_Contact">Kontakt</label>
 			<label index="User_Index_MemberSince">Registriert seit</label>
 			<label index="User_Index_Message">Nachricht</label>
+			<label index="User_Index_Messages">Nachrichten</label>
+			<label index="User_Index_Notifications">Benachrichtigungen</label>
+			<label index="User_Index_Favorites">Meine Favoriten</label>
+			<label index="User_Index_Topics">Meine Topics</label>
+			<label index="User_Index_Dashboard">Mein Dashboard</label>
+			<label index="User_Index_All_Notifications">alle Benachrichtigungen</label>
+			<label index="User_Index_All_Messages">alle Nachrichten</label>
+			<label index="User_Index_All_Favorites">alle Favorieten</label>
+			<label index="User_Index_All_MyTopics">alle Topics</label>
 			<label index="User_Index_Posts">Beiträge</label>
             <label index="User_Index_Helpful_Posts">Hilfreiche Bewertungen</label>
 			<label index="User_Index_Username">Benutzername</label>
@@ -235,12 +255,14 @@
 			<label index="User_Show_LastPosts">Letzte Beiträge</label>
 			<label index="User_Show_MemberSince">Mitglied seit</label>
 			<label index="User_Show_PostCount">%d Beiträge</label>
+			<label index="User_Show_Rank">Rang</label>
 			<label index="User_Subscribe_Forum_Success">Das Forum &quot;%s&quot; wurde erfolgreich abonniert.</label>
 			<label index="User_Subscribe_Topic_Success">Das Thema &quot;%s&quot; wurde erfolgreich abonniert.</label>
 			<label index="User_Unsubscribe_Forum_Success">Das Forum &quot;%s&quot; wurde erolgreich aus den Abonnements entfernt.</label>
 			<label index="User_Unsubscribe_Topic_Success">Das Thema &quot;%s&quot; wurde erolgreich aus den Abonnements entfernt.</label>
 			<label index="Subforums">Unterforen</label>
 			<label index="Notice">Hinweis:</label>
+			<label index="Link_Edit_Profile">Profil bearbeiten</label>
 		</languageKey>
 		<languageKey index="el"></languageKey>
 		<languageKey index="eo"></languageKey>

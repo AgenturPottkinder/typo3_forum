@@ -136,6 +136,30 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 				$dataset['users'] = $this->frontendUserRepository->findByFilter(4, array('is_online' => 'DESC'), TRUE);
 				$partial = 'User/OnlineBox';
 				break;
+			case 'notificationList':
+				$partial = 'User/MessageBox';
+				break;
+			case 'notificationWidget':
+				$partial = 'User/NotificationBox';
+				break;
+			case 'messageList':
+				$partial = 'User/MessageBox';
+				break;
+			case 'messageWidget':
+				$partial = 'User/MessageBox';
+				break;
+			case 'favoriteList':
+				$partial = 'User/FavoriteBox';
+				break;
+			case 'favoriteWidget':
+				$partial = 'User/FavoriteBox';
+				break;
+			case 'myTopicsList':
+				$partial = 'User/MyTopicsBox';
+				break;
+			case 'myTopicsWidget':
+				$partial = 'User/MyTopicsBox';
+				break;
 			default:
 				$dataset['users'] = $this->frontendUserRepository->findByFilter(6, array('postCount' => 'DESC'));
 				$partial = 'User/List';
@@ -239,16 +263,35 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	/**
 	 * Displays all topics and forums subscribed by the current user.
 	 * @return void
+	 *
+	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
 	 */
 	public function listSubscriptionsAction() {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
 			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException('You need to be logged in to view your own subscriptions!', 1335120249);
 		}
+
 		$this->view
 			->assign('forums', $this->forumRepository->findBySubscriber($user))
 			->assign('topics', $this->topicRepository->findBySubscriber($user))
 			->assign('user', $user);
+	}
+
+
+	/**
+	 * Displays a dashboard for the current user
+	 * @return void
+	 *
+	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 */
+	public function dashboardAction() {
+		$user = $this->getCurrentUser();
+		if ($user->isAnonymous()) {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException('You need to be logged in to view your own subscriptions!', 1335120249);
+		}
+		$this->view->assign('user',$user);
+
 	}
 
 
