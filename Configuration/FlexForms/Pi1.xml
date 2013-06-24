@@ -79,6 +79,10 @@
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_My_Topics_Widget</numIndex>
 										<numIndex index="1">myTopicsList</numIndex>
 									</numIndex>
+									<numIndex index="5" type="array">
+										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_My_Posts_List</numIndex>
+										<numIndex index="1">myPostsList</numIndex>
+									</numIndex>
 								</items>
 							</config>
 							<displayCond>FIELD:switchableControllerActions:=:User->list</displayCond>
