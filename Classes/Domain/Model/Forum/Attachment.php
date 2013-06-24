@@ -129,7 +129,7 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\Domain
 	 * Gets the whole TCA config of tx_mmforum_domain_model_forum_attachment
 	 * @return array The whole TCA config of tx_mmforum_domain_model_forum_attachment
 	 */
-	private function getTCAConfig() {
+	public function getTCAConfig() {
 		global $TCA;
 		$GLOBALS['TSFE']->includeTCA();
 		\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA('tx_mmforum_domain_model_forum_attachment');

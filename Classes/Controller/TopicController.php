@@ -227,7 +227,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 			if ($max > $this->settings['topicController']['show']['pagebrowser']['itemsPerPage']) {
 				$max = $this->settings['topicController']['show']['pagebrowser']['itemsPerPage'];
 			}
-			$ads = $this->adsRepository->findForTopicView();
+			$ads = $this->adsRepository->findForTopicView(1);
 			$showAd = array('enabled' => TRUE, 'position' => mt_rand(1,$max-1), 'ads' => $ads);
 			$this->view->assign('showAd', $showAd);
 		}

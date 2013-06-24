@@ -48,7 +48,7 @@ class Tx_MmForum_Domain_Repository_Forum_AdsRepository extends \TYPO3\CMS\Extbas
 	 * @return Tx_MmForum_Domain_Model_Forum_Ads[]
 	 */
 	public function findForForumView($limit = 0) {
-		return $this->findAdByCategories(array(0, 1));
+		return $this->findAdsByCategories(array(0, 1));
 	}
 
 
@@ -58,7 +58,7 @@ class Tx_MmForum_Domain_Repository_Forum_AdsRepository extends \TYPO3\CMS\Extbas
 	 * @return Tx_MmForum_Domain_Model_Forum_Ads[]
 	 */
 	public function findForTopicView($limit = 0) {
-		return $this->findAdByCategories(array(0, 2), $limit);
+		return $this->findAdsByCategories(array(0, 2), $limit);
 	}
 
 
@@ -70,7 +70,7 @@ class Tx_MmForum_Domain_Repository_Forum_AdsRepository extends \TYPO3\CMS\Extbas
 	 * @param int How many results should come back
 	 * @return Tx_MmForum_Domain_Model_Forum_Ads[]
 	 */
-	private function findAdByCategories(array $categories = array(), $limit = 0) {
+	private function findAdsByCategories(array $categories = array(), $limit = 0) {
 		if(empty($categories)) $categories = array(0);
 
 		$query = $this->createQuery();
