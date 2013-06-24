@@ -25,7 +25,6 @@
  *                                                                      */
 
 
-
 /**
  * A single topic. Each topic can contain an infinite number of
  * posts. Topic are submitted to the access control mechanism and
@@ -41,14 +40,12 @@
  */
 class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	implements Tx_MmForum_Domain_Model_AccessibleInterface, Tx_MmForum_Domain_Model_SubscribeableInterface,
-	           Tx_MmForum_Domain_Model_NotifiableInterface, Tx_MmForum_Domain_Model_ReadableInterface {
-
+	Tx_MmForum_Domain_Model_NotifiableInterface, Tx_MmForum_Domain_Model_ReadableInterface {
 
 
 	/*
 	 * ATTRIBUTES
 	 */
-
 
 
 	/**
@@ -179,11 +176,9 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 //	private $_modifiedParent = FALSE;
 
 
-
 	/*
 	 * CONSTRUCTOR
 	 */
-
 
 
 	/**
@@ -191,20 +186,18 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	 * @param string $subject The topic's subject.
 	 */
 	public function __construct($subject = '') {
-		$this->posts           = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->subscribers     = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->readers         = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->posts = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->subscribers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->readers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->criteriaOptions = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->crdate          = new DateTime();
-		$this->subject         = $subject;
+		$this->crdate = new DateTime();
+		$this->subject = $subject;
 	}
-
 
 
 	/*
 	 * GETTER METHODS
 	 */
-
 
 
 	/**
@@ -216,7 +209,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	}
 
 
-
 	/**
 	 * Alias for getSubject. Necessary to implement the SubscribeableInterface.
 	 * @return string The subject
@@ -226,7 +218,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	}
 
 
-
 	/**
 	 * Alias for getSubject. Necessary to implement the NofifiableInterface.
 	 * @return string  The subject
@@ -234,7 +225,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	public function getName() {
 		return $this->getSubject();
 	}
-
 
 
 	/**
@@ -247,7 +237,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 		/** @noinspection PhpUndefinedMethodInspection */
 		return $this->posts->current()->getText();
 	}
-
 
 
 	/**
@@ -265,7 +254,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 		}
 		return $this->author;
 	}
-
 
 
 	/**
@@ -294,7 +282,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	}
 
 
-
 	/**
 	 * Gets the post count.
 	 * @return integer Post count
@@ -302,7 +289,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	public function getPostCount() {
 		return $this->postCount;
 	}
-
 
 
 	/**
@@ -314,7 +300,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	}
 
 
-
 	/**
 	 * Gets whether the topic is closed.
 	 * @return boolean
@@ -322,7 +307,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	public function isClosed() {
 		return $this->closed;
 	}
-
 
 
 	/**
@@ -334,7 +318,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	}
 
 
-
 	/**
 	 * Gets the forum.
 	 * @return Tx_MmForum_Domain_Model_Forum_Forum A forum
@@ -344,7 +327,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	}
 
 
-
 	/**
 	 * Gets the creation time of this topic.
 	 * @return DateTime
@@ -352,7 +334,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	public function getTimestamp() {
 		return $this->crdate;
 	}
-
 
 
 	/**
@@ -391,7 +372,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	}
 
 
-
 	/**
 	 * Returns all parent forums in hiearchical order as a flat list (optionally
 	 * with or without this topic itself).
@@ -413,10 +393,23 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	 * @return Tx_MmForum_Domain_Model_Forum_Post
 	 */
 	public function getFirstPost() {
-		foreach($this->getPosts() AS $post) {
-			return $post;
+		$this->getPosts()->rewind();
+		return $this->getPosts()->current();
+	}
+
+	/**
+	 * Get the most supported post of a topic
+	 * @return Tx_MmForum_Domain_Model_Forum_Post
+	 * @todo refactor (Lazyloading or something else)
+	 */
+	public function getMostSupportedPost() {
+		$oPost = false;
+		foreach ($this->getPosts() as $post) {
+			if (($oPost == false || $post->getHelpfulCount() > $oPost->getHelpfulCount()) && $post->getHelpfulCount() > 0 && $this->getAuthor() != $post->getAuthor()) {
+				$oPost = $post;
+			}
 		}
-		return false;
+		return $oPost;
 	}
 
 
@@ -425,7 +418,7 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	 * topic.
 	 *
 	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user       The user.
-	 * @param  string                                    $accessType The access type to be checked.
+	 * @param  string $accessType The access type to be checked.
 	 * @return boolean
 	 */
 	public function checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'read') {
@@ -438,7 +431,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 				return $this->forum->checkAccess($user, $accessType);
 		}
 	}
-
 
 
 	/**
@@ -456,7 +448,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	}
 
 
-
 	/**
 	 * Checks if a user has moderative access to this topic.
 	 *
@@ -466,7 +457,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	public function checkModerationAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
 		return ($user === NULL) ? FALSE : $this->getForum()->checkModerationAccess($user);
 	}
-
 
 
 	/**
@@ -485,11 +475,9 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 //	}
 
 
-
 	/*
 	 * SETTER METHODS
 	 */
-
 
 
 	/**
@@ -521,14 +509,12 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 		if ($this->forum !== NULL) {
 			$this->forum->_increasePostCount(+1);
 			if ($this->forum->getLastPost() === NULL || $this->forum->getLastPost()
-				->getTimestamp() < $post->getTimestamp()
+					->getTimestamp() < $post->getTimestamp()
 			) {
 				$this->forum->setLastPost($post);
 			}
 		}
 	}
-
-
 
 
 	/**
@@ -572,7 +558,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	}
 
 
-
 	/**
 	 * Sets the topic author.
 	 *
@@ -584,7 +569,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	}
 
 
-
 	/**
 	 * Sets the last post. This method is not publicy accessible; is is called
 	 * automatically when a new post is added to this topic.
@@ -593,10 +577,9 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	 * @return void
 	 */
 	protected function setLastPost(Tx_MmForum_Domain_Model_Forum_Post $lastPost) {
-		$this->lastPost       = $lastPost;
+		$this->lastPost = $lastPost;
 		$this->lastPostCrdate = $lastPost->getTimestamp();
 	}
-
 
 
 	/**
@@ -630,7 +613,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	}
 
 
-
 	/**
 	 * Sets this topic to closed.
 	 *
@@ -640,7 +622,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	public function setClosed($closed) {
 		$this->closed = (boolean)$closed;
 	}
-
 
 
 	/**
@@ -655,7 +636,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	}
 
 
-
 	/**
 	 * Sets this topic to a question. Question topics will be shown at the support queries helpbox.
 	 *
@@ -665,7 +645,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	public function setQuestion($question) {
 		$this->question = (int)$question;
 	}
-
 
 
 	/**
@@ -689,7 +668,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	}
 
 
-
 	/**
 	 * Mark this topic as unread for a certain user.
 	 *
@@ -701,7 +679,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	}
 
 
-
 	/**
 	 * Mark this topic as unread for all users.
 	 * @return void
@@ -709,7 +686,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	public function removeAllReaders() {
 		$this->readers = New \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
-
 
 
 	/**
@@ -722,7 +698,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	}
 
 
-
 	/**
 	 * Removes a subscriber.
 	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user The subscriber to be removed.
@@ -730,7 +705,6 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	public function removeSubscriber(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
 		$this->subscribers->detach($user);
 	}
-
 
 
 }

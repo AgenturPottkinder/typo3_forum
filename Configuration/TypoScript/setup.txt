@@ -224,6 +224,7 @@ plugin.tx_mmforum.settings {
 	textParsing {
 		enabledServices {
 			basic = Tx_MmForum_TextParser_Service_BasicParserService
+			tidy = Tx_MmForum_TextParser_Service_TidyService
 			bbCodes = Tx_MmForum_TextParser_Service_BBCodeParserService
 			smilies = Tx_MmForum_TextParser_Service_SmilieParserService
 			syntax = Tx_MmForum_TextParser_Service_SyntaxHighlightingParserService
@@ -231,8 +232,8 @@ plugin.tx_mmforum.settings {
 			quotes {
 				template = EXT:mm_forum/Resources/Private/Partials/Format/Quote.html
 			}
+
 			lists = Tx_MmForum_TextParser_Service_ListParserService
-			tidy = Tx_MmForum_TextParser_Service_TidyService
 		}
 
 		editorPanel {
