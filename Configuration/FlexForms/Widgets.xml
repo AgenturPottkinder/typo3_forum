@@ -43,22 +43,6 @@
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_Online_User_Widget</numIndex>
 										<numIndex index="1">onlineUserWidget</numIndex>
 									</numIndex>
-									<numIndex index="3" type="array">
-										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_Notification_Widget</numIndex>
-										<numIndex index="1">notificationWidget</numIndex>
-									</numIndex>
-									<numIndex index="4" type="array">
-										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_Message_Widget</numIndex>
-										<numIndex index="1">messageWidget</numIndex>
-									</numIndex>
-									<numIndex index="5" type="array">
-										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_Favorite_Widget</numIndex>
-										<numIndex index="1">favoriteWidget</numIndex>
-									</numIndex>
-									<numIndex index="6" type="array">
-										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_My_Topics_Widget</numIndex>
-										<numIndex index="1">myTopicsWidget</numIndex>
-									</numIndex>
 								</items>
 							</config>
 							<displayCond>FIELD:switchableControllerActions:=:User->list</displayCond>

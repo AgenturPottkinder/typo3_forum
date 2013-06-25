@@ -136,30 +136,6 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 				$dataset['users'] = $this->frontendUserRepository->findByFilter(4, array('is_online' => 'DESC'), TRUE);
 				$partial = 'User/OnlineBox';
 				break;
-			case 'notificationList':
-				$partial = 'User/MessageBox';
-				break;
-			case 'notificationWidget':
-				$partial = 'User/NotificationBox';
-				break;
-			case 'messageList':
-				$partial = 'User/MessageBox';
-				break;
-			case 'messageWidget':
-				$partial = 'User/MessageBox';
-				break;
-			case 'favoriteList':
-				$partial = 'User/FavoriteBox';
-				break;
-			case 'favoriteWidget':
-				$partial = 'User/FavoriteBox';
-				break;
-			case 'myTopicsList':
-				$partial = 'User/MyTopicsBox';
-				break;
-			case 'myTopicsWidget':
-				$partial = 'User/MyTopicsBox';
-				break;
 			default:
 				$dataset['users'] = $this->frontendUserRepository->findByFilter(6, array('postCount' => 'DESC'));
 				$partial = 'User/List';
@@ -187,7 +163,29 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
 		}
 		$this->view
-			->assign('topics', $this->topicRepository->findByPostAuthor($user))
+			->assign('topics', $this->topicRepository->findTopicsCreatedByAuthor($user))
+			->assign('user', $user);
+	}
+
+
+
+	/**
+	 * Lists all posts of a specific user. If no user is specified, this action lists all
+	 * posts of the current user.
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 *
+	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 * @return void
+	 */
+	public function listTopicsAction(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
+		if ($user === NULL) {
+			$user = $this->getCurrentUser();
+		}
+		if ($user->isAnonymous()) {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
+		}
+		$this->view
+			->assign('topics', $this->topicRepository->findTopicsCreatedByAuthor($user))
 			->assign('user', $user);
 	}
 
@@ -307,11 +305,15 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
 	 */
 	public function dashboardAction() {
-		$user = $this->getCurrentUser();
+		$user = $this->authenticationService->getUser();
 		if ($user->isAnonymous()) {
 			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException('You need to be logged in to view your own subscriptions!', 1335120249);
 		}
-		$this->view->assign('user',$user);
+		$this->view->assign('user',$user)
+					->assign('myNotifications',NULL)
+					->assign('myMessages', NULL)
+					->assign('myFavorites', NULL)
+					->assign('myTopics',$this->topicRepository->findTopicsCreatedByAuthor($user, 4));
 
 	}
 

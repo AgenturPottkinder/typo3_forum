@@ -140,6 +140,30 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 
 
 	/**
+	 * Finds topics by post authors, i.e. all topics that contain at least one post
+	 * by a specific author. Page navigation is possible.
+	 *
+	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 *                               The frontend user whose topics are to be loaded.
+	 * @param int $limit
+	 * @return Tx_MmForum_Domain_Model_Forum_Topic[]
+	 *                               All topics that contain a post by the specified
+	 *                               user.
+	 */
+	public function findTopicsCreatedByAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $user, $limit=0) {
+		$query = $this->createQuery();
+		$query
+			->matching($query->equals('author', $user))
+			->setOrderings(array('crdate' => 'DESC'));
+		if($limit > 0) {
+			$query->setLimit($limit);
+		}
+		return $query->execute();
+	}
+
+
+
+	/**
 	 * Counts topics by post authors. See findByPostAuthor.
 	 *
 	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user

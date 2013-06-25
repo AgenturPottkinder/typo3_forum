@@ -22,7 +22,8 @@
 									</numIndex>
 									<numIndex index="1">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_User_Show</numIndex>
-										<numIndex index="1">User->show;User->listPosts;User->listQuestions</numIndex>
+										<numIndex index="1">User->show;User->listPosts;User->listQuestions;User->listTopics</numIndex>
+
 									</numIndex>
 									<numIndex index="2">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_User_ListSubscriptions</numIndex>
@@ -46,7 +47,7 @@
 									</numIndex>
 									<numIndex index="7">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Dashboard</numIndex>
-										<numIndex index="1">User->dashboard</numIndex>
+										<numIndex index="1">User->dashboard;User->listPosts</numIndex>
 									</numIndex>
 								</items>
 							</config>
