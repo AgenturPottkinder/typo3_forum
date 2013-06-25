@@ -160,6 +160,9 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 			case 'myTopicsWidget':
 				$partial = 'User/MyTopicsBox';
 				break;
+			case 'myPostsList':
+				$partial = 'User/MyPostsBox';
+				break;
 			default:
 				$dataset['users'] = $this->frontendUserRepository->findByFilter(6, array('postCount' => 'DESC'));
 				$partial = 'User/List';
