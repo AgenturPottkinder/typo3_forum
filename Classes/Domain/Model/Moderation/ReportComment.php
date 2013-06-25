@@ -91,11 +91,9 @@ class Tx_MmForum_Domain_Model_Moderation_ReportComment extends \TYPO3\CMS\Extbas
 
 	/**
 	 * Constructor
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $author
-	 * @param                                           $text.
+	 * @param  string                                  $text.
 	 */
-	public function __construct(Tx_MmForum_Domain_Model_User_FrontendUser $author, $text) {
-		$this->author = $author;
+	public function __construct($text) {
 		$this->text   = $text;
 	}
 

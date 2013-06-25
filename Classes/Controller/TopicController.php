@@ -224,8 +224,8 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 				// Needed for case mt_rand(1,1-1) => mt_rand(1,0) => php warning
 				$max++;
 			}
-			if ($max > $this->settings['topicController']['show']['pagebrowser']['itemsPerPage']) {
-				$max = $this->settings['topicController']['show']['pagebrowser']['itemsPerPage'];
+			if ($max > $this->settings['topicController']['show']['pagebrowser']['topic']['itemsPerPage']) {
+				$max = $this->settings['topicController']['show']['pagebrowser']['topic']['itemsPerPage'];
 			}
 			$ads = $this->adsRepository->findForTopicView(1);
 			$showAd = array('enabled' => TRUE, 'position' => mt_rand(1,$max-1), 'ads' => $ads);

@@ -127,8 +127,8 @@ class Tx_MmForum_Controller_ReportController extends Tx_MmForum_Controller_Abstr
 	 * @return void
 	 */
 	public function createAction(Tx_MmForum_Domain_Model_Forum_Post $post,
-	                             Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment) {
-		// Assert authorization
+	                             Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment = NULL) {
+		// Assert authorization;
 		$this->authenticationService->assertReadAuthorization($post);
 
 		// Create the new report using the factory class and persist the new object

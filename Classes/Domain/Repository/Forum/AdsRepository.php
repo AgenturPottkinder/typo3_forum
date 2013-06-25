@@ -48,7 +48,7 @@ class Tx_MmForum_Domain_Repository_Forum_AdsRepository extends \TYPO3\CMS\Extbas
 	 * @return Tx_MmForum_Domain_Model_Forum_Ads[]
 	 */
 	public function findForForumView($limit = 0) {
-		return $this->findAdsByCategories(array(0, 1));
+		return $this->findAdsByCategories(array(0, 1), $limit);
 	}
 
 

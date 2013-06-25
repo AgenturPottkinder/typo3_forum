@@ -97,14 +97,12 @@ class Tx_MmForum_Domain_Factory_Moderation_ReportFactory extends Tx_MmForum_Doma
 	public function createReport(Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment,
 	                             Tx_MmForum_Domain_Model_Forum_Post $post) {
 		$user = & $this->getCurrentUser();
-
 		$firstComment->setAuthor($user);
 		$report = $this->getClassInstance();
 		$report->setWorkflowStatus($this->workflowStatusRepository->findInitial());
 		$report->setPost($post);
 		$report->setReporter($user);
 		$report->addComment($firstComment);
-
 		return $report;
 	}
 
