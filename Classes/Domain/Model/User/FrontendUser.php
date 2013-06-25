@@ -193,6 +193,12 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 		return $this->gender;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getRegistrationDate() {
+		return $this->crdate->format('d.m.Y');
+	}
 
 	/**
 	 * Dummy function

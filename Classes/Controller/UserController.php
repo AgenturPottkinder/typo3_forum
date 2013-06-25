@@ -160,9 +160,6 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 			case 'myTopicsWidget':
 				$partial = 'User/MyTopicsBox';
 				break;
-			case 'myPostsList':
-				$partial = 'User/MyPostsBox';
-				break;
 			default:
 				$dataset['users'] = $this->frontendUserRepository->findByFilter(6, array('postCount' => 'DESC'));
 				$partial = 'User/List';
@@ -178,6 +175,8 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	 * Lists all posts of a specific user. If no user is specified, this action lists all
 	 * posts of the current user.
 	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 *
+	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
 	 * @return void
 	 */
 	public function listPostsAction(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
@@ -189,6 +188,24 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 		}
 		$this->view
 			->assign('topics', $this->topicRepository->findByPostAuthor($user))
+			->assign('user', $user);
+	}
+
+	/**
+	 * Lists all questions of a specific user. If no user is specified, this action lists all
+	 * posts of the current user.
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @return void
+	 */
+	public function listQuestionsAction(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
+		if ($user === NULL) {
+			$user = $this->getCurrentUser();
+		}
+		if ($user->isAnonymous()) {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
+		}
+		$this->view
+			->assign('topics', $this->topicRepository->findQuestions(null, true, $user))
 			->assign('user', $user);
 	}
 
@@ -210,7 +227,8 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 		$this->view
 			->assign('user', $user)
 			->assign('userfields', $this->userfieldRepository->findAll())
-			->assign('topics', $lastFiveTopics);
+			->assign('topics', $lastFiveTopics)
+			->assign('questions', $this->topicRepository->findQuestions(6, false, $user));
 	}
 
 

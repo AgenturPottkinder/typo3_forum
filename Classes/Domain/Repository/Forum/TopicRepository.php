@@ -91,19 +91,32 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 
 	/**
 	 * Finds topics with questions flag.
+	 *
+	 * @param null $limit
+	 * @param bool $showAnswered
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @return Tx_MmForum_Domain_Model_Forum_Topic[]
 	 */
-	public function findQuestions($limit = NULL) {
+
+	public function findQuestions($limit = NULL, $showAnswered = FALSE, Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
+
 		$query = $this->createQuery();
-		$query
-			->matching($query->equals('question', '1'))
-			->setOrderings(array('sticky'           => 'DESC',
-								 'crdate'  => 'DESC'));
-			if($limit != NULL && is_numeric($limit)) {
-				$query->setLimit($limit);
-			}
+
+		$constraint = array($query->equals('question', '1'));
+		if ($user != null) {
+			$constraint[] = $query->equals('author', $user);
+		}
+		if ($showAnswered == FALSE) {
+			$constraint[] = $query->equals('solution', 0);
+		}
+		$query->setOrderings(array('sticky' => 'DESC',
+			'posts.crdate' => 'DESC'));
+		if ($limit != NULL && is_numeric($limit)) {
+			$query->setLimit($limit);
+		}
+		$query->matching($query->logicalAnd($constraint));
 		return $query->execute();
 	}
-
 
 
 	/**

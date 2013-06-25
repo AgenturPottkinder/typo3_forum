@@ -272,20 +272,6 @@ plugin.tx_mmforum.settings {
 				mapToUserObject = username
 			}
 		}
-		registered_since {
-			class = Tx_MmForum_Domain_Model_User_Userfield_DateUserfield
-			properties {
-				name = LLL:EXT:mm_forum/Resources/Private/Language/locallang_user.xml:RegisteredSince
-				mapToUserObject = crdate
-			}
-		}
-		real_name {
-			class = Tx_MmForum_Domain_Model_User_Userfield_TextUserfield
-			properties {
-				name = LLL:EXT:mm_forum/Resources/Private/Language/locallang_user.xml:RealName
-				mapToUserObject = name
-			}
-		}
 	}
 }
 
