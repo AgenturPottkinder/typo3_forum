@@ -58,6 +58,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 */
 	protected $postCount;
 
+
 	/**
 	 * Topic count of a user
 	 * @var integer
@@ -83,6 +84,36 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 * @var string
 	 */
 	protected $signature;
+
+	/**
+	 * @var string
+	 */
+	protected $facebook;
+
+	/**
+	 * @var string
+	 */
+	protected $twitter;
+
+	/**
+	 * @var string
+	 */
+	protected $google;
+
+	/**
+	 * @var string
+	 */
+	protected $skype;
+
+	/**
+	 * @var string
+	 */
+	protected $job;
+
+	/**
+	 * @var string
+	 */
+	protected $workingEnvironment;
 
 
 	/**
@@ -161,6 +192,11 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 */
 	protected $rank;
 
+	/**
+	 * @var string
+	 */
+	protected $interests;
+
 
 	/**
 	 * JSON encoded contact addresses and social network profile names. Stored
@@ -199,12 +235,61 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 		return $this->postCount;
 	}
 
+
 	/**
 	 * Gets the topic count of this user.
 	 * @return integer The topic count.
 	 */
 	public function getTopicCount() {
 		return $this->topicCount;
+	}
+
+	/**
+	 * Gets the social-profile of user
+	 * @return string
+	 */
+	public function getFacebook() {
+		return $this->facebook;
+	}
+
+	/**
+	 * Gets the social-profile of user
+	 * @return string
+	 */
+	public function getTwitter() {
+		return $this->twitter;
+	}
+
+	/**
+	 * Gets the social-profile of user
+	 * @return string
+	 */
+	public function getGoogle() {
+		return $this->google;
+	}
+
+	/**
+	 * Gets the social-profile of user
+	 * @return string
+	 */
+	public function getSkype() {
+		return $this->skype;
+	}
+
+	/**
+	 * Gets the job of user
+	 * @return string
+	 */
+	public function getJob() {
+		return $this->job;
+	}
+
+	/**
+	 * Gets the job of user
+	 * @return string
+	 */
+	public function getWorkingEnvironment() {
+		return $this->workingEnvironment;
 	}
 
 	/**
@@ -348,6 +433,20 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 */
 	public function getUserfieldValues() {
 		return $this->userfieldValues;
+	}
+
+	/**
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_Userfield_Value>
+	 */
+	public function getComments() {
+		return $this->comments;
+	}
+
+	/**
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_Userfield_Value>
+	 */
+	public function getInterests() {
+		return $this->interests;
 	}
 
 

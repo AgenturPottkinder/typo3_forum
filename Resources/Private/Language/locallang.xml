@@ -113,6 +113,7 @@
 			<label index="User_Index_All_Messages">all messages</label>
 			<label index="User_Index_All_Favorites">all favorites</label>
 			<label index="User_Index_All_MyTopics">all topics</label>
+			<label index="User_Index_Questions">Questions</label>
 			<label index="User_Index_Posts">Posts</label>
             <label index="User_Index_Helpful_Posts">Helpful Posts</label>
 			<label index="User_Index_Username">Username</label>
@@ -132,6 +133,10 @@
 			<label index="Subforums">Subforums</label>
 			<label index="Notice">Notice:</label>
 			<label index="Link_My_Profile">My profile</label>
+			<label index="Working_Environment_0">Agency</label>
+			<label index="Working_Environment_1">Company</label>
+			<label index="Working_Environment_2">Freelancer</label>
+			<label index="Working_Environment_3">Public service</label>
 		</languageKey>
 		<languageKey index="af"></languageKey>
 		<languageKey index="ar"></languageKey>
@@ -267,6 +272,11 @@
 			<label index="Subforums">Unterforen</label>
 			<label index="Notice">Hinweis:</label>
 			<label index="Link_My_Profile">Mein Profil</label>
+			<label index="Working_Environment_0">Agentur</label>
+			<label index="Working_Environment_1">Unternehmen</label>
+			<label index="Working_Environment_2">Freelancer</label>
+			<label index="Working_Environment_3">Öffentlicher Dienst</label>
+			<label index="User_Index_Questions">Fragen</label>
 		</languageKey>
 		<languageKey index="el"></languageKey>
 		<languageKey index="eo"></languageKey>

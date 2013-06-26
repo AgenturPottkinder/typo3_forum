@@ -36,6 +36,13 @@ config.tx_extbase.persistence.classes {
 				tx_mmforum_helpful_count.mapOnProperty = helpfulCount
 				tx_mmforum_question_count.mapOnProperty = questionCount
 				tx_mmforum_support_posts.mapOnProperty = supportPosts
+				tx_mmforum_facebook.mapOnProperty = facebook
+				tx_mmforum_twitter.mapOnProperty = twitter
+				tx_mmforum_google.mapOnProperty = google
+				tx_mmforum_skype.mapOnProperty = skype
+				tx_mmforum_job.mapOnProperty = job
+				tx_mmforum_interests.mapOnProperty = interests
+				tx_mmforum_working_environment.mapOnProperty = workingEnvironment
 				tx_mmforum_topic_subscriptions.mapOnProperty = topicSubscriptions
 				tx_mmforum_forum_subscriptions.mapOnProperty = forumSubscriptions
 				tx_mmforum_read_topics.mapOnProperty = readTopics

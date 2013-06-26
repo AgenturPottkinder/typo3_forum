@@ -202,6 +202,13 @@ $tempColumns = array(
 			'type' => 'text'
 		)
 	),
+	'tx_mmforum_interests' => array(
+		'exclude' => 1,
+		'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_mmforum_interests',
+		'config' => array(
+			'type' => 'text'
+		)
+	),
 	'tx_mmforum_userfield_values' => array(
 		'exclude' => 1,
 		'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_mmforum_userfield_values',
@@ -292,6 +299,20 @@ $tempColumns = array(
 			"size" => "255",
 		)
 	),
+	"tx_mmforum_working_environment" => Array(
+		"exclude" => 1,
+		"label" => "LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_mmforum_working_environment",
+		"config"  => array(
+			'type' => 'select',
+			'items' => Array (
+				Array("LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:Working_Environment_0", 0),
+				Array("LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:Working_Environment_1", 1),
+				Array("LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:Working_Environment_2", 2),
+				Array("LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:Working_Environment_3", 3)
+			),
+			'default' => 0,
+		)
+	),
 );
 if (version_compare(TYPO3_branch, '6.1', '<')) {
 	\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA('fe_users');
@@ -301,7 +322,7 @@ $TCA['fe_users']['types']['Tx_MmForum_Domain_Model_User_FrontendUser'] = $TCA['f
 $TCA['fe_users']['types']['Tx_MmForum_Domain_Model_User_FrontendUser']['showitem'] .=
 	',--div--;LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_mmforum.tab.settings,'
 	. ' tx_mmforum_post_count, tx_mmforum_topic_count, tx_mmforum_helpful_count, tx_mmforum_question_count,  tx_mmforum_topic_subscriptions, tx_mmforum_forum_subscriptions,'
-	. ' tx_mmforum_signature, tx_mmforum_userfield_values, tx_mmforum_use_gravatar, tx_mmforum_contact';
+	. ' tx_mmforum_signature, tx_mmforum_userfield_values, tx_mmforum_use_gravatar, tx_mmforum_contact, tx_mmforum_working_environment';
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem('fe_users', 'tx_extbase_type',
 	array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_extbase_type.mm_forum', 'Tx_MmForum_Domain_Model_User_FrontendUser'));
 
@@ -494,5 +515,4 @@ $TCA['tx_mmforum_domain_model_forum_ads'] = array(
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Forum/Ads.php',
 	)
 );
-
 ?>

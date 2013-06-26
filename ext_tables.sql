@@ -522,6 +522,7 @@ CREATE TABLE fe_users (
   tx_mmforum_helpful_count int(11) NOT NULL default '0',
   tx_mmforum_question_count int(11) NOT NULL default '0',
   tx_mmforum_signature text,
+  tx_mmforum_interests text,
   tx_mmforum_userfield_values int(11) unsigned NOT NULL default '0'
   tx_mmforum_read_topics int(11) unsigned NOT NULL default '0',
   tx_mmforum_support_posts int(11) unsigned NOT NULL default '0',
@@ -531,6 +532,7 @@ CREATE TABLE fe_users (
   tx_mmforum_google VARCHAR( 255 ) NOT NULL,
   tx_mmforum_skype VARCHAR( 255 ) NOT NULL,
   tx_mmforum_job VARCHAR( 255 ) NOT NULL,
+  tx_mmforum_working_environment int(11) unsigned NOT NULL default '0',
   tx_mmforum_contact text
 );
 

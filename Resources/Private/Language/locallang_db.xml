@@ -136,6 +136,7 @@
 			<label index="fe_users.tx_mmforum_forum_subscriptions">Subscribed forums</label>
 			<label index="fe_users.tx_mmforum.tab.settings">mm_forum Settings</label>
 			<label index="fe_users.tx_mmforum_signature">Signature</label>
+			<label index="fe_users.tx_mmforum_interests">Interessen</label>
 			<label index="fe_users.tx_mmforum_userfield_values">Userfield values</label>
 			<label index="fe_users.tx_mmforum_support_posts">Supported posts</label>
 			<label index="fe_users.tx_mmforum_facebook">Facebook</label>
@@ -143,6 +144,7 @@
 			<label index="fe_users.tx_mmforum_google">Google</label>
 			<label index="fe_users.tx_mmforum_skype">Skype</label>
 			<label index="fe_users.tx_mmforum_job">Job</label>
+			<label index="fe_users.tx_mmforum_working_environment">Arbeitsumfeld</label>
 
 			<label index="fe_groups.tx_extbase_type.mm_forum">mm_forum group</label>
 		</languageKey>
