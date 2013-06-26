@@ -32,7 +32,10 @@ config.tx_extbase.persistence.classes {
 			columns {
 				tx_mmforum_signature.mapOnProperty = signature
 				tx_mmforum_post_count.mapOnProperty = postCount
+				tx_mmforum_topic_count.mapOnProperty = topicCount
 				tx_mmforum_helpful_count.mapOnProperty = helpfulCount
+				tx_mmforum_question_count.mapOnProperty = questionCount
+				tx_mmforum_support_posts.mapOnProperty = supportPosts
 				tx_mmforum_topic_subscriptions.mapOnProperty = topicSubscriptions
 				tx_mmforum_forum_subscriptions.mapOnProperty = forumSubscriptions
 				tx_mmforum_read_topics.mapOnProperty = readTopics
@@ -272,6 +275,20 @@ plugin.tx_mmforum.settings {
 				mapToUserObject = username
 			}
 		}
+		registered_since {
+			class = Tx_MmForum_Domain_Model_User_Userfield_DateUserfield
+			properties {
+				name = LLL:EXT:mm_forum/Resources/Private/Language/locallang_user.xml:RegisteredSince
+				mapToUserObject = crdate
+			}
+		}
+		real_name {
+			class = Tx_MmForum_Domain_Model_User_Userfield_TextUserfield
+			properties {
+				name = LLL:EXT:mm_forum/Resources/Private/Language/locallang_user.xml:RealName
+				mapToUserObject = name
+			}
+		}
 	}
 }
 
@@ -343,7 +360,7 @@ plugin.tx_mmforum.renderer.icons {
 		10.file = EXT:mm_forum/Resources/Public/Images/Icons/Forum/BaseIcon.png
 		10.stdWrap.wrap = <div class="tx-mmforum-icon" style="background: url(|) no-repeat">
 
-		100 = HTML
+		100 = TEXT
 		100.value = </div>
 	}
 
@@ -455,6 +472,7 @@ page.includeCSS {
 page.includeJS {
 	jquery = https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js
 	jquery.external = 1
+	bootstrap = EXT:mm_forum/Resources/Public/Bootstrap/js/bootstrap.min.js
 	markitup = EXT:mm_forum/Resources/Public/Javascript/markitup-1.1.12/jquery.markitup.js
 	mmforum = EXT:mm_forum/Resources/Public/Javascript/mm-forum.js
 }
