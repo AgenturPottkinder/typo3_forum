@@ -156,9 +156,19 @@ $tempColumns = array(
 		'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_mmforum_post_count',
 		'config' => array('type' => 'none'),
 	),
+	'tx_mmforum_topic_count' => array(
+		'exclude' => 1,
+		'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_mmforum_topic_count',
+		'config' => array('type' => 'none'),
+	),
 	'tx_mmforum_helpful_count' => array(
 		'exclude' => 1,
 		'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_mmforum_helpful_count',
+		'config' => array('type' => 'none'),
+	),
+	'tx_mmforum_question_count' => array(
+		'exclude' => 1,
+		'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_mmforum_question_count',
 		'config' => array('type' => 'none'),
 	),
 	'tx_mmforum_topic_subscriptions' => array(
@@ -290,7 +300,7 @@ if (version_compare(TYPO3_branch, '6.1', '<')) {
 $TCA['fe_users']['types']['Tx_MmForum_Domain_Model_User_FrontendUser'] = $TCA['fe_users']['types']['0'];
 $TCA['fe_users']['types']['Tx_MmForum_Domain_Model_User_FrontendUser']['showitem'] .=
 	',--div--;LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_mmforum.tab.settings,'
-	. ' tx_mmforum_post_count, tx_mmforum_helpful_count, tx_mmforum_topic_subscriptions, tx_mmforum_forum_subscriptions,'
+	. ' tx_mmforum_post_count, tx_mmforum_topic_count, tx_mmforum_helpful_count, tx_mmforum_question_count,  tx_mmforum_topic_subscriptions, tx_mmforum_forum_subscriptions,'
 	. ' tx_mmforum_signature, tx_mmforum_userfield_values, tx_mmforum_use_gravatar, tx_mmforum_contact';
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem('fe_users', 'tx_extbase_type',
 	array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_extbase_type.mm_forum', 'Tx_MmForum_Domain_Model_User_FrontendUser'));

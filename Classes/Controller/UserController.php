@@ -163,15 +163,15 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
 		}
 		$this->view
-			->assign('topics', $this->topicRepository->findTopicsCreatedByAuthor($user))
+			->assign('topics', $this->topicRepository->findByPostAuthor($user))
 			->assign('user', $user);
 	}
 
 
 
 	/**
-	 * Lists all posts of a specific user. If no user is specified, this action lists all
-	 * posts of the current user.
+	 * Lists all topics of a specific user. If no user is specified, this action lists all
+	 * topics of the current user.
 	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
 	 *
 	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException

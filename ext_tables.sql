@@ -516,9 +516,11 @@ CREATE TABLE tx_mmforum_domain_model_forum_ads (
 #
 CREATE TABLE fe_users (
   tx_mmforum_post_count int(11) NOT NULL default '0',
+  tx_mmforum_topic_count int(11) unsigned NOT NULL default '0',
   tx_mmforum_topic_subscriptions int(11) unsigned NOT NULL default '0',
   tx_mmforum_forum_subscriptions int(11) unsigned default '0',
   tx_mmforum_helpful_count int(11) NOT NULL default '0',
+  tx_mmforum_question_count int(11) NOT NULL default '0',
   tx_mmforum_signature text,
   tx_mmforum_userfield_values int(11) unsigned NOT NULL default '0'
   tx_mmforum_read_topics int(11) unsigned NOT NULL default '0',

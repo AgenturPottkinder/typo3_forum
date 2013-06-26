@@ -59,10 +59,23 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	protected $postCount;
 
 	/**
+	 * Topic count of a user
+	 * @var integer
+	 */
+	protected $topicCount;
+
+	/**
 	 * Forum helpful count
 	 * @var integer
 	 */
 	protected $helpfulCount;
+
+
+	/**
+	 * Question count of a user
+	 * @var integer
+	 */
+	protected $questionCount;
 
 
 	/**
@@ -187,7 +200,24 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	}
 
 	/**
-	 * @return int
+	 * Gets the topic count of this user.
+	 * @return integer The topic count.
+	 */
+	public function getTopicCount() {
+		return $this->topicCount;
+	}
+
+	/**
+	 * Gets the question count of this user.
+	 * @return integer The question count.
+	 */
+	public function getQuestionCount() {
+		return $this->questionCount;
+	}
+
+	/**
+	 * Gets the gender of the user
+	 * @return integer (0=male, 1=female, 99=private)
 	 */
 	public function getGender() {
 		return $this->gender;
@@ -490,6 +520,44 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 		$this->postCount++;
 	}
 
+
+
+	/**
+	 * Decrease the user's topic count.
+	 * @return void
+	 */
+	public function decreaseTopicCount() {
+		$this->topicCount--;
+	}
+
+
+
+	/**
+	 * Increase the user's topic count.
+	 * @return void
+	 */
+	public function increaseTopicCount() {
+		$this->topicCount++;
+	}
+
+
+	/**
+	 * Decrease the user's question count.
+	 * @return void
+	 */
+	public function decreaseQuestionCount() {
+		$this->questionCount--;
+	}
+
+
+
+	/**
+	 * Increase the user's question count.
+	 * @return void
+	 */
+	public function increaseQuestionCount() {
+		$this->questionCount++;
+	}
 
 
 	/**

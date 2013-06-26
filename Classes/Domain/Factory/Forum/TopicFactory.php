@@ -129,9 +129,11 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 		/** @var $topic Tx_MmForum_Domain_Model_Forum_Topic */
 		$topic = $this->getClassInstance();
 
+		$user = $this->getCurrentUser();
+
 		$topic->setForum($forum);
 		$topic->setSubject($subject);
-		$topic->setAuthor($this->getCurrentUser());
+		$topic->setAuthor($user);
 		$topic->setQuestion($question);
 		$topic->addPost($firstPost);
 
@@ -146,6 +148,14 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 
 		$forum->addTopic($topic);
 		$this->forumRepository->update($forum);
+
+		if (!$user->isAnonymous()) {
+			$user->increaseTopicCount();
+			if($topic->getQuestion() == 1) {
+				$user->increaseQuestionCount();
+			}
+			$this->frontendUserRepository->update($user);
+		}
 
 		return $topic;
 	}
@@ -164,6 +174,16 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 
 		$topic->getForum()->removeTopic($topic);
 		$this->forumRepository->update($topic->getForum());
+
+		$user = $this->getCurrentUser();
+
+		if (!$user->isAnonymous()) {
+			$user->decreaseTopicCount();
+			if($topic->getQuestion() == 1) {
+				$user->decreaseQuestionCount();
+			}
+			$this->frontendUserRepository->update($user);
+		}
 	}
 
 
