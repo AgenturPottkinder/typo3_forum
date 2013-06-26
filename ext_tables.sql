@@ -524,6 +524,11 @@ CREATE TABLE fe_users (
   tx_mmforum_read_topics int(11) unsigned NOT NULL default '0',
   tx_mmforum_support_posts int(11) unsigned NOT NULL default '0',
   tx_mmforum_use_gravatar tinyint(1) unsigned default '0',
+  tx_mmforum_facebook VARCHAR( 255 ) NOT NULL,
+  tx_mmforum_twitter VARCHAR( 255 ) NOT NULL,
+  tx_mmforum_google VARCHAR( 255 ) NOT NULL,
+  tx_mmforum_skype VARCHAR( 255 ) NOT NULL,
+  tx_mmforum_job VARCHAR( 255 ) NOT NULL,
   tx_mmforum_contact text
 );
 

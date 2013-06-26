@@ -242,6 +242,46 @@ $tempColumns = array(
 			'type' => 'display'
 		)
 	),
+	"tx_mmforum_facebook" => Array(
+		"exclude" => 1,
+		"label" => "LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_mmforum_facebook",
+		"config" => Array(
+			"type" => "input",
+			"size" => "255",
+		)
+	),
+	"tx_mmforum_twitter" => Array(
+		"exclude" => 1,
+		"label" => "LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_mmforum_twitter",
+		"config" => Array(
+			"type" => "input",
+			"size" => "255",
+		)
+	),
+	"tx_mmforum_google" => Array(
+		"exclude" => 1,
+		"label" => "LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_mmforum_google",
+		"config" => Array(
+			"type" => "input",
+			"size" => "255",
+		)
+	),
+	"tx_mmforum_skype" => Array(
+		"exclude" => 1,
+		"label" => "LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_mmforum_skype",
+		"config" => Array(
+			"type" => "input",
+			"size" => "255",
+		)
+	),
+	"tx_mmforum_job" => Array(
+		"exclude" => 1,
+		"label" => "LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_mmforum_job",
+		"config" => Array(
+			"type" => "input",
+			"size" => "255",
+		)
+	),
 );
 if (version_compare(TYPO3_branch, '6.1', '<')) {
 	\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA('fe_users');

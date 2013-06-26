@@ -98,7 +98,9 @@ class Tx_MmForum_ViewHelpers_User_AvatarViewHelper extends \TYPO3\CMS\Fluid\View
 		if ($avatarFilename === NULL) {
 			$avatarFilename = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('mm_forum') . 'Resources/Public/Images/Icons/AvatarEmpty.png';
 		}
-
+		if($height === NULL){
+			$height = $width;
+		}
 		return parent::render($avatarFilename, $width, $height);
 	}
 
