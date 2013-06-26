@@ -42,6 +42,23 @@
 class Tx_MmForum_Domain_Validator_Forum_AttachmentPlainValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
 
 	/**
+	 * An instance of the extbase object manager.
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 * @inject
+	 */
+	protected $objectManager = NULL;
+
+
+	/**
+	 * Injects an instance of the extbase object manager.
+	 * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
+	 */
+	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
+		$this->objectManager = $objectManager;
+	}
+
+
+	/**
 	 * Check if $value is valid. If it is not valid, needs to add an error
 	 * to Result.
 	 *
@@ -50,7 +67,7 @@ class Tx_MmForum_Domain_Validator_Forum_AttachmentPlainValidator extends \TYPO3\
 	 */
 	public function isValid($value) {
 		$result = TRUE;
-		$attachmentObj = new Tx_MmForum_Domain_Model_Forum_Attachment();
+		$attachmentObj = $this->objectManager->create('Tx_MmForum_Domain_Model_Forum_Attachment');
 		foreach($value as $attachment){
 			if(empty($attachment['name'])) continue;
 			if(array_search($attachment['type'], $attachmentObj->getAllowedMimeTypes()) == false){
