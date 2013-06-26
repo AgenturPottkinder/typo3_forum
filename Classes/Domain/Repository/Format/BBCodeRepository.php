@@ -50,7 +50,9 @@ class Tx_MmForum_Domain_Repository_Format_BBCodeRepository extends Tx_MmForum_Do
 	 * @return array|Tx_Extbase_Persistence_QueryResultInterface
 	 */
 	public function findAll() {
-		return $this->createQueryWithFallbackStoragePage()->execute();
+		$query = $this->createQueryWithFallbackStoragePage();
+		$query->setOrderings(array('uid' => 'ASC'));
+		return $query->execute();
 	}
 
 
