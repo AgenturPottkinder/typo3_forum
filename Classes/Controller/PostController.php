@@ -275,6 +275,7 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	 * @param Tx_MmForum_Domain_Model_Forum_Post $post  The new post.
 	 * @param array $attachments File attachments for the post.
 	 *
+	 * @validate $post Tx_MmForum_Domain_Validator_Forum_PostValidator
 	 * @validate $attachments Tx_MmForum_Domain_Validator_Forum_AttachmentPlainValidator
 	 */
 

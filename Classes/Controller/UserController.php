@@ -215,8 +215,11 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user The user whose profile is to be displayed.
 	 * @return void
 	 */
-	public function showAction(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+	public function showAction(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
 		/** @noinspection PhpUndefinedMethodInspection */
+		if ($user === NULL) {
+			$user = $this->getCurrentUser();
+		}
 		$lastFiveTopics = $this->topicRepository
 			->findByPostAuthor($user)
 			->getQuery()
@@ -313,7 +316,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 					->assign('myNotifications',NULL)
 					->assign('myMessages', NULL)
 					->assign('myFavorites', NULL)
-					->assign('myTopics',$this->topicRepository->findTopicsCreatedByAuthor($user, 4));
+					->assign('myTopics',$this->topicRepository->findTopicsCreatedByAuthor($user, 6));
 
 	}
 
