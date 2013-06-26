@@ -229,7 +229,8 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 			->assign('user', $user)
 			->assign('userfields', $this->userfieldRepository->findAll())
 			->assign('topics', $lastFiveTopics)
-			->assign('questions', $this->topicRepository->findQuestions(6, false, $user));
+			->assign('questions', $this->topicRepository->findQuestions(6, false, $user))
+			->assign('myTopics',$this->topicRepository->findTopicsCreatedByAuthor($user, 6));
 	}
 
 
