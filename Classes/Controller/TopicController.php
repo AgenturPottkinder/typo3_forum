@@ -236,10 +236,20 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 			$this->view->assign('quote', $this->postFactory->createPostWithQuote($quote));
 		}
 
+
+		$subresults = $this->controllerContext->getRequest()->getOriginalRequestMappingResults()->getSubResults();
+
+		$showForm = intval(t3lib_div::_GP('showForm'));
+
+		if(isset($subresults['post']) && count($subresults['post']->getErrors()) > 0) {
+			$showForm = 1;
+		}
+
 		// AdHandling End
 		$this->authenticationService->assertReadAuthorization($topic);
 		$this->markTopicRead($topic);
-		$this->view->assign('topic', $topic)->assign('posts', $posts)->assign('user',$this->authenticationService->getUser());
+		$this->view->assign('topic', $topic)->assign('posts', $posts)->assign('user',$this->authenticationService->getUser())
+			 ->assign('showForm',$showForm);
 	}
 
 
@@ -323,7 +333,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 * @return void
 	 */
 	public function solutionAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
-		if($post->getAuthor() != $this->authenticationService->getUser()) {
+		if($post->getTopic()->getAuthor() != $this->authenticationService->getUser()) {
 			throw new Tx_MmForum_Domain_Exception_Authentication_NoAccessException('Not allowed to set solution by current user.');
 		}
 		$this->topicFactory->setPostAsSolution($post->getTopic(),$post);

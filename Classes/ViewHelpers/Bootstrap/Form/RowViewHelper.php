@@ -121,7 +121,7 @@ class Tx_MmForum_ViewHelpers_Bootstrap_Form_RowViewHelper extends \TYPO3\CMS\Flu
 	protected function getErrorsForProperty($propertyName, $errors) {
 		foreach ($errors as $name => $error) {
 			if ($name === $propertyName) {
-				return $error->getErrors();
+				return array_unique($error->getErrors());
 			}
 		}
 		return array();
