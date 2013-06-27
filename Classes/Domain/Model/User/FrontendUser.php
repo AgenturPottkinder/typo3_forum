@@ -118,7 +118,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 
 	/**
 	 * Subscribed topics.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Topic>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Topic>
 	 * @lazy
 	 */
 	protected $topicSubscriptions;
@@ -126,7 +126,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 
 	/**
 	 * Subscribed forums.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Forum>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Forum>
 	 * @lazy
 	 */
 	protected $forumSubscriptions;
@@ -141,20 +141,20 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 
 	/**
 	 * Userfield values.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_Userfield_Value>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_User_Userfield_Value>
 	 */
 	protected $userfieldValues;
 
 
 	/**
 	 * Read topics.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Topic>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Topic>
 	 */
 	protected $readTopics;
 
 	/**
 	 * Read topics.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Post>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Post>
 	 */
 	protected $supportPosts;
 
@@ -196,6 +196,13 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 * @var string
 	 */
 	protected $interests;
+
+
+	/**
+	 * The private messages of this user.
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_User_PrivateMessages>
+	 */
+	protected $privateMessages;
 
 
 	/**
@@ -323,9 +330,19 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 		return '-';
 	}
 
+
+	/**
+	 * Gets the private messages of this user.
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_User_PrivateMessages>
+	 */
+	public function getPrivateMessages() {
+		return $this->privateMessages;
+	}
+
+
 	/**
 	 * Gets the subscribed topics.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Topic>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Topic>
 	 *                             The subscribed topics.
 	 */
 	public function getTopicSubscriptions() {
@@ -362,7 +379,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 
 	/**
 	 * Gets the subscribed forums.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Forum>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Forum>
 	 *                             The subscribed forums.
 	 */
 	public function getForumSubscriptions() {
@@ -371,7 +388,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 
 	/**
 	 * Gets the subscribed forums.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Post>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Post>
 	 *                             The subscribed forums.
 	 */
 	public function getSupportPosts() {
@@ -429,21 +446,21 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 
 	/**
 	 * Gets the userfield values for this user.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_Userfield_Value>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_User_Userfield_Value>
 	 */
 	public function getUserfieldValues() {
 		return $this->userfieldValues;
 	}
 
 	/**
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_Userfield_Value>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_User_Userfield_Value>
 	 */
 	public function getComments() {
 		return $this->comments;
 	}
 
 	/**
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_Userfield_Value>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_User_Userfield_Value>
 	 */
 	public function getInterests() {
 		return $this->interests;
@@ -597,6 +614,23 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 		if ($readObject instanceof Tx_MmForum_Domain_Model_Forum_Topic) {
 			$this->readTopics->detach($readObject);
 		}
+	}
+
+
+	/**
+	 * Add a private message
+	 * @param $message Tx_MmForum_Domain_Model_User_PrivateMessages
+	 */
+	public function addPrivateMessage(Tx_MmForum_Domain_Model_User_PrivateMessages $message) {
+		$this->privateMessages->attach($message);
+	}
+
+	/**
+	 * Removes a private messages
+	 * @param $message Tx_MmForum_Domain_Model_User_PrivateMessages
+	 */
+	public function removePrivateMessage(Tx_MmForum_Domain_Model_User_PrivateMessages $message) {
+		$this->privateMessages->detach($message);
 	}
 
 

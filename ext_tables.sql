@@ -512,6 +512,23 @@ CREATE TABLE tx_mmforum_domain_model_forum_ads (
 
 
 #
+# Table structure for table 'tx_mmforum_domain_model_forum_user_private_messages'
+#
+CREATE TABLE tx_mmforum_domain_model_user_private_messages (
+  uid int(11) unsigned NOT NULL auto_increment,
+  pid int(11) unsigned NOT NULL default '0',
+  tstamp int(11) unsigned NOT NULL default '0',
+  deleted tinyint(4) NOT NULL default '0',
+  sender int(11) unsigned NOT NULL default '0',
+  recipient int(11) unsigned NOT NULL default '0',
+  `message` tinytext NOT NULL,
+  recipient_read tinyint(3) NOT NULL default '0',
+  PRIMARY KEY  (uid)
+);
+
+
+
+#
 # Table structure for table "fe_users"
 #
 CREATE TABLE fe_users (

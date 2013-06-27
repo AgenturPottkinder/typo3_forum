@@ -515,4 +515,16 @@ $TCA['tx_mmforum_domain_model_forum_ads'] = array(
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Forum/Ads.php',
 	)
 );
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_mmforum_domain_model_user_private_messages');
+$TCA['tx_mmforum_domain_model_user_private_messages'] = array(
+	'ctrl' => array(
+		'title' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_pm',
+		'label' => 'message',
+		'tstamp' => 'tstamp',
+		'delete' => 'deleted',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/User/pm.png',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/User/PrivateMessages.php',
+	)
+);
 ?>
