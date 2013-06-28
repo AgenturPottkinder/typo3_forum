@@ -46,16 +46,54 @@ class Tx_MmForum_Domain_Repository_User_PrivateMessagesRepository extends \TYPO3
 	/**
 	 * Find all messages this user sent and got
 	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param int $limit
 	 * @return Tx_MmForum_Domain_Model_User_PrivateMessages[]
 	 */
-	public function findMessagesForUser(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+	public function findMessagesForUser(Tx_MmForum_Domain_Model_User_FrontendUser $user, $limit=0) {
 		$query = $this->createQuery();
-		$constraint = array($query->equals('sender',$user));
-		$constraint[] = array($query->equals('recipient',$user));
-		$query->matching($query->logicalOr($constraint));
+		$query->matching($query->equals('feuser',$user));
 		$query->setOrderings(array('tstamp'=> 'DESC'));
+		if($limit > 0) {
+			$query->setLimit($limit);
+		}
 		return $query->execute();
 	}
 
+
+	/**
+	 * Find all messages this user sent and got
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param int $limit
+	 * @return Tx_MmForum_Domain_Model_User_PrivateMessages[]
+	 */
+	public function findReceivedMessagesForUser(Tx_MmForum_Domain_Model_User_FrontendUser $user, $limit=0) {
+		$query = $this->createQuery();
+		$constraints = array();
+		$constraints[] = $query->equals('feuser',$user);
+		$constraints[] = $query->equals('type',1);
+		$query->matching($query->logicalAnd($constraints));
+		$query->setOrderings(array('tstamp'=> 'DESC'));
+		if($limit > 0) {
+			$query->setLimit($limit);
+		}
+		return $query->execute();
+	}
+
+	/**
+	 * Find all messages this user sent and got
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param int $limit
+	 * @return Tx_MmForum_Domain_Model_User_PrivateMessages[]
+	 */
+	public function findForwardedMessagesForUser(Tx_MmForum_Domain_Model_User_FrontendUser $user, $limit=0) {
+		$query = $this->createQuery();
+		$constraints = array($query->equals('feuser',$user));
+		$constraints[] = $query->equals('type',1);
+		$query->setOrderings(array('tstamp'=> 'DESC'));
+		if($limit > 0) {
+			$query->setLimit($limit);
+		}
+		return $query->execute();
+	}
 
 }

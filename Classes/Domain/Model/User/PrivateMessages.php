@@ -42,7 +42,7 @@ class Tx_MmForum_Domain_Model_User_PrivateMessages extends \TYPO3\CMS\Extbase\Do
 	 */
 
 	/**
-	 * Creation date of this post
+	 * The creation date of pm
 	 * @var DateTime
 	 */
 	public $tstamp;
@@ -51,25 +51,27 @@ class Tx_MmForum_Domain_Model_User_PrivateMessages extends \TYPO3\CMS\Extbase\Do
 	 * User who send this message
 	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
 	 */
-	public $sender;
+	public $feuser;
+
 
 	/**
-	 * User who get this message
-	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+	 * The type of pm (0=sender, 1=recipient)
+	 * @var int
 	 */
-	public $recipient;
-
-	/**
-	 * The submitted message
-	 * @var string
-	 */
-	public $message;
+	public $type;
 
 	/**
 	 * Flag if recipient already read this message
 	 * @var int
 	 */
-	public $recipientRead;
+	public $userRead;
+
+
+	/**
+	 * The message of this pm
+	 * @var Tx_MmForum_Domain_Model_User_PrivateMessagesText
+	 */
+	public $message;
 
 
 	/**
@@ -85,35 +87,36 @@ class Tx_MmForum_Domain_Model_User_PrivateMessages extends \TYPO3\CMS\Extbase\Do
 	}
 
 	/**
+	 * Get the type of this pm
+	 * @return int
+	 */
+	public function getType() {
+		return $this->type;
+	}
+
+	/**
 	 * Get the User who send this message
 	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The User who send this message
 	 */
-	public function getSender() {
-		return $this->sender;
+	public function getFeuser() {
+		return $this->feuser;
 	}
 
-	/**
-	 * Get the User who received this message
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The User who received this message
-	 */
-	public function getRecipient() {
-		return $this->recipient;
-	}
-
-	/**
-	 * Get the message of this pm
-	 * @return string The message
-	 */
-	public function getMessage() {
-		return $this->message;
-	}
 
 	/**
 	 * Get if the recipient already read this message
 	 * @return int The flag
 	 */
-	public function getRecipientRead() {
-		return intval($this->recipientRead);
+	public function getUserRead() {
+		return intval($this->userRead);
+	}
+
+	/**
+	 * Gets the message of this pm
+	 * @return Tx_MmForum_Domain_Model_User_PrivateMessagesText
+	 */
+	public function getMessage() {
+		return $this->message;
 	}
 
 
@@ -122,38 +125,48 @@ class Tx_MmForum_Domain_Model_User_PrivateMessages extends \TYPO3\CMS\Extbase\Do
 	 */
 
 	/**
+	 * Get the date this message has been sent
+	 * @param DateTime $tstamp
+	 * @return void
+	 */
+	public function setTstamp(DateTime $tstamp) {
+		$this->tstamp = $tstamp;
+	}
+
+	/**
+	 * Get the type of this pm
+	 * @param int $type
+	 * @return void
+	 */
+	public function setType($type) {
+		$this->type = $type;
+	}
+
+	/**
 	 * Sets the sender
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $sender
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $feuser
 	 * @return void
 	 */
-	public function setSender(Tx_MmForum_Domain_Model_User_FrontendUser $sender) {
-		$this->sender = $sender;
+	public function setFeuser(Tx_MmForum_Domain_Model_User_FrontendUser $feuser) {
+		$this->feuser = $feuser;
 	}
 
-	/**
-	 * Sets the recipient
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $recipient
-	 * @return void
-	 */
-	public function setRecipient(Tx_MmForum_Domain_Model_User_FrontendUser $recipient) {
-		$this->recipient = $recipient;
-	}
-
-	/**
-	 * Sets the message
-	 * @param string $message
-	 * @return void
-	 */
-	public function setMessage($message) {
-		$this->message = $message;
-	}
 
 	/**
 	 * Sets the flag
-	 * @param int $recipientRead
+	 * @param int $userRead
 	 * @return void
 	 */
-	public function setRecipientRead($recipientRead) {
-		$this->recipientRead = $recipientRead;
+	public function setUserRead($userRead) {
+		$this->userRead = $userRead;
+	}
+
+
+	/**
+	 * Sets the message of this pm
+	 * @param Tx_MmForum_Domain_Model_User_PrivateMessagesText $message
+	 */
+	public function setMessage(Tx_MmForum_Domain_Model_User_PrivateMessagesText $message) {
+		$this->message = $message;
 	}
 }

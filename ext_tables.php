@@ -331,7 +331,7 @@ $tempColumns = array(
 		"config" => Array(
 			'type' => 'inline',
 			'foreign_table' => 'tx_mmforum_domain_model_user_privatemessages',
-			'foreign_field' => 'user',
+			'foreign_field' => 'feuser',
 			'maxitems'      => 9999,
 			'appearance' => array(
 				'collapseAll' => 1,
@@ -540,6 +540,26 @@ $TCA['tx_mmforum_domain_model_forum_ads'] = array(
 		'delete' => 'deleted',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/Forum/Ads.png',
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Forum/Ads.php',
+	)
+);
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_mmforum_domain_model_user_privatemessages');
+$TCA['tx_mmforum_domain_model_user_privatemessages'] = array(
+	'ctrl' => array(
+		'title' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_pm',
+		'tstamp' => 'tstamp',
+		'delete' => 'deleted',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/User/pm.png',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/User/PrivateMessages.php',
+	)
+);
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_mmforum_domain_model_user_privatemessages_text');
+$TCA['tx_mmforum_domain_model_user_privatemessages_text'] = array(
+	'ctrl' => array(
+		'title' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_pm_text',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/User/pm.png',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/User/PrivateMessages_Text.php',
 	)
 );
 ?>

@@ -531,6 +531,34 @@ CREATE TABLE tx_mmforum_domain_model_forum_ads (
 );
 
 
+# Table structure for table 'tx_mmforum_domain_model_forum_user_privatemessages'
+#
+CREATE TABLE tx_mmforum_domain_model_user_privatemessages (
+  uid int(11) unsigned NOT NULL auto_increment,
+  pid int(11) unsigned NOT NULL default '0',
+  tstamp int(11) unsigned NOT NULL default '0',
+  deleted tinyint(4) NOT NULL default '0',
+  feuser int(11) unsigned NOT NULL default '0',
+  `type` tinyint(3) NOT NULL default '0',
+  `message`  int(11) unsigned NOT NULL default '0',
+  user_read` tinyint(3) NOT NULL default '0',
+  PRIMARY KEY  (uid),
+  KEY `message` (`message`)
+);
+
+
+#
+# Table structure for table 'tx_mmforum_domain_model_user_privatemessages_text'
+#
+CREATE TABLE `tx_mmforum_domain_model_user_privatemessages_text` (
+  uid int(11) unsigned NOT NULL auto_increment,
+  pid int(11) unsigned NOT NULL,
+  message_text text NOT NULL,
+  PRIMARY KEY (`uid`)
+);
+
+
+
 #
 # Table structure for table "fe_users"
 #
@@ -540,6 +568,7 @@ CREATE TABLE fe_users (
   tx_mmforum_topic_subscriptions int(11) unsigned NOT NULL default '0',
   tx_mmforum_forum_subscriptions int(11) unsigned default '0',
   tx_mmforum_helpful_count int(11) NOT NULL default '0',
+  tx_mmforum_private_messages int(11) unsigned NOT NULL default '0',
   tx_mmforum_signature text,
   tx_mmforum_interests text,
   tx_mmforum_userfield_values int(11) unsigned NOT NULL default '0'

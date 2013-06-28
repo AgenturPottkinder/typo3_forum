@@ -1,50 +1,69 @@
 <?php
 if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 
-$TCA['tx_mmforum_domain_model_user_private_messages'] = array(
-	'ctrl' => $TCA['tx_mmforum_domain_model_user_private_messages']['ctrl'],
+$TCA['tx_mmforum_domain_model_user_privatemessages'] = array(
+	'ctrl' => $TCA['tx_mmforum_domain_model_user_privatemessages']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'sender,recipient,message,recipient_read'
+		'showRecordFieldList' => 'message, feuser, type, user_read'
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sender,recipient,message,recipient_read')
+		'1' => array('showitem' => 'message, feuser, type, user_read, tstamp')
 	),
 	'palettes' => array(
 		'1' => array('showitem' => '')
 	),
 	'columns' => array(
-		'sender' => array(
-			'exclude' => 0,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_pm_sender',
-			'config'  => array(
-				'type' => 'select',
-				'foreign_table' => 'fe_users',
-				'foreign_class' => 'Tx_MmForum_Domain_Model_User_FrontendUser',
-				'maxitems' => 1
-			)
-		),
-		'recipient' => array(
-			'exclude' => 0,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_pm_recipient',
-			'config'  => array(
-				'type' => 'select',
-				'foreign_table' => 'fe_users',
-				'foreign_class' => 'Tx_MmForum_Domain_Model_User_FrontendUser',
-				'maxitems' => 1
-			)
-		),
 		'message' => array(
 			'exclude' => 0,
 			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_pm_message',
 			'config'  => array(
-				'type' => 'text'
+				'type' => 'inline',
+				'foreign_table' => 'tx_mmforum_domain_model_user_privatemessages_text',
+				'foreign_field' => 'uid',
+				'maxitems'      => 1,
+				'appearance' => array(
+					'collapseAll' => 1,
+					'newRecordLinkPosition' => 'bottom',
+					'expandSingle' => 1,
+				),
 			)
 		),
-		'recipient_read' => array(
+		'feuser' => array(
+			'exclude' => 0,
+			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_pm_feuser',
+			'config'  => array(
+				'type' => 'select',
+				'foreign_table' => 'fe_users',
+				'foreign_class' => 'Tx_MmForum_Domain_Model_User_FrontendUser',
+				'maxitems' => 1
+			)
+		),
+		'type' => array(
+			'exclude' => 0,
+			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_pm_recipient_type',
+			'config'  => array(
+				'type' => 'radio',
+				'items' => Array (
+					Array('sender', 0),
+					Array('recipient', 1),
+				),
+				'default' => 0,
+			)
+		),
+		'user_read' => array(
 			'exclude' => 0,
 			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_pm_recipient_read',
 			'config'  => array(
 				'type' => 'check'
+			)
+		),
+		'tstamp' => Array (
+			'exclude' => 1,
+			'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tstamp',
+			'config' => Array (
+				'type' => 'none',
+				'format' => 'date',
+				'eval' => 'date',
 			)
 		),
 	)

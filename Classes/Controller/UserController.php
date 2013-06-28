@@ -204,6 +204,8 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	 * Lists all questions of a specific user. If no user is specified, this action lists all
 	 * posts of the current user.
 	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 *
+	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
 	 * @return void
 	 */
 	public function listQuestionsAction(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
@@ -218,6 +220,50 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 			->assign('user', $user);
 	}
 
+
+	/**
+	 * Lists all messages of a specific user. If no user is specified, this action lists all
+	 * messages of the current user.
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 *
+	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 * @return void
+	 */
+	public function listMessagesAction(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
+		if ($user === NULL) {
+			$user = $this->getCurrentUser();
+		}
+		if ($user->isAnonymous()) {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
+		}
+		$this->view
+			->assign('messages', $this->messageRepository->findMessagesForUser($user,0))
+			->assign('user', $user);
+	}
+
+
+	/**
+ * Shows the form for creating a new message
+ *
+ * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+ * @return void
+ */
+	public function newMessageAction() {
+		$user = $this->getCurrentUser();
+		if ($user->isAnonymous()) {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
+		}
+		$this->view->assign('user', $user);
+	}
+
+	/**
+	 * Create a new message
+	 *
+	 * @return void
+	 */
+	public function createMessageAction() {
+
+	}
 
 
 	/**
@@ -360,9 +406,10 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 		if ($user->isAnonymous()) {
 			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException('You need to be logged in to view your own subscriptions!', 1335120249);
 		}
+
 		$this->view->assign('user',$user)
 					->assign('myNotifications',NULL)
-					->assign('myMessages', $this->messageRepository->findMessagesForUser($user, 6))
+					->assign('myMessages', $this->messageRepository->findReceivedMessagesForUser($user, 6))
 					->assign('myFavorites', NULL)
 					->assign('myTopics',$this->topicRepository->findTopicsCreatedByAuthor($user, 6));
 
