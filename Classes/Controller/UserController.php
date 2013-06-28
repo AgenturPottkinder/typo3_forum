@@ -75,6 +75,13 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 
 
 
+	/**
+	 * The forum repository.
+	 * @var Tx_MmForum_Domain_Repository_User_PrivateMessagesRepository
+	 */
+	protected $messageRepository = NULL;
+
+
 	/*
 	 * DEPENDENCY INJECTORS
 	 */
@@ -90,14 +97,18 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	 *                                 An instance of the topic repository.
 	 * @param \Tx_MmForum_Domain_Repository_User_UserfieldRepository $userfieldRepository
 	 *                                 An instance of the userfield repository.
+	 * @param Tx_MmForum_Domain_Repository_User_PrivateMessagesRepository $messageRepository
+	 * 									An instance of the private message repository.
 	 */
 	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
 	                            Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
-	                            Tx_MmForum_Domain_Repository_User_UserfieldRepository $userfieldRepository) {
+	                            Tx_MmForum_Domain_Repository_User_UserfieldRepository $userfieldRepository,
+								Tx_MmForum_Domain_Repository_User_PrivateMessagesRepository $messageRepository) {
 		parent::__construct();
 		$this->forumRepository     = $forumRepository;
 		$this->topicRepository     = $topicRepository;
 		$this->userfieldRepository = $userfieldRepository;
+		$this->messageRepository   = $messageRepository;
 	}
 
 
@@ -274,14 +285,50 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 			)
 		);
 		$this->clearCacheForCurrentPage();
-		if ($unsubscribe) {
-			$this->redirect('listSubscriptions');
-		} else {
-			$this->redirectToSubscriptionObject($object);
-		}
+		$this->redirectToSubscriptionObject($object);
 	}
 
+	/**
+	 * Fav Subscribes the current user to a forum or a topic.
+	 *
+	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum       The forum that is to be subscribed. Either this
+	 *                                                         value or the $topic parameter must be != NULL.
+	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic       The topic that is to be subscribed. Either this
+	 *                                                         value or the $forum parameter must be != NULL.
+	 * @param boolean                             $unsubscribe TRUE to unsubscribe the forum or topic instead.
+	 * @return void
+	 */
+	public function favSubscribeAction(Tx_MmForum_Domain_Model_Forum_Forum $forum = NULL,
+									Tx_MmForum_Domain_Model_Forum_Topic $topic = NULL, $unsubscribe = FALSE) {
 
+		// Validate arguments
+		if ($forum === NULL && $topic === NULL) {
+			throw new \TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException("You need to subscribe a Forum or Topic!", 1285059341);
+		}
+		$user = $this->getCurrentUser();
+		if ($user->isAnonymous()) {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException('You need to be logged in to subscribe or unsubscribe an object.', 1335121482);
+		}
+
+		# Create subscription
+		$object = $forum ? $forum : $topic;
+
+		if ($unsubscribe) {
+			$user->removeFavSubscription($object);
+		} else {
+			$user->addFavSubscription($object);
+		}
+
+		# Update user and redirect to subscription object.
+		$this->frontendUserRepository->update($user);
+		$this->controllerContext->getFlashMessageQueue()->addMessage(
+			new \TYPO3\CMS\Core\Messaging\FlashMessage(
+				$this->getSubscriptionFlashMessage($object, $unsubscribe)
+			)
+		);
+		$this->clearCacheForCurrentPage();
+		$this->redirectToSubscriptionObject($object);
+	}
 
 	/**
 	 * Displays all topics and forums subscribed by the current user.
@@ -315,7 +362,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 		}
 		$this->view->assign('user',$user)
 					->assign('myNotifications',NULL)
-					->assign('myMessages', NULL)
+					->assign('myMessages', $this->messageRepository->findMessagesForUser($user, 6))
 					->assign('myFavorites', NULL)
 					->assign('myTopics',$this->topicRepository->findTopicsCreatedByAuthor($user, 6));
 

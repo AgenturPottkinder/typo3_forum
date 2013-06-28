@@ -115,10 +115,24 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 */
 	protected $workingEnvironment;
 
+	/**
+	 * Fav Subscribed topics.
+	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Topic>
+	 * @lazy
+	 */
+	protected $topicFavSubscriptions;
+
+
+	/**
+	 * Fav Subscribed forums.
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Forum>
+	 * @lazy
+	 */
+	protected $forumFavSubscriptions;
 
 	/**
 	 * Subscribed topics.
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Topic>
+	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Topic>
 	 * @lazy
 	 */
 	protected $topicSubscriptions;
@@ -551,6 +565,38 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 * SETTERS
 	 */
 
+	/**
+	 * Subscribes this user to a subscribeable object, like a topic or a forum.
+	 *
+	 * @param Tx_MmForum_Domain_Model_SubscribeableInterface $object
+	 *                             The object that is to be subscribed. This may
+	 *                             either be a topic or a forum.
+	 * @return void
+	 */
+	public function addFavSubscription(Tx_MmForum_Domain_Model_SubscribeableInterface $object) {
+		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Topic) {
+			$this->topicFavSubscriptions->attach($object);
+		} elseif ($object instanceof Tx_MmForum_Domain_Model_Forum_Forum) {
+			$this->forumFavSubscriptions->attach($object);
+		}
+	}
+
+
+
+	/**
+	 * Unsubscribes this user from a subscribeable object.
+	 *
+	 * @param Tx_MmForum_Domain_Model_SubscribeableInterface $object
+	 *                             The object that is to be unsubscribed.
+	 * @return void
+	 */
+	public function removeFavSubscription(Tx_MmForum_Domain_Model_SubscribeableInterface $object) {
+		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Topic) {
+			$this->topicFavSubscriptions->detach($object);
+		} elseif ($object instanceof Tx_MmForum_Domain_Model_Forum_Forum) {
+			$this->forumFavSubscriptions->detach($object);
+		}
+	}
 
 
 	/**

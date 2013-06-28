@@ -43,11 +43,13 @@ config.tx_extbase.persistence.classes {
 				tx_mmforum_job.mapOnProperty = job
 				tx_mmforum_interests.mapOnProperty = interests
 				tx_mmforum_working_environment.mapOnProperty = workingEnvironment
+				tx_mmforum_topic_favsubscriptions.mapOnProperty = topicFavSubscriptions
 				tx_mmforum_topic_subscriptions.mapOnProperty = topicSubscriptions
 				tx_mmforum_forum_subscriptions.mapOnProperty = forumSubscriptions
 				tx_mmforum_read_topics.mapOnProperty = readTopics
 				tx_mmforum_use_gravatar.mapOnProperty = useGravatar
 				tx_mmforum_contact.mapOnProperty = contact
+				tx_mmforum_private_messages.mapOnProperty = privateMessages
 			}
 		}
 	}
@@ -162,6 +164,13 @@ config.tx_extbase.persistence.classes {
 	Tx_MmForum_Domain_Model_Forum_CriteriaOption {
 		mapping {
 			tableName = tx_mmforum_domain_model_forum_criteria_options
+			recordType = 1
+		}
+	}
+
+	Tx_MmForum_Domain_Model_User_PrivateMessagesText {
+		mapping {
+			tableName = tx_mmforum_domain_model_user_privatemessages_text
 			recordType = 1
 		}
 	}

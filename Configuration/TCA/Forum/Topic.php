@@ -4,11 +4,11 @@ if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 $TCA['tx_mmforum_domain_model_forum_topic'] = array(
 	'ctrl' => $TCA['tx_mmforum_domain_model_forum_topic']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'type,subject,posts,author,subscribers,last_post,forum,target,question,criteria_options,solution'
+		'showRecordFieldList' => 'type,subject,posts,author,subscribers,last_post,forum,target,question,criteria_options,solution, fav_subscribers'
 	),
 	'types' => array(
 		'1' => array('showitem' => 'type,subject,forum,last_post,target'),
-		'0' => array('showitem' => 'type,subject,posts,author,subscribers,last_post,forum,readers,question,solution')
+		'0' => array('showitem' => 'type,subject,posts,author,subscribers,last_post,forum,readers,question,solution, fav_subscribers')
 	),
 	'palettes' => array(
 		'1' => array('showitem' => '')
@@ -198,6 +198,19 @@ $TCA['tx_mmforum_domain_model_forum_topic'] = array(
 				'foreign_class' => 'Tx_MmForum_Domain_Model_User_FrontendUser',
 				'MM' => 'tx_mmforum_domain_model_user_topicsubscription',
 				'MM_opposite_field' => 'tx_mmforum_topic_subscriptions',
+				'maxitems' => 9999,
+				'size' => 10
+			)
+		),
+		'fav_subscribers' => array(
+			'exclude' => 0,
+			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_topic.fav_subscribers',
+			'config' => array(
+				'type' => 'select',
+				'foreign_table' => 'fe_users',
+				'foreign_class' => 'Tx_MmForum_Domain_Model_User_FrontendUser',
+				'MM' => 'tx_mmforum_domain_model_user_topicfavsubscription',
+				'MM_opposite_field' => 'tx_mmforum_topic_favsubscriptions',
 				'maxitems' => 9999,
 				'size' => 10
 			)

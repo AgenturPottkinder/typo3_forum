@@ -10,15 +10,15 @@ if (!defined('TYPO3_MODE')) {
 		 'Forum'      => 'index, show, new, create, edit, update, delete',
 		 'Topic'      => 'index, show, new, create, edit, update, delete, questionsHelpBox, solution',
 		 'Post'       => 'show, new, create, edit, update, delete',
-		 'User'       => 'index, list, subscribe, show',
+		 'User'       => 'index, list, subscribe, favSubscribe, show',
 		 'Report'     => 'new, create',
 		 'Moderation' => 'editTopic, updateTopic, updateReportStatus, newReportComment, createReportComment, topicConformDelete'
 	),
 	array(
-		 'Forum'      => ' new, create, edit, update, delete',
+		 'Forum'      => 'new, create, edit, update, delete',
 		 'Topic'      => 'new, create, edit, update, delete',
 		 'Post'       => 'new, create, edit, update, delete',
-		 'User'       => 'subscribe',
+		 'User'       => 'subscribe, favSubscribe',
 		 'Report'     => 'new, create',
 		 'Moderation' => 'updateTopic, updateReportStatus, newReportComment, createReportComment'
 	)

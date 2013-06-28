@@ -178,6 +178,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_topic (
   post_count int(11) unsigned NOT NULL default '0',
   author int(11) unsigned default '0',
   subscribers int(11) unsigned default '0',
+  fav_subscribers int(11) unsigned default '0',
   last_post int(11) unsigned default '0',
   last_post_crdate int(11) unsigned default '0',
   solution int(11) unsigned NOT NULL default '0',
@@ -376,6 +377,25 @@ CREATE TABLE tx_mmforum_domain_model_user_topicsubscription (
   KEY uid_foreign (uid_foreign)
 );
 
+#
+# Table structure for table "tx_mmforum_domain_model_user_topicfavsubscription"
+#
+CREATE TABLE tx_mmforum_domain_model_user_topicfavsubscription (
+  uid int(10) NOT NULL auto_increment,
+  pid int(11) NOT NULL default '0',
+  uid_local int(11) unsigned NOT NULL default '0',
+  uid_foreign int(11) unsigned NOT NULL default '0',
+  tablenames varchar(255) NOT NULL default '',
+  sorting int(11) unsigned NOT NULL default '0',
+  sorting_foreign int(11) unsigned NOT NULL default '0',
+  tstamp int(10) unsigned NOT NULL default '0',
+  crdate int(10) unsigned NOT NULL default '0',
+  hidden tinyint(3) unsigned NOT NULL default '0',
+  PRIMARY KEY (uid),
+  KEY parent (pid),
+  KEY uid_local (uid_local),
+  KEY uid_foreign (uid_foreign)
+);
 
 #
 # Table structure for table "tx_mmforum_domain_model_user_userfield_userfield"
@@ -512,32 +532,14 @@ CREATE TABLE tx_mmforum_domain_model_forum_ads (
 
 
 #
-# Table structure for table 'tx_mmforum_domain_model_forum_user_private_messages'
-#
-CREATE TABLE tx_mmforum_domain_model_user_private_messages (
-  uid int(11) unsigned NOT NULL auto_increment,
-  pid int(11) unsigned NOT NULL default '0',
-  tstamp int(11) unsigned NOT NULL default '0',
-  deleted tinyint(4) NOT NULL default '0',
-  sender int(11) unsigned NOT NULL default '0',
-  recipient int(11) unsigned NOT NULL default '0',
-  `message` tinytext NOT NULL,
-  recipient_read tinyint(3) NOT NULL default '0',
-  PRIMARY KEY  (uid)
-);
-
-
-
-#
 # Table structure for table "fe_users"
 #
 CREATE TABLE fe_users (
   tx_mmforum_post_count int(11) NOT NULL default '0',
-  tx_mmforum_topic_count int(11) unsigned NOT NULL default '0',
+  tx_mmforum_topic_favsubscriptions int(11) unsigned NOT NULL default '0',
   tx_mmforum_topic_subscriptions int(11) unsigned NOT NULL default '0',
   tx_mmforum_forum_subscriptions int(11) unsigned default '0',
   tx_mmforum_helpful_count int(11) NOT NULL default '0',
-  tx_mmforum_question_count int(11) NOT NULL default '0',
   tx_mmforum_signature text,
   tx_mmforum_interests text,
   tx_mmforum_userfield_values int(11) unsigned NOT NULL default '0'

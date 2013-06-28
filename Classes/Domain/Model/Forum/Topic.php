@@ -88,6 +88,14 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	 */
 	protected $subscribers;
 
+	/**
+	 * All users who have subscribed this topic.
+	 *
+	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser>
+	 * @lazy
+	 */
+	protected $favSubscribers;
+
 
 	/**
 	 * The as solution marked post
@@ -264,6 +272,13 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 		return $this->subscribers;
 	}
 
+	/**
+	 * Gets all users who have subscribes to this forum.
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser>
+	 */
+	public function getFavSubscribers() {
+		return $this->favSubscribers;
+	}
 
 	/**
 	 * Get the as solution marked post
@@ -687,6 +702,23 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 		$this->readers = New \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 
+	/**
+	 * Adds a new subscriber.
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user The new subscriber.
+	 * @return void
+	 */
+	public function addFavSubscriber(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+		$this->favSubscribers->attach($user);
+	}
+
+
+	/**
+	 * Removes a subscriber.
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user The subscriber to be removed.
+	 */
+	public function removeFavSubscriber(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+		$this->favSubscribers->detach($user);
+	}
 
 	/**
 	 * Adds a new subscriber.
