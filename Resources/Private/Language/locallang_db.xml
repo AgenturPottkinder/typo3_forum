@@ -82,6 +82,7 @@
 			<label index="tx_mmforum_domain_model_user_pm">Private Messages</label>
 			<label index="tx_mmforum_domain_model_user_pm_text">Private Messages Text</label>
 			<label index="tx_mmforum_domain_model_user_pm_feuser">User</label>
+			<label index="tx_mmforum_domain_model_user_pm_opponent">Opponent User</label>
 			<label index="tx_mmforum_domain_model_user_pm_message">Message</label>
 			<label index="tx_mmforum_domain_model_user_pm_message_text">Text</label>
 			<label index="tx_mmforum_domain_model_user_pm_recipient_type">User Type</label>

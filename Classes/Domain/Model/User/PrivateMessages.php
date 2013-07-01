@@ -48,10 +48,16 @@ class Tx_MmForum_Domain_Model_User_PrivateMessages extends \TYPO3\CMS\Extbase\Do
 	public $tstamp;
 
 	/**
-	 * User who send this message
+	 * User who read this message
 	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
 	 */
 	public $feuser;
+
+	/**
+	 * Opponent user of this message
+	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+	 */
+	public $opponent;
 
 
 	/**
@@ -95,11 +101,20 @@ class Tx_MmForum_Domain_Model_User_PrivateMessages extends \TYPO3\CMS\Extbase\Do
 	}
 
 	/**
-	 * Get the User who send this message
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The User who send this message
+	 * Get the User who read this message
+	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The User who read this message
 	 */
 	public function getFeuser() {
 		return $this->feuser;
+	}
+
+
+	/**
+	 * Get the other User who is involved in this message
+	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The other User who is involved in this message
+	 */
+	public function getOpponent() {
+		return $this->opponent;
 	}
 
 
@@ -143,12 +158,22 @@ class Tx_MmForum_Domain_Model_User_PrivateMessages extends \TYPO3\CMS\Extbase\Do
 	}
 
 	/**
-	 * Sets the sender
+	 * Sets the user
 	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $feuser
 	 * @return void
 	 */
 	public function setFeuser(Tx_MmForum_Domain_Model_User_FrontendUser $feuser) {
 		$this->feuser = $feuser;
+	}
+
+
+	/**
+	 * Sets the opponent user
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $opponent
+	 * @return void
+	 */
+	public function setOpponent(Tx_MmForum_Domain_Model_User_FrontendUser $opponent) {
+		$this->opponent = $opponent;
 	}
 
 

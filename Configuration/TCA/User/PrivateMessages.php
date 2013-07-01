@@ -4,10 +4,10 @@ if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 $TCA['tx_mmforum_domain_model_user_privatemessages'] = array(
 	'ctrl' => $TCA['tx_mmforum_domain_model_user_privatemessages']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'message, feuser, type, user_read'
+		'showRecordFieldList' => 'message, feuser, opponent, type, user_read'
 	),
 	'types' => array(
-		'1' => array('showitem' => 'message, feuser, type, user_read, tstamp')
+		'1' => array('showitem' => 'message, feuser, opponent, type, user_read, tstamp')
 	),
 	'palettes' => array(
 		'1' => array('showitem' => '')
@@ -19,7 +19,7 @@ $TCA['tx_mmforum_domain_model_user_privatemessages'] = array(
 			'config'  => array(
 				'type' => 'inline',
 				'foreign_table' => 'tx_mmforum_domain_model_user_privatemessages_text',
-				'foreign_field' => 'uid',
+				'foreign_class' => 'Tx_MmForum_Domain_Model_User_PrivateMessagesText',
 				'maxitems'      => 1,
 				'appearance' => array(
 					'collapseAll' => 1,
@@ -31,6 +31,16 @@ $TCA['tx_mmforum_domain_model_user_privatemessages'] = array(
 		'feuser' => array(
 			'exclude' => 0,
 			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_pm_feuser',
+			'config'  => array(
+				'type' => 'select',
+				'foreign_table' => 'fe_users',
+				'foreign_class' => 'Tx_MmForum_Domain_Model_User_FrontendUser',
+				'maxitems' => 1
+			)
+		),
+		'opponent' => array(
+			'exclude' => 0,
+			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_pm_opponent',
 			'config'  => array(
 				'type' => 'select',
 				'foreign_table' => 'fe_users',

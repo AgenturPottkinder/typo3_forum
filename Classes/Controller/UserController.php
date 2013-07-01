@@ -82,6 +82,13 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	protected $messageRepository = NULL;
 
 
+	/**
+	 * A message factory.
+	 * @var Tx_MmForum_Domain_Factory_User_PrivateMessagesFactory
+	 */
+	protected $privateMessagesFactory;
+
+
 	/*
 	 * DEPENDENCY INJECTORS
 	 */
@@ -99,16 +106,20 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	 *                                 An instance of the userfield repository.
 	 * @param Tx_MmForum_Domain_Repository_User_PrivateMessagesRepository $messageRepository
 	 * 									An instance of the private message repository.
+	 * @param Tx_MmForum_Domain_Factory_User_PrivateMessagesFactory $privateMessagesFactory
+	 * 									An instance of the private message factory
 	 */
 	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
 	                            Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
 	                            Tx_MmForum_Domain_Repository_User_UserfieldRepository $userfieldRepository,
-								Tx_MmForum_Domain_Repository_User_PrivateMessagesRepository $messageRepository) {
+								Tx_MmForum_Domain_Repository_User_PrivateMessagesRepository $messageRepository,
+								Tx_MmForum_Domain_Factory_User_PrivateMessagesFactory $privateMessagesFactory) {
 		parent::__construct();
-		$this->forumRepository     = $forumRepository;
-		$this->topicRepository     = $topicRepository;
-		$this->userfieldRepository = $userfieldRepository;
-		$this->messageRepository   = $messageRepository;
+		$this->forumRepository			= $forumRepository;
+		$this->topicRepository			= $topicRepository;
+		$this->userfieldRepository		= $userfieldRepository;
+		$this->messageRepository		= $messageRepository;
+		$this->privateMessagesFactory	= $privateMessagesFactory;
 	}
 
 
@@ -254,9 +265,16 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 		if ($user->isAnonymous()) {
 			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
 		}
+		$dialog = null;
+		$userList = array();
+		$userList = $this->messageRepository->findStartedConversations($user);
+		if(!empty($userList)) {
+			$dialog = $this->messageRepository->findMessagesBetweenUser($userList[0]->getFeuser(),$userList[0]->getOpponent());
+		}
 		$this->view
-			->assign('messages', $this->messageRepository->findMessagesForUser($user,0))
-			->assign('user', $user);
+			->assign('userList', $userList)
+			->assign('dialog',$dialog)
+		    ->assign('currentUser',$user);
 	}
 
 
@@ -269,18 +287,34 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	public function newMessageAction() {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
+			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 		$this->view->assign('user', $user);
 	}
 
 	/**
 	 * Create a new message
+	 * @param string $recipient
+	 * @param string $text
 	 *
+	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 * @validate $recipient Tx_MmForum_Domain_Validator_User_PrivateMessageRecipientValidator
+	 * @validate $text notEmpty
 	 * @return void
 	 */
-	public function createMessageAction() {
-
+	public function createMessageAction($recipient, $text) {
+		$user = $this->getCurrentUser();
+		$recipient = $this->frontendUserRepository->findByUsername($recipient);
+		if ($user->isAnonymous()) {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+		}
+		$message = $this->objectManager->create('Tx_MmForum_Domain_Model_User_PrivateMessagesText');
+		$message->setMessageText($text);
+		$pmFeUser = $this->privateMessagesFactory->createPrivateMessage($user,$recipient,$message,0,1);
+		$pmRecipient = $this->privateMessagesFactory->createPrivateMessage($recipient,$user,$message,1,0);
+		$this->messageRepository->add($pmFeUser);
+		$this->messageRepository->add($pmRecipient);
+		$this->redirect('listMessages');
 	}
 
 

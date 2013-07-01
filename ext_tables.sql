@@ -539,11 +539,13 @@ CREATE TABLE tx_mmforum_domain_model_user_privatemessages (
   tstamp int(11) unsigned NOT NULL default '0',
   deleted tinyint(4) NOT NULL default '0',
   feuser int(11) unsigned NOT NULL default '0',
+  opponent int(11) unsigned NOT NULL default '0',
   `type` tinyint(3) NOT NULL default '0',
   `message`  int(11) unsigned NOT NULL default '0',
   user_read` tinyint(3) NOT NULL default '0',
   PRIMARY KEY  (uid),
-  KEY `message` (`message`)
+  KEY `message` (`message`),
+  KEY `opponent` (`opponent`)
 );
 
 

@@ -44,14 +44,25 @@ class Tx_MmForum_Domain_Repository_User_PrivateMessagesRepository extends \TYPO3
 
 
 	/**
-	 * Find all messages this user sent and got
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * Find all messages between user X and user Y
+	 *
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $userX
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $userY
 	 * @param int $limit
 	 * @return Tx_MmForum_Domain_Model_User_PrivateMessages[]
 	 */
-	public function findMessagesForUser(Tx_MmForum_Domain_Model_User_FrontendUser $user, $limit=0) {
+	public function findMessagesBetweenUser(Tx_MmForum_Domain_Model_User_FrontendUser $userX,
+											Tx_MmForum_Domain_Model_User_FrontendUser $userY, $limit=0) {
 		$query = $this->createQuery();
-		$query->matching($query->equals('feuser',$user));
+		$constraintsX = array();
+		$constraintsY = array();
+		$constraintsX[] = $query->equals('feuser',$userX);
+		$constraintsX[] = $query->equals('opponent',$userY);
+		$constraintsX[] = $query->equals('type',1);
+		$constraintsY[] = $query->equals('feuser',$userY);
+		$constraintsY[] = $query->equals('opponent',$userX);
+		$constraintsY[] = $query->equals('type',0);
+		$query->matching($query->logicalOr($query->logicalAnd($constraintsX),$query->logicalAnd($constraintsY)));
 		$query->setOrderings(array('tstamp'=> 'DESC'));
 		if($limit > 0) {
 			$query->setLimit($limit);
@@ -61,7 +72,44 @@ class Tx_MmForum_Domain_Repository_User_PrivateMessagesRepository extends \TYPO3
 
 
 	/**
-	 * Find all messages this user sent and got
+	 * Find all started conversations for user
+	 *
+	 * @TODO: Should be overworked when default SQL functions will be added to Extbase (group by, distinct etc)
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param int $limit
+	 * @return Tx_MmForum_Domain_Model_User_FrontendUser[]
+	 */
+	public function findStartedConversations(Tx_MmForum_Domain_Model_User_FrontendUser $user, $limit=0) {
+		$query = $this->createQuery();
+		$constraintsX = array();
+		$constraintsY = array();
+		$userResult = array();
+		$userInArray = array();
+		$constraintsX[] = $query->equals('feuser',$user);
+		$constraintsX[] = $query->equals('type',0);
+		$constraintsY[] = $query->equals('opponent',$user);
+		$constraintsY[] = $query->equals('type',1);
+		$query->matching($query->logicalOr($query->logicalAnd($constraintsX),$query->logicalAnd($constraintsY)));
+		if($limit > 0) {
+			$query->setLimit($limit);
+		}
+		$result = $query->execute();
+		//Parse result for the user ListBox
+		foreach($result AS $entry) {
+			if($entry->getFeuser() == $user) continue;
+			if(array_search($entry->getFeuser(),$userInArray) === false) {
+				$userInArray[] = $entry->getFeuser();
+				$userResult[] = $entry;
+			}
+		}
+		return $userResult;
+	}
+
+
+
+
+	/**
+	 * Find all messages this user got
 	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
 	 * @param int $limit
 	 * @return Tx_MmForum_Domain_Model_User_PrivateMessages[]
@@ -72,23 +120,6 @@ class Tx_MmForum_Domain_Repository_User_PrivateMessagesRepository extends \TYPO3
 		$constraints[] = $query->equals('feuser',$user);
 		$constraints[] = $query->equals('type',1);
 		$query->matching($query->logicalAnd($constraints));
-		$query->setOrderings(array('tstamp'=> 'DESC'));
-		if($limit > 0) {
-			$query->setLimit($limit);
-		}
-		return $query->execute();
-	}
-
-	/**
-	 * Find all messages this user sent and got
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 * @param int $limit
-	 * @return Tx_MmForum_Domain_Model_User_PrivateMessages[]
-	 */
-	public function findForwardedMessagesForUser(Tx_MmForum_Domain_Model_User_FrontendUser $user, $limit=0) {
-		$query = $this->createQuery();
-		$constraints = array($query->equals('feuser',$user));
-		$constraints[] = $query->equals('type',1);
 		$query->setOrderings(array('tstamp'=> 'DESC'));
 		if($limit > 0) {
 			$query->setLimit($limit);
