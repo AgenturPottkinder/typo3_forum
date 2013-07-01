@@ -178,7 +178,25 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 			->assign('user', $user);
 	}
 
-
+	/**
+	 * Lists all topics of a specific user. If no user is specified, this action lists all
+	 * topics of the current user.
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 *
+	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 * @return void
+	 */
+	public function listFavoritesAction(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
+		if ($user === NULL) {
+			$user = $this->getCurrentUser();
+		}
+		if ($user->isAnonymous()) {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
+		}
+		$this->view
+			->assign('topics', $this->topicRepository->findTopicsFavSubscribedByUser($user))
+			->assign('user', $user);
+	}
 
 	/**
 	 * Lists all topics of a specific user. If no user is specified, this action lists all
@@ -406,11 +424,10 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 		if ($user->isAnonymous()) {
 			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException('You need to be logged in to view your own subscriptions!', 1335120249);
 		}
-
 		$this->view->assign('user',$user)
 					->assign('myNotifications',NULL)
 					->assign('myMessages', $this->messageRepository->findReceivedMessagesForUser($user, 6))
-					->assign('myFavorites', NULL)
+					->assign('myFavorites', $this->topicRepository->findTopicsFavSubscribedByUser($user, 6))
 					->assign('myTopics',$this->topicRepository->findTopicsCreatedByAuthor($user, 6));
 
 	}

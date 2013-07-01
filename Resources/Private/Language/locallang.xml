@@ -255,7 +255,7 @@
 			<label index="User_Index_Dashboard">Mein Dashboard</label>
 			<label index="User_Index_All_Notifications">alle Benachrichtigungen</label>
 			<label index="User_Index_All_Messages">alle Nachrichten</label>
-			<label index="User_Index_All_Favorites">alle Favorieten</label>
+			<label index="User_Index_All_Favorites">alle Favoriten</label>
 			<label index="User_Index_All_MyTopics">alle Topics</label>
 			<label index="User_Index_Posts">Beiträge</label>
             <label index="User_Index_Helpful_Posts">Hilfreiche Bewertungen</label>
