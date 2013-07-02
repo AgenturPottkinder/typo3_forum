@@ -202,9 +202,18 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 
 
 	/**
-	 * @var string
+	 * The rank of this user
+	 * @var Tx_MmForum_Domain_Model_User_Rank
 	 */
 	protected $rank;
+
+
+	/**
+	 * The points of this user
+	 * @var int
+	 */
+	protected $points;
+
 
 	/**
 	 * @var string
@@ -247,6 +256,14 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 */
 
 
+
+	/**
+	 * Gets the points of this user
+	 * @return integer
+	 */
+	public function getPoints() {
+		return $this->points;
+	}
 
 	/**
 	 * Gets the post count of this user.
@@ -337,11 +354,11 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	}
 
 	/**
-	 * Dummy function
-	 * @return string
+	 * Get the rank of this user
+	 * @return Tx_MmForum_Domain_Model_User_Rank
 	 */
 	public function getRank() {
-		return '-';
+		return $this->rank;
 	}
 
 
@@ -739,6 +756,28 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	}
 
 
+
+	/**
+	 * Increase the user's points.
+	 * @param int $by The amount of points to be added
+	 * @return void
+	 */
+	public function increasePoints($by) {
+		$this->points = $this->points + $by;
+	}
+
+
+	/**
+	 * Decrease the user's points.
+	 * @param int $by The amount of points to be removed
+	 * @return void
+	 */
+	public function decreasePoints($by) {
+		$this->points = $this->points - $by;
+	}
+
+
+
 	/**
 	 * Resets the whole contact data array of this user. This array will be stored in
 	 * a JSON serialized format.
@@ -749,7 +788,6 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	public function setContactData(array $values) {
 		$this->contact = json_encode($values);
 	}
-
 
 
 	/**
@@ -772,6 +810,17 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 
 		$this->contact = json_encode($contactData);
 	}
+
+
+	/**
+	 * Set the rank of this user
+	 * @param Tx_MmForum_Domain_Model_User_Rank $rank
+	 */
+	public function setRank(Tx_MmForum_Domain_Model_User_Rank $rank) {
+		$this->rank = $rank;
+	}
+
+
 
 
 

@@ -151,6 +151,21 @@ $tempColumns = array(
 		'exclude' => 1,
 		'config' => array('type' => 'passthrough')
 	),
+	'tx_mmforum_rank' => array(
+		'exclude' => 0,
+		'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_rank',
+		'config'  => array(
+			'type' => 'select',
+			'foreign_table' => 'tx_mmforum_domain_model_user_rank',
+			'foreign_class' => 'Tx_MmForum_Domain_Model_User_Rank',
+			'maxitems' => 1
+		)
+	),
+	'tx_mmforum_points' => array(
+		'exclude' => 1,
+		'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_mmforum_points',
+		'config' => array('type' => 'none'),
+	),
 	'tx_mmforum_post_count' => array(
 		'exclude' => 1,
 		'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_mmforum_post_count',
@@ -348,7 +363,7 @@ if (version_compare(TYPO3_branch, '6.1', '<')) {
 $TCA['fe_users']['types']['Tx_MmForum_Domain_Model_User_FrontendUser'] = $TCA['fe_users']['types']['0'];
 $TCA['fe_users']['types']['Tx_MmForum_Domain_Model_User_FrontendUser']['showitem'] .=
 	',--div--;LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_mmforum.tab.settings,'
-	. ' tx_mmforum_post_count, tx_mmforum_topic_count, tx_mmforum_helpful_count, tx_mmforum_question_count, tx_mmforum_topic_favsubscriptions, tx_mmforum_topic_subscriptions, tx_mmforum_forum_subscriptions,'
+	. ' tx_mmforum_points, tx_mmforum_post_count, tx_mmforum_topic_count, tx_mmforum_helpful_count, tx_mmforum_question_count, tx_mmforum_rank, tx_mmforum_topic_favsubscriptions, tx_mmforum_topic_subscriptions, tx_mmforum_forum_subscriptions,'
 	. ' tx_mmforum_signature, tx_mmforum_userfield_values, tx_mmforum_use_gravatar, tx_mmforum_contact, tx_mmforum_working_environment, tx_mmforum_private_messages';
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem('fe_users', 'tx_extbase_type',
 	array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_extbase_type.mm_forum', 'Tx_MmForum_Domain_Model_User_FrontendUser'));
@@ -563,4 +578,15 @@ $TCA['tx_mmforum_domain_model_user_privatemessages_text'] = array(
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/User/PrivateMessages_Text.php',
 	)
 );
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_mmforum_domain_model_user_rank');
+$TCA['tx_mmforum_domain_model_user_rank'] = array(
+	'ctrl' => array(
+		'title' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_rank',
+		'label' => 'name',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/User/rank.png',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/User/Rank.php',
+	)
+);
+
 ?>

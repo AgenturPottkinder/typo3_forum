@@ -50,6 +50,8 @@ config.tx_extbase.persistence.classes {
 				tx_mmforum_use_gravatar.mapOnProperty = useGravatar
 				tx_mmforum_contact.mapOnProperty = contact
 				tx_mmforum_private_messages.mapOnProperty = privateMessages
+				tx_mmforum_rank.mapOnProperty = rank
+				tx_mmforum_points.mapOnProperty = points
 			}
 		}
 	}

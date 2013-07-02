@@ -560,11 +560,27 @@ CREATE TABLE `tx_mmforum_domain_model_user_privatemessages_text` (
 );
 
 
+#
+# Table structure for table 'x_mmforum_domain_model_user_rank'
+#
+
+CREATE TABLE IF NOT EXISTS tx_mmforum_domain_model_user_rank (
+  uid int(11) unsigned NOT NULL auto_increment,
+  pid int(11) unsigned NOT NULL default '0',
+  deleted tinyint(3) unsigned NOT NULL default '0',
+  `name` varchar(32) NOT NULL,
+  point_limit int(11) unsigned NOT NULL default '0',
+  PRIMARY KEY (uid)
+);
+
+
 
 #
 # Table structure for table "fe_users"
 #
 CREATE TABLE fe_users (
+  tx_mmforum_rank int(11) unsigned NOT NULL default '0',
+  tx_mmforum_points int(11) unsigned NOT NULL default '0',
   tx_mmforum_post_count int(11) NOT NULL default '0',
   tx_mmforum_topic_favsubscriptions int(11) unsigned NOT NULL default '0',
   tx_mmforum_topic_subscriptions int(11) unsigned NOT NULL default '0',
@@ -583,7 +599,8 @@ CREATE TABLE fe_users (
   tx_mmforum_skype VARCHAR( 255 ) NOT NULL,
   tx_mmforum_job VARCHAR( 255 ) NOT NULL,
   tx_mmforum_working_environment int(11) unsigned NOT NULL default '0',
-  tx_mmforum_contact text
+  tx_mmforum_contact text,
+  KEY `tx_mmforum_user_rank` (`tx_mmforum_user_rank`)
 );
 
 
