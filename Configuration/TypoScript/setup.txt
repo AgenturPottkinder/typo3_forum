@@ -92,6 +92,30 @@ config.tx_extbase.persistence.classes {
 		}
 	}
 
+	Tx_MmForum_Domain_Model_Moderation_AbstractReport {
+		mapping {
+			tableName = tx_mmforum_domain_model_moderation_report
+		}
+		subclasses {
+			Tx_MmForum_Domain_Model_Moderation_UserReport = Tx_MmForum_Domain_Model_Moderation_UserReport
+			Tx_MmForum_Domain_Model_Moderation_PostReport = Tx_MmForum_Domain_Model_Moderation_PostReport
+		}
+	}
+
+	Tx_MmForum_Domain_Model_Moderation_UserReport {
+		mapping {
+			tableName = tx_mmforum_domain_model_moderation_report
+			recordType = Tx_MmForum_Domain_Model_Moderation_UserReport
+		}
+	}
+
+	Tx_MmForum_Domain_Model_Moderation_PostReport {
+		mapping {
+			tableName = tx_mmforum_domain_model_moderation_report
+			recordType = Tx_MmForum_Domain_Model_Moderation_PostReport
+		}
+	}
+
 	Tx_MmForum_Domain_Model_Format_AbstractTextParserElement {
 		mapping {
 			tableName = tx_mmforum_domain_model_format_textparser
@@ -103,6 +127,7 @@ config.tx_extbase.persistence.classes {
 			Tx_MmForum_Domain_Model_Format_SyntaxHighlighting = Tx_MmForum_Domain_Model_Format_SyntaxHighlighting
 		}
 	}
+
 
 	Tx_MmForum_Domain_Model_Format_BBCode {
 		mapping {

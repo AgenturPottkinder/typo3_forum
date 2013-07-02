@@ -28,8 +28,13 @@
 
 /**
  *
- * A report comment. Each moderation report consists of a set -- and at least one --
- * of these comments.
+ * Models a post report. Reports are the central object of the moderation
+ * component of the mm_forum extension. Each user can report a forum post
+ * to the respective moderator group. In this case, a report object is
+ * created.
+ *
+ * These report objects can be assigned to moderators ans be organized in
+ * different workflow stages. Moderators can post comments to each report.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
  * @package    MmForum
@@ -43,145 +48,21 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Model_Moderation_ReportComment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
-
-
-
-	/*
-	 * ATTRIBUTES
-	 */
-
-
+class Tx_MmForum_Domain_Model_Moderation_UserReport extends Tx_MmForum_Domain_Model_Moderation_Report {
 
 	/**
-	 * The comment author
+	 * A set of comments that are assigned to this report.
 	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
 	 */
-	protected $author;
+	protected $feuser;
 
 
 	/**
-	 * The comment
-	 * @var string
+	 * Gets the topic to which the reported post belongs to.
+	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The topic.
 	 */
-	protected $text;
-
-
-	/**
-	 * The report this comment belongs to.
-	 * @var Tx_MmForum_Domain_Model_Moderation_Report
-	 */
-	protected $report;
-
-
-	/**
-	 * This comment's creation timestamp.
-	 * @var DateTime
-	 */
-	protected $crdate = NULL;
-
-
-
-	/*
-	 * CONSTRUCTOR
-	 */
-
-
-
-	/**
-	 * Constructor
-	 * @param  string                                  $text.
-	 */
-	public function __construct($text) {
-		$this->text   = $text;
+	public function getUser() {
+		return $this->feuser;
 	}
-
-
-
-	/*
-	  * GETTERS
-	  */
-
-
-
-	/**
-	 * Gets the comment author.
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The comment author.
-	 */
-	public function getAuthor() {
-		return $this->author;
-	}
-
-
-
-	/**
-	 * Gets the comment text.
-	 * @return string The comment text.
-	 */
-	public function getText() {
-		return $this->text;
-	}
-
-
-
-	/**
-	 * Gets the parent report.
-	 * @return Tx_MmForum_Domain_Model_Moderation_Report The report.
-	 */
-	public function getReport() {
-		return $this->report;
-	}
-
-
-
-	/**
-	 * Gets this comment's creation timestamp.
-	 * @return DateTime The timestamp.
-	 */
-	public function getTimestamp() {
-		return $this->crdate;
-	}
-
-
-
-	/*
-	 * SETTERS
-	 */
-
-
-
-	/**
-	 * Sets the comment's author.
-	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $author The author.
-	 * @return void
-	 */
-	public function setAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $author) {
-		$this->author = $author;
-	}
-
-
-
-	/**
-	 * Sets the comment text.
-	 * @param string $text The comment text.
-	 * @return void
-	 */
-	public function setText($text) {
-		$this->text = $text;
-	}
-
-
-
-	/**
-	 * Sets the comment's report.
-	 *
-	 * @param Tx_MmForum_Domain_Model_Moderation_Report $report
-	 * @return void
-	 */
-	public function setReport(Tx_MmForum_Domain_Model_Moderation_Report $report) {
-		$this->report = $report;
-	}
-
-
 
 }

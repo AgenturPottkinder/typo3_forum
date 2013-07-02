@@ -42,20 +42,9 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Repository_Moderation_ReportRepository extends Tx_MmForum_Domain_Repository_AbstractRepository {
-
-
-
-	/**
-	 * Finds all reports have not yet been ultimately closed.
-	 *
-	 * @return Iterable<Tx_MmForum_Domain_Model_Moderation_Report> All reports have not yet been ultimately closed.
-	 */
-	public function findOpen() {
-		$query = $this->createQueryWithFallbackStoragePage();
-		return $query->matching($query->equals('workflowStatus.final', 0))->execute();
-	}
-
-
-
+class Tx_MmForum_Domain_Repository_Moderation_UserReportRepository extends Tx_MmForum_Domain_Repository_AbstractRepository {
+		public function findAll(){
+			$query = $this->createQuery();
+			return $query->execute();
+		}
 }

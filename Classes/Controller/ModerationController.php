@@ -1,9 +1,8 @@
 <?php
-
-/*                                                                    - *
+/*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2013 Sebastian Gieselmann <s.gieselmann@mittwald.de>            *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -25,89 +24,51 @@
  *                                                                      */
 
 
-
 /**
  *
  * Controller for special moderator options.
  *
- * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
  * @package    MmForum
  * @subpackage Controller
  * @version    $Id$
  *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
+ * @copyright  Sebastian Gieselmann <s.gieselmann@mittwald.de>
  *             Mittwald CM Service GmbH & Co. KG
  *             http://www.mittwald.de
  * @license    GNU Public License, version 2
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
+
 class Tx_MmForum_Controller_ModerationController extends Tx_MmForum_Controller_AbstractController {
 
-
-
-	/*
-	 * ATTRIBUTES
+	/**
+	 * @var Tx_MmForum_Domain_Repository_Moderation_UserReportRepository
 	 */
-
-
+	protected $userReportRepository = NULL;
 
 	/**
-	 * The topic repository.
-	 *
-	 * @var Tx_MmForum_Domain_Repository_Forum_TopicRepository
+	 * @var Tx_MmForum_Domain_Repository_Moderation_PostReportRepository
 	 */
-	protected $topicRepository;
-
-
-
-	/**
-	 * The topic factory.
-	 *
-	 * @var Tx_MmForum_Domain_Factory_Forum_TopicFactory
-	 */
-	protected $topicFactory;
-
-
+	protected $postReportRepository = NULL;
 
 	/**
 	 * @var Tx_MmForum_Domain_Repository_Moderation_ReportRepository
 	 */
 	protected $reportRepository = NULL;
 
-
-
-	/*
-	 * DEPENDENCY INJECTORS
-	 */
-
-
-
 	/**
-	 * Injects an instance of the topic repository.
+	 * Injects an instance of the report repository.
 	 *
-	 * @param  Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository
+	 * @param  Tx_MmForum_Domain_Repository_Moderation_UserReportRepository $userReportRepository
 	 *
 	 * @return void
 	 */
-	public function injectTopicRepository(Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository) {
-		$this->topicRepository = $topicRepository;
+	public function injectUserReportRepository(
+		Tx_MmForum_Domain_Repository_Moderation_UserReportRepository $userReportRepository) {
+		$this->userReportRepository = $userReportRepository;
 	}
-
-
-
-	/**
-	 * Injects an instance of the topic factory.
-	 *
-	 * @param  Tx_MmForum_Domain_Factory_Forum_TopicFactory $topicFactory
-	 *
-	 * @return void
-	 */
-	public function injectTopicFactory(Tx_MmForum_Domain_Factory_Forum_TopicFactory $topicFactory) {
-		$this->topicFactory = $topicFactory;
-	}
-
-
 
 	/**
 	 * Injects an instance of the report repository.
@@ -120,90 +81,85 @@ class Tx_MmForum_Controller_ModerationController extends Tx_MmForum_Controller_A
 		$this->reportRepository = $reportRepository;
 	}
 
-
-
-	/*
-	 * ACTION METHODS
+	/**
+	 * Injects an instance of the report repository.
+	 *
+	 * @param  Tx_MmForum_Domain_Repository_Moderation_PostReportRepository $postReportRepository
+	 *
+	 * @return void
 	 */
-
-
+	public function injectPostReportRepository(
+		Tx_MmForum_Domain_Repository_Moderation_PostReportRepository $postReportRepository) {
+		$this->postReportRepository = $postReportRepository;
+	}
 
 	/**
 	 * @return void
 	 */
 	public function indexReportAction() {
-		$this->view->assign('reports', $this->reportRepository->findOpen());
+		$this->view->assign('postReports', $this->postReportRepository->findAll());
+		$this->view->assign('userReports', $this->userReportRepository->findAll());
 	}
-
-
 
 	/**
-	 * Sets the workflow status of a report.
-	 *
-	 * @param Tx_MmForum_Domain_Model_Moderation_Report               $report   The report for which to set the status.
-	 * @param Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $status   The report's new status.
-	 * @param string                                                  $redirect Where to redirect after updating the report ('index' or 'show').
+	 * @param  Tx_MmForum_Domain_Model_Moderation_UserReport $userReport
+	 * @param  Tx_MmForum_Domain_Model_Moderation_PostReport $postReport
+	 * @return void
 	 */
-	public function updateReportStatusAction(Tx_MmForum_Domain_Model_Moderation_Report $report,
-	                                         Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $status,
-	                                         $redirect = 'index') {
-		// Assert authorization
-		$this->authenticationService->assertModerationAuthorization($report->getTopic()->getForum());
-
-		// Set status and update the report. Add a comment to the report that
-		// documents the status change.
-		$report->setWorkflowStatus($status);
-		$comment = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_MmForum_Domain_Model_Moderation_ReportComment');
-		$comment->setAuthor($this->getCurrentUser());
-		$comment->setText(Tx_MmForum_Utility_Localization::translate('Report_Edit_SetStatus', 'MmForum',
-		                                                             array($status->getName())));
-		$report->addComment($comment);
-		$this->reportRepository->update($report);
-
-		// Add flash message and clear cache.
-		$this->addLocalizedFlashmessage('Report_UpdateStatus_Success', array($report->getUid(), $status->getName()));
-		$this->clearCacheForCurrentPage();
-
-		if ($redirect === 'show') {
-			$this->redirect('editReport', NULL, NULL, array('report' => $report));
+	public function editReportAction(Tx_MmForum_Domain_Model_Moderation_UserReport $userReport = NULL,
+									 Tx_MmForum_Domain_Model_Moderation_PostReport $postReport = NULL) {
+		// Validate arguments
+		if ($userReport === NULL && $postReport === NULL) {
+			throw new \TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException("You need to show a user report or post report!", 1285059341);
+		}
+		if ($postReport) {
+			$report = $postReport;
+			$type = 'Post';
+			$this->authenticationService->assertModerationAuthorization($postReport->getTopic()->getForum());
+		} else {
+			$type = 'User';
+			$report = $userReport;
 		}
 
-		$this->redirect('indexReport');
+		$this->view->assign('report', $report)
+			->assign('type', $type);
 	}
-
-
 
 	/**
 	 * @param Tx_MmForum_Domain_Model_Moderation_Report $report
-	 */
-	public function editReportAction(Tx_MmForum_Domain_Model_Moderation_Report $report) {
-		// Assert authorization
-		$this->authenticationService->assertModerationAuthorization($report->getTopic()->getForum());
-		$this->view->assignMultiple(array('report' => $report));
-	}
-
-
-
-	/**
-	 * @param Tx_MmForum_Domain_Model_Moderation_Report        $report
 	 * @param Tx_MmForum_Domain_Model_Moderation_ReportComment $comment
 	 *
 	 * @dontvalidate $comment
 	 */
 	public function newReportCommentAction(Tx_MmForum_Domain_Model_Moderation_Report $report,
-	                                       Tx_MmForum_Domain_Model_Moderation_ReportComment $comment = NULL) {
-		$this->view->assignMultiple(array('report'  => $report,
-		                                 'comment'  => $comment));
+										   Tx_MmForum_Domain_Model_Moderation_ReportComment $comment = NULL) {
+		$this->view->assignMultiple(array('report' => $report,
+			'comment' => $comment));
 	}
 
 
-
 	/**
-	 * @param Tx_MmForum_Domain_Model_Moderation_Report        $report
+	 * @param  Tx_MmForum_Domain_Model_Moderation_UserReport $userReport
+	 * @param  Tx_MmForum_Domain_Model_Moderation_PostReport $postReport
 	 * @param Tx_MmForum_Domain_Model_Moderation_ReportComment $comment
 	 */
-	public function createReportCommentAction(Tx_MmForum_Domain_Model_Moderation_Report $report,
-	                                          Tx_MmForum_Domain_Model_Moderation_ReportComment $comment) {
+	public function createReportCommentAction(Tx_MmForum_Domain_Model_Moderation_UserReport $userReport = NULL,
+											  Tx_MmForum_Domain_Model_Moderation_PostReport $postReport = NULL,
+											  Tx_MmForum_Domain_Model_Moderation_ReportComment $comment) {
+		// Validate arguments
+		if ($userReport === NULL && $postReport === NULL) {
+			throw new \TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException("You need to show a user report or post report!", 1285059341);
+		}
+
+		if ($postReport) {
+			$report = $postReport;
+			$type = 'postReport';
+			$this->authenticationService->assertModerationAuthorization($postReport->getTopic()->getForum());
+		} else {
+			$type = 'userReport';
+			$report = $userReport;
+		}
+		$comment->setAuthor($this->authenticationService->getUser());
 		$report->addComment($comment);
 		$this->reportRepository->update($report);
 
@@ -212,76 +168,10 @@ class Tx_MmForum_Controller_ModerationController extends Tx_MmForum_Controller_A
 				Tx_MmForum_Utility_Localization::translate('Report_NewComment_Success')
 			)
 		);
+
 		$this->clearCacheForCurrentPage();
-		$this->redirect('editReport', NULL, NULL, array('report' => $report));
+		$this->redirect('editReport', NULL, NULL, array($type => $report));
+
 	}
-
-
-
-	/**
-	 * Displays a form for editing a topic with special moderator-powers!
-	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Topic $topic The topic that is to be edited.
-	 *
-	 * @return void
-	 */
-	public function editTopicAction(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
-		$this->authenticationService->assertModerationAuthorization($topic->getForum());
-		$this->view->assign('topic', $topic);
-	}
-
-
-
-	/**
-	 * Updates a forum with special super-moderator-powers!
-	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Topic  $topic           The topic that is be edited.
-	 * @param  boolean                              $moveTopic       TRUE, if the topic is to be moved to another forum.
-	 * @param  Tx_MmForum_Domain_Model_Forum_Forum  $moveTopicTarget The forum to which the topic is to be moved.
-	 *
-	 * @return void
-	 */
-	public function updateTopicAction(Tx_MmForum_Domain_Model_Forum_Topic $topic, $moveTopic = FALSE,
-	                                  Tx_MmForum_Domain_Model_Forum_Forum $moveTopicTarget = NULL) {
-		$this->authenticationService->assertModerationAuthorization($topic->getForum());
-		$this->topicRepository->update($topic);
-
-		if ($moveTopic) {
-			$this->topicFactory->moveTopic($topic, $moveTopicTarget);
-		}
-
-		$this->controllerContext->getFlashMessageQueue()->addMessage(
-			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				Tx_MmForum_Utility_Localization::translate('Moderation_UpdateTopic_Success',
-				'MmForum')
-			)
-		);
-		$this->clearCacheForCurrentPage();
-		$this->redirect('show', 'Topic', NULL, Array('topic' => $topic));
-	}
-
-
-	/**
-	 * Delete a topic from repository!
-	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Topic  $topic           The topic that is be deleted.
-	 *
-	 * @return void
-	 */
-	public function topicConformDeleteAction(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
-		$this->authenticationService->assertModerationAuthorization($topic->getForum());
-		$this->topicRepository->remove($topic);
-
-		$this->controllerContext->getFlashMessageQueue()->addMessage(
-			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				Tx_MmForum_Utility_Localization::translate('Moderation_DeleteTopic_Success',
-					'MmForum')
-			)
-		);
-		$this->clearCacheForCurrentPage();
-		$this->redirect('show', 'Forum', NULL, Array('forum' => $topic->getForum()));
-	}
-
-
 
 }

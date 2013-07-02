@@ -454,6 +454,7 @@ $TCA['tx_mmforum_domain_model_moderation_report'] = array(
 	'ctrl' => array(
 		'title' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report',
 		'label' => 'post',
+		'type' => 'type',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
 		'delete' => 'deleted',

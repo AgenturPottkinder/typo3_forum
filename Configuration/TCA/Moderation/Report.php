@@ -6,10 +6,12 @@ if (!defined('TYPO3_MODE'))
 $TCA['tx_mmforum_domain_model_moderation_report'] = array(
 	'ctrl' => $TCA['tx_mmforum_domain_model_moderation_report']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'post,reporter,moderator,workflow_status,comments'
+		'showRecordFieldList' => 'type,reporter,moderator,workflow_status,comments, post, feuser'
 	),
 	'types' => array(
-		'1' => array('showitem' => 'post,reporter,moderator,workflow_status,comments')
+		'1' => array('showitem' => 'type,reporter,moderator,workflow_status,comments'),
+		'Tx_MmForum_Domain_Model_Moderation_UserReport' => array('showitem' => 'type,reporter,moderator,workflow_status,comments, feuser'),
+		'Tx_MmForum_Domain_Model_Moderation_PostReport' => array('showitem' => 'type,reporter,moderator,workflow_status,comments, post')
 	),
 	'palettes' => array(
 		'1' => array('showitem' => '')
@@ -29,12 +31,32 @@ $TCA['tx_mmforum_domain_model_moderation_report'] = array(
 				'type' => 'passthrough'
 			)
 		),
-		'post' => array(
+		'type' => array(
 			'exclude' => 1,
+			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.type',
+			'config'  => array(
+				'type' => 'select',
+				'items' => array(
+					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.type.userReport', 'Tx_MmForum_Domain_Model_Moderation_UserReport'),
+					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.type.postReport', 'Tx_MmForum_Domain_Model_Moderation_PostReport'),
+				)
+			)
+		),
+		'post' => array(
+			'exclude' => 0,
 			'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.post',
 			'config' => array(
 				'type' => 'select',
 				'foreign_table' => 'tx_mmforum_domain_model_forum_post',
+				'maxitems' => 1
+			)
+		),
+		'feuser' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.user',
+			'config' => array(
+				'type' => 'select',
+				'foreign_table' => 'fe_users',
 				'maxitems' => 1
 			)
 		),

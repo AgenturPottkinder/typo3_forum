@@ -95,11 +95,28 @@ class Tx_MmForum_TextParser_Service_QuoteParserService extends Tx_MmForum_TextPa
 	 */
 
 	public function getParsedText($text) {
+		$text = preg_replace_callback('/\[quote](.*?)\[\/quote\]\w*/is', array($this, 'replaceSingleCallback'), $text);
 		return preg_replace_callback('/\[quote=([0-9]+)\](.*?)\[\/quote\]\w*/is', array($this, 'replaceCallback'),
 		                             $text);
 	}
 
 
+	/**
+	 *
+	 * Callback function for rendering quotes.
+	 *
+	 * @param  string $matches PCRE matches.
+	 *
+	 * @return string          The quote content.
+	 *
+	 */
+
+	protected function replaceSingleCallback($matches) {
+		$this->view->setControllerContext($this->controllerContext);
+		$this->view->setTemplatePathAndFilename(Tx_MmForum_Utility_File::replaceSiteRelPath($this->settings['template']));
+		$this->view->assign('quote', trim($matches[1]));
+		return $this->view->render();
+	}
 
 	/**
 	 *

@@ -50,19 +50,9 @@
  */
 class Tx_MmForum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
-
-
 	/*
 	 * ATTRIBUTES
 	 */
-
-
-
-	/**
-	 * The reported post.
-	 * @var Tx_MmForum_Domain_Model_Forum_Post
-	 */
-	protected $post;
 
 
 	/**
@@ -119,26 +109,6 @@ class Tx_MmForum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Domai
 	/*
 	 * GETTERS
 	 */
-
-
-
-	/**
-	 * Gets the reported post.
-	 * @return Tx_MmForum_Domain_Model_Forum_Post The reported post.
-	 */
-	public function getPost() {
-		return $this->post;
-	}
-
-
-
-	/**
-	 * Gets the topic to which the reported post belongs to.
-	 * @return Tx_MmForum_Domain_Model_Forum_Topic The topic.
-	 */
-	public function getTopic() {
-		return $this->post->getTopic();
-	}
 
 
 
@@ -209,19 +179,6 @@ class Tx_MmForum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Domai
 	 */
 
 
-
-	/**
-	 * Sets the post.
-	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Post $post The post
-	 * @return void
-	 */
-	public function setPost(Tx_MmForum_Domain_Model_Forum_Post $post) {
-		$this->post = $post;
-	}
-
-
-
 	/**
 	 * Sets the reporter.
 	 *
@@ -286,7 +243,4 @@ class Tx_MmForum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Domai
 		}
 		$this->comments->detach($comment);
 	}
-
-
-
 }

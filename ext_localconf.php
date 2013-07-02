@@ -12,7 +12,7 @@ if (!defined('TYPO3_MODE')) {
 		 'Post'       => 'show, new, create, edit, update, delete',
 		 'User'       => 'index, list, subscribe, favSubscribe, show',
 		 'Report'     => 'new, create',
-		 'Moderation' => 'editTopic, updateTopic, updateReportStatus, newReportComment, createReportComment, topicConformDelete'
+		 'Moderation' => 'show, editTopic, updateTopic, updateReportStatus, newReportComment, createReportComment, topicConformDelete'
 	),
 	array(
 		 'Forum'      => 'new, create, edit, update, delete',
@@ -20,7 +20,7 @@ if (!defined('TYPO3_MODE')) {
 		 'Post'       => 'new, create, edit, update, delete',
 		 'User'       => 'subscribe, favSubscribe',
 		 'Report'     => 'new, create',
-		 'Moderation' => 'updateTopic, updateReportStatus, newReportComment, createReportComment'
+		 'Moderation' => 'show, updateTopic, updateReportStatus, newReportComment, createReportComment'
 	)
 );
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
