@@ -253,28 +253,42 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	/**
 	 * Lists all messages of a specific user. If no user is specified, this action lists all
 	 * messages of the current user.
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $opponent
+	 * 												The dialog with which user should be shown. If null get first dialog.
 	 *
 	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
 	 * @return void
 	 */
-	public function listMessagesAction(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
-		if ($user === NULL) {
-			$user = $this->getCurrentUser();
-		}
+	public function listMessagesAction(Tx_MmForum_Domain_Model_User_FrontendUser $opponent=NULL) {
+		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
 			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
 		}
+		/** @var TYPO3\CMS\Extbase\Persistence\Generic\QueryResult $dialog */
 		$dialog = null;
+		$partner = 'unknown';
 		$userList = array();
 		$userList = $this->messageRepository->findStartedConversations($user);
+
 		if(!empty($userList)) {
-			$dialog = $this->messageRepository->findMessagesBetweenUser($userList[0]->getFeuser(),$userList[0]->getOpponent());
+			if($opponent === NULL) {
+				$dialog = $this->messageRepository->findMessagesBetweenUser($userList[0]->getFeuser(),$userList[0]->getOpponent());
+				$partner = $userList[0]->getOpponent()->getUsername();
+			} else {
+				$dialog = $this->messageRepository->findMessagesBetweenUser($user,$opponent);
+				$partner = $opponent->getUsername();
+			}
+
+			foreach($dialog AS $pm) {
+				$pm->setUserRead(1);
+				$this->messageRepository->update($pm);
+			}
 		}
 		$this->view
 			->assign('userList', $userList)
 			->assign('dialog',$dialog)
-		    ->assign('currentUser',$user);
+		    ->assign('currentUser',$user)
+			->assign('partner',$partner);
 	}
 
 

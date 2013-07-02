@@ -58,7 +58,7 @@ class Tx_MmForum_Domain_Repository_User_PrivateMessagesRepository extends \TYPO3
 		$constraintsY = array();
 		$constraintsX[] = $query->equals('feuser',$userX);
 		$constraintsX[] = $query->equals('opponent',$userY);
-		$constraintsX[] = $query->equals('type',1);
+		$constraintsX[] = $query->equals('type',0);
 		$constraintsY[] = $query->equals('feuser',$userY);
 		$constraintsY[] = $query->equals('opponent',$userX);
 		$constraintsY[] = $query->equals('type',0);
@@ -87,18 +87,18 @@ class Tx_MmForum_Domain_Repository_User_PrivateMessagesRepository extends \TYPO3
 		$userInArray = array();
 		$constraintsX[] = $query->equals('feuser',$user);
 		$constraintsX[] = $query->equals('type',0);
-		$constraintsY[] = $query->equals('opponent',$user);
+		$constraintsY[] = $query->equals('feuser',$user);
 		$constraintsY[] = $query->equals('type',1);
 		$query->matching($query->logicalOr($query->logicalAnd($constraintsX),$query->logicalAnd($constraintsY)));
 		if($limit > 0) {
 			$query->setLimit($limit);
 		}
+		$query->setOrderings(array('tstamp' => 'DESC'));
 		$result = $query->execute();
 		//Parse result for the user ListBox
 		foreach($result AS $entry) {
-			if($entry->getFeuser() == $user) continue;
-			if(array_search($entry->getFeuser(),$userInArray) === false) {
-				$userInArray[] = $entry->getFeuser();
+			if(array_search($entry->getOpponent(),$userInArray) === false) {
+				$userInArray[] = $entry->getOpponent();
 				$userResult[] = $entry;
 			}
 		}
