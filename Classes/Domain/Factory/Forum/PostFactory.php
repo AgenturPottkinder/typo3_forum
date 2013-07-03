@@ -160,6 +160,7 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory extends Tx_MmForum_Domain_Fact
 		if (!$user->isAnonymous()) {
 			$post->setAuthor($user);
 			$user->increasePostCount();
+			$user->increasePoints(intval($this->settings['rankScore']['newPost']));
 			$this->frontendUserRepository->update($user);
 		}
 	}
@@ -183,6 +184,7 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory extends Tx_MmForum_Domain_Fact
 			$this->topicFactory->deleteTopic($topic);
 		} else {
 			$post->getAuthor()->decreasePostCount();
+			$post->getAuthor()->decreasePoints(intval($this->settings['rankScore']['newPost']));
 			$this->frontendUserRepository->update($post->getAuthor());
 			$topic->removePost($post);
 			$this->topicRepository->update($topic);

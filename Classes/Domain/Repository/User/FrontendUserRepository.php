@@ -135,19 +135,5 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 	}
 
 
-	/**
-	 * Find the rank of a specific user
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 * @return Tx_MmForum_Domain_Model_User_Rank[]
-	 */
-	public function findRankByUser(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
-		$query = $this->createQuery();
-		$query->matching($query->lessThan('point_limit',$user->getPoints()));
-		$query->setOrderings(array('point_limit' => 'DESC'));
-		$query->setLimit(1);
-		return $query->execute();
-	}
-
-
 
 }

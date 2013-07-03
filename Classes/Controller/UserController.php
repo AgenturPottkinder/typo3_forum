@@ -427,12 +427,15 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 
 		if ($unsubscribe) {
 			$user->removeFavSubscription($object);
+			$topic->getAuthor()->decreasePoints(intval($this->settings['rankScore']['gotFavorite']));
 		} else {
 			$user->addFavSubscription($object);
+			$topic->getAuthor()->increasePoints(intval($this->settings['rankScore']['gotFavorite']));
 		}
 
 		# Update user and redirect to subscription object.
 		$this->frontendUserRepository->update($user);
+		$this->frontendUserRepository->update($topic->getAuthor());
 		$this->controllerContext->getFlashMessageQueue()->addMessage(
 			new \TYPO3\CMS\Core\Messaging\FlashMessage(
 				$this->getSubscriptionFlashMessage($object, $unsubscribe)

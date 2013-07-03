@@ -167,7 +167,10 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 		$this->postRepository->update($post);
 
 		$post->getAuthor()->setHelpfulCount($post->getAuthor()->getHelpfulCount()+1);
+		$post->getAuthor()->increasePoints(intval($this->settings['rankScore']['gotHelpful']));
 		$this->frontendUserRepository->update($post->getAuthor());
+		$currentUser->increasePoints(intval($this->settings['rankScore']['markHelpful']));
+		$this->frontendUserRepository->update($currentUser);
 
 		// output new Data
 		return json_encode(array("error" => false, "add" => 0, "postHelpfulCount" => $post->getHelpfulCount(), "userHelpfulCount" => $post->getAuthor()->getHelpfulCount()));
@@ -192,7 +195,10 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 		$this->postRepository->update($post);
 
 		$post->getAuthor()->setHelpfulCount($post->getAuthor()->getHelpfulCount()-1);
+		$post->getAuthor()->decreasePoints(intval($this->settings['rankScore']['gotHelpful']));
 		$this->frontendUserRepository->update($post->getAuthor());
+		$currentUser->decreasePoints(intval($this->settings['rankScore']['markHelpful']));
+		$this->frontendUserRepository->update($currentUser);
 
 		// output new Data
 		return json_encode(array("error" => false, "add" => 1, "postHelpfulCount" => $post->getHelpfulCount(), "userHelpfulCount" => $post->getAuthor()->getHelpfulCount()));

@@ -66,6 +66,19 @@ abstract class Tx_MmForum_Domain_Factory_AbstractFactory implements \TYPO3\CMS\C
 	protected $objectManager = NULL;
 
 
+	/**
+	 * An instance of the mm_forum authentication service.
+	 * @var TYPO3\CMS\Extbase\Service\TypoScriptService
+	 */
+	protected $typoScriptService = NULL;
+
+
+	/**
+	 * Whole TypoScript mm_forum settings
+	 * @var array
+	 */
+	protected $settings;
+
 
 	/*
 	  * DEPENDENCY INJECTORS
@@ -92,6 +105,15 @@ abstract class Tx_MmForum_Domain_Factory_AbstractFactory implements \TYPO3\CMS\C
 	}
 
 
+	/**
+	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
+	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
+	 */
+	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
+		$this->typoScriptService = $typoScriptService;
+		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
+		$this->settings = $ts['plugin']['tx_mmforum']['settings'];
+	}
 
 	/*
 	 * METHODS

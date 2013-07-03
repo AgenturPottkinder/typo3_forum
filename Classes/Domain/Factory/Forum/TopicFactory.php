@@ -169,6 +169,7 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 		foreach ($topic->getPosts() as $post) {
 			/** @var $post Tx_MmForum_Domain_Model_Forum_Post */
 			$post->getAuthor()->decreasePostCount();
+			$post->getAuthor()->decreasePoints(intval($this->settings['rankScore']['newPost']));
 			$this->frontendUserRepository->update($post->getAuthor());
 		}
 

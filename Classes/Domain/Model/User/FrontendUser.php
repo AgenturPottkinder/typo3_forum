@@ -50,6 +50,11 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 * ATTRIBUTES
 	 */
 
+	/**
+	 * The rank repository
+	 * @var Tx_MmForum_Domain_Repository_User_RankRepository
+	 */
+	protected $rankRepository = NULL;
 
 
 	/**
@@ -250,6 +255,14 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	}
 
 
+	/**
+	 * Inject the rank repository
+	 * @param Tx_MmForum_Domain_Repository_User_RankRepository $rankRepository
+	 * @return void
+	 */
+	public function injectRankRepository(Tx_MmForum_Domain_Repository_User_RankRepository $rankRepository) {
+		$this->rankRepository = $rankRepository;
+	}
 
 	/*
 	 * GETTERS
@@ -764,6 +777,10 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 */
 	public function increasePoints($by) {
 		$this->points = $this->points + $by;
+		$rank = $this->rankRepository->findRankByPoints($this->getPoints());
+		if($rank !== NULL && $rank != $this->getRank()) {
+			$this->setRank($rank[0]);
+		}
 	}
 
 
@@ -774,6 +791,10 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 */
 	public function decreasePoints($by) {
 		$this->points = $this->points - $by;
+		$rank = $this->rankRepository->findRankByPoints($this->getPoints());
+		if($rank !== NULL && $rank != $this->getRank() ) {
+			$this->setRank($rank[0]);
+		}
 	}
 
 
