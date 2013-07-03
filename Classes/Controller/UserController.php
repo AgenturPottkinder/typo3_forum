@@ -89,6 +89,13 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	protected $privateMessagesFactory;
 
 
+	/**
+	 * The rank repository.
+	 * @var Tx_MmForum_Domain_Repository_User_RankRepository
+	 */
+	protected $rankRepository = NULL;
+
+
 	/*
 	 * DEPENDENCY INJECTORS
 	 */
@@ -108,18 +115,22 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	 * 									An instance of the private message repository.
 	 * @param Tx_MmForum_Domain_Factory_User_PrivateMessagesFactory $privateMessagesFactory
 	 * 									An instance of the private message factory
+	 * @param Tx_MmForum_Domain_Repository_User_RankRepository $rankRepository
+	 * 									An instance of the rank repository
 	 */
 	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
 	                            Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
 	                            Tx_MmForum_Domain_Repository_User_UserfieldRepository $userfieldRepository,
 								Tx_MmForum_Domain_Repository_User_PrivateMessagesRepository $messageRepository,
-								Tx_MmForum_Domain_Factory_User_PrivateMessagesFactory $privateMessagesFactory) {
+								Tx_MmForum_Domain_Factory_User_PrivateMessagesFactory $privateMessagesFactory,
+								Tx_MmForum_Domain_Repository_User_RankRepository $rankRepository) {
 		parent::__construct();
 		$this->forumRepository			= $forumRepository;
 		$this->topicRepository			= $topicRepository;
 		$this->userfieldRepository		= $userfieldRepository;
 		$this->messageRepository		= $messageRepository;
 		$this->privateMessagesFactory	= $privateMessagesFactory;
+		$this->rankRepository			= $rankRepository;
 	}
 
 
@@ -157,6 +168,14 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 				$dataset['count'] = $this->frontendUserRepository->countByFilter(TRUE);
 				$dataset['users'] = $this->frontendUserRepository->findByFilter(4, array('is_online' => 'DESC'), TRUE);
 				$partial = 'User/OnlineBox';
+				break;
+			case 'rankingList':
+				$dataset['ranks'] = $this->rankRepository->findAllForRankingOverview();
+				$partial = 'User/ListRanking';
+				break;
+			case 'topUserList':
+				$dataset['users'] = $this->frontendUserRepository->findTopUserByPoints(50);
+				$partial = 'User/ListTopUser';
 				break;
 			default:
 				$dataset['users'] = $this->frontendUserRepository->findByFilter(6, array('postCount' => 'DESC'));
@@ -333,6 +352,32 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 		$this->redirect('listMessages');
 	}
 
+	/**
+	 * Disable single user
+	 *
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user The user whose profile is to be displayed.
+	 * @return void
+	 */
+	public function disableUserAction(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
+
+		$currentUser = $this->getCurrentUser();
+		if ($currentUser->isAnonymous()) {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+		}
+		$allowed = false;
+		foreach($currentUser->getUsergroup() as $group){
+			if($group->getUserMod()){
+				$allowed = true;
+			}
+		}
+		if(!$allowed){
+			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in as Admin.", 1288344981);
+		}
+
+		$user->setDisable(true);
+		$this->frontendUserRepository->update($user);
+		$this->redirect('show', 'User', 'mmforum', array('user' => $user));
+	}
 
 	/**
 	 * Displays a single user.
@@ -352,6 +397,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 			->execute();
 		$this->view
 			->assign('user', $user)
+			->assign('currentUser', $this->getCurrentUser())
 			->assign('userfields', $this->userfieldRepository->findAll())
 			->assign('topics', $lastFiveTopics)
 			->assign('questions', $this->topicRepository->findQuestions(6, false, $user))

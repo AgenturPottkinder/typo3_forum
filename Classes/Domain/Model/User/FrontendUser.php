@@ -42,7 +42,8 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
+class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
+	implements Tx_MmForum_Domain_Model_AccessibleInterface {
 
 
 
@@ -55,7 +56,6 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 * @var Tx_MmForum_Domain_Repository_User_RankRepository
 	 */
 	protected $rankRepository = NULL;
-
 
 	/**
 	 * Forum post count
@@ -198,6 +198,10 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 */
 	protected $isOnline;
 
+	/**
+	 * @var integer
+	 */
+	protected $disable;
 
 	/**
 	 * Defines whether to use a "gravatar" if no user image is available.
@@ -242,6 +246,10 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	protected $contact = '';
 
 
+	/**
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUserGroup>
+	 */
+	protected $usergroup;
 
 	/**
 	 * Constructor.
@@ -268,7 +276,24 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 * GETTERS
 	 */
 
+	/**
+	 * Returns the usergroups. Keep in mind that the property is called "usergroup"
+	 * although it can hold several usergroups.
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage An object storage containing the usergroup
+	 * @api
+	 */
+	public function getUsergroup() {
+		return $this->usergroup;
+	}
 
+	/**
+	 * Gets the points of this user
+	 * @return integer
+	 */
+	public function getPoints() {
+		return $this->points;
+	}
 
 	/**
 	 * Gets the points of this user
@@ -450,7 +475,23 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	}
 
 
-
+	/**
+	 * Performs an access check for this post.
+	 *
+	 * @access private
+	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param  string                                    $accessType
+	 * @return boolean
+	 */
+	public function checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'moderate') {
+		switch ($accessType) {
+			default:
+				foreach($user->getUsergroup() as $group){
+					if($group->getUserMod()) return true;
+				}
+				return false;
+		}
+	}
 	/**
 	 * Determines if this user is member of a specific group.
 	 *
@@ -486,6 +527,20 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 		return $this->signature;
 	}
 
+	/**
+	 * Gets the user's signature.
+	 * @return boolean
+	 */
+	public function getDisable() {
+		return $this->disable;
+	}
+
+	/**
+	 * @param bool $val
+	 */
+	public function setDisable($val) {
+		$this->disable = intval($val);
+	}
 
 
 	/**

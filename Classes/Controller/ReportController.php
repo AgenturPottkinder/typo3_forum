@@ -69,6 +69,20 @@ class Tx_MmForum_Controller_ReportController extends Tx_MmForum_Controller_Abstr
 	 */
 	protected $reportRepository;
 
+	/**
+	 * The report repository.
+	 *
+	 * @var Tx_MmForum_Domain_Repository_Moderation_UserReportRepository
+	 */
+	protected $userReportRepository;
+
+	/**
+	 * The report repository.
+	 *
+	 * @var Tx_MmForum_Domain_Repository_Moderation_PostReportRepository
+	 */
+	protected $postReportRepository;
+
 
 
 	/*
@@ -82,7 +96,23 @@ class Tx_MmForum_Controller_ReportController extends Tx_MmForum_Controller_Abstr
 	 */
 	public function injectReportRepository(Tx_MmForum_Domain_Repository_Moderation_ReportRepository $reportRepository) {
 		$this->reportRepository = $reportRepository;
+
 	}
+
+	/**
+	 * @param Tx_MmForum_Domain_Repository_Moderation_UserReportRepository $userReportRepository
+	 */
+	public function injectUserReportRepository(Tx_MmForum_Domain_Repository_Moderation_UserReportRepository $userReportRepository) {
+		$this->userReportRepository = $userReportRepository;
+	}
+
+	/**
+	 * @param Tx_MmForum_Domain_Repository_Moderation_PostReportRepository $postReportRepository
+	 */
+	public function injectPostReportRepository(Tx_MmForum_Domain_Repository_Moderation_PostReportRepository $postReportRepository) {
+		$this->postReportRepository = $postReportRepository;
+	}
+
 
 
 
@@ -99,6 +129,19 @@ class Tx_MmForum_Controller_ReportController extends Tx_MmForum_Controller_Abstr
 	 * ACTION METHODS
 	 */
 
+	/**
+	 * Displays a form for creating a new post report.
+	 *
+	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser       $user
+	 * @param Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment
+	 *
+	 * @dontvalidate $firstComment
+	 * @return void
+	 */
+	public function newUserReportAction(Tx_MmForum_Domain_Model_User_FrontendUser $user,
+										Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment = NULL) {
+		$this->view->assign('firstComment', $firstComment)->assign('user', $user);
+	}
 
 
 	/**
@@ -110,7 +153,7 @@ class Tx_MmForum_Controller_ReportController extends Tx_MmForum_Controller_Abstr
 	 * @dontvalidate $firstComment
 	 * @return void
 	 */
-	public function newAction(Tx_MmForum_Domain_Model_Forum_Post $post,
+	public function newPostReportAction(Tx_MmForum_Domain_Model_Forum_Post $post,
 	                          Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment = NULL) {
 		$this->authenticationService->assertReadAuthorization($post);
 		$this->view->assign('firstComment', $firstComment)->assign('post', $post);
@@ -121,19 +164,50 @@ class Tx_MmForum_Controller_ReportController extends Tx_MmForum_Controller_Abstr
 	/**
 	 * Creates a new post report and stores it into the database.
 	 *
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser               $user
+	 * @param Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment
+	 *
+	 * @return void
+	 */
+	public function createUserReportAction(Tx_MmForum_Domain_Model_User_FrontendUser $user,
+								 Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment = NULL) {
+
+		// Create the new report using the factory class and persist the new object
+		$report = $this->reportFactory->createUserReport($firstComment);
+		$report->setUser($user);
+		$this->userReportRepository->add($report);
+
+		// Notify observers.
+		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Moderation_Report', 'reportCreated',
+			array('report' => $report));
+
+		// Display success message and redirect to topic->show action.
+		$this->controllerContext->getFlashMessageQueue()->addMessage(
+			new \TYPO3\CMS\Core\Messaging\FlashMessage(
+				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('Report_New_Success', 'MmForum')
+			)
+		);
+		$this->redirect('show', 'User', NULL, array('user' => $user), $this->settings['pids']['UserShow']);
+	}
+
+
+	/**
+	 * Creates a new post report and stores it into the database.
+	 *
 	 * @param Tx_MmForum_Domain_Model_Forum_Post               $post
 	 * @param Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment
 	 *
 	 * @return void
 	 */
-	public function createAction(Tx_MmForum_Domain_Model_Forum_Post $post,
+	public function createPostReportAction(Tx_MmForum_Domain_Model_Forum_Post $post,
 	                             Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment = NULL) {
 		// Assert authorization;
 		$this->authenticationService->assertReadAuthorization($post);
 
 		// Create the new report using the factory class and persist the new object
-		$report = $this->reportFactory->createReport($firstComment, $post);
-		$this->reportRepository->add($report);
+		$report = $this->reportFactory->createPostReport($firstComment);
+		$report->setPost($post);
+		$this->postReportRepository->add($report);
 
 		// Notify observers.
 		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Moderation_Report', 'reportCreated',

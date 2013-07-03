@@ -18,11 +18,11 @@
 								<items>
 									<numIndex index="0">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Forum</numIndex>
-										<numIndex index="1">Forum->index;Forum->show;Topic->show;Topic->new;Topic->create;Topic->solution;Post->show;Post->new;Post->create;Post->edit;Post->update;Post->confirmDelete;Post->delete;Post->downloadAttachment;User->subscribe;User->favSubscribe;Report->new;Report->create;Moderation->editTopic;Moderation->updateTopic;Moderation->topicConformDelete</numIndex>
+										<numIndex index="1">Forum->index;Forum->show;Topic->show;Topic->new;Topic->create;Topic->solution;Post->deletePostAttachment;Post->show;Post->new;Post->create;Post->edit;Post->update;Post->confirmDelete;Post->delete;Post->downloadAttachment;User->subscribe;User->favSubscribe;Report->newUserReport;Report->createUserReport;Report->newPostReport;Report->createPostReport;Moderation->editTopic;Moderation->updateTopic;Moderation->topicConformDelete</numIndex>
 									</numIndex>
 									<numIndex index="1">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_User_Show</numIndex>
-										<numIndex index="1">User->show;User->listSubscriptions;User->show;User->subscribe;User->listFavorites;User->listPosts;User->listQuestions;User->listTopics;User->listMessages;User->newMessage;User->createMessage</numIndex>
+										<numIndex index="1">User->show; User->disableUser; User->unDisableUser; User->listSubscriptions;User->show;User->subscribe;User->listFavorites;User->listPosts;User->listQuestions;User->listTopics;User->listMessages;User->newMessage;User->createMessage</numIndex>
 									</numIndex>
 									<numIndex index="3">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Moderation_Reports</numIndex>
@@ -60,24 +60,12 @@
 										<numIndex index="1">default</numIndex>
 									</numIndex>
 									<numIndex index="1" type="array">
-										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_Notification_Widget</numIndex>
-										<numIndex index="1">notificationList</numIndex>
+										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_Ranking_List</numIndex>
+										<numIndex index="1">rankingList</numIndex>
 									</numIndex>
 									<numIndex index="2" type="array">
-										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_Message_Widget</numIndex>
-										<numIndex index="1">messageList</numIndex>
-									</numIndex>
-									<numIndex index="3" type="array">
-										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_Favorite_Widget</numIndex>
-										<numIndex index="1">favoriteList</numIndex>
-									</numIndex>
-									<numIndex index="4" type="array">
-										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_My_Topics_Widget</numIndex>
-										<numIndex index="1">myTopicsList</numIndex>
-									</numIndex>
-									<numIndex index="5" type="array">
-										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_My_Posts_List</numIndex>
-										<numIndex index="1">myPostsList</numIndex>
+										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Display_TopUser_List</numIndex>
+										<numIndex index="1">topUserList</numIndex>
 									</numIndex>
 								</items>
 							</config>

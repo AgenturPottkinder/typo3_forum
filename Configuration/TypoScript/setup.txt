@@ -61,6 +61,9 @@ config.tx_extbase.persistence.classes {
 		mapping {
 			tableName = fe_groups
 			recordType = Tx_MmForum_Domain_Model_User_FrontendUserGroup
+			columns {
+						tx_mmforum_user_mod.mapOnProperty = userMod
+			}
 		}
 	}
 
@@ -129,7 +132,6 @@ config.tx_extbase.persistence.classes {
 			Tx_MmForum_Domain_Model_Format_SyntaxHighlighting = Tx_MmForum_Domain_Model_Format_SyntaxHighlighting
 		}
 	}
-
 
 	Tx_MmForum_Domain_Model_Format_BBCode {
 		mapping {

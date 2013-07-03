@@ -9,10 +9,10 @@ if (!defined('TYPO3_MODE')) {
 	array(
 		 'Forum'      => 'index, show, new, create, edit, update, delete',
 		 'Topic'      => 'index, show, new, create, edit, update, delete, questionsHelpBox, solution',
-		 'Post'       => 'show, new, create, edit, update, delete',
-		 'User'       => 'index, list, subscribe, favSubscribe, show',
-		 'Report'     => 'new, create',
-		 'Moderation' => 'show, editTopic, updateTopic, updateReportStatus, newReportComment, createReportComment, topicConformDelete'
+		 'Post'       => 'show, new, create, edit, update, delete, deleteAttachment',
+		 'User'       => 'index, list, subscribe, favSubscribe, show, disableUser, unDisableUser',
+		 'Report'     => 'newUserReport, newPostReport, createUserReport, createPostReport',
+		 'Moderation' => 'show, editTopic, updateTopic, updateUserReportStatus, updatePostReportStatus, createUserReportComment, createPostReportComment, topicConformDelete'
 	),
 	array(
 		 'Forum'      => 'new, create, edit, update, delete',

@@ -147,7 +147,12 @@ $tempColumns = array(
 		'exclude' => 1,
 		'config' => array('type' => 'passthrough')
 	),
+
 	'is_online' => array(
+		'exclude' => 1,
+		'config' => array('type' => 'passthrough')
+	),
+	'disable' => array(
 		'exclude' => 1,
 		'config' => array('type' => 'passthrough')
 	),
@@ -360,6 +365,28 @@ if (version_compare(TYPO3_branch, '6.1', '<')) {
 	\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA('fe_users');
 }
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('fe_users', $tempColumns, 1);
+
+$tempColumns = array(
+	'tx_mmforum_user_mod' => array(
+		'exclude' => 0,
+		'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.user_mod',
+		'config' => array(
+			'type' => 'check'
+		)
+	),
+);
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('fe_groups', $tempColumns, 1);
+$TCA['fe_groups']['types']['Tx_MmForum_Domain_Model_User_FrontendUserGroup'] = $TCA['fe_groups']['types']['0'];
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem('fe_groups', 'tx_extbase_type',
+	array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_groups.tx_extbase_type.mm_forum', 'Tx_MmForum_Domain_Model_User_FrontendUserGroup'));
+
+
+$TCA['fe_groups']['types']['Tx_MmForum_Domain_Model_User_FrontendUserGroup']['showitem'] .=
+	',--div--;LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_mmforum.tab.settings,'.
+	'tx_mmforum_user_mod';
+
+
 $TCA['fe_users']['types']['Tx_MmForum_Domain_Model_User_FrontendUser'] = $TCA['fe_users']['types']['0'];
 $TCA['fe_users']['types']['Tx_MmForum_Domain_Model_User_FrontendUser']['showitem'] .=
 	',--div--;LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_mmforum.tab.settings,'
@@ -368,9 +395,7 @@ $TCA['fe_users']['types']['Tx_MmForum_Domain_Model_User_FrontendUser']['showitem
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem('fe_users', 'tx_extbase_type',
 	array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_extbase_type.mm_forum', 'Tx_MmForum_Domain_Model_User_FrontendUser'));
 
-$TCA['fe_groups']['types']['Tx_MmForum_Domain_Model_User_FrontendUserGroup'] = $TCA['fe_groups']['types']['0'];
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem('fe_groups', 'tx_extbase_type',
-	array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_groups.tx_extbase_type.mm_forum', 'Tx_MmForum_Domain_Model_User_FrontendUserGroup'));
+
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_mmforum_domain_model_forum_access',
 	'EXT:mm_forum/Resources/Private/Language/locallang_csh_tx_mmforum_domain_model_forum_access.xml');

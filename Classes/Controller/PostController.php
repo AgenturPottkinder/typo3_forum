@@ -323,19 +323,54 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	 * @return void
 	 */
 	public function editAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
-		$this->authenticationService->assertEditPostAuthorization($post);
+		if($post->getAuthor() != $this->authenticationService->getUser() or $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()){
+			// Assert authorization
+			$this->authenticationService->assertModerationAuthorization($post->getTopic()->getForum());
+		}
 		$this->view->assign('post', $post);
 	}
 
+	/**
+	 * Delete a Attachment.
+	 *
+	 * @param Tx_MmForum_Domain_Model_Forum_Attachment $attachment The attachment that is to be deleted
+	 * @param string $redirect
+	 * @return void
+	 */
+	public function deletePostAttachmentAction(Tx_MmForum_Domain_Model_Forum_Attachment $attachment, $redirect = false) {
+		if($attachment->getPost()->getAuthor() != $this->authenticationService->getUser() or
+			$attachment->getPost()->getTopic()->getLastPost()->getAuthor() != $attachment->getPost()->getAuthor()){
+			// Assert authorization
+			$this->authenticationService->assertModerationAuthorization($attachment->getPost()->getTopic()->getForum());
+		}
+		$attachment->getPost()->removeAttachment($attachment);
+		$this->postRepository->update($attachment->getPost());
+		if($redirect){
+			$this->redirect('show', 'Post', NULL, array('post' => $attachment->getPost()));
+		}else{
+			$this->redirect('edit', 'Post', NULL, array('post' => $attachment->getPost()));
+		}
+	}
 
 	/**
 	 * Updates a post.
 	 *
 	 * @param Tx_MmForum_Domain_Model_Forum_Post $post The post that is to be updated.
+	 * @param array $attachments File attachments for the post.
+	 *
 	 * @return void
 	 */
-	public function updateAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
-		$this->authenticationService->assertEditPostAuthorization($post);
+	public function updateAction(Tx_MmForum_Domain_Model_Forum_Post $post, array $attachments = array()) {
+		if($post->getAuthor() != $this->authenticationService->getUser() or $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()){
+			// Assert authorization
+			$this->authenticationService->assertModerationAuthorization($post->getTopic()->getForum());
+		}
+		if(!empty($attachments)) {
+			$attachments = $this->attachmentService->initAttachments($attachments);
+			foreach($attachments as $attachment){
+				$post->addAttachments($attachment);
+			}
+		}
 		$this->postRepository->update($post);
 
 		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Post', 'postUpdated',
@@ -361,7 +396,6 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 		$this->authenticationService->assertDeletePostAuthorization($post);
 		$this->view->assign('post', $post);
 	}
-
 
 	/**
 	 * Deletes a post.

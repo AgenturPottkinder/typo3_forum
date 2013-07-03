@@ -418,13 +418,12 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 	/**
 	 * Adds an or more attachments.
 	 *
-	 * @param  array $attachments The attachment.
+	 * @param  Tx_MmForum_Domain_Model_Forum_Attachment $attachments The attachment.
 	 * @return void
 	 */
-	public function addAttachments(array $attachments) {
+	public function addAttachments(Tx_MmForum_Domain_Model_Forum_Attachment $attachments) {
 		/* @var Tx_MmForum_Domain_Model_Forum_Attachment */
-		$objAttachments = $this->attachmentService->initAttachments($attachments);
-		$this->setAttachments($objAttachments);
+		$this->attachments->attach($attachments);
 	}
 
 	/**
@@ -434,6 +433,9 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 	 * @return void
 	 */
 	public function removeAttachment(Tx_MmForum_Domain_Model_Forum_Attachment $attachment) {
+		if(file_exists($attachment->getAbsoluteFilename())){
+			unlink($attachment->getAbsoluteFilename());
+		}
 		$this->attachments->detach($attachment);
 	}
 

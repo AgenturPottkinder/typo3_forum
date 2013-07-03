@@ -45,7 +45,19 @@
 
 class Tx_MmForum_Domain_Model_User_FrontendUserGroup extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup {
 
+	/**
+	 * Read topics.
+	 * @var integer
+	 */
+	protected $userMod;
 
+	/**
+	 * Gets the post count of this user.
+	 * @return integer
+	 */
+	public function getUserMod(){
+		return $this->userMod;
+	}
 
 }
 

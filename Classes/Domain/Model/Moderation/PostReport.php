@@ -67,10 +67,18 @@ class Tx_MmForum_Domain_Model_Moderation_PostReport extends Tx_MmForum_Domain_Mo
 
 	/**
 	 * Gets the topic to which the reported post belongs to.
-	 * @return Tx_MmForum_Domain_Model_Forum_Topic The topic.
+	 * @return Tx_MmForum_Domain_Model_Forum_Post The topic.
 	 */
 	public function getPost() {
 		return $this->post;
+	}
+
+	/**
+	 * @param Tx_MmForum_Domain_Model_Forum_Post $post.
+	 * @return voidc.
+	 */
+	public function setPost(Tx_MmForum_Domain_Model_Forum_Post $post) {
+		$this->post = $post;
 	}
 
 }

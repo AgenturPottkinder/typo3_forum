@@ -65,4 +65,12 @@ class Tx_MmForum_Domain_Model_Moderation_UserReport extends Tx_MmForum_Domain_Mo
 		return $this->feuser;
 	}
 
+	/**
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user.
+	 * @return voidc.
+	 */
+	public function setUser(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+		$this->feuser = $user;
+	}
+
 }

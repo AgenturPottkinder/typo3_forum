@@ -47,7 +47,11 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\Domain
 	 * ATTRIBUTES
 	 */
 
-
+	/**
+	 * The attachment file name.
+	 * @var Tx_MmForum_Domain_Model_Forum_Post
+	 */
+	protected $post;
 
 	/**
 	 * The attachment file name.
@@ -55,23 +59,17 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\Domain
 	 */
 	protected $filename;
 
-
-
 	/**
 	 * The attachment file name on file system.
 	 * @var string
 	 */
 	protected $realFilename;
 
-
-
 	/**
 	 * The MIME type of the attachment.
 	 * @var string
 	 */
 	protected $mimeType;
-
-
 
 	/**
 	 * A download counter.
@@ -105,6 +103,15 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\Domain
 	/*
 	 * GETTERS
 	 */
+
+	/**
+	 * Gets the attachment's filename on file system.
+	 * @return Tx_MmForum_Domain_Model_Forum_Post
+	 */
+	public function getPost() {
+		return $this->post;
+	}
+
 
 
 	/**
@@ -238,6 +245,16 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\Domain
 	 */
 	public function setRealFilename($realFilename) {
 		$this->realFilename = $realFilename;
+	}
+
+	/**
+	 * Sets the filename on file system.
+	 *
+	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @return void
+	 */
+	public function setPost($post) {
+		$this->post = $post;
 	}
 
 

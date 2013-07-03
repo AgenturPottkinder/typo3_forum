@@ -84,7 +84,7 @@ class Tx_MmForum_Domain_Factory_Moderation_ReportFactory extends Tx_MmForum_Doma
 
 	/**
 	 *
-	 * Creates a new report.
+	 * Creates a new User report.
 	 *
 	 * @param Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment
 	 *                             The first report comment for this report.
@@ -94,13 +94,33 @@ class Tx_MmForum_Domain_Factory_Moderation_ReportFactory extends Tx_MmForum_Doma
 	 *                             The new report.
 	 *
 	 */
-	public function createReport(Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment,
-	                             Tx_MmForum_Domain_Model_Forum_Post $post) {
+	public function createUserReport(Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment) {
 		$user = & $this->getCurrentUser();
 		$firstComment->setAuthor($user);
-		$report = $this->getClassInstance();
+		$report = $this->objectManager->create('Tx_MmForum_Domain_Model_Moderation_UserReport');
 		$report->setWorkflowStatus($this->workflowStatusRepository->findInitial());
-		$report->setPost($post);
+		$report->setReporter($user);
+		$report->addComment($firstComment);
+		return $report;
+	}
+
+	/**
+	 *
+	 * Creates a new User report.
+	 *
+	 * @param Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment
+	 *                             The first report comment for this report.
+	 * @param Tx_MmForum_Domain_Model_Forum_Post               $post
+	 *                             The post that is to be reported.
+	 * @return Tx_MmForum_Domain_Model_Moderation_Report
+	 *                             The new report.
+	 *
+	 */
+	public function createPostReport(Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment) {
+		$user = & $this->getCurrentUser();
+		$firstComment->setAuthor($user);
+		$report = $this->objectManager->create('Tx_MmForum_Domain_Model_Moderation_PostReport');
+		$report->setWorkflowStatus($this->workflowStatusRepository->findInitial());
 		$report->setReporter($user);
 		$report->addComment($firstComment);
 		return $report;
