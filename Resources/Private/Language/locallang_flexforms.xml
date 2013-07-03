@@ -28,6 +28,8 @@
 			<label index="Display_Questionslist">Questions List</label>
 			<label index="Display_PopularBox">Popular Topics  Box</label>
 			<label index="Display_Active_Box">Active User Box</label>
+			<label index="Display_Ranking_List">Ranking List</label>
+			<label index="Display_TopUser_List">TopUser List</label>
 			<label index="Pages">Pages</label>
 			<label index="Pages_Forum">Forum page</label>
 			<label index="Pages_User_Show">User profile</label>

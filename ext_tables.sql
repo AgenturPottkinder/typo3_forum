@@ -571,6 +571,7 @@ CREATE TABLE IF NOT EXISTS tx_mmforum_domain_model_user_rank (
   deleted tinyint(3) unsigned NOT NULL default '0',
   `name` varchar(32) NOT NULL,
   point_limit int(11) unsigned NOT NULL default '0',
+  user_count int(11) unsigned NOT NULL default '0',
   PRIMARY KEY (uid)
 );
 

@@ -65,6 +65,7 @@
 			<label index="tx_mmforum_domain_model_user_rank">User rank</label>
 			<label index="tx_mmforum_domain_model_user_rank_name">Rank name</label>
 			<label index="tx_mmforum_domain_model_user_rank_limit">Limit of points</label>
+			<label index="tx_mmforum_domain_model_user_rank_userCount">User Count</label>
 
 			<label index="tx_mmforum_domain_model_forum_access">Access</label>
 			<label index="tx_mmforum_domain_model_forum_access.operation">Operation</label>

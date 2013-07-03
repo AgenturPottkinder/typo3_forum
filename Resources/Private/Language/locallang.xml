@@ -132,6 +132,10 @@
 			<label index="User_Show_MemberSince">Member since</label>
 			<label index="User_Show_PostCount">%d posts</label>
 			<label index="User_Show_Rank">Rank</label>
+			<label index="User_Show_Rank_Points_Until">Until</label>
+			<label index="User_Show_Rank_UserAmount">Amount of user</label>
+			<label index="User_Show_Points">Points</label>
+			<label index="User_Show_Points_Needed">Points</label>
 			<label index="User_Subscribe_Forum_Success">The Forum &quot;%s&quot; has successfully been subscribed.</label>
 			<label index="User_Subscribe_Topic_Success">The Topic &quot;%s&quot; has successfully been subscribed.</label>
 			<label index="User_Unsubscribe_Forum_Success">The Forum &quot;%s&quot; has successfully been unsubscribed.</label>
@@ -271,6 +275,9 @@
 			<label index="User_Show_MemberSince">Mitglied seit</label>
 			<label index="User_Show_PostCount">%d Beiträge</label>
 			<label index="User_Show_Rank">Rang</label>
+			<label index="User_Show_Rank_Points_Until">Bis</label>
+			<label index="User_Show_Rank_UserAmount">Anzahl der User</label>
+			<label index="User_Show_Points">Punkte</label>
 			<label index="User_New_Message">Neue Nachricht</label>
 			<label index="User_New_Message_Recipient">Empfänger</label>
 			<label index="User_New_Message_Post_Text">Nachricht</label>

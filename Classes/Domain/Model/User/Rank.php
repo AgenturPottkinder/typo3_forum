@@ -54,6 +54,12 @@ class Tx_MmForum_Domain_Model_User_Rank extends \TYPO3\CMS\Extbase\DomainObject\
 	public $pointLimit;
 
 	/**
+	 * The amount of user
+	 * @var int
+	 */
+	public $userCount;
+
+	/**
 	 * GETTER
 	 */
 
@@ -71,6 +77,15 @@ class Tx_MmForum_Domain_Model_User_Rank extends \TYPO3\CMS\Extbase\DomainObject\
 	 */
 	public function getPointLimit() {
 		return $this->pointLimit;
+	}
+
+
+	/**
+	 * Get the amount of users of this rank
+	 * @return int
+	 */
+	public function getUserCount() {
+		return $this->userCount;
 	}
 
 
@@ -94,5 +109,22 @@ class Tx_MmForum_Domain_Model_User_Rank extends \TYPO3\CMS\Extbase\DomainObject\
 	 */
 	public function setPointLimit($pointLimit) {
 		$this->pointLimit = $pointLimit;
+	}
+
+
+	/**
+	 * Set the counter of user count +1
+	 * @return void
+	 */
+	public function increaseUserCount() {
+		$this->userCount++;
+	}
+
+	/**
+	 * Set the counter of user count -1
+	 * @return void
+	 */
+	public function decreaseUserCount() {
+		$this->userCount--;
 	}
 }

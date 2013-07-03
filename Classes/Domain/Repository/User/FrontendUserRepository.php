@@ -136,4 +136,19 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 
 
 
+	/**
+	 * Finds users for the top $limit view.
+	 *
+	 * @param int $limit
+	 * @return Tx_MmForum_Domain_Model_User_FrontendUser[] The Top $limit User of this forum.
+	 */
+	public function findTopUserByPoints($limit=50) {
+		$query = $this->createQuery();
+		$query->setOrderings(array('tx_mmforum_points' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
+									'username' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
+		$query->setLimit($limit);
+		return $query->execute();
+	}
+
+
 }

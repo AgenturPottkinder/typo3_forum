@@ -71,4 +71,14 @@ class Tx_MmForum_Domain_Repository_User_RankRepository extends \TYPO3\CMS\Extbas
 		return $query->execute();
 	}
 
+	/**
+	 * Find all rankings for the ranking overview
+	 * @return Tx_MmForum_Domain_Model_User_Rank[]
+	 */
+	public function findAllForRankingOverview() {
+		$query = $this->createQuery();
+		$query->setOrderings(array('point_limit' => 'ASC'));
+		return $query->execute();
+	}
+
 }

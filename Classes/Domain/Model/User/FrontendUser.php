@@ -832,9 +832,14 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 */
 	public function increasePoints($by) {
 		$this->points = $this->points + $by;
+		$currentRank = $this->getRank();
 		$rank = $this->rankRepository->findRankByPoints($this->getPoints());
-		if($rank !== NULL && $rank != $this->getRank()) {
+		if($rank !== NULL && $rank != $currentRank) {
 			$this->setRank($rank[0]);
+			$rank[0]->increaseUserCount();
+			$currentRank->decreaseUserCount();
+			$this->rankRepository->update($currentRank);
+			$this->rankRepository->update($rank[0]);
 		}
 	}
 
@@ -846,9 +851,14 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 */
 	public function decreasePoints($by) {
 		$this->points = $this->points - $by;
+		$currentRank = $this->getRank();
 		$rank = $this->rankRepository->findRankByPoints($this->getPoints());
-		if($rank !== NULL && $rank != $this->getRank() ) {
+		if($rank !== NULL && $rank != $currentRank) {
 			$this->setRank($rank[0]);
+			$rank[0]->increaseUserCount();
+			$currentRank->decreaseUserCount();
+			$this->rankRepository->update($currentRank);
+			$this->rankRepository->update($rank[0]);
 		}
 	}
 
