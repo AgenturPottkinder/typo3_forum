@@ -536,6 +536,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_ads (
 CREATE TABLE tx_mmforum_domain_model_user_privatemessages (
   uid int(11) unsigned NOT NULL auto_increment,
   pid int(11) unsigned NOT NULL default '0',
+  crdate int(11) unsigned NOT NULL default '0',
   tstamp int(11) unsigned NOT NULL default '0',
   deleted tinyint(4) NOT NULL default '0',
   feuser int(11) unsigned NOT NULL default '0',

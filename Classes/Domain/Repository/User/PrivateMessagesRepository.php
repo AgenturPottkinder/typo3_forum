@@ -56,14 +56,14 @@ class Tx_MmForum_Domain_Repository_User_PrivateMessagesRepository extends \TYPO3
 		$query = $this->createQuery();
 		$constraintsX = array();
 		$constraintsY = array();
-		$constraintsX[] = $query->equals('feuser',$userX);
-		$constraintsX[] = $query->equals('opponent',$userY);
-		$constraintsX[] = $query->equals('type',0);
-		$constraintsY[] = $query->equals('feuser',$userY);
-		$constraintsY[] = $query->equals('opponent',$userX);
-		$constraintsY[] = $query->equals('type',0);
+		$constraintsX[] = $query->equals('feuser',$userY);
+		$constraintsX[] = $query->equals('opponent',$userX);
+		$constraintsX[] = $query->equals('type',1);
+		$constraintsY[] = $query->equals('feuser',$userX);
+		$constraintsY[] = $query->equals('opponent',$userY);
+		$constraintsY[] = $query->equals('type',1);
 		$query->matching($query->logicalOr($query->logicalAnd($constraintsX),$query->logicalAnd($constraintsY)));
-		$query->setOrderings(array('tstamp'=> 'DESC'));
+		$query->setOrderings(array('crdate'=> 'DESC'));
 		if($limit > 0) {
 			$query->setLimit($limit);
 		}
@@ -93,7 +93,7 @@ class Tx_MmForum_Domain_Repository_User_PrivateMessagesRepository extends \TYPO3
 		if($limit > 0) {
 			$query->setLimit($limit);
 		}
-		$query->setOrderings(array('tstamp' => 'DESC'));
+		$query->setOrderings(array('crdate' => 'DESC'));
 		$result = $query->execute();
 		//Parse result for the user ListBox
 		foreach($result AS $entry) {
@@ -117,10 +117,10 @@ class Tx_MmForum_Domain_Repository_User_PrivateMessagesRepository extends \TYPO3
 	public function findReceivedMessagesForUser(Tx_MmForum_Domain_Model_User_FrontendUser $user, $limit=0) {
 		$query = $this->createQuery();
 		$constraints = array();
-		$constraints[] = $query->equals('feuser',$user);
+		$constraints[] = $query->equals('opponent',$user);
 		$constraints[] = $query->equals('type',1);
 		$query->matching($query->logicalAnd($constraints));
-		$query->setOrderings(array('tstamp'=> 'DESC'));
+		$query->setOrderings(array('crdate'=> 'DESC'));
 		if($limit > 0) {
 			$query->setLimit($limit);
 		}

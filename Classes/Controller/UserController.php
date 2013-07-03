@@ -280,8 +280,10 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 			}
 
 			foreach($dialog AS $pm) {
-				$pm->setUserRead(1);
-				$this->messageRepository->update($pm);
+				if($pm->getOpponent() == $user) {
+					$pm->setUserRead(1);
+					$this->messageRepository->update($pm);
+				}
 			}
 		}
 		$this->view

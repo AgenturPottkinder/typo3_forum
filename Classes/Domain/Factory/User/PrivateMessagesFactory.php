@@ -63,8 +63,8 @@ class Tx_MmForum_Domain_Factory_User_PrivateMessagesFactory extends Tx_MmForum_D
 	 *
 	 * Creates a new report.
 	 *
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $feUser
 	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $opponent
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $feUser
 	 * @param Tx_MmForum_Domain_Model_User_PrivateMessagesText $text
 	 * @param int $type
 	 * @param int $userRead
@@ -72,8 +72,8 @@ class Tx_MmForum_Domain_Factory_User_PrivateMessagesFactory extends Tx_MmForum_D
 	 *                             The new private message.
 	 *
 	 */
-	public function createPrivateMessage(Tx_MmForum_Domain_Model_User_FrontendUser $feUser,
-										 Tx_MmForum_Domain_Model_User_FrontendUser $opponent,
+	public function createPrivateMessage(Tx_MmForum_Domain_Model_User_FrontendUser $opponent,
+										 Tx_MmForum_Domain_Model_User_FrontendUser $feUser,
 										 Tx_MmForum_Domain_Model_User_PrivateMessagesText $text,
 										 $type,
 										 $userRead) {
@@ -81,7 +81,7 @@ class Tx_MmForum_Domain_Factory_User_PrivateMessagesFactory extends Tx_MmForum_D
 		$pm->setFeuser($feUser);
 		$pm->setOpponent($opponent);
 		$pm->setType($type);
-		$pm->setTstamp(new DateTime());
+		$pm->setCrdate(new DateTime());
 		$pm->setUserRead($userRead);
 		$pm->setMessage($text);
 		return $pm;

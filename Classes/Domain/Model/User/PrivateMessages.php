@@ -45,7 +45,7 @@ class Tx_MmForum_Domain_Model_User_PrivateMessages extends \TYPO3\CMS\Extbase\Do
 	 * The creation date of pm
 	 * @var DateTime
 	 */
-	public $tstamp;
+	public $crdate;
 
 	/**
 	 * User who read this message
@@ -88,8 +88,8 @@ class Tx_MmForum_Domain_Model_User_PrivateMessages extends \TYPO3\CMS\Extbase\Do
 	 * Get the date this message has been sent
 	 * @return DateTime
 	 */
-	public function getTstamp() {
-		return $this->tstamp;
+	public function getCrdate() {
+		return $this->crdate;
 	}
 
 	/**
@@ -141,11 +141,11 @@ class Tx_MmForum_Domain_Model_User_PrivateMessages extends \TYPO3\CMS\Extbase\Do
 
 	/**
 	 * Get the date this message has been sent
-	 * @param DateTime $tstamp
+	 * @param DateTime $crdate
 	 * @return void
 	 */
-	public function setTstamp(DateTime $tstamp) {
-		$this->tstamp = $tstamp;
+	public function setCrdate(DateTime $crdate) {
+		$this->crdate = $crdate;
 	}
 
 	/**

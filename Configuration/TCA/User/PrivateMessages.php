@@ -4,10 +4,10 @@ if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 $TCA['tx_mmforum_domain_model_user_privatemessages'] = array(
 	'ctrl' => $TCA['tx_mmforum_domain_model_user_privatemessages']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'message, feuser, opponent, type, user_read'
+		'showRecordFieldList' => 'message, feuser, opponent, type, user_read, crdate'
 	),
 	'types' => array(
-		'1' => array('showitem' => 'message, feuser, opponent, type, user_read, tstamp')
+		'1' => array('showitem' => 'message, feuser, opponent, type, user_read, crdate')
 	),
 	'palettes' => array(
 		'1' => array('showitem' => '')
@@ -67,7 +67,7 @@ $TCA['tx_mmforum_domain_model_user_privatemessages'] = array(
 				'type' => 'check'
 			)
 		),
-		'tstamp' => Array (
+		'crdate' => Array (
 			'exclude' => 1,
 			'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tstamp',
 			'config' => Array (

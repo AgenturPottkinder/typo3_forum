@@ -564,6 +564,7 @@ $TCA['tx_mmforum_domain_model_user_privatemessages'] = array(
 	'ctrl' => array(
 		'title' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_pm',
 		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
 		'delete' => 'deleted',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/User/pm.png',
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/User/PrivateMessages.php',
