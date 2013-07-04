@@ -80,3 +80,12 @@ $signalSlotDispatcher->connect('Tx_MmForum_Domain_Model_Forum_Post',
 $signalSlotDispatcher->connect('Tx_MmForum_Domain_Model_Forum_Topic',
 							   'topicCreated', 'Tx_MmForum_Service_Notification_SubscriptionListener',
 							   'onTopicCreated');
+
+// adding scheduler tasks
+
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_mmforum_scheduler_notification'] = array(
+	'extension'        => $_EXTKEY,
+	'title'            => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_notification_title',
+	'description'      => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_notification_description',
+	'additionalFields' => 'tx_mmforum_scheduler_notification_additionalFieldProvider'
+);

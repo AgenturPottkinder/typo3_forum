@@ -132,5 +132,7 @@ return array(
 	'tx_mmforum_service_notification_notificationservicetest' => $extensionPath . 'Tests/Unit/Service/Notification/NotificationServiceTest.php',
 	'tx_mmforum_service_notification_subscriptionlistenertest' => $extensionPath . 'Tests/Unit/Service/Notification/SubscriptionListenerTest.php',
 	'tx_mmforum_view_viewmock' => $extensionPath . 'Tests/Unit/View/ViewMock.php',
+	'tx_mmforum_scheduler_notification' => $extensionPath . 'Scheduler/class.tx_mmforum_scheduler_notification.php',
+	'tx_mmforum_scheduler_notification_additionalFieldProvider' => $extensionPath . 'Scheduler/class.tx_mmforum_scheduler_notification_additionalFieldProvider.php',
 );
 ?>
