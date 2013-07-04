@@ -105,6 +105,12 @@ class Tx_MmForum_Domain_Model_User_PrivateMessages extends \TYPO3\CMS\Extbase\Do
 	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The User who read this message
 	 */
 	public function getFeuser() {
+		if ($this->feuser instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+			$this->feuser->_loadRealInstance();
+		}
+		if ($this->feuser === NULL) {
+			$this->feuser = new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
+		}
 		return $this->feuser;
 	}
 
@@ -114,6 +120,12 @@ class Tx_MmForum_Domain_Model_User_PrivateMessages extends \TYPO3\CMS\Extbase\Do
 	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The other User who is involved in this message
 	 */
 	public function getOpponent() {
+		if ($this->opponent instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+			$this->opponent->_loadRealInstance();
+		}
+		if ($this->opponent === NULL) {
+			$this->opponent = new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
+		}
 		return $this->opponent;
 	}
 

@@ -59,9 +59,11 @@ class Tx_MmForum_Domain_Repository_User_PrivateMessagesRepository extends \TYPO3
 		$constraintsX[] = $query->equals('feuser',$userY);
 		$constraintsX[] = $query->equals('opponent',$userX);
 		$constraintsX[] = $query->equals('type',1);
+		$constraintsX[] = $query->equals('feuser.disable',0);
 		$constraintsY[] = $query->equals('feuser',$userX);
 		$constraintsY[] = $query->equals('opponent',$userY);
 		$constraintsY[] = $query->equals('type',1);
+		$constraintsY[] = $query->equals('opponent.disable',0);
 		$query->matching($query->logicalOr($query->logicalAnd($constraintsX),$query->logicalAnd($constraintsY)));
 		$query->setOrderings(array('crdate'=> 'DESC'));
 		if($limit > 0) {
@@ -87,8 +89,10 @@ class Tx_MmForum_Domain_Repository_User_PrivateMessagesRepository extends \TYPO3
 		$userInArray = array();
 		$constraintsX[] = $query->equals('feuser',$user);
 		$constraintsX[] = $query->equals('type',0);
+		$constraintsX[] = $query->equals('opponent.disable',0);
 		$constraintsY[] = $query->equals('feuser',$user);
 		$constraintsY[] = $query->equals('type',1);
+		$constraintsY[] = $query->equals('opponent.disable',0);
 		$query->matching($query->logicalOr($query->logicalAnd($constraintsX),$query->logicalAnd($constraintsY)));
 		if($limit > 0) {
 			$query->setLimit($limit);
@@ -119,6 +123,7 @@ class Tx_MmForum_Domain_Repository_User_PrivateMessagesRepository extends \TYPO3
 		$constraints = array();
 		$constraints[] = $query->equals('opponent',$user);
 		$constraints[] = $query->equals('type',1);
+		$constraints[] = $query->equals('feuser.disable',0);
 		$query->matching($query->logicalAnd($constraints));
 		$query->setOrderings(array('crdate'=> 'DESC'));
 		if($limit > 0) {

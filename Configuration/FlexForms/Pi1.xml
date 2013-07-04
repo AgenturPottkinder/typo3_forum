@@ -42,7 +42,7 @@
 									</numIndex>
 									<numIndex index="7">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Dashboard</numIndex>
-										<numIndex index="1">User->dashboard;User->listPosts</numIndex>
+										<numIndex index="1">User->dashboard;User->listPosts;User->listMessages;User->listNotifications;User->listFavorites</numIndex>
 									</numIndex>
 								</items>
 							</config>
