@@ -375,9 +375,17 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 		if ($user->isAnonymous()) {
 			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
 		}
+		$notifications = $this->notificationRepository->findNotificationsForUser($user);
+
+		foreach($notifications AS $notification) {
+			$notification->setUserRead(1);
+			$this->notificationRepository->update($notification);
+		}
+
 		$this->view
-			->assign('notifications',$this->notificationRepository->findNotificationsForUser($user))
+			->assign('notifications',$notifications)
 			->assign('currentUser',$user);
+
 	}
 
 	/**
