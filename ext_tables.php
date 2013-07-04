@@ -610,8 +610,22 @@ $TCA['tx_mmforum_domain_model_user_rank'] = array(
 	'ctrl' => array(
 		'title' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_rank',
 		'label' => 'name',
+		'sortby' => 'point_limit',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/User/rank.png',
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/User/Rank.php',
+	)
+);
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_mmforum_domain_model_user_notification');
+$TCA['tx_mmforum_domain_model_user_notification'] = array(
+	'ctrl' => array(
+		'title' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_notification',
+		'label' => 'uid',
+		'crdate' => 'crdate',
+		'delete' => 'deleted',
+		'sortby' => 'crdate DESC',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/User/notification.png',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/User/Notification.php',
 	)
 );
 

@@ -22,7 +22,7 @@
 									</numIndex>
 									<numIndex index="1">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_User_Show</numIndex>
-										<numIndex index="1">User->show; User->disableUser; User->unDisableUser; User->listSubscriptions;User->show;User->subscribe;User->listFavorites;User->listPosts;User->listQuestions;User->listTopics;User->listMessages;User->newMessage;User->createMessage</numIndex>
+										<numIndex index="1">User->show; User->disableUser; User->unDisableUser; User->listSubscriptions;User->show;User->subscribe;User->listFavorites;User->listPosts;User->listQuestions;User->listTopics;User->listMessages;User->newMessage;User->createMessage;User->listNotifications</numIndex>
 									</numIndex>
 									<numIndex index="3">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Moderation_Reports</numIndex>

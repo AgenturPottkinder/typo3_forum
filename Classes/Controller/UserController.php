@@ -96,6 +96,13 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	protected $rankRepository = NULL;
 
 
+	/**
+	 * The notification repository.
+	 * @var Tx_MmForum_Domain_Repository_User_NotificationRepository
+	 */
+	protected $notificationRepository = NULL;
+
+
 	/*
 	 * DEPENDENCY INJECTORS
 	 */
@@ -117,13 +124,16 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	 * 									An instance of the private message factory
 	 * @param Tx_MmForum_Domain_Repository_User_RankRepository $rankRepository
 	 * 									An instance of the rank repository
+	 * @param Tx_MmForum_Domain_Repository_User_NotificationRepository
+	 *									An instance of the notification repository
 	 */
 	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
 	                            Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
 	                            Tx_MmForum_Domain_Repository_User_UserfieldRepository $userfieldRepository,
 								Tx_MmForum_Domain_Repository_User_PrivateMessagesRepository $messageRepository,
 								Tx_MmForum_Domain_Factory_User_PrivateMessagesFactory $privateMessagesFactory,
-								Tx_MmForum_Domain_Repository_User_RankRepository $rankRepository) {
+								Tx_MmForum_Domain_Repository_User_RankRepository $rankRepository,
+								Tx_MmForum_Domain_Repository_User_NotificationRepository $notificationRepository) {
 		parent::__construct();
 		$this->forumRepository			= $forumRepository;
 		$this->topicRepository			= $topicRepository;
@@ -131,6 +141,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 		$this->messageRepository		= $messageRepository;
 		$this->privateMessagesFactory	= $privateMessagesFactory;
 		$this->rankRepository			= $rankRepository;
+		$this->notificationRepository	= $notificationRepository;
 	}
 
 
@@ -353,6 +364,23 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	}
 
 	/**
+	 * Lists all messages of a specific user. If no user is specified, this action lists all
+	 * messages of the current user.
+	 *
+	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 * @return void
+	 */
+	public function listNotificationsAction() {
+		$user = $this->authenticationService->getUser();
+		if ($user->isAnonymous()) {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+		}
+		$this->view
+			->assign('notifications',$this->notificationRepository->findNotificationsForUser($user))
+			->assign('currentUser',$user);
+	}
+
+	/**
 	 * Disable single user
 	 *
 	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user The user whose profile is to be displayed.
@@ -524,7 +552,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException('You need to be logged in to view your own subscriptions!', 1335120249);
 		}
 		$this->view->assign('user',$user)
-					->assign('myNotifications',NULL)
+					->assign('myNotifications', $this->notificationRepository->findNotificationsForUser($user, 6))
 					->assign('myMessages', $this->messageRepository->findReceivedMessagesForUser($user, 6))
 					->assign('myFavorites', $this->topicRepository->findTopicsFavSubscribedByUser($user, 6))
 					->assign('myTopics',$this->topicRepository->findTopicsCreatedByAuthor($user, 6));

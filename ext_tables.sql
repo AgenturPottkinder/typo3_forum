@@ -576,6 +576,24 @@ CREATE TABLE IF NOT EXISTS tx_mmforum_domain_model_user_rank (
 );
 
 
+#
+# Table structure for table 'tx_mmforum_domain_model_user_notification'
+#
+
+CREATE TABLE tx_mmforum_domain_model_user_notification (
+  uid int(11) unsigned NOT NULL auto_increment,
+  pid int(11) unsigned NOT NULL,
+  crdate int(11) unsigned NOT NULL default '0',
+  deleted tinyint(3) NOT NULL default '0',
+  feuser int(11) unsigned NOT NULL,
+  post int(11) unsigned NOT NULL,
+  user_read tinyint(3) NOT NULL default '0',
+  `type` varchar(64) NOT NULL default 'Tx_MmForum_Domain_Model_Forum_Post',
+  PRIMARY KEY  (`uid`),
+  KEY `user` (`user`,`post`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
 
 #
 # Table structure for table "fe_users"
