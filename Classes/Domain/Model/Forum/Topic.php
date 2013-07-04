@@ -255,9 +255,9 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 		if ($this->author === NULL) {
 			if (count($this->posts) > 0) {
 				$posts = $this->posts->toArray();
-				return $posts[0]->getAuthor();
+				$this->author = $posts[0]->getAuthor();
 			} else {
-				return new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
+				$this->author = new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
 			}
 		}
 		return $this->author;

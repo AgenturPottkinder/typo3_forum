@@ -112,6 +112,7 @@ class Tx_MmForum_Domain_Model_User_PrivateMessages extends \TYPO3\CMS\Extbase\Do
 			$this->feuser = new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
 		}
 		return $this->feuser;
+
 	}
 
 

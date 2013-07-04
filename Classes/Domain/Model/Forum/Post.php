@@ -201,14 +201,14 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 	 * @return Tx_MmForum_Domain_Model_User_FrontendUser author
 	 */
 	public function getAuthor() {
-		if ($this->author === NULL) {
-			$author = new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
-			$author->setUsername($this->authorName);
-			return $author;
-		}
-
 		if ($this->author instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
 			$this->author->_loadRealInstance();
+		}
+		if ($this->author === NULL) {
+			$this->author = new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
+			if($this->authorName){
+				$this->author->setUsername($this->authorName);
+			}
 		}
 		return $this->author;
 	}

@@ -59,9 +59,15 @@ class Tx_MmForum_Domain_Model_Moderation_UserReport extends Tx_MmForum_Domain_Mo
 
 	/**
 	 * Gets the topic to which the reported post belongs to.
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The topic.
+	 * @return Tx_MmForum_Domain_Model_User_FrontendUser Frontend User
 	 */
 	public function getUser() {
+		if ($this->feuser instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+			$this->feuser->_loadRealInstance();
+		}
+		if ($this->feuser === NULL) {
+			$this->feuser = new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
+		}
 		return $this->feuser;
 	}
 

@@ -117,6 +117,12 @@ class Tx_MmForum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Domai
 	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The reporter
 	 */
 	public function getReporter() {
+		if ($this->reporter instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+			$this->reporter->_loadRealInstance();
+		}
+		if ($this->reporter === NULL) {
+			$this->reporter = new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
+		}
 		return $this->reporter;
 	}
 
@@ -127,6 +133,12 @@ class Tx_MmForum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Domai
 	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The moderator
 	 */
 	public function getModerator() {
+		if ($this->moderator instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+			$this->moderator->_loadRealInstance();
+		}
+		if ($this->moderator === NULL) {
+			$this->moderator = new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
+		}
 		return $this->moderator;
 	}
 

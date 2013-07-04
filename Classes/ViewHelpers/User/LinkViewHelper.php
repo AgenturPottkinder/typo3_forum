@@ -66,8 +66,7 @@ class Tx_MmForum_ViewHelpers_User_LinkViewHelper extends \TYPO3\CMS\Fluid\ViewHe
 	 * @param boolean $showOnlineStatus
 	 * @return string
 	 */
-	public function render(Tx_MmForum_Domain_Model_User_FrontendUser $user, $showOnlineStatus = TRUE) {
-
+	public function render(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $showOnlineStatus = TRUE) {
 		// if user anonymous: show only the username
 		if ($user->isAnonymous()) {
 			return $user->getUsername();

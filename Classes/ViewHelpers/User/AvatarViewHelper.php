@@ -92,9 +92,14 @@ class Tx_MmForum_ViewHelpers_User_AvatarViewHelper extends \TYPO3\CMS\Fluid\View
 	 * @return string              HTML content
 	 *
 	 */
-	public function render(Tx_MmForum_Domain_Model_User_FrontendUser $user, $width = NULL, $height = NULL) {
+	public function render(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $width = NULL, $height = NULL) {
+		// if user ist not set
 		$avatarFilename = NULL;
-		$avatarFilename = $user->getImagePath();
+
+		if ($user != NULL) {
+			$avatarFilename = $user->getImagePath();
+		}
+
 		if ($avatarFilename === NULL) {
 			$avatarFilename = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('mm_forum') . 'Resources/Public/Images/Icons/AvatarEmpty.png';
 		}

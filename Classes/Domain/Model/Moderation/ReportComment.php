@@ -109,6 +109,12 @@ class Tx_MmForum_Domain_Model_Moderation_ReportComment extends \TYPO3\CMS\Extbas
 	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The comment author.
 	 */
 	public function getAuthor() {
+		if ($this->author instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+			$this->author->_loadRealInstance();
+		}
+		if ($this->author === NULL) {
+			$this->author = new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
+		}
 		return $this->author;
 	}
 
