@@ -311,6 +311,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 
 			foreach($dialog AS $pm) {
 				if($pm->getOpponent() == $user) {
+					if($pm->getUserRead() == 1) break; // if user already read this message, the next should be already read
 					$pm->setUserRead(1);
 					$this->messageRepository->update($pm);
 				}
@@ -378,6 +379,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 		$notifications = $this->notificationRepository->findNotificationsForUser($user);
 
 		foreach($notifications AS $notification) {
+			if($notification->getUserRead() == 1) break; // if user already read this notification, the next should be already read
 			$notification->setUserRead(1);
 			$this->notificationRepository->update($notification);
 		}
