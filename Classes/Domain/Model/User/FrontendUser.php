@@ -295,13 +295,6 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 		return $this->points;
 	}
 
-	/**
-	 * Gets the points of this user
-	 * @return integer
-	 */
-	public function getPoints() {
-		return $this->points;
-	}
 
 	/**
 	 * Gets the post count of this user.
