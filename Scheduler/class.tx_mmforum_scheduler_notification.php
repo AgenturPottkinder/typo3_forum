@@ -33,14 +33,14 @@
 class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
 	/**
-	 * @var int
+	 * @var string
 	 */
-	protected $forumPid;
+	protected $forumPids;
 
 	/**
-	 * @var int
+	 * @var string
 	 */
-	protected $userPid;
+	protected $userPids;
 
 	/**
 	 * @var int
@@ -48,18 +48,32 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 	protected $lastExecutedCron = 0;
 
 	/**
-	 * @return int
+	 * @return string
 	 */
-	public function getForumPid() {
-		return intval($this->forumPid);
+	public function getForumPids() {
+		return $this->forumPids;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getUserPids() {
+		return $this->userPids;
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getUserPid() {
-		return intval($this->userPid);
+	public function getMainUserPid() {
+		if(strpos($this->getUserPids(),',') === false) {
+			$userStoragePid = $this->getUserPids();
+		} else {
+			$tmp = explode(',',$this->getUserPids());
+			$userStoragePid = $tmp[0];
+		}
+		return intval($userStoragePid);
 	}
+
 
 	/**
 	 * @return int
@@ -69,17 +83,17 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 	}
 
 	/**
-	 * @param int $forumPid
+	 * @param string $forumPids
 	 */
-	public function setForumPid($forumPid) {
-		$this->forumPid = intval($forumPid);
+	public function setForumPids($forumPids) {
+		$this->forumPids = $forumPids;
 	}
 
 	/**
-	 * @param int $userPid
+	 * @param string $userPids
 	 */
-	public function setUserPid($userPid) {
-		$this->userPid = intval($userPid);
+	public function setUserPids($userPids) {
+		$this->userPids = $userPids;
 	}
 
 	/**
@@ -95,29 +109,36 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 	 * @return bool
 	 */
 	public function execute() {
+		if($this->getForumPids() == false || $this->getUserPids() == false) return false;
+
 		$this->setLastExecutedCron(intval($this->findLastCronExecutionDate()));
 
 		$query = 'SELECT t.uid
 				  FROM tx_mmforum_domain_model_forum_topic AS t
 				  INNER JOIN tx_mmforum_domain_model_forum_post AS p ON p.uid = t.last_post
-				  WHERE t.pid = '.intval($this->getForumPid()).' AND t.deleted=0 AND p.crdate > '.$this->getLastExecutedCron().'
+				  WHERE t.pid IN ('.$this->getForumPids().') AND t.deleted=0
+				  		AND p.crdate > '.$this->getLastExecutedCron().'
 				  GROUP BY t.uid';
 		$topicRes = $GLOBALS['TYPO3_DB']->sql_query($query);
 		$executedOn = time();
+
 		while($topicRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($topicRes)) {
 			$involvedUser = $this->getUserInvolvedInTopic($topicRow['uid']);
 			$query = 'SELECT *
 					  FROM tx_mmforum_domain_model_forum_post
-					  WHERE topic='.intval($topicRow['uid']).' AND deleted=0 AND pid='.$this->getForumPid().'
-					  		AND crdate > '.$this->getLastExecutedCron();
+					  WHERE topic='.intval($topicRow['uid']).' AND crdate > '.$this->getLastExecutedCron().'
+					  	 	AND deleted=0 AND pid IN ('.$this->getForumPids().')';
 			$postRes = $GLOBALS['TYPO3_DB']->sql_query($query);
 			while($postRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($postRes)) {
 				foreach($involvedUser AS $userUid) {
+					if($userUid == $postRow['author']) continue;
 					$insert = array(
 						'crdate'	=> $executedOn,
+						'pid'		=> $this->getMainUserPid(),
 						'feuser'	=> intval($userUid),
 						'post'		=> intval($postRow['uid']),
 						'type'		=> 'Tx_MmForum_Domain_Model_Forum_Post',
+						'userRead'	=> (($this->findLastCronExecutionDate() == 0)?1:0)
 
 					);
 					$res = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_mmforum_domain_model_user_notification',$insert);
@@ -135,7 +156,7 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 	private function findLastCronExecutionDate() {
 		$query = 'SELECT crdate
 				  FROM tx_mmforum_domain_model_user_notification
-				  WHERE pid='.intval($this->getUserPid()).'
+				  WHERE pid ='.$this->getMainUserPid().'
 				  ORDER BY crdate DESC
 				  LIMIT 1';
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
@@ -152,7 +173,8 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 		$user = array();
 		$query = 'SELECT DISTINCT author
 				  FROM tx_mmforum_domain_model_forum_post
-				  WHERE pid='.intval($this->getUserPid()).' AND deleted=0 AND crdate > '.$this->getLastExecutedCron();
+				  WHERE pid IN ('.$this->getForumPids().') AND deleted=0 AND author > 0
+				  		AND topic='.intval($topicUid).' AND crdate > '.$this->getLastExecutedCron();
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 		while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 			$user[] = intval($row['author']);

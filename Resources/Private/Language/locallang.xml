@@ -154,8 +154,8 @@
 			<label index="Date_At">at</label>
 			<label index="tx_mmforum_scheduler_notification_title">Notifications Generator</label>
 			<label index="tx_mmforum_scheduler_notification_description">Generate all new notifications of all users.</label>
-			<label index="tx_mmforum_scheduler_notification_forumPid">Forum pid</label>
-			<label index="tx_mmforum_scheduler_notification_userPid">User pid</label>
+			<label index="tx_mmforum_scheduler_notification_forumPid">Forum pids (comma-seperated is allowed)</label>
+			<label index="tx_mmforum_scheduler_notification_userPid">User pids (comma-seperated is allowed)</label>
 			<label index="Link_My_Profile">My profile</label>
 			<label index="Working_Environment_0">Agency</label>
 			<label index="Working_Environment_1">Company</label>
@@ -316,8 +316,8 @@
 			<label index="Date_At">um</label>
 			<label index="tx_mmforum_scheduler_notification_title">Benachrichtigung Generator</label>
 			<label index="tx_mmforum_scheduler_notification_description">Generiert alle neuen Benachrichtigungen aller Benutzer.</label>
-			<label index="tx_mmforum_scheduler_notification_forumPid">Forum Pid</label>
-			<label index="tx_mmforum_scheduler_notification_userPid">User Pid</label>
+			<label index="tx_mmforum_scheduler_notification_forumPid">Forum Pids (Kommaseperiert ist erlaubt)</label>
+			<label index="tx_mmforum_scheduler_notification_userPid">User Pids (Kommaseperiert ist erlaubt)</label>
 			<label index="Link_My_Profile">Mein Profil</label>
 			<label index="Working_Environment_0">Agentur</label>
 			<label index="Working_Environment_1">Unternehmen</label>

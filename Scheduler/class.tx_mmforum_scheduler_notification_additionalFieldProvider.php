@@ -47,24 +47,24 @@ class tx_mmforum_scheduler_notification_additionalFieldProvider implements \TYPO
 		$additionalFields = array();
 
 		if ($schedulerModule->CMD == 'add') {
-			$taskInfo['forumPid'] = 1337;
-			$taskInfo['userPid'] = 1337;
+			$taskInfo['forumPids'] = 1337;
+			$taskInfo['userPids'] = 1337;
 		}
 
 		if ($schedulerModule->CMD == 'edit') {
-			$taskInfo['forumPid'] = $task->getForumPid();
-			$taskInfo['userPid'] = $task->getUserPid();
+			$taskInfo['forumPids'] = $task->getForumPids();
+			$taskInfo['userPids'] = $task->getUserPids();
 		}
 
-		$additionalFields['forumPid'] = array(
-			'code'     => '<input type="text" name="tx_scheduler[forumPid]" value="' . intval($taskInfo['forumPid']) . '" />',
+		$additionalFields['forumPids'] = array(
+			'code'     => '<input type="text" name="tx_scheduler[forumPids]" value="' . htmlspecialchars($taskInfo['forumPids']) . '" />',
 			'label'    => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_notification_forumPid',
 			'cshKey'   => '',
 			'cshLabel' => ''
 		);
 
-		$additionalFields['userPid'] = array(
-			'code'     => '<input type="text" name="tx_scheduler[userPid]" value="' . intval($taskInfo['userPid']) . '" />',
+		$additionalFields['userPids'] = array(
+			'code'     => '<input type="text" name="tx_scheduler[userPids]" value="' . htmlspecialchars($taskInfo['userPids']) . '" />',
 			'label'    => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_notification_userPid',
 			'cshKey'   => '',
 			'cshLabel' => ''
@@ -82,8 +82,8 @@ class tx_mmforum_scheduler_notification_additionalFieldProvider implements \TYPO
 	 * @return	boolean														True if validation was ok (or selected class is not relevant), FALSE otherwise
 	 */
 	public function validateAdditionalFields(array &$submittedData, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule) {
-		$submittedData['forumPid'] = intval($submittedData['forumPid']);
-		$submittedData['userPid'] = intval($submittedData['userPid']);
+		$submittedData['forumPids'] = htmlspecialchars($submittedData['forumPids']);
+		$submittedData['userPids'] = htmlspecialchars($submittedData['userPids']);
 
 		return true;
 	}
@@ -96,8 +96,8 @@ class tx_mmforum_scheduler_notification_additionalFieldProvider implements \TYPO
 	 * @param	\TYPO3\CMS\Scheduler\Task\AbstractTask	$task: reference to the current task object
 	 */
 	public function saveAdditionalFields(array $submittedData, \TYPO3\CMS\Scheduler\Task\AbstractTask $task) {
-		$task->setUserPid($submittedData['userPid']);
-		$task->setForumPid($submittedData['forumPid']);
+		$task->setUserPids($submittedData['userPids']);
+		$task->setForumPids($submittedData['forumPids']);
 	}
 }
 
