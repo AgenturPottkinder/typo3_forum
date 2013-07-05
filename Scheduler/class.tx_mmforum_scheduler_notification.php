@@ -119,26 +119,29 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 				  WHERE t.pid IN ('.$this->getForumPids().') AND t.deleted=0
 				  		AND p.crdate > '.$this->getLastExecutedCron().'
 				  GROUP BY t.uid';
+
 		$topicRes = $GLOBALS['TYPO3_DB']->sql_query($query);
 		$executedOn = time();
 
 		while($topicRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($topicRes)) {
 			$involvedUser = $this->getUserInvolvedInTopic($topicRow['uid']);
-			$query = 'SELECT *
+			$query = 'SELECT uid, author
 					  FROM tx_mmforum_domain_model_forum_post
 					  WHERE topic='.intval($topicRow['uid']).' AND crdate > '.$this->getLastExecutedCron().'
 					  	 	AND deleted=0 AND pid IN ('.$this->getForumPids().')';
 			$postRes = $GLOBALS['TYPO3_DB']->sql_query($query);
 			while($postRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($postRes)) {
-				foreach($involvedUser AS $userUid) {
-					if($userUid == $postRow['author']) continue;
+				foreach($involvedUser AS $user) {
+					if($user['author'] == $postRow['author']) continue;
+					if($user['firstPostOfUser'] > $postRow['uid']) continue;
+
 					$insert = array(
 						'crdate'	=> $executedOn,
 						'pid'		=> $this->getMainUserPid(),
-						'feuser'	=> intval($userUid),
+						'feuser'	=> intval($user['author']),
 						'post'		=> intval($postRow['uid']),
 						'type'		=> 'Tx_MmForum_Domain_Model_Forum_Post',
-						'userRead'	=> (($this->findLastCronExecutionDate() == 0)?1:0)
+						'user_read'	=> (($this->getLastExecutedCron() == 0)?1:0)
 
 					);
 					$res = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_mmforum_domain_model_user_notification',$insert);
@@ -171,13 +174,14 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 	 */
 	private function getUserInvolvedInTopic($topicUid) {
 		$user = array();
-		$query = 'SELECT DISTINCT author
+		$query = 'SELECT author, uid
 				  FROM tx_mmforum_domain_model_forum_post
 				  WHERE pid IN ('.$this->getForumPids().') AND deleted=0 AND author > 0
-				  		AND topic='.intval($topicUid).' AND crdate > '.$this->getLastExecutedCron();
+				  		AND topic='.intval($topicUid).'
+				  GROUP BY author';
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 		while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-			$user[] = intval($row['author']);
+			$user[] = array('author' => intval($row['author']), 'firstPostOfUser' => intval($row['uid']));
 		}
 		return $user;
 	}
