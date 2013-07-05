@@ -74,6 +74,11 @@
 			<label index="tx_mmforum_domain_model_user_notification_type">Type</label>
 			<label index="tx_mmforum_domain_model_user_notification_crdate">Cron executed timestamp</label>
 
+			<label index="tx_mmforum_domain_model_stats_summary">Summary Stats</label>
+			<label index="tx_mmforum_domain_model_stats_summary_type">Type</label>
+			<label index="tx_mmforum_domain_model_stats_summary_amount">Amount</label>
+			<label index="tx_mmforum_domain_model_stats_summary_tstamp">Timestamp</label>
+
 			<label index="tx_mmforum_domain_model_forum_access">Access</label>
 			<label index="tx_mmforum_domain_model_forum_access.operation">Operation</label>
 			<label index="tx_mmforum_domain_model_forum_access.operation.read">Read</label>

@@ -593,6 +593,19 @@ CREATE TABLE tx_mmforum_domain_model_user_notification (
   KEY `user` (`user`,`post`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+#
+# Table structure for table 'tx_mmforum_domain_model_stats_summary'
+#
+
+CREATE TABLE IF NOT EXISTS tx_mmforum_domain_model_stats_summary (
+  uid int(11) unsigned NOT NULL auto_increment,
+  pid int(11) unsigned NOT NULL,
+  tstamp int(11) unsigned NOT NULL default '0',
+  deleted tinyint(3) unsigned NOT NULL default '0',
+  `type` varchar(64) NOT NULL,
+  amount int(11) unsigned NOT NULL default '0',
+  PRIMARY KEY  (uid)
+);
 
 
 #
@@ -621,6 +634,13 @@ CREATE TABLE fe_users (
   tx_mmforum_working_environment int(11) unsigned NOT NULL default '0',
   tx_mmforum_contact text,
   KEY `tx_mmforum_user_rank` (`tx_mmforum_user_rank`)
+);
+
+#
+# Table structure for table "fe_groups"
+#
+CREATE TABLE fe_groups (
+  tx_mmforum_user_mod tinyint(3) unsigned default '0'
 );
 
 

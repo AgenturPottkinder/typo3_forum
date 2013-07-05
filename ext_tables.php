@@ -629,4 +629,17 @@ $TCA['tx_mmforum_domain_model_user_notification'] = array(
 	)
 );
 
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_mmforum_domain_model_stats_summary');
+$TCA['tx_mmforum_domain_model_stats_summary'] = array(
+	'ctrl' => array(
+		'title' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_stats_summary',
+		'label' => 'type',
+		'tstamp' => 'tstamp',
+		'delete' => 'deleted',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/Stats/summary.png',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Stats/Summary.php',
+	)
+);
+
 ?>
