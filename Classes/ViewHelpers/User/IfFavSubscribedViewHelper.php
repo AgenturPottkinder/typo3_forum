@@ -66,7 +66,6 @@ class Tx_MmForum_ViewHelpers_User_IfFavSubscribedViewHelper extends \TYPO3\CMS\F
 		if ($user === NULL) {
 			$user =& \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_MmForum_Domain_Repository_User_FrontendUserRepository')->findCurrent();
 		}
-		\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($object);
 		foreach ($object->getFavSubscribers() As $subscriber) {
 			if ($subscriber->getUid() == $user->getUid()) {
 				return $this->renderThenChild();
