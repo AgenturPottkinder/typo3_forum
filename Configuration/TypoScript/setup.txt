@@ -247,6 +247,7 @@ plugin.tx_mmforum.settings {
 			insertAbove = 0
 			insertBelow = 1
 			maximumNumberOfLinks = 10
+			showFirstLast = 1
 		}
 		topic {
 			itemsPerPage = 20

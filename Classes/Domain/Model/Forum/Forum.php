@@ -720,7 +720,7 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 	 * @param Tx_MmForum_Domain_Model_Forum_Topic $lastTopic The last topic
 	 * @return void
 	 */
-	protected function setLastTopic(Tx_MmForum_Domain_Model_Forum_Topic $lastTopic) {
+	public function setLastTopic(Tx_MmForum_Domain_Model_Forum_Topic $lastTopic) {
 		$this->lastTopic = $lastTopic;
 	}
 

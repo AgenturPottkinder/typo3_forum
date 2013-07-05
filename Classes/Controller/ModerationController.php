@@ -43,12 +43,27 @@
 
 class Tx_MmForum_Controller_ModerationController extends Tx_MmForum_Controller_AbstractController {
 
+
+	/**
+	 * The topic repository.
+	 *
+	 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
+	 */
+	protected $forumRepository;
+
 	/**
 	 * The topic repository.
 	 *
 	 * @var Tx_MmForum_Domain_Repository_Forum_TopicRepository
 	 */
 	protected $topicRepository;
+
+	/**
+	 * The topic repository.
+	 *
+	 * @var Tx_MmForum_Domain_Repository_Forum_PostRepository
+	 */
+	protected $postRepository;
 
 	/**
 	 * @var Tx_MmForum_Domain_Repository_Moderation_UserReportRepository
@@ -66,6 +81,20 @@ class Tx_MmForum_Controller_ModerationController extends Tx_MmForum_Controller_A
 	protected $reportRepository = NULL;
 
 	/**
+	 * @var \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface
+	 */
+	protected $persistenceManager;
+
+
+	/**
+	 * @param \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface $persistenceManager
+	 * @return void
+	 */
+	public function injectPersistenceManager(\TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface $persistenceManager) {
+		$this->persistenceManager = $persistenceManager;
+	}
+
+	/**
 	 * Injects an instance of the report repository.
 	 *
 	 * @param  Tx_MmForum_Domain_Repository_Moderation_UserReportRepository $userReportRepository
@@ -77,6 +106,19 @@ class Tx_MmForum_Controller_ModerationController extends Tx_MmForum_Controller_A
 		$this->userReportRepository = $userReportRepository;
 	}
 
+
+	/**
+	 * Injects an instance of the topic repository.
+	 *
+	 * @param  Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository
+	 *
+	 * @return void
+	 */
+	public function injectForumRepository(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository) {
+		$this->forumRepository = $forumRepository;
+	}
+
+
 	/**
 	 * Injects an instance of the topic repository.
 	 *
@@ -86,6 +128,17 @@ class Tx_MmForum_Controller_ModerationController extends Tx_MmForum_Controller_A
 	 */
 	public function injectTopicRepository(Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository) {
 		$this->topicRepository = $topicRepository;
+	}
+
+	/**
+	 * Injects an instance of the topic repository.
+	 *
+	 * @param  Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository
+	 *
+	 * @return void
+	 */
+	public function injectPostRepository(Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository) {
+		$this->postRepository = $postRepository;
 	}
 
 	/**
@@ -323,5 +376,41 @@ class Tx_MmForum_Controller_ModerationController extends Tx_MmForum_Controller_A
 		);
 		$this->clearCacheForCurrentPage();
 		$this->redirect('show', 'Topic', NULL, Array('topic' => $topic));
+	}
+
+	/**
+	 * Delete a topic from repository!
+	 *
+	 * @param  Tx_MmForum_Domain_Model_Forum_Topic  $topic           The topic that is be deleted.
+	 *
+	 * @return void
+	 */
+	public function topicConformDeleteAction(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
+		$this->authenticationService->assertModerationAuthorization($topic->getForum());
+		foreach($topic->getPosts() as $post){
+			$this->postRepository->remove($post);
+		}
+
+		$forum = $topic->getForum();
+		$this->topicRepository->remove($topic);
+
+		$this->persistenceManager->persistAll();
+
+		$forum->_resetLastPost();
+
+		$lastPost = $this->postRepository->findLastByForum($forum);
+		$forum->setLastPost($lastPost);
+		$forum->setLastTopic($lastPost->getTopic());
+		$this->forumRepository->update($forum);
+
+		$this->controllerContext->getFlashMessageQueue()->addMessage(
+			new \TYPO3\CMS\Core\Messaging\FlashMessage(
+				Tx_MmForum_Utility_Localization::translate('Moderation_DeleteTopic_Success',
+					'MmForum')
+			)
+		);
+		$this->clearCacheForCurrentPage();
+
+		$this->redirect('show', 'Forum', NULL, Array('forum' => $topic->getForum()));
 	}
 }

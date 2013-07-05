@@ -9,6 +9,7 @@
 		<languageKey index="default" type="array">
 			<label index="Button_Back">Back</label>
 			<label index="Button_Delete">Delete</label>
+			<label index="Button_Delete_Topic">Delete Topic</label>
 			<label index="Button_Edit">Edit</label>
 			<label index="Button_Moderate">Moderate</label>
 			<label index="Button_Quote">Quote</label>
@@ -37,6 +38,8 @@
 			<label index="Forum_Show_Topic_Posts">Replies</label>
 			<label index="Forum_Show_Topic_Subject">Subject</label>
 			<label index="Forum_Show_Topic_Question">Question</label>
+			<label index="Forum_Index_HelpfulPosts">Helpful posts</label>
+			<label index="Forum_PM_Send">send private message</label>
 			<label index="Generic_By">by</label>
 			<label index="Generic_More">more</label>
 			<label index="Moderation_EditTopic">Moderate topic</label>
@@ -161,6 +164,14 @@
 			<label index="Working_Environment_1">Company</label>
 			<label index="Working_Environment_2">Freelancer</label>
 			<label index="Working_Environment_3">Public service</label>
+			<label index="Facebook">Facebook</label>
+			<label index="Twitter">Twitter</label>
+			<label index="Google_plus">Google+</label>
+			<label index="Solution">Solution</label>
+			<label index="Forum_Most_Supported_Post">most supported</label>
+			<label index="Button_Email">Email</label>
+			<label index="Button_FavSubscribe">Fav subscribe</label>
+			<label index="Button_FavUnsubscribe">Fav unsubscribe</label>
 		</languageKey>
 		<languageKey index="af"></languageKey>
 		<languageKey index="ar"></languageKey>
@@ -173,6 +184,7 @@
 		<languageKey index="de" type="array">
 			<label index="Button_Back">Zurück</label>
 			<label index="Button_Delete">Löschen</label>
+			<label index="Button_Delete_Topic">Thema Löschen</label>
 			<label index="Button_Edit">Bearbeiten</label>
 			<label index="Button_Moderate">Moderieren</label>
 			<label index="Button_Quote">Zitieren</label>
@@ -201,6 +213,8 @@
 			<label index="Forum_Show_Topic_Posts">Antworten</label>
 			<label index="Forum_Show_Topic_Subject">Betreff</label>
 			<label index="Forum_Show_Topic_Question">Frage</label>
+			<label index="Forum_PM_Send">Nachricht senden</label>
+			<label index="Forum_Index_HelpfulPosts">Hilfreiche Beiträge</label>
 			<label index="Generic_By">von</label>
 			<label index="Generic_More">mehr</label>
 			<label index="Moderation_EditTopic">Moderate Thema</label>
@@ -324,6 +338,14 @@
 			<label index="Working_Environment_2">Freelancer</label>
 			<label index="Working_Environment_3">Öffentlicher Dienst</label>
 			<label index="User_Index_Questions">Fragen</label>
+			<label index="Facebook">Facebook</label>
+			<label index="Twitter">Twitter</label>
+			<label index="Google_plus">Google+</label>
+			<label index="Solution">Lösung</label>
+			<label index="Forum_Most_Supported_Post">Hilreichster Beitrag</label>
+			<label index="Button_Email">E-Mail</label>
+			<label index="Button_FavSubscribe">Zu Favoriten hinzufügen</label>
+			<label index="Button_FavUnsubscribe">Aus Favoriten entfernen</label>
 		</languageKey>
 		<languageKey index="el"></languageKey>
 		<languageKey index="eo"></languageKey>
