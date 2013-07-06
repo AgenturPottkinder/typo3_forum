@@ -146,7 +146,7 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 			$adDateTime = $this->sessionHandling->get('adTime');
 		}
 		$max = count($topics);
-		if($actDatetime->getTimestamp() - $adDateTime->getTimestamp() > $this->settings['ads']['timeInterval'] && $max > 0){
+		if($actDatetime->getTimestamp() - $adDateTime->getTimestamp() > $this->settings['ads']['timeInterval'] && $max > 2){
 			$this->sessionHandling->set('adTime', $actDatetime);
 			if ($max > $this->settings['topicController']['show']['pagebrowser']['default']['itemsPerPage']) {
 				$max = $this->settings['topicController']['show']['pagebrowser']['default']['itemsPerPage'];
