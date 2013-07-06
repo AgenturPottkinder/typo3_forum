@@ -42,5 +42,5 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Repository_Moderation_PostReportRepository extends Tx_MmForum_Domain_Repository_AbstractRepository {
+class Tx_MmForum_Domain_Repository_Moderation_ReportRepository extends Tx_MmForum_Domain_Repository_AbstractRepository {
 }

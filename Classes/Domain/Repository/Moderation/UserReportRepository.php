@@ -43,8 +43,4 @@
  *
  */
 class Tx_MmForum_Domain_Repository_Moderation_UserReportRepository extends Tx_MmForum_Domain_Repository_AbstractRepository {
-		public function findAll(){
-			$query = $this->createQuery();
-			return $query->execute();
-		}
 }
