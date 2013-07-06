@@ -229,6 +229,10 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 */
 	protected $interests;
 
+	/**
+	 * @var int
+	 */
+	protected $dateOfBirth;
 
 	/**
 	 * The private messages of this user.
@@ -465,6 +469,24 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 */
 	public function getTimestamp() {
 		return $this->crdate;
+	}
+
+
+	/**
+	 * Get the date_of_birth value from fe_users
+	 * @return int
+	 */
+	public function getDateOfBirth() {
+		return intval($this->dateOfBirth);
+	}
+
+	/**
+	 * Get the age of a user
+	 * @return int
+	 */
+	public function getAge() {
+		$age = (time() -  $this->getDateOfBirth()) / (3600 * 24 * 365);
+		return floor($age);
 	}
 
 

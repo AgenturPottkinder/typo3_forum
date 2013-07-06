@@ -156,6 +156,10 @@ $tempColumns = array(
 		'exclude' => 1,
 		'config' => array('type' => 'passthrough')
 	),
+	'date_of_birth' => array(
+		'exclude' => 1,
+		'config' => array('type' => 'passthrough')
+	),
 	'tx_mmforum_rank' => array(
 		'exclude' => 0,
 		'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_rank',
