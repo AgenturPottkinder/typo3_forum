@@ -212,6 +212,9 @@
 			<label index="Members_Not_Online">no members online</label>
 			<label index="Members_All">All members</label>
 			<label index="Topic_Question_Help">Mark as question</label>
+			<label index="Stats_Summary_Type_Post">Posts</label>
+			<label index="Stats_Summary_Type_Topic">Topics</label>
+			<label index="Stats_Summary_Type_User">Members</label>
 		</languageKey>
 		<languageKey index="af"></languageKey>
 		<languageKey index="ar"></languageKey>
@@ -425,6 +428,9 @@
 			<label index="Members_Not_Online">Keine Mitglieder Online</label>
 			<label index="Members_All">Alle Mitglieder</label>
 			<label index="Topic_Question_Help">Falls du eine Frage stellst, kreuze das folgende Kästchen an. Somit landet sie im Schnell-Helfer-Tab auf der Startseite.</label>
+		    <label index="Stats_Summary_Type_Post">Beiträge</label>
+			<label index="Stats_Summary_Type_Topic">Themen</label>
+			<label index="Stats_Summary_Type_User">Mitglieder</label>
 		</languageKey>
 		<languageKey index="el"></languageKey>
 		<languageKey index="eo"></languageKey>
