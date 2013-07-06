@@ -239,7 +239,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 
 		$subresults = $this->controllerContext->getRequest()->getOriginalRequestMappingResults()->getSubResults();
 
-		$showForm = intval(t3lib_div::_GP('showForm'));
+		$showForm = intval(\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('showForm'));
 
 		if(isset($subresults['post']) && count($subresults['post']->getErrors()) > 0) {
 			$showForm = 1;

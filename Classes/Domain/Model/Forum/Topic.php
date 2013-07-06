@@ -420,7 +420,7 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	public function getMostSupportedPost() {
 		$oPost = false;
 		foreach ($this->getPosts() as $post) {
-			if (($oPost == false || $post->getHelpfulCount() > $oPost->getHelpfulCount()) && $post->getHelpfulCount() > 0 && $this->getAuthor() != $post->getAuthor()) {
+			if (($oPost == false || $post->getHelpfulCount() > $oPost->getHelpfulCount()) && $this->getSolution() != $post && $post->getHelpfulCount() > 0 && $this->getAuthor() != $post->getAuthor()) {
 				$oPost = $post;
 			}
 		}
