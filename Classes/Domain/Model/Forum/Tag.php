@@ -28,82 +28,76 @@
  *
  * @author     Ruven Fehling <r.fehling@mittwald.de>
  * @package    MmForum
- * @subpackage Domain_Model_Stats
+ * @subpackage Domain_Model_Forum
  * @version    $Id$
  * @license    GNU public License, version 2
  *             http://opensource.org/licenses/gpl-license.php
 
  */
 
-class Tx_MmForum_Domain_Model_Stats_Summary extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Tx_MmForum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 
 	/**
-	 * Type of summary
+	 * Tame of a tag
 	 * @var string
 	 */
-	protected $type;
+	protected $name;
 
 	/**
-	 * Amount of the summary
-	 * @var int
-	 */
-	protected $amount;
-
-
-	/**
-	 * Timestamp of summary
-	 * @var int
+	 * Timestamp of this tag
+	 * @var DateTime
 	 */
 	protected $tstamp;
 
 
 	/**
-	 * Get the type of this summary
+	 * Crdate of this tag
+	 * @var DateTime
+	 */
+	protected $crdate;
+
+
+	/**
+	 * Get the name of this tag
 	 * @return string
 	 */
-	public function getType() {
-		return $this->type;
-	}
-
-	/**
-	 * Get the amount of this summary
-	 * @return int
-	 */
-	public function getAmount() {
-		return $this->amount;
-	}
-
-	/**
-	 * Get the amount of this summary nicely formatted
-	 * @return string
-	 */
-	public function getAmountNice() {
-		return number_format($this->amount, 0, '', '.');
+	public function getName() {
+		return $this->name;
 	}
 
 
 	/**
-	 * Get the timestamp of this summary
-	 * @return int
+	 * Get the timestamp of this tag
+	 * @return DateTime
 	 */
 	public function getTstamp() {
 		return $this->tstamp;
 	}
 
+
 	/**
-	 * @param string $type
+	 * Get the crdate of this tag
+	 * @return DateTime
 	 */
-	public function setType($type) {
-		$this->type = $type;
+	public function getCrdate() {
+		return $this->crdate;
 	}
 
 	/**
-	 * @param int $amount
+	 * @param string $name
 	 */
-	public function setAmount($amount) {
-		$this->amount = $amount;
+	public function setName($name) {
+		$this->name = $name;
 	}
+
+	/**
+	 * @param DateTime $crdate
+	 */
+	public function setCrdate($crdate) {
+		$this->crdate = $crdate;
+	}
+
 
 
 }

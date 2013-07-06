@@ -176,6 +176,13 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	protected $criteriaOptions;
 
 	/**
+	 * Get all tags of this topic
+	 *
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Tag>
+	 */
+	protected $tags;
+
+	/**
 	 * Helper variable to store if the parent object was modified. This is necessary
 	 * due to http://forge.typo3.org/issues/8952
 	 *
@@ -198,6 +205,7 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 		$this->subscribers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->readers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->criteriaOptions = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->tags = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->crdate = new DateTime();
 		$this->subject = $subject;
 	}
@@ -374,6 +382,14 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	 */
 	public function getCriteriaOptions() {
 		return $this->criteriaOptions;
+	}
+
+	/**
+	 * Get all tags of this topic
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Tag>
+	 */
+	public function getTags() {
+		return $this->tags;
 	}
 
 	/**
@@ -671,6 +687,33 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 		$this->criteriaOptions = $criteriaOptions;
 	}
 
+
+	/**
+	 * Add a tag to this topic
+	 * @param Tx_MmForum_Domain_Model_Forum_Tag $tag
+	 * @return void
+	 */
+	public function addTag(Tx_MmForum_Domain_Model_Forum_Tag $tag) {
+		$this->tags->attach($tag);
+	}
+
+	/**
+	 * Remove a tag of this topic
+	 * @param Tx_MmForum_Domain_Model_Forum_Tag $tag
+	 * @return void
+	 */
+	public function removeTag(Tx_MmForum_Domain_Model_Forum_Tag $tag) {
+		$this->tags->detach($tag);
+	}
+
+	/**
+	 * Set a whole ObjectStorage as tag
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $tags
+	 * @return void
+	 */
+	public function setTags(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $tags) {
+		$this->tags = $tags;
+	}
 
 	/**
 	 * Marks this topic as read by a certain user.

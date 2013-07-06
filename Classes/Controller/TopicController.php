@@ -113,6 +113,10 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	protected $attachmentService = NULL;
 
 
+	/**
+	 * @var Tx_MmForum_Service_TagService
+	 */
+	protected $tagService = NULL;
 
 
 
@@ -134,6 +138,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 * @param Tx_MmForum_Service_SessionHandlingService             $sessionHandling
 	 * @param Tx_MmForum_Service_AttachmentService					$attachmentService
 	 * @param Tx_MmForum_Domain_Repository_Forum_AdsRepository		$adsRepository
+	 * @param Tx_MmForum_Service_TagService							$tagService
 	 */
 	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
 								Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
@@ -143,7 +148,8 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 								Tx_MmForum_Domain_Repository_Forum_CriteriaRepository $criteraRepository,
 								Tx_MmForum_Service_SessionHandlingService $sessionHandling,
 								Tx_MmForum_Service_AttachmentService $attachmentService,
-								Tx_MmForum_Domain_Repository_Forum_AdsRepository $adsRepository) {
+								Tx_MmForum_Domain_Repository_Forum_AdsRepository $adsRepository,
+								Tx_MmForum_Service_TagService $tagService) {
 		parent::__construct();
 		$this->forumRepository   = $forumRepository;
 		$this->topicRepository   = $topicRepository;
@@ -154,6 +160,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 		$this->criteraRepository = $criteraRepository;
 		$this->attachmentService = $attachmentService;
 		$this->adsRepository	 = $adsRepository;
+		$this->tagService		 = $tagService;
 	}
 
 
@@ -293,13 +300,14 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 * @param array $attachments File attachments for the post.
 	 * @param string $question    The flag if the new topic is declared as question
 	 * @param array $criteria    All submitted criteria with option.
+	 * @param string $tags All defined tags for this topic
 	 *
 	 * @validate $post Tx_MmForum_Domain_Validator_Forum_PostValidator
 	 * @validate $attachments Tx_MmForum_Domain_Validator_Forum_AttachmentPlainValidator
 	 * @validate $subject NotEmpty
 	 */
 	public function createAction(Tx_MmForum_Domain_Model_Forum_Forum $forum, Tx_MmForum_Domain_Model_Forum_Post $post,
-								 $subject, array $attachments = array(), $question = '', array $criteria = array()) {
+								 $subject, array $attachments = array(), $question = '', array $criteria = array(), $tags = '') {
 
 		// Assert authorization
 		$this->authenticationService->assertNewTopicAuthorization($forum);
@@ -313,7 +321,12 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 			$attachments = $this->attachmentService->initAttachments($attachments);
 			$post->setAttachments($attachments);
 		}
-		$topic = $this->topicFactory->createTopic($forum, $post, $subject, intval($question), $criteria);
+		if($tags != '') {
+			$tags = $this->tagService->initTags($tags);
+		} else {
+			$tags = NULL;
+		}
+		$topic = $this->topicFactory->createTopic($forum, $post, $subject, intval($question), $criteria, $tags);
 
 		// Notify potential listeners.
 		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Topic', 'topicCreated',

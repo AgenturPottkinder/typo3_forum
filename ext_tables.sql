@@ -187,6 +187,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_topic (
   target int(11) unsigned default '0',
   readers int(11) unsigned NOT NULL default '0',
   criteria_options int(11) unsigned NOT NULL default '0',
+  tags int(11) unsigned NOT NULL default '0',
   tstamp int(11) unsigned NOT NULL default '0',
   crdate int(11) unsigned NOT NULL default '0',
   deleted tinyint(4) unsigned NOT NULL default '0',
@@ -605,6 +606,33 @@ CREATE TABLE IF NOT EXISTS tx_mmforum_domain_model_stats_summary (
   `type` int(11) unsigned NOT NULL default '0',
   amount int(11) unsigned NOT NULL default '0',
   PRIMARY KEY  (uid)
+);
+
+
+#
+# Table structure for table 'tx_mmforum_domain_model_forum_tag'
+#
+CREATE TABLE IF NOT EXISTS tx_mmforum_domain_model_forum_tag (
+  uid int(11) unsigned NOT NULL auto_increment,
+  pid int(11) unsigned NOT NULL,
+  crdate int(11) unsigned NOT NULL default '0',
+  tstamp int(11) unsigned NOT NULL default '0',
+  deleted tinyint(3) unsigned NOT NULL default '0',
+  `name` varchar(64) NOT NULL,
+  PRIMARY KEY  (uid),
+  UNIQUE KEY `name` (`name`)
+);
+
+#
+# Table structure for table 'tx_mmforum_domain_model_forum_tag_topic'
+#
+CREATE TABLE tx_mmforum_domain_model_forum_tag_topic (
+	uid_local int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	uid_foreign int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	sorting int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	sorting_foreign int(10) UNSIGNED DEFAULT '0' NOT NULL,
+	KEY uid_local (uid_local),
+	KEY uid_foreign (uid_foreign)
 );
 
 

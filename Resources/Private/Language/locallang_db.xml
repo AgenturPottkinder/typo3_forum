@@ -33,6 +33,7 @@
 			<label index="tx_mmforum_domain_model_forum_topic.sticky">Sticky</label>
 			<label index="tx_mmforum_domain_model_forum_topic.question">Question</label>
 			<label index="tx_mmforum_domain_model_forum_topic.supporters">Supporters</label>
+			<label index="tx_mmforum_domain_model_forum_topic.tags">Tags</label>
 
 			<label index="tx_mmforum_domain_model_forum_post">Post</label>
 			<label index="tx_mmforum_domain_model_forum_post.text">Text</label>
@@ -78,6 +79,13 @@
 			<label index="tx_mmforum_domain_model_stats_summary_type">Type</label>
 			<label index="tx_mmforum_domain_model_stats_summary_amount">Amount</label>
 			<label index="tx_mmforum_domain_model_stats_summary_tstamp">Timestamp</label>
+
+
+			<label index="tx_mmforum_domain_model_forum_tag">Tags</label>
+			<label index="tx_mmforum_domain_model_forum_tag_crdate">Creation Date</label>
+			<label index="tx_mmforum_domain_model_forum_tag_tstamp">Timestamp</label>
+			<label index="tx_mmforum_domain_model_forum_tag_name">Name</label>
+			<label index="tx_mmforum_domain_model_forum_tag_topics">Topics</label>
 
 			<label index="tx_mmforum_domain_model_forum_access">Access</label>
 			<label index="tx_mmforum_domain_model_forum_access.operation">Operation</label>

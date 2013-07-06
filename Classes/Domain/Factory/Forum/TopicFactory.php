@@ -120,12 +120,13 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 	 * @param string $subject    The subject of the new topic
 	 * @param int $question   The flag if the new topic is declared as question
 	 * @param array $criteriaOptions    All submitted criteria with option.
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $tags All user defined tags
 	 *
 	 * @return Tx_MmForum_Domain_Model_Forum_Topic The new topic.
 	 */
 	public function createTopic(Tx_MmForum_Domain_Model_Forum_Forum $forum,
 								Tx_MmForum_Domain_Model_Forum_Post $firstPost,
-								$subject, $question = 0, array $criteriaOptions = array()) {
+								$subject, $question = 0, array $criteriaOptions = array(), $tags=NULL) {
 		/** @var $topic Tx_MmForum_Domain_Model_Forum_Topic */
 		$topic = $this->getClassInstance();
 
@@ -137,6 +138,9 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 		$topic->setQuestion($question);
 		$topic->addPost($firstPost);
 
+		if($tags != NULL) {
+			$topic->setTags($tags);
+		}
 		if (!empty($criteriaOptions)) {
 			foreach ($criteriaOptions AS $criteria_uid => $option_uid) {
 				$obj = $this->criteriaOptionRepository->findByUid($option_uid);
