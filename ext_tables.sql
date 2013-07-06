@@ -589,9 +589,9 @@ CREATE TABLE tx_mmforum_domain_model_user_notification (
   post int(11) unsigned NOT NULL,
   user_read tinyint(3) NOT NULL default '0',
   `type` varchar(64) NOT NULL default 'Tx_MmForum_Domain_Model_Forum_Post',
-  PRIMARY KEY  (`uid`),
-  KEY `user` (`user`,`post`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY  (uid),
+  KEY feuser (feuser,post)
+);
 
 #
 # Table structure for table 'tx_mmforum_domain_model_stats_summary'
@@ -602,7 +602,7 @@ CREATE TABLE IF NOT EXISTS tx_mmforum_domain_model_stats_summary (
   pid int(11) unsigned NOT NULL,
   tstamp int(11) unsigned NOT NULL default '0',
   deleted tinyint(3) unsigned NOT NULL default '0',
-  `type` varchar(64) NOT NULL,
+  `type` int(11) unsigned NOT NULL default '0',
   amount int(11) unsigned NOT NULL default '0',
   PRIMARY KEY  (uid)
 );

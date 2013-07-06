@@ -78,12 +78,19 @@ class Tx_MmForum_Controller_StatsController extends Tx_MmForum_Controller_Abstra
 	 */
 
 	/**
-	 * Displays a summary of stats
-	 *
+	 * Listing Action.
 	 * @return void
 	 */
-	public function summaryAction() {
-		//Cooming Soon
+	public function listAction() {
+		switch($this->settings['listStats']){
+			default:
+			case 'summary':
+				$dataset['items'] = $this->summaryRepository->findLatestSummaryItems();
+				$partial = 'Stats/Summary';
+				break;
+		}
+		$this->view->assign('partial', $partial);
+		$this->view->assign('dataset', $dataset);
 	}
 
 

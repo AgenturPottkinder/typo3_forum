@@ -26,7 +26,8 @@ if (!defined('TYPO3_MODE')) {
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 	$_EXTKEY, 'Widget',
 	array(
-		 'User' => 'list',
+		 'User'		=> 'list',
+		 'Stats'	=> 'list',
 	),
 	array(
 		 'User' => 'list',
@@ -88,4 +89,11 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_mmforum_sche
 	'title'            => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_notification_title',
 	'description'      => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_notification_description',
 	'additionalFields' => 'tx_mmforum_scheduler_notification_additionalFieldProvider'
+);
+
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_mmforum_scheduler_statsSummary'] = array(
+	'extension'        => $_EXTKEY,
+	'title'            => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_statsSummary_title',
+	'description'      => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_statsSummary_description',
+	'additionalFields' => 'tx_mmforum_scheduler_statsSummary_additionalFieldProvider'
 );

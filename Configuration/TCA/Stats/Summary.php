@@ -19,11 +19,11 @@ $TCA['tx_mmforum_domain_model_stats_summary'] = array(
 			'config'  => array(
 				'type' => 'radio',
 				'items' => Array (
-					Array('Post', 'Tx_MmForum_Domain_Model_Forum_Post'),
-					Array('Topic', 'Tx_MmForum_Domain_Model_Forum_Topic'),
-					Array('User', 'Tx_MmForum_Domain_Model_User_FrontendUser')
+					Array('Post', '0'),
+					Array('Topic', '1'),
+					Array('User', '2')
 				),
-				'default' => 'Tx_MmForum_Domain_Model_Forum_Post',
+				'default' => '0',
 			)
 		),
 		'amount' => array(

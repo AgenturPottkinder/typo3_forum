@@ -75,6 +75,15 @@ class Tx_MmForum_Domain_Model_Stats_Summary extends \TYPO3\CMS\Extbase\DomainObj
 	}
 
 	/**
+	 * Get the amount of this summary nicely formatted
+	 * @return string
+	 */
+	public function getAmountNice() {
+		return number_format($this->amount, 0, '', '.');
+	}
+
+
+	/**
 	 * Get the timestamp of this summary
 	 * @return int
 	 */

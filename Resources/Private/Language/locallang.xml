@@ -152,6 +152,9 @@
 			<label index="User_Subscribe_Topic_Success">The Topic &quot;%s&quot; has successfully been subscribed.</label>
 			<label index="User_Unsubscribe_Forum_Success">The Forum &quot;%s&quot; has successfully been unsubscribed.</label>
 			<label index="User_Unsubscribe_Topic_Success">The Topic &quot;%s&quot; has successfully been unsubscribed.</label>
+			<label index="Stats_Summary_Type_Post">Posts</label>
+			<label index="Stats_Summary_Type_Topic">Topics</label>
+			<label index="Stats_Summary_Type_User">Users</label>
 			<label index="Subforums">Subforums</label>
 			<label index="Notice">Notice:</label>
 			<label index="Date_Clock">o'clock</label>
@@ -160,6 +163,13 @@
 			<label index="tx_mmforum_scheduler_notification_description">Generate all new notifications of all users.</label>
 			<label index="tx_mmforum_scheduler_notification_forumPid">Forum pids (comma-seperated is allowed)</label>
 			<label index="tx_mmforum_scheduler_notification_userPid">User pids (comma-seperated is allowed)</label>
+			<label index="tx_mmforum_scheduler_notification_notificationPid">Notification Pid</label>
+			<label index="tx_mmforum_scheduler_statsSummary_title">Stats Summary Generator</label>
+			<label index="tx_mmforum_scheduler_statsSummary_description">Generate summary stats for the StatsSummary widget.</label>
+			<label index="tx_mmforum_scheduler_statsSummary_forumPid">Forum pids (comma-seperated is allowed)</label>
+			<label index="tx_mmforum_scheduler_statsSummary_userPid">User pids (comma-seperated is allowed)</label>
+			<label index="tx_mmforum_scheduler_statsSummary_statsPid">Stats pid</label>
+
 			<label index="Link_My_Profile">My profile</label>
 			<label index="Working_Environment_0">Agency</label>
 			<label index="Working_Environment_1">Company</label>
@@ -354,6 +364,9 @@
 			<label index="User_Subscribe_Topic_Success">Das Thema &quot;%s&quot; wurde erfolgreich abonniert.</label>
 			<label index="User_Unsubscribe_Forum_Success">Das Forum &quot;%s&quot; wurde erolgreich aus den Abonnements entfernt.</label>
 			<label index="User_Unsubscribe_Topic_Success">Das Thema &quot;%s&quot; wurde erolgreich aus den Abonnements entfernt.</label>
+			<label index="Stats_Summary_Type_Post">Beiträge</label>
+			<label index="Stats_Summary_Type_Topic">Themen</label>
+			<label index="Stats_Summary_Type_User">Benutzer</label>
 			<label index="Subforums">Unterforen</label>
 			<label index="Notice">Hinweis:</label>
 			<label index="Date_Clock">Uhr</label>
@@ -362,6 +375,12 @@
 			<label index="tx_mmforum_scheduler_notification_description">Generiert alle neuen Benachrichtigungen aller Benutzer.</label>
 			<label index="tx_mmforum_scheduler_notification_forumPid">Forum Pids (Kommaseperiert ist erlaubt)</label>
 			<label index="tx_mmforum_scheduler_notification_userPid">User Pids (Kommaseperiert ist erlaubt)</label>
+			<label index="tx_mmforum_scheduler_notification_notificationPid">Benachrichtigungs Pid</label>
+			<label index="tx_mmforum_scheduler_statsSummary_title">Statistik Zusammenfassungs Generator</label>
+			<label index="tx_mmforum_scheduler_statsSummary_description">Generiert alle neuen Zusammenfassungen für das StatsSummary Widget.</label>
+			<label index="tx_mmforum_scheduler_statsSummary_forumPid">Forum Pids (Kommaseperiert ist erlaubt)</label>
+			<label index="tx_mmforum_scheduler_statsSummary_userPid">User Pids (Kommaseperiert ist erlaubt)</label>
+			<label index="tx_mmforum_scheduler_statsSummary_statsPid">Stats Pid</label>
 			<label index="Link_My_Profile">Mein Profil</label>
 			<label index="Working_Environment_0">Agentur</label>
 			<label index="Working_Environment_1">Unternehmen</label>

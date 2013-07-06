@@ -134,5 +134,7 @@ return array(
 	'tx_mmforum_view_viewmock' => $extensionPath . 'Tests/Unit/View/ViewMock.php',
 	'tx_mmforum_scheduler_notification' => $extensionPath . 'Scheduler/class.tx_mmforum_scheduler_notification.php',
 	'tx_mmforum_scheduler_notification_additionalFieldProvider' => $extensionPath . 'Scheduler/class.tx_mmforum_scheduler_notification_additionalFieldProvider.php',
+	'tx_mmforum_scheduler_statsSummary' => $extensionPath . 'Scheduler/class.tx_mmforum_scheduler_statsSummary.php',
+	'tx_mmforum_scheduler_statsSummary_additionalFieldProvider' => $extensionPath . 'Scheduler/class.tx_mmforum_scheduler_statsSummary_additionalFieldProvider.php',
 );
 ?>

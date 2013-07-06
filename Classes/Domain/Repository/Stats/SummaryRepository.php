@@ -42,5 +42,24 @@
  */
 class Tx_MmForum_Domain_Repository_Stats_SummaryRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
+	/**
+	 * The amount of types the summary includes (post,topic,user = 3)
+	 * @var int
+	 */
+	private $summaryItems = 3;
+
+	/**
+	 * Get the latest items of the summary
+	 * @return Tx_MmForum_Domain_Model_Stats_Summary[]
+	 */
+	public function findLatestSummaryItems() {
+		$query = $this->createQuery();
+		$ordering = array('tstamp' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
+						  'type' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING,
+						 );
+		$query->setOrderings($ordering);
+		$query->setLimit($this->summaryItems);
+		return $query->execute();
+	}
 
 }

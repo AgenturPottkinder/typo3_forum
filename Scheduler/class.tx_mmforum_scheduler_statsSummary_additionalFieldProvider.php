@@ -31,9 +31,10 @@
  * @package	TYPO3
  * @subpackage	mm_forum
  */
-class tx_mmforum_scheduler_notification_additionalFieldProvider implements \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface {
+class tx_mmforum_scheduler_statsSummary_additionalFieldProvider implements \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface {
 
 	/**
+	 * Lorem
 	 *
 	 * @param	array														$taskInfo: reference to the array containing the info used in the add/edit form
 	 * @param	tx_scheduler_Task											$task: when editing, reference to the current task object. Null when adding.
@@ -46,34 +47,34 @@ class tx_mmforum_scheduler_notification_additionalFieldProvider implements \TYPO
 		$additionalFields = array();
 
 		if ($schedulerModule->CMD == 'add') {
-			$taskInfo['Notification_forumPids'] = 1337;
-			$taskInfo['Notification_userPids'] = 1337;
-			$taskInfo['Notification_notificationPid'] = 1337;
+			$taskInfo['StatsSummary_forumPids'] = 1337;
+			$taskInfo['StatsSummary_userPids'] = 1337;
+			$taskInfo['StatsSummary_statsPid'] = 1337;
 		}
 
 		if ($schedulerModule->CMD == 'edit') {
-			$taskInfo['Notification_forumPids'] = $task->getForumPids();
-			$taskInfo['Notification_userPids'] = $task->getUserPids();
-			$taskInfo['Notification_notificationPid'] = $task->getNotificationPid();
+			$taskInfo['StatsSummary_forumPids'] = $task->getForumPids();
+			$taskInfo['StatsSummary_userPids'] = $task->getUserPids();
+			$taskInfo['StatsSummary_statsPid'] = $task->getStatsPid();
 		}
 
-		$additionalFields['Notification_forumPids'] = array(
-			'code'     => '<input type="text" name="tx_scheduler[Notification_forumPids]" value="' . htmlspecialchars($taskInfo['Notification_forumPids']) . '" />',
-			'label'    => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_notification_forumPid',
+		$additionalFields['StatsSummary_forumPids'] = array(
+			'code'     => '<input type="text" name="tx_scheduler[StatsSummary_forumPids]" value="' . htmlspecialchars($taskInfo['StatsSummary_forumPids']) . '" />',
+			'label'    => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_statsSummary_forumPid',
 			'cshKey'   => '',
 			'cshLabel' => ''
 		);
 
-		$additionalFields['Notification_userPids'] = array(
-			'code'     => '<input type="text" name="tx_scheduler[Notification_userPids]" value="' . htmlspecialchars($taskInfo['Notification_userPids']) . '" />',
-			'label'    => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_notification_userPid',
+		$additionalFields['StatsSummary_userPids'] = array(
+			'code'     => '<input type="text" name="tx_scheduler[StatsSummary_userPids]" value="' . htmlspecialchars($taskInfo['StatsSummary_userPids']) . '" />',
+			'label'    => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_statsSummary_userPid',
 			'cshKey'   => '',
 			'cshLabel' => ''
 		);
 
-		$additionalFields['Notification_notificationPid'] = array(
-			'code'     => '<input type="text" name="tx_scheduler[Notification_notificationPid]" value="' . intval($taskInfo['Notification_notificationPid']) . '" />',
-			'label'    => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_notification_notificationPid',
+		$additionalFields['StatsSummary_statsPid'] = array(
+			'code'     => '<input type="text" name="tx_scheduler[StatsSummary_statsPid]" value="' . htmlspecialchars($taskInfo['StatsSummary_statsPid']) . '" />',
+			'label'    => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_statsSummary_statsPid',
 			'cshKey'   => '',
 			'cshLabel' => ''
 		);
@@ -90,9 +91,9 @@ class tx_mmforum_scheduler_notification_additionalFieldProvider implements \TYPO
 	 * @return	boolean														True if validation was ok (or selected class is not relevant), FALSE otherwise
 	 */
 	public function validateAdditionalFields(array &$submittedData, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule) {
-		$submittedData['Notification_forumPids'] = htmlspecialchars($submittedData['Notification_forumPids']);
-		$submittedData['Notification_userPids'] = htmlspecialchars($submittedData['Notification_userPids']);
-		$submittedData['Notification_notificationPid'] = intval($submittedData['Notification_notificationPid']);
+		$submittedData['StatsSummary_forumPids'] = htmlspecialchars($submittedData['StatsSummary_forumPids']);
+		$submittedData['StatsSummary_userPids'] = htmlspecialchars($submittedData['StatsSummary_userPids']);
+		$submittedData['StatsSummary_statsPid'] = intval($submittedData['StatsSummary_statsPid']);
 		return true;
 	}
 
@@ -104,15 +105,15 @@ class tx_mmforum_scheduler_notification_additionalFieldProvider implements \TYPO
 	 * @param	\TYPO3\CMS\Scheduler\Task\AbstractTask	$task: reference to the current task object
 	 */
 	public function saveAdditionalFields(array $submittedData, \TYPO3\CMS\Scheduler\Task\AbstractTask $task) {
-		$task->setUserPids($submittedData['Notification_userPids']);
-		$task->setForumPids($submittedData['Notification_forumPids']);
-		$task->setNotificationPid($submittedData['Notification_notificationPid']);
+		$task->setUserPids($submittedData['StatsSummary_userPids']);
+		$task->setForumPids($submittedData['StatsSummary_forumPids']);
+		$task->setStatsPid($submittedData['StatsSummary_statsPid']);
 	}
 }
 
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mm_forum/Scheduler/class.tx_mmforum_scheduler_notification_additionalFieldProvider.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mm_forum/Scheduler/class.tx_mmforum_scheduler_notification_additionalFieldProvider.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mm_forum/Scheduler/class.tx_mmforum_scheduler_statsSummary_additionalFieldProvider.php'])	{
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mm_forum/Scheduler/class.tx_mmforum_scheduler_statsSummary_additionalFieldProvider.php']);
 }
 
 ?>

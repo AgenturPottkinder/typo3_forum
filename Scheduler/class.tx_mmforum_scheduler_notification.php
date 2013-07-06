@@ -45,6 +45,11 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 	/**
 	 * @var int
 	 */
+	protected $notificationPid;
+
+	/**
+	 * @var int
+	 */
 	protected $lastExecutedCron = 0;
 
 	/**
@@ -64,14 +69,8 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 	/**
 	 * @return int
 	 */
-	public function getMainUserPid() {
-		if(strpos($this->getUserPids(),',') === false) {
-			$userStoragePid = $this->getUserPids();
-		} else {
-			$tmp = explode(',',$this->getUserPids());
-			$userStoragePid = $tmp[0];
-		}
-		return intval($userStoragePid);
+	public function getNotificationPid() {
+		return $this->notificationPid;
 	}
 
 
@@ -94,6 +93,13 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 	 */
 	public function setUserPids($userPids) {
 		$this->userPids = $userPids;
+	}
+
+	/**
+	 * @param int $notificationPid
+	 */
+	public function setNotificationPid($notificationPid) {
+		$this->notificationPid = $notificationPid;
 	}
 
 	/**
@@ -137,7 +143,7 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 
 					$insert = array(
 						'crdate'	=> $executedOn,
-						'pid'		=> $this->getMainUserPid(),
+						'pid'		=> $this->getNotificationPid(),
 						'feuser'	=> intval($user['author']),
 						'post'		=> intval($postRow['uid']),
 						'type'		=> 'Tx_MmForum_Domain_Model_Forum_Post',
@@ -159,7 +165,7 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 	private function findLastCronExecutionDate() {
 		$query = 'SELECT crdate
 				  FROM tx_mmforum_domain_model_user_notification
-				  WHERE pid ='.$this->getMainUserPid().'
+				  WHERE pid ='.$this->getNotificationPid().'
 				  ORDER BY crdate DESC
 				  LIMIT 1';
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
