@@ -232,5 +232,21 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 	}
 
 
+	/**
+	 * Finds all topic that have a specific tag
+	 *
+	 * @param Tx_MmForum_Domain_Model_Forum_Tag $tag
+	 * @return Tx_Extbase_Persistence_QueryInterface
+	 *                             The topics of this tag.
+	 */
+	public function findAllTopicsWithGivenTag(Tx_MmForum_Domain_Model_Forum_Tag $tag) {
+		$query = $this->createQuery();
+		$query
+			->matching($query->contains('tags', $tag))
+			->setOrderings(array('lastPost.crdate' => 'ASC'));
+		return $query->execute();
+	}
+
+
 
 }

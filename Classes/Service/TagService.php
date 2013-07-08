@@ -31,6 +31,7 @@ class Tx_MmForum_Service_TagService implements \TYPO3\CMS\Core\SingletonInterfac
 			$tag = $this->objectManager->create('Tx_MmForum_Domain_Model_Forum_Tag');
 			$tag->setName($tagName);
 			$tag->setCrdate(new DateTime());
+			$tag->increaseTopicCount();
 			$objTags->attach($tag);
 		}
 		return $objTags;

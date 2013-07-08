@@ -19,6 +19,7 @@
 			<label index="Behaviour_Action_Users_List">Users List</label>
 			<label index="Behaviour_Action_Dashboard">Dashboard</label>
 			<label index="Behaviour_Action_Stats_List">Stats List</label>
+			<label index="Behaviour_Action_Tags">Tags</label>
 			<label index="Display">Display View</label>
 			<label index="Display_Default">Default</label>
 			<label index="Display_Latest_Box">Latest Posts Box</label>

@@ -12,7 +12,8 @@ if (!defined('TYPO3_MODE')) {
 		 'Post'       => 'show, new, create, edit, update, delete, deleteAttachment',
 		 'User'       => 'index, list, subscribe, favSubscribe, show, disableUser, unDisableUser',
 		 'Report'     => 'newUserReport, newPostReport, createUserReport, createPostReport',
-		 'Moderation' => 'show, editTopic, updateTopic, updateUserReportStatus, updatePostReportStatus, createUserReportComment, createPostReportComment, topicConformDelete'
+		 'Moderation' => 'show, editTopic, updateTopic, updateUserReportStatus, updatePostReportStatus, createUserReportComment, createPostReportComment, topicConformDelete',
+		 'Tag'		  => 'list, show',
 	),
 	array(
 		 'Forum'      => 'new, create, edit, update, delete',

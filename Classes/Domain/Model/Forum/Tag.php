@@ -59,6 +59,13 @@ class Tx_MmForum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObject\
 
 
 	/**
+	 * The amount of topics which are using this tag
+	 * @var int
+	 */
+	protected $topicCount;
+
+
+	/**
 	 * Get the name of this tag
 	 * @return string
 	 */
@@ -84,6 +91,15 @@ class Tx_MmForum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObject\
 		return $this->crdate;
 	}
 
+
+	/**
+	 * Get the amount of topics which are using this tag
+	 * @return int
+	 */
+	public function getTopicCount() {
+		return $this->topicCount;
+	}
+
 	/**
 	 * @param string $name
 	 */
@@ -97,6 +113,23 @@ class Tx_MmForum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObject\
 	public function setCrdate($crdate) {
 		$this->crdate = $crdate;
 	}
+
+	/**
+	 * Increases the topic count by 1
+	 * @return void
+	 */
+	public function increaseTopicCount() {
+		$this->topicCount++;
+	}
+
+	/**
+	 * Decreases the topic count by 1
+	 * @return void
+	 */
+	public function decreaseTopicCount() {
+		$this->topicCount--;
+	}
+
 
 
 

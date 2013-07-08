@@ -619,6 +619,7 @@ CREATE TABLE IF NOT EXISTS tx_mmforum_domain_model_forum_tag (
   tstamp int(11) unsigned NOT NULL default '0',
   deleted tinyint(3) unsigned NOT NULL default '0',
   `name` varchar(64) NOT NULL,
+  topic_count int(11) unsigned NOT NULL default '0',
   PRIMARY KEY  (uid),
   UNIQUE KEY `name` (`name`)
 );

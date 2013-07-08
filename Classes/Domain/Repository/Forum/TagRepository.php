@@ -26,64 +26,34 @@
 
 /**
  *
+ * Repository class for forum objects.
+ *
  * @author     Ruven Fehling <r.fehling@mittwald.de>
  * @package    MmForum
- * @subpackage Domain_Model_Forum
+ * @subpackage Domain_Repository_Forum
  * @version    $Id$
- * @license    GNU public License, version 2
+ *
+ * @copyright  2012 Ruven Fehling <r.fehling@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
  *             http://opensource.org/licenses/gpl-license.php
-
+ *
  */
+class Tx_MmForum_Domain_Repository_Forum_TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
-class Tx_MmForum_Domain_Model_Forum_Criteria extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
-
-		/**
-	 * The name of the criteria
-	 * @var string
-	 */
-	protected $name;
 
 
 	/**
-	 * The options of a criteria
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_CriteriaOption>
+	 * Find all ordered by topic count
+	 * @return Tx_MmForum_Domain_Model_Forum_Tag[]
 	 */
-	protected $options;
-
-
-	/**
-	 * Gets the absolute name of this criteria.
-	 * @return string The name of criteria.
-	 */
-	public function getName() {
-		return $this->name;
+	public function findAllOrderedByCounter() {
+		$query = $this->createQuery();
+		$query->matching($query->greaterThan('topic_count',0));
+		$query->setOrderings(array('topic_count' => 'DESC'));
+		return $query->execute();
 	}
 
 
-	/**
-	 * Get all options of this criteria.
-	 * @return	\TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_CriteriaOption>
-	 *			All options of criteria.
-	 */
-	public function getOptions() {
-		return $this->options;
-	}
-
-	/**
-	 * Set a whole object storage as options for this criteria
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $options
-	 */
-	public function setOptions(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $options) {
-		$this->options = $options;
-	}
-
-	/**
-	 * Sets the name.
-	 *
-	 * @param string $name The name of a criteria
-	 * @return void
-	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
 }

@@ -85,7 +85,7 @@
 			<label index="tx_mmforum_domain_model_forum_tag_crdate">Creation Date</label>
 			<label index="tx_mmforum_domain_model_forum_tag_tstamp">Timestamp</label>
 			<label index="tx_mmforum_domain_model_forum_tag_name">Name</label>
-			<label index="tx_mmforum_domain_model_forum_tag_topics">Topics</label>
+			<label index="tx_mmforum_domain_model_forum_tag_topicCount">Topic Count</label>
 
 			<label index="tx_mmforum_domain_model_forum_access">Access</label>
 			<label index="tx_mmforum_domain_model_forum_access.operation">Operation</label>
