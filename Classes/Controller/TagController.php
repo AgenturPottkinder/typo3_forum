@@ -102,5 +102,17 @@ class Tx_MmForum_Controller_TagController extends Tx_MmForum_Controller_Abstract
 		$this->view->assign('topics',$this->topicRepository->findAllTopicsWithGivenTag($tag));
 	}
 
+	public function listUserTagsAction() {
+
+	}
+
+	public function newUserTagAction() {
+
+	}
+
+	public function deleteUserTagAction() {
+
+	}
+
 
 }

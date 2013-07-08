@@ -56,4 +56,17 @@ class Tx_MmForum_Domain_Repository_Forum_TagRepository extends \TYPO3\CMS\Extbas
 	}
 
 
+	/**
+	 * Find a tag with a specific name
+	 * @param $name
+	 * @return Tx_MmForum_Domain_Model_Forum_Tag[]
+	 */
+	public function findTagWithSpecificName($name) {
+		$query = $this->createQuery();
+		$query->matching($query->equals('name',$name));
+		$query->setLimit(1);
+		return $query->execute();
+	}
+
+
 }
