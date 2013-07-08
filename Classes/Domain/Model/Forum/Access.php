@@ -202,6 +202,7 @@ class Tx_MmForum_Domain_Model_Forum_Access extends \TYPO3\CMS\Extbase\DomainObje
 	 *                                 FALSE. This result may be negated using the "negate" property.
 	 */
 	public function matches(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
+
 		$result = FALSE;
 		if ($this->loginLevel === self::LOGIN_LEVEL_EVERYONE) {
 			$result = TRUE;
@@ -212,7 +213,6 @@ class Tx_MmForum_Domain_Model_Forum_Access extends \TYPO3\CMS\Extbase\DomainObje
 		}
 
 		if ($this->loginLevel === self::LOGIN_LEVEL_SPECIFIC) {
-
 			foreach($user->getUsergroup() as $group) {
 				/** @var $group Tx_MmForum_Domain_Model_User_FrontendUserGroup */
 				if ($group->getUid() === $this->affectedGroup->getUid()) {
