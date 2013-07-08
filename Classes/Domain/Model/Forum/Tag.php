@@ -66,6 +66,14 @@ class Tx_MmForum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObject\
 
 
 	/**
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser>
+	 */
+	protected $feuser;
+
+
+
+
+	/**
 	 * Get the name of this tag
 	 * @return string
 	 */
@@ -100,6 +108,16 @@ class Tx_MmForum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObject\
 		return $this->topicCount;
 	}
 
+
+	/**
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser>
+	 */
+	public function getFeuser() {
+		return $this->feuser;
+	}
+
+
+
 	/**
 	 * @param string $name
 	 */
@@ -129,6 +147,24 @@ class Tx_MmForum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObject\
 	public function decreaseTopicCount() {
 		$this->topicCount--;
 	}
+
+
+	/**
+	 * Add a user to this tag
+	 * @param $feuser Tx_MmForum_Domain_Model_User_FrontendUser
+	 */
+	public function addFeuser(Tx_MmForum_Domain_Model_User_FrontendUser $feuser) {
+		$this->feuser->attach($feuser);
+	}
+
+	/**
+	 * Removes a user from this tag
+	 * @param $feuser Tx_MmForum_Domain_Model_User_FrontendUser
+	 */
+	public function removeFeuser(Tx_MmForum_Domain_Model_User_FrontendUser $feuser) {
+		$this->feuser->detach($feuser);
+	}
+
 
 
 

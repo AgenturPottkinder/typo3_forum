@@ -1,8 +1,8 @@
 <?php
-/*                                                                    - *
+/*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Ruven Fehling <r.fehling@mittwald.de>                     *
+ *  (c) 2013 Ruven Fehling <r.fehling@mittwald.de>          *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -24,61 +24,61 @@
  *                                                                      */
 
 
+
 /**
  *
- * Repository class for forum objects.
+ * ViewHelper that renders a user's avatar.
  *
  * @author     Ruven Fehling <r.fehling@mittwald.de>
  * @package    MmForum
- * @subpackage Domain_Repository_Forum
+ * @subpackage ViewHelpers_Tag
  * @version    $Id$
  *
- * @copyright  2012 Ruven Fehling <r.fehling@mittwald.de>
+ * @copyright  2013 Ruven Fehling <r.fehling@mittwald.de>
  *             Mittwald CM Service GmbH & Co. KG
  *             http://www.mittwald.de
  * @license    GNU Public License, version 2
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Repository_Forum_TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
+class Tx_MmForum_ViewHelpers_Tag_GenerateActionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper  {
 
 
 	/**
-	 * Find all ordered by topic count
-	 * @return Tx_MmForum_Domain_Model_Forum_Tag[]
+	 * Arguments initialization
+	 *
+	 * @return void
 	 */
-	public function findAllOrderedByCounter() {
-		$query = $this->createQuery();
-		$query->matching($query->greaterThan('topic_count',0));
-		$query->setOrderings(array('topic_count' => 'DESC'));
-		return $query->execute();
+	public function initializeArguments() {
+		parent::initializeArguments();
+
+		$this->registerTagAttribute('currentUser', 'Tx_MmForum_Domain_Model_User_FrontendUser', 'a');
+		$this->registerTagAttribute('subscribedUser', 'Tx_MmForum_Domain_Model_User_FrontendUser[]', 'a');
 	}
 
-
 	/**
-	 * Find a tag with a specific name
-	 * @param $name
-	 * @return Tx_MmForum_Domain_Model_Forum_Tag[]
+	 * Render the link for adding or removing a tag
+	 *
+	 * @return string
 	 */
-	public function findTagWithSpecificName($name) {
-		$query = $this->createQuery();
-		$query->matching($query->equals('name',$name));
-		$query->setLimit(1);
-		return $query->execute();
-	}
+	public function render() {
+		$currentUser = $this->arguments['currentUser'];
+		$subscribedUser = $this->arguments['subscribedUser'];
 
+		$new = 1;
+		if(!empty($subscribedUser)) {
+			foreach($subscribedUser AS $user) {
+				if($currentUser == $user) {
+					$new = 0;
+					break;
+				}
+			}
+		}
 
-	/**
-	 * Find all tags of a specific user
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 * @return Tx_MmForum_Domain_Model_Forum_Tag[]
-	 */
-	public function findTagsOfUser(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
-		$query = $this->createQuery();
-		$query->matching($query->equals('feuser.uid',$user));
-		$query->setOrderings(array('name' => 'ASC'));
-		return $query->execute();
+		return $new;
 	}
 
 }
+
+?>

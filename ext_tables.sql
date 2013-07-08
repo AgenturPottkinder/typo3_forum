@@ -620,6 +620,7 @@ CREATE TABLE IF NOT EXISTS tx_mmforum_domain_model_forum_tag (
   deleted tinyint(3) unsigned NOT NULL default '0',
   `name` varchar(64) NOT NULL,
   topic_count int(11) unsigned NOT NULL default '0',
+  feuser int(11) unsigned NOT NULL default '0',
   PRIMARY KEY  (uid),
   UNIQUE KEY `name` (`name`)
 );
@@ -635,6 +636,19 @@ CREATE TABLE tx_mmforum_domain_model_forum_tag_topic (
 	KEY uid_local (uid_local),
 	KEY uid_foreign (uid_foreign)
 );
+
+#
+# Table structure for table 'tx_mmforum_domain_model_forum_tag_user'
+#
+CREATE TABLE IF NOT EXISTS tx_mmforum_domain_model_forum_tag_user (
+  uid_local int(10) unsigned NOT NULL default '0',
+  uid_foreign int(10) unsigned NOT NULL default '0',
+  sorting int(10) unsigned NOT NULL default '0',
+  sorting_foreign int(10) unsigned NOT NULL default '0',
+  KEY uid_local (uid_local),
+  KEY uid_foreign (uid_foreign)
+);
+
 
 
 #

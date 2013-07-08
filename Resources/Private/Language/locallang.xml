@@ -219,8 +219,11 @@
 			<label index="Tags_List_All">All tags</label>
 			<label index="Tags_List_NotFound">No tags found!</label>
 			<label index="Tags_List_Name">Name</label>
-			<label index="Tags_List_Tstamp">Last used at</label>
 			<label index="Tags_List_TopicAmount">Amount of topics</label>
+			<label index="Tags_List_Subscribers">Amount of subscribers</label>
+			<label index="Tags_List_New">Add</label>
+			<label index="Tags_List_Remove">Remove</label>
+			<label index="Tags_ListUserTags">My tags</label>
 		</languageKey>
 		<languageKey index="af"></languageKey>
 		<languageKey index="ar"></languageKey>
@@ -441,8 +444,11 @@
 			<label index="Tags_List_All">Alle Tags</label>
 			<label index="Tags_List_NotFound">Es wurden keine Tags gefunden!</label>
 			<label index="Tags_List_Name">Name</label>
-			<label index="Tags_List_Tstamp">Zuletzt benutzt am</label>
 			<label index="Tags_List_TopicAmount">Anzahl der Topics</label>
+			<label index="Tags_List_Subscribers">Anzahl der Abonnenten</label>
+			<label index="Tags_List_New">Hinzufügen</label>
+			<label index="Tags_List_Remove">Löschen</label>
+			<label index="Tags_ListUserTags">Meine Tags</label>
 		</languageKey>
 		<languageKey index="el"></languageKey>
 		<languageKey index="eo"></languageKey>

@@ -86,10 +86,17 @@ class Tx_MmForum_Controller_TagController extends Tx_MmForum_Controller_Abstract
 
 	/**
 	 * Listing all tags of this forum.
+	 * @param int $mine
 	 * @return void
 	 */
-	public function listAction() {
-		$this->view->assign('tags', $this->tagRepository->findAllOrderedByCounter());
+	public function listAction($mine = 0) {
+		$user = $this->getCurrentUser();
+		if($mine == 0) {
+			$tags = $this->tagRepository->findAllOrderedByCounter();
+		} else {
+			$tags = $this->tagRepository->findTagsOfUser($user);
+		}
+		$this->view->assign('tags', $tags)->assign('user',$user)->assign('mine',$mine);
 	}
 
 	/**
@@ -102,16 +109,42 @@ class Tx_MmForum_Controller_TagController extends Tx_MmForum_Controller_Abstract
 		$this->view->assign('topics',$this->topicRepository->findAllTopicsWithGivenTag($tag));
 	}
 
+
+	/**
+	 * List all subscribed tags of a user
+	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 * @return void
+	 */
 	public function listUserTagsAction() {
-
+		$user = $this->getCurrentUser();
+		if ($user->isAnonymous()) {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+		}
+		$this->redirect('list',NULL,NULL,array('mine' => 1));
 	}
 
+
+	/**
+	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 * @return void
+	 */
 	public function newUserTagAction() {
-
+		$user = $this->getCurrentUser();
+		if ($user->isAnonymous()) {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+		}
 	}
 
-	public function deleteUserTagAction() {
 
+	/**
+	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 * @return void
+	 */
+	public function deleteUserTagAction() {
+		$user = $this->getCurrentUser();
+		if ($user->isAnonymous()) {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+		}
 	}
 
 

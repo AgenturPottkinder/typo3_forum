@@ -46,11 +46,11 @@
 									</numIndex>
 									<numIndex index="8">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Tags</numIndex>
-										<numIndex index="1">Tag->list;Tag->show</numIndex>
+										<numIndex index="1">Tag->list;Tag->show;Tag->newUserTag;Tag->deleteUserTag</numIndex>
 									</numIndex>
 									<numIndex index="9">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_MyTags</numIndex>
-										<numIndex index="1">Tag->listUserTags;Tag->newUserTag;Tag->deleteUserTag</numIndex>
+										<numIndex index="1">Tag->listUserTags;Tag->newUserTag;Tag->deleteUserTag;Tag->list</numIndex>
 									</numIndex>
 								</items>
 							</config>
