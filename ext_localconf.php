@@ -13,7 +13,7 @@ if (!defined('TYPO3_MODE')) {
 		 'User'       => 'index, list, subscribe, favSubscribe, show, disableUser, unDisableUser',
 		 'Report'     => 'newUserReport, newPostReport, createUserReport, createPostReport',
 		 'Moderation' => 'show, editTopic, updateTopic, updateUserReportStatus, updatePostReportStatus, createUserReportComment, createPostReportComment, topicConformDelete',
-		 'Tag'		  => 'list, show',
+		 'Tag'		  => 'list, show, listUserTags, newUserTag, deleteUserTag',
 	),
 	array(
 		 'Forum'      => 'new, create, edit, update, delete',
@@ -82,3 +82,19 @@ $signalSlotDispatcher->connect('Tx_MmForum_Domain_Model_Forum_Post',
 $signalSlotDispatcher->connect('Tx_MmForum_Domain_Model_Forum_Topic',
 							   'topicCreated', 'Tx_MmForum_Service_Notification_SubscriptionListener',
 							   'onTopicCreated');
+
+// adding scheduler tasks
+
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_mmforum_scheduler_notification'] = array(
+	'extension'        => $_EXTKEY,
+	'title'            => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_notification_title',
+	'description'      => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_notification_description',
+	'additionalFields' => 'tx_mmforum_scheduler_notification_additionalFieldProvider'
+);
+
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_mmforum_scheduler_statsSummary'] = array(
+	'extension'        => $_EXTKEY,
+	'title'            => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_statsSummary_title',
+	'description'      => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_statsSummary_description',
+	'additionalFields' => 'tx_mmforum_scheduler_statsSummary_additionalFieldProvider'
+);

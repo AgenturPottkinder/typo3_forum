@@ -587,11 +587,14 @@ CREATE TABLE tx_mmforum_domain_model_user_notification (
   crdate int(11) unsigned NOT NULL default '0',
   deleted tinyint(3) NOT NULL default '0',
   feuser int(11) unsigned NOT NULL,
-  post int(11) unsigned NOT NULL,
+  post int(11) unsigned default NULL,
+  tag int(11) unsigned default NULL,
   user_read tinyint(3) NOT NULL default '0',
   `type` varchar(64) NOT NULL default 'Tx_MmForum_Domain_Model_Forum_Post',
   PRIMARY KEY  (uid),
-  KEY feuser (feuser,post)
+  KEY feuser (feuser),
+  KEY post (post),
+  KEY tag (tag),
 );
 
 #

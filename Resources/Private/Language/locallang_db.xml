@@ -72,6 +72,7 @@
 			<label index="tx_mmforum_domain_model_user_notification_feuser">User</label>
 			<label index="tx_mmforum_domain_model_user_notification_userRead">User Read</label>
 			<label index="tx_mmforum_domain_model_user_notification_post">Post</label>
+			<label index="tx_mmforum_domain_model_user_notification_tag">Tag</label>
 			<label index="tx_mmforum_domain_model_user_notification_type">Type</label>
 			<label index="tx_mmforum_domain_model_user_notification_crdate">Cron executed timestamp</label>
 
