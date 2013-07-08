@@ -16,7 +16,7 @@ class Tx_MmForum_TextParser_Service_AbstractGeshiService{
 	public function getFormattedText($sourceCode, $language = 'TypoScript', $configuration = array()){
 		$geshi = new SourceCode($sourceCode, $language);
 		$geshi->setStrictMode(false);
-        $geshi->setLineNumbering(0);
+		$geshi->setLineNumbering(1);
 		return $geshi->getFormatedSourceCode();
 	}
 }
