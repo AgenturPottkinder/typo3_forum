@@ -252,6 +252,11 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 			$showForm = 1;
 		}
 
+		$googlePlus = $topic->getAuthor()->getGoogle();
+		if($googlePlus != "")
+		{
+			$this->response->addAdditionalHeaderData('<link rel="author" href="' . $googlePlus . '"/>');
+		}
 		// AdHandling End
 		$this->authenticationService->assertReadAuthorization($topic);
 		$this->markTopicRead($topic);
