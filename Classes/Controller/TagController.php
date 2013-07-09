@@ -158,4 +158,18 @@ class Tx_MmForum_Controller_TagController extends Tx_MmForum_Controller_Abstract
 	}
 
 
+	/**
+	 * @param string $value
+	 * @return string as json array
+	 */
+	public function autoCompleteAction($value) {
+		$result = array();
+		$tagObj = $this->tagRepository->findTagLikeAName($value);
+		foreach($tagObj AS $tag) {
+			$result[] = $tag->getName();
+		}
+		return json_encode($result);
+	}
+
+
 }

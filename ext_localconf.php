@@ -38,7 +38,8 @@ if (!defined('TYPO3_MODE')) {
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 	$_EXTKEY, 'Ajax', array(
 						   'Forum' => 'index',
-						   'Post'  => 'preview, addSupporter, removeSupporter'
+						   'Post'  => 'preview, addSupporter, removeSupporter',
+						   'Tag'   => 'autoComplete',
 					  ), array(
 							  'Forum' => 'index',
 							  'Post'  => 'preview'

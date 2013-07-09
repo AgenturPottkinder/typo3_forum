@@ -233,6 +233,7 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 						'crdate'	=> $this->getExecutedOn(),
 						'pid'		=> $this->getNotificationPid(),
 						'feuser'	=> intval($userUid),
+						'post'		=> intval($postRow['uid']),
 						'tag'		=> intval($tagsRow['tagUid']),
 						'type'		=> 'Tx_MmForum_Domain_Model_Forum_Tag',
 						'user_read'	=> (($this->getLastExecutedCron() == 0)?1:0)
