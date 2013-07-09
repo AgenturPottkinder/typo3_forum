@@ -66,6 +66,7 @@ $TCA['tx_mmforum_domain_model_user_notification'] = array(
 				'type' => 'select',
 				'items' => array(
 					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_post', 'Tx_MmForum_Domain_Model_Forum_Post'),
+					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_notification_tag', 'Tx_MmForum_Domain_Model_Forum_Tag'),
 				),
 			)
 		),

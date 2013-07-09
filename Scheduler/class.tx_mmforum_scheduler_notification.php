@@ -142,7 +142,7 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 		$this->setLastExecutedCron(intval($this->findLastCronExecutionDate()));
 		$this->setExecutedOn(time());
 
-		//$this->checkPostNotifications();
+		$this->checkPostNotifications();
 		$this->checkTagsNotification();
 
 		return true;
@@ -160,7 +160,8 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 				  INNER JOIN tx_mmforum_domain_model_forum_post AS p ON p.uid = t.last_post
 				  WHERE t.pid IN ('.$this->getForumPids().') AND t.deleted=0
 				  		AND p.crdate > '.$this->getLastExecutedCron().'
-				  GROUP BY t.uid';
+				  GROUP BY t.uid
+				  ORDER BY t.last_post DESC';
 
 		$topicRes = $GLOBALS['TYPO3_DB']->sql_query($query);
 
@@ -201,7 +202,8 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 				 INNER JOIN tx_mmforum_domain_model_forum_topic AS t ON t.uid = mm.uid_local
 				 INNER JOIN tx_mmforum_domain_model_forum_post AS p ON p.uid = t.last_post
 				 WHERE tg.deleted=0 AND t.deleted=0 AND tg.pid IN ('.$this->getForumPids().')
-				 	   AND p.crdate > '.$this->getLastExecutedCron();
+				 	   AND p.crdate > '.$this->getLastExecutedCron().'
+				 ORDER BY t.last_post DESC';
 		$tagsRes = $GLOBALS['TYPO3_DB']->sql_query($query);
 
 		while($tagsRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($tagsRes)) {
@@ -213,7 +215,7 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 					  WHERE tg.uid='.intval($tagsRow['tagUid']);
 			$userRes = $GLOBALS['TYPO3_DB']->sql_query($query);
 			while($userRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($userRes)) {
-				$subscribedTagUser[] = $userRow;
+				$subscribedTagUser[] = $userRow['uid'];
 			}
 
 			$posts = array();

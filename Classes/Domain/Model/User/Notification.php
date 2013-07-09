@@ -61,6 +61,14 @@ class Tx_MmForum_Domain_Model_User_Notification extends \TYPO3\CMS\Extbase\Domai
 	public $post;
 
 
+
+	/**
+	 * Tag which is related with this notification
+	 * @var Tx_MmForum_Domain_Model_Forum_Tag
+	 */
+	public $tag;
+
+
 	/**
 	 * The type of notification (Model Name)
 	 * @var string
@@ -118,6 +126,15 @@ class Tx_MmForum_Domain_Model_User_Notification extends \TYPO3\CMS\Extbase\Domai
 
 
 	/**
+	 * Get the tag which is related with this notification
+	 * @return Tx_MmForum_Domain_Model_Forum_Tag
+	 */
+	public function getTag() {
+		return $this->tag;
+	}
+
+
+	/**
 	 * Get if the user already read this notification
 	 * @return int The flag
 	 */
@@ -155,6 +172,16 @@ class Tx_MmForum_Domain_Model_User_Notification extends \TYPO3\CMS\Extbase\Domai
 	 */
 	public function setPost(Tx_MmForum_Domain_Model_Forum_Post $post) {
 		$this->post = $post;
+	}
+
+
+	/**
+	 * Set the tag
+	 * @param Tx_MmForum_Domain_Model_Forum_Tag $tag
+	 * @return void
+	 */
+	public function setTag(Tx_MmForum_Domain_Model_Forum_Tag $tag) {
+		$this->tag = $tag;
 	}
 
 

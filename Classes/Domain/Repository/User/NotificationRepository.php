@@ -53,7 +53,7 @@ class Tx_MmForum_Domain_Repository_User_NotificationRepository extends \TYPO3\CM
 	public function findNotificationsForUser(Tx_MmForum_Domain_Model_User_FrontendUser $user, $limit=0) {
 		$query = $this->createQuery();
 		$query->matching($query->equals('feuser',$user));
-		$query->setOrderings(array('post.crdate' => 'DESC'));
+		$query->setOrderings(array('crdate' => 'DESC'));
 		if($limit > 0) {
 			$query->setLimit($limit);
 		}
