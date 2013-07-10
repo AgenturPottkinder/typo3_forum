@@ -172,6 +172,13 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	protected $readTopics;
 
 	/**
+	 * Read forum.
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Forum>
+	 */
+	protected $readForum;
+
+
+	/**
 	 * Read topics.
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Post>
 	 */
@@ -264,6 +271,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	public function __construct($username = '', $password = '') {
 		parent::__construct($username, $password);
 		$this->readTopics = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->readForum  = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 
 

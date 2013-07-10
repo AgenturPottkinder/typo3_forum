@@ -151,6 +151,15 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 
 
 	/**
+	 * All users who have read this forum.
+	 *
+	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser>
+	 * @lazy
+	 */
+	protected $readers;
+
+
+	/**
 	 * An instance of the Extbase object manager.
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
 	 */
@@ -181,6 +190,7 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 		$this->criteria    = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->acls        = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->subscribers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->readers     = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 
 		$this->title = $title;
 	}
@@ -419,24 +429,20 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 	 * Determines if this forum (i.e. all topics in it) has been read by the
 	 * currently logged in user.
 	 *
-	 * @todo                       Is this performant enough? Would it help to cache the whole stuff...?
 	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
 	 *                             The user.
 	 * @return boolean             TRUE, if all topics in this forum have been read,
 	 *                             otherwise FALSE.
 	 */
 	public function hasBeenReadByUser(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
-		if ($user === NULL) {
+		if ($user === NULL || $this->readers === NULL) {
 			return TRUE;
 		}
 
-		foreach ($this->getTopics() as $topic) {
-			/** @var $topic Tx_MmForum_Domain_Model_Forum_Topic */
-			if (!$topic->hasBeenReadByUser($user)) {
-				return FALSE;
-			}
+		if($this->readers->contains($user)) {
+			return TRUE;
 		}
-		return TRUE;
+		return FALSE;
 	}
 
 
@@ -755,6 +761,39 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 	 */
 	public function removeSubscriber(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
 		$this->subscribers->detach($user);
+	}
+
+
+
+
+	/**
+	 * Marks this forum as read by a certain user.
+	 *
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $reader The user who read this forum.
+	 * @return void
+	 */
+	public function addReader(Tx_MmForum_Domain_Model_User_FrontendUser $reader) {
+		$this->readers->attach($reader);
+	}
+
+
+	/**
+	 * Mark this forum as unread for a certain user.
+	 *
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $reader The user for whom to mark this forum as unread.
+	 * @return void
+	 */
+	public function removeReader(Tx_MmForum_Domain_Model_User_FrontendUser $reader) {
+		$this->readers->detach($reader);
+	}
+
+
+	/**
+	 * Mark this forum as unread for all users.
+	 * @return void
+	 */
+	public function removeAllReaders() {
+		$this->readers = New \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 
 

@@ -47,6 +47,7 @@ config.tx_extbase.persistence.classes {
 				tx_mmforum_topic_subscriptions.mapOnProperty = topicSubscriptions
 				tx_mmforum_forum_subscriptions.mapOnProperty = forumSubscriptions
 				tx_mmforum_read_topics.mapOnProperty = readTopics
+				tx_mmforum_read_forum.mapOnProperty = readForum
 				tx_mmforum_use_gravatar.mapOnProperty = useGravatar
 				tx_mmforum_contact.mapOnProperty = contact
 				tx_mmforum_private_messages.mapOnProperty = privateMessages

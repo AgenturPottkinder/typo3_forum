@@ -653,6 +653,19 @@ CREATE TABLE IF NOT EXISTS tx_mmforum_domain_model_forum_tag_user (
 );
 
 
+#
+# Table structure for table 'tx_mmforum_domain_model_user_readforum'
+#
+CREATE TABLE IF NOT EXISTS tx_mmforum_domain_model_user_readforum (
+  uid_local int(10) unsigned NOT NULL default '0',
+  uid_foreign int(10) unsigned NOT NULL default '0',
+  sorting int(10) unsigned NOT NULL default '0',
+  sorting_foreign int(10) unsigned NOT NULL default '0',
+  KEY uid_local (uid_local),
+  KEY uid_foreign (uid_foreign)
+);
+
+
 
 #
 # Table structure for table "fe_users"
@@ -669,6 +682,7 @@ CREATE TABLE fe_users (
   tx_mmforum_signature text,
   tx_mmforum_interests text,
   tx_mmforum_userfield_values int(11) unsigned NOT NULL default '0'
+  tx_mmforum_read_forum int(11) unsigned NOT NULL default '0',
   tx_mmforum_read_topics int(11) unsigned NOT NULL default '0',
   tx_mmforum_support_posts int(11) unsigned NOT NULL default '0',
   tx_mmforum_use_gravatar tinyint(1) unsigned default '0',

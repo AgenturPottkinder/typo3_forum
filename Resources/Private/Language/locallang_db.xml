@@ -17,6 +17,7 @@
 			<label index="tx_mmforum_domain_model_forum_forum.last_post">Last Post</label>
 			<label index="tx_mmforum_domain_model_forum_forum.forum">Parent forum</label>
 			<label index="tx_mmforum_domain_model_forum_forum.subscribers">Subscribers</label>
+			<label index="tx_mmforum_domain_model_forum_forum.readers">Readers</label>
 
 			<label index="tx_mmforum_domain_model_forum_topic">Topic</label>
 			<label index="tx_mmforum_domain_model_forum_topic.type">Type</label>
@@ -178,6 +179,8 @@
 			<label index="fe_users.tx_mmforum.tab.settings">mm_forum Settings</label>
 			<label index="fe_users.tx_mmforum_signature">Signature</label>
 			<label index="fe_users.tx_mmforum_interests">Interessen</label>
+			<label index="fe_users.tx_mmforum_read_forum">Forum Read</label>
+			<label index="fe_users.tx_mmforum_read_topics">Topic Read</label>
 			<label index="fe_users.tx_mmforum_userfield_values">Userfield values</label>
 			<label index="fe_users.tx_mmforum_support_posts">Supported posts</label>
 			<label index="fe_users.tx_mmforum_facebook">Facebook</label>

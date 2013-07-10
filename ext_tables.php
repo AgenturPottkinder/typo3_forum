@@ -259,6 +259,17 @@ $tempColumns = array(
 			),
 		)
 	),
+	'tx_mmforum_read_forum' => array(
+		'exclude' => 1,
+		'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_mmforum_read_forum',
+		'config' => array(
+			'type' => 'select',
+			'foreign_table' => 'tx_mmforum_domain_model_forum_forum',
+			'MM' => 'tx_mmforum_domain_model_user_readforum',
+			'multiple' => TRUE,
+			'minitems' => 0
+		)
+	),
 	'tx_mmforum_read_topics' => array(
 		'exclude' => 1,
 		'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_mmforum_read_topics',

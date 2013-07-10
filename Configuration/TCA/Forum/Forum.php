@@ -7,7 +7,7 @@ $TCA['tx_mmforum_domain_model_forum_forum'] = array(
 		'showRecordFieldList' => 'title,description,children,topics,acls,criteria,last_topic,last_post,subscribers'
 	),
 	'types' => array(
-		'1' => array('showitem' => 'title,description,children,topics,acls,criteria,last_topic,last_post,subscribers')
+		'1' => array('showitem' => 'title,description,children,topics,acls,criteria,last_topic,last_post,subscribers,readers')
 	),
 	'palettes' => array(
 		'1' => array('showitem' => '')
@@ -177,11 +177,23 @@ $TCA['tx_mmforum_domain_model_forum_forum'] = array(
 			'exclude' => 0,
 			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_forum.subscribers',
 			'config' => array(
-				'type' => 'select',
+				'type' => 'inline',
 				'foreign_table' => 'fe_users',
 				'MM' => 'tx_mmforum_domain_model_user_forumsubscription',
 				'MM_opposite_field' => 'tx_mmforum_forum_subscriptions',
 				'maxitems' => 9999,
+				'size' => 10
+			)
+		),
+		'readers' => array(
+			'exclude' => 0,
+			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_forum.readers',
+			'config' => array(
+				'type' => 'inline',
+				'foreign_table' => 'fe_users',
+				'foreign_class' => 'Tx_MmForum_Domain_Model_User_FrontendUser',
+				'MM' => 'tx_mmforum_domain_model_user_readforum',
+				'MM_opposite_field' => 'tx_mmforum_read_forum',
 				'size' => 10
 			)
 		),
