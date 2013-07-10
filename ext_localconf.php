@@ -99,3 +99,17 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_mmforum_sche
 	'description'      => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_statsSummary_description',
 	'additionalFields' => 'tx_mmforum_scheduler_statsSummary_additionalFieldProvider'
 );
+
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_mmforum_scheduler_counter'] = array(
+	'extension'        => $_EXTKEY,
+	'title'            => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_counter_title',
+	'description'      => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_counter_description',
+	'additionalFields' => 'tx_mmforum_scheduler_counter_additionalFieldProvider'
+);
+
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_mmforum_scheduler_forumRead'] = array(
+	'extension'        => $_EXTKEY,
+	'title'            => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_forumRead_title',
+	'description'      => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_forumRead_description',
+	'additionalFields' => 'tx_mmforum_scheduler_forumRead_additionalFieldProvider'
+);

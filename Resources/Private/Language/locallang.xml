@@ -183,6 +183,14 @@
 			<label index="tx_mmforum_scheduler_statsSummary_forumPid">Forum pids (comma-seperated is allowed)</label>
 			<label index="tx_mmforum_scheduler_statsSummary_userPid">User pids (comma-seperated is allowed)</label>
 			<label index="tx_mmforum_scheduler_statsSummary_statsPid">Stats pid</label>
+			<label index="tx_mmforum_scheduler_counter_title">Count-Checker</label>
+			<label index="tx_mmforum_scheduler_counter_description">A turtle with maths skills checks all counter columns of any user and update them on a error.</label>
+			<label index="tx_mmforum_scheduler_counter_forumPid">Forum pid</label>
+			<label index="tx_mmforum_scheduler_counter_userPid">User pid</label>
+			<label index="tx_mmforum_scheduler_forumRead_title">Forum-Read Setter</label>
+			<label index="tx_mmforum_scheduler_forumRead_description">Check for any user which forum is read and which not. Best way to ensure performance.</label>
+			<label index="tx_mmforum_scheduler_forumRead_forumPid">Forum pid</label>
+			<label index="tx_mmforum_scheduler_forumRead_userPid">User pid</label>
 
 			<label index="Link_My_Profile">My profile</label>
 			<label index="Profile">Profile</label>
@@ -425,6 +433,14 @@
 			<label index="tx_mmforum_scheduler_statsSummary_forumPid">Forum Pids (Kommaseperiert ist erlaubt)</label>
 			<label index="tx_mmforum_scheduler_statsSummary_userPid">User Pids (Kommaseperiert ist erlaubt)</label>
 			<label index="tx_mmforum_scheduler_statsSummary_statsPid">Stats Pid</label>
+			<label index="tx_mmforum_scheduler_counter_title">Count-Checker</label>
+			<label index="tx_mmforum_scheduler_counter_description">Eine Schildkröte mit mathematischen Fähigkeiten, welche alle Counter-Spalten in der Datenbank auf deren Richtigkeit überprüft und beim Fehlerfall updatet.</label>
+			<label index="tx_mmforum_scheduler_counter_forumPid">Forum pid</label>
+			<label index="tx_mmforum_scheduler_counter_userPid">User pid</label>
+			<label index="tx_mmforum_scheduler_forumRead_title">Forum-Read Setter</label>
+			<label index="tx_mmforum_scheduler_forumRead_description">Überprüft für jeden Benutzer welches Forum als gelesen oder als ungelesen makiert werden soll. Dies ist der beste Weg um Performane gewährleisten zu können.</label>
+			<label index="tx_mmforum_scheduler_forumRead_forumPid">Forum pid</label>
+			<label index="tx_mmforum_scheduler_forumRead_userPid">User pid</label>
 			<label index="Link_My_Profile">Mein Profil</label>
 			<label index="Profile">Profil</label>
 			<label index="Working_Environment_0">Agentur</label>
