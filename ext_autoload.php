@@ -136,5 +136,9 @@ return array(
 	'tx_mmforum_scheduler_notification_additionalFieldProvider' => $extensionPath . 'Scheduler/class.tx_mmforum_scheduler_notification_additionalFieldProvider.php',
 	'tx_mmforum_scheduler_statsSummary' => $extensionPath . 'Scheduler/class.tx_mmforum_scheduler_statsSummary.php',
 	'tx_mmforum_scheduler_statsSummary_additionalFieldProvider' => $extensionPath . 'Scheduler/class.tx_mmforum_scheduler_statsSummary_additionalFieldProvider.php',
+	'tx_mmforum_scheduler_counter' => $extensionPath . 'Scheduler/class.tx_mmforum_scheduler_counter.php',
+	'tx_mmforum_scheduler_counter_additionalFieldProvider' => $extensionPath . 'Scheduler/class.tx_mmforum_scheduler_counter_additionalFieldProvider.php',
+	'tx_mmforum_scheduler_forumRead' => $extensionPath . 'Scheduler/class.tx_mmforum_scheduler_forumRead.php',
+	'tx_mmforum_scheduler_forumRead_additionalFieldProvider' => $extensionPath . 'Scheduler/class.tx_mmforum_scheduler_forumRead_additionalFieldProvider.php',
 );
 ?>

@@ -76,10 +76,58 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 	 */
 	public function execute() {
 		if($this->getForumPid() == false || $this->getUserPid() == false) return false;
-		$results = array();
-
-
+		$this->updateUser();
 		return true;
+	}
+
+	/**
+	 * @return void
+	 */
+	private function updateUser() {
+		$forumPid = intval($this->getForumPid());
+
+		$query = 'SELECT author, COUNT(*) AS counter, SUM(helpful_count) AS helpful_count, SUM(supporters) AS support_count
+				  FROM tx_mmforum_domain_model_forum_post
+				  WHERE deleted=0 AND hidden=0 AND author > 0 AND pid='.$forumPid.'
+				  GROUP BY author';
+		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
+		while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+			$userUpdate[$row['author']]['post_count'] = $row['counter'];
+			$userUpdate[$row['author']]['helpful_count'] = $row['helpful_count'];
+			$userUpdate[$row['author']]['support_count'] = $row['support_count'];
+		}
+
+		$query = 'SELECT author, COUNT(*) AS counter
+				  FROM tx_mmforum_domain_model_forum_topic
+				  WHERE deleted=0 AND hidden=0 AND author > 0 AND pid='.$forumPid.'
+				  GROUP BY author';
+		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
+		while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+			$userUpdate[$row['author']]['topic_count'] = $row['counter'];
+		}
+
+		$query = 'SELECT author, COUNT(*) AS counter
+				  FROM tx_mmforum_domain_model_forum_topic
+				  WHERE deleted=0 AND hidden=0 AND author > 0 AND pid='.$forumPid.' AND question=1
+				  GROUP BY author';
+		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
+		while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+			$userUpdate[$row['author']]['question_count'] = $row['counter'];
+		}
+
+		foreach($userUpdate AS $userUid => $array) {
+
+			$values = array(
+				'tx_mmforum_post_count' => intval($array['post_count']),
+				'tx_mmforum_topic_count' => intval($array['topic_count']),
+				'tx_mmforum_question_count' => intval($array['question_count']),
+				//'tx_mmforum_helpful_count' => intval($array['helpful_count']), #later
+				//'tx_mmforum_support_posts' => intval($array['support_count']), #later
+			);
+
+			$query = $GLOBALS['TYPO3_DB']->UPDATEquery('fe_users','uid='.intval($userUid),$values);
+			$res = $GLOBALS['TYPO3_DB']->sql_query($query);
+		}
 	}
 
 

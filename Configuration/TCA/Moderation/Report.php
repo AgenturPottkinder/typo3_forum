@@ -46,7 +46,7 @@ $TCA['tx_mmforum_domain_model_moderation_report'] = array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.post',
 			'config' => array(
-				'type' => 'inline',
+				'type' => 'select',
 				'foreign_table' => 'tx_mmforum_domain_model_forum_post',
 				'maxitems' => 1
 			)
@@ -55,7 +55,7 @@ $TCA['tx_mmforum_domain_model_moderation_report'] = array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.user',
 			'config' => array(
-				'type' => 'inline',
+				'type' => 'select',
 				'foreign_table' => 'fe_users',
 				'maxitems' => 1
 			)
@@ -64,7 +64,7 @@ $TCA['tx_mmforum_domain_model_moderation_report'] = array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.reporter',
 			'config' => array(
-				'type' => 'inline',
+				'type' => 'select',
 				'foreign_table' => 'fe_users',
 				'maxitems' => 1
 			)
@@ -73,7 +73,7 @@ $TCA['tx_mmforum_domain_model_moderation_report'] = array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.moderator',
 			'config' => array(
-				'type' => 'inline',
+				'type' => 'select',
 				'foreign_table' => 'fe_users',
 				'maxitems' => 1
 			)

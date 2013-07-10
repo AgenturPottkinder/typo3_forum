@@ -95,8 +95,8 @@ class tx_mmforum_scheduler_forumRead_additionalFieldProvider implements \TYPO3\C
 	 * @param	\TYPO3\CMS\Scheduler\Task\AbstractTask	$task: reference to the current task object
 	 */
 	public function saveAdditionalFields(array $submittedData, \TYPO3\CMS\Scheduler\Task\AbstractTask $task) {
-		$task->setUserPid($submittedData['ForumRead_forumPid']);
-		$task->setForumPid($submittedData['ForumRead_userPid']);
+		$task->setUserPid($submittedData['ForumRead_userPid']);
+		$task->setForumPid($submittedData['ForumRead_forumPid']);
 	}
 }
 

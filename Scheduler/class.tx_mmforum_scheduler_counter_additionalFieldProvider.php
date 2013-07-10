@@ -95,8 +95,8 @@ class tx_mmforum_scheduler_counter_additionalFieldProvider implements \TYPO3\CMS
 	 * @param	\TYPO3\CMS\Scheduler\Task\AbstractTask	$task: reference to the current task object
 	 */
 	public function saveAdditionalFields(array $submittedData, \TYPO3\CMS\Scheduler\Task\AbstractTask $task) {
-		$task->setUserPid($submittedData['Counter_forumPid']);
-		$task->setForumPid($submittedData['Counter_userPid']);
+		$task->setUserPid($submittedData['Counter_userPid']);
+		$task->setForumPid($submittedData['Counter_forumPid']);
 	}
 }
 
