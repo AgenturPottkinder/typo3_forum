@@ -7,7 +7,9 @@ $TCA['tx_mmforum_domain_model_user_notification'] = array(
 		'showRecordFieldList' => 'feuser,post,tag,user_read,type,crdate'
 	),
 	'types' => array(
-		'1' => array('showitem' => 'feuser,post,tag,user_read,type,crdate')
+		'1' => array('showitem' => 'feuser,post,tag,user_read,type,crdate'),
+		'Tx_MmForum_Domain_Model_Forum_Post' => array('showitem' => 'feuser,post,user_read,type,crdate'),
+		'Tx_MmForum_Domain_Model_Forum_Tag' => array('showitem' => 'feuser,post,tag,user_read,type,crdate'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => '')
@@ -26,29 +28,9 @@ $TCA['tx_mmforum_domain_model_user_notification'] = array(
 			'exclude' => 0,
 			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_notification_feuser',
 			'config'  => array(
-				'type' => 'select',
+				'type' => 'inline',
 				'foreign_table' => 'fe_users',
 				'foreign_class' => 'Tx_MmForum_Domain_Model_User_FrontendUser',
-				'maxitems' => 1
-			)
-		),
-		'post' => array(
-			'exclude' => 0,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_notification_post',
-			'config'  => array(
-				'type' => 'select',
-				'foreign_table' => 'tx_mmforum_domain_model_forum_post',
-				'foreign_class' => 'Tx_MmForum_Domain_Model_Forum_Post',
-				'maxitems' => 1
-			)
-		),
-		'tag' => array(
-			'exclude' => 0,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_notification_tag',
-			'config'  => array(
-				'type' => 'select',
-				'foreign_table' => 'tx_mmforum_domain_model_forum_tag',
-				'foreign_class' => 'Tx_MmForum_Domain_Model_Forum_Tag',
 				'maxitems' => 1
 			)
 		),
@@ -57,6 +39,26 @@ $TCA['tx_mmforum_domain_model_user_notification'] = array(
 			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_notification_userRead',
 			'config'  => array(
 				'type' => 'check'
+			)
+		),
+		'post' => array(
+			'exclude' => 1,
+			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_notification_post',
+			'config'  => array(
+				'type' => 'inline',
+				'foreign_table' => 'tx_mmforum_domain_model_forum_post',
+				'foreign_class' => 'Tx_MmForum_Domain_Model_Forum_Post',
+				'maxitems' => 1
+			)
+		),
+		'tag' => array(
+			'exclude' => 1,
+			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_notification_tag',
+			'config'  => array(
+				'type' => 'inline',
+				'foreign_table' => 'tx_mmforum_domain_model_forum_tag',
+				'foreign_class' => 'Tx_MmForum_Domain_Model_Forum_Tag',
+				'maxitems' => 1
 			)
 		),
 		'type' => Array (

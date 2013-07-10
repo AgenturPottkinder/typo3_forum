@@ -638,6 +638,7 @@ $TCA['tx_mmforum_domain_model_user_notification'] = array(
 		'label' => 'uid',
 		'label_alt' => 'feuser,crdate',
 		'label_alt_force' => true,
+		'type' => 'type',
 		'crdate' => 'crdate',
 		'delete' => 'deleted',
 		'sortby' => 'crdate DESC',
