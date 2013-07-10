@@ -50,6 +50,7 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\Domain
 	/**
 	 * The attachment file name.
 	 * @var Tx_MmForum_Domain_Model_Forum_Post
+	 * @lazy
 	 */
 	protected $post;
 

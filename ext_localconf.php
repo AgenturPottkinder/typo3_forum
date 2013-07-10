@@ -40,7 +40,7 @@ if (!defined('TYPO3_MODE')) {
 		'Forum' => 'index',
 		'Post' => 'preview, addSupporter, removeSupporter',
 		'Tag'   => 'autoComplete',
-		'Ajax' => 'main'
+		'Ajax' => 'main, postSummary'
 	), array(
 		'Forum' => 'index',
 		'Post' => 'preview, addSupporter, removeSupporter',

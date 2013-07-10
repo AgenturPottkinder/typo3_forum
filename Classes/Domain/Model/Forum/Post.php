@@ -78,7 +78,6 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 	 * The post author.
 	 *
 	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
-	 * @lazy
 	 */
 	protected $author;
 
@@ -89,7 +88,6 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 	 * @validate Tx_MmForum_Domain_Validator_Forum_AuthorNameValidator
 	 */
 	protected $authorName = '';
-
 
 
 	/**
@@ -118,6 +116,7 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 	/**
 	 * Attachments.
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Attachment>
+	 * @lazy
 	 */
 	protected $attachments;
 

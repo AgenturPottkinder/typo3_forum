@@ -44,10 +44,83 @@
  */
 class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_AbstractController {
 
+
+
+
+	/*
+	 * ATTRIBUTES
+	 */
+
+
+	/**
+	 * A forum repository.
+	 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
+	 */
+	protected $forumRepository;
+
+
+	/**
+	 * A topic repository.
+	 * @var Tx_MmForum_Domain_Repository_Forum_TopicRepository
+	 */
+	protected $topicRepository;
+
+
+	/**
+	 * A post repository.
+	 * @var Tx_MmForum_Domain_Repository_Forum_PostRepository
+	 */
+	protected $postRepository;
+
+
+	/**
+	 * A post factory.
+	 * @var Tx_MmForum_Domain_Factory_Forum_PostFactory
+	 */
+	protected $postFactory;
+
+
+	/**
+	 * A post factory.
+	 * @var Tx_MmForum_Domain_Repository_Forum_AttachmentRepository
+	 */
+	protected $attachmentRepository;
+
+	/**
+	 * @var Tx_MmForum_Service_AttachmentService
+	 */
+	protected $attachmentService = NULL;
+
+	/**
+	 * Constructor. Used primarily for dependency injection.
+	 *
+	 * @param Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository
+	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository
+	 * @param Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository
+	 * @param Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory
+	 * @param Tx_MmForum_Domain_Repository_Forum_AttachmentRepository $attachmentRepository
+	 * @param Tx_MmForum_Service_SessionHandlingService $sessionHandling
+	 * @param Tx_MmForum_Service_AttachmentService $attachmentService
+	 */
+	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
+								Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
+								Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository,
+								Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory,
+								Tx_MmForum_Domain_Repository_Forum_AttachmentRepository $attachmentRepository,
+								Tx_MmForum_Service_SessionHandlingService $sessionHandling,
+								Tx_MmForum_Service_AttachmentService $attachmentService) {
+		$this->forumRepository = $forumRepository;
+		$this->topicRepository = $topicRepository;
+		$this->postRepository = $postRepository;
+		$this->postFactory = $postFactory;
+		$this->attachmentRepository = $attachmentRepository;
+		$this->sessionHandling		= $sessionHandling;
+		$this->attachmentService = $attachmentService;
+	}
+
 	//
 	// ACTION METHODS
 	//
-
 
 	/**
 	 * @param string $displayedUser
@@ -61,7 +134,29 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 		}
 		$this->view->assign('content', json_encode($content));
 	}
-
+	/**
+	 * @param int $uid
+	 * @param string $type
+	 * @param int $hiddenImage
+	 * @return void
+	 */
+	public function postSummaryAction($uid = null, $type='', $hiddenImage = 0) {
+		switch($type){
+			case 'lastForumPost':
+				$forum  = $this->forumRepository->findByUid($uid);
+				/* @var Tx_MmForum_Domain_Model_Forum_Post */
+				$data = $forum->getLastPost();
+				break;
+			case 'lastTopicPost':
+				$topic  = $this->topicRepository->findByUid($uid);
+				/* @var Tx_MmForum_Domain_Model_Forum_Post */
+				$data = $topic->getLastPost();
+				break;
+		}
+		// check read access
+		$this->view->assign('post', $data);
+		$this->view->assign('hiddenImage', $hiddenImage);
+	}
 	private function _getOnlineUser($displayedUser) {
 		// OnlineUser
 		$displayedUser = json_decode($displayedUser);
@@ -72,4 +167,6 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 		}
 		if (!empty($output)) return $output;
 	}
+
+
 }

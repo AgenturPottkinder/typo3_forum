@@ -60,6 +60,7 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	/**
 	 * The posts in this topic.
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Post>
+	 * @lazy
 	 */
 	protected $posts;
 
@@ -110,7 +111,7 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	 * A pointer to the last post in this topic.
 	 *
 	 * @var Tx_MmForum_Domain_Model_Forum_Post
-	 * @lazy
+	 *
 	 */
 	protected $lastPost;
 
@@ -179,6 +180,7 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	 * Get all tags of this topic
 	 *
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Tag>
+	 * @lazy
 	 */
 	protected $tags;
 
@@ -436,7 +438,7 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	public function getMostSupportedPost() {
 		$oPost = false;
 		foreach ($this->getPosts() as $post) {
-			if (($oPost == false || $post->getHelpfulCount() > $oPost->getHelpfulCount()) && $this->getSolution() != $post && $post->getHelpfulCount() > 0 && $this->getAuthor() != $post->getAuthor()) {
+			if (($oPost == false || $post->getHelpfulCount() > $oPost->getHelpfulCount()) && $this->getSolution() !== $post && $post->getHelpfulCount() > 0 && $this->getAuthor() !== $post->getAuthor()) {
 				$oPost = $post;
 			}
 		}

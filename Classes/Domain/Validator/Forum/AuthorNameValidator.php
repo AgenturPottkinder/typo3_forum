@@ -68,15 +68,15 @@ class Tx_MmForum_Domain_Validator_Forum_AuthorNameValidator extends \TYPO3\CMS\E
 	protected function isValid($value) {
 		$result = TRUE;
 
-		if ($this->userRepository->findCurrent()->isAnonymous()) {
-			if ($value == FALSE) {
-				$this->addError('Author name must be present when post is created by anonymous user.', 1335106565);
-				$result = FALSE;
-			} elseif (strlen($value) < 3) {
-				$this->addError('Author name must be at least three characters long.', 1335106566);
-				$result = FALSE;
-			}
-		}
+//		if ($this->userRepository->findCurrent()->isAnonymous()) {
+//			if ($value == FALSE) {
+//				$this->addError('Author name must be present when post is created by anonymous user.', 1335106565);
+//				$result = FALSE;
+//			} elseif (strlen($value) < 3) {
+//				$this->addError('Author name must be at least three characters long.', 1335106566);
+//				$result = FALSE;
+//			}
+//		}
 
 		return $result;
 	}

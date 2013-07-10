@@ -168,12 +168,14 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Read topics.
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Topic>
+	 * @lazy
 	 */
 	protected $readTopics;
 
 	/**
 	 * Read forum.
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Forum>
+	 * @lazy
 	 */
 	protected $readForum;
 
@@ -181,6 +183,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Read topics.
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Post>
+	 * @lazy
 	 */
 	protected $supportPosts;
 
@@ -244,6 +247,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * The private messages of this user.
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_User_PrivateMessages>
+	 * @lazy
 	 */
 	protected $privateMessages;
 

@@ -4,23 +4,40 @@ $(document).ready(function () {
 	// onlinepoint
 	var displayedUser = new Array();
 	var displayedUserCount = 0;
-	$('.user_onlinepoint').each(function( index ) {
+	$('.user_onlinepoint').each(function (index) {
 		displayedUser[displayedUserCount] = $(this).data('uid');
-		displayedUserCount = displayedUserCount +1 ;
+		displayedUserCount = displayedUserCount + 1;
 	});
+
+	// forum_last_post_summary
+	$('.post_summary_box').each(function (index) {
+		var item  = $(this);
+		$.ajax({
+			type: "GET",
+			url: "index.php?id=2&eID=mm_forum&tx_mmforum_ajax[controller]=Ajax&tx_mmforum_ajax[action]=postSummary&tx_mmforum_ajax[type]="+item.data('type')+"&tx_mmforum_ajax[hiddenImage]="+item.data('hiddenimage')+"&tx_mmforum_ajax[uid]="+item.data('uid'),
+			async: true,
+			success: function (data) {
+				item.html(data);
+			}
+		});
+	});
+
 	$.ajax({
 		type: "POST",
 		url: "index.php?id=2&eID=mm_forum&tx_mmforum_ajax[controller]=Ajax&tx_mmforum_ajax[action]=main&tx_mmforum_ajax[format]=json",
-		async: false,
+		async: true,
 		data: {
 			"tx_mmforum_ajax[displayedUser]": JSON.stringify(displayedUser)
+
 		},
 		success: function (data) {
 			var json = $.parseJSON(data);
-			json.onlineUser.forEach(function(entry){
-				$('.user_onlinepoint[data-uid="'+entry+'"]').removeClass('iconset-14-user-offline');
-				$('.user_onlinepoint[data-uid="'+entry+'"]').addClass('iconset-14-user-online');
-			});
+			if (json.onlineUser) {
+				json.onlineUser.forEach(function (entry) {
+					$('.user_onlinepoint[data-uid="' + entry + '"]').removeClass('iconset-14-user-offline');
+					$('.user_onlinepoint[data-uid="' + entry + '"]').addClass('iconset-14-user-online');
+				});
+			}
 		}
 	});
 
