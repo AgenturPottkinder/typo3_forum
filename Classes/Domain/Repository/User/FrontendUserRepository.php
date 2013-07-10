@@ -67,13 +67,16 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 	 * @param  integer $limit
 	 * @param  array $orderings
 	 * @param  boolean $onlyOnline
-	 *
+	 * @param  array $uids
 	 * @return Array<Tx_MmForum_Domain_Model_User_FrontendUser>
 	 *                               The selected subset of posts
 	 *
 	 */
-	public function findByFilter($limit = '', $orderings = array(), $onlyOnline = FALSE) {
+	public function findByFilter($limit = '', $orderings = array(), $onlyOnline = FALSE, $uids = array()) {
+
 		$query = $this->createQuery();
+		$constraints = array();
+
 		if (!empty($limit)) {
 			$query->setLimit($limit);
 		}
@@ -81,8 +84,16 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 			$query->setOrderings($orderings);
 		}
 		if(!empty($onlyOnline)){
-			$query->matching($query->greaterThan('is_online', time()-300));
+			$constraints[] = $query->greaterThan('is_online', time()-300);
 		}
+		if(!empty($uids)) {
+			$constraints[] = $query->in('uid', $uids);
+		}
+		if(!empty($constraints)){
+			$query->matching($query->logicalAnd($constraints));
+		}
+
+
 		return  $query->execute();
 	}
 

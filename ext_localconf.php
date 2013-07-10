@@ -37,13 +37,15 @@ if (!defined('TYPO3_MODE')) {
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 	$_EXTKEY, 'Ajax', array(
-						   'Forum' => 'index',
-						   'Post'  => 'preview, addSupporter, removeSupporter',
-						   'Tag'   => 'autoComplete',
-					  ), array(
-							  'Forum' => 'index',
-							  'Post'  => 'preview'
-						 )
+		'Forum' => 'index',
+		'Post' => 'preview, addSupporter, removeSupporter',
+		'Tag'   => 'autoComplete',
+		'Ajax' => 'main'
+	), array(
+		'Forum' => 'index',
+		'Post' => 'preview, addSupporter, removeSupporter',
+		'Ajax' => 'main',
+	)
 );
 
 # TCE-Main hook for clearing all mm_forum caches

@@ -1,4 +1,31 @@
 $(document).ready(function () {
+
+	////////////////////// MM_FORUM_AJAX RELOADER
+	// onlinepoint
+	var displayedUser = new Array();
+	var displayedUserCount = 0;
+	$('.user_onlinepoint').each(function( index ) {
+		displayedUser[displayedUserCount] = $(this).data('uid');
+		displayedUserCount = displayedUserCount +1 ;
+	});
+	$.ajax({
+		type: "POST",
+		url: "index.php?id=2&eID=mm_forum&tx_mmforum_ajax[controller]=Ajax&tx_mmforum_ajax[action]=main&tx_mmforum_ajax[format]=json",
+		async: false,
+		data: {
+			"tx_mmforum_ajax[displayedUser]": JSON.stringify(displayedUser)
+		},
+		success: function (data) {
+			var json = $.parseJSON(data);
+			json.onlineUser.forEach(function(entry){
+				$('.user_onlinepoint[data-uid="'+entry+'"]').removeClass('iconset-14-user-offline');
+				$('.user_onlinepoint[data-uid="'+entry+'"]').addClass('iconset-14-user-online');
+			});
+		}
+	});
+
+
+
 	$('.tx-mmforum-helpfull-btn').click(function () {
 		var targetElement = this;
 		var counttargetVal = $('.' + $(targetElement).attr('data-counttarget')).html();

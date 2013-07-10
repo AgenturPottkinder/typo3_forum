@@ -82,14 +82,7 @@ class Tx_MmForum_ViewHelpers_User_LinkViewHelper extends \TYPO3\CMS\Fluid\ViewHe
 		}
 
 		if ($showOnlineStatus) {
-			if ($user->getIsOnline()) {
-				$onlineStatus['icon'] = $this->settings['user']['iconClass_online'];
-				$onlineStatus['title'] = 'online';
-			} else {
-				$onlineStatus['icon'] = $this->settings['user']['iconClass_offline'];
-				$onlineStatus['title'] = 'offline';
-			}
-			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $user->getUsername() . ' (' . $onlineStatus['title'] . ')">' . $user->getUsername() . ' <i class="'.$onlineStatus['icon'].'"></i></a>';
+			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $user->getUsername().'">' . $user->getUsername() . ' <i class="user_onlinepoint iconset-14-user-offline" data-uid="'.$user->getUid().'"></i></a>';
 		} else {
 			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $user->getUsername() . '">' . $user->getUsername() . '</a>';
 		}
@@ -97,3 +90,4 @@ class Tx_MmForum_ViewHelpers_User_LinkViewHelper extends \TYPO3\CMS\Fluid\ViewHe
 		return $link;
 	}
 }
+
