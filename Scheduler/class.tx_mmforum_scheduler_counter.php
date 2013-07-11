@@ -196,17 +196,19 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 			$points = $points + intval($array['favorite_count']) * intval($rankScore['gotFavorite']);
 			$points = $points + intval($array['support_count']) * intval($rankScore['gotHelpful']);
 
+			$lastPointLimit = 0;
 			foreach($rankArray AS $key => $rank) {
-				if($points > $rank['point_limit']) {
+				if($points >= $lastPointLimit && $points < $rank['point_limit']) {
 					$array['rank'] = $rank['uid'];
 				}
+				$lastPointLimit = $rank['point_limit'];
 			}
 
 			$values = array(
 				'tx_mmforum_post_count' => intval($array['post_count']),
 				'tx_mmforum_topic_count' => intval($array['topic_count']),
 				'tx_mmforum_question_count' => intval($array['question_count']),
-				'tx_mmforum_helpful_count' => intval($array['support_count']), #later
+				'tx_mmforum_helpful_count' => intval($array['support_count']),
 				'tx_mmforum_points' => intval($points),
 				'tx_mmforum_rank' => intval($array['rank']),
 			);
