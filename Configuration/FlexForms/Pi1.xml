@@ -38,7 +38,7 @@
 									</numIndex>
 									<numIndex index="6">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Users_List</numIndex>
-										<numIndex index="1">User->list</numIndex>
+										<numIndex index="1">User->list;User->searchUser;User->newMessage;User->createMessage</numIndex>
 									</numIndex>
 									<numIndex index="7">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Dashboard</numIndex>
@@ -81,7 +81,7 @@
 									</numIndex>
 								</items>
 							</config>
-							<displayCond>FIELD:switchableControllerActions:=:User->list</displayCond>
+							<displayCond>FIELD:switchableControllerActions:=:User->list;User->searchUser;User->newMessage;User->createMessage</displayCond>
 						</TCEforms>
 					</settings.listUsers>
 

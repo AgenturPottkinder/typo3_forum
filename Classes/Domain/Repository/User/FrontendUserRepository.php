@@ -133,6 +133,18 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 		return $this->findOneByUsername($username);
 	}
 
+	/**
+	 * Find all user with a part of $username in his name
+	 * @param $part Part of the users nickname
+	 * @return Tx_MmForum_Domain_Model_User_FrontendUser[] The frontend users with the specified username.
+	 */
+	public function findLikeUsername($part) {
+		$query = $this->createQuery();
+		$query->matching($query->like('username','%'.$part.'%'));
+		$query->setOrderings(array('username' => 'ASC'));
+		return $query->execute();
+	}
+
 
 
 	/**
