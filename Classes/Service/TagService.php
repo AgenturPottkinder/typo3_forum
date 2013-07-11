@@ -45,6 +45,7 @@ class Tx_MmForum_Service_TagService implements \TYPO3\CMS\Core\SingletonInterfac
 		$tagArray = array_unique(explode(',', $tags));
 		foreach ($tagArray AS $tagName) {
 			$tagName = ucfirst(trim($tagName));
+			if($tagName == "") continue;
 			$searchResult = $this->tagRepository->findTagWithSpecificName($tagName);
 			if($searchResult[0] != false) {
 				$searchResult[0]->increaseTopicCount();
