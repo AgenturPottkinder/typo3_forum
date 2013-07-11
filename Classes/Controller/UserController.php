@@ -189,7 +189,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 				$partial = 'User/ListTopUser';
 				break;
 			default:
-				$dataset['users'] = $this->frontendUserRepository->findByFilter(6, array('postCount' => 'DESC'));
+				$dataset['users'] = $this->frontendUserRepository->findByFilter('', array('username' => 'ASC'));
 				$partial = 'User/List';
 				break;
 		}
@@ -327,16 +327,22 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 
 	/**
  * Shows the form for creating a new message
+ * @param Tx_MmForum_Domain_Model_User_FrontendUser $recipient
  *
  * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
  * @return void
  */
-	public function newMessageAction() {
+	public function newMessageAction(Tx_MmForum_Domain_Model_User_FrontendUser $recipient=NULL) {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
 			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
 		}
-		$this->view->assign('user', $user);
+		$readonly=0;
+		if($recipient !== NULL) {
+			$recipient = $recipient->getUsername();
+			$readonly=1;
+		}
+		$this->view->assign('user', $user)->assign('recipient',$recipient)->assign('readonly',$readonly);
 	}
 
 	/**
@@ -426,7 +432,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	public function showAction(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
 		/** @noinspection PhpUndefinedMethodInspection */
 		if ($user === NULL) {
-			$user = $this->getCurrentUser();
+			$this->redirect('showMyProfile');
 		}
 		$lastFiveTopics = $this->topicRepository
 			->findByPostAuthor($user)
@@ -442,6 +448,30 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 			->assign('myTopics',$this->topicRepository->findTopicsCreatedByAuthor($user, 6));
 	}
 
+	/**
+	 * Displays a single user.
+	 *
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user The user whose profile is to be displayed.
+	 * @return void
+	 */
+	public function showMyProfileAction() {
+		$user = $this->getCurrentUser();
+		if(!$user || $user->isAnonymous()){
+			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException('You need to be logged in to show ur profile.', 1312345482);
+		}
+		$lastFiveTopics = $this->topicRepository
+			->findByPostAuthor($user)
+			->getQuery()
+			->setLimit(5)
+			->execute();
+		$this->view
+			->assign('user', $user)
+			->assign('currentUser', $this->getCurrentUser())
+			->assign('userfields', $this->userfieldRepository->findAll())
+			->assign('topics', $lastFiveTopics)
+			->assign('questions', $this->topicRepository->findQuestions(6, false, $user))
+			->assign('myTopics',$this->topicRepository->findTopicsCreatedByAuthor($user, 6));
+	}
 
 
 	/**
@@ -552,21 +582,29 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 
 	/**
 	 * Displays a dashboard for the current user
+
 	 * @return void
-	 *
-	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
 	 */
 	public function dashboardAction() {
-		$user = $this->authenticationService->getUser();
-		if ($user->isAnonymous()) {
-			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException('You need to be logged in to view your own subscriptions!', 1335120249);
+		$user = $this->frontendUserRepository->findCurrent();
+		if (!$user || $user->isAnonymous()) {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException('You need to be logged in to view your dashboard!', 1335120249);
 		}
 		$this->view->assign('user',$user)
 					->assign('myNotifications', $this->notificationRepository->findNotificationsForUser($user, 6))
 					->assign('myMessages', $this->messageRepository->findReceivedMessagesForUser($user, 6))
 					->assign('myFavorites', $this->topicRepository->findTopicsFavSubscribedByUser($user, 6))
 					->assign('myTopics',$this->topicRepository->findTopicsCreatedByAuthor($user, 6));
+	}
 
+
+	/**
+	 * @param string $searchValue
+	 * @return void
+	 */
+	public function searchUserAction($searchValue) {
+		$users = $this->frontendUserRepository->findByUsername($searchValue);
+		$this->view->assign('users',$users);
 	}
 
 
