@@ -21,7 +21,8 @@ if (!defined('TYPO3_MODE')) {
 		 'Post'       => 'new, create, edit, update, delete',
 		 'User'       => 'show, dashboard, subscribe, favSubscribe, listFavorites, listMessages, listNotifications, listTopics',
 		 'Report'     => 'new, create',
-		 'Moderation' => 'show, updateTopic, updateReportStatus, newReportComment, createReportComment'
+		 'Moderation' => 'show, updateTopic, updateReportStatus, newReportComment, createReportComment',
+		 'Tag'		  => 'list, listUserTags',
 	)
 );
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(

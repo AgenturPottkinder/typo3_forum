@@ -126,35 +126,37 @@ class Tx_MmForum_Controller_TagController extends Tx_MmForum_Controller_Abstract
 
 	/**
 	 * @param Tx_MmForum_Domain_Model_Forum_Tag $tag
+	 * @param int $mine
 	 *
 	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
 	 * @return void
 	 */
-	public function newUserTagAction(Tx_MmForum_Domain_Model_Forum_Tag $tag) {
+	public function newUserTagAction(Tx_MmForum_Domain_Model_Forum_Tag $tag, $mine) {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
 			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 		$tag->addFeuser($user);
 		$this->tagRepository->update($tag);
-		$this->redirect('list',NULL,NULL,array('mine' => 1));
+		$this->redirect('list',NULL,NULL,array('mine' => $mine));
 	}
 
 
 	/**
 	 * @param Tx_MmForum_Domain_Model_Forum_Tag $tag
+	 * @param int $mine
 	 *
 	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
 	 * @return void
 	 */
-	public function deleteUserTagAction(Tx_MmForum_Domain_Model_Forum_Tag $tag) {
+	public function deleteUserTagAction(Tx_MmForum_Domain_Model_Forum_Tag $tag, $mine) {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
 			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 		$tag->removeFeuser($user);
 		$this->tagRepository->update($tag);
-		$this->redirect('list',NULL,NULL,array('mine' => 1));
+		$this->redirect('list',NULL,NULL,array('mine' => $mine));
 	}
 
 
