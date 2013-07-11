@@ -72,6 +72,31 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 		return $query->execute();
 	}
 
+
+	/**
+	 *
+	 * Finds topics for a specific filterset. Page navigation is possible.
+	 *
+	 * @param  array $uids
+	 *
+	 * @return Tx_MmForum_Domain_Model_Forum_Topic[]
+	 *                               The selected subset of topcis
+	 *
+	 */
+	public function findByUids($uids) {
+
+		$query = $this->createQuery();
+		$constraints = array();
+		if(!empty($uids)) {
+			$constraints[] = $query->in('uid', $uids);
+		}
+		if(!empty($constraints)){
+			$query->matching($query->logicalAnd($constraints));
+		}
+
+		return  $query->execute();
+	}
+
 	/**
 	 * Finds topics for the forum show view. Page navigation is possible.
 	 *

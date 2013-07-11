@@ -600,11 +600,33 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 
 	/**
 	 * @param string $searchValue
+	 * @param string $filter
+	 * @param int $order
 	 * @return void
 	 */
-	public function searchUserAction($searchValue) {
-		$users = $this->frontendUserRepository->findByUsername($searchValue);
-		$this->view->assign('users',$users);
+	public function searchUserAction($searchValue=NULL,$filter=NULL,$order=NULL) {
+		switch($filter) {
+			default:
+			case 'username':
+				$filterValue = "username";
+				break;
+			case 'memberSince':
+				$filterValue = "crdate";
+				break;
+			case 'posts':
+				$filterValue = "tx_mmforum_post_count";
+				break;
+			case 'helpful':
+				$filterValue = "tx_mmforum_support_posts";
+				break;
+		}
+		if($order == 0 || $order === NULL) {
+			$orderValue = "ASC";
+		} else {
+			$orderValue = "DESC";
+		}
+		$users = $this->frontendUserRepository->findLikeUsername($searchValue,$filterValue,$orderValue);
+		$this->view->assign('dataset',array('users' => $users, 'search' => $searchValue));
 	}
 
 

@@ -129,7 +129,6 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 								$subject, $question = 0, array $criteriaOptions = array(), $tags=NULL) {
 		/** @var $topic Tx_MmForum_Domain_Model_Forum_Topic */
 		$topic = $this->getClassInstance();
-
 		$user = $this->getCurrentUser();
 
 		$topic->setForum($forum);
@@ -150,9 +149,6 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 			}
 		}
 
-		$forum->addTopic($topic);
-		$this->forumRepository->update($forum);
-
 		if (!$user->isAnonymous()) {
 			$user->increaseTopicCount();
 			if($topic->getQuestion() == 1) {
@@ -160,6 +156,7 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 			}
 			$this->frontendUserRepository->update($user);
 		}
+		$this->topicRepository->add($topic);
 
 		return $topic;
 	}

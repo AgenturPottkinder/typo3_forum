@@ -124,39 +124,143 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 
 	/**
 	 * @param string $displayedUser
+	 * @param string $postSummarys
+	 * @param string $topicIcons
+	 * @param string $forumIcons
+	 * @param string $displayedTopics
 	 * @return void
 	 */
-	public function mainAction($displayedUser = "") {
+	public function mainAction($displayedUser = "", $postSummarys = "", $topicIcons = "", $forumIcons = "", $displayedTopics = "") {
 		// json array
 		$content = array();
 		if (!empty($displayedUser)) {
 			$content['onlineUser'] = $this->_getOnlineUser($displayedUser);
 		}
+		if (!empty($postSummarys)) {
+			$content['postSummarys'] = $this->_getPostSummarys($postSummarys);
+		}
+		if (!empty($topicIcons)) {
+			$content['topicIcons'] = $this->_getTopicIcons($topicIcons);
+		}
+		if (!empty($forumIcons)) {
+			$content['forumIcons'] = $this->_getForumIcons($forumIcons);
+		}
+		if (!empty($displayedTopics)) {
+			$content['topics'] = $this->_getTopics($displayedTopics);
+		}
+
 		$this->view->assign('content', json_encode($content));
 	}
+
 	/**
-	 * @param int $uid
-	 * @param string $type
-	 * @param int $hiddenImage
 	 * @return void
 	 */
-	public function postSummaryAction($uid = null, $type='', $hiddenImage = 0) {
-		switch($type){
-			case 'lastForumPost':
-				$forum  = $this->forumRepository->findByUid($uid);
-				/* @var Tx_MmForum_Domain_Model_Forum_Post */
-				$data = $forum->getLastPost();
-				break;
-			case 'lastTopicPost':
-				$topic  = $this->topicRepository->findByUid($uid);
-				/* @var Tx_MmForum_Domain_Model_Forum_Post */
-				$data = $topic->getLastPost();
-				break;
-		}
-		// check read access
-		$this->view->assign('post', $data);
-		$this->view->assign('hiddenImage', $hiddenImage);
+	public function loginboxAction(){
+
 	}
+	/**
+	 * @param string $displayedTopics
+	 * @return array
+	 */
+	private function _getTopics($displayedTopics){
+		$data = array();
+		$displayedTopics = json_decode($displayedTopics);
+		if(count($displayedTopics) < 1) return $data;
+		$this->request->setFormat('html');
+		$topicIcons = $this->topicRepository->findByUids($displayedTopics);
+		$counter = 0;
+		foreach($topicIcons as $topic){
+			$this->view->assign('topic', $topic);
+			$data[$counter]['uid'] = $topic->getUid();
+			$data[$counter]['replyCount'] = $topic->getReplyCount();
+			$data[$counter]['topicListMenu'] = $this->view->render('topicListMenu');
+			$counter ++;
+		}
+		$this->request->setFormat('json');
+		return $data;
+	}
+
+	/**
+	 * @param string $topicIcons
+	 * @return array
+	 */
+	private function _getTopicIcons($topicIcons){
+		$data = array();
+		$topicIcons = json_decode($topicIcons);
+		if(count($topicIcons) < 1) return $data;
+			$this->request->setFormat('html');
+		$topicIcons = $this->topicRepository->findByUids($topicIcons);
+		$counter = 0;
+		foreach($topicIcons as $topic){
+			$this->view->assign('topic', $topic);
+			$data[$counter]['html'] = $this->view->render('topicIcon');
+			$data[$counter]['uid'] = $topic->getUid();
+			$counter ++;
+		}
+		$this->request->setFormat('json');
+		return $data;
+	}
+
+	/**
+	 * @param string $forumIcons
+	 * @return array
+	 */
+	private function _getForumIcons($forumIcons){
+		$data = array();
+		$forumIcons = json_decode($forumIcons);
+		if(count($forumIcons) < 1) return $data;
+		$this->request->setFormat('html');
+		$forumIcons = $this->forumRepository->findByUids($forumIcons);
+		$counter = 0;
+		foreach($forumIcons as $forum){
+			$this->view->assign('forum', $forum);
+			$data[$counter]['html'] = $this->view->render('forumIcon');
+			$data[$counter]['uid'] = $forum->getUid();
+			$counter ++;
+		}
+		$this->request->setFormat('json');
+		return $data;
+	}
+
+	/**
+	 * @param string $postSummarys
+	 * @return void
+	 */
+	private function _getPostSummarys($postSummarys) {
+		$postSummarys = json_decode($postSummarys);
+		$data = array();
+		$counter = 0;
+		$this->request->setFormat('html');
+		foreach($postSummarys as $summary){
+			$post = false;
+			switch($summary->type){
+				case 'lastForumPost':
+					$forum  = $this->forumRepository->findByUid($summary->uid);
+					/* @var Tx_MmForum_Domain_Model_Forum_Post */
+					$post = $forum->getLastPost();
+					break;
+				case 'lastTopicPost':
+					$topic  = $this->topicRepository->findByUid($summary->uid);
+					/* @var Tx_MmForum_Domain_Model_Forum_Post */
+					$post = $topic->getLastPost();
+					break;
+			}
+			if($post){
+				$data[$counter] = $summary;
+				$this->view->assign('post', $post)
+							->assign('hiddenImage', $summary->hiddenimage);
+				$data[$counter]->html = $this->view->render('postSummary');
+				$counter ++;
+			}
+		}
+		$this->request->setFormat('json');
+		return $data;
+	}
+
+	/**
+	 * @param array $displayedUser
+	 * @return array
+	 */
 	private function _getOnlineUser($displayedUser) {
 		// OnlineUser
 		$displayedUser = json_decode($displayedUser);

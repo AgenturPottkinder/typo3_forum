@@ -78,6 +78,7 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 	 * currently logged in user has read access to.
 	 *
 	 * @var ArrayObject<Tx_MmForum_Domain_Model_Forum_Forum>
+	 * @lazy
 	 */
 	protected $visibleChildren = NULL;
 
@@ -138,7 +139,9 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 	/**
 	 * The parent forum.
 	 * @var Tx_MmForum_Domain_Model_Forum_Forum
+	 * @lazy
 	 */
+
 	protected $forum;
 
 
@@ -661,7 +664,6 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 
 		$topic->setForum($this);
 		$this->topics->attach($topic);
-		$this->_resetCounters();
 	}
 
 
@@ -915,3 +917,4 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 
 
 }
+

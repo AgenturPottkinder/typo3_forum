@@ -1,17 +1,26 @@
 $(document).ready(function () {
 ////////////////////// MM_FORUM_AJAX RELOADER
 
+
+	$.ajax({
+		type: "POST",
+		url: "index.php?id=2&eID=mm_forum&tx_mmforum_ajax[controller]=Ajax&tx_mmforum_ajax[action]=loginbox",
+		async: true,
+		success: function (data) {
+					$('.loginbox').html(data);
+		}
+	});
+
 	// forum_last_post_summary
+	var postSummarys  = new Array();
+	var postSummarysCount  = 0;
+
 	$('.post_summary_box').each(function (index) {
-		var item  = $(this);
-		$.ajax({
-			type: "GET",
-			url: "index.php?id=2&eID=mm_forum&tx_mmforum_ajax[controller]=Ajax&tx_mmforum_ajax[action]=postSummary&tx_mmforum_ajax[type]="+item.data('type')+"&tx_mmforum_ajax[hiddenImage]="+item.data('hiddenimage')+"&tx_mmforum_ajax[uid]="+item.data('uid'),
-			async: true,
-			success: function (data) {
-				item.html(data);
-			}
-		});
+		postSummarys[postSummarysCount] = new Object();
+		postSummarys[postSummarysCount]['type'] = $(this).data('type');
+		postSummarys[postSummarysCount]['hiddenimage'] = $(this).data('hiddenimage');
+		postSummarys[postSummarysCount]['uid'] = $(this).data('uid');
+		postSummarysCount = postSummarysCount + 1;
 	});
 
 	// onlinepoint
@@ -22,23 +31,71 @@ $(document).ready(function () {
 		displayedUserCount = displayedUserCount + 1;
 	});
 
+	// topicIcons
+	var displayedTopicIcons = new Array();
+	var displayedTopicIconsCount = 0;
+	$('.topic_icon').each(function (index) {
+		displayedTopicIcons[displayedTopicIconsCount] = $(this).data('uid');
+		displayedTopicIconsCount = displayedTopicIconsCount + 1;
+	});
+
+	// forumIcons
+	var displayedForumIcons = new Array();
+	var displayedForumIconsCount = 0;
+	$('.forum_icon').each(function (index) {
+		displayedForumIcons[displayedForumIconsCount] = $(this).data('uid');
+		displayedForumIconsCount = displayedForumIconsCount + 1;
+	});
+
+	// topicIcons
+	var displayedTopics = new Array();
+	var displayedTopicsCount = 0;
+	$('.topic_entry').each(function (index) {
+		displayedTopics[displayedTopicsCount] = $(this).data('uid');
+		displayedTopicsCount = displayedTopicsCount + 1;
+	});
+
 
 	$.ajax({
 		type: "POST",
 		url: "index.php?id=2&eID=mm_forum&tx_mmforum_ajax[controller]=Ajax&tx_mmforum_ajax[action]=main&tx_mmforum_ajax[format]=json",
 		async: true,
 		data: {
-			"tx_mmforum_ajax[displayedUser]": JSON.stringify(displayedUser)
-
+			"tx_mmforum_ajax[displayedUser]": JSON.stringify(displayedUser),
+			"tx_mmforum_ajax[postSummarys]": JSON.stringify(postSummarys),
+			"tx_mmforum_ajax[topicIcons]": JSON.stringify(displayedTopicIcons),
+			"tx_mmforum_ajax[forumIcons]": JSON.stringify(displayedForumIcons),
+			"tx_mmforum_ajax[displayedTopics]": JSON.stringify(displayedTopics)
 		},
 		success: function (data) {
 			var json = $.parseJSON(data);
-			if (json.onlineUser) {
-				json.onlineUser.forEach(function (entry) {
-					$('.user_onlinepoint[data-uid="' + entry + '"]').removeClass('iconset-14-user-offline');
-					$('.user_onlinepoint[data-uid="' + entry + '"]').addClass('iconset-14-user-online');
+			if(json.topicIcons){
+				json.topicIcons.forEach(function (entry) {
+					$('.topic_icon[data-uid="' + entry.uid + '"]').html(entry.html);
+				});
+			}if(json.forumIcons){
+				json.forumIcons.forEach(function (entry) {
+					$('.forum_icon[data-uid="' + entry.uid + '"]').html(entry.html);
 				});
 			}
+			if(json.postSummarys){
+				json.postSummarys.forEach(function (entry) {
+					$('.post_summary_box[data-uid="' + entry.uid + '"][data-type="' + entry.type + '"]').html(entry.html);
+				});
+			}
+			if(json.topics){
+				json.topics.forEach(function (entry) {
+					$('.topic_reply_count[data-uid="' + entry.uid + '"]').html(entry.replyCount);
+					$('.topic_list_menu[data-uid="' + entry.uid + '"]').html(entry.topicListMenu);
+				});
+			}
+			if (json.onlineUser) {
+				json.onlineUser.forEach(function (entry) {
+					$('.user_onlinepoint[data-uid="' + entry+ '"]').removeClass('iconset-14-user-offline');
+					$('.user_onlinepoint[data-uid="' + entry+'"]').addClass('iconset-14-user-online');
+				});
+			}
+
 		}
 	});
 

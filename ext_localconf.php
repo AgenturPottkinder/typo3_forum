@@ -10,7 +10,7 @@ if (!defined('TYPO3_MODE')) {
 		 'Forum'      => 'index, show, new, create, edit, update, delete',
 		 'Topic'      => 'index, show, new, create, edit, update, delete, questionsHelpBox, solution',
 		 'Post'       => 'show, new, create, edit, update, delete, deleteAttachment',
-		 'User'       => 'index, list, subscribe, favSubscribe, show, disableUser, unDisableUser',
+		 'User'       => 'showMyProfile, index, list, subscribe, favSubscribe, show, disableUser, unDisableUser',
 		 'Report'     => 'newUserReport, newPostReport, createUserReport, createPostReport',
 		 'Moderation' => 'show, editTopic, updateTopic, updateUserReportStatus, updatePostReportStatus, createUserReportComment, createPostReportComment, topicConformDelete',
 		 'Tag'		  => 'list, show, listUserTags, newUserTag, deleteUserTag',
@@ -19,7 +19,7 @@ if (!defined('TYPO3_MODE')) {
 		 'Forum'      => 'new, create, edit, update, delete',
 		 'Topic'      => 'new, create, edit, update, delete',
 		 'Post'       => 'new, create, edit, update, delete',
-		 'User'       => 'show, dashboard, subscribe, favSubscribe, listFavorites, listMessages, listNotifications, listTopics',
+		 'User'       => 'showMyProfile, dashboard, subscribe, favSubscribe, listFavorites, listMessages, listNotifications, listTopics',
 		 'Report'     => 'new, create',
 		 'Moderation' => 'show, updateTopic, updateReportStatus, newReportComment, createReportComment',
 		 'Tag'		  => 'list, listUserTags',
@@ -41,11 +41,11 @@ if (!defined('TYPO3_MODE')) {
 		'Forum' => 'index',
 		'Post' => 'preview, addSupporter, removeSupporter',
 		'Tag'   => 'autoComplete',
-		'Ajax' => 'main, postSummary'
+		'Ajax' => 'main, postSummary, loginbox'
 	), array(
 		'Forum' => 'index',
 		'Post' => 'preview, addSupporter, removeSupporter',
-		'Ajax' => 'main',
+		'Ajax' => 'main, postSummary, loginbox',
 	)
 );
 

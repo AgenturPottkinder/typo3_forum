@@ -242,37 +242,43 @@ plugin.tx_mmforum.settings {
 	ads {
 		timeInterval = 30
 	}
-
+	topicIcon {
+		basepath =
+	}
+	forumIcon {
+		basepath =
+	}
 	pagebrowser {
 		default {
 			itemsPerPage = 20
-			insertAbove = 0
+			showResultCount = 1
 			insertBelow = 1
-			maximumNumberOfLinks = 10
+			maximumNumberOfLinks = 9
 			showFirstLast = 1
-		}
-		topic {
-			itemsPerPage = 20
-			insertAbove = 1
-			insertBelow = 1
-			maximumNumberOfLinks = 10
+            browseBoxWrap = <div class="tx-ttnews-browsebox"><p>|</ul></div>
+            showResultsWrap = |</p><ul>
+            LinksWrap = |
+            browseLinksWrap = |
+            activeLinkWrap = <li><strong>|</strong></li>
+            disabledLinkWrap = <li>|</li>
+            inactiveLinkWrap = <li>|</li>
 		}
 	}
 
 	forumController.show {
-		pagebrowser < plugin.tx_mmforum.settings.pagebrowser
+		pagebrowser < plugin.tx_mmforum.settings.pagebrowser.default
 	}
 
 	topicController.show {
-		pagebrowser < plugin.tx_mmforum.settings.pagebrowser
+		pagebrowser < plugin.tx_mmforum.settings.pagebrowser.default
 	}
 
 	userController.index {
-		pagebrowser < plugin.tx_mmforum.settings.pagebrowser
+		pagebrowser < plugin.tx_mmforum.settings.pagebrowser.default
 	}
 
 	userController.listPosts {
-		pagebrowser < plugin.tx_mmforum.settings.pagebrowser
+		pagebrowser < plugin.tx_mmforum.settings.pagebrowser.default
 	}
 
 	format {

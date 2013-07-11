@@ -136,8 +136,7 @@ final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInter
 		$GLOBALS['TSFE']->no_cache = FALSE;
 
 		$GLOBALS['TSFE']->config           = array();
-		$GLOBALS['TSFE']->config['config'] = array('sys_language_uid'                 => intval(\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('L')),
-		                                           'sys_language_mode'                => 'content_fallback;0',
+		$GLOBALS['TSFE']->config['config'] = array('sys_language_mode'                => 'content_fallback;0',
 		                                           'sys_language_overlay'             => 'hideNonTranslated',
 		                                           'sys_language_softMergeIfNotBlank' => '',
 		                                           'sys_language_softExclude'         => '',);

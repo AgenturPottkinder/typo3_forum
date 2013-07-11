@@ -70,7 +70,29 @@ class Tx_MmForum_Domain_Repository_Forum_ForumRepository extends \TYPO3\CMS\Extb
 		return $this->findRootForums();
 	}
 
+	/**
+	 *
+	 * Finds forum for a specific filterset. Page navigation is possible.
+	 *
+	 * @param  array $uids
+	 *
+	 * @return Tx_MmForum_Domain_Model_Forum_Topic[]
+	 *                               The selected subset of topcis
+	 *
+	 */
+	public function findByUids($uids) {
 
+		$query = $this->createQuery();
+		$constraints = array();
+		if(!empty($uids)) {
+			$constraints[] = $query->in('uid', $uids);
+		}
+		if(!empty($constraints)){
+			$query->matching($query->logicalAnd($constraints));
+		}
+
+		return  $query->execute();
+	}
 
 	/**
 	 * Finds all root forums.
