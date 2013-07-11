@@ -52,6 +52,10 @@
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_MyTags</numIndex>
 										<numIndex index="1">Tag->listUserTags;Tag->newUserTag;Tag->deleteUserTag;Tag->list</numIndex>
 									</numIndex>
+									<numIndex index="10">
+										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_PrivateMessage</numIndex>
+										<numIndex index="1">User->listMessages;User->newMessage;User->createMessage</numIndex>
+									</numIndex>
 								</items>
 							</config>
 							<onChange>reload</onChange>

@@ -21,6 +21,7 @@
 			<label index="Behaviour_Action_Stats_List">Stats List</label>
 			<label index="Behaviour_Action_Tags">Tags</label>
 			<label index="Behaviour_Action_MyTags">"MyTags" of a user</label>
+			<label index="Behaviour_Action_PrivateMessage">Private Messages</label>
 			<label index="Display">Display View</label>
 			<label index="Display_Default">Default</label>
 			<label index="Display_Latest_Box">Latest Posts Box</label>
