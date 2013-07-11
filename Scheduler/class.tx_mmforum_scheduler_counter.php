@@ -180,7 +180,7 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 
 		//Find all rank
 		$query = 'SELECT uid, point_limit, user_count
-				  FROM tx_mmforum_rank
+				  FROM  tx_mmforum_domain_model_user_rank
 				  WHERE deleted=0 AND pid='.intval($this->getUserPid().'
 				  ORDER BY point_limit ASC');
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
