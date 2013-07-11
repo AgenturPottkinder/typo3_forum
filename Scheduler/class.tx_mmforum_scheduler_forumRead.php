@@ -77,33 +77,35 @@ class tx_mmforum_scheduler_forumRead extends \TYPO3\CMS\Scheduler\Task\AbstractT
 	public function execute() {
 		if($this->getForumPid() == false || $this->getUserPid() == false) return false;
 
-		$query = 'SELECT fe.uid
-				  FROM fe_users AS fe
-				  WHERE fe.disable=0 AND fe.deleted=0 AND fe.tx_extbase_type="Tx_MmForum_Domain_Model_User_FrontendUser"
-				  		AND fe.pid='.intval($this->getUserPid()).' AND fe.lastlogin > '.(time()-86400);
+		$limit = 86400;
 
-		$userRes = $GLOBALS['TYPO3_DB']->sql_query($query);
-		while($userRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($userRes)) {
-			//First delete all entries for a user to resolve duplicate primaries
-			$query = "DELETE FROM tx_mmforum_domain_model_user_readforum WHERE uid_local=".intval($userRow['uid']);
-			$res = $GLOBALS['TYPO3_DB']->sql_query($query);
-
-			//Now check all forum
-			$query = 'SELECT t.forum
+		$query = 'SELECT t.forum, COUNT(*) AS topic_amount, CONVERT(GROUP_CONCAT(t.uid) USING "utf8") AS topics
 					  FROM tx_mmforum_domain_model_forum_topic AS t
-					  INNER JOIN tx_mmforum_domain_model_user_readtopic AS rt ON rt.uid_foreign = t.uid
-					  														   AND rt.uid_local='.intval($userRow['uid']).'
 					  WHERE t.pid='.intval($this->getForumPid()).' AND t.deleted=0 AND t.hidden=0 AND t.author > 0
 					  GROUP BY t.forum';
+		$topicRes = $GLOBALS['TYPO3_DB']->sql_query($query);
+		while($topicRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($topicRes)) {
+			$query = 'SELECT fe.uid, COUNT(*) AS read_amount
+					  FROM fe_users AS fe
+					  INNER JOIN tx_mmforum_domain_model_user_readtopic AS rt ON rt.uid_local = fe.uid
+								AND rt.uid_foreign IN ('.$topicRow['topics'].')
+					  WHERE fe.disable=0 AND fe.deleted=0 AND fe.tx_extbase_type="Tx_MmForum_Domain_Model_User_FrontendUser"
+						AND fe.pid='.intval($this->getUserPid()).' AND fe.lastlogin > '.(time()-$limit).'
+						GROUP BY fe.uid';
+			$userRes = $GLOBALS['TYPO3_DB']->sql_query($query);
+			while($userRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($userRes)) {
+				//First delete all entries for a user to resolve duplicate primaries
+				$query = "DELETE FROM tx_mmforum_domain_model_user_readforum WHERE uid_local=".intval($userRow['uid']);
+				$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 
-			$topicRes = $GLOBALS['TYPO3_DB']->sql_query($query);
-			while($topicRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($topicRes)) {
-				$insert = array(
-					'uid_local'	  => $userRow['uid'],
-					'uid_foreign' => $topicRow['forum'],
+				if($topicRow['topic_amount'] == $userRow['read_amount']) {
+					$insert = array(
+						'uid_local'	  => $userRow['uid'],
+						'uid_foreign' => $topicRow['forum'],
 
-				);
-				$res = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_mmforum_domain_model_user_readforum',$insert);
+					);
+					$res = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_mmforum_domain_model_user_readforum',$insert);
+				}
 			}
 		}
 

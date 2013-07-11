@@ -42,6 +42,11 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 	 */
 	protected $userPid;
 
+	/**
+	 * @var array
+	 */
+	private $settings;
+
 
 	/**
 	 * @return int
@@ -72,31 +77,49 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 	}
 
 	/**
+	 * @return void
+	 */
+	public function setSettings() {
+		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
+		$configurationManager = $objectManager->get('Tx_Extbase_Configuration_ConfigurationManagerInterface');
+
+		$this->settings = $configurationManager->getConfiguration(
+			\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+		$this->settings = $this->settings['plugin.']['tx_mmforum.']['settings.'];
+	}
+
+	/**
 	 * @return bool
 	 */
 	public function execute() {
 		if($this->getForumPid() == false || $this->getUserPid() == false) return false;
+		$this->setSettings();
+
 		$this->updateUser();
 		return true;
 	}
+
 
 	/**
 	 * @return void
 	 */
 	private function updateUser() {
 		$forumPid = intval($this->getForumPid());
+		$userUpdate = array();
+		$user = array();
+		$rankScore = $this->settings['rankScore.'];
 
-		$query = 'SELECT author, COUNT(*) AS counter, SUM(helpful_count) AS helpful_count, SUM(supporters) AS support_count
-				  FROM tx_mmforum_domain_model_forum_post
-				  WHERE deleted=0 AND hidden=0 AND author > 0 AND pid='.$forumPid.'
-				  GROUP BY author';
+		//Find any post_count
+		$query = 'SELECT p.author, COUNT(*) AS counter
+				  FROM tx_mmforum_domain_model_forum_post AS p
+				  WHERE p.deleted=0 AND p.hidden=0 AND p.author > 0 AND p.pid='.$forumPid.'
+				  GROUP BY p.author';
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 		while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 			$userUpdate[$row['author']]['post_count'] = $row['counter'];
-			$userUpdate[$row['author']]['helpful_count'] = $row['helpful_count'];
-			$userUpdate[$row['author']]['support_count'] = $row['support_count'];
 		}
 
+		//Find any topic count
 		$query = 'SELECT author, COUNT(*) AS counter
 				  FROM tx_mmforum_domain_model_forum_topic
 				  WHERE deleted=0 AND hidden=0 AND author > 0 AND pid='.$forumPid.'
@@ -106,6 +129,7 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 			$userUpdate[$row['author']]['topic_count'] = $row['counter'];
 		}
 
+		// Find any question topic count
 		$query = 'SELECT author, COUNT(*) AS counter
 				  FROM tx_mmforum_domain_model_forum_topic
 				  WHERE deleted=0 AND hidden=0 AND author > 0 AND pid='.$forumPid.' AND question=1
@@ -115,20 +139,83 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 			$userUpdate[$row['author']]['question_count'] = $row['counter'];
 		}
 
+		// Find any favorite count
+		$query = 'SELECT t.author, COUNT(*) AS counter
+				  FROM tx_mmforum_domain_model_user_topicfavsubscription AS s
+				  INNER JOIN tx_mmforum_domain_model_forum_topic AS t ON t.uid = s.uid_foreign
+				  GROUP BY uid_local';
+		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
+		while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+			$userUpdate[$row['author']]['favorite_count'] = $row['counter'];
+		}
+
+		//Supported Post User X got
+		$query = 'SELECT p.author, COUNT(*) AS counter
+				  FROM tx_mmforum_domain_model_user_supportpost AS s
+				  INNER JOIN tx_mmforum_domain_model_forum_post AS p ON p.uid = s.uid_foreign
+				  GROUP BY uid_local';
+		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
+		while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+			$userUpdate[$row['author']]['support_count'] = $row['counter'];
+		}
+
+		//Supported Post User X set
+		$query = 'SELECT s.uid_local, COUNT(*) AS counter
+				  FROM tx_mmforum_domain_model_user_supportpost AS s
+				  GROUP BY uid_local';
+		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
+		while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+			$userUpdate[$row['uid_local']]['markSupport_count'] = $row['counter'];
+		}
+
+		//Find all users with their current rank
+		$query = 'SELECT fe.uid, fe.tx_mmforum_rank
+				  FROM fe_users AS fe
+				  WHERE fe.disable=0 AND fe.deleted=0 AND fe.tx_extbase_type="Tx_MmForum_Domain_Model_User_FrontendUser"
+						AND fe.pid='.intval($this->getUserPid());
+		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
+		while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+			$userUpdate[$row['author']]['rank'] = $row['tx_mmforum_rank'];
+		}
+
+		//Find all rank
+		$query = 'SELECT uid, point_limit, user_count
+				  FROM tx_mmforum_rank
+				  WHERE deleted=0 AND pid='.intval($this->getUserPid().'
+				  ORDER BY point_limit ASC');
+		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
+		while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+			$rankArray[] = $row;
+		}
+
+		//Now check this giant array
 		foreach($userUpdate AS $userUid => $array) {
+			$points = 0;
+			$points = $points + intval($array['post_count']) * intval($rankScore['newPost']);
+			$points = $points + intval($array['markSupport_count']) * intval($rankScore['markHelpful']);
+			$points = $points + intval($array['favorite_count']) * intval($rankScore['gotFavorite']);
+			$points = $points + intval($array['support_count']) * intval($rankScore['gotHelpful']);
+
+			foreach($rankArray AS $rank) {
+				if($points > $rank['point_limit']) {
+					$array['rank'] = $rank['uid'];
+				}
+			}
 
 			$values = array(
 				'tx_mmforum_post_count' => intval($array['post_count']),
 				'tx_mmforum_topic_count' => intval($array['topic_count']),
 				'tx_mmforum_question_count' => intval($array['question_count']),
-				//'tx_mmforum_helpful_count' => intval($array['helpful_count']), #later
-				//'tx_mmforum_support_posts' => intval($array['support_count']), #later
+				'tx_mmforum_helpful_count' => intval($array['support_count']), #later
+				'tx_mmforum_points' => intval($points),
+				'tx_mmforum_rank' => intval($array['rank']),
 			);
 
 			$query = $GLOBALS['TYPO3_DB']->UPDATEquery('fe_users','uid='.intval($userUid),$values);
 			$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 		}
 	}
+
 
 
 }
