@@ -179,13 +179,13 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 		}
 
 		//Find all rank
-		$query = 'SELECT uid, point_limit, user_count
+		$query = 'SELECT uid, point_limit
 				  FROM  tx_mmforum_domain_model_user_rank
-				  WHERE deleted=0 AND pid='.intval($this->getUserPid().'
-				  ORDER BY point_limit ASC');
+				  WHERE deleted=0 AND pid='.intval($this->getUserPid()).'
+				  ORDER BY point_limit ASC';
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 		while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-			$rankArray[] = $row;
+			$rankArray[$row['uid']] = $row;
 		}
 
 		//Now check this giant array
@@ -196,7 +196,7 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 			$points = $points + intval($array['favorite_count']) * intval($rankScore['gotFavorite']);
 			$points = $points + intval($array['support_count']) * intval($rankScore['gotHelpful']);
 
-			foreach($rankArray AS $rank) {
+			foreach($rankArray AS $key => $rank) {
 				if($points > $rank['point_limit']) {
 					$array['rank'] = $rank['uid'];
 				}
@@ -213,6 +213,22 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 
 			$query = $GLOBALS['TYPO3_DB']->UPDATEquery('fe_users','uid='.intval($userUid),$values);
 			$res = $GLOBALS['TYPO3_DB']->sql_query($query);
+		}
+
+
+		//At last, update the rank count
+		$query = $GLOBALS['TYPO3_DB']->UPDATEquery('tx_mmforum_domain_model_user_rank','1=1',array('user_count' => 0));
+		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
+		$query = 'SELECT tx_mmforum_rank, COUNT(*) AS counter
+				  FROM fe_users
+				  WHERE disable=0 AND deleted=0 AND tx_extbase_type="Tx_MmForum_Domain_Model_User_FrontendUser"
+				  		AND pid='.intval($this->getUserPid()).'
+				  GROUP BY tx_mmforum_rank';
+		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
+		while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+			$query = $GLOBALS['TYPO3_DB']->UPDATEquery('tx_mmforum_domain_model_user_rank','uid='.intval($row['tx_mmforum_rank']),
+														array('user_count' => intval($row['counter'])));
+			$res2 = $GLOBALS['TYPO3_DB']->sql_query($query);
 		}
 	}
 
