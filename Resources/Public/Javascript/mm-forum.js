@@ -1,13 +1,5 @@
 $(document).ready(function () {
-
-	////////////////////// MM_FORUM_AJAX RELOADER
-	// onlinepoint
-	var displayedUser = new Array();
-	var displayedUserCount = 0;
-	$('.user_onlinepoint').each(function (index) {
-		displayedUser[displayedUserCount] = $(this).data('uid');
-		displayedUserCount = displayedUserCount + 1;
-	});
+////////////////////// MM_FORUM_AJAX RELOADER
 
 	// forum_last_post_summary
 	$('.post_summary_box').each(function (index) {
@@ -21,6 +13,15 @@ $(document).ready(function () {
 			}
 		});
 	});
+
+	// onlinepoint
+	var displayedUser = new Array();
+	var displayedUserCount = 0;
+	$('.user_onlinepoint').each(function (index) {
+		displayedUser[displayedUserCount] = $(this).data('uid');
+		displayedUserCount = displayedUserCount + 1;
+	});
+
 
 	$.ajax({
 		type: "POST",
@@ -40,8 +41,6 @@ $(document).ready(function () {
 			}
 		}
 	});
-
-
 
 	$('.tx-mmforum-helpfull-btn').click(function () {
 		var targetElement = this;

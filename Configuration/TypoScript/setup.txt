@@ -522,11 +522,11 @@ page.includeJS {
 	jquery.external = 1
 	bootstrap = EXT:mm_forum/Resources/Public/Bootstrap/js/bootstrap.min.js
 	markitup = EXT:mm_forum/Resources/Public/Javascript/markitup-1.1.12/jquery.markitup.js
-	mmforum = EXT:mm_forum/Resources/Public/Javascript/mm-forum.js
 }
 
 page.includeJSFooter {
 	bootstrap = EXT:mm_forum/Resources/Public/Bootstrap/js/bootstrap.min.js
+	mmforum = EXT:mm_forum/Resources/Public/Javascript/mm-forum.js
 }
 
 module.tx_mmforum.persistence {
