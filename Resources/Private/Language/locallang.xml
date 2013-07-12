@@ -15,6 +15,7 @@
 			<label index="Button_Quote">Quote</label>
 			<label index="Button_Reply">Reply</label>
 			<label index="Button_Report">Report</label>
+			<label index="Button_Close">Close</label>
 			<label index="Button_Subscribe">Subscribe</label>
 			<label index="Button_Topic_New">New topic</label>
 			<label index="Button_Unsubscribe">Unsubscribe</label>
@@ -40,6 +41,9 @@
 			<label index="Forum_Show_Topic_Question">Question</label>
 			<label index="Forum_Index_HelpfulPosts">Helpful posts</label>
 			<label index="Forum_PM_Send">send private message</label>
+			<label index="Forum_New">New Forum</label>
+			<label index="Forum_Edit">Edit Forum</label>
+			<label index="Forum_Manage">Moderate Forum</label>
 			<label index="Generic_By">by</label>
 			<label index="Generic_More">more</label>
 			<label index="Moderation_EditTopic">Moderate topic</label>
@@ -65,9 +69,16 @@
 			<label index="Post_Show_Solution_New">Is solution</label>
 			<label index="Post_Show_Solution_Edit">Replace solution</label>
 			<label index="Post_Update_Success">The post has successfully been updated.</label>
+			<label index="Report">Reports</label>
+			<label index="Report_Detail">Reports Detail</label>
+			<label index="Report_Index_reportedUser">Reported User</label>
+			<label index="Report_Index_reportedPosts">Reported Posts</label>
+			<label index="Report_Index_Content">Inhalt</label>
 			<label index="Report_Edit_Comments">Comments</label>
 			<label index="Report_Edit_Comments_New">New comment</label>
 			<label index="Report_Edit_Content">Content</label>
+			<label index="Report_Edit_Author">Author</label>
+			<label index="Report_Edit_User">User</label>
 			<label index="Report_Edit_Date">Date</label>
 			<label index="Report_Edit_General">General report information</label>
 			<label index="Report_Edit_Post">Reported post</label>
@@ -136,6 +147,8 @@
 			<label index="User_Index_Posts">Posts</label>
             <label index="User_Index_Helpful_Posts">Helpful Posts</label>
 			<label index="User_Index_Username">Username</label>
+			<label index="User_New">New User</label>
+			<label index="User_Edit">Edit User</label>
 			<label index="User_ListPosts">All posts of %s</label>
 			<label index="User_ListSubscriptions">Subscribed Forums and Topics</label>
 			<label index="User_ListSubscriptions_Goto">Go to</label>
@@ -276,6 +289,7 @@
 			<label index="Button_Quote">Zitieren</label>
 			<label index="Button_Reply">Antworten</label>
 			<label index="Button_Report">Melden</label>
+			<label index="Button_Close">Schließen</label>
 			<label index="Button_Subscribe">Abonnieren</label>
 			<label index="Button_Topic_New">Neues Thema</label>
 			<label index="Button_Unsubscribe">Nicht mehr abonnieren</label>
@@ -301,6 +315,9 @@
 			<label index="Forum_Show_Topic_Question">Frage</label>
 			<label index="Forum_PM_Send">Nachricht senden</label>
 			<label index="Forum_Index_HelpfulPosts">Hilfreiche Beiträge</label>
+			<label index="Forum_New">Neuer Forum</label>
+			<label index="Forum_Edit">Forum editieren</label>
+			<label index="Forum_Manage">Forum Administrieren</label>
 			<label index="Generic_By">von</label>
 			<label index="Generic_More">mehr</label>
 			<label index="Moderation_EditTopic">Moderate Thema</label>
@@ -326,9 +343,14 @@
 			<label index="Post_Show_Solution_New">Ist Lösung</label>
 			<label index="Post_Show_Solution_Edit">Lösung ersetzen</label>
 			<label index="Post_Update_Success">Der Beitrag wurde erfolgreich aktualisiert.</label>
+			<label index="Report">Reports</label>
+			<label index="Report_Detail">Reports Details</label>
+			<label index="Report_Index_reportedUser">Gemeldete User</label>
+			<label index="Report_Index_reportedPosts">Gemeldete Beiträge</label>
 			<label index="Report_Edit_Comments">Kommentare</label>
 			<label index="Report_Edit_Comments_New">Neuer Kommentar</label>
-			<label index="Report_Edit_Content">Inhalt</label>
+			<label index="Report_Edit_Author">Autor</label>
+			<label index="Report_Edit_User">Benutzer</label>
 			<label index="Report_Edit_Date">Datum</label>
 			<label index="Report_Edit_General">Allgmeine Report-Information</label>
 			<label index="Report_Edit_Post">Gemeldeter Beitrag</label>
@@ -396,6 +418,8 @@
 			<label index="User_Index_Posts">Beiträge</label>
 			<label index="User_Index_Helpful_Posts">Hilfreiche Bewertungen</label>
 			<label index="User_Index_Username">Benutzername</label>
+			<label index="User_New">Neuer Benutzer</label>
+			<label index="User_Edit">Editiere Benutzer</label>
 			<label index="User_ListPosts">Alle Beiträge von %s</label>
 			<label index="User_ListSubscriptions">Abonnierte Foren und Themen</label>
 			<label index="User_ListSubscriptions_Goto">Gehe zu</label>
