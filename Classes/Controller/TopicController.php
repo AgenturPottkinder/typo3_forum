@@ -227,12 +227,10 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 			$this->sessionHandling->set('adTime', $actDatetime);
 			$this->view->assign('showAd', TRUE);
 			$max = count($posts);
-			if ($max > $this->settings['topicController']['show']['itemsPerPage']) {
-				$max = $this->settings['topicController']['show']['itemsPerPage'];
+			if ($max > $this->settings['topicController']['show']['pagebrowser']['itemsPerPage']) {
+				$max = $this->settings['topicController']['show']['pagebrowser']['itemsPerPage'];
 			}
-			if($max <= 1) {
-				$max++;
-			}
+			if($max < 2) $max = 2;
 			$ads = $this->adsRepository->findForTopicView(1);
 			$showAd = array('enabled' => TRUE, 'position' => mt_rand(1,$max-1), 'ads' => $ads);
 			$this->view->assign('showAd', $showAd);
@@ -335,7 +333,10 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 		// Notify potential listeners.
 		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Topic', 'topicCreated',
 											  array('topic' => $topic));
-
+		$this->clearCacheForCurrentPage();
+		$uriBuilder = $this->controllerContext->getUriBuilder();
+		$uri = $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments(array('tx_mmforum_pi1[forum]' => $forum->getUid(), 'tx_mmforum_pi1[controller]' => 'Forum', 'tx_mmforum_pi1[action]' => 'show'))->build();
+		$this->purgeUrl('http://'.$_SERVER['HTTP_HOST'].'/'.$uri);
 		// Redirect to single forum display view
 		$this->redirect('show', 'Forum', NULL, array('forum' => $forum));
 	}
@@ -385,6 +386,8 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 				$sql = $GLOBALS['TYPO3_DB']->INSERTquery('tx_mmforum_domain_model_user_readtopic',$values);
 				$GLOBALS['TYPO3_DB']->sql_query($sql);
 			}
+			//$currentUser->addReadObject($topic);
+			//$this->frontendUserRepository->update($currentUser);
 		}
 	}
 

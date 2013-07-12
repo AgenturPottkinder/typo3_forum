@@ -76,7 +76,6 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 
 		$query = $this->createQuery();
 		$constraints = array();
-
 		if (!empty($limit)) {
 			$query->setLimit($limit);
 		}

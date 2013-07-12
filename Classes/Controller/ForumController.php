@@ -150,6 +150,7 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 			if ($max > $this->settings['topicController']['show']['itemsPerPage']) {
 				$max = $this->settings['topicController']['show']['itemsPerPage'];
 			}
+			if($max < 2) $max = 2;
 			$ads = $this->adsRepository->findForForumView(1);
 			$showAd = array('enabled' => TRUE, 'position' => mt_rand(1,$max-1), 'ads' => $ads);
 			$this->view->assign('showAd', $showAd);

@@ -64,9 +64,10 @@ class Tx_MmForum_ViewHelpers_User_LinkViewHelper extends \TYPO3\CMS\Fluid\ViewHe
 	 *
 	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
 	 * @param boolean $showOnlineStatus
+	 * @param boolean $showOnline
 	 * @return string
 	 */
-	public function render(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $showOnlineStatus = TRUE) {
+	public function render(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $showOnlineStatus = TRUE, $showOnline = FALSE) {
 		// if user anonymous: show only the username
 		if ($user->isAnonymous()) {
 			return $user->getUsername();
@@ -77,12 +78,18 @@ class Tx_MmForum_ViewHelpers_User_LinkViewHelper extends \TYPO3\CMS\Fluid\ViewHe
 
 		$class = 'user-link';
 
+
 		if ($this->hasArgument('class')) {
 			$class .= ' ' . $this->arguments['class'];
 		}
 
 		if ($showOnlineStatus) {
-			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $user->getUsername().'">' . $user->getUsername() . ' <i class="user_onlinepoint iconset-14-user-offline" data-uid="'.$user->getUid().'"></i></a>';
+			if($showOnline) {
+				$onlineStatus = 'user_onlinepoint iconset-14-user-online';
+			}else{
+				$onlineStatus = 'user_onlinepoint iconset-14-user-offline';
+			}
+			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $user->getUsername().'">' . $user->getUsername() . ' <i class="'.$onlineStatus.'" data-uid="'.$user->getUid().'"></i></a>';
 		} else {
 			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $user->getUsername() . '">' . $user->getUsername() . '</a>';
 		}

@@ -176,8 +176,8 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 				$partial = 'User/HelpfulBox';
 				break;
 			case 'onlineUserWidget':
-				$dataset['count'] = $this->frontendUserRepository->countByFilter(TRUE);
-				$dataset['users'] = $this->frontendUserRepository->findByFilter(4, array('is_online' => 'DESC'), TRUE);
+				//NO DATA - Ajax Reload
+				$dataset['count'] = 0;
 				$partial = 'User/OnlineBox';
 				break;
 			case 'rankingList':
@@ -466,7 +466,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 			->execute();
 		$this->view
 			->assign('user', $user)
-			->assign('currentUser', $this->getCurrentUser())
+			->assign('currentUser', $user)
 			->assign('userfields', $this->userfieldRepository->findAll())
 			->assign('topics', $lastFiveTopics)
 			->assign('questions', $this->topicRepository->findQuestions(6, false, $user))
@@ -605,6 +605,8 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	 * @return void
 	 */
 	public function searchUserAction($searchValue=NULL,$filter=NULL,$order=NULL) {
+
+		var_dump($conf);
 		switch($filter) {
 			default:
 			case 'username':

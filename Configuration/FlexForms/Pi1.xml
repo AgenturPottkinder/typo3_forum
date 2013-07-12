@@ -26,7 +26,7 @@
 									</numIndex>
 									<numIndex index="3">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Moderation_Reports</numIndex>
-										<numIndex index="1">Moderation->indexReport; Moderation->editReport;Moderation->updateReportStatus;Moderation->newReportComment;Moderation->createReportComment</numIndex>
+										<numIndex index="1">Moderation->indexReport; Moderation->editReport;Moderation->updatePostReportStatus;Moderation->updateUserReportStatus;Moderation->newReportComment;Moderation->createReportComment;Moderation->createUserReportComment;Moderation->createPostReportComment</numIndex>
 									</numIndex>
                                     <numIndex index="4">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Topics_List</numIndex>

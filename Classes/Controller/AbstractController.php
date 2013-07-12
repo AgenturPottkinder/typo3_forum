@@ -157,6 +157,22 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 	}
 
 
+	/**
+	 * @param string $url
+	 * @return mixed
+	 */
+	public function purgeUrl($url)
+	{
+		$curl = curl_init();
+		curl_setopt($curl, CURLOPT_URL, $url);
+		curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PURGE");
+		curl_setopt($curl, CURLOPT_HEADER, TRUE);
+		curl_setopt($curl, CURLOPT_NOBODY, true);
+		curl_setopt($curl, CURLOPT_HTTPHEADER, array('Host:'.$_SERVER['HTTP_HOST']));
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+		$result = curl_exec($curl);
+		return $result;
+	}
 
 	/**
 	 *

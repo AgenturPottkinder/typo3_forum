@@ -128,9 +128,11 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 	 * @param string $topicIcons
 	 * @param string $forumIcons
 	 * @param string $displayedTopics
+	 * @param int $displayOnlinebox
+	 * @param string $displayedPosts
 	 * @return void
 	 */
-	public function mainAction($displayedUser = "", $postSummarys = "", $topicIcons = "", $forumIcons = "", $displayedTopics = "") {
+	public function mainAction($displayedUser = "", $postSummarys = "", $topicIcons = "", $forumIcons = "", $displayedTopics = "", $displayOnlinebox = 0, $displayedPosts = "") {
 		// json array
 		$content = array();
 		if (!empty($displayedUser)) {
@@ -148,15 +150,55 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 		if (!empty($displayedTopics)) {
 			$content['topics'] = $this->_getTopics($displayedTopics);
 		}
+		if (!empty($displayedPosts)) {
+			$content['posts'] = $this->_getPosts($displayedPosts);
+		}
+		if($displayOnlinebox == 1){
+			$content['onlineBox'] = $this->_getOnlinebox();
+		}
 
 		$this->view->assign('content', json_encode($content));
 	}
+
 
 	/**
 	 * @return void
 	 */
 	public function loginboxAction(){
 
+	}
+
+	private function _getOnlinebox(){
+		$data = array();
+		$data['count'] = $this->frontendUserRepository->countByFilter(TRUE);
+		$this->request->setFormat('html');
+		$users = $this->frontendUserRepository->findByFilter(intval($this->settings['widgets']['onlinebox']['limit']), array(), TRUE);
+		$this->view->assign('users', $users);
+		$data['html'] = $this->view->render('Onlinebox');
+		$this->request->setFormat('json');
+		return $data;
+	}
+	/**
+	 * @param string $displayedTopics
+	 * @return array
+	 */
+	private function _getPosts($displayedPosts){
+		$data = array();
+		$displayedPosts = json_decode($displayedPosts);
+		if(count($displayedPosts) < 1) return $data;
+		$this->request->setFormat('html');
+		$posts = $this->postRepository->findByUids($displayedPosts);
+		$counter = 0;
+		foreach($posts as $post){
+			$this->view->assign('post', $post)
+			->assign('user', $this->getCurrentUser());
+			$data[$counter]['uid'] = $post->getUid();
+			$data[$counter]['postHelpfulButton'] = $this->view->render('PostHelpfulButton');
+			$data[$counter]['postEditLink'] = $this->view->render('PostEditLink');
+			$counter ++;
+		}
+		$this->request->setFormat('json');
+		return $data;
 	}
 	/**
 	 * @param string $displayedTopics
