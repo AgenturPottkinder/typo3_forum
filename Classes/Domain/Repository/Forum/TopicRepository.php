@@ -132,7 +132,7 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 			$constraint[] = $query->equals('author', $user);
 		}
 		if ($showAnswered == FALSE) {
-			$constraint[] = $query->equals('solution', 0);
+			$constraint[] = $query->equals('solution', NULL);
 		}
 		$query->setOrderings(array('sticky' => 'DESC',
 			'posts.crdate' => 'DESC'));
