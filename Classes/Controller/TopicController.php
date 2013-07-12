@@ -230,7 +230,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 			if ($max > $this->settings['topicController']['show']['itemsPerPage']) {
 				$max = $this->settings['topicController']['show']['itemsPerPage'];
 			}
-			if($max == 1) {
+			if($max <= 1) {
 				$max++;
 			}
 			$ads = $this->adsRepository->findForTopicView(1);
@@ -377,8 +377,14 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 			return;
 		}
 		else {
-			$currentUser->addReadObject($topic);
-			$this->frontendUserRepository->update($currentUser);
+			if($this->topicRepository->getTopicReadByUser($topic,$currentUser)) {
+				$values = array(
+					'uid_local'   => $currentUser->getUid(),
+					'uid_foreign' => $topic->getUid(),
+				);
+				$sql = $GLOBALS['TYPO3_DB']->INSERTquery('tx_mmforum_domain_model_user_readtopic',$values);
+				$GLOBALS['TYPO3_DB']->sql_query($sql);
+			}
 		}
 	}
 

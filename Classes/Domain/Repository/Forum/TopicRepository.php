@@ -295,5 +295,26 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 	}
 
 
+	/**
+	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @return bool
+	 */
+	public function getTopicReadByUser(Tx_MmForum_Domain_Model_Forum_Topic $topic, Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+		$sql ='SELECT t.uid
+			   FROM tx_mmforum_domain_model_forum_topic AS t
+			   LEFT JOIN tx_mmforum_domain_model_user_readtopic AS rt
+					   ON rt.uid_foreign = t.uid AND rt.uid_local = '.intval($user->getUid()).'
+			   WHERE rt.uid_local IS NULL AND t.uid='.intval($topic->getUid());
+		$query = $this->createQuery();
+		$query->getQuerySettings()->setReturnRawQueryResult(TRUE);
+		$query->statement($sql);
+		$res = $query->execute();
+		if($res != false) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 }

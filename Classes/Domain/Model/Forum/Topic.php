@@ -185,6 +185,12 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	protected $tags;
 
 	/**
+	 * @var Tx_MmForum_Domain_Repository_Forum_TopicRepository
+	 * @lazy
+	 */
+	protected $topicRepository;
+
+	/**
 	 * Helper variable to store if the parent object was modified. This is necessary
 	 * due to http://forge.typo3.org/issues/8952
 	 *
@@ -196,6 +202,14 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	/*
 	 * CONSTRUCTOR
 	 */
+
+
+	/**
+	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository
+	 */
+	public function injectTopicRepository(Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository) {
+		$this->topicRepository = $topicRepository;
+	}
 
 
 	/**
@@ -401,7 +415,8 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	 * @return boolean                                           TRUE, if the user did read this topic, otherwise FALSE.
 	 */
 	public function hasBeenReadByUser(Tx_MmForum_Domain_Model_User_FrontendUser $reader = NULL) {
-		return $reader ? $this->readers->contains($reader) : TRUE;
+		$res = $this->topicRepository->getTopicReadByUser($this,$reader);
+		return !$res;
 	}
 
 
