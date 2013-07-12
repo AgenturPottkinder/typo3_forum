@@ -1,9 +1,11 @@
 <?php
 
-/*                                                                    - *
+/*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2013 Martin Helmich <m.helmich@mittwald.de>                     *
+ *           Sebastian Gieselmann <s.gieselmann@mittwald.de>            *
+ *           Ruven Fehling <r.fehling@mittwald.de>                      *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -25,17 +27,18 @@
  *                                                                      */
 
 
-
 /**
  *
- * ...
+ * This class implements a simple dispatcher for a mm_form eID script.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
+ * @author     Ruven Fehling <r.fehling@mittwald.de>
  * @package    MmForum
  * @subpackage Controller
- * @version    $Id: ForumController.php 52309 2011-09-20 18:54:26Z mhelmich $
+ * @version    $Id$
  *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
+ * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
  *             Mittwald CM Service GmbH & Co. KG
  *             http://www.mittwald.de
  * @license    GNU Public License, version 2

@@ -1,9 +1,11 @@
 <?php
 
-/*                                                                    - *
+/*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2013 Martin Helmich <m.helmich@mittwald.de>                     *
+ *           Sebastian Gieselmann <s.gieselmann@mittwald.de>            *
+ *           Ruven Fehling <r.fehling@mittwald.de>                      *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -25,13 +27,13 @@
  *                                                                      */
 
 
-
 /**
  *
- * Controller for the User object. Offers user specific funcions, like user profiles, the
- * user list, and (un)subscribe functionalities.
+ * This class implements a simple dispatcher for a mm_form eID script.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
+ * @author     Ruven Fehling <r.fehling@mittwald.de>
  * @package    MmForum
  * @subpackage Controller
  * @version    $Id$

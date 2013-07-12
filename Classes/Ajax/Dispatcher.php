@@ -1,9 +1,11 @@
 <?php
 
-/*                                                                    - *
+/*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2013 Martin Helmich <m.helmich@mittwald.de>                     *
+ *           Sebastian Gieselmann <s.gieselmann@mittwald.de>            *
+ *           Ruven Fehling <r.fehling@mittwald.de>                      *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -25,15 +27,16 @@
  *                                                                      */
 
 
-
 /**
  *
  * This class implements a simple dispatcher for a mm_form eID script.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
+ * @author     Ruven Fehling <r.fehling@mittwald.de>
  * @package    MmForum
  * @subpackage Ajax
- * @version    $Id: AbstractController.php 39978 2010-11-09 14:19:52Z mhelmich $
+ * @version    $Id$
  *
  * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
  *             Mittwald CM Service GmbH & Co. KG
@@ -45,11 +48,9 @@
 final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInterface {
 
 
-
 	/*
 	 * ATTRIBUTES
 	 */
-
 
 
 	/**
@@ -90,11 +91,9 @@ final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInter
 	protected $dispatcher = NULL;
 
 
-
 	/*
 	  * INITIALIZATION
 	  */
-
 
 
 	/**
@@ -107,12 +106,13 @@ final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInter
 	}
 
 
-
 	/**
 	 * Initialize the global TSFE object.
 	 *
 	 * Most of the code was adapted from the df_tools extension by Stefan
 	 * Galinski.
+	 *
+	 * @todo add language support!
 	 *
 	 * @return void.
 	 */
@@ -122,8 +122,8 @@ final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInter
 		}
 		// The following code was adapted from the df_tools extension.
 		// Credits go to Stefan Galinski.
-		$GLOBALS['TSFE']           = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController',
-																							$GLOBALS['TYPO3_CONF_VARS'], (int)$_GET['id'],0);
+		$GLOBALS['TSFE'] = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController',
+			$GLOBALS['TYPO3_CONF_VARS'], (int)$_GET['id'], 0);
 		$GLOBALS['TSFE']->sys_page = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Page\PageRepository');
 		$GLOBALS['TSFE']->getPageAndRootline();
 		$GLOBALS['TSFE']->initTemplate();
@@ -135,14 +135,13 @@ final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInter
 		$GLOBALS['TSFE']->tmpl->start($GLOBALS['TSFE']->rootLine);
 		$GLOBALS['TSFE']->no_cache = FALSE;
 
-		$GLOBALS['TSFE']->config           = array();
-		$GLOBALS['TSFE']->config['config'] = array('sys_language_mode'                => 'content_fallback;0',
-		                                           'sys_language_overlay'             => 'hideNonTranslated',
-		                                           'sys_language_softMergeIfNotBlank' => '',
-		                                           'sys_language_softExclude'         => '',);
+		$GLOBALS['TSFE']->config = array();
+		$GLOBALS['TSFE']->config['config'] = array('sys_language_mode' => 'content_fallback;0',
+			'sys_language_overlay' => 'hideNonTranslated',
+			'sys_language_softMergeIfNotBlank' => '',
+			'sys_language_softExclude' => '',);
 		$GLOBALS['TSFE']->settingLanguage();
 	}
-
 
 
 	/**
@@ -153,15 +152,13 @@ final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInter
 	 */
 	protected function initExtbase() {
 		$this->extbaseBootstap = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Core\Bootstrap');
-		$this->objectManager   = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
+		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
 	}
-
 
 
 	/*
 	 * DISPATCHING METHODS
 	 */
-
 
 
 	/**
@@ -174,19 +171,18 @@ final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInter
 	}
 
 
-
 	/**
 	 * Dispatches a request.
 	 * @return void
 	 */
 	public function dispatch() {
 		echo $this->extbaseBootstap->run('', array('extensionName' => $this->extensionKey,
-		                                          'pluginName'     => 'Ajax'));
+			'pluginName' => 'Ajax'));
 	}
 
 
-
 }
+
 // Instantiate and start dispatcher.
 $dispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_MmForum_Ajax_Dispatcher');
 $dispatcher->run();

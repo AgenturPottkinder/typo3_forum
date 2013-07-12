@@ -2,7 +2,9 @@
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Sebastian Gieselmann <s.gieselmann@mittwald.de>            *
+ *  (c) 2013 Martin Helmich <m.helmich@mittwald.de>                     *
+ *           Sebastian Gieselmann <s.gieselmann@mittwald.de>            *
+ *           Ruven Fehling <r.fehling@mittwald.de>                      *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -26,14 +28,16 @@
 
 /**
  *
- * Controller for special moderator options.
+ * This class implements a simple dispatcher for a mm_form eID script.
  *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
  * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
+ * @author     Ruven Fehling <r.fehling@mittwald.de>
  * @package    MmForum
  * @subpackage Controller
  * @version    $Id$
  *
- * @copyright  Sebastian Gieselmann <s.gieselmann@mittwald.de>
+ * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
  *             Mittwald CM Service GmbH & Co. KG
  *             http://www.mittwald.de
  * @license    GNU Public License, version 2

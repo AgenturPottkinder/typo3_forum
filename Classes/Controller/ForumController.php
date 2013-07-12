@@ -1,9 +1,11 @@
 <?php
 
-/*                                                                    - *
+/*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2013 Martin Helmich <m.helmich@mittwald.de>                     *
+ *           Sebastian Gieselmann <s.gieselmann@mittwald.de>            *
+ *           Ruven Fehling <r.fehling@mittwald.de>                      *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -27,19 +29,20 @@
 
 /**
  *
- * Controller for the Forum object. This class implements basic forum-related
- * operations, like listing forums and subforums, and the respective topic lists.
+ * This class implements a simple dispatcher for a mm_form eID script.
  *
- * @author        Martin Helmich <m.helmich@mittwald.de>
- * @package       MmForum
- * @subpackage    Controller
- * @version       $Id$
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
+ * @author     Ruven Fehling <r.fehling@mittwald.de>
+ * @package    MmForum
+ * @subpackage Controller
+ * @version    $Id$
  *
- * @copyright     2012 Martin Helmich <m.helmich@mittwald.de>
- *                Mittwald CM Service GmbH & Co. KG
- *                http://www.mittwald.de
- * @license       GNU Public License, version 2
- *                http://opensource.org/licenses/gpl-license.php
+ * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
  *
  */
 class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_AbstractController {

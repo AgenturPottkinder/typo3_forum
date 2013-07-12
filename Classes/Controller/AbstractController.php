@@ -1,9 +1,12 @@
 <?php
 
-/*                                                                    - *
+
+/*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
+ *  (c) 2013 Martin Helmich <m.helmich@mittwald.de>                     *
+ *           Sebastian Gieselmann <s.gieselmann@mittwald.de>            *
+ *           Ruven Fehling <r.fehling@mittwald.de>                      *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -25,14 +28,13 @@
  *                                                                      */
 
 
-
 /**
  *
- * Abstract basis controller class for all mm_forum controller classes. This
- * class implements a basic error handling that catches all exception thrown within
- * a mm_forum controller or in the domain model.
+ * This class implements a simple dispatcher for a mm_form eID script.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
+ * @author     Ruven Fehling <r.fehling@mittwald.de>
  * @package    MmForum
  * @subpackage Controller
  * @version    $Id$
@@ -141,7 +143,6 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 	  */
 
 
-
 	/**
 	 *
 	 * Injects a frontend user repository.
@@ -156,23 +157,6 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 		$this->frontendUserRepository = $frontendUserRepository;
 	}
 
-
-	/**
-	 * @param string $url
-	 * @return mixed
-	 */
-	public function purgeUrl($url)
-	{
-		$curl = curl_init();
-		curl_setopt($curl, CURLOPT_URL, $url);
-		curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PURGE");
-		curl_setopt($curl, CURLOPT_HEADER, TRUE);
-		curl_setopt($curl, CURLOPT_NOBODY, true);
-		curl_setopt($curl, CURLOPT_HTTPHEADER, array('Host:'.$_SERVER['HTTP_HOST']));
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
-		$result = curl_exec($curl);
-		return $result;
-	}
 
 	/**
 	 *
@@ -210,7 +194,6 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 	/*
 	 * METHODS
 	 */
-
 
 
 	/**
@@ -398,6 +381,21 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 		$this->context = $context;
 	}
 
-
+	/**
+	 * @param string $url
+	 * @return mixed
+	 */
+	public function purgeUrl($url)
+	{
+		$curl = curl_init();
+		curl_setopt($curl, CURLOPT_URL, $url);
+		curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PURGE");
+		curl_setopt($curl, CURLOPT_HEADER, TRUE);
+		curl_setopt($curl, CURLOPT_NOBODY, true);
+		curl_setopt($curl, CURLOPT_HTTPHEADER, array('Host:'.$_SERVER['HTTP_HOST']));
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+		$result = curl_exec($curl);
+		return $result;
+	}
 
 }

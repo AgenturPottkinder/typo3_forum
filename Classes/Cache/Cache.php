@@ -36,7 +36,7 @@
  * @author     Martin Helmich <m.helmich@mittwald.de>
  * @package    MmForum
  * @subpackage Cache
- * @version    $Id: TextParserService.php 39978 2010-11-09 14:19:52Z mhelmich $
+ * @version    $Id$
  *
  * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
  *             Mittwald CM Service GmbH & Co. KG
