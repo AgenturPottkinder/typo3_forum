@@ -136,12 +136,20 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 	/**
 	 * Find all user with a part of $username in his name
 	 * @param $part Part of the users nickname
+	 * @param $filter Order by which field?
+	 * @param $order ASC or DESC ordering
 	 * @return Tx_MmForum_Domain_Model_User_FrontendUser[] The frontend users with the specified username.
 	 */
-	public function findLikeUsername($part) {
+	public function findLikeUsername($part=NULL,$filter=NULL,$order=NULL) {
 		$query = $this->createQuery();
-		$query->matching($query->like('username','%'.$part.'%'));
-		$query->setOrderings(array('username' => 'ASC'));
+		if($part !== NULL) {
+			$query->matching($query->like('username','%'.$part.'%'));
+		}
+		if($filter === NULL || $order === NULL) {
+			$query->setOrderings(array('username' => 'ASC'));
+		} else {
+			$query->setOrderings(array($filter => $order));
+		}
 		return $query->execute();
 	}
 

@@ -107,6 +107,13 @@
 			<label index="Topic_All_Questions_Of">All questions of</label>
 			<label index="User_Index">User list</label>
 			<label index="User_Index_Search">User search</label>
+			<label index="User_Index_Search_Header">User with the names</label>
+			<label index="User_Index_Search_Order_ASC">Ascending</label>
+			<label index="User_Index_Search_Order_DESC">Descending</label>
+			<label index="User_Index_Search_Filter_Name">Username</label>
+			<label index="User_Index_Search_Filter_MemberSince">Member Since</label>
+			<label index="User_Index_Search_Filter_Post">Posts</label>
+			<label index="User_Index_Search_Filter_Helpful">Helpful Posts</label>
 			<label index="User_Index_Contact">Contact</label>
 			<label index="User_Index_MemberSince">Registered since</label>
 			<label index="User_Index_Message">Message</label>
@@ -360,6 +367,13 @@
 			<label index="Topic_All_Questions_Of">Alle Fragen von</label>
 			<label index="User_Index">Mitgliederliste</label>
 			<label index="User_Index_Search">Mitgliedersuche</label>
+			<label index="User_Index_Search_Header">Mitglieder mit dem Namen</label>
+			<label index="User_Index_Search_Order_ASC">Aufsteigend</label>
+			<label index="User_Index_Search_Order_DESC">Absteigend</label>
+			<label index="User_Index_Search_Filter_Name">Benutzername</label>
+			<label index="User_Index_Search_Filter_MemberSince">Mitglied seit</label>
+			<label index="User_Index_Search_Filter_Post">Posts</label>
+			<label index="User_Index_Search_Filter_Helpful">Helpful Posts</label>
 			<label index="User_Index_Contact">Kontakt</label>
 			<label index="User_Index_MemberSince">Registriert seit</label>
 			<label index="User_Index_Message">Nachricht</label>
