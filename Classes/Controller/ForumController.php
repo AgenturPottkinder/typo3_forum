@@ -79,7 +79,6 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 	protected $rootForum;
 
 
-
 	//
 	// DEPENDENCY INJECTION METHODS
 	//
@@ -148,8 +147,8 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 		$max = count($topics);
 		if($actDatetime->getTimestamp() - $adDateTime->getTimestamp() > $this->settings['ads']['timeInterval'] && $max > 2){
 			$this->sessionHandling->set('adTime', $actDatetime);
-			if ($max > $this->settings['topicController']['show']['pagebrowser']['default']['itemsPerPage']) {
-				$max = $this->settings['topicController']['show']['pagebrowser']['default']['itemsPerPage'];
+			if ($max > $this->settings['topicController']['show']['itemsPerPage']) {
+				$max = $this->settings['topicController']['show']['itemsPerPage'];
 			}
 			$ads = $this->adsRepository->findForForumView(1);
 			$showAd = array('enabled' => TRUE, 'position' => mt_rand(1,$max-1), 'ads' => $ads);
@@ -205,6 +204,35 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 		$this->clearCacheForCurrentPage();
 		$this->addLocalizedFlashmessage('Forum_Create_Success');
 		$this->redirect('index');
+	}
+
+
+	/**
+	 * Mark a whole forum as read
+	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 *
+	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 * @return void
+	 */
+	public function markReadAction(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
+		$user = $this->getCurrentUser();
+		if ($user->isAnonymous()) {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+		}
+
+		$topics = $this->topicRepository->getUnreadTopics($forum,$user);
+
+		foreach($topics AS $topic) {
+			$values = array('uid_foreign' => intval($topic['uid']),
+						   'uid_local'	 => intval($user->getUid()));
+			$query = $GLOBALS['TYPO3_DB']->INSERTquery('tx_mmforum_domain_model_user_readtopic',$values);
+			$res =  $GLOBALS['TYPO3_DB']->sql_query($query);
+		}
+
+		$forum->addReader($user);
+		$this->forumRepository->update($forum);
+
+		$this->redirect('show', 'Forum', NULL, array('forum' => $forum));
 	}
 
 

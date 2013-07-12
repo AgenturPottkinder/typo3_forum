@@ -274,4 +274,26 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 
 
 
+
+
+	/**
+	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @return array
+	 */
+	public function getUnreadTopics(Tx_MmForum_Domain_Model_Forum_Forum $forum, Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+
+		$sql ='SELECT t.uid
+			   FROM tx_mmforum_domain_model_forum_topic AS t
+			   LEFT JOIN tx_mmforum_domain_model_user_readtopic AS rt
+					   ON rt.uid_foreign = t.uid AND rt.uid_local = '.intval($user->getUid()).'
+			   WHERE rt.uid_local IS NULL AND t.forum='.intval($forum->getUid());
+		$query = $this->createQuery();
+		$query->getQuerySettings()->setReturnRawQueryResult(TRUE);
+		$query->statement($sql);
+		return $query->execute();
+	}
+
+
+
 }

@@ -218,6 +218,7 @@
 			<label index="Button_Report_User">Report user</label>
 			<label index="Confirm_Ban_User">Are u Sure?</label>
 			<label index="Button_Ban_User">Ban user</label>
+			<label index="Button_Mark_Read">Mark as read</label>
 			<label index="User_Age">Age</label>
 			<label index="User_City">City</label>
 			<label index="User_Company">Company</label>
@@ -476,6 +477,7 @@
 			<label index="Button_Report_User">User melden</label>
 			<label index="Confirm_Ban_User">Sind Sie sicher, dass Sie den Benutzer sperren möchten?</label>
 			<label index="Button_Ban_User">User sperren</label>
+			<label index="Button_Mark_Read">Als gelesen markieren</label>
 			<label index="User_Age">Alter</label>
 			<label index="User_City">Wohnort</label>
 			<label index="User_Company">Firma</label>

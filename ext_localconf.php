@@ -7,7 +7,7 @@ if (!defined('TYPO3_MODE')) {
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 	$_EXTKEY, 'Pi1',
 	array(
-		 'Forum'      => 'index, show, new, create, edit, update, delete',
+		 'Forum'      => 'index, show, new, create, edit, update, delete, markRead',
 		 'Topic'      => 'index, show, new, create, edit, update, delete, questionsHelpBox, solution',
 		 'Post'       => 'show, new, create, edit, update, delete, deleteAttachment',
 		 'User'       => 'showMyProfile, index, list, subscribe, favSubscribe, show, disableUser, unDisableUser',
@@ -16,7 +16,7 @@ if (!defined('TYPO3_MODE')) {
 		 'Tag'		  => 'list, show, listUserTags, newUserTag, deleteUserTag',
 	),
 	array(
-		 'Forum'      => 'new, create, edit, update, delete',
+		 'Forum'      => 'new, create, edit, update, delete, markRead',
 		 'Topic'      => 'new, create, edit, update, delete',
 		 'Post'       => 'new, create, edit, update, delete',
 		 'User'       => 'showMyProfile, dashboard, subscribe, favSubscribe, listFavorites, listMessages, listNotifications, listTopics',

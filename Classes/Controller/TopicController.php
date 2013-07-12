@@ -227,12 +227,11 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 			$this->sessionHandling->set('adTime', $actDatetime);
 			$this->view->assign('showAd', TRUE);
 			$max = count($posts);
-			if($max == 1) {
-				// Needed for case mt_rand(1,1-1) => mt_rand(1,0) => php warning
-				$max++;
+			if ($max > $this->settings['topicController']['show']['itemsPerPage']) {
+				$max = $this->settings['topicController']['show']['itemsPerPage'];
 			}
-			if ($max > $this->settings['topicController']['show']['pagebrowser']['topic']['itemsPerPage']) {
-				$max = $this->settings['topicController']['show']['pagebrowser']['topic']['itemsPerPage'];
+			if($max == 1) {
+				$max++;
 			}
 			$ads = $this->adsRepository->findForTopicView(1);
 			$showAd = array('enabled' => TRUE, 'position' => mt_rand(1,$max-1), 'ads' => $ads);
