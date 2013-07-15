@@ -73,7 +73,10 @@
 			<label index="Report_Detail">Reports Detail</label>
 			<label index="Report_Index_reportedUser">Reported User</label>
 			<label index="Report_Index_reportedPosts">Reported Posts</label>
-			<label index="Report_Index_Content">Inhalt</label>
+			<label index="Report_Index_UserDetail">User Details</label>
+			<label index="Report_Index_Post">Post</label>
+			<label index="Report_Index_PostedIn">Posted in</label>
+			<label index="Report_Index_Action">Action</label>
 			<label index="Report_Edit_Comments">Comments</label>
 			<label index="Report_Edit_Comments_New">New comment</label>
 			<label index="Report_Edit_Content">Content</label>
@@ -354,6 +357,10 @@
 			<label index="Report_Detail">Reports Details</label>
 			<label index="Report_Index_reportedUser">Gemeldete User</label>
 			<label index="Report_Index_reportedPosts">Gemeldete Beiträge</label>
+			<label index="Report_Index_UserDetail">Benutzer Details</label>
+			<label index="Report_Index_Post">Beitrag</label>
+			<label index="Report_Index_PostedIn">Beitrag in</label>
+			<label index="Report_Index_Action">Aktion</label>
 			<label index="Report_Edit_Comments">Kommentare</label>
 			<label index="Report_Edit_Comments_New">Neuer Kommentar</label>
 			<label index="Report_Edit_Author">Autor</label>
