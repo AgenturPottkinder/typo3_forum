@@ -130,6 +130,7 @@
 			<label index="User_Index_Message">Message</label>
 			<label index="User_Index_Messages">Messages</label>
 			<label index="User_Index_Notifications">Notifications</label>
+			<label index="User_Index_Favorites_NotFound">No favorites found</label>
 			<label index="User_Index_Favorites">My favorites</label>
 			<label index="User_Index_MyTopics">My topics</label>
 			<label index="User_Index_MyPosts">My posts</label>
@@ -270,6 +271,12 @@
 			<label index="Tags_ListUserTags">My tags</label>
 			<label index="Tags_List_Link_All">Display all tags</label>
 			<label index="Tags_List_Link_Mine">Display mine tags</label>
+			<label index="Tags_New">New Tag</label>
+			<label index="Tags_New_Btn">Create new tag</label>
+			<label index="Tags_New_Name">Name</label>
+			<label index="Tags_New_Error_Name_1373871955">Name can't be empty</label>
+			<label index="Tags_New_Error_Name_1373871960">Tag already exists</label>
+			<label index="Tags_New_SubscribeTag">Subscribe this tag</label>
 			<label index="Submit">Submit</label>
 		</languageKey>
 		<languageKey index="af"></languageKey>
@@ -402,6 +409,7 @@
 			<label index="User_Index_Message">Nachricht</label>
 			<label index="User_Index_Messages">Nachrichten</label>
 			<label index="User_Index_Notifications">Benachrichtigungen</label>
+			<label index="User_Index_Favorites_NotFound">Keine Favorieten gefunden</label>
 			<label index="User_Index_Favorites">Meine Favoriten</label>
 			<label index="User_Index_MyTopics">Meine Topics</label>
 			<label index="User_Index_MyPosts">Meine Beiträge</label>
@@ -540,6 +548,12 @@
 			<label index="Tags_ListUserTags">Meine Tags</label>
 			<label index="Tags_List_Link_All">Zeige alle Tags</label>
 			<label index="Tags_List_Link_Mine">Zeige meine abonnierten Tags</label>
+			<label index="Tags_New">Neuer Tag</label>
+			<label index="Tags_New_Btn">Neuen Tag anlegen</label>
+			<label index="Tags_New_Name">Name</label>
+			<label index="Tags_New_Error_Name_1373871955">Name darf nicht leer sein</label>
+			<label index="Tags_New_Error_Name_1373871960">Tag existiert bereits</label>
+			<label index="Tags_New_SubscribeTag">Abonniere diesen Tag</label>
 			<label index="Submit">Senden</label>
 		</languageKey>
 		<languageKey index="el"></languageKey>

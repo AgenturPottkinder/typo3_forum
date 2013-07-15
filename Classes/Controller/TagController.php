@@ -111,6 +111,46 @@ class Tx_MmForum_Controller_TagController extends Tx_MmForum_Controller_Abstract
 		$this->view->assign('topics',$this->topicRepository->findAllTopicsWithGivenTag($tag));
 	}
 
+	/**
+	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 * @return void
+	 */
+	public function newAction() {
+		$user = $this->getCurrentUser();
+		if ($user->isAnonymous()) {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+		}
+	}
+
+	/**
+	 * @param string $name
+	 * @param string $subscribe
+	 *
+	 * @validate $name Tx_MmForum_Domain_Validator_Forum_TagValidator
+	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 * @return void
+	 */
+	public function createAction($name="",$subscribe="") {
+		$user = $this->getCurrentUser();
+		if ($user->isAnonymous()) {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+		}
+		/** @var Tx_MmForum_Domain_Model_Forum_Tag $tag */
+		$tag = $this->objectManager->create('Tx_MmForum_Domain_Model_Forum_Tag');
+		$tag->setName($name);
+		$tag->setCrdate(new DateTime());
+		if(intval($subscribe) == 1) {
+			$tag->addFeuser($user);
+		}
+		$this->tagRepository->add($tag);
+
+		if(intval($subscribe) == 0) {
+			$this->redirect('list');
+		} else {
+			$this->redirect('listUserTags');
+		}
+	}
+
 
 	/**
 	 * List all subscribed tags of a user
@@ -124,6 +164,7 @@ class Tx_MmForum_Controller_TagController extends Tx_MmForum_Controller_Abstract
 		}
 		$this->redirect('list',NULL,NULL,array('mine' => 1));
 	}
+
 
 
 	/**

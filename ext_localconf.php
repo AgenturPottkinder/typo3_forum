@@ -13,7 +13,7 @@ if (!defined('TYPO3_MODE')) {
 		 'User'       => 'showMyProfile, index, list, subscribe, favSubscribe, show, disableUser, unDisableUser',
 		 'Report'     => 'newUserReport, newPostReport, createUserReport, createPostReport',
 		 'Moderation' => 'show, editTopic, updateTopic, updateUserReportStatus, updatePostReportStatus, createUserReportComment, createPostReportComment, topicConformDelete',
-		 'Tag'		  => 'list, show, listUserTags, newUserTag, deleteUserTag',
+		 'Tag'		  => 'list, show, new, create, listUserTags, newUserTag, deleteUserTag',
 	),
 	array(
 		 'Forum'      => 'new, create, edit, update, delete, markRead',
