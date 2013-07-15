@@ -50,7 +50,6 @@ class Tx_MmForum_Domain_Repository_Forum_TagRepository extends \TYPO3\CMS\Extbas
 	 */
 	public function findAllOrderedByCounter() {
 		$query = $this->createQuery();
-		$query->matching($query->greaterThan('topic_count',0));
 		$query->setOrderings(array('topic_count' => 'DESC'));
 		return $query->execute();
 	}

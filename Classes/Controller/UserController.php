@@ -354,7 +354,6 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	 *
 	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
 	 * @validate $recipient Tx_MmForum_Domain_Validator_User_PrivateMessageRecipientValidator
-	 * @validate $text notEmpty
 	 * @return void
 	 */
 	public function createMessageAction($recipient, $text) {
