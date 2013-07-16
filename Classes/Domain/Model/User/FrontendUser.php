@@ -281,6 +281,22 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	protected $usergroup;
 
 	/**
+	 * Whole TypoScript mm_forum settings
+	 * @var array
+	 */
+	protected $settings;
+
+
+	/**
+	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
+	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
+	 */
+	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
+		$this->typoScriptService = $typoScriptService;
+		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
+		$this->settings = $ts['plugin']['tx_mmforum']['settings'];
+	}
+	/**
 	 * Constructor.
 	 *
 	 * @param string $username The user's username.
@@ -617,18 +633,9 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 */
 	public function getImagePath() {
 
-		// If an image is defined for this user, retrieve the upload folder from
-		// the TCA (uploads/pics be default, but can be overridden, for example
-		// by the sr_feuser_register extension, so it's better to check).
 		if ($this->image) {
-			if (version_compare(TYPO3_branch, '6.1', '<')) {
-				\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA('fe_users');
-			}
-			global $TCA;
-
-			$imageDirectoryName = $TCA['fe_users']['columns']['image']['config']['uploadfolder'];
+			$imageDirectoryName = $this->settings['images']['avatar']['uploadDir'];
 			$imageFilename      = rtrim($imageDirectoryName, '/') . '/' . $this->image;
-
 			return file_exists($imageFilename) ? $imageFilename : NULL;
 		}
 
