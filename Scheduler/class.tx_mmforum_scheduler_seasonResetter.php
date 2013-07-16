@@ -60,9 +60,19 @@ class tx_mmforum_scheduler_seasonResetter extends \TYPO3\CMS\Scheduler\Task\Abst
 	 * @return bool
 	 */
 	public function execute() {
+		if(intval($this->getUserPid()) == 0) return false;
 
-
-		return true;
+		$updateArray= array(
+			'tx_mmforum_helpful_count_season' => 0,
+			'tx_mmforum_post_count_season' => 0,
+		);
+		$query = $GLOBALS['TYPO3_DB']->UPDATEquery('fe_users','pid='.intval($this->getUserPid()),$updateArray);
+		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
+		if($res == false) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 
