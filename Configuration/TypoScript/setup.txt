@@ -214,7 +214,9 @@ plugin.tx_mmforum.settings {
 	debug {
 		disableACLs = 0
 	}
-
+	images {
+		avatar.uploadDir = uploads/tx_srfeuserregister
+	}
 	pids {
 		Forum =
 		UserShow =
