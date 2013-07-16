@@ -65,6 +65,13 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 
 
 	/**
+	 * Forum post count for the current season (Widgets)
+	 * @var integer
+	 */
+	protected $postCountSeason;
+
+
+	/**
 	 * Topic count of a user
 	 * @var integer
 	 */
@@ -75,6 +82,13 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 * @var integer
 	 */
 	protected $helpfulCount;
+
+
+	/**
+	 * Forum helpful count for the current season (Widgets)
+	 * @var integer
+	 */
+	protected $helpfulCountSeason;
 
 
 	/**
@@ -322,6 +336,17 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 
 
 	/**
+	 * Gets the post count of this user of the current season (Widgets).
+	 * @return integer The post count.
+	 */
+	public function getPostCountSeason() {
+		return $this->postCountSeason;
+	}
+
+
+
+
+	/**
 	 * Gets the topic count of this user.
 	 * @return integer The topic count.
 	 */
@@ -435,25 +460,15 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 		return $this->helpfulCount;
 	}
 
-	/**
-	 * Sets the helpfulCount value +1
-	 *
-	 * @return void
-	 * @api
-	 */
-	public function setHelpful() {
-		$this->setHelpfulCount($this->getHelpfulCount()+1);
-	}
 
 	/**
-	 * Sets the city value
-	 *
-	 * @return void
-	 * @api
+	 * Gets the helpful count of this user of the current season (Widgets).
+	 * @return integer The helpful count.
 	 */
-	public function setHelpfulCount($count) {
-		$this->helpfulCount = $count;
+	public function getHelpfulCountSeason() {
+		return $this->helpfulCountSeason;
 	}
+
 
 	/**
 	 * Gets the subscribed forums.
@@ -799,6 +814,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 */
 	public function decreasePostCount() {
 		$this->postCount--;
+		$this->decreasePostCountSeason(1);
 	}
 
 
@@ -809,6 +825,53 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 */
 	public function increasePostCount() {
 		$this->postCount++;
+		$this->increasePostCountSeason(1);
+	}
+
+
+
+	/**
+	 * Decrease the user's post count of the current season (Widgets).
+	 * @param int $by
+	 * @return void
+	 */
+	public function decreasePostCountSeason($by=1) {
+		if($by < 0) $by = 1;
+		$this->postCountSeason = $this->postCountSeason - $by;
+	}
+
+
+
+	/**
+	 * Increase the user's post count of the current season (Widgets)
+	 * @param int $by
+	 * @return void
+	 */
+	public function increasePostCountSeason($by=1) {
+		if($by < 0) $by = 1;
+		$this->postCountSeason = $this->postCountSeason + $by;
+	}
+
+
+	/**
+	 * Decrease the user's helpful count of the current season (Widgets)
+	 * @param int $by
+	 * @return void
+	 */
+	public function decreaseHelpfulCountSeason($by=1) {
+		if($by < 0) $by = 1;
+		$this->helpfulCountSeason = $this->helpfulCountSeason - $by;
+	}
+
+
+	/**
+	 * Increase the user's helpful count of the current season (Widgets)
+	 * @param int $by
+	 * @return void
+	 */
+	public function increaseHelpfulCountSeason($by) {
+		if($by < 0) $by = 1;
+		$this->helpfulCountSeason = $this->helpfulCountSeason + $by;
 	}
 
 
@@ -922,6 +985,36 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 		}
 
 		$this->contact = json_encode($contactData);
+	}
+
+
+	/**
+	 * Sets the helpfulCount value +1
+	 *
+	 * @return void
+	 * @api
+	 */
+	public function setHelpful() {
+		$this->setHelpfulCount($this->getHelpfulCount()+1);
+		$this->increaseHelpfulCountSeason(1);
+	}
+
+	/**
+	 * Sets the helpfulCount value
+	 *
+	 * @param int $count
+	 * @return void
+	 * @api
+	 */
+	public function setHelpfulCount($count) {
+		$diff = $count - $this->getHelpfulCount();
+		if($diff >= 0) {
+			$this->increaseHelpfulCountSeason($diff);
+		} else {
+			$diff = $diff * -1; //Positive only
+			$this->decreaseHelpfulCountSeason($diff);
+		}
+		$this->helpfulCount = $count;
 	}
 
 

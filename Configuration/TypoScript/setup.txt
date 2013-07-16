@@ -32,8 +32,10 @@ config.tx_extbase.persistence.classes {
 			columns {
 				tx_mmforum_signature.mapOnProperty = signature
 				tx_mmforum_post_count.mapOnProperty = postCount
+				tx_mmforum_post_count_season.mapOnProperty = postCountSeason
 				tx_mmforum_topic_count.mapOnProperty = topicCount
 				tx_mmforum_helpful_count.mapOnProperty = helpfulCount
+				tx_mmforum_helpful_count_season.mapOnProperty = helpfulCountSeason
 				tx_mmforum_question_count.mapOnProperty = questionCount
 				tx_mmforum_support_posts.mapOnProperty = supportPosts
 				tx_mmforum_facebook.mapOnProperty = facebook

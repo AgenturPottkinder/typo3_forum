@@ -170,11 +170,11 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 		$showPaginate = false;
 		switch($this->settings['listUsers']){
 			case 'activeUserWidget':
-				$dataset['users'] = $this->frontendUserRepository->findByFilter(6, array('postCount' => 'DESC'));
+				$dataset['users'] = $this->frontendUserRepository->findByFilter(6, array('postCountSeason' => 'DESC', 'username' => 'ASC'));
 				$partial = 'User/ActiveBox';
 				break;
 			case 'helpfulUserWidget':
-				$dataset['users'] = $this->frontendUserRepository->findByFilter(6, array('helpfulCount' => 'DESC'));
+				$dataset['users'] = $this->frontendUserRepository->findByFilter(6, array('helpfulCountSeason' => 'DESC', 'username' => 'ASC'));
 				$partial = 'User/HelpfulBox';
 				break;
 			case 'onlineUserWidget':

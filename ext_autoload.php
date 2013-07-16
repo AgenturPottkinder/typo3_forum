@@ -140,5 +140,7 @@ return array(
 	'tx_mmforum_scheduler_counter_additionalFieldProvider' => $extensionPath . 'Scheduler/class.tx_mmforum_scheduler_counter_additionalFieldProvider.php',
 	'tx_mmforum_scheduler_forumRead' => $extensionPath . 'Scheduler/class.tx_mmforum_scheduler_forumRead.php',
 	'tx_mmforum_scheduler_forumRead_additionalFieldProvider' => $extensionPath . 'Scheduler/class.tx_mmforum_scheduler_forumRead_additionalFieldProvider.php',
+	'tx_mmforum_scheduler_seasonResetter' => $extensionPath . 'Scheduler/class.tx_mmforum_scheduler_seasonResetter.php',
+	'tx_mmforum_scheduler_seasonResetter_additionalFieldProvider' => $extensionPath . 'Scheduler/class.tx_mmforum_scheduler_seasonResetter_additionalFieldProvider.php',
 );
 ?>

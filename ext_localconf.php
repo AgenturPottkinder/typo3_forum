@@ -10,7 +10,7 @@ if (!defined('TYPO3_MODE')) {
 		 'Forum'      => 'index, show, new, create, edit, update, delete, markRead',
 		 'Topic'      => 'index, show, new, create, edit, update, delete, questionsHelpBox, solution',
 		 'Post'       => 'show, new, create, edit, update, delete, deleteAttachment',
-		 'User'       => 'showMyProfile, index, list, subscribe, favSubscribe, show, disableUser, unDisableUser, listNotifications, listMessages',
+		 'User'       => 'showMyProfile, index, list, subscribe, favSubscribe, show, disableUser, unDisableUser, listNotifications, listMessages, createMessageAction, newMessageAction',
 		 'Report'     => 'newUserReport, newPostReport, createUserReport, createPostReport',
 		 'Moderation' => 'show, editTopic, updateTopic, updateUserReportStatus, updatePostReportStatus, createUserReportComment, createPostReportComment, topicConformDelete',
 		 'Tag'		  => 'list, show, new, create, listUserTags, newUserTag, deleteUserTag',
@@ -19,10 +19,10 @@ if (!defined('TYPO3_MODE')) {
 		 'Forum'      => 'new, create, edit, update, delete, markRead',
 		 'Topic'      => 'new, create, edit, update, delete',
 		 'Post'       => 'new, create, edit, update, delete',
-		 'User'       => 'showMyProfile, dashboard, subscribe, favSubscribe, listFavorites, listMessages, listNotifications, listTopics',
+		 'User'       => 'showMyProfile, dashboard, subscribe, favSubscribe, listFavorites, listMessages, listNotifications, listTopics, createMessageAction, newMessageAction',
 		 'Report'     => 'new, create',
 		 'Moderation' => 'show, updateTopic, updateReportStatus, newReportComment, createReportComment',
-		 'Tag'		  => 'list, listUserTags',
+		 'Tag'		  => 'list, show, new, create, listUserTags, newUserTag, deleteUserTag',
 	)
 );
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
@@ -116,3 +116,11 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_mmforum_sche
 	'description'      => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_forumRead_description',
 	'additionalFields' => 'tx_mmforum_scheduler_forumRead_additionalFieldProvider'
 );
+
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_mmforum_scheduler_seasonResetter'] = array(
+	'extension'        => $_EXTKEY,
+	'title'            => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_seasonResetter_title',
+	'description'      => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_seasonResetter_description',
+	'additionalFields' => 'tx_mmforum_scheduler_seasonResetter_additionalFieldProvider'
+);
+

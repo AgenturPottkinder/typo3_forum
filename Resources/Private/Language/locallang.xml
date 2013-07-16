@@ -120,6 +120,7 @@
 			<label index="Topic_All_Questions">All Questions</label>
 			<label index="Topic_All_Questions_Of">All questions of</label>
 			<label index="User_Index">User list</label>
+			<label index="User_Index_Display_All">Display all User</label>
 			<label index="User_Index_Search">User search</label>
 			<label index="User_Index_Search_Header">User with the names</label>
 			<label index="User_Index_Search_Order_ASC">Ascending</label>
@@ -216,7 +217,9 @@
 			<label index="tx_mmforum_scheduler_forumRead_description">Check for any user which forum is read and which not. Best way to ensure performance.</label>
 			<label index="tx_mmforum_scheduler_forumRead_forumPid">Forum pid</label>
 			<label index="tx_mmforum_scheduler_forumRead_userPid">User pid</label>
-
+			<label index="tx_mmforum_scheduler_seasonResetter_title">Season Count Resetter</label>
+			<label index="tx_mmforum_scheduler_seasonResetter_description">Lorem Ipsum</label>
+			<label index="tx_mmforum_scheduler_seasonResetter_userPid">User pid</label>
 			<label index="Link_My_Profile">My profile</label>
 			<label index="Profile">Profile</label>
 			<label index="Working_Environment_0">Agency</label>
@@ -403,6 +406,7 @@
 			<label index="Topic_All_Questions">Alle Fragen</label>
 			<label index="Topic_All_Questions_Of">Alle Fragen von</label>
 			<label index="User_Index">Mitgliederliste</label>
+			<label index="User_Index_Display_All">Alle Mitglieder anzeigen</label>
 			<label index="User_Index_Search">Mitgliedersuche</label>
 			<label index="User_Index_Search_Header">Mitglieder mit dem Namen</label>
 			<label index="User_Index_Search_Order_ASC">Aufsteigend</label>
@@ -497,6 +501,9 @@
 			<label index="tx_mmforum_scheduler_forumRead_description">Überprüft für jeden Benutzer welches Forum als gelesen oder als ungelesen makiert werden soll. Dies ist der beste Weg um Performane gewährleisten zu können.</label>
 			<label index="tx_mmforum_scheduler_forumRead_forumPid">Forum pid</label>
 			<label index="tx_mmforum_scheduler_forumRead_userPid">User pid</label>
+			<label index="tx_mmforum_scheduler_seasonResetter_title">Season Count Resetter</label>
+			<label index="tx_mmforum_scheduler_seasonResetter_description">Lorem Ipsum</label>
+			<label index="tx_mmforum_scheduler_seasonResetter_userPid">User pid</label>
 			<label index="Link_My_Profile">Mein Profil</label>
 			<label index="Profile">Profil</label>
 			<label index="Working_Environment_0">Agentur</label>

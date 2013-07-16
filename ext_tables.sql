@@ -679,6 +679,8 @@ CREATE TABLE fe_users (
   tx_mmforum_forum_subscriptions int(11) unsigned default '0',
   tx_mmforum_helpful_count int(11) NOT NULL default '0',
   tx_mmforum_private_messages int(11) unsigned NOT NULL default '0',
+  tx_mmforum_helpful_count_season int(11) NOT NULL default '0',
+  tx_mmforum_post_count_season int(11) NOT NULL default '0',
   tx_mmforum_signature text,
   tx_mmforum_interests text,
   tx_mmforum_userfield_values int(11) unsigned NOT NULL default '0'
