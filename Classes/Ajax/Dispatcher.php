@@ -120,6 +120,9 @@ final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInter
 		if (version_compare(TYPO3_branch, '6.1', '<')) {
 			\TYPO3\CMS\Frontend\Utility\EidUtility::connectDB();
 		}
+
+		$lang = "de";
+
 		// The following code was adapted from the df_tools extension.
 		// Credits go to Stefan Galinski.
 		$GLOBALS['TSFE'] = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController',
@@ -139,7 +142,9 @@ final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInter
 		$GLOBALS['TSFE']->config['config'] = array('sys_language_mode' => 'content_fallback;0',
 			'sys_language_overlay' => 'hideNonTranslated',
 			'sys_language_softMergeIfNotBlank' => '',
-			'sys_language_softExclude' => '',);
+			'sys_language_softExclude' => '',
+			'language' => $lang,
+		);
 		$GLOBALS['TSFE']->settingLanguage();
 	}
 
