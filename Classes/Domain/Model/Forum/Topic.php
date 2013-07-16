@@ -335,7 +335,11 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	 * @return integer Reply count
 	 */
 	public function getReplyCount() {
-		return $this->getPostCount() - 1;
+		if($this->getPostCount() == 0) {
+			return 0;
+		} else {
+			return $this->getPostCount() - 1;
+		}
 	}
 
 

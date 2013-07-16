@@ -215,7 +215,7 @@ class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper extends \TYPO3\CMS\Flui
 		                    'className' => 'preview',
 		                    'call'      => 'preview');
 
-		return array('previewParserPath' => 'index.php?eID=mm_forum&tx_mmforum_ajax[controller]=Post&tx_mmforum_ajax[action]=preview&p=' . $GLOBALS['TSFE']->id,
+		return array('previewParserPath' => 'index.php?eID=mm_forum&tx_mmforum_ajax[controller]=Post&tx_mmforum_ajax[action]=preview&id=' . $GLOBALS['TSFE']->id,
 		             'previewParserVar'  => 'tx_mmforum_ajax[text]',
 		             'markupSet'         => $settings);
 	}
