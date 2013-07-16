@@ -112,8 +112,6 @@ final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInter
 	 * Most of the code was adapted from the df_tools extension by Stefan
 	 * Galinski.
 	 *
-	 * @todo add language support!
-	 *
 	 * @return void.
 	 */
 	protected function initTYPO3() {
@@ -121,7 +119,16 @@ final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInter
 			\TYPO3\CMS\Frontend\Utility\EidUtility::connectDB();
 		}
 
-		$lang = "de";
+		//Check which language should be used
+		$ts = $this->loadTS((int)$_GET['id']);
+		$languages = explode(',',$ts['plugin.']['tx_mmforum.']['settings.']['allowedLanguages']);
+		$submittedLang = trim($_GET['language']);
+
+		if($submittedLang == false || !array_search($submittedLang,$languages)) {
+			$lang = "default";
+		} else {
+			$lang = $submittedLang;
+		}
 
 		// The following code was adapted from the df_tools extension.
 		// Credits go to Stefan Galinski.
@@ -137,7 +144,6 @@ final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInter
 		$GLOBALS['TSFE']->no_cache = TRUE;
 		$GLOBALS['TSFE']->tmpl->start($GLOBALS['TSFE']->rootLine);
 		$GLOBALS['TSFE']->no_cache = FALSE;
-
 		$GLOBALS['TSFE']->config = array();
 		$GLOBALS['TSFE']->config['config'] = array('sys_language_mode' => 'content_fallback;0',
 			'sys_language_overlay' => 'hideNonTranslated',
@@ -158,6 +164,24 @@ final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInter
 	protected function initExtbase() {
 		$this->extbaseBootstap = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Core\Bootstrap');
 		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
+	}
+
+
+	/**
+	 * @param integer $pageUid
+	 */
+	protected function loadTS($pageUid = 0) {
+		$sysPageObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('t3lib_pageSelect');
+
+		$rootLine = $sysPageObj->getRootLine($pageUid);
+
+		$typoscriptParser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('t3lib_tsparser_ext');
+		$typoscriptParser->tt_track = 0;
+		$typoscriptParser->init();
+		$typoscriptParser->runThroughTemplates($rootLine);
+		$typoscriptParser->generateConfig();
+
+		return $typoscriptParser->setup;
 	}
 
 

@@ -671,7 +671,7 @@ CREATE TABLE IF NOT EXISTS tx_mmforum_domain_model_user_readforum (
 # Table structure for table "fe_users"
 #
 CREATE TABLE fe_users (
-  tx_mmforum_rank int(11) unsigned NOT NULL default '0',
+  tx_mmforum_rank int(11) unsigned NOT NULL default '1',
   tx_mmforum_points int(11) unsigned NOT NULL default '0',
   tx_mmforum_post_count int(11) NOT NULL default '0',
   tx_mmforum_topic_favsubscriptions int(11) unsigned NOT NULL default '0',

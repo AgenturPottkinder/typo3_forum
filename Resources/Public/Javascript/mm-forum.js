@@ -4,7 +4,7 @@ $(document).ready(function () {
 
 	$.ajax({
 		type: "POST",
-		url: "index.php?id=2&eID=mm_forum&tx_mmforum_ajax[controller]=Ajax&tx_mmforum_ajax[action]=loginbox",
+		url: "index.php?id=2&eID=mm_forum&language=de&tx_mmforum_ajax[controller]=Ajax&tx_mmforum_ajax[action]=loginbox",
 		async: true,
 		success: function (data) {
 					$('.loginbox').html(data);
@@ -69,7 +69,7 @@ $(document).ready(function () {
 
 	$.ajax({
 		type: "POST",
-		url: "index.php?id=2&eID=mm_forum&tx_mmforum_ajax[controller]=Ajax&tx_mmforum_ajax[action]=main&tx_mmforum_ajax[format]=json",
+		url: "index.php?id=2&eID=mm_forum&language=de&tx_mmforum_ajax[controller]=Ajax&tx_mmforum_ajax[action]=main&tx_mmforum_ajax[format]=json",
 		async: true,
 		data: {
 			"tx_mmforum_ajax[displayedUser]": JSON.stringify(displayedUser),
