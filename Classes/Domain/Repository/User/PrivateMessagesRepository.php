@@ -101,8 +101,8 @@ class Tx_MmForum_Domain_Repository_User_PrivateMessagesRepository extends \TYPO3
 		$result = $query->execute();
 		//Parse result for the user ListBox
 		foreach($result AS $entry) {
-			if(array_search($entry->getOpponent(),$userInArray) === false) {
-				$userInArray[] = $entry->getOpponent();
+			if(array_search($entry->getOpponent()->getUid(),$userInArray) === false) {
+				$userInArray[] = $entry->getOpponent()->getUid();
 				$userResult[] = $entry;
 			}
 		}
