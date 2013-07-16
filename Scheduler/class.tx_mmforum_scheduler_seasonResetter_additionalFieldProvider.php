@@ -56,7 +56,7 @@ class tx_mmforum_scheduler_seasonResetter_additionalFieldProvider implements \TY
 
 		$additionalFields['SeasonResetter_userPid'] = array(
 			'code'     => '<input type="text" name="tx_scheduler[SeasonResetter_userPid]" value="' . intval($taskInfo['SeasonResetter_userPid']) . '" />',
-			'label'    => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_SeasonResetter_userPid',
+			'label'    => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_seasonResetter_userPid',
 			'cshKey'   => '',
 			'cshLabel' => ''
 		);
@@ -73,7 +73,7 @@ class tx_mmforum_scheduler_seasonResetter_additionalFieldProvider implements \TY
 	 * @return	boolean														True if validation was ok (or selected class is not relevant), FALSE otherwise
 	 */
 	public function validateAdditionalFields(array &$submittedData, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule) {
-		$submittedData['SeasonResetter_userPid'] = intval($submittedData['SeasonResetter_userPids']);
+		$submittedData['SeasonResetter_userPid'] = intval($submittedData['SeasonResetter_userPid']);
 		return true;
 	}
 
