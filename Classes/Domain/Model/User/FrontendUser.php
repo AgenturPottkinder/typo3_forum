@@ -445,7 +445,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 * Get the rank of this user
 	 * @return Tx_MmForum_Domain_Model_User_Rank
 	 */
-	public function getRank() {
+	public function  getRank() {
 		return $this->rank;
 	}
 
@@ -928,13 +928,13 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 * @return void
 	 */
 	public function increasePoints($by) {
-		$this->points = $this->points + $by;
 		$currentRank = $this->getRank();
+		$this->points = $this->points + $by;
 		$rank = $this->rankRepository->findRankByPoints($this->getPoints());
 		if($rank !== NULL && $rank != $currentRank) {
 			$this->setRank($rank[0]);
 			$rank[0]->increaseUserCount();
-			$currentRank->decreaseUserCount();
+			$currentRank->decreaseUserCount(0);
 			$this->rankRepository->update($currentRank);
 			$this->rankRepository->update($rank[0]);
 		}
