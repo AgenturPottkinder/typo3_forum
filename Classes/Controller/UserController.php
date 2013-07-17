@@ -606,8 +606,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	 * @return void
 	 */
 	public function searchUserAction($searchValue=NULL,$filter=NULL,$order=NULL) {
-
-		var_dump($conf);
+		/*
 		switch($filter) {
 			default:
 			case 'username':
@@ -629,7 +628,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 			$orderValue = "DESC";
 		}
 		$users = $this->frontendUserRepository->findLikeUsername($searchValue,$filterValue,$orderValue);
-		$this->view->assign('dataset',array('users' => $users, 'search' => $searchValue));
+		$this->view->assign('dataset',array('users' => $users, 'search' => $searchValue));*/
 	}
 
 
