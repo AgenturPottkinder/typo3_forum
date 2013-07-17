@@ -72,6 +72,20 @@ class Tx_MmForum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObject\
 
 
 
+	/*
+	  * CONSTRUCTOR
+	  */
+
+	/**
+	 * Creates a new Tag.
+	 */
+	public function __construct() {
+		$this->feuser = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+	}
+
+
+
+
 
 	/**
 	 * Get the name of this tag
