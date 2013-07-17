@@ -104,6 +104,8 @@ $(document).ready(function () {
 			}
 			if(json.posts){
 				json.posts.forEach(function (entry) {
+					$('.postHelpfulCount_'+entry.uid+'').html(entry.postHelpfulCount);
+					$('.postUserHelpfulCount_'+entry.author.uid+'').html(entry.postUserHelpfulCount);
 					$('.post_helpful_button[data-uid="' + entry.uid + '"]').html(entry.postHelpfulButton);
 					$('.post_edit_link[data-uid="' + entry.uid + '"]').html(entry.postEditLink);
 				});

@@ -197,6 +197,9 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 			->assign('user', $this->getCurrentUser());
 			$data[$counter]['uid'] = $post->getUid();
 			$data[$counter]['postHelpfulButton'] = $this->view->render('PostHelpfulButton');
+			$data[$counter]['postHelpfulCount'] = $post->getHelpfulCount();
+			$data[$counter]['postUserHelpfulCount'] = $post->getAuthor()->getHelpfulCount();
+			$data[$counter]['author']['uid'] = $post->getAuthor()->getUid();
 			$data[$counter]['postEditLink'] = $this->view->render('PostEditLink');
 			$counter ++;
 		}
