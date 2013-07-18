@@ -97,6 +97,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_attachment (
 CREATE TABLE tx_mmforum_domain_model_forum_forum (
   uid int(11) NOT NULL auto_increment,
   pid int(11) NOT NULL default '0',
+  displayed_pid int(11) unsigned NOT NULL default '0',
   forum int(11) unsigned NOT NULL default '0',
   title tinytext,
   description tinytext,

@@ -18,6 +18,7 @@
 			<label index="tx_mmforum_domain_model_forum_forum.forum">Parent forum</label>
 			<label index="tx_mmforum_domain_model_forum_forum.subscribers">Subscribers</label>
 			<label index="tx_mmforum_domain_model_forum_forum.readers">Readers</label>
+			<label index="tx_mmforum_domain_model_forum_forum.displayed_pid">Displayed PID</label>
 
 			<label index="tx_mmforum_domain_model_forum_topic">Topic</label>
 			<label index="tx_mmforum_domain_model_forum_topic.type">Type</label>

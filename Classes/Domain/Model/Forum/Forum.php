@@ -163,6 +163,12 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 
 
 	/**
+	 * @var int
+	 */
+	protected $displayedPid;
+
+
+	/**
 	 * An instance of the Extbase object manager.
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
 	 */
@@ -225,6 +231,12 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 	 */
 
 
+	/**
+	 * @return int
+	 */
+	public function getDisplayedPid() {
+		return $this->displayedPid;
+	}
 
 	/**
 	 * Gets the forum title.
