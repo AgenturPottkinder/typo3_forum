@@ -179,7 +179,7 @@
 			<label index="fe_users.tx_mmforum_topic_subscriptions">Subscribed topics</label>
 			<label index="fe_users.tx_mmforum_forum_subscriptions">Subscribed forums</label>
 			<label index="fe_users.tx_mmforum.tab.settings">mm_forum Settings</label>
-			<label index="fe_users.tx_mmforum_signature">Signature</label>
+			<label index="fe_users.tx_mmforum_signature">Signatur</label>
 			<label index="fe_users.tx_mmforum_interests">Interessen</label>
 			<label index="fe_users.tx_mmforum_read_forum">Forum Read</label>
 			<label index="fe_users.tx_mmforum_read_topics">Topic Read</label>

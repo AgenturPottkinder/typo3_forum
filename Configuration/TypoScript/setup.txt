@@ -523,6 +523,8 @@ plugin.tx_mmforum.userfields {
 		0.value = Male
 		1 = TEXT
 		1.value = Female
+		99 = TEXT
+		99.value = Hidden
 		key.current = 1
 	}
 }
