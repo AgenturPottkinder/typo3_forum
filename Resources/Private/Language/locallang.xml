@@ -507,7 +507,7 @@
 			<label index="tx_mmforum_scheduler_seasonResetter_userPid">User pid</label>
 			<label index="Link_My_Profile">Mein Profil</label>
 			<label index="Profile">Profil</label>
-			<label index="Working_Environment_0">Agentur</label>,
+			<label index="Working_Environment_0">Agentur</label>
 			<label index="Working_Environment_1">Unternehmen</label>
 			<label index="Working_Environment_2">Freelancer</label>
 			<label index="Working_Environment_3">Öffentlicher Dienst</label>
