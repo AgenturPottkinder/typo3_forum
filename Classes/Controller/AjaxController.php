@@ -172,7 +172,7 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 	 * @return void
 	 */
 	public function loginboxAction(){
-
+		$this->view->assign('user', $this->getCurrentUser());
 	}
 
 	private function _getOnlinebox(){
