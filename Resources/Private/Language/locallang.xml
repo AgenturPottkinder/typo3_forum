@@ -284,6 +284,7 @@
 			<label index="Tags_New_Error_Name_1373871960">Tag already exists</label>
 			<label index="Tags_New_SubscribeTag">Subscribe this tag</label>
 			<label index="Submit">Submit</label>
+			<label index="Button_Helpful">Helpful</label>
 		</languageKey>
 		<languageKey index="af"></languageKey>
 		<languageKey index="ar"></languageKey>
@@ -506,7 +507,7 @@
 			<label index="tx_mmforum_scheduler_seasonResetter_userPid">User pid</label>
 			<label index="Link_My_Profile">Mein Profil</label>
 			<label index="Profile">Profil</label>
-			<label index="Working_Environment_0">Agentur</label>
+			<label index="Working_Environment_0">Agentur</label>,
 			<label index="Working_Environment_1">Unternehmen</label>
 			<label index="Working_Environment_2">Freelancer</label>
 			<label index="Working_Environment_3">Öffentlicher Dienst</label>
@@ -569,6 +570,7 @@
 			<label index="Tags_New_Error_Name_1373871960">Tag existiert bereits</label>
 			<label index="Tags_New_SubscribeTag">Abonniere diesen Tag</label>
 			<label index="Submit">Senden</label>
+			<label index="Button_Helpful">Hilfreich</label>
 		</languageKey>
 		<languageKey index="el"></languageKey>
 		<languageKey index="eo"></languageKey>

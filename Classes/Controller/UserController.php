@@ -433,7 +433,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	public function showAction(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
 		/** @noinspection PhpUndefinedMethodInspection */
 		if ($user === NULL) {
-			$this->redirect('showMyProfile');
+			return $this->redirect('show', NULL, NULL, array('user' => $this->getCurrentUser()));
 		}
 		$lastFiveTopics = $this->topicRepository
 			->findByPostAuthor($user)
@@ -443,31 +443,6 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 		$this->view
 			->assign('user', $user)
 			->assign('currentUser', $this->getCurrentUser())
-			->assign('userfields', $this->userfieldRepository->findAll())
-			->assign('topics', $lastFiveTopics)
-			->assign('questions', $this->topicRepository->findQuestions(6, false, $user))
-			->assign('myTopics',$this->topicRepository->findTopicsCreatedByAuthor($user, 6));
-	}
-
-	/**
-	 * Displays a single user.
-	 *
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user The user whose profile is to be displayed.
-	 * @return void
-	 */
-	public function showMyProfileAction() {
-		$user = $this->getCurrentUser();
-		if(!$user || $user->isAnonymous()){
-			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException('You need to be logged in to show ur profile.', 1312345482);
-		}
-		$lastFiveTopics = $this->topicRepository
-			->findByPostAuthor($user)
-			->getQuery()
-			->setLimit(5)
-			->execute();
-		$this->view
-			->assign('user', $user)
-			->assign('currentUser', $user)
 			->assign('userfields', $this->userfieldRepository->findAll())
 			->assign('topics', $lastFiveTopics)
 			->assign('questions', $this->topicRepository->findQuestions(6, false, $user))
@@ -597,6 +572,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 					->assign('myFavorites', $this->topicRepository->findTopicsFavSubscribedByUser($user, 6))
 					->assign('myTopics',$this->topicRepository->findTopicsCreatedByAuthor($user, 6));
 	}
+
 
 
 	/**

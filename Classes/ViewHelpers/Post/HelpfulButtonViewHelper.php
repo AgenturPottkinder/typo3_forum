@@ -92,9 +92,10 @@ class Tx_MmForum_ViewHelpers_Post_HelpfulButtonViewHelper extends \TYPO3\CMS\Flu
 	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
 	 * @param string $countTarget
 	 * @param string $countUserTarget
+	 * @param string $title
 	 * @return string
 	 */
-	public function render(Tx_MmForum_Domain_Model_Forum_Post $post, $countTarget = NULL, $countUserTarget = NULL) {
+	public function render(Tx_MmForum_Domain_Model_Forum_Post $post, $countTarget = NULL, $countUserTarget = NULL, $title = '') {
 		$class = $this->settings['forum']['post']['helpfulBtn']['iconClass'];
 
 		if ($this->hasArgument('class')) {
@@ -107,7 +108,7 @@ class Tx_MmForum_ViewHelpers_Post_HelpfulButtonViewHelper extends \TYPO3\CMS\Flu
 		if ($post->hasBeenSupportedByUser($this->authenticationService->getUser())) {
 			$class .= ' supported';
 		}
-		$btn = '<div class="' . $class . '" data-countusertarget="'.$countUserTarget.'" data-counttarget="'.$countTarget.'" data-post="'.$post->getUid().'" data-pageuid="'.$this->settings['pids']['Forum'].'" data-eid="'.$this->settings['forum']['post']['helpfulBtn']['eID'].'"></div>';
+		$btn = '<div data-toogle="tooltip" title="'.$title.'" data- class="' . $class . '" data-countusertarget="'.$countUserTarget.'" data-counttarget="'.$countTarget.'" data-post="'.$post->getUid().'" data-pageuid="'.$this->settings['pids']['Forum'].'" data-eid="'.$this->settings['forum']['post']['helpfulBtn']['eID'].'"></div>';
 		return $btn;
 	}
 }
