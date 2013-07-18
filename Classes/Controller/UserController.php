@@ -305,10 +305,10 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 		if(!empty($userList)) {
 			if($opponent === NULL) {
 				$dialog = $this->messageRepository->findMessagesBetweenUser($userList[0]->getFeuser(),$userList[0]->getOpponent());
-				$partner = $userList[0]->getOpponent()->getUsername();
+				$partner = $userList[0]->getOpponent();
 			} else {
 				$dialog = $this->messageRepository->findMessagesBetweenUser($user,$opponent);
-				$partner = $opponent->getUsername();
+				$partner = $opponent;
 			}
 
 			foreach($dialog AS $pm) {

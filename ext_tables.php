@@ -365,7 +365,8 @@ $tempColumns = array(
 				Array("LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:Working_Environment_0", 0),
 				Array("LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:Working_Environment_1", 1),
 				Array("LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:Working_Environment_2", 2),
-				Array("LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:Working_Environment_3", 3)
+				Array("LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:Working_Environment_3", 3),
+				Array("LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:Working_Environment_4", 4)
 			),
 			'default' => 0,
 		)
