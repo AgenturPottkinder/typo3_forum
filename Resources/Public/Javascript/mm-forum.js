@@ -47,6 +47,15 @@ $(document).ready(function () {
 		displayedForumIconsCount = displayedForumIconsCount + 1;
 	});
 
+	// forumMenus
+	var displayedForumMenus = new Array();
+	var displayedForumMenusCount = 0;
+	$('.forum_menu').each(function (index) {
+		displayedForumMenus[displayedForumMenusCount] = $(this).data('uid');
+		displayedForumMenusCount = displayedForumMenusCount + 1;
+	});
+
+
 	// topicIcons
 	var displayedTopics = new Array();
 	var displayedTopicsCount = 0;
@@ -54,6 +63,7 @@ $(document).ready(function () {
 		displayedTopics[displayedTopicsCount] = $(this).data('uid');
 		displayedTopicsCount = displayedTopicsCount + 1;
 	});
+
 	var displayOnlinebox = 0;
 	if($('.user_online_box').length > 0){
 		displayOnlinebox = 1;
@@ -67,6 +77,7 @@ $(document).ready(function () {
 		displayedPostCount = displayedPostCount + 1;
 	});
 
+
 	$.ajax({
 		type: "POST",
 		url: "index.php?id=2&eID=mm_forum&language=de&tx_mmforum_ajax[controller]=Ajax&tx_mmforum_ajax[action]=main&tx_mmforum_ajax[format]=json",
@@ -78,6 +89,7 @@ $(document).ready(function () {
 			"tx_mmforum_ajax[forumIcons]": JSON.stringify(displayedForumIcons),
 			"tx_mmforum_ajax[displayedTopics]": JSON.stringify(displayedTopics),
 			"tx_mmforum_ajax[displayOnlinebox]": JSON.stringify(displayOnlinebox),
+			"tx_mmforum_ajax[displayedForumMenus]": JSON.stringify(displayedForumMenus),
 			"tx_mmforum_ajax[displayedPosts]": JSON.stringify(displayedPosts)
 		},
 		success: function (data) {
@@ -85,6 +97,11 @@ $(document).ready(function () {
 			if(json.topicIcons){
 				json.topicIcons.forEach(function (entry) {
 					$('.topic_icon[data-uid="' + entry.uid + '"]').html(entry.html);
+				});
+			}
+			if(json.forumMenus){
+				json.forumMenus.forEach(function (entry) {
+					$('.forum_menu[data-uid="' + entry.uid + '"]').html(entry.html);
 				});
 			}if(json.forumIcons){
 				json.forumIcons.forEach(function (entry) {

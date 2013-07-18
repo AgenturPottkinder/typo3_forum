@@ -104,11 +104,11 @@ class Tx_MmForum_ViewHelpers_Forum_RootlineViewHelper extends \TYPO3\CMS\Fluid\C
 		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Forum) {
 			$controller = 'Forum';
 			$arguments  = array('forum' => $object);
-			$icon       = 'tx-mmforum-icon-16-forum';
+			$icon       = 'iconset-22-folder';
 		} else {
 			$controller = 'Topic';
 			$arguments  = array('topic' => $object);
-			$icon       = 'tx-mmforum-icon-16-topic';
+			$icon       = 'iconset-22-balloon';
 		}
 
 		$uriBuilder = $this->controllerContext->getUriBuilder();

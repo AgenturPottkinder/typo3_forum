@@ -133,13 +133,17 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 	 * @param string $displayedTopics
 	 * @param int $displayOnlinebox
 	 * @param string $displayedPosts
+	 * @param string $displayedForumMenus
 	 * @return void
 	 */
-	public function mainAction($displayedUser = "", $postSummarys = "", $topicIcons = "", $forumIcons = "", $displayedTopics = "", $displayOnlinebox = 0, $displayedPosts = "") {
+	public function mainAction($displayedUser = "", $postSummarys = "", $topicIcons = "", $forumIcons = "", $displayedTopics = "", $displayOnlinebox = 0, $displayedPosts = "", $displayedForumMenus = "") {
 		// json array
 		$content = array();
 		if (!empty($displayedUser)) {
 			$content['onlineUser'] = $this->_getOnlineUser($displayedUser);
+		}
+		if (!empty($displayedForumMenus)) {
+			$content['forumMenus'] = $this->_getForumMenus($displayedForumMenus);
 		}
 		if (!empty($postSummarys)) {
 			$content['postSummarys'] = $this->_getPostSummarys($postSummarys);
@@ -178,6 +182,27 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 		$users = $this->frontendUserRepository->findByFilter(intval($this->settings['widgets']['onlinebox']['limit']), array(), TRUE);
 		$this->view->assign('users', $users);
 		$data['html'] = $this->view->render('Onlinebox');
+		$this->request->setFormat('json');
+		return $data;
+	}
+	/**
+	 * @param string $displayedForumMenus
+	 * @return array
+	 */
+	private function _getForumMenus($displayedForumMenus){
+		$data = array();
+		$displayedForumMenus = json_decode($displayedForumMenus);
+		if(count($displayedForumMenus) < 1) return $data;
+		$this->request->setFormat('html');
+		$foren = $this->forumRepository->findByUids($displayedForumMenus);
+		$counter = 0;
+		foreach($foren as $forum){
+			$this->view->assign('forum', $forum)
+				->assign('user', $this->getCurrentUser());
+			$data[$counter]['uid'] = $forum->getUid();
+			$data[$counter]['html'] = $this->view->render('ForumMenu');
+			$counter ++;
+		}
 		$this->request->setFormat('json');
 		return $data;
 	}
