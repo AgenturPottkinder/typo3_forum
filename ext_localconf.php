@@ -16,8 +16,8 @@ if (!defined('TYPO3_MODE')) {
 		 'Tag'		  => 'list, show, new, create, listUserTags, newUserTag, deleteUserTag',
 	),
 	array(
-		 'Forum'      => 'new, create, edit, update, delete, markRead',
-		 'Topic'      => 'new, create, edit, update, delete',
+		 'Forum'      => 'show, index, new, create, edit, update, delete, markRead',
+		 'Topic'      => 'show, new, create, edit, update, delete',
 		 'Post'       => 'new, create, edit, update, delete',
 		 'User'       => 'showMyProfile, dashboard, subscribe, favSubscribe, listFavorites, listNotifications, listTopics, listMessages, createMessage',
 		 'Report'     => 'new, create',
