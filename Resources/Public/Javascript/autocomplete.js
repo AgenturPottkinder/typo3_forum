@@ -10,7 +10,7 @@ $(document).ready(function () {
 		minLength: 0,
 		delay: 1000,
 		source: function( request, response ) {
-			$.getJSON( "index.php?id=2&eID=mm_forum&tx_mmforum_ajax[controller]=Tag&tx_mmforum_ajax[action]=autoComplete&tx_mmforum_ajax[value]="+extractLast( request.term ), {
+			$.getJSON( "index.php?id="+currentPageUid+"&eID=mm_forum&tx_mmforum_ajax[controller]=Tag&tx_mmforum_ajax[action]=autoComplete&tx_mmforum_ajax[value]="+extractLast( request.term ), {
 			}, response );
 		},
 		search: function() {
