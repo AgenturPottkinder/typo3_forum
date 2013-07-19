@@ -83,6 +83,14 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	protected $adsRepository;
 
 
+
+	/**
+	 * The tags repository.
+	 * @var Tx_MmForum_Domain_Repository_Forum_TagRepository
+	 */
+	protected $tagRepository;
+
+
 	/**
 	 * A factory class for creating topics.
 	 * @var Tx_MmForum_Domain_Factory_Forum_TopicFactory
@@ -153,7 +161,8 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 								Tx_MmForum_Service_SessionHandlingService $sessionHandling,
 								Tx_MmForum_Service_AttachmentService $attachmentService,
 								Tx_MmForum_Domain_Repository_Forum_AdsRepository $adsRepository,
-								Tx_MmForum_Service_TagService $tagService) {
+								Tx_MmForum_Service_TagService $tagService,
+								Tx_MmForum_Domain_Repository_Forum_TagRepository $tagRepository) {
 		parent::__construct();
 		$this->forumRepository   = $forumRepository;
 		$this->topicRepository   = $topicRepository;
@@ -165,6 +174,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 		$this->attachmentService = $attachmentService;
 		$this->adsRepository	 = $adsRepository;
 		$this->tagService		 = $tagService;
+		$this->tagRepository     = $tagRepository;
 	}
 
 
@@ -327,11 +337,18 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 			$attachments = $this->attachmentService->initAttachments($attachments);
 			$post->setAttachments($attachments);
 		}
+
 		if($tags != '') {
 			$tags = $this->tagService->initTags($tags);
+			foreach($tags AS $tag) {
+				if($tag->getUid === NULL) {
+					$this->tagRepository->add($tag);
+				}
+			}
 		} else {
 			$tags = NULL;
 		}
+
 		$topic = $this->topicFactory->createTopic($forum, $post, $subject, intval($question), $criteria, $tags);
 
 		// Notify potential listeners.
