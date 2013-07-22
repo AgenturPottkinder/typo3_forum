@@ -63,6 +63,7 @@
 			<label index="Post_New_Error_Text_1221560718">Please specify a content for the new post.</label>
 			<label index="Post_New_Submit">Create post</label>
 			<label index="Post_New_Text">Post text</label>
+			<label index="Post_New_Additional_Attachment">Additional attachment</label>
 			<label index="Post_Show_Attachment_DownloadCount">Downloaded %d times</label>
 			<label index="Post_Show_Attachments">Attachments</label>
 			<label index="Post_Show_QuoteBy">Quote by</label>
@@ -352,6 +353,7 @@
 			<label index="Post_New_Error_Text_1221560718">Bitte geben Sie einen Inhalt ein.</label>
 			<label index="Post_New_Submit">Beitrag erstellen</label>
 			<label index="Post_New_Text">Inhalt</label>
+			<label index="Post_New_Additional_Attachment">Weiterer Anhang</label>
 			<label index="Post_Show_Attachment_DownloadCount">%d heruntergeladen</label>
 			<label index="Post_Show_Attachments">Anhänge</label>
 			<label index="Post_Show_QuoteBy">Zitiert von:</label>

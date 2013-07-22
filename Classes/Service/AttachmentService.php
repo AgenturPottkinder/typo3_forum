@@ -1,6 +1,23 @@
 <?php
 class Tx_MmForum_Service_AttachmentService implements \TYPO3\CMS\Core\SingletonInterface {
 
+
+	/**
+	 * An instance of the Extbase object manager.
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 */
+	protected $objectManager = NULL;
+
+	/**
+	 * Injects an instance of the extbase object manager.
+	 * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
+	 * @return void
+	 */
+	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
+		$this->objectManager = $objectManager;
+	}
+
+
 	/**
 	 * Converts HTML-array to an object
 	 * @param array $attachments
@@ -12,7 +29,7 @@ class Tx_MmForum_Service_AttachmentService implements \TYPO3\CMS\Core\SingletonI
 
 		foreach($attachments AS $attachmentID => $attachment) {
 			if($attachment['name'] == '') continue;
-			$attachmentObj = new Tx_MmForum_Domain_Model_Forum_Attachment();
+			$attachmentObj = $this->objectManager->create('Tx_MmForum_Domain_Model_Forum_Attachment');
 			$tmp_name = $_FILES['tx_mmforum_pi1']['tmp_name']['attachments'][$attachmentID];
 			$mime_type = mime_content_type($tmp_name);
 
