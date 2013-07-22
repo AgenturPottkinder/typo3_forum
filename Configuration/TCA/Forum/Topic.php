@@ -94,6 +94,7 @@ $TCA['tx_mmforum_domain_model_forum_topic'] = array(
 			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_topic.posts',
 			'config'  => array(
 				'type' => 'inline',
+				'foreign_sortby' => 'uid',
 				'foreign_table' => 'tx_mmforum_domain_model_forum_post',
 				'foreign_field' => 'topic',
 				'maxitems'      => 9999,
