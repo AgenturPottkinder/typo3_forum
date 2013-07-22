@@ -70,12 +70,19 @@ class Tx_MmForum_Domain_Repository_Forum_TagRepository extends \TYPO3\CMS\Extbas
 
 	/**
 	 * Find a tag including a specific name
-	 * @param $name
+	 * @param string $name
 	 * @return Tx_MmForum_Domain_Model_Forum_Tag[]
 	 */
 	public function findTagLikeAName($name) {
 		$query = $this->createQuery();
-		$query->matching($query->like('name',"%".$name."%",false));
+		$query->getQuerySettings()->setRespectStoragePage(FALSE);
+		$pids = $query->getQuerySettings()->getStoragePageIds();
+		$pid = intval($pids[0]);
+		$constraints = array();
+		$constraints[] = $query->like('name',"%".$name."%",false);
+		$constraints[] = $query->equals('pid',$pid);
+
+		$query->matching($query->logicalAnd($constraints));
 		return $query->execute();
 	}
 
