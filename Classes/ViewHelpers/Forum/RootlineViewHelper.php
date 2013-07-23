@@ -90,6 +90,7 @@ class Tx_MmForum_ViewHelpers_Forum_RootlineViewHelper extends \TYPO3\CMS\Fluid\C
 
 		$content = '';
 		foreach ($rootline as $element) {
+			if($content == '') $content .= $this->renderMainForumNode();
 			$content .= $this->renderNavigationNode($element);
 		}
 		$content .= '';
@@ -116,6 +117,20 @@ class Tx_MmForum_ViewHelpers_Forum_RootlineViewHelper extends \TYPO3\CMS\Fluid\C
 			->uriFor('show', $arguments, $controller);
 
 		return '<li><a href="' . $uri . '"><i class="' . $icon . '"></i> ' . $object->getTitle() . '</a></li>';
+	}
+
+
+	protected function renderMainForumNode() {
+		$uriBuilder = $this->controllerContext->getUriBuilder();
+		$uriBuilder->reset();
+		$uriBuilder->setArguments(array(
+			'tx_mmforum_pi1' => array(
+				'controller' => 'Forum'
+			)
+		));
+		$uri = $uriBuilder->build();
+
+		return '<li><a href="' . $uri . '"><i class="iconset-22-folder"></i>Forum</a></li>';
 	}
 
 
