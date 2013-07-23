@@ -83,15 +83,23 @@ class Tx_MmForum_ViewHelpers_User_LinkViewHelper extends \TYPO3\CMS\Fluid\ViewHe
 			$class .= ' ' . $this->arguments['class'];
 		}
 
+		$fullUsername = $user->getUsername();
+		$limit = $this->settings['cutUsernameOnChar'];
+		if(strlen($fullUsername) <= $limit) {
+			$username = $fullUsername;
+		} else {
+			$username = substr($fullUsername,0,$limit)."...";
+		}
+
 		if ($showOnlineStatus) {
 			if($showOnline) {
 				$onlineStatus = 'user_onlinepoint iconset-14-user-online';
 			}else{
 				$onlineStatus = 'user_onlinepoint iconset-14-user-offline';
 			}
-			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $user->getUsername().'">' . $user->getUsername() . ' <i class="'.$onlineStatus.'" data-uid="'.$user->getUid().'"></i></a>';
+			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $fullUsername.'">' . $username . ' <i class="'.$onlineStatus.'" data-uid="'.$user->getUid().'"></i></a>';
 		} else {
-			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $user->getUsername() . '">' . $user->getUsername() . '</a>';
+			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $fullUsername . '">' . $username . '</a>';
 		}
 
 		return $link;

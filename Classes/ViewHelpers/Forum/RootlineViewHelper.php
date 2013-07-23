@@ -111,12 +111,19 @@ class Tx_MmForum_ViewHelpers_Forum_RootlineViewHelper extends \TYPO3\CMS\Fluid\C
 			$arguments  = array('topic' => $object);
 			$icon       = 'iconset-22-balloon';
 		}
+		$fullTitle = $object->getTitle();
+		$limit = $this->settings['cutBreadcrumbOnChar'];
+		if(strlen($fullTitle) >= $limit) {
+			$title = substr($fullTitle,0,$limit)."...";
+		} else {
+			$title = $fullTitle;
+		}
 
 		$uriBuilder = $this->controllerContext->getUriBuilder();
 		$uri        = $uriBuilder->reset()->setTargetPageUid((int)$this->settings['pids']['Forum'])
 			->uriFor('show', $arguments, $controller);
 
-		return '<li><a href="' . $uri . '"><i class="' . $icon . '"></i> ' . $object->getTitle() . '</a></li>';
+		return '<li><a href="' . $uri . '" title="'.$fullTitle.'"><i class="' . $icon . '"></i> ' . $title . '</a></li>';
 	}
 
 
