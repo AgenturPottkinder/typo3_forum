@@ -95,9 +95,13 @@ class Tx_MmForum_TextParser_Service_QuoteParserService extends Tx_MmForum_TextPa
 	 */
 
 	public function getParsedText($text) {
-		$text = preg_replace_callback('/\[quote](.*?)\[\/quote\]\w*/is', array($this, 'replaceSingleCallback'), $text);
-		return preg_replace_callback('/\[quote=([0-9]+)\](.*?)\[\/quote\]\w*/is', array($this, 'replaceCallback'),
-		                             $text);
+		do {
+			$text = preg_replace_callback('/\[quote](.*?)\[\/quote\]\w*/is', array($this, 'replaceSingleCallback'), $text, -1, $c);
+		} while($c > 0);
+		do {
+			$text = preg_replace_callback('/\[quote=([0-9]+)\](.*?)\[\/quote\]\w*/is', array($this, 'replaceCallback'), $text, -1, $c);
+		} while($c > 0);
+		return $text;
 	}
 
 
