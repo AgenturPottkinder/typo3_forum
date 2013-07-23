@@ -138,6 +138,13 @@ $TCA['tx_mmforum_domain_model_forum_topic'] = array(
 				'type' => 'display',
 			)
 		),
+		'is_solved' => array(
+			'exclude' => 0,
+			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_topic.is_solved',
+			'config'  => array(
+				'type' => 'display',
+			)
+		),
 		'solution' => array(
 			'exclude' => 0,
 			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_topic.solution',

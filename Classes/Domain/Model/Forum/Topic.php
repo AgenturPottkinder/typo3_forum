@@ -106,6 +106,13 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	 */
 	protected $solution;
 
+	/**
+	 *
+	 * @var int
+	 *
+	 */
+	protected $isSolved;
+
 
 	/**
 	 * A pointer to the last post in this topic.
@@ -304,6 +311,11 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 		return $this->favSubscribers;
 	}
 
+	public function getIsSolved(){
+		if($this->isSolved ==  1 || $this->getSolution != null){
+			return true;
+		}
+	}
 	/**
 	 * Get the as solution marked post
 	 * @return Tx_MmForum_Domain_Model_Forum_Post

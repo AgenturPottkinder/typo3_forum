@@ -39,6 +39,7 @@
 			<label index="Forum_Show_Topic_Posts">Replies</label>
 			<label index="Forum_Show_Topic_Subject">Subject</label>
 			<label index="Forum_Show_Topic_Question">Question</label>
+			<label index="Forum_Show_Topic_Solved">Solved</label>
 			<label index="Forum_Index_HelpfulPosts">Helpful posts</label>
 			<label index="Forum_PM_Send">send private message</label>
 			<label index="Forum_New">New Forum</label>
@@ -329,6 +330,7 @@
 			<label index="Forum_Show_Topic_Posts">Antworten</label>
 			<label index="Forum_Show_Topic_Subject">Betreff</label>
 			<label index="Forum_Show_Topic_Question">Frage</label>
+			<label index="Forum_Show_Topic_Solved">Gelöst</label>
 			<label index="Forum_PM_Send">Nachricht senden</label>
 			<label index="Forum_Index_HelpfulPosts">Hilfreiche Beiträge</label>
 			<label index="Forum_New">Neuer Forum</label>
