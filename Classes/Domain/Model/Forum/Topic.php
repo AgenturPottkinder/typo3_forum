@@ -312,9 +312,10 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	}
 
 	public function getIsSolved(){
-		if($this->isSolved ==  1 || $this->getSolution != null){
+		if($this->isSolved ==  1 || $this->getSolution() != null){
 			return true;
-		}
+		} 
+		return false;
 	}
 	/**
 	 * Get the as solution marked post

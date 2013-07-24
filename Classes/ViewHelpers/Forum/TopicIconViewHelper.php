@@ -125,7 +125,7 @@ class Tx_MmForum_ViewHelpers_Forum_TopicIconViewHelper extends \TYPO3\CMS\Fluid\
 			             'new'       => !$topic->hasBeenReadByUser($this->frontendUserRepository->findCurrent()),
 			             'closed'    => $topic->isClosed(),
 			             'sticky'    => $topic->isSticky(),
-			             'solved'    => FALSE /* TODO: Implement! */);
+			             'solved'    => $topic->getIsSolved());
 		}
 	}
 
