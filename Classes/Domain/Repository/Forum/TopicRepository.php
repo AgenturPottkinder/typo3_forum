@@ -274,6 +274,30 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 
 
 
+	/**
+	 * Finds all popular topics
+	 *
+	 * @param int $timeDiff
+	 * @param int $displayLimit
+	 * @return Tx_Extbase_Persistence_QueryInterface
+	 *                             The topics of this tag.
+	 */
+	public function findPopularTopics($timeDiff=0, $displayLimit=0) {
+		if($timeDiff == 0) {
+			$timeLimit = 0;
+		} else {
+			$timeLimit = time() - $timeDiff;
+		}
+
+		$query = $this->createQuery();
+		$query->matching($query->greaterThan('lastPost.crdate',$timeLimit));
+		$query->setOrderings(array('postCount' => 'DESC'));
+		if($displayLimit > 0) {
+			$query->setLimit($displayLimit);
+		}
+		return $query->execute();
+	}
+
 
 
 	/**

@@ -151,6 +151,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 * @param Tx_MmForum_Service_AttachmentService					$attachmentService
 	 * @param Tx_MmForum_Domain_Repository_Forum_AdsRepository		$adsRepository
 	 * @param Tx_MmForum_Service_TagService							$tagService
+	 * @param Tx_MmForum_Domain_Repository_Forum_TagRepository		$tagRepository
 	 */
 	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
 								Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
@@ -201,7 +202,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 				$partial = 'Topic/QuestionBox';
 				break;
 			case '4':
-				$dataset = $this->topicRepository->findByFilter(6, array('postCount' => 'DESC'));
+				$dataset = $this->topicRepository->findPopularTopics(intval($this->settings['popularTopicTimeDiff']),6);
 				$partial = 'Topic/ListBox';
 				break;
 			default:
