@@ -165,7 +165,7 @@
 			<label index="User_New_Message_Post_Text">Message</label>
 			<label index="User_New_Message_NotFound">No received Messages found</label>
 			<label index="User_New_Message_Recipient_1372429326">User does not exists!</label>
-			<label index="User_New_Message_Recipient_1372682275">Please use a valid recipient!</label>
+			<label index="User_New_Message_Recipient_1372682275">You can't write yourself a message!</label>
 			<label index="User_New_Message_Post_Text_1221560718">Please enter a message!</label>
 			<label index="User_Show">User details</label>
 			<label index="User_Show_LastPosts">Last posts</label>
@@ -257,7 +257,7 @@
 			<label index="User_Web">Web</label>
 			<label index="General_No_Entries">No entries found</label>
 			<label index="Not_Logged_In">Sie sind nicht angemeldet.</label>
-			<label index="Post_In">Post in:</label>
+			<label index="Post_In">Post in</label>
 			<label index="Facebook_Share_Text">Typo3.Net - Post by</label>
 			<label index="Twitter_Share_Text">Typo3.Net - Post by</label>
 			<label index="Topic_Moved">moved</label>
@@ -462,7 +462,7 @@
 			<label index="User_New_Message_Post_Text">Nachricht</label>
 			<label index="User_New_Message_NotFound">Keine empfangenen Nachrichten gefunden</label>
 			<label index="User_New_Message_Recipient_1372429326">User existiert nicht</label>
-			<label index="User_New_Message_Recipient_1372682275">Bitte benutze einen gültigen Benutzernamen!</label>
+			<label index="User_New_Message_Recipient_1372682275">Du kannst dir nicht selbst eine Nachricht schreiben!</label>
 			<label index="User_New_Message_Post_Text_1221560718">Bitte eine Nachricht eingeben!</label>
 			<label index="User_Show_Notification_All">Alle Benachrichtigungen</label>
 			<label index="User_Show_Notification_Author_1">hat einen Beitrag zu deinem</label>
@@ -546,7 +546,7 @@
 			<label index="User_Web">Web</label>
 			<label index="General_No_Entries">Keine Einträge gefunden</label>
 			<label index="Not_Logged_In">Du bist leider nicht angemeldet.</label>
-			<label index="Post_In">Gepostet in:</label>
+			<label index="Post_In">Gepostet in</label>
 			<label index="Facebook_Share_Text">Typo3.Net - Beitrag von </label>
 			<label index="Twitter_Share_Text">Typo3.Net - Beitrag von </label>
 			<label index="Topic_Moved">verschoben</label>

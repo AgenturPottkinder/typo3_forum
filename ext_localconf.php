@@ -8,7 +8,7 @@ if (!defined('TYPO3_MODE')) {
 	$_EXTKEY, 'Pi1',
 	array(
 		 'Forum'      => 'index, show, new, create, edit, update, delete, markRead',
-		 'Topic'      => 'index, show, new, create, edit, update, delete, questionsHelpBox, solution',
+		 'Topic'      => 'index, list, show, new, create, edit, update, delete, questionsHelpBox, solution',
 		 'Post'       => 'show, new, create, edit, update, delete, deleteAttachment',
 		 'User'       => 'showMyProfile, index, list, subscribe, favSubscribe, show, disableUser, unDisableUser, listNotifications, listMessages, createMessage, newMessage',
 		 'Report'     => 'newUserReport, newPostReport, createUserReport, createPostReport',
@@ -17,7 +17,7 @@ if (!defined('TYPO3_MODE')) {
 	),
 	array(
 		 'Forum'      => 'show, index, new, create, edit, update, delete, markRead',
-		 'Topic'      => 'new, create, edit, update, delete',
+		 'Topic'      => 'new, create, edit, update, delete, list',
 		 'Post'       => 'new, create, edit, update, delete',
 		 'User'       => 'showMyProfile, dashboard, subscribe, favSubscribe, listFavorites, listNotifications, listTopics, listMessages, createMessage',
 		 'Report'     => 'new, create',

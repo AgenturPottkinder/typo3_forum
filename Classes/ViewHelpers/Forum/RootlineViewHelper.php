@@ -111,7 +111,7 @@ class Tx_MmForum_ViewHelpers_Forum_RootlineViewHelper extends \TYPO3\CMS\Fluid\C
 			$arguments  = array('topic' => $object);
 			$icon       = 'iconset-22-balloon';
 		}
-		$fullTitle = $object->getTitle();
+		$fullTitle = htmlspecialchars($object->getTitle());
 		$limit = $this->settings['cutBreadcrumbOnChar'];
 		if(strlen($fullTitle) >= $limit) {
 			$title = substr($fullTitle,0,$limit)."...";
