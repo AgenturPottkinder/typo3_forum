@@ -223,20 +223,53 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 		if ($user->isAnonymous()) {
 			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
 		}
-
-		$topics = $this->topicRepository->getUnreadTopics($forum,$user);
-
-		foreach($topics AS $topic) {
-			$values = array('uid_foreign' => intval($topic['uid']),
-						   'uid_local'	 => intval($user->getUid()));
-			$query = $GLOBALS['TYPO3_DB']->INSERTquery('tx_mmforum_domain_model_user_readtopic',$values);
-			$res =  $GLOBALS['TYPO3_DB']->sql_query($query);
+		$forumStorage = array();
+		$forumStorage[] = $forum;
+		foreach($forum->getChildren() AS $children) {
+			$forumStorage[] = $children;
 		}
 
-		$forum->addReader($user);
-		$this->forumRepository->update($forum);
+		foreach($forumStorage AS $checkForum) {
+			$topics = $this->topicRepository->getUnreadTopics($checkForum,$user);
+
+			foreach($topics AS $topic) {
+				$values = array('uid_foreign' => intval($topic['uid']),
+							   'uid_local'	 => intval($user->getUid()));
+				$query = $GLOBALS['TYPO3_DB']->INSERTquery('tx_mmforum_domain_model_user_readtopic',$values);
+				$res =  $GLOBALS['TYPO3_DB']->sql_query($query);
+			}
+
+			$checkForum->addReader($user);
+			$this->forumRepository->update($checkForum);
+		}
 
 		$this->redirect('show', 'Forum', NULL, array('forum' => $forum));
+	}
+
+
+	/**
+	 * Show all unread topics of the current user
+	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 *
+	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 * @return void
+	 */
+	public function showUnreadAction(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
+		$user = $this->getCurrentUser();
+		if ($user->isAnonymous()) {
+			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+		}
+		$topics       = array();
+		$unreadTopics = array();
+		$tmpTopics = $this->topicRepository->getUnreadTopics($forum,$user);
+		foreach($tmpTopics AS $tmpTopic) {
+			$unreadTopics[] = $tmpTopic['uid'];
+		}
+		if(!empty($unreadTopics)) {
+			$topics = $this->topicRepository->findByUids($unreadTopics);
+		}
+
+		$this->view->assign('forum',$forum)->assign('topics',$topics);
 	}
 
 

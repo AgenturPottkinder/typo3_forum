@@ -34,6 +34,7 @@
 			<label index="Forum_Index_Topic">Topic</label>
 			<label index="Forum_Index_Topics">Topics</label>
 			<label index="Forum_Show_Empty">No topics</label>
+			<label index="Forum_Show_UnreadTopicsIn">Unread topics in</label>
 			<label index="Forum_Show_Topic_Author">Author</label>
 			<label index="Forum_Show_Topic_LastPost">Last post</label>
 			<label index="Forum_Show_Topic_Posts">Replies</label>
@@ -242,6 +243,7 @@
 			<label index="Confirm_Ban_User">Are u Sure?</label>
 			<label index="Button_Ban_User">Ban user</label>
 			<label index="Button_Mark_Read">Mark as read</label>
+			<label index="Button_Show_Unread">Show all unread topics</label>
 			<label index="User_Age">Age</label>
 			<label index="User_City">City</label>
 			<label index="User_Company">Company</label>
@@ -325,6 +327,7 @@
 			<label index="Forum_Index_Topic">Thema</label>
 			<label index="Forum_Index_Topics">Themen</label>
 			<label index="Forum_Show_Empty">Keine Themen vorhanden</label>
+			<label index="Forum_Show_UnreadTopicsIn">Ungelesene Themen in</label>
 			<label index="Forum_Show_Topic_Author">Autor</label>
 			<label index="Forum_Show_Topic_LastPost">Letzter Beitrag</label>
 			<label index="Forum_Show_Topic_Posts">Antworten</label>
@@ -531,6 +534,7 @@
 			<label index="Confirm_Ban_User">Sind Sie sicher, dass Sie den Benutzer sperren möchten?</label>
 			<label index="Button_Ban_User">User sperren</label>
 			<label index="Button_Mark_Read">Als gelesen markieren</label>
+			<label index="Button_Show_Unread">Zeige alle ungelesene Themen</label>
 			<label index="User_Age">Alter</label>
 			<label index="User_City">Wohnort</label>
 			<label index="User_Company">Firma</label>
