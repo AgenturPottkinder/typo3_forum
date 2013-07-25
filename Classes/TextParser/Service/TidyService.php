@@ -99,6 +99,7 @@ class Tx_MmForum_TextParser_Service_TidyService extends Tx_MmForum_TextParser_Se
 
 	/**
 	 * Renders the parsed text.
+	 * @TODO: TIDY Service destroys layout. Temporary deactivated.
 	 *
 	 * @param  string $text The text to be parsed.
 	 * @return string       The parsed text.
@@ -108,7 +109,7 @@ class Tx_MmForum_TextParser_Service_TidyService extends Tx_MmForum_TextParser_Se
 		$this->tidy->parseString($text, $this->tidyConfig, 'utf8');
 		$this->tidy->cleanRepair();
 
-		$text = $this->tidy . "";
+		//$text = $this->tidy . "";
 		$text = preg_replace(',<p>\s*(<br />\s*)+,', '<p>', $text);
 		$text = preg_replace(',(<br />\s*)+\s*<\/p>,', '</p>', $text);
 
