@@ -83,12 +83,22 @@ class Tx_MmForum_ViewHelpers_User_LinkViewHelper extends \TYPO3\CMS\Fluid\ViewHe
 			$class .= ' ' . $this->arguments['class'];
 		}
 
-		$fullUsername = $user->getUsername();
-		$limit = $this->settings['cutUsernameOnChar'];
-		if(strlen($fullUsername) <= $limit) {
+		$fullUsername = htmlspecialchars($user->getUsername());
+		$limit = intval($this->settings['cutUsernameOnChar']);
+		if($limit == 0 || strlen($fullUsername) <= $limit) {
 			$username = $fullUsername;
 		} else {
 			$username = substr($fullUsername,0,$limit)."...";
+		}
+		$moderatorMark = "";
+		if($this->settings['moderatorMark']['image']) {
+			foreach($user->getUsergroup() AS $group) {
+				if($group->getUserMod() == 1) {
+					$moderatorMark = '<img src="'.$this->settings['moderatorMark']['image'].'"
+											title="'.$this->settings['moderatorMark']['title'].'" />';
+					break;
+				}
+			}
 		}
 
 		if ($showOnlineStatus) {
@@ -97,9 +107,9 @@ class Tx_MmForum_ViewHelpers_User_LinkViewHelper extends \TYPO3\CMS\Fluid\ViewHe
 			}else{
 				$onlineStatus = 'user_onlinepoint iconset-14-user-offline';
 			}
-			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $fullUsername.'">' . $username . ' <i class="'.$onlineStatus.'" data-uid="'.$user->getUid().'"></i></a>';
+			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $fullUsername.'">' . $username . ' <i class="'.$onlineStatus.'" data-uid="'.$user->getUid().'"></i> '.$moderatorMark.'</a>';
 		} else {
-			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $fullUsername . '">' . $username . '</a>';
+			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $fullUsername . '">' . $username . ' '.$moderatorMark.'</a>';
 		}
 
 		return $link;
