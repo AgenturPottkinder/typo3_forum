@@ -18,11 +18,11 @@
 								<items>
 									<numIndex index="0">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Forum</numIndex>
-										<numIndex index="1">Forum->index;Forum->show;Forum->markRead;Forum->showUnread;Topic->show;Topic->new;Topic->create;Topic->solution;Post->deletePostAttachment;Post->show;Post->new;Post->create;Post->edit;Post->update;Post->confirmDelete;Post->delete;Post->downloadAttachment;User->subscribe;User->favSubscribe;Report->newUserReport;Report->createUserReport;Report->newPostReport;Report->createPostReport;Moderation->editTopic;Moderation->updateTopic;Moderation->topicConformDelete;Tag->show;User->listMessages;User->newMessage;User->createMessage;User->listPosts</numIndex>
+										<numIndex index="1">Forum->index;Forum->show;Forum->markRead;Forum->showUnread;Topic->show;Topic->new;Topic->create;Topic->solution;Post->deletePostAttachment;Post->show;Post->new;Post->create;Post->edit;Post->update;Post->confirmDelete;Post->delete;Post->downloadAttachment;User->subscribe;User->favSubscribe;Report->newUserReport;Report->createUserReport;Report->newPostReport;Report->createPostReport;Moderation->editTopic;Moderation->updateTopic;Moderation->topicConformDelete;Tag->show;User->listMessages;User->newMessage;User->createMessage;User->listPosts;User->listTopics;User->subscribe;User->listFavorites;User->listPosts;User->listQuestions</numIndex>
 									</numIndex>
 									<numIndex index="1">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_User_Show</numIndex>
-										<numIndex index="1">User->show; User->disableUser; User->unDisableUser; User->listSubscriptions;User->show;User->showMyProfile;User->subscribe;User->listFavorites;User->listPosts;User->listQuestions;User->listTopics;User->listMessages;User->newMessage;User->createMessage;User->listNotifications</numIndex>
+										<numIndex index="1">User->show; User->disableUser; User->unDisableUser; User->listSubscriptions;User->show;User->showMyProfile;User->listMessages;User->newMessage;User->createMessage;User->listNotifications</numIndex>
 									</numIndex>
 									<numIndex index="3">
 										<numIndex index="0">LLL:EXT:mm_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Moderation_Reports</numIndex>
