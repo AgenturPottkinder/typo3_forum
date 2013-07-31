@@ -309,7 +309,13 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 			)
 		);
 		$this->clearCacheForCurrentPage();
-		$this->redirect('show', 'Topic', NULL, array('topic' => $topic));
+
+		$redirectArguments = array('topic' => $topic);
+		$pageNumber = $topic->getPageCount();
+		if($pageNumber > 1) {
+			$redirectArguments['@widget_0'] = array('currentPage' => $pageNumber);
+		}
+		$this->redirect('show', 'Topic', NULL, $redirectArguments);
 	}
 
 
