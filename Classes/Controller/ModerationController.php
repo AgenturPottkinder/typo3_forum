@@ -91,6 +91,12 @@ class Tx_MmForum_Controller_ModerationController extends Tx_MmForum_Controller_A
 
 
 	/**
+	 * @var Tx_MmForum_Domain_Factory_Forum_TopicFactory
+	 */
+	protected $topicFactory;
+
+
+	/**
 	 * @param \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface $persistenceManager
 	 * @return void
 	 */
@@ -167,6 +173,19 @@ class Tx_MmForum_Controller_ModerationController extends Tx_MmForum_Controller_A
 		Tx_MmForum_Domain_Repository_Moderation_PostReportRepository $postReportRepository) {
 		$this->postReportRepository = $postReportRepository;
 	}
+
+
+	/**
+	 * Injects an instance of the topic factory.
+	 *
+	 * @param Tx_MmForum_Domain_Factory_Forum_TopicFactory $topicFactory
+	 *
+	 * @return void
+	 */
+	public function injectTopicFactory(Tx_MmForum_Domain_Factory_Forum_TopicFactory $topicFactory) {
+		$this->topicFactory = $topicFactory;
+	}
+
 
 	/**
 	 * @return void

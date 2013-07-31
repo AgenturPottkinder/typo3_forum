@@ -212,9 +212,13 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 	 * Moves a topic from one forum to another. This method will create a shadow
 	 * topic in the original place that will point to the new location of the
 	 * topic.
+	 * @TODO: Has forumRepository->update() enough performance?
 	 *
 	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic       The topic that is to be moved.
 	 * @param Tx_MmForum_Domain_Model_Forum_Forum $targetForum The target forum. The topic will be moved to this location.
+	 *
+	 * @throws \TYPO3\CMS\Extbase\Object\InvalidClassException
+	 * @return void
 	 */
 	public function moveTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic,
 							  Tx_MmForum_Domain_Model_Forum_Forum $targetForum) {
