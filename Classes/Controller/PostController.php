@@ -211,6 +211,7 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	/**
 	 * Show action for a single post. The method simply redirects the user to the
 	 * topic that contains the requested post.
+	 * This function is called by post summaries (last post link)
 	 *
 	 * @param Tx_MmForum_Domain_Model_Forum_Post $post The post
 	 * @return void
@@ -219,22 +220,16 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 		// Assert authentication
 		$this->authenticationService->assertReadAuthorization($post);
 
-		// Determine the page number of the requested post.
-		$posts = $post->getTopic()->getPosts();
-		$postCount = count($posts);
-		for ($postNumber = 0; $postNumber < $postCount; $postNumber++) {
-			if ($posts[$postNumber] == $post) {
-				break;
-			}
-		}
-		//$post = ($quote !== NULL) ? $this->postFactory->createPostWithQuote($quote) : $this->postFactory->createEmptyPost();
+		$redirectArguments = array('topic' => $post->getTopic());
 
-		$itemsPerPage = (int)$this->settings['topicController']['show']['pagebrowser']['itemsPerPage'];
-		$pageNumber = ceil($postNumber / $itemsPerPage);
+		$pageNumber = $post->getTopic()->getPageCount();
+		if($pageNumber > 1) {
+			$redirectArguments['@widget_0'] = array('currentPage' => $pageNumber);
+		}
+
 
 		// Redirect to the topic->show action.
-		$this->redirect('show', 'Topic', NULL, array('topic' => $post->getTopic(),
-			'page' => $pageNumber));
+		$this->redirect('show', 'Topic', NULL, $redirectArguments);
 	}
 
 

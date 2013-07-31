@@ -197,7 +197,21 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	 */
 	protected $topicRepository;
 
-	/**
+
+    /**
+     * An instance of the mm_forum authentication service.
+     * @var TYPO3\CMS\Extbase\Service\TypoScriptService
+     */
+    protected $typoScriptService = NULL;
+
+    /**
+     * Whole TypoScript mm_forum settings
+     * @var array
+     */
+    protected $settings;
+
+
+ 	/**
 	 * Helper variable to store if the parent object was modified. This is necessary
 	 * due to http://forge.typo3.org/issues/8952
 	 *
@@ -217,6 +231,17 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	public function injectTopicRepository(Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository) {
 		$this->topicRepository = $topicRepository;
 	}
+
+
+    /**
+     * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
+     * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
+     */
+    public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
+        $this->typoScriptService = $typoScriptService;
+        $ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
+        $this->settings = $ts['plugin']['tx_mmforum']['settings'];
+    }
 
 
 	/**
@@ -340,6 +365,15 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	 */
 	public function getPostCount() {
 		return $this->postCount;
+	}
+
+
+	 /**
+	 * Gets the amount of pages of this topic.
+	 * @return integer Page count
+	 */
+	public function getPageCount() {
+		return ceil($this->postCount / intval($this->settings['pagebrowser']['default']['itemsPerPage']));
 	}
 
 
