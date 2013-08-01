@@ -403,7 +403,7 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 		} else {
 			$adDateTime = $this->sessionHandling->get('adTime');
 		}
-		//if($actDatetime->getTimestamp() - $adDateTime->getTimestamp() > $this->settings['ads']['timeInterval'] && $count > 2){
+		if($actDatetime->getTimestamp() - $adDateTime->getTimestamp() > $this->settings['ads']['timeInterval'] && $count > 2){
 			$this->sessionHandling->set('adTime', $actDatetime);
 			if(intval($meta->mode) == 0) {
 				$ads = $this->adsRepository->findForForumView(1);
@@ -415,7 +415,7 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 				$result['html'] = $this->view->render('ads');
 				$result['position'] = mt_rand(1,$count-2);
 			}
-		//}
+		}
 		$this->request->setFormat('json');
 		return $result;
 	}

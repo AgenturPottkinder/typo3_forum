@@ -78,8 +78,8 @@ $(document).ready(function () {
 	});
 
 
-    // ads
-    var displayedAds = new Object;
+	// ads
+	var displayedAds = new Object;
 	var displayedAdsIteration = 0;
 	$('.ad-topic').each(function (index) {
 		displayedAdsIteration = displayedAdsIteration + 1;
