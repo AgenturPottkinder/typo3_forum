@@ -95,6 +95,25 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 	protected $attachmentService = NULL;
 
 	/**
+	 * The ads repository.
+	 * @var Tx_MmForum_Domain_Repository_Forum_AdsRepository
+	 */
+	protected $adsRepository;
+
+	/**
+	 * An instance of the mm_forum authentication service.
+	 * @var TYPO3\CMS\Extbase\Service\TypoScriptService
+	 */
+	protected $typoScriptService = NULL;
+
+	/**
+	 * Whole TypoScript mm_forum settings
+	 * @var array
+	 */
+	protected $settings;
+
+
+	/**
 	 * Constructor. Used primarily for dependency injection.
 	 *
 	 * @param Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository
@@ -104,6 +123,7 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 	 * @param Tx_MmForum_Domain_Repository_Forum_AttachmentRepository $attachmentRepository
 	 * @param Tx_MmForum_Service_SessionHandlingService $sessionHandling
 	 * @param Tx_MmForum_Service_AttachmentService $attachmentService
+	 * @param Tx_MmForum_Domain_Repository_Forum_AdsRepository   $adsRepository
 	 */
 	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
 								Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
@@ -111,7 +131,8 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 								Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory,
 								Tx_MmForum_Domain_Repository_Forum_AttachmentRepository $attachmentRepository,
 								Tx_MmForum_Service_SessionHandlingService $sessionHandling,
-								Tx_MmForum_Service_AttachmentService $attachmentService) {
+								Tx_MmForum_Service_AttachmentService $attachmentService,
+								Tx_MmForum_Domain_Repository_Forum_AdsRepository   $adsRepository) {
 		$this->forumRepository = $forumRepository;
 		$this->topicRepository = $topicRepository;
 		$this->postRepository = $postRepository;
@@ -119,6 +140,18 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 		$this->attachmentRepository = $attachmentRepository;
 		$this->sessionHandling		= $sessionHandling;
 		$this->attachmentService = $attachmentService;
+		$this->adsRepository = $adsRepository;
+	}
+
+
+	/**
+	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
+	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
+	 */
+	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
+		$this->typoScriptService = $typoScriptService;
+		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
+		$this->settings = $ts['plugin']['tx_mmforum']['settings'];
 	}
 
 	//
@@ -134,9 +167,10 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 	 * @param int $displayOnlinebox
 	 * @param string $displayedPosts
 	 * @param string $displayedForumMenus
+	 * @param string $displayedAds
 	 * @return void
 	 */
-	public function mainAction($displayedUser = "", $postSummarys = "", $topicIcons = "", $forumIcons = "", $displayedTopics = "", $displayOnlinebox = 0, $displayedPosts = "", $displayedForumMenus = "") {
+	public function mainAction($displayedUser = "", $postSummarys = "", $topicIcons = "", $forumIcons = "", $displayedTopics = "", $displayOnlinebox = 0, $displayedPosts = "", $displayedForumMenus = "", $displayedAds = "") {
 		// json array
 		$content = array();
 		if (!empty($displayedUser)) {
@@ -160,8 +194,15 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 		if (!empty($displayedPosts)) {
 			$content['posts'] = $this->_getPosts($displayedPosts);
 		}
+		if (!empty($displayedPosts)) {
+			$content['posts'] = $this->_getPosts($displayedPosts);
+		}
 		if($displayOnlinebox == 1){
 			$content['onlineBox'] = $this->_getOnlinebox();
+		}
+		$displayedAds = json_decode($displayedAds);
+		if(intval($displayedAds->count) > 1) {
+			$content['ads'] = $this->_getAds($displayedAds);
 		}
 
 		$this->view->assign('content', json_encode($content));
@@ -345,5 +386,38 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 		if (!empty($output)) return $output;
 	}
 
+
+	/**
+	 * @param stdClass $meta
+	 * @return array
+	 */
+	private function _getAds(stdClass $meta){
+		$count = intval($meta->count);
+		$result = array();
+		$this->request->setFormat('html');
+
+		$actDatetime = new DateTime();
+		if(!$this->sessionHandling->get('adTime')) {
+			$this->sessionHandling->set('adTime', $actDatetime);
+			$adDateTime = $actDatetime;
+		} else {
+			$adDateTime = $this->sessionHandling->get('adTime');
+		}
+		//if($actDatetime->getTimestamp() - $adDateTime->getTimestamp() > $this->settings['ads']['timeInterval'] && $count > 2){
+			$this->sessionHandling->set('adTime', $actDatetime);
+			if(intval($meta->mode) == 0) {
+				$ads = $this->adsRepository->findForForumView(1);
+			} else {
+				$ads = $this->adsRepository->findForTopicView(1);
+			}
+			if(!empty($ads)) {
+				$this->view->assign('ads', $ads);
+				$result['html'] = $this->view->render('ads');
+				$result['position'] = mt_rand(1,$count-2);
+			}
+		//}
+		$this->request->setFormat('json');
+		return $result;
+	}
 
 }

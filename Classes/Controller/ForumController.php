@@ -134,31 +134,18 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 	 * Show action. Displays a single forum, all subforums of this forum and the
 	 * topics contained in this forum.
 	 *
+	 * @TODO: Remove $dummy variable when datamapper is stable
+	 *
 	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum The forum that is to be displayed.
 	 * @return void
 	 */
 	public function showAction(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
 		$topics = $this->topicRepository->findForIndex($forum);
-		// AdHandling Start
-		$actDatetime = new DateTime();
-		if(!$this->sessionHandling->get('adTime')){
-			$this->sessionHandling->set('adTime', $actDatetime);
-			$adDateTime = $actDatetime;
-		}else{
-			$adDateTime = $this->sessionHandling->get('adTime');
-		}
-		$max = count($topics);
-		if($actDatetime->getTimestamp() - $adDateTime->getTimestamp() > $this->settings['ads']['timeInterval'] && $max > 2){
-			$this->sessionHandling->set('adTime', $actDatetime);
-			if ($max > $this->settings['topicController']['show']['itemsPerPage']) {
-				$max = $this->settings['topicController']['show']['itemsPerPage'];
-			}
-			if($max < 2) $max = 2;
-			$ads = $this->adsRepository->findForForumView(1);
-			$showAd = array('enabled' => TRUE, 'position' => mt_rand(1,$max-1), 'ads' => $ads);
-			$this->view->assign('showAd', $showAd);
-		}
-		// AdHandling End
+
+		// This variable is needed, equal if it is used or not. It's needed for creating the correct datamapping
+		// of the model and the repository. Otherwise an ajax request will destroy the datamapping of this model (Core Bug 6.X)
+		$dummy = $this->adsRepository->findForForumView(1);
+
 		$this->authenticationService->assertReadAuthorization($forum);
 		$this->view
 			->assign('forum', $forum)

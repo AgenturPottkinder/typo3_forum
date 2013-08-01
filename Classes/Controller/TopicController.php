@@ -220,6 +220,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 
 	/**
 	 * Show action. Displays a single topic and all posts contained in this topic.
+	 * @TODO: Remove $dummy variable when datamapper is stable
 	 *
 	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic
 	 *                                                         The topic that is to be displayed.
@@ -229,32 +230,14 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 */
 	public function showAction(Tx_MmForum_Domain_Model_Forum_Topic $topic, Tx_MmForum_Domain_Model_Forum_Post $quote = NULL) {
 		$posts = $this->postRepository->findForTopic($topic);
-		// AdHandling Start
-		$actDatetime = new DateTime();
-		if (!$this->sessionHandling->get('adTime')) {
-			$this->sessionHandling->set('adTime', $actDatetime);
-			$adDateTime = $actDatetime;
-		}
-		else {
-			$adDateTime = $this->sessionHandling->get('adTime');
-		}
-		if ($actDatetime->getTimestamp() - $adDateTime->getTimestamp() > $this->settings['ads']['timeInterval']) {
-			$this->sessionHandling->set('adTime', $actDatetime);
-			$this->view->assign('showAd', TRUE);
-			$max = count($posts);
-			if ($max > $this->settings['topicController']['show']['pagebrowser']['itemsPerPage']) {
-				$max = $this->settings['topicController']['show']['pagebrowser']['itemsPerPage'];
-			}
-			if($max < 2) $max = 2;
-			$ads = $this->adsRepository->findForTopicView(1);
-			$showAd = array('enabled' => TRUE, 'position' => mt_rand(1,$max-1), 'ads' => $ads);
-			$this->view->assign('showAd', $showAd);
-		}
 
 		if($quote != FALSE){
 			$this->view->assign('quote', $this->postFactory->createPostWithQuote($quote));
 		}
 
+		// This variable is needed, equal if it is used or not. It's needed for creating the correct datamapping
+		// of the model and the repository. Otherwise an ajax request will destroy the datamapping of this model (Core Bug 6.X)
+		$dummy = $this->adsRepository->findForTopicView(1);
 
 		$subresults = $this->controllerContext->getRequest()->getOriginalRequestMappingResults()->getSubResults();
 

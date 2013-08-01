@@ -89,6 +89,8 @@ class Tx_MmForum_Domain_Repository_Forum_AdsRepository extends \TYPO3\CMS\Extbas
 		return $query->execute();
 	}
 
+
+
 	/**
 	 * Count all Ads
 	 * @param $constraints

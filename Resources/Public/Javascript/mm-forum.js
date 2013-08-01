@@ -78,6 +78,23 @@ $(document).ready(function () {
 	});
 
 
+    // ads
+    var displayedAds = new Object;
+	var displayedAdsIteration = 0;
+	$('.ad-topic').each(function (index) {
+		displayedAdsIteration = displayedAdsIteration + 1;
+	});
+	$('.ad-topicdetail').each(function (index) {
+		displayedAdsIteration = displayedAdsIteration + 1;
+	});
+	displayedAds['count'] = displayedAdsIteration;
+	displayedAds['mode'] = 0;
+	$('.userInfo').each(function (index) {
+		displayedAds['mode'] = 1;
+		return;
+	});
+
+
 	$.ajax({
 		type: "POST",
 		url: "index.php?id="+currentPageUid+"&eID=mm_forum&language=de&tx_mmforum_ajax[controller]=Ajax&tx_mmforum_ajax[action]=main&tx_mmforum_ajax[format]=json",
@@ -90,7 +107,8 @@ $(document).ready(function () {
 			"tx_mmforum_ajax[displayedTopics]": JSON.stringify(displayedTopics),
 			"tx_mmforum_ajax[displayOnlinebox]": JSON.stringify(displayOnlinebox),
 			"tx_mmforum_ajax[displayedForumMenus]": JSON.stringify(displayedForumMenus),
-			"tx_mmforum_ajax[displayedPosts]": JSON.stringify(displayedPosts)
+			"tx_mmforum_ajax[displayedPosts]": JSON.stringify(displayedPosts),
+			"tx_mmforum_ajax[displayedAds]": JSON.stringify(displayedAds)
 		},
 		success: function (data) {
 			var json = $.parseJSON(data);
@@ -136,6 +154,10 @@ $(document).ready(function () {
 			if (json.onlineBox) {
 				$('.user_online_box .items').html(json.onlineBox.html);
 				$('.user_online_count').html(json.onlineBox.count);
+			}
+
+			if (json.ads) {
+				$('#infomation-'+json.ads.position).html(json.ads.html);
 			}
 
 			$('.tx-mmforum-helpfull-btn').click(function () {
