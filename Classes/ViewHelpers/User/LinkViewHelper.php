@@ -103,9 +103,9 @@ class Tx_MmForum_ViewHelpers_User_LinkViewHelper extends \TYPO3\CMS\Fluid\ViewHe
 
 		if ($showOnlineStatus) {
 			if($showOnline) {
-				$onlineStatus = 'user_onlinepoint iconset-14-user-online';
+				$onlineStatus = 'user_onlinepoint iconset-8-user-online';
 			}else{
-				$onlineStatus = 'user_onlinepoint iconset-14-user-offline';
+				$onlineStatus = 'user_onlinepoint iconset-8-user-offline';
 			}
 			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $fullUsername.'">' . $username . ' <i class="'.$onlineStatus.'" data-uid="'.$user->getUid().'"></i> '.$moderatorMark.'</a>';
 		} else {
