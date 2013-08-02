@@ -301,13 +301,14 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 * @param string $question    The flag if the new topic is declared as question
 	 * @param array $criteria    All submitted criteria with option.
 	 * @param string $tags All defined tags for this topic
+	 * @param string $subscribe    The flag if the new topic is subscribed by author
 	 *
 	 * @validate $post Tx_MmForum_Domain_Validator_Forum_PostValidator
 	 * @validate $attachments Tx_MmForum_Domain_Validator_Forum_AttachmentPlainValidator
 	 * @validate $subject NotEmpty
 	 */
 	public function createAction(Tx_MmForum_Domain_Model_Forum_Forum $forum, Tx_MmForum_Domain_Model_Forum_Post $post,
-								 $subject, array $attachments = array(), $question = '', array $criteria = array(), $tags = '') {
+								 $subject, array $attachments = array(), $question = '', array $criteria = array(), $tags = '', $subscribe = '') {
 
 		// Assert authorization
 		$this->authenticationService->assertNewTopicAuthorization($forum);
@@ -333,7 +334,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 			$tags = NULL;
 		}
 
-		$topic = $this->topicFactory->createTopic($forum, $post, $subject, intval($question), $criteria, $tags);
+		$topic = $this->topicFactory->createTopic($forum, $post, $subject, intval($question), $criteria, $tags, intval($subscribe));
 
 		// Notify potential listeners.
 		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Topic', 'topicCreated',

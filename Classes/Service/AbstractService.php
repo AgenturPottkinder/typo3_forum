@@ -46,30 +46,6 @@
 Abstract Class Tx_MmForum_Service_AbstractService Implements \TYPO3\CMS\Core\SingletonInterface {
 
 
-
-	/**
-	 * The settings array.
-	 *
-	 * @var array
-	 */
-	Protected $settings = NULL;
-
-
-
-	/**
-	 *
-	 * Injects the settings array.
-	 *
-	 * @param  array $settings The settings array.
-	 *
-	 * @return void
-	 *
-	 */
-
-	Public Function injectSettings($settings) {
-		$this->settings = $settings;
-	}
-
 }
 
 ?>

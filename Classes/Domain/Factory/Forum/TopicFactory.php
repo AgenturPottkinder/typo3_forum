@@ -121,12 +121,13 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 	 * @param int $question   The flag if the new topic is declared as question
 	 * @param array $criteriaOptions    All submitted criteria with option.
 	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $tags All user defined tags
+	 * @param int $subscribe   The flag if the new topic is subscribed by author
 	 *
 	 * @return Tx_MmForum_Domain_Model_Forum_Topic The new topic.
 	 */
 	public function createTopic(Tx_MmForum_Domain_Model_Forum_Forum $forum,
 								Tx_MmForum_Domain_Model_Forum_Post $firstPost,
-								$subject, $question = 0, array $criteriaOptions = array(), $tags=NULL) {
+								$subject, $question = 0, array $criteriaOptions = array(), $tags=NULL, $subscribe=0) {
 		/** @var $topic Tx_MmForum_Domain_Model_Forum_Topic */
 		$topic = $this->getClassInstance();
 		$user = $this->getCurrentUser();
@@ -147,6 +148,9 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 					$topic->addCriteriaOption($obj);
 				}
 			}
+		}
+		if(intval($subscribe) == 1) {
+			$topic->addSubscriber($user);
 		}
 
 		if (!$user->isAnonymous()) {

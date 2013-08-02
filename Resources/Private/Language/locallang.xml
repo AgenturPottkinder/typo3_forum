@@ -290,6 +290,15 @@
 			<label index="Tags_New_SubscribeTag">Subscribe this tag</label>
 			<label index="Submit">Submit</label>
 			<label index="Button_Helpful">Helpful</label>
+			<label index="Mail_Subscribe_NewPost_Subject">New pos in one of your subscribed topics!</label>
+			<label index="Mail_Subscribe_NewPost_Body">Hello ###RECIPIENT###,
+
+###POST_AUTHOR### answered in one of your subscribed topics: ###TOPIC_LINK###.
+If you don't want to get more notifications about this topic, you can unsubscribe this topic by this link: ##UNSUBSCRIBE_LINK###.
+
+
+Yours sincerely,
+Your ###FORUM_NAME###-Team</label>
 		</languageKey>
 		<languageKey index="af"></languageKey>
 		<languageKey index="ar"></languageKey>
@@ -581,6 +590,15 @@
 			<label index="Tags_New_SubscribeTag">Abonniere diesen Tag</label>
 			<label index="Submit">Senden</label>
 			<label index="Button_Helpful">Hilfreich</label>
+			<label index="Mail_Subscribe_NewPost_Subject">Neuer Beitrag in einem von Dir abonnierten Thema!</label>
+			<label index="Mail_Subscribe_NewPost_Body">Hallo ###RECIPIENT###,
+
+###POST_AUTHOR### hat einen Beitrag in dem von dir abonnierten Thema ###TOPIC_LINK### erstellt.
+Falls Du keine Benachrichtigungen mehr erhalten möchtest, klicke im Forum auf den Button ###UNSUBSCRIBE_LINK###.
+
+
+Liebe Grüße
+Dein ###FORUM_NAME###-Team</label>
 		</languageKey>
 		<languageKey index="el"></languageKey>
 		<languageKey index="eo"></languageKey>

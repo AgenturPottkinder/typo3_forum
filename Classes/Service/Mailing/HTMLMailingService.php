@@ -46,64 +46,29 @@
 Class Tx_MmForum_Service_Mailing_HTMLMailingService Extends Tx_MmForum_Service_Mailing_AbstractMailingService {
 
 
-
-	/*
-		  * ATTRIBUTES
-		  */
-
-
-
-	/**
-	 * An instance of the TYPO3 internal HTML mailing service.
-	 *
-	 * @var t3lib_htmlmail
-	 */
-	Protected $htmlMail;
-
-
-
-	/*
-	 * SERVICE METHODS
-	 */
-
-
-
-	/**
-	 *
-	 * Creates a new instance of this service.
-	 *
-	 */
-
-	public function __construct() {
-		$this->htmlMail =& \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('t3lib_htmlmail');
-	}
-
-
-
 	/**
 	 *
 	 * Sends a mail with a certain subject and bodytext to a recipient in form of a
 	 * frontend user.
 	 *
-	 * @param         \TYPO3\CMS\Extbase\Domain\Model\FrontendUser @recipient
+	 * @param         \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $recipient
 	 *                                                     The recipient of the mail. This is a plain
 	 *                                                     frontend user.
 	 * @param  string $subject                             The mail's subject
-	 * @param  string $bodytext                            The mail's bodytext
+	 * @param  string $bodyText                            The mail's bodytext
 	 *
 	 * @return void
 	 *
 	 */
 
-	public function sendMail(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $recipient, $subject, $bodytext) {
-		$this->htmlMail->start();
-		$this->htmlMail->recipient  = $recipient->getName() . ' <' . $recipient->getEmail() . '>';
-		$this->htmlMail->subject    = $subject;
-		$this->htmlMail->from_email = $this->getDefaultSenderAddress();
-		$this->htmlMail->from_name  = $this->getDefaultSenderName();
-		$this->htmlMail->returnPath = $this->getDefaultSenderAddress();
-		$this->htmlMail->setHTML($this->htmlMail->encodeMsg($bodytext));
-		$this->htmlMail->send($recipient->getEmail());
+	public function sendMail(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $recipient, $subject, $bodyText) {
+		$Typo3_mail = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('t3lib_mail_Message');
+
+		$Typo3_mail->setFrom( array( $this->getDefaultSenderAddress() => $this->getDefaultSenderName() ) )
+					->setTo($recipient->getEmail())
+					->setSubject($subject)
+					->setBody($bodyText, 'text/html')
+					->send();
 	}
 
 }

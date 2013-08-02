@@ -47,6 +47,21 @@ abstract class Tx_MmForum_Service_Mailing_AbstractMailingService extends Tx_MmFo
 	implements Tx_MmForum_Service_Mailing_MailingServiceInterface {
 
 
+	/**
+	 * An instance of the mm_forum authentication service.
+	 * @var TYPO3\CMS\Extbase\Service\TypoScriptService
+	 */
+	protected $typoScriptService = NULL;
+
+
+
+	/**
+	 * Whole TypoScript mm_forum settings
+	 * @var array
+	 */
+	protected $settings;
+
+
 
 	/*
 	 * CONSTANTS
@@ -82,6 +97,17 @@ abstract class Tx_MmForum_Service_Mailing_AbstractMailingService extends Tx_MmFo
 
 
 
+	/**
+	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
+	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
+	 */
+	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
+		$this->typoScriptService = $typoScriptService;
+		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
+		$this->settings = $ts['plugin']['tx_mmforum']['settings'];
+	}
+
+
 	/*
 	  * SERVICE METHODS
 	  */
@@ -109,7 +135,7 @@ abstract class Tx_MmForum_Service_Mailing_AbstractMailingService extends Tx_MmFo
 	 * @return string The default sender name.
 	 */
 	protected function getDefaultSenderName() {
-		return $this->settings['mailing.']['sender.']['name'];
+		return trim($this->settings['mailing']['sender']['name']);
 	}
 
 
@@ -119,7 +145,7 @@ abstract class Tx_MmForum_Service_Mailing_AbstractMailingService extends Tx_MmFo
 	 * @return string The default sender address.
 	 */
 	protected function getDefaultSenderAddress() {
-		return $this->settings['mailing.']['sender.']['address'];
+		return trim($this->settings['mailing']['sender']['address']);
 	}
 
 

@@ -72,21 +72,22 @@ class Tx_MmForum_Service_Mailing_PlainMailingService extends Tx_MmForum_Service_
 	 * Sends a mail with a certain subject and bodytext to a recipient in form of a
 	 * frontend user.
 	 *
-	 * @param         \TYPO3\CMS\Extbase\Domain\Model\FrontendUser @recipient
+	 * @param         \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $recipient
 	 *                                                             The recipient of the mail. This is a plain
 	 *                                                             frontend user.
 	 * @param  string $subject                                     The mail's subject
-	 * @param  string $bodytext                                    The mail's bodytext
+	 * @param  string $bodyText                                    The mail's bodytext
 	 *
 	 * @return void
 	 *
 	 */
-	public function sendMail(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $recipient, $subject, $bodytext) {
+	public function sendMail(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $recipient, $subject, $bodyText) {
 		if ($recipient->getEmail()) {
 			$mail = new \TYPO3\CMS\Core\Mail\MailMessage();
 			$mail->setTo(array($recipient->getEmail()))
+				->setFrom($this->getDefaultSenderAddress(),$this->getDefaultSenderName())
 				->setSubject($subject)
-				->setBody($bodytext)
+				->setBody($bodyText)
 				->send();
 		}
 	}
@@ -103,15 +104,10 @@ class Tx_MmForum_Service_Mailing_PlainMailingService extends Tx_MmForum_Service_
 	 *
 	 * Generates the e-mail headers for a certain recipient, subject and bodytext.
 	 *
-	 * @param  \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $recipient
-	 *                                                           The recipient of the email.
-	 * @param  string                               $subject     The mail's subject.
-	 * @param  string                               $bodytext    The mail's bodytext.
-	 *
 	 * @return string              The mail headers.
 	 *
 	 */
-	protected function getHeaders(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $recipient, $subject, $bodytext) {
+	protected function getHeaders() {
 		$headerArray  = array('From'         => $this->getDefaultSender(),
 		                      'Content-Type' => 'text/plain; charset=' . $this->getCharset());
 		$headerString = "";
