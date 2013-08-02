@@ -93,10 +93,6 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	protected $attachmentService = NULL;
 
 
-	/**
-	 * @var Tx_MmForum_Service_Mailing_HTMLMailingService
-	 */
-	protected $htmlMailingService;
 
 	/*
 	 * DEPENDENCY INJECTORS
@@ -113,7 +109,6 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	 * @param Tx_MmForum_Domain_Repository_Forum_AttachmentRepository $attachmentRepository
 	 * @param Tx_MmForum_Service_SessionHandlingService $sessionHandling
 	 * @param Tx_MmForum_Service_AttachmentService $attachmentService
-	 * @param Tx_MmForum_Service_Mailing_HTMLMailingService $htmlMailingService
 	 */
 	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
 								Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
@@ -121,8 +116,7 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 								Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory,
 								Tx_MmForum_Domain_Repository_Forum_AttachmentRepository $attachmentRepository,
 								Tx_MmForum_Service_SessionHandlingService $sessionHandling,
-								Tx_MmForum_Service_AttachmentService $attachmentService,
-								Tx_MmForum_Service_Mailing_HTMLMailingService $htmlMailingService) {
+								Tx_MmForum_Service_AttachmentService $attachmentService) {
 		$this->forumRepository		= $forumRepository;
 		$this->topicRepository		= $topicRepository;
 		$this->postRepository		= $postRepository;
@@ -130,7 +124,6 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 		$this->attachmentRepository	= $attachmentRepository;
 		$this->sessionHandling		= $sessionHandling;
 		$this->attachmentService	= $attachmentService;
-		$this->htmlMailingService	= $htmlMailingService;
 	}
 
 	/*
@@ -306,43 +299,6 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 
 		$topic->addPost($post);
 		$this->topicRepository->update($topic);
-
-		// Send mail to all subscribers
-		$subject = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate("Mail_Subscribe_NewPost_Subject", 'mm_forum');
-		$messageTemplate = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate("Mail_Subscribe_NewPost_Body", 'mm_forum');
-		$postAuthor = $post->getAuthor()->getUsername();
-		$uriBuilder = $this->controllerContext->getUriBuilder();
-		$arguments = array(
-			'tx_mmforum_pi1[controller]' => 'Topic',
-			'tx_mmforum_pi1[action]' => 'show',
-			'tx_mmforum_pi1[topic]' => $topic->getUid()
-		);
-		$pageNumber = $post->getTopic()->getPageCount();
-		if ($pageNumber > 1) {
-			$arguments['@widget_0']['currentPage'] = $pageNumber;
-		}
-
-		$topicLink = $GLOBALS['TSFE']->baseUrl.$uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments($arguments)->build();
-		$topicLink = '<a href="'.$topicLink.'">'.$topic->getTitle().'</a>';
-		$uriBuilder->reset();
-		$unSubscribeLink = $GLOBALS['TSFE']->baseUrl.$uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments(array('tx_mmforum_pi1[topic]' => $topic->getUid(), 'tx_mmforum_pi1[controller]' => 'User', 'tx_mmforum_pi1[action]' => 'subscribe', 'tx_mmforum_pi1[unsubscribe]' => 1))->build();
-		$unSubscribeLink = '<a href="'.$unSubscribeLink.'">'.$unSubscribeLink.'</a>';
-		foreach($topic->getSubscribers() AS $subscriber) {
-			if($subscriber != $post->getAuthor()){
-				$marker = array(
-					'###RECIPIENT###' => $subscriber->getUsername(),
-					'###POST_AUTHOR###' => $postAuthor,
-					'###TOPIC_LINK###' => $topicLink,
-					'###UNSUBSCRIBE_LINK###' => $unSubscribeLink,
-					'###FORUM_NAME###' => $this->settings['mailing']['sender']['name']
-				);
-				$message = $messageTemplate;
-				foreach($marker As $name => $value) {
-					$message = str_replace($name,$value,$message);
-				}
-				$this->htmlMailingService->sendMail($subscriber,$subject, nl2br($message));
-			}
-		}
 
 		// All potential listeners (Signal-Slot FTW!)
 		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Post', 'postCreated',

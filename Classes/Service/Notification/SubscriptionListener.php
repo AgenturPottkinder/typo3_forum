@@ -89,7 +89,7 @@ final class Tx_MmForum_Service_Notification_SubscriptionListener {
 	 */
 	public function onTopicCreated($topic) {
 		if ($topic instanceof Tx_MmForum_Domain_Model_Forum_Topic) {
-			$this->notificationService->notifySubscribers($topic->getForum(), $topic);
+
 		}
 	}
 

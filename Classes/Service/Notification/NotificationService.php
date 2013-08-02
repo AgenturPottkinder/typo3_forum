@@ -25,7 +25,6 @@
  *                                                                      */
 
 
-
 /**
  *
  * Service class for notifications. This service notifies subscribers of
@@ -44,32 +43,37 @@
  *
  */
 class Tx_MmForum_Service_Notification_NotificationService extends Tx_MmForum_Service_AbstractService
-	implements Tx_MmForum_Service_Notification_NotificationServiceInterface {
-
+	implements Tx_MmForum_Service_Notification_NotificationServiceInterface
+{
 
 
 	/*
 	 * ATTRIBUTES
 	 */
 
+	/**
+	 * @var Tx_MmForum_Service_Mailing_HTMLMailingService
+	 */
+	protected $htmlMailingService;
 
 
 	/**
-	 * The view used for rendering the notification mails.
-	 *
-	 * @var Tx_Extbase_MVC_View_AbstractView
+	 * @var \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder
 	 */
-	protected $notificationView;
-
+	protected $uriBuilder;
 
 
 	/**
-	 * The mailing service. Needs to be injected, too.
-	 *
-	 * @var Tx_MmForum_Service_Mailing_AbstractMailingService
+	 * An instance of the mm_forum authentication service.
+	 * @var TYPO3\CMS\Extbase\Service\TypoScriptService
 	 */
-	protected $mailingService;
+	protected $typoScriptService = NULL;
 
+	/**
+	 * Whole TypoScript mm_forum settings
+	 * @var array
+	 */
+	protected $settings;
 
 
 	/*
@@ -77,40 +81,34 @@ class Tx_MmForum_Service_Notification_NotificationService extends Tx_MmForum_Ser
 	  */
 
 
-
 	/**
-	 * Creates a new instance of this object.
+	 * Constructor. Used primarily for dependency injection.
 	 *
-	 * @param  Tx_MmForum_Service_Mailing_MailingServiceInterface $mailingService
-	 *                             The mailing service. This needs to be injected by
-	 *                             the calling controller.
+	 * @param Tx_MmForum_Service_Mailing_HTMLMailingService $htmlMailingService
+	 * @param \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder
 	 */
-	public function __construct(Tx_MmForum_Service_Mailing_MailingServiceInterface $mailingService) {
-		$this->mailingService = $mailingService;
+	public function __construct(Tx_MmForum_Service_Mailing_HTMLMailingService $htmlMailingService, \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder)
+	{
+		$this->htmlMailingService = $htmlMailingService;
+		$this->uriBuilder = $uriBuilder;
 	}
 
 
-
 	/**
-	 *
-	 * Initializes the view that is to be used for rendering the notification mails.
-	 *
-	 * @return void
-	 *
+	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
+	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
 	 */
-	protected function initialize() {
-		$this->notificationView = new \TYPO3\CMS\Fluid\View\StandaloneView();
-		$this->notificationView->setFormat($this->mailingService->getFormat());
-		// TODO: Make template path configurable!
-		$this->notificationView->setTemplatePathAndFilename(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mm_forum') . '/Resources/Private/Templates/Topic/Notify.' . $this->mailingService->getFormat());
+	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService)
+	{
+		$this->typoScriptService = $typoScriptService;
+		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
+		$this->settings = $ts['plugin']['tx_mmforum']['settings'];
 	}
-
 
 
 	/*
 	 * SERVICE METHODS
 	 */
-
 
 
 	/**
@@ -121,7 +119,7 @@ class Tx_MmForum_Service_Notification_NotificationService extends Tx_MmForum_Ser
 	 * @param  Tx_MmForum_Domain_Model_SubscribeableInterface $subscriptionObject
 	 *                             The subscribed object. This may for example be a
 	 *                             forum or a topic.
-	 * @param  Tx_MmForum_Domain_Model_NotifiableInterface    $notificationObject
+	 * @param  Tx_MmForum_Domain_Model_NotifiableInterface $notificationObject
 	 *                             The object that the subscriber is notified about.
 	 *                             This may for example be a new post within an
 	 *                             observed topic or forum or a new topic within an
@@ -131,20 +129,48 @@ class Tx_MmForum_Service_Notification_NotificationService extends Tx_MmForum_Ser
 	 *
 	 */
 	public function notifySubscribers(Tx_MmForum_Domain_Model_SubscribeableInterface $subscriptionObject,
-	                                  Tx_MmForum_Domain_Model_NotifiableInterface $notificationObject) {
-		$this->initialize();
-		$subscribers = $subscriptionObject->getSubscribers();
-		foreach ($subscribers as $subscriber) {
-			$this->notificationView->assignMultiple(array('settings'        => $this->settings,
-			                                             'subscribedObject' => $subscriptionObject,
-			                                             'newObject'        => $notificationObject,
-			                                             'subscriber'       => $subscriber));
-			$text = $this->notificationView->render();
-			// TODO: Read subject from locallang!
-			$this->mailingService->sendMail($subscriber, "Hallo", $text);
+									  Tx_MmForum_Domain_Model_NotifiableInterface $notificationObject)
+	{
+		$topic = $subscriptionObject;
+		$post  = $notificationObject;
+
+
+		$subject = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate("Mail_Subscribe_NewPost_Subject", 'mm_forum');
+		$messageTemplate = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate("Mail_Subscribe_NewPost_Body", 'mm_forum');
+		$postAuthor = $post->getAuthor()->getUsername();
+		$uriBuilder = $this->uriBuilder;
+		$arguments = array(
+			'tx_mmforum_pi1[controller]' => 'Topic',
+			'tx_mmforum_pi1[action]' => 'show',
+			'tx_mmforum_pi1[topic]' => $topic->getUid()
+		);
+		$pageNumber = $post->getTopic()->getPageCount();
+		if ($pageNumber > 1) {
+			$arguments['@widget_0']['currentPage'] = $pageNumber;
+		}
+
+		$topicLink = $GLOBALS['TSFE']->baseUrl . $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments($arguments)->build();
+		$topicLink = '<a href="' . $topicLink . '">' . $topic->getTitle() . '</a>';
+		$uriBuilder->reset();
+		$unSubscribeLink = $GLOBALS['TSFE']->baseUrl . $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments(array('tx_mmforum_pi1[topic]' => $topic->getUid(), 'tx_mmforum_pi1[controller]' => 'User', 'tx_mmforum_pi1[action]' => 'subscribe', 'tx_mmforum_pi1[unsubscribe]' => 1))->build();
+		$unSubscribeLink = '<a href="' . $unSubscribeLink . '">' . $unSubscribeLink . '</a>';
+		foreach ($topic->getSubscribers() AS $subscriber) {
+			if ($subscriber != $post->getAuthor()) {
+				$marker = array(
+					'###RECIPIENT###' => $subscriber->getUsername(),
+					'###POST_AUTHOR###' => $postAuthor,
+					'###TOPIC_LINK###' => $topicLink,
+					'###UNSUBSCRIBE_LINK###' => $unSubscribeLink,
+					'###FORUM_NAME###' => $this->settings['mailing']['sender']['name']
+				);
+				$message = $messageTemplate;
+				foreach ($marker As $name => $value) {
+					$message = str_replace($name, $value, $message);
+				}
+				$this->htmlMailingService->sendMail($subscriber, $subject, nl2br($message));
+			}
 		}
 	}
-
 
 
 }
