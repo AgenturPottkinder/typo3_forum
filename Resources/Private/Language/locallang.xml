@@ -158,7 +158,7 @@
 			<label index="User_New">New User</label>
 			<label index="User_Edit">Edit User</label>
 			<label index="User_ListPosts">All posts of %s</label>
-			<label index="User_ListSubscriptions">Subscribed Forums and Topics</label>
+			<label index="User_ListSubscriptions">Subscribed Topics</label>
 			<label index="User_ListSubscriptions_Goto">Go to</label>
 			<label index="User_ListSubscriptions_Unsubscribe">Unsubscribe</label>
 			<label index="User_New_Message">New Message</label>
@@ -458,7 +458,7 @@ Your ###FORUM_NAME###-Team</label>
 			<label index="User_New">Neuer Benutzer</label>
 			<label index="User_Edit">Editiere Benutzer</label>
 			<label index="User_ListPosts">Alle Beiträge von %s</label>
-			<label index="User_ListSubscriptions">Abonnierte Foren und Themen</label>
+			<label index="User_ListSubscriptions">Abonnierte Themen</label>
 			<label index="User_ListSubscriptions_Goto">Gehe zu</label>
 			<label index="User_ListSubscriptions_Unsubscribe">Entfernen</label>
 			<label index="User_Show">Benutzerprofil</label>
