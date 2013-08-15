@@ -373,7 +373,7 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	 * @return integer Page count
 	 */
 	public function getPageCount() {
-		return ceil($this->postCount / intval($this->settings['pagebrowser']['default']['itemsPerPage']));
+		return ceil($this->postCount / intval($this->settings['pagebrowser']['topicShow']['itemsPerPage']));
 	}
 
 
