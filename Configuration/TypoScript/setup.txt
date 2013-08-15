@@ -257,7 +257,6 @@ plugin.tx_mmforum.settings {
 			itemsPerPage = 20
 			showResultCount = 1
 			insertBelow = 1
-			insertAbove = 1
 			maximumNumberOfLinks = 9
 			showFirstLast = 1
             browseBoxWrap = <div class="tx-ttnews-browsebox"><p>|</ul></div>
@@ -267,6 +266,10 @@ plugin.tx_mmforum.settings {
             activeLinkWrap = <li><strong>|</strong></li>
             disabledLinkWrap = <li>|</li>
             inactiveLinkWrap = <li>|</li>
+		}
+		topicShow < default
+		topicShow {
+		    insertAbove = 1
 		}
 	}
 
