@@ -87,7 +87,6 @@ return array(
 	'tx_mmforum_textparser_service_quoteparserservice' => $extensionPath . 'Classes/TextParser/Service/QuoteParserService.php',
 	'tx_mmforum_textparser_service_smilieparserservice' => $extensionPath . 'Classes/TextParser/Service/SmilieParserService.php',
 	'tx_mmforum_textparser_service_syntaxhighlightingparserservice' => $extensionPath . 'Classes/TextParser/Service/SyntaxHighlightingParserService.php',
-	'tx_mmforum_textparser_service_tidyservice' => $extensionPath . 'Classes/TextParser/Service/TidyService.php',
 	'tx_mmforum_utility_file' => $extensionPath . 'Classes/Utility/File.php',
 	'tx_mmforum_utility_localization' => $extensionPath . 'Classes/Utility/Localization.php',
 	'tx_mmforum_utility_typoscript' => $extensionPath . 'Classes/Utility/TypoScript.php',
