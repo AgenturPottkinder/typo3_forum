@@ -530,6 +530,8 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 				return $this->checkNewPostAccess($user);
 			case 'moderate':
 				return $this->checkModerationAccess($user);
+			case 'solution':
+				return $this->checkSolutionAccess($user);
 			default:
 				return $this->forum->checkAccess($user, $accessType);
 		}
@@ -559,6 +561,21 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	 */
 	public function checkModerationAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
 		return ($user === NULL) ? FALSE : $this->getForum()->checkModerationAccess($user);
+	}
+
+
+	/**
+	 * Checks if a user has solution access to this topic.
+	 *
+	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @return boolean
+	 */
+	public function checkSolutionAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
+		if($this->getAuthor()->getUid() == $user->getUid() || $this->checkModerationAccess($user)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 
