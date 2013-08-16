@@ -125,17 +125,24 @@ class Tx_MmForum_Domain_Repository_Forum_PostRepository extends Tx_MmForum_Domai
 	 * @param  Tx_MmForum_Domain_Model_Forum_Topic $topic
 	 *                             The topic for which the last post is to be
 	 *                             loaded.
+	 * @param int $offset
+	 * 								If you want to get the next to last post post
 	 *
 	 * @return Tx_MmForum_Domain_Model_Forum_Post
 	 *                             The last post of the specified topic.
 	 *
 	 */
-	public function findLastByTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
+	public function findLastByTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic, $offset=0) {
 		$query = $this->createQuery();
-		return $query->matching($query->equals('topic', $topic))
-			->setOrderings(Array('crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING))->setLimit(1)
-			->execute()->getFirst();
+		$query->matching($query->equals('topic', $topic))
+			->setOrderings(Array('crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING))->setLimit(1);
+		if($offset > 0) {
+			$query->setOffset($offset);
+		}
+		return $query->execute()->getFirst();
 	}
+
+
 
 
 
@@ -156,6 +163,33 @@ class Tx_MmForum_Domain_Repository_Forum_PostRepository extends Tx_MmForum_Domai
 			->setLimit(1)->execute()->getFirst();
 	}
 
+
+	/**
+	 * Deletes the post with sql statements.
+	 * Only used on performance problems (Activate useSqlStatementsOnCriticalFunctions in settings).
+	 *
+	 * @TODO: is last post really working how it should work?
+	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @return void
+	 */
+	public function deletePostWithSqlStatement(Tx_MmForum_Domain_Model_Forum_Post $post) {
+		$lastPost = $post->getTopic()->getLastPost();
+		if($post->getUid() == $lastPost->getUid()) {
+			$lastPost = $this->findLastByTopic($post->getTopic(),1);
+		}
+
+		$queries = array(
+			'UPDATE tx_mmforum_domain_model_forum_topic SET post_count = post_count - 1, last_post = '.intval($lastPost->getUid()).', last_post_crdate = '.intval($lastPost->getTimestamp()->getTimestamp()).'
+					WHERE uid = '.intval($post->getTopic()->getUid()),
+			'UPDATE tx_mmforum_domain_model_forum_forum SET post_count = post_count - 1, last_post = '.intval($lastPost->getUid()).'
+					WHERE uid = '.intval($post->getTopic()->getForum()->getUid()),
+			'UPDATE tx_mmforum_domain_model_forum_post SET deleted=1 WHERE uid='.intval($post->getUid()),
+		);
+
+		foreach($queries AS $sql) {
+			$GLOBALS['TYPO3_DB']->sql_query($sql);
+		}
+	}
 
 
 }

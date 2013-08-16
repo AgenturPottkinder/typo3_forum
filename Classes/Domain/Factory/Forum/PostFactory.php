@@ -61,10 +61,33 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory extends Tx_MmForum_Domain_Fact
 
 
 	/**
+	 * The post repository.
+	 * @var Tx_MmForum_Domain_Repository_Forum_PostRepository
+	 */
+	protected $postRepository = NULL;
+
+
+
+	/**
 	 * The topic factory.
 	 * @var Tx_MmForum_Domain_Factory_Forum_TopicFactory
 	 */
 	protected $topicFactory = NULL;
+
+
+
+
+	/**
+	 * An instance of the mm_forum authentication service.
+	 * @var TYPO3\CMS\Extbase\Service\TypoScriptService
+	 */
+	protected $typoScriptService = NULL;
+
+	/**
+	 * Whole TypoScript mm_forum settings
+	 * @var array
+	 */
+	protected $settings;
 
 
 
@@ -82,12 +105,30 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory extends Tx_MmForum_Domain_Fact
 	}
 
 
+	/**
+	 * @param Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository
+	 */
+	public function injectPostRepository(Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository) {
+		$this->postRepository = $postRepository;
+	}
+
 
 	/**
 	 * @param Tx_MmForum_Domain_Factory_Forum_TopicFactory $topicFactory
 	 */
 	public function injectTopicFactory(Tx_MmForum_Domain_Factory_Forum_TopicFactory $topicFactory) {
 		$this->topicFactory = $topicFactory;
+	}
+
+
+	/**
+	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
+	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
+	 */
+	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
+		$this->typoScriptService = $typoScriptService;
+		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
+		$this->settings = $ts['plugin']['tx_mmforum']['settings'];
 	}
 
 
@@ -186,8 +227,12 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory extends Tx_MmForum_Domain_Fact
 			$post->getAuthor()->decreasePostCount();
 			$post->getAuthor()->decreasePoints(intval($this->settings['rankScore']['newPost']));
 			$this->frontendUserRepository->update($post->getAuthor());
-			$topic->removePost($post);
-			$this->topicRepository->update($topic);
+			if(intval($this->settings['useSqlStatementsOnCriticalFunctions']) == 0) {
+				$topic->removePost($post);
+				$this->topicRepository->update($topic);
+			} else {
+				$this->postRepository->deletePostWithSqlStatement($post);
+			}
 		}
 	}
 
