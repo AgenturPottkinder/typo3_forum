@@ -139,7 +139,7 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 		$showPaginate = FALSE;
 		switch($this->settings['listPosts']){
 			case '2':
-				$dataset = $this->postRepository->findByFilter(6, array('crdate' => 'DESC'));
+				$dataset = $this->postRepository->findByFilter(intval($this->settings['widgets']['newestPosts']['limit']), array('crdate' => 'DESC'));
 				$partial = 'Post/LatestBox';
 				break;
 			default:

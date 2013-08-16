@@ -300,6 +300,11 @@ plugin.tx_mmforum.settings {
 	}
 	widgets {
 		onlinebox.limit = 6
+		newestPosts.limit = 6
+		questionPosts.limit = 6
+		popularPosts.limit = 6
+		helpfulUser.limit = 4
+		activeUser.limit = 4
 	}
 	textParsing {
 		enabledServices {

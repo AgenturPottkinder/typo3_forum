@@ -198,11 +198,11 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 				$partial = 'Topic/List';
 				break;
 			case '3':
-				$dataset = $this->topicRepository->findQuestions(6);
+				$dataset = $this->topicRepository->findQuestions(intval($this->settings['widgets']['questionPosts']['limit']));
 				$partial = 'Topic/QuestionBox';
 				break;
 			case '4':
-				$dataset = $this->topicRepository->findPopularTopics(intval($this->settings['popularTopicTimeDiff']),6);
+				$dataset = $this->topicRepository->findPopularTopics(intval($this->settings['popularTopicTimeDiff']),intval($this->settings['widgets']['popularPosts']['limit']));
 				$partial = 'Topic/ListBox';
 				break;
 			default:
