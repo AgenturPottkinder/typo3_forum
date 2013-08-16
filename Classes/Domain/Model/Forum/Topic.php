@@ -466,8 +466,12 @@ class Tx_MmForum_Domain_Model_Forum_Topic extends \TYPO3\CMS\Extbase\DomainObjec
 	 * @return boolean                                           TRUE, if the user did read this topic, otherwise FALSE.
 	 */
 	public function hasBeenReadByUser(Tx_MmForum_Domain_Model_User_FrontendUser $reader = NULL) {
-		$res = $this->topicRepository->getTopicReadByUser($this,$reader);
-		return !$res;
+		if(intval($this->settings['useSqlStatementsOnCriticalFunctions']) == 0) {
+			return $reader ? $this->readers->contains($reader) : TRUE;
+		} else {
+			$res = $this->topicRepository->getTopicReadByUser($this,$reader);
+			return !$res;
+		}
 	}
 
 

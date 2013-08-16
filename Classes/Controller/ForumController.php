@@ -217,13 +217,19 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 		}
 
 		foreach($forumStorage AS $checkForum) {
-			$topics = $this->topicRepository->getUnreadTopics($checkForum,$user);
+			if(intval($this->settings['useSqlStatementsOnCriticalFunctions']) == 0) {
+				foreach($checkForum->getTopics() AS $topic) {
+					$topic->addReader($user);
+				}
+			} else {
+				$topics = $this->topicRepository->getUnreadTopics($checkForum,$user);
 
-			foreach($topics AS $topic) {
-				$values = array('uid_foreign' => intval($topic['uid']),
-							   'uid_local'	 => intval($user->getUid()));
-				$query = $GLOBALS['TYPO3_DB']->INSERTquery('tx_mmforum_domain_model_user_readtopic',$values);
-				$res =  $GLOBALS['TYPO3_DB']->sql_query($query);
+				foreach($topics AS $topic) {
+					$values = array('uid_foreign' => intval($topic['uid']),
+						'uid_local'	 => intval($user->getUid()));
+					$query = $GLOBALS['TYPO3_DB']->INSERTquery('tx_mmforum_domain_model_user_readtopic',$values);
+					$res =  $GLOBALS['TYPO3_DB']->sql_query($query);
+				}
 			}
 
 			$checkForum->addReader($user);
@@ -248,6 +254,7 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 		}
 		$topics       = array();
 		$unreadTopics = array();
+
 		$tmpTopics = $this->topicRepository->getUnreadTopics($forum,$user);
 		foreach($tmpTopics AS $tmpTopic) {
 			$unreadTopics[] = $tmpTopic['uid'];

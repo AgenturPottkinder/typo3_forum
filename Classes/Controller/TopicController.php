@@ -384,16 +384,21 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 			return;
 		}
 		else {
-			if($this->topicRepository->getTopicReadByUser($topic,$currentUser)) {
-				$values = array(
-					'uid_local'   => $currentUser->getUid(),
-					'uid_foreign' => $topic->getUid(),
-				);
-				$sql = $GLOBALS['TYPO3_DB']->INSERTquery('tx_mmforum_domain_model_user_readtopic',$values);
-				$GLOBALS['TYPO3_DB']->sql_query($sql);
+			if(intval($this->settings['useSqlStatementsOnCriticalFunctions']) == 0) {
+				if($topic->hasBeenReadByUser($currentUser)) {
+					$currentUser->addReadObject($topic);
+					$this->frontendUserRepository->update($currentUser);
+				}
+			} else {
+				if($this->topicRepository->getTopicReadByUser($topic,$currentUser)) {
+					$values = array(
+						'uid_local'   => $currentUser->getUid(),
+						'uid_foreign' => $topic->getUid(),
+					);
+					$sql = $GLOBALS['TYPO3_DB']->INSERTquery('tx_mmforum_domain_model_user_readtopic',$values);
+					$GLOBALS['TYPO3_DB']->sql_query($sql);
+				}
 			}
-			//$currentUser->addReadObject($topic);
-			//$this->frontendUserRepository->update($currentUser);
 		}
 	}
 
