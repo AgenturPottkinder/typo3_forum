@@ -224,8 +224,12 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 		// Assert authentication
 		$this->authenticationService->assertReadAuthorization($post);
 
-		$redirectArguments = array('topic' => $post->getTopic(), 'quote' => $quote, 'showForm' => $showForm);
 
+		$redirectArguments = array('topic' => $post->getTopic(), 'showForm' => $showForm);
+
+		if(!empty($quote)){
+			$redirectArguments['quote'] =  $quote;
+		}
 		$pageNumber = $post->getTopic()->getPageCount();
 		if($pageNumber > 1) {
 			$redirectArguments['@widget_0'] = array('currentPage' => $pageNumber);
