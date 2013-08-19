@@ -95,9 +95,39 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 		if($this->getForumPid() == false || $this->getUserPid() == false) return false;
 		$this->setSettings();
 
+		$this->updateTopic();
 		$this->updateUser();
 		return true;
 	}
+
+
+
+	/**
+	 * @return void
+	 */
+	private function updateTopic() {
+		$query = 'SELECT COUNT(*) AS counter, p.topic FROM tx_mmforum_domain_model_forum_post AS p
+				  INNER JOIN tx_mmforum_domain_model_forum_topic AS t ON t.uid = p.topic
+				  WHERE p.pid='.intval($this->getForumPid()).' AND p.deleted=0 AND t.deleted=0
+				  GROUP BY p.topic
+				  ORDER BY counter ASC';
+		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
+		while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+			$topicCount[$row['topic']] = $row['counter'];
+		}
+		$lastCounter = 1;
+		$lastCounterArray = array();
+		foreach($topicCount AS $topicUid => $postCount) {
+			if($lastCounter != $postCount) {
+				$query = 'UPDATE tx_mmforum_domain_model_forum_topic SET post_count = '.intval($lastCounter).' WHERE uid IN ('.implode(',',$lastCounterArray).')';
+				$res = $GLOBALS['TYPO3_DB']->sql_query($query);
+				$lastCounterArray = array();
+			}
+			$lastCounterArray[] = intval($topicUid);
+			$lastCounter = $postCount;
+		}
+	}
+
 
 
 	/**
