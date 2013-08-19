@@ -198,11 +198,11 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 				$partial = 'Topic/List';
 				break;
 			case '3':
-				$dataset = $this->topicRepository->findQuestions(intval($this->settings['widgets']['questionPosts']['limit']));
+				$dataset = $this->topicRepository->findQuestions(6);
 				$partial = 'Topic/QuestionBox';
 				break;
 			case '4':
-				$dataset = $this->topicRepository->findPopularTopics(intval($this->settings['popularTopicTimeDiff']),intval($this->settings['widgets']['popularPosts']['limit']));
+				$dataset = $this->topicRepository->findPopularTopics(intval($this->settings['popularTopicTimeDiff']),6);
 				$partial = 'Topic/ListBox';
 				break;
 			default:
@@ -226,9 +226,10 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 *                                                         The topic that is to be displayed.
 	 * @param  Tx_MmForum_Domain_Model_Forum_Post $quote An optional post that will be quoted within the
 	 *                                                    bodytext of the new post.
+	 * @param int $showForm ShowForm
 	 * @return void
 	 */
-	public function showAction(Tx_MmForum_Domain_Model_Forum_Topic $topic, Tx_MmForum_Domain_Model_Forum_Post $quote = NULL) {
+	public function showAction(Tx_MmForum_Domain_Model_Forum_Topic $topic, Tx_MmForum_Domain_Model_Forum_Post $quote = NULL, $showForm = 0) {
 		$posts = $this->postRepository->findForTopic($topic);
 
 		if($quote != FALSE){
@@ -240,12 +241,6 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 		$dummy = $this->adsRepository->findForTopicView(1);
 
 		$subresults = $this->controllerContext->getRequest()->getOriginalRequestMappingResults()->getSubResults();
-
-		$showForm = intval(\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('showForm'));
-
-		if(isset($subresults['post']) && count($subresults['post']->getErrors()) > 0) {
-			$showForm = 1;
-		}
 
 		$googlePlus = $topic->getAuthor()->getGoogle();
 		if($googlePlus != "")

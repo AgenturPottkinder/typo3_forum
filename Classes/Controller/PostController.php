@@ -216,19 +216,20 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	 * This function is called by post summaries (last post link)
 	 *
 	 * @param Tx_MmForum_Domain_Model_Forum_Post $post The post
+	 * @param Tx_MmForum_Domain_Model_Forum_Post $quote The Quote
+	 * @param int $showForm ShowForm
 	 * @return void
 	 */
-	public function showAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
+	public function showAction(Tx_MmForum_Domain_Model_Forum_Post $post, Tx_MmForum_Domain_Model_Forum_Post $quote = NULL, $showForm = 0) {
 		// Assert authentication
 		$this->authenticationService->assertReadAuthorization($post);
 
-		$redirectArguments = array('topic' => $post->getTopic());
+		$redirectArguments = array('topic' => $post->getTopic(), 'quote' => $quote, 'showForm' => $showForm);
 
 		$pageNumber = $post->getTopic()->getPageCount();
 		if($pageNumber > 1) {
 			$redirectArguments['@widget_0'] = array('currentPage' => $pageNumber);
 		}
-
 
 		// Redirect to the topic->show action.
 		$this->redirect('show', 'Topic', NULL, $redirectArguments);
