@@ -352,7 +352,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 * @return void
 	 */
 	public function solutionAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
-		if($post->getTopic()->getAuthor() != $this->authenticationService->getUser()) {
+		if(!$post->getTopic()->checkSolutionAccess($this->authenticationService->getUser())) {
 			throw new Tx_MmForum_Domain_Exception_Authentication_NoAccessException('Not allowed to set solution by current user.');
 		}
 		$this->topicFactory->setPostAsSolution($post->getTopic(),$post);
