@@ -119,6 +119,7 @@ class Tx_MmForum_TextParser_Service_QuoteParserService extends Tx_MmForum_TextPa
 		$this->view->setControllerContext($this->controllerContext);
 		$this->view->setTemplatePathAndFilename(Tx_MmForum_Utility_File::replaceSiteRelPath($this->settings['template']));
 		$this->view->assign('quote', trim($matches[1]));
+		$this->view->assign('post', null);
 		return $this->view->render();
 	}
 
@@ -135,8 +136,13 @@ class Tx_MmForum_TextParser_Service_QuoteParserService extends Tx_MmForum_TextPa
 	protected function replaceCallback($matches) {
 		$this->view->setControllerContext($this->controllerContext);
 		$this->view->setTemplatePathAndFilename(Tx_MmForum_Utility_File::replaceSiteRelPath($this->settings['template']));
-		$this->view->assign('post', $this->postRepository->findByUid((int)$matches[1]))
-			->assign('quote', trim($matches[2]));
+
+		$tmp = $this->postRepository->findByUid((int)$matches[1]);
+		if(!empty($tmp)){
+		$this->view->assign('post', $tmp);
+		}
+
+		$this->view->assign('quote', trim($matches[2]));
 		return $this->view->render();
 	}
 
