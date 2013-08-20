@@ -449,10 +449,9 @@ plugin.tx_mmforum.renderer.icons {
     forum < .abstract_icon
 	forum {
 		10.file = EXT:mm_forum/Resources/Public/Images/Icons/Forum/BaseIcon.png
-
 		21 = IMG_RESOURCE
 		21.file = EXT:mm_forum/Resources/Public/Images/Icons/Forum/OverlayLocked.png
-		21.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-bl" style="background-image: url(|)"></div>
+		21.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-bl" style="background-image: url(|)" title="closed"></div>
 		21.stdWrap.if.isTrue.field = closed
 	}
 	forum_new < .forum
@@ -461,7 +460,7 @@ plugin.tx_mmforum.renderer.icons {
 
 		21 = IMG_RESOURCE
 		21.file = EXT:mm_forum/Resources/Public/Images/Icons/Forum/OverlayLocked.png
-		21.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-bl" style="background-image: url(|)"></div>
+		21.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-bl" style="background-image: url(|)" title="closed & new"></div>
 		21.stdWrap.if.isTrue.field = closed
 	}
 
@@ -471,32 +470,32 @@ plugin.tx_mmforum.renderer.icons {
 
 		20 = IMG_RESOURCE
 		20.file = EXT:mm_forum/Resources/Public/Images/Icons/Topic/OverlayImportant.png
-		20.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-tl" style="background-image: url(|)"></div>
+		20.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-tl" style="background-image: url(|)" title="important"></div>
 		20.stdWrap.if.isTrue.field = important
 
 		22 = IMG_RESOURCE
 		22.file = EXT:mm_forum/Resources/Public/Images/Icons/Topic/OverlayLocked.png
-		22.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-bl" style="background-image: url(|)"></div>
+		22.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-bl" style="background-image: url(|)" title="closed"></div>
 		22.stdWrap.if.isTrue.field = closed
 
 		23 = IMG_RESOURCE
 		23.file = EXT:mm_forum/Resources/Public/Images/Icons/Topic/OverlaySolved.png
-		23.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-br" style="background-image: url(|)"></div>
+		23.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-br" style="background-image: url(|)" title="solved"></div>
 		23.stdWrap.if.isTrue.field = solved
 
 		24 = IMG_RESOURCE
 		24.file = EXT:mm_forum/Resources/Public/Images/Icons/Topic/OverlayMoved.png
-		24.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-br" style="background-image: url(|)"></div>
+		24.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-br" style="background-image: url(|)" title="moved"></div>
 		24.stdWrap.if.isTrue.field = moved
 
 		25 = IMG_RESOURCE
 		25.file = EXT:mm_forum/Resources/Public/Images/Icons/Topic/OverlaySticky.png
-		25.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-tr" style="background-image: url(|)"></div>
+		25.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-tr" style="background-image: url(|)" title="sticky"></div>
 		25.stdWrap.if.isTrue.field = sticky
 	}
-    topic_new < .topic
+	topic_new < .topic
 	topic_new  {
-	    10.file = EXT:mm_forum/Resources/Public/Images/Icons/Topic/BaseIcon.png
+		10.file = EXT:mm_forum/Resources/Public/Images/Icons/Topic/BaseIcon.png
 	}
 
 
