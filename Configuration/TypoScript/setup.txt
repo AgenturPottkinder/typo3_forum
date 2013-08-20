@@ -222,6 +222,7 @@ plugin.tx_mmforum.settings {
 		UserShow =
 		UserList =
 		QuestionList =
+		AllQuestions =
 	}
 	
 	user {
@@ -309,7 +310,7 @@ plugin.tx_mmforum.settings {
 	textParsing {
 		enabledServices {
 			basic = Tx_MmForum_TextParser_Service_BasicParserService
-			tidy = Tx_MmForum_TextParser_Service_TidyService
+			#tidy = Tx_MmForum_TextParser_Service_TidyService
 			bbCodes = Tx_MmForum_TextParser_Service_BBCodeParserService
 			smilies = Tx_MmForum_TextParser_Service_SmilieParserService
 			syntax = Tx_MmForum_TextParser_Service_SyntaxHighlightingParserService
