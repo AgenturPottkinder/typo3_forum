@@ -618,6 +618,10 @@ div.tx-mmforum-topic-show-post-attachments table td {
   color: #aaa;
   font-style: italic; }
 
+.ad {
+	display: none;
+}
+
 /*
  * TEXTPARSER PANEL
 */

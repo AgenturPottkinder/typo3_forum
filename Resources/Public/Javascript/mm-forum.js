@@ -157,7 +157,7 @@ $(document).ready(function () {
 			}
 
 			if (json.ads) {
-				$('#infomation-'+json.ads.position).html(json.ads.html);
+				$('#infomation-'+json.ads.position).html(json.ads.html).show();
 			}
 
 			$('.tx-mmforum-helpfull-btn').click(function () {
