@@ -241,7 +241,6 @@ CREATE TABLE tx_mmforum_domain_model_moderation_reportcomment (
   author int(11) unsigned NOT NULL default '0',
   text text,
   tstamp int(11) unsigned NOT NULL default '0',
-  crdate int(11) unsigned NOT NULL default '0',
   deleted tinyint(4) unsigned NOT NULL default '0',
   hidden tinyint(4) unsigned NOT NULL default '0',
   PRIMARY KEY (uid),

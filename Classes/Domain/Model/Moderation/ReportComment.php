@@ -75,10 +75,12 @@ class Tx_MmForum_Domain_Model_Moderation_ReportComment extends \TYPO3\CMS\Extbas
 
 
 	/**
-	 * This comment's creation timestamp.
+	 * Creation date of this comment
 	 * @var DateTime
 	 */
-	protected $crdate = NULL;
+	protected $tstamp;
+
+
 
 
 
@@ -145,7 +147,7 @@ class Tx_MmForum_Domain_Model_Moderation_ReportComment extends \TYPO3\CMS\Extbas
 	 * @return DateTime The timestamp.
 	 */
 	public function getTimestamp() {
-		return $this->crdate;
+		return $this->tstamp;
 	}
 
 

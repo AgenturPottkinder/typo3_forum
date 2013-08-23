@@ -4,7 +4,7 @@ if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 $TCA['tx_mmforum_domain_model_moderation_reportcomment'] = array(
 	'ctrl' => $TCA['tx_mmforum_domain_model_moderation_reportcomment']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'report,author,text'
+		'showRecordFieldList' => 'report,author,text,tstamp'
 	),
 	'types' => array(
 		'1' => array('showitem' => 'report,author,text')
@@ -20,9 +20,9 @@ $TCA['tx_mmforum_domain_model_moderation_reportcomment'] = array(
 				'type' => 'check'
 			)
 		),
-		'crdate' => array(
+		'tstamp' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:lang/locallang_general.xml:LGL.crdate',
+			'label'   => 'LLL:EXT:lang/locallang_general.xml:LGL.tstamp',
 			'config'  => array(
 				'type' => 'passthrough'
 			)

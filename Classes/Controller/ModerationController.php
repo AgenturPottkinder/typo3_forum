@@ -240,8 +240,6 @@ class Tx_MmForum_Controller_ModerationController extends Tx_MmForum_Controller_A
 	public function createUserReportCommentAction(Tx_MmForum_Domain_Model_Moderation_UserReport $report = NULL,
 											  Tx_MmForum_Domain_Model_Moderation_ReportComment $comment) {
 
-
-
 		// Validate arguments
 		if ($report === NULL) {
 			throw new \TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException("You need to comment a user report!", 1285059341);
