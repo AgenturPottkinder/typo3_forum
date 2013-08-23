@@ -112,6 +112,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_forum (
   subscribers int(11) unsigned default '0',
   tstamp int(11) unsigned NOT NULL default '0',
   crdate int(11) unsigned NOT NULL default '0',
+  sorting int(11) unsigned NOT NULL default '0',
   deleted tinyint(4) unsigned NOT NULL default '0',
   hidden tinyint(4) unsigned NOT NULL default '0',
   t3ver_oid int(11) NOT NULL default '0',
@@ -470,6 +471,7 @@ CREATE TABLE IF NOT EXISTS tx_mmforum_domain_model_forum_criteria (
   deleted tinyint(3) unsigned NOT NULL default '0',
   `name` varchar(64) NOT NULL,
   options int(11) unsigned NOT NULL default '0',
+  default_option int(11) unsigned NULL DEFAULT NULL,
   PRIMARY KEY  (uid)
 );
 
@@ -497,6 +499,7 @@ CREATE TABLE IF NOT EXISTS tx_mmforum_domain_model_forum_criteria_options (
   deleted tinyint(3) NOT NULL default '0',
   criteria int(11) unsigned NOT NULL,
   `name` varchar(64) NOT NULL,
+  sorting int(11) unsigned NOT NULL default '0',
   PRIMARY KEY  (uid),
   KEY criteria (criteria)
 );

@@ -49,6 +49,13 @@ class Tx_MmForum_Domain_Model_Forum_CriteriaOption extends \TYPO3\CMS\Extbase\Do
 	 */
 	protected $name;
 
+	/**
+	 * The sorting value of this option
+	 * @var int
+	 */
+	protected $sorting;
+
+
 
 	/**
 	 * Get the criteria object.
@@ -64,6 +71,15 @@ class Tx_MmForum_Domain_Model_Forum_CriteriaOption extends \TYPO3\CMS\Extbase\Do
 	 */
 	public function getName() {
 		return $this->name;
+	}
+
+
+	/**
+	 * Gets the sorting value of this option
+	 * @return int
+	 */
+	public function getSorting() {
+		return $this->sorting;
 	}
 
 

@@ -102,6 +102,7 @@ class Tx_MmForum_Domain_Repository_Forum_ForumRepository extends \TYPO3\CMS\Extb
 		$query  = $this->createQuery();
 		$result = $query
 			->matching($query->equals('forum', 0))
+			->setOrderings(array('sorting' => 'ASC', 'uid' => 'ASC'))
 			->execute();
         return $this->filterByAccess($result, 'read');
 	}

@@ -182,6 +182,13 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 	protected $authenticationService = NULL;
 
 
+	/**
+	 * The sorting value
+	 * @var int
+	 */
+	protected $sorting;
+
+
 
 	/*
 	 * CONSTRUCTOR
@@ -436,6 +443,15 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 	 */
 	public function getSubscribers() {
 		return $this->subscribers;
+	}
+
+
+	/**
+	 * Gets the sorting value
+	 * @return int
+	 */
+	public function getSorting() {
+		return $this->sorting;
 	}
 
 

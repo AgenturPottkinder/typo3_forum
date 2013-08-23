@@ -19,6 +19,7 @@
 			<label index="tx_mmforum_domain_model_forum_forum.subscribers">Subscribers</label>
 			<label index="tx_mmforum_domain_model_forum_forum.readers">Readers</label>
 			<label index="tx_mmforum_domain_model_forum_forum.displayed_pid">Displayed PID</label>
+			<label index="tx_mmforum_domain_model_forum_forum.sorting">Sorting</label>
 
 			<label index="tx_mmforum_domain_model_forum_topic">Topic</label>
 			<label index="tx_mmforum_domain_model_forum_topic.type">Type</label>
@@ -53,9 +54,11 @@
 
 			<label index="tx_mmforum_domain_model_forum_criteria">Criteria</label>
 			<label index="tx_mmforum_domain_model_forum_criteria_name">Criteria Name</label>
+			<label index="tx_mmforum_domain_model_forum_criteria_default_option">Default Option</label>
 			<label index="tx_mmforum_domain_model_forum_criteria_options">Criteria Options</label>
 			<label index="tx_mmforum_domain_model_forum_criteria_options_name">Criteria Option Name</label>
 			<label index="tx_mmforum_domain_model_forum_criteria_options_criteria">Criteria Option Relation</label>
+			<label index="tx_mmforum_domain_model_forum_criteria_options_sorting">Sorting</label>
 
 			<label index="tx_mmforum_domain_model_forum_ads">Advertisements</label>
 			<label index="tx_mmforum_domain_model_forum_ads_name">Name</label>

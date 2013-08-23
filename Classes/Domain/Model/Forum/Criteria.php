@@ -52,6 +52,13 @@ class Tx_MmForum_Domain_Model_Forum_Criteria extends \TYPO3\CMS\Extbase\DomainOb
 
 
 	/**
+	 * The default option
+	 * @var Tx_MmForum_Domain_Model_Forum_CriteriaOption
+	 */
+	protected $defaultOption;
+
+
+	/**
 	 * Gets the absolute name of this criteria.
 	 * @return string The name of criteria.
 	 */
@@ -67,6 +74,15 @@ class Tx_MmForum_Domain_Model_Forum_Criteria extends \TYPO3\CMS\Extbase\DomainOb
 	 */
 	public function getOptions() {
 		return $this->options;
+	}
+
+
+	/**
+	 * Get the default option
+	 * @return Tx_MmForum_Domain_Model_Forum_CriteriaOption
+	 */
+	public function getDefaultOption() {
+		return $this->defaultOption;
 	}
 
 	/**
@@ -85,5 +101,15 @@ class Tx_MmForum_Domain_Model_Forum_Criteria extends \TYPO3\CMS\Extbase\DomainOb
 	 */
 	public function setName($name) {
 		$this->name = $name;
+	}
+
+
+	/**
+	 * Set the default option
+	 * @param Tx_MmForum_Domain_Model_Forum_CriteriaOption $defaultOption
+	 * @return void
+	 */
+	public function setDefaultOption(Tx_MmForum_Domain_Model_Forum_CriteriaOption $defaultOption) {
+		$this->defaultOption = $defaultOption;
 	}
 }
