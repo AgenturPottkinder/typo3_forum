@@ -183,7 +183,7 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 		$query = 'SELECT p.author, COUNT(*) AS counter
 				  FROM tx_mmforum_domain_model_user_supportpost AS s
 				  INNER JOIN tx_mmforum_domain_model_forum_post AS p ON p.uid = s.uid_foreign
-				  GROUP BY uid_local';
+				  GROUP BY p.author';
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 		while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 			$userUpdate[$row['author']]['support_count'] = $row['counter'];
