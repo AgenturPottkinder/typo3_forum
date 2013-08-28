@@ -705,11 +705,6 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 	public function removeTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
 		$this->topics->detach($topic);
 		$this->_resetCounters();
-
-		if ($this->lastTopic === $topic) {
-			$this->_resetLastTopic();
-			$this->_resetLastPost();
-		}
 	}
 
 
@@ -756,7 +751,7 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 	 * @param Tx_MmForum_Domain_Model_Forum_Topic $lastTopic The last topic
 	 * @return void
 	 */
-	public function setLastTopic(Tx_MmForum_Domain_Model_Forum_Topic $lastTopic) {
+	public function setLastTopic(Tx_MmForum_Domain_Model_Forum_Topic $lastTopic=NULL) {
 		$this->lastTopic = $lastTopic;
 	}
 
@@ -768,7 +763,7 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 	 * @param Tx_MmForum_Domain_Model_Forum_Post $lastPost The last post.
 	 * @return void
 	 */
-	public function setLastPost(Tx_MmForum_Domain_Model_Forum_Post $lastPost) {
+	public function setLastPost(Tx_MmForum_Domain_Model_Forum_Post $lastPost=NULL) {
 		$this->lastPost = $lastPost;
 	}
 

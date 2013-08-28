@@ -419,9 +419,14 @@ class Tx_MmForum_Controller_ModerationController extends Tx_MmForum_Controller_A
 
 		$forum->_resetLastPost();
 
-		$lastPost = $this->postRepository->findLastByForum($forum);
+		$lastTopic = $this->topicRepository->findLastByForum($forum);
+		if($lastTopic !== NULL) {
+			$lastPost = $lastTopic->getLastPost();
+		} else {
+			$lastPost = NULL;
+		}
 		$forum->setLastPost($lastPost);
-		$forum->setLastTopic($lastPost->getTopic());
+		$forum->setLastTopic($lastTopic);
 		$this->forumRepository->update($forum);
 
 		$this->controllerContext->getFlashMessageQueue()->addMessage(

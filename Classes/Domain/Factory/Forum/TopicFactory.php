@@ -86,6 +86,12 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 	protected $criteriaOptionRepository = NULL;
 
 
+	/**
+	 * @var \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface
+	 */
+	protected $persistenceManager;
+
+
 	/*
 	 * METHODS
 	 */
@@ -98,6 +104,7 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository
 	 * @param Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository
 	 * @param Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory
+	 * @param Tx_MmForum_Domain_Repository_Forum_CriteriaOptionRepository $criteriaOptionRepository
 	 */
 	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
 								Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
@@ -109,6 +116,15 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 		$this->postRepository = $postRepository;
 		$this->postFactory = $postFactory;
 		$this->criteriaOptionRepository = $criteriaOptionRepository;
+	}
+
+
+	/**
+	 * @param \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface $persistenceManager
+	 * @return void
+	 */
+	public function injectPersistenceManager(\TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface $persistenceManager) {
+		$this->persistenceManager = $persistenceManager;
 	}
 
 
@@ -162,6 +178,9 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 		}
 		$this->topicRepository->add($topic);
 
+		$topic->getForum()->setLastTopic($topic);
+		$this->forumRepository->update($topic->getForum());
+
 		return $topic;
 	}
 
@@ -178,8 +197,22 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 			$this->frontendUserRepository->update($post->getAuthor());
 		}
 
-		$topic->getForum()->removeTopic($topic);
-		$this->forumRepository->update($topic->getForum());
+		$forum = $topic->getForum();
+		$this->topicRepository->remove($topic);
+
+		$this->persistenceManager->persistAll();
+
+		$forum->_resetLastPost();
+
+		$lastTopic = $this->topicRepository->findLastByForum($forum);
+		if($lastTopic !== NULL) {
+			$lastPost = $lastTopic->getLastPost();
+		} else {
+			$lastPost = NULL;
+		}
+		$forum->setLastPost($lastPost);
+		$forum->setLastTopic($lastTopic);
+		$this->forumRepository->update($forum);
 
 		$user = $this->getCurrentUser();
 

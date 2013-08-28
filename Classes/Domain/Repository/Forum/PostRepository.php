@@ -135,7 +135,7 @@ class Tx_MmForum_Domain_Repository_Forum_PostRepository extends Tx_MmForum_Domai
 	public function findLastByTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic, $offset=0) {
 		$query = $this->createQuery();
 		$query->matching($query->equals('topic', $topic))
-			->setOrderings(Array('crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING))->setLimit(1);
+			->setOrderings(Array('crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING))->setLimit(1);
 		if($offset > 0) {
 			$query->setOffset($offset);
 		}
@@ -152,15 +152,21 @@ class Tx_MmForum_Domain_Repository_Forum_PostRepository extends Tx_MmForum_Domai
 	 *
 	 * @param  Tx_MmForum_Domain_Model_Forum_Forum $forum
 	 *                             The forum for which to load the last post.
+	 * @param int $offset
+	 * 								If you want to get the next to last post post
 	 *
 	 * @return Tx_MmForum_Domain_Model_Forum_Post
 	 *                             The last post of the specified forum.
 	 *
 	 */
-	public function findLastByForum(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
+	public function findLastByForum(Tx_MmForum_Domain_Model_Forum_Forum $forum, $offset=0) {
 		$query = $this->createQuery();
-		return $query->matching($query->equals('topic.forum', $forum))->setOrderings(array('crdate' => 'DESC'))
-			->setLimit(1)->execute()->getFirst();
+		$query->matching($query->equals('topic.forum', $forum))
+			->setOrderings(array('crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING))->setLimit(1);
+		if($offset > 0) {
+			$query->setOffset($offset);
+		}
+		return $query->execute()->getFirst();
 	}
 
 
@@ -168,7 +174,6 @@ class Tx_MmForum_Domain_Repository_Forum_PostRepository extends Tx_MmForum_Domai
 	 * Deletes the post with sql statements.
 	 * Only used on performance problems (Activate useSqlStatementsOnCriticalFunctions in settings).
 	 *
-	 * @TODO: is last post really working how it should work?
 	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
 	 * @return void
 	 */

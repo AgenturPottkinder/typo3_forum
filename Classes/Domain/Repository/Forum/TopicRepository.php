@@ -301,6 +301,31 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 
 
 	/**
+	 *
+	 * Finds the last topic in a forum.
+	 *
+	 * @param  Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 *                             The forum for which to load the last topic.
+	 * @param int $offset
+	 * 								If you want to get the next to last topic topic
+	 *
+	 * @return Tx_MmForum_Domain_Model_Forum_Topic
+	 *                             The last topic of the specified forum.
+	 *
+	 */
+	public function findLastByForum(Tx_MmForum_Domain_Model_Forum_Forum $forum, $offset=0) {
+		$query = $this->createQuery();
+		$query->matching($query->equals('forum', $forum))
+			->setOrderings(array('last_post_crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING))->setLimit(1);
+		if($offset > 0) {
+			$query->setOffset($offset);
+		}
+		return $query->execute()->getFirst();
+	}
+
+
+
+	/**
 	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
 	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
 	 * @return array
