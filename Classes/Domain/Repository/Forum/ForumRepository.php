@@ -147,7 +147,6 @@ class Tx_MmForum_Domain_Repository_Forum_ForumRepository extends \TYPO3\CMS\Extb
 			   LEFT JOIN tx_mmforum_domain_model_user_readforum AS rf
 					   ON rf.uid_foreign = f.uid AND rf.uid_local = '.intval($user->getUid()).'
 			   WHERE rf.uid_local IS NULL AND f.uid='.intval($forum->getUid());
-		echo $sql;
 		$query = $this->createQuery();
 		$query->getQuerySettings()->setReturnRawQueryResult(TRUE);
 		$query->statement($sql);
