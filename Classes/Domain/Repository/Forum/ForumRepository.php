@@ -136,5 +136,29 @@ class Tx_MmForum_Domain_Repository_Forum_ForumRepository extends \TYPO3\CMS\Extb
 	}
 
 
+	/**
+	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @return bool
+	 */
+	public function getForumReadByUser(Tx_MmForum_Domain_Model_Forum_Forum $forum, Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+		$sql ='SELECT f.uid
+			   FROM tx_mmforum_domain_model_forum_forum AS f
+			   LEFT JOIN tx_mmforum_domain_model_user_readforum AS rf
+					   ON rf.uid_foreign = f.uid AND rf.uid_local = '.intval($user->getUid()).'
+			   WHERE rf.uid_local IS NULL AND f.uid='.intval($forum->getUid());
+		echo $sql;
+		$query = $this->createQuery();
+		$query->getQuerySettings()->setReturnRawQueryResult(TRUE);
+		$query->statement($sql);
+		$res = $query->execute();
+		if($res != false) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+
 
 }

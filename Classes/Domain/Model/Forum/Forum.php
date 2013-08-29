@@ -189,6 +189,26 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 	protected $sorting;
 
 
+	/**
+	 * An instance of the forum repository.
+	 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
+	 */
+	protected $forumRepository;
+
+
+	/**
+	 * An instance of the mm_forum authentication service.
+	 * @var TYPO3\CMS\Extbase\Service\TypoScriptService
+	 */
+	protected $typoScriptService = NULL;
+
+	/**
+	 * Whole TypoScript mm_forum settings
+	 * @var array
+	 */
+	protected $settings;
+
+
 
 	/*
 	 * CONSTRUCTOR
@@ -229,6 +249,26 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 	 */
 	public function injectAuthenticationService(Tx_MmForum_Service_Authentication_AuthenticationServiceInterface $authenticationService) {
 		$this->authenticationService = $authenticationService;
+	}
+
+
+	/**
+	 * Injects an instance of the forum repository
+	 * @param Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository
+	 */
+	public function injectForumRepository(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository) {
+		$this->forumRepository = $forumRepository;
+	}
+
+
+	/**
+	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
+	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
+	 */
+	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
+		$this->typoScriptService = $typoScriptService;
+		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
+		$this->settings = $ts['plugin']['tx_mmforum']['settings'];
 	}
 
 
@@ -470,10 +510,15 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 			return TRUE;
 		}
 
-		if($this->readers->contains($user)) {
-			return TRUE;
+		if(intval($this->settings['useSqlStatementsOnCriticalFunctions']) == 0) {
+			if($this->readers->contains($user)) {
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+		} else {
+			return $this->forumRepository->getForumReadByUser($this,$user);
 		}
-		return FALSE;
 	}
 
 
