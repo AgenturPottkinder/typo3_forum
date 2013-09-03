@@ -235,6 +235,8 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 		if($quote != FALSE){
 			$this->view->assign('quote', $this->postFactory->createPostWithQuote($quote));
 		}
+		// Set Title
+		$GLOBALS['TSFE']->page['title'] = $topic->getTitle();
 
 		// This variable is needed, equal if it is used or not. It's needed for creating the correct datamapping
 		// of the model and the repository. Otherwise an ajax request will destroy the datamapping of this model (Core Bug 6.X)
