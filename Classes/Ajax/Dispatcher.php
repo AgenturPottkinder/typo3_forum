@@ -151,6 +151,7 @@ final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInter
 			'sys_language_softExclude' => '',
 			'language' => $lang,
 		);
+        $GLOBALS['TSFE']->includeTCA();
 		$GLOBALS['TSFE']->settingLanguage();
 	}
 
