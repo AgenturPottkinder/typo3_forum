@@ -300,12 +300,15 @@ plugin.tx_mmforum.settings {
 		dateTimeFormat = d. m. Y, H:i
 	}
 	widgets {
-		onlinebox.limit = 6
 		newestPosts.limit = 6
 		questionPosts.limit = 6
 		popularPosts.limit = 6
 		helpfulUser.limit = 4
 		activeUser.limit = 4
+		onlinebox {
+			limit = 6
+			timeInterval = 900
+		}
 	}
 	textParsing {
 		enabledServices {

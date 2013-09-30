@@ -46,6 +46,29 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 	extends \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository {
 
 
+	/**
+	 * An instance of the mm_forum authentication service.
+	 * @var TYPO3\CMS\Extbase\Service\TypoScriptService
+	 */
+	protected $typoScriptService = NULL;
+
+	/**
+	 * Whole TypoScript mm_forum settings
+	 * @var array
+	 */
+	protected $settings;
+
+
+	/**
+	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
+	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
+	 */
+	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
+		$this->typoScriptService = $typoScriptService;
+		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
+		$this->settings = $ts['plugin']['tx_mmforum']['settings'];
+	}
+
 
 	/**
 	 * Finds the user that is currently logged in, or NULL if no user is logged in.
@@ -83,7 +106,7 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 			$query->setOrderings($orderings);
 		}
 		if(!empty($onlyOnline)){
-			$constraints[] = $query->greaterThan('is_online', time()-300);
+			$constraints[] = $query->greaterThan('is_online', time()-$this->settings['widgets']['onlinebox']['timeInterval']);
 		}
 		if(!empty($uids)) {
 			$constraints[] = $query->in('uid', $uids);
@@ -100,7 +123,7 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 	public function countByFilter($onlyOnline = FALSE){
 		$query = $this->createQuery();
 		if(!empty($onlyOnline)){
-			$query->matching($query->greaterThan('is_online', time()-300));
+			$query->matching($query->greaterThan('is_online', time()-$this->settings['widgets']['onlinebox']['timeInterval']));
 		}
 		return $query->execute()->count();
 	}
