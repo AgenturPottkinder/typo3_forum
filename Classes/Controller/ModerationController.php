@@ -411,23 +411,24 @@ class Tx_MmForum_Controller_ModerationController extends Tx_MmForum_Controller_A
 		foreach($topic->getPosts() as $post){
 			$this->postRepository->remove($post);
 		}
-
-		$forum = $topic->getForum();
 		$this->topicRepository->remove($topic);
 
-		$this->persistenceManager->persistAll();
-
-		$forum->_resetLastPost();
-
-		$lastTopic = $this->topicRepository->findLastByForum($forum);
-		if($lastTopic !== NULL) {
-			$lastPost = $lastTopic->getLastPost();
-		} else {
-			$lastPost = NULL;
-		}
-		$forum->setLastPost($lastPost);
-		$forum->setLastTopic($lastTopic);
-		$this->forumRepository->update($forum);
+//		$forum = $topic->getForum();
+//
+//
+//		$this->persistenceManager->persistAll();
+//
+//		$forum->_resetLastPost();
+//
+//		$lastTopic = $this->topicRepository->findLastByForum($forum);
+//		if($lastTopic !== NULL) {
+//			$lastPost = $lastTopic->getLastPost();
+//		} else {
+//			$lastPost = NULL;
+//		}
+//		$forum->setLastPost($lastPost);
+//		$forum->setLastTopic($lastTopic);
+//		$this->forumRepository->update($forum);
 
 		$this->controllerContext->getFlashMessageQueue()->addMessage(
 			new \TYPO3\CMS\Core\Messaging\FlashMessage(

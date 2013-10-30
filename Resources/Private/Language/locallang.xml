@@ -72,6 +72,7 @@
 			<label index="Post_Show_Solution_New">Is solution</label>
 			<label index="Post_Show_Solution_Edit">Replace solution</label>
 			<label index="Post_Update_Success">The post has successfully been updated.</label>
+			<label index="Post_Not_Found">Post not found.</label>
 			<label index="Report">Reports</label>
 			<label index="Report_Detail">Reports Detail</label>
 			<label index="Report_Index_reportedUser">Reported User</label>
@@ -374,6 +375,7 @@ Your ###FORUM_NAME###-Team</label>
 			<label index="Post_Show_Solution_New">Ist Lösung</label>
 			<label index="Post_Show_Solution_Edit">Lösung ersetzen</label>
 			<label index="Post_Update_Success">Der Beitrag wurde erfolgreich aktualisiert.</label>
+			<label index="Post_Not_Found">Der Beitrag wurde entfernt.</label>
 			<label index="Report">Reports</label>
 			<label index="Report_Detail">Reports Details</label>
 			<label index="Report_Index_reportedUser">Gemeldete User</label>
@@ -563,7 +565,7 @@ Your ###FORUM_NAME###-Team</label>
 			<label index="Facebook_Share_Text">Typo3.Net - Beitrag von </label>
 			<label index="Twitter_Share_Text">Typo3.Net - Beitrag von </label>
 			<label index="Topic_Moved">verschoben</label>
-			<label index="Confirm_Delete_Topic">Sicher, dass du das Forum löschen Möchtest?</label>
+			<label index="Confirm_Delete_Topic">Sicher, dass du das Topic löschen möchtest?</label>
 			<label index="Members_Online">Mitglieder Online</label>
 			<label index="Members_Not_Online">Keine Mitglieder Online</label>
 			<label index="Members_All">Alle Mitglieder</label>
