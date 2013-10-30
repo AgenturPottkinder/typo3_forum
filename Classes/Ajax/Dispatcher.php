@@ -101,6 +101,8 @@ final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInter
 	 * @return void
 	 */
 	protected function init() {
+		// @todo initTCA wird noch benötigt... leider keiner Ahnung wo und wie! :(
+		//\TYPO3\CMS\Frontend\Utility\EidUtility::initTCA();
 		$this->initTYPO3();
 		$this->initExtbase();
 	}
@@ -133,7 +135,7 @@ final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInter
 		// The following code was adapted from the df_tools extension.
 		// Credits go to Stefan Galinski.
 		$GLOBALS['TSFE'] = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController',
-			$GLOBALS['TYPO3_CONF_VARS'], (int)$_GET['id'], 0);
+		$GLOBALS['TYPO3_CONF_VARS'], (int)$_GET['id'], 0);
 		$GLOBALS['TSFE']->sys_page = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Page\PageRepository');
 		$GLOBALS['TSFE']->getPageAndRootline();
 		$GLOBALS['TSFE']->initTemplate();
@@ -151,7 +153,7 @@ final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInter
 			'sys_language_softExclude' => '',
 			'language' => $lang,
 		);
-        $GLOBALS['TSFE']->includeTCA();
+
 		$GLOBALS['TSFE']->settingLanguage();
 	}
 

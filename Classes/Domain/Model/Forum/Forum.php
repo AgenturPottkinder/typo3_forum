@@ -123,7 +123,6 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 	/**
 	 * The last topic.
 	 * @var Tx_MmForum_Domain_Model_Forum_Topic
-	 * @lazy
 	 */
 	protected $lastTopic;
 
@@ -131,7 +130,6 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 	/**
 	 * The last post.
 	 * @var Tx_MmForum_Domain_Model_Forum_Post
-	 * @lazy
 	 */
 	protected $lastPost;
 
@@ -388,6 +386,9 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 	 * @return Tx_MmForum_Domain_Model_Forum_Topic The last topic
 	 */
 	public function getLastTopic() {
+		if(!$this->lastTopic instanceof Tx_MmForum_Domain_Model_Forum_Topic){
+			return NULL;
+		}
 		$lastTopic = $this->lastTopic;
 		foreach ($this->getChildren() as $child) {
 			/** @var $child Tx_MmForum_Domain_Model_Forum_Forum */
@@ -408,6 +409,9 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 	 * @return Tx_MmForum_Domain_Model_Forum_Post The last post
 	 */
 	public function getLastPost() {
+		if(!$this->lastPost instanceof Tx_MmForum_Domain_Model_Forum_Post){
+			return NULL;
+		}
 		$lastPost = $this->lastPost;
 		foreach ($this->getChildren() as $child) {
 			/** @var $child Tx_MmForum_Domain_Model_Forum_Forum */
