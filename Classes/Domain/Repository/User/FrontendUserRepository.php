@@ -61,12 +61,17 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 
 	/**
 	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
+	 *
 	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
+	 * @return void
 	 */
 	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
 		$this->typoScriptService = $typoScriptService;
-		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
-		$this->settings = $ts['plugin']['tx_mmforum']['settings'];
+		$typoScriptArray = \TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup();
+		if(is_array($typoScriptArray)) {
+			$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray($typoScriptArray);
+			$this->settings = $ts['plugin']['tx_mmforum']['settings'];
+		}
 	}
 
 
