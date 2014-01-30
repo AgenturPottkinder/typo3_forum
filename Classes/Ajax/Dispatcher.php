@@ -102,11 +102,51 @@ final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInter
 	 */
 	protected function init() {
 		// @todo initTCA wird noch benötigt... leider keiner Ahnung wo und wie! :(
+		// @todo next 3 lines: try...
+		$this->initializeDatabase();
+		$this->initializeTca();
+		$this->initializeTsfe();
+
 		//\TYPO3\CMS\Frontend\Utility\EidUtility::initTCA();
 		$this->initTYPO3();
 		$this->initExtbase();
 	}
 
+	/**
+	 * Initializes TYPO3 db.
+	 *
+	 * @return void
+	 */
+	protected function initializeDatabase() {
+		\TYPO3\CMS\Frontend\Utility\EidUtility::connectDB();
+	}
+
+	/**
+	 * Initializes the TCA.
+	 *
+	 * @return void
+	 */
+	protected function initializeTca() {
+		\TYPO3\CMS\Frontend\Utility\EidUtility::initTCA();
+	}
+
+	/**
+	 * Initializes TSFE.
+	 *
+	 * @return void
+	 */
+	protected function initializeTsfe() {
+		$GLOBALS['TSFE'] = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tslib_fe', $GLOBALS['TYPO3_CONF_VARS'], \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id'), \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('type'), true);
+		$GLOBALS['TSFE']->initFEuser();
+		$GLOBALS['TSFE']->initUserGroups();
+		$GLOBALS['TSFE']->checkAlternativeIdMethods();
+		$GLOBALS['TSFE']->determineId();
+		$GLOBALS['TSFE']->getCompressedTCarray();
+		$GLOBALS['TSFE']->sys_page = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('t3lib_pageSelect');
+		$GLOBALS['TSFE']->initTemplate();
+		$GLOBALS['TSFE']->getConfigArray();
+		$GLOBALS['TSFE']->newCObj();
+	}
 
 	/**
 	 * Initialize the global TSFE object.
