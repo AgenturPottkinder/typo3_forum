@@ -153,32 +153,37 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	}
 
 	/**
-	 *  add Supporter Action.
+	 * add Supporter Action.
+	 *
 	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
 	 * @return void
 	 */
 	public function addSupporterAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
 		// Assert authentication
-		$currentUser = 	$this->authenticationService->getUser();
+
+		/**
+		 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+		 */
+		$currentUser = $this->authenticationService->getUser();
 
 		// Return if User not logged in or user is post author or user has already supported the post
 		if ($currentUser === NULL || $currentUser->isAnonymous() || $currentUser === $post->getAuthor() || $post->hasBeenSupportedByUser($currentUser) || $post->getAuthor()->isAnonymous()) {
-				return json_encode(array("error" => true, "error_msg" => "not_allowed"));
+			return json_encode(array('error' => TRUE, 'error_msg' => 'not_allowed'));
 		}
 
 		// Set helpfulCount for Author
 		$post->addSupporter($currentUser);
 		$this->postRepository->update($post);
 
-		$post->getAuthor()->setHelpfulCount($post->getAuthor()->getHelpfulCount()+1);
+		$post->getAuthor()->setHelpfulCount($post->getAuthor()->getHelpfulCount() + 1);
 		$post->getAuthor()->increasePoints(intval($this->settings['rankScore']['gotHelpful']));
 		$this->frontendUserRepository->update($post->getAuthor());
+
 		$currentUser->increasePoints(intval($this->settings['rankScore']['markHelpful']));
 		$this->frontendUserRepository->update($currentUser);
 
 		// output new Data
-		return json_encode(array("error" => false, "add" => 0, "postHelpfulCount" => $post->getHelpfulCount(), "userHelpfulCount" => $post->getAuthor()->getHelpfulCount()));
-
+		return json_encode(array("error" => FALSE, "add" => 0, "postHelpfulCount" => $post->getHelpfulCount(), "userHelpfulCount" => $post->getAuthor()->getHelpfulCount()));
 	}
 
 	/**
@@ -450,7 +455,7 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 		$this->view->assign('text', $text);
 	}
 
-	
+
 	/**
 	 * Downloads a attachment and increase the download counter
 	 * @param int Uid of Attachment
