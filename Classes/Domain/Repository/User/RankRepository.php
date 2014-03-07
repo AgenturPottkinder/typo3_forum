@@ -23,56 +23,75 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
 /**
- *
  * Repository class for forum objects.
  *
  * @author     Ruven Fehling <r.fehling@mittwald.de>
+ * @author     Oliver Thiele <o.thiele@mittwald.de>
  * @package    MmForum
  * @subpackage Domain_Repository_User
  * @version    $Id$
- *
  * @copyright  2013 Ruven Fehling <r.fehling@mittwald.de>
  *             Mittwald CM Service GmbH & Co. KG
  *             http://www.mittwald.de
  * @license    GNU Public License, version 2
  *             http://opensource.org/licenses/gpl-license.php
- *
+
  */
 class Tx_MmForum_Domain_Repository_User_RankRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
-
-
 	/**
 	 * Find the rank of a specific user
+	 *
 	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
 	 * @return Tx_MmForum_Domain_Model_User_Rank[]
 	 */
 	public function findRankByUser(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
 		$query = $this->createQuery();
-		$query->matching($query->lessThan('point_limit',$user->getPoints()));
+		$query->matching($query->lessThan('point_limit', $user->getPoints()));
 		$query->setOrderings(array('point_limit' => 'DESC'));
 		$query->setLimit(1);
 		return $query->execute();
 	}
 
-
 	/**
 	 * Find the rank for a given amount of points
+	 *
 	 * @param int $points
+	 * @deprecated
 	 * @return Tx_MmForum_Domain_Model_User_Rank[]
 	 */
 	public function findRankByPoints($points) {
 		$query = $this->createQuery();
-		$query->matching($query->greaterThan('point_limit',intval($points)));
+		$query->matching($query->greaterThan('point_limit', intval($points)));
 		$query->setOrderings(array('point_limit' => 'ASC'));
 		$query->setLimit(1);
 		return $query->execute();
 	}
 
 	/**
+	 * Find one rank for a given amount of points
+	 *
+	 * @param int $points
+	 * @return Tx_MmForum_Domain_Model_User_Rank
+	 */
+	public function findOneRankByPoints($points) {
+		$query = $this->createQuery();
+		$query->matching($query->greaterThan('point_limit', intval($points)));
+		$query->setOrderings(array('point_limit' => 'ASC'));
+		$query->setLimit(1);
+
+		$result = $query->execute();
+		if ($result instanceof \TYPO3\CMS\Extbase\Persistence\QueryResultInterface) {
+			return $result->getFirst();
+		} elseif (is_array($result)) {
+			return isset($result[0]) ? $result[0] : NULL;
+		}
+	}
+
+	/**
 	 * Find all rankings for the ranking overview
+	 *
 	 * @return Tx_MmForum_Domain_Model_User_Rank[]
 	 */
 	public function findAllForRankingOverview() {
@@ -80,5 +99,4 @@ class Tx_MmForum_Domain_Repository_User_RankRepository extends \TYPO3\CMS\Extbas
 		$query->setOrderings(array('point_limit' => 'ASC'));
 		return $query->execute();
 	}
-
 }
