@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\TextParser\Panel;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -41,14 +43,14 @@
  *
  */
 
-class Tx_MmForum_TextParser_Panel_SmiliePanel extends Tx_MmForum_TextParser_Panel_AbstractPanel {
+class SmiliePanel extends AbstractPanel {
 
 
 
 	/**
 	 * TODO
 	 *
-	 * @var Tx_MmForum_Domain_Repository_Format_SmilieRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Format\SmilieRepository
 	 */
 	protected $smilieRepository = NULL;
 
@@ -57,7 +59,7 @@ class Tx_MmForum_TextParser_Panel_SmiliePanel extends Tx_MmForum_TextParser_Pane
 	/**
 	 * TODO
 	 *
-	 * @var array<Tx_MmForum_Domain_Model_Format_Smilie>
+	 * @var array<\Mittwald\MmForum\Domain\Model\Format\Smilie>
 	 */
 	protected $smilies = NULL;
 
@@ -66,11 +68,11 @@ class Tx_MmForum_TextParser_Panel_SmiliePanel extends Tx_MmForum_TextParser_Pane
 	/**
 	 * TODO
 	 *
-	 * @param Tx_MmForum_Domain_Repository_Format_SmilieRepository $smilieRepository
+	 * @param \Mittwald\MmForum\Domain\Repository\Format\SmilieRepository $smilieRepository
 	 *
 	 * @return void
 	 */
-	public function injectSmilieRepository(Tx_MmForum_Domain_Repository_Format_SmilieRepository $smilieRepository) {
+	public function injectSmilieRepository(\Mittwald\MmForum\Domain\Repository\Format\SmilieRepository $smilieRepository) {
 		$this->smilieRepository = $smilieRepository;
 		$this->smilies          = $this->smilieRepository->findAll();
 	}

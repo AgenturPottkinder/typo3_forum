@@ -96,7 +96,7 @@ class tx_mmforum_scheduler_forumRead extends \TYPO3\CMS\Scheduler\Task\AbstractT
 					  FROM fe_users AS fe
 					  LEFT JOIN tx_mmforum_domain_model_user_readtopic AS rt ON rt.uid_local = fe.uid
 								AND rt.uid_foreign IN ('.implode(',',$topics).')
-					  WHERE fe.disable=0 AND fe.deleted=0 AND fe.tx_extbase_type="Tx_MmForum_Domain_Model_User_FrontendUser"
+					  WHERE fe.disable=0 AND fe.deleted=0 AND fe.tx\\extbase\\type=\"Mittwald\\MmForum\\Domain\\Model\\User\\FrontendUser\"
 						AND fe.pid='.intval($this->getUserPid()).' AND fe.lastlogin > '.(time()-$limit).'
 						GROUP BY fe.uid';
 			$userRes = $GLOBALS['TYPO3_DB']->sql_query($query);

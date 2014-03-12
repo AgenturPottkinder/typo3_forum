@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\TextParser\Service;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -42,13 +44,13 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_TextParser_Service_SyntaxHighlightingParserService
-	extends Tx_MmForum_TextParser_Service_AbstractTextParserService {
+class SyntaxHighlightingParserService
+	extends AbstractTextParserService {
 
 
 
 	/**
-	 * @var Tx_MmForum_TextParser_Service_AbstractGeshiService
+	 * @var \Mittwald\MmForum\TextParser\Service\AbstractGeshiService
 	 */
 	protected $xtGeshi;
 
@@ -59,9 +61,9 @@ class Tx_MmForum_TextParser_Service_SyntaxHighlightingParserService
 
 	/**
 	 * Injects an instance of the smilie repository.
-	 * @param Tx_MmForum_TextParser_Service_AbstractGeshiService $xtGeshi
+	 * @param \Mittwald\MmForum\TextParser\Service\AbstractGeshiService $xtGeshi
 	 */
-	public function injectAbstractGeshiService(Tx_MmForum_TextParser_Service_AbstractGeshiService $xtGeshi) {
+	public function injectAbstractGeshiService(AbstractGeshiService $xtGeshi) {
 		$this->xtGeshi = $xtGeshi;
 	}
 

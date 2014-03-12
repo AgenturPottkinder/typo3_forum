@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\Forum;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -40,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
 
  */
-class Tx_MmForum_Domain_Model_Forum_ShadowTopic extends Tx_MmForum_Domain_Model_Forum_Topic {
+class ShadowTopic extends Topic {
 
 
 
@@ -52,7 +54,7 @@ class Tx_MmForum_Domain_Model_Forum_ShadowTopic extends Tx_MmForum_Domain_Model_
 
 	/**
 	 * The target topic, i.e. the topic this shadow is pointing to.
-	 * @var Tx_MmForum_Domain_Model_Forum_Topic
+	 * @var \Mittwald\MmForum\Domain\Model\Forum\Topic
 	 */
 	protected $target = NULL;
 
@@ -66,7 +68,7 @@ class Tx_MmForum_Domain_Model_Forum_ShadowTopic extends Tx_MmForum_Domain_Model_
 
 	/**
 	 * Gets the target topic, i.e. the topic this shadow is pointing to.
-	 * @return Tx_MmForum_Domain_Model_Forum_Topic The target topic
+	 * @return \Mittwald\MmForum\Domain\Model\Forum\Topic The target topic
 	 */
 	public function getTarget() {
 		return $this->target;
@@ -78,12 +80,12 @@ class Tx_MmForum_Domain_Model_Forum_ShadowTopic extends Tx_MmForum_Domain_Model_
 	 * Checks if a user can create new posts inside this topic. Since this topic is
 	 * only a shadow topic, this method will ALWAYS return FALSE.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user       The user.
+	 * @param  \Mittwald\MmForum\Domain\Model\User\FrontendUser $user       The user.
 	 * @param string                                     $accessType The access type to be checked.
 	 *
 	 * @return boolean TRUE, if the user can create new posts. Always FALSE.
 	 */
-	public function checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'read') {
+	public function checkAccess(\Mittwald\MmForum\Domain\Model\User\FrontendUser $user = NULL, $accessType = 'read') {
 		if ($accessType === 'newPost') {
 			return FALSE;
 		} else {
@@ -97,10 +99,10 @@ class Tx_MmForum_Domain_Model_Forum_ShadowTopic extends Tx_MmForum_Domain_Model_
 	 * Checks if a user can create new posts inside this topic. Since this topic is
 	 * only a shadow topic, this method will ALWAYS return FALSE.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user The user.
+	 * @param  \Mittwald\MmForum\Domain\Model\User\FrontendUser $user The user.
 	 * @return boolean TRUE, if the user can create new posts. Always FALSE.
 	 */
-	public function checkNewPostAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
+	public function checkNewPostAccess(\Mittwald\MmForum\Domain\Model\User\FrontendUser $user = NULL) {
 		return FALSE;
 	}
 
@@ -116,10 +118,10 @@ class Tx_MmForum_Domain_Model_Forum_ShadowTopic extends Tx_MmForum_Domain_Model_
 	 * Sets the target topic. Also reads the topic subject and the last post pointer
 	 * from the target object.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic The target topic.
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Topic $topic The target topic.
 	 * @return void
 	 */
-	public function setTarget(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
+	public function setTarget(Topic $topic) {
 		$this->target         = $topic;
 		$this->lastPost       = $topic->getLastPost();
 		$this->lastPostCrdate = $this->lastPost->getTimestamp();

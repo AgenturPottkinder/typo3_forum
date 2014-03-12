@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\Format;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -40,7 +42,7 @@
  *
  */
 
-class Tx_MmForum_Domain_Model_Format_SyntaxHighlighting extends Tx_MmForum_Domain_Model_Format_BBCode {
+class SyntaxHighlighting extends BBCode {
 
 
 

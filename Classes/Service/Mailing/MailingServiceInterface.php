@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Service\Mailing;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -43,7 +45,7 @@
  *
  */
 
-interface Tx_MmForum_Service_Mailing_MailingServiceInterface {
+interface MailingServiceInterface {
 
 
 

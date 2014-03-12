@@ -85,7 +85,7 @@ $TCA['tx_mmforum_domain_model_forum_post'] = array(
 			'config'  => array(
 				'type' => 'select',
 				'foreign_table' => 'fe_users',
-				'foreign_class' => 'Tx_MmForum_Domain_Model_User_FrontendUser',
+				'foreign_class' => 'Mittwald\\MmForum\\Domain\\Model\\User\\FrontendUser',
 				'maxitems' => 1
 			)
 		),
@@ -101,7 +101,7 @@ $TCA['tx_mmforum_domain_model_forum_post'] = array(
 			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_post.topic',
 			'config' => array(
 				'type' => 'select',
-				'foreign_class' => 'Tx_MmForum_Domain_Model_Forum_Topic',
+				'foreign_class' => 'Mittwald\\MmForum\\Domain\\Model\\Forum\\Topic',
 				'foreign_table' => 'tx_mmforum_domain_model_forum_topic',
 				'maxitems' => 1
 			)
@@ -129,7 +129,7 @@ $TCA['tx_mmforum_domain_model_forum_post'] = array(
 			'config' => array(
 				'type' => 'select',
 				'foreign_table' => 'fe_users',
-				'foreign_class' => 'Tx_MmForum_Domain_Model_User_FrontendUser',
+				'foreign_class' => 'Mittwald\\MmForum\\Domain\\Model\\User\\FrontendUser',
 				'MM' => 'tx_mmforum_domain_model_user_supportpost',
 				'MM_opposite_field' => 'tx_mmforum_support_posts',
 				'maxitems' => PHP_INT_MAX

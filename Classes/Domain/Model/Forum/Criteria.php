@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\Forum;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -35,7 +37,7 @@
 
  */
 
-class Tx_MmForum_Domain_Model_Forum_Criteria extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Criteria extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 		/**
 	 * The name of the criteria
@@ -46,14 +48,14 @@ class Tx_MmForum_Domain_Model_Forum_Criteria extends \TYPO3\CMS\Extbase\DomainOb
 
 	/**
 	 * The options of a criteria
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_CriteriaOption>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\MmForum\Domain\Model\Forum\CriteriaOption>
 	 */
 	protected $options;
 
 
 	/**
 	 * The default option
-	 * @var Tx_MmForum_Domain_Model_Forum_CriteriaOption
+	 * @var \Mittwald\MmForum\Domain\Model\Forum\CriteriaOption
 	 */
 	protected $defaultOption;
 
@@ -69,7 +71,7 @@ class Tx_MmForum_Domain_Model_Forum_Criteria extends \TYPO3\CMS\Extbase\DomainOb
 
 	/**
 	 * Get all options of this criteria.
-	 * @return	\TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_CriteriaOption>
+	 * @return	\TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\MmForum\Domain\Model\Forum\CriteriaOption>
 	 *			All options of criteria.
 	 */
 	public function getOptions() {
@@ -79,7 +81,7 @@ class Tx_MmForum_Domain_Model_Forum_Criteria extends \TYPO3\CMS\Extbase\DomainOb
 
 	/**
 	 * Get the default option
-	 * @return Tx_MmForum_Domain_Model_Forum_CriteriaOption
+	 * @return \Mittwald\MmForum\Domain\Model\Forum\CriteriaOption
 	 */
 	public function getDefaultOption() {
 		return $this->defaultOption;
@@ -106,10 +108,10 @@ class Tx_MmForum_Domain_Model_Forum_Criteria extends \TYPO3\CMS\Extbase\DomainOb
 
 	/**
 	 * Set the default option
-	 * @param Tx_MmForum_Domain_Model_Forum_CriteriaOption $defaultOption
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\CriteriaOption $defaultOption
 	 * @return void
 	 */
-	public function setDefaultOption(Tx_MmForum_Domain_Model_Forum_CriteriaOption $defaultOption) {
+	public function setDefaultOption(CriteriaOption $defaultOption) {
 		$this->defaultOption = $defaultOption;
 	}
 }

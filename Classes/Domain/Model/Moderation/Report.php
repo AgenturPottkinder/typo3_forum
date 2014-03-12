@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\Moderation;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -48,7 +50,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Report extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/*
 	 * ATTRIBUTES
@@ -57,28 +59,28 @@ class Tx_MmForum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Domai
 
 	/**
 	 * The frontend user that created this post.
-	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @var \Mittwald\MmForum\Domain\Model\User\FrontendUser
 	 */
 	protected $reporter;
 
 
 	/**
 	 * The moderator that is assigned to this report.
-	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @var \Mittwald\MmForum\Domain\Model\User\FrontendUser
 	 */
 	protected $moderator;
 
 
 	/**
 	 * The current status of this report.
-	 * @var Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus
+	 * @var \Mittwald\MmForum\Domain\Model\Moderation\ReportWorkflowStatus
 	 */
 	protected $workflowStatus;
 
 
 	/**
 	 * A set of comments that are assigned to this report.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Moderation_ReportComment>
+	 * @var Tx_Extbase_Persistence_ObjectStorage<\Mittwald\MmForum\Domain\Model\Moderation\ReportComment>
 	 */
 	protected $comments;
 
@@ -114,14 +116,14 @@ class Tx_MmForum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Domai
 
 	/**
 	 * Gets the reporter of this report.
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The reporter
+	 * @return \Mittwald\MmForum\Domain\Model\User\FrontendUser The reporter
 	 */
 	public function getReporter() {
 		if ($this->reporter instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
 			$this->reporter->_loadRealInstance();
 		}
 		if ($this->reporter === NULL) {
-			$this->reporter = new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
+			$this->reporter = new \Mittwald\MmForum\Domain\Model\User\AnonymousFrontendUser();
 		}
 		return $this->reporter;
 	}
@@ -130,14 +132,14 @@ class Tx_MmForum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Domai
 
 	/**
 	 * Gets the moderator that is assigned to this report.
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The moderator
+	 * @return \Mittwald\MmForum\Domain\Model\User\FrontendUser The moderator
 	 */
 	public function getModerator() {
 		if ($this->moderator instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
 			$this->moderator->_loadRealInstance();
 		}
 		if ($this->moderator === NULL) {
-			$this->moderator = new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
+			$this->moderator = new \Mittwald\MmForum\Domain\Model\User\AnonymousFrontendUser();
 		}
 		return $this->moderator;
 	}
@@ -146,7 +148,7 @@ class Tx_MmForum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Domai
 
 	/**
 	 * Gets the current status of this report.
-	 * @return Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus
+	 * @return \Mittwald\MmForum\Domain\Model\Moderation\ReportWorkflowStatus
 	 *                             The current workflow status of this report.
 	 */
 	public function getWorkflowStatus() {
@@ -157,7 +159,7 @@ class Tx_MmForum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Domai
 
 	/**
 	 * Gets all comments for this report.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Moderation_ReportComment>
+	 * @return Tx_Extbase_Persistence_ObjectStorage<\Mittwald\MmForum\Domain\Model\Moderation\ReportComment>
 	 *                             All comments for this report.
 	 */
 	public function getComments() {
@@ -168,7 +170,7 @@ class Tx_MmForum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Domai
 
 	/**
 	 * Returns the first comment for this report.
-	 * @return Tx_MmForum_Domain_Model_Moderation_ReportComment The first comment.
+	 * @return \Mittwald\MmForum\Domain\Model\Moderation\ReportComment The first comment.
 	 */
 	public function getFirstComment() {
 		return array_shift($this->comments->toArray());
@@ -194,10 +196,10 @@ class Tx_MmForum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Sets the reporter.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $reporter The reporter.
+	 * @param  \Mittwald\MmForum\Domain\Model\User\FrontendUser $reporter The reporter.
 	 * @return void
 	 */
-	public function setReporter(Tx_MmForum_Domain_Model_User_FrontendUser $reporter) {
+	public function setReporter(\Mittwald\MmForum\Domain\Model\User\FrontendUser $reporter) {
 		$this->reporter = $reporter;
 	}
 
@@ -206,10 +208,10 @@ class Tx_MmForum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Sets the moderator.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $moderator The moderator.
+	 * @param  \Mittwald\MmForum\Domain\Model\User\FrontendUser $moderator The moderator.
 	 * @return void
 	 */
-	public function setModerator(Tx_MmForum_Domain_Model_User_FrontendUser $moderator) {
+	public function setModerator(\Mittwald\MmForum\Domain\Model\User\FrontendUser $moderator) {
 		$this->moderator = $moderator;
 	}
 
@@ -218,11 +220,11 @@ class Tx_MmForum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Sets the current workflow status.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $workflowStatus
+	 * @param  \Mittwald\MmForum\Domain\Model\Moderation\ReportWorkflowStatus $workflowStatus
 	 *                             The workflow status.
 	 * @return void
 	 */
-	public function setWorkflowStatus(Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $workflowStatus) {
+	public function setWorkflowStatus(ReportWorkflowStatus $workflowStatus) {
 		If (!$this->workflowStatus || ($this->workflowStatus && $this->workflowStatus->hasFollowupStatus($workflowStatus))) {
 			$this->workflowStatus = $workflowStatus;
 		}
@@ -233,10 +235,10 @@ class Tx_MmForum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Adds a comment to this report.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Moderation_ReportComment $comment A comment
+	 * @param  \Mittwald\MmForum\Domain\Model\Moderation\ReportComment $comment A comment
 	 * @return void
 	 */
-	public function addComment(Tx_MmForum_Domain_Model_Moderation_ReportComment $comment) {
+	public function addComment(ReportComment $comment) {
 		$comment->setReport($this);
 		$this->comments->attach($comment);
 	}
@@ -246,12 +248,12 @@ class Tx_MmForum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Removes a comment from this report.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Moderation_ReportComment $comment A comment.
+	 * @param  \Mittwald\MmForum\Domain\Model\Moderation\ReportComment $comment A comment.
 	 * @return void
 	 */
-	public function removeComment(Tx_MmForum_Domain_Model_Moderation_ReportComment $comment) {
+	public function removeComment(ReportComment $comment) {
 		if (count($this->comments) === 1) {
-			throw new Tx_MmForum_Domain_Exception_InvalidOperationException('You cannot delete the last remaining comment!', 1334687977);
+			throw new \Mittwald\MmForum\Domain\Exception\InvalidOperationException('You cannot delete the last remaining comment!', 1334687977);
 		}
 		$this->comments->detach($comment);
 	}

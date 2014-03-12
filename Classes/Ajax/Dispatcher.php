@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Ajax;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -45,7 +47,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInterface {
+final class Dispatcher implements \TYPO3\CMS\Core\SingletonInterface {
 
 
 	/*
@@ -257,5 +259,5 @@ final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInter
 }
 
 // Instantiate and start dispatcher.
-$dispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_MmForum_Ajax_Dispatcher');
+$dispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Mittwald\\MmForum\\Ajax\\Dispatcher');
 $dispatcher->run();

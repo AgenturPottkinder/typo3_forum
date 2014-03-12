@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Utility;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -41,7 +43,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  */
 
-class Tx_MmForum_Utility_File {
+class File {
 
 
 

@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Exception;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -43,7 +45,7 @@
  *
  */
 
-Abstract Class Tx_MmForum_Domain_Exception_AbstractException Extends \TYPO3\CMS\Extbase\Exception {
+Abstract Class AbstractException Extends \TYPO3\CMS\Extbase\Exception {
 
 
 

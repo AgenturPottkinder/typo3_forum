@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Validator\Forum;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -39,7 +41,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Validator_Forum_AttachmentPlainValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
+class AttachmentPlainValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
 
 	/**
 	 * An instance of the extbase object manager.
@@ -67,7 +69,7 @@ class Tx_MmForum_Domain_Validator_Forum_AttachmentPlainValidator extends \TYPO3\
 	 */
 	public function isValid($value) {
 		$result = TRUE;
-		$attachmentObj = $this->objectManager->create('Tx_MmForum_Domain_Model_Forum_Attachment');
+		$attachmentObj = $this->objectManager->create('Mittwald\\MmForum\\Domain\\Model\\Forum\\Attachment');
 		foreach($value as $attachment){
 			if(empty($attachment['name'])) continue;
 			if(array_search($attachment['type'], $attachmentObj->getAllowedMimeTypes()) == false){

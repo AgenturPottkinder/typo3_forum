@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Service\Mailing;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -43,7 +45,7 @@
  *
  */
 
-Class Tx_MmForum_Service_Mailing_HTMLMailingService Extends Tx_MmForum_Service_Mailing_AbstractMailingService {
+Class HTMLMailingService Extends AbstractMailingService {
 
 
 	/**

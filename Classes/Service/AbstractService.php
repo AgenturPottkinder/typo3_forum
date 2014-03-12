@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Service;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -43,7 +45,7 @@
  *
  */
 
-Abstract Class Tx_MmForum_Service_AbstractService Implements \TYPO3\CMS\Core\SingletonInterface {
+Abstract Class AbstractService Implements \TYPO3\CMS\Core\SingletonInterface {
 
 
 }

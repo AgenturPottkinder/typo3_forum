@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\ViewHelpers\User;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -39,7 +41,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_User_LinkViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
+class LinkViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
 
 
 	/**
@@ -62,12 +64,12 @@ class Tx_MmForum_ViewHelpers_User_LinkViewHelper extends \TYPO3\CMS\Fluid\ViewHe
 
 	/**
 	 *
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param \Mittwald\MmForum\Domain\Model\User\FrontendUser $user
 	 * @param boolean $showOnlineStatus
 	 * @param boolean $showOnline
 	 * @return string
 	 */
-	public function render(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $showOnlineStatus = TRUE, $showOnline = FALSE) {
+	public function render(\Mittwald\MmForum\Domain\Model\User\FrontendUser $user = NULL, $showOnlineStatus = TRUE, $showOnline = FALSE) {
 		// if user anonymous: show only the username
 		if ($user->isAnonymous()) {
 			return $user->getUsername();

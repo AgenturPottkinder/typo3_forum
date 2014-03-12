@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\ViewHelpers;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -44,7 +46,7 @@
  *
  */
 
-class Tx_MmForum_ViewHelpers_IfInstanceOfViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\IfViewHelper {
+class IfInstanceOfViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\IfViewHelper {
 
 
 

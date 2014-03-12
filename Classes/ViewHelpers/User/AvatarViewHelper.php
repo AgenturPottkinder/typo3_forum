@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\ViewHelpers\User;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -42,7 +44,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_User_AvatarViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\ImageViewHelper {
+class AvatarViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\ImageViewHelper {
 
 
 
@@ -85,14 +87,14 @@ class Tx_MmForum_ViewHelpers_User_AvatarViewHelper extends \TYPO3\CMS\Fluid\View
 	 *
 	 * Renders the avatar.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param  \Mittwald\MmForum\Domain\Model\User\FrontendUser $user
 	 *                                                               The user whose avatar is to be rendered.
 	 * @param  integer                                   $width      The desired avatar width
 	 * @param  integer                                   $height     The desired avatar height
 	 * @return string              HTML content
 	 *
 	 */
-	public function render(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $width = NULL, $height = NULL) {
+	public function render(\Mittwald\MmForum\Domain\Model\User\FrontendUser $user = NULL, $width = NULL, $height = NULL) {
 		// if user ist not set
 		$avatarFilename = NULL;
 

@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\Moderation;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -48,18 +50,18 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Model_Moderation_PostReport extends Tx_MmForum_Domain_Model_Moderation_Report {
+class PostReport extends Report {
 
 	/**
 	 * A set of comments that are assigned to this report.
-	 * @var Tx_MmForum_Domain_Model_Forum_Post
+	 * @var \Mittwald\MmForum\Domain\Model\Forum\Post
 	 */
 	protected $post;
 
 
 	/**
 	 * Gets the topic to which the reported post belongs to.
-	 * @return Tx_MmForum_Domain_Model_Forum_Topic The topic.
+	 * @return \Mittwald\MmForum\Domain\Model\Forum\Topic The topic.
 	 */
 	public function getTopic() {
 		return $this->post->getTopic();
@@ -67,17 +69,17 @@ class Tx_MmForum_Domain_Model_Moderation_PostReport extends Tx_MmForum_Domain_Mo
 
 	/**
 	 * Gets the topic to which the reported post belongs to.
-	 * @return Tx_MmForum_Domain_Model_Forum_Post The topic.
+	 * @return \Mittwald\MmForum\Domain\Model\Forum\Post The topic.
 	 */
 	public function getPost() {
 		return $this->post;
 	}
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post.
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Post $post.
 	 * @return voidc.
 	 */
-	public function setPost(Tx_MmForum_Domain_Model_Forum_Post $post) {
+	public function setPost(\Mittwald\MmForum\Domain\Model\Forum\Post $post) {
 		$this->post = $post;
 	}
 

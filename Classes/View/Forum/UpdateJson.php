@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\View\Forum;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -38,7 +40,7 @@
  * @license    GNU Public License, version 2
  *             http://opensource.org/licenses/gpl-license.php
  */
-class Tx_MmForum_View_Forum_UpdateJson extends \TYPO3\CMS\Extbase\Mvc\View\AbstractView {
+class UpdateJson extends \TYPO3\CMS\Extbase\Mvc\View\AbstractView {
 
 
 

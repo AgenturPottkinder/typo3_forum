@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\ViewHelpers\Moderation;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -40,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Moderation_ReportIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
+class ReportIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
 
 
 
@@ -60,14 +62,14 @@ class Tx_MmForum_ViewHelpers_Moderation_ReportIconViewHelper extends \TYPO3\CMS\
 	 *
 	 * Renders the report icon.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Moderation_Report $report
+	 * @param  \Mittwald\MmForum\Domain\Model\Moderation\Report $report
 	 *                                                               The report for which the icon is to be rendered.
 	 * @param  integer                                   $width      Image width
 	 * @param  string                                    $alt        Alt text
 	 * @return string             The rendered icon.
 	 *
 	 */
-	public function render(Tx_MmForum_Domain_Model_Moderation_Report $report = NULL, $width = NULL, $alt = "") {
+	public function render(\Mittwald\MmForum\Domain\Model\Moderation\Report $report = NULL, $width = NULL, $alt = "") {
 		return parent::render('plugin.tx_mmforum.renderer.icons.report', $this->getDataArray($report));
 	}
 
@@ -77,12 +79,12 @@ class Tx_MmForum_ViewHelpers_Moderation_ReportIconViewHelper extends \TYPO3\CMS\
 	 *
 	 * Generates a data array that will be passed to the typoscript object for
 	 * rendering the icon.
-	 * @param  Tx_MmForum_Domain_Model_Moderation_Report $report
+	 * @param  \Mittwald\MmForum\Domain\Model\Moderation\Report $report
 	 *                             The report for which the icon is to be displayed.
 	 * @return array               The data array for the typoscript object.
 	 *
 	 */
-	protected function getDataArray(Tx_MmForum_Domain_Model_Moderation_Report $report = NULL) {
+	protected function getDataArray(\Mittwald\MmForum\Domain\Model\Moderation\Report $report = NULL) {
 		if ($report === NULL) {
 			return array();
 		} else {

@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Controller;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -45,7 +47,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_AbstractController {
+class AjaxController extends AbstractController {
 
 
 
@@ -57,46 +59,46 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 
 	/**
 	 * A forum repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\ForumRepository
 	 */
 	protected $forumRepository;
 
 
 	/**
 	 * A topic repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_TopicRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\TopicRepository
 	 */
 	protected $topicRepository;
 
 
 	/**
 	 * A post repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_PostRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\PostRepository
 	 */
 	protected $postRepository;
 
 
 	/**
 	 * A post factory.
-	 * @var Tx_MmForum_Domain_Factory_Forum_PostFactory
+	 * @var \Mittwald\MmForum\Domain\Factory\Forum\PostFactory
 	 */
 	protected $postFactory;
 
 
 	/**
 	 * A post factory.
-	 * @var Tx_MmForum_Domain_Repository_Forum_AttachmentRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\AttachmentRepository
 	 */
 	protected $attachmentRepository;
 
 	/**
-	 * @var Tx_MmForum_Service_AttachmentService
+	 * @var \Mittwald\MmForum\Service\AttachmentService
 	 */
 	protected $attachmentService = NULL;
 
 	/**
 	 * The ads repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_AdsRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\AdsRepository
 	 */
 	protected $adsRepository;
 
@@ -116,23 +118,23 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 	/**
 	 * Constructor. Used primarily for dependency injection.
 	 *
-	 * @param Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository
-	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository
-	 * @param Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository
-	 * @param Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory
-	 * @param Tx_MmForum_Domain_Repository_Forum_AttachmentRepository $attachmentRepository
-	 * @param Tx_MmForum_Service_SessionHandlingService $sessionHandling
-	 * @param Tx_MmForum_Service_AttachmentService $attachmentService
-	 * @param Tx_MmForum_Domain_Repository_Forum_AdsRepository   $adsRepository
+	 * @param \Mittwald\MmForum\Domain\Repository\Forum\ForumRepository $forumRepository
+	 * @param \Mittwald\MmForum\Domain\Repository\Forum\TopicRepository $topicRepository
+	 * @param \Mittwald\MmForum\Domain\Repository\Forum\PostRepository $postRepository
+	 * @param \Mittwald\MmForum\Domain\Factory\Forum\PostFactory $postFactory
+	 * @param \Mittwald\MmForum\Domain\Repository\Forum\AttachmentRepository $attachmentRepository
+	 * @param \Mittwald\MmForum\Service\SessionHandlingService $sessionHandling
+	 * @param \Mittwald\MmForum\Service\AttachmentService $attachmentService
+	 * @param \Mittwald\MmForum\Domain\Repository\Forum\AdsRepository   $adsRepository
 	 */
-	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
-								Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
-								Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository,
-								Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory,
-								Tx_MmForum_Domain_Repository_Forum_AttachmentRepository $attachmentRepository,
-								Tx_MmForum_Service_SessionHandlingService $sessionHandling,
-								Tx_MmForum_Service_AttachmentService $attachmentService,
-								Tx_MmForum_Domain_Repository_Forum_AdsRepository   $adsRepository) {
+	public function __construct(\Mittwald\MmForum\Domain\Repository\Forum\ForumRepository $forumRepository,
+								\Mittwald\MmForum\Domain\Repository\Forum\TopicRepository $topicRepository,
+								\Mittwald\MmForum\Domain\Repository\Forum\PostRepository $postRepository,
+								\Mittwald\MmForum\Domain\Factory\Forum\PostFactory $postFactory,
+								\Mittwald\MmForum\Domain\Repository\Forum\AttachmentRepository $attachmentRepository,
+								\Mittwald\MmForum\Service\SessionHandlingService $sessionHandling,
+								\Mittwald\MmForum\Service\AttachmentService $attachmentService,
+								\Mittwald\MmForum\Domain\Repository\Forum\AdsRepository   $adsRepository) {
 		$this->forumRepository = $forumRepository;
 		$this->topicRepository = $topicRepository;
 		$this->postRepository = $postRepository;

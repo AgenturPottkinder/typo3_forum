@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Repository\User;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -38,15 +40,15 @@
  *             http://opensource.org/licenses/gpl-license.php
 
  */
-class Tx_MmForum_Domain_Repository_User_RankRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class RankRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 	/**
 	 * Find the rank of a specific user
 	 *
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 * @return Tx_MmForum_Domain_Model_User_Rank[]
+	 * @param \Mittwald\MmForum\Domain\Model\User\FrontendUser $user
+	 * @return \Mittwald\MmForum\Domain\Model\User\Rank[]
 	 */
-	public function findRankByUser(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+	public function findRankByUser(\Mittwald\MmForum\Domain\Model\User\FrontendUser $user) {
 		$query = $this->createQuery();
 		$query->matching($query->lessThan('point_limit', $user->getPoints()));
 		$query->setOrderings(array('point_limit' => 'DESC'));
@@ -59,7 +61,7 @@ class Tx_MmForum_Domain_Repository_User_RankRepository extends \TYPO3\CMS\Extbas
 	 *
 	 * @param int $points
 	 * @deprecated
-	 * @return Tx_MmForum_Domain_Model_User_Rank[]
+	 * @return \Mittwald\MmForum\Domain\Model\User\Rank[]
 	 */
 	public function findRankByPoints($points) {
 		$query = $this->createQuery();
@@ -73,7 +75,7 @@ class Tx_MmForum_Domain_Repository_User_RankRepository extends \TYPO3\CMS\Extbas
 	 * Find one rank for a given amount of points
 	 *
 	 * @param int $points
-	 * @return Tx_MmForum_Domain_Model_User_Rank
+	 * @return \Mittwald\MmForum\Domain\Model\User\Rank
 	 */
 	public function findOneRankByPoints($points) {
 		$query = $this->createQuery();
@@ -92,7 +94,7 @@ class Tx_MmForum_Domain_Repository_User_RankRepository extends \TYPO3\CMS\Extbas
 	/**
 	 * Find all rankings for the ranking overview
 	 *
-	 * @return Tx_MmForum_Domain_Model_User_Rank[]
+	 * @return \Mittwald\MmForum\Domain\Model\User\Rank[]
 	 */
 	public function findAllForRankingOverview() {
 		$query = $this->createQuery();

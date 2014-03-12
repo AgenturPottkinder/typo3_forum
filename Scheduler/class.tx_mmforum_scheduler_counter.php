@@ -199,9 +199,9 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 		}
 
 		//Find all users with their current rank
-		$query = 'SELECT fe.uid, fe.tx_mmforum_rank
-				  FROM fe_users AS fe
-				  WHERE fe.disable=0 AND fe.deleted=0 AND fe.tx_extbase_type="Tx_MmForum_Domain_Model_User_FrontendUser"
+		$query = 'SELECT fe.uid, fe.tx\\mmforum\\rank
+				  FROM fe\\users AS fe
+				  WHERE fe.disable=0 AND fe.deleted=0 AND fe.tx\\extbase\\type=\"Mittwald\\MmForum\\Domain\\Model\\User\\FrontendUser\"
 						AND fe.pid='.intval($this->getUserPid());
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 		while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
@@ -251,9 +251,9 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 		//At last, update the rank count
 		$query = $GLOBALS['TYPO3_DB']->UPDATEquery('tx_mmforum_domain_model_user_rank','1=1',array('user_count' => 0));
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
-		$query = 'SELECT tx_mmforum_rank, COUNT(*) AS counter
-				  FROM fe_users
-				  WHERE disable=0 AND deleted=0 AND tx_extbase_type="Tx_MmForum_Domain_Model_User_FrontendUser"
+		$query = 'SELECT tx\\mmforum\\rank, COUNT(*) AS counter
+				  FROM fe\\users
+				  WHERE disable=0 AND deleted=0 AND tx\\extbase\\type=\"Mittwald\\MmForum\\Domain\\Model\\User\\FrontendUser\"
 				  		AND pid='.intval($this->getUserPid()).'
 				  GROUP BY tx_mmforum_rank';
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);

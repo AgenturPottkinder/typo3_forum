@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\ViewHelpers\Post;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -39,7 +41,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Post_HelpfulButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
+class HelpfulButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
 
 
 	/**
@@ -49,14 +51,14 @@ class Tx_MmForum_ViewHelpers_Post_HelpfulButtonViewHelper extends \TYPO3\CMS\Flu
 
 	/**
 	 * The frontend user repository.
-	 * @var Tx_MmForum_Domain_Repository_User_FrontendUserRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\User\FrontendUserRepository
 	 */
 	protected $frontendUserRepository = NULL;
 
 	/**
 	 * An authentication service. Handles the authentication mechanism.
 	 *
-	 * @var Tx_MmForum_Service_Authentication_AuthenticationServiceInterface
+	 * @var \Mittwald\MmForum\Service\Authentication\AuthenticationServiceInterface
 	 */
 	protected $authenticationService;
 
@@ -65,13 +67,13 @@ class Tx_MmForum_ViewHelpers_Post_HelpfulButtonViewHelper extends \TYPO3\CMS\Flu
 	 *
 	 * Injects an authentication service.
 	 *
-	 * @param  Tx_MmForum_Service_Authentication_AuthenticationServiceInterface $authenticationService
+	 * @param  \Mittwald\MmForum\Service\Authentication\AuthenticationServiceInterface $authenticationService
 	 *                             An authentication service.
 	 *
 	 * @return void
 	 *
 	 */
-	public function injectAuthenticationService(Tx_MmForum_Service_Authentication_AuthenticationServiceInterface $authenticationService) {
+	public function injectAuthenticationService(\Mittwald\MmForum\Service\Authentication\AuthenticationServiceInterface $authenticationService) {
 		$this->authenticationService = $authenticationService;
 	}
 
@@ -89,13 +91,13 @@ class Tx_MmForum_ViewHelpers_Post_HelpfulButtonViewHelper extends \TYPO3\CMS\Flu
 
 	/**
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Post $post
 	 * @param string $countTarget
 	 * @param string $countUserTarget
 	 * @param string $title
 	 * @return string
 	 */
-	public function render(Tx_MmForum_Domain_Model_Forum_Post $post, $countTarget = NULL, $countUserTarget = NULL, $title = '') {
+	public function render(\Mittwald\MmForum\Domain\Model\Forum\Post $post, $countTarget = NULL, $countUserTarget = NULL, $title = '') {
 		$class = $this->settings['forum']['post']['helpfulBtn']['iconClass'];
 
 		if ($this->hasArgument('class')) {

@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Controller;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -24,12 +26,12 @@
  *                                                                      */
 
 
-class Tx_MmForum_Controller_PostControllerTest extends Tx_MmForum_Controller_AbstractControllerTest {
+class PostControllerTest extends AbstractControllerTest {
 
 
 
 	/**
-	 * @var Tx_MmForum_Controller_PostController
+	 * @var \Mittwald\MmForum\Controller\PostController
 	 */
 	protected $fixture;
 
@@ -43,17 +45,17 @@ class Tx_MmForum_Controller_PostControllerTest extends Tx_MmForum_Controller_Abs
 	/**
 	 * @var string
 	 */
-	protected $fixtureClassName = 'Tx_MmForum_Controller_PostController';
+	protected $fixtureClassName = 'Mittwald\\MmForum\\Controller\\PostController';
 
 
 
 	public function setUp() {
-		$this->forumRepositoryMock = $this->getMock('Tx_MmForum_Domain_Repository_Forum_ForumRepository');
-		$this->topicRepositoryMock = $this->getMock('Tx_MmForum_Domain_Repository_Forum_TopicRepository');
-		$this->postRepositoryMock  = $this->getMock('Tx_MmForum_Domain_Repository_Forum_PostRepository');
-		$this->postFactoryMock     = $this->getMock('Tx_MmForum_Domain_Factory_Forum_PostFactory', array(), array(), '',
+		$this->forumRepositoryMock = $this->getMock('Mittwald\\MmForum\\Domain\\Repository\\Forum\\ForumRepository');
+		$this->topicRepositoryMock = $this->getMock('Mittwald\\MmForum\\Domain\\Repository\\Forum\\TopicRepository');
+		$this->postRepositoryMock  = $this->getMock('Mittwald\\MmForum\\Domain\\Repository\\Forum\\PostRepository');
+		$this->postFactoryMock     = $this->getMock('Mittwald\\MmForum\\Domain\\Factory\\Forum\\PostFactory', array(), array(), '',
 		                                            FALSE);
-		$this->buildFixture('Tx_MmForum_Controller_PostController',
+		$this->buildFixture('Mittwald\\MmForum\\Controller\\PostController',
 		                    array($this->forumRepositoryMock, $this->topicRepositoryMock, $this->postRepositoryMock,
 		                         $this->postFactoryMock));
 	}
@@ -79,15 +81,15 @@ class Tx_MmForum_Controller_PostControllerTest extends Tx_MmForum_Controller_Abs
 
 	public function testShowActionRedirectsToTopicController() {
 		$this->fixture->expects($this->once())->method('redirect')->with('show', 'Topic');
-		$this->fixture->showAction($this->getMock('Tx_MmForum_Domain_Model_Forum_Post'));
+		$this->fixture->showAction($this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post'));
 	}
 
 
 
 	public function testNewActionWithoutPostAndWithoutQuoteCreatesEmptyPost() {
 		$this->postFactoryMock->expects($this->once())->method('createEmptyPost')
-			->will($this->returnValue($this->getMock('Tx_MmForum_Domain_Model_Forum_Post')));
-		$this->fixture->newAction($this->getMock('Tx_MmForum_Domain_Model_Forum_Topic'));
+			->will($this->returnValue($this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post')));
+		$this->fixture->newAction($this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Topic'));
 	}
 
 
@@ -97,8 +99,8 @@ class Tx_MmForum_Controller_PostControllerTest extends Tx_MmForum_Controller_Abs
 	 */
 	public function testNewActionWithoutPostAndWithoutQuoteAssignsPostToView() {
 		$this->postFactoryMock->expects($this->once())->method('createEmptyPost')
-			->will($this->returnValue($post = $this->getMock('Tx_MmForum_Domain_Model_Forum_Post')));
-		$this->fixture->newAction($this->getMock('Tx_MmForum_Domain_Model_Forum_Topic'));
+			->will($this->returnValue($post = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post')));
+		$this->fixture->newAction($this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Topic'));
 		$this->assertViewContains('post', $post);
 	}
 
@@ -106,8 +108,8 @@ class Tx_MmForum_Controller_PostControllerTest extends Tx_MmForum_Controller_Abs
 
 	public function testNewActionAssignsCurrentUserToView() {
 		$this->userRepositoryMock->expects($this->any())->method('findCurrent')
-			->will($this->returnValue($user = $this->getMock('Tx_MmForum_Domain_Model_User_FrontendUser')));
-		$this->fixture->newAction($this->getMock('Tx_MmForum_Domain_Model_Forum_Topic'));
+			->will($this->returnValue($user = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\User\\FrontendUser')));
+		$this->fixture->newAction($this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Topic'));
 		$this->assertViewContains('currentUser', $user);
 	}
 
@@ -115,10 +117,10 @@ class Tx_MmForum_Controller_PostControllerTest extends Tx_MmForum_Controller_Abs
 
 	public function testNewActionWithoutPostButWithQuoteCreatesPostFromQuote() {
 		$this->postFactoryMock->expects($this->once())->method('createPostWithQuote')
-			->with($this->isInstanceOf('Tx_MmForum_Domain_Model_Forum_Post'))
-			->will($this->returnValue($this->getMock('Tx_MmForum_Domain_Model_Forum_Post')));
-		$this->fixture->newAction($this->getMock('Tx_MmForum_Domain_Model_Forum_Topic'), NULL,
-		                          $this->getMock('Tx_MmForum_Domain_Model_Forum_Post'));
+			->with($this->isInstanceOf('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post'))
+			->will($this->returnValue($this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post')));
+		$this->fixture->newAction($this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Topic'), NULL,
+		                          $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post'));
 	}
 
 
@@ -128,42 +130,42 @@ class Tx_MmForum_Controller_PostControllerTest extends Tx_MmForum_Controller_Abs
 	 */
 	public function testNewActionWithoutPostButWithQuoteAssignsPostToView() {
 		$this->postFactoryMock->expects($this->once())->method('createPostWithQuote')
-			->with($this->isInstanceOf('Tx_MmForum_Domain_Model_Forum_Post'))
-			->will($this->returnValue($post = $this->getMock('Tx_MmForum_Domain_Model_Forum_Post')));
-		$this->fixture->newAction($this->getMock('Tx_MmForum_Domain_Model_Forum_Topic'), NULL,
-		                          $this->getMock('Tx_MmForum_Domain_Model_Forum_Post'));
+			->with($this->isInstanceOf('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post'))
+			->will($this->returnValue($post = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post')));
+		$this->fixture->newAction($this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Topic'), NULL,
+		                          $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post'));
 		$this->assertViewContains('post', $post);
 	}
 
 
 
 	public function testNewActionWithPostAssignsPostToView() {
-		$this->fixture->newAction($this->getMock('Tx_MmForum_Domain_Model_Forum_Topic'),
-		                          $post = $this->getMock('Tx_MmForum_Domain_Model_Forum_Post'));
+		$this->fixture->newAction($this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Topic'),
+		                          $post = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post'));
 		$this->assertViewContains('post', $post);
 	}
 
 
 
 	public function testNewActionAssignsTopicToView() {
-		$this->fixture->newAction($topic = $this->getMock('Tx_MmForum_Domain_Model_Forum_Topic'));
+		$this->fixture->newAction($topic = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Topic'));
 		$this->assertViewContains('topic', $topic);
 	}
 
 
 
 	public function testCreateActionAddsPostToTopic() {
-		$topic = $this->getMock('Tx_MmForum_Domain_Model_Forum_Topic');
+		$topic = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Topic');
 		$topic->expects($this->once())->method('addPost');
-		$post = $this->getMock('Tx_MmForum_Domain_Model_Forum_Post');
+		$post = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post');
 		$this->fixture->createAction($topic, $post);
 	}
 
 
 
 	public function testCreateActionUpdatesTopicInTopicRepository() {
-		$topic = $this->getMock('Tx_MmForum_Domain_Model_Forum_Topic');
-		$post  = $this->getMock('Tx_MmForum_Domain_Model_Forum_Post');
+		$topic = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Topic');
+		$post  = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post');
 		$this->topicRepositoryMock->expects($this->atLeastOnce())->method('update');
 		$this->fixture->createAction($topic, $post);
 	}
@@ -175,7 +177,7 @@ class Tx_MmForum_Controller_PostControllerTest extends Tx_MmForum_Controller_Abs
 	 * @param $actionMethodName
 	 */
 	public function testActionsAssignPostToView($actionMethodName) {
-		$this->fixture->$actionMethodName($post = $this->getMock('Tx_MmForum_Domain_Model_Forum_Post'));
+		$this->fixture->$actionMethodName($post = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post'));
 		$this->assertViewContains('post', $post);
 	}
 
@@ -189,14 +191,14 @@ class Tx_MmForum_Controller_PostControllerTest extends Tx_MmForum_Controller_Abs
 
 	public function testUpdateActionUpdatePostInPostRepository() {
 		$this->postRepositoryMock->expects($this->atLeastOnce())->method('update');
-		$this->fixture->updateAction($post = $this->getMock('Tx_MmForum_Domain_Model_Forum_Post'));
+		$this->fixture->updateAction($post = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post'));
 	}
 
 
 
 	public function testDeleteActionDelegatesToPostFactory() {
 		$this->postFactoryMock->expects($this->once())->method('deletePost');
-		$this->fixture->deleteAction($post = $this->getMock('Tx_MmForum_Domain_Model_Forum_Post'));
+		$this->fixture->deleteAction($post = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post'));
 	}
 
 
@@ -209,26 +211,26 @@ class Tx_MmForum_Controller_PostControllerTest extends Tx_MmForum_Controller_Abs
 	 */
 	public function testActionsNotifiySignalSlotDispatcher($actionMethodName, $expectedEventName, $arguments) {
 		$this->signalSlotDispatcherMock->expects($this->once())->method('dispatch')
-			->with('Tx_MmForum_Domain_Model_Forum_Post', $expectedEventName, $this->anything());
+			->with('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post', $expectedEventName, $this->anything());
 		call_user_func_array(array($this->fixture, $actionMethodName), $arguments);
 	}
 
 
 
 	public function testDeleteActionRedirectsToForumIfLastPostOfTopicIsDeleted() {
-		$topic = $this->getMock('Tx_MmForum_Domain_Model_Forum_Topic');
+		$topic = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Topic');
 		$topic->expects($this->any())->method('getPostCount')->will($this->returnValue(1));
 		$this->fixture->expects($this->once())->method('redirect')->with('show', 'Forum');
-		$this->fixture->deleteAction($post = $this->getMock('Tx_MmForum_Domain_Model_Forum_Post'));
+		$this->fixture->deleteAction($post = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post'));
 	}
 
 
 
 	public function testDeleteActionRedirectsToTopicIfOtherPostsAreLeftInTopic() {
-		$topic = $this->getMock('Tx_MmForum_Domain_Model_Forum_Topic');
+		$topic = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Topic');
 		$topic->expects($this->any())->method('getPostCount')->will($this->returnValue(3));
 		$this->fixture->expects($this->once())->method('redirect')->with('show', 'Topic');
-		$this->fixture->deleteAction($post = $this->getMock('Tx_MmForum_Domain_Model_Forum_Post'));
+		$this->fixture->deleteAction($post = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post'));
 	}
 
 
@@ -241,26 +243,26 @@ class Tx_MmForum_Controller_PostControllerTest extends Tx_MmForum_Controller_Abs
 
 
 	public function getActionMethodsThatNotifySignalSlotDispatcher() {
-		return array(array('createAction', 'postCreated', array($this->getMock('Tx_MmForum_Domain_Model_Forum_Topic'),
-		                                                        $this->getMock('Tx_MmForum_Domain_Model_Forum_Post'))),
-		             array('updateAction', 'postUpdated', array($this->getMock('Tx_MmForum_Domain_Model_Forum_Post'))),
-		             array('deleteAction', 'postDeleted', array($this->getMock('Tx_MmForum_Domain_Model_Forum_Post'))));
+		return array(array('createAction', 'postCreated', array($this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Topic'),
+		                                                        $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post'))),
+		             array('updateAction', 'postUpdated', array($this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post'))),
+		             array('deleteAction', 'postDeleted', array($this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post'))));
 	}
 
 
 
 	public function getMock($originalClassName, $methods = array(), array $arguments = array(), $mockClassName = '',
 	                        $callOriginalConstructor = TRUE, $callOriginalClone = TRUE, $callAutoload = TRUE) {
-		if ($originalClassName === 'Tx_MmForum_Domain_Model_Forum_Topic' || $originalClassName === 'Tx_MmForum_Domain_Model_Forum_Post') {
+		if ($originalClassName === 'Mittwald\\MmForum\\Domain\\Model\\Forum\\Topic' || $originalClassName === 'Mittwald\\MmForum\\Domain\\Model\\Forum\\Post') {
 			if ($this->topicMock === NULL || $this->postMock === NULL) {
-				$this->topicMock = parent::getMock('Tx_MmForum_Domain_Model_Forum_Topic');
-				$this->postMock  = parent::getMock('Tx_MmForum_Domain_Model_Forum_Post');
+				$this->topicMock = parent::getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Topic');
+				$this->postMock  = parent::getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post');
 				$this->postMock->expects($this->any())->method('getTopic')->will($this->returnValue($this->topicMock));
 				$this->topicMock->expects($this->any())->method('getPosts')
 					->will($this->returnValue($this->buildPostMockList()));
 			}
 
-			if ($originalClassName === 'Tx_MmForum_Domain_Model_Forum_Topic') {
+			if ($originalClassName === 'Mittwald\\MmForum\\Domain\\Model\\Forum\\Topic') {
 				return $this->topicMock;
 			} else {
 				return $this->postMock;

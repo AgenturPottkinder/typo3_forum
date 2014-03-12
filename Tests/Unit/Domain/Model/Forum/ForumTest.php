@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\Forum;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -26,12 +28,12 @@
 
 
 
-class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCase {
+class ForumTest extends \Mittwald\MmForum\Unit\BaseTestCase {
 
 
 
 	/**
-	 * @var Tx_MmForum_Domain_Model_Forum_Forum
+	 * @var \Mittwald\MmForum\Domain\Model\Forum\Forum
 	 */
 	protected $fixture = NULL;
 
@@ -43,25 +45,25 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 
 
 	/**
-	 * @var Tx_MmForum_Service_Authentication_AuthenticationServiceInterface
+	 * @var \Mittwald\MmForum\Service\Authentication\AuthenticationServiceInterface
 	 */
 	protected $authenticationService;
 
 
 
 	public function setUp() {
-		$this->userRepositoryMock = $this->getMock('Tx_MmForum_Domain_Repository_User_FrontendUserRepository');
+		$this->userRepositoryMock = $this->getMock('Mittwald\\MmForum\\Domain\\Repository\\User\\FrontendUserRepository');
 		$this->userRepositoryMock->expects($this->any())->method('findCurrent')->will($this->returnValue(NULL));
-		$this->cacheMock = $this->getMock('Tx_MmForum_Cache_Cache');
+		$this->cacheMock = $this->getMock('Mittwald\\MmForum\\Cache\\Cache');
 		$this->cacheMock->expects($this->any())->method('has')->will($this->returnValue(FALSE));
 
-		$this->authenticationService     = new Tx_MmForum_Service_Authentication_AuthenticationService($this->userRepositoryMock, $this->cacheMock);
-		$this->authenticationServiceMock = $this->getMock('Tx_MmForum_Service_Authentication_AuthenticationService',
+		$this->authenticationService     = new \Mittwald\MmForum\Service\Authentication\AuthenticationService($this->userRepositoryMock, $this->cacheMock);
+		$this->authenticationServiceMock = $this->getMock('Mittwald\\MmForum\\Service\\Authentication\\AuthenticationService',
 		                                                  array('checkAuthorization'), array(), '', FALSE);
 		$this->authenticationServiceMock->expects($this->any())->method('checkAuthorization')
 			->will($this->returnValue(TRUE));
 
-		$this->fixture = new Tx_MmForum_Domain_Model_Forum_Forum();
+		$this->fixture = new Forum();
 		$this->fixture->injectObjectManager($this->objectManager);
 		$this->fixture->injectAuthenticationService($this->authenticationService);
 	}
@@ -69,14 +71,14 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 
 
 	public function testConstructorSetsTitle() {
-		$this->fixture = new Tx_MmForum_Domain_Model_Forum_Forum('FOO');
+		$this->fixture = new Forum('FOO');
 		$this->assertEquals('FOO', $this->fixture->getTitle());
 	}
 
 
 
 	public function testConstructorSetsEmptyTitlePerDefault() {
-		$this->fixture = new Tx_MmForum_Domain_Model_Forum_Forum();
+		$this->fixture = new Forum();
 		$this->assertEquals('', $this->fixture->getTitle());
 	}
 
@@ -97,7 +99,7 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 
 
 	public function testAddSubscriberAddsSubscriber() {
-		$subscriber = new Tx_MmForum_Domain_Model_User_FrontendUser('martin', 'secret');
+		$subscriber = new \Mittwald\MmForum\Domain\Model\User\FrontendUser('martin', 'secret');
 		$this->fixture->addSubscriber($subscriber);
 		$this->assertContains($subscriber, $this->fixture->getSubscribers());
 	}
@@ -108,7 +110,7 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @depends testAddSubscriberAddsSubscriber
 	 */
 	public function testAddSubscriberAddsSubscriberOnlyOnce() {
-		$subscriber = new Tx_MmForum_Domain_Model_User_FrontendUser('martin', 'secret');
+		$subscriber = new \Mittwald\MmForum\Domain\Model\User\FrontendUser('martin', 'secret');
 		$this->fixture->addSubscriber($subscriber);
 		$this->fixture->addSubscriber($subscriber);
 		$this->assertEquals(1, count($this->fixture->getSubscribers()));
@@ -120,7 +122,7 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @depends testAddSubscriberAddsSubscriber
 	 */
 	public function testRemoveSubscriberRemovesSubscriber() {
-		$subscriber = new Tx_MmForum_Domain_Model_User_FrontendUser('martin', 'secret');
+		$subscriber = new \Mittwald\MmForum\Domain\Model\User\FrontendUser('martin', 'secret');
 		$this->fixture->addSubscriber($subscriber);
 		$this->fixture->removeSubscriber($subscriber);
 		$this->assertNotContains($subscriber, $this->fixture->getSubscribers());
@@ -129,16 +131,16 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 
 
 	public function testGetChildrenReturnsOnlyAccessibleChildren() {
-		$this->authenticationServiceMock = $this->getMock('Tx_MmForum_Service_Authentication_AuthenticationService',
+		$this->authenticationServiceMock = $this->getMock('Mittwald\\MmForum\\Service\\Authentication\\AuthenticationService',
 		                                                  array(), array(), '', FALSE);
 		$this->authenticationServiceMock->expects($this->exactly(3))->method('checkAuthorization')
-			->with(self::isInstanceOf('Tx_MmForum_Domain_Model_Forum_Forum'), self::equalTo('read'))
+			->with(self::isInstanceOf('Mittwald\\MmForum\\Domain\\Model\\Forum\\Forum'), self::equalTo('read'))
 			->will($this->returnCallback(function($forum) {
 			return $forum->getTitle() !== 'Child 3';
 		}));
 		$this->fixture->injectAuthenticationService($this->authenticationServiceMock);
 		for ($i = 1; $i <= 3; $i++) {
-			$this->fixture->addChild(new Tx_MmForum_Domain_Model_Forum_Forum('Child ' . $i));
+			$this->fixture->addChild(new Forum('Child ' . $i));
 		}
 
 		$children = $this->fixture->getChildren();
@@ -154,11 +156,11 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 
 
 	public function testHasBeenReadByUserIsTrueWhenAllTopicsAreRead() {
-		$user = $this->getMock('Tx_MmForum_Domain_Model_User_FrontendUser');
+		$user = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\User\\FrontendUser');
 		for ($i = 1; $i <= 3; $i++) {
-			$topic = $this->getMock('Tx_MmForum_Domain_Model_Forum_Topic');
+			$topic = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Topic');
 			$topic->expects($this->any())->method('getLastPost')
-				->will($this->returnValue(new Tx_MmForum_Domain_Model_Forum_Post('Content')));
+				->will($this->returnValue(new Post('Content')));
 			$topic->expects($this->atLeastOnce())->method('hasBeenReadByUser')
 				->with(self::isInstanceOf(get_class($user)))->will($this->returnValue(TRUE));
 			$this->fixture->addTopic($topic);
@@ -170,11 +172,11 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 
 
 	public function testHasBeenReadByUserIsFalseWhenAtLeastOneTopicIsUnread() {
-		$user = $this->getMock('Tx_MmForum_Domain_Model_User_FrontendUser');
+		$user = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\User\\FrontendUser');
 		for ($i = 1; $i <= 3; $i++) {
-			$topic = $this->getMock('Tx_MmForum_Domain_Model_Forum_Topic');
+			$topic = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Topic');
 			$topic->expects($this->any())->method('getLastPost')
-				->will($this->returnValue(new Tx_MmForum_Domain_Model_Forum_Post('Content')));
+				->will($this->returnValue(new Post('Content')));
 			$topic->expects($this->atLeastOnce())->method('hasBeenReadByUser')
 				->with(self::isInstanceOf(get_class($user)))->will($this->returnValue($i !== 3));
 			$this->fixture->addTopic($topic);
@@ -186,7 +188,7 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 
 
 	public function testAddChildAddsChild() {
-		$this->fixture->addChild($child = new Tx_MmForum_Domain_Model_Forum_Forum('CHILD'));
+		$this->fixture->addChild($child = new Forum('CHILD'));
 		$this->assertEquals(1, count($this->fixture->getChildren()));
 	}
 
@@ -197,7 +199,7 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 */
 	public function testAddChildRefreshesCachedVisibleChildren() {
 		$this->assertEquals(0, count($this->fixture->getChildren()));
-		$this->fixture->addChild($child = new Tx_MmForum_Domain_Model_Forum_Forum('CHILD'));
+		$this->fixture->addChild($child = new Forum('CHILD'));
 		$this->assertEquals(1, count($this->fixture->getChildren()));
 	}
 
@@ -207,9 +209,9 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @depends testAddChildAddsChild
 	 */
 	public function testAddChildCallsSetParentOnChild() {
-		$child = $this->getMock('Tx_MmForum_Domain_Model_Forum_Forum');
+		$child = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Forum');
 		$child->expects($this->once())->method('setParent')
-			->with(self::isInstanceOf('Tx_MmForum_Domain_Model_Forum_Forum'));
+			->with(self::isInstanceOf('Mittwald\\MmForum\\Domain\\Model\\Forum\\Forum'));
 
 		$this->fixture->addChild($child);
 	}
@@ -220,9 +222,9 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @depends testAddChildAddsChild
 	 */
 	public function testAddChildRefreshesCountersAndReferences() {
-		$post  = new Tx_MmForum_Domain_Model_Forum_Post('CONTENT');
-		$topic = new Tx_MmForum_Domain_Model_Forum_Topic('TOPIC_1');
-		$child = new Tx_MmForum_Domain_Model_Forum_Forum('CHILD_1');
+		$post  = new Post('CONTENT');
+		$topic = new Topic('TOPIC_1');
+		$child = new Forum('CHILD_1');
 
 		$topic->addPost($post);
 		$child->addTopic($topic);
@@ -254,7 +256,7 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @depends testAddChildAddsChild
 	 */
 	public function testRemoveChildRemovesChild() {
-		$this->fixture->addChild($child = new Tx_MmForum_Domain_Model_Forum_Forum('CHILD'));
+		$this->fixture->addChild($child = new Forum('CHILD'));
 		$this->fixture->removeChild($child);
 		$this->assertNotContains($child, $this->fixture->getChildren());
 		$this->assertEquals(0, count($this->fixture->getChildren()));
@@ -266,10 +268,10 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @depends testAddTopicAddsTopic
 	 */
 	public function testAddTopicRefreshesCountersAndReferencesOnFirstTopic() {
-		$post1 = new Tx_MmForum_Domain_Model_Forum_Post('CONTENT 1');
-		$post2 = new Tx_MmForum_Domain_Model_Forum_Post('CONTENT 2');
+		$post1 = new Post('CONTENT 1');
+		$post2 = new Post('CONTENT 2');
 		$post2->_setProperty('crdate', new DateTime('tomorrow'));
-		$topic = new Tx_MmForum_Domain_Model_Forum_Topic('TOPIC_1');
+		$topic = new Topic('TOPIC_1');
 		$topic->addPost($post1);
 		$topic->addPost($post2);
 
@@ -289,9 +291,9 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	public function testAddTopicRefreshesCountersAndReferencesOnLaterTopic() {
 		$this->testAddTopicRefreshesCountersAndReferencesOnFirstTopic();
 
-		$post3 = new Tx_MmForum_Domain_Model_Forum_Post('CONTENT 3');
+		$post3 = new Post('CONTENT 3');
 		$post3->_setProperty('crdate', new DateTime('now + 2 days'));
-		$topic = new Tx_MmForum_Domain_Model_Forum_Topic('TOPIC_2');
+		$topic = new Topic('TOPIC_2');
 		$topic->addPost($post3);
 
 		$this->fixture->addTopic($topic);
@@ -346,9 +348,9 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 
 		$this->assertEquals(2, $this->fixture->getPostCount());
 		$this->assertEquals(1, $this->fixture->getTopicCount());
-		$this->assertInstanceOf('Tx_MmForum_Domain_Model_Forum_Topic', $this->fixture->getLastTopic());
+		$this->assertInstanceOf('Mittwald\\MmForum\\Domain\\Model\\Forum\\Topic', $this->fixture->getLastTopic());
 		$this->assertTrue($this->fixture->getLastTopic() !== $topic);
-		$this->assertInstanceOf('Tx_MmForum_Domain_Model_Forum_Post', $this->fixture->getLastPost());
+		$this->assertInstanceOf('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post', $this->fixture->getLastPost());
 		$this->assertTrue($this->fixture->getLastPost() !== $topic->getLastPost());
 	}
 
@@ -366,11 +368,11 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @depends testAddTopicRefreshesCountersAndReferencesOnLaterTopic
 	 */
 	public function testAddTopicRefreshesCountersAndReferencesRecursively() {
-		$lowerForum = new Tx_MmForum_Domain_Model_Forum_Forum('LOWER');
+		$lowerForum = new Forum('LOWER');
 		$this->fixture->addChild($lowerForum);
 
-		$post  = new Tx_MmForum_Domain_Model_Forum_Post('CONTENT');
-		$topic = new Tx_MmForum_Domain_Model_Forum_Topic('TOPIC');
+		$post  = new Post('CONTENT');
+		$topic = new Topic('TOPIC');
 		$topic->addPost($post);
 
 		$lowerForum->addTopic($topic);
@@ -403,9 +405,9 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 
 
 	public function testGetRootlineReturnsAllParentForumsAndSelfByDefault() {
-		$levelTwo = new Tx_MmForum_Domain_Model_Forum_Forum('Ebene 2');
+		$levelTwo = new Forum('Ebene 2');
 		$levelTwo->injectAuthenticationService($this->authenticationServiceMock);
-		$levelOne = new Tx_MmForum_Domain_Model_Forum_Forum('Ebene 1');
+		$levelOne = new Forum('Ebene 1');
 		$levelOne->injectAuthenticationService($this->authenticationServiceMock);
 
 		$levelTwo->addChild($this->fixture);
@@ -419,7 +421,7 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 
 
 	public function testAddAclAddsAcl() {
-		$acl = new Tx_MmForum_Domain_Model_Forum_Access('newTopic', Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN);
+		$acl = new Access('newTopic', Access::LOGIN_LEVEL_ANYLOGIN);
 		$this->fixture->addAcl($acl);
 
 		$this->assertContainsOnly($acl, $this->fixture->getAcls());
@@ -431,7 +433,7 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @depends testAddAclAddsAcl
 	 */
 	public function testRemoveAclRemovesAcl() {
-		$acl = new Tx_MmForum_Domain_Model_Forum_Access('newTopic', Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN);
+		$acl = new Access('newTopic', Access::LOGIN_LEVEL_ANYLOGIN);
 		$this->fixture->addAcl($acl);
 		$this->fixture->removeAcl($acl);
 
@@ -462,7 +464,7 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @param string $operation
 	 */
 	public function testDelegatesAccessCheckToParentIfNoAclsAreSet($operation = 'newTopic') {
-		$parent = $this->getMock('Tx_MmForum_Domain_Model_Forum_Forum');
+		$parent = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Forum');
 		$parent->expects($this->once())->method('checkAccess')->with(NULL, $operation)->will($this->returnValue(FALSE));
 		$this->fixture->setParent($parent);
 
@@ -477,7 +479,7 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @param string $operation
 	 */
 	public function testGrantsAccessToEveryoneIfGrantingAclIsFound($operation = 'newTopic') {
-		$this->fixture->addAcl(new Tx_MmForum_Domain_Model_Forum_Access($operation, Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_EVERYONE));
+		$this->fixture->addAcl(new Access($operation, Access::LOGIN_LEVEL_EVERYONE));
 		$this->assertTrue($this->fixture->checkAccess(NULL, $operation));
 	}
 
@@ -489,7 +491,7 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @param string $operation
 	 */
 	public function testDeniesAccessToEveryoneIfDenyingAclIsFound($operation = 'newTopic') {
-		$acl = new Tx_MmForum_Domain_Model_Forum_Access($operation, Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_EVERYONE);
+		$acl = new Access($operation, Access::LOGIN_LEVEL_EVERYONE);
 		$acl->setNegated(TRUE);
 		$this->fixture->addAcl($acl);
 		$this->assertFalse($this->fixture->checkAccess(NULL, $operation));
@@ -503,7 +505,7 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @param string $operation
 	 */
 	public function testGrantsAccessToAnyLoginIfGrantingAclForAnyLoginIsFound($operation = 'newTopic') {
-		$this->fixture->addAcl(new Tx_MmForum_Domain_Model_Forum_Access($operation, Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN));
+		$this->fixture->addAcl(new Access($operation, Access::LOGIN_LEVEL_ANYLOGIN));
 		$this->assertTrue($this->fixture->checkAccess($this->createUser(), $operation));
 	}
 
@@ -515,7 +517,7 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @param string $operation
 	 */
 	public function testDeniesAccessToAnonymousIfGrantingAclForAnyLoginIsFound($operation = 'newTopic') {
-		$this->fixture->addAcl(new Tx_MmForum_Domain_Model_Forum_Access($operation, Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN));
+		$this->fixture->addAcl(new Access($operation, Access::LOGIN_LEVEL_ANYLOGIN));
 		$this->assertFalse($this->fixture->checkAccess(NULL, $operation));
 	}
 
@@ -528,8 +530,8 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 */
 	public function testGrantsAccessToMemberIfGrantingAclForGroupIsFound($operation = 'newTopic') {
 		$user = $this->createUser();
-		$user->addUsergroup($group = new Tx_MmForum_Domain_Model_User_FrontendUserGroup('GROUP'));
-		$this->fixture->addAcl(new Tx_MmForum_Domain_Model_Forum_Access($operation, Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_SPECIFIC, $group));
+		$user->addUsergroup($group = new \Mittwald\MmForum\Domain\Model\User\FrontendUserGroup('GROUP'));
+		$this->fixture->addAcl(new Access($operation, Access::LOGIN_LEVEL_SPECIFIC, $group));
 		$this->assertTrue($this->fixture->checkAccess($user, $operation));
 	}
 
@@ -542,8 +544,8 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 */
 	public function testDeniesAccessToAnyLoginIfGrantingAclForGroupIsFound($operation = 'newTopic') {
 		$user  = $this->createUser();
-		$group = new Tx_MmForum_Domain_Model_User_FrontendUserGroup('GROUP');
-		$this->fixture->addAcl(new Tx_MmForum_Domain_Model_Forum_Access($operation, Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_SPECIFIC, $group));
+		$group = new \Mittwald\MmForum\Domain\Model\User\FrontendUserGroup('GROUP');
+		$this->fixture->addAcl(new Access($operation, Access::LOGIN_LEVEL_SPECIFIC, $group));
 		$this->assertFalse($this->fixture->checkAccess($user, $operation));
 	}
 
@@ -555,7 +557,7 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @param string $operation
 	 */
 	public function testDeniesNonreadAccessForRootForumsWithoutMatchingAcl($operation = 'newTopic') {
-		$this->fixture->addAcl(new Tx_MmForum_Domain_Model_Forum_Access('not_matching_operation', Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN));
+		$this->fixture->addAcl(new Access('not_matching_operation', Access::LOGIN_LEVEL_ANYLOGIN));
 		$this->assertFalse($this->fixture->checkAccess($this->createUser(), $operation));
 	}
 
@@ -567,10 +569,10 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @param string $operation
 	 */
 	public function testDelegatesAccessCheckToParentIfNoAclMatches($operation = 'newTopic') {
-		$parent = $this->getMock('Tx_MmForum_Domain_Model_Forum_Forum');
+		$parent = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Forum');
 		$parent->expects($this->once())->method('checkAccess')->with(NULL, $operation)->will($this->returnValue(FALSE));
 
-		$this->fixture->addAcl(new Tx_MmForum_Domain_Model_Forum_Access('not_matching_operation', Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN));
+		$this->fixture->addAcl(new Access('not_matching_operation', Access::LOGIN_LEVEL_ANYLOGIN));
 		$this->fixture->setParent($parent);
 
 		$this->assertFalse($this->fixture->checkAccess(NULL, $operation));
@@ -579,16 +581,16 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 
 
 	public function testGetParentReturnsVirtualRootForumIfNoneIsSet() {
-		$this->assertInstanceOf('Tx_MmForum_Domain_Model_Forum_RootForum', $this->fixture->getParent());
-		$this->assertInstanceOf('Tx_MmForum_Domain_Model_Forum_RootForum', $this->fixture->getForum());
+		$this->assertInstanceOf('Mittwald\\MmForum\\Domain\\Model\\Forum\\RootForum', $this->fixture->getParent());
+		$this->assertInstanceOf('Mittwald\\MmForum\\Domain\\Model\\Forum\\RootForum', $this->fixture->getForum());
 	}
 
 
 
 	protected function createTopic($postCount = 1) {
-		$topic = new Tx_MmForum_Domain_Model_Forum_Topic('SUBJECT');
+		$topic = new Topic('SUBJECT');
 		for ($i = 1; $i <= $postCount; $i++) {
-			$topic->addPost(new Tx_MmForum_Domain_Model_Forum_Post('CONTENT_' . $i));
+			$topic->addPost(new Post('CONTENT_' . $i));
 		}
 		return $topic;
 	}
@@ -596,7 +598,7 @@ class Tx_MmForum_Domain_Model_Forum_ForumTest extends Tx_MmForum_Unit_BaseTestCa
 
 
 	protected function createUser() {
-		return new Tx_MmForum_Domain_Model_User_FrontendUser('martin', 'secret');
+		return new \Mittwald\MmForum\Domain\Model\User\FrontendUser('martin', 'secret');
 	}
 
 

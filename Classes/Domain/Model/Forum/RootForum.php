@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\Forum;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -38,18 +40,18 @@
  * @license    GNU public License, version 2
  *             http://opensource.org/licenses/gpl-license.php
  */
-class Tx_MmForum_Domain_Model_Forum_RootForum extends Tx_MmForum_Domain_Model_Forum_Forum implements \TYPO3\CMS\Core\SingletonInterface {
+class RootForum extends Forum implements \TYPO3\CMS\Core\SingletonInterface {
 
 
 
 	/**
-	 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\ForumRepository
 	 */
 	protected $forumRepository = NULL;
 
 
 
-	public function injectForumRepository(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository) {
+	public function injectForumRepository(\Mittwald\MmForum\Domain\Repository\Forum\ForumRepository $forumRepository) {
 		$this->forumRepository = $forumRepository;
 	}
 
@@ -69,7 +71,7 @@ class Tx_MmForum_Domain_Model_Forum_RootForum extends Tx_MmForum_Domain_Model_Fo
 
 
 
-	public function checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'read') {
+	public function checkAccess(\Mittwald\MmForum\Domain\Model\User\FrontendUser $user = NULL, $accessType = 'read') {
 		if ($accessType === 'read') {
 			return TRUE;
 		}

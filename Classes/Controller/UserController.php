@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Controller;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -45,7 +47,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_AbstractController {
+class UserController extends AbstractController {
 
 
 
@@ -57,21 +59,21 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 
 	/**
 	 * The userfield repository.
-	 * @var Tx_MmForum_Domain_Repository_User_UserfieldRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\User\UserfieldRepository
 	 */
 	protected $userfieldRepository = NULL;
 
 
 	/**
 	 * The topic repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_TopicRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\TopicRepository
 	 */
 	protected $topicRepository = NULL;
 
 
 	/**
 	 * The forum repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\ForumRepository
 	 */
 	protected $forumRepository = NULL;
 
@@ -79,28 +81,28 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 
 	/**
 	 * The forum repository.
-	 * @var Tx_MmForum_Domain_Repository_User_PrivateMessagesRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\User\PrivateMessagesRepository
 	 */
 	protected $messageRepository = NULL;
 
 
 	/**
 	 * A message factory.
-	 * @var Tx_MmForum_Domain_Factory_User_PrivateMessagesFactory
+	 * @var \Mittwald\MmForum\Domain\Factory\User\PrivateMessagesFactory
 	 */
 	protected $privateMessagesFactory;
 
 
 	/**
 	 * The rank repository.
-	 * @var Tx_MmForum_Domain_Repository_User_RankRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\User\RankRepository
 	 */
 	protected $rankRepository = NULL;
 
 
 	/**
 	 * The notification repository.
-	 * @var Tx_MmForum_Domain_Repository_User_NotificationRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\User\NotificationRepository
 	 */
 	protected $notificationRepository = NULL;
 
@@ -114,28 +116,28 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	/**
 	 * Constructor. Used primarily for dependency injection.
 	 *
-	 * @param \Tx_MmForum_Domain_Repository_Forum_ForumRepository    $forumRepository
+	 * @param \\Mittwald\MmForum\Domain\Repository\Forum\ForumRepository    $forumRepository
 	 *                                 An instance of the forum repository.
-	 * @param \Tx_MmForum_Domain_Repository_Forum_TopicRepository    $topicRepository
+	 * @param \\Mittwald\MmForum\Domain\Repository\Forum\TopicRepository    $topicRepository
 	 *                                 An instance of the topic repository.
-	 * @param \Tx_MmForum_Domain_Repository_User_UserfieldRepository $userfieldRepository
+	 * @param \\Mittwald\MmForum\Domain\Repository\User\UserfieldRepository $userfieldRepository
 	 *                                 An instance of the userfield repository.
-	 * @param Tx_MmForum_Domain_Repository_User_PrivateMessagesRepository $messageRepository
+	 * @param \Mittwald\MmForum\Domain\Repository\User\PrivateMessagesRepository $messageRepository
 	 * 									An instance of the private message repository.
-	 * @param Tx_MmForum_Domain_Factory_User_PrivateMessagesFactory $privateMessagesFactory
+	 * @param \Mittwald\MmForum\Domain\Factory\User\PrivateMessagesFactory $privateMessagesFactory
 	 * 									An instance of the private message factory
-	 * @param Tx_MmForum_Domain_Repository_User_RankRepository $rankRepository
+	 * @param \Mittwald\MmForum\Domain\Repository\User\RankRepository $rankRepository
 	 * 									An instance of the rank repository
-	 * @param Tx_MmForum_Domain_Repository_User_NotificationRepository
+	 * @param \Mittwald\MmForum\Domain\Repository\User\NotificationRepository
 	 *									An instance of the notification repository
 	 */
-	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
-	                            Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
-	                            Tx_MmForum_Domain_Repository_User_UserfieldRepository $userfieldRepository,
-								Tx_MmForum_Domain_Repository_User_PrivateMessagesRepository $messageRepository,
-								Tx_MmForum_Domain_Factory_User_PrivateMessagesFactory $privateMessagesFactory,
-								Tx_MmForum_Domain_Repository_User_RankRepository $rankRepository,
-								Tx_MmForum_Domain_Repository_User_NotificationRepository $notificationRepository) {
+	public function __construct(\Mittwald\MmForum\Domain\Repository\Forum\ForumRepository $forumRepository,
+	                            \Mittwald\MmForum\Domain\Repository\Forum\TopicRepository $topicRepository,
+	                            \Mittwald\MmForum\Domain\Repository\User\UserfieldRepository $userfieldRepository,
+								\Mittwald\MmForum\Domain\Repository\User\PrivateMessagesRepository $messageRepository,
+								\Mittwald\MmForum\Domain\Factory\User\PrivateMessagesFactory $privateMessagesFactory,
+								\Mittwald\MmForum\Domain\Repository\User\RankRepository $rankRepository,
+								\Mittwald\MmForum\Domain\Repository\User\NotificationRepository $notificationRepository) {
 		parent::__construct();
 		$this->forumRepository			= $forumRepository;
 		$this->topicRepository			= $topicRepository;
@@ -206,17 +208,17 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	/**
 	 * Lists all posts of a specific user. If no user is specified, this action lists all
 	 * posts of the current user.
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param \Mittwald\MmForum\Domain\Model\User\FrontendUser $user
 	 *
-	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 * @throws \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException
 	 * @return void
 	 */
-	public function listPostsAction(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
+	public function listPostsAction(\Mittwald\MmForum\Domain\Model\User\FrontendUser $user = NULL) {
 		if ($user === NULL) {
 			$user = $this->getCurrentUser();
 		}
 		if ($user->isAnonymous()) {
-			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
+			throw new \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
 		}
 		$this->view
 			->assign('topics', $this->topicRepository->findByPostAuthor($user))
@@ -226,17 +228,17 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	/**
 	 * Lists all topics of a specific user. If no user is specified, this action lists all
 	 * topics of the current user.
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param \Mittwald\MmForum\Domain\Model\User\FrontendUser $user
 	 *
-	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 * @throws \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException
 	 * @return void
 	 */
-	public function listFavoritesAction(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
+	public function listFavoritesAction(\Mittwald\MmForum\Domain\Model\User\FrontendUser $user = NULL) {
 		if ($user === NULL) {
 			$user = $this->getCurrentUser();
 		}
 		if ($user->isAnonymous()) {
-			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
+			throw new \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
 		}
 		$this->view
 			->assign('topics', $this->topicRepository->findTopicsFavSubscribedByUser($user))
@@ -246,17 +248,17 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	/**
 	 * Lists all topics of a specific user. If no user is specified, this action lists all
 	 * topics of the current user.
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param \Mittwald\MmForum\Domain\Model\User\FrontendUser $user
 	 *
-	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 * @throws \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException
 	 * @return void
 	 */
-	public function listTopicsAction(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
+	public function listTopicsAction(\Mittwald\MmForum\Domain\Model\User\FrontendUser $user = NULL) {
 		if ($user === NULL) {
 			$user = $this->getCurrentUser();
 		}
 		if ($user->isAnonymous()) {
-			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
+			throw new \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
 		}
 		$this->view
 			->assign('topics', $this->topicRepository->findTopicsCreatedByAuthor($user))
@@ -266,17 +268,17 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	/**
 	 * Lists all questions of a specific user. If no user is specified, this action lists all
 	 * posts of the current user.
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param \Mittwald\MmForum\Domain\Model\User\FrontendUser $user
 	 *
-	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 * @throws \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException
 	 * @return void
 	 */
-	public function listQuestionsAction(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
+	public function listQuestionsAction(\Mittwald\MmForum\Domain\Model\User\FrontendUser $user = NULL) {
 		if ($user === NULL) {
 			$user = $this->getCurrentUser();
 		}
 		if ($user->isAnonymous()) {
-			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
+			throw new \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
 		}
 		$this->view
 			->assign('topics', $this->topicRepository->findQuestions(null, true, $user))
@@ -287,16 +289,16 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	/**
 	 * Lists all messages of a specific user. If no user is specified, this action lists all
 	 * messages of the current user.
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $opponent
+	 * @param \Mittwald\MmForum\Domain\Model\User\FrontendUser $opponent
 	 * 												The dialog with which user should be shown. If null get first dialog.
 	 *
-	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 * @throws \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException
 	 * @return void
 	 */
-	public function listMessagesAction(Tx_MmForum_Domain_Model_User_FrontendUser $opponent=NULL) {
+	public function listMessagesAction(\Mittwald\MmForum\Domain\Model\User\FrontendUser $opponent=NULL) {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
+			throw new \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
 		}
 		/** @var TYPO3\CMS\Extbase\Persistence\Generic\QueryResult $dialog */
 		$dialog = null;
@@ -331,15 +333,15 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 
 	/**
  * Shows the form for creating a new message
- * @param Tx_MmForum_Domain_Model_User_FrontendUser $recipient
+ * @param \Mittwald\MmForum\Domain\Model\User\FrontendUser $recipient
  *
- * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+ * @throws \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException
  * @return void
  */
-	public function newMessageAction(Tx_MmForum_Domain_Model_User_FrontendUser $recipient=NULL) {
+	public function newMessageAction(\Mittwald\MmForum\Domain\Model\User\FrontendUser $recipient=NULL) {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+			throw new \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 		$readonly=0;
 		if($recipient !== NULL) {
@@ -354,17 +356,17 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	 * @param string $recipient
 	 * @param string $text
 	 *
-	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
-	 * @validate $recipient Tx_MmForum_Domain_Validator_User_PrivateMessageRecipientValidator
+	 * @throws \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException
+	 * @validate $recipient \Mittwald\MmForum\Domain\Validator\User\PrivateMessageRecipientValidator
 	 * @return void
 	 */
 	public function createMessageAction($recipient, $text) {
 		$user = $this->getCurrentUser();
 		$recipient = $this->frontendUserRepository->findByUsername($recipient);
 		if ($user->isAnonymous()) {
-			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+			throw new \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in.", 1288084981);
 		}
-		$message = $this->objectManager->create('Tx_MmForum_Domain_Model_User_PrivateMessagesText');
+		$message = $this->objectManager->create('Mittwald\\MmForum\\Domain\\Model\\User\\PrivateMessagesText');
 		$message->setMessageText($text);
 		$pmFeUser = $this->privateMessagesFactory->createPrivateMessage($user,$recipient,$message,0,1);
 		$pmRecipient = $this->privateMessagesFactory->createPrivateMessage($recipient,$user,$message,1,0);
@@ -377,13 +379,13 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	 * Lists all messages of a specific user. If no user is specified, this action lists all
 	 * messages of the current user.
 	 *
-	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 * @throws \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException
 	 * @return void
 	 */
 	public function listNotificationsAction() {
 		$user = $this->authenticationService->getUser();
 		if ($user->isAnonymous()) {
-			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+			throw new \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 		$notifications = $this->notificationRepository->findNotificationsForUser($user);
 
@@ -402,14 +404,14 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	/**
 	 * Disable single user
 	 *
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user The user whose profile is to be displayed.
+	 * @param \Mittwald\MmForum\Domain\Model\User\FrontendUser $user The user whose profile is to be displayed.
 	 * @return void
 	 */
-	public function disableUserAction(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
+	public function disableUserAction(\Mittwald\MmForum\Domain\Model\User\FrontendUser $user=NULL) {
 
 		$currentUser = $this->getCurrentUser();
 		if ($currentUser->isAnonymous()) {
-			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+			throw new \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 		$allowed = false;
 		foreach($currentUser->getUsergroup() as $group){
@@ -418,7 +420,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 			}
 		}
 		if(!$allowed){
-			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in as Admin.", 1288344981);
+			throw new \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in as Admin.", 1288344981);
 		}
 
 		$user->setDisable(true);
@@ -429,10 +431,10 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	/**
 	 * Displays a single user.
 	 *
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user The user whose profile is to be displayed.
+	 * @param \Mittwald\MmForum\Domain\Model\User\FrontendUser $user The user whose profile is to be displayed.
 	 * @return void
 	 */
-	public function showAction(Tx_MmForum_Domain_Model_User_FrontendUser $user=NULL) {
+	public function showAction(\Mittwald\MmForum\Domain\Model\User\FrontendUser $user=NULL) {
 		/** @noinspection PhpUndefinedMethodInspection */
 		if ($user === NULL) {
 			return $this->redirect('show', NULL, NULL, array('user' => $this->getCurrentUser()));
@@ -455,15 +457,15 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	/**
 	 * Subscribes the current user to a forum or a topic.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum       The forum that is to be subscribed. Either this
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Forum $forum       The forum that is to be subscribed. Either this
 	 *                                                         value or the $topic parameter must be != NULL.
-	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic       The topic that is to be subscribed. Either this
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Topic $topic       The topic that is to be subscribed. Either this
 	 *                                                         value or the $forum parameter must be != NULL.
 	 * @param boolean                             $unsubscribe TRUE to unsubscribe the forum or topic instead.
 	 * @return void
 	 */
-	public function subscribeAction(Tx_MmForum_Domain_Model_Forum_Forum $forum = NULL,
-	                                Tx_MmForum_Domain_Model_Forum_Topic $topic = NULL, $unsubscribe = FALSE) {
+	public function subscribeAction(\Mittwald\MmForum\Domain\Model\Forum\Forum $forum = NULL,
+	                                \Mittwald\MmForum\Domain\Model\Forum\Topic $topic = NULL, $unsubscribe = FALSE) {
 
 		// Validate arguments
 		if ($forum === NULL && $topic === NULL) {
@@ -471,7 +473,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 		}
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException('You need to be logged in to subscribe or unsubscribe an object.', 1335121482);
+			throw new \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException('You need to be logged in to subscribe or unsubscribe an object.', 1335121482);
 		}
 
 		# Create subscription
@@ -497,15 +499,15 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	/**
 	 * Fav Subscribes the current user to a forum or a topic.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum       The forum that is to be subscribed. Either this
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Forum $forum       The forum that is to be subscribed. Either this
 	 *                                                         value or the $topic parameter must be != NULL.
-	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic       The topic that is to be subscribed. Either this
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Topic $topic       The topic that is to be subscribed. Either this
 	 *                                                         value or the $forum parameter must be != NULL.
 	 * @param boolean                             $unsubscribe TRUE to unsubscribe the forum or topic instead.
 	 * @return void
 	 */
-	public function favSubscribeAction(Tx_MmForum_Domain_Model_Forum_Forum $forum = NULL,
-									Tx_MmForum_Domain_Model_Forum_Topic $topic = NULL, $unsubscribe = FALSE) {
+	public function favSubscribeAction(\Mittwald\MmForum\Domain\Model\Forum\Forum $forum = NULL,
+									\Mittwald\MmForum\Domain\Model\Forum\Topic $topic = NULL, $unsubscribe = FALSE) {
 
 		// Validate arguments
 		if ($forum === NULL && $topic === NULL) {
@@ -513,7 +515,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 		}
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException('You need to be logged in to subscribe or unsubscribe an object.', 1335121482);
+			throw new \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException('You need to be logged in to subscribe or unsubscribe an object.', 1335121482);
 		}
 
 		# Create subscription
@@ -543,12 +545,12 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	 * Displays all topics and forums subscribed by the current user.
 	 * @return void
 	 *
-	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 * @throws \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException
 	 */
 	public function listSubscriptionsAction() {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException('You need to be logged in to view your own subscriptions!', 1335120249);
+			throw new \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException('You need to be logged in to view your own subscriptions!', 1335120249);
 		}
 
 		$this->view
@@ -566,7 +568,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	public function dashboardAction() {
 		$user = $this->frontendUserRepository->findCurrent();
 		if (!$user || $user->isAnonymous()) {
-			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException('You need to be logged in to view your dashboard!', 1335120249);
+			throw new \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException('You need to be logged in to view your dashboard!', 1335120249);
 		}
 		$this->view->assign('user',$user)
 					->assign('myNotifications', $this->notificationRepository->findNotificationsForUser($user, 6))
@@ -622,16 +624,16 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	 * either be a forum or a topic, so this method redirects either to the
 	 * Forum->show or the Topic->show action.
 	 *
-	 * @param Tx_MmForum_Domain_Model_SubscribeableInterface $object
+	 * @param \Mittwald\MmForum\Domain\Model\SubscribeableInterface $object
 	 *                             A subscribeable object, i.e. either a forum or a
 	 *                             topic.
 	 * @return void
 	 */
-	protected function redirectToSubscriptionObject(Tx_MmForum_Domain_Model_SubscribeableInterface $object) {
-		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Forum) {
+	protected function redirectToSubscriptionObject(\Mittwald\MmForum\Domain\Model\SubscribeableInterface $object) {
+		if ($object instanceof \Mittwald\MmForum\Domain\Model\Forum\Forum) {
 			$this->redirect('show', 'Forum', NULL, array('forum' => $object));
 		}
-		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Topic) {
+		if ($object instanceof \Mittwald\MmForum\Domain\Model\Forum\Topic) {
 			$this->redirect('show', 'Topic', NULL, array('topic' => $object));
 		}
 	}
@@ -642,11 +644,11 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	 * Generates a flash message for when a subscription has successfully been
 	 * created or removed.
 	 *
-	 * @param \Tx_MmForum_Domain_Model_SubscribeableInterface $object
+	 * @param \\Mittwald\MmForum\Domain\Model\SubscribeableInterface $object
 	 * @param bool                                            $unsubscribe
 	 * @return string A flash message.
 	 */
-	protected function getSubscriptionFlashMessage(Tx_MmForum_Domain_Model_SubscribeableInterface $object,
+	protected function getSubscriptionFlashMessage(\Mittwald\MmForum\Domain\Model\SubscribeableInterface $object,
 	                                               $unsubscribe = FALSE) {
 		$type = array_pop(explode('_', get_class($object)));
 		$key  = 'User_' . ($unsubscribe ? 'Uns' : 'S') . 'ubscribe_' . $type . '_Success';

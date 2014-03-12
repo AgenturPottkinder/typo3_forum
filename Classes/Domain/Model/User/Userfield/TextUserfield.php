@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\User\Userfield;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -43,8 +45,8 @@
  *
  */
 
-Class Tx_MmForum_Domain_Model_User_Userfield_TextUserfield
-	Extends Tx_MmForum_Domain_Model_User_Userfield_TyposcriptUserfield {
+Class TextUserfield
+	Extends TyposcriptUserfield {
 
 
 

@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\Moderation;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -42,7 +44,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
+class ReportWorkflowStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
 
 
 
@@ -61,7 +63,7 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends \TYPO3\CMS
 
 	/**
 	 * A list of allowed follow-up status.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus>
+	 * @var Tx_Extbase_Persistence_ObjectStorage<\Mittwald\MmForum\Domain\Model\Moderation\ReportWorkflowStatus>
 	 */
 	protected $followupStatus;
 
@@ -127,7 +129,7 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends \TYPO3\CMS
 
 	/**
 	 * Gets the allowed follow-up status.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus>
+	 * @return Tx_Extbase_Persistence_ObjectStorage<\Mittwald\MmForum\Domain\Model\Moderation\ReportWorkflowStatus>
 	 *                             The allowed follow-up status.
 	 */
 	public function getFollowupStatus() {
@@ -139,12 +141,12 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends \TYPO3\CMS
 	/**
 	 * Determines if a workflow status is an allowed follow-up status for this status.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $status
+	 * @param  \Mittwald\MmForum\Domain\Model\Moderation\ReportWorkflowStatus $status
 	 *                             The status that is to be checked.
 	 * @return boolean             TRUE, if $status is a valid follow-up status,
 	 *                             otherwise FALSE.
 	 */
-	public function hasFollowupStatus(Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $status) {
+	public function hasFollowupStatus(ReportWorkflowStatus $status) {
 		return $this->followupStatus->contains($status);
 	}
 
@@ -216,9 +218,9 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends \TYPO3\CMS
 
 	/**
 	 * Adds an additional allowed followup status.
-	 * @param Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $followupStatus
+	 * @param \Mittwald\MmForum\Domain\Model\Moderation\ReportWorkflowStatus $followupStatus
 	 */
-	public function addAllowedFollowupStatus(Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $followupStatus) {
+	public function addAllowedFollowupStatus(ReportWorkflowStatus $followupStatus) {
 		$this->followupStatus->attach($followupStatus);
 	}
 

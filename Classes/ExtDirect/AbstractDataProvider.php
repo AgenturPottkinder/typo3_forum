@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\ExtDirect;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -32,14 +34,14 @@
  * @author  Stefan Galinski <sgalinski@df.eu>
  * @package df_tools
  */
-abstract class Tx_MmForum_ExtDirect_AbstractDataProvider {
+abstract class AbstractDataProvider {
 
 
 
 	/**
 	 * BootStrap Instance
 	 *
-	 * @var Tx_MmForum_Service_ExtBaseConnectorService
+	 * @var \Mittwald\MmForum\Service\ExtBaseConnectorService
 	 */
 	protected $extBaseConnector = NULL;
 
@@ -57,7 +59,7 @@ abstract class Tx_MmForum_ExtDirect_AbstractDataProvider {
 	 */
 	public function __construct() {
 		$key                    = 'web_MmForumTxMmforumM1';
-		$this->extBaseConnector = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_MmForum_Service_ExtBaseConnectorService');
+		$this->extBaseConnector = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Mittwald\\MmForum\\Service\\ExtBaseConnectorService');
 		$this->extBaseConnector->setExtensionKey('MmForum');
 		$this->extBaseConnector->setModuleOrPluginKey($key);
 		$this->extBaseConnector->initialize(array('extensionName'               => 'MmForum',

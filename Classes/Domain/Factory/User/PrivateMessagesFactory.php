@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Factory\User;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -42,7 +44,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Factory_User_PrivateMessagesFactory extends Tx_MmForum_Domain_Factory_AbstractFactory {
+class PrivateMessagesFactory extends \Mittwald\MmForum\Domain\Factory\AbstractFactory {
 
 
 
@@ -63,18 +65,18 @@ class Tx_MmForum_Domain_Factory_User_PrivateMessagesFactory extends Tx_MmForum_D
 	 *
 	 * Creates a new report.
 	 *
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $opponent
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $feUser
-	 * @param Tx_MmForum_Domain_Model_User_PrivateMessagesText $text
+	 * @param \Mittwald\MmForum\Domain\Model\User\FrontendUser $opponent
+	 * @param \Mittwald\MmForum\Domain\Model\User\FrontendUser $feUser
+	 * @param \Mittwald\MmForum\Domain\Model\User\PrivateMessagesText $text
 	 * @param int $type
 	 * @param int $userRead
-	 * @return Tx_MmForum_Domain_Model_User_PrivateMessages
+	 * @return \Mittwald\MmForum\Domain\Model\User\PrivateMessages
 	 *                             The new private message.
 	 *
 	 */
-	public function createPrivateMessage(Tx_MmForum_Domain_Model_User_FrontendUser $opponent,
-										 Tx_MmForum_Domain_Model_User_FrontendUser $feUser,
-										 Tx_MmForum_Domain_Model_User_PrivateMessagesText $text,
+	public function createPrivateMessage(\Mittwald\MmForum\Domain\Model\User\FrontendUser $opponent,
+										 \Mittwald\MmForum\Domain\Model\User\FrontendUser $feUser,
+										 \Mittwald\MmForum\Domain\Model\User\PrivateMessagesText $text,
 										 $type,
 										 $userRead) {
 		$pm = $this->getClassInstance();

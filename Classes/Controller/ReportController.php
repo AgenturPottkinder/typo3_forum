@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Controller;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -45,7 +47,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Controller_ReportController extends Tx_MmForum_Controller_AbstractController {
+class ReportController extends AbstractController {
 
 
 
@@ -58,7 +60,7 @@ class Tx_MmForum_Controller_ReportController extends Tx_MmForum_Controller_Abstr
 	/**
 	 * A report factory class.
 	 *
-	 * @var Tx_MmForum_Domain_Factory_Moderation_ReportFactory
+	 * @var \Mittwald\MmForum\Domain\Factory\Moderation\ReportFactory
 	 */
 	protected $reportFactory;
 
@@ -67,21 +69,21 @@ class Tx_MmForum_Controller_ReportController extends Tx_MmForum_Controller_Abstr
 	/**
 	 * The report repository.
 	 *
-	 * @var Tx_MmForum_Domain_Repository_Moderation_ReportRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Moderation\ReportRepository
 	 */
 	protected $reportRepository;
 
 	/**
 	 * The report repository.
 	 *
-	 * @var Tx_MmForum_Domain_Repository_Moderation_UserReportRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Moderation\UserReportRepository
 	 */
 	protected $userReportRepository;
 
 	/**
 	 * The report repository.
 	 *
-	 * @var Tx_MmForum_Domain_Repository_Moderation_PostReportRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Moderation\PostReportRepository
 	 */
 	protected $postReportRepository;
 
@@ -94,24 +96,24 @@ class Tx_MmForum_Controller_ReportController extends Tx_MmForum_Controller_Abstr
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Repository_Moderation_ReportRepository $reportRepository
+	 * @param \Mittwald\MmForum\Domain\Repository\Moderation\ReportRepository $reportRepository
 	 */
-	public function injectReportRepository(Tx_MmForum_Domain_Repository_Moderation_ReportRepository $reportRepository) {
+	public function injectReportRepository(\Mittwald\MmForum\Domain\Repository\Moderation\ReportRepository $reportRepository) {
 		$this->reportRepository = $reportRepository;
 
 	}
 
 	/**
-	 * @param Tx_MmForum_Domain_Repository_Moderation_UserReportRepository $userReportRepository
+	 * @param \Mittwald\MmForum\Domain\Repository\Moderation\UserReportRepository $userReportRepository
 	 */
-	public function injectUserReportRepository(Tx_MmForum_Domain_Repository_Moderation_UserReportRepository $userReportRepository) {
+	public function injectUserReportRepository(\Mittwald\MmForum\Domain\Repository\Moderation\UserReportRepository $userReportRepository) {
 		$this->userReportRepository = $userReportRepository;
 	}
 
 	/**
-	 * @param Tx_MmForum_Domain_Repository_Moderation_PostReportRepository $postReportRepository
+	 * @param \Mittwald\MmForum\Domain\Repository\Moderation\PostReportRepository $postReportRepository
 	 */
-	public function injectPostReportRepository(Tx_MmForum_Domain_Repository_Moderation_PostReportRepository $postReportRepository) {
+	public function injectPostReportRepository(\Mittwald\MmForum\Domain\Repository\Moderation\PostReportRepository $postReportRepository) {
 		$this->postReportRepository = $postReportRepository;
 	}
 
@@ -119,9 +121,9 @@ class Tx_MmForum_Controller_ReportController extends Tx_MmForum_Controller_Abstr
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Factory_Moderation_ReportFactory $reportFactory
+	 * @param \Mittwald\MmForum\Domain\Factory\Moderation\ReportFactory $reportFactory
 	 */
-	public function injectReportFactory(Tx_MmForum_Domain_Factory_Moderation_ReportFactory $reportFactory) {
+	public function injectReportFactory(\Mittwald\MmForum\Domain\Factory\Moderation\ReportFactory $reportFactory) {
 		$this->reportFactory = $reportFactory;
 	}
 
@@ -134,14 +136,14 @@ class Tx_MmForum_Controller_ReportController extends Tx_MmForum_Controller_Abstr
 	/**
 	 * Displays a form for creating a new post report.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser       $user
-	 * @param Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment
+	 * @param  \Mittwald\MmForum\Domain\Model\User\FrontendUser       $user
+	 * @param \Mittwald\MmForum\Domain\Model\Moderation\ReportComment $firstComment
 	 *
 	 * @dontvalidate $firstComment
 	 * @return void
 	 */
-	public function newUserReportAction(Tx_MmForum_Domain_Model_User_FrontendUser $user,
-										Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment = NULL) {
+	public function newUserReportAction(\Mittwald\MmForum\Domain\Model\User\FrontendUser $user,
+										\Mittwald\MmForum\Domain\Model\Moderation\ReportComment $firstComment = NULL) {
 		$this->view->assign('firstComment', $firstComment)->assign('user', $user);
 	}
 
@@ -149,14 +151,14 @@ class Tx_MmForum_Controller_ReportController extends Tx_MmForum_Controller_Abstr
 	/**
 	 * Displays a form for creating a new post report.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post               $post
-	 * @param Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Post               $post
+	 * @param \Mittwald\MmForum\Domain\Model\Moderation\ReportComment $firstComment
 	 *
 	 * @dontvalidate $firstComment
 	 * @return void
 	 */
-	public function newPostReportAction(Tx_MmForum_Domain_Model_Forum_Post $post,
-	                          Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment = NULL) {
+	public function newPostReportAction(\Mittwald\MmForum\Domain\Model\Forum\Post $post,
+	                          \Mittwald\MmForum\Domain\Model\Moderation\ReportComment $firstComment = NULL) {
 		$this->authenticationService->assertReadAuthorization($post);
 		$this->view->assign('firstComment', $firstComment)->assign('post', $post);
 	}
@@ -166,13 +168,13 @@ class Tx_MmForum_Controller_ReportController extends Tx_MmForum_Controller_Abstr
 	/**
 	 * Creates a new post report and stores it into the database.
 	 *
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser               $user
-	 * @param Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment
+	 * @param \Mittwald\MmForum\Domain\Model\User\FrontendUser               $user
+	 * @param \Mittwald\MmForum\Domain\Model\Moderation\ReportComment $firstComment
 	 *
 	 * @return void
 	 */
-	public function createUserReportAction(Tx_MmForum_Domain_Model_User_FrontendUser $user,
-								 Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment = NULL) {
+	public function createUserReportAction(\Mittwald\MmForum\Domain\Model\User\FrontendUser $user,
+								 \Mittwald\MmForum\Domain\Model\Moderation\ReportComment $firstComment = NULL) {
 
 		// Create the new report using the factory class and persist the new object
 		$report = $this->reportFactory->createUserReport($firstComment);
@@ -180,7 +182,7 @@ class Tx_MmForum_Controller_ReportController extends Tx_MmForum_Controller_Abstr
 		$this->userReportRepository->add($report);
 
 		// Notify observers.
-		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Moderation_Report', 'reportCreated',
+		$this->signalSlotDispatcher->dispatch('Mittwald\\MmForum\\Domain\\Model\\Moderation\\Report', 'reportCreated',
 			array('report' => $report));
 
 		// Display success message and redirect to topic->show action.
@@ -196,13 +198,13 @@ class Tx_MmForum_Controller_ReportController extends Tx_MmForum_Controller_Abstr
 	/**
 	 * Creates a new post report and stores it into the database.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post               $post
-	 * @param Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Post               $post
+	 * @param \Mittwald\MmForum\Domain\Model\Moderation\ReportComment $firstComment
 	 *
 	 * @return void
 	 */
-	public function createPostReportAction(Tx_MmForum_Domain_Model_Forum_Post $post,
-	                             Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment = NULL) {
+	public function createPostReportAction(\Mittwald\MmForum\Domain\Model\Forum\Post $post,
+	                             \Mittwald\MmForum\Domain\Model\Moderation\ReportComment $firstComment = NULL) {
 		// Assert authorization;
 		$this->authenticationService->assertReadAuthorization($post);
 
@@ -212,7 +214,7 @@ class Tx_MmForum_Controller_ReportController extends Tx_MmForum_Controller_Abstr
 		$this->postReportRepository->add($report);
 
 		// Notify observers.
-		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Moderation_Report', 'reportCreated',
+		$this->signalSlotDispatcher->dispatch('Mittwald\\MmForum\\Domain\\Model\\Moderation\\Report', 'reportCreated',
 		                                      array('report' => $report));
 
 		// Display success message and redirect to topic->show action.

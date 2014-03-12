@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Exception\Authentication;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -44,8 +46,8 @@
  *
  */
 
-Class Tx_MmForum_Domain_Exception_Authentication_NoAccessException
-	Extends Tx_MmForum_Domain_Exception_AbstractException {
+Class NoAccessException
+	Extends \Mittwald\MmForum\Domain\Exception\AbstractException {
 
 
 

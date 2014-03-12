@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Validator\User;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -39,18 +41,18 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Validator_User_PrivateMessageRecipientValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
+class PrivateMessageRecipientValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
 
 
 
 	/**
-	 * @var Tx_MmForum_Domain_Repository_User_FrontendUserRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\User\FrontendUserRepository
 	 */
 	protected $userRepository = NULL;
 
 
 
-	public function injectUserRepository(Tx_MmForum_Domain_Repository_User_FrontendUserRepository $userRepository) {
+	public function injectUserRepository(\Mittwald\MmForum\Domain\Repository\User\FrontendUserRepository $userRepository) {
 		$this->userRepository = $userRepository;
 	}
 

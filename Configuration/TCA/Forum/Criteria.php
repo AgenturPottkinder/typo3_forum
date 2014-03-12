@@ -43,7 +43,7 @@ $TCA['tx_mmforum_domain_model_forum_criteria'] = array(
 				'type'          => 'select',
 				'maxitems'      => 1,
 				'foreign_table' => 'tx_mmforum_domain_model_forum_criteria_options',
-				'foreign_class' => 'Tx_MmForum_Domain_Model_Forum_CriteriaOption',
+				'foreign_class' => 'Mittwald\\MmForum\\Domain\\Model\\Forum\\CriteriaOption',
 			)
 		),
 	)

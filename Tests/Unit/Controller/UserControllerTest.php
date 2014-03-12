@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Controller;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -24,12 +26,12 @@
  *                                                                      */
 
 
-class Tx_MmForum_Controller_UserControllerTest extends Tx_MmForum_Controller_AbstractControllerTest {
+class UserControllerTest extends AbstractControllerTest {
 
 
 
 	/**
-	 * @var Tx_MmForum_Controller_UserController
+	 * @var \Mittwald\MmForum\Controller\UserController
 	 */
 	protected $fixture;
 
@@ -37,7 +39,7 @@ class Tx_MmForum_Controller_UserControllerTest extends Tx_MmForum_Controller_Abs
 	/**
 	 * @var string
 	 */
-	protected $fixtureClassName = 'Tx_MmForum_Controller_UserController';
+	protected $fixtureClassName = 'Mittwald\\MmForum\\Controller\\UserController';
 
 
 	/**
@@ -48,10 +50,10 @@ class Tx_MmForum_Controller_UserControllerTest extends Tx_MmForum_Controller_Abs
 
 
 	public function setUp() {
-		$this->topicRepositoryMock     = $this->getMock('Tx_MmForum_Domain_Repository_Forum_TopicRepository');
-		$this->forumRepositoryMock     = $this->getMock('Tx_MmForum_Domain_Repository_Forum_ForumRepository');
-		$this->userfieldRepositoryMock = $this->getMock('Tx_MmForum_Domain_Repository_User_UserfieldRepository');
-		$this->userMock                = $this->getMock('Tx_MmForum_Domain_Model_User_FrontendUser');
+		$this->topicRepositoryMock     = $this->getMock('Mittwald\\MmForum\\Domain\\Repository\\Forum\\TopicRepository');
+		$this->forumRepositoryMock     = $this->getMock('Mittwald\\MmForum\\Domain\\Repository\\Forum\\ForumRepository');
+		$this->userfieldRepositoryMock = $this->getMock('Mittwald\\MmForum\\Domain\\Repository\\User\\UserfieldRepository');
+		$this->userMock                = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\User\\FrontendUser');
 
 		$this->buildFixture($this->fixtureClassName, array($this->forumRepositoryMock, $this->topicRepositoryMock,
 		                                                  $this->userfieldRepositoryMock));
@@ -76,7 +78,7 @@ class Tx_MmForum_Controller_UserControllerTest extends Tx_MmForum_Controller_Abs
 
 	/**
 	 * @dataProvider      getActionsThatRequireALoggedInUser
-	 * @expectedException Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 * @expectedException \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException
 	 * @param $actionMethodName
 	 * @param $parameters
 	 */
@@ -85,20 +87,20 @@ class Tx_MmForum_Controller_UserControllerTest extends Tx_MmForum_Controller_Abs
 		$this->userRepositoryMock
 			->expects($this->any())
 			->method('findCurrent')
-			->will($this->returnValue(new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser()));
+			->will($this->returnValue(new \Mittwald\MmForum\Domain\Model\User\AnonymousFrontendUser()));
 		call_user_func_array(array($this->fixture, $actionMethodName), $parameters);
 	}
 
 
 
 	/**
-	 * @expectedException Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 * @expectedException \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException
 	 */
 	public function testListPostsActionThrowsExceptionWhenNoUserIsSpecifiedAndNoUserIsLoggedIn() {
 		$this->userRepositoryMock
 			->expects($this->any())
 			->method('findCurrent')
-			->will($this->returnValue(new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser()));
+			->will($this->returnValue(new \Mittwald\MmForum\Domain\Model\User\AnonymousFrontendUser()));
 		$this->fixture->listPostsAction();
 	}
 

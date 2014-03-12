@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\User\Userfield;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -44,7 +46,7 @@
  *
  */
 
-Class Tx_MmForum_Domain_Model_User_Userfield_Value Extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
+Class Value Extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
 
 
 
@@ -56,14 +58,14 @@ Class Tx_MmForum_Domain_Model_User_Userfield_Value Extends \TYPO3\CMS\Extbase\Do
 
 	/**
 	 * The userfield.
-	 * @var Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield
+	 * @var \Mittwald\MmForum\Domain\Model\User\Userfield\AbstractUserfield
 	 */
 	Protected $userfield;
 
 
 	/**
 	 * The user.
-	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @var \Mittwald\MmForum\Domain\Model\User\FrontendUser
 	 */
 	Protected $user;
 
@@ -85,7 +87,7 @@ Class Tx_MmForum_Domain_Model_User_Userfield_Value Extends \TYPO3\CMS\Extbase\Do
 	/**
 	 *
 	 * Gets the userfield.
-	 * @return Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield The userfield.
+	 * @return \Mittwald\MmForum\Domain\Model\User\Userfield\AbstractUserfield The userfield.
 	 *
 	 */
 
@@ -98,7 +100,7 @@ Class Tx_MmForum_Domain_Model_User_Userfield_Value Extends \TYPO3\CMS\Extbase\Do
 	/**
 	 *
 	 * Gets the user.
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The user
+	 * @return \Mittwald\MmForum\Domain\Model\User\FrontendUser The user
 	 *
 	 */
 	Public Function getUser() {

@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Controller;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -45,7 +47,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Controller_StatsController extends Tx_MmForum_Controller_AbstractController {
+class StatsController extends AbstractController {
 
 
 
@@ -56,7 +58,7 @@ class Tx_MmForum_Controller_StatsController extends Tx_MmForum_Controller_Abstra
 	/**
 	 * The report repository.
 	 *
-	 * @var Tx_MmForum_Domain_Repository_Stats_SummaryRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Stats\SummaryRepository
 	 */
 	protected $summaryRepository;
 
@@ -66,9 +68,9 @@ class Tx_MmForum_Controller_StatsController extends Tx_MmForum_Controller_Abstra
 	 */
 
 	/**
-	 * @param Tx_MmForum_Domain_Repository_Stats_SummaryRepository $summaryRepository
+	 * @param \Mittwald\MmForum\Domain\Repository\Stats\SummaryRepository $summaryRepository
 	 */
-	public function injectSummaryRepository(Tx_MmForum_Domain_Repository_Stats_SummaryRepository $summaryRepository) {
+	public function injectSummaryRepository(\Mittwald\MmForum\Domain\Repository\Stats\SummaryRepository $summaryRepository) {
 		$this->summaryRepository = $summaryRepository;
 
 	}

@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\Forum;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -35,7 +37,7 @@
 
  */
 
-class Tx_MmForum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Tag extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 
 	/**
@@ -66,7 +68,7 @@ class Tx_MmForum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObject\
 
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\MmForum\Domain\Model\User\FrontendUser>
 	 */
 	protected $feuser;
 
@@ -124,7 +126,7 @@ class Tx_MmForum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObject\
 
 
 	/**
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\MmForum\Domain\Model\User\FrontendUser>
 	 */
 	public function getFeuser() {
 		return $this->feuser;
@@ -165,17 +167,17 @@ class Tx_MmForum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObject\
 
 	/**
 	 * Add a user to this tag
-	 * @param $feuser Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @param $feuser \Mittwald\MmForum\Domain\Model\User\FrontendUser
 	 */
-	public function addFeuser(Tx_MmForum_Domain_Model_User_FrontendUser $feuser) {
+	public function addFeuser(\Mittwald\MmForum\Domain\Model\User\FrontendUser $feuser) {
 		$this->feuser->attach($feuser);
 	}
 
 	/**
 	 * Removes a user from this tag
-	 * @param $feuser Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @param $feuser \Mittwald\MmForum\Domain\Model\User\FrontendUser
 	 */
-	public function removeFeuser(Tx_MmForum_Domain_Model_User_FrontendUser $feuser) {
+	public function removeFeuser(\Mittwald\MmForum\Domain\Model\User\FrontendUser $feuser) {
 		$this->feuser->detach($feuser);
 	}
 

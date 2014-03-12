@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\Format;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -39,7 +41,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
+abstract class AbstractTextParserElement
 	extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
 
 

@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\ViewHelpers\User;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -43,7 +45,7 @@
  *
  */
 
-class Tx_MmForum_ViewHelpers_User_UserfieldViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
+class UserfieldViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
 
 
 
@@ -62,19 +64,19 @@ class Tx_MmForum_ViewHelpers_User_UserfieldViewHelper extends \TYPO3\CMS\Fluid\V
 	 *
 	 * Renders the userfield value.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser                $user
+	 * @param  \Mittwald\MmForum\Domain\Model\User\FrontendUser                $user
 	 *                             The user for whom the userfield value is to be
 	 *                             rendered.
-	 * @param  Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield $userfield
+	 * @param  \Mittwald\MmForum\Domain\Model\User\Userfield\AbstractUserfield $userfield
 	 *                             The userfield.
 	 * @return string              HTML content
 	 *
 	 */
 
-	public function render(Tx_MmForum_Domain_Model_User_FrontendUser $user,
-	                       Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield $userfield) {
+	public function render(\Mittwald\MmForum\Domain\Model\User\FrontendUser $user,
+	                       \Mittwald\MmForum\Domain\Model\User\Userfield\AbstractUserfield $userfield) {
 
-		if ($userfield instanceof Tx_MmForum_Domain_Model_User_Userfield_TyposcriptUserfield) {
+		if ($userfield instanceof \Mittwald\MmForum\Domain\Model\User\Userfield\TyposcriptUserfield) {
 			$data = $userfield->getValueForUser($user);
 			$data = $this->convertDataToString($data);
 			return parent::render($userfield->getTyposcriptPath() . '.output', implode(' ', $data));

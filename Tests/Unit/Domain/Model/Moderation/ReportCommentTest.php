@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\Moderation;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -26,26 +28,26 @@
 
 
 
-class Tx_MmForum_Domain_Model_Moderation_ReportCommentTest extends Tx_MmForum_Unit_BaseTestCase {
+class ReportCommentTest extends \Mittwald\MmForum\Unit\BaseTestCase {
 
 
 
 	/**
-	 * @var Tx_MmForum_Domain_Model_Moderation_ReportComment
+	 * @var \Mittwald\MmForum\Domain\Model\Moderation\ReportComment
 	 */
 	protected $fixture = NULL;
 
 
 	/**
-	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @var \Mittwald\MmForum\Domain\Model\User\FrontendUser
 	 */
 	protected $user = NULL;
 
 
 
 	public function setUp() {
-		$this->user    = new Tx_MmForum_Domain_Model_User_FrontendUser('martin');
-		$this->fixture = new Tx_MmForum_Domain_Model_Moderation_ReportComment($this->user, 'FOO');
+		$this->user    = new \Mittwald\MmForum\Domain\Model\User\FrontendUser('martin');
+		$this->fixture = new ReportComment($this->user, 'FOO');
 	}
 
 
@@ -58,7 +60,7 @@ class Tx_MmForum_Domain_Model_Moderation_ReportCommentTest extends Tx_MmForum_Un
 
 
 	public function testSetAuthorSetsAuthor() {
-		$this->fixture->setAuthor($user = new Tx_MmForum_Domain_Model_User_FrontendUser());
+		$this->fixture->setAuthor($user = new \Mittwald\MmForum\Domain\Model\User\FrontendUser());
 		$this->assertTrue($this->fixture->getAuthor() === $user);
 	}
 
@@ -72,7 +74,7 @@ class Tx_MmForum_Domain_Model_Moderation_ReportCommentTest extends Tx_MmForum_Un
 
 
 	public function testSetReportSetsReport() {
-		$this->fixture->setReport($report = new Tx_MmForum_Domain_Model_Moderation_Report());
+		$this->fixture->setReport($report = new Report());
 		$this->assertTrue($this->fixture->getReport() === $report);
 	}
 

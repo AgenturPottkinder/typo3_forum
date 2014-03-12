@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Repository\Moderation;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -42,8 +44,8 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Repository_Moderation_ReportWorkflowStatusRepository
-	extends Tx_MmForum_Domain_Repository_AbstractRepository {
+class ReportWorkflowStatusRepository
+	extends \Mittwald\MmForum\Domain\Repository\AbstractRepository {
 
 
 
@@ -51,7 +53,7 @@ class Tx_MmForum_Domain_Repository_Moderation_ReportWorkflowStatusRepository
 	 *
 	 * Finds the initial status that is to be used for new reports.
 	 *
-	 * @return Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus
+	 * @return \Mittwald\MmForum\Domain\Model\Moderation\ReportWorkflowStatus
 	 *                             The initial status that is to be used for new
 	 *                             reports.
 	 *

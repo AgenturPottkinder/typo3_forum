@@ -40,7 +40,7 @@ $TCA['tx_mmforum_domain_model_forum_attachment'] = array(
 			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_post.topic',
 			'config' => array(
 				'type' => 'select',
-				'foreign_class' => 'Tx_MmForum_Domain_Model_Forum_Post',
+				'foreign_class' => 'Mittwald\\MmForum\\Domain\\Model\\Forum\\Post',
 				'foreign_table' => 'tx_mmforum_domain_model_forum_post',
 				'maxitems' => 1
 			)

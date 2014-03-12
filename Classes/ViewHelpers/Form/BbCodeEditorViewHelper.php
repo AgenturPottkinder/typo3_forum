@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\ViewHelpers\Form;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -42,7 +44,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\TextareaViewHelper {
+class BbCodeEditorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\TextareaViewHelper {
 
 
 
@@ -73,7 +75,7 @@ class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper extends \TYPO3\CMS\Flui
 
 	/**
 	 * Panels that contain bb code buttons.
-	 * @var array<Tx_MmForum_TextParser_Panel_AbstractPanel>
+	 * @var array<\Mittwald\MmForum\TextParser\Panel\AbstractPanel>
 	 */
 	protected $panels = array();
 
@@ -92,7 +94,7 @@ class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper extends \TYPO3\CMS\Flui
 
 
 
-	public function injectCache(Tx_MmForum_Cache_Cache $cache) {
+	public function injectCache(\Mittwald\MmForum\Cache\Cache $cache) {
 		$this->cache = $cache;
 	}
 
@@ -101,12 +103,12 @@ class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper extends \TYPO3\CMS\Flui
 	/**
 	 *
 	 * Injects an instance of the mm_forum typoscript reader.
-	 * @param  Tx_MmForum_Utility_TypoScript $typoscriptReader
+	 * @param  \Mittwald\MmForum\Utility\TypoScript $typoscriptReader
 	 *                             An instance of the mm_forum typoscript reader
 	 * @return void
 	 *
 	 */
-	public function injectTyposcriptReader(Tx_MmForum_Utility_TypoScript $typoscriptReader) {
+	public function injectTyposcriptReader(\Mittwald\MmForum\Utility\TypoScript $typoscriptReader) {
 		$this->typoscriptReader = $typoscriptReader;
 	}
 
@@ -157,8 +159,8 @@ class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper extends \TYPO3\CMS\Flui
 
 		foreach ($this->configuration['panels.'] as $key => $panelConfiguration) {
 			$panel = $this->objectManager->get($panelConfiguration['className']);
-			if (!$panel instanceof Tx_MmForum_TextParser_Panel_PanelInterface) {
-				throw new \TYPO3\CMS\Extbase\Object\InvalidClassException('Expected an implementation of the Tx_MmForum_TextParser_Panel_PanelInterface interface!', 1315835842);
+			if (!$panel instanceof \Mittwald\MmForum\TextParser\Panel\PanelInterface) {
+				throw new \TYPO3\CMS\Extbase\Object\InvalidClassException('Expected an implementation of the Mittwald\\MmForum\\TextParser\\Panel\\PanelInterface interface!', 1315835842);
 			}
 			$panel->setSettings($panelConfiguration);
 			$this->panels[] = $panel;

@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\Format;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -26,19 +28,19 @@
 
 
 
-class Tx_MmForum_Domain_Model_Format_BBCodeTest extends Tx_MmForum_Unit_BaseTestCase {
+class BBCodeTest extends \Mittwald\MmForum\Unit\BaseTestCase {
 
 
 
 	/**
-	 * @var Tx_MmForum_Domain_Model_Format_BBCode
+	 * @var \Mittwald\MmForum\Domain\Model\Format\BBCode
 	 */
 	protected $fixture = NULL;
 
 
 
 	public function setUp() {
-		$this->fixture = new Tx_MmForum_Domain_Model_Format_BBCode();
+		$this->fixture = new BBCode();
 	}
 
 
