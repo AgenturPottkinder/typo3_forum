@@ -63,7 +63,7 @@ $TCA['tx_mmforum_domain_model_forum_forum'] = array(
 		'enablecolumns' => array(
 			'disabled' => 'hidden'
 		),
-		'sortby' => 'sorting ASC',
+		'sortby' => 'sorting',
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Forum/Forum.php',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/Forum/Forum.png'
 	)
@@ -599,7 +599,7 @@ $TCA['tx_mmforum_domain_model_forum_criteria_options'] = array(
 		'label' => 'name',
 		'tstamp' => 'tstamp',
 		'delete' => 'deleted',
-		'sortby' => 'sorting ASC',
+		'sortby' => 'sorting',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/Forum/CriteriaOption.png',
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Forum/CriteriaOption.php',
 	)
