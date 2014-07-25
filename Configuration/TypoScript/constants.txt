@@ -1,5 +1,7 @@
 plugin.tx_mmforum.view {
 	templateRootPath = EXT:mm_forum/Resources/Private/Templates
+	partialRootPath = EXT:mm_forum/Resources/Private/Partials
+	layoutRootPath = EXT:mm_forum/Resources/Private/Layouts
 }
 
 plugin.tx_mmforum.persistence {
