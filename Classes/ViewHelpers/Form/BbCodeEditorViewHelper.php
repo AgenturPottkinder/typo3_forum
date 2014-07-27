@@ -207,8 +207,11 @@ class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper extends \TYPO3\CMS\Flui
 	protected function getPanelSettings() {
 		$settings = array();
 		foreach ($this->panels as $panel) {
-			$settings   = array_merge($settings, $panel->getItems());
-			$settings[] = array('separator' => '---------------');
+			$items = $panel->getItems();
+			if (!empty($items)) {
+				$settings   = array_merge($settings, $items);
+				$settings[] = array('separator' => '---------------');
+			}
 		}
 
 		$settings[] = array('name'      => 'Preview',
