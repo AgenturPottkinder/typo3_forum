@@ -314,7 +314,7 @@ $tempColumns = array(
 		'exclude' => 0,
 		'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.contact',
 		'config' => array(
-			'type' => 'display'
+			'type' => 'none'
 		)
 	),
 	"tx_mmforum_facebook" => Array(
