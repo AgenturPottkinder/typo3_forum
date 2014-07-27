@@ -362,7 +362,9 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 	private function getCriteriaRecursive($array) {
 		//$array[0] current object. Will be repleaced with the parent object in the next call
 		//$array[1] object storage with the desired criteria data. Will be filled in every call.
-		$array[1]->attach($array[0]->criteria);
+		if ($array[0]->criteria !== NULL) {
+			$array[1]->addAll($array[0]->criteria);
+		}
 		if($array[0]->getParent()->getUid() > 0) {
 			$tmp = $this->getCriteriaRecursive(array($array[0]->getParent(),$array[1]));
 			$array[1] = $tmp[1];
