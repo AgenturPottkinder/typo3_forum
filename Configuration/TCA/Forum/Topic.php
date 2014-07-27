@@ -108,7 +108,7 @@ $TCA['tx_mmforum_domain_model_forum_topic'] = array(
 			'exclude' => 1,
 			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_topic.post_count',
 			'config'  => array(
-				'type' => 'display'
+				'type' => 'none'
 			)
 		),
 		'author' => array(
@@ -135,14 +135,14 @@ $TCA['tx_mmforum_domain_model_forum_topic'] = array(
 			'exclude' => 0,
 			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_topic.last_post_crdate',
 			'config'  => array(
-				'type' => 'display',
+				'type' => 'none'
 			)
 		),
 		'is_solved' => array(
 			'exclude' => 0,
 			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_topic.is_solved',
 			'config'  => array(
-				'type' => 'display',
+				'type' => 'none'
 			)
 		),
 		'solution' => array(
