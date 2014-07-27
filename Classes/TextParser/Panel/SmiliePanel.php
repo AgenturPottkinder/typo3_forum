@@ -83,8 +83,11 @@ class Tx_MmForum_TextParser_Panel_SmiliePanel extends Tx_MmForum_TextParser_Pane
 	 * @return array
 	 */
 	public function getItems() {
-		$result = array();
+		if (count($this->smilies) === 0) {
+			return FALSE;
+		}
 
+		$result = array();
 		foreach ($this->smilies as $smilie) {
 			$result[] = $smilie->exportForMarkItUp();
 		}
