@@ -110,6 +110,7 @@ class Tx_MmForum_Domain_Repository_Forum_PostRepository extends Tx_MmForum_Domai
 	 */
 	public function findForTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
 		$query = $this->createQuery();
+		$query->getQuerySettings()->setRespectSysLanguage(FALSE) ;
 		return $query->matching($query->equals('topic', $topic))
 			->setOrderings(array('crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING))
 			->setOffset(1)
