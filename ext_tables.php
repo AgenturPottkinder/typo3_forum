@@ -24,10 +24,10 @@ if (TYPO3_MODE === 'BE')
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
 		$_EXTKEY, 'web', 'tx_mmforum_m1', '', array('Backend' => 'indexForum', 'Forum' => 'update'),
 		array(
-		'access' => 'user,group',
-		'icon' => 'EXT:' . $_EXTKEY . '/ext_icon.gif',
-		'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_mod.xml',
-		'navigationComponentId' => 'typo3-pagetree',
+			'access' => 'user,group',
+			'icon' => 'EXT:' . $_EXTKEY . '/ext_icon.gif',
+			'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_mod.xml',
+			'navigationComponentId' => 'typo3-pagetree',
 		)
 	);
 }
@@ -42,7 +42,7 @@ $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_
 $pluginSignature = strtolower(\TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($_EXTKEY)) . '_widget';
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature,
-																	   'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/Widgets.xml');
+	'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/Widgets.xml');
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_mmforum_domain_model_forum_forum',
 	'EXT:mm_forum/Resources/Private/Language/locallang_csh_tx_mmforum_domain_model_forum_forum.xml');
@@ -57,8 +57,8 @@ $TCA['tx_mmforum_domain_model_forum_forum'] = array(
 		'versioning_followPages' => TRUE,
 		'origUid' => 't3_origuid',
 		'languageField' => 'sys_language_uid',
-		'transOrigPointerField' => 'l18n_parent',
-		'transOrigDiffSourceField' => 'l18n_diffsource',
+//		'transOrigPointerField' => 'l18n_parent',
+//		'transOrigDiffSourceField' => 'l18n_diffsource',
 		'delete' => 'deleted',
 		'enablecolumns' => array(
 			'disabled' => 'hidden'
@@ -83,8 +83,8 @@ $TCA['tx_mmforum_domain_model_forum_topic'] = array(
 		'versioning_followPages' => TRUE,
 		'origUid' => 't3_origuid',
 		'languageField' => 'sys_language_uid',
-		'transOrigPointerField' => 'l18n_parent',
-		'transOrigDiffSourceField' => 'l18n_diffsource',
+//		'transOrigPointerField' => 'l18n_parent',
+//		'transOrigDiffSourceField' => 'l18n_diffsource',
 		'delete' => 'deleted',
 		'enablecolumns' => array(
 			'disabled' => 'hidden'
@@ -107,8 +107,8 @@ $TCA['tx_mmforum_domain_model_forum_post'] = array(
 		'versioning_followPages' => TRUE,
 		'origUid' => 't3_origuid',
 		'languageField' => 'sys_language_uid',
-		'transOrigPointerField' => 'l18n_parent',
-		'transOrigDiffSourceField' => 'l18n_diffsource',
+//		'transOrigPointerField' => 'l18n_parent',
+//		'transOrigDiffSourceField' => 'l18n_diffsource',
 		'delete' => 'deleted',
 		'enablecolumns' => array(
 			'disabled' => 'hidden'
@@ -566,8 +566,8 @@ $TCA['tx_mmforum_domain_model_moderation_reportworkflowstatus'] = array(
 		'versioning_followPages' => TRUE,
 		'origUid' => 't3_origuid',
 		'languageField' => 'sys_language_uid',
-		'transOrigPointerField' => 'l18n_parent',
-		'transOrigDiffSourceField' => 'l18n_diffsource',
+//		'transOrigPointerField' => 'l18n_parent',
+//		'transOrigDiffSourceField' => 'l18n_diffsource',
 		'delete' => 'deleted',
 		'enablecolumns' => array(
 			'disabled' => 'hidden'

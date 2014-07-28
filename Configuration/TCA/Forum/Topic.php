@@ -27,7 +27,7 @@ $TCA['tx_mmforum_domain_model_forum_topic'] = array(
 				)
 			)
 		),
-		'l18n_parent' => array(
+/*		'l18n_parent' => array(
 			'displayCond' => 'FIELD:sys_language_uid:>:0',
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.l18n_parent',
@@ -44,6 +44,7 @@ $TCA['tx_mmforum_domain_model_forum_topic'] = array(
 			'config'=>array(
 				'type'=>'passthrough')
 		),
+*/
 		't3ver_label' => array(
 			'displayCond' => 'FIELD:t3ver_label:REQ:true',
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.versionLabel',
