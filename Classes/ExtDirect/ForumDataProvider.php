@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\ExtDirect;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -41,14 +43,14 @@
  *
  */
 
-class Tx_MmForum_ExtDirect_ForumDataProvider extends Tx_MmForum_ExtDirect_AbstractDataProvider {
+class ForumDataProvider extends AbstractDataProvider {
 
 
 
 	/**
 	 * An instance of the forum repository.
 	 *
-	 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\ForumRepository
 	 */
 	protected $forumRepository = NULL;
 
@@ -62,7 +64,7 @@ class Tx_MmForum_ExtDirect_ForumDataProvider extends Tx_MmForum_ExtDirect_Abstra
 
 		// Since the ExtDirect provider is not created using the
 		// object manager, no dependency injection is available here.
-		$this->forumRepository = $this->objectManager->get('Tx_MmForum_Domain_Repository_Forum_ForumRepository');
+		$this->forumRepository = $this->objectManager->get('Mittwald\\MmForum\\Domain\\Repository\\Forum\\ForumRepository');
 	}
 
 

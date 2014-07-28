@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\TextParser\Panel;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -40,7 +42,7 @@
  *
  */
 
-interface Tx_MmForum_TextParser_Panel_MarkItUpExportableInterface {
+interface MarkItUpExportableInterface {
 
 
 

@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Factory;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -42,7 +44,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_MmForum_Domain_Factory_AbstractFactory implements \TYPO3\CMS\Core\SingletonInterface {
+abstract class AbstractFactory implements \TYPO3\CMS\Core\SingletonInterface {
 
 
 
@@ -54,7 +56,7 @@ abstract class Tx_MmForum_Domain_Factory_AbstractFactory implements \TYPO3\CMS\C
 
 	/**
 	 * A reference to the frontend user repository.
-	 * @var Tx_MmForum_Domain_Repository_User_FrontendUserRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\User\FrontendUserRepository
 	 */
 	protected $frontendUserRepository = NULL;
 
@@ -88,9 +90,9 @@ abstract class Tx_MmForum_Domain_Factory_AbstractFactory implements \TYPO3\CMS\C
 
 	/**
 	 * Injects an instance of the frontend user repository.
-	 * @param Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository
+	 * @param \Mittwald\MmForum\Domain\Repository\User\FrontendUserRepository $frontendUserRepository
 	 */
-	public function injectFrontendUserRepository(Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository) {
+	public function injectFrontendUserRepository(\Mittwald\MmForum\Domain\Repository\User\FrontendUserRepository $frontendUserRepository) {
 		$this->frontendUserRepository = $frontendUserRepository;
 	}
 
@@ -154,7 +156,7 @@ abstract class Tx_MmForum_Domain_Factory_AbstractFactory implements \TYPO3\CMS\C
 	 * Gets the currently logged in user. Convenience wrapper for the findCurrent
 	 * method of the frontend user repository.
 	 *
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @return \Mittwald\MmForum\Domain\Model\User\FrontendUser
 	 *                             The user that is currently logged in.
 	 *
 	 */

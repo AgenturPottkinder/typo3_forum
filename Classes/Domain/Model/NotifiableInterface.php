@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -43,7 +45,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-interface Tx_MmForum_Domain_Model_NotifiableInterface {
+interface NotifiableInterface {
 
 
 

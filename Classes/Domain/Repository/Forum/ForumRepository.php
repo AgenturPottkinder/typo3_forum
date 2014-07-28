@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Repository\Forum;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -42,21 +44,21 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Repository_Forum_ForumRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class ForumRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 
 
 	/**
-	 * @var Tx_MmForum_Service_Authentication_AuthenticationServiceInterface
+	 * @var \Mittwald\MmForum\Service\Authentication\AuthenticationServiceInterface
 	 */
 	protected $authenticationService = NULL;
 
 
 
 	/**
-	 * @param Tx_MmForum_Service_Authentication_AuthenticationServiceInterface $authenticationService
+	 * @param \Mittwald\MmForum\Service\Authentication\AuthenticationServiceInterface $authenticationService
 	 */
-	public function injectAuthenticationService(Tx_MmForum_Service_Authentication_AuthenticationServiceInterface $authenticationService) {
+	public function injectAuthenticationService(\Mittwald\MmForum\Service\Authentication\AuthenticationServiceInterface $authenticationService) {
 		$this->authenticationService = $authenticationService;
 	}
 
@@ -64,7 +66,7 @@ class Tx_MmForum_Domain_Repository_Forum_ForumRepository extends \TYPO3\CMS\Extb
 
 	/**
 	 * Finds all forums for the index view.
-	 * @return Tx_MmForum_Domain_Model_Forum_Forum[] All forums for the index view.
+	 * @return \Mittwald\MmForum\Domain\Model\Forum\Forum[] All forums for the index view.
 	 */
 	public function findForIndex() {
 		return $this->findRootForums();
@@ -76,7 +78,7 @@ class Tx_MmForum_Domain_Repository_Forum_ForumRepository extends \TYPO3\CMS\Extb
 	 *
 	 * @param  array $uids
 	 *
-	 * @return Tx_MmForum_Domain_Model_Forum_Topic[]
+	 * @return \Mittwald\MmForum\Domain\Model\Forum\Topic[]
 	 *                               The selected subset of topcis
 	 *
 	 */
@@ -96,7 +98,7 @@ class Tx_MmForum_Domain_Repository_Forum_ForumRepository extends \TYPO3\CMS\Extb
 
 	/**
 	 * Finds all root forums.
-	 * @return Tx_MmForum_Domain_Model_Forum_Forum[] All forums for the index view.
+	 * @return \Mittwald\MmForum\Domain\Model\Forum\Forum[] All forums for the index view.
 	 */
 	public function findRootForums() {
 		$query  = $this->createQuery();
@@ -127,7 +129,7 @@ class Tx_MmForum_Domain_Repository_Forum_ForumRepository extends \TYPO3\CMS\Extb
 
 
 
-	public function findBySubscriber(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+	public function findBySubscriber(\Mittwald\MmForum\Domain\Model\User\FrontendUser $user) {
 		$query = $this->createQuery();
 		$query
 			->matching($query->contains('subscribers', $user))
@@ -137,11 +139,11 @@ class Tx_MmForum_Domain_Repository_Forum_ForumRepository extends \TYPO3\CMS\Extb
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Forum $forum
+	 * @param \Mittwald\MmForum\Domain\Model\User\FrontendUser $user
 	 * @return bool
 	 */
-	public function getForumReadByUser(Tx_MmForum_Domain_Model_Forum_Forum $forum, Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+	public function getForumReadByUser(\Mittwald\MmForum\Domain\Model\Forum\Forum $forum, \Mittwald\MmForum\Domain\Model\User\FrontendUser $user) {
 		$sql ='SELECT f.uid
 			   FROM tx_mmforum_domain_model_forum_forum AS f
 			   LEFT JOIN tx_mmforum_domain_model_user_readforum AS rf

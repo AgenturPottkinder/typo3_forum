@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Cache;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -40,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Cache_CacheManager {
+class CacheManager {
 
 
 
@@ -53,7 +55,7 @@ class Tx_MmForum_Cache_CacheManager {
 		// appear to be doing anything at this point, so we have to include
 		// manually... :(
 		require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mm_forum') . 'Classes/Cache/Cache.php';
-		$cache = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_MmForum_Cache_Cache');
+		$cache = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Mittwald\\MmForum\\Cache\\Cache');
 		$cache->flush();
 
 		$this->deleteTemporaryFiles();

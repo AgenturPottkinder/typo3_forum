@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\Stats;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -35,7 +37,7 @@
 
  */
 
-class Tx_MmForum_Domain_Model_Stats_Summary extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Summary extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 
 	/**

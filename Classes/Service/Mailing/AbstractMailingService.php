@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Service\Mailing;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -43,8 +45,8 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_MmForum_Service_Mailing_AbstractMailingService extends Tx_MmForum_Service_AbstractService
-	implements Tx_MmForum_Service_Mailing_MailingServiceInterface {
+abstract class AbstractMailingService extends \Mittwald\MmForum\Service\AbstractService
+	implements MailingServiceInterface {
 
 
 	/**
@@ -93,7 +95,7 @@ abstract class Tx_MmForum_Service_Mailing_AbstractMailingService extends Tx_MmFo
 	 * The format in which this service sends mails. Usually, this would be either 'html' or 'txt'.
 	 * @var string
 	 */
-	protected $format = Tx_MmForum_Service_Mailing_AbstractMailingService::MAILING_FORMAT_HTML;
+	protected $format = AbstractMailingService::MAILING_FORMAT_HTML;
 
 
 

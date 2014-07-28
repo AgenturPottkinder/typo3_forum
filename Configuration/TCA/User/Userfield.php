@@ -8,7 +8,7 @@ $TCA['tx_mmforum_domain_model_user_userfield_userfield'] = array(
 	),
 	'types' => array(
 		'0' => array('showitem' => 'type,name'),
-		'Tx_MmForum_Domain_Model_User_Userfield_TyposcriptUserfield' => array('showitem' => 'type,name,typoscript_path')
+		'Mittwald\\MmForum\\Domain\\Model\\User\\Userfield\\TyposcriptUserfield' => array('showitem' => 'type,name,typoscript_path')
 	),
 	'palettes' => array(
 		'1' => array('showitem' => '')
@@ -65,7 +65,7 @@ $TCA['tx_mmforum_domain_model_user_userfield_userfield'] = array(
 				'type' => 'select',
 				'items' => array(
 					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_userfield_userfield.type.undefined', 0),
-					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_userfield_userfield.type.typoscript', 'Tx_MmForum_Domain_Model_User_Userfield_TyposcriptUserfield')
+					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_userfield_userfield.type.typoscript', 'Mittwald\\MmForum\\Domain\\Model\\User\\Userfield\\TyposcriptUserfield')
 
 				)
 			)

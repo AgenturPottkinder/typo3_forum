@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\ViewHelpers\Control;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -43,7 +45,7 @@
  *
  */
 
-Class Tx_MmForum_ViewHelpers_Control_PageBrowserViewHelper Extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+Class PageBrowserViewHelper Extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 
 

@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Utility;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -42,7 +44,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Utility_TypoScript {
+class TypoScript {
 
 
 
@@ -81,7 +83,7 @@ class Tx_MmForum_Utility_TypoScript {
 		foreach ($pathSegments As $segment) {
 			if (!array_key_exists($segment . '.', $setup)
 			) {
-				throw new Tx_MmForum_Domain_Exception_TextParser_Exception ('TypoScript object path "' . htmlspecialchars($configurationPath) . '" does not exist', 1253191023);
+				throw new \Mittwald\MmForum\Domain\Exception\TextParser\Exception ('TypoScript object path "' . htmlspecialchars($configurationPath) . '" does not exist', 1253191023);
 			}
 			$setup = $setup[$segment . '.'];
 		}

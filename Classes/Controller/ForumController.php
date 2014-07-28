@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Controller;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -45,7 +47,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_AbstractController {
+class ForumController extends AbstractController {
 
 
 
@@ -57,27 +59,27 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 
 	/**
 	 * A forum repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\ForumRepository
 	 */
 	protected $forumRepository;
 
 
 	/**
 	 * A topic repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_TopicRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\TopicRepository
 	 */
 	protected $topicRepository;
 
 
 	/**
 	 * The ads repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_AdsRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\AdsRepository
 	 */
 	protected $adsRepository;
 
 	/**
 	 * The virtual root forum.
-	 * @var Tx_MmForum_Domain_Model_Forum_RootForum
+	 * @var \Mittwald\MmForum\Domain\Model\Forum\RootForum
 	 */
 	protected $rootForum;
 
@@ -91,17 +93,17 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 	/**
 	 * Constructor of this controller. Needs to get all required repositories injected.
 	 *
-	 * @param Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository An instance of the forum repository.
-	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository An instance of the topic repository.
-	 * @param Tx_MmForum_Domain_Model_Forum_RootForum            $rootForum       An instance of the virtual root forum.
-	 * @param Tx_MmForum_Service_SessionHandlingService $sessionHandling
-	 * @param Tx_MmForum_Domain_Repository_Forum_AdsRepository   $adsRepository
+	 * @param \Mittwald\MmForum\Domain\Repository\Forum\ForumRepository $forumRepository An instance of the forum repository.
+	 * @param \Mittwald\MmForum\Domain\Repository\Forum\TopicRepository $topicRepository An instance of the topic repository.
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\RootForum            $rootForum       An instance of the virtual root forum.
+	 * @param \Mittwald\MmForum\Service\SessionHandlingService $sessionHandling
+	 * @param \Mittwald\MmForum\Domain\Repository\Forum\AdsRepository   $adsRepository
 	 */
-	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
-	                            Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
-	                            Tx_MmForum_Domain_Model_Forum_RootForum $rootForum,
-								Tx_MmForum_Service_SessionHandlingService $sessionHandling,
-								Tx_MmForum_Domain_Repository_Forum_AdsRepository $adsRepository) {
+	public function __construct(\Mittwald\MmForum\Domain\Repository\Forum\ForumRepository $forumRepository,
+	                            \Mittwald\MmForum\Domain\Repository\Forum\TopicRepository $topicRepository,
+	                            \Mittwald\MmForum\Domain\Model\Forum\RootForum $rootForum,
+								\Mittwald\MmForum\Service\SessionHandlingService $sessionHandling,
+								\Mittwald\MmForum\Domain\Repository\Forum\AdsRepository $adsRepository) {
 		parent::__construct();
 		$this->forumRepository	= $forumRepository;
 		$this->topicRepository	= $topicRepository;
@@ -136,10 +138,10 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 	 *
 	 * @TODO: Remove $dummy variable when datamapper is stable
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum The forum that is to be displayed.
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Forum $forum The forum that is to be displayed.
 	 * @return void
 	 */
-	public function showAction(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
+	public function showAction(\Mittwald\MmForum\Domain\Model\Forum\Forum $forum) {
 		$topics = $this->topicRepository->findForIndex($forum);
 
 		// This variable is needed, equal if it is used or not. It's needed for creating the correct datamapping
@@ -158,10 +160,10 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 	 * Updates a forum.
 	 * This action method updates a forum. Admin authorization is required.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum The forum to be updated.
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Forum $forum The forum to be updated.
 	 * @dontverifyrequesthash
 	 */
-	public function updateAction(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
+	public function updateAction(\Mittwald\MmForum\Domain\Model\Forum\Forum $forum) {
 		$this->authenticationService->assertAdministrationAuthorization($forum);
 
 		$this->forumRepository->update($forum);
@@ -178,16 +180,16 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 	 * This action method creates a new forum. Admin authorization is required for
 	 * creating child forums, root forums may only be created from backend.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum The forum to be created.
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Forum $forum The forum to be created.
 	 *
-	 * @throws Tx_MmForum_Domain_Exception_Authentication_NoAccessException
+	 * @throws \Mittwald\MmForum\Domain\Exception\Authentication\NoAccessException
 	 * @dontverifyrequesthash
 	 */
-	public function createAction(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
+	public function createAction(\Mittwald\MmForum\Domain\Model\Forum\Forum $forum) {
 		if ($forum->getParent() !== NULL) {
 			$this->authenticationService->assertAdministrationAuthorization($forum->getParent());
 		} /** @noinspection PhpUndefinedConstantInspection */ elseif (TYPO3_MODE !== 'BE') {
-			throw new Tx_MmForum_Domain_Exception_Authentication_NoAccessException('This operation is allowed only from the TYPO3 backend.');
+			throw new \Mittwald\MmForum\Domain\Exception\Authentication\NoAccessException('This operation is allowed only from the TYPO3 backend.');
 		}
 
 		$this->forumRepository->add($forum);
@@ -200,15 +202,15 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 
 	/**
 	 * Mark a whole forum as read
-	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Forum $forum
 	 *
-	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 * @throws \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException
 	 * @return void
 	 */
-	public function markReadAction(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
+	public function markReadAction(\Mittwald\MmForum\Domain\Model\Forum\Forum $forum) {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+			throw new \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 		$forumStorage = array();
 		$forumStorage[] = $forum;
@@ -242,15 +244,15 @@ class Tx_MmForum_Controller_ForumController extends Tx_MmForum_Controller_Abstra
 
 	/**
 	 * Show all unread topics of the current user
-	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Forum $forum
 	 *
-	 * @throws Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 * @throws \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException
 	 * @return void
 	 */
-	public function showUnreadAction(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
+	public function showUnreadAction(\Mittwald\MmForum\Domain\Model\Forum\Forum $forum) {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+			throw new \Mittwald\MmForum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 		$topics       = array();
 		$unreadTopics = array();

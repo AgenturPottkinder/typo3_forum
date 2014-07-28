@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Controller;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -45,7 +47,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Controller_BackendController extends Tx_MmForum_Controller_AbstractBackendController {
+class BackendController extends AbstractBackendController {
 
 
 
@@ -59,9 +61,9 @@ class Tx_MmForum_Controller_BackendController extends Tx_MmForum_Controller_Abst
 
 
 	/**
-	 * @param null|Tx_MmForum_Domain_Model_Forum_Forum $parent
+	 * @param null|\Mittwald\MmForum\Domain\Model\Forum\Forum $parent
 	 */
-	public function readForumTreeNodeAction(Tx_MmForum_Domain_Model_Forum_Forum $parent = NULL) {
+	public function readForumTreeNodeAction(\Mittwald\MmForum\Domain\Model\Forum\Forum $parent = NULL) {
 
 	}
 

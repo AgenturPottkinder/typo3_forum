@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Factory\Moderation;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -42,7 +44,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Factory_Moderation_ReportFactory extends Tx_MmForum_Domain_Factory_AbstractFactory {
+class ReportFactory extends \Mittwald\MmForum\Domain\Factory\AbstractFactory {
 
 
 
@@ -54,7 +56,7 @@ class Tx_MmForum_Domain_Factory_Moderation_ReportFactory extends Tx_MmForum_Doma
 
 	/**
 	 * The workflow status repository.
-	 * @var Tx_MmForum_Domain_Repository_Moderation_ReportWorkflowStatusRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Moderation\ReportWorkflowStatusRepository
 	 */
 	protected $workflowStatusRepository;
 
@@ -68,9 +70,9 @@ class Tx_MmForum_Domain_Factory_Moderation_ReportFactory extends Tx_MmForum_Doma
 
 	/**
 	 * Constructor.
-	 * @param Tx_MmForum_Domain_Repository_Moderation_ReportWorkflowStatusRepository $workflowStatusRepository
+	 * @param \Mittwald\MmForum\Domain\Repository\Moderation\ReportWorkflowStatusRepository $workflowStatusRepository
 	 */
-	public function __construct(Tx_MmForum_Domain_Repository_Moderation_ReportWorkflowStatusRepository $workflowStatusRepository) {
+	public function __construct(\Mittwald\MmForum\Domain\Repository\Moderation\ReportWorkflowStatusRepository $workflowStatusRepository) {
 		$this->workflowStatusRepository = $workflowStatusRepository;
 	}
 
@@ -86,18 +88,18 @@ class Tx_MmForum_Domain_Factory_Moderation_ReportFactory extends Tx_MmForum_Doma
 	 *
 	 * Creates a new User report.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment
+	 * @param \Mittwald\MmForum\Domain\Model\Moderation\ReportComment $firstComment
 	 *                             The first report comment for this report.
-	 * @param Tx_MmForum_Domain_Model_Forum_Post               $post
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Post               $post
 	 *                             The post that is to be reported.
-	 * @return Tx_MmForum_Domain_Model_Moderation_Report
+	 * @return \Mittwald\MmForum\Domain\Model\Moderation\Report
 	 *                             The new report.
 	 *
 	 */
-	public function createUserReport(Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment) {
+	public function createUserReport(\Mittwald\MmForum\Domain\Model\Moderation\ReportComment $firstComment) {
 		$user = & $this->getCurrentUser();
 		$firstComment->setAuthor($user);
-		$report = $this->objectManager->create('Tx_MmForum_Domain_Model_Moderation_UserReport');
+		$report = $this->objectManager->create('Mittwald\\MmForum\\Domain\\Model\\Moderation\\UserReport');
 		$report->setWorkflowStatus($this->workflowStatusRepository->findInitial());
 		$report->setReporter($user);
 		$report->addComment($firstComment);
@@ -108,18 +110,18 @@ class Tx_MmForum_Domain_Factory_Moderation_ReportFactory extends Tx_MmForum_Doma
 	 *
 	 * Creates a new User report.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment
+	 * @param \Mittwald\MmForum\Domain\Model\Moderation\ReportComment $firstComment
 	 *                             The first report comment for this report.
-	 * @param Tx_MmForum_Domain_Model_Forum_Post               $post
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Post               $post
 	 *                             The post that is to be reported.
-	 * @return Tx_MmForum_Domain_Model_Moderation_Report
+	 * @return \Mittwald\MmForum\Domain\Model\Moderation\Report
 	 *                             The new report.
 	 *
 	 */
-	public function createPostReport(Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment) {
+	public function createPostReport(\Mittwald\MmForum\Domain\Model\Moderation\ReportComment $firstComment) {
 		$user = & $this->getCurrentUser();
 		$firstComment->setAuthor($user);
-		$report = $this->objectManager->create('Tx_MmForum_Domain_Model_Moderation_PostReport');
+		$report = $this->objectManager->create('Mittwald\\MmForum\\Domain\\Model\\Moderation\\PostReport');
 		$report->setWorkflowStatus($this->workflowStatusRepository->findInitial());
 		$report->setReporter($user);
 		$report->addComment($firstComment);

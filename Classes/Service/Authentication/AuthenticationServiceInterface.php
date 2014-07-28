@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Service\Authentication;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -43,72 +45,72 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-interface Tx_MmForum_Service_Authentication_AuthenticationServiceInterface {
+interface AuthenticationServiceInterface {
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_AccessibleInterface $object
+	 * @param \Mittwald\MmForum\Domain\Model\AccessibleInterface $object
 	 */
-	public function assertReadAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object);
+	public function assertReadAuthorization(\Mittwald\MmForum\Domain\Model\AccessibleInterface $object);
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Forum $forum
 	 */
-	public function assertNewTopicAuthorization(Tx_MmForum_Domain_Model_Forum_Forum $forum);
+	public function assertNewTopicAuthorization(\Mittwald\MmForum\Domain\Model\Forum\Forum $forum);
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Topic $topic
 	 */
-	public function assertNewPostAuthorization(Tx_MmForum_Domain_Model_Forum_Topic $topic);
+	public function assertNewPostAuthorization(\Mittwald\MmForum\Domain\Model\Forum\Topic $topic);
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Post $post
 	 */
-	public function assertEditPostAuthorization(Tx_MmForum_Domain_Model_Forum_Post $post);
+	public function assertEditPostAuthorization(\Mittwald\MmForum\Domain\Model\Forum\Post $post);
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Post $post
 	 */
-	public function assertDeletePostAuthorization(Tx_MmForum_Domain_Model_Forum_Post $post);
+	public function assertDeletePostAuthorization(\Mittwald\MmForum\Domain\Model\Forum\Post $post);
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_AccessibleInterface $object
+	 * @param \Mittwald\MmForum\Domain\Model\AccessibleInterface $object
 	 */
-	public function assertModerationAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object);
+	public function assertModerationAuthorization(\Mittwald\MmForum\Domain\Model\AccessibleInterface $object);
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_AccessibleInterface $object
+	 * @param \Mittwald\MmForum\Domain\Model\AccessibleInterface $object
 	 */
-	public function assertAdministrationAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object);
+	public function assertAdministrationAuthorization(\Mittwald\MmForum\Domain\Model\AccessibleInterface $object);
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_AccessibleInterface $object
+	 * @param \Mittwald\MmForum\Domain\Model\AccessibleInterface $object
 	 * @param                                             $action
 	 */
-	public function assertAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object, $action);
+	public function assertAuthorization(\Mittwald\MmForum\Domain\Model\AccessibleInterface $object, $action);
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_AccessibleInterface $object
+	 * @param \Mittwald\MmForum\Domain\Model\AccessibleInterface $object
 	 * @param                                             $action
 	 */
-	public function checkAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object, $action);
+	public function checkAuthorization(\Mittwald\MmForum\Domain\Model\AccessibleInterface $object, $action);
 
 
 

@@ -182,7 +182,7 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 						'pid'		=> $this->getNotificationPid(),
 						'feuser'	=> intval($user['author']),
 						'post'		=> intval($postRow['uid']),
-						'type'		=> 'Tx_MmForum_Domain_Model_Forum_Post',
+						'type'		=> 'Mittwald\\MmForum\\Domain\\Model\\Forum\\Post',
 						'user_read'	=> (($this->getLastExecutedCron() == 0)?1:0)
 
 					);
@@ -235,7 +235,7 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 						'feuser'	=> intval($userUid),
 						'post'		=> intval($postRow['uid']),
 						'tag'		=> intval($tagsRow['tagUid']),
-						'type'		=> 'Tx_MmForum_Domain_Model_Forum_Tag',
+						'type'		=> 'Mittwald\\MmForum\\Domain\\Model\\Forum\\Tag',
 						'user_read'	=> (($this->getLastExecutedCron() == 0)?1:0)
 
 					);

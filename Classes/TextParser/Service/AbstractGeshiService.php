@@ -1,7 +1,9 @@
 <?php
+namespace Mittwald\MmForum\TextParser\Service;
 
 
-class Tx_MmForum_TextParser_Service_AbstractGeshiService{
+
+class AbstractGeshiService{
 
 	/**
 	 * all allowed

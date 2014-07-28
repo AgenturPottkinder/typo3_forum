@@ -1,5 +1,7 @@
 <?php
-class Tx_MmForum_Service_AttachmentService implements \TYPO3\CMS\Core\SingletonInterface {
+namespace Mittwald\MmForum\Service;
+
+class AttachmentService implements \TYPO3\CMS\Core\SingletonInterface {
 
 
 	/**
@@ -29,7 +31,7 @@ class Tx_MmForum_Service_AttachmentService implements \TYPO3\CMS\Core\SingletonI
 
 		foreach($attachments AS $attachmentID => $attachment) {
 			if($attachment['name'] == '') continue;
-			$attachmentObj = $this->objectManager->create('Tx_MmForum_Domain_Model_Forum_Attachment');
+			$attachmentObj = $this->objectManager->create('Mittwald\\MmForum\\Domain\\Model\\Forum\\Attachment');
 			$tmp_name = $_FILES['tx_mmforum_pi1']['tmp_name']['attachments'][$attachmentID];
 			$mime_type = mime_content_type($tmp_name);
 

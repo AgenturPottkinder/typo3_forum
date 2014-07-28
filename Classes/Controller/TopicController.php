@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Controller;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -45,7 +47,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_AbstractController {
+class TopicController extends AbstractController {
 
 
 
@@ -57,28 +59,28 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 
 	/**
 	 * The topic repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_TopicRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\TopicRepository
 	 */
 	protected $topicRepository;
 
 
 	/**
 	 * The forum repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\ForumRepository
 	 */
 	protected $forumRepository;
 
 
 	/**
 	 * The post repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_PostRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\PostRepository
 	 */
 	protected $postRepository;
 
 
 	/**
 	 * The ads repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_AdsRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\AdsRepository
 	 */
 	protected $adsRepository;
 
@@ -86,47 +88,47 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 
 	/**
 	 * The tags repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_TagRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\TagRepository
 	 */
 	protected $tagRepository;
 
 
 	/**
 	 * A factory class for creating topics.
-	 * @var Tx_MmForum_Domain_Factory_Forum_TopicFactory
+	 * @var \Mittwald\MmForum\Domain\Factory\Forum\TopicFactory
 	 */
 	protected $topicFactory;
 
 
 	/**
 	 * A factory class for creating posts.
-	 * @var Tx_MmForum_Domain_Factory_Forum_PostFactory
+	 * @var \Mittwald\MmForum\Domain\Factory\Forum\PostFactory
 	 */
 	protected $postFactory;
 
 
 	/**
 	 * The criteria repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_CriteriaRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\CriteriaRepository
 	 */
 	protected $criteraRepository;
 
 
 	/**
 	 * SessionHandling
-	 * @var Tx_MmForum_Service_SessionHandlingService
+	 * @var \Mittwald\MmForum\Service\SessionHandlingService
 	 */
 	protected $sessionHandling;
 
 
 	/**
-	 * @var Tx_MmForum_Service_AttachmentService
+	 * @var \Mittwald\MmForum\Service\AttachmentService
 	 */
 	protected $attachmentService = NULL;
 
 
 	/**
-	 * @var Tx_MmForum_Service_TagService
+	 * @var \Mittwald\MmForum\Service\TagService
 	 */
 	protected $tagService = NULL;
 
@@ -141,29 +143,29 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	/**
 	 * Constructor of this controller. Used primarily for dependency injection.
 	 *
-	 * @param Tx_MmForum_Domain_Repository_Forum_ForumRepository	$forumRepository
-	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository	$topicRepository
-	 * @param Tx_MmForum_Domain_Repository_Forum_PostRepository		$postRepository
-	 * @param Tx_MmForum_Domain_Factory_Forum_TopicFactory			$topicFactory
-	 * @param Tx_MmForum_Domain_Factory_Forum_PostFactory			$postFactory
-	 * @param Tx_MmForum_Domain_Repository_Forum_CriteriaRepository $criteraRepository
-	 * @param Tx_MmForum_Service_SessionHandlingService             $sessionHandling
-	 * @param Tx_MmForum_Service_AttachmentService					$attachmentService
-	 * @param Tx_MmForum_Domain_Repository_Forum_AdsRepository		$adsRepository
-	 * @param Tx_MmForum_Service_TagService							$tagService
-	 * @param Tx_MmForum_Domain_Repository_Forum_TagRepository		$tagRepository
+	 * @param \Mittwald\MmForum\Domain\Repository\Forum\ForumRepository	$forumRepository
+	 * @param \Mittwald\MmForum\Domain\Repository\Forum\TopicRepository	$topicRepository
+	 * @param \Mittwald\MmForum\Domain\Repository\Forum\PostRepository		$postRepository
+	 * @param \Mittwald\MmForum\Domain\Factory\Forum\TopicFactory			$topicFactory
+	 * @param \Mittwald\MmForum\Domain\Factory\Forum\PostFactory			$postFactory
+	 * @param \Mittwald\MmForum\Domain\Repository\Forum\CriteriaRepository $criteraRepository
+	 * @param \Mittwald\MmForum\Service\SessionHandlingService             $sessionHandling
+	 * @param \Mittwald\MmForum\Service\AttachmentService					$attachmentService
+	 * @param \Mittwald\MmForum\Domain\Repository\Forum\AdsRepository		$adsRepository
+	 * @param \Mittwald\MmForum\Service\TagService							$tagService
+	 * @param \Mittwald\MmForum\Domain\Repository\Forum\TagRepository		$tagRepository
 	 */
-	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
-								Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
-								Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository,
-								Tx_MmForum_Domain_Factory_Forum_TopicFactory $topicFactory,
-								Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory,
-								Tx_MmForum_Domain_Repository_Forum_CriteriaRepository $criteraRepository,
-								Tx_MmForum_Service_SessionHandlingService $sessionHandling,
-								Tx_MmForum_Service_AttachmentService $attachmentService,
-								Tx_MmForum_Domain_Repository_Forum_AdsRepository $adsRepository,
-								Tx_MmForum_Service_TagService $tagService,
-								Tx_MmForum_Domain_Repository_Forum_TagRepository $tagRepository) {
+	public function __construct(\Mittwald\MmForum\Domain\Repository\Forum\ForumRepository $forumRepository,
+								\Mittwald\MmForum\Domain\Repository\Forum\TopicRepository $topicRepository,
+								\Mittwald\MmForum\Domain\Repository\Forum\PostRepository $postRepository,
+								\Mittwald\MmForum\Domain\Factory\Forum\TopicFactory $topicFactory,
+								\Mittwald\MmForum\Domain\Factory\Forum\PostFactory $postFactory,
+								\Mittwald\MmForum\Domain\Repository\Forum\CriteriaRepository $criteraRepository,
+								\Mittwald\MmForum\Service\SessionHandlingService $sessionHandling,
+								\Mittwald\MmForum\Service\AttachmentService $attachmentService,
+								\Mittwald\MmForum\Domain\Repository\Forum\AdsRepository $adsRepository,
+								\Mittwald\MmForum\Service\TagService $tagService,
+								\Mittwald\MmForum\Domain\Repository\Forum\TagRepository $tagRepository) {
 		parent::__construct();
 		$this->forumRepository   = $forumRepository;
 		$this->topicRepository   = $topicRepository;
@@ -223,14 +225,14 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 * Show action. Displays a single topic and all posts contained in this topic.
 	 * @TODO: Remove $dummy variable when datamapper is stable
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Topic $topic
 	 *                                                         The topic that is to be displayed.
-	 * @param  Tx_MmForum_Domain_Model_Forum_Post $quote An optional post that will be quoted within the
+	 * @param  \Mittwald\MmForum\Domain\Model\Forum\Post $quote An optional post that will be quoted within the
 	 *                                                    bodytext of the new post.
 	 * @param int $showForm ShowForm
 	 * @return void
 	 */
-	public function showAction(Tx_MmForum_Domain_Model_Forum_Topic $topic, Tx_MmForum_Domain_Model_Forum_Post $quote = NULL, $showForm = 0) {
+	public function showAction(\Mittwald\MmForum\Domain\Model\Forum\Topic $topic, \Mittwald\MmForum\Domain\Model\Forum\Post $quote = NULL, $showForm = 0) {
 		$posts = $this->postRepository->findForTopic($topic);
 
 		if($quote != FALSE){
@@ -262,16 +264,16 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	/**
 	 * New action. Displays a form for creating a new topic.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Forum $forum
 	 *                                                          The forum in which the new topic is to be created.
-	 * @param Tx_MmForum_Domain_Model_Forum_Post  $post
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Post  $post
 	 *                                                          The first post of the new topic.
 	 * @param string                              $subject      The subject of the new topic
 	 *
 	 * @dontvalidate $post
 	 */
-	public function newAction(Tx_MmForum_Domain_Model_Forum_Forum $forum,
-							  Tx_MmForum_Domain_Model_Forum_Post $post = NULL, $subject = NULL) {
+	public function newAction(\Mittwald\MmForum\Domain\Model\Forum\Forum $forum,
+							  \Mittwald\MmForum\Domain\Model\Forum\Post $post = NULL, $subject = NULL) {
 		$this->authenticationService->assertNewTopicAuthorization($forum);
 		$this->view->assign('forum', $forum)->assign('post', $post)->assign('subject', $subject)
 			->assign('currentUser', $this->frontendUserRepository->findCurrent())
@@ -292,8 +294,8 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	/**
 	 * Creates a new topic.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum       The forum in which the new topic is to be created.
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post        The first post of the new topic.
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Forum $forum       The forum in which the new topic is to be created.
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Post $post        The first post of the new topic.
 	 * @param string $subject     The subject of the new topic
 	 * @param array $attachments File attachments for the post.
 	 * @param string $question    The flag if the new topic is declared as question
@@ -301,11 +303,11 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 * @param string $tags All defined tags for this topic
 	 * @param string $subscribe    The flag if the new topic is subscribed by author
 	 *
-	 * @validate $post Tx_MmForum_Domain_Validator_Forum_PostValidator
-	 * @validate $attachments Tx_MmForum_Domain_Validator_Forum_AttachmentPlainValidator
+	 * @validate $post \Mittwald\MmForum\Domain\Validator\Forum\PostValidator
+	 * @validate $attachments \Mittwald\MmForum\Domain\Validator\Forum\AttachmentPlainValidator
 	 * @validate $subject NotEmpty
 	 */
-	public function createAction(Tx_MmForum_Domain_Model_Forum_Forum $forum, Tx_MmForum_Domain_Model_Forum_Post $post,
+	public function createAction(\Mittwald\MmForum\Domain\Model\Forum\Forum $forum, \Mittwald\MmForum\Domain\Model\Forum\Post $post,
 								 $subject, array $attachments = array(), $question = '', array $criteria = array(), $tags = '', $subscribe = '') {
 
 		// Assert authorization
@@ -335,7 +337,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 		$topic = $this->topicFactory->createTopic($forum, $post, $subject, intval($question), $criteria, $tags, intval($subscribe));
 
 		// Notify potential listeners.
-		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Topic', 'topicCreated',
+		$this->signalSlotDispatcher->dispatch('Mittwald\\MmForum\\Domain\\Model\\Forum\\Topic', 'topicCreated',
 											  array('topic' => $topic));
 		$this->clearCacheForCurrentPage();
 		$uriBuilder = $this->controllerContext->getUriBuilder();
@@ -349,14 +351,14 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	/**
 	 * Sets a post as solution
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post  The post to be marked as solution.
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Post $post  The post to be marked as solution.
 	 *
-	 * @throws Tx_MmForum_Domain_Exception_Authentication_NoAccessException
+	 * @throws \Mittwald\MmForum\Domain\Exception\Authentication\NoAccessException
 	 * @return void
 	 */
-	public function solutionAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
+	public function solutionAction(\Mittwald\MmForum\Domain\Model\Forum\Post $post) {
 		if(!$post->getTopic()->checkSolutionAccess($this->authenticationService->getUser())) {
-			throw new Tx_MmForum_Domain_Exception_Authentication_NoAccessException('Not allowed to set solution by current user.');
+			throw new \Mittwald\MmForum\Domain\Exception\Authentication\NoAccessException('Not allowed to set solution by current user.');
 		}
 		$this->topicFactory->setPostAsSolution($post->getTopic(),$post);
 		$this->redirect('show', 'Topic', NULL, array('topic' => $post->getTopic()));
@@ -371,12 +373,12 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	/**
 	 * Marks a topic as read by the current user.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Topic $topic
+	 * @param  \Mittwald\MmForum\Domain\Model\Forum\Topic $topic
 	 *                             The topic that is to be marked as read.
 	 *
 	 * @return void
 	 */
-	protected function markTopicRead(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
+	protected function markTopicRead(\Mittwald\MmForum\Domain\Model\Forum\Topic $topic) {
 		$currentUser = $this->getCurrentUser();
 		if ($currentUser === NULL || $currentUser->isAnonymous()) {
 			return;

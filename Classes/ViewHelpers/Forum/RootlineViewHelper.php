@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\ViewHelpers\Forum;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -40,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Forum_RootlineViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
+class RootlineViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
 
 
 
@@ -102,7 +104,7 @@ class Tx_MmForum_ViewHelpers_Forum_RootlineViewHelper extends \TYPO3\CMS\Fluid\C
 
 
 	protected function renderNavigationNode($object) {
-		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Forum) {
+		if ($object instanceof \Mittwald\MmForum\Domain\Model\Forum\Forum) {
 			$controller = 'Forum';
 			$arguments  = array('forum' => $object);
 			$icon       = 'iconset-22-folder';

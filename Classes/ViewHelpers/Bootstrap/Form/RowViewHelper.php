@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\ViewHelpers\Bootstrap\Form;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -40,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Bootstrap_Form_RowViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
+class RowViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
 
 
 

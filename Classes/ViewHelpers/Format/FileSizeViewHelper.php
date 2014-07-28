@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\ViewHelpers\Format;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -45,7 +47,7 @@
  *
  */
 
-class Tx_MmForum_ViewHelpers_Format_FileSizeViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class FileSizeViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 
 

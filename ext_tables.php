@@ -16,7 +16,7 @@ if (TYPO3_MODE === 'BE')
 {
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::registerExtDirectComponent(
 		'MmForum.ForumIndex.DataProvider',
-		$extPath . 'Classes/ExtDirect/ForumDataProvider.php:Tx_MmForum_ExtDirect_ForumDataProvider',
+		$extPath . 'Classes/ExtDirect/ForumDataProvider.php:Mittwald\\MmForum\\ExtDirect\\ForumDataProvider',
 		'web', 'user,group'
 	);
 
@@ -167,7 +167,7 @@ $tempColumns = array(
 		'config'  => array(
 			'type' => 'select',
 			'foreign_table' => 'tx_mmforum_domain_model_user_rank',
-			'foreign_class' => 'Tx_MmForum_Domain_Model_User_Rank',
+			'foreign_class' => 'Mittwald\\MmForum\\Domain\\Model\\User\\Rank',
 			'maxitems' => 1
 		)
 	),
@@ -404,29 +404,29 @@ $tempColumns = array(
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('fe_groups', $tempColumns, 1);
-$TCA['fe_groups']['types']['Tx_MmForum_Domain_Model_User_FrontendUserGroup'] = $TCA['fe_groups']['types']['0'];
+$TCA['fe_groups']['types']['Mittwald\\MmForum\\Domain\\Model\\User\\FrontendUserGroup'] = $TCA['fe_groups']['types']['0'];
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem('fe_groups', 'tx_extbase_type',
-	array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_groups.tx_extbase_type.mm_forum', 'Tx_MmForum_Domain_Model_User_FrontendUserGroup'));
+	array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_groups.tx_extbase_type.mm_forum', 'Mittwald\\MmForum\\Domain\\Model\\User\\FrontendUserGroup'));
 
 
-$TCA['fe_groups']['types']['Tx_MmForum_Domain_Model_User_FrontendUserGroup']['showitem'] .=
+$TCA['fe_groups']['types']['Mittwald\\MmForum\\Domain\\Model\\User\\FrontendUserGroup']['showitem'] .=
 	',--div--;LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_mmforum.tab.settings,'.
 	'tx_mmforum_user_mod';
 
 
-$TCA['fe_users']['types']['Tx_MmForum_Domain_Model_User_FrontendUser'] = $TCA['fe_users']['types']['0'];
+$TCA['fe_users']['types']['Mittwald\\MmForum\\Domain\\Model\\User\\FrontendUser'] = $TCA['fe_users']['types']['0'];
 //$TCA['fe_users']['types']['Tx_MmForum_Domain_Model_User_FrontendUser']['showitem'] .=
 //	',--div--;LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_mmforum.tab.settings,'
 //	. ' tx_mmforum_points, tx_mmforum_post_count, tx_mmforum_topic_count, tx_mmforum_helpful_count, tx_mmforum_question_count, tx_mmforum_rank, tx_mmforum_topic_favsubscriptions, tx_mmforum_topic_subscriptions, tx_mmforum_forum_subscriptions,'
 //	. ' tx_mmforum_signature, tx_mmforum_userfield_values, tx_mmforum_use_gravatar, tx_mmforum_contact, tx_mmforum_working_environment, tx_mmforum_private_messages, tx_mmforum_post_count_season, tx_mmforum_helpful_count_season';
 
-$TCA['fe_users']['types']['Tx_MmForum_Domain_Model_User_FrontendUser']['showitem'] .=
+$TCA['fe_users']['types']['Mittwald\\MmForum\\Domain\\Model\\User\\FrontendUser']['showitem'] .=
 	',--div--;LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_mmforum.tab.settings,'
 	. ' tx_mmforum_points, tx_mmforum_post_count, tx_mmforum_topic_count, tx_mmforum_helpful_count, tx_mmforum_question_count, tx_mmforum_rank,'
 	. ' tx_mmforum_signature, tx_mmforum_userfield_values, tx_mmforum_use_gravatar, tx_mmforum_contact, tx_mmforum_working_environment, tx_mmforum_private_messages, tx_mmforum_post_count_season, tx_mmforum_helpful_count_season';
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem('fe_users', 'tx_extbase_type',
-	array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_extbase_type.mm_forum', 'Tx_MmForum_Domain_Model_User_FrontendUser'));
+	array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_extbase_type.mm_forum', 'Mittwald\\MmForum\\Domain\\Model\\User\\FrontendUser'));
 
 
 

@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\User;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -40,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Model_User_AnonymousFrontendUser extends Tx_MmForum_Domain_Model_User_FrontendUser {
+class AnonymousFrontendUser extends FrontendUser {
 
 
 

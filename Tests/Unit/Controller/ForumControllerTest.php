@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Controller;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -24,40 +26,40 @@
  *                                                                      */
 
 
-class Tx_MmForum_Controller_ForumControllerTest extends Tx_MmForum_Controller_AbstractControllerTest {
+class ForumControllerTest extends AbstractControllerTest {
 
 
 
 	/**
-	 * @var Tx_MmForum_Controller_ForumController
+	 * @var \Mittwald\MmForum\Controller\ForumController
 	 */
 	protected $fixture;
 
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject|Tx_MmForum_Domain_Repository_Forum_ForumRepository
+	 * @var PHPUnit_Framework_MockObject_MockObject|\Mittwald\MmForum\Domain\Repository\Forum\ForumRepository
 	 */
 	public $forumRepositoryMock;
 
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject|Tx_MmForum_Domain_Repository_Forum_TopicRepository
+	 * @var PHPUnit_Framework_MockObject_MockObject|\Mittwald\MmForum\Domain\Repository\Forum\TopicRepository
 	 */
 	public $topicRepositoryMock;
 
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject|Tx_MmForum_Domain_Model_Forum_RootForum
+	 * @var PHPUnit_Framework_MockObject_MockObject|\Mittwald\MmForum\Domain\Model\Forum\RootForum
 	 */
 	protected $rootForumMock;
 
 
 
 	public function setUp() {
-		$this->forumRepositoryMock = $this->getMock('Tx_MmForum_Domain_Repository_Forum_ForumRepository');
-		$this->topicRepositoryMock = $this->getMock('Tx_MmForum_Domain_Repository_Forum_TopicRepository');
-		$this->rootForumMock       = $this->getMock('Tx_MmForum_Domain_Model_Forum_RootForum');
-		$this->buildFixture('Tx_MmForum_Controller_ForumController',
+		$this->forumRepositoryMock = $this->getMock('Mittwald\\MmForum\\Domain\\Repository\\Forum\\ForumRepository');
+		$this->topicRepositoryMock = $this->getMock('Mittwald\\MmForum\\Domain\\Repository\\Forum\\TopicRepository');
+		$this->rootForumMock       = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\RootForum');
+		$this->buildFixture('Mittwald\\MmForum\\Controller\\ForumController',
 		                    array($this->forumRepositoryMock, $this->topicRepositoryMock, $this->rootForumMock));
 	}
 
@@ -70,7 +72,7 @@ class Tx_MmForum_Controller_ForumControllerTest extends Tx_MmForum_Controller_Ab
 	 */
 	public function testAllControllerActionsPerformAuthorizationCheck($actionMethodName, $parameters) {
 		$this->authenticationServiceMock->expects($this->atLeastOnce())->method('checkAuthorization')
-			->with($this->isInstanceOf('Tx_MmForum_Domain_Model_Forum_Forum'), $this->anything())
+			->with($this->isInstanceOf('Mittwald\\MmForum\\Domain\\Model\\Forum\\Forum'), $this->anything())
 			->will($this->returnValue(TRUE));
 		call_user_func_array(array($this->fixture, $actionMethodName), $parameters);
 	}
@@ -98,9 +100,9 @@ class Tx_MmForum_Controller_ForumControllerTest extends Tx_MmForum_Controller_Ab
 
 
 	public function testShowActionLoadsAllTopicsFromRepository() {
-		$forum = $this->getMock('Tx_MmForum_Domain_Model_Forum_Forum');
+		$forum = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Forum');
 		$this->topicRepositoryMock->expects($this->atLeastOnce())->method('findForIndex')
-			->with($this->isInstanceOf('Tx_MmForum_Domain_Model_Forum_Forum'))
+			->with($this->isInstanceOf('Mittwald\\MmForum\\Domain\\Model\\Forum\\Forum'))
 			->will($this->returnValue($topics = $this->buildTopicMockList()));
 		$this->fixture->showAction($forum);
 
@@ -114,9 +116,9 @@ class Tx_MmForum_Controller_ForumControllerTest extends Tx_MmForum_Controller_Ab
 	 * @depends testShowActionLoadsAllTopicsFromRepository
 	 */
 	public function testShowActionAssignsForumAndTopicsToView() {
-		$forum = $this->getMock('Tx_MmForum_Domain_Model_Forum_Forum');
+		$forum = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Forum');
 		$this->topicRepositoryMock->expects($this->atLeastOnce())->method('findForIndex')
-			->with($this->isInstanceOf('Tx_MmForum_Domain_Model_Forum_Forum'))
+			->with($this->isInstanceOf('Mittwald\\MmForum\\Domain\\Model\\Forum\\Forum'))
 			->will($this->returnValue($topics = $this->buildTopicMockList()));
 		$this->fixture->showAction($forum);
 
@@ -127,18 +129,18 @@ class Tx_MmForum_Controller_ForumControllerTest extends Tx_MmForum_Controller_Ab
 
 
 	public function testUpdateActionCallsUpdateMethodOnRepository() {
-		$forum = $this->getMock('Tx_MmForum_Domain_Model_Forum_Forum');
+		$forum = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Forum');
 		$this->forumRepositoryMock->expects($this->once())->method('update')
-			->with($this->isInstanceOf('Tx_MmForum_Domain_Model_Forum_Forum'));
+			->with($this->isInstanceOf('Mittwald\\MmForum\\Domain\\Model\\Forum\\Forum'));
 		$this->fixture->updateAction($forum);
 	}
 
 
 
 	public function testCreateActionCallsAddMethodOnRepository() {
-		$forum = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_MmForum_Domain_Model_Forum_Forum');
+		$forum = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Mittwald\\MmForum\\Domain\\Model\\Forum\\Forum');
 		$this->forumRepositoryMock->expects($this->once())->method('add')
-			->with($this->isInstanceOf('Tx_MmForum_Domain_Model_Forum_Forum'));
+			->with($this->isInstanceOf('Mittwald\\MmForum\\Domain\\Model\\Forum\\Forum'));
 		$this->fixture->createAction($forum);
 	}
 

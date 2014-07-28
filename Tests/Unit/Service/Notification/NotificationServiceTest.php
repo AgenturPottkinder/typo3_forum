@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Service\Notification;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -25,12 +27,12 @@
  *                                                                      */
 
 
-class Tx_MmForum_Service_Notification_NotificationServiceTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class NotificationServiceTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 
 
 
 	/**
-	 * @var Tx_MmForum_Service_Notification_NotificationService
+	 * @var \Mittwald\MmForum\Service\Notification\NotificationService
 	 */
 	protected $fixture;
 
@@ -43,8 +45,8 @@ class Tx_MmForum_Service_Notification_NotificationServiceTest extends \TYPO3\CMS
 
 
 	public function setUp() {
-		$this->mailingServiceMock = $this->getMock('Tx_MmForum_Service_Mailing_PlainMailingService');
-		$this->fixture            = new Tx_MmForum_Service_Notification_NotificationService($this->mailingServiceMock);
+		$this->mailingServiceMock = $this->getMock('Mittwald\\MmForum\\Service\\Mailing\\PlainMailingService');
+		$this->fixture            = new NotificationService($this->mailingServiceMock);
 	}
 
 
@@ -58,20 +60,20 @@ class Tx_MmForum_Service_Notification_NotificationServiceTest extends \TYPO3\CMS
 		// Add mock function.
 		$this->mailingServiceMock->expects($this->any())->method('getFormat')->will($this->returnValue($format));
 		$this->mailingServiceMock->expects($this->exactly(5))->method('sendMail')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_MmForum_Domain_Model_User_FrontendUser'));
+			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Mittwald\\MmForum\\Domain\\Model\\User\\FrontendUser'));
 
-		$post  = new Tx_MmForum_Domain_Model_Forum_Post('Post 1');
-		$topic = new Tx_MmForum_Domain_Model_Forum_Topic('Topic');
-		$forum = new Tx_MmForum_Domain_Model_Forum_Forum('Forum');
+		$post  = new \Mittwald\MmForum\Domain\Model\Forum\Post('Post 1');
+		$topic = new \Mittwald\MmForum\Domain\Model\Forum\Topic('Topic');
+		$forum = new \Mittwald\MmForum\Domain\Model\Forum\Forum('Forum');
 		$topic->setForum($forum);
 		$topic->addPost($post);
 		$forum->addTopic($topic);
 
 		for ($i = 1; $i <= 5; $i++) {
-			$topic->addSubscriber(new Tx_MmForum_Domain_Model_User_FrontendUser('User ' . $i, 'secret'));
+			$topic->addSubscriber(new \Mittwald\MmForum\Domain\Model\User\FrontendUser('User ' . $i, 'secret'));
 		}
 
-		$notifiable = new Tx_MmForum_Domain_Model_Forum_Post('Post 2');
+		$notifiable = new \Mittwald\MmForum\Domain\Model\Forum\Post('Post 2');
 		$this->fixture->notifySubscribers($topic, $notifiable);
 	}
 

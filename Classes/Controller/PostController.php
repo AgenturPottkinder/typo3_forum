@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Controller;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -44,7 +46,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_AbstractController {
+class PostController extends AbstractController {
 
 
 	/*
@@ -54,40 +56,40 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 
 	/**
 	 * A forum repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\ForumRepository
 	 */
 	protected $forumRepository;
 
 
 	/**
 	 * A topic repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_TopicRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\TopicRepository
 	 */
 	protected $topicRepository;
 
 
 	/**
 	 * A post repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_PostRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\PostRepository
 	 */
 	protected $postRepository;
 
 
 	/**
 	 * A post factory.
-	 * @var Tx_MmForum_Domain_Factory_Forum_PostFactory
+	 * @var \Mittwald\MmForum\Domain\Factory\Forum\PostFactory
 	 */
 	protected $postFactory;
 
 
 	/**
 	 * A post factory.
-	 * @var Tx_MmForum_Domain_Repository_Forum_AttachmentRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\AttachmentRepository
 	 */
 	protected $attachmentRepository;
 
 	/**
-	 * @var Tx_MmForum_Service_AttachmentService
+	 * @var \Mittwald\MmForum\Service\AttachmentService
 	 */
 	protected $attachmentService = NULL;
 
@@ -101,21 +103,21 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	/**
 	 * Constructor. Used primarily for dependency injection.
 	 *
-	 * @param Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository
-	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository
-	 * @param Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository
-	 * @param Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory
-	 * @param Tx_MmForum_Domain_Repository_Forum_AttachmentRepository $attachmentRepository
-	 * @param Tx_MmForum_Service_SessionHandlingService $sessionHandling
-	 * @param Tx_MmForum_Service_AttachmentService $attachmentService
+	 * @param \Mittwald\MmForum\Domain\Repository\Forum\ForumRepository $forumRepository
+	 * @param \Mittwald\MmForum\Domain\Repository\Forum\TopicRepository $topicRepository
+	 * @param \Mittwald\MmForum\Domain\Repository\Forum\PostRepository $postRepository
+	 * @param \Mittwald\MmForum\Domain\Factory\Forum\PostFactory $postFactory
+	 * @param \Mittwald\MmForum\Domain\Repository\Forum\AttachmentRepository $attachmentRepository
+	 * @param \Mittwald\MmForum\Service\SessionHandlingService $sessionHandling
+	 * @param \Mittwald\MmForum\Service\AttachmentService $attachmentService
 	 */
-	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
-								Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
-								Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository,
-								Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory,
-								Tx_MmForum_Domain_Repository_Forum_AttachmentRepository $attachmentRepository,
-								Tx_MmForum_Service_SessionHandlingService $sessionHandling,
-								Tx_MmForum_Service_AttachmentService $attachmentService) {
+	public function __construct(\Mittwald\MmForum\Domain\Repository\Forum\ForumRepository $forumRepository,
+								\Mittwald\MmForum\Domain\Repository\Forum\TopicRepository $topicRepository,
+								\Mittwald\MmForum\Domain\Repository\Forum\PostRepository $postRepository,
+								\Mittwald\MmForum\Domain\Factory\Forum\PostFactory $postFactory,
+								\Mittwald\MmForum\Domain\Repository\Forum\AttachmentRepository $attachmentRepository,
+								\Mittwald\MmForum\Service\SessionHandlingService $sessionHandling,
+								\Mittwald\MmForum\Service\AttachmentService $attachmentService) {
 		$this->forumRepository		= $forumRepository;
 		$this->topicRepository		= $topicRepository;
 		$this->postRepository		= $postRepository;
@@ -155,14 +157,14 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	/**
 	 * add Supporter Action.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Post $post
 	 * @return void
 	 */
-	public function addSupporterAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
+	public function addSupporterAction(\Mittwald\MmForum\Domain\Model\Forum\Post $post) {
 		// Assert authentication
 
 		/**
-		 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+		 * @var \Mittwald\MmForum\Domain\Model\User\FrontendUser
 		 */
 		$currentUser = $this->authenticationService->getUser();
 
@@ -188,10 +190,10 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 
 	/**
 	 *  remove Supporter Action.
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Post $post
 	 * @return void
 	 */
-	public function removeSupporterAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
+	public function removeSupporterAction(\Mittwald\MmForum\Domain\Model\Forum\Post $post) {
 		// Assert authentication
 		$currentUser = 	$this->authenticationService->getUser();
 
@@ -219,12 +221,12 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	 * topic that contains the requested post.
 	 * This function is called by post summaries (last post link)
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post The post
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $quote The Quote
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Post $post The post
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Post $quote The Quote
 	 * @param int $showForm ShowForm
 	 * @return void
 	 */
-	public function showAction(Tx_MmForum_Domain_Model_Forum_Post $post, Tx_MmForum_Domain_Model_Forum_Post $quote = NULL, $showForm = 0) {
+	public function showAction(\Mittwald\MmForum\Domain\Model\Forum\Post $post, \Mittwald\MmForum\Domain\Model\Forum\Post $quote = NULL, $showForm = 0) {
 		// Assert authentication
 		$this->authenticationService->assertReadAuthorization($post);
 
@@ -249,15 +251,15 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	 *
 	 * @dontvalidate $post
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Topic $topic The topic in which the new post is to be created.
-	 * @param  Tx_MmForum_Domain_Model_Forum_Post $post  The new post.
-	 * @param  Tx_MmForum_Domain_Model_Forum_Post $quote An optional post that will be quoted within the
+	 * @param  \Mittwald\MmForum\Domain\Model\Forum\Topic $topic The topic in which the new post is to be created.
+	 * @param  \Mittwald\MmForum\Domain\Model\Forum\Post $post  The new post.
+	 * @param  \Mittwald\MmForum\Domain\Model\Forum\Post $quote An optional post that will be quoted within the
 	 *                                                    bodytext of the new post.
 	 * @return void
 	 */
-	public function newAction(Tx_MmForum_Domain_Model_Forum_Topic $topic,
-							  Tx_MmForum_Domain_Model_Forum_Post $post = NULL,
-							  Tx_MmForum_Domain_Model_Forum_Post $quote = NULL) {
+	public function newAction(\Mittwald\MmForum\Domain\Model\Forum\Topic $topic,
+							  \Mittwald\MmForum\Domain\Model\Forum\Post $post = NULL,
+							  \Mittwald\MmForum\Domain\Model\Forum\Post $quote = NULL) {
 		// Assert authorization
 		$this->authenticationService->assertNewPostAuthorization($topic);
 
@@ -286,15 +288,15 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	/**
 	 * Creates a new post.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic The topic in which the new post is to be created.
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post  The new post.
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Topic $topic The topic in which the new post is to be created.
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Post $post  The new post.
 	 * @param array $attachments File attachments for the post.
 	 *
-	 * @validate $post Tx_MmForum_Domain_Validator_Forum_PostValidator
-	 * @validate $attachments Tx_MmForum_Domain_Validator_Forum_AttachmentPlainValidator
+	 * @validate $post \Mittwald\MmForum\Domain\Validator\Forum\PostValidator
+	 * @validate $attachments \Mittwald\MmForum\Domain\Validator\Forum\AttachmentPlainValidator
 	 */
 
-	public function createAction(Tx_MmForum_Domain_Model_Forum_Topic $topic, Tx_MmForum_Domain_Model_Forum_Post $post, array $attachments = array()) {
+	public function createAction(\Mittwald\MmForum\Domain\Model\Forum\Topic $topic, \Mittwald\MmForum\Domain\Model\Forum\Post $post, array $attachments = array()) {
 		// Assert authorization
 		$this->authenticationService->assertNewPostAuthorization($topic);
 
@@ -310,13 +312,13 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 		$this->topicRepository->update($topic);
 
 		// All potential listeners (Signal-Slot FTW!)
-		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Post', 'postCreated',
+		$this->signalSlotDispatcher->dispatch('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post', 'postCreated',
 			array('post' => $post));
 
 		// Display flash message and redirect to topic->show action.
 		$this->controllerContext->getFlashMessageQueue()->addMessage(
 			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				Tx_MmForum_Utility_Localization::translate('Post_Create_Success')
+				\Mittwald\MmForum\Utility\Localization::translate('Post_Create_Success')
 			)
 		);
 		$this->clearCacheForCurrentPage();
@@ -334,10 +336,10 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	 * Displays a form for editing a post.
 	 *
 	 * @dontvalidate $post
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post The post that is to be edited.
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Post $post The post that is to be edited.
 	 * @return void
 	 */
-	public function editAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
+	public function editAction(\Mittwald\MmForum\Domain\Model\Forum\Post $post) {
 		if($post->getAuthor() != $this->authenticationService->getUser() or $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()){
 			// Assert authorization
 			$this->authenticationService->assertModerationAuthorization($post->getTopic()->getForum());
@@ -348,11 +350,11 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	/**
 	 * Delete a Attachment.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Attachment $attachment The attachment that is to be deleted
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Attachment $attachment The attachment that is to be deleted
 	 * @param string $redirect
 	 * @return void
 	 */
-	public function deletePostAttachmentAction(Tx_MmForum_Domain_Model_Forum_Attachment $attachment, $redirect = false) {
+	public function deletePostAttachmentAction(\Mittwald\MmForum\Domain\Model\Forum\Attachment $attachment, $redirect = false) {
 		if($attachment->getPost()->getAuthor() != $this->authenticationService->getUser() or
 			$attachment->getPost()->getTopic()->getLastPost()->getAuthor() != $attachment->getPost()->getAuthor()){
 			// Assert authorization
@@ -370,12 +372,12 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	/**
 	 * Updates a post.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post The post that is to be updated.
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Post $post The post that is to be updated.
 	 * @param array $attachments File attachments for the post.
 	 *
 	 * @return void
 	 */
-	public function updateAction(Tx_MmForum_Domain_Model_Forum_Post $post, array $attachments = array()) {
+	public function updateAction(\Mittwald\MmForum\Domain\Model\Forum\Post $post, array $attachments = array()) {
 		if($post->getAuthor() != $this->authenticationService->getUser() or $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()){
 			// Assert authorization
 			$this->authenticationService->assertModerationAuthorization($post->getTopic()->getForum());
@@ -388,11 +390,11 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 		}
 		$this->postRepository->update($post);
 
-		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Post', 'postUpdated',
+		$this->signalSlotDispatcher->dispatch('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post', 'postUpdated',
 			array('post' => $post));
 		$this->controllerContext->getFlashMessageQueue()->addMessage(
 			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				Tx_MmForum_Utility_Localization::translate('Post_Update_Success')
+				\Mittwald\MmForum\Utility\Localization::translate('Post_Update_Success')
 			)
 		);
 		$this->clearCacheForCurrentPage();
@@ -404,10 +406,10 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	 * Displays a confirmation screen in which the user is prompted if a post
 	 * should really be deleted.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post The post that is to be deleted.
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Post $post The post that is to be deleted.
 	 * @return void
 	 */
-	public function confirmDeleteAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
+	public function confirmDeleteAction(\Mittwald\MmForum\Domain\Model\Forum\Post $post) {
 		$this->authenticationService->assertDeletePostAuthorization($post);
 		$this->view->assign('post', $post);
 	}
@@ -415,10 +417,10 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 	/**
 	 * Deletes a post.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post The post that is to be deleted.
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Post $post The post that is to be deleted.
 	 * @return void
 	 */
-	public function deleteAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
+	public function deleteAction(\Mittwald\MmForum\Domain\Model\Forum\Post $post) {
 		// Assert authorization
 		$this->authenticationService->assertDeletePostAuthorization($post);
 
@@ -427,12 +429,12 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 		$this->postFactory->deletePost($post);
 		$this->controllerContext->getFlashMessageQueue()->addMessage(
 			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				Tx_MmForum_Utility_Localization::translate('Post_Delete_Success')
+				\Mittwald\MmForum\Utility\Localization::translate('Post_Delete_Success')
 			)
 		);
 
 		// Notify observers and clear cache.
-		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Post', 'postDeleted',
+		$this->signalSlotDispatcher->dispatch('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post', 'postDeleted',
 			array('post' => $post));
 		$this->clearCacheForCurrentPage();
 

@@ -1,5 +1,7 @@
 <?php
-class Tx_MmForum_Service_TagService implements \TYPO3\CMS\Core\SingletonInterface {
+namespace Mittwald\MmForum\Service;
+
+class TagService implements \TYPO3\CMS\Core\SingletonInterface {
 
 	/**
 	 * An instance of the Extbase object manager.
@@ -9,7 +11,7 @@ class Tx_MmForum_Service_TagService implements \TYPO3\CMS\Core\SingletonInterfac
 
 	/**
 	 * An instance of the tag repository
-	 * @var Tx_MmForum_Domain_Repository_Forum_TagRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\TagRepository
 	 */
 	protected $tagRepository;
 
@@ -25,10 +27,10 @@ class Tx_MmForum_Service_TagService implements \TYPO3\CMS\Core\SingletonInterfac
 
 	/**
 	 * Injects an instance of the tag repository
-	 * @param Tx_MmForum_Domain_Repository_Forum_TagRepository $tagRepository
+	 * @param \Mittwald\MmForum\Domain\Repository\Forum\TagRepository $tagRepository
 	 * @return void
 	 */
-	public function injectTagRepository(Tx_MmForum_Domain_Repository_Forum_TagRepository $tagRepository) {
+	public function injectTagRepository(\Mittwald\MmForum\Domain\Repository\Forum\TagRepository $tagRepository) {
 		$this->tagRepository = $tagRepository;
 	}
 
@@ -52,7 +54,7 @@ class Tx_MmForum_Service_TagService implements \TYPO3\CMS\Core\SingletonInterfac
 				$objTags->attach($searchResult[0]);
 			} else {
 				/* @var Tx_MmForum_Domain_Model_Forum_Tag $tag */
-				$tag = $this->objectManager->create('Tx_MmForum_Domain_Model_Forum_Tag');
+				$tag = $this->objectManager->create('Mittwald\\MmForum\\Domain\\Model\\Forum\\Tag');
 				$tag->setName($tagName);
 				$tag->setCrdate(new DateTime());
 				$tag->increaseTopicCount();

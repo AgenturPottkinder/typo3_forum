@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\TextParser\Panel;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -41,7 +43,7 @@
  *
  */
 
-abstract class Tx_MmForum_TextParser_Panel_AbstractPanel implements Tx_MmForum_TextParser_Panel_PanelInterface {
+abstract class AbstractPanel implements PanelInterface {
 
 
 

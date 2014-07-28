@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Exception\TextParser;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -43,7 +45,7 @@
  *
  */
 
-Class Tx_MmForum_Domain_Exception_TextParser_Exception Extends Tx_MmForum_Domain_Exception_AbstractException {
+Class Exception Extends \Mittwald\MmForum\Domain\Exception\AbstractException {
 
 
 

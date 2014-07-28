@@ -111,8 +111,8 @@ class tx_mmforum_scheduler_statsSummary extends \TYPO3\CMS\Scheduler\Task\Abstra
 		$results[] = intval($row['counter']);
 
 		$query = 'SELECT COUNT(*) AS counter
-				  FROM fe_users
-				  WHERE deleted=0 AND disable=0 AND tx_extbase_type = "Tx_MmForum_Domain_Model_User_FrontendUser"
+				  FROM fe\\users
+				  WHERE deleted=0 AND disable=0 AND tx\\extbase\\type = \"Mittwald\\MmForum\\Domain\\Model\\User\\FrontendUser\"
 				  		AND pid IN ('.$this->getUserPids().');';
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);

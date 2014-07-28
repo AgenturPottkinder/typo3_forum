@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\ViewHelpers\Control;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -42,7 +44,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Control_BigButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper {
+class BigButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper {
 
 
 

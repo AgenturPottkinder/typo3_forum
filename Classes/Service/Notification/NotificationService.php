@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Service\Notification;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -42,8 +44,8 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Service_Notification_NotificationService extends Tx_MmForum_Service_AbstractService
-	implements Tx_MmForum_Service_Notification_NotificationServiceInterface
+class NotificationService extends \Mittwald\MmForum\Service\AbstractService
+	implements NotificationServiceInterface
 {
 
 
@@ -52,7 +54,7 @@ class Tx_MmForum_Service_Notification_NotificationService extends Tx_MmForum_Ser
 	 */
 
 	/**
-	 * @var Tx_MmForum_Service_Mailing_HTMLMailingService
+	 * @var \Mittwald\MmForum\Service\Mailing\HTMLMailingService
 	 */
 	protected $htmlMailingService;
 
@@ -84,10 +86,10 @@ class Tx_MmForum_Service_Notification_NotificationService extends Tx_MmForum_Ser
 	/**
 	 * Constructor. Used primarily for dependency injection.
 	 *
-	 * @param Tx_MmForum_Service_Mailing_HTMLMailingService $htmlMailingService
+	 * @param \Mittwald\MmForum\Service\Mailing\HTMLMailingService $htmlMailingService
 	 * @param \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder
 	 */
-	public function __construct(Tx_MmForum_Service_Mailing_HTMLMailingService $htmlMailingService, \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder)
+	public function __construct(\Mittwald\MmForum\Service\Mailing\HTMLMailingService $htmlMailingService, \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder)
 	{
 		$this->htmlMailingService = $htmlMailingService;
 		$this->uriBuilder = $uriBuilder;
@@ -116,10 +118,10 @@ class Tx_MmForum_Service_Notification_NotificationService extends Tx_MmForum_Ser
 	 * Notifies subscribers of a subscribeable objects about a new notifiable object
 	 * within the subscribeable object, e.g. of a new post within a subscribed topic.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_SubscribeableInterface $subscriptionObject
+	 * @param  \Mittwald\MmForum\Domain\Model\SubscribeableInterface $subscriptionObject
 	 *                             The subscribed object. This may for example be a
 	 *                             forum or a topic.
-	 * @param  Tx_MmForum_Domain_Model_NotifiableInterface $notificationObject
+	 * @param  \Mittwald\MmForum\Domain\Model\NotifiableInterface $notificationObject
 	 *                             The object that the subscriber is notified about.
 	 *                             This may for example be a new post within an
 	 *                             observed topic or forum or a new topic within an
@@ -128,8 +130,8 @@ class Tx_MmForum_Service_Notification_NotificationService extends Tx_MmForum_Ser
 	 * @return void
 	 *
 	 */
-	public function notifySubscribers(Tx_MmForum_Domain_Model_SubscribeableInterface $subscriptionObject,
-									  Tx_MmForum_Domain_Model_NotifiableInterface $notificationObject)
+	public function notifySubscribers(\Mittwald\MmForum\Domain\Model\SubscribeableInterface $subscriptionObject,
+									  \Mittwald\MmForum\Domain\Model\NotifiableInterface $notificationObject)
 	{
 		$topic = $subscriptionObject;
 		$post  = $notificationObject;

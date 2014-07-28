@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\User;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -43,7 +45,7 @@
  *
  */
 
-class Tx_MmForum_Domain_Model_User_FrontendUserGroup extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup {
+class FrontendUserGroup extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup {
 
 	/**
 	 * Read topics.

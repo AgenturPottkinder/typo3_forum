@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\TextParser\Service;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -44,7 +46,7 @@
  *
  */
 
-class Tx_MmForum_TextParser_Service_BasicParserService extends Tx_MmForum_TextParser_Service_AbstractTextParserService {
+class BasicParserService extends AbstractTextParserService {
 
 
 
@@ -193,7 +195,7 @@ class Tx_MmForum_TextParser_Service_BasicParserService extends Tx_MmForum_TextPa
 	/**
 	 * Performs simple HTML escaping on the text.
 	 *
-	 * @return Tx_MmForum_TextParser_Service_BasicParserService
+	 * @return \Mittwald\MmForum\TextParser\Service\BasicParserService
 	 *                             $this, for chaining
 	 */
 	protected function escape() {
@@ -206,7 +208,7 @@ class Tx_MmForum_TextParser_Service_BasicParserService extends Tx_MmForum_TextPa
 	/**
 	 * Replaces double line breaks with paragraphs.
 	 *
-	 * @return Tx_MmForum_TextParser_Service_BasicParserService
+	 * @return \Mittwald\MmForum\TextParser\Service\BasicParserService
 	 *                             $this, for chaining
 	 */
 	protected function paragraphs() {
@@ -223,7 +225,7 @@ class Tx_MmForum_TextParser_Service_BasicParserService extends Tx_MmForum_TextPa
 	/**
 	 * Replaces single line breaks with <br> tags.
 	 *
-	 * @return Tx_MmForum_TextParser_Service_BasicParserService
+	 * @return \Mittwald\MmForum\TextParser\Service\BasicParserService
 	 *                             $this, for chaining
 	 */
 	protected function lineBreaks() {

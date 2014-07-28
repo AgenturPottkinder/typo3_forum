@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\TextParser\Panel;
+
 
 /* *
  *  COPYRIGHT NOTICE                                                    *
@@ -40,28 +42,28 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_TextParser_Panel_BbCodePanel extends Tx_MmForum_TextParser_Panel_AbstractPanel {
+class BbCodePanel extends AbstractPanel {
 
 
 
 	/**
-	 * @var Tx_MmForum_Domain_Repository_Format_BBCodeRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Format\BBCodeRepository
 	 */
 	protected $bbCodeRepository = NULL;
 
 
 
 	/**
-	 * @var array<Tx_MmForum_Domain_Model_Format_BBCode>
+	 * @var array<\Mittwald\MmForum\Domain\Model\Format\BBCode>
 	 */
 	protected $bbCodes = NULL;
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Repository_Format_BBCodeRepository $bbCodeRepository
+	 * @param \Mittwald\MmForum\Domain\Repository\Format\BBCodeRepository $bbCodeRepository
 	 */
-	public function injectBbCodeRepository(Tx_MmForum_Domain_Repository_Format_BBCodeRepository $bbCodeRepository) {
+	public function injectBbCodeRepository(\Mittwald\MmForum\Domain\Repository\Format\BBCodeRepository $bbCodeRepository) {
 		$this->bbCodeRepository = $bbCodeRepository;
 		$this->bbCodes          = $this->bbCodeRepository->findAll();
 	}

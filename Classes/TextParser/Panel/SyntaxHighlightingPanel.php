@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\TextParser\Panel;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -41,14 +43,14 @@
  *
  */
 
-class Tx_MmForum_TextParser_Panel_SyntaxHighlightingPanel extends Tx_MmForum_TextParser_Panel_AbstractPanel {
+class SyntaxHighlightingPanel extends AbstractPanel {
 
 
 
 	/**
 	 * TODO
 	 *
-	 * @var Tx_MmForum_Domain_Repository_Format_SyntaxHighlightingRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Format\SyntaxHighlightingRepository
 	 */
 	protected $syntaxHighlightingRepository = NULL;
 
@@ -57,7 +59,7 @@ class Tx_MmForum_TextParser_Panel_SyntaxHighlightingPanel extends Tx_MmForum_Tex
 	/**
 	 * TODO
 	 *
-	 * @var array<Tx_MmForum_Domain_Model_Format_SyntaxHighlighting>
+	 * @var array<\Mittwald\MmForum\Domain\Model\Format\SyntaxHighlighting>
 	 */
 	protected $syntaxHighlightings = NULL;
 
@@ -66,11 +68,11 @@ class Tx_MmForum_TextParser_Panel_SyntaxHighlightingPanel extends Tx_MmForum_Tex
 	/**
 	 * TODO
 	 *
-	 * @param Tx_MmForum_Domain_Repository_Format_SyntaxHighlightingRepository $syntaxHighlightingRepository
+	 * @param \Mittwald\MmForum\Domain\Repository\Format\SyntaxHighlightingRepository $syntaxHighlightingRepository
 	 *
 	 * @return void
 	 */
-	public function injectSyntaxHighlightingRepository(Tx_MmForum_Domain_Repository_Format_SyntaxHighlightingRepository $syntaxHighlightingRepository) {
+	public function injectSyntaxHighlightingRepository(\Mittwald\MmForum\Domain\Repository\Format\SyntaxHighlightingRepository $syntaxHighlightingRepository) {
 		$this->syntaxHighlightingRepository = $syntaxHighlightingRepository;
 		$this->syntaxHighlightings          = $this->syntaxHighlightingRepository->findAll();
 	}

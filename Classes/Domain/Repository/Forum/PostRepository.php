@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Repository\Forum;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -42,7 +44,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Repository_Forum_PostRepository extends Tx_MmForum_Domain_Repository_AbstractRepository {
+class PostRepository extends \Mittwald\MmForum\Domain\Repository\AbstractRepository {
 
 
 
@@ -57,7 +59,7 @@ class Tx_MmForum_Domain_Repository_Forum_PostRepository extends Tx_MmForum_Domai
 	 * @param  integer $limit
 	 * @param  array $orderings
 	 *
-	 * @return Array<Tx_MmForum_Domain_Model_Forum_Post>
+	 * @return Array<\Mittwald\MmForum\Domain\Model\Forum\Post>
 	 *                               The selected subset of posts
 	 *
 	 */
@@ -78,7 +80,7 @@ class Tx_MmForum_Domain_Repository_Forum_PostRepository extends Tx_MmForum_Domai
 	 *
 	 * @param  array $uids
 	 *
-	 * @return Tx_MmForum_Domain_Model_Forum_Topic[]
+	 * @return \Mittwald\MmForum\Domain\Model\Forum\Topic[]
 	 *                               The selected subset of topcis
 	 *
 	 */
@@ -100,15 +102,15 @@ class Tx_MmForum_Domain_Repository_Forum_PostRepository extends Tx_MmForum_Domai
 	 *
 	 * Finds posts for a specific topic. Page navigation is possible.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Topic $topic
+	 * @param  \Mittwald\MmForum\Domain\Model\Forum\Topic $topic
 	 *                               The topic for which the posts are to be loaded.
 	 *
-	 * @return Array<Tx_MmForum_Domain_Model_Forum_Post>
+	 * @return Array<\Mittwald\MmForum\Domain\Model\Forum\Post>
 	 *                               The selected subset of posts in the specified
 	 *                               topic.
 	 *
 	 */
-	public function findForTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
+	public function findForTopic(\Mittwald\MmForum\Domain\Model\Forum\Topic $topic) {
 		$query = $this->createQuery();
 		$query->getQuerySettings()->setRespectSysLanguage(FALSE) ;
 		return $query->matching($query->equals('topic', $topic))
@@ -123,17 +125,17 @@ class Tx_MmForum_Domain_Repository_Forum_PostRepository extends Tx_MmForum_Domai
 	 *
 	 * Finds the last post in a topic.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Topic $topic
+	 * @param  \Mittwald\MmForum\Domain\Model\Forum\Topic $topic
 	 *                             The topic for which the last post is to be
 	 *                             loaded.
 	 * @param int $offset
 	 * 								If you want to get the next to last post post
 	 *
-	 * @return Tx_MmForum_Domain_Model_Forum_Post
+	 * @return \Mittwald\MmForum\Domain\Model\Forum\Post
 	 *                             The last post of the specified topic.
 	 *
 	 */
-	public function findLastByTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic, $offset=0) {
+	public function findLastByTopic(\Mittwald\MmForum\Domain\Model\Forum\Topic $topic, $offset=0) {
 		$query = $this->createQuery();
 		$query->matching($query->equals('topic', $topic))
 			->setOrderings(Array('crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING))->setLimit(1);
@@ -151,16 +153,16 @@ class Tx_MmForum_Domain_Repository_Forum_PostRepository extends Tx_MmForum_Domai
 	 *
 	 * Finds the last post in a forum.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 * @param  \Mittwald\MmForum\Domain\Model\Forum\Forum $forum
 	 *                             The forum for which to load the last post.
 	 * @param int $offset
 	 * 								If you want to get the next to last post post
 	 *
-	 * @return Tx_MmForum_Domain_Model_Forum_Post
+	 * @return \Mittwald\MmForum\Domain\Model\Forum\Post
 	 *                             The last post of the specified forum.
 	 *
 	 */
-	public function findLastByForum(Tx_MmForum_Domain_Model_Forum_Forum $forum, $offset=0) {
+	public function findLastByForum(\Mittwald\MmForum\Domain\Model\Forum\Forum $forum, $offset=0) {
 		$query = $this->createQuery();
 		$query->matching($query->equals('topic.forum', $forum))
 			->setOrderings(array('crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING))->setLimit(1);
@@ -175,10 +177,10 @@ class Tx_MmForum_Domain_Repository_Forum_PostRepository extends Tx_MmForum_Domai
 	 * Deletes the post with sql statements.
 	 * Only used on performance problems (Activate useSqlStatementsOnCriticalFunctions in settings).
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Post $post
 	 * @return void
 	 */
-	public function deletePostWithSqlStatement(Tx_MmForum_Domain_Model_Forum_Post $post) {
+	public function deletePostWithSqlStatement(\Mittwald\MmForum\Domain\Model\Forum\Post $post) {
 		$lastPost = $post->getTopic()->getLastPost();
 		if($post->getUid() == $lastPost->getUid()) {
 			$lastPost = $this->findLastByTopic($post->getTopic(),1);

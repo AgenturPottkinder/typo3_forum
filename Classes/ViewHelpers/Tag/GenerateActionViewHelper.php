@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\ViewHelpers\Tag;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -42,7 +44,7 @@
  *
  */
 
-class Tx_MmForum_ViewHelpers_Tag_GenerateActionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper  {
+class GenerateActionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper  {
 
 
 	/**
@@ -53,8 +55,8 @@ class Tx_MmForum_ViewHelpers_Tag_GenerateActionViewHelper extends \TYPO3\CMS\Flu
 	public function initializeArguments() {
 		parent::initializeArguments();
 
-		$this->registerTagAttribute('currentUser', 'Tx_MmForum_Domain_Model_User_FrontendUser', 'a');
-		$this->registerTagAttribute('subscribedUser', 'Tx_MmForum_Domain_Model_User_FrontendUser[]', 'a');
+		$this->registerTagAttribute('currentUser', 'Mittwald\\MmForum\\Domain\\Model\\User\\FrontendUser', 'a');
+		$this->registerTagAttribute('subscribedUser', 'Mittwald\\MmForum\\Domain\\Model\\User\\FrontendUser[]', 'a');
 	}
 
 	/**

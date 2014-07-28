@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\Forum;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -39,7 +41,7 @@
  *
  */
 
-class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 
 
@@ -49,7 +51,7 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\Domain
 
 	/**
 	 * The attachment file name.
-	 * @var Tx_MmForum_Domain_Model_Forum_Post
+	 * @var \Mittwald\MmForum\Domain\Model\Forum\Post
 	 * @lazy
 	 */
 	protected $post;
@@ -107,7 +109,7 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\Domain
 
 	/**
 	 * Gets the attachment's filename on file system.
-	 * @return Tx_MmForum_Domain_Model_Forum_Post
+	 * @return \Mittwald\MmForum\Domain\Model\Forum\Post
 	 */
 	public function getPost() {
 		return $this->post;
@@ -251,7 +253,7 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\Domain
 	/**
 	 * Sets the filename on file system.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Post $post
 	 * @return void
 	 */
 	public function setPost($post) {

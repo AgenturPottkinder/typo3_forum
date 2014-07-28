@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\TextParser\Service;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -42,7 +44,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_MmForum_TextParser_Service_AbstractTextParserService extends Tx_MmForum_Service_AbstractService {
+abstract class AbstractTextParserService extends \Mittwald\MmForum\Service\AbstractService {
 
 
 

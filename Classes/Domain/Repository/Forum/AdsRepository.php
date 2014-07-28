@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Repository\Forum;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -40,12 +42,12 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Repository_Forum_AdsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class AdsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 	/**
 	 * Find all advertisements for the forum view (random sort)
 	 * @param int $limit How many results should come back
-	 * @return Tx_MmForum_Domain_Model_Forum_Ads[]
+	 * @return \Mittwald\MmForum\Domain\Model\Forum\Ads[]
 	 */
 	public function findForForumView($limit = 0) {
 		return $this->findAdsByCategories(array(0, 1), $limit);
@@ -55,7 +57,7 @@ class Tx_MmForum_Domain_Repository_Forum_AdsRepository extends \TYPO3\CMS\Extbas
 	/**
 	 * Find all advertisements for the topic view (random sort)
 	 * @param int $limit How many results should come back
-	 * @return Tx_MmForum_Domain_Model_Forum_Ads[]
+	 * @return \Mittwald\MmForum\Domain\Model\Forum\Ads[]
 	 */
 	public function findForTopicView($limit = 0) {
 		return $this->findAdsByCategories(array(0, 2), $limit);
@@ -68,7 +70,7 @@ class Tx_MmForum_Domain_Repository_Forum_AdsRepository extends \TYPO3\CMS\Extbas
 	 *
 	 * @param array $categories Which categories should be shown? (0=all,1=forum,2=topic)
 	 * @param int How many results should come back
-	 * @return Tx_MmForum_Domain_Model_Forum_Ads[]
+	 * @return \Mittwald\MmForum\Domain\Model\Forum\Ads[]
 	 */
 	private function findAdsByCategories(array $categories = array(), $limit = 1) {
 		if(empty($categories)) $categories = array(0);

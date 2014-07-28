@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -41,18 +43,18 @@
  *                 http://opensource.org/licenses/gpl-license.php
  */
 
-interface Tx_MmForum_Domain_Model_AccessibleInterface {
+interface AccessibleInterface {
 
 
 
 	/**
 	 * Checks if a certain frontend user has access to a specific operation.
 	 *
-	 * @param \Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param \\Mittwald\MmForum\Domain\Model\User\FrontendUser $user
 	 * @param string                                     $accessType
 	 *
 	 * @return boolean
 	 */
-	public function checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'read');
+	public function checkAccess(\Mittwald\MmForum\Domain\Model\User\FrontendUser $user = NULL, $accessType = 'read');
 
 }

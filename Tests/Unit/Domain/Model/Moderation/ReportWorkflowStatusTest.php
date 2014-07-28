@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\Moderation;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -26,25 +28,25 @@
 
 
 
-class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatusTest extends Tx_MmForum_Unit_BaseTestCase {
+class ReportWorkflowStatusTest extends \Mittwald\MmForum\Unit\BaseTestCase {
 
 
 
 	/**
-	 * @var Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus
+	 * @var \Mittwald\MmForum\Domain\Model\Moderation\ReportWorkflowStatus
 	 */
 	protected $fixture = NULL;
 
 
 
 	public function setUp() {
-		$this->fixture = new Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus();
+		$this->fixture = new ReportWorkflowStatus();
 	}
 
 
 
 	public function testConstructorSetsNameInitialAndFinal() {
-		$this->fixture = new Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus('FOO', TRUE, TRUE);
+		$this->fixture = new ReportWorkflowStatus('FOO', TRUE, TRUE);
 		$this->assertEquals('FOO', $this->fixture->getName());
 		$this->assertTrue($this->fixture->isInitial());
 		$this->assertTrue($this->fixture->isFinal());

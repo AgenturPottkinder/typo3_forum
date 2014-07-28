@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\Forum;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -25,11 +27,11 @@
  *                                                                      */
 
 
-class Tx_MmForum_Domain_Model_Forum_TopicTest extends Tx_MmForum_Unit_BaseTestCase {
+class TopicTest extends \Mittwald\MmForum\Unit\BaseTestCase {
 
 
 	/**
-	 * @var Tx_MmForum_Domain_Model_Forum_Topic
+	 * @var \Mittwald\MmForum\Domain\Model\Forum\Topic
 	 */
 	protected $fixture = NULL;
 
@@ -41,13 +43,13 @@ class Tx_MmForum_Domain_Model_Forum_TopicTest extends Tx_MmForum_Unit_BaseTestCa
 
 
 	/**
-	 * @var Tx_MmForum_Service_Authentication_AuthenticationServiceInterface
+	 * @var \Mittwald\MmForum\Service\Authentication\AuthenticationServiceInterface
 	 */
 	protected $authenticationService;
 
 
 	public function setUp() {
-		$this->fixture = $this->objectManager->create('Tx_MmForum_Domain_Model_Forum_Topic');
+		$this->fixture = $this->objectManager->create('Mittwald\\MmForum\\Domain\\Model\\Forum\\Topic');
 	}
 
 
@@ -57,7 +59,7 @@ class Tx_MmForum_Domain_Model_Forum_TopicTest extends Tx_MmForum_Unit_BaseTestCa
 
 
 	public function testConstructorSetsSubject() {
-		$this->fixture = new Tx_MmForum_Domain_Model_Forum_Topic('FOO');
+		$this->fixture = new Topic('FOO');
 		$this->assertEquals('FOO', $this->fixture->getSubject());
 	}
 
@@ -76,19 +78,19 @@ class Tx_MmForum_Domain_Model_Forum_TopicTest extends Tx_MmForum_Unit_BaseTestCa
 
 
 	public function testGetDescriptionReturnsContentOfFirstPost() {
-		$this->fixture->addPost(new Tx_MmForum_Domain_Model_Forum_Post('BAZ'));
+		$this->fixture->addPost(new Post('BAZ'));
 		$this->assertEquals('BAZ', $this->fixture->getDescription());
 	}
 
 
 	public function testSetAuthorSetsAuthor() {
-		$this->fixture->setAuthor($user = new Tx_MmForum_Domain_Model_User_FrontendUser('martin'));
+		$this->fixture->setAuthor($user = new \Mittwald\MmForum\Domain\Model\User\FrontendUser('martin'));
 		$this->assertTrue($this->fixture->getAuthor() === $user);
 	}
 
 
 	public function testSetForumSetsForum() {
-		$this->fixture->setForum($forum = new Tx_MmForum_Domain_Model_Forum_Forum('FORUM'));
+		$this->fixture->setForum($forum = new Forum('FORUM'));
 		$this->assertTrue($this->fixture->getForum() === $forum);
 	}
 
@@ -112,7 +114,7 @@ class Tx_MmForum_Domain_Model_Forum_TopicTest extends Tx_MmForum_Unit_BaseTestCa
 
 
 	public function testAddPostAddsPost() {
-		$this->fixture->addPost($post = new Tx_MmForum_Domain_Model_Forum_Post('CONTENT'));
+		$this->fixture->addPost($post = new Post('CONTENT'));
 		$this->assertContains($post, $this->fixture->getPosts());
 		$this->assertEquals(1, count($this->fixture->getPosts()));
 	}
@@ -122,7 +124,7 @@ class Tx_MmForum_Domain_Model_Forum_TopicTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @depends testAddPostAddsPost
 	 */
 	public function testAddPostRefreshesCounterAndReferencesForFirstPost() {
-		$this->fixture->addPost($post = new Tx_MmForum_Domain_Model_Forum_Post('CONTENT'));
+		$this->fixture->addPost($post = new Post('CONTENT'));
 		$this->assertEquals(1, $this->fixture->getPostCount());
 		$this->assertTrue($this->fixture->getLastPost() === $post);
 	}
@@ -132,7 +134,7 @@ class Tx_MmForum_Domain_Model_Forum_TopicTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @depends testAddPostAddsPost
 	 */
 	public function testGetReplyCountReturnsPostCountMinusOne() {
-		$this->fixture->addPost($post = new Tx_MmForum_Domain_Model_Forum_Post('CONTENT'));
+		$this->fixture->addPost($post = new Post('CONTENT'));
 		$this->assertEquals(0, $this->fixture->getReplyCount());
 	}
 
@@ -141,7 +143,7 @@ class Tx_MmForum_Domain_Model_Forum_TopicTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @depends testAddPostRefreshesCounterAndReferencesForFirstPost
 	 */
 	public function testAddPostRefreshesCounterAndReferencesForLaterPost() {
-		$post = new Tx_MmForum_Domain_Model_Forum_Post('CONTENT_2');
+		$post = new Post('CONTENT_2');
 		$post->_setProperty('crdate', new DateTime('tomorrow'));
 		$this->testAddPostRefreshesCounterAndReferencesForFirstPost();
 		$this->fixture->addPost($post);
@@ -154,10 +156,10 @@ class Tx_MmForum_Domain_Model_Forum_TopicTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @depends testAddPostAddsPost
 	 */
 	public function testAddPostRefreshesForumPostCounterAndReference() {
-		$forum = new Tx_MmForum_Domain_Model_Forum_Forum();
+		$forum = new Forum();
 
 		$this->fixture->setForum($forum);
-		$this->fixture->addPost($post = new Tx_MmForum_Domain_Model_Forum_Post('CONTENT'));
+		$this->fixture->addPost($post = new Post('CONTENT'));
 
 		$this->assertEquals(1, $forum->getPostCount());
 		$this->assertTrue($forum->getLastPost() === $post);
@@ -166,10 +168,10 @@ class Tx_MmForum_Domain_Model_Forum_TopicTest extends Tx_MmForum_Unit_BaseTestCa
 
 	/**
 	 * @depends           testAddPostAddsPost
-	 * @expectedException Tx_MmForum_Domain_Exception_InvalidOperationException
+	 * @expectedException \Mittwald\MmForum\Domain\Exception\InvalidOperationException
 	 */
 	public function testRemovePostThrowsExceptionWhenRemovingLastPost() {
-		$this->fixture->addPost($post = new Tx_MmForum_Domain_Model_Forum_Post('CONTENT'));
+		$this->fixture->addPost($post = new Post('CONTENT'));
 		$this->fixture->removePost($post);
 
 		$this->assertEquals(0, $this->fixture->getPostCount());
@@ -181,9 +183,9 @@ class Tx_MmForum_Domain_Model_Forum_TopicTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @depends testAddPostAddsPost
 	 */
 	public function testRemovePostRemovesNonlastPost() {
-		$post2 = new Tx_MmForum_Domain_Model_Forum_Post('CONTENT');
+		$post2 = new Post('CONTENT');
 		$post2->_setProperty('crdate', new DateTime('tomorrow'));
-		$this->fixture->addPost($post1 = new Tx_MmForum_Domain_Model_Forum_Post('CONTENT'));
+		$this->fixture->addPost($post1 = new Post('CONTENT'));
 		$this->fixture->addPost($post2);
 		$this->fixture->removePost($post2);
 
@@ -196,11 +198,11 @@ class Tx_MmForum_Domain_Model_Forum_TopicTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @depends testAddPostRefreshesForumPostCounterAndReference
 	 */
 	public function testRemovePostRefreshesForumPostCounterAndReference() {
-		$forum = new Tx_MmForum_Domain_Model_Forum_Forum();
-		$post2 = new Tx_MmForum_Domain_Model_Forum_Post('CONTENT');
+		$forum = new Forum();
+		$post2 = new Post('CONTENT');
 		$post2->_setProperty('crdate', new DateTime('tomorrow'));
 
-		$this->fixture->addPost($post1 = new Tx_MmForum_Domain_Model_Forum_Post('CONTENT'));
+		$this->fixture->addPost($post1 = new Post('CONTENT'));
 		$forum->addTopic($this->fixture);
 		$this->fixture->addPost($post2);
 		$this->fixture->removePost($post2);
@@ -216,7 +218,7 @@ class Tx_MmForum_Domain_Model_Forum_TopicTest extends Tx_MmForum_Unit_BaseTestCa
 
 
 	public function testAddReaderAddsReader() {
-		$this->fixture->addReader($reader = new Tx_MmForum_Domain_Model_User_FrontendUser('martin'));
+		$this->fixture->addReader($reader = new \Mittwald\MmForum\Domain\Model\User\FrontendUser('martin'));
 		$this->assertTrue($this->fixture->hasBeenReadByUser($reader));
 	}
 
@@ -226,8 +228,8 @@ class Tx_MmForum_Domain_Model_Forum_TopicTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @depends testAddReaderAddsReader
 	 */
 	public function testAddPostRemovesAllReaders() {
-		$this->fixture->addReader($reader = new Tx_MmForum_Domain_Model_User_FrontendUser('martin'));
-		$this->fixture->addPost($post = new Tx_MmForum_Domain_Model_Forum_Post('CONTENT'));
+		$this->fixture->addReader($reader = new \Mittwald\MmForum\Domain\Model\User\FrontendUser('martin'));
+		$this->fixture->addPost($post = new Post('CONTENT'));
 		$this->assertFalse($this->fixture->hasBeenReadByUser($reader));
 	}
 
@@ -236,7 +238,7 @@ class Tx_MmForum_Domain_Model_Forum_TopicTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @depends testAddReaderAddsReader
 	 */
 	public function testRemoveReaderRemovesReader() {
-		$this->fixture->addReader($reader = new Tx_MmForum_Domain_Model_User_FrontendUser('martin'));
+		$this->fixture->addReader($reader = new \Mittwald\MmForum\Domain\Model\User\FrontendUser('martin'));
 		$this->fixture->removeReader($reader);
 		$this->assertFalse($this->fixture->hasBeenReadByUser($reader));
 	}
@@ -246,14 +248,14 @@ class Tx_MmForum_Domain_Model_Forum_TopicTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @depends testAddReaderAddsReader
 	 */
 	public function testRemoveAllReadersRemovesAllReaders() {
-		$this->fixture->addReader($reader = new Tx_MmForum_Domain_Model_User_FrontendUser('martin'));
+		$this->fixture->addReader($reader = new \Mittwald\MmForum\Domain\Model\User\FrontendUser('martin'));
 		$this->fixture->removeAllReaders();
 		$this->assertFalse($this->fixture->hasBeenReadByUser($reader));
 	}
 
 
 	public function testAddSubscriberAddsSubscriber() {
-		$this->fixture->addSubscriber($subscriber = new Tx_MmForum_Domain_Model_User_FrontendUser('martin123'));
+		$this->fixture->addSubscriber($subscriber = new \Mittwald\MmForum\Domain\Model\User\FrontendUser('martin123'));
 		$this->assertEquals(1, count($this->fixture->getSubscribers()));
 		$this->assertContains($subscriber, $this->fixture->getSubscribers());
 	}
@@ -263,7 +265,7 @@ class Tx_MmForum_Domain_Model_Forum_TopicTest extends Tx_MmForum_Unit_BaseTestCa
 	 * @depends testAddSubscriberAddsSubscriber
 	 */
 	public function testRemoveSubscriberRemovesSubscriber() {
-		$this->fixture->addSubscriber($subscriber = new Tx_MmForum_Domain_Model_User_FrontendUser('martin123'));
+		$this->fixture->addSubscriber($subscriber = new \Mittwald\MmForum\Domain\Model\User\FrontendUser('martin123'));
 		$this->fixture->removeSubscriber($subscriber);
 		$this->assertEquals(0, count($this->fixture->getSubscribers()));
 		$this->assertNotContains($subscriber, $this->fixture->getSubscribers());
@@ -271,7 +273,7 @@ class Tx_MmForum_Domain_Model_Forum_TopicTest extends Tx_MmForum_Unit_BaseTestCa
 
 
 	public function testGetRootlineReturnsParentsAndSelf() {
-		$forum = new Tx_MmForum_Domain_Model_Forum_Forum();
+		$forum = new Forum();
 		$this->fixture->setForum($forum);
 
 		$rootline = $this->fixture->getRootline(TRUE);
@@ -286,10 +288,10 @@ class Tx_MmForum_Domain_Model_Forum_TopicTest extends Tx_MmForum_Unit_BaseTestCa
 
 
 	public function testDeniesNewPostAccessOnClosedTopicsToRegularUsersWithAccess() {
-		/** @var $forum Tx_MmForum_Domain_Model_Forum_Forum */
-		$forum = $this->objectManager->create('Tx_MmForum_Domain_Model_Forum_Forum');
-		$forum->addAcl(new Tx_MmForum_Domain_Model_Forum_Access('newPost', Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN));
-		$user = new Tx_MmForum_Domain_Model_User_FrontendUser('martin');
+		/** @var $forum \Mittwald\MmForum\Domain\Model\Forum\Forum */
+		$forum = $this->objectManager->create('Mittwald\\MmForum\\Domain\\Model\\Forum\\Forum');
+		$forum->addAcl(new Access('newPost', Access::LOGIN_LEVEL_ANYLOGIN));
+		$user = new \Mittwald\MmForum\Domain\Model\User\FrontendUser('martin');
 
 		$this->fixture->setForum($forum);
 		$this->fixture->setClosed(TRUE);
@@ -299,10 +301,10 @@ class Tx_MmForum_Domain_Model_Forum_TopicTest extends Tx_MmForum_Unit_BaseTestCa
 
 
 	public function testGrantsNewPostAccessOnClosedTopicsToModeratorUsers() {
-		$user = new Tx_MmForum_Domain_Model_User_FrontendUser('martin');
-		$user->addUsergroup($group = new Tx_MmForum_Domain_Model_User_FrontendUserGroup('group'));
-		$forum = new Tx_MmForum_Domain_Model_Forum_Forum();
-		$forum->addAcl(new Tx_MmForum_Domain_Model_Forum_Access('moderate', Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_SPECIFIC, $group));
+		$user = new \Mittwald\MmForum\Domain\Model\User\FrontendUser('martin');
+		$user->addUsergroup($group = new \Mittwald\MmForum\Domain\Model\User\FrontendUserGroup('group'));
+		$forum = new Forum();
+		$forum->addAcl(new Access('moderate', Access::LOGIN_LEVEL_SPECIFIC, $group));
 
 		$this->fixture->setForum($forum);
 		$this->fixture->setClosed(TRUE);
@@ -312,10 +314,10 @@ class Tx_MmForum_Domain_Model_Forum_TopicTest extends Tx_MmForum_Unit_BaseTestCa
 
 
 	public function testDelegatesAccessChecksOtherThanNewpostToParentForum() {
-		$user = new Tx_MmForum_Domain_Model_User_FrontendUser('martin');
-		$forum = $this->getMock('Tx_MmForum_Domain_Model_Forum_Forum');
+		$user = new \Mittwald\MmForum\Domain\Model\User\FrontendUser('martin');
+		$forum = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Forum');
 		$forum->expects($this->atLeastOnce())->method('checkAccess')
-			->with(self::isInstanceOf('Tx_MmForum_Domain_Model_User_FrontendUser'), 'read')
+			->with(self::isInstanceOf('Mittwald\\MmForum\\Domain\\Model\\User\\FrontendUser'), 'read')
 			->will($this->returnValue(FALSE));
 
 		$this->fixture->setForum($forum);
@@ -324,12 +326,12 @@ class Tx_MmForum_Domain_Model_Forum_TopicTest extends Tx_MmForum_Unit_BaseTestCa
 
 
 	public function testGetAuthorReturnsAnonymousUserIfNoAuthorIsSet() {
-		$this->assertInstanceOf('Tx_MmForum_Domain_Model_User_AnonymousFrontendUser', $this->fixture->getAuthor());
+		$this->assertInstanceOf('Mittwald\\MmForum\\Domain\\Model\\User\\AnonymousFrontendUser', $this->fixture->getAuthor());
 	}
 
 
 	public function testGetAuthorReturnsAnonymousUserFromFirstPostIfNoAuthorIsSet() {
-		$post = new Tx_MmForum_Domain_Model_Forum_Post();
+		$post = new Post();
 		$post->setAuthorName('martin');
 		$this->fixture->addPost($post);
 		$this->assertEquals('martin', $this->fixture->getAuthor()->getUsername());

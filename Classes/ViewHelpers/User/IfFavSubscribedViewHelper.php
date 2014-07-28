@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\ViewHelpers\User;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -44,7 +46,7 @@
  *
  */
 
-class Tx_MmForum_ViewHelpers_User_IfFavSubscribedViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\IfViewHelper {
+class IfFavSubscribedViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\IfViewHelper {
 
 
 
@@ -53,18 +55,18 @@ class Tx_MmForum_ViewHelpers_User_IfFavSubscribedViewHelper extends \TYPO3\CMS\F
 	 * Renders the contents of this view helper, when a user has subscribed a
 	 * specific subscribeable object.
 	 *
-	 * @param Tx_MmForum_Domain_Model_SubscribeableInterface $object
+	 * @param \Mittwald\MmForum\Domain\Model\SubscribeableInterface $object
 	 *                             The object that needs to be subscribed in order
 	 *                             for the contents to be rendered.
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser      $user
+	 * @param \Mittwald\MmForum\Domain\Model\User\FrontendUser      $user
 	 * @return string
 	 *
 	 */
 
-	public function render(Tx_MmForum_Domain_Model_SubscribeableInterface $object,
-	                       Tx_MmForum_Domain_Model_User_FrontendUser      $user = NULL) {
+	public function render(\Mittwald\MmForum\Domain\Model\SubscribeableInterface $object,
+	                       \Mittwald\MmForum\Domain\Model\User\FrontendUser      $user = NULL) {
 		if ($user === NULL) {
-			$user =& \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_MmForum_Domain_Repository_User_FrontendUserRepository')->findCurrent();
+			$user =& \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Mittwald\\MmForum\\Domain\\Repository\\User\\FrontendUserRepository')->findCurrent();
 		}
 		foreach ($object->getFavSubscribers() As $subscriber) {
 			if ($subscriber->getUid() == $user->getUid()) {

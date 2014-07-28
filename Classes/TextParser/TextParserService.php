@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\TextParser;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -43,7 +45,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_TextParser_TextParserService extends Tx_MmForum_Service_AbstractService {
+class TextParserService extends \Mittwald\MmForum\Service\AbstractService {
 
 
 
@@ -65,7 +67,7 @@ class Tx_MmForum_TextParser_TextParserService extends Tx_MmForum_Service_Abstrac
 	 * An instance of the mm_forum typoscript reader. Is used to read the
 	 * text parser's tyoscript configuration.
 	 *
-	 * @var Tx_MmForum_Utility_TypoScript
+	 * @var \Mittwald\MmForum\Utility\TypoScript
 	 */
 	protected $typoscriptReader;
 
@@ -73,7 +75,7 @@ class Tx_MmForum_TextParser_TextParserService extends Tx_MmForum_Service_Abstrac
 
 	/**
 	 * An array of the parsing services that are to be used to render text input.
-	 * @var array<Tx_MmForum_TextParser_Service_AbstractTextParserService>
+	 * @var array<\Mittwald\MmForum\TextParser\Service\AbstractTextParserService>
 	 */
 	protected $parsingServices;
 
@@ -118,9 +120,9 @@ class Tx_MmForum_TextParser_TextParserService extends Tx_MmForum_Service_Abstrac
 
 	/**
 	 * Injects the mm_forum typoscript reader.
-	 * @param Tx_MmForum_Utility_TypoScript $typoscriptReader The typoscript reader.
+	 * @param \Mittwald\MmForum\Utility\TypoScript $typoscriptReader The typoscript reader.
 	 */
-	public function injectTyposcriptReader(Tx_MmForum_Utility_TypoScript $typoscriptReader) {
+	public function injectTyposcriptReader(\Mittwald\MmForum\Utility\TypoScript $typoscriptReader) {
 		$this->typoscriptReader = $typoscriptReader;
 	}
 
@@ -169,14 +171,14 @@ class Tx_MmForum_TextParser_TextParserService extends Tx_MmForum_Service_Abstrac
 				continue;
 			}
 
-			/** @var $newService Tx_MmForum_TextParser_Service_AbstractTextParserService */
+			/** @var $newService \Mittwald\MmForum\TextParser\Service\AbstractTextParserService */
 			$newService = $this->objectManager->get($className);
-			if ($newService instanceof Tx_MmForum_TextParser_Service_AbstractTextParserService) {
+			if ($newService instanceof \Mittwald\MmForum\TextParser\Service\AbstractTextParserService) {
 				$newService->setSettings((array)$this->settings['enabledServices.'][$key . '.']);
 				$newService->setControllerContext($this->controllerContext);
 				$this->parsingServices[] = $newService;
 			} else {
-				throw new Tx_MmForum_Domain_Exception_TextParser_Exception('Invalid class; expected an instance of Tx_MmForum_TextParser_Service_AbstractTextParserService!', 1315916625);
+				throw new \Mittwald\MmForum\Domain\Exception\TextParser\Exception('Invalid class; expected an instance of Mittwald\\MmForum\\TextParser\\Service\\AbstractTextParserService!', 1315916625);
 			}
 		}
 	}
@@ -191,12 +193,12 @@ class Tx_MmForum_TextParser_TextParserService extends Tx_MmForum_Service_Abstrac
 	 */
 	public function parseText($text) {
 		if ($this->settings === NULL) {
-			throw new Tx_MmForum_Domain_Exception_TextParser_Exception
+			throw new \Mittwald\MmForum\Domain\Exception\TextParser\Exception
 			("The textparser is not configured!", 1284730639);
 		}
 
 		foreach ($this->parsingServices as &$parsingService) {
-			/** @var $parsingService Tx_MmForum_TextParser_Service_AbstractTextParserService */
+			/** @var $parsingService \Mittwald\MmForum\TextParser\Service\AbstractTextParserService */
 			$text = $parsingService->getParsedText($text);
 		}
 		return $text;

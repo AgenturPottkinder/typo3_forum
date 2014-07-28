@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Repository\Moderation;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -42,5 +44,5 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Repository_Moderation_UserReportRepository extends Tx_MmForum_Domain_Repository_AbstractRepository {
+class UserReportRepository extends \Mittwald\MmForum\Domain\Repository\AbstractRepository {
 }

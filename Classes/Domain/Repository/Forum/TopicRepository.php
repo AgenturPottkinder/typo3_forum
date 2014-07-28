@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Repository\Forum;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -42,7 +44,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Domain_Repository_AbstractRepository {
+class TopicRepository extends \Mittwald\MmForum\Domain\Repository\AbstractRepository {
 
 
 
@@ -57,7 +59,7 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 	 * @param  integer $limit
 	 * @param  array $orderings
 	 *
-	 * @return Array<Tx_MmForum_Domain_Model_Forum_Topic>
+	 * @return Array<\Mittwald\MmForum\Domain\Model\Forum\Topic>
 	 *                               The selected subset of posts
 	 *
 	 */
@@ -79,7 +81,7 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 	 *
 	 * @param  array $uids
 	 *
-	 * @return Tx_MmForum_Domain_Model_Forum_Topic[]
+	 * @return \Mittwald\MmForum\Domain\Model\Forum\Topic[]
 	 *                               The selected subset of topcis
 	 *
 	 */
@@ -100,12 +102,12 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 	/**
 	 * Finds topics for the forum show view. Page navigation is possible.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 * @param  \Mittwald\MmForum\Domain\Model\Forum\Forum $forum
 	 *                               The forum for which to load the topics.
-	 * @return Tx_MmForum_Domain_Model_Forum_Topic[]
+	 * @return \Mittwald\MmForum\Domain\Model\Forum\Topic[]
 	 *                               The selected subset of topics.
 	 */
-	public function findForIndex(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
+	public function findForIndex(\Mittwald\MmForum\Domain\Model\Forum\Forum $forum) {
 		$query = $this->createQuery();
 		$query
 			->matching($query->equals('forum', $forum))
@@ -119,11 +121,11 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 	 *
 	 * @param null $limit
 	 * @param bool $showAnswered
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 * @return Tx_MmForum_Domain_Model_Forum_Topic[]
+	 * @param \Mittwald\MmForum\Domain\Model\User\FrontendUser $user
+	 * @return \Mittwald\MmForum\Domain\Model\Forum\Topic[]
 	 */
 
-	public function findQuestions($limit = NULL, $showAnswered = FALSE, Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
+	public function findQuestions($limit = NULL, $showAnswered = FALSE, \Mittwald\MmForum\Domain\Model\User\FrontendUser $user = NULL) {
 
 		$query = $this->createQuery();
 
@@ -148,13 +150,13 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 	 * Finds topics by post authors, i.e. all topics that contain at least one post
 	 * by a specific author. Page navigation is possible.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param  \Mittwald\MmForum\Domain\Model\User\FrontendUser $user
 	 *                               The frontend user whose topics are to be loaded.
-	 * @return Tx_MmForum_Domain_Model_Forum_Topic[]
+	 * @return \Mittwald\MmForum\Domain\Model\Forum\Topic[]
 	 *                               All topics that contain a post by the specified
 	 *                               user.
 	 */
-	public function findByPostAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+	public function findByPostAuthor(\Mittwald\MmForum\Domain\Model\User\FrontendUser $user) {
 		$query = $this->createQuery();
 		$query
 			->matching($query->equals('posts.author', $user))
@@ -168,14 +170,14 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 	 * Finds topics by post authors, i.e. all topics that contain at least one post
 	 * by a specific author. Page navigation is possible.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param  \Mittwald\MmForum\Domain\Model\User\FrontendUser $user
 	 *                               The frontend user whose topics are to be loaded.
 	 * @param int $limit
-	 * @return Tx_MmForum_Domain_Model_Forum_Topic[]
+	 * @return \Mittwald\MmForum\Domain\Model\Forum\Topic[]
 	 *                               All topics that contain a post by the specified
 	 *                               user.
 	 */
-	public function findTopicsCreatedByAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $user, $limit=0) {
+	public function findTopicsCreatedByAuthor(\Mittwald\MmForum\Domain\Model\User\FrontendUser $user, $limit=0) {
 		$query = $this->createQuery();
 		$query
 			->matching($query->equals('author', $user))
@@ -190,14 +192,14 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 	 * Finds topics by post authors, i.e. all topics that contain at least one post
 	 * by a specific author. Page navigation is possible.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param  \Mittwald\MmForum\Domain\Model\User\FrontendUser $user
 	 *                               The frontend user whose topics are to be loaded.
 	 * @param int $limit
-	 * @return Tx_MmForum_Domain_Model_Forum_Topic[]
+	 * @return \Mittwald\MmForum\Domain\Model\Forum\Topic[]
 	 *                               All topics that contain a post by the specified
 	 *                               user.
 	 */
-	public function findTopicsFavSubscribedByUser(Tx_MmForum_Domain_Model_User_FrontendUser $user, $limit=0) {
+	public function findTopicsFavSubscribedByUser(\Mittwald\MmForum\Domain\Model\User\FrontendUser $user, $limit=0) {
 		$query = $this->createQuery();
 		$query
 			->matching($query->contains('favSubscribers', $user))
@@ -214,12 +216,12 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 	/**
 	 * Counts topics by post authors. See findByPostAuthor.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param  \Mittwald\MmForum\Domain\Model\User\FrontendUser $user
 	 *                               The frontend user whose topics are to be loaded.
 	 * @return integer               The number of topics that contain a post by the
 	 *                               specified user.
 	 */
-	public function countByPostAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+	public function countByPostAuthor(\Mittwald\MmForum\Domain\Model\User\FrontendUser $user) {
 		return $this
 			->findByPostAuthor($user)
 			->count();
@@ -230,11 +232,11 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 	/**
 	 * Counts all topics for the forum show view.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 * @param  \Mittwald\MmForum\Domain\Model\Forum\Forum $forum
 	 *                             The forum for which the topics are to be counted.
 	 * @return integer             The topic count.
 	 */
-	public function countForIndex(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
+	public function countForIndex(\Mittwald\MmForum\Domain\Model\Forum\Forum $forum) {
 		return $this->countByForum($forum);
 	}
 
@@ -243,12 +245,12 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 	/**
 	 * Finds all topic that have been subscribed by a certain user.
 	 *
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param \Mittwald\MmForum\Domain\Model\User\FrontendUser $user
 	 *                             The user for whom the subscribed topics are to be loaded.
 	 * @return Tx_Extbase_Persistence_QueryInterface
 	 *                             The topics subscribed by the given user.
 	 */
-	public function findBySubscriber(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+	public function findBySubscriber(\Mittwald\MmForum\Domain\Model\User\FrontendUser $user) {
 		$query = $this->createQuery();
 		$query
 			->matching($query->contains('subscribers', $user))
@@ -260,11 +262,11 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 	/**
 	 * Finds all topic that have a specific tag
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Tag $tag
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Tag $tag
 	 * @return Tx_Extbase_Persistence_QueryInterface
 	 *                             The topics of this tag.
 	 */
-	public function findAllTopicsWithGivenTag(Tx_MmForum_Domain_Model_Forum_Tag $tag) {
+	public function findAllTopicsWithGivenTag(\Mittwald\MmForum\Domain\Model\Forum\Tag $tag) {
 		$query = $this->createQuery();
 		$query
 			->matching($query->contains('tags', $tag))
@@ -304,16 +306,16 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 	 *
 	 * Finds the last topic in a forum.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 * @param  \Mittwald\MmForum\Domain\Model\Forum\Forum $forum
 	 *                             The forum for which to load the last topic.
 	 * @param int $offset
 	 * 								If you want to get the next to last topic topic
 	 *
-	 * @return Tx_MmForum_Domain_Model_Forum_Topic
+	 * @return \Mittwald\MmForum\Domain\Model\Forum\Topic
 	 *                             The last topic of the specified forum.
 	 *
 	 */
-	public function findLastByForum(Tx_MmForum_Domain_Model_Forum_Forum $forum, $offset=0) {
+	public function findLastByForum(\Mittwald\MmForum\Domain\Model\Forum\Forum $forum, $offset=0) {
 		$query = $this->createQuery();
 		$query->matching($query->equals('forum', $forum))
 			->setOrderings(array('last_post_crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING))->setLimit(1);
@@ -326,11 +328,11 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Forum $forum
+	 * @param \Mittwald\MmForum\Domain\Model\User\FrontendUser $user
 	 * @return array
 	 */
-	public function getUnreadTopics(Tx_MmForum_Domain_Model_Forum_Forum $forum, Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+	public function getUnreadTopics(\Mittwald\MmForum\Domain\Model\Forum\Forum $forum, \Mittwald\MmForum\Domain\Model\User\FrontendUser $user) {
 
 		$sql ='SELECT t.uid
 			   FROM tx_mmforum_domain_model_forum_topic AS t
@@ -345,11 +347,11 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Topic $topic
+	 * @param \Mittwald\MmForum\Domain\Model\User\FrontendUser $user
 	 * @return bool
 	 */
-	public function getTopicReadByUser(Tx_MmForum_Domain_Model_Forum_Topic $topic, Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+	public function getTopicReadByUser(\Mittwald\MmForum\Domain\Model\Forum\Topic $topic, \Mittwald\MmForum\Domain\Model\User\FrontendUser $user) {
 		$sql ='SELECT t.uid
 			   FROM tx_mmforum_domain_model_forum_topic AS t
 			   LEFT JOIN tx_mmforum_domain_model_user_readtopic AS rt

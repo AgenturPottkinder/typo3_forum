@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\Forum;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -35,11 +37,11 @@
 
  */
 
-class Tx_MmForum_Domain_Model_Forum_CriteriaOption extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class CriteriaOption extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * The criteria object.
-	 * @var Tx_MmForum_Domain_Model_Forum_Criteria
+	 * @var \Mittwald\MmForum\Domain\Model\Forum\Criteria
 	 */
 	protected $criteria;
 
@@ -59,7 +61,7 @@ class Tx_MmForum_Domain_Model_Forum_CriteriaOption extends \TYPO3\CMS\Extbase\Do
 
 	/**
 	 * Get the criteria object.
-	 * @return Tx_MmForum_Domain_Model_Forum_Criteria
+	 * @return \Mittwald\MmForum\Domain\Model\Forum\Criteria
 	 */
 	public function getCriteria() {
 		return $this->criteria;
@@ -86,10 +88,10 @@ class Tx_MmForum_Domain_Model_Forum_CriteriaOption extends \TYPO3\CMS\Extbase\Do
 	/**
 	 * Sets the criteria object.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Criteria $criteria The criteria object
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Criteria $criteria The criteria object
 	 * @return void
 	 */
-	public function setCriteria(Tx_MmForum_Domain_Model_Forum_Criteria $criteria) {
+	public function setCriteria(Criteria $criteria) {
 		$this->criteria = $criteria;
 	}
 

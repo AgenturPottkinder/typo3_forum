@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\ViewHelpers\Control;
+
 
 /* *
  *  COPYRIGHT NOTICE                                                    *
@@ -42,7 +44,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Control_SmallButtonViewHelper extends Tx_MmForum_ViewHelpers_Control_BigButtonViewHelper {
+class SmallButtonViewHelper extends BigButtonViewHelper {
 
 
 

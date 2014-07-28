@@ -51,7 +51,7 @@ if (!defined('TYPO3_MODE')) {
 
 # TCE-Main hook for clearing all mm_forum caches
 $TYPO3_CONF_VARS['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearCachePostProc'][]
-	= 'EXT:mm_forum/Classes/Cache/CacheManager.php:Tx_MmForum_Cache_CacheManager->clearAll';
+	= 'EXT:mm\\forum/Classes/Cache/CacheManager.php:Mittwald\\MmForum\\Cache\\CacheManager->clearAll';
 
 if (!is_array($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['mmforum_main'])) {
 	$TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['mmforum_main'] = array();
@@ -80,11 +80,11 @@ $TYPO3_CONF_VARS['FE']['eID_include']['mm_forum'] = 'EXT:mm_forum/Classes/Ajax/D
 // Connect signals to slots. Some parts of extbase suck, but the signal-slot
 // pattern is really cool! :P
 $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\SignalSlot\Dispatcher');
-$signalSlotDispatcher->connect('Tx_MmForum_Domain_Model_Forum_Post',
-							   'postCreated', 'Tx_MmForum_Service_Notification_SubscriptionListener',
+$signalSlotDispatcher->connect('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post',
+							   'postCreated', 'Mittwald\\MmForum\\Service\\Notification\\SubscriptionListener',
 							   'onPostCreated');
-$signalSlotDispatcher->connect('Tx_MmForum_Domain_Model_Forum_Topic',
-							   'topicCreated', 'Tx_MmForum_Service_Notification_SubscriptionListener',
+$signalSlotDispatcher->connect('Mittwald\\MmForum\\Domain\\Model\\Forum\\Topic',
+							   'topicCreated', 'Mittwald\\MmForum\\Service\\Notification\\SubscriptionListener',
 							   'onTopicCreated');
 
 // adding scheduler tasks

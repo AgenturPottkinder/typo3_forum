@@ -90,7 +90,7 @@ $TCA['tx_mmforum_domain_model_forum_access'] = array(
 			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_forum',
 			'config' => array(
 				'type' => 'select',
-				'foreign_class' => 'Tx_MmForum_Domain_Model_Forum_Forum',
+				'foreign_class' => 'Mittwald\\MmForum\\Domain\\Model\\Forum\\Forum',
 				'foreign_table' => 'tx_mmforum_domain_model_forum_forum',
 				'maxitems' => 1
 			)
@@ -101,7 +101,7 @@ $TCA['tx_mmforum_domain_model_forum_access'] = array(
 			'config'  => array(
 				'type' => 'select',
 				'foreign_table' => 'fe_groups',
-				'foreign_class' => 'Tx_MmForum_Domain_Model_User_FrontendUserGroup',
+				'foreign_class' => 'Mittwald\\MmForum\\Domain\\Model\\User\\FrontendUserGroup',
 				'maxitems' => 1
 			)
 		),

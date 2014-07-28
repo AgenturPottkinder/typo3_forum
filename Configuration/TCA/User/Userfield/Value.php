@@ -63,7 +63,7 @@ $TCA['tx_mmforum_domain_model_user_userfield_value'] = array(
 			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_userfield_value.user',
 			'config' => array(
 				'type' => 'select',
-				'foreign_class' => 'Tx_MmForum_Domain_Model_User_FrontendUser',
+				'foreign_class' => 'Mittwald\\MmForum\\Domain\\Model\\User\\FrontendUser',
 				'foreign_table' => 'fe_users',
 				'maxitems' => 1
 			)

@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Validator\Forum;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -40,14 +42,14 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Validator_Forum_PostValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
+class PostValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
 
 
 	/**
 	 * Check if $value is valid. If it is not valid, needs to add an error
 	 * to Result.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Post $post
 	 * @return void
 	 */
 	protected function isValid($post) {

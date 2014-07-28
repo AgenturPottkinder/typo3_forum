@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\TextParser\Service;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -43,7 +45,7 @@
  *
  */
 
-class Tx_MmForum_TextParser_Service_ListParserService extends Tx_MmForum_TextParser_Service_AbstractTextParserService {
+class ListParserService extends AbstractTextParserService {
 
 
 

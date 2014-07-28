@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\User;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -35,7 +37,7 @@
 
  */
 
-class Tx_MmForum_Domain_Model_User_Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * ATTRIBUTES
@@ -49,14 +51,14 @@ class Tx_MmForum_Domain_Model_User_Notification extends \TYPO3\CMS\Extbase\Domai
 
 	/**
 	 * User who is related with this notification
-	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @var \Mittwald\MmForum\Domain\Model\User\FrontendUser
 	 */
 	public $feuser;
 
 
 	/**
 	 * Post which is related with this notification
-	 * @var Tx_MmForum_Domain_Model_Forum_Post
+	 * @var \Mittwald\MmForum\Domain\Model\Forum\Post
 	 */
 	public $post;
 
@@ -64,7 +66,7 @@ class Tx_MmForum_Domain_Model_User_Notification extends \TYPO3\CMS\Extbase\Domai
 
 	/**
 	 * Tag which is related with this notification
-	 * @var Tx_MmForum_Domain_Model_Forum_Tag
+	 * @var \Mittwald\MmForum\Domain\Model\Forum\Tag
 	 */
 	public $tag;
 
@@ -104,21 +106,21 @@ class Tx_MmForum_Domain_Model_User_Notification extends \TYPO3\CMS\Extbase\Domai
 
 	/**
 	 * Get the User who is related with this notification
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @return \Mittwald\MmForum\Domain\Model\User\FrontendUser
 	 */
 	public function getFeuser() {
 		if ($this->feuser instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
 			$this->feuser->_loadRealInstance();
 		}
 		if ($this->feuser === NULL) {
-			$this->feuser = new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
+			$this->feuser = new AnonymousFrontendUser();
 		}
 		return $this->feuser;
 	}
 
 	/**
 	 * Get the Post which is related with this notification
-	 * @return Tx_MmForum_Domain_Model_Forum_Post
+	 * @return \Mittwald\MmForum\Domain\Model\Forum\Post
 	 */
 	public function getPost() {
 		return $this->post;
@@ -127,7 +129,7 @@ class Tx_MmForum_Domain_Model_User_Notification extends \TYPO3\CMS\Extbase\Domai
 
 	/**
 	 * Get the tag which is related with this notification
-	 * @return Tx_MmForum_Domain_Model_Forum_Tag
+	 * @return \Mittwald\MmForum\Domain\Model\Forum\Tag
 	 */
 	public function getTag() {
 		return $this->tag;
@@ -157,30 +159,30 @@ class Tx_MmForum_Domain_Model_User_Notification extends \TYPO3\CMS\Extbase\Domai
 
 	/**
 	 * Sets the user
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $feuser
+	 * @param \Mittwald\MmForum\Domain\Model\User\FrontendUser $feuser
 	 * @return void
 	 */
-	public function setFeuser(Tx_MmForum_Domain_Model_User_FrontendUser $feuser) {
+	public function setFeuser(FrontendUser $feuser) {
 		$this->feuser = $feuser;
 	}
 
 
 	/**
 	 * Sets the post
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Post $post
 	 * @return void
 	 */
-	public function setPost(Tx_MmForum_Domain_Model_Forum_Post $post) {
+	public function setPost(\Mittwald\MmForum\Domain\Model\Forum\Post $post) {
 		$this->post = $post;
 	}
 
 
 	/**
 	 * Set the tag
-	 * @param Tx_MmForum_Domain_Model_Forum_Tag $tag
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Tag $tag
 	 * @return void
 	 */
-	public function setTag(Tx_MmForum_Domain_Model_Forum_Tag $tag) {
+	public function setTag(\Mittwald\MmForum\Domain\Model\Forum\Tag $tag) {
 		$this->tag = $tag;
 	}
 

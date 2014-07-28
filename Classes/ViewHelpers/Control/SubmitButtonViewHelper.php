@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\ViewHelpers\Control;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -43,7 +45,7 @@
  *
  */
 
-class Tx_MmForum_ViewHelpers_Control_SubmitButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SubmitViewHelper {
+class SubmitButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SubmitViewHelper {
 
 
 

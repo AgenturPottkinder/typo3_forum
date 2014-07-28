@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Service\Mailing;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -42,7 +44,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Service_Mailing_PlainMailingService extends Tx_MmForum_Service_Mailing_AbstractMailingService {
+class PlainMailingService extends AbstractMailingService {
 
 
 
@@ -57,7 +59,7 @@ class Tx_MmForum_Service_Mailing_PlainMailingService extends Tx_MmForum_Service_
 	 *
 	 * @var string
 	 */
-	protected $format = Tx_MmForum_Service_Mailing_AbstractMailingService::MAILING_FORMAT_PLAIN;
+	protected $format = AbstractMailingService::MAILING_FORMAT_PLAIN;
 
 
 

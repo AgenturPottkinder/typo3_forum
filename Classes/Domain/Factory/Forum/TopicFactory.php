@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Factory\Forum;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -43,7 +45,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Factory_AbstractFactory {
+class TopicFactory extends \Mittwald\MmForum\Domain\Factory\AbstractFactory {
 
 
 	/*
@@ -53,35 +55,35 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 
 	/**
 	 * The frontend user repository
-	 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\ForumRepository
 	 */
 	protected $forumRepository = NULL;
 
 
 	/**
 	 * The post repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_PostRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\PostRepository
 	 */
 	protected $postRepository = NULL;
 
 
 	/**
 	 * The topic repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_TopicRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\TopicRepository
 	 */
 	protected $topicRepository = NULL;
 
 
 	/**
 	 * The post factory.
-	 * @var Tx_MmForum_Domain_Factory_Forum_PostFactory
+	 * @var \Mittwald\MmForum\Domain\Factory\Forum\PostFactory
 	 */
 	protected $postFactory = NULL;
 
 
 	/**
 	 * The criteria option repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_CriteriaOptionRepository
+	 * @var \Mittwald\MmForum\Domain\Repository\Forum\CriteriaOptionRepository
 	 */
 	protected $criteriaOptionRepository = NULL;
 
@@ -100,17 +102,17 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 	/**
 	 * Constructor.
 	 *
-	 * @param Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository
-	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository
-	 * @param Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository
-	 * @param Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory
-	 * @param Tx_MmForum_Domain_Repository_Forum_CriteriaOptionRepository $criteriaOptionRepository
+	 * @param \Mittwald\MmForum\Domain\Repository\Forum\ForumRepository $forumRepository
+	 * @param \Mittwald\MmForum\Domain\Repository\Forum\TopicRepository $topicRepository
+	 * @param \Mittwald\MmForum\Domain\Repository\Forum\PostRepository $postRepository
+	 * @param \Mittwald\MmForum\Domain\Factory\Forum\PostFactory $postFactory
+	 * @param \Mittwald\MmForum\Domain\Repository\Forum\CriteriaOptionRepository $criteriaOptionRepository
 	 */
-	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
-								Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
-								Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository,
-								Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory,
-								Tx_MmForum_Domain_Repository_Forum_CriteriaOptionRepository $criteriaOptionRepository) {
+	public function __construct(\Mittwald\MmForum\Domain\Repository\Forum\ForumRepository $forumRepository,
+								\Mittwald\MmForum\Domain\Repository\Forum\TopicRepository $topicRepository,
+								\Mittwald\MmForum\Domain\Repository\Forum\PostRepository $postRepository,
+								PostFactory $postFactory,
+								\Mittwald\MmForum\Domain\Repository\Forum\CriteriaOptionRepository $criteriaOptionRepository) {
 		$this->forumRepository = $forumRepository;
 		$this->topicRepository = $topicRepository;
 		$this->postRepository = $postRepository;
@@ -131,20 +133,20 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 	/**
 	 * Creates a new topic.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum      The forum in which the new topic is to be created.
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $firstPost  The first post of the new topic.
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Forum $forum      The forum in which the new topic is to be created.
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Post $firstPost  The first post of the new topic.
 	 * @param string $subject    The subject of the new topic
 	 * @param int $question   The flag if the new topic is declared as question
 	 * @param array $criteriaOptions    All submitted criteria with option.
 	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $tags All user defined tags
 	 * @param int $subscribe   The flag if the new topic is subscribed by author
 	 *
-	 * @return Tx_MmForum_Domain_Model_Forum_Topic The new topic.
+	 * @return \Mittwald\MmForum\Domain\Model\Forum\Topic The new topic.
 	 */
-	public function createTopic(Tx_MmForum_Domain_Model_Forum_Forum $forum,
-								Tx_MmForum_Domain_Model_Forum_Post $firstPost,
+	public function createTopic(\Mittwald\MmForum\Domain\Model\Forum\Forum $forum,
+								\Mittwald\MmForum\Domain\Model\Forum\Post $firstPost,
 								$subject, $question = 0, array $criteriaOptions = array(), $tags=NULL, $subscribe=0) {
-		/** @var $topic Tx_MmForum_Domain_Model_Forum_Topic */
+		/** @var $topic \Mittwald\MmForum\Domain\Model\Forum\Topic */
 		$topic = $this->getClassInstance();
 		$user = $this->getCurrentUser();
 
@@ -187,11 +189,11 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 
 	/**
 	 * Deletes a topic and all posts contained in it.
-	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Topic $topic
 	 */
-	public function deleteTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
+	public function deleteTopic(\Mittwald\MmForum\Domain\Model\Forum\Topic $topic) {
 		foreach ($topic->getPosts() as $post) {
-			/** @var $post Tx_MmForum_Domain_Model_Forum_Post */
+			/** @var $post \Mittwald\MmForum\Domain\Model\Forum\Post */
 			$post->getAuthor()->decreasePostCount();
 			$post->getAuthor()->decreasePoints(intval($this->settings['rankScore']['newPost']));
 			$this->frontendUserRepository->update($post->getAuthor());
@@ -229,16 +231,16 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 	/**
 	 * Creates a new shadow topic.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Topic $topic
+	 * @param  \Mittwald\MmForum\Domain\Model\Forum\Topic $topic
 	 *                                 The original topic. The newly created
 	 *                                 shadow topic will then point towards
 	 *                                 this topic.
-	 * @return Tx_MmForum_Domain_Model_Forum_ShadowTopic
+	 * @return \Mittwald\MmForum\Domain\Model\Forum\ShadowTopic
 	 *                                 The newly created shadow topic.
 	 */
-	public function createShadowTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
-		/** @var $shadowTopic Tx_MmForum_Domain_Model_Forum_ShadowTopic */
-		$shadowTopic = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_MmForum_Domain_Model_Forum_ShadowTopic');
+	public function createShadowTopic(\Mittwald\MmForum\Domain\Model\Forum\Topic $topic) {
+		/** @var $shadowTopic \Mittwald\MmForum\Domain\Model\Forum\ShadowTopic */
+		$shadowTopic = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Mittwald\\MmForum\\Domain\\Model\\Forum\\ShadowTopic');
 		$shadowTopic->setTarget($topic);
 
 		Return $shadowTopic;
@@ -251,15 +253,15 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 	 * topic.
 	 * @TODO: Has forumRepository->update() enough performance?
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic       The topic that is to be moved.
-	 * @param Tx_MmForum_Domain_Model_Forum_Forum $targetForum The target forum. The topic will be moved to this location.
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Topic $topic       The topic that is to be moved.
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Forum $targetForum The target forum. The topic will be moved to this location.
 	 *
 	 * @throws \TYPO3\CMS\Extbase\Object\InvalidClassException
 	 * @return void
 	 */
-	public function moveTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic,
-							  Tx_MmForum_Domain_Model_Forum_Forum $targetForum) {
-		if ($topic instanceof Tx_MmForum_Domain_Model_Forum_ShadowTopic) {
+	public function moveTopic(\Mittwald\MmForum\Domain\Model\Forum\Topic $topic,
+							  \Mittwald\MmForum\Domain\Model\Forum\Forum $targetForum) {
+		if ($topic instanceof \Mittwald\MmForum\Domain\Model\Forum\ShadowTopic) {
 			throw new \TYPO3\CMS\Extbase\Object\InvalidClassException("Topic is already a shadow topic", 1288702422);
 		}
 		$shadowTopic = $this->createShadowTopic($topic);
@@ -276,11 +278,11 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 	/**
 	 * Sets a post as solution
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Topic $topic
+	 * @param \Mittwald\MmForum\Domain\Model\Forum\Post $post
 	 * @return void
 	 */
-	public function setPostAsSolution(Tx_MmForum_Domain_Model_Forum_Topic $topic, Tx_MmForum_Domain_Model_Forum_Post $post) {
+	public function setPostAsSolution(\Mittwald\MmForum\Domain\Model\Forum\Topic $topic, \Mittwald\MmForum\Domain\Model\Forum\Post $post) {
 		$topic->setSolution($post);
 		$this->topicRepository->update($topic);
 		$this->forumRepository->update($topic->getForum());

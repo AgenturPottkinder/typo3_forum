@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\Format;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -40,8 +42,8 @@
  *
  */
 
-class Tx_MmForum_Domain_Model_Format_BBCode extends Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
-	implements Tx_MmForum_TextParser_Panel_MarkItUpExportableInterface {
+class BBCode extends AbstractTextParserElement
+	implements \Mittwald\MmForum\TextParser\Panel\MarkItUpExportableInterface {
 
 
 

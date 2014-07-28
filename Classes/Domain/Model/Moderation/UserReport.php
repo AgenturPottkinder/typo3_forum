@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\Moderation;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -48,34 +50,34 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Model_Moderation_UserReport extends Tx_MmForum_Domain_Model_Moderation_Report {
+class UserReport extends Report {
 
 	/**
 	 * A set of comments that are assigned to this report.
-	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @var \Mittwald\MmForum\Domain\Model\User\FrontendUser
 	 */
 	protected $feuser;
 
 
 	/**
 	 * Gets the topic to which the reported post belongs to.
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser Frontend User
+	 * @return \Mittwald\MmForum\Domain\Model\User\FrontendUser Frontend User
 	 */
 	public function getUser() {
 		if ($this->feuser instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
 			$this->feuser->_loadRealInstance();
 		}
 		if ($this->feuser === NULL) {
-			$this->feuser = new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
+			$this->feuser = new \Mittwald\MmForum\Domain\Model\User\AnonymousFrontendUser();
 		}
 		return $this->feuser;
 	}
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user.
+	 * @param \Mittwald\MmForum\Domain\Model\User\FrontendUser $user.
 	 * @return voidc.
 	 */
-	public function setUser(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+	public function setUser(\Mittwald\MmForum\Domain\Model\User\FrontendUser $user) {
 		$this->feuser = $user;
 	}
 

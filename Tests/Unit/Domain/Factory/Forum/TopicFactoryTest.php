@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Factory\Forum;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -25,11 +27,11 @@
  *                                                                      */
 
 
-class Tx_MmForum_Domain_Factory_Forum_TopicFactoryTest extends Tx_MmForum_Unit_BaseTestCase {
+class TopicFactoryTest extends \Mittwald\MmForum\Unit\BaseTestCase {
 
 
 	/**
-	 * @var Tx_MmForum_Domain_Factory_Forum_TopicFactory
+	 * @var \Mittwald\MmForum\Domain\Factory\Forum\TopicFactory
 	 */
 	protected $fixture;
 
@@ -41,15 +43,15 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactoryTest extends Tx_MmForum_Unit_B
 
 
 	public function setUp() {
-		$this->userRepositoryMock = $this->getMock('Tx_MmForum_Domain_Repository_User_FrontendUserRepository');
-		$this->forumRepositoryMock = $this->getMock('Tx_MmForum_Domain_Repository_Forum_ForumRepository');
-		$this->topicRepositoryMock = $this->getMock('Tx_MmForum_Domain_Repository_Forum_TopicRepository');
-		$this->postRepositoryMock = $this->getMock('Tx_MmForum_Domain_Repository_Forum_PostRepository');
-		$this->postFactoryMock = $this->getMock('Tx_MmForum_Domain_Factory_Forum_PostFactory');
-		$this->criteriaRepositoryMock = $this->getMock('Tx_MmForum_Domain_Repository_Forum_CriteriaOptionRepository');
+		$this->userRepositoryMock = $this->getMock('Mittwald\\MmForum\\Domain\\Repository\\User\\FrontendUserRepository');
+		$this->forumRepositoryMock = $this->getMock('Mittwald\\MmForum\\Domain\\Repository\\Forum\\ForumRepository');
+		$this->topicRepositoryMock = $this->getMock('Mittwald\\MmForum\\Domain\\Repository\\Forum\\TopicRepository');
+		$this->postRepositoryMock = $this->getMock('Mittwald\\MmForum\\Domain\\Repository\\Forum\\PostRepository');
+		$this->postFactoryMock = $this->getMock('Mittwald\\MmForum\\Domain\\Factory\\Forum\\PostFactory');
+		$this->criteriaRepositoryMock = $this->getMock('Mittwald\\MmForum\\Domain\\Repository\\Forum\\CriteriaOptionRepository');
 
 
-		$this->fixture = new Tx_MmForum_Domain_Factory_Forum_TopicFactory($this->forumRepositoryMock, $this->topicRepositoryMock, $this->postRepositoryMock, $this->postFactoryMock, $this->criteriaRepositoryMock);
+		$this->fixture = new TopicFactory($this->forumRepositoryMock, $this->topicRepositoryMock, $this->postRepositoryMock, $this->postFactoryMock, $this->criteriaRepositoryMock);
 		$this->fixture->injectObjectManager($this->objectManager);
 		$this->fixture->injectFrontendUserRepository($this->userRepositoryMock);
 	}
@@ -59,18 +61,18 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactoryTest extends Tx_MmForum_Unit_B
 	 * @test
 	 */
 	public function topicCanBeCreated() {
-		$forum = $this->getMock('Tx_MmForum_Domain_Model_Forum_Forum');
-		$user = $this->getMock('Tx_MmForum_Domain_Model_User_FrontendUser');
-		$option = new Tx_MmForum_Domain_Model_Forum_CriteriaOption();
+		$forum = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Forum');
+		$user = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\User\\FrontendUser');
+		$option = new \Mittwald\MmForum\Domain\Model\Forum\CriteriaOption();
 		$option->setName('test');
-		$option->setCriteria(new Tx_MmForum_Domain_Model_Forum_Criteria());
-		$post = new Tx_MmForum_Domain_Model_Forum_Post('Content');
+		$option->setCriteria(new \Mittwald\MmForum\Domain\Model\Forum\Criteria());
+		$post = new \Mittwald\MmForum\Domain\Model\Forum\Post('Content');
 		$post->setAuthor($user);
 
 		$forum->expects($this->once())->method('addTopic')
-			->with($this->isInstance('Tx_MmForum_Domain_Model_Forum_Topic'));
+			->with($this->isInstance('Mittwald\\MmForum\\Domain\\Model\\Forum\\Topic'));
 		$this->forumRepositoryMock->expects($this->once())->method('update')
-			->with($this->isInstance('Tx_MmForum_Domain_Model_Forum_Forum'));
+			->with($this->isInstance('Mittwald\\MmForum\\Domain\\Model\\Forum\\Forum'));
 		$this->userRepositoryMock->expects($this->any())->method('findCurrent')->will($this->returnValue($user));
 		$this->topicRepositoryMock->expects($this->any())->method('addCriteriaOption')
 			->with($option);
@@ -94,23 +96,23 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactoryTest extends Tx_MmForum_Unit_B
 	public function topicCanBeDeleted() {
 		$posts = array();
 		for ($i = 1; $i <= 5; $i++) {
-			$user = $this->getMock('Tx_MmForum_Domain_Model_User_FrontendUser');
+			$user = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\User\\FrontendUser');
 			$user->expects($this->once())->method('decreasePostCount');
-			$post = $this->getMock('Tx_MmForum_Domain_Model_Forum_Post');
+			$post = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Post');
 			$post->expects($this->any())->method('getAuthor')->will($this->returnValue($user));
 			$posts[] = $post;
 		}
 
-		$forum = $this->getMock('Tx_MmForum_Domain_Model_Forum_Forum');
+		$forum = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Forum');
 
-		$topic = $this->getMock('Tx_MmForum_Domain_Model_Forum_Topic');
+		$topic = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Topic');
 		$topic->expects($this->any())->method('getPosts')->will($this->returnValue($posts));
 		$topic->expects($this->any())->method('getForum')->will($this->returnValue($forum));
 
 		$forum->expects($this->once())->method('removeTopic')->with($this->isIdentical($topic));
 
 		$this->userRepositoryMock->expects($this->exactly(5))->method('update')
-			->with($this->isInstance('Tx_MmForum_Domain_Model_User_FrontendUser'));
+			->with($this->isInstance('Mittwald\\MmForum\\Domain\\Model\\User\\FrontendUser'));
 		$this->forumRepositoryMock->expects($this->once())->method('update')->with($this->isIdentical($forum));
 
 		$this->fixture->deleteTopic($topic);
@@ -121,8 +123,8 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactoryTest extends Tx_MmForum_Unit_B
 	 * @test
 	 */
 	public function shadowTopicCanBeCreated() {
-		$post = new Tx_MmForum_Domain_Model_Forum_Post();
-		$topic = new Tx_MmForum_Domain_Model_Forum_Topic('Subject');
+		$post = new \Mittwald\MmForum\Domain\Model\Forum\Post();
+		$topic = new \Mittwald\MmForum\Domain\Model\Forum\Topic('Subject');
 		$topic->addPost($post);
 
 		$shadowTopic = $this->fixture->createShadowTopic($topic);
@@ -137,23 +139,23 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactoryTest extends Tx_MmForum_Unit_B
 	 * @test
 	 */
 	public function topicCanBeMoved() {
-		$sourceForum = $this->getMock('Tx_MmForum_Domain_Model_Forum_Forum');
-		$targetForum = $this->getMock('Tx_MmForum_Domain_Model_Forum_Forum');
+		$sourceForum = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Forum');
+		$targetForum = $this->getMock('Mittwald\\MmForum\\Domain\\Model\\Forum\\Forum');
 
-		$post = new Tx_MmForum_Domain_Model_Forum_Post();
-		$topic = new Tx_MmForum_Domain_Model_Forum_Topic('Subject');
+		$post = new \Mittwald\MmForum\Domain\Model\Forum\Post();
+		$topic = new \Mittwald\MmForum\Domain\Model\Forum\Topic('Subject');
 		$topic->addPost($post);
 		$topic->setForum($sourceForum);
 
 		$sourceForum->expects($this->once())->method('removeTopic')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_MmForum_Domain_Model_Forum_Topic'));
+			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Mittwald\\MmForum\\Domain\\Model\\Forum\\Topic'));
 		$sourceForum->expects($this->once())->method('addTopic')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_MmForum_Domain_Model_Forum_ShadowTopic'));
+			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Mittwald\\MmForum\\Domain\\Model\\Forum\\ShadowTopic'));
 		$targetForum->expects($this->once())->method('addTopic')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_MmForum_Domain_Model_Forum_Topic'));
+			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Mittwald\\MmForum\\Domain\\Model\\Forum\\Topic'));
 
 		$this->forumRepositoryMock->expects($this->exactly(2))->method('update')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_MmForum_Domain_Model_Forum_Forum'));
+			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Mittwald\\MmForum\\Domain\\Model\\Forum\\Forum'));
 
 		$this->fixture->moveTopic($topic, $targetForum);
 	}
@@ -164,8 +166,8 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactoryTest extends Tx_MmForum_Unit_B
 	 * @expectedException Tx_Extbase_Object_InvalidClass
 	 */
 	public function shadowTopicCannotBeMoved() {
-		$shadowTopic = new Tx_MmForum_Domain_Model_Forum_ShadowTopic();
-		$targetForum = new Tx_MmForum_Domain_Model_Forum_Forum();
+		$shadowTopic = new \Mittwald\MmForum\Domain\Model\Forum\ShadowTopic();
+		$targetForum = new \Mittwald\MmForum\Domain\Model\Forum\Forum();
 
 		$this->fixture->moveTopic($shadowTopic, $targetForum);
 	}

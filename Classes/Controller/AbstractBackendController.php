@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Controller;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -45,7 +47,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_MmForum_Controller_AbstractBackendController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+abstract class AbstractBackendController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 
 

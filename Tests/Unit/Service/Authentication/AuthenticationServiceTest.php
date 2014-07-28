@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Service\Authentication;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -25,30 +27,30 @@
  *                                                                      */
 
 
-class Tx_MmForum_Service_Authentication_AuthenticationServiceTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+class AuthenticationServiceTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
 
 
 
 	/**
-	 * @var Tx_MmForum_Service_Authentication_AuthenticationService
+	 * @var \Mittwald\MmForum\Service\Authentication\AuthenticationService
 	 */
 	protected $fixture;
 
 
 	/**
-	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @var \Mittwald\MmForum\Domain\Model\User\FrontendUser
 	 */
 	protected $user;
 
 
 	/**
-	 * @var Tx_MmForum_Domain_Model_User_FrontendUserGroup
+	 * @var \Mittwald\MmForum\Domain\Model\User\FrontendUserGroup
 	 */
 	protected $group;
 
 
 	/**
-	 * @var Tx_MmForum_Domain_Model_Forum_Forum
+	 * @var \Mittwald\MmForum\Domain\Model\Forum\Forum
 	 */
 	protected $forum;
 
@@ -61,25 +63,25 @@ class Tx_MmForum_Service_Authentication_AuthenticationServiceTest extends Tx_Ext
 
 
 	public function setUp() {
-		$this->group = new Tx_MmForum_Domain_Model_User_FrontendUserGroup('Users');
-		$this->user = new Tx_MmForum_Domain_Model_User_FrontendUser('martin', 'secret');
+		$this->group = new \Mittwald\MmForum\Domain\Model\User\FrontendUserGroup('Users');
+		$this->user = new \Mittwald\MmForum\Domain\Model\User\FrontendUser('martin', 'secret');
 		$this->user->addUsergroup($this->group);
-		$this->forum = $this->objectManager->create('Tx_MmForum_Domain_Model_Forum_Forum', 'Forum', NULL);
+		$this->forum = $this->objectManager->create('Mittwald\\MmForum\\Domain\\Model\\Forum\\Forum', 'Forum', NULL);
 
-		$this->userRepositoryMock = $this->getMock('Tx_MmForum_Domain_Repository_User_FrontendUserRepository');
+		$this->userRepositoryMock = $this->getMock('Mittwald\\MmForum\\Domain\\Repository\\User\\FrontendUserRepository');
 		$this->userRepositoryMock
 			->expects($this->any())
 			->method('findCurrent')
 			->will($this->returnValue($this->user));
 
-		$cacheMock = $this->getMock('Tx_MmForum_Cache_Cache');
+		$cacheMock = $this->getMock('Mittwald\\MmForum\\Cache\\Cache');
 		$cacheMock
 			->expects($this->any())
 			->method('has')
 			->will($this->returnValue(FALSE));
 
 		/** @noinspection PhpParamsInspection */
-		$this->fixture = new Tx_MmForum_Service_Authentication_AuthenticationService($this->userRepositoryMock, $cacheMock);
+		$this->fixture = new AuthenticationService($this->userRepositoryMock, $cacheMock);
 		$this->fixture->disableImplicitAdministrationInBackend();
 	}
 
@@ -91,7 +93,7 @@ class Tx_MmForum_Service_Authentication_AuthenticationServiceTest extends Tx_Ext
 	 * @param $operation
 	 */
 	public function authorizationIsGrantedOnAccessForLoggedInUser($operation) {
-		$acl = new Tx_MmForum_Domain_Model_Forum_Access($operation, Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_SPECIFIC, $this->group);
+		$acl = new \Mittwald\MmForum\Domain\Model\Forum\Access($operation, \Mittwald\MmForum\Domain\Model\Forum\Access::LOGIN_LEVEL_SPECIFIC, $this->group);
 		$this->forum->addAcl($acl);
 
 		$this->assertTrue($this->fixture->checkAuthorization($this->forum, $operation));
@@ -131,7 +133,7 @@ class Tx_MmForum_Service_Authentication_AuthenticationServiceTest extends Tx_Ext
 	 * @param $operation
 	 */
 	public function authorizationIsDeniedOnDeniedAccessForLoggedInUser($operation) {
-		$acl = new Tx_MmForum_Domain_Model_Forum_Access($operation, Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_SPECIFIC, $this->group);
+		$acl = new \Mittwald\MmForum\Domain\Model\Forum\Access($operation, \Mittwald\MmForum\Domain\Model\Forum\Access::LOGIN_LEVEL_SPECIFIC, $this->group);
 		$acl->setNegated(TRUE);
 		$this->forum->addAcl($acl);
 
@@ -166,7 +168,7 @@ class Tx_MmForum_Service_Authentication_AuthenticationServiceTest extends Tx_Ext
 	 * @test
 	 * @dataProvider      getPossibleOperations
 	 * @param string $operation
-	 * @expectedException Tx_MmForum_Domain_Exception_Authentication_NoAccessException
+	 * @expectedException \Mittwald\MmForum\Domain\Exception\Authentication\NoAccessException
 	 */
 	public function exceptionIsThrownOnFailedAccessAssertion($operation) {
 		$this->fixture->assertAuthorization($this->forum, $operation);

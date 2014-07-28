@@ -10,8 +10,8 @@ $TCA['tx_mmforum_domain_model_moderation_report'] = array(
 	),
 	'types' => array(
 		'1' => array('showitem' => 'type,reporter,moderator,workflow_status,comments'),
-		'Tx_MmForum_Domain_Model_Moderation_UserReport' => array('showitem' => 'type,reporter,moderator,workflow_status,comments, feuser'),
-		'Tx_MmForum_Domain_Model_Moderation_PostReport' => array('showitem' => 'type,reporter,moderator,workflow_status,comments, post')
+		'Mittwald\\MmForum\\Domain\\Model\\Moderation\\UserReport' => array('showitem' => 'type,reporter,moderator,workflow_status,comments, feuser'),
+		'Mittwald\\MmForum\\Domain\\Model\\Moderation\\PostReport' => array('showitem' => 'type,reporter,moderator,workflow_status,comments, post')
 	),
 	'palettes' => array(
 		'1' => array('showitem' => '')
@@ -37,8 +37,8 @@ $TCA['tx_mmforum_domain_model_moderation_report'] = array(
 			'config'  => array(
 				'type' => 'select',
 				'items' => array(
-					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.type.userReport', 'Tx_MmForum_Domain_Model_Moderation_UserReport'),
-					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.type.postReport', 'Tx_MmForum_Domain_Model_Moderation_PostReport'),
+					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.type.userReport', 'Mittwald\\MmForum\\Domain\\Model\\Moderation\\UserReport'),
+					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.type.postReport', 'Mittwald\\MmForum\\Domain\\Model\\Moderation\\PostReport'),
 				)
 			)
 		),

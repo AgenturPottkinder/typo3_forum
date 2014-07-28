@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Unit;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -25,7 +27,7 @@
 
 
 
-abstract class Tx_MmForum_Unit_BaseTestCase extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+abstract class BaseTestCase extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 
 
 

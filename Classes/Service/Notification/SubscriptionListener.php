@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Service\Notification;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -42,13 +44,13 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-final class Tx_MmForum_Service_Notification_SubscriptionListener {
+final class SubscriptionListener {
 
 
 
 	/**
 	 * An instance of the notification service.
-	 * @var Tx_MmForum_Service_Notification_NotificationServiceInterface
+	 * @var \Mittwald\MmForum\Service\Notification\NotificationServiceInterface
 	 */
 	protected $notificationService = NULL;
 
@@ -57,11 +59,11 @@ final class Tx_MmForum_Service_Notification_SubscriptionListener {
 	/**
 	 * Injects an instance of the notification service.
 	 *
-	 * @param Tx_MmForum_Service_Notification_NotificationServiceInterface $notificationService
+	 * @param \Mittwald\MmForum\Service\Notification\NotificationServiceInterface $notificationService
 	 *                                 An instance of the notification service.
 	 * @return void
 	 */
-	public function injectNotificationService(Tx_MmForum_Service_Notification_NotificationServiceInterface $notificationService) {
+	public function injectNotificationService(NotificationServiceInterface $notificationService) {
 		$this->notificationService = $notificationService;
 	}
 
@@ -70,11 +72,11 @@ final class Tx_MmForum_Service_Notification_SubscriptionListener {
 	/**
 	 * Is fired when a new post is created.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Post $post Event data.
+	 * @param  \Mittwald\MmForum\Domain\Model\Forum\Post $post Event data.
 	 * @return void
 	 */
 	public function onPostCreated($post) {
-		if ($post instanceof Tx_MmForum_Domain_Model_Forum_Post) {
+		if ($post instanceof \Mittwald\MmForum\Domain\Model\Forum\Post) {
 			$this->notificationService->notifySubscribers($post->getTopic(), $post);
 		}
 	}
@@ -84,11 +86,11 @@ final class Tx_MmForum_Service_Notification_SubscriptionListener {
 	/**
 	 * Is fired when a new topic is created.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Topic $topic Event data.
+	 * @param  \Mittwald\MmForum\Domain\Model\Forum\Topic $topic Event data.
 	 * @return void
 	 */
 	public function onTopicCreated($topic) {
-		if ($topic instanceof Tx_MmForum_Domain_Model_Forum_Topic) {
+		if ($topic instanceof \Mittwald\MmForum\Domain\Model\Forum\Topic) {
 
 		}
 	}

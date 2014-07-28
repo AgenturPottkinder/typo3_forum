@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Repository\Stats;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -40,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Repository_Stats_SummaryRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class SummaryRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 	/**
 	 * The amount of types the summary includes (post,topic,user = 3)
@@ -50,7 +52,7 @@ class Tx_MmForum_Domain_Repository_Stats_SummaryRepository extends \TYPO3\CMS\Ex
 
 	/**
 	 * Get the latest items of the summary
-	 * @return Tx_MmForum_Domain_Model_Stats_Summary[]
+	 * @return \Mittwald\MmForum\Domain\Model\Stats\Summary[]
 	 */
 	public function findLatestSummaryItems() {
 		$query = $this->createQuery();

@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Cache;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -46,7 +48,7 @@
  *
  */
 
-class Tx_MmForum_Cache_Cache implements \TYPO3\CMS\Core\SingletonInterface {
+class Cache implements \TYPO3\CMS\Core\SingletonInterface {
 
 
 

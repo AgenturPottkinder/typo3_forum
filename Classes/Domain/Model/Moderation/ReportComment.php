@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\Moderation;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -43,7 +45,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Model_Moderation_ReportComment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class ReportComment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 
 
@@ -55,7 +57,7 @@ class Tx_MmForum_Domain_Model_Moderation_ReportComment extends \TYPO3\CMS\Extbas
 
 	/**
 	 * The comment author
-	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @var \Mittwald\MmForum\Domain\Model\User\FrontendUser
 	 */
 	protected $author;
 
@@ -69,7 +71,7 @@ class Tx_MmForum_Domain_Model_Moderation_ReportComment extends \TYPO3\CMS\Extbas
 
 	/**
 	 * The report this comment belongs to.
-	 * @var Tx_MmForum_Domain_Model_Moderation_Report
+	 * @var \Mittwald\MmForum\Domain\Model\Moderation\Report
 	 */
 	protected $report;
 
@@ -108,14 +110,14 @@ class Tx_MmForum_Domain_Model_Moderation_ReportComment extends \TYPO3\CMS\Extbas
 
 	/**
 	 * Gets the comment author.
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The comment author.
+	 * @return \Mittwald\MmForum\Domain\Model\User\FrontendUser The comment author.
 	 */
 	public function getAuthor() {
 		if ($this->author instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
 			$this->author->_loadRealInstance();
 		}
 		if ($this->author === NULL) {
-			$this->author = new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
+			$this->author = new \Mittwald\MmForum\Domain\Model\User\AnonymousFrontendUser();
 		}
 		return $this->author;
 	}
@@ -134,7 +136,7 @@ class Tx_MmForum_Domain_Model_Moderation_ReportComment extends \TYPO3\CMS\Extbas
 
 	/**
 	 * Gets the parent report.
-	 * @return Tx_MmForum_Domain_Model_Moderation_Report The report.
+	 * @return \Mittwald\MmForum\Domain\Model\Moderation\Report The report.
 	 */
 	public function getReport() {
 		return $this->report;
@@ -160,10 +162,10 @@ class Tx_MmForum_Domain_Model_Moderation_ReportComment extends \TYPO3\CMS\Extbas
 
 	/**
 	 * Sets the comment's author.
-	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $author The author.
+	 * @param  \Mittwald\MmForum\Domain\Model\User\FrontendUser $author The author.
 	 * @return void
 	 */
-	public function setAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $author) {
+	public function setAuthor(\Mittwald\MmForum\Domain\Model\User\FrontendUser $author) {
 		$this->author = $author;
 	}
 
@@ -183,10 +185,10 @@ class Tx_MmForum_Domain_Model_Moderation_ReportComment extends \TYPO3\CMS\Extbas
 	/**
 	 * Sets the comment's report.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Moderation_Report $report
+	 * @param \Mittwald\MmForum\Domain\Model\Moderation\Report $report
 	 * @return void
 	 */
-	public function setReport(Tx_MmForum_Domain_Model_Moderation_Report $report) {
+	public function setReport(Report $report) {
 		$this->report = $report;
 	}
 

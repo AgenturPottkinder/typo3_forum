@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Service\Notification;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -43,18 +45,18 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-interface Tx_MmForum_Service_Notification_NotificationServiceInterface {
+interface NotificationServiceInterface {
 
 
 
 	/**
 	 * @abstract
 	 *
-	 * @param Tx_MmForum_Domain_Model_SubscribeableInterface $subscriptionObject
-	 * @param Tx_MmForum_Domain_Model_NotifiableInterface    $notificationObject
+	 * @param \Mittwald\MmForum\Domain\Model\SubscribeableInterface $subscriptionObject
+	 * @param \Mittwald\MmForum\Domain\Model\NotifiableInterface    $notificationObject
 	 */
-	public function notifySubscribers(Tx_MmForum_Domain_Model_SubscribeableInterface $subscriptionObject,
-	                                  Tx_MmForum_Domain_Model_NotifiableInterface $notificationObject);
+	public function notifySubscribers(\Mittwald\MmForum\Domain\Model\SubscribeableInterface $subscriptionObject,
+	                                  \Mittwald\MmForum\Domain\Model\NotifiableInterface $notificationObject);
 
 
 

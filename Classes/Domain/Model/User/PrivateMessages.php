@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\User;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -35,7 +37,7 @@
 
  */
 
-class Tx_MmForum_Domain_Model_User_PrivateMessages extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class PrivateMessages extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * ATTRIBUTES
@@ -49,13 +51,13 @@ class Tx_MmForum_Domain_Model_User_PrivateMessages extends \TYPO3\CMS\Extbase\Do
 
 	/**
 	 * User who read this message
-	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @var \Mittwald\MmForum\Domain\Model\User\FrontendUser
 	 */
 	public $feuser;
 
 	/**
 	 * Opponent user of this message
-	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @var \Mittwald\MmForum\Domain\Model\User\FrontendUser
 	 */
 	public $opponent;
 
@@ -75,7 +77,7 @@ class Tx_MmForum_Domain_Model_User_PrivateMessages extends \TYPO3\CMS\Extbase\Do
 
 	/**
 	 * The message of this pm
-	 * @var Tx_MmForum_Domain_Model_User_PrivateMessagesText
+	 * @var \Mittwald\MmForum\Domain\Model\User\PrivateMessagesText
 	 */
 	public $message;
 
@@ -102,14 +104,14 @@ class Tx_MmForum_Domain_Model_User_PrivateMessages extends \TYPO3\CMS\Extbase\Do
 
 	/**
 	 * Get the User who read this message
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The User who read this message
+	 * @return \Mittwald\MmForum\Domain\Model\User\FrontendUser The User who read this message
 	 */
 	public function getFeuser() {
 		if ($this->feuser instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
 			$this->feuser->_loadRealInstance();
 		}
 		if ($this->feuser === NULL) {
-			$this->feuser = new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
+			$this->feuser = new AnonymousFrontendUser();
 		}
 		return $this->feuser;
 
@@ -118,14 +120,14 @@ class Tx_MmForum_Domain_Model_User_PrivateMessages extends \TYPO3\CMS\Extbase\Do
 
 	/**
 	 * Get the other User who is involved in this message
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The other User who is involved in this message
+	 * @return \Mittwald\MmForum\Domain\Model\User\FrontendUser The other User who is involved in this message
 	 */
 	public function getOpponent() {
 		if ($this->opponent instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
 			$this->opponent->_loadRealInstance();
 		}
 		if ($this->opponent === NULL) {
-			$this->opponent = new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
+			$this->opponent = new AnonymousFrontendUser();
 		}
 		return $this->opponent;
 	}
@@ -141,7 +143,7 @@ class Tx_MmForum_Domain_Model_User_PrivateMessages extends \TYPO3\CMS\Extbase\Do
 
 	/**
 	 * Gets the message of this pm
-	 * @return Tx_MmForum_Domain_Model_User_PrivateMessagesText
+	 * @return \Mittwald\MmForum\Domain\Model\User\PrivateMessagesText
 	 */
 	public function getMessage() {
 		return $this->message;
@@ -172,20 +174,20 @@ class Tx_MmForum_Domain_Model_User_PrivateMessages extends \TYPO3\CMS\Extbase\Do
 
 	/**
 	 * Sets the user
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $feuser
+	 * @param \Mittwald\MmForum\Domain\Model\User\FrontendUser $feuser
 	 * @return void
 	 */
-	public function setFeuser(Tx_MmForum_Domain_Model_User_FrontendUser $feuser) {
+	public function setFeuser(FrontendUser $feuser) {
 		$this->feuser = $feuser;
 	}
 
 
 	/**
 	 * Sets the opponent user
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $opponent
+	 * @param \Mittwald\MmForum\Domain\Model\User\FrontendUser $opponent
 	 * @return void
 	 */
-	public function setOpponent(Tx_MmForum_Domain_Model_User_FrontendUser $opponent) {
+	public function setOpponent(FrontendUser $opponent) {
 		$this->opponent = $opponent;
 	}
 
@@ -202,9 +204,9 @@ class Tx_MmForum_Domain_Model_User_PrivateMessages extends \TYPO3\CMS\Extbase\Do
 
 	/**
 	 * Sets the message of this pm
-	 * @param Tx_MmForum_Domain_Model_User_PrivateMessagesText $message
+	 * @param \Mittwald\MmForum\Domain\Model\User\PrivateMessagesText $message
 	 */
-	public function setMessage(Tx_MmForum_Domain_Model_User_PrivateMessagesText $message) {
+	public function setMessage(PrivateMessagesText $message) {
 		$this->message = $message;
 	}
 }

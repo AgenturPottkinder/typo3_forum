@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Exception;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -43,7 +45,7 @@
  *
  */
 
-class Tx_MmForum_Domain_Exception_InvalidOperationException extends Tx_MmForum_Domain_Exception_AbstractException {
+class InvalidOperationException extends AbstractException {
 
 
 

@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\User;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -35,7 +37,7 @@
 
  */
 
-class Tx_MmForum_Domain_Model_User_Rank extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Rank extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * ATTRIBUTES

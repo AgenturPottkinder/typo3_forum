@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\MmForum\Domain\Model\Format;
+
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -39,8 +41,8 @@
  *
  */
 
-class Tx_MmForum_Domain_Model_Format_Smilie extends Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
-	implements Tx_MmForum_TextParser_Panel_MarkItUpExportableInterface {
+class Smilie extends AbstractTextParserElement
+	implements \Mittwald\MmForum\TextParser\Panel\MarkItUpExportableInterface {
 
 
 

@@ -1,6 +1,8 @@
 <?php
+namespace Mittwald\MmForum\Service;
 
-class Tx_MmForum_Service_SessionHandlingService implements t3lib_Singleton {
+
+class SessionHandlingService implements t3lib_Singleton {
 
 	Public function set($key, $object){
 		$sessionData = serialize($object);
