@@ -22,8 +22,8 @@
 				</f:link.action>
 			</li>
 		</mmf:authentication.ifLoggedIn>
-		<li>
-			<mmf:authentication.ifAccess object="{post}" accessType="editPost">
+		<mmf:authentication.ifAccess object="{post}" accessType="editPost">
+			<li>
 				<f:link.action controller="Post" action="edit" arguments="{post: post}">
 					<i class="tx-mmforum-icon-16-post-edit"></i>
 					<f:translate key="Button_Edit" />
