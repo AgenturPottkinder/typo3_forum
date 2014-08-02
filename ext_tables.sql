@@ -686,6 +686,8 @@ CREATE TABLE fe_users (
   tx_mmforum_rank int(11) unsigned default '1',
   tx_mmforum_points int(11) unsigned default '0',
   tx_mmforum_post_count int(11) default '0',
+  tx_mmforum_topic_count int(11) default '0',
+  tx_mmforum_question_count int(11) default '0',
   tx_mmforum_topic_favsubscriptions int(11) unsigned default '0',
   tx_mmforum_topic_subscriptions int(11) unsigned default '0',
   tx_mmforum_forum_subscriptions int(11) unsigned default '0',
