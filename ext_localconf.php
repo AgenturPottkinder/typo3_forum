@@ -12,7 +12,7 @@ if (!defined('TYPO3_MODE')) {
 		 'Post'       => 'show, new, create, edit, update, delete, deleteAttachment',
 		 'User'       => 'showMyProfile, index, list, subscribe, favSubscribe, show, disableUser, unDisableUser, listNotifications, listMessages, createMessage, newMessage',
 		 'Report'     => 'newUserReport, newPostReport, createUserReport, createPostReport',
-		 'Moderation' => 'show, editTopic, updateTopic, updateUserReportStatus, updatePostReportStatus, createUserReportComment, createPostReportComment, topicConformDelete',
+		 'Moderation' => 'indexReport, editReport, newReportComment, editTopic, updateTopic, updateUserReportStatus, updatePostReportStatus, createUserReportComment, createPostReportComment, topicConformDelete',
 		 'Tag'		  => 'list, show, new, create, listUserTags, newUserTag, deleteUserTag',
 	),
 	array(
@@ -21,7 +21,7 @@ if (!defined('TYPO3_MODE')) {
 		 'Post'       => 'new, create, edit, update, delete',
 		 'User'       => 'showMyProfile, dashboard, subscribe, favSubscribe, listFavorites, listNotifications, listTopics, listMessages, createMessage',
 		 'Report'     => 'new, create',
-		 'Moderation' => 'show, updateTopic, updateReportStatus, newReportComment, createReportComment',
+		 'Moderation' => 'indexReport, updateTopic, updateUserReportStatus, updatePostReportStatus, newReportComment, createUserReportComment, createPostReportComment',
 		 'Tag'		  => 'list, show, new, create, listUserTags, newUserTag, deleteUserTag',
 	)
 );

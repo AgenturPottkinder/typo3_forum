@@ -95,6 +95,7 @@
 			<label index="Report_Edit_Status">Current workflow status</label>
 			<label index="Report_Edit_Topic">Topic</label>
 			<label index="Report_New">Report this post</label>
+			<label index="Report_NewPostReport">Report this post</label>
 			<label index="Report_NewComment">Write a new comment</label>
 			<label index="Report_NewComment_Error_Text_1221560718">Please specify a comment.</label>
 			<label index="Report_NewComment_Submit">Create comment</label>
@@ -397,6 +398,7 @@ Your ###FORUM_NAME###-Team</label>
 			<label index="Report_Edit_Status">Aktueller Status</label>
 			<label index="Report_Edit_Topic">Thema</label>
 			<label index="Report_New">Melde diesen Beitrag</label>
+			<label index="Report_NewPostReport">Melde diesen Beitrag</label>
 			<label index="Report_NewComment">Schreibe einen neuen Kommentar</label>
 			<label index="Report_NewComment_Error_Text_1221560718">Bitte wähle einen Kommentar</label>
 			<label index="Report_NewComment_Submit">Kommentar erstellen</label>
