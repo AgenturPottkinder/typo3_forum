@@ -7,7 +7,11 @@
 <f:section name="main">
 	<f:render partial="FormErrors" />
 
-	<f:form name="firstComment" object="{firstComment}" controller="Report" action="create" id="report" class="form-horizontal">
+	<h2>
+		<f:translate key="Report_NewPostReport"/>
+	</h2>
+
+	<f:form name="firstComment" object="{firstComment}" controller="Report" action="createPostReport" id="report" class="form-horizontal">
 		<fieldset>
 			<legend>
 				<f:translate key="Report_New" />

@@ -27,7 +27,7 @@
 		</div>
 	</f:if>
 
-	<f:widget.paginate objects="{reports}" as="paginatedReports" configuration="{settings.topicController.show.pagebrowser}">
+	<f:widget.paginate objects="{postReports}" as="paginatedReports" configuration="{settings.topicController.show.pagebrowser}">
 		<table class="table table-striped">
 			<colgroup>
 				<col width="32" />
@@ -70,7 +70,7 @@
 								</td>
 								<td>
 									<div class="btn-group">
-										<f:link.action action="editReport" class="btn" arguments="{report: report}">
+										<f:link.action action="editReport" class="btn" arguments="{postReport: report}">
 											<i class="tx-mmforum-icon-16-edit"></i>
 										[TRANSLATE] Edit
 										</f:link.action>
@@ -90,7 +90,7 @@
 												<li class="divider"></li>
 												<f:for each="{report.workflowStatus.followupStatus}" as="followupStatus">
 													<li>
-														<f:link.action action="updateReportStatus" arguments="{report: report, status: followupStatus}">
+														<f:link.action action="updatePostReportStatus" arguments="{report: report, status: followupStatus}">
 															<i class="tx-mmforum-icon-16-advanced" style="background-image: url({followupStatus.iconFullpath});"></i>
 															<f:translate key="Report_Edit_SetStatus" arguments="{0: followupStatus.name}" />
 														</f:link.action>
