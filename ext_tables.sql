@@ -505,9 +505,9 @@ CREATE TABLE tx_mmforum_domain_model_forum_criteria_forum (
 
 
 #
-# Table structure for table 'tx_mmforum_domain_model_forum_criteria_options'
+# Table structure for table 'tx_mmforum_domain_model_forum_criteriaoption'
 #
-CREATE TABLE tx_mmforum_domain_model_forum_criteria_options (
+CREATE TABLE tx_mmforum_domain_model_forum_criteriaoption (
   uid int(11) unsigned NOT NULL auto_increment,
   pid int(11) unsigned NOT NULL default '0',
   tstamp int(11) unsigned NOT NULL default '0',

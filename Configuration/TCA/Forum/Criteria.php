@@ -25,7 +25,7 @@ $TCA['tx_mmforum_domain_model_forum_criteria'] = array(
 			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_criteria_options',
 			'config' => array(
 				'type' => 'inline',
-				'foreign_table' => 'tx_mmforum_domain_model_forum_criteria_options',
+				'foreign_table' => 'tx_mmforum_domain_model_forum_criteriaoption',
 				'foreign_field' => 'criteria',
 				'maxitems'      => 9999,
 				'foreign_sortby' => 'sorting',
@@ -42,7 +42,7 @@ $TCA['tx_mmforum_domain_model_forum_criteria'] = array(
 			'config'  => array(
 				'type'          => 'select',
 				'maxitems'      => 1,
-				'foreign_table' => 'tx_mmforum_domain_model_forum_criteria_options',
+				'foreign_table' => 'tx_mmforum_domain_model_forum_criteriaoption',
 				'foreign_class' => 'Tx_MmForum_Domain_Model_Forum_CriteriaOption',
 			)
 		),

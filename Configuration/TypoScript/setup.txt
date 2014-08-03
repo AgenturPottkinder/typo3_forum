@@ -194,13 +194,6 @@ config.tx_extbase.persistence.classes {
 		}
 	}
 
-	Tx_MmForum_Domain_Model_Forum_CriteriaOption {
-		mapping {
-			tableName = tx_mmforum_domain_model_forum_criteria_options
-			recordType = 1
-		}
-	}
-
 	Tx_MmForum_Domain_Model_User_PrivateMessagesText {
 		mapping {
 			tableName = tx_mmforum_domain_model_user_privatemessages_text

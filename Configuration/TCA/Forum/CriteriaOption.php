@@ -1,8 +1,8 @@
 <?php
 if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 
-$TCA['tx_mmforum_domain_model_forum_criteria_options'] = array(
-	'ctrl' => $TCA['tx_mmforum_domain_model_forum_criteria_options']['ctrl'],
+$TCA['tx_mmforum_domain_model_forum_criteriaoption'] = array(
+	'ctrl' => $TCA['tx_mmforum_domain_model_forum_criteriaoption']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'name,criteria,sorting'
 	),

@@ -194,7 +194,7 @@ $TCA['tx_mmforum_domain_model_forum_topic'] = array(
 				'type'          => 'select',
 				'size'          => 10,
 				'maxitems'      => 99999,
-				'foreign_table' => 'tx_mmforum_domain_model_forum_criteria_options',
+				'foreign_table' => 'tx_mmforum_domain_model_forum_criteriaoption',
 				'MM' => 'tx_mmforum_domain_model_forum_criteria_topic_options'
 			),
 		),

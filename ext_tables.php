@@ -592,8 +592,8 @@ $TCA['tx_mmforum_domain_model_forum_criteria'] = array(
 	)
 );
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_mmforum_domain_model_forum_criteria_options');
-$TCA['tx_mmforum_domain_model_forum_criteria_options'] = array(
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_mmforum_domain_model_forum_criteriaoptions');
+$TCA['tx_mmforum_domain_model_forum_criteriaoptions'] = array(
 	'ctrl' => array(
 		'title' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_criteria_options',
 		'label' => 'name',
