@@ -668,6 +668,19 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 			return $temporaryFilename;
 		}
 
+		switch ($this->gender) {
+			case '0':
+				$imageFilename =  $this->settings['images']['avatar']['dummyMale'];
+				break;
+			case '1':
+				$imageFilename =  $this->settings['images']['avatar']['dummyFemale'];
+				break;
+		}
+		if ( $imageFilename <> '' ) {
+			return file_exists($imageFilename) ? $imageFilename : NULL;
+		}
+
+
 		return NULL;
 	}
 
