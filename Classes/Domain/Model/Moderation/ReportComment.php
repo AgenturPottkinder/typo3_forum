@@ -94,7 +94,7 @@ class Tx_MmForum_Domain_Model_Moderation_ReportComment extends \TYPO3\CMS\Extbas
 	 * Constructor
 	 * @param  string                                  $text.
 	 */
-	public function __construct($text) {
+	public function __construct($text = NULL) {
 		$this->text   = $text;
 	}
 
