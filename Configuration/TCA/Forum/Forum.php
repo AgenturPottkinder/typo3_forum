@@ -4,10 +4,12 @@ if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 $TCA['tx_mmforum_domain_model_forum_forum'] = array(
 	'ctrl' => $TCA['tx_mmforum_domain_model_forum_forum']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'title,description,children,sorting,topics,acls,criteria,last_topic,last_post,subscribers,displayed_pid'
+//		'showRecordFieldList' => 'title,description,children,sorting,topics,acls,criteria,last_topic,last_post,subscribers,displayed_pid'
+		'showRecordFieldList' => 'title,description,children,sorting,acls,criteria,last_topic,last_post,displayed_pid'
 	),
 	'types' => array(
-		'1' => array('showitem' => 'title,description,children,sorting,topics,acls,criteria,last_topic,last_post,subscribers,readers,displayed_pid')
+//		'1' => array('showitem' => 'title,description,children,sorting,topics,acls,criteria,last_topic,last_post,subscribers,readers,displayed_pid')
+		'1' => array('showitem' => 'title,description,children,sorting,acls,criteria,last_topic,last_post,displayed_pid')
 	),
 	'palettes' => array(
 		'1' => array('showitem' => '')
@@ -100,7 +102,7 @@ $TCA['tx_mmforum_domain_model_forum_forum'] = array(
 				'type' => 'inline',
 				'foreign_table' => 'tx_mmforum_domain_model_forum_topic',
 				'foreign_field' => 'forum',
-				'maxitems'      => 9999,
+				'maxitems'      => 999999,
 				'appearance' => array(
 					'collapse' => 0,
 					'newRecordLinkPosition' => 'bottom',
