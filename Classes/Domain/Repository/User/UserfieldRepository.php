@@ -78,10 +78,11 @@ class Tx_MmForum_Domain_Repository_User_UserfieldRepository extends Tx_MmForum_D
 
 	/**
 	 * Creates a new instance of the userfield repository.
-     *
+	 *
+	 * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
 	 */
-	public function __construct() {
-		parent::__construct();
+	public function __construct(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
+		parent::__construct($objectManager);
 		$this->objectType = 'Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield';
 
 	}
