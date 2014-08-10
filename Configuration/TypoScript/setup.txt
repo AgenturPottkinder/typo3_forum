@@ -548,14 +548,14 @@ plugin.tx_mmforum.userfields {
 page.includeCSS {
 	mm_forum = EXT:mm_forum/Resources/Public/Stylesheets/mm_forum.css
 	bootstrap = EXT:mm_forum/Resources/Public/Bootstrap/css/bootstrap.css
-	markitup_bb = EXT:mm_forum/Resources/Public/Javascript/markitup-1.1.12/sets/mm_forum/style.css
+	markitup_bb = EXT:mm_forum/Resources/Public/Javascript/markitup-1.1.14/sets/mm_forum/style.css
 }
 
 page.includeJS {
 	jquery = https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js
 	jquery.external = 1
 	bootstrap = EXT:mm_forum/Resources/Public/Bootstrap/js/bootstrap.min.js
-	markitup = EXT:mm_forum/Resources/Public/Javascript/markitup-1.1.12/jquery.markitup.js
+	markitup = EXT:mm_forum/Resources/Public/Javascript/markitup-1.1.14/jquery.markitup.js
 }
 
 page.includeJSFooter {
