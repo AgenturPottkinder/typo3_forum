@@ -218,6 +218,21 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	}
 
 
+        
+        	/**
+	 *  Listing Action.
+	 * @return void
+	 */
+	public function listLatestAction() {
+            if(!empty($this->settings['countLatestPost'])){
+                $limit = intval($this->settings['countLatestPost']);
+            }else{
+                $limit = 3;
+            }
+            
+		$topics      = $this->topicRepository->findLatest(0,$limit);
+		$this->view->assign('topics', $topics);
+	}
 
 	/**
 	 * Show action. Displays a single topic and all posts contained in this topic.

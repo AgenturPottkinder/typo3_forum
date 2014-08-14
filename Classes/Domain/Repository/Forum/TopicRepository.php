@@ -323,6 +323,29 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 		return $query->execute()->getFirst();
 	}
 
+        
+        /**
+	 *
+	 * Finds the last topic in a forum.
+	 *
+	 * @param int $limit		The Limit
+	 * @param int $offset		The Offset
+	 *
+	 * @return Tx_MmForum_Domain_Model_Forum_Topic
+	 *                             The last topics
+	 *
+	 */
+	public function findLatest($offset=0, $limit=5) {
+		$query = $this->createQuery();
+		$query->setOrderings(array('last_post_crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING))
+                        ->setLimit($limit);
+		if($offset > 0) {
+			$query->setOffset($offset);
+		}
+		return $query->execute();
+	}
+
+
 
 
 	/**
