@@ -62,7 +62,7 @@ Class Tx_MmForum_Service_Mailing_HTMLMailingService Extends Tx_MmForum_Service_M
 	 */
 
 	public function sendMail(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $recipient, $subject, $bodyText) {
-		$Typo3_mail = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('t3lib_mail_Message');
+		$Typo3_mail = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
 
 		$Typo3_mail->setFrom( array( $this->getDefaultSenderAddress() => $this->getDefaultSenderName() ) )
 					->setTo($recipient->getEmail())

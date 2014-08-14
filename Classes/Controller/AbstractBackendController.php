@@ -161,7 +161,7 @@ abstract class Tx_MmForum_Controller_AbstractBackendController extends \TYPO3\CM
 		$this->pageRenderer->enableExtJSQuickTips();
 
 		$this->pageRenderer->addJsFile(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('lang') . 'res/js/be/typo3lang.js');
-		$this->pageRenderer->addJsFile($this->backPath . '../t3lib/js/extjs/ux/Ext.ux.FitToParent.js');
+		$this->pageRenderer->addJsFile($this->backPath . 'js/extjs/ux/Ext.ux.FitToParent.js');
 		$this->includeJavascriptFromPath('Resources/Public/Javascript/Backend/ExtJS/');
 		$this->includeJavascriptFromPath('Resources/Public/Javascript/Backend/ForumIndex/');
 

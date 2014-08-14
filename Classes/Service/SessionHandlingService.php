@@ -1,6 +1,6 @@
 <?php
 
-class Tx_MmForum_Service_SessionHandlingService implements t3lib_Singleton {
+class Tx_MmForum_Service_SessionHandlingService implements \TYPO3\CMS\Core\SingletonInterface {
 
 	Public function set($key, $object){
 		$sessionData = serialize($object);
