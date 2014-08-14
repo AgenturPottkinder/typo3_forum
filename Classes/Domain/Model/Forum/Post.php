@@ -258,6 +258,13 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 		return $this->crdate;
 	}
 
+    /**
+	 * Gets the post's crdate.
+	 * @return DateTime
+	 */
+	public function getCrdate() {
+		return $this->crdate;
+	}
 
 
 	/**
