@@ -66,7 +66,7 @@ class Tx_MmForum_Domain_Validator_User_PrivateMessageRecipientValidator extends 
 	protected function isValid($value) {
 		$result = TRUE;
 
-		if (!$this->userRepository->findByUsername($value)) {
+		if (!$this->userRepository->findOneByUsername($value)) {
 				$this->addError('PM reciepient user not found!', 1372429326);
 				$result = FALSE;
 		}
