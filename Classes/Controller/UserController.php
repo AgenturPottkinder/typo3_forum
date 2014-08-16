@@ -360,7 +360,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 	 */
 	public function createMessageAction($recipient, $text) {
 		$user = $this->getCurrentUser();
-		$recipient = $this->frontendUserRepository->findByUsername($recipient);
+		$recipient = $this->frontendUserRepository->findOneByUsername($recipient);
 		if ($user->isAnonymous()) {
 			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
 		}

@@ -145,22 +145,6 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 
 
 	/**
-	 * Finds a user by his/her username. Please note that in difference to the usual
-	 * findBy* methods, this method does NOT return an array of values, but instead
-	 * a single user object, or NULL. This behaviour is due to the fact that
-	 * usernames are supposed to be unique; consequently, in any case this method
-	 * should not return more than one user.
-	 *
-	 * Technically, this method is just an alias for "findOneByUsername".
-	 *
-	 * @param  string $username                          The username.
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The frontend user with the specified username.
-	 */
-	public function findByUsername($username) {
-		return $this->findOneByUsername($username);
-	}
-
-	/**
 	 * Find all user with a part of $username in his name
 	 * @param $part Part of the users nickname
 	 * @param $filter Order by which field?
