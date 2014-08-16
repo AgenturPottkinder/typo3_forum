@@ -621,6 +621,7 @@ $TCA['tx_mmforum_domain_model_forum_ads'] = array(
 $TCA['tx_mmforum_domain_model_user_privatemessages'] = array(
 	'ctrl' => array(
 		'title' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_pm',
+		'label' => 'uid',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
 		'delete' => 'deleted',
@@ -633,6 +634,7 @@ $TCA['tx_mmforum_domain_model_user_privatemessages'] = array(
 $TCA['tx_mmforum_domain_model_user_privatemessages_text'] = array(
 	'ctrl' => array(
 		'title' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_pm_text',
+		'label' => 'uid',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/User/pm.png',
 		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/User/PrivateMessages_Text.php',
 	)
