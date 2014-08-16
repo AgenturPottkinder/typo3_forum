@@ -20,6 +20,7 @@
 			<label index="Button_Topic_New">New topic</label>
 			<label index="Button_Unsubscribe">Unsubscribe</label>
 			<label index="Button_User_Profile">User profile</label>
+			<label index="Button_More">More</label>
 			<label index="Editor_Panel_Formatting">Formatting</label>
 			<label index="Editor_Panel_Smilies">Smilies</label>
 			<label index="Editor_Panel_SyntaxHighlighting">Syntax highlighting</label>
@@ -48,6 +49,14 @@
 			<label index="Forum_Manage">Moderate Forum</label>
 			<label index="Generic_By">by</label>
 			<label index="Generic_More">more</label>
+			<label index="Moderation_Index_Reports">Reports</label>
+			<label index="Moderation_Index_Topic">Topic</label>
+			<label index="Moderation_Index_Reporter">Reporter</label>
+			<label index="Moderation_Index_Status">Status</label>
+			<label index="Moderation_Index_Date">Date</label>
+			<label index="Moderation_Index_GoToTopic">Go to topic</label>
+			<label index="Moderation_Index_NothingHere">Nothing here!</label>
+			<label index="Moderation_Index_NoOpenReportsFound">No open reports were found.</label>
 			<label index="Moderation_EditTopic">Moderate topic</label>
 			<label index="Moderation_EditTopic_Closed">Closed</label>
 			<label index="Moderation_EditTopic_Move">Move</label>
@@ -193,6 +202,8 @@
 			<label index="User_Show_Messages_Conversation_NotFound">No active conversation found!</label>
 			<label index="User_Show_Messages_Conversation_With">Conversation with</label>
 			<label index="User_Show_Messages_Conversation_Answer">Answer</label>
+			<label index="User_Show_GeneralInformation">General information</label>
+			<label index="User_Show_LatestPosts">Latest posts</label>
 			<label index="User_Subscribe_Forum_Success">The Forum &quot;%s&quot; has successfully been subscribed.</label>
 			<label index="User_Subscribe_Topic_Success">The Topic &quot;%s&quot; has successfully been subscribed.</label>
 			<label index="User_Unsubscribe_Forum_Success">The Forum &quot;%s&quot; has successfully been unsubscribed.</label>
@@ -324,6 +335,7 @@ Your ###FORUM_NAME###-Team</label>
 			<label index="Button_Topic_New">Neues Thema</label>
 			<label index="Button_Unsubscribe">Nicht mehr abonnieren</label>
 			<label index="Button_User_Profile">Benutzerprofil</label>
+			<label index="Button_More">Mehr</label>
 			<label index="Editor_Panel_Formatting">Formatierung</label>
 			<label index="Editor_Panel_Smilies">Smilies</label>
 			<label index="Editor_Panel_SyntaxHighlighting">Syntax hervorheben</label>
@@ -352,7 +364,15 @@ Your ###FORUM_NAME###-Team</label>
 			<label index="Forum_Manage">Forum Administrieren</label>
 			<label index="Generic_By">von</label>
 			<label index="Generic_More">mehr</label>
-			<label index="Moderation_EditTopic">Moderate Thema</label>
+			<label index="Moderation_Index_Reports">Meldungen</label>
+			<label index="Moderation_Index_Topic">Thema</label>
+			<label index="Moderation_Index_Reporter">Melder</label>
+			<label index="Moderation_Index_Status">Status</label>
+			<label index="Moderation_Index_Date">Datum</label>
+			<label index="Moderation_Index_GoToTopic">Gehe zu Thema</label>
+			<label index="Moderation_Index_NothingHere">Keine Einträge!</label>
+			<label index="Moderation_Index_NoOpenReportsFound">Es wurden keine offenen Meldungen gefunden.</label>
+			<label index="Moderation_EditTopic">Thema moderieren</label>
 			<label index="Moderation_EditTopic_Closed">Geschlossen</label>
 			<label index="Moderation_EditTopic_Move">Verschieben</label>
 			<label index="Moderation_EditTopic_Sticky">Wichtig</label>
@@ -494,6 +514,8 @@ Your ###FORUM_NAME###-Team</label>
 			<label index="User_Show_Messages_Conversation_NotFound">Keine aktiven Unterhaltungen gefunden!</label>
 			<label index="User_Show_Messages_Conversation_With">Unterhaltung mit</label>
 			<label index="User_Show_Messages_Conversation_Answer">Antworten</label>
+			<label index="User_Show_GeneralInformation">Allgemeine Angaben</label>
+			<label index="User_Show_LatestPosts">Letzte Nachrichten</label>
 			<label index="User_Subscribe_Forum_Success">Das Forum &quot;%s&quot; wurde erfolgreich abonniert.</label>
 			<label index="User_Subscribe_Topic_Success">Das Thema &quot;%s&quot; wurde erfolgreich abonniert.</label>
 			<label index="User_Unsubscribe_Forum_Success">Das Forum &quot;%s&quot; wurde erolgreich aus den Abonnements entfernt.</label>
