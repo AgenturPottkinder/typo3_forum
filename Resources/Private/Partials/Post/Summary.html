@@ -1,7 +1,7 @@
 <f:if condition="{post}">
 	<f:then>
 		<div>
-			<f:link.action controller="Post" action="show" arguments="{post: post}">{post.topic.subject}</f:link.action>
+			<f:link.action controller="Post" action="show" arguments="{post: post}" pageUid="{settings.pids.Forum}">{post.topic.subject}</f:link.action>
 		</div>
 		<div>
 			<f:format.date format="d.m.Y H:i">{post.timestamp}</f:format.date> <f:translate key="Generic_By" />
