@@ -10,8 +10,6 @@
 
 	<mmf:forum.rootline rootline="{topic.rootline}" />
 
-	<f:render partial="Post/Single" arguments="{post: topic.firstpost}" />
-
 	<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.topicController.show.pagebrowser}">
 		<f:for each="{paginatedPosts}" as="post">
 			<f:render partial="Post/Single" arguments="{post: post}" />
