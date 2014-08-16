@@ -7,7 +7,7 @@
 	<f:flashMessages />
 
 	<h2>
-		[TRANSLATE] Reports
+		<f:translate key="Moderation_Index_Reports" />
 	</h2>
 
 	<f:if condition="{settings.debug}">
@@ -42,10 +42,10 @@
 				<tr>
 					<th></th>
 					<th>#</th>
-					<th>[TRANSLATE] Topic</th>
-					<th>[TRANSLATE] Reporter</th>
-					<th>[TRANSLATE] Status</th>
-					<th>[TRANSLATE] Date</th>
+					<th><f:translate key="Moderation_Index_Topic" /></th>
+					<th><f:translate key="Moderation_Index_Reporter" /></th>
+					<th><f:translate key="Moderation_Index_Status" /></th>
+					<th><f:translate key="Moderation_Index_Date" /></th>
 					<th></th>
 				</tr>
 			</thead>
@@ -72,11 +72,11 @@
 									<div class="btn-group">
 										<f:link.action action="editReport" class="btn" arguments="{postReport: report}">
 											<i class="tx-mmforum-icon-16-edit"></i>
-										[TRANSLATE] Edit
+										<f:translate key="Button_Edit" />
 										</f:link.action>
 										<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 											<i class="tx-mmforum-icon-16-advanced"></i>
-										[TRANSLATE] More
+										<f:translate key="Button_More" />
 											<span class="caret"></span>
 										</a>
 										<ul class="dropdown-menu pull-right">
@@ -84,7 +84,7 @@
 												<li>
 													<f:link.action controller="Topic" action="show" arguments="{topic: report.topic}" pageUid="{settings.pids.Forum}">
 														<i class="tx-mmforum-icon-16-topic-goto"></i>
-												Go to topic
+												<f:translate key="Moderation_Index_GoToTopic" />
 													</f:link.action>
 												</li>
 												<li class="divider"></li>
@@ -107,7 +107,7 @@
 						<tr>
 							<td colspan="7">
 								<div class="alert alert-info">
-									<strong>[TRANSLATE] Nothing here!</strong> [TRANSLATE] No open reports were found.
+									<strong><f:translate key="Moderation_Index_NothingHere" /></strong> <f:translate key="Moderation_Index_NoOpenReportsFound" />
 								</div>
 							</td>
 						</tr>
