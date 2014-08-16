@@ -1,3 +1,7 @@
 {namespace mmf=Tx_MmForum_ViewHelpers}
 
+<f:if condition="{text}">
+<div class="markItUpPreviewDiv">
 <mmf:format.textParser content="{text}" />
+</div>
+</f:if>

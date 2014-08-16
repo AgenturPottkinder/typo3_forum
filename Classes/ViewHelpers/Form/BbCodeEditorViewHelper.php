@@ -199,7 +199,9 @@ class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper extends \TYPO3\CMS\Flui
 		//			$GLOBALS['TSFE']->additionalHeaderData['MmForum_Css_' . $key]
 		//					= '<link rel="stylesheet" type="text/css" href="' . Tx_MmForum_Utility_File::replaceSiteRelPath($filename) . '" />';
 
-		return $this->javascriptSetup . parent::render();
+		$previewContainer = '<div class="markItUpPreviewContainer"></div>';
+
+		return $this->javascriptSetup . parent::render() . $previewContainer;
 	}
 
 
@@ -220,6 +222,7 @@ class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper extends \TYPO3\CMS\Flui
 
 		return array('previewParserPath' => 'index.php?eID=mm_forum&tx_mmforum_ajax[controller]=Post&tx_mmforum_ajax[action]=preview&id=' . $GLOBALS['TSFE']->id,
 		             'previewParserVar'  => 'tx_mmforum_ajax[text]',
+			     'previewInElement'  => 'div.markItUpPreviewContainer',
 		             'markupSet'         => $settings);
 	}
 
