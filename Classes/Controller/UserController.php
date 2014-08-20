@@ -314,7 +314,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 			}
 
 			foreach($dialog AS $pm) {
-				if($pm->getOpponent() == $user) {
+				if($pm->getOpponent()->getUid() == $user->getUid()) {
 					if($pm->getUserRead() == 1) break; // if user already read this message, the next should be already read
 					$pm->setUserRead(1);
 					$this->messageRepository->update($pm);
