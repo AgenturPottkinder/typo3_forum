@@ -321,7 +321,7 @@ class Tx_MmForum_Controller_PostController extends Tx_MmForum_Controller_Abstrac
 		);
 		$this->clearCacheForCurrentPage();
 
-		$redirectArguments = array('topic' => $topic);
+		$redirectArguments = array('topic' => $topic, 'forum' => $topic->getForum());
 		$pageNumber = $topic->getPageCount();
 		if($pageNumber > 1) {
 			$redirectArguments['@widget_0'] = array('currentPage' => $pageNumber);
