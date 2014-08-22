@@ -142,6 +142,7 @@ class Tx_MmForum_Service_Notification_NotificationService extends Tx_MmForum_Ser
 		$arguments = array(
 			'tx_mmforum_pi1[controller]' => 'Topic',
 			'tx_mmforum_pi1[action]' => 'show',
+                        'tx_mmforum_pi1[forum]' =>$topic->getForum(),
 			'tx_mmforum_pi1[topic]' => $topic->getUid()
 		);
 		$pageNumber = $post->getTopic()->getPageCount();
@@ -149,10 +150,10 @@ class Tx_MmForum_Service_Notification_NotificationService extends Tx_MmForum_Ser
 			$arguments['@widget_0']['currentPage'] = $pageNumber;
 		}
 
-		$topicLink = $GLOBALS['TSFE']->baseUrl . $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments($arguments)->build();
+		$topicLink = $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments($arguments)->build();
 		$topicLink = '<a href="' . $topicLink . '">' . $topic->getTitle() . '</a>';
 		$uriBuilder->reset();
-		$unSubscribeLink = $GLOBALS['TSFE']->baseUrl . $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments(array('tx_mmforum_pi1[topic]' => $topic->getUid(), 'tx_mmforum_pi1[controller]' => 'User', 'tx_mmforum_pi1[action]' => 'subscribe', 'tx_mmforum_pi1[unsubscribe]' => 1))->build();
+		$unSubscribeLink = $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments(array('tx_mmforum_pi1[topic]' => $topic->getUid(), 'tx_mmforum_pi1[controller]' => 'User', 'tx_mmforum_pi1[action]' => 'subscribe', 'tx_mmforum_pi1[unsubscribe]' => 1))->build();
 		$unSubscribeLink = '<a href="' . $unSubscribeLink . '">' . $unSubscribeLink . '</a>';
 		foreach ($topic->getSubscribers() AS $subscriber) {
 			if ($subscriber != $post->getAuthor()) {
