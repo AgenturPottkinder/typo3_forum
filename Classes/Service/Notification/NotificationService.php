@@ -142,7 +142,6 @@ class Tx_MmForum_Service_Notification_NotificationService extends Tx_MmForum_Ser
 		$arguments = array(
 			'tx_mmforum_pi1[controller]' => 'Topic',
 			'tx_mmforum_pi1[action]' => 'show',
-                        'tx_mmforum_pi1[forum]' =>$topic->getForum(),
 			'tx_mmforum_pi1[topic]' => $topic->getUid()
 		);
 		$pageNumber = $post->getTopic()->getPageCount();

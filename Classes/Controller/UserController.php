@@ -475,7 +475,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 		}
 
 		# Create subscription
-		$object = $forum ? $forum : $topic;
+		$object = $topic ? $topic : $forum;
 
 		if ($unsubscribe) {
 			$user->removeSubscription($object);
@@ -632,7 +632,7 @@ class Tx_MmForum_Controller_UserController extends Tx_MmForum_Controller_Abstrac
 			$this->redirect('show', 'Forum', NULL, array('forum' => $object));
 		}
 		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Topic) {
-			$this->redirect('show', 'Topic', NULL, array('topic' => $object));
+			$this->redirect('show', 'Topic', NULL, array('topic' => $object, 'forum' => $object->getForum()));
 		}
 	}
 
