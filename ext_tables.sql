@@ -37,7 +37,7 @@ CREATE TABLE tx_mmforum_domain_model_format_textparser (
   l18n_diffsource mediumblob NOT NULL,
   PRIMARY KEY (uid),
   KEY parent (pid)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 
 #
@@ -70,7 +70,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_access (
   l18n_diffsource mediumblob NOT NULL,
   PRIMARY KEY (uid),
   KEY parent (pid)
-) ENGINE=MyISAM  default CHARSET=utf8;
+);
 
 
 #
@@ -90,7 +90,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_attachment (
   hidden tinyint(4) unsigned NOT NULL default '0',
   PRIMARY KEY (uid),
   KEY parent (pid)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 
 #
@@ -133,7 +133,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_forum (
   l18n_diffsource mediumblob NOT NULL,
   PRIMARY KEY (uid),
   KEY parent (pid)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 
 #
@@ -169,7 +169,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_post (
   helpful_count int(11) unsigned NOT NULL default '0',
   PRIMARY KEY (uid),
   KEY parent (pid)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 
 #
@@ -216,7 +216,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_topic (
   l18n_diffsource mediumblob NOT NULL,
   PRIMARY KEY (uid),
   KEY parent (pid)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 
 #
@@ -238,7 +238,7 @@ CREATE TABLE tx_mmforum_domain_model_moderation_report (
   hidden tinyint(4) unsigned NOT NULL default '0',
   PRIMARY KEY (uid),
   KEY parent (pid)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 
 #
@@ -255,7 +255,7 @@ CREATE TABLE tx_mmforum_domain_model_moderation_reportcomment (
   hidden tinyint(4) unsigned NOT NULL default '0',
   PRIMARY KEY (uid),
   KEY parent (pid)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 
 #
@@ -288,7 +288,7 @@ CREATE TABLE tx_mmforum_domain_model_moderation_reportworkflowstatus (
   l18n_diffsource mediumblob NOT NULL,
   PRIMARY KEY (uid),
   KEY parent (pid)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 
 #
@@ -308,7 +308,7 @@ CREATE TABLE tx_mmforum_domain_model_moderation_reportworkflowstatus_followup (
   KEY parent (pid),
   KEY uid_local (uid_local),
   KEY uid_foreign (uid_foreign)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 
 #
@@ -329,7 +329,7 @@ CREATE TABLE tx_mmforum_domain_model_user_forumsubscription (
   KEY parent (pid),
   KEY uid_local (uid_local),
   KEY uid_foreign (uid_foreign)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 
 #
@@ -349,7 +349,7 @@ CREATE TABLE tx_mmforum_domain_model_user_readtopic (
   KEY parent (pid),
   KEY uid_local (uid_local),
   KEY uid_foreign (uid_foreign)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 #
 # Table structure for table "tx_mmforum_domain_model_user_supportpost"
@@ -368,7 +368,7 @@ CREATE TABLE tx_mmforum_domain_model_user_supportpost (
   KEY parent (pid),
   KEY uid_local (uid_local),
   KEY uid_foreign (uid_foreign)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 
 #
@@ -389,7 +389,7 @@ CREATE TABLE tx_mmforum_domain_model_user_topicsubscription (
   KEY parent (pid),
   KEY uid_local (uid_local),
   KEY uid_foreign (uid_foreign)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 #
 # Table structure for table "tx_mmforum_domain_model_user_topicsubscription"
@@ -409,7 +409,7 @@ CREATE TABLE tx_mmforum_domain_model_user_topicfavsubscription (
   KEY parent (pid),
   KEY uid_local (uid_local),
   KEY uid_foreign (uid_foreign)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 #
 # Table structure for table "tx_mmforum_domain_model_user_userfield_userfield"
@@ -440,7 +440,7 @@ CREATE TABLE tx_mmforum_domain_model_user_userfield_userfield (
   l18n_diffsource mediumblob NOT NULL,
   PRIMARY KEY (uid),
   KEY parent (pid)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 
 #
@@ -471,7 +471,7 @@ CREATE TABLE tx_mmforum_domain_model_user_userfield_value (
   l18n_diffsource mediumblob NOT NULL,
   PRIMARY KEY (uid),
   KEY parent (pid)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 
 #
@@ -486,7 +486,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_criteria (
   options int(11) unsigned NOT NULL default '0',
   default_option int(11) unsigned default NULL,
   PRIMARY KEY (uid)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 
 #
@@ -501,7 +501,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_criteria_forum (
   PRIMARY KEY (uid),
   KEY uid_local (uid_local),
   KEY uid_foreign (uid_foreign)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 
 #
@@ -516,7 +516,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_criteria_options (
   name varchar(64)  default '',
   sorting int(11) unsigned NOT NULL default '0',
   PRIMARY KEY (uid)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 
 #
@@ -531,7 +531,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_criteria_topic_options (
   PRIMARY KEY (uid),
   KEY uid_local (uid_local),
   KEY uid_foreign (uid_foreign)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 #
 # Table structure for table 'tx_mmforum_domain_model_forum_ads'
@@ -548,7 +548,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_ads (
   alt_text tinytext,
   path varchar(128) default NULL,
   PRIMARY KEY (uid)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 
 # Table structure for table 'tx_mmforum_domain_model_forum_user_privatemessages'
@@ -567,7 +567,7 @@ CREATE TABLE tx_mmforum_domain_model_user_privatemessages (
   PRIMARY KEY (uid),
   KEY message (message),
   KEY opponent (opponent)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 #
 # Table structure for table 'tx_mmforum_domain_model_user_privatemessages_text'
@@ -577,7 +577,7 @@ CREATE TABLE tx_mmforum_domain_model_user_privatemessages_text (
   pid int(11) unsigned default NULL,
   message_text text NOT NULL,
   PRIMARY KEY (uid)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 
 #
@@ -591,7 +591,7 @@ CREATE TABLE tx_mmforum_domain_model_user_rank (
   point_limit int(11) unsigned NOT NULL default '0',
   user_count int(11) unsigned NOT NULL default '0',
   PRIMARY KEY (uid)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 #
 # Table structure for table 'tx_mmforum_domain_model_user_notification'
@@ -611,7 +611,7 @@ CREATE TABLE tx_mmforum_domain_model_user_notification (
   KEY feuser (feuser),
   KEY post (post),
   KEY tag (tag)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 #
 # Table structure for table 'tx_mmforum_domain_model_stats_summary'
@@ -624,7 +624,7 @@ CREATE TABLE tx_mmforum_domain_model_stats_summary (
   type int(11) unsigned NOT NULL default '0',
   amount int(11) unsigned NOT NULL default '0',
   PRIMARY KEY (uid)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 #
 # Table structure for table 'tx_mmforum_domain_model_forum_tag'
@@ -639,7 +639,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_tag (
   topic_count int(11) unsigned NOT NULL default '0',
   feuser int(11) unsigned NOT NULL default '0',
   PRIMARY KEY (uid)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 #
 # Table structure for table 'tx_mmforum_domain_model_forum_tag_topic'
@@ -651,7 +651,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_tag_topic (
   sorting_foreign int(10) unsigned default '0',
   KEY uid_local (uid_local),
   KEY uid_foreign (uid_foreign)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 #
 # Table structure for table 'tx_mmforum_domain_model_forum_tag_user'
@@ -663,7 +663,7 @@ CREATE TABLE tx_mmforum_domain_model_forum_tag_user (
   sorting_foreign int(10) unsigned NOT NULL default '0',
   KEY uid_local (uid_local),
   KEY uid_foreign (uid_foreign)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 
 #
@@ -676,7 +676,7 @@ CREATE TABLE tx_mmforum_domain_model_user_readforum (
   sorting_foreign int(10) unsigned NOT NULL default '0',
   KEY uid_local (uid_local),
   KEY uid_foreign (uid_foreign)
-) ENGINE=MyISAM default CHARSET=utf8;
+);
 
 
 #
