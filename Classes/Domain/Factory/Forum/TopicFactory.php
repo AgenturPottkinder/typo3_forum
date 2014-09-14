@@ -148,7 +148,7 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 		$topic = $this->getClassInstance();
 		$user = $this->getCurrentUser();
 
-		$topic->setForum($forum);
+		$forum->addTopic($topic);
 		$topic->setSubject($subject);
 		$topic->setAuthor($user);
 		$topic->setQuestion($question);
@@ -178,9 +178,6 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 		}
 		$this->topicRepository->add($topic);
 
-		$topic->getForum()->setLastTopic($topic);
-		$this->forumRepository->update($topic->getForum());
-
 		return $topic;
 	}
 
@@ -198,21 +195,10 @@ class Tx_MmForum_Domain_Factory_Forum_TopicFactory extends Tx_MmForum_Domain_Fac
 		}
 
 		$forum = $topic->getForum();
+		$forum->removeTopic($topic);
 		$this->topicRepository->remove($topic);
 
 		$this->persistenceManager->persistAll();
-
-		$forum->_resetLastPost();
-
-		$lastTopic = $this->topicRepository->findLastByForum($forum);
-		if($lastTopic !== NULL) {
-			$lastPost = $lastTopic->getLastPost();
-		} else {
-			$lastPost = NULL;
-		}
-		$forum->setLastPost($lastPost);
-		$forum->setLastTopic($lastTopic);
-		$this->forumRepository->update($forum);
 
 		$user = $this->getCurrentUser();
 
