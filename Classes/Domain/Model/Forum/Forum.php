@@ -737,9 +737,12 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 		if ($this->lastTopic === NULL || $this->lastTopic->getTimestamp() <= $topic->getTimestamp()) {
 			$this->setLastTopic($topic);
 		}
-		if ($this->lastPost === NULL || $this->lastPost->getTimestamp() <= $topic->getLastPost()->getTimestamp()) {
+		$topicLastPost = $topic->getLastPost();
+		if (($topicLastPost !== NULL) && ($this->lastPost === NULL || $this->lastPost->getTimestamp() <= $topicLastPost->getTimestamp())) {
 			$this->setLastPost($topic->getLastPost());
 		}
+		$this->_increaseTopicCount(+1);
+		// topic will increase postCount itself when adding the initial post to it
 
 		$topic->setForum($this);
 		$this->topics->attach($topic);
@@ -756,6 +759,8 @@ class Tx_MmForum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObjec
 	public function removeTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
 		$this->topics->detach($topic);
 		$this->_resetCounters();
+		$this->_resetLastPost();
+		$this->_resetLastTopic();
 	}
 
 
