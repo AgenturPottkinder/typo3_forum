@@ -475,6 +475,11 @@ plugin.tx_mmforum.renderer.icons {
 		21.file = EXT:mm_forum/Resources/Public/Images/Icons/Forum/OverlayLocked.png
 		21.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-bl" style="background-image: url(|)" title="closed & new"></div>
 		21.stdWrap.if.isTrue.field = closed
+
+		26 = IMG_RESOURCE
+		26.file = EXT:mm_forum/Resources/Public/Images/Icons/Forum/OverlayNew.png
+		26.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-bl" style="background-image: url(|)" title="new"></div>
+		26.stdWrap.if.isFalse.field = closed
 	}
 
 	topic < .abstract_icon
@@ -509,6 +514,16 @@ plugin.tx_mmforum.renderer.icons {
 	topic_new < .topic
 	topic_new  {
 		10.file = EXT:mm_forum/Resources/Public/Images/Icons/Topic/BaseIcon.png
+
+		22 = IMG_RESOURCE
+		22.file = EXT:mm_forum/Resources/Public/Images/Icons/Topic/OverlayLocked.png
+		22.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-bl" style="background-image: url(|)" title="closed & new"></div>
+		22.stdWrap.if.isTrue.field = closed
+
+		26 = IMG_RESOURCE
+		26.file = EXT:mm_forum/Resources/Public/Images/Icons/Topic/OverlayNew.png
+		26.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-bl" style="background-image: url(|)" title="new"></div>
+		22.stdWrap.if.isFalse.field = closed
 	}
 
 
