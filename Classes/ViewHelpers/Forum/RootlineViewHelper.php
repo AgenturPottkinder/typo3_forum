@@ -102,6 +102,8 @@ class Tx_MmForum_ViewHelpers_Forum_RootlineViewHelper extends \TYPO3\CMS\Fluid\C
 
 
 	protected function renderNavigationNode($object) {
+		$extensionName = 'mmforum';
+		$pluginName = 'pi1';
 		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Forum) {
 			$controller = 'Forum';
 			$arguments  = array('forum' => $object);
@@ -121,21 +123,19 @@ class Tx_MmForum_ViewHelpers_Forum_RootlineViewHelper extends \TYPO3\CMS\Fluid\C
 
 		$uriBuilder = $this->controllerContext->getUriBuilder();
 		$uri        = $uriBuilder->reset()->setTargetPageUid((int)$this->settings['pids']['Forum'])
-			->uriFor('show', $arguments, $controller);
+			->uriFor('show', $arguments, $controller, $extensionName, $pluginName);
 
 		return '<li><a href="' . $uri . '" title="'.$fullTitle.'"><i class="' . $icon . '"></i>' . $title . '</a></li>';
 	}
 
 
 	protected function renderMainForumNode() {
+		$extensionName = 'mmforum';
+		$pluginName = 'pi1';
+		$controller = 'Forum';
 		$uriBuilder = $this->controllerContext->getUriBuilder();
-		$uriBuilder->reset();
-		$uriBuilder->setArguments(array(
-			'tx_mmforum_pi1' => array(
-				'controller' => 'Forum'
-			)
-		));
-		$uri = $uriBuilder->build();
+		$uri        = $uriBuilder->reset()->setTargetPageUid((int)$this->settings['pids']['Forum'])
+			->uriFor(NULL, NULL, $controller, $extensionName, $pluginName);
 
 		return '<li><a href="' . $uri . '"><i class="iconset-22-folder"></i>Forum</a></li>';
 	}
