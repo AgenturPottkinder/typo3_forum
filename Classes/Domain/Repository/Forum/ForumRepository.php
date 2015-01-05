@@ -142,6 +142,7 @@ class Tx_MmForum_Domain_Repository_Forum_ForumRepository extends \TYPO3\CMS\Extb
 	 * @return bool
 	 */
 	public function getForumReadByUser(Tx_MmForum_Domain_Model_Forum_Forum $forum, Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+		// find all unread forums
 		$sql ='SELECT f.uid
 			   FROM tx_mmforum_domain_model_forum_forum AS f
 			   LEFT JOIN tx_mmforum_domain_model_user_readforum AS rf
@@ -151,13 +152,11 @@ class Tx_MmForum_Domain_Repository_Forum_ForumRepository extends \TYPO3\CMS\Extb
 		$query->getQuerySettings()->setReturnRawQueryResult(TRUE);
 		$query->statement($sql);
 		$res = $query->execute();
-		if($res != false) {
-			return true;
+		// if there are no unread forums
+		if (empty($res)) {
+			return TRUE;
 		} else {
-			return false;
+			return FALSE;
 		}
 	}
-
-
-
 }

@@ -523,7 +523,7 @@ plugin.tx_mmforum.renderer.icons {
 		26 = IMG_RESOURCE
 		26.file = EXT:mm_forum/Resources/Public/Images/Icons/Topic/OverlayNew.png
 		26.stdWrap.wrap = <div class="tx-mmforum-icon-overlay-bl" style="background-image: url(|)" title="new"></div>
-		22.stdWrap.if.isFalse.field = closed
+		26.stdWrap.if.isFalse.field = closed
 	}
 
 
