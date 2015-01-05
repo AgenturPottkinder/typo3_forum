@@ -123,7 +123,7 @@ class Tx_MmForum_ViewHelpers_Forum_RootlineViewHelper extends \TYPO3\CMS\Fluid\C
 		$uri        = $uriBuilder->reset()->setTargetPageUid((int)$this->settings['pids']['Forum'])
 			->uriFor('show', $arguments, $controller);
 
-		return '<li><a href="' . $uri . '" title="'.$fullTitle.'"><i class="' . $icon . '"></i> ' . $title . '</a></li>';
+		return '<li><a href="' . $uri . '" title="'.$fullTitle.'"><i class="' . $icon . '"></i>' . $title . '</a></li>';
 	}
 
 
