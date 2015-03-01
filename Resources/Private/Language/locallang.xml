@@ -377,9 +377,9 @@ Your ###FORUM_NAME###-Team</label>
 			<label index="Moderation_EditTopic_Move">Verschieben</label>
 			<label index="Moderation_EditTopic_Sticky">Wichtig</label>
 			<label index="Moderation_EditTopic_Submit">Abschicken</label>
-			<label index="Moderation_UpdateTopic_Success">Das Thema wurde erolgreich aktualisiert.</label>
-			<label index="Post_Create_Success">Der Beitrag wurde erolgreich erstellt.</label>
-			<label index="Post_Delete_Success">Der Beitrag wurde erolgreich gelöscht.</label>
+			<label index="Moderation_UpdateTopic_Success">Das Thema wurde erfolgreich aktualisiert.</label>
+			<label index="Post_Create_Success">Der Beitrag wurde erfolgreich erstellt.</label>
+			<label index="Post_Delete_Success">Der Beitrag wurde erfolgreich gelöscht.</label>
 			<label index="Post_Edit">Beitrag bearbeiten</label>
 			<label index="Post_Edit_Submit">Abschicken</label>
 			<label index="Post_New">Antwort auf: %s</label>
@@ -518,8 +518,8 @@ Your ###FORUM_NAME###-Team</label>
 			<label index="User_Show_LatestPosts">Letzte Nachrichten</label>
 			<label index="User_Subscribe_Forum_Success">Das Forum &quot;%s&quot; wurde erfolgreich abonniert.</label>
 			<label index="User_Subscribe_Topic_Success">Das Thema &quot;%s&quot; wurde erfolgreich abonniert.</label>
-			<label index="User_Unsubscribe_Forum_Success">Das Forum &quot;%s&quot; wurde erolgreich aus den Abonnements entfernt.</label>
-			<label index="User_Unsubscribe_Topic_Success">Das Thema &quot;%s&quot; wurde erolgreich aus den Abonnements entfernt.</label>
+			<label index="User_Unsubscribe_Forum_Success">Das Forum &quot;%s&quot; wurde erfolgreich aus den Abonnements entfernt.</label>
+			<label index="User_Unsubscribe_Topic_Success">Das Thema &quot;%s&quot; wurde erfolgreich aus den Abonnements entfernt.</label>
 			<label index="Stats_Summary_Type_Post">Beiträge</label>
 			<label index="Stats_Summary_Type_Topic">Themen</label>
 			<label index="Stats_Summary_Type_User">Benutzer</label>
