@@ -46,7 +46,7 @@ interface Tx_MmForum_Domain_Model_SubscribeableInterface {
 
 	/**
 	 * Returns all users that have subscribed to this object.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser> All subscribers.
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser> All subscribers.
 	 */
 	public function getSubscribers();
 

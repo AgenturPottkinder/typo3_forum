@@ -78,7 +78,7 @@ class Tx_MmForum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Domai
 
 	/**
 	 * A set of comments that are assigned to this report.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Moderation_ReportComment>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Moderation_ReportComment>
 	 */
 	protected $comments;
 
@@ -157,7 +157,7 @@ class Tx_MmForum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Domai
 
 	/**
 	 * Gets all comments for this report.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Moderation_ReportComment>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Moderation_ReportComment>
 	 *                             All comments for this report.
 	 */
 	public function getComments() {

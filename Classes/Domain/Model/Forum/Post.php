@@ -107,7 +107,7 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 
 	/**
 	 * All subscribers of this forum.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser>
 	 * @lazy
 	 */
 	protected $supporters;
@@ -115,7 +115,7 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 
 	/**
 	 * Attachments.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Attachment>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Attachment>
 	 * @lazy
 	 */
 	protected $attachments;
@@ -150,7 +150,7 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 	/**
 	 * Gets all users who have subscribed to this forum.
 	 *
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser>
 	 *                             All subscribers of this forum.
 	 */
 	public function getSupporters() {
@@ -269,7 +269,7 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 
 	/**
 	 * Gets the post's attachments.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Attachment>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Attachment>
 	 */
 	public function getAttachments() {
 		return $this->attachments;

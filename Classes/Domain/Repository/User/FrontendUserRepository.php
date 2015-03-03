@@ -45,6 +45,10 @@
 class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 	extends \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository {
 
+	/**
+	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+	 */
+	protected $configurationManager;
 
 	/**
 	 * An instance of the mm_forum authentication service.
@@ -60,6 +64,15 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 
 
 	/**
+	 * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager
+	 * @return void
+	 */
+	public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager) {
+		$this->configurationManager = $configurationManager;
+		$this->typoScriptSetup = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+	}
+
+	/**
 	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
 	 *
 	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
@@ -67,7 +80,7 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 	 */
 	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
 		$this->typoScriptService = $typoScriptService;
-		$typoScriptArray = \TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup();
+		$typoScriptArray = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
 		if(is_array($typoScriptArray)) {
 			$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray($typoScriptArray);
 			$this->settings = $ts['plugin']['tx_mmforum']['settings'];

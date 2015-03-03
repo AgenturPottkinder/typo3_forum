@@ -24,7 +24,7 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  *
@@ -57,9 +57,9 @@ class Tx_MmForum_Cache_Cache implements \TYPO3\CMS\Core\SingletonInterface {
 	public function __construct() {
 		\TYPO3\CMS\Core\Cache\Cache::initializeCachingFramework();
 		try {
-			$this->cacheInstance = $GLOBALS['typo3CacheManager']->getCache('mmforum_main');
+			$this->cacheInstance = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Cache\\CacheManager')->getCache('mmforum_main');
 		} catch (\TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException $e) {
-			$this->cacheInstance = $GLOBALS['typo3CacheFactory']->create('mmforum_main',
+			$this->cacheInstance = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Cache\\CacheFactory')->create('mmforum_main',
 			                                                             $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['mmforum_main']['frontend'],
 			                                                             $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['mmforum_main']['backend'],
 			                                                             $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['mmforum_main']['options']);
