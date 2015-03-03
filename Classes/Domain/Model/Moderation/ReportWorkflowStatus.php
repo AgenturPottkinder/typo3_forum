@@ -61,7 +61,7 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends \TYPO3\CMS
 
 	/**
 	 * A list of allowed follow-up status.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus>
 	 */
 	protected $followupStatus;
 
@@ -127,7 +127,7 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends \TYPO3\CMS
 
 	/**
 	 * Gets the allowed follow-up status.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus>
 	 *                             The allowed follow-up status.
 	 */
 	public function getFollowupStatus() {
