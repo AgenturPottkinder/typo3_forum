@@ -164,6 +164,7 @@ class Tx_MmForum_TextParser_TextParserService extends Tx_MmForum_Service_Abstrac
 		}
 
 		$this->settings = $this->typoscriptReader->loadTyposcriptFromPath($configurationPath);
+		$mmforumGlobalSettings = $this->typoscriptReader->loadTyposcriptFromPath('plugin.tx_mmforum.settings');
 		foreach ($this->settings['enabledServices.'] as $key => $className) {
 			if (substr($key, -1, 1) === '.') {
 				continue;
@@ -172,7 +173,15 @@ class Tx_MmForum_TextParser_TextParserService extends Tx_MmForum_Service_Abstrac
 			/** @var $newService Tx_MmForum_TextParser_Service_AbstractTextParserService */
 			$newService = $this->objectManager->get($className);
 			if ($newService instanceof Tx_MmForum_TextParser_Service_AbstractTextParserService) {
-				$newService->setSettings((array)$this->settings['enabledServices.'][$key . '.']);
+				$settings = array();
+				$globalSettingsToCopy = array('pids.');
+				foreach($globalSettingsToCopy as $settingToCopy) {
+					if (isset($mmforumGlobalSettings[$settingToCopy])) {
+						$settings = array_merge($settings, array(rtrim($settingToCopy, '.') => $mmforumGlobalSettings[$settingToCopy]));
+					}
+				}
+				$settings = array_merge($settings, (array)$this->settings['enabledServices.'][$key . '.']);
+				$newService->setSettings($settings);
 				$newService->setControllerContext($this->controllerContext);
 				$this->parsingServices[] = $newService;
 			} else {
