@@ -120,6 +120,7 @@ class Tx_MmForum_TextParser_Service_QuoteParserService extends Tx_MmForum_TextPa
 		$this->view->setTemplatePathAndFilename(Tx_MmForum_Utility_File::replaceSiteRelPath($this->settings['template']));
 		$this->view->assign('quote', trim($matches[1]));
 		$this->view->assign('post', null);
+		$this->view->assign('settings', $this->settings);
 		return $this->view->render();
 	}
 
@@ -143,6 +144,7 @@ class Tx_MmForum_TextParser_Service_QuoteParserService extends Tx_MmForum_TextPa
 		}
 
 		$this->view->assign('quote', trim($matches[2]));
+		$this->view->assign('settings', $this->settings);
 		return $this->view->render();
 	}
 
