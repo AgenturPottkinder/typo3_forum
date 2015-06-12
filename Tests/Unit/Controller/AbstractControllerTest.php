@@ -24,7 +24,7 @@
  *                                                                      */
 
 
-abstract class Tx_Typo3Forum_Controller_AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+abstract class Tx_Typo3Forum_Controller_AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 
 

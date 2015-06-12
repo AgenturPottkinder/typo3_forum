@@ -25,7 +25,7 @@
  *                                                                      */
 
 
-class Tx_Typo3Forum_Service_Notification_NotificationServiceTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class Tx_Typo3Forum_Service_Notification_NotificationServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 
 
