@@ -31,7 +31,7 @@
  * Special userfield that renders its contents as plain text.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Model_User_Userfield
  * @version    $Id$
  *
@@ -43,8 +43,8 @@
  *
  */
 
-Class Tx_MmForum_Domain_Model_User_Userfield_TextUserfield
-	Extends Tx_MmForum_Domain_Model_User_Userfield_TyposcriptUserfield {
+Class Tx_Typo3Forum_Domain_Model_User_Userfield_TextUserfield
+	Extends Tx_Typo3Forum_Domain_Model_User_Userfield_TyposcriptUserfield {
 
 
 
@@ -52,7 +52,7 @@ Class Tx_MmForum_Domain_Model_User_Userfield_TextUserfield
 	 * The typoscript path that is to be used for rendering this field.
 	 * @var string
 	 */
-	Protected $typoscriptPath = 'plugin.tx_mmforum.userfields.text';
+	Protected $typoscriptPath = 'plugin.tx_typo3forum.userfields.text';
 
 }
 

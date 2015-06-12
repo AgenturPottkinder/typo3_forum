@@ -26,25 +26,25 @@
 
 
 
-class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatusTest extends Tx_MmForum_Unit_BaseTestCase {
+class Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatusTest extends Tx_Typo3Forum_Unit_BaseTestCase {
 
 
 
 	/**
-	 * @var Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus
+	 * @var Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus
 	 */
 	protected $fixture = NULL;
 
 
 
 	public function setUp() {
-		$this->fixture = new Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus();
+		$this->fixture = new Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus();
 	}
 
 
 
 	public function testConstructorSetsNameInitialAndFinal() {
-		$this->fixture = new Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus('FOO', TRUE, TRUE);
+		$this->fixture = new Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus('FOO', TRUE, TRUE);
 		$this->assertEquals('FOO', $this->fixture->getName());
 		$this->assertTrue($this->fixture->isInitial());
 		$this->assertTrue($this->fixture->isFinal());

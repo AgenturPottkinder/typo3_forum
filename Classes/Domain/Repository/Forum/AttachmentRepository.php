@@ -29,7 +29,7 @@
  * Repository class for forum objects.
  *
  * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Repository_Forum
  * @version    $Id$
  *
@@ -40,6 +40,6 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Repository_Forum_AttachmentRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class Tx_Typo3Forum_Domain_Repository_Forum_AttachmentRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 }

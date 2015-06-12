@@ -32,7 +32,7 @@
  * of a specific class.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage ViewHelpers
  * @version    $Id$
  *
@@ -44,7 +44,7 @@
  *
  */
 
-class Tx_MmForum_ViewHelpers_IfInstanceOfViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\IfViewHelper {
+class Tx_Typo3Forum_ViewHelpers_IfInstanceOfViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\IfViewHelper {
 
 
 

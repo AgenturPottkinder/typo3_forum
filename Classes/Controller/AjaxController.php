@@ -34,7 +34,7 @@
  * @author     Martin Helmich <m.helmich@mittwald.de>
  * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
  * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Controller
  * @version    $Id$
  *
@@ -45,7 +45,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_AbstractController {
+class Tx_Typo3Forum_Controller_AjaxController extends Tx_Typo3Forum_Controller_AbstractController {
 
 
 
@@ -57,57 +57,57 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 
 	/**
 	 * A forum repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository
 	 */
 	protected $forumRepository;
 
 
 	/**
 	 * A topic repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_TopicRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository
 	 */
 	protected $topicRepository;
 
 
 	/**
 	 * A post repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_PostRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_Forum_PostRepository
 	 */
 	protected $postRepository;
 
 
 	/**
 	 * A post factory.
-	 * @var Tx_MmForum_Domain_Factory_Forum_PostFactory
+	 * @var Tx_Typo3Forum_Domain_Factory_Forum_PostFactory
 	 */
 	protected $postFactory;
 
 
 	/**
 	 * A post factory.
-	 * @var Tx_MmForum_Domain_Repository_Forum_AttachmentRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_Forum_AttachmentRepository
 	 */
 	protected $attachmentRepository;
 
 	/**
-	 * @var Tx_MmForum_Service_AttachmentService
+	 * @var Tx_Typo3Forum_Service_AttachmentService
 	 */
 	protected $attachmentService = NULL;
 
 	/**
 	 * The ads repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_AdsRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_Forum_AdsRepository
 	 */
 	protected $adsRepository;
 
 	/**
-	 * An instance of the mm_forum authentication service.
+	 * An instance of the typo3_forum authentication service.
 	 * @var TYPO3\CMS\Extbase\Service\TypoScriptService
 	 */
 	protected $typoScriptService = NULL;
 
 	/**
-	 * Whole TypoScript mm_forum settings
+	 * Whole TypoScript typo3_forum settings
 	 * @var array
 	 */
 	protected $settings;
@@ -116,23 +116,23 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 	/**
 	 * Constructor. Used primarily for dependency injection.
 	 *
-	 * @param Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository
-	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository
-	 * @param Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository
-	 * @param Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory
-	 * @param Tx_MmForum_Domain_Repository_Forum_AttachmentRepository $attachmentRepository
-	 * @param Tx_MmForum_Service_SessionHandlingService $sessionHandling
-	 * @param Tx_MmForum_Service_AttachmentService $attachmentService
-	 * @param Tx_MmForum_Domain_Repository_Forum_AdsRepository   $adsRepository
+	 * @param Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository $forumRepository
+	 * @param Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository
+	 * @param Tx_Typo3Forum_Domain_Repository_Forum_PostRepository $postRepository
+	 * @param Tx_Typo3Forum_Domain_Factory_Forum_PostFactory $postFactory
+	 * @param Tx_Typo3Forum_Domain_Repository_Forum_AttachmentRepository $attachmentRepository
+	 * @param Tx_Typo3Forum_Service_SessionHandlingService $sessionHandling
+	 * @param Tx_Typo3Forum_Service_AttachmentService $attachmentService
+	 * @param Tx_Typo3Forum_Domain_Repository_Forum_AdsRepository   $adsRepository
 	 */
-	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
-								Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
-								Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository,
-								Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory,
-								Tx_MmForum_Domain_Repository_Forum_AttachmentRepository $attachmentRepository,
-								Tx_MmForum_Service_SessionHandlingService $sessionHandling,
-								Tx_MmForum_Service_AttachmentService $attachmentService,
-								Tx_MmForum_Domain_Repository_Forum_AdsRepository   $adsRepository) {
+	public function __construct(Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository $forumRepository,
+								Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository,
+								Tx_Typo3Forum_Domain_Repository_Forum_PostRepository $postRepository,
+								Tx_Typo3Forum_Domain_Factory_Forum_PostFactory $postFactory,
+								Tx_Typo3Forum_Domain_Repository_Forum_AttachmentRepository $attachmentRepository,
+								Tx_Typo3Forum_Service_SessionHandlingService $sessionHandling,
+								Tx_Typo3Forum_Service_AttachmentService $attachmentService,
+								Tx_Typo3Forum_Domain_Repository_Forum_AdsRepository   $adsRepository) {
 		$this->forumRepository = $forumRepository;
 		$this->topicRepository = $topicRepository;
 		$this->postRepository = $postRepository;
@@ -151,7 +151,7 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
 		$this->typoScriptService = $typoScriptService;
 		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
-		$this->settings = $ts['plugin']['tx_mmforum']['settings'];
+		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
 
 	//
@@ -350,12 +350,12 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 			switch($summary->type){
 				case 'lastForumPost':
 					$forum  = $this->forumRepository->findByUid($summary->uid);
-					/* @var Tx_MmForum_Domain_Model_Forum_Post */
+					/* @var Tx_Typo3Forum_Domain_Model_Forum_Post */
 					$post = $forum->getLastPost();
 					break;
 				case 'lastTopicPost':
 					$topic  = $this->topicRepository->findByUid($summary->uid);
-					/* @var Tx_MmForum_Domain_Model_Forum_Post */
+					/* @var Tx_Typo3Forum_Domain_Model_Forum_Post */
 					$post = $topic->getLastPost();
 					break;
 			}

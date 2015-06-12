@@ -24,30 +24,30 @@
  *                                                                      */
 
 
-abstract class Tx_MmForum_Controller_AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+abstract class Tx_Typo3Forum_Controller_AbstractControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 
 
 
 	/**
-	 * @var Tx_MmForum_Controller_AbstractController
+	 * @var Tx_Typo3Forum_Controller_AbstractController
 	 */
 	protected $fixture;
 
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject|Tx_MmForum_Service_Authentication_AuthenticationServiceInterface
+	 * @var PHPUnit_Framework_MockObject_MockObject|Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface
 	 */
 	protected $authenticationServiceMock;
 
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject|Tx_MmForum_Domain_Repository_User_FrontendUserRepository
+	 * @var PHPUnit_Framework_MockObject_MockObject|Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository
 	 */
 	protected $userRepositoryMock;
 
 
 	/**
-	 * @var Tx_MmForum_View_ViewMock
+	 * @var Tx_Typo3Forum_View_ViewMock
 	 */
 	protected $viewMock;
 
@@ -73,18 +73,18 @@ abstract class Tx_MmForum_Controller_AbstractControllerTest extends \TYPO3\CMS\E
 	/**
 	 * @var string
 	 */
-	protected $fixtureClassName = 'Tx_MmForum_Controller_ForumController';
+	protected $fixtureClassName = 'Tx_Typo3Forum_Controller_ForumController';
 
 
 
 	protected function buildFixture($className, array $constructorArguments = array()) {
-		$this->userRepositoryMock        = $this->getMock('Tx_MmForum_Domain_Repository_User_FrontendUserRepository');
-		$this->authenticationServiceMock = $this->getMock('Tx_MmForum_Service_Authentication_AuthenticationService',
+		$this->userRepositoryMock        = $this->getMock('Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository');
+		$this->authenticationServiceMock = $this->getMock('Tx_Typo3Forum_Service_Authentication_AuthenticationService',
 		                                                  array('checkAuthorization'), array($this->userRepositoryMock,
-		                                                                                    $this->getMock('Tx_MmForum_Cache_Cache')));
+		                                                                                    $this->getMock('Tx_Typo3Forum_Cache_Cache')));
 
 		#$this->viewMock                  = $this->getMockForAbstractClass('Tx_Extbase_MVC_View_AbstractView');
-		$this->viewMock                  = new Tx_MmForum_View_ViewMock();
+		$this->viewMock                  = new Tx_Typo3Forum_View_ViewMock();
 		$this->flashMessageContainerMock = $this->getMock('Tx_Extbase_MVC_Controller_FlashMessages');
 		$this->requestMock               = $this->getMock('Tx_Extbase_MVC_Web_Request');
 		$this->requestMock->expects($this->any())->method('getFormat')->will($this->returnValue('html'));
@@ -127,8 +127,8 @@ abstract class Tx_MmForum_Controller_AbstractControllerTest extends \TYPO3\CMS\E
 		foreach ($method->getParameters() as $parameter) {
 			/** @var $parameter ReflectionParameter */
 			if ($parameter->getClass() !== NULL) {
-				if ($parameter->getClass()->getName() === 'Tx_MmForum_Domain_Model_Forum_Forum') {
-					$forum = new Tx_MmForum_Domain_Model_Forum_Forum();
+				if ($parameter->getClass()->getName() === 'Tx_Typo3Forum_Domain_Model_Forum_Forum') {
+					$forum = new Tx_Typo3Forum_Domain_Model_Forum_Forum();
 					$forum->injectObjectManager(\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager'));
 					$parameters[] = $forum;
 				} else {
@@ -148,7 +148,7 @@ abstract class Tx_MmForum_Controller_AbstractControllerTest extends \TYPO3\CMS\E
 
 	protected function buildForumMockList() {
 		$list = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$list->attach($this->getMock('Tx_MmForum_Domain_Model_Forum_Forum'));
+		$list->attach($this->getMock('Tx_Typo3Forum_Domain_Model_Forum_Forum'));
 		return $list;
 	}
 
@@ -156,7 +156,7 @@ abstract class Tx_MmForum_Controller_AbstractControllerTest extends \TYPO3\CMS\E
 
 	protected function buildTopicMockList() {
 		$list = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$list->attach($this->getMock('Tx_MmForum_Domain_Model_Forum_Topic'));
+		$list->attach($this->getMock('Tx_Typo3Forum_Domain_Model_Forum_Topic'));
 		return $list;
 	}
 
@@ -164,7 +164,7 @@ abstract class Tx_MmForum_Controller_AbstractControllerTest extends \TYPO3\CMS\E
 
 	protected function buildPostMockList() {
 		$list = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$list->attach($this->getMock('Tx_MmForum_Domain_Model_Forum_Post'));
+		$list->attach($this->getMock('Tx_Typo3Forum_Domain_Model_Forum_Post'));
 		return $list;
 	}
 

@@ -31,7 +31,7 @@
  * General text parser exception.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Exception
  * @version    $Id: Exception.php 60797 2012-04-16 18:51:49Z mhelmich $
  *
@@ -43,7 +43,7 @@
  *
  */
 
-class Tx_MmForum_Domain_Exception_InvalidOperationException extends Tx_MmForum_Domain_Exception_AbstractException {
+class Tx_Typo3Forum_Domain_Exception_InvalidOperationException extends Tx_Typo3Forum_Domain_Exception_AbstractException {
 
 
 

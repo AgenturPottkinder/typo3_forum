@@ -32,7 +32,7 @@
  * for example the rendering of bb codes, smilies, etc.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage TextParser
  * @version    $Id$
  *
@@ -43,7 +43,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_TextParser_TextParserService extends Tx_MmForum_Service_AbstractService {
+class Tx_Typo3Forum_TextParser_TextParserService extends Tx_Typo3Forum_Service_AbstractService {
 
 
 
@@ -62,10 +62,10 @@ class Tx_MmForum_TextParser_TextParserService extends Tx_MmForum_Service_Abstrac
 
 
 	/**
-	 * An instance of the mm_forum typoscript reader. Is used to read the
+	 * An instance of the typo3_forum typoscript reader. Is used to read the
 	 * text parser's tyoscript configuration.
 	 *
-	 * @var Tx_MmForum_Utility_TypoScript
+	 * @var Tx_Typo3Forum_Utility_TypoScript
 	 */
 	protected $typoscriptReader;
 
@@ -73,7 +73,7 @@ class Tx_MmForum_TextParser_TextParserService extends Tx_MmForum_Service_Abstrac
 
 	/**
 	 * An array of the parsing services that are to be used to render text input.
-	 * @var array<Tx_MmForum_TextParser_Service_AbstractTextParserService>
+	 * @var array<Tx_Typo3Forum_TextParser_Service_AbstractTextParserService>
 	 */
 	protected $parsingServices;
 
@@ -117,10 +117,10 @@ class Tx_MmForum_TextParser_TextParserService extends Tx_MmForum_Service_Abstrac
 
 
 	/**
-	 * Injects the mm_forum typoscript reader.
-	 * @param Tx_MmForum_Utility_TypoScript $typoscriptReader The typoscript reader.
+	 * Injects the typo3_forum typoscript reader.
+	 * @param Tx_Typo3Forum_Utility_TypoScript $typoscriptReader The typoscript reader.
 	 */
-	public function injectTyposcriptReader(Tx_MmForum_Utility_TypoScript $typoscriptReader) {
+	public function injectTyposcriptReader(Tx_Typo3Forum_Utility_TypoScript $typoscriptReader) {
 		$this->typoscriptReader = $typoscriptReader;
 	}
 
@@ -158,7 +158,7 @@ class Tx_MmForum_TextParser_TextParserService extends Tx_MmForum_Service_Abstrac
 	 * @param  string $configurationPath The typoscript configuration path.
 	 * @return void
 	 */
-	public function loadConfiguration($configurationPath = 'plugin.tx_mmforum.settings.textParsing') {
+	public function loadConfiguration($configurationPath = 'plugin.tx_typo3forum.settings.textParsing') {
 		if ($this->settings !== NULL) {
 			return;
 		}
@@ -169,14 +169,14 @@ class Tx_MmForum_TextParser_TextParserService extends Tx_MmForum_Service_Abstrac
 				continue;
 			}
 
-			/** @var $newService Tx_MmForum_TextParser_Service_AbstractTextParserService */
+			/** @var $newService Tx_Typo3Forum_TextParser_Service_AbstractTextParserService */
 			$newService = $this->objectManager->get($className);
-			if ($newService instanceof Tx_MmForum_TextParser_Service_AbstractTextParserService) {
+			if ($newService instanceof Tx_Typo3Forum_TextParser_Service_AbstractTextParserService) {
 				$newService->setSettings((array)$this->settings['enabledServices.'][$key . '.']);
 				$newService->setControllerContext($this->controllerContext);
 				$this->parsingServices[] = $newService;
 			} else {
-				throw new Tx_MmForum_Domain_Exception_TextParser_Exception('Invalid class; expected an instance of Tx_MmForum_TextParser_Service_AbstractTextParserService!', 1315916625);
+				throw new Tx_Typo3Forum_Domain_Exception_TextParser_Exception('Invalid class; expected an instance of Tx_Typo3Forum_TextParser_Service_AbstractTextParserService!', 1315916625);
 			}
 		}
 	}
@@ -191,12 +191,12 @@ class Tx_MmForum_TextParser_TextParserService extends Tx_MmForum_Service_Abstrac
 	 */
 	public function parseText($text) {
 		if ($this->settings === NULL) {
-			throw new Tx_MmForum_Domain_Exception_TextParser_Exception
+			throw new Tx_Typo3Forum_Domain_Exception_TextParser_Exception
 			("The textparser is not configured!", 1284730639);
 		}
 
 		foreach ($this->parsingServices as &$parsingService) {
-			/** @var $parsingService Tx_MmForum_TextParser_Service_AbstractTextParserService */
+			/** @var $parsingService Tx_Typo3Forum_TextParser_Service_AbstractTextParserService */
 			$text = $parsingService->getParsedText($text);
 		}
 		return $text;

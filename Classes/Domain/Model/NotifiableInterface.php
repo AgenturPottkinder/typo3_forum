@@ -32,7 +32,7 @@
  * emails.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Model_User
  * @version    $Id$
  *
@@ -43,7 +43,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-interface Tx_MmForum_Domain_Model_NotifiableInterface {
+interface Tx_Typo3Forum_Domain_Model_NotifiableInterface {
 
 
 

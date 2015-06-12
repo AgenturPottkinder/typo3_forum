@@ -31,7 +31,7 @@
  * Abstract exception class for all domain errors that might occur in this extension.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Exception
  * @version    $Id$
  *
@@ -43,7 +43,7 @@
  *
  */
 
-Abstract Class Tx_MmForum_Domain_Exception_AbstractException Extends \TYPO3\CMS\Extbase\Exception {
+Abstract Class Tx_Typo3Forum_Domain_Exception_AbstractException Extends \TYPO3\CMS\Extbase\Exception {
 
 
 

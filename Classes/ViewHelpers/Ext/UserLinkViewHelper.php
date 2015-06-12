@@ -28,7 +28,7 @@
  * ViewHelper that renders a big button.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage ViewHelpers_Control
  * @version    $Id: BigButtonViewHelper.php 52309 2011-09-20 18:54:26Z mhelmich $
  *
@@ -38,17 +38,17 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Ext_UserLinkViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
+class Tx_Typo3Forum_ViewHelpers_Ext_UserLinkViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
 
 
 	/**
-	 * An instance of the mm_forum authentication service.
+	 * An instance of the typo3_forum authentication service.
 	 * @var TYPO3\CMS\Extbase\Service\TypoScriptService
 	 */
 	protected $typoScriptService = NULL;
 
 	/**
-	 * Whole TypoScript mm_forum settings
+	 * Whole TypoScript typo3_forum settings
 	 * @var array
 	 */
 	protected $settings;
@@ -56,7 +56,7 @@ class Tx_MmForum_ViewHelpers_Ext_UserLinkViewHelper extends \TYPO3\CMS\Fluid\Vie
 	/**
 	 * An authentication service. Handles the authentication mechanism.
 	 *
-	 * @var Tx_MmForum_Service_Authentication_AuthenticationServiceInterface
+	 * @var Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface
 	 */
 	protected $authenticationService = NULL;
 
@@ -65,13 +65,13 @@ class Tx_MmForum_ViewHelpers_Ext_UserLinkViewHelper extends \TYPO3\CMS\Fluid\Vie
 	 *
 	 * Injects an authentication service.
 	 *
-	 * @param  Tx_MmForum_Service_Authentication_AuthenticationServiceInterface $authenticationService
+	 * @param  Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface $authenticationService
 	 *                             An authentication service.
 	 *
 	 * @return void
 	 *
 	 */
-	public function injectAuthenticationService(Tx_MmForum_Service_Authentication_AuthenticationServiceInterface $authenticationService) {
+	public function injectAuthenticationService(Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface $authenticationService) {
 		$this->authenticationService = $authenticationService;
 	}
 
@@ -84,7 +84,7 @@ class Tx_MmForum_ViewHelpers_Ext_UserLinkViewHelper extends \TYPO3\CMS\Fluid\Vie
 
 		$this->typoScriptService = $typoScriptService;
 		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
-		$this->settings = $ts['plugin']['tx_mmforum']['settings'];
+		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
 
 
@@ -108,7 +108,7 @@ class Tx_MmForum_ViewHelpers_Ext_UserLinkViewHelper extends \TYPO3\CMS\Fluid\Vie
 		$user = $this->authenticationService->getUser();
 		if($link){
 				$uriBuilder = $this->controllerContext->getUriBuilder();
-				$uri = $uriBuilder->setTargetPageUid($this->settings['pids']['UserShow'])->setArguments(array('tx_mmforum_pi1[user]' => $user->getUid(), 'tx_mmforum_pi1[controller]' => 'User', 'tx_mmforum_pi1[action]' => 'show'))->build();
+				$uri = $uriBuilder->setTargetPageUid($this->settings['pids']['UserShow'])->setArguments(array('tx_typo3forum_pi1[user]' => $user->getUid(), 'tx_typo3forum_pi1[controller]' => 'User', 'tx_typo3forum_pi1[action]' => 'show'))->build();
 				return '<a href="' . $uri . '" title="' . $user->getUsername() . '">' . $user->getUsername() . '</a>';
 		}else{
 			return $user->getUsername();

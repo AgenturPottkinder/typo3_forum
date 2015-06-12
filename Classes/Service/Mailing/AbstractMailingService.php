@@ -32,7 +32,7 @@
  * forums and topic about new posts within the subscribed objects.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Service_Mailing
  * @version    $Id$
  *
@@ -43,12 +43,12 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_MmForum_Service_Mailing_AbstractMailingService extends Tx_MmForum_Service_AbstractService
-	implements Tx_MmForum_Service_Mailing_MailingServiceInterface {
+abstract class Tx_Typo3Forum_Service_Mailing_AbstractMailingService extends Tx_Typo3Forum_Service_AbstractService
+	implements Tx_Typo3Forum_Service_Mailing_MailingServiceInterface {
 
 
 	/**
-	 * An instance of the mm_forum authentication service.
+	 * An instance of the typo3_forum authentication service.
 	 * @var TYPO3\CMS\Extbase\Service\TypoScriptService
 	 */
 	protected $typoScriptService = NULL;
@@ -56,7 +56,7 @@ abstract class Tx_MmForum_Service_Mailing_AbstractMailingService extends Tx_MmFo
 
 
 	/**
-	 * Whole TypoScript mm_forum settings
+	 * Whole TypoScript typo3_forum settings
 	 * @var array
 	 */
 	protected $settings;
@@ -93,7 +93,7 @@ abstract class Tx_MmForum_Service_Mailing_AbstractMailingService extends Tx_MmFo
 	 * The format in which this service sends mails. Usually, this would be either 'html' or 'txt'.
 	 * @var string
 	 */
-	protected $format = Tx_MmForum_Service_Mailing_AbstractMailingService::MAILING_FORMAT_HTML;
+	protected $format = Tx_Typo3Forum_Service_Mailing_AbstractMailingService::MAILING_FORMAT_HTML;
 
 
 
@@ -104,7 +104,7 @@ abstract class Tx_MmForum_Service_Mailing_AbstractMailingService extends Tx_MmFo
 	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
 		$this->typoScriptService = $typoScriptService;
 		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
-		$this->settings = $ts['plugin']['tx_mmforum']['settings'];
+		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
 
 

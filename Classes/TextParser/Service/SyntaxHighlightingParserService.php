@@ -31,7 +31,7 @@
  * Text parser class for parsing syntax highlighting.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage TextParser_Service
  * @version    $Id$
  *
@@ -42,13 +42,13 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_TextParser_Service_SyntaxHighlightingParserService
-	extends Tx_MmForum_TextParser_Service_AbstractTextParserService {
+class Tx_Typo3Forum_TextParser_Service_SyntaxHighlightingParserService
+	extends Tx_Typo3Forum_TextParser_Service_AbstractTextParserService {
 
 
 
 	/**
-	 * @var Tx_MmForum_TextParser_Service_AbstractGeshiService
+	 * @var Tx_Typo3Forum_TextParser_Service_AbstractGeshiService
 	 */
 	protected $xtGeshi;
 
@@ -59,9 +59,9 @@ class Tx_MmForum_TextParser_Service_SyntaxHighlightingParserService
 
 	/**
 	 * Injects an instance of the smilie repository.
-	 * @param Tx_MmForum_TextParser_Service_AbstractGeshiService $xtGeshi
+	 * @param Tx_Typo3Forum_TextParser_Service_AbstractGeshiService $xtGeshi
 	 */
-	public function injectAbstractGeshiService(Tx_MmForum_TextParser_Service_AbstractGeshiService $xtGeshi) {
+	public function injectAbstractGeshiService(Tx_Typo3Forum_TextParser_Service_AbstractGeshiService $xtGeshi) {
 		$this->xtGeshi = $xtGeshi;
 	}
 

@@ -32,7 +32,7 @@
  * users and a specific userfield value.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Model_User_Userfield
  * @version    $Id$
  *
@@ -44,7 +44,7 @@
  *
  */
 
-Class Tx_MmForum_Domain_Model_User_Userfield_Value Extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
+Class Tx_Typo3Forum_Domain_Model_User_Userfield_Value Extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
 
 
 
@@ -56,14 +56,14 @@ Class Tx_MmForum_Domain_Model_User_Userfield_Value Extends \TYPO3\CMS\Extbase\Do
 
 	/**
 	 * The userfield.
-	 * @var Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield
+	 * @var Tx_Typo3Forum_Domain_Model_User_Userfield_AbstractUserfield
 	 */
 	Protected $userfield;
 
 
 	/**
 	 * The user.
-	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @var Tx_Typo3Forum_Domain_Model_User_FrontendUser
 	 */
 	Protected $user;
 
@@ -85,7 +85,7 @@ Class Tx_MmForum_Domain_Model_User_Userfield_Value Extends \TYPO3\CMS\Extbase\Do
 	/**
 	 *
 	 * Gets the userfield.
-	 * @return Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield The userfield.
+	 * @return Tx_Typo3Forum_Domain_Model_User_Userfield_AbstractUserfield The userfield.
 	 *
 	 */
 
@@ -98,7 +98,7 @@ Class Tx_MmForum_Domain_Model_User_Userfield_Value Extends \TYPO3\CMS\Extbase\Do
 	/**
 	 *
 	 * Gets the user.
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The user
+	 * @return Tx_Typo3Forum_Domain_Model_User_FrontendUser The user
 	 *
 	 */
 	Public Function getUser() {

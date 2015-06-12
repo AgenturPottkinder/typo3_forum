@@ -1,5 +1,5 @@
 <?php
-class Tx_MmForum_Service_TagService implements \TYPO3\CMS\Core\SingletonInterface {
+class Tx_Typo3Forum_Service_TagService implements \TYPO3\CMS\Core\SingletonInterface {
 
 	/**
 	 * An instance of the Extbase object manager.
@@ -9,7 +9,7 @@ class Tx_MmForum_Service_TagService implements \TYPO3\CMS\Core\SingletonInterfac
 
 	/**
 	 * An instance of the tag repository
-	 * @var Tx_MmForum_Domain_Repository_Forum_TagRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_Forum_TagRepository
 	 */
 	protected $tagRepository;
 
@@ -25,10 +25,10 @@ class Tx_MmForum_Service_TagService implements \TYPO3\CMS\Core\SingletonInterfac
 
 	/**
 	 * Injects an instance of the tag repository
-	 * @param Tx_MmForum_Domain_Repository_Forum_TagRepository $tagRepository
+	 * @param Tx_Typo3Forum_Domain_Repository_Forum_TagRepository $tagRepository
 	 * @return void
 	 */
-	public function injectTagRepository(Tx_MmForum_Domain_Repository_Forum_TagRepository $tagRepository) {
+	public function injectTagRepository(Tx_Typo3Forum_Domain_Repository_Forum_TagRepository $tagRepository) {
 		$this->tagRepository = $tagRepository;
 	}
 
@@ -39,7 +39,7 @@ class Tx_MmForum_Service_TagService implements \TYPO3\CMS\Core\SingletonInterfac
 	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
 	 */
 	public function initTags($tags) {
-		/* @var Tx_MmForum_Domain_Model_Forum_Tag */
+		/* @var Tx_Typo3Forum_Domain_Model_Forum_Tag */
 		$objTags = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 
 		$tagArray = array_unique(explode(',', $tags));
@@ -51,8 +51,8 @@ class Tx_MmForum_Service_TagService implements \TYPO3\CMS\Core\SingletonInterfac
 				$searchResult[0]->increaseTopicCount();
 				$objTags->attach($searchResult[0]);
 			} else {
-				/* @var Tx_MmForum_Domain_Model_Forum_Tag $tag */
-				$tag = $this->objectManager->create('Tx_MmForum_Domain_Model_Forum_Tag');
+				/* @var Tx_Typo3Forum_Domain_Model_Forum_Tag $tag */
+				$tag = $this->objectManager->create('Tx_Typo3Forum_Domain_Model_Forum_Tag');
 				$tag->setName($tagName);
 				$tag->setCrdate(new DateTime());
 				$tag->increaseTopicCount();

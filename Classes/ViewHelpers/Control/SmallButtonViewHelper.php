@@ -31,7 +31,7 @@
  * ViewHelper that renders a small button.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage ViewHelpers_Control
  * @version    $Id$
  *
@@ -42,17 +42,17 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Control_SmallButtonViewHelper extends Tx_MmForum_ViewHelpers_Control_BigButtonViewHelper {
+class Tx_Typo3Forum_ViewHelpers_Control_SmallButtonViewHelper extends Tx_Typo3Forum_ViewHelpers_Control_BigButtonViewHelper {
 
 
 
-	protected $iconBaseClass = 'tx-mmforum-icon-16-';
+	protected $iconBaseClass = 'tx-typo3forum-icon-16-';
 
 
 
 	public function initialize() {
 		parent::initialize();
-		$this->tag->addAttribute('class', 'tx-mmforum-button-small');
+		$this->tag->addAttribute('class', 'tx-typo3forum-button-small');
 	}
 
 

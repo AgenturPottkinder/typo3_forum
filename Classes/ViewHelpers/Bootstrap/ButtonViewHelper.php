@@ -30,7 +30,7 @@
  * ViewHelper that renders a big button.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage ViewHelpers_Control
  * @version    $Id: BigButtonViewHelper.php 52309 2011-09-20 18:54:26Z mhelmich $
  *
@@ -40,7 +40,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Bootstrap_ButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper {
+class Tx_Typo3Forum_ViewHelpers_Bootstrap_ButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper {
 
 
 
@@ -70,11 +70,11 @@ class Tx_MmForum_ViewHelpers_Bootstrap_ButtonViewHelper extends \TYPO3\CMS\Fluid
 
 	public function renderChildren() {
 		if ($this->arguments['icon']) {
-			$content = '<i class="tx-mmforum-icon-16-' . $this->arguments['icon'] . '"></i> ';
+			$content = '<i class="tx-typo3forum-icon-16-' . $this->arguments['icon'] . '"></i> ';
 		} else {
 			$content = '';
 		}
-		$content .= \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($this->arguments['label'], 'mm_forum');
+		$content .= \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($this->arguments['label'], 'typo3_forum');
 		return $content;
 	}
 

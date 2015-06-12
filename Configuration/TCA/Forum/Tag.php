@@ -1,8 +1,8 @@
 <?php
 if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 
-$TCA['tx_mmforum_domain_model_forum_tag'] = array(
-	'ctrl' => $TCA['tx_mmforum_domain_model_forum_tag']['ctrl'],
+$TCA['tx_typo3forum_domain_model_forum_tag'] = array(
+	'ctrl' => $TCA['tx_typo3forum_domain_model_forum_tag']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'name,tstamp,crdate,topic_count,feuser'
 	),
@@ -15,14 +15,14 @@ $TCA['tx_mmforum_domain_model_forum_tag'] = array(
 	'columns' => array(
 		'name' => array(
 			'exclude' => 0,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_tag_name',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_tag_name',
 			'config'  => array(
 				'type' => 'input'
 			)
 		),
 		'tstamp' => array(
 			'exclude' => 0,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_tag_tstamp',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_tag_tstamp',
 			'config' => Array (
 				'type' => 'none',
 				'format' => 'date',
@@ -31,7 +31,7 @@ $TCA['tx_mmforum_domain_model_forum_tag'] = array(
 		),
 		'crdate' => array(
 			'exclude' => 0,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_tag_crdate',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_tag_crdate',
 			'config' => Array (
 				'type' => 'none',
 				'format' => 'date',
@@ -40,20 +40,20 @@ $TCA['tx_mmforum_domain_model_forum_tag'] = array(
 		),
 		'topic_count' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_tag_topicCount',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_tag_topicCount',
 			'config' => array(
 				'type' => 'none',
 			),
 		),
 		'feuser' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_tag',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_tag',
 			'config' => array(
 				'type'          => 'select',
 				'size'          => 10,
 				'maxitems'      => 99999,
 				'foreign_table' => 'fe_users',
-				'MM' => 'tx_mmforum_domain_model_forum_tag_user'
+				'MM' => 'tx_typo3forum_domain_model_forum_tag_user'
 			),
 		),
 	)

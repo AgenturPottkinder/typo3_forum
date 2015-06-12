@@ -32,7 +32,7 @@
  * certain operation on a certain object.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage ViewHelpers_Authentication
  * @version    $Id$
  *
@@ -44,14 +44,14 @@
  *
  */
 
-Class Tx_MmForum_ViewHelpers_Authentication_IfAccessViewHelper Extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper {
+Class Tx_Typo3Forum_ViewHelpers_Authentication_IfAccessViewHelper Extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper {
 
 
 
 	/**
 	 * The frontend user repository.
 	 *
-	 * @var Tx_MmForum_Domain_Repository_User_FrontendUserRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository
 	 */
 	Protected $frontendUserRepository;
 
@@ -60,12 +60,12 @@ Class Tx_MmForum_ViewHelpers_Authentication_IfAccessViewHelper Extends \TYPO3\CM
 	/**
 	 * Injects a frontend user repository.
 	 *
-	 * @param  Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository
+	 * @param  Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository
 	 *                             A frontend user repository.
 	 *
 	 * @return void
 	 */
-	public function injectFrontendUserRepository(Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository) {
+	public function injectFrontendUserRepository(Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository) {
 		$this->frontendUserRepository = $frontendUserRepository;
 	}
 
@@ -74,14 +74,14 @@ Class Tx_MmForum_ViewHelpers_Authentication_IfAccessViewHelper Extends \TYPO3\CM
 	/**
 	 * Renders this ViewHelper
 	 *
-	 * @param  Tx_MmForum_Domain_Model_AccessibleInterface $object
+	 * @param  Tx_Typo3Forum_Domain_Model_AccessibleInterface $object
 	 *                                                                  The object for which the access is to be checked.
 	 * @param  string                                      $accessType  The operation for which to check the access.
 	 *
 	 * @return string              The ViewHelper contents if the user has access to
 	 *                             the specified operation.
 	 */
-	Public Function render(Tx_MmForum_Domain_Model_AccessibleInterface $object, $accessType = 'read') {
+	Public Function render(Tx_Typo3Forum_Domain_Model_AccessibleInterface $object, $accessType = 'read') {
 		if ($object->checkAccess($this->frontendUserRepository->findCurrent(),
 			$accessType)) {
 			return $this->renderThenChild();

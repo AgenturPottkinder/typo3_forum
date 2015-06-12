@@ -31,7 +31,7 @@
  * Abstract base class for additional user fields.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Model_User_Userfield
  * @version    $Id$
  *
@@ -43,7 +43,7 @@
  *
  */
 
-Abstract Class Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield
+Abstract Class Tx_Typo3Forum_Domain_Model_User_Userfield_AbstractUserfield
 	Extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
 
 
@@ -121,14 +121,14 @@ Abstract Class Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield
 	/**
 	 *
 	 * Determines the value for this userfield and a specific user.
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
 	 *                             The user for which the value of this userfield is
 	 *                             to be determined.
 	 * @return string              The userfield value.
 	 *
 	 */
 
-	Public Function getValueForUser(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+	Public Function getValueForUser(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user) {
 		If ($this->isMappedToUserObject()) {
 			$propertyNames  = explode('|', $this->getUserObjectPropertyName());
 			$propertyValues = Array();

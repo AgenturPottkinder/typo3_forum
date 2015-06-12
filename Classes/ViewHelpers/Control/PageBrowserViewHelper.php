@@ -31,7 +31,7 @@
  * ViewHelper that renders a page browser.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage ViewHelpers_Control
  * @version    $Id$
  *
@@ -43,7 +43,7 @@
  *
  */
 
-Class Tx_MmForum_ViewHelpers_Control_PageBrowserViewHelper Extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+Class Tx_Typo3Forum_ViewHelpers_Control_PageBrowserViewHelper Extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 
 

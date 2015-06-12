@@ -1,7 +1,7 @@
 <?php
 
 
-class Tx_MmForum_TextParser_Service_AbstractGeshiService{
+class Tx_Typo3Forum_TextParser_Service_AbstractGeshiService{
 
 	/**
 	 * all allowed

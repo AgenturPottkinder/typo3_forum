@@ -31,7 +31,7 @@
  * Service class for sending HTML mails.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Service_Mailing
  * @version    $Id$
  *
@@ -43,7 +43,7 @@
  *
  */
 
-Class Tx_MmForum_Service_Mailing_HTMLMailingService Extends Tx_MmForum_Service_Mailing_AbstractMailingService {
+Class Tx_Typo3Forum_Service_Mailing_HTMLMailingService Extends Tx_Typo3Forum_Service_Mailing_AbstractMailingService {
 
 
 	/**

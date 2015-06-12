@@ -31,7 +31,7 @@
  * Repository class for frontend suers.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Repository_User
  * @version    $Id$
  *
@@ -42,18 +42,18 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
+class Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository
 	extends \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository {
 
 
 	/**
-	 * An instance of the mm_forum authentication service.
+	 * An instance of the typo3_forum authentication service.
 	 * @var TYPO3\CMS\Extbase\Service\TypoScriptService
 	 */
 	protected $typoScriptService = NULL;
 
 	/**
-	 * Whole TypoScript mm_forum settings
+	 * Whole TypoScript typo3_forum settings
 	 * @var array
 	 */
 	protected $settings;
@@ -70,7 +70,7 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 		$typoScriptArray = \TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup();
 		if(is_array($typoScriptArray)) {
 			$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray($typoScriptArray);
-			$this->settings = $ts['plugin']['tx_mmforum']['settings'];
+			$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 		}
 	}
 
@@ -78,13 +78,13 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 	/**
 	 * Finds the user that is currently logged in, or NULL if no user is logged in.
 	 *
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @return Tx_Typo3Forum_Domain_Model_User_FrontendUser
 	 *                             The user that is currently logged in, or NULL if
 	 *                             no user is logged in.
 	 */
 	public function findCurrent() {
 		$currentUserUid = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
-		return $currentUserUid ? $this->findByUid($currentUserUid) : new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
+		return $currentUserUid ? $this->findByUid($currentUserUid) : new Tx_Typo3Forum_Domain_Model_User_AnonymousFrontendUser();
 	}
 
 
@@ -96,7 +96,7 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 	 * @param  array $orderings
 	 * @param  boolean $onlyOnline
 	 * @param  array $uids
-	 * @return Array<Tx_MmForum_Domain_Model_User_FrontendUser>
+	 * @return Array<Tx_Typo3Forum_Domain_Model_User_FrontendUser>
 	 *                               The selected subset of posts
 	 *
 	 */
@@ -136,10 +136,10 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 
 	/**
 	 * Returns an anonymous frontend user.
-	 * @return Tx_MmForum_Domain_Model_User_AnonymousFrontendUser An anonymous frontend user.
+	 * @return Tx_Typo3Forum_Domain_Model_User_AnonymousFrontendUser An anonymous frontend user.
 	 */
 	public function findAnonymous() {
-		return new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
+		return new Tx_Typo3Forum_Domain_Model_User_AnonymousFrontendUser();
 	}
 
 
@@ -149,7 +149,7 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 	 * @param $part Part of the users nickname
 	 * @param $filter Order by which field?
 	 * @param $order ASC or DESC ordering
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser[] The frontend users with the specified username.
+	 * @return Tx_Typo3Forum_Domain_Model_User_FrontendUser[] The frontend users with the specified username.
 	 */
 	public function findLikeUsername($part=NULL,$filter=NULL,$order=NULL) {
 		$query = $this->createQuery();
@@ -170,7 +170,7 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 	 * Finds users for the user index view. Sorting and page navigation to be
 	 * handled in controller/view.
 	 *
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser[] All users.
+	 * @return Tx_Typo3Forum_Domain_Model_User_FrontendUser[] All users.
 	 */
 	public function findForIndex() {
 		return $this->findAll();
@@ -182,11 +182,11 @@ class Tx_MmForum_Domain_Repository_User_FrontendUserRepository
 	 * Finds users for the top $limit view.
 	 *
 	 * @param int $limit
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser[] The Top $limit User of this forum.
+	 * @return Tx_Typo3Forum_Domain_Model_User_FrontendUser[] The Top $limit User of this forum.
 	 */
 	public function findTopUserByPoints($limit=50) {
 		$query = $this->createQuery();
-		$query->setOrderings(array('tx_mmforum_points' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
+		$query->setOrderings(array('tx_typo3forum_points' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
 									'username' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
 		$query->setLimit($limit);
 		return $query->execute();

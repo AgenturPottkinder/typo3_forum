@@ -29,7 +29,7 @@
 /**
  *
  * Models a post report. Reports are the central object of the moderation
- * component of the mm_forum extension. Each user can report a forum post
+ * component of the typo3_forum extension. Each user can report a forum post
  * to the respective moderator group. In this case, a report object is
  * created.
  *
@@ -37,7 +37,7 @@
  * different workflow stages. Moderators can post comments to each report.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Model_Moderation
  * @version    $Id$
  *
@@ -48,18 +48,18 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Model_Moderation_PostReport extends Tx_MmForum_Domain_Model_Moderation_Report {
+class Tx_Typo3Forum_Domain_Model_Moderation_PostReport extends Tx_Typo3Forum_Domain_Model_Moderation_Report {
 
 	/**
 	 * A set of comments that are assigned to this report.
-	 * @var Tx_MmForum_Domain_Model_Forum_Post
+	 * @var Tx_Typo3Forum_Domain_Model_Forum_Post
 	 */
 	protected $post;
 
 
 	/**
 	 * Gets the topic to which the reported post belongs to.
-	 * @return Tx_MmForum_Domain_Model_Forum_Topic The topic.
+	 * @return Tx_Typo3Forum_Domain_Model_Forum_Topic The topic.
 	 */
 	public function getTopic() {
 		return $this->post->getTopic();
@@ -67,17 +67,17 @@ class Tx_MmForum_Domain_Model_Moderation_PostReport extends Tx_MmForum_Domain_Mo
 
 	/**
 	 * Gets the topic to which the reported post belongs to.
-	 * @return Tx_MmForum_Domain_Model_Forum_Post The topic.
+	 * @return Tx_Typo3Forum_Domain_Model_Forum_Post The topic.
 	 */
 	public function getPost() {
 		return $this->post;
 	}
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post.
+	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post.
 	 * @return voidc.
 	 */
-	public function setPost(Tx_MmForum_Domain_Model_Forum_Post $post) {
+	public function setPost(Tx_Typo3Forum_Domain_Model_Forum_Post $post) {
 		$this->post = $post;
 	}
 

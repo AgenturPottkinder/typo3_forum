@@ -24,12 +24,12 @@
  *                                                                      */
 
 
-class Tx_MmForum_Controller_UserControllerTest extends Tx_MmForum_Controller_AbstractControllerTest {
+class Tx_Typo3Forum_Controller_UserControllerTest extends Tx_Typo3Forum_Controller_AbstractControllerTest {
 
 
 
 	/**
-	 * @var Tx_MmForum_Controller_UserController
+	 * @var Tx_Typo3Forum_Controller_UserController
 	 */
 	protected $fixture;
 
@@ -37,7 +37,7 @@ class Tx_MmForum_Controller_UserControllerTest extends Tx_MmForum_Controller_Abs
 	/**
 	 * @var string
 	 */
-	protected $fixtureClassName = 'Tx_MmForum_Controller_UserController';
+	protected $fixtureClassName = 'Tx_Typo3Forum_Controller_UserController';
 
 
 	/**
@@ -48,10 +48,10 @@ class Tx_MmForum_Controller_UserControllerTest extends Tx_MmForum_Controller_Abs
 
 
 	public function setUp() {
-		$this->topicRepositoryMock     = $this->getMock('Tx_MmForum_Domain_Repository_Forum_TopicRepository');
-		$this->forumRepositoryMock     = $this->getMock('Tx_MmForum_Domain_Repository_Forum_ForumRepository');
-		$this->userfieldRepositoryMock = $this->getMock('Tx_MmForum_Domain_Repository_User_UserfieldRepository');
-		$this->userMock                = $this->getMock('Tx_MmForum_Domain_Model_User_FrontendUser');
+		$this->topicRepositoryMock     = $this->getMock('Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository');
+		$this->forumRepositoryMock     = $this->getMock('Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository');
+		$this->userfieldRepositoryMock = $this->getMock('Tx_Typo3Forum_Domain_Repository_User_UserfieldRepository');
+		$this->userMock                = $this->getMock('Tx_Typo3Forum_Domain_Model_User_FrontendUser');
 
 		$this->buildFixture($this->fixtureClassName, array($this->forumRepositoryMock, $this->topicRepositoryMock,
 		                                                  $this->userfieldRepositoryMock));
@@ -76,7 +76,7 @@ class Tx_MmForum_Controller_UserControllerTest extends Tx_MmForum_Controller_Abs
 
 	/**
 	 * @dataProvider      getActionsThatRequireALoggedInUser
-	 * @expectedException Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 * @expectedException Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException
 	 * @param $actionMethodName
 	 * @param $parameters
 	 */
@@ -85,20 +85,20 @@ class Tx_MmForum_Controller_UserControllerTest extends Tx_MmForum_Controller_Abs
 		$this->userRepositoryMock
 			->expects($this->any())
 			->method('findCurrent')
-			->will($this->returnValue(new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser()));
+			->will($this->returnValue(new Tx_Typo3Forum_Domain_Model_User_AnonymousFrontendUser()));
 		call_user_func_array(array($this->fixture, $actionMethodName), $parameters);
 	}
 
 
 
 	/**
-	 * @expectedException Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 * @expectedException Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException
 	 */
 	public function testListPostsActionThrowsExceptionWhenNoUserIsSpecifiedAndNoUserIsLoggedIn() {
 		$this->userRepositoryMock
 			->expects($this->any())
 			->method('findCurrent')
-			->will($this->returnValue(new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser()));
+			->will($this->returnValue(new Tx_Typo3Forum_Domain_Model_User_AnonymousFrontendUser()));
 		$this->fixture->listPostsAction();
 	}
 
@@ -140,10 +140,10 @@ class Tx_MmForum_Controller_UserControllerTest extends Tx_MmForum_Controller_Abs
 
 
 //	public function getActionMethodsThatNotifySignalSlotDispatcher() {
-//		return array(array('createAction', 'postCreated', array($this->getMock('Tx_MmForum_Domain_Model_Forum_Topic'),
-//		                                                        $this->getMock('Tx_MmForum_Domain_Model_Forum_Post'))),
-//		             array('updateAction', 'postUpdated', array($this->getMock('Tx_MmForum_Domain_Model_Forum_Post'))),
-//		             array('deleteAction', 'postDeleted', array($this->getMock('Tx_MmForum_Domain_Model_Forum_Post'))));
+//		return array(array('createAction', 'postCreated', array($this->getMock('Tx_Typo3Forum_Domain_Model_Forum_Topic'),
+//		                                                        $this->getMock('Tx_Typo3Forum_Domain_Model_Forum_Post'))),
+//		             array('updateAction', 'postUpdated', array($this->getMock('Tx_Typo3Forum_Domain_Model_Forum_Post'))),
+//		             array('deleteAction', 'postDeleted', array($this->getMock('Tx_Typo3Forum_Domain_Model_Forum_Post'))));
 //	}
 
 

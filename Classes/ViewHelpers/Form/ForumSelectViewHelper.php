@@ -31,7 +31,7 @@
  * ViewHelper that renders a selectbox with a hierarchical list of all forums.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage ViewHelpers_Form
  * @version    $Id$
  *
@@ -43,7 +43,7 @@
  *
  */
 
-Class Tx_MmForum_ViewHelpers_Form_ForumSelectViewHelper Extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper {
+Class Tx_Typo3Forum_ViewHelpers_Form_ForumSelectViewHelper Extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper {
 
 
 
@@ -55,7 +55,7 @@ Class Tx_MmForum_ViewHelpers_Form_ForumSelectViewHelper Extends \TYPO3\CMS\Fluid
 
 	/**
 	 * The forum repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository
 	 */
 	protected $forumRepository = NULL;
 
@@ -70,13 +70,13 @@ Class Tx_MmForum_ViewHelpers_Form_ForumSelectViewHelper Extends \TYPO3\CMS\Fluid
 	/**
 	 *
 	 * Injects a forum repository.
-	 * @param  Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository
+	 * @param  Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository $forumRepository
 	 *                             A forum repository.
 	 * @return void
 	 *
 	 */
 
-	public function injectForumRepository(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository) {
+	public function injectForumRepository(Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository $forumRepository) {
 		$this->forumRepository = $forumRepository;
 	}
 
@@ -131,7 +131,7 @@ Class Tx_MmForum_ViewHelpers_Form_ForumSelectViewHelper Extends \TYPO3\CMS\Fluid
 	 *
 	 * Recursively generates option rows for a forum and each subforum of this forum.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Forum $forum
 	 *                                                         The forum for which to generate the option row.
 	 * @param  boolean                             $isRoot     TRUE, if the forum is a root category, otherwise
 	 *                                                         FALSE.
@@ -139,7 +139,7 @@ Class Tx_MmForum_ViewHelpers_Form_ForumSelectViewHelper Extends \TYPO3\CMS\Fluid
 	 *
 	 */
 
-	Protected Function getForumOptionRow(Tx_MmForum_Domain_Model_Forum_Forum $forum, $isRoot = FALSE) {
+	Protected Function getForumOptionRow(Tx_Typo3Forum_Domain_Model_Forum_Forum $forum, $isRoot = FALSE) {
 		$result = Array('name'      => $forum->getTitle(),
 		                'uid'       => $forum->getUid(),
 		                '_isRoot'   => $isRoot,

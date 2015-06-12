@@ -31,14 +31,14 @@
  * A special bb code element that implements an unordered list.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Model_Format
  * @version    $Id$
  * @license    GNU Public License, version 2
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Model_Format_ListBBCode extends Tx_MmForum_Domain_Model_Format_BBCode {
+class Tx_Typo3Forum_Domain_Model_Format_ListBBCode extends Tx_Typo3Forum_Domain_Model_Format_BBCode {
 
 
 

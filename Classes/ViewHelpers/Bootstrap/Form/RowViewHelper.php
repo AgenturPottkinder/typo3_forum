@@ -30,7 +30,7 @@
  * ViewHelper that renders a form row.
  *
  * @author     Martin Helmich <typo3@martin-helmich.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage ViewHelpers_Control
  * @version    $Id: BigButtonViewHelper.php 52309 2011-09-20 18:54:26Z mhelmich $
  *
@@ -40,7 +40,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Bootstrap_Form_RowViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
+class Tx_Typo3Forum_ViewHelpers_Bootstrap_Form_RowViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
 
 
 
@@ -71,7 +71,7 @@ class Tx_MmForum_ViewHelpers_Bootstrap_Form_RowViewHelper extends \TYPO3\CMS\Flu
 		$class = 'control-group';
 
 		if ($this->arguments['llLabel']) {
-			$label = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($this->arguments['llLabel'], 'mm_forum');
+			$label = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($this->arguments['llLabel'], 'typo3_forum');
 		} else {
 			$label = $this->arguments['label'];
 		}
@@ -89,7 +89,7 @@ class Tx_MmForum_ViewHelpers_Bootstrap_Form_RowViewHelper extends \TYPO3\CMS\Flu
 				$errorContent = '';
 				foreach ($errors as $error) {
 					$errorText = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($this->arguments['errorLLPrefix'] . '_' . $error->getCode(),
-					                                                        'mm_forum');
+					                                                        'typo3_forum');
 					if (!$errorText) {
 						$errorText = 'TRANSLATE: ' . $this->arguments['errorLLPrefix'] . '_' . $error->getCode();
 					}

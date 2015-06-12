@@ -31,7 +31,7 @@
  * Abstract base class for all kinds of text parsing services.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage TextParser_Service
  * @version    $Id$
  *
@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_MmForum_TextParser_Service_AbstractTextParserService extends Tx_MmForum_Service_AbstractService {
+abstract class Tx_Typo3Forum_TextParser_Service_AbstractTextParserService extends Tx_Typo3Forum_Service_AbstractService {
 
 
 

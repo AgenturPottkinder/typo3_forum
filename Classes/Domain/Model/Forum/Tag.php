@@ -27,7 +27,7 @@
 /**
  *
  * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Model_Forum
  * @version    $Id$
  * @license    GNU public License, version 2
@@ -35,7 +35,7 @@
 
  */
 
-class Tx_MmForum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Tx_Typo3Forum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 
 	/**
@@ -66,7 +66,7 @@ class Tx_MmForum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObject\
 
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Typo3Forum_Domain_Model_User_FrontendUser>
 	 */
 	protected $feuser;
 
@@ -124,7 +124,7 @@ class Tx_MmForum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObject\
 
 
 	/**
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Typo3Forum_Domain_Model_User_FrontendUser>
 	 */
 	public function getFeuser() {
 		return $this->feuser;
@@ -165,17 +165,17 @@ class Tx_MmForum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObject\
 
 	/**
 	 * Add a user to this tag
-	 * @param $feuser Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @param $feuser Tx_Typo3Forum_Domain_Model_User_FrontendUser
 	 */
-	public function addFeuser(Tx_MmForum_Domain_Model_User_FrontendUser $feuser) {
+	public function addFeuser(Tx_Typo3Forum_Domain_Model_User_FrontendUser $feuser) {
 		$this->feuser->attach($feuser);
 	}
 
 	/**
 	 * Removes a user from this tag
-	 * @param $feuser Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @param $feuser Tx_Typo3Forum_Domain_Model_User_FrontendUser
 	 */
-	public function removeFeuser(Tx_MmForum_Domain_Model_User_FrontendUser $feuser) {
+	public function removeFeuser(Tx_Typo3Forum_Domain_Model_User_FrontendUser $feuser) {
 		$this->feuser->detach($feuser);
 	}
 

@@ -29,7 +29,7 @@
 /**
  *
  * Models a post report. Reports are the central object of the moderation
- * component of the mm_forum extension. Each user can report a forum post
+ * component of the typo3_forum extension. Each user can report a forum post
  * to the respective moderator group. In this case, a report object is
  * created.
  *
@@ -37,7 +37,7 @@
  * different workflow stages. Moderators can post comments to each report.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Model_Moderation
  * @version    $Id$
  *
@@ -48,34 +48,34 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Model_Moderation_UserReport extends Tx_MmForum_Domain_Model_Moderation_Report {
+class Tx_Typo3Forum_Domain_Model_Moderation_UserReport extends Tx_Typo3Forum_Domain_Model_Moderation_Report {
 
 	/**
 	 * A set of comments that are assigned to this report.
-	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @var Tx_Typo3Forum_Domain_Model_User_FrontendUser
 	 */
 	protected $feuser;
 
 
 	/**
 	 * Gets the topic to which the reported post belongs to.
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser Frontend User
+	 * @return Tx_Typo3Forum_Domain_Model_User_FrontendUser Frontend User
 	 */
 	public function getUser() {
 		if ($this->feuser instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
 			$this->feuser->_loadRealInstance();
 		}
 		if ($this->feuser === NULL) {
-			$this->feuser = new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
+			$this->feuser = new Tx_Typo3Forum_Domain_Model_User_AnonymousFrontendUser();
 		}
 		return $this->feuser;
 	}
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user.
+	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user.
 	 * @return voidc.
 	 */
-	public function setUser(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+	public function setUser(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user) {
 		$this->feuser = $user;
 	}
 

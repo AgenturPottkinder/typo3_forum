@@ -1,19 +1,19 @@
-{namespace mmf=Tx_MmForum_ViewHelpers}
+{namespace mmf=Tx_Typo3Forum_ViewHelpers}
 
 <div class="well">
-	<div class="tx-mmforum-topic-show-post-menu">
+	<div class="tx-typo3forum-topic-show-post-menu">
 		<f:render partial="Post/Menu" arguments="{post: post}" />
 	</div>
     <f:if condition="{post.author.anonymous}">
         <f:then><f:render partial="User/AnonymousInformationRow" arguments="{user: post.author, settings: settings}" /></f:then>
         <f:else><f:render partial="User/InformationRow" arguments="{user: post.author, settings: settings}" /></f:else>
     </f:if>
-	<div class="tx-mmforum-topic-show-post-text">
+	<div class="tx-typo3forum-topic-show-post-text">
 <mmf:format.textParser post="{post}" />
 		
 		<f:if condition="{post.attachments}">
-			<div class="tx-mmforum-topic-show-post-attachments">
-				<div class="tx-mmforum-topic-show-post-attachments-header">
+			<div class="tx-typo3forum-topic-show-post-attachments">
+				<div class="tx-typo3forum-topic-show-post-attachments-header">
 					<f:translate key="Post_Show_Attachments" /> (<f:count subject="{post.attachments}" />)
 				</div>
 				<table>
@@ -34,11 +34,11 @@
 		</f:if>
 	</div>
 	<f:if condition="{post.author.signature}">
-		<div class="tx-mmforum-topic-show-post-signature">
+		<div class="tx-typo3forum-topic-show-post-signature">
 			<mmf:format.textParser content="{post.author.signature}" />
 		</div>
 	</f:if>
-	<div class="tx-mmforum-topic-show-post-date">
+	<div class="tx-typo3forum-topic-show-post-date">
 		<f:format.date format="{settings.format.dateTimeFormat}">{post.timestamp}</f:format.date>
 	</div>
 </div>

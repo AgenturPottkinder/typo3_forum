@@ -31,7 +31,7 @@
  * Repository class for post objects.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Repository_Forum
  * @version    $Id$
  *
@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Repository_Forum_PostRepository extends Tx_MmForum_Domain_Repository_AbstractRepository {
+class Tx_Typo3Forum_Domain_Repository_Forum_PostRepository extends Tx_Typo3Forum_Domain_Repository_AbstractRepository {
 
 
 
@@ -57,7 +57,7 @@ class Tx_MmForum_Domain_Repository_Forum_PostRepository extends Tx_MmForum_Domai
 	 * @param  integer $limit
 	 * @param  array $orderings
 	 *
-	 * @return Array<Tx_MmForum_Domain_Model_Forum_Post>
+	 * @return Array<Tx_Typo3Forum_Domain_Model_Forum_Post>
 	 *                               The selected subset of posts
 	 *
 	 */
@@ -78,7 +78,7 @@ class Tx_MmForum_Domain_Repository_Forum_PostRepository extends Tx_MmForum_Domai
 	 *
 	 * @param  array $uids
 	 *
-	 * @return Tx_MmForum_Domain_Model_Forum_Topic[]
+	 * @return Tx_Typo3Forum_Domain_Model_Forum_Topic[]
 	 *                               The selected subset of topcis
 	 *
 	 */
@@ -100,15 +100,15 @@ class Tx_MmForum_Domain_Repository_Forum_PostRepository extends Tx_MmForum_Domai
 	 *
 	 * Finds posts for a specific topic. Page navigation is possible.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Topic $topic
+	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Topic $topic
 	 *                               The topic for which the posts are to be loaded.
 	 *
-	 * @return Array<Tx_MmForum_Domain_Model_Forum_Post>
+	 * @return Array<Tx_Typo3Forum_Domain_Model_Forum_Post>
 	 *                               The selected subset of posts in the specified
 	 *                               topic.
 	 *
 	 */
-	public function findForTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
+	public function findForTopic(Tx_Typo3Forum_Domain_Model_Forum_Topic $topic) {
 		$query = $this->createQuery();
 		$query->getQuerySettings()->setRespectSysLanguage(FALSE) ;
 		return $query->matching($query->equals('topic', $topic))
@@ -123,17 +123,17 @@ class Tx_MmForum_Domain_Repository_Forum_PostRepository extends Tx_MmForum_Domai
 	 *
 	 * Finds the last post in a topic.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Topic $topic
+	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Topic $topic
 	 *                             The topic for which the last post is to be
 	 *                             loaded.
 	 * @param int $offset
 	 * 								If you want to get the next to last post post
 	 *
-	 * @return Tx_MmForum_Domain_Model_Forum_Post
+	 * @return Tx_Typo3Forum_Domain_Model_Forum_Post
 	 *                             The last post of the specified topic.
 	 *
 	 */
-	public function findLastByTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic, $offset=0) {
+	public function findLastByTopic(Tx_Typo3Forum_Domain_Model_Forum_Topic $topic, $offset=0) {
 		$query = $this->createQuery();
 		$query->matching($query->equals('topic', $topic))
 			->setOrderings(Array('crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING))->setLimit(1);
@@ -151,16 +151,16 @@ class Tx_MmForum_Domain_Repository_Forum_PostRepository extends Tx_MmForum_Domai
 	 *
 	 * Finds the last post in a forum.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Forum $forum
 	 *                             The forum for which to load the last post.
 	 * @param int $offset
 	 * 								If you want to get the next to last post post
 	 *
-	 * @return Tx_MmForum_Domain_Model_Forum_Post
+	 * @return Tx_Typo3Forum_Domain_Model_Forum_Post
 	 *                             The last post of the specified forum.
 	 *
 	 */
-	public function findLastByForum(Tx_MmForum_Domain_Model_Forum_Forum $forum, $offset=0) {
+	public function findLastByForum(Tx_Typo3Forum_Domain_Model_Forum_Forum $forum, $offset=0) {
 		$query = $this->createQuery();
 		$query->matching($query->equals('topic.forum', $forum))
 			->setOrderings(array('crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING))->setLimit(1);
@@ -175,21 +175,21 @@ class Tx_MmForum_Domain_Repository_Forum_PostRepository extends Tx_MmForum_Domai
 	 * Deletes the post with sql statements.
 	 * Only used on performance problems (Activate useSqlStatementsOnCriticalFunctions in settings).
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post
 	 * @return void
 	 */
-	public function deletePostWithSqlStatement(Tx_MmForum_Domain_Model_Forum_Post $post) {
+	public function deletePostWithSqlStatement(Tx_Typo3Forum_Domain_Model_Forum_Post $post) {
 		$lastPost = $post->getTopic()->getLastPost();
 		if($post->getUid() == $lastPost->getUid()) {
 			$lastPost = $this->findLastByTopic($post->getTopic(),1);
 		}
 
 		$queries = array(
-			'UPDATE tx_mmforum_domain_model_forum_topic SET post_count = post_count - 1, last_post = '.intval($lastPost->getUid()).', last_post_crdate = '.intval($lastPost->getTimestamp()->getTimestamp()).'
+			'UPDATE tx_typo3forum_domain_model_forum_topic SET post_count = post_count - 1, last_post = '.intval($lastPost->getUid()).', last_post_crdate = '.intval($lastPost->getTimestamp()->getTimestamp()).'
 					WHERE uid = '.intval($post->getTopic()->getUid()),
-			'UPDATE tx_mmforum_domain_model_forum_forum SET post_count = post_count - 1, last_post = '.intval($lastPost->getUid()).'
+			'UPDATE tx_typo3forum_domain_model_forum_forum SET post_count = post_count - 1, last_post = '.intval($lastPost->getUid()).'
 					WHERE uid = '.intval($post->getTopic()->getForum()->getUid()),
-			'UPDATE tx_mmforum_domain_model_forum_post SET deleted=1 WHERE uid='.intval($post->getUid()),
+			'UPDATE tx_typo3forum_domain_model_forum_post SET deleted=1 WHERE uid='.intval($post->getUid()),
 		);
 
 		foreach($queries AS $sql) {

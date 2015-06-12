@@ -30,7 +30,7 @@
  * ViewHelper that renders a forum icon.
  *
  * @author     Martin Helmich <typo3@martin-helmich.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage ViewHelpers_Forum
  * @version    $Id: ForumIconViewHelper.php 52309 2011-09-20 18:54:26Z mhelmich $
  *
@@ -40,7 +40,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Moderation_ReportIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
+class Tx_Typo3Forum_ViewHelpers_Moderation_ReportIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
 
 
 
@@ -60,15 +60,15 @@ class Tx_MmForum_ViewHelpers_Moderation_ReportIconViewHelper extends \TYPO3\CMS\
 	 *
 	 * Renders the report icon.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Moderation_Report $report
+	 * @param  Tx_Typo3Forum_Domain_Model_Moderation_Report $report
 	 *                                                               The report for which the icon is to be rendered.
 	 * @param  integer                                   $width      Image width
 	 * @param  string                                    $alt        Alt text
 	 * @return string             The rendered icon.
 	 *
 	 */
-	public function render(Tx_MmForum_Domain_Model_Moderation_Report $report = NULL, $width = NULL, $alt = "") {
-		return parent::render('plugin.tx_mmforum.renderer.icons.report', $this->getDataArray($report));
+	public function render(Tx_Typo3Forum_Domain_Model_Moderation_Report $report = NULL, $width = NULL, $alt = "") {
+		return parent::render('plugin.tx_typo3forum.renderer.icons.report', $this->getDataArray($report));
 	}
 
 
@@ -77,12 +77,12 @@ class Tx_MmForum_ViewHelpers_Moderation_ReportIconViewHelper extends \TYPO3\CMS\
 	 *
 	 * Generates a data array that will be passed to the typoscript object for
 	 * rendering the icon.
-	 * @param  Tx_MmForum_Domain_Model_Moderation_Report $report
+	 * @param  Tx_Typo3Forum_Domain_Model_Moderation_Report $report
 	 *                             The report for which the icon is to be displayed.
 	 * @return array               The data array for the typoscript object.
 	 *
 	 */
-	protected function getDataArray(Tx_MmForum_Domain_Model_Moderation_Report $report = NULL) {
+	protected function getDataArray(Tx_Typo3Forum_Domain_Model_Moderation_Report $report = NULL) {
 		if ($report === NULL) {
 			return array();
 		} else {

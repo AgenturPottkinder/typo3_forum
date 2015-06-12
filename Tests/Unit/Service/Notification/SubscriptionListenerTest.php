@@ -25,12 +25,12 @@
  *                                                                      */
 
 
-class Tx_MmForum_Service_Notification_SubscriptionListenerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class Tx_Typo3Forum_Service_Notification_SubscriptionListenerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 
 
 
 	/**
-	 * @var Tx_MmForum_Service_Notification_SubscriptionListener
+	 * @var Tx_Typo3Forum_Service_Notification_SubscriptionListener
 	 */
 	protected $fixture;
 
@@ -43,9 +43,9 @@ class Tx_MmForum_Service_Notification_SubscriptionListenerTest extends \TYPO3\CM
 
 
 	public function setUp() {
-		$this->notificationServiceMock = $this->getMock('Tx_MmForum_Service_Notification_NotificationService', array(),
+		$this->notificationServiceMock = $this->getMock('Tx_Typo3Forum_Service_Notification_NotificationService', array(),
 			array(), '', FALSE);
-		$this->fixture                 = new Tx_MmForum_Service_Notification_SubscriptionListener($this->mailingServiceMock);
+		$this->fixture                 = new Tx_Typo3Forum_Service_Notification_SubscriptionListener($this->mailingServiceMock);
 		$this->fixture->injectNotificationService($this->notificationServiceMock);
 	}
 
@@ -55,16 +55,16 @@ class Tx_MmForum_Service_Notification_SubscriptionListenerTest extends \TYPO3\CM
 	 * @test
 	 */
 	public function onTopicCreatedCallsNotificationService() {
-		$post  = new Tx_MmForum_Domain_Model_Forum_Post('Text');
-		$forum = new Tx_MmForum_Domain_Model_Forum_Forum('Forum');
-		$topic = new Tx_MmForum_Domain_Model_Forum_Topic('Topic');
+		$post  = new Tx_Typo3Forum_Domain_Model_Forum_Post('Text');
+		$forum = new Tx_Typo3Forum_Domain_Model_Forum_Forum('Forum');
+		$topic = new Tx_Typo3Forum_Domain_Model_Forum_Topic('Topic');
 		$topic->setForum($forum);
 		$topic->addPost($post);
 		$forum->addTopic($topic);
 
 		$this->notificationServiceMock->expects($this->once())->method('notifySubscribers')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_MmForum_Domain_Model_Forum_Forum'),
-			new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_MmForum_Domain_Model_Forum_Topic'));
+			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_Typo3Forum_Domain_Model_Forum_Forum'),
+			new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_Typo3Forum_Domain_Model_Forum_Topic'));
 		$this->fixture->onTopicCreated($topic);
 	}
 
@@ -74,16 +74,16 @@ class Tx_MmForum_Service_Notification_SubscriptionListenerTest extends \TYPO3\CM
 	 * @test
 	 */
 	public function onPostCreatedCallsNotificationService() {
-		$post  = new Tx_MmForum_Domain_Model_Forum_Post('Text');
-		$forum = new Tx_MmForum_Domain_Model_Forum_Forum('Forum');
-		$topic = new Tx_MmForum_Domain_Model_Forum_Topic('Topic');
+		$post  = new Tx_Typo3Forum_Domain_Model_Forum_Post('Text');
+		$forum = new Tx_Typo3Forum_Domain_Model_Forum_Forum('Forum');
+		$topic = new Tx_Typo3Forum_Domain_Model_Forum_Topic('Topic');
 		$topic->setForum($forum);
 		$topic->addPost($post);
 		$forum->addTopic($topic);
 
 		$this->notificationServiceMock->expects($this->once())->method('notifySubscribers')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_MmForum_Domain_Model_Forum_Topic'),
-			new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_MmForum_Domain_Model_Forum_Post'));
+			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_Typo3Forum_Domain_Model_Forum_Topic'),
+			new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_Typo3Forum_Domain_Model_Forum_Post'));
 		$this->fixture->onPostCreated($post);
 	}
 

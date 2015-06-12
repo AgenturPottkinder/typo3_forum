@@ -30,7 +30,7 @@
  * Utility module that contains file system-related functions.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Utility
  * @version    $Id$
  *
@@ -41,7 +41,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  */
 
-class Tx_MmForum_Utility_File {
+class Tx_Typo3Forum_Utility_File {
 
 
 

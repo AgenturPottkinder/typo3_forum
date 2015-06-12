@@ -31,7 +31,7 @@
  * ViewHelper that renders a big button.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage ViewHelpers_Control
  * @version    $Id$
  *
@@ -42,11 +42,11 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Control_BigButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper {
+class Tx_Typo3Forum_ViewHelpers_Control_BigButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper {
 
 
 
-	protected $iconBaseClass = 'tx-mmforum-icon-32-';
+	protected $iconBaseClass = 'tx-typo3forum-icon-32-';
 
 
 
@@ -62,7 +62,7 @@ class Tx_MmForum_ViewHelpers_Control_BigButtonViewHelper extends \TYPO3\CMS\Flui
 
 	public function initialize() {
 		parent::initialize();
-		$this->tag->addAttribute('class', 'tx-mmforum-button-big');
+		$this->tag->addAttribute('class', 'tx-typo3forum-button-big');
 	}
 
 
@@ -84,7 +84,7 @@ class Tx_MmForum_ViewHelpers_Control_BigButtonViewHelper extends \TYPO3\CMS\Flui
 		$this->tag->addAttribute('title', $content);
 
 		if ($iconClass) {
-			$content = '<div class="' . $iconClass . '"></div><div class="tx-mmforum-button-text">' . $content . '</div>';
+			$content = '<div class="' . $iconClass . '"></div><div class="tx-typo3forum-button-text">' . $content . '</div>';
 		}
 		return $content;
 	}

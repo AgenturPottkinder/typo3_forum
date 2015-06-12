@@ -30,7 +30,7 @@
  * ViewHelper that renders a big button.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage ViewHelpers_Control
  * @version    $Id: BigButtonViewHelper.php 52309 2011-09-20 18:54:26Z mhelmich $
  *
@@ -41,14 +41,14 @@
  *
  */
 
-class Tx_MmForum_ExtDirect_ForumDataProvider extends Tx_MmForum_ExtDirect_AbstractDataProvider {
+class Tx_Typo3Forum_ExtDirect_ForumDataProvider extends Tx_Typo3Forum_ExtDirect_AbstractDataProvider {
 
 
 
 	/**
 	 * An instance of the forum repository.
 	 *
-	 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository
 	 */
 	protected $forumRepository = NULL;
 
@@ -62,7 +62,7 @@ class Tx_MmForum_ExtDirect_ForumDataProvider extends Tx_MmForum_ExtDirect_Abstra
 
 		// Since the ExtDirect provider is not created using the
 		// object manager, no dependency injection is available here.
-		$this->forumRepository = $this->objectManager->get('Tx_MmForum_Domain_Repository_Forum_ForumRepository');
+		$this->forumRepository = $this->objectManager->get('Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository');
 	}
 
 
@@ -88,7 +88,7 @@ class Tx_MmForum_ExtDirect_ForumDataProvider extends Tx_MmForum_ExtDirect_Abstra
 			                   'topicCount' => $forum->getTopicCount(),
 			                   'postCount'  => $forum->getPostCount(),
 			                   'id'         => 'forum-' . $forum->getUid(),
-			                   'iconCls'    => 'tx-mmforum-icon-16-forum',
+			                   'iconCls'    => 'tx-typo3forum-icon-16-forum',
 			                   'draggable'  => TRUE,
 			                   'allowDrop'  => TRUE,
 			                   'isTarget'   => TRUE,

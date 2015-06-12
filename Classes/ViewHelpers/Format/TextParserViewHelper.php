@@ -31,7 +31,7 @@
  * ViewHelper that performs text parsing operations on text input.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage ViewHelpers_Format
  * @version    $Id$
  *
@@ -42,13 +42,13 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Format_TextParserViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class Tx_Typo3Forum_ViewHelpers_Format_TextParserViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 
 
 	/**
 	 * The text parser service
-	 * @var Tx_MmForum_TextParser_TextParserService
+	 * @var Tx_Typo3Forum_TextParser_TextParserService
 	 */
 	protected $textParserService;
 
@@ -56,7 +56,7 @@ class Tx_MmForum_ViewHelpers_Format_TextParserViewHelper extends \TYPO3\CMS\Flui
 	/**
 	 * An instance of the post repository class. The repository is needed
 	 * only when a rendered post text has to be persisted in the database.
-	 * @var Tx_MmForum_Domain_Repository_Forum_PostRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_Forum_PostRepository
 	 */
 	protected $postRepository;
 
@@ -65,12 +65,12 @@ class Tx_MmForum_ViewHelpers_Format_TextParserViewHelper extends \TYPO3\CMS\Flui
 	/**
 	 *
 	 * Injects an instance of the text parser service.
-	 * @param  Tx_MmForum_TextParser_TextParserService $textParserService
+	 * @param  Tx_Typo3Forum_TextParser_TextParserService $textParserService
 	 *                             An instance of the text parser service.
 	 * @return void
 	 *
 	 */
-	public function injectTextParserService(Tx_MmForum_TextParser_TextParserService $textParserService) {
+	public function injectTextParserService(Tx_Typo3Forum_TextParser_TextParserService $textParserService) {
 		$this->textParserService = $textParserService;
 	}
 
@@ -79,12 +79,12 @@ class Tx_MmForum_ViewHelpers_Format_TextParserViewHelper extends \TYPO3\CMS\Flui
 	/**
 	 *
 	 * Injects an instance of the post repository class.
-	 * @param  Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository
+	 * @param  Tx_Typo3Forum_Domain_Repository_Forum_PostRepository $postRepository
 	 *                             An instance of the post repository class.
 	 * @return void
 	 *
 	 */
-	public function injectPostRepository(Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository) {
+	public function injectPostRepository(Tx_Typo3Forum_Domain_Repository_Forum_PostRepository $postRepository) {
 		$this->postRepository = $postRepository;
 	}
 
@@ -95,14 +95,14 @@ class Tx_MmForum_ViewHelpers_Format_TextParserViewHelper extends \TYPO3\CMS\Flui
 	 * Renders the input text.
 	 *
 	 * @param  string                             $configuration The configuration path
-	 * @param  Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Post $post
 	 * @param  string                             $content       The content to be rendered. If NULL, the node
 	 *                                                           content will be rendered instead.
 	 * @return string                The rendered text
 	 *
 	 */
-	public function render($configuration = 'plugin.tx_mmforum.settings.textParsing',
-	                       Tx_MmForum_Domain_Model_Forum_Post $post = NULL, $content = NULL) {
+	public function render($configuration = 'plugin.tx_typo3forum.settings.textParsing',
+	                       Tx_Typo3Forum_Domain_Model_Forum_Post $post = NULL, $content = NULL) {
 		$this->textParserService->setControllerContext($this->controllerContext);
 		$this->textParserService->loadConfiguration($configuration);
 

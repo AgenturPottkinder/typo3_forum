@@ -34,7 +34,7 @@
  * @author     Martin Helmich <m.helmich@mittwald.de>
  * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
  * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Controller
  * @version    $Id$
  *
@@ -45,7 +45,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_AbstractController {
+class Tx_Typo3Forum_Controller_TopicController extends Tx_Typo3Forum_Controller_AbstractController {
 
 
 
@@ -57,28 +57,28 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 
 	/**
 	 * The topic repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_TopicRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository
 	 */
 	protected $topicRepository;
 
 
 	/**
 	 * The forum repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository
 	 */
 	protected $forumRepository;
 
 
 	/**
 	 * The post repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_PostRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_Forum_PostRepository
 	 */
 	protected $postRepository;
 
 
 	/**
 	 * The ads repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_AdsRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_Forum_AdsRepository
 	 */
 	protected $adsRepository;
 
@@ -86,47 +86,47 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 
 	/**
 	 * The tags repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_TagRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_Forum_TagRepository
 	 */
 	protected $tagRepository;
 
 
 	/**
 	 * A factory class for creating topics.
-	 * @var Tx_MmForum_Domain_Factory_Forum_TopicFactory
+	 * @var Tx_Typo3Forum_Domain_Factory_Forum_TopicFactory
 	 */
 	protected $topicFactory;
 
 
 	/**
 	 * A factory class for creating posts.
-	 * @var Tx_MmForum_Domain_Factory_Forum_PostFactory
+	 * @var Tx_Typo3Forum_Domain_Factory_Forum_PostFactory
 	 */
 	protected $postFactory;
 
 
 	/**
 	 * The criteria repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_CriteriaRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_Forum_CriteriaRepository
 	 */
 	protected $criteraRepository;
 
 
 	/**
 	 * SessionHandling
-	 * @var Tx_MmForum_Service_SessionHandlingService
+	 * @var Tx_Typo3Forum_Service_SessionHandlingService
 	 */
 	protected $sessionHandling;
 
 
 	/**
-	 * @var Tx_MmForum_Service_AttachmentService
+	 * @var Tx_Typo3Forum_Service_AttachmentService
 	 */
 	protected $attachmentService = NULL;
 
 
 	/**
-	 * @var Tx_MmForum_Service_TagService
+	 * @var Tx_Typo3Forum_Service_TagService
 	 */
 	protected $tagService = NULL;
 
@@ -141,29 +141,29 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	/**
 	 * Constructor of this controller. Used primarily for dependency injection.
 	 *
-	 * @param Tx_MmForum_Domain_Repository_Forum_ForumRepository	$forumRepository
-	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository	$topicRepository
-	 * @param Tx_MmForum_Domain_Repository_Forum_PostRepository		$postRepository
-	 * @param Tx_MmForum_Domain_Factory_Forum_TopicFactory			$topicFactory
-	 * @param Tx_MmForum_Domain_Factory_Forum_PostFactory			$postFactory
-	 * @param Tx_MmForum_Domain_Repository_Forum_CriteriaRepository $criteraRepository
-	 * @param Tx_MmForum_Service_SessionHandlingService             $sessionHandling
-	 * @param Tx_MmForum_Service_AttachmentService					$attachmentService
-	 * @param Tx_MmForum_Domain_Repository_Forum_AdsRepository		$adsRepository
-	 * @param Tx_MmForum_Service_TagService							$tagService
-	 * @param Tx_MmForum_Domain_Repository_Forum_TagRepository		$tagRepository
+	 * @param Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository	$forumRepository
+	 * @param Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository	$topicRepository
+	 * @param Tx_Typo3Forum_Domain_Repository_Forum_PostRepository		$postRepository
+	 * @param Tx_Typo3Forum_Domain_Factory_Forum_TopicFactory			$topicFactory
+	 * @param Tx_Typo3Forum_Domain_Factory_Forum_PostFactory			$postFactory
+	 * @param Tx_Typo3Forum_Domain_Repository_Forum_CriteriaRepository $criteraRepository
+	 * @param Tx_Typo3Forum_Service_SessionHandlingService             $sessionHandling
+	 * @param Tx_Typo3Forum_Service_AttachmentService					$attachmentService
+	 * @param Tx_Typo3Forum_Domain_Repository_Forum_AdsRepository		$adsRepository
+	 * @param Tx_Typo3Forum_Service_TagService							$tagService
+	 * @param Tx_Typo3Forum_Domain_Repository_Forum_TagRepository		$tagRepository
 	 */
-	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
-								Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
-								Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository,
-								Tx_MmForum_Domain_Factory_Forum_TopicFactory $topicFactory,
-								Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory,
-								Tx_MmForum_Domain_Repository_Forum_CriteriaRepository $criteraRepository,
-								Tx_MmForum_Service_SessionHandlingService $sessionHandling,
-								Tx_MmForum_Service_AttachmentService $attachmentService,
-								Tx_MmForum_Domain_Repository_Forum_AdsRepository $adsRepository,
-								Tx_MmForum_Service_TagService $tagService,
-								Tx_MmForum_Domain_Repository_Forum_TagRepository $tagRepository) {
+	public function __construct(Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository $forumRepository,
+								Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository,
+								Tx_Typo3Forum_Domain_Repository_Forum_PostRepository $postRepository,
+								Tx_Typo3Forum_Domain_Factory_Forum_TopicFactory $topicFactory,
+								Tx_Typo3Forum_Domain_Factory_Forum_PostFactory $postFactory,
+								Tx_Typo3Forum_Domain_Repository_Forum_CriteriaRepository $criteraRepository,
+								Tx_Typo3Forum_Service_SessionHandlingService $sessionHandling,
+								Tx_Typo3Forum_Service_AttachmentService $attachmentService,
+								Tx_Typo3Forum_Domain_Repository_Forum_AdsRepository $adsRepository,
+								Tx_Typo3Forum_Service_TagService $tagService,
+								Tx_Typo3Forum_Domain_Repository_Forum_TagRepository $tagRepository) {
 		parent::__construct();
 		$this->forumRepository   = $forumRepository;
 		$this->topicRepository   = $topicRepository;
@@ -238,14 +238,14 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 * Show action. Displays a single topic and all posts contained in this topic.
 	 * @TODO: Remove $dummy variable when datamapper is stable
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic
+	 * @param Tx_Typo3Forum_Domain_Model_Forum_Topic $topic
 	 *                                                         The topic that is to be displayed.
-	 * @param  Tx_MmForum_Domain_Model_Forum_Post $quote An optional post that will be quoted within the
+	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Post $quote An optional post that will be quoted within the
 	 *                                                    bodytext of the new post.
 	 * @param int $showForm ShowForm
 	 * @return void
 	 */
-	public function showAction(Tx_MmForum_Domain_Model_Forum_Topic $topic, Tx_MmForum_Domain_Model_Forum_Post $quote = NULL, $showForm = 0) {
+	public function showAction(Tx_Typo3Forum_Domain_Model_Forum_Topic $topic, Tx_Typo3Forum_Domain_Model_Forum_Post $quote = NULL, $showForm = 0) {
 		$posts = $this->postRepository->findForTopic($topic);
 
 		if($quote != FALSE){
@@ -277,16 +277,16 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	/**
 	 * New action. Displays a form for creating a new topic.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 * @param Tx_Typo3Forum_Domain_Model_Forum_Forum $forum
 	 *                                                          The forum in which the new topic is to be created.
-	 * @param Tx_MmForum_Domain_Model_Forum_Post  $post
+	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post  $post
 	 *                                                          The first post of the new topic.
 	 * @param string                              $subject      The subject of the new topic
 	 *
 	 * @dontvalidate $post
 	 */
-	public function newAction(Tx_MmForum_Domain_Model_Forum_Forum $forum,
-							  Tx_MmForum_Domain_Model_Forum_Post $post = NULL, $subject = NULL) {
+	public function newAction(Tx_Typo3Forum_Domain_Model_Forum_Forum $forum,
+							  Tx_Typo3Forum_Domain_Model_Forum_Post $post = NULL, $subject = NULL) {
 		$this->authenticationService->assertNewTopicAuthorization($forum);
 		$this->view->assign('forum', $forum)->assign('post', $post)->assign('subject', $subject)
 			->assign('currentUser', $this->frontendUserRepository->findCurrent())
@@ -307,8 +307,8 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	/**
 	 * Creates a new topic.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum       The forum in which the new topic is to be created.
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post        The first post of the new topic.
+	 * @param Tx_Typo3Forum_Domain_Model_Forum_Forum $forum       The forum in which the new topic is to be created.
+	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post        The first post of the new topic.
 	 * @param string $subject     The subject of the new topic
 	 * @param array $attachments File attachments for the post.
 	 * @param string $question    The flag if the new topic is declared as question
@@ -316,11 +316,11 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	 * @param string $tags All defined tags for this topic
 	 * @param string $subscribe    The flag if the new topic is subscribed by author
 	 *
-	 * @validate $post Tx_MmForum_Domain_Validator_Forum_PostValidator
-	 * @validate $attachments Tx_MmForum_Domain_Validator_Forum_AttachmentPlainValidator
+	 * @validate $post Tx_Typo3Forum_Domain_Validator_Forum_PostValidator
+	 * @validate $attachments Tx_Typo3Forum_Domain_Validator_Forum_AttachmentPlainValidator
 	 * @validate $subject NotEmpty
 	 */
-	public function createAction(Tx_MmForum_Domain_Model_Forum_Forum $forum, Tx_MmForum_Domain_Model_Forum_Post $post,
+	public function createAction(Tx_Typo3Forum_Domain_Model_Forum_Forum $forum, Tx_Typo3Forum_Domain_Model_Forum_Post $post,
 								 $subject, array $attachments = array(), $question = '', array $criteria = array(), $tags = '', $subscribe = '') {
 
 		// Assert authorization
@@ -350,11 +350,11 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 		$topic = $this->topicFactory->createTopic($forum, $post, $subject, intval($question), $criteria, $tags, intval($subscribe));
 
 		// Notify potential listeners.
-		$this->signalSlotDispatcher->dispatch('Tx_MmForum_Domain_Model_Forum_Topic', 'topicCreated',
+		$this->signalSlotDispatcher->dispatch('Tx_Typo3Forum_Domain_Model_Forum_Topic', 'topicCreated',
 											  array('topic' => $topic));
 		$this->clearCacheForCurrentPage();
 		$uriBuilder = $this->controllerContext->getUriBuilder();
-		$uri = $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments(array('tx_mmforum_pi1[forum]' => $forum->getUid(), 'tx_mmforum_pi1[controller]' => 'Forum', 'tx_mmforum_pi1[action]' => 'show'))->build();
+		$uri = $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments(array('tx_typo3forum_pi1[forum]' => $forum->getUid(), 'tx_typo3forum_pi1[controller]' => 'Forum', 'tx_typo3forum_pi1[action]' => 'show'))->build();
 		$this->purgeUrl('http://'.$_SERVER['HTTP_HOST'].'/'.$uri);
 		// Redirect to single forum display view
 		$this->redirect('show', 'Forum', NULL, array('forum' => $forum));
@@ -364,14 +364,14 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	/**
 	 * Sets a post as solution
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post  The post to be marked as solution.
+	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post  The post to be marked as solution.
 	 *
-	 * @throws Tx_MmForum_Domain_Exception_Authentication_NoAccessException
+	 * @throws Tx_Typo3Forum_Domain_Exception_Authentication_NoAccessException
 	 * @return void
 	 */
-	public function solutionAction(Tx_MmForum_Domain_Model_Forum_Post $post) {
+	public function solutionAction(Tx_Typo3Forum_Domain_Model_Forum_Post $post) {
 		if(!$post->getTopic()->checkSolutionAccess($this->authenticationService->getUser())) {
-			throw new Tx_MmForum_Domain_Exception_Authentication_NoAccessException('Not allowed to set solution by current user.');
+			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NoAccessException('Not allowed to set solution by current user.');
 		}
 		$this->topicFactory->setPostAsSolution($post->getTopic(),$post);
 		$this->redirect('show', 'Topic', NULL, array('topic' => $post->getTopic()));
@@ -386,12 +386,12 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 	/**
 	 * Marks a topic as read by the current user.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Topic $topic
+	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Topic $topic
 	 *                             The topic that is to be marked as read.
 	 *
 	 * @return void
 	 */
-	protected function markTopicRead(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
+	protected function markTopicRead(Tx_Typo3Forum_Domain_Model_Forum_Topic $topic) {
 		$currentUser = $this->getCurrentUser();
 		if ($currentUser === NULL || $currentUser->isAnonymous()) {
 			return;
@@ -408,7 +408,7 @@ class Tx_MmForum_Controller_TopicController extends Tx_MmForum_Controller_Abstra
 						'uid_local'   => $currentUser->getUid(),
 						'uid_foreign' => $topic->getUid(),
 					);
-					$sql = $GLOBALS['TYPO3_DB']->INSERTquery('tx_mmforum_domain_model_user_readtopic',$values);
+					$sql = $GLOBALS['TYPO3_DB']->INSERTquery('tx_typo3forum_domain_model_user_readtopic',$values);
 					$GLOBALS['TYPO3_DB']->sql_query($sql);
 				}
 			}

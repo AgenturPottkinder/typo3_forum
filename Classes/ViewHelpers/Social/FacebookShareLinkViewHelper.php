@@ -30,7 +30,7 @@
  * ViewHelper that renders a user's avatar.
  *
  * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage ViewHelpers_User
  * @version    $Id$
  *
@@ -42,7 +42,7 @@
  *
  */
 
-class Tx_MmForum_ViewHelpers_Social_FacebookShareLinkViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper  {
+class Tx_Typo3Forum_ViewHelpers_Social_FacebookShareLinkViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper  {
 
 	/**
 	 * @var	string

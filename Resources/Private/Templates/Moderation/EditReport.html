@@ -1,5 +1,5 @@
-{namespace m=Tx_MmForum_ViewHelpers}
-{namespace b=Tx_MmForum_ViewHelpers_Bootstrap}
+{namespace m=Tx_Typo3Forum_ViewHelpers}
+{namespace b=Tx_Typo3Forum_ViewHelpers_Bootstrap}
 
 <f:layout name="default" />
 
@@ -43,7 +43,7 @@
 					<div class="controls">
 						<div class="btn-group">
 							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-								<i class="tx-mmforum-icon-16-advanced" style="background-image: url({report.workflowStatus.iconFullpath});"></i>
+								<i class="tx-typo3forum-icon-16-advanced" style="background-image: url({report.workflowStatus.iconFullpath});"></i>
 							{report.workflowStatus.name}
 								<span class="caret"></span>
 							</a>
@@ -51,7 +51,7 @@
 								<f:for each="{report.workflowStatus.followupStatus}" as="followupStatus">
 									<li>
 										<f:link.action action="updatePostReportStatus" arguments="{report: report, status: followupStatus, redirect: 'show'}">
-											<i class="tx-mmforum-icon-16-advanced" style="background-image: url({followupStatus.iconFullpath});"></i>
+											<i class="tx-typo3forum-icon-16-advanced" style="background-image: url({followupStatus.iconFullpath});"></i>
 											<f:translate key="Report_Edit_SetStatus" arguments="{0: followupStatus.name}" />
 										</f:link.action>
 									</li>
@@ -110,7 +110,7 @@
 									<m:user.link user="{comment.author}" class="nav-pills-inline" />
 								</td>
 								<td>
-									<div class="tx-mmforum-topic-show-post-date">
+									<div class="tx-typo3forum-topic-show-post-date">
 										<f:format.date format="{settings.format.dateTimeFormat}">{comment.timestamp}</f:format.date>
 									</div>
 									<m:format.textParser content="{comment.text}" />

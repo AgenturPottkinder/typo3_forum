@@ -1,4 +1,4 @@
-{namespace m=Tx_MmForum_ViewHelpers}
+{namespace m=Tx_Typo3Forum_ViewHelpers}
 
 <f:layout name="Backend" />
 
@@ -7,12 +7,12 @@
 		var currentPageId = {pageUid}
 		<![CDATA[
 			Ext.onReady(function() {
-				var application = new MmForum.ForumIndex.Application({
+				var application = new Typo3Forum.ForumIndex.Application({
 				});
-				application.render('mmforum-main');
+				application.render('typo3forum-main');
 			});
 		]]>
 	</script>
 	<h2>[L10N] Forum management</h2>
-	<div id="mmforum-main"></div>
+	<div id="typo3forum-main"></div>
 </f:section>

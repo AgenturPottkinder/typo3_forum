@@ -30,7 +30,7 @@
  * ViewHelper that renders a user's avatar.
  *
  * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage ViewHelpers_Tag
  * @version    $Id$
  *
@@ -42,7 +42,7 @@
  *
  */
 
-class Tx_MmForum_ViewHelpers_Tag_GenerateActionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper  {
+class Tx_Typo3Forum_ViewHelpers_Tag_GenerateActionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper  {
 
 
 	/**
@@ -53,8 +53,8 @@ class Tx_MmForum_ViewHelpers_Tag_GenerateActionViewHelper extends \TYPO3\CMS\Flu
 	public function initializeArguments() {
 		parent::initializeArguments();
 
-		$this->registerTagAttribute('currentUser', 'Tx_MmForum_Domain_Model_User_FrontendUser', 'a');
-		$this->registerTagAttribute('subscribedUser', 'Tx_MmForum_Domain_Model_User_FrontendUser[]', 'a');
+		$this->registerTagAttribute('currentUser', 'Tx_Typo3Forum_Domain_Model_User_FrontendUser', 'a');
+		$this->registerTagAttribute('subscribedUser', 'Tx_Typo3Forum_Domain_Model_User_FrontendUser[]', 'a');
 	}
 
 	/**

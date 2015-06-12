@@ -31,7 +31,7 @@
  * no user is currently logged in.
  *
  * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain\Validator\Forum
  * @version    $Id$
  *
@@ -40,14 +40,14 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Validator_Forum_PostValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
+class Tx_Typo3Forum_Domain_Validator_Forum_PostValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
 
 
 	/**
 	 * Check if $value is valid. If it is not valid, needs to add an error
 	 * to Result.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post
 	 * @return void
 	 */
 	protected function isValid($post) {

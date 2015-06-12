@@ -30,7 +30,7 @@
  * A frontend user.
  *
  * @author     Martin Helmich <typo3@martin-helmich.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Model_User
  * @version    $Id$
  *
@@ -40,7 +40,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Model_User_AnonymousFrontendUser extends Tx_MmForum_Domain_Model_User_FrontendUser {
+class Tx_Typo3Forum_Domain_Model_User_AnonymousFrontendUser extends Tx_Typo3Forum_Domain_Model_User_FrontendUser {
 
 
 

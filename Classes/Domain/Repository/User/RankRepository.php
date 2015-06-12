@@ -28,7 +28,7 @@
  *
  * @author     Ruven Fehling <r.fehling@mittwald.de>
  * @author     Oliver Thiele <o.thiele@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Repository_User
  * @version    $Id$
  * @copyright  2013 Ruven Fehling <r.fehling@mittwald.de>
@@ -38,15 +38,15 @@
  *             http://opensource.org/licenses/gpl-license.php
 
  */
-class Tx_MmForum_Domain_Repository_User_RankRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class Tx_Typo3Forum_Domain_Repository_User_RankRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 	/**
 	 * Find the rank of a specific user
 	 *
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 * @return Tx_MmForum_Domain_Model_User_Rank[]
+	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @return Tx_Typo3Forum_Domain_Model_User_Rank[]
 	 */
-	public function findRankByUser(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+	public function findRankByUser(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user) {
 		$query = $this->createQuery();
 		$query->matching($query->lessThan('point_limit', $user->getPoints()));
 		$query->setOrderings(array('point_limit' => 'DESC'));
@@ -59,7 +59,7 @@ class Tx_MmForum_Domain_Repository_User_RankRepository extends \TYPO3\CMS\Extbas
 	 *
 	 * @param int $points
 	 * @deprecated
-	 * @return Tx_MmForum_Domain_Model_User_Rank[]
+	 * @return Tx_Typo3Forum_Domain_Model_User_Rank[]
 	 */
 	public function findRankByPoints($points) {
 		$query = $this->createQuery();
@@ -73,7 +73,7 @@ class Tx_MmForum_Domain_Repository_User_RankRepository extends \TYPO3\CMS\Extbas
 	 * Find one rank for a given amount of points
 	 *
 	 * @param int $points
-	 * @return Tx_MmForum_Domain_Model_User_Rank
+	 * @return Tx_Typo3Forum_Domain_Model_User_Rank
 	 */
 	public function findOneRankByPoints($points) {
 		$query = $this->createQuery();
@@ -92,7 +92,7 @@ class Tx_MmForum_Domain_Repository_User_RankRepository extends \TYPO3\CMS\Extbas
 	/**
 	 * Find all rankings for the ranking overview
 	 *
-	 * @return Tx_MmForum_Domain_Model_User_Rank[]
+	 * @return Tx_Typo3Forum_Domain_Model_User_Rank[]
 	 */
 	public function findAllForRankingOverview() {
 		$query = $this->createQuery();

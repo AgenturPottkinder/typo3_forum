@@ -31,7 +31,7 @@
  * Text parser class for parsing complex lists.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage TextParser_Service
  * @version    $Id$
  *
@@ -43,7 +43,7 @@
  *
  */
 
-class Tx_MmForum_TextParser_Service_ListParserService extends Tx_MmForum_TextParser_Service_AbstractTextParserService {
+class Tx_Typo3Forum_TextParser_Service_ListParserService extends Tx_Typo3Forum_TextParser_Service_AbstractTextParserService {
 
 
 

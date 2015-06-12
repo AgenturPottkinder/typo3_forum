@@ -31,7 +31,7 @@
  * A service class that handles the entire authentication.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Service
  * @version    $Id: AuthenticationService.php 39978 2010-11-09 14:19:52Z mhelmich $
  *
@@ -42,8 +42,8 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Service_Authentication_AuthenticationService extends Tx_MmForum_Service_AbstractService
-	implements Tx_MmForum_Service_Authentication_AuthenticationServiceInterface {
+class Tx_Typo3Forum_Service_Authentication_AuthenticationService extends Tx_Typo3Forum_Service_AbstractService
+	implements Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface {
 
 
 
@@ -55,15 +55,15 @@ class Tx_MmForum_Service_Authentication_AuthenticationService extends Tx_MmForum
 
 	/**
 	 * A frontend user repository.
-	 * @var Tx_MmForum_Domain_Repository_User_FrontendUserRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository
 	 */
 	protected $frontendUserRepository = NULL;
 
 
 
 	/**
-	 * An instance of the mm_forum cache class.
-	 * @var Tx_MmForum_Cache_Cache
+	 * An instance of the typo3_forum cache class.
+	 * @var Tx_Typo3Forum_Cache_Cache
 	 */
 	protected $cache = NULL;
 
@@ -71,7 +71,7 @@ class Tx_MmForum_Service_Authentication_AuthenticationService extends Tx_MmForum
 
 	/**
 	 * The current frontend user.
-	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @var Tx_Typo3Forum_Domain_Model_User_FrontendUser
 	 */
 	protected $user = -1;
 
@@ -102,11 +102,11 @@ class Tx_MmForum_Service_Authentication_AuthenticationService extends Tx_MmForum
 	/**
 	 * Constructor of this class.
 	 *
-	 * @param Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository A frontend user repository.
-	 * @param Tx_MmForum_Cache_Cache                                   $cache                  An instance of the mm_forum cache.
+	 * @param Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository A frontend user repository.
+	 * @param Tx_Typo3Forum_Cache_Cache                                   $cache                  An instance of the typo3_forum cache.
 	 */
-	public function __construct(Tx_MmForum_Domain_Repository_User_FrontendUserRepository
-	                            $frontendUserRepository, Tx_MmForum_Cache_Cache $cache) {
+	public function __construct(Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository
+	                            $frontendUserRepository, Tx_Typo3Forum_Cache_Cache $cache) {
 		$this->frontendUserRepository = $frontendUserRepository;
 		$this->cache                  = $cache;
 	}
@@ -135,12 +135,12 @@ class Tx_MmForum_Service_Authentication_AuthenticationService extends Tx_MmForum
 	/**
 	 * Asserts that the current user is authorized to read a specific object.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_AccessibleInterface $object
+	 * @param  Tx_Typo3Forum_Domain_Model_AccessibleInterface $object
 	 *                             The object that is to be accessed.
 	 *
 	 * @return void
 	 */
-	public function assertReadAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object) {
+	public function assertReadAuthorization(Tx_Typo3Forum_Domain_Model_AccessibleInterface $object) {
 		$this->assertAuthorization($object, 'read');
 	}
 
@@ -150,12 +150,12 @@ class Tx_MmForum_Service_Authentication_AuthenticationService extends Tx_MmForum
 	 * Asserts that the current user is authorized to create a new topic in a
 	 * certain forum.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Forum $forum
 	 *                             The forum in which the new topic is to be created.
 	 *
 	 * @return void
 	 */
-	public function assertNewTopicAuthorization(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
+	public function assertNewTopicAuthorization(Tx_Typo3Forum_Domain_Model_Forum_Forum $forum) {
 		$this->assertAuthorization($forum, 'newTopic');
 	}
 
@@ -165,12 +165,12 @@ class Tx_MmForum_Service_Authentication_AuthenticationService extends Tx_MmForum
 	 * Asserts that the current user is authorized to create a new post within a
 	 * topic.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Topic $topic
+	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Topic $topic
 	 *                             The topic in which the new post is to be created.
 	 *
 	 * @return void
 	 */
-	public function assertNewPostAuthorization(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
+	public function assertNewPostAuthorization(Tx_Typo3Forum_Domain_Model_Forum_Topic $topic) {
 		$this->assertAuthorization($topic, 'newPost');
 	}
 
@@ -179,12 +179,12 @@ class Tx_MmForum_Service_Authentication_AuthenticationService extends Tx_MmForum
 	/**
 	 * Asserts that the current user is authorized to edit an existing post.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Post $post
 	 *                             The post that shall be edited.
 	 *
 	 * @return void
 	 */
-	public function assertEditPostAuthorization(Tx_MmForum_Domain_Model_Forum_Post $post) {
+	public function assertEditPostAuthorization(Tx_Typo3Forum_Domain_Model_Forum_Post $post) {
 		$this->assertAuthorization($post, 'editPost');
 	}
 
@@ -193,12 +193,12 @@ class Tx_MmForum_Service_Authentication_AuthenticationService extends Tx_MmForum
 	/**
 	 * Asserts that the current user is authorized to delete a post.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Post $post
 	 *                             The post that is to be deleted.
 	 *
 	 * @return void
 	 */
-	public function assertDeletePostAuthorization(Tx_MmForum_Domain_Model_Forum_Post $post) {
+	public function assertDeletePostAuthorization(Tx_Typo3Forum_Domain_Model_Forum_Post $post) {
 		$this->assertAuthorization($post, 'deletePost');
 	}
 
@@ -207,12 +207,12 @@ class Tx_MmForum_Service_Authentication_AuthenticationService extends Tx_MmForum
 	/**
 	 * Asserts that the current user has moderator access to a certain forum.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_AccessibleInterface $object
+	 * @param  Tx_Typo3Forum_Domain_Model_AccessibleInterface $object
 	 *                             The object that is to be moderated.
 	 *
 	 * @return void
 	 */
-	public function assertModerationAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object) {
+	public function assertModerationAuthorization(Tx_Typo3Forum_Domain_Model_AccessibleInterface $object) {
 		$this->assertAuthorization($object, 'moderate');
 	}
 
@@ -223,11 +223,11 @@ class Tx_MmForum_Service_Authentication_AuthenticationService extends Tx_MmForum
 	 * forum (note: administrative access is currently only possible from the
 	 * backend module!).
 	 *
-	 * @param Tx_MmForum_Domain_Model_AccessibleInterface $object
+	 * @param Tx_Typo3Forum_Domain_Model_AccessibleInterface $object
 	 *
 	 * @return void
 	 */
-	public function assertAdministrationAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object) {
+	public function assertAdministrationAuthorization(Tx_Typo3Forum_Domain_Model_AccessibleInterface $object) {
 		$this->assertAuthorization($object, 'administrate');
 	}
 
@@ -237,18 +237,18 @@ class Tx_MmForum_Service_Authentication_AuthenticationService extends Tx_MmForum
 	 * Asserts that the current user is authorized to perform a certain
 	 * action on an potentially protected object.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_AccessibleInterface $object
+	 * @param  Tx_Typo3Forum_Domain_Model_AccessibleInterface $object
 	 *                                                                  The object for which the access is to be
 	 *                                                                  checked.
 	 * @param  string                                      $action      The action for which the access check is
 	 *                                                                  to be performed.
 	 *
 	 * @return void
-	 * @throws Tx_MmForum_Domain_Exception_Authentication_NoAccessException
+	 * @throws Tx_Typo3Forum_Domain_Exception_Authentication_NoAccessException
 	 */
-	public function assertAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object, $action) {
+	public function assertAuthorization(Tx_Typo3Forum_Domain_Model_AccessibleInterface $object, $action) {
 		if ($this->checkAuthorization($object, $action) === FALSE) {
-			throw new Tx_MmForum_Domain_Exception_Authentication_NoAccessException("You are not authorized to perform this action!", 1284709852);
+			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NoAccessException("You are not authorized to perform this action!", 1284709852);
 		}
 	}
 
@@ -258,14 +258,14 @@ class Tx_MmForum_Service_Authentication_AuthenticationService extends Tx_MmForum
 	 * Checks whether the current user is authorized to perform a certain
 	 * action on an object.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_AccessibleInterface $object The object for which the access is to be checked.
+	 * @param  Tx_Typo3Forum_Domain_Model_AccessibleInterface $object The object for which the access is to be checked.
 	 * @param  string                                      $action The action for which the access check is to be
 	 *                                                             performed.
 	 *
 	 * @return boolean             TRUE, when the user is authorized,
 	 *                             otherwise FALSE.
 	 */
-	public function checkAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object, $action) {
+	public function checkAuthorization(Tx_Typo3Forum_Domain_Model_AccessibleInterface $object, $action) {
 		// ACLs can be disabled for debugging. Also, in Backend mode, the ACL
 		// mechanism does not work (no fe_users!).
 		/** @noinspection PhpUndefinedConstantInspection */
@@ -289,14 +289,14 @@ class Tx_MmForum_Service_Authentication_AuthenticationService extends Tx_MmForum
 	 * check.
 	 * INTERNAL USE ONLY!
 	 *
-	 * @param  Tx_MmForum_Domain_Model_AccessibleInterface $object The object for which the access is to be checked.
+	 * @param  Tx_Typo3Forum_Domain_Model_AccessibleInterface $object The object for which the access is to be checked.
 	 * @param  string                                      $action The action for which the access check is to be
 	 *                                                             performed.
 	 *
 	 * @return string              The cache identifier.
 	 * @access private
 	 */
-	protected function getCacheIdentifier(Tx_MmForum_Domain_Model_AccessibleInterface $object, $action) {
+	protected function getCacheIdentifier(Tx_Typo3Forum_Domain_Model_AccessibleInterface $object, $action) {
 		$className = array_pop(explode('_', get_class($object)));
 		/** @noinspection PhpUndefinedMethodInspection */
 		return 'acl-' . $className . '-' . $object->getUid() . '-' . $this->getUserGroupIdentifier() . '-' . $action;
@@ -318,7 +318,7 @@ class Tx_MmForum_Service_Authentication_AuthenticationService extends Tx_MmForum
 			} else {
 				$groupUids = array();
 				foreach ($user->getUsergroup() as $group) {
-					/** @var Tx_MmForum_Domain_Model_User_FrontendUserGroup $group */
+					/** @var Tx_Typo3Forum_Domain_Model_User_FrontendUserGroup $group */
 					$groupUids[] = $group->getUid();
 				}
 				$this->userGroupIdentifier = implode('g', $groupUids);

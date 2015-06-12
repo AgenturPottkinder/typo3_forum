@@ -29,7 +29,7 @@
 /**
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Cache
  * @version    $Id$
  *
@@ -40,11 +40,11 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Cache_CacheManager {
+class Tx_Typo3Forum_Cache_CacheManager {
 
 
 
-	protected $fileCachePaths = array('typo3temp/mm_forum', 'typo3temp/mm_forum/gravatar');
+	protected $fileCachePaths = array('typo3temp/typo3_forum', 'typo3temp/typo3_forum/gravatar');
 
 
 
@@ -52,8 +52,8 @@ class Tx_MmForum_Cache_CacheManager {
 		// Neither the Extbase autoloader nor the TYPO3 internal autoloader
 		// appear to be doing anything at this point, so we have to include
 		// manually... :(
-		require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mm_forum') . 'Classes/Cache/Cache.php';
-		$cache = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_MmForum_Cache_Cache');
+		require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('typo3_forum') . 'Classes/Cache/Cache.php';
+		$cache = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Typo3Forum_Cache_Cache');
 		$cache->flush();
 
 		$this->deleteTemporaryFiles();

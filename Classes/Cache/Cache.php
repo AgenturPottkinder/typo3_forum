@@ -28,13 +28,13 @@
 
 /**
  *
- * This class provides access to the TYPO3 caching framework to the mm_forum components.
+ * This class provides access to the TYPO3 caching framework to the typo3_forum components.
  * Basically, this class is just a very thin wrapper around the TYPO3 caching framework.
  * It encapsulated creation and retrieval of the appropriate caches and can be very
  * easily obtained using dependency injection.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Cache
  * @version    $Id$
  *
@@ -46,7 +46,7 @@
  *
  */
 
-class Tx_MmForum_Cache_Cache implements \TYPO3\CMS\Core\SingletonInterface {
+class Tx_Typo3Forum_Cache_Cache implements \TYPO3\CMS\Core\SingletonInterface {
 
 
 
@@ -57,12 +57,12 @@ class Tx_MmForum_Cache_Cache implements \TYPO3\CMS\Core\SingletonInterface {
 	public function __construct() {
 		\TYPO3\CMS\Core\Cache\Cache::initializeCachingFramework();
 		try {
-			$this->cacheInstance = $GLOBALS['typo3CacheManager']->getCache('mmforum_main');
+			$this->cacheInstance = $GLOBALS['typo3CacheManager']->getCache('typo3forum_main');
 		} catch (\TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException $e) {
-			$this->cacheInstance = $GLOBALS['typo3CacheFactory']->create('mmforum_main',
-			                                                             $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['mmforum_main']['frontend'],
-			                                                             $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['mmforum_main']['backend'],
-			                                                             $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['mmforum_main']['options']);
+			$this->cacheInstance = $GLOBALS['typo3CacheFactory']->create('typo3forum_main',
+			                                                             $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['typo3forum_main']['frontend'],
+			                                                             $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['typo3forum_main']['backend'],
+			                                                             $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['typo3forum_main']['options']);
 		}
 	}
 

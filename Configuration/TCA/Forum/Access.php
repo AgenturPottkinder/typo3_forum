@@ -1,8 +1,8 @@
 <?php
 if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 
-$TCA['tx_mmforum_domain_model_forum_access'] = array(
-	'ctrl' => $TCA['tx_mmforum_domain_model_forum_access']['ctrl'],
+$TCA['tx_typo3forum_domain_model_forum_access'] = array(
+	'ctrl' => $TCA['tx_typo3forum_domain_model_forum_access']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'login_level,operation,negate,forum,affected_group'
 	),
@@ -37,8 +37,8 @@ $TCA['tx_mmforum_domain_model_forum_access'] = array(
 				'items' => array(
 					array('', 0),
 				),
-				'foreign_table' => 'tx_mmforum_domain_model_forum_access',
-				'foreign_table_where' => 'AND tx_mmforum_domain_model_forum_access.uid=###REC_FIELD_l18n_parent### AND tx_mmforum_domain_model_forum_access.sys_language_uid IN (-1,0)',
+				'foreign_table' => 'tx_typo3forum_domain_model_forum_access',
+				'foreign_table_where' => 'AND tx_typo3forum_domain_model_forum_access.uid=###REC_FIELD_l18n_parent### AND tx_typo3forum_domain_model_forum_access.sys_language_uid IN (-1,0)',
 			)
 		),
 		'l18n_diffsource' => array(
@@ -62,24 +62,24 @@ $TCA['tx_mmforum_domain_model_forum_access'] = array(
 		),
 		'operation' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_access.operation',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_access.operation',
 			'config'  => array(
 				'type' => 'select',
 				'maxitems' => 1,
 				'items' => array(
-					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_access.operation.read', 'read'),
-					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_access.operation.newTopic', 'newTopic'),
-					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_access.operation.newPost', 'newPost'),
-					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_access.operation.newAttachment', 'newAttachment'),
-					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_access.operation.editPost', 'editPost'),
-					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_access.operation.deletePost', 'deletePost'),
-					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_access.operation.moderation', 'moderate'),
+					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_access.operation.read', 'read'),
+					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_access.operation.newTopic', 'newTopic'),
+					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_access.operation.newPost', 'newPost'),
+					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_access.operation.newAttachment', 'newAttachment'),
+					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_access.operation.editPost', 'editPost'),
+					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_access.operation.deletePost', 'deletePost'),
+					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_access.operation.moderation', 'moderate'),
 				)
 			)
 		),
 		'negate' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_access.negate',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_access.negate',
 			'config'  => array(
 				'type' => 'check',
 				'default' => 0
@@ -87,33 +87,33 @@ $TCA['tx_mmforum_domain_model_forum_access'] = array(
 		),
 		'forum' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_forum',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_forum',
 			'config' => array(
 				'type' => 'select',
-				'foreign_class' => 'Tx_MmForum_Domain_Model_Forum_Forum',
-				'foreign_table' => 'tx_mmforum_domain_model_forum_forum',
+				'foreign_class' => 'Tx_Typo3Forum_Domain_Model_Forum_Forum',
+				'foreign_table' => 'tx_typo3forum_domain_model_forum_forum',
 				'maxitems' => 1
 			)
 		),
 		'affected_group' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_access.group',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_access.group',
 			'config'  => array(
 				'type' => 'select',
 				'foreign_table' => 'fe_groups',
-				'foreign_class' => 'Tx_MmForum_Domain_Model_User_FrontendUserGroup',
+				'foreign_class' => 'Tx_Typo3Forum_Domain_Model_User_FrontendUserGroup',
 				'maxitems' => 1
 			)
 		),
 		'login_level' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_access.login_level',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_access.login_level',
 			'config'  => array(
 				'type' => 'select',
 				'items' => array(
-					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_access.login_level.everyone', 0),
-					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_access.login_level.anylogin', 1),
-					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_access.login_level.specific', 2),
+					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_access.login_level.everyone', 0),
+					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_access.login_level.anylogin', 1),
+					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_access.login_level.specific', 2),
 				)
 			)
 		)

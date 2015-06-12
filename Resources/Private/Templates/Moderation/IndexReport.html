@@ -1,4 +1,4 @@
-{namespace m=Tx_MmForum_ViewHelpers}
+{namespace m=Tx_Typo3Forum_ViewHelpers}
 
 <f:layout name="default" />
 
@@ -20,7 +20,7 @@
 			</p>
 			<p>
 				<strong>Note:</strong> Disable this notice by setting
-				<code>plugin.tx_mmforum.settings.debug</code>
+				<code>plugin.tx_typo3forum.settings.debug</code>
 				to
 				<code>0</code>.
 			</p>
@@ -49,7 +49,7 @@
 					<th></th>
 				</tr>
 			</thead>
-			<tbody id="tx-mmforum-reports">
+			<tbody id="tx-typo3forum-reports">
 				<f:if condition="{paginatedReports}">
 					<f:then>
 						<f:for each="{paginatedReports}" as="report">
@@ -71,11 +71,11 @@
 								<td>
 									<div class="btn-group">
 										<f:link.action action="editReport" class="btn" arguments="{postReport: report}">
-											<i class="tx-mmforum-icon-16-edit"></i>
+											<i class="tx-typo3forum-icon-16-edit"></i>
 										<f:translate key="Button_Edit" />
 										</f:link.action>
 										<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-											<i class="tx-mmforum-icon-16-advanced"></i>
+											<i class="tx-typo3forum-icon-16-advanced"></i>
 										<f:translate key="Button_More" />
 											<span class="caret"></span>
 										</a>
@@ -83,7 +83,7 @@
 											<mmf:authentication.ifAccess object="{post.topic}" accessType="read">
 												<li>
 													<f:link.action controller="Topic" action="show" arguments="{topic: report.topic}" pageUid="{settings.pids.Forum}">
-														<i class="tx-mmforum-icon-16-topic-goto"></i>
+														<i class="tx-typo3forum-icon-16-topic-goto"></i>
 												<f:translate key="Moderation_Index_GoToTopic" />
 													</f:link.action>
 												</li>
@@ -91,7 +91,7 @@
 												<f:for each="{report.workflowStatus.followupStatus}" as="followupStatus">
 													<li>
 														<f:link.action action="updatePostReportStatus" arguments="{report: report, status: followupStatus}">
-															<i class="tx-mmforum-icon-16-advanced" style="background-image: url({followupStatus.iconFullpath});"></i>
+															<i class="tx-typo3forum-icon-16-advanced" style="background-image: url({followupStatus.iconFullpath});"></i>
 															<f:translate key="Report_Edit_SetStatus" arguments="{0: followupStatus.name}" />
 														</f:link.action>
 													</li>
@@ -118,7 +118,7 @@
 	</f:widget.paginate>
 	<script type="text/javascript">
 		<![CDATA[
-	$('#tx-mmforum-reports > tr').popover({
+	$('#tx-typo3forum-reports > tr').popover({
 		placement: 'bottom'
 	});
 		]]>

@@ -31,7 +31,7 @@
  * Factory class for post reports.
  *
  * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Factory_User
  * @version    $Id$
  *
@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Factory_User_PrivateMessagesFactory extends Tx_MmForum_Domain_Factory_AbstractFactory {
+class Tx_Typo3Forum_Domain_Factory_User_PrivateMessagesFactory extends Tx_Typo3Forum_Domain_Factory_AbstractFactory {
 
 
 
@@ -63,18 +63,18 @@ class Tx_MmForum_Domain_Factory_User_PrivateMessagesFactory extends Tx_MmForum_D
 	 *
 	 * Creates a new report.
 	 *
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $opponent
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $feUser
-	 * @param Tx_MmForum_Domain_Model_User_PrivateMessagesText $text
+	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $opponent
+	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $feUser
+	 * @param Tx_Typo3Forum_Domain_Model_User_PrivateMessagesText $text
 	 * @param int $type
 	 * @param int $userRead
-	 * @return Tx_MmForum_Domain_Model_User_PrivateMessages
+	 * @return Tx_Typo3Forum_Domain_Model_User_PrivateMessages
 	 *                             The new private message.
 	 *
 	 */
-	public function createPrivateMessage(Tx_MmForum_Domain_Model_User_FrontendUser $opponent,
-										 Tx_MmForum_Domain_Model_User_FrontendUser $feUser,
-										 Tx_MmForum_Domain_Model_User_PrivateMessagesText $text,
+	public function createPrivateMessage(Tx_Typo3Forum_Domain_Model_User_FrontendUser $opponent,
+										 Tx_Typo3Forum_Domain_Model_User_FrontendUser $feUser,
+										 Tx_Typo3Forum_Domain_Model_User_PrivateMessagesText $text,
 										 $type,
 										 $userRead) {
 		$pm = $this->getClassInstance();

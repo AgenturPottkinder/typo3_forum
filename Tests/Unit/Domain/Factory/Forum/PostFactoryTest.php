@@ -25,12 +25,12 @@
  *                                                                      */
 
 
-class Tx_MmForum_Domain_Factory_Forum_PostFactoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class Tx_Typo3Forum_Domain_Factory_Forum_PostFactoryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 
 
 
 	/**
-	 * @var Tx_MmForum_Domain_Factory_Forum_PostFactory
+	 * @var Tx_Typo3Forum_Domain_Factory_Forum_PostFactory
 	 */
 	protected $fixture;
 
@@ -43,9 +43,9 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactoryTest extends \TYPO3\CMS\Extbase
 
 
 	public function setUp() {
-		$this->userRepositoryMock = $this->getMock('Tx_MmForum_Domain_Repository_User_FrontendUserRepository');
+		$this->userRepositoryMock = $this->getMock('Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository');
 
-		$this->fixture = new Tx_MmForum_Domain_Factory_Forum_PostFactory();
+		$this->fixture = new Tx_Typo3Forum_Domain_Factory_Forum_PostFactory();
 		$this->fixture->injectObjectManager($this->objectManager);
 		$this->fixture->injectFrontendUserRepository($this->userRepositoryMock);
 	}
@@ -58,7 +58,7 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactoryTest extends \TYPO3\CMS\Extbase
 	public function createEmptyPostReturnsEmptyPost() {
 		$post = $this->fixture->createEmptyPost();
 
-		$this->assertInstanceOf('Tx_MmForum_Domain_Model_Forum_Post', $post);
+		$this->assertInstanceOf('Tx_Typo3Forum_Domain_Model_Forum_Post', $post);
 		$this->assertEquals('', $post->getText());
 	}
 
@@ -68,12 +68,12 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactoryTest extends \TYPO3\CMS\Extbase
 	 * @test
 	 */
 	public function createQuotePostContainsTextOfQuotedPost() {
-		$quotedPost = new Tx_MmForum_Domain_Model_Forum_Post("Quote");
+		$quotedPost = new Tx_Typo3Forum_Domain_Model_Forum_Post("Quote");
 		$quotedPost->_setProperty('uid', 123);
 
 		$post = $this->fixture->createPostWithQuote($quotedPost);
 
-		$this->assertInstanceOf('Tx_MmForum_Domain_Model_Forum_Post', $post);
+		$this->assertInstanceOf('Tx_Typo3Forum_Domain_Model_Forum_Post', $post);
 		$this->assertEquals('[quote=123]Quote[/quote]', $post->getText());
 	}
 
@@ -83,11 +83,11 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactoryTest extends \TYPO3\CMS\Extbase
 	 * @test
 	 */
 	public function userPostCountIsIncreasedWhenPostIsAssigned() {
-		$post = new Tx_MmForum_Domain_Model_Forum_Post('Content');
-		$user = $this->getMock('Tx_MmForum_Domain_Model_User_FrontendUser');
+		$post = new Tx_Typo3Forum_Domain_Model_Forum_Post('Content');
+		$user = $this->getMock('Tx_Typo3Forum_Domain_Model_User_FrontendUser');
 		$user->expects($this->once())->method('increasePostCount');
 		$this->userRepositoryMock->expects($this->once())->method('update')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_MmForum_Domain_Model_User_FrontendUser'));
+			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_Typo3Forum_Domain_Model_User_FrontendUser'));
 
 		$this->fixture->assignUserToPost($post, $user);
 
@@ -100,12 +100,12 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactoryTest extends \TYPO3\CMS\Extbase
 	 * @test
 	 */
 	public function postIsAssignedToCurrentUserWhenNoUserSpecified() {
-		$post = new Tx_MmForum_Domain_Model_Forum_Post('Content');
-		$user = $this->getMock('Tx_MmForum_Domain_Model_User_FrontendUser');
+		$post = new Tx_Typo3Forum_Domain_Model_Forum_Post('Content');
+		$user = $this->getMock('Tx_Typo3Forum_Domain_Model_User_FrontendUser');
 		$user->expects($this->once())->method('increasePostCount');
 		$this->userRepositoryMock->expects($this->any())->method('findCurrent')->will($this->returnValue($user));
 		$this->userRepositoryMock->expects($this->once())->method('update')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_MmForum_Domain_Model_User_FrontendUser'));
+			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_Typo3Forum_Domain_Model_User_FrontendUser'));
 
 		$this->fixture->assignUserToPost($post);
 
@@ -118,9 +118,9 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactoryTest extends \TYPO3\CMS\Extbase
 	 * @test
 	 */
 	public function postIsNotAssignedIfCurrentUserIsAnonymous() {
-		$post = new Tx_MmForum_Domain_Model_Forum_Post('Content');
+		$post = new Tx_Typo3Forum_Domain_Model_Forum_Post('Content');
 		$this->userRepositoryMock->expects($this->any())->method('findCurrent')
-			->will($this->returnValue(new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser()));
+			->will($this->returnValue(new Tx_Typo3Forum_Domain_Model_User_AnonymousFrontendUser()));
 		$this->userRepositoryMock->expects($this->never())->method('update');
 		$this->fixture->assignUserToPost($post);
 	}
@@ -129,10 +129,10 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactoryTest extends \TYPO3\CMS\Extbase
 
 	/**
 	 * @test
-	 * @expectedException Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException
+	 * @expectedException Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException
 	 */
 	public function exceptionIsThrownWhenAssigningPostToNullUser() {
-		$post = new Tx_MmForum_Domain_Model_Forum_Post('Content');
+		$post = new Tx_Typo3Forum_Domain_Model_Forum_Post('Content');
 		$this->userRepositoryMock->expects($this->any())->method('findCurrent')->will($this->returnValue(NULL));
 		$this->fixture->assignUserToPost($post);
 	}
@@ -143,15 +143,15 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactoryTest extends \TYPO3\CMS\Extbase
 	 * @test
 	 */
 	public function userPostCountsAreDecreasedAndIncreasedWhenPostIsReassigned() {
-		$newUser = $this->getMock('Tx_MmForum_Domain_Model_User_FrontendUser');
+		$newUser = $this->getMock('Tx_Typo3Forum_Domain_Model_User_FrontendUser');
 		$newUser->expects($this->once())->method('increasePostCount');
-		$oldUser = $this->getMock('Tx_MmForum_Domain_Model_User_FrontendUser');
+		$oldUser = $this->getMock('Tx_Typo3Forum_Domain_Model_User_FrontendUser');
 		$oldUser->expects($this->once())->method('decreasePostCount');
-		$post = new Tx_MmForum_Domain_Model_Forum_Post('Content');
+		$post = new Tx_Typo3Forum_Domain_Model_Forum_Post('Content');
 		$post->setAuthor($oldUser);
 
 		$this->userRepositoryMock->expects($this->exactly(2))->method('update')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_MmForum_Domain_Model_User_FrontendUser'));
+			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_Typo3Forum_Domain_Model_User_FrontendUser'));
 
 		$this->fixture->assignUserToPost($post, $newUser);
 
@@ -164,15 +164,15 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactoryTest extends \TYPO3\CMS\Extbase
 	 * @test
 	 */
 	public function topicIsDeletedWhenLastPostIsDeleted() {
-		$topic = $this->getMock('Tx_MmForum_Domain_Model_Forum_Topic');
+		$topic = $this->getMock('Tx_Typo3Forum_Domain_Model_Forum_Topic');
 		$topic->expects($this->any())->method('getPostCount')->will($this->returnValue(1));
 
-		$post = new Tx_MmForum_Domain_Model_Forum_Post('Content');
+		$post = new Tx_Typo3Forum_Domain_Model_Forum_Post('Content');
 		$post->setTopic($topic);
 
-		$topicFactory = $this->getMock('Tx_MmForum_Domain_Factory_Forum_TopicFactory', array(), array(), '', FALSE);
+		$topicFactory = $this->getMock('Tx_Typo3Forum_Domain_Factory_Forum_TopicFactory', array(), array(), '', FALSE);
 		$topicFactory->expects($this->once())->method('deleteTopic')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_MmForum_Domain_Model_Forum_Topic'));
+			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_Typo3Forum_Domain_Model_Forum_Topic'));
 		$this->fixture->injectTopicFactory($topicFactory);
 		$this->fixture->deletePost($post);
 	}
@@ -183,22 +183,22 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactoryTest extends \TYPO3\CMS\Extbase
 	 * @test
 	 */
 	public function userPostCountIsDecreasedAndTopicUpdatedWhenPostIsDeleted() {
-		$topic = $this->getMock('Tx_MmForum_Domain_Model_Forum_Topic');
+		$topic = $this->getMock('Tx_Typo3Forum_Domain_Model_Forum_Topic');
 		$topic->expects($this->any())->method('getPostCount')->will($this->returnValue(3));
 		$topic->expects($this->once())->method('removePost')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_MmForum_Domain_Model_Forum_Post'));
-		$user = $this->getMock('Tx_MmForum_Domain_Model_User_FrontendUser');
+			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_Typo3Forum_Domain_Model_Forum_Post'));
+		$user = $this->getMock('Tx_Typo3Forum_Domain_Model_User_FrontendUser');
 		$user->expects($this->once())->method('decreasePostCount');
 
-		$post = new Tx_MmForum_Domain_Model_Forum_Post('Content');
+		$post = new Tx_Typo3Forum_Domain_Model_Forum_Post('Content');
 		$post->setTopic($topic);
 		$post->setAuthor($user);
 
-		$topicRepository = $this->getMock('Tx_MmForum_Domain_Repository_Forum_TopicRepository');
+		$topicRepository = $this->getMock('Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository');
 		$topicRepository->expects($this->once())->method('update')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_MmForum_Domain_Model_Forum_Topic'));
+			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_Typo3Forum_Domain_Model_Forum_Topic'));
 		$this->userRepositoryMock->expects($this->once())->method('update')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_MmForum_Domain_Model_User_FrontendUser'));
+			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_Typo3Forum_Domain_Model_User_FrontendUser'));
 
 		$this->fixture->injectTopicRepository($topicRepository);
 		$this->fixture->deletePost($post);

@@ -31,7 +31,7 @@
  * forums and topic about new posts within the subscribed objects.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Service
  * @version    $Id: NotificationService.php 39978 2010-11-09 14:19:52Z mhelmich $
  *
@@ -42,8 +42,8 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Service_Notification_NotificationService extends Tx_MmForum_Service_AbstractService
-	implements Tx_MmForum_Service_Notification_NotificationServiceInterface
+class Tx_Typo3Forum_Service_Notification_NotificationService extends Tx_Typo3Forum_Service_AbstractService
+	implements Tx_Typo3Forum_Service_Notification_NotificationServiceInterface
 {
 
 
@@ -52,7 +52,7 @@ class Tx_MmForum_Service_Notification_NotificationService extends Tx_MmForum_Ser
 	 */
 
 	/**
-	 * @var Tx_MmForum_Service_Mailing_HTMLMailingService
+	 * @var Tx_Typo3Forum_Service_Mailing_HTMLMailingService
 	 */
 	protected $htmlMailingService;
 
@@ -64,13 +64,13 @@ class Tx_MmForum_Service_Notification_NotificationService extends Tx_MmForum_Ser
 
 
 	/**
-	 * An instance of the mm_forum authentication service.
+	 * An instance of the typo3_forum authentication service.
 	 * @var TYPO3\CMS\Extbase\Service\TypoScriptService
 	 */
 	protected $typoScriptService = NULL;
 
 	/**
-	 * Whole TypoScript mm_forum settings
+	 * Whole TypoScript typo3_forum settings
 	 * @var array
 	 */
 	protected $settings;
@@ -84,10 +84,10 @@ class Tx_MmForum_Service_Notification_NotificationService extends Tx_MmForum_Ser
 	/**
 	 * Constructor. Used primarily for dependency injection.
 	 *
-	 * @param Tx_MmForum_Service_Mailing_HTMLMailingService $htmlMailingService
+	 * @param Tx_Typo3Forum_Service_Mailing_HTMLMailingService $htmlMailingService
 	 * @param \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder
 	 */
-	public function __construct(Tx_MmForum_Service_Mailing_HTMLMailingService $htmlMailingService, \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder)
+	public function __construct(Tx_Typo3Forum_Service_Mailing_HTMLMailingService $htmlMailingService, \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder)
 	{
 		$this->htmlMailingService = $htmlMailingService;
 		$this->uriBuilder = $uriBuilder;
@@ -102,7 +102,7 @@ class Tx_MmForum_Service_Notification_NotificationService extends Tx_MmForum_Ser
 	{
 		$this->typoScriptService = $typoScriptService;
 		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
-		$this->settings = $ts['plugin']['tx_mmforum']['settings'];
+		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
 
 
@@ -116,10 +116,10 @@ class Tx_MmForum_Service_Notification_NotificationService extends Tx_MmForum_Ser
 	 * Notifies subscribers of a subscribeable objects about a new notifiable object
 	 * within the subscribeable object, e.g. of a new post within a subscribed topic.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_SubscribeableInterface $subscriptionObject
+	 * @param  Tx_Typo3Forum_Domain_Model_SubscribeableInterface $subscriptionObject
 	 *                             The subscribed object. This may for example be a
 	 *                             forum or a topic.
-	 * @param  Tx_MmForum_Domain_Model_NotifiableInterface $notificationObject
+	 * @param  Tx_Typo3Forum_Domain_Model_NotifiableInterface $notificationObject
 	 *                             The object that the subscriber is notified about.
 	 *                             This may for example be a new post within an
 	 *                             observed topic or forum or a new topic within an
@@ -128,21 +128,21 @@ class Tx_MmForum_Service_Notification_NotificationService extends Tx_MmForum_Ser
 	 * @return void
 	 *
 	 */
-	public function notifySubscribers(Tx_MmForum_Domain_Model_SubscribeableInterface $subscriptionObject,
-									  Tx_MmForum_Domain_Model_NotifiableInterface $notificationObject)
+	public function notifySubscribers(Tx_Typo3Forum_Domain_Model_SubscribeableInterface $subscriptionObject,
+									  Tx_Typo3Forum_Domain_Model_NotifiableInterface $notificationObject)
 	{
 		$topic = $subscriptionObject;
 		$post  = $notificationObject;
 
 
-		$subject = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate("Mail_Subscribe_NewPost_Subject", 'mm_forum');
-		$messageTemplate = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate("Mail_Subscribe_NewPost_Body", 'mm_forum');
+		$subject = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate("Mail_Subscribe_NewPost_Subject", 'typo3_forum');
+		$messageTemplate = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate("Mail_Subscribe_NewPost_Body", 'typo3_forum');
 		$postAuthor = $post->getAuthor()->getUsername();
 		$uriBuilder = $this->uriBuilder;
 		$arguments = array(
-			'tx_mmforum_pi1[controller]' => 'Topic',
-			'tx_mmforum_pi1[action]' => 'show',
-			'tx_mmforum_pi1[topic]' => $topic->getUid()
+			'tx_typo3forum_pi1[controller]' => 'Topic',
+			'tx_typo3forum_pi1[action]' => 'show',
+			'tx_typo3forum_pi1[topic]' => $topic->getUid()
 		);
 		$pageNumber = $post->getTopic()->getPageCount();
 		if ($pageNumber > 1) {
@@ -152,7 +152,7 @@ class Tx_MmForum_Service_Notification_NotificationService extends Tx_MmForum_Ser
 		$topicLink = $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments($arguments)->build();
 		$topicLink = '<a href="' . $topicLink . '">' . $topic->getTitle() . '</a>';
 		$uriBuilder->reset();
-		$unSubscribeLink = $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments(array('tx_mmforum_pi1[topic]' => $topic->getUid(), 'tx_mmforum_pi1[controller]' => 'User', 'tx_mmforum_pi1[action]' => 'subscribe', 'tx_mmforum_pi1[unsubscribe]' => 1))->build();
+		$unSubscribeLink = $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments(array('tx_typo3forum_pi1[topic]' => $topic->getUid(), 'tx_typo3forum_pi1[controller]' => 'User', 'tx_typo3forum_pi1[action]' => 'subscribe', 'tx_typo3forum_pi1[unsubscribe]' => 1))->build();
 		$unSubscribeLink = '<a href="' . $unSubscribeLink . '">' . $unSubscribeLink . '</a>';
 		foreach ($topic->getSubscribers() AS $subscriber) {
 			if ($subscriber != $post->getAuthor()) {

@@ -28,10 +28,10 @@
 
 /**
  *
- * Abstract factory class. Base class for all mm_forum factory classes.
+ * Abstract factory class. Base class for all typo3_forum factory classes.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Factory
  * @version    $Id$
  *
@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_MmForum_Domain_Factory_AbstractFactory implements \TYPO3\CMS\Core\SingletonInterface {
+abstract class Tx_Typo3Forum_Domain_Factory_AbstractFactory implements \TYPO3\CMS\Core\SingletonInterface {
 
 
 
@@ -54,7 +54,7 @@ abstract class Tx_MmForum_Domain_Factory_AbstractFactory implements \TYPO3\CMS\C
 
 	/**
 	 * A reference to the frontend user repository.
-	 * @var Tx_MmForum_Domain_Repository_User_FrontendUserRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository
 	 */
 	protected $frontendUserRepository = NULL;
 
@@ -67,14 +67,14 @@ abstract class Tx_MmForum_Domain_Factory_AbstractFactory implements \TYPO3\CMS\C
 
 
 	/**
-	 * An instance of the mm_forum authentication service.
+	 * An instance of the typo3_forum authentication service.
 	 * @var TYPO3\CMS\Extbase\Service\TypoScriptService
 	 */
 	protected $typoScriptService = NULL;
 
 
 	/**
-	 * Whole TypoScript mm_forum settings
+	 * Whole TypoScript typo3_forum settings
 	 * @var array
 	 */
 	protected $settings;
@@ -88,9 +88,9 @@ abstract class Tx_MmForum_Domain_Factory_AbstractFactory implements \TYPO3\CMS\C
 
 	/**
 	 * Injects an instance of the frontend user repository.
-	 * @param Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository
+	 * @param Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository
 	 */
-	public function injectFrontendUserRepository(Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository) {
+	public function injectFrontendUserRepository(Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository) {
 		$this->frontendUserRepository = $frontendUserRepository;
 	}
 
@@ -112,7 +112,7 @@ abstract class Tx_MmForum_Domain_Factory_AbstractFactory implements \TYPO3\CMS\C
 	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
 		$this->typoScriptService = $typoScriptService;
 		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
-		$this->settings = $ts['plugin']['tx_mmforum']['settings'];
+		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
 
 	/*
@@ -154,7 +154,7 @@ abstract class Tx_MmForum_Domain_Factory_AbstractFactory implements \TYPO3\CMS\C
 	 * Gets the currently logged in user. Convenience wrapper for the findCurrent
 	 * method of the frontend user repository.
 	 *
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @return Tx_Typo3Forum_Domain_Model_User_FrontendUser
 	 *                             The user that is currently logged in.
 	 *
 	 */

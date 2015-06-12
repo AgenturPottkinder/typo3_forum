@@ -31,7 +31,7 @@
  * Text parser class for parsing quotes.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage TextParser_Service
  * @version    $Id$
  *
@@ -42,13 +42,13 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_TextParser_Service_QuoteParserService extends Tx_MmForum_TextParser_Service_AbstractTextParserService {
+class Tx_Typo3Forum_TextParser_Service_QuoteParserService extends Tx_Typo3Forum_TextParser_Service_AbstractTextParserService {
 
 
 
 	/**
 	 * The post repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_PostRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_Forum_PostRepository
 	 */
 	protected $postRepository;
 
@@ -65,12 +65,12 @@ class Tx_MmForum_TextParser_Service_QuoteParserService extends Tx_MmForum_TextPa
 	/**
 	 * Injects an instance of the post repository class.
 	 *
-	 * @param  Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository
+	 * @param  Tx_Typo3Forum_Domain_Repository_Forum_PostRepository $postRepository
 	 *                             An instance of the post repository class
 	 * @return void
 	 */
 
-	public function injectPostRepository(Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository) {
+	public function injectPostRepository(Tx_Typo3Forum_Domain_Repository_Forum_PostRepository $postRepository) {
 		$this->postRepository = $postRepository;
 	}
 
@@ -117,7 +117,7 @@ class Tx_MmForum_TextParser_Service_QuoteParserService extends Tx_MmForum_TextPa
 
 	protected function replaceSingleCallback($matches) {
 		$this->view->setControllerContext($this->controllerContext);
-		$this->view->setTemplatePathAndFilename(Tx_MmForum_Utility_File::replaceSiteRelPath($this->settings['template']));
+		$this->view->setTemplatePathAndFilename(Tx_Typo3Forum_Utility_File::replaceSiteRelPath($this->settings['template']));
 		$this->view->assign('quote', trim($matches[1]));
 		$this->view->assign('post', null);
 		return $this->view->render();
@@ -135,7 +135,7 @@ class Tx_MmForum_TextParser_Service_QuoteParserService extends Tx_MmForum_TextPa
 
 	protected function replaceCallback($matches) {
 		$this->view->setControllerContext($this->controllerContext);
-		$this->view->setTemplatePathAndFilename(Tx_MmForum_Utility_File::replaceSiteRelPath($this->settings['template']));
+		$this->view->setTemplatePathAndFilename(Tx_Typo3Forum_Utility_File::replaceSiteRelPath($this->settings['template']));
 
 		$tmp = $this->postRepository->findByUid((int)$matches[1]);
 		if(!empty($tmp)){

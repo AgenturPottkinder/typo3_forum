@@ -34,7 +34,7 @@
  * @author     Martin Helmich <m.helmich@mittwald.de>
  * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
  * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Controller
  * @version    $Id$
  *
@@ -45,7 +45,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_MmForum_Controller_AbstractBackendController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+abstract class Tx_Typo3Forum_Controller_AbstractBackendController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 
 
@@ -54,7 +54,7 @@ abstract class Tx_MmForum_Controller_AbstractBackendController extends \TYPO3\CM
 	 *
 	 * @var string
 	 */
-	protected $extensionName = 'MmForum';
+	protected $extensionName = 'Typo3Forum';
 
 
 
@@ -126,7 +126,7 @@ abstract class Tx_MmForum_Controller_AbstractBackendController extends \TYPO3\CM
 
 		parent::processRequest($request, $response);
 
-		$pageHeader = $this->template->startpage($GLOBALS['LANG']->sL('LLL:EXT:mm_forum/Resources/Private/Language/locallang_mod.xml:module.title'));
+		$pageHeader = $this->template->startpage($GLOBALS['LANG']->sL('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_mod.xml:module.title'));
 		$pageEnd    = $this->template->endPage();
 
 		$response->setContent($pageHeader . $response->getContent() . $pageEnd);
@@ -155,7 +155,7 @@ abstract class Tx_MmForum_Controller_AbstractBackendController extends \TYPO3\CM
 		                                                      'depth_4'     => $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.depth_4'),
 		                                                      'depth_infi'  => $GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.depth_infi'),));
 
-		$this->pageRenderer->addInlineLanguageLabelFile('EXT:mm_forum/Resources/Private/Language/locallang_mod.xml');
+		$this->pageRenderer->addInlineLanguageLabelFile('EXT:typo3_forum/Resources/Private/Language/locallang_mod.xml');
 
 		$this->pageRenderer->loadExtJS();
 		$this->pageRenderer->enableExtJSQuickTips();
@@ -166,7 +166,7 @@ abstract class Tx_MmForum_Controller_AbstractBackendController extends \TYPO3\CM
 		$this->includeJavascriptFromPath('Resources/Public/Javascript/Backend/ForumIndex/');
 
 		$this->includeCssFromPath('Resources/Public/Javascript/Backend/ExtJS/');
-		$this->pageRenderer->addCssFile(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('mm_forum') . 'Resources/Public/Stylesheets/mm_forum-backend.css');
+		$this->pageRenderer->addCssFile(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Stylesheets/typo3_forum-backend.css');
 	}
 
 
@@ -176,8 +176,8 @@ abstract class Tx_MmForum_Controller_AbstractBackendController extends \TYPO3\CM
 	 */
 	protected function registerAlternativeImplementations() {
 		//		$this->objectContainer->registerImplementation(
-		//			'Tx_MmForum_Service_Authentication_AuthenticationServiceInterface',
-		//			'Tx_MmForum_Service_Authentication_BackendAuthenticationService');
+		//			'Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface',
+		//			'Tx_Typo3Forum_Service_Authentication_BackendAuthenticationService');
 	}
 
 
@@ -186,8 +186,8 @@ abstract class Tx_MmForum_Controller_AbstractBackendController extends \TYPO3\CM
 	 * @param $path
 	 */
 	protected function includeJavascriptFromPath($path) {
-		$resourcePath    = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('mm_forum') . $path;
-		$absResourcePath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mm_forum') . $path;
+		$resourcePath    = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . $path;
+		$absResourcePath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('typo3_forum') . $path;
 
 		$jsFiles = glob($absResourcePath . '*.js');
 
@@ -203,8 +203,8 @@ abstract class Tx_MmForum_Controller_AbstractBackendController extends \TYPO3\CM
 	 * @param $path
 	 */
 	protected function includeCssFromPath($path) {
-		$resourcePath    = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('mm_forum') . $path;
-		$absResourcePath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mm_forum') . $path;
+		$resourcePath    = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . $path;
+		$absResourcePath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('typo3_forum') . $path;
 
 		$cssFiles = glob($absResourcePath . '*.css');
 

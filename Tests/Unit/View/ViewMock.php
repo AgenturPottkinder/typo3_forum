@@ -25,7 +25,7 @@
 
 
 
-class Tx_MmForum_View_ViewMock implements \TYPO3\CMS\Extbase\Mvc\View\ViewInterface {
+class Tx_Typo3Forum_View_ViewMock implements \TYPO3\CMS\Extbase\Mvc\View\ViewInterface {
 
 
 

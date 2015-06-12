@@ -31,7 +31,7 @@
  * A report workflow status.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Model_Moderation
  * @version    $Id$
  *
@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
+class Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
 
 
 
@@ -61,7 +61,7 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends \TYPO3\CMS
 
 	/**
 	 * A list of allowed follow-up status.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus>
+	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus>
 	 */
 	protected $followupStatus;
 
@@ -127,7 +127,7 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends \TYPO3\CMS
 
 	/**
 	 * Gets the allowed follow-up status.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus>
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus>
 	 *                             The allowed follow-up status.
 	 */
 	public function getFollowupStatus() {
@@ -139,12 +139,12 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends \TYPO3\CMS
 	/**
 	 * Determines if a workflow status is an allowed follow-up status for this status.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $status
+	 * @param  Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus $status
 	 *                             The status that is to be checked.
 	 * @return boolean             TRUE, if $status is a valid follow-up status,
 	 *                             otherwise FALSE.
 	 */
-	public function hasFollowupStatus(Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $status) {
+	public function hasFollowupStatus(Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus $status) {
 		return $this->followupStatus->contains($status);
 	}
 
@@ -183,7 +183,7 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends \TYPO3\CMS
 
 	/**
 	 * Returns the site relative path of this status' icon. This method first
-	 * looks in the configured upload directory (uploads/tx_mmforum/workflowstatus
+	 * looks in the configured upload directory (uploads/tx_typo3forum/workflowstatus
 	 * by default) and the extensions' Resources/Public directory as fallback.
 	 *
 	 * @global type $TCA
@@ -199,7 +199,7 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends \TYPO3\CMS
 		$imageFilename      = rtrim($imageDirectoryName, '/') . '/' . $this->icon;
 
 		if (!file_exists(PATH_site . '/' . $imageFilename)) {
-			$imageDirectoryName = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('mm_forum') . 'Resources/Public/Images/Icons/Moderation';
+			$imageDirectoryName = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('typo3_forum') . 'Resources/Public/Images/Icons/Moderation';
 			$imageFilename      = "$imageDirectoryName/{$this->icon}";
 		}
 
@@ -216,9 +216,9 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends \TYPO3\CMS
 
 	/**
 	 * Adds an additional allowed followup status.
-	 * @param Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $followupStatus
+	 * @param Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus $followupStatus
 	 */
-	public function addAllowedFollowupStatus(Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $followupStatus) {
+	public function addAllowedFollowupStatus(Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus $followupStatus) {
 		$this->followupStatus->attach($followupStatus);
 	}
 

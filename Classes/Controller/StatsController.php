@@ -34,7 +34,7 @@
  * @author     Martin Helmich <m.helmich@mittwald.de>
  * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
  * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Controller
  * @version    $Id$
  *
@@ -45,7 +45,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Controller_StatsController extends Tx_MmForum_Controller_AbstractController {
+class Tx_Typo3Forum_Controller_StatsController extends Tx_Typo3Forum_Controller_AbstractController {
 
 
 
@@ -56,7 +56,7 @@ class Tx_MmForum_Controller_StatsController extends Tx_MmForum_Controller_Abstra
 	/**
 	 * The report repository.
 	 *
-	 * @var Tx_MmForum_Domain_Repository_Stats_SummaryRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_Stats_SummaryRepository
 	 */
 	protected $summaryRepository;
 
@@ -66,9 +66,9 @@ class Tx_MmForum_Controller_StatsController extends Tx_MmForum_Controller_Abstra
 	 */
 
 	/**
-	 * @param Tx_MmForum_Domain_Repository_Stats_SummaryRepository $summaryRepository
+	 * @param Tx_Typo3Forum_Domain_Repository_Stats_SummaryRepository $summaryRepository
 	 */
-	public function injectSummaryRepository(Tx_MmForum_Domain_Repository_Stats_SummaryRepository $summaryRepository) {
+	public function injectSummaryRepository(Tx_Typo3Forum_Domain_Repository_Stats_SummaryRepository $summaryRepository) {
 		$this->summaryRepository = $summaryRepository;
 
 	}

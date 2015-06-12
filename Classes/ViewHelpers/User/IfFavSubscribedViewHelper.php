@@ -32,7 +32,7 @@
  * a specific object.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage ViewHelpers_User
  * @version    $Id$
  *
@@ -44,7 +44,7 @@
  *
  */
 
-class Tx_MmForum_ViewHelpers_User_IfFavSubscribedViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\IfViewHelper {
+class Tx_Typo3Forum_ViewHelpers_User_IfFavSubscribedViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\IfViewHelper {
 
 
 
@@ -53,18 +53,18 @@ class Tx_MmForum_ViewHelpers_User_IfFavSubscribedViewHelper extends \TYPO3\CMS\F
 	 * Renders the contents of this view helper, when a user has subscribed a
 	 * specific subscribeable object.
 	 *
-	 * @param Tx_MmForum_Domain_Model_SubscribeableInterface $object
+	 * @param Tx_Typo3Forum_Domain_Model_SubscribeableInterface $object
 	 *                             The object that needs to be subscribed in order
 	 *                             for the contents to be rendered.
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser      $user
+	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser      $user
 	 * @return string
 	 *
 	 */
 
-	public function render(Tx_MmForum_Domain_Model_SubscribeableInterface $object,
-	                       Tx_MmForum_Domain_Model_User_FrontendUser      $user = NULL) {
+	public function render(Tx_Typo3Forum_Domain_Model_SubscribeableInterface $object,
+	                       Tx_Typo3Forum_Domain_Model_User_FrontendUser      $user = NULL) {
 		if ($user === NULL) {
-			$user =& \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_MmForum_Domain_Repository_User_FrontendUserRepository')->findCurrent();
+			$user =& \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository')->findCurrent();
 		}
 		foreach ($object->getFavSubscribers() As $subscriber) {
 			if ($subscriber->getUid() == $user->getUid()) {

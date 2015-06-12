@@ -1,8 +1,8 @@
 <?php
 if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 
-$TCA['tx_mmforum_domain_model_moderation_reportworkflowstatus'] = array(
-	'ctrl' => $TCA['tx_mmforum_domain_model_moderation_reportworkflowstatus']['ctrl'],
+$TCA['tx_typo3forum_domain_model_moderation_reportworkflowstatus'] = array(
+	'ctrl' => $TCA['tx_typo3forum_domain_model_moderation_reportworkflowstatus']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'name,icon,followup_status,initial,final'
 	),
@@ -29,7 +29,7 @@ $TCA['tx_mmforum_domain_model_moderation_reportworkflowstatus'] = array(
 		),
 		'name' => array(
 			'exclude' => 0,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_reportworkflowstatus.name',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportworkflowstatus.name',
 			'config'  => array(
 				'type' => 'input',
 				'size' => 30,
@@ -38,36 +38,36 @@ $TCA['tx_mmforum_domain_model_moderation_reportworkflowstatus'] = array(
 		),
 		'followup_status' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_reportworkflowstatus.followup_status',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportworkflowstatus.followup_status',
 			'config' => array(
 				'type' => 'select',
-				'foreign_table' => 'tx_mmforum_domain_model_moderation_reportworkflowstatus',
-				'MM' => 'tx_mmforum_domain_model_moderation_reportworkflowstatus_followup',
+				'foreign_table' => 'tx_typo3forum_domain_model_moderation_reportworkflowstatus',
+				'MM' => 'tx_typo3forum_domain_model_moderation_reportworkflowstatus_followup',
 				'maxitems' => 9999,
 				'size' => 5
 			)
 		),
 		'initial' => array(
 			'exclude' => 0,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_reportworkflowstatus.initial',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportworkflowstatus.initial',
 			'config'  => array(
 				'type' => 'check'
 			)
 		),
 		'final' => array(
 			'exclude' => 0,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_reportworkflowstatus.final',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportworkflowstatus.final',
 			'config'  => array(
 				'type' => 'check'
 			)
 		),
 		'icon' => array(
 			'exclude' => 0,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_reportworkflowstatus.icon',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportworkflowstatus.icon',
 			'config'  => array(
 				'type' => 'group',
 				'internal_type' => 'file',
-				'uploadfolder' => 'uploads/tx_mmforum/workflowstatus/',
+				'uploadfolder' => 'uploads/tx_typo3forum/workflowstatus/',
 				'minitems' => 1,
 				'maxitems' => 1,
 				'allowed' => '*',

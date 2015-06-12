@@ -29,7 +29,7 @@
 /**
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage TextParser_Panel
  * @version    $Id$
  *
@@ -41,7 +41,7 @@
  *
  */
 
-abstract class Tx_MmForum_TextParser_Panel_AbstractPanel implements Tx_MmForum_TextParser_Panel_PanelInterface {
+abstract class Tx_Typo3Forum_TextParser_Panel_AbstractPanel implements Tx_Typo3Forum_TextParser_Panel_PanelInterface {
 
 
 

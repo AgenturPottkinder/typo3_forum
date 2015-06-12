@@ -32,14 +32,14 @@
  * @author  Stefan Galinski <sgalinski@df.eu>
  * @package df_tools
  */
-abstract class Tx_MmForum_ExtDirect_AbstractDataProvider {
+abstract class Tx_Typo3Forum_ExtDirect_AbstractDataProvider {
 
 
 
 	/**
 	 * BootStrap Instance
 	 *
-	 * @var Tx_MmForum_Service_ExtBaseConnectorService
+	 * @var Tx_Typo3Forum_Service_ExtBaseConnectorService
 	 */
 	protected $extBaseConnector = NULL;
 
@@ -56,12 +56,12 @@ abstract class Tx_MmForum_ExtDirect_AbstractDataProvider {
 	 * Constructor
 	 */
 	public function __construct() {
-		$key                    = 'web_MmForumTxMmforumM1';
-		$this->extBaseConnector = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_MmForum_Service_ExtBaseConnectorService');
-		$this->extBaseConnector->setExtensionKey('MmForum');
+		$key                    = 'web_Typo3ForumTxMmforumM1';
+		$this->extBaseConnector = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Typo3Forum_Service_ExtBaseConnectorService');
+		$this->extBaseConnector->setExtensionKey('Typo3Forum');
 		$this->extBaseConnector->setModuleOrPluginKey($key);
-		$this->extBaseConnector->initialize(array('extensionName'               => 'MmForum',
-		                                         'pluginName'                   => 'web_MmForumTxMmforumM1',
+		$this->extBaseConnector->initialize(array('extensionName'               => 'Typo3Forum',
+		                                         'pluginName'                   => 'web_Typo3ForumTxMmforumM1',
 		                                         'switchableControllerActions'  => array('Backend' => array('forumIndex')),));
 
 		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');

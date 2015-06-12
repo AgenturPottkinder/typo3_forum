@@ -50,12 +50,12 @@ $baseFontSize: 0.75em;
  * GENERAL STYLES
 */
 
-.tx-mmforum-exception {
+.tx-typo3forum-exception {
 	background-color: $lightErrorColor;
 	padding: 1em;
 }
 
-.tx-mmforum-pages {
+.tx-typo3forum-pages {
 	border: 1px solid #dde6ff;
 	background-color: #f0f0f0;
 	padding: 0.3em;
@@ -63,7 +63,7 @@ $baseFontSize: 0.75em;
 	margin: 1em 0em;
 }
 
-.tx-mmforum-success {
+.tx-typo3forum-success {
 	background-color: $lightSuccessColor;
 	padding: 1em;
 	margin-top: 0px;
@@ -76,17 +76,17 @@ $baseFontSize: 0.75em;
 	}
 }
 
-.tx-mmforum-helpfull-btn {
+.tx-typo3forum-helpfull-btn {
 	cursor: pointer;
 }
-.tx-mmforum-posts-listing .tx-mmforum-ajax-loader {
+.tx-typo3forum-posts-listing .tx-typo3forum-ajax-loader {
   width: 16px;
   height: 16px;
   background-image: url("../Images/loader_main_bg.gif");
   background-repeat: no-repeat;
 }
 
-.tx-mmforum-posts-listing .topic .tx-mmforum-ajax-loader {
+.tx-typo3forum-posts-listing .topic .tx-typo3forum-ajax-loader {
   width: 16px;
   height: 16px;
   background-image: url("../Images/loader_main.gif");
@@ -98,7 +98,7 @@ $baseFontSize: 0.75em;
  * BASIC TABLE STYLES
 */
 
-.tx-mmforum-header {
+.tx-typo3forum-header {
 	color: $baseColor;
 	font-size: $baseFontSize * 4/3;
 	padding: 0.3em;
@@ -112,13 +112,13 @@ $baseFontSize: 0.75em;
 	}
 }
 
-.tx-mmforum-header-end {
+.tx-typo3forum-header-end {
 	background-color: $lightBaseColor;
 	border-top: 2px solid $baseColor;
 	height: 16px;
 }
 
-table.tx-mmforum-table {
+table.tx-typo3forum-table {
 	width: 100%;
 	border-collapse: collapse;
 
@@ -128,15 +128,15 @@ table.tx-mmforum-table {
 		}
 	}
 
-	tr.tx-mmforum-even {
+	tr.tx-typo3forum-even {
 		background-color: $highlightColor;
 	}
 
-	tr.tx-mmforum-odd {
+	tr.tx-typo3forum-odd {
 
 	}
 
-	tr.tx-mmforum-table-legend {
+	tr.tx-typo3forum-table-legend {
 		color: $baseColor;
 		background-color: $highlightColor;
 		font-size: $baseFontSize * 0.75;
@@ -156,13 +156,13 @@ table.tx-mmforum-table {
 
 $bigButtonSize: 32px;
 
-a.tx-mmforum-button {
+a.tx-typo3forum-button {
 	text-decoration: none;
 	color: $baseColor;
 }
 
-a.tx-mmforum-button-small {
-	@extend a.tx-mmforum-button;
+a.tx-typo3forum-button-small {
+	@extend a.tx-typo3forum-button;
 	font-size: $baseFontSize;
 	float: left;
 
@@ -174,7 +174,7 @@ a.tx-mmforum-button-small {
 		margin-right: 4px;
 	}
 
-	div.tx-mmforum-button-text {
+	div.tx-typo3forum-button-text {
 		margin-left: 20px;
 		font-size: 0.8em;
 		display: none;
@@ -182,8 +182,8 @@ a.tx-mmforum-button-small {
 
 }
 
-a.tx-mmforum-button-big {
-	@extend a.tx-mmforum-button;
+a.tx-typo3forum-button-big {
+	@extend a.tx-typo3forum-button;
 	display: block;
 	float: left;
 	padding: 0px 0px;
@@ -196,7 +196,7 @@ a.tx-mmforum-button-big {
 		vertical-align: middle;
 	}
 
-	div.tx-mmforum-button-text {
+	div.tx-typo3forum-button-text {
 		@include vgradient(#ffffff, $highlightColor);
 		border: 1px solid $lineColor;
 		float: left;
@@ -204,7 +204,7 @@ a.tx-mmforum-button-big {
 	}
 
 	&:hover {
-		div.tx-mmforum-button-text {
+		div.tx-typo3forum-button-text {
 			@include vgradient(#ffffff, $lightBaseColor);
 			border: 1px solid $baseColor;
 		}
@@ -219,36 +219,36 @@ a.tx-mmforum-button-big {
 $iconSize: 32px;
 $overlayIconSize: $iconSize / 2;
 
-div.tx-mmforum-icon {
+div.tx-typo3forum-icon {
 	float: left;
 	width: $iconSize;
 	height: $iconSize;
 	margin-right: 8px;
 	position: relative;
 
-	div.tx-mmforum-icon-overlay {
+	div.tx-typo3forum-icon-overlay {
 		width: $overlayIconSize;
 		height: $overlayIconSize;
 		background-repeat: no-repeat;
 		position: absolute;
 	}
 
-	div.tx-mmforum-icon-overlay-tl {
-		@extend div.tx-mmforum-icon-overlay;
+	div.tx-typo3forum-icon-overlay-tl {
+		@extend div.tx-typo3forum-icon-overlay;
 	}
 
-	div.tx-mmforum-icon-overlay-bl {
-		@extend div.tx-mmforum-icon-overlay;
+	div.tx-typo3forum-icon-overlay-bl {
+		@extend div.tx-typo3forum-icon-overlay;
 		top: $overlayIconSize;
 	}
 
-	div.tx-mmforum-icon-overlay-tr {
-		@extend div.tx-mmforum-icon-overlay;
+	div.tx-typo3forum-icon-overlay-tr {
+		@extend div.tx-typo3forum-icon-overlay;
 		left: $overlayIconSize;
 	}
 
-	div.tx-mmforum-icon-overlay-br {
-		@extend div.tx-mmforum-icon-overlay;
+	div.tx-typo3forum-icon-overlay-br {
+		@extend div.tx-typo3forum-icon-overlay;
 		top: $overlayIconSize;
 		left: $overlayIconSize;
 	}
@@ -265,8 +265,8 @@ div.tx-mmforum-icon {
 }
 
 @mixin icon($key, $filename) {
-	.tx-mmforum-icon-32-#{$key} { @include image('../Images/Icons/'+$filename+'-32.png', 32px, 32px); }
-	.tx-mmforum-icon-16-#{$key} { @include image('../Images/Icons/'+$filename+'-16.png', 16px, 16px); }
+	.tx-typo3forum-icon-32-#{$key} { @include image('../Images/Icons/'+$filename+'-32.png', 32px, 32px); }
+	.tx-typo3forum-icon-16-#{$key} { @include image('../Images/Icons/'+$filename+'-16.png', 16px, 16px); }
 }
 
 @include icon('back', 'Navigation/Back');
@@ -293,7 +293,7 @@ div.tx-mmforum-icon {
  * FORMS
 */
 
-.tx-mmforum-form-row {
+.tx-typo3forum-form-row {
 	clear:left;
 	@include default-row;
 
@@ -302,13 +302,13 @@ div.tx-mmforum-icon {
 		vertical-align: middle;
 	}
 
-	.tx-mmforum-form-right {
+	.tx-typo3forum-form-right {
 		margin-left: 30%;
 		width: 60%;
 		vertical-align: middle;
 	}
 
-	.tx-mmforum-form-span {
+	.tx-typo3forum-form-span {
 		clear: left;
 	}
 
@@ -333,7 +333,7 @@ div.tx-mmforum-icon {
  * TOPIC SHOW ACTION
 */
 
-div.tx-mmforum-topic-show-post-user {
+div.tx-typo3forum-topic-show-post-user {
 	/*padding: 0.3em;
 	border-bottom: 1px solid #e0e0e0;
 	font-size: $baseFontSize;*/
@@ -342,20 +342,20 @@ div.tx-mmforum-topic-show-post-user {
 	height: 64px;
 }
 
-img.tx-mmforum-topic-show-post-user-icon {
+img.tx-typo3forum-topic-show-post-user-icon {
 	float:left;
 	margin-right: 8px;
 }
 
-.tx-mmforum-topic-show-post-user-link {
+.tx-typo3forum-topic-show-post-user-link {
 	font-size: 1.33em;
 }
 
-div.tx-mmforum-topic-show-post-text, div.tx-mmforum-topic-show-post-signature {
+div.tx-typo3forum-topic-show-post-text, div.tx-typo3forum-topic-show-post-signature {
 	padding-top: 1em;
 }
 
-div.tx-mmforum-topic-show-post-attachments, div.tx-mmforum-quote {
+div.tx-typo3forum-topic-show-post-attachments, div.tx-typo3forum-quote {
 	padding: 0.3em;
 	margin: 1em;
 	font-size: smaller;
@@ -368,31 +368,31 @@ div.tx-mmforum-topic-show-post-attachments, div.tx-mmforum-quote {
 	-webkit-border-bottom-right-radius: 1em;
 }
 
-div.tx-mmforum-topic-show-post-attachments-header, div.tx-mmforum-quote-user {
+div.tx-typo3forum-topic-show-post-attachments-header, div.tx-typo3forum-quote-user {
 	color: #234479;
 	font-weight: bold;
 }
 
-div.tx-mmforum-topic-show-post-attachments table {
+div.tx-typo3forum-topic-show-post-attachments table {
 	width: 100%;
 	display: none;
 }
 
-div.tx-mmforum-topic-show-post-attachments:hover table {
+div.tx-typo3forum-topic-show-post-attachments:hover table {
 	display: table;
 }
 
-div.tx-mmforum-topic-show-post-attachments table td {
+div.tx-typo3forum-topic-show-post-attachments table td {
 	padding: 0px;
 	font-size: smaller;
 }
 
-.tx-mmforum-topic-show-post-menu {
+.tx-typo3forum-topic-show-post-menu {
 	float: right;
 	padding: 4px 8px;
 }
 
-.tx-mmforum-topic-show-post-date {
+.tx-typo3forum-topic-show-post-date {
 	float: right;
 	color: #aaa;
 	font-style: italic;
@@ -405,7 +405,7 @@ div.tx-mmforum-topic-show-post-attachments table td {
  * TEXTPARSER PANEL
 */
 
-.tx-mmforum-panel, .tx-mmforum-dropdown {
+.tx-typo3forum-panel, .tx-typo3forum-dropdown {
 	float: left;
 	border: 1px solid #234479;
 	border-bottom: 0px;
@@ -419,11 +419,11 @@ div.tx-mmforum-topic-show-post-attachments table td {
 	font-size: small;
 }
 
-.tx-mmforum-dropdown {
+.tx-typo3forum-dropdown {
 	position:absolute;
 }
 
-.tx-mmforum-panel-title, .tx-mmforum-dropdown-title {
+.tx-typo3forum-panel-title, .tx-typo3forum-dropdown-title {
 	text-decoration: none;
 	color: #234479;
 	font-size: small;
@@ -431,33 +431,33 @@ div.tx-mmforum-topic-show-post-attachments table td {
 	float: left;
 }
 
-.tx-mmforum-panel-items, .tx-mmforum-dropdown-firstitem {
+.tx-typo3forum-panel-items, .tx-typo3forum-dropdown-firstitem {
 	margin-left: 8px;
 	float: left;
 }
 
-.tx-mmforum-dropdown-items {
+.tx-typo3forum-dropdown-items {
 	display:none;
 	max-width: 200px;
 	padding-top: 30px;
 }
 
-.tx-mmforum-dropdown-items img, .tx-mmforum-panel-items img {
+.tx-typo3forum-dropdown-items img, .tx-typo3forum-panel-items img {
 	cursor: pointer;
 }
 
-.tx-mmforum-dropdown-items img {
+.tx-typo3forum-dropdown-items img {
 	margin-right: 4px;
 	margin-bottom: 4px;
 }
 
-.tx-mmforum-dropdown:hover {
+.tx-typo3forum-dropdown:hover {
 	border: 1px solid #234479;
 	-moz-border-radius-bottomright: 1em;
 	-webkit-border-bottom-right-radius: 1em;
 }
 
-.tx-mmforum-dropdown:hover .tx-mmforum-dropdown-items {
+.tx-typo3forum-dropdown:hover .tx-typo3forum-dropdown-items {
 	display:block;
 	position:relative;
 }

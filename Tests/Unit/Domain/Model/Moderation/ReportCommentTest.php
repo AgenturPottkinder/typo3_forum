@@ -26,26 +26,26 @@
 
 
 
-class Tx_MmForum_Domain_Model_Moderation_ReportCommentTest extends Tx_MmForum_Unit_BaseTestCase {
+class Tx_Typo3Forum_Domain_Model_Moderation_ReportCommentTest extends Tx_Typo3Forum_Unit_BaseTestCase {
 
 
 
 	/**
-	 * @var Tx_MmForum_Domain_Model_Moderation_ReportComment
+	 * @var Tx_Typo3Forum_Domain_Model_Moderation_ReportComment
 	 */
 	protected $fixture = NULL;
 
 
 	/**
-	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @var Tx_Typo3Forum_Domain_Model_User_FrontendUser
 	 */
 	protected $user = NULL;
 
 
 
 	public function setUp() {
-		$this->user    = new Tx_MmForum_Domain_Model_User_FrontendUser('martin');
-		$this->fixture = new Tx_MmForum_Domain_Model_Moderation_ReportComment($this->user, 'FOO');
+		$this->user    = new Tx_Typo3Forum_Domain_Model_User_FrontendUser('martin');
+		$this->fixture = new Tx_Typo3Forum_Domain_Model_Moderation_ReportComment($this->user, 'FOO');
 	}
 
 
@@ -58,7 +58,7 @@ class Tx_MmForum_Domain_Model_Moderation_ReportCommentTest extends Tx_MmForum_Un
 
 
 	public function testSetAuthorSetsAuthor() {
-		$this->fixture->setAuthor($user = new Tx_MmForum_Domain_Model_User_FrontendUser());
+		$this->fixture->setAuthor($user = new Tx_Typo3Forum_Domain_Model_User_FrontendUser());
 		$this->assertTrue($this->fixture->getAuthor() === $user);
 	}
 
@@ -72,7 +72,7 @@ class Tx_MmForum_Domain_Model_Moderation_ReportCommentTest extends Tx_MmForum_Un
 
 
 	public function testSetReportSetsReport() {
-		$this->fixture->setReport($report = new Tx_MmForum_Domain_Model_Moderation_Report());
+		$this->fixture->setReport($report = new Tx_Typo3Forum_Domain_Model_Moderation_Report());
 		$this->assertTrue($this->fixture->getReport() === $report);
 	}
 

@@ -31,7 +31,7 @@
  * no user is currently logged in.
  *
  * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain\Validator\Forum
  * @version    $Id$
  *
@@ -40,21 +40,21 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Validator_Forum_TagValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
+class Tx_Typo3Forum_Domain_Validator_Forum_TagValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
 
 
 	/**
 	 * An instance of the tag repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_TagRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_Forum_TagRepository
 	 */
 	protected $tagRepository;
 
 
 	/**
 	 * Injects an instance of the tag repository.
-	 * @param Tx_MmForum_Domain_Repository_Forum_TagRepository $tagRepository
+	 * @param Tx_Typo3Forum_Domain_Repository_Forum_TagRepository $tagRepository
 	 */
-	public function injectTagRepository(Tx_MmForum_Domain_Repository_Forum_TagRepository $tagRepository) {
+	public function injectTagRepository(Tx_Typo3Forum_Domain_Repository_Forum_TagRepository $tagRepository) {
 		$this->tagRepository = $tagRepository;
 	}
 

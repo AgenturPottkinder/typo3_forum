@@ -31,7 +31,7 @@
  * Utility module for localization related functions.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Utility
  * @version    $Id$
  *
@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Utility_Localization {
+class Tx_Typo3Forum_Utility_Localization {
 
 
 
@@ -59,7 +59,7 @@ class Tx_MmForum_Utility_Localization {
 	 * @return string            The translated value.
 	 */
 	public static function translate($key, $default = NULL, $arguments = Array()) {
-		$l = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($key, 'MmForum', $arguments);
+		$l = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($key, 'Typo3Forum', $arguments);
 		return $l === NULL ? $default : $l;
 	}
 

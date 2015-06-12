@@ -28,9 +28,9 @@
  *
  * @author	Ruven Fehling <r.fehling@mittwald.de>
  * @package	TYPO3
- * @subpackage	mm_forum
+ * @subpackage	typo3_forum
  */
-class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
+class tx_typo3forum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
 	/**
 	 * @var string
@@ -156,8 +156,8 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 	private function checkPostNotifications() {
 
 		$query = 'SELECT t.uid
-				  FROM tx_mmforum_domain_model_forum_topic AS t
-				  INNER JOIN tx_mmforum_domain_model_forum_post AS p ON p.uid = t.last_post
+				  FROM tx_typo3forum_domain_model_forum_topic AS t
+				  INNER JOIN tx_typo3forum_domain_model_forum_post AS p ON p.uid = t.last_post
 				  WHERE t.pid IN ('.$this->getForumPids().') AND t.deleted=0
 				  		AND p.crdate > '.$this->getLastExecutedCron().'
 				  GROUP BY t.uid
@@ -168,7 +168,7 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 		while($topicRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($topicRes)) {
 			$involvedUser = $this->getUserInvolvedInTopic($topicRow['uid']);
 			$query = 'SELECT uid, author
-					  FROM tx_mmforum_domain_model_forum_post
+					  FROM tx_typo3forum_domain_model_forum_post
 					  WHERE topic='.intval($topicRow['uid']).' AND crdate > '.$this->getLastExecutedCron().'
 					  	 	AND deleted=0 AND pid IN ('.$this->getForumPids().')';
 			$postRes = $GLOBALS['TYPO3_DB']->sql_query($query);
@@ -182,11 +182,11 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 						'pid'		=> $this->getNotificationPid(),
 						'feuser'	=> intval($user['author']),
 						'post'		=> intval($postRow['uid']),
-						'type'		=> 'Tx_MmForum_Domain_Model_Forum_Post',
+						'type'		=> 'Tx_Typo3Forum_Domain_Model_Forum_Post',
 						'user_read'	=> (($this->getLastExecutedCron() == 0)?1:0)
 
 					);
-					$res = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_mmforum_domain_model_user_notification',$insert);
+					$res = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_typo3forum_domain_model_user_notification',$insert);
 				}
 			}
 		}
@@ -197,10 +197,10 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 	 */
 	private function checkTagsNotification() {
 		$query = 'SELECT tg.uid AS tagUid, t.uid AS topicUid
-				 FROM tx_mmforum_domain_model_forum_tag AS tg
-				 INNER JOIN tx_mmforum_domain_model_forum_tag_topic AS mm ON mm.uid_foreign = tg.uid
-				 INNER JOIN tx_mmforum_domain_model_forum_topic AS t ON t.uid = mm.uid_local
-				 INNER JOIN tx_mmforum_domain_model_forum_post AS p ON p.uid = t.last_post
+				 FROM tx_typo3forum_domain_model_forum_tag AS tg
+				 INNER JOIN tx_typo3forum_domain_model_forum_tag_topic AS mm ON mm.uid_foreign = tg.uid
+				 INNER JOIN tx_typo3forum_domain_model_forum_topic AS t ON t.uid = mm.uid_local
+				 INNER JOIN tx_typo3forum_domain_model_forum_post AS p ON p.uid = t.last_post
 				 WHERE tg.deleted=0 AND t.deleted=0 AND tg.pid IN ('.$this->getForumPids().')
 				 	   AND p.crdate > '.$this->getLastExecutedCron().'
 				 ORDER BY t.last_post DESC';
@@ -209,8 +209,8 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 		while($tagsRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($tagsRes)) {
 			$subscribedTagUser = array();
 			$query = 'SELECT fe.uid
-					  FROM tx_mmforum_domain_model_forum_tag AS tg
-					  INNER JOIN tx_mmforum_domain_model_forum_tag_user AS mm ON mm.uid_local = tg.uid
+					  FROM tx_typo3forum_domain_model_forum_tag AS tg
+					  INNER JOIN tx_typo3forum_domain_model_forum_tag_user AS mm ON mm.uid_local = tg.uid
 					  INNER JOIN fe_users AS fe ON fe.uid = mm.uid_foreign
 					  WHERE tg.uid='.intval($tagsRow['tagUid']);
 			$userRes = $GLOBALS['TYPO3_DB']->sql_query($query);
@@ -220,7 +220,7 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 
 			$posts = array();
 			$query = 'SELECT *
-						  FROM tx_mmforum_domain_model_forum_post AS p
+						  FROM tx_typo3forum_domain_model_forum_post AS p
 						  WHERE p.topic='.intval($tagsRow['topicUid']).' AND p.deleted=0 AND p.author > 0
 						  		AND p.crdate > '.intval($this->getLastExecutedCron()).' AND pid IN ('.$this->getForumPids().')';
 			$postRes = $GLOBALS['TYPO3_DB']->sql_query($query);
@@ -235,11 +235,11 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 						'feuser'	=> intval($userUid),
 						'post'		=> intval($postRow['uid']),
 						'tag'		=> intval($tagsRow['tagUid']),
-						'type'		=> 'Tx_MmForum_Domain_Model_Forum_Tag',
+						'type'		=> 'Tx_Typo3Forum_Domain_Model_Forum_Tag',
 						'user_read'	=> (($this->getLastExecutedCron() == 0)?1:0)
 
 					);
-					$res = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_mmforum_domain_model_user_notification',$insert);
+					$res = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_typo3forum_domain_model_user_notification',$insert);
 				}
 			}
 		}
@@ -253,7 +253,7 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 	 */
 	private function findLastCronExecutionDate() {
 		$query = 'SELECT crdate
-				  FROM tx_mmforum_domain_model_user_notification
+				  FROM tx_typo3forum_domain_model_user_notification
 				  WHERE pid ='.$this->getNotificationPid().'
 				  ORDER BY crdate DESC
 				  LIMIT 1';
@@ -270,7 +270,7 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 	private function getUserInvolvedInTopic($topicUid) {
 		$user = array();
 		$query = 'SELECT author, uid
-				  FROM tx_mmforum_domain_model_forum_post
+				  FROM tx_typo3forum_domain_model_forum_post
 				  WHERE pid IN ('.$this->getForumPids().') AND deleted=0 AND author > 0
 				  		AND topic='.intval($topicUid).'
 				  GROUP BY author';
@@ -284,6 +284,6 @@ class tx_mmforum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abstra
 
 }
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mm_forum/Scheduler/class.tx_mmforum_scheduler_notification.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mm_forum/Scheduler/class.tx_mmforum_scheduler_notification.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_notification.php'])	{
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_notification.php']);
 }

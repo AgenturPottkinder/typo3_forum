@@ -28,9 +28,9 @@
  *
  * @author	Ruven Fehling <r.fehling@mittwald.de>
  * @package	TYPO3
- * @subpackage	mm_forum
+ * @subpackage	typo3_forum
  */
-class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
+class tx_typo3forum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
 	/**
 	 * @var int
@@ -85,7 +85,7 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 
 		$this->settings = $configurationManager->getConfiguration(
 			\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-		$this->settings = $this->settings['plugin.']['tx_mmforum.']['settings.'];
+		$this->settings = $this->settings['plugin.']['tx_typo3forum.']['settings.'];
 	}
 
 	/**
@@ -106,8 +106,8 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 	 * @return void
 	 */
 	private function updateTopic() {
-		$query = 'SELECT COUNT(*) AS counter, p.topic FROM tx_mmforum_domain_model_forum_post AS p
-				  INNER JOIN tx_mmforum_domain_model_forum_topic AS t ON t.uid = p.topic
+		$query = 'SELECT COUNT(*) AS counter, p.topic FROM tx_typo3forum_domain_model_forum_post AS p
+				  INNER JOIN tx_typo3forum_domain_model_forum_topic AS t ON t.uid = p.topic
 				  WHERE p.pid='.intval($this->getForumPid()).' AND p.deleted=0 AND t.deleted=0
 				  GROUP BY p.topic
 				  ORDER BY counter ASC';
@@ -119,7 +119,7 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 		$lastCounterArray = array();
 		foreach($topicCount AS $topicUid => $postCount) {
 			if($lastCounter != $postCount) {
-				$query = 'UPDATE tx_mmforum_domain_model_forum_topic SET post_count = '.intval($lastCounter).' WHERE uid IN ('.implode(',',$lastCounterArray).')';
+				$query = 'UPDATE tx_typo3forum_domain_model_forum_topic SET post_count = '.intval($lastCounter).' WHERE uid IN ('.implode(',',$lastCounterArray).')';
 				$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 				$lastCounterArray = array();
 			}
@@ -141,7 +141,7 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 
 		//Find any post_count
 		$query = 'SELECT p.author, COUNT(*) AS counter
-				  FROM tx_mmforum_domain_model_forum_post AS p
+				  FROM tx_typo3forum_domain_model_forum_post AS p
 				  WHERE p.deleted=0 AND p.hidden=0 AND p.author > 0 AND p.pid='.$forumPid.'
 				  GROUP BY p.author';
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
@@ -151,7 +151,7 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 
 		//Find any topic count
 		$query = 'SELECT author, COUNT(*) AS counter
-				  FROM tx_mmforum_domain_model_forum_topic
+				  FROM tx_typo3forum_domain_model_forum_topic
 				  WHERE deleted=0 AND hidden=0 AND author > 0 AND pid='.$forumPid.'
 				  GROUP BY author';
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
@@ -161,7 +161,7 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 
 		// Find any question topic count
 		$query = 'SELECT author, COUNT(*) AS counter
-				  FROM tx_mmforum_domain_model_forum_topic
+				  FROM tx_typo3forum_domain_model_forum_topic
 				  WHERE deleted=0 AND hidden=0 AND author > 0 AND pid='.$forumPid.' AND question=1
 				  GROUP BY author';
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
@@ -171,8 +171,8 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 
 		// Find any favorite count
 		$query = 'SELECT t.author, COUNT(*) AS counter
-				  FROM tx_mmforum_domain_model_user_topicfavsubscription AS s
-				  INNER JOIN tx_mmforum_domain_model_forum_topic AS t ON t.uid = s.uid_foreign
+				  FROM tx_typo3forum_domain_model_user_topicfavsubscription AS s
+				  INNER JOIN tx_typo3forum_domain_model_forum_topic AS t ON t.uid = s.uid_foreign
 				  GROUP BY uid_local';
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 		while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
@@ -181,8 +181,8 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 
 		//Supported Post User X got
 		$query = 'SELECT p.author, COUNT(*) AS counter
-				  FROM tx_mmforum_domain_model_user_supportpost AS s
-				  INNER JOIN tx_mmforum_domain_model_forum_post AS p ON p.uid = s.uid_foreign
+				  FROM tx_typo3forum_domain_model_user_supportpost AS s
+				  INNER JOIN tx_typo3forum_domain_model_forum_post AS p ON p.uid = s.uid_foreign
 				  GROUP BY p.author';
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 		while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
@@ -191,7 +191,7 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 
 		//Supported Post User X set
 		$query = 'SELECT s.uid_local, COUNT(*) AS counter
-				  FROM tx_mmforum_domain_model_user_supportpost AS s
+				  FROM tx_typo3forum_domain_model_user_supportpost AS s
 				  GROUP BY uid_local';
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 		while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
@@ -199,18 +199,18 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 		}
 
 		//Find all users with their current rank
-		$query = 'SELECT fe.uid, fe.tx_mmforum_rank
+		$query = 'SELECT fe.uid, fe.tx_typo3forum_rank
 				  FROM fe_users AS fe
-				  WHERE fe.disable=0 AND fe.deleted=0 AND fe.tx_extbase_type="Tx_MmForum_Domain_Model_User_FrontendUser"
+				  WHERE fe.disable=0 AND fe.deleted=0 AND fe.tx_extbase_type="Tx_Typo3Forum_Domain_Model_User_FrontendUser"
 						AND fe.pid='.intval($this->getUserPid());
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 		while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-			$userUpdate[$row['author']]['rank'] = $row['tx_mmforum_rank'];
+			$userUpdate[$row['author']]['rank'] = $row['tx_typo3forum_rank'];
 		}
 
 		//Find all rank
 		$query = 'SELECT uid, point_limit
-				  FROM  tx_mmforum_domain_model_user_rank
+				  FROM  tx_typo3forum_domain_model_user_rank
 				  WHERE deleted=0 AND pid='.intval($this->getUserPid()).'
 				  ORDER BY point_limit ASC';
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
@@ -235,12 +235,12 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 			}
 
 			$values = array(
-				'tx_mmforum_post_count' => intval($array['post_count']),
-				'tx_mmforum_topic_count' => intval($array['topic_count']),
-				'tx_mmforum_question_count' => intval($array['question_count']),
-				'tx_mmforum_helpful_count' => intval($array['support_count']),
-				'tx_mmforum_points' => intval($points),
-				'tx_mmforum_rank' => intval($array['rank']),
+				'tx_typo3forum_post_count' => intval($array['post_count']),
+				'tx_typo3forum_topic_count' => intval($array['topic_count']),
+				'tx_typo3forum_question_count' => intval($array['question_count']),
+				'tx_typo3forum_helpful_count' => intval($array['support_count']),
+				'tx_typo3forum_points' => intval($points),
+				'tx_typo3forum_rank' => intval($array['rank']),
 			);
 
 			$query = $GLOBALS['TYPO3_DB']->UPDATEquery('fe_users','uid='.intval($userUid),$values);
@@ -249,16 +249,16 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 
 
 		//At last, update the rank count
-		$query = $GLOBALS['TYPO3_DB']->UPDATEquery('tx_mmforum_domain_model_user_rank','1=1',array('user_count' => 0));
+		$query = $GLOBALS['TYPO3_DB']->UPDATEquery('tx_typo3forum_domain_model_user_rank','1=1',array('user_count' => 0));
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
-		$query = 'SELECT tx_mmforum_rank, COUNT(*) AS counter
+		$query = 'SELECT tx_typo3forum_rank, COUNT(*) AS counter
 				  FROM fe_users
-				  WHERE disable=0 AND deleted=0 AND tx_extbase_type="Tx_MmForum_Domain_Model_User_FrontendUser"
+				  WHERE disable=0 AND deleted=0 AND tx_extbase_type="Tx_Typo3Forum_Domain_Model_User_FrontendUser"
 				  		AND pid='.intval($this->getUserPid()).'
-				  GROUP BY tx_mmforum_rank';
+				  GROUP BY tx_typo3forum_rank';
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 		while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-			$query = $GLOBALS['TYPO3_DB']->UPDATEquery('tx_mmforum_domain_model_user_rank','uid='.intval($row['tx_mmforum_rank']),
+			$query = $GLOBALS['TYPO3_DB']->UPDATEquery('tx_typo3forum_domain_model_user_rank','uid='.intval($row['tx_typo3forum_rank']),
 														array('user_count' => intval($row['counter'])));
 			$res2 = $GLOBALS['TYPO3_DB']->sql_query($query);
 		}
@@ -268,6 +268,6 @@ class tx_mmforum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTas
 
 }
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mm_forum/Scheduler/class.tx_mmforum_scheduler_counter.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mm_forum/Scheduler/class.tx_mmforum_scheduler_counter.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_counter.php'])	{
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_counter.php']);
 }

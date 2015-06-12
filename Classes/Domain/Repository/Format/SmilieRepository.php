@@ -31,7 +31,7 @@
  * Repository class for smilies.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Repository_Format
  * @version    $Id$
  *
@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Repository_Format_SmilieRepository extends Tx_MmForum_Domain_Repository_AbstractRepository {
+class Tx_Typo3Forum_Domain_Repository_Format_SmilieRepository extends Tx_Typo3Forum_Domain_Repository_AbstractRepository {
 
 
 

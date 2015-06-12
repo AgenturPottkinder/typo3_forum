@@ -31,7 +31,7 @@
  * ViewHelper that renders a topic icon.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage ViewHelpers_Forum
  * @version    $Id$
  *
@@ -42,13 +42,13 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Forum_TopicIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
+class Tx_Typo3Forum_ViewHelpers_Forum_TopicIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
 
 
 
 	/**
 	 * The frontend user repository.
-	 * @var Tx_MmForum_Domain_Repository_User_FrontendUserRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository
 	 */
 	protected $frontendUserRepository = NULL;
 
@@ -57,12 +57,12 @@ class Tx_MmForum_ViewHelpers_Forum_TopicIconViewHelper extends \TYPO3\CMS\Fluid\
 	/**
 	 *
 	 * Injects a frontend user repository.
-	 * @param  Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository
+	 * @param  Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository
 	 *                             A frontend user repository.
 	 * @return void
 	 *
 	 */
-	public function injectFrontendUserRepository(Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository) {
+	public function injectFrontendUserRepository(Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository) {
 		$this->frontendUserRepository = $frontendUserRepository;
 	}
 
@@ -86,20 +86,20 @@ class Tx_MmForum_ViewHelpers_Forum_TopicIconViewHelper extends \TYPO3\CMS\Fluid\
 	 *
 	 * Renders the topic icon.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Topic $topic
+	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Topic $topic
 	 *                                                         The topic for which the icon is to be rendered.
 	 * @param  integer                             $width      Image width
 	 * @param  string                              $alt        Alt text
 	 * @return string             The rendered icon.
 	 *
 	 */
-	public function render(Tx_MmForum_Domain_Model_Forum_Topic $topic = NULL, $width = NULL) {
+	public function render(Tx_Typo3Forum_Domain_Model_Forum_Topic $topic = NULL, $width = NULL) {
         $data =  $this->getDataArray($topic);
 
         if($data['new']){
-            return parent::render('plugin.tx_mmforum.renderer.icons.topic_new',$data);
+            return parent::render('plugin.tx_typo3forum.renderer.icons.topic_new',$data);
         }else{
-            return parent::render('plugin.tx_mmforum.renderer.icons.topic',$data);
+            return parent::render('plugin.tx_typo3forum.renderer.icons.topic',$data);
         }
 
 	}
@@ -110,15 +110,15 @@ class Tx_MmForum_ViewHelpers_Forum_TopicIconViewHelper extends \TYPO3\CMS\Fluid\
 	 *
 	 * Generates a data array that will be passed to the typoscript object for
 	 * rendering the icon.
-	 * @param  Tx_MmForum_Domain_Model_Forum_Topic $topic
+	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Topic $topic
 	 *                             The topic for which the icon is to be displayed.
 	 * @return array               The data array for the typoscript object.
 	 *
 	 */
-	protected function getDataArray(Tx_MmForum_Domain_Model_Forum_Topic $topic = NULL) {
+	protected function getDataArray(Tx_Typo3Forum_Domain_Model_Forum_Topic $topic = NULL) {
 		if ($topic === NULL) {
 			return array();
-		} elseif ($topic instanceof Tx_MmForum_Domain_Model_Forum_ShadowTopic) {
+		} elseif ($topic instanceof Tx_Typo3Forum_Domain_Model_Forum_ShadowTopic) {
 			return array('moved' => TRUE);
 		} else {
 			return array('important' => $topic->getPostCount() >= $this->arguments['important'],

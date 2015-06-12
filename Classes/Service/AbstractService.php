@@ -28,10 +28,10 @@
 
 /**
  *
- * Abstract base class for all mm_forum service classes.
+ * Abstract base class for all typo3_forum service classes.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Service
  * @version    $Id$
  *
@@ -43,7 +43,7 @@
  *
  */
 
-Abstract Class Tx_MmForum_Service_AbstractService Implements \TYPO3\CMS\Core\SingletonInterface {
+Abstract Class Tx_Typo3Forum_Service_AbstractService Implements \TYPO3\CMS\Core\SingletonInterface {
 
 
 }

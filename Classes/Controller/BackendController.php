@@ -34,7 +34,7 @@
  * @author     Martin Helmich <m.helmich@mittwald.de>
  * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
  * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Controller
  * @version    $Id$
  *
@@ -45,7 +45,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Controller_BackendController extends Tx_MmForum_Controller_AbstractBackendController {
+class Tx_Typo3Forum_Controller_BackendController extends Tx_Typo3Forum_Controller_AbstractBackendController {
 
 
 
@@ -59,9 +59,9 @@ class Tx_MmForum_Controller_BackendController extends Tx_MmForum_Controller_Abst
 
 
 	/**
-	 * @param null|Tx_MmForum_Domain_Model_Forum_Forum $parent
+	 * @param null|Tx_Typo3Forum_Domain_Model_Forum_Forum $parent
 	 */
-	public function readForumTreeNodeAction(Tx_MmForum_Domain_Model_Forum_Forum $parent = NULL) {
+	public function readForumTreeNodeAction(Tx_Typo3Forum_Domain_Model_Forum_Forum $parent = NULL) {
 
 	}
 

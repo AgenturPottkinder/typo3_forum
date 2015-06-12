@@ -26,46 +26,46 @@
 
 
 
-class Tx_MmForum_Domain_Model_Moderation_ReportTest extends Tx_MmForum_Unit_BaseTestCase {
+class Tx_Typo3Forum_Domain_Model_Moderation_ReportTest extends Tx_Typo3Forum_Unit_BaseTestCase {
 
 
 
 	/**
-	 * @var Tx_MmForum_Domain_Model_Moderation_Report
+	 * @var Tx_Typo3Forum_Domain_Model_Moderation_Report
 	 */
 	protected $fixture = NULL;
 
 
 
 	public function setUp() {
-		$this->fixture = new Tx_MmForum_Domain_Model_Moderation_Report();
+		$this->fixture = new Tx_Typo3Forum_Domain_Model_Moderation_Report();
 	}
 
 
 
 	public function testSetPostSetsPost() {
-		$this->fixture->setPost($post = new Tx_MmForum_Domain_Model_Forum_Post());
+		$this->fixture->setPost($post = new Tx_Typo3Forum_Domain_Model_Forum_Post());
 		$this->assertTrue($this->fixture->getPost() === $post);
 	}
 
 
 
 	public function testSetReporterSetsReporter() {
-		$this->fixture->setReporter($reporter = new Tx_MmForum_Domain_Model_User_FrontendUser());
+		$this->fixture->setReporter($reporter = new Tx_Typo3Forum_Domain_Model_User_FrontendUser());
 		$this->assertTrue($this->fixture->getReporter() === $reporter);
 	}
 
 
 
 	public function testSetModeratorSetsModerator() {
-		$this->fixture->setModerator($moderator = new Tx_MmForum_Domain_Model_User_FrontendUser());
+		$this->fixture->setModerator($moderator = new Tx_Typo3Forum_Domain_Model_User_FrontendUser());
 		$this->assertTrue($this->fixture->getModerator() === $moderator);
 	}
 
 
 
 	public function testSetWorkflowStatusSetsWorkflowStatusIfNoneSet() {
-		$status = new Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus();
+		$status = new Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus();
 		$this->fixture->setWorkflowStatus($status);
 		$this->assertTrue($this->fixture->getWorkflowStatus() === $status);
 	}
@@ -76,8 +76,8 @@ class Tx_MmForum_Domain_Model_Moderation_ReportTest extends Tx_MmForum_Unit_Base
 	 * @depends testSetWorkflowStatusSetsWorkflowStatusIfNoneSet
 	 */
 	public function testSetWorkflowStatusSetsWorkflowStatusIfAllowed() {
-		$status1 = new Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus();
-		$status2 = new Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus();
+		$status1 = new Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus();
+		$status2 = new Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus();
 		$status2->addAllowedFollowupStatus($status1);
 
 		$this->fixture->setWorkflowStatus($status2);
@@ -89,8 +89,8 @@ class Tx_MmForum_Domain_Model_Moderation_ReportTest extends Tx_MmForum_Unit_Base
 
 
 	public function testSetWorkflowStatusDoesNotSetWorkflowStatusIfNotAllowed() {
-		$status1 = new Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus();
-		$status2 = new Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus();
+		$status1 = new Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus();
+		$status2 = new Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus();
 
 		$this->fixture->setWorkflowStatus($status2);
 		$this->fixture->setWorkflowStatus($status1);
@@ -101,8 +101,8 @@ class Tx_MmForum_Domain_Model_Moderation_ReportTest extends Tx_MmForum_Unit_Base
 
 
 	public function testAddCommentAddsComment() {
-		$reporter = new Tx_MmForum_Domain_Model_User_FrontendUser();
-		$this->fixture->addComment($comment = new Tx_MmForum_Domain_Model_Moderation_ReportComment($reporter, 'TEXT'));
+		$reporter = new Tx_Typo3Forum_Domain_Model_User_FrontendUser();
+		$this->fixture->addComment($comment = new Tx_Typo3Forum_Domain_Model_Moderation_ReportComment($reporter, 'TEXT'));
 		$this->assertContains($comment, $this->fixture->getComments());
 	}
 
@@ -112,8 +112,8 @@ class Tx_MmForum_Domain_Model_Moderation_ReportTest extends Tx_MmForum_Unit_Base
 	 * @depends testAddCommentAddsComment
 	 */
 	public function testAddCommentSetsReportOnAddedComment() {
-		$reporter = new Tx_MmForum_Domain_Model_User_FrontendUser();
-		$this->fixture->addComment($comment = new Tx_MmForum_Domain_Model_Moderation_ReportComment($reporter, 'TEXT'));
+		$reporter = new Tx_Typo3Forum_Domain_Model_User_FrontendUser();
+		$this->fixture->addComment($comment = new Tx_Typo3Forum_Domain_Model_Moderation_ReportComment($reporter, 'TEXT'));
 		$this->assertTrue($comment->getReport() === $this->fixture);
 	}
 
@@ -123,9 +123,9 @@ class Tx_MmForum_Domain_Model_Moderation_ReportTest extends Tx_MmForum_Unit_Base
 	 * @depends testAddCommentAddsComment
 	 */
 	public function testRemoveCommentRemovesComment() {
-		$reporter = new Tx_MmForum_Domain_Model_User_FrontendUser();
-		$this->fixture->addComment(new Tx_MmForum_Domain_Model_Moderation_ReportComment($reporter, 'TEXT'));
-		$this->fixture->addComment($comment = new Tx_MmForum_Domain_Model_Moderation_ReportComment($reporter, 'TEXT'));
+		$reporter = new Tx_Typo3Forum_Domain_Model_User_FrontendUser();
+		$this->fixture->addComment(new Tx_Typo3Forum_Domain_Model_Moderation_ReportComment($reporter, 'TEXT'));
+		$this->fixture->addComment($comment = new Tx_Typo3Forum_Domain_Model_Moderation_ReportComment($reporter, 'TEXT'));
 		$this->fixture->removeComment($comment);
 
 		$this->assertEquals(1, count($this->fixture->getComments()));
@@ -136,11 +136,11 @@ class Tx_MmForum_Domain_Model_Moderation_ReportTest extends Tx_MmForum_Unit_Base
 
 	/**
 	 * @depends           testRemoveCommentRemovesComment
-	 * @expectedException Tx_MmForum_Domain_Exception_InvalidOperationException
+	 * @expectedException Tx_Typo3Forum_Domain_Exception_InvalidOperationException
 	 */
 	public function testRemoveCommentDoesNotRemoveLastComment() {
-		$reporter = new Tx_MmForum_Domain_Model_User_FrontendUser();
-		$this->fixture->addComment($comment = new Tx_MmForum_Domain_Model_Moderation_ReportComment($reporter, 'TEXT'));
+		$reporter = new Tx_Typo3Forum_Domain_Model_User_FrontendUser();
+		$this->fixture->addComment($comment = new Tx_Typo3Forum_Domain_Model_Moderation_ReportComment($reporter, 'TEXT'));
 		$this->fixture->removeComment($comment);
 	}
 
@@ -150,8 +150,8 @@ class Tx_MmForum_Domain_Model_Moderation_ReportTest extends Tx_MmForum_Unit_Base
 	 * @depends testSetPostSetsPost
 	 */
 	public function testGetTopicReturnsPostTopic() {
-		$post  = new Tx_MmForum_Domain_Model_Forum_Post();
-		$topic = new Tx_MmForum_Domain_Model_Forum_Topic();
+		$post  = new Tx_Typo3Forum_Domain_Model_Forum_Post();
+		$topic = new Tx_Typo3Forum_Domain_Model_Forum_Topic();
 		$topic->addPost($post);
 
 		$this->fixture->setPost($post);
@@ -164,9 +164,9 @@ class Tx_MmForum_Domain_Model_Moderation_ReportTest extends Tx_MmForum_Unit_Base
 	 * @depends testAddCommentAddsComment
 	 */
 	public function testGetFirstCommentReturnsFirstComment() {
-		$reporter = new Tx_MmForum_Domain_Model_User_FrontendUser();
-		$this->fixture->addComment($comment = new Tx_MmForum_Domain_Model_Moderation_ReportComment($reporter, 'TEXT'));
-		$this->fixture->addComment(new Tx_MmForum_Domain_Model_Moderation_ReportComment($reporter, 'TEXT'));
+		$reporter = new Tx_Typo3Forum_Domain_Model_User_FrontendUser();
+		$this->fixture->addComment($comment = new Tx_Typo3Forum_Domain_Model_Moderation_ReportComment($reporter, 'TEXT'));
+		$this->fixture->addComment(new Tx_Typo3Forum_Domain_Model_Moderation_ReportComment($reporter, 'TEXT'));
 
 		$this->assertTrue($this->fixture->getFirstComment() === $comment);
 	}

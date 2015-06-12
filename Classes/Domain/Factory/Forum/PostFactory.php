@@ -31,7 +31,7 @@
  * classes.
  *
  * @author        Martin Helmich <m.helmich@mittwald.de>
- * @package       MmForum
+ * @package       Typo3Forum
  * @subpackage    Domain\Factory\Forum
  * @version       $Id$
  *
@@ -42,7 +42,7 @@
  *                http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Factory_Forum_PostFactory extends Tx_MmForum_Domain_Factory_AbstractFactory {
+class Tx_Typo3Forum_Domain_Factory_Forum_PostFactory extends Tx_Typo3Forum_Domain_Factory_AbstractFactory {
 
 
 
@@ -54,7 +54,7 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory extends Tx_MmForum_Domain_Fact
 
 	/**
 	 * The topic repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_TopicRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository
 	 */
 	protected $topicRepository = NULL;
 
@@ -62,7 +62,7 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory extends Tx_MmForum_Domain_Fact
 
 	/**
 	 * The post repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_PostRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_Forum_PostRepository
 	 */
 	protected $postRepository = NULL;
 
@@ -70,7 +70,7 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory extends Tx_MmForum_Domain_Fact
 
 	/**
 	 * The topic factory.
-	 * @var Tx_MmForum_Domain_Factory_Forum_TopicFactory
+	 * @var Tx_Typo3Forum_Domain_Factory_Forum_TopicFactory
 	 */
 	protected $topicFactory = NULL;
 
@@ -78,13 +78,13 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory extends Tx_MmForum_Domain_Fact
 
 
 	/**
-	 * An instance of the mm_forum authentication service.
+	 * An instance of the typo3_forum authentication service.
 	 * @var TYPO3\CMS\Extbase\Service\TypoScriptService
 	 */
 	protected $typoScriptService = NULL;
 
 	/**
-	 * Whole TypoScript mm_forum settings
+	 * Whole TypoScript typo3_forum settings
 	 * @var array
 	 */
 	protected $settings;
@@ -98,25 +98,25 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory extends Tx_MmForum_Domain_Fact
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository
+	 * @param Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository
 	 */
-	public function injectTopicRepository(Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository) {
+	public function injectTopicRepository(Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository) {
 		$this->topicRepository = $topicRepository;
 	}
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository
+	 * @param Tx_Typo3Forum_Domain_Repository_Forum_PostRepository $postRepository
 	 */
-	public function injectPostRepository(Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository) {
+	public function injectPostRepository(Tx_Typo3Forum_Domain_Repository_Forum_PostRepository $postRepository) {
 		$this->postRepository = $postRepository;
 	}
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Factory_Forum_TopicFactory $topicFactory
+	 * @param Tx_Typo3Forum_Domain_Factory_Forum_TopicFactory $topicFactory
 	 */
-	public function injectTopicFactory(Tx_MmForum_Domain_Factory_Forum_TopicFactory $topicFactory) {
+	public function injectTopicFactory(Tx_Typo3Forum_Domain_Factory_Forum_TopicFactory $topicFactory) {
 		$this->topicFactory = $topicFactory;
 	}
 
@@ -128,7 +128,7 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory extends Tx_MmForum_Domain_Fact
 	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
 		$this->typoScriptService = $typoScriptService;
 		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
-		$this->settings = $ts['plugin']['tx_mmforum']['settings'];
+		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
 
 
@@ -141,7 +141,7 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory extends Tx_MmForum_Domain_Fact
 
 	/**
 	 * Creates an empty post
-	 * @return Tx_MmForum_Domain_Model_Forum_Post An empty post.
+	 * @return Tx_Typo3Forum_Domain_Model_Forum_Post An empty post.
 	 */
 	public function createEmptyPost() {
 		return $this->getClassInstance();
@@ -152,15 +152,15 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory extends Tx_MmForum_Domain_Fact
 	/**
 	 * Creates a new post that quotes an already existing post.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $quotedPost
+	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $quotedPost
 	 *                                 The post that is to be quoted. The post
 	 *                                 text of this post will be wrapped in
 	 *                                 [quote] bb codes.
-	 * @return Tx_MmForum_Domain_Model_Forum_Post
+	 * @return Tx_Typo3Forum_Domain_Model_Forum_Post
 	 *                                 The new post.
 	 */
-	public function createPostWithQuote(Tx_MmForum_Domain_Model_Forum_Post $quotedPost) {
-		/** @var $post Tx_MmForum_Domain_Model_Forum_Post */
+	public function createPostWithQuote(Tx_Typo3Forum_Domain_Model_Forum_Post $quotedPost) {
+		/** @var $post Tx_Typo3Forum_Domain_Model_Forum_Post */
 		$post = $this->getClassInstance();
 		$post->setText('[quote=' . $quotedPost->getUid() . ']' . $quotedPost->getText() . '[/quote]');
 
@@ -172,15 +172,15 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory extends Tx_MmForum_Domain_Fact
 	/**
 	 * Assigns a user to a forum post and increases the user's post count.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post        $post
+	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post        $post
 	 *                             The post to which a user is to be assigned.
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
 	 *                             The user that is to be assigned to the post. If
 	 *                             this value is NULL, the currently logged in user
 	 *                             will be used instead.
 	 */
-	public function assignUserToPost(Tx_MmForum_Domain_Model_Forum_Post $post,
-	                                 Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
+	public function assignUserToPost(Tx_Typo3Forum_Domain_Model_Forum_Post $post,
+	                                 Tx_Typo3Forum_Domain_Model_User_FrontendUser $user = NULL) {
 		// If no user is set, use current user is set.
 		if ($user === NULL) {
 			$user = $this->getCurrentUser();
@@ -188,7 +188,7 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory extends Tx_MmForum_Domain_Fact
 
 		// If still no user is set, abort.
 		if ($user === NULL) {
-			throw new Tx_MmForum_Domain_Exception_Authentication_NotLoggedInException();
+			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException();
 		}
 
 		// If the post's author is already set, decrease this user's post count.
@@ -212,11 +212,11 @@ class Tx_MmForum_Domain_Factory_Forum_PostFactory extends Tx_MmForum_Domain_Fact
 	 *
 	 * Deletes a post and decreases the user's post count by 1.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post
 	 *
 	 */
 
-	public function deletePost(Tx_MmForum_Domain_Model_Forum_Post $post) {
+	public function deletePost(Tx_Typo3Forum_Domain_Model_Forum_Post $post) {
 		$topic = $post->getTopic();
 
 		// If the post is the only one in the topic, delete the whole topic instead of

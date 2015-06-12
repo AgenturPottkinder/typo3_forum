@@ -31,7 +31,7 @@
  * Abstract base class for all kinds of text parsing services.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage TextParser_Service
  * @version    $Id$
  *
@@ -42,8 +42,8 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_TextParser_Service_BBCodeParserService
-	extends Tx_MmForum_TextParser_Service_AbstractTextParserService {
+class Tx_Typo3Forum_TextParser_Service_BBCodeParserService
+	extends Tx_Typo3Forum_TextParser_Service_AbstractTextParserService {
 
 
 
@@ -55,7 +55,7 @@ class Tx_MmForum_TextParser_Service_BBCodeParserService
 
 	/**
 	 * The bb code repository.
-	 * @var Tx_MmForum_Domain_Repository_Format_BBCodeRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_Format_BBCodeRepository
 	 */
 	protected $bbCodeRepository;
 
@@ -63,7 +63,7 @@ class Tx_MmForum_TextParser_Service_BBCodeParserService
 
 	/**
 	 * All bb codes.
-	 * @var array<Tx_MmForum_Domain_Model_Format_BBCode>
+	 * @var array<Tx_Typo3Forum_Domain_Model_Format_BBCode>
 	 */
 	protected $bbCodes;
 
@@ -77,9 +77,9 @@ class Tx_MmForum_TextParser_Service_BBCodeParserService
 
 	/**
 	 * Injects an instance of the bbcode repository.
-	 * @param \Tx_MmForum_Domain_Repository_Format_BBCodeRepository $bbCodeRepository
+	 * @param \Tx_Typo3Forum_Domain_Repository_Format_BBCodeRepository $bbCodeRepository
 	 */
-	public function injectBbCodeRepository(Tx_MmForum_Domain_Repository_Format_BBCodeRepository $bbCodeRepository) {
+	public function injectBbCodeRepository(Tx_Typo3Forum_Domain_Repository_Format_BBCodeRepository $bbCodeRepository) {
 		$this->bbCodeRepository = $bbCodeRepository;
 		$this->bbCodes          = $this->bbCodeRepository->findAll();
 	}
@@ -94,8 +94,8 @@ class Tx_MmForum_TextParser_Service_BBCodeParserService
 	 */
 	public function getParsedText($text) {
 		foreach ($this->bbCodes as $bbCode) {
-			/** @var $bbCode Tx_MmForum_Domain_Model_Format_BBCode */
-			if ($bbCode instanceof Tx_MmForum_Domain_Model_Format_QuoteBBCode || $bbCode instanceof Tx_MmForum_Domain_Model_Format_ListBBCode) {
+			/** @var $bbCode Tx_Typo3Forum_Domain_Model_Format_BBCode */
+			if ($bbCode instanceof Tx_Typo3Forum_Domain_Model_Format_QuoteBBCode || $bbCode instanceof Tx_Typo3Forum_Domain_Model_Format_ListBBCode) {
 				continue;
 			}
 			$text = preg_replace($bbCode->getRegularExpression(), $bbCode->getRegularExpressionReplacement(), $text);

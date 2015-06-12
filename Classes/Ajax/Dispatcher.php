@@ -34,7 +34,7 @@
  * @author     Martin Helmich <m.helmich@mittwald.de>
  * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
  * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Ajax
  * @version    $Id$
  *
@@ -45,7 +45,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInterface {
+final class Tx_Typo3Forum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInterface {
 
 
 	/*
@@ -55,12 +55,12 @@ final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInter
 
 	/**
 	 * The current extension name.
-	 * CAUTION: This is NOT the extension KEY (so not "mm_forum", but
-	 * "MmForum" instead!)
+	 * CAUTION: This is NOT the extension KEY (so not "typo3_forum", but
+	 * "Typo3Forum" instead!)
 	 *
 	 * @var string
 	 */
-	protected $extensionKey = 'MmForum';
+	protected $extensionKey = 'Typo3Forum';
 
 
 	/**
@@ -163,7 +163,7 @@ final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInter
 
 		//Check which language should be used
 		$ts = $this->loadTS((int)$_GET['id']);
-		$languages = explode(',',$ts['plugin.']['tx_mmforum.']['settings.']['allowedLanguages']);
+		$languages = explode(',',$ts['plugin.']['tx_typo3forum.']['settings.']['allowedLanguages']);
 		$submittedLang = trim($_GET['language']);
 
 		if($submittedLang == false || !array_search($submittedLang,$languages)) {
@@ -257,5 +257,5 @@ final class Tx_MmForum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInter
 }
 
 // Instantiate and start dispatcher.
-$dispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_MmForum_Ajax_Dispatcher');
+$dispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_Typo3Forum_Ajax_Dispatcher');
 $dispatcher->run();

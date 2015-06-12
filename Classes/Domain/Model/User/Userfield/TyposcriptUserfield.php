@@ -32,7 +32,7 @@
  * object.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Model_User_Userfield
  * @version    $Id$
  *
@@ -44,8 +44,8 @@
  *
  */
 
-Class Tx_MmForum_Domain_Model_User_Userfield_TyposcriptUserfield
-	Extends Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield {
+Class Tx_Typo3Forum_Domain_Model_User_Userfield_TyposcriptUserfield
+	Extends Tx_Typo3Forum_Domain_Model_User_Userfield_AbstractUserfield {
 
 
 

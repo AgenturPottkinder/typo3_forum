@@ -1,8 +1,8 @@
 <?php
 if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 
-$TCA['tx_mmforum_domain_model_user_userfield_value'] = array(
-	'ctrl' => $TCA['tx_mmforum_domain_model_user_userfield_value']['ctrl'],
+$TCA['tx_typo3forum_domain_model_user_userfield_value'] = array(
+	'ctrl' => $TCA['tx_typo3forum_domain_model_user_userfield_value']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'user,userfield,value'
 	),
@@ -35,8 +35,8 @@ $TCA['tx_mmforum_domain_model_user_userfield_value'] = array(
 				'items' => array(
 					array('', 0),
 				),
-				'foreign_table' => 'tx_mmforum_domain_model_forum_access',
-				'foreign_table_where' => 'AND tx_mmforum_domain_model_forum_access.uid=###REC_FIELD_l18n_parent### AND tx_mmforum_domain_model_forum_access.sys_language_uid IN (-1,0)',
+				'foreign_table' => 'tx_typo3forum_domain_model_forum_access',
+				'foreign_table_where' => 'AND tx_typo3forum_domain_model_forum_access.uid=###REC_FIELD_l18n_parent### AND tx_typo3forum_domain_model_forum_access.sys_language_uid IN (-1,0)',
 			)
 		),
 		'l18n_diffsource' => array(
@@ -60,26 +60,26 @@ $TCA['tx_mmforum_domain_model_user_userfield_value'] = array(
 		),
 		'user' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_userfield_value.user',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_value.user',
 			'config' => array(
 				'type' => 'select',
-				'foreign_class' => 'Tx_MmForum_Domain_Model_User_FrontendUser',
+				'foreign_class' => 'Tx_Typo3Forum_Domain_Model_User_FrontendUser',
 				'foreign_table' => 'fe_users',
 				'maxitems' => 1
 			)
 		),
 		'userfield' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_userfield_value.userfield',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_value.userfield',
 			'config'  => array(
 				'type' => 'select',
-				'foreign_table' => 'tx_mmforum_domain_model_user_userfield_value',
+				'foreign_table' => 'tx_typo3forum_domain_model_user_userfield_value',
 				'maxitems' => 1
 			)
 		),
 		'value' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_userfield_value.value',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_value.value',
 			'config'  => array(
 				'type' => 'none',
 			)

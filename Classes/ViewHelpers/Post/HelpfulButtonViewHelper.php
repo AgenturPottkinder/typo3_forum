@@ -29,7 +29,7 @@
  * ViewHelper that renders a big button.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage ViewHelpers_Control
  * @version    $Id: BigButtonViewHelper.php 52309 2011-09-20 18:54:26Z mhelmich $
  *
@@ -39,7 +39,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Post_HelpfulButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
+class Tx_Typo3Forum_ViewHelpers_Post_HelpfulButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
 
 
 	/**
@@ -49,14 +49,14 @@ class Tx_MmForum_ViewHelpers_Post_HelpfulButtonViewHelper extends \TYPO3\CMS\Flu
 
 	/**
 	 * The frontend user repository.
-	 * @var Tx_MmForum_Domain_Repository_User_FrontendUserRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository
 	 */
 	protected $frontendUserRepository = NULL;
 
 	/**
 	 * An authentication service. Handles the authentication mechanism.
 	 *
-	 * @var Tx_MmForum_Service_Authentication_AuthenticationServiceInterface
+	 * @var Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface
 	 */
 	protected $authenticationService;
 
@@ -65,13 +65,13 @@ class Tx_MmForum_ViewHelpers_Post_HelpfulButtonViewHelper extends \TYPO3\CMS\Flu
 	 *
 	 * Injects an authentication service.
 	 *
-	 * @param  Tx_MmForum_Service_Authentication_AuthenticationServiceInterface $authenticationService
+	 * @param  Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface $authenticationService
 	 *                             An authentication service.
 	 *
 	 * @return void
 	 *
 	 */
-	public function injectAuthenticationService(Tx_MmForum_Service_Authentication_AuthenticationServiceInterface $authenticationService) {
+	public function injectAuthenticationService(Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface $authenticationService) {
 		$this->authenticationService = $authenticationService;
 	}
 
@@ -89,20 +89,20 @@ class Tx_MmForum_ViewHelpers_Post_HelpfulButtonViewHelper extends \TYPO3\CMS\Flu
 
 	/**
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post
 	 * @param string $countTarget
 	 * @param string $countUserTarget
 	 * @param string $title
 	 * @return string
 	 */
-	public function render(Tx_MmForum_Domain_Model_Forum_Post $post, $countTarget = NULL, $countUserTarget = NULL, $title = '') {
+	public function render(Tx_Typo3Forum_Domain_Model_Forum_Post $post, $countTarget = NULL, $countUserTarget = NULL, $title = '') {
 		$class = $this->settings['forum']['post']['helpfulBtn']['iconClass'];
 
 		if ($this->hasArgument('class')) {
 			$class .= ' ' . $this->arguments['class'];
 		}
 		if($post->getAuthor()->getUid() != $this->authenticationService->getUser()->getUid() and !$this->authenticationService->getUser()->isAnonymous()){
-			$class .= ' tx-mmforum-helpfull-btn';
+			$class .= ' tx-typo3forum-helpfull-btn';
 		}
 
 		if ($post->hasBeenSupportedByUser($this->authenticationService->getUser())) {

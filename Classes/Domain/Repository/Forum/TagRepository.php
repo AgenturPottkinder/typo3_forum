@@ -29,7 +29,7 @@
  * Repository class for forum objects.
  *
  * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Repository_Forum
  * @version    $Id$
  *
@@ -40,13 +40,13 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Repository_Forum_TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class Tx_Typo3Forum_Domain_Repository_Forum_TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 
 
 	/**
 	 * Find all ordered by topic count
-	 * @return Tx_MmForum_Domain_Model_Forum_Tag[]
+	 * @return Tx_Typo3Forum_Domain_Model_Forum_Tag[]
 	 */
 	public function findAllOrderedByCounter() {
 		$query = $this->createQuery();
@@ -58,7 +58,7 @@ class Tx_MmForum_Domain_Repository_Forum_TagRepository extends \TYPO3\CMS\Extbas
 	/**
 	 * Find a tag with a specific name
 	 * @param $name
-	 * @return Tx_MmForum_Domain_Model_Forum_Tag[]
+	 * @return Tx_Typo3Forum_Domain_Model_Forum_Tag[]
 	 */
 	public function findTagWithSpecificName($name) {
 		$query = $this->createQuery();
@@ -71,7 +71,7 @@ class Tx_MmForum_Domain_Repository_Forum_TagRepository extends \TYPO3\CMS\Extbas
 	/**
 	 * Find a tag including a specific name
 	 * @param string $name
-	 * @return Tx_MmForum_Domain_Model_Forum_Tag[]
+	 * @return Tx_Typo3Forum_Domain_Model_Forum_Tag[]
 	 */
 	public function findTagLikeAName($name) {
 		$query = $this->createQuery();
@@ -88,10 +88,10 @@ class Tx_MmForum_Domain_Repository_Forum_TagRepository extends \TYPO3\CMS\Extbas
 
 	/**
 	 * Find all tags of a specific user
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 * @return Tx_MmForum_Domain_Model_Forum_Tag[]
+	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @return Tx_Typo3Forum_Domain_Model_Forum_Tag[]
 	 */
-	public function findTagsOfUser(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+	public function findTagsOfUser(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user) {
 		$query = $this->createQuery();
 		$query->matching($query->equals('feuser.uid',$user));
 		$query->setOrderings(array('name' => 'ASC'));

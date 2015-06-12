@@ -31,7 +31,7 @@
  * ViewHelper that renders a textarea with additional bb code buttons.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage ViewHelpers_Form
  * @version    $Id$
  *
@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\TextareaViewHelper {
+class Tx_Typo3Forum_ViewHelpers_Form_BbCodeEditorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\TextareaViewHelper {
 
 
 
@@ -56,7 +56,7 @@ class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper extends \TYPO3\CMS\Flui
 
 
 	/**
-	 * Instance of the mm_forum TypoScript reader class. This class is used
+	 * Instance of the typo3_forum TypoScript reader class. This class is used
 	 * to read a bbcode editor's configuration from the typoscript setup.
 	 * @var unknown_type
 	 */
@@ -73,7 +73,7 @@ class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper extends \TYPO3\CMS\Flui
 
 	/**
 	 * Panels that contain bb code buttons.
-	 * @var array<Tx_MmForum_TextParser_Panel_AbstractPanel>
+	 * @var array<Tx_Typo3Forum_TextParser_Panel_AbstractPanel>
 	 */
 	protected $panels = array();
 
@@ -92,7 +92,7 @@ class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper extends \TYPO3\CMS\Flui
 
 
 
-	public function injectCache(Tx_MmForum_Cache_Cache $cache) {
+	public function injectCache(Tx_Typo3Forum_Cache_Cache $cache) {
 		$this->cache = $cache;
 	}
 
@@ -100,13 +100,13 @@ class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper extends \TYPO3\CMS\Flui
 
 	/**
 	 *
-	 * Injects an instance of the mm_forum typoscript reader.
-	 * @param  Tx_MmForum_Utility_TypoScript $typoscriptReader
-	 *                             An instance of the mm_forum typoscript reader
+	 * Injects an instance of the typo3_forum typoscript reader.
+	 * @param  Tx_Typo3Forum_Utility_TypoScript $typoscriptReader
+	 *                             An instance of the typo3_forum typoscript reader
 	 * @return void
 	 *
 	 */
-	public function injectTyposcriptReader(Tx_MmForum_Utility_TypoScript $typoscriptReader) {
+	public function injectTyposcriptReader(Tx_Typo3Forum_Utility_TypoScript $typoscriptReader) {
 		$this->typoscriptReader = $typoscriptReader;
 	}
 
@@ -135,7 +135,7 @@ class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper extends \TYPO3\CMS\Flui
 	public function initializeArguments() {
 		parent::initializeArguments();
 		$this->registerArgument('configuration', 'string', 'Path to TS configuration', FALSE,
-		                        'plugin.tx_mmforum.settings.textParsing.editorPanel');
+		                        'plugin.tx_typo3forum.settings.textParsing.editorPanel');
 	}
 
 
@@ -157,8 +157,8 @@ class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper extends \TYPO3\CMS\Flui
 
 		foreach ($this->configuration['panels.'] as $key => $panelConfiguration) {
 			$panel = $this->objectManager->get($panelConfiguration['className']);
-			if (!$panel instanceof Tx_MmForum_TextParser_Panel_PanelInterface) {
-				throw new \TYPO3\CMS\Extbase\Object\InvalidClassException('Expected an implementation of the Tx_MmForum_TextParser_Panel_PanelInterface interface!', 1315835842);
+			if (!$panel instanceof Tx_Typo3Forum_TextParser_Panel_PanelInterface) {
+				throw new \TYPO3\CMS\Extbase\Object\InvalidClassException('Expected an implementation of the Tx_Typo3Forum_TextParser_Panel_PanelInterface interface!', 1315835842);
 			}
 			$panel->setSettings($panelConfiguration);
 			$this->panels[] = $panel;
@@ -193,11 +193,11 @@ class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper extends \TYPO3\CMS\Flui
 		$this->initializeJavascriptSetupFromConfiguration($this->arguments['configuration']);
 
 		//		foreach ($this->configuration['includeJs.'] as $key => $filename)
-		//			$GLOBALS['TSFE']->additionalHeaderData['MmForum_Js_' . $key]
-		//					= '<script src="' . Tx_MmForum_Utility_File::replaceSiteRelPath($filename) . '" type="text/javascript"></script>';
+		//			$GLOBALS['TSFE']->additionalHeaderData['Typo3Forum_Js_' . $key]
+		//					= '<script src="' . Tx_Typo3Forum_Utility_File::replaceSiteRelPath($filename) . '" type="text/javascript"></script>';
 		//		foreach ($this->configuration['includeCss.'] as $key => $filename)
-		//			$GLOBALS['TSFE']->additionalHeaderData['MmForum_Css_' . $key]
-		//					= '<link rel="stylesheet" type="text/css" href="' . Tx_MmForum_Utility_File::replaceSiteRelPath($filename) . '" />';
+		//			$GLOBALS['TSFE']->additionalHeaderData['Typo3Forum_Css_' . $key]
+		//					= '<link rel="stylesheet" type="text/css" href="' . Tx_Typo3Forum_Utility_File::replaceSiteRelPath($filename) . '" />';
 
 		return $this->javascriptSetup . parent::render();
 	}
@@ -219,8 +219,8 @@ class Tx_MmForum_ViewHelpers_Form_BbCodeEditorViewHelper extends \TYPO3\CMS\Flui
 		                    'call'      => 'preview');
 
 		$editorSettings = array(
-			'previewParserPath' => 'index.php?eID=mm_forum&tx_mmforum_ajax[controller]=Post&tx_mmforum_ajax[action]=preview&id=' . $GLOBALS['TSFE']->id,
-			'previewParserVar'  => 'tx_mmforum_ajax[text]',
+			'previewParserPath' => 'index.php?eID=typo3_forum&tx_typo3forum_ajax[controller]=Post&tx_typo3forum_ajax[action]=preview&id=' . $GLOBALS['TSFE']->id,
+			'previewParserVar'  => 'tx_typo3forum_ajax[text]',
 			'markupSet'         => $settings);
 
 		if (isset($this->configuration['editorSettings.']) && is_array($this->configuration['editorSettings.'])) {

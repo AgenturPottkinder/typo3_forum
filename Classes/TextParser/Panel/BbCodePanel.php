@@ -29,7 +29,7 @@
 /**
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage TextParser_Panel
  * @version    $Id: BasicParserService.php 39978 2010-11-09 14:19:52Z mhelmich $
  *
@@ -40,28 +40,28 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_TextParser_Panel_BbCodePanel extends Tx_MmForum_TextParser_Panel_AbstractPanel {
+class Tx_Typo3Forum_TextParser_Panel_BbCodePanel extends Tx_Typo3Forum_TextParser_Panel_AbstractPanel {
 
 
 
 	/**
-	 * @var Tx_MmForum_Domain_Repository_Format_BBCodeRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_Format_BBCodeRepository
 	 */
 	protected $bbCodeRepository = NULL;
 
 
 
 	/**
-	 * @var array<Tx_MmForum_Domain_Model_Format_BBCode>
+	 * @var array<Tx_Typo3Forum_Domain_Model_Format_BBCode>
 	 */
 	protected $bbCodes = NULL;
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Repository_Format_BBCodeRepository $bbCodeRepository
+	 * @param Tx_Typo3Forum_Domain_Repository_Format_BBCodeRepository $bbCodeRepository
 	 */
-	public function injectBbCodeRepository(Tx_MmForum_Domain_Repository_Format_BBCodeRepository $bbCodeRepository) {
+	public function injectBbCodeRepository(Tx_Typo3Forum_Domain_Repository_Format_BBCodeRepository $bbCodeRepository) {
 		$this->bbCodeRepository = $bbCodeRepository;
 		$this->bbCodes          = $this->bbCodeRepository->findAll();
 	}

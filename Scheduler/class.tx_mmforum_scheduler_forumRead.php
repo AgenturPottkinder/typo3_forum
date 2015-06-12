@@ -28,9 +28,9 @@
  *
  * @author	Ruven Fehling <r.fehling@mittwald.de>
  * @package	TYPO3
- * @subpackage	mm_forum
+ * @subpackage	typo3_forum
  */
-class tx_mmforum_scheduler_forumRead extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
+class tx_typo3forum_scheduler_forumRead extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
 	/**
 	 * @var int
@@ -80,12 +80,12 @@ class tx_mmforum_scheduler_forumRead extends \TYPO3\CMS\Scheduler\Task\AbstractT
 		$limit = 86400;
 
 		$query = 'SELECT t.forum, COUNT(*) AS topic_amount
-					  FROM tx_mmforum_domain_model_forum_topic AS t
+					  FROM tx_typo3forum_domain_model_forum_topic AS t
 					  WHERE t.pid='.intval($this->getForumPid()).'
 					  GROUP BY t.forum';
 		$forumRes = $GLOBALS['TYPO3_DB']->sql_query($query);
 		while($forumRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($forumRes)) {
-			$query = "SELECT uid FROM tx_mmforum_domain_model_forum_topic WHERE forum=".$forumRow['forum'];
+			$query = "SELECT uid FROM tx_typo3forum_domain_model_forum_topic WHERE forum=".$forumRow['forum'];
 			$topicRes = $GLOBALS['TYPO3_DB']->sql_query($query);
 			$topics = array();
 			while($topicRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($topicRes)) {
@@ -94,15 +94,15 @@ class tx_mmforum_scheduler_forumRead extends \TYPO3\CMS\Scheduler\Task\AbstractT
 
 			$query = 'SELECT fe.uid, COUNT(*) AS read_amount
 					  FROM fe_users AS fe
-					  LEFT JOIN tx_mmforum_domain_model_user_readtopic AS rt ON rt.uid_local = fe.uid
+					  LEFT JOIN tx_typo3forum_domain_model_user_readtopic AS rt ON rt.uid_local = fe.uid
 								AND rt.uid_foreign IN ('.implode(',',$topics).')
-					  WHERE fe.disable=0 AND fe.deleted=0 AND fe.tx_extbase_type="Tx_MmForum_Domain_Model_User_FrontendUser"
+					  WHERE fe.disable=0 AND fe.deleted=0 AND fe.tx_extbase_type="Tx_Typo3Forum_Domain_Model_User_FrontendUser"
 						AND fe.pid='.intval($this->getUserPid()).' AND fe.lastlogin > '.(time()-$limit).'
 						GROUP BY fe.uid';
 			$userRes = $GLOBALS['TYPO3_DB']->sql_query($query);
 			while($userRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($userRes)) {
 				//First delete all entries for a user to resolve duplicate primaries
-				$query = "DELETE FROM tx_mmforum_domain_model_user_readforum
+				$query = "DELETE FROM tx_typo3forum_domain_model_user_readforum
 										WHERE uid_local=".intval($userRow['uid']).'
 											 AND uid_foreign='.intval($forumRow['forum']);
 				$res = $GLOBALS['TYPO3_DB']->sql_query($query);
@@ -113,7 +113,7 @@ class tx_mmforum_scheduler_forumRead extends \TYPO3\CMS\Scheduler\Task\AbstractT
 						'uid_foreign' => $forumRow['forum'],
 
 					);
-					$query = $GLOBALS['TYPO3_DB']->INSERTquery('tx_mmforum_domain_model_user_readforum',$insert);
+					$query = $GLOBALS['TYPO3_DB']->INSERTquery('tx_typo3forum_domain_model_user_readforum',$insert);
 					$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 				}
 			}
@@ -125,6 +125,6 @@ class tx_mmforum_scheduler_forumRead extends \TYPO3\CMS\Scheduler\Task\AbstractT
 
 }
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mm_forum/Scheduler/class.tx_mmforum_scheduler_forumRead.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mm_forum/Scheduler/class.tx_mmforum_scheduler_forumRead.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_forumRead.php'])	{
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_forumRead.php']);
 }

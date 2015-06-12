@@ -1,4 +1,4 @@
-{namespace mmf=Tx_MmForum_ViewHelpers}
+{namespace mmf=Tx_Typo3Forum_ViewHelpers}
 
 <table class="table table-striped">
     <colgroup>
@@ -29,7 +29,7 @@
     <f:if condition="{topics}">
         <f:then>
             <f:for each="{topics}" as="topic">
-                <mmf:ifInstanceOf object="{topic}" className="Tx_MmForum_Domain_Model_Forum_ShadowTopic">
+                <mmf:ifInstanceOf object="{topic}" className="Tx_Typo3Forum_Domain_Model_Forum_ShadowTopic">
                     <f:then>
                         <tr>
                             <td style="width:1px;">

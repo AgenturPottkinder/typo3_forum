@@ -28,7 +28,7 @@
  * A frontend user.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Model_User
  * @version    $Id$
  * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
@@ -38,8 +38,8 @@
  *             http://opensource.org/licenses/gpl-license.php
 
  */
-class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
-	implements Tx_MmForum_Domain_Model_AccessibleInterface {
+class Tx_Typo3Forum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
+	implements Tx_Typo3Forum_Domain_Model_AccessibleInterface {
 
 	/*
 	 * ATTRIBUTES
@@ -48,7 +48,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * The rank repository
 	 *
-	 * @var Tx_MmForum_Domain_Repository_User_RankRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_User_RankRepository
 	 */
 	protected $rankRepository = NULL;
 
@@ -134,7 +134,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Fav Subscribed topics.
 	 *
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Topic>
+	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Typo3Forum_Domain_Model_Forum_Topic>
 	 * @lazy
 	 */
 	protected $topicFavSubscriptions;
@@ -142,7 +142,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Fav Subscribed forums.
 	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Forum>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Typo3Forum_Domain_Model_Forum_Forum>
 	 * @lazy
 	 */
 	protected $forumFavSubscriptions;
@@ -150,7 +150,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Subscribed topics.
 	 *
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Topic>
+	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Typo3Forum_Domain_Model_Forum_Topic>
 	 * @lazy
 	 */
 	protected $topicSubscriptions;
@@ -158,7 +158,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Subscribed forums.
 	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Forum>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Typo3Forum_Domain_Model_Forum_Forum>
 	 * @lazy
 	 */
 	protected $forumSubscriptions;
@@ -173,14 +173,14 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Userfield values.
 	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_User_Userfield_Value>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Typo3Forum_Domain_Model_User_Userfield_Value>
 	 */
 	protected $userfieldValues;
 
 	/**
 	 * Read topics.
 	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Topic>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Typo3Forum_Domain_Model_Forum_Topic>
 	 * @lazy
 	 */
 	protected $readTopics;
@@ -188,7 +188,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Read forum.
 	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Forum>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Typo3Forum_Domain_Model_Forum_Forum>
 	 * @lazy
 	 */
 	protected $readForum;
@@ -196,7 +196,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Read topics.
 	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Post>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Typo3Forum_Domain_Model_Forum_Post>
 	 * @lazy
 	 */
 	protected $supportPosts;
@@ -237,7 +237,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * The rank of this user
 	 *
-	 * @var Tx_MmForum_Domain_Model_User_Rank
+	 * @var Tx_Typo3Forum_Domain_Model_User_Rank
 	 */
 	protected $rank;
 
@@ -261,7 +261,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * The private messages of this user.
 	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_User_PrivateMessages>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Typo3Forum_Domain_Model_User_PrivateMessages>
 	 * @lazy
 	 */
 	protected $privateMessages;
@@ -276,12 +276,12 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	protected $contact = '';
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUserGroup>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Typo3Forum_Domain_Model_User_FrontendUserGroup>
 	 */
 	protected $usergroup;
 
 	/**
-	 * Whole TypoScript mm_forum settings
+	 * Whole TypoScript typo3_forum settings
 	 *
 	 * @var array
 	 */
@@ -295,7 +295,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
 		$this->typoScriptService = $typoScriptService;
 		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
-		$this->settings = $ts['plugin']['tx_mmforum']['settings'];
+		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
 
 	/**
@@ -313,10 +313,10 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Inject the rank repository
 	 *
-	 * @param Tx_MmForum_Domain_Repository_User_RankRepository $rankRepository
+	 * @param Tx_Typo3Forum_Domain_Repository_User_RankRepository $rankRepository
 	 * @return void
 	 */
-	public function injectRankRepository(Tx_MmForum_Domain_Repository_User_RankRepository $rankRepository) {
+	public function injectRankRepository(Tx_Typo3Forum_Domain_Repository_User_RankRepository $rankRepository) {
 		$this->rankRepository = $rankRepository;
 	}
 
@@ -453,7 +453,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Get the rank of this user
 	 *
-	 * @return Tx_MmForum_Domain_Model_User_Rank
+	 * @return Tx_Typo3Forum_Domain_Model_User_Rank
 	 */
 	public function  getRank() {
 		return $this->rank;
@@ -462,7 +462,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Gets the private messages of this user.
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_User_PrivateMessages>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Typo3Forum_Domain_Model_User_PrivateMessages>
 	 */
 	public function getPrivateMessages() {
 		return $this->privateMessages;
@@ -471,7 +471,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Gets the subscribed topics.
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Topic>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Typo3Forum_Domain_Model_Forum_Topic>
 	 *                             The subscribed topics.
 	 */
 	public function getTopicSubscriptions() {
@@ -499,7 +499,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Gets the subscribed forums.
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Forum>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Typo3Forum_Domain_Model_Forum_Forum>
 	 *                             The subscribed forums.
 	 */
 	public function getForumSubscriptions() {
@@ -509,7 +509,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Gets the subscribed forums.
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_Post>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Typo3Forum_Domain_Model_Forum_Post>
 	 *                             The subscribed forums.
 	 */
 	public function getSupportPosts() {
@@ -548,11 +548,11 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	 * Performs an access check for this post.
 	 *
 	 * @access private
-	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param  Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
 	 * @param  string $accessType
 	 * @return boolean
 	 */
-	public function checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'moderate') {
+	public function checkAccess(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'moderate') {
 		switch ($accessType) {
 			default:
 				foreach ($user->getUsergroup() as $group) {
@@ -567,10 +567,10 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Determines if this user is member of a specific group.
 	 *
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUserGroup $checkGroup
+	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUserGroup $checkGroup
 	 * @return boolean
 	 */
-	public function isInGroup(Tx_MmForum_Domain_Model_User_FrontendUserGroup $checkGroup) {
+	public function isInGroup(Tx_Typo3Forum_Domain_Model_User_FrontendUserGroup $checkGroup) {
 		foreach ($this->getUsergroup() As $group) {
 			if ($group == $checkGroup) {
 				return TRUE;
@@ -620,21 +620,21 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Gets the userfield values for this user.
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_User_Userfield_Value>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Typo3Forum_Domain_Model_User_Userfield_Value>
 	 */
 	public function getUserfieldValues() {
 		return $this->userfieldValues;
 	}
 
 	/**
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_User_Userfield_Value>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Typo3Forum_Domain_Model_User_Userfield_Value>
 	 */
 	public function getComments() {
 		return $this->comments;
 	}
 
 	/**
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_User_Userfield_Value>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Typo3Forum_Domain_Model_User_Userfield_Value>
 	 */
 	public function getInterests() {
 		return $this->interests;
@@ -660,7 +660,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 		// and you're fine (http://de.gravatar.com/site/implement/images/).
 		if ($this->useGravatar) {
 			$emailHash = md5(strtolower($this->email));
-			$temporaryFilename = 'typo3temp/mm_forum/gravatar/' . $emailHash . '.jpg';
+			$temporaryFilename = 'typo3temp/typo3_forum/gravatar/' . $emailHash . '.jpg';
 			if (!file_exists(PATH_site . $temporaryFilename)) {
 				$image = \TYPO3\CMS\Core\Utility\GeneralUtility::getUrl('https://secure.gravatar.com/avatar/' . $emailHash . '.jpg');
 				file_put_contents(PATH_site . $temporaryFilename, $image);
@@ -726,15 +726,15 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Subscribes this user to a subscribeable object, like a topic or a forum.
 	 *
-	 * @param Tx_MmForum_Domain_Model_SubscribeableInterface $object
+	 * @param Tx_Typo3Forum_Domain_Model_SubscribeableInterface $object
 	 *                             The object that is to be subscribed. This may
 	 *                             either be a topic or a forum.
 	 * @return void
 	 */
-	public function addFavSubscription(Tx_MmForum_Domain_Model_SubscribeableInterface $object) {
-		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Topic) {
+	public function addFavSubscription(Tx_Typo3Forum_Domain_Model_SubscribeableInterface $object) {
+		if ($object instanceof Tx_Typo3Forum_Domain_Model_Forum_Topic) {
 			$this->topicFavSubscriptions->attach($object);
-		} elseif ($object instanceof Tx_MmForum_Domain_Model_Forum_Forum) {
+		} elseif ($object instanceof Tx_Typo3Forum_Domain_Model_Forum_Forum) {
 			$this->forumFavSubscriptions->attach($object);
 		}
 	}
@@ -742,14 +742,14 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Unsubscribes this user from a subscribeable object.
 	 *
-	 * @param Tx_MmForum_Domain_Model_SubscribeableInterface $object
+	 * @param Tx_Typo3Forum_Domain_Model_SubscribeableInterface $object
 	 *                             The object that is to be unsubscribed.
 	 * @return void
 	 */
-	public function removeFavSubscription(Tx_MmForum_Domain_Model_SubscribeableInterface $object) {
-		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Topic) {
+	public function removeFavSubscription(Tx_Typo3Forum_Domain_Model_SubscribeableInterface $object) {
+		if ($object instanceof Tx_Typo3Forum_Domain_Model_Forum_Topic) {
 			$this->topicFavSubscriptions->detach($object);
-		} elseif ($object instanceof Tx_MmForum_Domain_Model_Forum_Forum) {
+		} elseif ($object instanceof Tx_Typo3Forum_Domain_Model_Forum_Forum) {
 			$this->forumFavSubscriptions->detach($object);
 		}
 	}
@@ -757,15 +757,15 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Subscribes this user to a subscribeable object, like a topic or a forum.
 	 *
-	 * @param Tx_MmForum_Domain_Model_SubscribeableInterface $object
+	 * @param Tx_Typo3Forum_Domain_Model_SubscribeableInterface $object
 	 *                             The object that is to be subscribed. This may
 	 *                             either be a topic or a forum.
 	 * @return void
 	 */
-	public function addSubscription(Tx_MmForum_Domain_Model_SubscribeableInterface $object) {
-		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Topic) {
+	public function addSubscription(Tx_Typo3Forum_Domain_Model_SubscribeableInterface $object) {
+		if ($object instanceof Tx_Typo3Forum_Domain_Model_Forum_Topic) {
 			$this->topicSubscriptions->attach($object);
-		} elseif ($object instanceof Tx_MmForum_Domain_Model_Forum_Forum) {
+		} elseif ($object instanceof Tx_Typo3Forum_Domain_Model_Forum_Forum) {
 			$this->forumSubscriptions->attach($object);
 		}
 	}
@@ -773,14 +773,14 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Unsubscribes this user from a subscribeable object.
 	 *
-	 * @param Tx_MmForum_Domain_Model_SubscribeableInterface $object
+	 * @param Tx_Typo3Forum_Domain_Model_SubscribeableInterface $object
 	 *                             The object that is to be unsubscribed.
 	 * @return void
 	 */
-	public function removeSubscription(Tx_MmForum_Domain_Model_SubscribeableInterface $object) {
-		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Topic) {
+	public function removeSubscription(Tx_Typo3Forum_Domain_Model_SubscribeableInterface $object) {
+		if ($object instanceof Tx_Typo3Forum_Domain_Model_Forum_Topic) {
 			$this->topicSubscriptions->detach($object);
-		} elseif ($object instanceof Tx_MmForum_Domain_Model_Forum_Forum) {
+		} elseif ($object instanceof Tx_Typo3Forum_Domain_Model_Forum_Forum) {
 			$this->forumSubscriptions->detach($object);
 		}
 	}
@@ -788,12 +788,12 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Adds a readable object to the list of objects read by this user.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_ReadableInterface $readObject
+	 * @param  Tx_Typo3Forum_Domain_Model_ReadableInterface $readObject
 	 *                             The object that is to be marked as read.
 	 * @return void
 	 */
-	public function addReadObject(Tx_MmForum_Domain_Model_ReadableInterface $readObject) {
-		if ($readObject instanceof Tx_MmForum_Domain_Model_Forum_Topic) {
+	public function addReadObject(Tx_Typo3Forum_Domain_Model_ReadableInterface $readObject) {
+		if ($readObject instanceof Tx_Typo3Forum_Domain_Model_Forum_Topic) {
 			$this->readTopics->attach($readObject);
 		}
 	}
@@ -801,12 +801,12 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Removes a readable object from the list of objects read by this user.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_ReadableInterface $readObject
+	 * @param  Tx_Typo3Forum_Domain_Model_ReadableInterface $readObject
 	 *                             The object that is to be marked as unread.
 	 * @return void
 	 */
-	public function removeReadObject(Tx_MmForum_Domain_Model_ReadableInterface $readObject) {
-		if ($readObject instanceof Tx_MmForum_Domain_Model_Forum_Topic) {
+	public function removeReadObject(Tx_Typo3Forum_Domain_Model_ReadableInterface $readObject) {
+		if ($readObject instanceof Tx_Typo3Forum_Domain_Model_Forum_Topic) {
 			$this->readTopics->detach($readObject);
 		}
 	}
@@ -814,18 +814,18 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Add a private message
 	 *
-	 * @param $message Tx_MmForum_Domain_Model_User_PrivateMessages
+	 * @param $message Tx_Typo3Forum_Domain_Model_User_PrivateMessages
 	 */
-	public function addPrivateMessage(Tx_MmForum_Domain_Model_User_PrivateMessages $message) {
+	public function addPrivateMessage(Tx_Typo3Forum_Domain_Model_User_PrivateMessages $message) {
 		$this->privateMessages->attach($message);
 	}
 
 	/**
 	 * Removes a private messages
 	 *
-	 * @param $message Tx_MmForum_Domain_Model_User_PrivateMessages
+	 * @param $message Tx_Typo3Forum_Domain_Model_User_PrivateMessages
 	 */
-	public function removePrivateMessage(Tx_MmForum_Domain_Model_User_PrivateMessages $message) {
+	public function removePrivateMessage(Tx_Typo3Forum_Domain_Model_User_PrivateMessages $message) {
 		$this->privateMessages->detach($message);
 	}
 
@@ -949,7 +949,7 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 		$this->points = $this->points + $by;
 
 		/**
-		 * @var Tx_MmForum_Domain_Model_User_Rank
+		 * @var Tx_Typo3Forum_Domain_Model_User_Rank
 		 */
 		$rank = $this->rankRepository->findOneRankByPoints($this->getPoints());
 
@@ -1046,9 +1046,9 @@ class Tx_MmForum_Domain_Model_User_FrontendUser extends \TYPO3\CMS\Extbase\Domai
 	/**
 	 * Set the rank of this user
 	 *
-	 * @param Tx_MmForum_Domain_Model_User_Rank $rank
+	 * @param Tx_Typo3Forum_Domain_Model_User_Rank $rank
 	 */
-	public function setRank(Tx_MmForum_Domain_Model_User_Rank $rank) {
+	public function setRank(Tx_Typo3Forum_Domain_Model_User_Rank $rank) {
 		$this->rank = $rank;
 	}
 }

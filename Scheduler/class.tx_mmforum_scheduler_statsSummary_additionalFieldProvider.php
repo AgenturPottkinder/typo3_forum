@@ -29,9 +29,9 @@
  *
  * @author	Ruven Fehling <r.fehling@mittwald.de>
  * @package	TYPO3
- * @subpackage	mm_forum
+ * @subpackage	typo3_forum
  */
-class tx_mmforum_scheduler_statsSummary_additionalFieldProvider implements \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface {
+class tx_typo3forum_scheduler_statsSummary_additionalFieldProvider implements \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface {
 
 	/**
 	 * Lorem
@@ -60,21 +60,21 @@ class tx_mmforum_scheduler_statsSummary_additionalFieldProvider implements \TYPO
 
 		$additionalFields['StatsSummary_forumPids'] = array(
 			'code'     => '<input type="text" name="tx_scheduler[StatsSummary_forumPids]" value="' . htmlspecialchars($taskInfo['StatsSummary_forumPids']) . '" />',
-			'label'    => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_statsSummary_forumPid',
+			'label'    => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_statsSummary_forumPid',
 			'cshKey'   => '',
 			'cshLabel' => ''
 		);
 
 		$additionalFields['StatsSummary_userPids'] = array(
 			'code'     => '<input type="text" name="tx_scheduler[StatsSummary_userPids]" value="' . htmlspecialchars($taskInfo['StatsSummary_userPids']) . '" />',
-			'label'    => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_statsSummary_userPid',
+			'label'    => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_statsSummary_userPid',
 			'cshKey'   => '',
 			'cshLabel' => ''
 		);
 
 		$additionalFields['StatsSummary_statsPid'] = array(
 			'code'     => '<input type="text" name="tx_scheduler[StatsSummary_statsPid]" value="' . htmlspecialchars($taskInfo['StatsSummary_statsPid']) . '" />',
-			'label'    => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_statsSummary_statsPid',
+			'label'    => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_statsSummary_statsPid',
 			'cshKey'   => '',
 			'cshLabel' => ''
 		);
@@ -112,8 +112,8 @@ class tx_mmforum_scheduler_statsSummary_additionalFieldProvider implements \TYPO
 }
 
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mm_forum/Scheduler/class.tx_mmforum_scheduler_statsSummary_additionalFieldProvider.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mm_forum/Scheduler/class.tx_mmforum_scheduler_statsSummary_additionalFieldProvider.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_statsSummary_additionalFieldProvider.php'])	{
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_statsSummary_additionalFieldProvider.php']);
 }
 
 ?>

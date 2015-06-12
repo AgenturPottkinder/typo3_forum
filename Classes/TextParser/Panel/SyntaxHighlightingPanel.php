@@ -29,7 +29,7 @@
 /**
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage TextParser_Panel
  * @version    $Id$
  *
@@ -41,14 +41,14 @@
  *
  */
 
-class Tx_MmForum_TextParser_Panel_SyntaxHighlightingPanel extends Tx_MmForum_TextParser_Panel_AbstractPanel {
+class Tx_Typo3Forum_TextParser_Panel_SyntaxHighlightingPanel extends Tx_Typo3Forum_TextParser_Panel_AbstractPanel {
 
 
 
 	/**
 	 * TODO
 	 *
-	 * @var Tx_MmForum_Domain_Repository_Format_SyntaxHighlightingRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_Format_SyntaxHighlightingRepository
 	 */
 	protected $syntaxHighlightingRepository = NULL;
 
@@ -57,7 +57,7 @@ class Tx_MmForum_TextParser_Panel_SyntaxHighlightingPanel extends Tx_MmForum_Tex
 	/**
 	 * TODO
 	 *
-	 * @var array<Tx_MmForum_Domain_Model_Format_SyntaxHighlighting>
+	 * @var array<Tx_Typo3Forum_Domain_Model_Format_SyntaxHighlighting>
 	 */
 	protected $syntaxHighlightings = NULL;
 
@@ -66,11 +66,11 @@ class Tx_MmForum_TextParser_Panel_SyntaxHighlightingPanel extends Tx_MmForum_Tex
 	/**
 	 * TODO
 	 *
-	 * @param Tx_MmForum_Domain_Repository_Format_SyntaxHighlightingRepository $syntaxHighlightingRepository
+	 * @param Tx_Typo3Forum_Domain_Repository_Format_SyntaxHighlightingRepository $syntaxHighlightingRepository
 	 *
 	 * @return void
 	 */
-	public function injectSyntaxHighlightingRepository(Tx_MmForum_Domain_Repository_Format_SyntaxHighlightingRepository $syntaxHighlightingRepository) {
+	public function injectSyntaxHighlightingRepository(Tx_Typo3Forum_Domain_Repository_Format_SyntaxHighlightingRepository $syntaxHighlightingRepository) {
 		$this->syntaxHighlightingRepository = $syntaxHighlightingRepository;
 		$this->syntaxHighlightings          = $this->syntaxHighlightingRepository->findAll();
 	}

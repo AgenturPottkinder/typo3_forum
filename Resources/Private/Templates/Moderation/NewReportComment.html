@@ -1,5 +1,5 @@
-{namespace m=Tx_MmForum_ViewHelpers}
-{namespace b=Tx_MmForum_ViewHelpers_Bootstrap}
+{namespace m=Tx_Typo3Forum_ViewHelpers}
+{namespace b=Tx_Typo3Forum_ViewHelpers_Bootstrap}
 
 <f:layout name="default" />
 
@@ -13,7 +13,7 @@
 				<f:translate key="Report_NewComment" />
 			</legend>
 			<b:form.row llLabel="Report_NewComment_Text" error="comment.text" errorLLPrefix="Report_NewComment_Error_Text">
-				<m:form.bbCodeEditor class="tx-mmforum-editor" property="text" id="mmforum_editor" rows="5" cols="10" />
+				<m:form.bbCodeEditor class="tx-typo3forum-editor" property="text" id="typo3forum_editor" rows="5" cols="10" />
 			</b:form.row>
 			<div class="form-actions">
 				<f:form.hidden name="report" value="{report}" />

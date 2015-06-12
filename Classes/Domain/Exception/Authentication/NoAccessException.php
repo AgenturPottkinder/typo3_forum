@@ -32,7 +32,7 @@
  * a specific action.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Exception
  * @version    $Id$
  *
@@ -44,8 +44,8 @@
  *
  */
 
-Class Tx_MmForum_Domain_Exception_Authentication_NoAccessException
-	Extends Tx_MmForum_Domain_Exception_AbstractException {
+Class Tx_Typo3Forum_Domain_Exception_Authentication_NoAccessException
+	Extends Tx_Typo3Forum_Domain_Exception_AbstractException {
 
 
 

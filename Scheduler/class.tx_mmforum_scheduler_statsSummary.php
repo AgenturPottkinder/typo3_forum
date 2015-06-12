@@ -28,9 +28,9 @@
  *
  * @author	Ruven Fehling <r.fehling@mittwald.de>
  * @package	TYPO3
- * @subpackage	mm_forum
+ * @subpackage	typo3_forum
  */
-class tx_mmforum_scheduler_statsSummary extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
+class tx_typo3forum_scheduler_statsSummary extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
 	/**
 	 * @var string
@@ -97,14 +97,14 @@ class tx_mmforum_scheduler_statsSummary extends \TYPO3\CMS\Scheduler\Task\Abstra
 		$results = array();
 
 		$query = 'SELECT COUNT(*) AS counter
-				  FROM tx_mmforum_domain_model_forum_post
+				  FROM tx_typo3forum_domain_model_forum_post
 				  WHERE deleted=0 AND pid IN ('.$this->getForumPids().');';
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 		$results[] = intval($row['counter']);
 
 		$query = 'SELECT COUNT(*) AS counter
-				  FROM tx_mmforum_domain_model_forum_topic
+				  FROM tx_typo3forum_domain_model_forum_topic
 				  WHERE deleted=0 AND pid IN ('.$this->getForumPids().');';
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
@@ -112,7 +112,7 @@ class tx_mmforum_scheduler_statsSummary extends \TYPO3\CMS\Scheduler\Task\Abstra
 
 		$query = 'SELECT COUNT(*) AS counter
 				  FROM fe_users
-				  WHERE deleted=0 AND disable=0 AND tx_extbase_type = "Tx_MmForum_Domain_Model_User_FrontendUser"
+				  WHERE deleted=0 AND disable=0 AND tx_extbase_type = "Tx_Typo3Forum_Domain_Model_User_FrontendUser"
 				  		AND pid IN ('.$this->getUserPids().');';
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
@@ -125,7 +125,7 @@ class tx_mmforum_scheduler_statsSummary extends \TYPO3\CMS\Scheduler\Task\Abstra
 				'type'		=> intval($typeUid),
 				'amount'	=> intval($amount),
 			);
-			$query =  $GLOBALS['TYPO3_DB']->INSERTquery('tx_mmforum_domain_model_stats_summary',$values);
+			$query =  $GLOBALS['TYPO3_DB']->INSERTquery('tx_typo3forum_domain_model_stats_summary',$values);
 			$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 		}
 
@@ -135,6 +135,6 @@ class tx_mmforum_scheduler_statsSummary extends \TYPO3\CMS\Scheduler\Task\Abstra
 
 }
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mm_forum/Scheduler/class.tx_mmforum_scheduler_statsSummary.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mm_forum/Scheduler/class.tx_mmforum_scheduler_statsSummary.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_statsSummary.php'])	{
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_statsSummary.php']);
 }

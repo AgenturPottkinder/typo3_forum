@@ -25,30 +25,30 @@
  *                                                                      */
 
 
-class Tx_MmForum_Service_Authentication_AuthenticationServiceTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+class Tx_Typo3Forum_Service_Authentication_AuthenticationServiceTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
 
 
 
 	/**
-	 * @var Tx_MmForum_Service_Authentication_AuthenticationService
+	 * @var Tx_Typo3Forum_Service_Authentication_AuthenticationService
 	 */
 	protected $fixture;
 
 
 	/**
-	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @var Tx_Typo3Forum_Domain_Model_User_FrontendUser
 	 */
 	protected $user;
 
 
 	/**
-	 * @var Tx_MmForum_Domain_Model_User_FrontendUserGroup
+	 * @var Tx_Typo3Forum_Domain_Model_User_FrontendUserGroup
 	 */
 	protected $group;
 
 
 	/**
-	 * @var Tx_MmForum_Domain_Model_Forum_Forum
+	 * @var Tx_Typo3Forum_Domain_Model_Forum_Forum
 	 */
 	protected $forum;
 
@@ -61,25 +61,25 @@ class Tx_MmForum_Service_Authentication_AuthenticationServiceTest extends Tx_Ext
 
 
 	public function setUp() {
-		$this->group = new Tx_MmForum_Domain_Model_User_FrontendUserGroup('Users');
-		$this->user = new Tx_MmForum_Domain_Model_User_FrontendUser('martin', 'secret');
+		$this->group = new Tx_Typo3Forum_Domain_Model_User_FrontendUserGroup('Users');
+		$this->user = new Tx_Typo3Forum_Domain_Model_User_FrontendUser('martin', 'secret');
 		$this->user->addUsergroup($this->group);
-		$this->forum = $this->objectManager->create('Tx_MmForum_Domain_Model_Forum_Forum', 'Forum', NULL);
+		$this->forum = $this->objectManager->create('Tx_Typo3Forum_Domain_Model_Forum_Forum', 'Forum', NULL);
 
-		$this->userRepositoryMock = $this->getMock('Tx_MmForum_Domain_Repository_User_FrontendUserRepository');
+		$this->userRepositoryMock = $this->getMock('Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository');
 		$this->userRepositoryMock
 			->expects($this->any())
 			->method('findCurrent')
 			->will($this->returnValue($this->user));
 
-		$cacheMock = $this->getMock('Tx_MmForum_Cache_Cache');
+		$cacheMock = $this->getMock('Tx_Typo3Forum_Cache_Cache');
 		$cacheMock
 			->expects($this->any())
 			->method('has')
 			->will($this->returnValue(FALSE));
 
 		/** @noinspection PhpParamsInspection */
-		$this->fixture = new Tx_MmForum_Service_Authentication_AuthenticationService($this->userRepositoryMock, $cacheMock);
+		$this->fixture = new Tx_Typo3Forum_Service_Authentication_AuthenticationService($this->userRepositoryMock, $cacheMock);
 		$this->fixture->disableImplicitAdministrationInBackend();
 	}
 
@@ -91,7 +91,7 @@ class Tx_MmForum_Service_Authentication_AuthenticationServiceTest extends Tx_Ext
 	 * @param $operation
 	 */
 	public function authorizationIsGrantedOnAccessForLoggedInUser($operation) {
-		$acl = new Tx_MmForum_Domain_Model_Forum_Access($operation, Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_SPECIFIC, $this->group);
+		$acl = new Tx_Typo3Forum_Domain_Model_Forum_Access($operation, Tx_Typo3Forum_Domain_Model_Forum_Access::LOGIN_LEVEL_SPECIFIC, $this->group);
 		$this->forum->addAcl($acl);
 
 		$this->assertTrue($this->fixture->checkAuthorization($this->forum, $operation));
@@ -131,7 +131,7 @@ class Tx_MmForum_Service_Authentication_AuthenticationServiceTest extends Tx_Ext
 	 * @param $operation
 	 */
 	public function authorizationIsDeniedOnDeniedAccessForLoggedInUser($operation) {
-		$acl = new Tx_MmForum_Domain_Model_Forum_Access($operation, Tx_MmForum_Domain_Model_Forum_Access::LOGIN_LEVEL_SPECIFIC, $this->group);
+		$acl = new Tx_Typo3Forum_Domain_Model_Forum_Access($operation, Tx_Typo3Forum_Domain_Model_Forum_Access::LOGIN_LEVEL_SPECIFIC, $this->group);
 		$acl->setNegated(TRUE);
 		$this->forum->addAcl($acl);
 
@@ -166,7 +166,7 @@ class Tx_MmForum_Service_Authentication_AuthenticationServiceTest extends Tx_Ext
 	 * @test
 	 * @dataProvider      getPossibleOperations
 	 * @param string $operation
-	 * @expectedException Tx_MmForum_Domain_Exception_Authentication_NoAccessException
+	 * @expectedException Tx_Typo3Forum_Domain_Exception_Authentication_NoAccessException
 	 */
 	public function exceptionIsThrownOnFailedAccessAssertion($operation) {
 		$this->fixture->assertAuthorization($this->forum, $operation);

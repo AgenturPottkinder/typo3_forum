@@ -1,8 +1,8 @@
 <?php
 if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 
-$TCA['tx_mmforum_domain_model_moderation_reportcomment'] = array(
-	'ctrl' => $TCA['tx_mmforum_domain_model_moderation_reportcomment']['ctrl'],
+$TCA['tx_typo3forum_domain_model_moderation_reportcomment'] = array(
+	'ctrl' => $TCA['tx_typo3forum_domain_model_moderation_reportcomment']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'report,author,text,tstamp'
 	),
@@ -29,16 +29,16 @@ $TCA['tx_mmforum_domain_model_moderation_reportcomment'] = array(
 		),
 		'report' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_reportcomment.report',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportcomment.report',
 			'config' => array(
 				'type' => 'select',
-				'foreign_table' => 'tx_mmforum_domain_model_moderation_report',
+				'foreign_table' => 'tx_typo3forum_domain_model_moderation_report',
 				'maxitems' => 1
 			)
 		),
 		'author' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_reportcomment.author',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportcomment.author',
 			'config' => array(
 				'type' => 'select',
 				'foreign_table' => 'fe_users',
@@ -47,7 +47,7 @@ $TCA['tx_mmforum_domain_model_moderation_reportcomment'] = array(
 		),
 		'text' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.moderator',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.moderator',
 			'config' => array(
 				'type' => 'text'
 			)

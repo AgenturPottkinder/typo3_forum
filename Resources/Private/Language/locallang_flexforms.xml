@@ -2,7 +2,7 @@
 <T3locallang>
 	<meta type="array">
 		<type>module</type>
-		<description>Language labels for the mm_forum extension in the FRONTEND</description>
+		<description>Language labels for the typo3_forum extension in the FRONTEND</description>
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">

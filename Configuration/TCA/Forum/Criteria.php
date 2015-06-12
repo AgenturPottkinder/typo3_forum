@@ -1,8 +1,8 @@
 <?php
 if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 
-$TCA['tx_mmforum_domain_model_forum_criteria'] = array(
-	'ctrl' => $TCA['tx_mmforum_domain_model_forum_criteria']['ctrl'],
+$TCA['tx_typo3forum_domain_model_forum_criteria'] = array(
+	'ctrl' => $TCA['tx_typo3forum_domain_model_forum_criteria']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'name,options,default_option'
 	),
@@ -15,17 +15,17 @@ $TCA['tx_mmforum_domain_model_forum_criteria'] = array(
 	'columns' => array(
 		'name' => array(
 			'exclude' => 0,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_criteria_name',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_criteria_name',
 			'config'  => array(
 				'type' => 'text'
 			)
 		),
 		'options' => array(
 			'exclude' => 0,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_criteria_options',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_criteria_options',
 			'config' => array(
 				'type' => 'inline',
-				'foreign_table' => 'tx_mmforum_domain_model_forum_criteria_options',
+				'foreign_table' => 'tx_typo3forum_domain_model_forum_criteria_options',
 				'foreign_field' => 'criteria',
 				'maxitems'      => 9999,
 				'foreign_sortby' => 'sorting',
@@ -38,12 +38,12 @@ $TCA['tx_mmforum_domain_model_forum_criteria'] = array(
 		),
 		'default_option' => array(
 			'exclude' => 0,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_forum_criteria_default_option',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_criteria_default_option',
 			'config'  => array(
 				'type'          => 'select',
 				'maxitems'      => 1,
-				'foreign_table' => 'tx_mmforum_domain_model_forum_criteria_options',
-				'foreign_class' => 'Tx_MmForum_Domain_Model_Forum_CriteriaOption',
+				'foreign_table' => 'tx_typo3forum_domain_model_forum_criteria_options',
+				'foreign_class' => 'Tx_Typo3Forum_Domain_Model_Forum_CriteriaOption',
 			)
 		),
 	)

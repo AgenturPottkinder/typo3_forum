@@ -31,7 +31,7 @@
  * Repository class for workflow status objects.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Repository_Moderation
  * @version    $Id$
  *
@@ -42,8 +42,8 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Repository_Moderation_ReportWorkflowStatusRepository
-	extends Tx_MmForum_Domain_Repository_AbstractRepository {
+class Tx_Typo3Forum_Domain_Repository_Moderation_ReportWorkflowStatusRepository
+	extends Tx_Typo3Forum_Domain_Repository_AbstractRepository {
 
 
 
@@ -51,7 +51,7 @@ class Tx_MmForum_Domain_Repository_Moderation_ReportWorkflowStatusRepository
 	 *
 	 * Finds the initial status that is to be used for new reports.
 	 *
-	 * @return Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus
+	 * @return Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus
 	 *                             The initial status that is to be used for new
 	 *                             reports.
 	 *

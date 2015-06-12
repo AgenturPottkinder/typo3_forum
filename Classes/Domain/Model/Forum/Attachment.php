@@ -31,7 +31,7 @@
  * A file attachment. These attachments can be attached to any forum post.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Model_Format
  * @version    $Id$
  * @license    GNU Public License, version 2
@@ -39,7 +39,7 @@
  *
  */
 
-class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Tx_Typo3Forum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 
 
@@ -49,7 +49,7 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\Domain
 
 	/**
 	 * The attachment file name.
-	 * @var Tx_MmForum_Domain_Model_Forum_Post
+	 * @var Tx_Typo3Forum_Domain_Model_Forum_Post
 	 * @lazy
 	 */
 	protected $post;
@@ -79,13 +79,13 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\Domain
 	protected $downloadCount;
 
 	/**
-	 * An instance of the mm_forum authentication service.
+	 * An instance of the typo3_forum authentication service.
 	 * @var TYPO3\CMS\Extbase\Service\TypoScriptService
 	 */
 	protected $typoScriptService = NULL;
 
 	/**
-	 * Whole TypoScript mm_forum settings
+	 * Whole TypoScript typo3_forum settings
 	 * @var array
 	 */
 	protected $settings;
@@ -98,7 +98,7 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\Domain
 	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
 		$this->typoScriptService = $typoScriptService;
 		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
-		$this->settings = $ts['plugin']['tx_mmforum']['settings'];
+		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
 
 	/*
@@ -107,7 +107,7 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\Domain
 
 	/**
 	 * Gets the attachment's filename on file system.
-	 * @return Tx_MmForum_Domain_Model_Forum_Post
+	 * @return Tx_Typo3Forum_Domain_Model_Forum_Post
 	 */
 	public function getPost() {
 		return $this->post;
@@ -134,15 +134,15 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\Domain
 
 
 	/**
-	 * Gets the whole TCA config of tx_mmforum_domain_model_forum_attachment
-	 * @return array The whole TCA config of tx_mmforum_domain_model_forum_attachment
+	 * Gets the whole TCA config of tx_typo3forum_domain_model_forum_attachment
+	 * @return array The whole TCA config of tx_typo3forum_domain_model_forum_attachment
 	 */
 	public function getTCAConfig() {
 		global $TCA;
 		$GLOBALS['TSFE']->includeTCA();
-		\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA('tx_mmforum_domain_model_forum_attachment');
+		\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA('tx_typo3forum_domain_model_forum_attachment');
 
-		return $TCA['tx_mmforum_domain_model_forum_attachment'];
+		return $TCA['tx_typo3forum_domain_model_forum_attachment'];
 	}
 
 
@@ -251,7 +251,7 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\Domain
 	/**
 	 * Sets the filename on file system.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post
 	 * @return void
 	 */
 	public function setPost($post) {

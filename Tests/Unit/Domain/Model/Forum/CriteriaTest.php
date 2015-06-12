@@ -23,28 +23,28 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-class Tx_MmForum_Domain_Model_Forum_CriteriaTest extends Tx_MmForum_Unit_BaseTestCase {
+class Tx_Typo3Forum_Domain_Model_Forum_CriteriaTest extends Tx_Typo3Forum_Unit_BaseTestCase {
 
 
 	/**
-	 * @var Tx_MmForum_Domain_Model_Forum_Criteria
+	 * @var Tx_Typo3Forum_Domain_Model_Forum_Criteria
 	 */
 	private $criteria;
 
 	/**
-	 * @var Tx_MmForum_Domain_Model_Forum_CriteriaOption
+	 * @var Tx_Typo3Forum_Domain_Model_Forum_CriteriaOption
 	 */
 	private $option;
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_CriteriaOption>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Typo3Forum_Domain_Model_Forum_CriteriaOption>
 	 */
 	private $optionStorage;
 
 
 	public function setUp() {
-		$this->criteria = $this->objectManager->create('Tx_MmForum_Domain_Model_Forum_Criteria');
-		$this->option = $this->objectManager->create('Tx_MmForum_Domain_Model_Forum_CriteriaOption');
+		$this->criteria = $this->objectManager->create('Tx_Typo3Forum_Domain_Model_Forum_Criteria');
+		$this->option = $this->objectManager->create('Tx_Typo3Forum_Domain_Model_Forum_CriteriaOption');
 		$this->optionStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 

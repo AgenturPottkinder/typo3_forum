@@ -29,7 +29,7 @@
 /**
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage TextParser_Panel
  * @version    $Id$
  *
@@ -41,14 +41,14 @@
  *
  */
 
-class Tx_MmForum_TextParser_Panel_SmiliePanel extends Tx_MmForum_TextParser_Panel_AbstractPanel {
+class Tx_Typo3Forum_TextParser_Panel_SmiliePanel extends Tx_Typo3Forum_TextParser_Panel_AbstractPanel {
 
 
 
 	/**
 	 * TODO
 	 *
-	 * @var Tx_MmForum_Domain_Repository_Format_SmilieRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_Format_SmilieRepository
 	 */
 	protected $smilieRepository = NULL;
 
@@ -57,7 +57,7 @@ class Tx_MmForum_TextParser_Panel_SmiliePanel extends Tx_MmForum_TextParser_Pane
 	/**
 	 * TODO
 	 *
-	 * @var array<Tx_MmForum_Domain_Model_Format_Smilie>
+	 * @var array<Tx_Typo3Forum_Domain_Model_Format_Smilie>
 	 */
 	protected $smilies = NULL;
 
@@ -66,11 +66,11 @@ class Tx_MmForum_TextParser_Panel_SmiliePanel extends Tx_MmForum_TextParser_Pane
 	/**
 	 * TODO
 	 *
-	 * @param Tx_MmForum_Domain_Repository_Format_SmilieRepository $smilieRepository
+	 * @param Tx_Typo3Forum_Domain_Repository_Format_SmilieRepository $smilieRepository
 	 *
 	 * @return void
 	 */
-	public function injectSmilieRepository(Tx_MmForum_Domain_Repository_Format_SmilieRepository $smilieRepository) {
+	public function injectSmilieRepository(Tx_Typo3Forum_Domain_Repository_Format_SmilieRepository $smilieRepository) {
 		$this->smilieRepository = $smilieRepository;
 		$this->smilies          = $this->smilieRepository->findAll();
 	}

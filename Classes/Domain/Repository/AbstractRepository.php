@@ -28,10 +28,10 @@
 
 /**
  *
- * Abstract base class for all mm_forum repositories.
+ * Abstract base class for all typo3_forum repositories.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Repository_User
  * @version    $Id$
  *
@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_MmForum_Domain_Repository_AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+abstract class Tx_Typo3Forum_Domain_Repository_AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 
 

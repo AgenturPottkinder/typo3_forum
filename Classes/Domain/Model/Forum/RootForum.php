@@ -32,24 +32,24 @@
  * other forums.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Model_Forum
  * @version    $Id: Forum.php 60797 2012-04-16 18:51:49Z mhelmich $
  * @license    GNU public License, version 2
  *             http://opensource.org/licenses/gpl-license.php
  */
-class Tx_MmForum_Domain_Model_Forum_RootForum extends Tx_MmForum_Domain_Model_Forum_Forum implements \TYPO3\CMS\Core\SingletonInterface {
+class Tx_Typo3Forum_Domain_Model_Forum_RootForum extends Tx_Typo3Forum_Domain_Model_Forum_Forum implements \TYPO3\CMS\Core\SingletonInterface {
 
 
 
 	/**
-	 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository
 	 */
 	protected $forumRepository = NULL;
 
 
 
-	public function injectForumRepository(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository) {
+	public function injectForumRepository(Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository $forumRepository) {
 		$this->forumRepository = $forumRepository;
 	}
 
@@ -69,7 +69,7 @@ class Tx_MmForum_Domain_Model_Forum_RootForum extends Tx_MmForum_Domain_Model_Fo
 
 
 
-	public function checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'read') {
+	public function checkAccess(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'read') {
 		if ($accessType === 'read') {
 			return TRUE;
 		}

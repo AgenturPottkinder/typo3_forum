@@ -1,5 +1,5 @@
 $(document).ready(function () {
-	$("#tx-mmforum-tag-autocomplete")
+	$("#tx-typo3forum-tag-autocomplete")
 	.bind( "keydown", function( event ) {
 		if ( event.keyCode === $.ui.keyCode.TAB &&
 			$( this ).data( "ui-autocomplete" ).menu.active ) {
@@ -10,7 +10,7 @@ $(document).ready(function () {
 		minLength: 0,
 		delay: 1000,
 		source: function( request, response ) {
-			$.getJSON( "index.php?id="+currentPageUid+"&eID=mm_forum&tx_mmforum_ajax[controller]=Tag&tx_mmforum_ajax[action]=autoComplete&tx_mmforum_ajax[value]="+extractLast( request.term ), {
+			$.getJSON( "index.php?id="+currentPageUid+"&eID=typo3_forum&tx_typo3forum_ajax[controller]=Tag&tx_typo3forum_ajax[action]=autoComplete&tx_typo3forum_ajax[value]="+extractLast( request.term ), {
 			}, response );
 		},
 		search: function() {

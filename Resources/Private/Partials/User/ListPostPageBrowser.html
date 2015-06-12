@@ -1,6 +1,6 @@
-{namespace mmf=Tx_MmForum_ViewHelpers}
+{namespace mmf=Tx_Typo3Forum_ViewHelpers}
 <f:if condition="{elements} > {configuration.itemsPerPage}">
-	<div class="tx-mmforum-pages">
+	<div class="tx-typo3forum-pages">
 		<mmf:control.pageBrowser elements="{elements}" currentPage="{currentPage}" itemsPerPage="{configuration.itemsPerPage}">
 			<f:if condition="{page} == {currentPage}">
 				<f:then>{pageLabel}</f:then>

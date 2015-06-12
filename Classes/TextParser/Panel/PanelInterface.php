@@ -31,7 +31,7 @@
  * TODO
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage TextParser_Panel
  * @version    $Id: BasicParserService.php 39978 2010-11-09 14:19:52Z mhelmich $
  *
@@ -43,7 +43,7 @@
  *
  */
 
-interface Tx_MmForum_TextParser_Panel_PanelInterface {
+interface Tx_Typo3Forum_TextParser_Panel_PanelInterface {
 
 
 

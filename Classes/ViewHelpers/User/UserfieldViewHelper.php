@@ -31,7 +31,7 @@
  * ViewHelper that renders the value of a specific userfield for a user.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage ViewHelpers_User
  * @version    $Id$
  *
@@ -43,7 +43,7 @@
  *
  */
 
-class Tx_MmForum_ViewHelpers_User_UserfieldViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
+class Tx_Typo3Forum_ViewHelpers_User_UserfieldViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
 
 
 
@@ -62,19 +62,19 @@ class Tx_MmForum_ViewHelpers_User_UserfieldViewHelper extends \TYPO3\CMS\Fluid\V
 	 *
 	 * Renders the userfield value.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser                $user
+	 * @param  Tx_Typo3Forum_Domain_Model_User_FrontendUser                $user
 	 *                             The user for whom the userfield value is to be
 	 *                             rendered.
-	 * @param  Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield $userfield
+	 * @param  Tx_Typo3Forum_Domain_Model_User_Userfield_AbstractUserfield $userfield
 	 *                             The userfield.
 	 * @return string              HTML content
 	 *
 	 */
 
-	public function render(Tx_MmForum_Domain_Model_User_FrontendUser $user,
-	                       Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield $userfield) {
+	public function render(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user,
+	                       Tx_Typo3Forum_Domain_Model_User_Userfield_AbstractUserfield $userfield) {
 
-		if ($userfield instanceof Tx_MmForum_Domain_Model_User_Userfield_TyposcriptUserfield) {
+		if ($userfield instanceof Tx_Typo3Forum_Domain_Model_User_Userfield_TyposcriptUserfield) {
 			$data = $userfield->getValueForUser($user);
 			$data = $this->convertDataToString($data);
 			return parent::render($userfield->getTyposcriptPath() . '.output', implode(' ', $data));

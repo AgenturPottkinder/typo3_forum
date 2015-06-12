@@ -31,7 +31,7 @@
  * Interface descriptor for mailing services.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Service_Mailing
  * @version    $Id: AbstractMailingService.php 39978 2010-11-09 14:19:52Z mhelmich $
  *
@@ -43,7 +43,7 @@
  *
  */
 
-interface Tx_MmForum_Service_Mailing_MailingServiceInterface {
+interface Tx_Typo3Forum_Service_Mailing_MailingServiceInterface {
 
 
 

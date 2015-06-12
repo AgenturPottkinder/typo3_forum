@@ -28,9 +28,9 @@
  *
  * @author	Ruven Fehling <r.fehling@mittwald.de>
  * @package	TYPO3
- * @subpackage	mm_forum
+ * @subpackage	typo3_forum
  */
-class tx_mmforum_scheduler_seasonResetter extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
+class tx_typo3forum_scheduler_seasonResetter extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
 
 	/**
@@ -63,8 +63,8 @@ class tx_mmforum_scheduler_seasonResetter extends \TYPO3\CMS\Scheduler\Task\Abst
 		if(intval($this->getUserPid()) == 0) return false;
 
 		$updateArray= array(
-			'tx_mmforum_helpful_count_season' => 0,
-			'tx_mmforum_post_count_season' => 0,
+			'tx_typo3forum_helpful_count_season' => 0,
+			'tx_typo3forum_post_count_season' => 0,
 		);
 		$query = $GLOBALS['TYPO3_DB']->UPDATEquery('fe_users','pid='.intval($this->getUserPid()),$updateArray);
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
@@ -79,6 +79,6 @@ class tx_mmforum_scheduler_seasonResetter extends \TYPO3\CMS\Scheduler\Task\Abst
 
 }
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mm_forum/Scheduler/class.tx_mmforum_scheduler_seasonResetter.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mm_forum/Scheduler/class.tx_mmforum_scheduler_seasonResetter.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_seasonResetter.php'])	{
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_seasonResetter.php']);
 }

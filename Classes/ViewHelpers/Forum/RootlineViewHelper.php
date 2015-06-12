@@ -30,7 +30,7 @@
  * ViewHelper that renders a big button.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage ViewHelpers_Control
  * @version    $Id: BigButtonViewHelper.php 52309 2011-09-20 18:54:26Z mhelmich $
  *
@@ -40,7 +40,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_Forum_RootlineViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
+class Tx_Typo3Forum_ViewHelpers_Forum_RootlineViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
 
 
 
@@ -102,9 +102,9 @@ class Tx_MmForum_ViewHelpers_Forum_RootlineViewHelper extends \TYPO3\CMS\Fluid\C
 
 
 	protected function renderNavigationNode($object) {
-		$extensionName = 'mmforum';
+		$extensionName = 'typo3forum';
 		$pluginName = 'pi1';
-		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Forum) {
+		if ($object instanceof Tx_Typo3Forum_Domain_Model_Forum_Forum) {
 			$controller = 'Forum';
 			$arguments  = array('forum' => $object);
 			$icon       = 'iconset-22-folder';
@@ -130,7 +130,7 @@ class Tx_MmForum_ViewHelpers_Forum_RootlineViewHelper extends \TYPO3\CMS\Fluid\C
 
 
 	protected function renderMainForumNode() {
-		$extensionName = 'mmforum';
+		$extensionName = 'typo3forum';
 		$pluginName = 'pi1';
 		$controller = 'Forum';
 		$uriBuilder = $this->controllerContext->getUriBuilder();

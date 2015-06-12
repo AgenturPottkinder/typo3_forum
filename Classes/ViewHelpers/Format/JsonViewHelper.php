@@ -31,7 +31,7 @@
  * ...
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage ViewHelpers_Format
  * @version    $Id: FileSizeViewHelper.php 52309 2011-09-20 18:54:26Z mhelmich $
  *
@@ -43,7 +43,7 @@
  *
  */
 
-class Tx_MmForum_ViewHelpers_Format_JsonViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class Tx_Typo3Forum_ViewHelpers_Format_JsonViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 
 

@@ -1,5 +1,5 @@
-{namespace mmf=Tx_MmForum_ViewHelpers}
-{namespace b=Tx_MmForum_ViewHelpers_Bootstrap}
+{namespace mmf=Tx_Typo3Forum_ViewHelpers}
+{namespace b=Tx_Typo3Forum_ViewHelpers_Bootstrap}
 <!--suppress ALL -->
 <f:layout name="default" />
 
@@ -36,7 +36,7 @@
 										<div>
 											<mmf:user.avatar user="{message.opponent}" width="40"
 															 alt="{message.opponent.username}"
-															 class="tx-mmforum-topic-show-post-user-icon img-polaroid img-rounded pull-left"/>
+															 class="tx-typo3forum-topic-show-post-user-icon img-polaroid img-rounded pull-left"/>
 										</div>
 										<div>
 											<div class="muted">
@@ -103,7 +103,7 @@
 							<a name="post-create"></a>
 							<f:form controller="User" action="createMessage" class="form-horizontal">
 								<b:form.row error="post" errorLLPrefix="Post_New_Error_Text">
-									<mmf:form.bbCodeEditor class="tx-mmforum-editor" name="text" property="text" id="mmforum_editor" rows="20"
+									<mmf:form.bbCodeEditor class="tx-typo3forum-editor" name="text" property="text" id="typo3forum_editor" rows="20"
 														   class="input-block-level"/>
 								</b:form.row>
 								<f:form.hidden name="recipient" value="{partner.username}" />

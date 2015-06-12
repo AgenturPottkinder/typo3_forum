@@ -32,7 +32,7 @@
  * class.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Model_Format
  * @version    $Id: BBCode.php 39978 2010-11-09 14:19:52Z mhelmich $
  * @license    GNU Public License, version 2
@@ -40,7 +40,7 @@
  *
  */
 
-interface Tx_MmForum_TextParser_Panel_MarkItUpExportableInterface {
+interface Tx_Typo3Forum_TextParser_Panel_MarkItUpExportableInterface {
 
 
 

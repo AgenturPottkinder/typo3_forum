@@ -29,9 +29,9 @@
  *
  * @author	Ruven Fehling <r.fehling@mittwald.de>
  * @package	TYPO3
- * @subpackage	mm_forum
+ * @subpackage	typo3_forum
  */
-class tx_mmforum_scheduler_seasonResetter_additionalFieldProvider implements \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface {
+class tx_typo3forum_scheduler_seasonResetter_additionalFieldProvider implements \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface {
 
 	/**
 	 * Lorem
@@ -56,7 +56,7 @@ class tx_mmforum_scheduler_seasonResetter_additionalFieldProvider implements \TY
 
 		$additionalFields['SeasonResetter_userPid'] = array(
 			'code'     => '<input type="text" name="tx_scheduler[SeasonResetter_userPid]" value="' . intval($taskInfo['SeasonResetter_userPid']) . '" />',
-			'label'    => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_seasonResetter_userPid',
+			'label'    => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_seasonResetter_userPid',
 			'cshKey'   => '',
 			'cshLabel' => ''
 		);
@@ -90,8 +90,8 @@ class tx_mmforum_scheduler_seasonResetter_additionalFieldProvider implements \TY
 }
 
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mm_forum/Scheduler/class.tx_mmforum_scheduler_seasonResetter_additionalFieldProvider.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mm_forum/Scheduler/class.tx_mmforum_scheduler_seasonResetter_additionalFieldProvider.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_seasonResetter_additionalFieldProvider.php'])	{
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_seasonResetter_additionalFieldProvider.php']);
 }
 
 ?>

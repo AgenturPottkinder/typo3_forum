@@ -32,14 +32,14 @@
  * you want.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Model_Format
  * @version    $Id$
  * @license    GNU public License, version 2
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
+abstract class Tx_Typo3Forum_Domain_Model_Format_AbstractTextParserElement
 	extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
 
 

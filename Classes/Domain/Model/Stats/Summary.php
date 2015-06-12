@@ -27,7 +27,7 @@
 /**
  *
  * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Model_Stats
  * @version    $Id$
  * @license    GNU public License, version 2
@@ -35,7 +35,7 @@
 
  */
 
-class Tx_MmForum_Domain_Model_Stats_Summary extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Tx_Typo3Forum_Domain_Model_Stats_Summary extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 
 	/**

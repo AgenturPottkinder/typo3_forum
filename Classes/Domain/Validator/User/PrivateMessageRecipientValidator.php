@@ -31,7 +31,7 @@
  * no user is currently logged in.
  *
  * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain\Validator\User
  * @version    $Id$
  *
@@ -39,18 +39,18 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Validator_User_PrivateMessageRecipientValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
+class Tx_Typo3Forum_Domain_Validator_User_PrivateMessageRecipientValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
 
 
 
 	/**
-	 * @var Tx_MmForum_Domain_Repository_User_FrontendUserRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository
 	 */
 	protected $userRepository = NULL;
 
 
 
-	public function injectUserRepository(Tx_MmForum_Domain_Repository_User_FrontendUserRepository $userRepository) {
+	public function injectUserRepository(Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository $userRepository) {
 		$this->userRepository = $userRepository;
 	}
 

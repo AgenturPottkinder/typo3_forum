@@ -31,7 +31,7 @@
  * A special quote bb code element.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Model_Format
  * @version    $Id$
  * @license    GNU Public License, version 2
@@ -39,7 +39,7 @@
  *
  */
 
-class Tx_MmForum_Domain_Model_Format_QuoteBBCode extends Tx_MmForum_Domain_Model_Format_BBCode {
+class Tx_Typo3Forum_Domain_Model_Format_QuoteBBCode extends Tx_Typo3Forum_Domain_Model_Format_BBCode {
 
 
 

@@ -31,7 +31,7 @@
  * Text parser class for parsing smilies.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage TextParser_Service
  * @version    $Id$
  *
@@ -43,8 +43,8 @@
  *
  */
 
-class Tx_MmForum_TextParser_Service_SmilieParserService
-	extends Tx_MmForum_TextParser_Service_AbstractTextParserService {
+class Tx_Typo3Forum_TextParser_Service_SmilieParserService
+	extends Tx_Typo3Forum_TextParser_Service_AbstractTextParserService {
 
 
 
@@ -56,7 +56,7 @@ class Tx_MmForum_TextParser_Service_SmilieParserService
 
 	/**
 	 * The smilie repository.
-	 * @var Tx_MmForum_Domain_Repository_Format_SmilieRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_Format_SmilieRepository
 	 */
 	protected $smilieRepository;
 
@@ -64,7 +64,7 @@ class Tx_MmForum_TextParser_Service_SmilieParserService
 
 	/**
 	 * All smilies.
-	 * @var array<Tx_MmForum_Domain_Model_Format_Smilie>
+	 * @var array<Tx_Typo3Forum_Domain_Model_Format_Smilie>
 	 */
 	protected $smilies;
 
@@ -78,9 +78,9 @@ class Tx_MmForum_TextParser_Service_SmilieParserService
 
 	/**
 	 * Injects an instance of the smilie repository.
-	 * @param \Tx_MmForum_Domain_Repository_Format_SmilieRepository $smilieRepository An instance of the smilie repository.
+	 * @param \Tx_Typo3Forum_Domain_Repository_Format_SmilieRepository $smilieRepository An instance of the smilie repository.
 	 */
-	public function injectSmilieRepository(Tx_MmForum_Domain_Repository_Format_SmilieRepository $smilieRepository) {
+	public function injectSmilieRepository(Tx_Typo3Forum_Domain_Repository_Format_SmilieRepository $smilieRepository) {
 		$this->smilieRepository = $smilieRepository;
 		$this->smilies          = $this->smilieRepository->findAll();
 	}
@@ -106,14 +106,14 @@ class Tx_MmForum_TextParser_Service_SmilieParserService
 	 *
 	 * Renders a smilie icon.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Format_Smilie $smilie
+	 * @param  Tx_Typo3Forum_Domain_Model_Format_Smilie $smilie
 	 *                             The smilie that is to be rendered.
 	 *
 	 * @return string              The smilie as HTML code.
 	 *
 	 */
 
-	protected function getSmilieIcon(Tx_MmForum_Domain_Model_Format_Smilie $smilie) {
+	protected function getSmilieIcon(Tx_Typo3Forum_Domain_Model_Format_Smilie $smilie) {
 		return '<i class="' . $smilie->getIconClass() . '"></i>';
 	}
 

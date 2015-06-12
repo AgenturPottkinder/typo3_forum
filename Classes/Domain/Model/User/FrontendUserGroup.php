@@ -31,7 +31,7 @@
  * A frontend user group.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Model_User
  * @version    $Id$
  *
@@ -43,7 +43,7 @@
  *
  */
 
-class Tx_MmForum_Domain_Model_User_FrontendUserGroup extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup {
+class Tx_Typo3Forum_Domain_Model_User_FrontendUserGroup extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup {
 
 	/**
 	 * Read topics.

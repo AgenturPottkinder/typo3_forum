@@ -31,7 +31,7 @@
  * Utility module for TypoScript related functions.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Utility
  * @version    $Id$
  *
@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Utility_TypoScript {
+class Tx_Typo3Forum_Utility_TypoScript {
 
 
 
@@ -81,7 +81,7 @@ class Tx_MmForum_Utility_TypoScript {
 		foreach ($pathSegments As $segment) {
 			if (!array_key_exists($segment . '.', $setup)
 			) {
-				throw new Tx_MmForum_Domain_Exception_TextParser_Exception ('TypoScript object path "' . htmlspecialchars($configurationPath) . '" does not exist', 1253191023);
+				throw new Tx_Typo3Forum_Domain_Exception_TextParser_Exception ('TypoScript object path "' . htmlspecialchars($configurationPath) . '" does not exist', 1253191023);
 			}
 			$setup = $setup[$segment . '.'];
 		}

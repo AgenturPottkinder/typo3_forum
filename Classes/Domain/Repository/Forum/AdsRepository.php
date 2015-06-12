@@ -29,7 +29,7 @@
  * Repository class for forum objects.
  *
  * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Repository_Forum
  * @version    $Id$
  *
@@ -40,12 +40,12 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Domain_Repository_Forum_AdsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class Tx_Typo3Forum_Domain_Repository_Forum_AdsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 	/**
 	 * Find all advertisements for the forum view (random sort)
 	 * @param int $limit How many results should come back
-	 * @return Tx_MmForum_Domain_Model_Forum_Ads[]
+	 * @return Tx_Typo3Forum_Domain_Model_Forum_Ads[]
 	 */
 	public function findForForumView($limit = 0) {
 		return $this->findAdsByCategories(array(0, 1), $limit);
@@ -55,7 +55,7 @@ class Tx_MmForum_Domain_Repository_Forum_AdsRepository extends \TYPO3\CMS\Extbas
 	/**
 	 * Find all advertisements for the topic view (random sort)
 	 * @param int $limit How many results should come back
-	 * @return Tx_MmForum_Domain_Model_Forum_Ads[]
+	 * @return Tx_Typo3Forum_Domain_Model_Forum_Ads[]
 	 */
 	public function findForTopicView($limit = 0) {
 		return $this->findAdsByCategories(array(0, 2), $limit);
@@ -68,7 +68,7 @@ class Tx_MmForum_Domain_Repository_Forum_AdsRepository extends \TYPO3\CMS\Extbas
 	 *
 	 * @param array $categories Which categories should be shown? (0=all,1=forum,2=topic)
 	 * @param int How many results should come back
-	 * @return Tx_MmForum_Domain_Model_Forum_Ads[]
+	 * @return Tx_Typo3Forum_Domain_Model_Forum_Ads[]
 	 */
 	private function findAdsByCategories(array $categories = array(), $limit = 1) {
 		if(empty($categories)) $categories = array(0);
@@ -77,7 +77,7 @@ class Tx_MmForum_Domain_Repository_Forum_AdsRepository extends \TYPO3\CMS\Extbas
 			$limit = 1;
 		}
 
-		$sql ='SELECT * FROM tx_mmforum_domain_model_forum_ads
+		$sql ='SELECT * FROM tx_typo3forum_domain_model_forum_ads
 			   WHERE category IN ('.implode(',',$categories).') AND active=1
 			   ORDER BY RAND()
 			   LIMIT '.$limit;

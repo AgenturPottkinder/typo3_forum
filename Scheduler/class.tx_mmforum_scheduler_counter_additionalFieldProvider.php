@@ -29,9 +29,9 @@
  *
  * @author	Ruven Fehling <r.fehling@mittwald.de>
  * @package	TYPO3
- * @subpackage	mm_forum
+ * @subpackage	typo3_forum
  */
-class tx_mmforum_scheduler_counter_additionalFieldProvider implements \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface {
+class tx_typo3forum_scheduler_counter_additionalFieldProvider implements \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface {
 
 	/**
 	 * Lorem
@@ -58,14 +58,14 @@ class tx_mmforum_scheduler_counter_additionalFieldProvider implements \TYPO3\CMS
 
 		$additionalFields['Counter_forumPid'] = array(
 			'code'     => '<input type="text" name="tx_scheduler[Counter_forumPid]" value="' . intval($taskInfo['Counter_forumPid']) . '" />',
-			'label'    => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_counter_forumPid',
+			'label'    => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_counter_forumPid',
 			'cshKey'   => '',
 			'cshLabel' => ''
 		);
 
 		$additionalFields['Counter_userPid'] = array(
 			'code'     => '<input type="text" name="tx_scheduler[Counter_userPid]" value="' . intval($taskInfo['Counter_userPid']) . '" />',
-			'label'    => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_counter_userPid',
+			'label'    => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_counter_userPid',
 			'cshKey'   => '',
 			'cshLabel' => ''
 		);
@@ -101,8 +101,8 @@ class tx_mmforum_scheduler_counter_additionalFieldProvider implements \TYPO3\CMS
 }
 
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mm_forum/Scheduler/class.tx_mmforum_scheduler_counter_additionalFieldProvider.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mm_forum/Scheduler/class.tx_mmforum_scheduler_counter_additionalFieldProvider.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_counter_additionalFieldProvider.php'])	{
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_counter_additionalFieldProvider.php']);
 }
 
 ?>

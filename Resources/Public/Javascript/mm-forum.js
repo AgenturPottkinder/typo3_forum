@@ -4,7 +4,7 @@ $(document).ready(function () {
 
 	$.ajax({
 		type: "POST",
-		url: "index.php?id="+currentPageUid+"&eID=mm_forum&language=de&tx_mmforum_ajax[controller]=Ajax&tx_mmforum_ajax[action]=loginbox",
+		url: "index.php?id="+currentPageUid+"&eID=typo3_forum&language=de&tx_typo3forum_ajax[controller]=Ajax&tx_typo3forum_ajax[action]=loginbox",
 		async: true,
 		success: function (data) {
 					$('.loginbox').html(data);
@@ -97,18 +97,18 @@ $(document).ready(function () {
 
 	$.ajax({
 		type: "POST",
-		url: "index.php?id="+currentPageUid+"&eID=mm_forum&language=de&tx_mmforum_ajax[controller]=Ajax&tx_mmforum_ajax[action]=main&tx_mmforum_ajax[format]=json",
+		url: "index.php?id="+currentPageUid+"&eID=typo3_forum&language=de&tx_typo3forum_ajax[controller]=Ajax&tx_typo3forum_ajax[action]=main&tx_typo3forum_ajax[format]=json",
 		async: true,
 		data: {
-			"tx_mmforum_ajax[displayedUser]": JSON.stringify(displayedUser),
-			"tx_mmforum_ajax[postSummarys]": JSON.stringify(postSummarys),
-			"tx_mmforum_ajax[topicIcons]": JSON.stringify(displayedTopicIcons),
-			"tx_mmforum_ajax[forumIcons]": JSON.stringify(displayedForumIcons),
-			"tx_mmforum_ajax[displayedTopics]": JSON.stringify(displayedTopics),
-			"tx_mmforum_ajax[displayOnlinebox]": JSON.stringify(displayOnlinebox),
-			"tx_mmforum_ajax[displayedForumMenus]": JSON.stringify(displayedForumMenus),
-			"tx_mmforum_ajax[displayedPosts]": JSON.stringify(displayedPosts),
-			"tx_mmforum_ajax[displayedAds]": JSON.stringify(displayedAds)
+			"tx_typo3forum_ajax[displayedUser]": JSON.stringify(displayedUser),
+			"tx_typo3forum_ajax[postSummarys]": JSON.stringify(postSummarys),
+			"tx_typo3forum_ajax[topicIcons]": JSON.stringify(displayedTopicIcons),
+			"tx_typo3forum_ajax[forumIcons]": JSON.stringify(displayedForumIcons),
+			"tx_typo3forum_ajax[displayedTopics]": JSON.stringify(displayedTopics),
+			"tx_typo3forum_ajax[displayOnlinebox]": JSON.stringify(displayOnlinebox),
+			"tx_typo3forum_ajax[displayedForumMenus]": JSON.stringify(displayedForumMenus),
+			"tx_typo3forum_ajax[displayedPosts]": JSON.stringify(displayedPosts),
+			"tx_typo3forum_ajax[displayedAds]": JSON.stringify(displayedAds)
 		},
 		success: function (data) {
 			var json = $.parseJSON(data);
@@ -162,7 +162,7 @@ $(document).ready(function () {
 				}
 			}
 
-			$('.tx-mmforum-helpfull-btn').click(function () {
+			$('.tx-typo3forum-helpfull-btn').click(function () {
 				var targetElement = this;
 				var counttargetVal = $('.' + $(targetElement).attr('data-counttarget')).html();
 				var countusertargetVal = $('.' + $(targetElement).attr('data-countusertarget')).html();
@@ -172,11 +172,11 @@ $(document).ready(function () {
 				}
 				$.ajax({
 					type: "GET",
-					url: "index.php?id="+currentPageUid+"&eID=" + $(this).attr('data-eid') + "&tx_mmforum_ajax[controller]=Post&tx_mmforum_ajax[action]=" + type + "Supporter&tx_mmforum_ajax[post]=" + $(this).attr('data-post'),
+					url: "index.php?id="+currentPageUid+"&eID=" + $(this).attr('data-eid') + "&tx_typo3forum_ajax[controller]=Post&tx_typo3forum_ajax[action]=" + type + "Supporter&tx_typo3forum_ajax[post]=" + $(this).attr('data-post'),
 					async: false,
 					beforeSend: function (msg) {
-						$('.' + $(targetElement).attr('data-counttarget')).html('<div class="tx-mmforum-ajax-loader"></div>');
-						$('.' + $(targetElement).attr('data-countusertarget')).html('<div class="tx-mmforum-ajax-loader"></div>');
+						$('.' + $(targetElement).attr('data-counttarget')).html('<div class="tx-typo3forum-ajax-loader"></div>');
+						$('.' + $(targetElement).attr('data-countusertarget')).html('<div class="tx-typo3forum-ajax-loader"></div>');
 					},
 					success: function (data) {
 						var json = $.parseJSON(data);

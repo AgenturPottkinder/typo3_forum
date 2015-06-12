@@ -32,7 +32,7 @@
  * HTML escaping, line formatting, etc.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage TextParser_Service
  * @version    $Id$
  *
@@ -44,7 +44,7 @@
  *
  */
 
-class Tx_MmForum_TextParser_Service_BasicParserService extends Tx_MmForum_TextParser_Service_AbstractTextParserService {
+class Tx_Typo3Forum_TextParser_Service_BasicParserService extends Tx_Typo3Forum_TextParser_Service_AbstractTextParserService {
 
 
 
@@ -193,7 +193,7 @@ class Tx_MmForum_TextParser_Service_BasicParserService extends Tx_MmForum_TextPa
 	/**
 	 * Performs simple HTML escaping on the text.
 	 *
-	 * @return Tx_MmForum_TextParser_Service_BasicParserService
+	 * @return Tx_Typo3Forum_TextParser_Service_BasicParserService
 	 *                             $this, for chaining
 	 */
 	protected function escape() {
@@ -206,7 +206,7 @@ class Tx_MmForum_TextParser_Service_BasicParserService extends Tx_MmForum_TextPa
 	/**
 	 * Replaces double line breaks with paragraphs.
 	 *
-	 * @return Tx_MmForum_TextParser_Service_BasicParserService
+	 * @return Tx_Typo3Forum_TextParser_Service_BasicParserService
 	 *                             $this, for chaining
 	 */
 	protected function paragraphs() {
@@ -223,7 +223,7 @@ class Tx_MmForum_TextParser_Service_BasicParserService extends Tx_MmForum_TextPa
 	/**
 	 * Replaces single line breaks with <br> tags.
 	 *
-	 * @return Tx_MmForum_TextParser_Service_BasicParserService
+	 * @return Tx_Typo3Forum_TextParser_Service_BasicParserService
 	 *                             $this, for chaining
 	 */
 	protected function lineBreaks() {

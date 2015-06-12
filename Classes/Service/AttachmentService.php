@@ -1,5 +1,5 @@
 <?php
-class Tx_MmForum_Service_AttachmentService implements \TYPO3\CMS\Core\SingletonInterface {
+class Tx_Typo3Forum_Service_AttachmentService implements \TYPO3\CMS\Core\SingletonInterface {
 
 
 	/**
@@ -24,13 +24,13 @@ class Tx_MmForum_Service_AttachmentService implements \TYPO3\CMS\Core\SingletonI
 	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
 	 */
 	public function initAttachments(array $attachments){
-		/* @var Tx_MmForum_Domain_Model_Forum_Attachment */
+		/* @var Tx_Typo3Forum_Domain_Model_Forum_Attachment */
 		$objAttachments = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 
 		foreach($attachments AS $attachmentID => $attachment) {
 			if($attachment['name'] == '') continue;
-			$attachmentObj = $this->objectManager->create('Tx_MmForum_Domain_Model_Forum_Attachment');
-			$tmp_name = $_FILES['tx_mmforum_pi1']['tmp_name']['attachments'][$attachmentID];
+			$attachmentObj = $this->objectManager->create('Tx_Typo3Forum_Domain_Model_Forum_Attachment');
+			$tmp_name = $_FILES['tx_typo3forum_pi1']['tmp_name']['attachments'][$attachmentID];
 			$mime_type = mime_content_type($tmp_name);
 
 			//Save in ObjectStorage and in file system

@@ -31,7 +31,7 @@
  * @author  Stefan Galinski <sgalinski@df.eu>
  * @package df_tools
  */
-class Tx_MmForum_Service_ExtBaseConnectorService extends \TYPO3\CMS\Extbase\Core\Bootstrap {
+class Tx_Typo3Forum_Service_ExtBaseConnectorService extends \TYPO3\CMS\Extbase\Core\Bootstrap {
 
 
 

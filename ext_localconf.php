@@ -49,78 +49,78 @@ if (!defined('TYPO3_MODE')) {
 	)
 );
 
-# TCE-Main hook for clearing all mm_forum caches
+# TCE-Main hook for clearing all typo3_forum caches
 $TYPO3_CONF_VARS['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearCachePostProc'][]
-	= 'EXT:mm_forum/Classes/Cache/CacheManager.php:Tx_MmForum_Cache_CacheManager->clearAll';
+	= 'EXT:typo3_forum/Classes/Cache/CacheManager.php:Tx_Typo3Forum_Cache_CacheManager->clearAll';
 
-if (!is_array($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['mmforum_main'])) {
-	$TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['mmforum_main'] = array();
+if (!is_array($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['typo3forum_main'])) {
+	$TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['typo3forum_main'] = array();
 }
 
 if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < '4006000') {
-	if (!isset($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['mmforum_main']['frontend'])) {
-		$TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['mmforum_main']['frontend'] = 't3lib_cache_frontend_VariableFrontend';
+	if (!isset($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['typo3forum_main']['frontend'])) {
+		$TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['typo3forum_main']['frontend'] = 't3lib_cache_frontend_VariableFrontend';
 	}
-	if (!isset($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['mmforum_main']['backend'])) {
-		$TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['mmforum_main']['backend'] = 't3lib_cache_backend_DbBackend';
+	if (!isset($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['typo3forum_main']['backend'])) {
+		$TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['typo3forum_main']['backend'] = 't3lib_cache_backend_DbBackend';
 	}
-	if (!isset($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['mmforum_main']['options'])) {
-		$TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['mmforum_main']['options'] = array();
+	if (!isset($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['typo3forum_main']['options'])) {
+		$TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['typo3forum_main']['options'] = array();
 	}
-	if (!isset($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['mmforum_main']['options']['cacheTable'])) {
-		$TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['mmforum_main']['options']['cacheTable'] = 'tx_mmforum_cache';
+	if (!isset($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['typo3forum_main']['options']['cacheTable'])) {
+		$TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['typo3forum_main']['options']['cacheTable'] = 'tx_typo3forum_cache';
 	}
-	if (!isset($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['mmforum_main']['options']['tagsTable'])) {
-		$TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['mmforum_main']['options']['tagsTable'] = 'tx_mmforum_cache_tags';
+	if (!isset($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['typo3forum_main']['options']['tagsTable'])) {
+		$TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['typo3forum_main']['options']['tagsTable'] = 'tx_typo3forum_cache_tags';
 	}
 }
 
-$TYPO3_CONF_VARS['FE']['eID_include']['mm_forum'] = 'EXT:mm_forum/Classes/Ajax/Dispatcher.php';
+$TYPO3_CONF_VARS['FE']['eID_include']['typo3_forum'] = 'EXT:typo3_forum/Classes/Ajax/Dispatcher.php';
 
 // Connect signals to slots. Some parts of extbase suck, but the signal-slot
 // pattern is really cool! :P
 $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\SignalSlot\Dispatcher');
-$signalSlotDispatcher->connect('Tx_MmForum_Domain_Model_Forum_Post',
-							   'postCreated', 'Tx_MmForum_Service_Notification_SubscriptionListener',
+$signalSlotDispatcher->connect('Tx_Typo3Forum_Domain_Model_Forum_Post',
+							   'postCreated', 'Tx_Typo3Forum_Service_Notification_SubscriptionListener',
 							   'onPostCreated');
-$signalSlotDispatcher->connect('Tx_MmForum_Domain_Model_Forum_Topic',
-							   'topicCreated', 'Tx_MmForum_Service_Notification_SubscriptionListener',
+$signalSlotDispatcher->connect('Tx_Typo3Forum_Domain_Model_Forum_Topic',
+							   'topicCreated', 'Tx_Typo3Forum_Service_Notification_SubscriptionListener',
 							   'onTopicCreated');
 
 // adding scheduler tasks
 
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_mmforum_scheduler_notification'] = array(
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_typo3forum_scheduler_notification'] = array(
 	'extension'        => $_EXTKEY,
-	'title'            => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_notification_title',
-	'description'      => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_notification_description',
-	'additionalFields' => 'tx_mmforum_scheduler_notification_additionalFieldProvider'
+	'title'            => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_notification_title',
+	'description'      => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_notification_description',
+	'additionalFields' => 'tx_typo3forum_scheduler_notification_additionalFieldProvider'
 );
 
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_mmforum_scheduler_statsSummary'] = array(
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_typo3forum_scheduler_statsSummary'] = array(
 	'extension'        => $_EXTKEY,
-	'title'            => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_statsSummary_title',
-	'description'      => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_statsSummary_description',
-	'additionalFields' => 'tx_mmforum_scheduler_statsSummary_additionalFieldProvider'
+	'title'            => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_statsSummary_title',
+	'description'      => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_statsSummary_description',
+	'additionalFields' => 'tx_typo3forum_scheduler_statsSummary_additionalFieldProvider'
 );
 
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_mmforum_scheduler_counter'] = array(
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_typo3forum_scheduler_counter'] = array(
 	'extension'        => $_EXTKEY,
-	'title'            => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_counter_title',
-	'description'      => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_counter_description',
-	'additionalFields' => 'tx_mmforum_scheduler_counter_additionalFieldProvider'
+	'title'            => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_counter_title',
+	'description'      => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_counter_description',
+	'additionalFields' => 'tx_typo3forum_scheduler_counter_additionalFieldProvider'
 );
 
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_mmforum_scheduler_forumRead'] = array(
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_typo3forum_scheduler_forumRead'] = array(
 	'extension'        => $_EXTKEY,
-	'title'            => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_forumRead_title',
-	'description'      => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_forumRead_description',
-	'additionalFields' => 'tx_mmforum_scheduler_forumRead_additionalFieldProvider'
+	'title'            => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_forumRead_title',
+	'description'      => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_forumRead_description',
+	'additionalFields' => 'tx_typo3forum_scheduler_forumRead_additionalFieldProvider'
 );
 
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_mmforum_scheduler_seasonResetter'] = array(
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_typo3forum_scheduler_seasonResetter'] = array(
 	'extension'        => $_EXTKEY,
-	'title'            => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_seasonResetter_title',
-	'description'      => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang.xml:tx_mmforum_scheduler_seasonResetter_description',
-	'additionalFields' => 'tx_mmforum_scheduler_seasonResetter_additionalFieldProvider'
+	'title'            => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_seasonResetter_title',
+	'description'      => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_seasonResetter_description',
+	'additionalFields' => 'tx_typo3forum_scheduler_seasonResetter_additionalFieldProvider'
 );
 

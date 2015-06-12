@@ -26,19 +26,19 @@
 
 
 
-class Tx_MmForum_Domain_Model_Format_BBCodeTest extends Tx_MmForum_Unit_BaseTestCase {
+class Tx_Typo3Forum_Domain_Model_Format_BBCodeTest extends Tx_Typo3Forum_Unit_BaseTestCase {
 
 
 
 	/**
-	 * @var Tx_MmForum_Domain_Model_Format_BBCode
+	 * @var Tx_Typo3Forum_Domain_Model_Format_BBCode
 	 */
 	protected $fixture = NULL;
 
 
 
 	public function setUp() {
-		$this->fixture = new Tx_MmForum_Domain_Model_Format_BBCode();
+		$this->fixture = new Tx_Typo3Forum_Domain_Model_Format_BBCode();
 	}
 
 

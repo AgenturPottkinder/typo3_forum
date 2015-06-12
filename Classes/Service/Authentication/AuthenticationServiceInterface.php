@@ -32,7 +32,7 @@
  * implement his own solution... ;)
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Service
  * @version    $Id: AuthenticationServiceInterface.php 39978 2010-11-09 14:19:52Z mhelmich $
  *
@@ -43,72 +43,72 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-interface Tx_MmForum_Service_Authentication_AuthenticationServiceInterface {
+interface Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface {
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_AccessibleInterface $object
+	 * @param Tx_Typo3Forum_Domain_Model_AccessibleInterface $object
 	 */
-	public function assertReadAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object);
+	public function assertReadAuthorization(Tx_Typo3Forum_Domain_Model_AccessibleInterface $object);
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 * @param Tx_Typo3Forum_Domain_Model_Forum_Forum $forum
 	 */
-	public function assertNewTopicAuthorization(Tx_MmForum_Domain_Model_Forum_Forum $forum);
+	public function assertNewTopicAuthorization(Tx_Typo3Forum_Domain_Model_Forum_Forum $forum);
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic
+	 * @param Tx_Typo3Forum_Domain_Model_Forum_Topic $topic
 	 */
-	public function assertNewPostAuthorization(Tx_MmForum_Domain_Model_Forum_Topic $topic);
+	public function assertNewPostAuthorization(Tx_Typo3Forum_Domain_Model_Forum_Topic $topic);
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post
 	 */
-	public function assertEditPostAuthorization(Tx_MmForum_Domain_Model_Forum_Post $post);
+	public function assertEditPostAuthorization(Tx_Typo3Forum_Domain_Model_Forum_Post $post);
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post
 	 */
-	public function assertDeletePostAuthorization(Tx_MmForum_Domain_Model_Forum_Post $post);
+	public function assertDeletePostAuthorization(Tx_Typo3Forum_Domain_Model_Forum_Post $post);
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_AccessibleInterface $object
+	 * @param Tx_Typo3Forum_Domain_Model_AccessibleInterface $object
 	 */
-	public function assertModerationAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object);
+	public function assertModerationAuthorization(Tx_Typo3Forum_Domain_Model_AccessibleInterface $object);
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_AccessibleInterface $object
+	 * @param Tx_Typo3Forum_Domain_Model_AccessibleInterface $object
 	 */
-	public function assertAdministrationAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object);
+	public function assertAdministrationAuthorization(Tx_Typo3Forum_Domain_Model_AccessibleInterface $object);
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_AccessibleInterface $object
+	 * @param Tx_Typo3Forum_Domain_Model_AccessibleInterface $object
 	 * @param                                             $action
 	 */
-	public function assertAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object, $action);
+	public function assertAuthorization(Tx_Typo3Forum_Domain_Model_AccessibleInterface $object, $action);
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_AccessibleInterface $object
+	 * @param Tx_Typo3Forum_Domain_Model_AccessibleInterface $object
 	 * @param                                             $action
 	 */
-	public function checkAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object, $action);
+	public function checkAuthorization(Tx_Typo3Forum_Domain_Model_AccessibleInterface $object, $action);
 
 
 

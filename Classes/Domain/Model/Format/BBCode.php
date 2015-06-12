@@ -32,7 +32,7 @@
  * class.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Model_Format
  * @version    $Id$
  * @license    GNU public License, version 2
@@ -40,8 +40,8 @@
  *
  */
 
-class Tx_MmForum_Domain_Model_Format_BBCode extends Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
-	implements Tx_MmForum_TextParser_Panel_MarkItUpExportableInterface {
+class Tx_Typo3Forum_Domain_Model_Format_BBCode extends Tx_Typo3Forum_Domain_Model_Format_AbstractTextParserElement
+	implements Tx_Typo3Forum_TextParser_Panel_MarkItUpExportableInterface {
 
 
 

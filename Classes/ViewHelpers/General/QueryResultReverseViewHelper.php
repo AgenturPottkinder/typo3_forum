@@ -30,7 +30,7 @@
  * ViewHelper that renders a big button.
  *
  * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage ViewHelpers_General
  *
  * @copyright  2013 Ruven Fehling <r.fehling@mittwald.de>
@@ -39,7 +39,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_ViewHelpers_General_QueryResultReverseViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper {
+class Tx_Typo3Forum_ViewHelpers_General_QueryResultReverseViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper {
 
 
 	public function initializeArguments() {

@@ -35,7 +35,7 @@
  * @author     Martin Helmich <m.helmich@mittwald.de>
  * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
  * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Controller
  * @version    $Id$
  *
@@ -46,7 +46,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+abstract class Tx_Typo3Forum_Controller_AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 
 
@@ -84,7 +84,7 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 	/**
 	 * A repository for frontend users.
 	 *
-	 * @var Tx_MmForum_Domain_Repository_User_FrontendUserRepository
+	 * @var Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository
 	 */
 	protected $frontendUserRepository;
 
@@ -93,7 +93,7 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 	/**
 	 * An authentication service. Handles the authentication mechanism.
 	 *
-	 * @var Tx_MmForum_Service_Authentication_AuthenticationServiceInterface
+	 * @var Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface
 	 */
 	protected $authenticationService;
 
@@ -101,7 +101,7 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 
 	/**
 	 * An array with controller-specific settings. This is read from
-	 * plugin.tx_mmforum.settings.[controller-name].
+	 * plugin.tx_typo3forum.settings.[controller-name].
 	 *
 	 * @var array
 	 */
@@ -111,7 +111,7 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 
 	/**
 	 * The non-namespaced class name of this controller (e.g. ForumController
-	 * instead of Tx_MmForum_Controller_ForumController).
+	 * instead of Tx_Typo3Forum_Controller_ForumController).
 	 *
 	 * @var string
 	 */
@@ -147,13 +147,13 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 	 *
 	 * Injects a frontend user repository.
 	 *
-	 * @param  Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository
+	 * @param  Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository
 	 *                             A frontend user repository.
 	 *
 	 * @return void
 	 *
 	 */
-	public function injectFrontendUserRepository(Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository) {
+	public function injectFrontendUserRepository(Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository) {
 		$this->frontendUserRepository = $frontendUserRepository;
 	}
 
@@ -162,13 +162,13 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 	 *
 	 * Injects an authentication service.
 	 *
-	 * @param  Tx_MmForum_Service_Authentication_AuthenticationServiceInterface $authenticationService
+	 * @param  Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface $authenticationService
 	 *                             An authentication service.
 	 *
 	 * @return void
 	 *
 	 */
-	public function injectAuthenticationService(Tx_MmForum_Service_Authentication_AuthenticationServiceInterface $authenticationService) {
+	public function injectAuthenticationService(Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface $authenticationService) {
 		$this->authenticationService = $authenticationService;
 	}
 
@@ -202,12 +202,12 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 	 * template view, causing the view class to look in the same directory regardless
 	 * of the controller.
 	 *
-	 * @param Tx_MmForum_Domain_Exception_AbstractException $e The exception that is to be handled
+	 * @param Tx_Typo3Forum_Domain_Exception_AbstractException $e The exception that is to be handled
 	 *
 	 * @return void
 	 *
 	 */
-	protected function handleError(Tx_MmForum_Domain_Exception_AbstractException $e) {
+	protected function handleError(Tx_Typo3Forum_Domain_Exception_AbstractException $e) {
 		$controllerContext = $this->buildControllerContext();
 		$controllerContext->getRequest()->setControllerName('Default');
 		$controllerContext->getRequest()->setControllerActionName('error');
@@ -224,7 +224,7 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 	 * Calls a controller action. This method wraps the callActionMethod method of
 	 * the parent Tx_Extbase_MVC_Controller_ActionController class. It catches all
 	 * Exceptions that might be thrown inside one of the action methods.
-	 * This method ONLY catches exceptions that belong to the mm_forum extension.
+	 * This method ONLY catches exceptions that belong to the typo3_forum extension.
 	 * All other exceptions are not caught.
 	 *
 	 * @return void
@@ -233,7 +233,7 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 	protected function callActionMethod() {
 		try {
 			parent::callActionMethod();
-		} catch (Tx_MmForum_Domain_Exception_AbstractException $e) {
+		} catch (Tx_Typo3Forum_Domain_Exception_AbstractException $e) {
 			$this->handleError($e);
 		}
 	}
@@ -266,7 +266,7 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 	 * Gets the currently logged in frontend user. This method is only a convenience
 	 * wrapper for the findCurrent-Method of the frontend user repository class.
 	 *
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @return Tx_Typo3Forum_Domain_Model_User_FrontendUser
 	 *                             The frontend user that is currently logged in, or
 	 *                             NULL if no user is logged in.
 	 *
@@ -327,8 +327,8 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 	                                            $severity = \TYPO3\CMS\Core\Messaging\FlashMessage::OK) {
 		$this->controllerContext->getFlashMessageQueue()->addMessage(
 			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				Tx_MmForum_Utility_Localization::translate($key, 'MmForum', $arguments),
-				Tx_MmForum_Utility_Localization::translate($titleKey, 'MmForum'), $severity
+				Tx_Typo3Forum_Utility_Localization::translate($key, 'Typo3Forum', $arguments),
+				Tx_Typo3Forum_Utility_Localization::translate($titleKey, 'Typo3Forum'), $severity
 			)
 		);
 	}
