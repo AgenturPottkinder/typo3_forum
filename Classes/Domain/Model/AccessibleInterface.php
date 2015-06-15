@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Model;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -41,18 +41,18 @@
  *                 http://opensource.org/licenses/gpl-license.php
  */
 
-interface Tx_Typo3Forum_Domain_Model_AccessibleInterface {
+interface AccessibleInterface {
 
 
 
 	/**
 	 * Checks if a certain frontend user has access to a specific operation.
 	 *
-	 * @param \Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param \\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 * @param string                                     $accessType
 	 *
 	 * @return boolean
 	 */
-	public function checkAccess(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'read');
+	public function checkAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL, $accessType = 'read');
 
 }

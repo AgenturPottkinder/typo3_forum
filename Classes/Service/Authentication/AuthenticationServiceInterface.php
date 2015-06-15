@@ -48,67 +48,67 @@ interface Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface {
 
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Model_AccessibleInterface $object
+	 * @param \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object
 	 */
-	public function assertReadAuthorization(Tx_Typo3Forum_Domain_Model_AccessibleInterface $object);
+	public function assertReadAuthorization(\Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object);
 
 
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Forum $forum
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
 	 */
-	public function assertNewTopicAuthorization(Tx_Typo3Forum_Domain_Model_Forum_Forum $forum);
+	public function assertNewTopicAuthorization(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum);
 
 
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Topic $topic
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
 	 */
-	public function assertNewPostAuthorization(Tx_Typo3Forum_Domain_Model_Forum_Topic $topic);
+	public function assertNewPostAuthorization(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic);
 
 
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
 	 */
-	public function assertEditPostAuthorization(Tx_Typo3Forum_Domain_Model_Forum_Post $post);
+	public function assertEditPostAuthorization(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post);
 
 
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
 	 */
-	public function assertDeletePostAuthorization(Tx_Typo3Forum_Domain_Model_Forum_Post $post);
+	public function assertDeletePostAuthorization(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post);
 
 
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Model_AccessibleInterface $object
+	 * @param \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object
 	 */
-	public function assertModerationAuthorization(Tx_Typo3Forum_Domain_Model_AccessibleInterface $object);
+	public function assertModerationAuthorization(\Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object);
 
 
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Model_AccessibleInterface $object
+	 * @param \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object
 	 */
-	public function assertAdministrationAuthorization(Tx_Typo3Forum_Domain_Model_AccessibleInterface $object);
+	public function assertAdministrationAuthorization(\Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object);
 
 
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Model_AccessibleInterface $object
+	 * @param \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object
 	 * @param                                             $action
 	 */
-	public function assertAuthorization(Tx_Typo3Forum_Domain_Model_AccessibleInterface $object, $action);
+	public function assertAuthorization(\Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object, $action);
 
 
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Model_AccessibleInterface $object
+	 * @param \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object
 	 * @param                                             $action
 	 */
-	public function checkAuthorization(Tx_Typo3Forum_Domain_Model_AccessibleInterface $object, $action);
+	public function checkAuthorization(\Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object, $action);
 
 
 

@@ -61,7 +61,7 @@ class Tx_Typo3Forum_Domain_Repository_User_UserfieldRepository extends Tx_Typo3F
 	/**
 	 * A list of core userfields.
 	 *
-	 * @var Tx_Typo3Forum_Domain_Model_User_Userfield_AbstractUserfield
+	 * @var \Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield
 	 */
 	private $coreUserfields = NULL;
 
@@ -83,7 +83,7 @@ class Tx_Typo3Forum_Domain_Repository_User_UserfieldRepository extends Tx_Typo3F
 	 */
 	public function __construct(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
 		parent::__construct($objectManager);
-		$this->objectType = 'Tx_Typo3Forum_Domain_Model_User_Userfield_AbstractUserfield';
+		$this->objectType = '\Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield';
 
 	}
 
@@ -105,7 +105,7 @@ class Tx_Typo3Forum_Domain_Repository_User_UserfieldRepository extends Tx_Typo3F
 	 * Finds all core userfields. These are stored in the typoscript setting
 	 * plugin.tx_typo3forum.settings.userfields.core_fields.
 	 *
-	 * @return Array<Tx_Typo3Forum_Domain_Model_User_Userfield_AbstractUserfield>
+	 * @return Array<\Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield>
 	 *                             The core userfields that are generated from the
 	 *                             typoscript configuration.
 	 */
@@ -122,8 +122,8 @@ class Tx_Typo3Forum_Domain_Repository_User_UserfieldRepository extends Tx_Typo3F
 
 				$object = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($className);
 
-				if (!$object instanceof Tx_Typo3Forum_Domain_Model_User_Userfield_AbstractUserfield) {
-					throw new \TYPO3\CMS\Extbase\Object\UnknownClassException("The class $className is not a subclass of Tx_Typo3Forum_Domain_Model_User_Userfield_AbstractUserfield", 1287756386);
+				if (!$object instanceof \Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield) {
+					throw new \TYPO3\CMS\Extbase\Object\UnknownClassException("The class $className is not a subclass of \Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield", 1287756386);
 				}
 
 				foreach ($coreFieldValues['properties'] as $propertyName => $propertyValue) {
@@ -145,7 +145,7 @@ class Tx_Typo3Forum_Domain_Repository_User_UserfieldRepository extends Tx_Typo3F
 	 * and merges the result with the core userfields that are loaded from the
 	 * typoscript setup.
 	 *
-	 * @return Traversable<Tx_Typo3Forum_Domain_Model_User_Userfield_AbstractUserfield>
+	 * @return Traversable<\Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield>
 	 *                             All userfields, both from the database and
 	 *                             the core typoscript setup.
 	 */

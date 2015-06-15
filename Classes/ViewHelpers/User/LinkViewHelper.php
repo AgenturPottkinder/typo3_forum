@@ -62,12 +62,12 @@ class Tx_Typo3Forum_ViewHelpers_User_LinkViewHelper extends \TYPO3\CMS\Fluid\Vie
 
 	/**
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 * @param boolean $showOnlineStatus
 	 * @param boolean $showOnline
 	 * @return string
 	 */
-	public function render(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user = NULL, $showOnlineStatus = TRUE, $showOnline = FALSE) {
+	public function render(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL, $showOnlineStatus = TRUE, $showOnline = FALSE) {
 		// if user anonymous: show only the username
 		if ($user->isAnonymous()) {
 			return $user->getUsername();

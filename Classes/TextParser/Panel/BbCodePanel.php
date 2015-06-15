@@ -52,7 +52,7 @@ class Tx_Typo3Forum_TextParser_Panel_BbCodePanel extends Tx_Typo3Forum_TextParse
 
 
 	/**
-	 * @var array<Tx_Typo3Forum_Domain_Model_Format_BBCode>
+	 * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\BBCode>
 	 */
 	protected $bbCodes = NULL;
 

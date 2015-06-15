@@ -31,14 +31,14 @@ class Tx_Typo3Forum_Domain_Model_Format_BBCodeTest extends Tx_Typo3Forum_Unit_Ba
 
 
 	/**
-	 * @var Tx_Typo3Forum_Domain_Model_Format_BBCode
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Format\BBCode
 	 */
 	protected $fixture = NULL;
 
 
 
 	public function setUp() {
-		$this->fixture = new Tx_Typo3Forum_Domain_Model_Format_BBCode();
+		$this->fixture = new \Mittwald\Typo3Forum\Domain\Model\Format\BBCode();
 	}
 
 

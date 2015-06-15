@@ -36,19 +36,19 @@ class Tx_Typo3Forum_Service_Authentication_AuthenticationServiceTest extends Tx_
 
 
 	/**
-	 * @var Tx_Typo3Forum_Domain_Model_User_FrontendUser
+	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 */
 	protected $user;
 
 
 	/**
-	 * @var Tx_Typo3Forum_Domain_Model_User_FrontendUserGroup
+	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup
 	 */
 	protected $group;
 
 
 	/**
-	 * @var Tx_Typo3Forum_Domain_Model_Forum_Forum
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Forum
 	 */
 	protected $forum;
 
@@ -61,10 +61,10 @@ class Tx_Typo3Forum_Service_Authentication_AuthenticationServiceTest extends Tx_
 
 
 	public function setUp() {
-		$this->group = new Tx_Typo3Forum_Domain_Model_User_FrontendUserGroup('Users');
-		$this->user = new Tx_Typo3Forum_Domain_Model_User_FrontendUser('martin', 'secret');
+		$this->group = new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup('Users');
+		$this->user = new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser('martin', 'secret');
 		$this->user->addUsergroup($this->group);
-		$this->forum = $this->objectManager->create('Tx_Typo3Forum_Domain_Model_Forum_Forum', 'Forum', NULL);
+		$this->forum = $this->objectManager->create('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum', 'Forum', NULL);
 
 		$this->userRepositoryMock = $this->getMock('Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository');
 		$this->userRepositoryMock
@@ -72,7 +72,7 @@ class Tx_Typo3Forum_Service_Authentication_AuthenticationServiceTest extends Tx_
 			->method('findCurrent')
 			->will($this->returnValue($this->user));
 
-		$cacheMock = $this->getMock('Tx_Typo3Forum_Cache_Cache');
+		$cacheMock = $this->getMock('Mittwald\\TYPO3Forum\\Cache\\Cache');
 		$cacheMock
 			->expects($this->any())
 			->method('has')
@@ -91,7 +91,7 @@ class Tx_Typo3Forum_Service_Authentication_AuthenticationServiceTest extends Tx_
 	 * @param $operation
 	 */
 	public function authorizationIsGrantedOnAccessForLoggedInUser($operation) {
-		$acl = new Tx_Typo3Forum_Domain_Model_Forum_Access($operation, Tx_Typo3Forum_Domain_Model_Forum_Access::LOGIN_LEVEL_SPECIFIC, $this->group);
+		$acl = new \Mittwald\Typo3Forum\Domain\Model\Forum\Access($operation, \Mittwald\Typo3Forum\Domain\Model\Forum\Access::LOGIN_LEVEL_SPECIFIC, $this->group);
 		$this->forum->addAcl($acl);
 
 		$this->assertTrue($this->fixture->checkAuthorization($this->forum, $operation));
@@ -131,7 +131,7 @@ class Tx_Typo3Forum_Service_Authentication_AuthenticationServiceTest extends Tx_
 	 * @param $operation
 	 */
 	public function authorizationIsDeniedOnDeniedAccessForLoggedInUser($operation) {
-		$acl = new Tx_Typo3Forum_Domain_Model_Forum_Access($operation, Tx_Typo3Forum_Domain_Model_Forum_Access::LOGIN_LEVEL_SPECIFIC, $this->group);
+		$acl = new \Mittwald\Typo3Forum\Domain\Model\Forum\Access($operation, \Mittwald\Typo3Forum\Domain\Model\Forum\Access::LOGIN_LEVEL_SPECIFIC, $this->group);
 		$acl->setNegated(TRUE);
 		$this->forum->addAcl($acl);
 
@@ -166,7 +166,7 @@ class Tx_Typo3Forum_Service_Authentication_AuthenticationServiceTest extends Tx_
 	 * @test
 	 * @dataProvider      getPossibleOperations
 	 * @param string $operation
-	 * @expectedException Tx_Typo3Forum_Domain_Exception_Authentication_NoAccessException
+	 * @expectedException \Mittwald\Typo3Forum\Domain\Exception\Authentication\NoAccessException
 	 */
 	public function exceptionIsThrownOnFailedAccessAssertion($operation) {
 		$this->fixture->assertAuthorization($this->forum, $operation);

@@ -95,14 +95,14 @@ class Tx_Typo3Forum_ViewHelpers_Format_TextParserViewHelper extends \TYPO3\CMS\F
 	 * Renders the input text.
 	 *
 	 * @param  string                             $configuration The configuration path
-	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Post $post
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
 	 * @param  string                             $content       The content to be rendered. If NULL, the node
 	 *                                                           content will be rendered instead.
 	 * @return string                The rendered text
 	 *
 	 */
 	public function render($configuration = 'plugin.tx_typo3forum.settings.textParsing',
-	                       Tx_Typo3Forum_Domain_Model_Forum_Post $post = NULL, $content = NULL) {
+	                       \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post = NULL, $content = NULL) {
 		$this->textParserService->setControllerContext($this->controllerContext);
 		$this->textParserService->loadConfiguration($configuration);
 

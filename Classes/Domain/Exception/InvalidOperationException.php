@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Exception;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -43,7 +43,7 @@
  *
  */
 
-class Tx_Typo3Forum_Domain_Exception_InvalidOperationException extends Tx_Typo3Forum_Domain_Exception_AbstractException {
+class InvalidOperationException extends \Mittwald\Typo3Forum\Domain\Exception\AbstractException {
 
 
 

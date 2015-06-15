@@ -29,7 +29,7 @@ class Tx_Typo3Forum_Controller_ForumControllerTest extends Tx_Typo3Forum_Control
 
 
 	/**
-	 * @var Tx_Typo3Forum_Controller_ForumController
+	 * @var \Mittwald\Typo3Forum\Controller\ForumController
 	 */
 	protected $fixture;
 
@@ -47,7 +47,7 @@ class Tx_Typo3Forum_Controller_ForumControllerTest extends Tx_Typo3Forum_Control
 
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject|Tx_Typo3Forum_Domain_Model_Forum_RootForum
+	 * @var PHPUnit_Framework_MockObject_MockObject|\Mittwald\Typo3Forum\Domain\Model\Forum\RootForum
 	 */
 	protected $rootForumMock;
 
@@ -56,8 +56,8 @@ class Tx_Typo3Forum_Controller_ForumControllerTest extends Tx_Typo3Forum_Control
 	public function setUp() {
 		$this->forumRepositoryMock = $this->getMock('Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository');
 		$this->topicRepositoryMock = $this->getMock('Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository');
-		$this->rootForumMock       = $this->getMock('Tx_Typo3Forum_Domain_Model_Forum_RootForum');
-		$this->buildFixture('Tx_Typo3Forum_Controller_ForumController',
+		$this->rootForumMock       = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\RootForum');
+		$this->buildFixture('\Mittwald\Typo3Forum\Controller\ForumController',
 		                    array($this->forumRepositoryMock, $this->topicRepositoryMock, $this->rootForumMock));
 	}
 
@@ -70,7 +70,7 @@ class Tx_Typo3Forum_Controller_ForumControllerTest extends Tx_Typo3Forum_Control
 	 */
 	public function testAllControllerActionsPerformAuthorizationCheck($actionMethodName, $parameters) {
 		$this->authenticationServiceMock->expects($this->atLeastOnce())->method('checkAuthorization')
-			->with($this->isInstanceOf('Tx_Typo3Forum_Domain_Model_Forum_Forum'), $this->anything())
+			->with($this->isInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum'), $this->anything())
 			->will($this->returnValue(TRUE));
 		call_user_func_array(array($this->fixture, $actionMethodName), $parameters);
 	}
@@ -98,9 +98,9 @@ class Tx_Typo3Forum_Controller_ForumControllerTest extends Tx_Typo3Forum_Control
 
 
 	public function testShowActionLoadsAllTopicsFromRepository() {
-		$forum = $this->getMock('Tx_Typo3Forum_Domain_Model_Forum_Forum');
+		$forum = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
 		$this->topicRepositoryMock->expects($this->atLeastOnce())->method('findForIndex')
-			->with($this->isInstanceOf('Tx_Typo3Forum_Domain_Model_Forum_Forum'))
+			->with($this->isInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum'))
 			->will($this->returnValue($topics = $this->buildTopicMockList()));
 		$this->fixture->showAction($forum);
 
@@ -114,9 +114,9 @@ class Tx_Typo3Forum_Controller_ForumControllerTest extends Tx_Typo3Forum_Control
 	 * @depends testShowActionLoadsAllTopicsFromRepository
 	 */
 	public function testShowActionAssignsForumAndTopicsToView() {
-		$forum = $this->getMock('Tx_Typo3Forum_Domain_Model_Forum_Forum');
+		$forum = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
 		$this->topicRepositoryMock->expects($this->atLeastOnce())->method('findForIndex')
-			->with($this->isInstanceOf('Tx_Typo3Forum_Domain_Model_Forum_Forum'))
+			->with($this->isInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum'))
 			->will($this->returnValue($topics = $this->buildTopicMockList()));
 		$this->fixture->showAction($forum);
 
@@ -127,18 +127,18 @@ class Tx_Typo3Forum_Controller_ForumControllerTest extends Tx_Typo3Forum_Control
 
 
 	public function testUpdateActionCallsUpdateMethodOnRepository() {
-		$forum = $this->getMock('Tx_Typo3Forum_Domain_Model_Forum_Forum');
+		$forum = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
 		$this->forumRepositoryMock->expects($this->once())->method('update')
-			->with($this->isInstanceOf('Tx_Typo3Forum_Domain_Model_Forum_Forum'));
+			->with($this->isInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum'));
 		$this->fixture->updateAction($forum);
 	}
 
 
 
 	public function testCreateActionCallsAddMethodOnRepository() {
-		$forum = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Typo3Forum_Domain_Model_Forum_Forum');
+		$forum = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
 		$this->forumRepositoryMock->expects($this->once())->method('add')
-			->with($this->isInstanceOf('Tx_Typo3Forum_Domain_Model_Forum_Forum'));
+			->with($this->isInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum'));
 		$this->fixture->createAction($forum);
 	}
 

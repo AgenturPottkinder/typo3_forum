@@ -50,10 +50,10 @@ interface Tx_Typo3Forum_Service_Notification_NotificationServiceInterface {
 	/**
 	 * @abstract
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_SubscribeableInterface $subscriptionObject
+	 * @param \Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $subscriptionObject
 	 * @param Tx_Typo3Forum_Domain_Model_NotifiableInterface    $notificationObject
 	 */
-	public function notifySubscribers(Tx_Typo3Forum_Domain_Model_SubscribeableInterface $subscriptionObject,
+	public function notifySubscribers(\Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $subscriptionObject,
 	                                  Tx_Typo3Forum_Domain_Model_NotifiableInterface $notificationObject);
 
 

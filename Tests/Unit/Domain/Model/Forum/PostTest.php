@@ -31,14 +31,14 @@ class Tx_Typo3Forum_Domain_Model_Forum_PostTest extends Tx_Typo3Forum_Unit_BaseT
 
 
 	/**
-	 * @var Tx_Typo3Forum_Domain_Model_Forum_Post
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Post
 	 */
 	protected $fixture = NULL;
 
 
 
 	public function setUp() {
-		$this->fixture = new Tx_Typo3Forum_Domain_Model_Forum_Post();
+		$this->fixture = new \Mittwald\Typo3Forum\Domain\Model\Forum\Post();
 	}
 
 
@@ -50,7 +50,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_PostTest extends Tx_Typo3Forum_Unit_BaseT
 
 
 	public function testConstructorSetsPostText() {
-		$this->fixture = new Tx_Typo3Forum_Domain_Model_Forum_Post('FOO');
+		$this->fixture = new \Mittwald\Typo3Forum\Domain\Model\Forum\Post('FOO');
 		$this->assertEquals('FOO', $this->fixture->getText());
 	}
 
@@ -63,14 +63,14 @@ class Tx_Typo3Forum_Domain_Model_Forum_PostTest extends Tx_Typo3Forum_Unit_BaseT
 
 
 	public function testSetAuthorSetsAuthor() {
-		$this->fixture->setAuthor($user = new Tx_Typo3Forum_Domain_Model_User_FrontendUser('martin'));
+		$this->fixture->setAuthor($user = new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser('martin'));
 		$this->assertTrue($this->fixture->getAuthor() === $user);
 	}
 
 
 
 	public function testSetAuthorToAnonymousSetsAuthorToNull() {
-		$this->fixture->setAuthor($user = new Tx_Typo3Forum_Domain_Model_User_AnonymousFrontendUser());
+		$this->fixture->setAuthor($user = new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser());
 		$this->assertNull($this->fixture->_getProperty('author'));
 	}
 
@@ -85,7 +85,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_PostTest extends Tx_Typo3Forum_Unit_BaseT
 
 	public function testSetAttachmentsSetsAttachments() {
 		$attachments = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$attachments->attach(new Tx_Typo3Forum_Domain_Model_Forum_Attachment());
+		$attachments->attach(new \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment());
 
 		$this->fixture->setAttachments($attachments);
 		$this->assertTrue($this->fixture->getAttachments() == $attachments);
@@ -94,7 +94,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_PostTest extends Tx_Typo3Forum_Unit_BaseT
 
 
 	public function testAddAttachmentAddsAttachment() {
-		$this->fixture->addAttachment($attachment = new Tx_Typo3Forum_Domain_Model_Forum_Attachment());
+		$this->fixture->addAttachment($attachment = new \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment());
 		$this->assertContains($attachment, $this->fixture->getAttachments());
 	}
 
@@ -104,7 +104,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_PostTest extends Tx_Typo3Forum_Unit_BaseT
 	 * @depends testAddAttachmentAddsAttachment
 	 */
 	public function testRemoveAttachmentRemovesAttachmet() {
-		$this->fixture->addAttachment($attachment = new Tx_Typo3Forum_Domain_Model_Forum_Attachment());
+		$this->fixture->addAttachment($attachment = new \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment());
 		$this->fixture->removeAttachment($attachment);
 
 		$this->assertEquals(0, count($this->fixture->getAttachments()));
@@ -114,14 +114,14 @@ class Tx_Typo3Forum_Domain_Model_Forum_PostTest extends Tx_Typo3Forum_Unit_BaseT
 
 
 	public function testSetTopicSetsTopic() {
-		$this->fixture->setTopic($topic = new Tx_Typo3Forum_Domain_Model_Forum_Topic());
+		$this->fixture->setTopic($topic = new \Mittwald\Typo3Forum\Domain\Model\Forum\Topic());
 		$this->assertTrue($this->fixture->getTopic() === $topic);
 	}
 
 
 
 	public function testGetAuthorReturnsAnonymousUserIfNoAuthorIsSet() {
-		$this->assertInstanceOf('Tx_Typo3Forum_Domain_Model_User_AnonymousFrontendUser', $this->fixture->getAuthor());
+		$this->assertInstanceOf('\Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser', $this->fixture->getAuthor());
 	}
 
 
@@ -144,7 +144,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_PostTest extends Tx_Typo3Forum_Unit_BaseT
 
 
 	public function testGetAuthorNameReturnsNameOfUserIsAuthorIsSet() {
-		$this->fixture->setAuthor(new Tx_Typo3Forum_Domain_Model_User_FrontendUser('martin'));
+		$this->fixture->setAuthor(new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser('martin'));
 		$this->fixture->setAuthorName('horst');
 		$this->assertEquals('martin', $this->fixture->getAuthorName());
 	}
@@ -163,21 +163,21 @@ class Tx_Typo3Forum_Domain_Model_Forum_PostTest extends Tx_Typo3Forum_Unit_BaseT
 	                                                                                                 $moderator,
 	                                                                                                 $expectedOutcome) {
 		// Grant moderation access.
-		$forum = $this->getMock('Tx_Typo3Forum_Domain_Model_Forum_Forum');
+		$forum = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
 		$forum->expects($this->any())->method('checkModerationAccess')->will($this->returnValue($moderator));
-		$topic = $this->getMock('Tx_Typo3Forum_Domain_Model_Forum_Topic');
+		$topic = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
 		// $this->topic->getLastPost() will return another post than $this!
 		$topic->expects($this->any())->method('getLastPost')
-			->will($this->returnValue($lastPost ? $this->fixture : new Tx_Typo3Forum_Domain_Model_Forum_Post()));
+			->will($this->returnValue($lastPost ? $this->fixture : new \Mittwald\Typo3Forum\Domain\Model\Forum\Post()));
 		// Grant delete post access (should fail anyway)
 		if (!$moderator) {
 			$topic->expects($this->any())->method('checkAccess')
-				->with(self::isInstanceOf('Tx_Typo3Forum_Domain_Model_User_FrontendUser'), $operation)
+				->with(self::isInstanceOf('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'), $operation)
 				->will($this->returnValue(TRUE));
 		}
 		$topic->expects($this->any())->method('getForum')->will($this->returnValue($forum));
 
-		$user = new Tx_Typo3Forum_Domain_Model_User_FrontendUser('martin');
+		$user = new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser('martin');
 
 		$this->fixture->setTopic($topic);
 		$this->fixture->setAuthor($user);
@@ -197,20 +197,20 @@ class Tx_Typo3Forum_Domain_Model_Forum_PostTest extends Tx_Typo3Forum_Unit_BaseT
 	                                                                                                    $user,
 	                                                                                                    $moderator,
 	                                                                                                    $expectedOutcome) {
-		$forum = $this->getMock('Tx_Typo3Forum_Domain_Model_Forum_Forum');
+		$forum = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
 		$forum->expects($this->any())->method('checkModerationAccess')->will($this->returnValue($moderator));
 
-		$topic = $this->getMock('Tx_Typo3Forum_Domain_Model_Forum_Topic');
+		$topic = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
 		$topic->expects($this->any())->method('getLastPost')->will($this->returnValue($this->fixture));
 		if (!$moderator) {
 			$topic->expects($this->any())->method('checkAccess')
-				->with(self::isInstanceOf('Tx_Typo3Forum_Domain_Model_User_FrontendUser'), $operation)
+				->with(self::isInstanceOf('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'), $operation)
 				->will($this->returnValue(TRUE));
 		}
 		$topic->expects($this->any())->method('getForum')->will($this->returnValue($forum));
 
 		$this->fixture->setTopic($topic);
-		$this->fixture->setAuthor(new Tx_Typo3Forum_Domain_Model_User_AnonymousFrontendUser());
+		$this->fixture->setAuthor(new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser());
 
 		$this->assertEquals($expectedOutcome, $this->fixture->checkAccess($user, $operation));
 	}
@@ -226,12 +226,12 @@ class Tx_Typo3Forum_Domain_Model_Forum_PostTest extends Tx_Typo3Forum_Unit_BaseT
 
 
 	public function getPostDeleteAndEditAccessRightsCombinationsForAnonymousPosts() {
-		return array(array('deletePost', new Tx_Typo3Forum_Domain_Model_User_AnonymousFrontendUser(), FALSE, FALSE),
-		             array('deletePost', new Tx_Typo3Forum_Domain_Model_User_FrontendUser(), FALSE, FALSE),
-		             array('deletePost', new Tx_Typo3Forum_Domain_Model_User_FrontendUser(), TRUE, TRUE),
-		             array('editPost', new Tx_Typo3Forum_Domain_Model_User_AnonymousFrontendUser(), FALSE, FALSE),
-		             array('editPost', new Tx_Typo3Forum_Domain_Model_User_FrontendUser(), FALSE, FALSE),
-		             array('editPost', new Tx_Typo3Forum_Domain_Model_User_FrontendUser(), TRUE, TRUE));
+		return array(array('deletePost', new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser(), FALSE, FALSE),
+		             array('deletePost', new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser(), FALSE, FALSE),
+		             array('deletePost', new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser(), TRUE, TRUE),
+		             array('editPost', new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser(), FALSE, FALSE),
+		             array('editPost', new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser(), FALSE, FALSE),
+		             array('editPost', new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser(), TRUE, TRUE));
 	}
 
 
@@ -247,10 +247,10 @@ class Tx_Typo3Forum_Domain_Model_Forum_PostTest extends Tx_Typo3Forum_Unit_BaseT
 	 * @param $operation
 	 */
 	public function testDelegatesOtherAccessChecksToParentTopic($operation) {
-		$user  = new Tx_Typo3Forum_Domain_Model_User_FrontendUser('martin');
-		$topic = $this->getMock('Tx_Typo3Forum_Domain_Model_Forum_Topic');
+		$user  = new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser('martin');
+		$topic = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
 		$topic->expects($this->atLeastOnce())->method('checkAccess')
-			->with(self::isInstanceOf('Tx_Typo3Forum_Domain_Model_User_FrontendUser'), $operation)
+			->with(self::isInstanceOf('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'), $operation)
 			->will($this->returnValue(TRUE));
 		$this->fixture->setTopic($topic);
 		$this->assertTrue($this->fixture->checkAccess($user, $operation));

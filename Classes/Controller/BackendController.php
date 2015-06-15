@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Controller;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -45,7 +45,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Controller_BackendController extends Tx_Typo3Forum_Controller_AbstractBackendController {
+class BackendController extends \Mittwald\Typo3Forum\Controller\AbstractBackendController {
 
 
 
@@ -59,9 +59,9 @@ class Tx_Typo3Forum_Controller_BackendController extends Tx_Typo3Forum_Controlle
 
 
 	/**
-	 * @param null|Tx_Typo3Forum_Domain_Model_Forum_Forum $parent
+	 * @param null|\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $parent
 	 */
-	public function readForumTreeNodeAction(Tx_Typo3Forum_Domain_Model_Forum_Forum $parent = NULL) {
+	public function readForumTreeNodeAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $parent = NULL) {
 
 	}
 

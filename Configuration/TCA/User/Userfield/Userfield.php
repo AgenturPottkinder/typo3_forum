@@ -8,8 +8,8 @@ $TCA['tx_typo3forum_domain_model_user_userfield_userfield'] = array(
 	),
 	'types' => array(
 		'0' => array('showitem' => 'type,name,map_to_user_object'),
-		'Tx_Typo3Forum_Domain_Model_User_Userfield_TyposcriptUserfield' => array('showitem' => 'type,name,typoscript_path,map_to_user_object'),
-		'Tx_Typo3Forum_Domain_Model_User_Userfield_TextUserfield' => array('showitem' => 'type,name,map_to_user_object')
+		'\Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield' => array('showitem' => 'type,name,typoscript_path,map_to_user_object'),
+		'\Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield' => array('showitem' => 'type,name,map_to_user_object')
 	),
 	'palettes' => array(
 		'1' => array('showitem' => '')
@@ -66,8 +66,8 @@ $TCA['tx_typo3forum_domain_model_user_userfield_userfield'] = array(
 				'type' => 'select',
 				'items' => array(
 					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_userfield.type.undefined', 0),
-					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_userfield.type.typoscript', 'Tx_Typo3Forum_Domain_Model_User_Userfield_TyposcriptUserfield'),
-					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_userfield.type.text', 'Tx_Typo3Forum_Domain_Model_User_Userfield_TextUserfield')
+					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_userfield.type.typoscript', '\Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield'),
+					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_userfield.type.text', '\Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield')
 
 				)
 			)

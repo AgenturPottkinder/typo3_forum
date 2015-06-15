@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Ajax;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -45,7 +45,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-final class Tx_Typo3Forum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonInterface {
+final class Dispatcher implements \TYPO3\CMS\Core\SingletonInterface {
 
 
 	/*
@@ -257,5 +257,5 @@ final class Tx_Typo3Forum_Ajax_Dispatcher implements \TYPO3\CMS\Core\SingletonIn
 }
 
 // Instantiate and start dispatcher.
-$dispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Tx_Typo3Forum_Ajax_Dispatcher');
+$dispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Mittwald\Typo3Forum\Ajax\Dispatcher');
 $dispatcher->run();

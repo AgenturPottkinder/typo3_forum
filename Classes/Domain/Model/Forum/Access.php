@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -30,10 +30,10 @@
  *
  * Models a single ACL entry. This entry grants or denies access to a specific
  * operation (read, write posts, create topics...) to a single user group. These
- * ACL entries can be assigned to any Tx_Typo3Forum_Domain_Model_Forum_Forum object and
+ * ACL entries can be assigned to any \Mittwald\Typo3Forum\Domain\Model\Forum\Forum object and
  * are inherited down the forum tree unto each single post.
  *
- * Every object that implements the Tx_Typo3Forum_Domain_Model_AccessibleInterface
+ * Every object that implements the \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface
  * provides methods to check the ACLs of the parent forums.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
@@ -45,7 +45,7 @@
  *
  */
 
-class Tx_Typo3Forum_Domain_Model_Forum_Access extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
+class Access extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
 
 
 
@@ -105,7 +105,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Access extends \TYPO3\CMS\Extbase\DomainO
 	 * The user group that is affected by this ACL entry. This property is only
 	 * relevant if $loginLevel == LOGIN_LEVEL_SPECIFIC.
 	 *
-	 * @var Tx_Typo3Forum_Domain_Model_User_FrontendUserGroup
+	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup
 	 */
 	protected $affectedGroup;
 
@@ -118,7 +118,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Access extends \TYPO3\CMS\Extbase\DomainO
 
 
 	public function __construct($operation = NULL, $level = NULL,
-	                            Tx_Typo3Forum_Domain_Model_User_FrontendUserGroup $group = NULL) {
+	                            \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup $group = NULL) {
 		$this->operation     = $operation;
 		$this->loginLevel    = $level;
 		$this->affectedGroup = $group;
@@ -164,7 +164,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Access extends \TYPO3\CMS\Extbase\DomainO
 
 	/**
 	 * Gets the group for this entry.
-	 * @return Tx_Typo3Forum_Domain_Model_User_FrontendUserGroup group The group
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup group The group
 	 */
 	public function getGroup() {
 		return $this->affectedGroup;
@@ -178,7 +178,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Access extends \TYPO3\CMS\Extbase\DomainO
 	 */
 
 	public function isEveryone() {
-		return $this->loginLevel == Tx_Typo3Forum_Domain_Model_Forum_Access::LOGIN_LEVEL_EVERYONE;
+		return $this->loginLevel == \Mittwald\Typo3Forum\Domain\Model\Forum\Access::LOGIN_LEVEL_EVERYONE;
 	}
 
 
@@ -188,20 +188,20 @@ class Tx_Typo3Forum_Domain_Model_Forum_Access extends \TYPO3\CMS\Extbase\DomainO
 	 * @return boolean TRUE when this entry requires any login, otherwise FALSE.
 	 */
 	public function isAnyLogin() {
-		return $this->loginLevel == Tx_Typo3Forum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN;
+		return $this->loginLevel == \Mittwald\Typo3Forum\Domain\Model\Forum\Access::LOGIN_LEVEL_ANYLOGIN;
 	}
 
 
 
 	/**
 	 * Matches a certain user against this access rule.
-	 * @param  Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 *                                 The user to be matched. Can also be NULL (for anonymous
 	 *                                 users).
 	 * @return bool                    TRUE if this access rule matches the given user, otherwise
 	 *                                 FALSE. This result may be negated using the "negate" property.
 	 */
-	public function matches(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user = NULL) {
+	public function matches(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
 
 		$result = FALSE;
 		if ($this->loginLevel === self::LOGIN_LEVEL_EVERYONE) {
@@ -214,7 +214,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Access extends \TYPO3\CMS\Extbase\DomainO
 
 		if ($this->loginLevel === self::LOGIN_LEVEL_SPECIFIC) {
 			foreach($user->getUsergroup() as $group) {
-				/** @var $group Tx_Typo3Forum_Domain_Model_User_FrontendUserGroup */
+				/** @var $group \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup */
 				if ($group->getUid() === $this->affectedGroup->getUid()) {
 					$result = TRUE;
 					break;
@@ -260,10 +260,10 @@ class Tx_Typo3Forum_Domain_Model_Forum_Access extends \TYPO3\CMS\Extbase\DomainO
 	/**
 	 * Sets the group.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUserGroup $group The group
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup $group The group
 	 * @return void
 	 */
-	public function setAffectedGroup(Tx_Typo3Forum_Domain_Model_User_FrontendUserGroup $group) {
+	public function setAffectedGroup(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup $group) {
 		$this->affectedGroup = $group;
 	}
 

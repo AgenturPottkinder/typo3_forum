@@ -1,4 +1,5 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -35,7 +36,7 @@
 
  */
 
-class Tx_Typo3Forum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Tag extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 
 	/**
@@ -66,7 +67,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObje
 
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Typo3Forum_Domain_Model_User_FrontendUser>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
 	 */
 	protected $feuser;
 
@@ -124,7 +125,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObje
 
 
 	/**
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Typo3Forum_Domain_Model_User_FrontendUser>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
 	 */
 	public function getFeuser() {
 		return $this->feuser;
@@ -165,17 +166,17 @@ class Tx_Typo3Forum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObje
 
 	/**
 	 * Add a user to this tag
-	 * @param $feuser Tx_Typo3Forum_Domain_Model_User_FrontendUser
+	 * @param $feuser \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 */
-	public function addFeuser(Tx_Typo3Forum_Domain_Model_User_FrontendUser $feuser) {
+	public function addFeuser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $feuser) {
 		$this->feuser->attach($feuser);
 	}
 
 	/**
 	 * Removes a user from this tag
-	 * @param $feuser Tx_Typo3Forum_Domain_Model_User_FrontendUser
+	 * @param $feuser \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 */
-	public function removeFeuser(Tx_Typo3Forum_Domain_Model_User_FrontendUser $feuser) {
+	public function removeFeuser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $feuser) {
 		$this->feuser->detach($feuser);
 	}
 

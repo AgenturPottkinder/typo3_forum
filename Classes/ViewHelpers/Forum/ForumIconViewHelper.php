@@ -84,14 +84,14 @@ class Tx_Typo3Forum_ViewHelpers_Forum_ForumIconViewHelper extends \TYPO3\CMS\Flu
 	 *
 	 * Renders the forum icon.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Forum $forum
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
 	 *                                                         The forum for which the icon is to be rendered.
 	 * @param  integer                             $width      Image width
 	 * @param  string                              $alt        Alt text
 	 * @return string             The rendered icon.
 	 *
 	 */
-	public function render(Tx_Typo3Forum_Domain_Model_Forum_Forum $forum = NULL, $width = NULL, $alt = "") {
+	public function render(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum = NULL, $width = NULL, $alt = "") {
         $data = $this->getDataArray($forum);
 
         if($data['new']){
@@ -108,12 +108,12 @@ class Tx_Typo3Forum_ViewHelpers_Forum_ForumIconViewHelper extends \TYPO3\CMS\Flu
 	 *
 	 * Generates a data array that will be passed to the typoscript object for
 	 * rendering the icon.
-	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Forum $forum
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
 	 *                             The topic for which the icon is to be displayed.
 	 * @return array               The data array for the typoscript object.
 	 *
 	 */
-	protected function getDataArray(Tx_Typo3Forum_Domain_Model_Forum_Forum $forum = NULL) {
+	protected function getDataArray(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum = NULL) {
 		if ($forum === NULL) {
 			return array();
 		} else {

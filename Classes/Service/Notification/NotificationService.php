@@ -116,7 +116,7 @@ class Tx_Typo3Forum_Service_Notification_NotificationService extends Tx_Typo3For
 	 * Notifies subscribers of a subscribeable objects about a new notifiable object
 	 * within the subscribeable object, e.g. of a new post within a subscribed topic.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_SubscribeableInterface $subscriptionObject
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $subscriptionObject
 	 *                             The subscribed object. This may for example be a
 	 *                             forum or a topic.
 	 * @param  Tx_Typo3Forum_Domain_Model_NotifiableInterface $notificationObject
@@ -128,7 +128,7 @@ class Tx_Typo3Forum_Service_Notification_NotificationService extends Tx_Typo3For
 	 * @return void
 	 *
 	 */
-	public function notifySubscribers(Tx_Typo3Forum_Domain_Model_SubscribeableInterface $subscriptionObject,
+	public function notifySubscribers(\Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $subscriptionObject,
 									  Tx_Typo3Forum_Domain_Model_NotifiableInterface $notificationObject)
 	{
 		$topic = $subscriptionObject;

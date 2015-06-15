@@ -8,8 +8,8 @@ $TCA['tx_typo3forum_domain_model_user_notification'] = array(
 	),
 	'types' => array(
 		'1' => array('showitem' => 'feuser,post,tag,user_read,type,crdate'),
-		'Tx_Typo3Forum_Domain_Model_Forum_Post' => array('showitem' => 'feuser,post,user_read,type,crdate'),
-		'Tx_Typo3Forum_Domain_Model_Forum_Tag' => array('showitem' => 'feuser,post,tag,user_read,type,crdate'),
+		'\Mittwald\Typo3Forum\Domain\Model\Forum\Post' => array('showitem' => 'feuser,post,user_read,type,crdate'),
+		'\Mittwald\Typo3Forum\Domain\Model\Forum\Tag' => array('showitem' => 'feuser,post,tag,user_read,type,crdate'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => '')
@@ -30,7 +30,7 @@ $TCA['tx_typo3forum_domain_model_user_notification'] = array(
 			'config'  => array(
 				'type' => 'select',
 				'foreign_table' => 'fe_users',
-				'foreign_class' => 'Tx_Typo3Forum_Domain_Model_User_FrontendUser',
+				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser',
 				'maxitems' => 1
 			)
 		),
@@ -47,7 +47,7 @@ $TCA['tx_typo3forum_domain_model_user_notification'] = array(
 			'config'  => array(
 				'type' => 'select',
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_post',
-				'foreign_class' => 'Tx_Typo3Forum_Domain_Model_Forum_Post',
+				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\Forum\Post',
 				'maxitems' => 1
 			)
 		),
@@ -57,7 +57,7 @@ $TCA['tx_typo3forum_domain_model_user_notification'] = array(
 			'config'  => array(
 				'type' => 'select',
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_tag',
-				'foreign_class' => 'Tx_Typo3Forum_Domain_Model_Forum_Tag',
+				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\Forum\Tag',
 				'maxitems' => 1
 			)
 		),
@@ -67,8 +67,8 @@ $TCA['tx_typo3forum_domain_model_user_notification'] = array(
 			'config' => Array (
 				'type' => 'select',
 				'items' => array(
-					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_post', 'Tx_Typo3Forum_Domain_Model_Forum_Post'),
-					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_notification_tag', 'Tx_Typo3Forum_Domain_Model_Forum_Tag'),
+					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_post', '\Mittwald\Typo3Forum\Domain\Model\Forum\Post'),
+					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_notification_tag', '\Mittwald\Typo3Forum\Domain\Model\Forum\Tag'),
 				),
 			)
 		),

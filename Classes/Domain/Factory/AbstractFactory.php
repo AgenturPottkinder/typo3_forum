@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Factory;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_Typo3Forum_Domain_Factory_AbstractFactory implements \TYPO3\CMS\Core\SingletonInterface {
+abstract class AbstractFactory implements \TYPO3\CMS\Core\SingletonInterface {
 
 
 
@@ -154,7 +154,7 @@ abstract class Tx_Typo3Forum_Domain_Factory_AbstractFactory implements \TYPO3\CM
 	 * Gets the currently logged in user. Convenience wrapper for the findCurrent
 	 * method of the frontend user repository.
 	 *
-	 * @return Tx_Typo3Forum_Domain_Model_User_FrontendUser
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 *                             The user that is currently logged in.
 	 *
 	 */

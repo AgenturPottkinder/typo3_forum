@@ -51,7 +51,7 @@ class Tx_Typo3Forum_Domain_Repository_Moderation_ReportWorkflowStatusRepository
 	 *
 	 * Finds the initial status that is to be used for new reports.
 	 *
-	 * @return Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus
 	 *                             The initial status that is to be used for new
 	 *                             reports.
 	 *

@@ -86,14 +86,14 @@ class Tx_Typo3Forum_ViewHelpers_Forum_TopicIconViewHelper extends \TYPO3\CMS\Flu
 	 *
 	 * Renders the topic icon.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Topic $topic
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
 	 *                                                         The topic for which the icon is to be rendered.
 	 * @param  integer                             $width      Image width
 	 * @param  string                              $alt        Alt text
 	 * @return string             The rendered icon.
 	 *
 	 */
-	public function render(Tx_Typo3Forum_Domain_Model_Forum_Topic $topic = NULL, $width = NULL) {
+	public function render(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic = NULL, $width = NULL) {
         $data =  $this->getDataArray($topic);
 
         if($data['new']){
@@ -110,15 +110,15 @@ class Tx_Typo3Forum_ViewHelpers_Forum_TopicIconViewHelper extends \TYPO3\CMS\Flu
 	 *
 	 * Generates a data array that will be passed to the typoscript object for
 	 * rendering the icon.
-	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Topic $topic
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
 	 *                             The topic for which the icon is to be displayed.
 	 * @return array               The data array for the typoscript object.
 	 *
 	 */
-	protected function getDataArray(Tx_Typo3Forum_Domain_Model_Forum_Topic $topic = NULL) {
+	protected function getDataArray(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic = NULL) {
 		if ($topic === NULL) {
 			return array();
-		} elseif ($topic instanceof Tx_Typo3Forum_Domain_Model_Forum_ShadowTopic) {
+		} elseif ($topic instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\ShadowTopic) {
 			return array('moved' => TRUE);
 		} else {
 			return array('important' => $topic->getPostCount() >= $this->arguments['important'],

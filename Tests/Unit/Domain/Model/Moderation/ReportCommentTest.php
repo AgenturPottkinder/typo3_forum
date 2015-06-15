@@ -31,21 +31,21 @@ class Tx_Typo3Forum_Domain_Model_Moderation_ReportCommentTest extends Tx_Typo3Fo
 
 
 	/**
-	 * @var Tx_Typo3Forum_Domain_Model_Moderation_ReportComment
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment
 	 */
 	protected $fixture = NULL;
 
 
 	/**
-	 * @var Tx_Typo3Forum_Domain_Model_User_FrontendUser
+	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 */
 	protected $user = NULL;
 
 
 
 	public function setUp() {
-		$this->user    = new Tx_Typo3Forum_Domain_Model_User_FrontendUser('martin');
-		$this->fixture = new Tx_Typo3Forum_Domain_Model_Moderation_ReportComment($this->user, 'FOO');
+		$this->user    = new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser('martin');
+		$this->fixture = new \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment($this->user, 'FOO');
 	}
 
 
@@ -58,7 +58,7 @@ class Tx_Typo3Forum_Domain_Model_Moderation_ReportCommentTest extends Tx_Typo3Fo
 
 
 	public function testSetAuthorSetsAuthor() {
-		$this->fixture->setAuthor($user = new Tx_Typo3Forum_Domain_Model_User_FrontendUser());
+		$this->fixture->setAuthor($user = new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser());
 		$this->assertTrue($this->fixture->getAuthor() === $user);
 	}
 
@@ -72,7 +72,7 @@ class Tx_Typo3Forum_Domain_Model_Moderation_ReportCommentTest extends Tx_Typo3Fo
 
 
 	public function testSetReportSetsReport() {
-		$this->fixture->setReport($report = new Tx_Typo3Forum_Domain_Model_Moderation_Report());
+		$this->fixture->setReport($report = new \Mittwald\Typo3Forum\Domain\Model\Moderation\Report());
 		$this->assertTrue($this->fixture->getReport() === $report);
 	}
 

@@ -70,11 +70,11 @@ final class Tx_Typo3Forum_Service_Notification_SubscriptionListener {
 	/**
 	 * Is fired when a new post is created.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Post $post Event data.
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post Event data.
 	 * @return void
 	 */
 	public function onPostCreated($post) {
-		if ($post instanceof Tx_Typo3Forum_Domain_Model_Forum_Post) {
+		if ($post instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Post) {
 			$this->notificationService->notifySubscribers($post->getTopic(), $post);
 		}
 	}
@@ -84,11 +84,11 @@ final class Tx_Typo3Forum_Service_Notification_SubscriptionListener {
 	/**
 	 * Is fired when a new topic is created.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Topic $topic Event data.
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic Event data.
 	 * @return void
 	 */
 	public function onTopicCreated($topic) {
-		if ($topic instanceof Tx_Typo3Forum_Domain_Model_Forum_Topic) {
+		if ($topic instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Topic) {
 
 		}
 	}

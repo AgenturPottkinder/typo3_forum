@@ -51,7 +51,7 @@ if (!defined('TYPO3_MODE')) {
 
 # TCE-Main hook for clearing all typo3_forum caches
 $TYPO3_CONF_VARS['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearCachePostProc'][]
-	= 'EXT:typo3_forum/Classes/Cache/CacheManager.php:Tx_Typo3Forum_Cache_CacheManager->clearAll';
+	= '\Mittwald\Typo3Forum\Cache\CacheManager->clearAll';
 
 if (!is_array($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['typo3forum_main'])) {
 	$TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['typo3forum_main'] = array();
@@ -80,10 +80,10 @@ $TYPO3_CONF_VARS['FE']['eID_include']['typo3_forum'] = 'EXT:typo3_forum/Classes/
 // Connect signals to slots. Some parts of extbase suck, but the signal-slot
 // pattern is really cool! :P
 $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\SignalSlot\Dispatcher');
-$signalSlotDispatcher->connect('Tx_Typo3Forum_Domain_Model_Forum_Post',
+$signalSlotDispatcher->connect('\Mittwald\Typo3Forum\Domain\Model\Forum\Post',
 							   'postCreated', 'Tx_Typo3Forum_Service_Notification_SubscriptionListener',
 							   'onPostCreated');
-$signalSlotDispatcher->connect('Tx_Typo3Forum_Domain_Model_Forum_Topic',
+$signalSlotDispatcher->connect('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic',
 							   'topicCreated', 'Tx_Typo3Forum_Service_Notification_SubscriptionListener',
 							   'onTopicCreated');
 

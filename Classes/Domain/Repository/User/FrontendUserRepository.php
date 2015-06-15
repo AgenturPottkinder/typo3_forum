@@ -78,13 +78,13 @@ class Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository
 	/**
 	 * Finds the user that is currently logged in, or NULL if no user is logged in.
 	 *
-	 * @return Tx_Typo3Forum_Domain_Model_User_FrontendUser
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 *                             The user that is currently logged in, or NULL if
 	 *                             no user is logged in.
 	 */
 	public function findCurrent() {
 		$currentUserUid = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
-		return $currentUserUid ? $this->findByUid($currentUserUid) : new Tx_Typo3Forum_Domain_Model_User_AnonymousFrontendUser();
+		return $currentUserUid ? $this->findByUid($currentUserUid) : new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
 	}
 
 
@@ -96,7 +96,7 @@ class Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository
 	 * @param  array $orderings
 	 * @param  boolean $onlyOnline
 	 * @param  array $uids
-	 * @return Array<Tx_Typo3Forum_Domain_Model_User_FrontendUser>
+	 * @return Array<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
 	 *                               The selected subset of posts
 	 *
 	 */
@@ -136,10 +136,10 @@ class Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository
 
 	/**
 	 * Returns an anonymous frontend user.
-	 * @return Tx_Typo3Forum_Domain_Model_User_AnonymousFrontendUser An anonymous frontend user.
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser An anonymous frontend user.
 	 */
 	public function findAnonymous() {
-		return new Tx_Typo3Forum_Domain_Model_User_AnonymousFrontendUser();
+		return new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
 	}
 
 
@@ -149,7 +149,7 @@ class Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository
 	 * @param $part Part of the users nickname
 	 * @param $filter Order by which field?
 	 * @param $order ASC or DESC ordering
-	 * @return Tx_Typo3Forum_Domain_Model_User_FrontendUser[] The frontend users with the specified username.
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser[] The frontend users with the specified username.
 	 */
 	public function findLikeUsername($part=NULL,$filter=NULL,$order=NULL) {
 		$query = $this->createQuery();
@@ -170,7 +170,7 @@ class Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository
 	 * Finds users for the user index view. Sorting and page navigation to be
 	 * handled in controller/view.
 	 *
-	 * @return Tx_Typo3Forum_Domain_Model_User_FrontendUser[] All users.
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser[] All users.
 	 */
 	public function findForIndex() {
 		return $this->findAll();
@@ -182,7 +182,7 @@ class Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository
 	 * Finds users for the top $limit view.
 	 *
 	 * @param int $limit
-	 * @return Tx_Typo3Forum_Domain_Model_User_FrontendUser[] The Top $limit User of this forum.
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser[] The Top $limit User of this forum.
 	 */
 	public function findTopUserByPoints($limit=50) {
 		$query = $this->createQuery();

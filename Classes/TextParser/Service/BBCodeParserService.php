@@ -63,7 +63,7 @@ class Tx_Typo3Forum_TextParser_Service_BBCodeParserService
 
 	/**
 	 * All bb codes.
-	 * @var array<Tx_Typo3Forum_Domain_Model_Format_BBCode>
+	 * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\BBCode>
 	 */
 	protected $bbCodes;
 
@@ -94,8 +94,8 @@ class Tx_Typo3Forum_TextParser_Service_BBCodeParserService
 	 */
 	public function getParsedText($text) {
 		foreach ($this->bbCodes as $bbCode) {
-			/** @var $bbCode Tx_Typo3Forum_Domain_Model_Format_BBCode */
-			if ($bbCode instanceof Tx_Typo3Forum_Domain_Model_Format_QuoteBBCode || $bbCode instanceof Tx_Typo3Forum_Domain_Model_Format_ListBBCode) {
+			/** @var $bbCode \Mittwald\Typo3Forum\Domain\Model\Format\BBCode */
+			if ($bbCode instanceof \Mittwald\Typo3Forum\Domain\Model\Format\QuoteBBCode || $bbCode instanceof \Mittwald\Typo3Forum\Domain\Model\Format\ListBBCode) {
 				continue;
 			}
 			$text = preg_replace($bbCode->getRegularExpression(), $bbCode->getRegularExpressionReplacement(), $text);

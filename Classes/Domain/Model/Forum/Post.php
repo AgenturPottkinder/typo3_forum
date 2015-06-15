@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 /* *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -41,8 +41,8 @@
  *             http://opensource.org/licenses/gpl-license.php
 
  */
-class Tx_Typo3Forum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
-	implements Tx_Typo3Forum_Domain_Model_AccessibleInterface, Tx_Typo3Forum_Domain_Model_NotifiableInterface {
+class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+	implements \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface, \Mittwald\Typo3Forum\Domain\Model\NotifiableInterface {
 
 
 
@@ -77,7 +77,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObj
 	/**
 	 * The post author.
 	 *
-	 * @var Tx_Typo3Forum_Domain_Model_User_FrontendUser
+	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 */
 	protected $author;
 
@@ -92,7 +92,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObj
 
 	/**
 	 * The topic.
-	 * @var Tx_Typo3Forum_Domain_Model_Forum_Topic
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Topic
 	 */
 	protected $topic;
 
@@ -107,7 +107,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObj
 
 	/**
 	 * All subscribers of this forum.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Typo3Forum_Domain_Model_User_FrontendUser>
+	 * @var Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
 	 * @lazy
 	 */
 	protected $supporters;
@@ -115,7 +115,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObj
 
 	/**
 	 * Attachments.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Typo3Forum_Domain_Model_Forum_Attachment>
+	 * @var Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment>
 	 * @lazy
 	 */
 	protected $attachments;
@@ -150,7 +150,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObj
 	/**
 	 * Gets all users who have subscribed to this forum.
 	 *
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Typo3Forum_Domain_Model_User_FrontendUser>
+	 * @return Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
 	 *                             All subscribers of this forum.
 	 */
 	public function getSupporters() {
@@ -197,14 +197,14 @@ class Tx_Typo3Forum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObj
 
 	/**
 	 * Gets the post author.
-	 * @return Tx_Typo3Forum_Domain_Model_User_FrontendUser author
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser author
 	 */
 	public function getAuthor() {
 		if ($this->author instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
 			$this->author->_loadRealInstance();
 		}
 		if ($this->author === NULL) {
-			$this->author = new Tx_Typo3Forum_Domain_Model_User_AnonymousFrontendUser();
+			$this->author = new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
 			if($this->authorName){
 				$this->author->setUsername($this->authorName);
 			}
@@ -232,7 +232,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObj
 
 	/**
 	 * Gets the topic.
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Topic A topic
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic A topic
 	 */
 	public function getTopic() {
 		return $this->topic;
@@ -242,7 +242,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObj
 
 	/**
 	 * Gets the forum.
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Forum
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Forum
 	 */
 	public function getForum() {
 		return $this->topic->getForum();
@@ -269,7 +269,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObj
 
 	/**
 	 * Gets the post's attachments.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Typo3Forum_Domain_Model_Forum_Attachment>
+	 * @return Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment>
 	 */
 	public function getAttachments() {
 		return $this->attachments;
@@ -286,7 +286,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObj
 	 * @return boolean
 	 */
 	protected function isPropertyDirty($previousValue, $currentValue) {
-		if ($currentValue InstanceOf Tx_Typo3Forum_Domain_Model_Forum_Forum || $currentValue InstanceOf Tx_Typo3Forum_Domain_Model_Forum_Topic
+		if ($currentValue InstanceOf \Mittwald\Typo3Forum\Domain\Model\Forum\Forum || $currentValue InstanceOf \Mittwald\Typo3Forum\Domain\Model\Forum\Topic
 		) {
 			return FALSE;
 		} else {
@@ -300,11 +300,11 @@ class Tx_Typo3Forum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObj
 	 * Performs an access check for this post.
 	 *
 	 * @access private
-	 * @param  Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 * @param  string                                    $accessType
 	 * @return boolean
 	 */
-	public function checkAccess(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'read') {
+	public function checkAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL, $accessType = 'read') {
 		switch ($accessType) {
 			case 'editPost':
 			case 'deletePost':
@@ -325,14 +325,14 @@ class Tx_Typo3Forum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObj
 	 * OR:
 	 * b.)  The current user has moderator access to the forum.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 *                             The user for which the authenication is to be
 	 *                             checked.
 	 * @param                                           $operation
 	 * @return boolean             TRUE, if the user is allowed to edit this post,
 	 *                             otherwise FALSE.
 	 */
-	public function checkEditOrDeletePostAccess(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user = NULL, $operation) {
+	public function checkEditOrDeletePostAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL, $operation) {
 
 		if ($user === NULL || $user->isAnonymous()) {
 			return FALSE;
@@ -370,10 +370,10 @@ class Tx_Typo3Forum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObj
 	/**
 	 * Sets the post author.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $author The post author.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $author The post author.
 	 * @return void
 	 */
-	public function setAuthor(Tx_Typo3Forum_Domain_Model_User_FrontendUser $author) {
+	public function setAuthor(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $author) {
 		if ($author->isAnonymous()) {
 			$this->author = NULL;
 		} else {
@@ -424,21 +424,21 @@ class Tx_Typo3Forum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObj
 	/**
 	 * Adds an or more attachments.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Attachment $attachments The attachment.
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment $attachments The attachment.
 	 * @return void
 	 */
-	public function addAttachments(Tx_Typo3Forum_Domain_Model_Forum_Attachment $attachments) {
-		/* @var Tx_Typo3Forum_Domain_Model_Forum_Attachment */
+	public function addAttachments(\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment $attachments) {
+		/* @var \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment */
 		$this->attachments->attach($attachments);
 	}
 
 	/**
 	 * Removes an attachment.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Attachment $attachment The attachment.
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment $attachment The attachment.
 	 * @return void
 	 */
-	public function removeAttachment(Tx_Typo3Forum_Domain_Model_Forum_Attachment $attachment) {
+	public function removeAttachment(\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment $attachment) {
 		if(file_exists($attachment->getAbsoluteFilename())){
 			unlink($attachment->getAbsoluteFilename());
 		}
@@ -448,28 +448,28 @@ class Tx_Typo3Forum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObj
     /**
      * Determines whether this topic has been read by a certain user.
      *
-     * @param  Tx_Typo3Forum_Domain_Model_User_FrontendUser $supporter The user who is to be checked.
+     * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $supporter The user who is to be checked.
      * @return boolean                                           TRUE, if the user did read this topic, otherwise FALSE.
      */
-    public function hasBeenSupportedByUser(Tx_Typo3Forum_Domain_Model_User_FrontendUser $supporter = NULL) {
+    public function hasBeenSupportedByUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $supporter = NULL) {
         return $supporter ? $this->supporters->contains($supporter) : TRUE;
     }
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Topic $topic
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
 	 * @return void
 	 */
-	public function setTopic(Tx_Typo3Forum_Domain_Model_Forum_Topic $topic) {
+	public function setTopic(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic) {
 		$this->topic = $topic;
 	}
 
 	/**
 	 * Marks this topic as read by a certain user.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $supporter The user who read this topic.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $supporter The user who read this topic.
 	 * @return void
 	 */
-	public function addSupporter(Tx_Typo3Forum_Domain_Model_User_FrontendUser $supporter) {
+	public function addSupporter(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $supporter) {
 		$this->setHelpfulCount($this->getHelpfulCount()+1);
 		$this->supporters->attach($supporter);
 	}
@@ -479,10 +479,10 @@ class Tx_Typo3Forum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObj
 	/**
 	 * Mark this topic as unread for a certain user.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $supporter The user for whom to mark this topic as unread.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $supporter The user for whom to mark this topic as unread.
 	 * @return void
 	 */
-	public function removeSupporter(Tx_Typo3Forum_Domain_Model_User_FrontendUser $supporter) {
+	public function removeSupporter(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $supporter) {
 		$this->setHelpfulCount($this->getHelpfulCount()-1);
 		$this->supporters->detach($supporter);
 	}

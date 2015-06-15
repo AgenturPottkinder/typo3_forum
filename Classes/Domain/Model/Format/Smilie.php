@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Model\Format;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -39,7 +39,7 @@
  *
  */
 
-class Tx_Typo3Forum_Domain_Model_Format_Smilie extends Tx_Typo3Forum_Domain_Model_Format_AbstractTextParserElement
+class Smilie extends \Mittwald\Typo3Forum\Domain\Model\Format\AbstractTextParserElement
 	implements Tx_Typo3Forum_TextParser_Panel_MarkItUpExportableInterface {
 
 

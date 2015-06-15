@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Model\Format;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -38,7 +38,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Domain_Model_Format_ListBBCode extends Tx_Typo3Forum_Domain_Model_Format_BBCode {
+class ListBBCode extends \Mittwald\Typo3Forum\Domain\Model\Format\BBCode {
 
 
 

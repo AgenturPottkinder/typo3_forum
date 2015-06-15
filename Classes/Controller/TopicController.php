@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Controller;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -45,7 +45,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Controller_TopicController extends Tx_Typo3Forum_Controller_AbstractController {
+class TopicController extends \Mittwald\Typo3Forum\Controller\AbstractController {
 
 
 
@@ -93,14 +93,14 @@ class Tx_Typo3Forum_Controller_TopicController extends Tx_Typo3Forum_Controller_
 
 	/**
 	 * A factory class for creating topics.
-	 * @var Tx_Typo3Forum_Domain_Factory_Forum_TopicFactory
+	 * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory
 	 */
 	protected $topicFactory;
 
 
 	/**
 	 * A factory class for creating posts.
-	 * @var Tx_Typo3Forum_Domain_Factory_Forum_PostFactory
+	 * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory
 	 */
 	protected $postFactory;
 
@@ -144,8 +144,8 @@ class Tx_Typo3Forum_Controller_TopicController extends Tx_Typo3Forum_Controller_
 	 * @param Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository	$forumRepository
 	 * @param Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository	$topicRepository
 	 * @param Tx_Typo3Forum_Domain_Repository_Forum_PostRepository		$postRepository
-	 * @param Tx_Typo3Forum_Domain_Factory_Forum_TopicFactory			$topicFactory
-	 * @param Tx_Typo3Forum_Domain_Factory_Forum_PostFactory			$postFactory
+	 * @param \Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory			$topicFactory
+	 * @param \Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory			$postFactory
 	 * @param Tx_Typo3Forum_Domain_Repository_Forum_CriteriaRepository $criteraRepository
 	 * @param Tx_Typo3Forum_Service_SessionHandlingService             $sessionHandling
 	 * @param Tx_Typo3Forum_Service_AttachmentService					$attachmentService
@@ -156,8 +156,8 @@ class Tx_Typo3Forum_Controller_TopicController extends Tx_Typo3Forum_Controller_
 	public function __construct(Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository $forumRepository,
 								Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository,
 								Tx_Typo3Forum_Domain_Repository_Forum_PostRepository $postRepository,
-								Tx_Typo3Forum_Domain_Factory_Forum_TopicFactory $topicFactory,
-								Tx_Typo3Forum_Domain_Factory_Forum_PostFactory $postFactory,
+								\Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory $topicFactory,
+								\Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory $postFactory,
 								Tx_Typo3Forum_Domain_Repository_Forum_CriteriaRepository $criteraRepository,
 								Tx_Typo3Forum_Service_SessionHandlingService $sessionHandling,
 								Tx_Typo3Forum_Service_AttachmentService $attachmentService,
@@ -238,14 +238,14 @@ class Tx_Typo3Forum_Controller_TopicController extends Tx_Typo3Forum_Controller_
 	 * Show action. Displays a single topic and all posts contained in this topic.
 	 * @TODO: Remove $dummy variable when datamapper is stable
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Topic $topic
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
 	 *                                                         The topic that is to be displayed.
-	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Post $quote An optional post that will be quoted within the
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Post $quote An optional post that will be quoted within the
 	 *                                                    bodytext of the new post.
 	 * @param int $showForm ShowForm
 	 * @return void
 	 */
-	public function showAction(Tx_Typo3Forum_Domain_Model_Forum_Topic $topic, Tx_Typo3Forum_Domain_Model_Forum_Post $quote = NULL, $showForm = 0) {
+	public function showAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic, \Mittwald\Typo3Forum\Domain\Model\Forum\Post $quote = NULL, $showForm = 0) {
 		$posts = $this->postRepository->findForTopic($topic);
 
 		if($quote != FALSE){
@@ -277,16 +277,16 @@ class Tx_Typo3Forum_Controller_TopicController extends Tx_Typo3Forum_Controller_
 	/**
 	 * New action. Displays a form for creating a new topic.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Forum $forum
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
 	 *                                                          The forum in which the new topic is to be created.
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post  $post
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post  $post
 	 *                                                          The first post of the new topic.
 	 * @param string                              $subject      The subject of the new topic
 	 *
 	 * @dontvalidate $post
 	 */
-	public function newAction(Tx_Typo3Forum_Domain_Model_Forum_Forum $forum,
-							  Tx_Typo3Forum_Domain_Model_Forum_Post $post = NULL, $subject = NULL) {
+	public function newAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum,
+							  \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post = NULL, $subject = NULL) {
 		$this->authenticationService->assertNewTopicAuthorization($forum);
 		$this->view->assign('forum', $forum)->assign('post', $post)->assign('subject', $subject)
 			->assign('currentUser', $this->frontendUserRepository->findCurrent())
@@ -307,8 +307,8 @@ class Tx_Typo3Forum_Controller_TopicController extends Tx_Typo3Forum_Controller_
 	/**
 	 * Creates a new topic.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Forum $forum       The forum in which the new topic is to be created.
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post        The first post of the new topic.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum       The forum in which the new topic is to be created.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post        The first post of the new topic.
 	 * @param string $subject     The subject of the new topic
 	 * @param array $attachments File attachments for the post.
 	 * @param string $question    The flag if the new topic is declared as question
@@ -320,7 +320,7 @@ class Tx_Typo3Forum_Controller_TopicController extends Tx_Typo3Forum_Controller_
 	 * @validate $attachments Tx_Typo3Forum_Domain_Validator_Forum_AttachmentPlainValidator
 	 * @validate $subject NotEmpty
 	 */
-	public function createAction(Tx_Typo3Forum_Domain_Model_Forum_Forum $forum, Tx_Typo3Forum_Domain_Model_Forum_Post $post,
+	public function createAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum, \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post,
 								 $subject, array $attachments = array(), $question = '', array $criteria = array(), $tags = '', $subscribe = '') {
 
 		// Assert authorization
@@ -350,7 +350,7 @@ class Tx_Typo3Forum_Controller_TopicController extends Tx_Typo3Forum_Controller_
 		$topic = $this->topicFactory->createTopic($forum, $post, $subject, intval($question), $criteria, $tags, intval($subscribe));
 
 		// Notify potential listeners.
-		$this->signalSlotDispatcher->dispatch('Tx_Typo3Forum_Domain_Model_Forum_Topic', 'topicCreated',
+		$this->signalSlotDispatcher->dispatch('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic', 'topicCreated',
 											  array('topic' => $topic));
 		$this->clearCacheForCurrentPage();
 		$uriBuilder = $this->controllerContext->getUriBuilder();
@@ -364,14 +364,14 @@ class Tx_Typo3Forum_Controller_TopicController extends Tx_Typo3Forum_Controller_
 	/**
 	 * Sets a post as solution
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post  The post to be marked as solution.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post  The post to be marked as solution.
 	 *
-	 * @throws Tx_Typo3Forum_Domain_Exception_Authentication_NoAccessException
+	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NoAccessException
 	 * @return void
 	 */
-	public function solutionAction(Tx_Typo3Forum_Domain_Model_Forum_Post $post) {
+	public function solutionAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
 		if(!$post->getTopic()->checkSolutionAccess($this->authenticationService->getUser())) {
-			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NoAccessException('Not allowed to set solution by current user.');
+			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NoAccessException('Not allowed to set solution by current user.');
 		}
 		$this->topicFactory->setPostAsSolution($post->getTopic(),$post);
 		$this->redirect('show', 'Topic', NULL, array('topic' => $post->getTopic()));
@@ -386,12 +386,12 @@ class Tx_Typo3Forum_Controller_TopicController extends Tx_Typo3Forum_Controller_
 	/**
 	 * Marks a topic as read by the current user.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Topic $topic
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
 	 *                             The topic that is to be marked as read.
 	 *
 	 * @return void
 	 */
-	protected function markTopicRead(Tx_Typo3Forum_Domain_Model_Forum_Topic $topic) {
+	protected function markTopicRead(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic) {
 		$currentUser = $this->getCurrentUser();
 		if ($currentUser === NULL || $currentUser->isAnonymous()) {
 			return;

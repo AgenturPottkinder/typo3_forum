@@ -53,16 +53,16 @@ class Tx_Typo3Forum_ViewHelpers_User_IfSubscribedViewHelper extends \TYPO3\CMS\F
 	 * Renders the contents of this view helper, when a user has subscribed a
 	 * specific subscribeable object.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_SubscribeableInterface $object
+	 * @param \Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $object
 	 *                             The object that needs to be subscribed in order
 	 *                             for the contents to be rendered.
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser      $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser      $user
 	 * @return string
 	 *
 	 */
 
-	public function render(Tx_Typo3Forum_Domain_Model_SubscribeableInterface $object,
-	                       Tx_Typo3Forum_Domain_Model_User_FrontendUser      $user = NULL) {
+	public function render(\Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $object,
+	                       \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser      $user = NULL) {
 		if ($user === NULL) {
 			$user =& \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository')->findCurrent();
 		}

@@ -46,7 +46,7 @@ class Tx_Typo3Forum_Domain_Repository_Forum_TagRepository extends \TYPO3\CMS\Ext
 
 	/**
 	 * Find all ordered by topic count
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Tag[]
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag[]
 	 */
 	public function findAllOrderedByCounter() {
 		$query = $this->createQuery();
@@ -58,7 +58,7 @@ class Tx_Typo3Forum_Domain_Repository_Forum_TagRepository extends \TYPO3\CMS\Ext
 	/**
 	 * Find a tag with a specific name
 	 * @param $name
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Tag[]
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag[]
 	 */
 	public function findTagWithSpecificName($name) {
 		$query = $this->createQuery();
@@ -71,7 +71,7 @@ class Tx_Typo3Forum_Domain_Repository_Forum_TagRepository extends \TYPO3\CMS\Ext
 	/**
 	 * Find a tag including a specific name
 	 * @param string $name
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Tag[]
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag[]
 	 */
 	public function findTagLikeAName($name) {
 		$query = $this->createQuery();
@@ -88,10 +88,10 @@ class Tx_Typo3Forum_Domain_Repository_Forum_TagRepository extends \TYPO3\CMS\Ext
 
 	/**
 	 * Find all tags of a specific user
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Tag[]
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag[]
 	 */
-	public function findTagsOfUser(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user) {
+	public function findTagsOfUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
 		$query = $this->createQuery();
 		$query->matching($query->equals('feuser.uid',$user));
 		$query->setOrderings(array('name' => 'ASC'));

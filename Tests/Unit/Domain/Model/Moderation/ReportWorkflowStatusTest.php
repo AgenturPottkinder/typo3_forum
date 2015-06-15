@@ -31,20 +31,20 @@ class Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatusTest extends Tx_
 
 
 	/**
-	 * @var Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus
 	 */
 	protected $fixture = NULL;
 
 
 
 	public function setUp() {
-		$this->fixture = new Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus();
+		$this->fixture = new \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus();
 	}
 
 
 
 	public function testConstructorSetsNameInitialAndFinal() {
-		$this->fixture = new Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus('FOO', TRUE, TRUE);
+		$this->fixture = new \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus('FOO', TRUE, TRUE);
 		$this->assertEquals('FOO', $this->fixture->getName());
 		$this->assertTrue($this->fixture->isInitial());
 		$this->assertTrue($this->fixture->isFinal());

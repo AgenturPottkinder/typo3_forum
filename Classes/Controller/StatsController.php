@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Controller;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -45,7 +45,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Controller_StatsController extends Tx_Typo3Forum_Controller_AbstractController {
+class StatsController extends \Mittwald\Typo3Forum\Controller\AbstractController {
 
 
 

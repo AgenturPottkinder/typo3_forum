@@ -39,7 +39,7 @@ class Tx_Typo3Forum_Service_TagService implements \TYPO3\CMS\Core\SingletonInter
 	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
 	 */
 	public function initTags($tags) {
-		/* @var Tx_Typo3Forum_Domain_Model_Forum_Tag */
+		/* @var \Mittwald\Typo3Forum\Domain\Model\Forum\Tag */
 		$objTags = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 
 		$tagArray = array_unique(explode(',', $tags));
@@ -51,8 +51,8 @@ class Tx_Typo3Forum_Service_TagService implements \TYPO3\CMS\Core\SingletonInter
 				$searchResult[0]->increaseTopicCount();
 				$objTags->attach($searchResult[0]);
 			} else {
-				/* @var Tx_Typo3Forum_Domain_Model_Forum_Tag $tag */
-				$tag = $this->objectManager->create('Tx_Typo3Forum_Domain_Model_Forum_Tag');
+				/* @var \Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag */
+				$tag = $this->objectManager->create('\Mittwald\Typo3Forum\Domain\Model\Forum\Tag');
 				$tag->setName($tagName);
 				$tag->setCrdate(new DateTime());
 				$tag->increaseTopicCount();

@@ -1,4 +1,5 @@
 <?php
+namespace Mittwald\Typo3Forum\Controller;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -45,7 +46,7 @@
  *
  */
 
-class Tx_Typo3Forum_Controller_ModerationController extends Tx_Typo3Forum_Controller_AbstractController {
+class ModerationController extends \Mittwald\Typo3Forum\Controller\AbstractController {
 
 
 	/**
@@ -91,7 +92,7 @@ class Tx_Typo3Forum_Controller_ModerationController extends Tx_Typo3Forum_Contro
 
 
 	/**
-	 * @var Tx_Typo3Forum_Domain_Factory_Forum_TopicFactory
+	 * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory
 	 */
 	protected $topicFactory;
 
@@ -178,11 +179,11 @@ class Tx_Typo3Forum_Controller_ModerationController extends Tx_Typo3Forum_Contro
 	/**
 	 * Injects an instance of the topic factory.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Factory_Forum_TopicFactory $topicFactory
+	 * @param \Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory $topicFactory
 	 *
 	 * @return void
 	 */
-	public function injectTopicFactory(Tx_Typo3Forum_Domain_Factory_Forum_TopicFactory $topicFactory) {
+	public function injectTopicFactory(Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory $topicFactory) {
 		$this->topicFactory = $topicFactory;
 	}
 
@@ -196,12 +197,12 @@ class Tx_Typo3Forum_Controller_ModerationController extends Tx_Typo3Forum_Contro
 	}
 
 	/**
-	 * @param  Tx_Typo3Forum_Domain_Model_Moderation_UserReport $userReport
-	 * @param  Tx_Typo3Forum_Domain_Model_Moderation_PostReport $postReport
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport $userReport
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport $postReport
 	 * @return void
 	 */
-	public function editReportAction(Tx_Typo3Forum_Domain_Model_Moderation_UserReport $userReport = NULL,
-									 Tx_Typo3Forum_Domain_Model_Moderation_PostReport $postReport = NULL) {
+	public function editReportAction(\Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport $userReport = NULL,
+									 \Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport $postReport = NULL) {
 		// Validate arguments
 		if ($userReport === NULL && $postReport === NULL) {
 			throw new \TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException("You need to show a user report or post report!", 1285059341);
@@ -220,25 +221,25 @@ class Tx_Typo3Forum_Controller_ModerationController extends Tx_Typo3Forum_Contro
 	}
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Model_Moderation_Report $report
-	 * @param Tx_Typo3Forum_Domain_Model_Moderation_ReportComment $comment
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $comment
 	 *
 	 * @dontvalidate $comment
 	 */
-	public function newReportCommentAction(Tx_Typo3Forum_Domain_Model_Moderation_Report $report,
-										   Tx_Typo3Forum_Domain_Model_Moderation_ReportComment $comment = NULL) {
+	public function newReportCommentAction(\Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report,
+										   \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $comment = NULL) {
 		$this->view->assignMultiple(array('report' => $report,
 			'comment' => $comment));
 	}
 
 
 	/**
-	 * @param  Tx_Typo3Forum_Domain_Model_Moderation_UserReport $report
-	 * @param Tx_Typo3Forum_Domain_Model_Moderation_ReportComment $comment
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport $report
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $comment
 	 * @return void
 	 */
-	public function createUserReportCommentAction(Tx_Typo3Forum_Domain_Model_Moderation_UserReport $report = NULL,
-											  Tx_Typo3Forum_Domain_Model_Moderation_ReportComment $comment) {
+	public function createUserReportCommentAction(\Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport $report = NULL,
+											  \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $comment) {
 
 		// Validate arguments
 		if ($report === NULL) {
@@ -260,12 +261,12 @@ class Tx_Typo3Forum_Controller_ModerationController extends Tx_Typo3Forum_Contro
 
 	}
 	/**
-	 * @param  Tx_Typo3Forum_Domain_Model_Moderation_PostReport $report
-	 * @param Tx_Typo3Forum_Domain_Model_Moderation_ReportComment $comment
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport $report
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $comment
 	 * @return void
 	 */
-	public function createPostReportCommentAction(Tx_Typo3Forum_Domain_Model_Moderation_PostReport $report = NULL,
-												  Tx_Typo3Forum_Domain_Model_Moderation_ReportComment $comment) {
+	public function createPostReportCommentAction(\Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport $report = NULL,
+												  \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $comment) {
 
 		// Assert authorization
 		$this->authenticationService->assertModerationAuthorization($report->getTopic()->getForum());
@@ -292,18 +293,18 @@ class Tx_Typo3Forum_Controller_ModerationController extends Tx_Typo3Forum_Contro
 	/**
 	 * Sets the workflow status of a report.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Moderation_UserReport               $userReport   The report for which to set the status.
-	 * @param Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus $status   The report's new status.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport               $userReport   The report for which to set the status.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $status   The report's new status.
 	 * @param string                                                  $redirect Where to redirect after updating the report ('index' or 'show').
 	 */
-	public function updateUserReportStatusAction(Tx_Typo3Forum_Domain_Model_Moderation_UserReport $report,
-											 Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus $status,
+	public function updateUserReportStatusAction(\Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport $report,
+											 \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $status,
 											 $redirect = 'indexReport') {
 
 		// Set status and update the report. Add a comment to the report that
 		// documents the status change.
 		$report->setWorkflowStatus($status);
-		$comment = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Typo3Forum_Domain_Model_Moderation_ReportComment');
+		$comment = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment');
 		$comment->setAuthor($this->getCurrentUser());
 		$comment->setText(Tx_Typo3Forum_Utility_Localization::translate('Report_Edit_SetStatus', 'Typo3Forum',
 			array($status->getName())));
@@ -324,12 +325,12 @@ class Tx_Typo3Forum_Controller_ModerationController extends Tx_Typo3Forum_Contro
 	/**
 	 * Sets the workflow status of a report.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Moderation_PostReport               $postReport   The report for which to set the status.
-	 * @param Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus $status   The report's new status.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport               $postReport   The report for which to set the status.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $status   The report's new status.
 	 * @param string                                                  $redirect Where to redirect after updating the report ('index' or 'show').
 	 */
-	public function updatePostReportStatusAction(Tx_Typo3Forum_Domain_Model_Moderation_PostReport $report,
-											 Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus $status,
+	public function updatePostReportStatusAction(\Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport $report,
+											 \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $status,
 											 $redirect = 'indexReport') {
 
 		// Assert authorization
@@ -338,7 +339,7 @@ class Tx_Typo3Forum_Controller_ModerationController extends Tx_Typo3Forum_Contro
 		// Set status and update the report. Add a comment to the report that
 		// documents the status change.
 		$report->setWorkflowStatus($status);
-		$comment = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Typo3Forum_Domain_Model_Moderation_ReportComment');
+		$comment = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment');
 		$comment->setAuthor($this->getCurrentUser());
 		$comment->setText(Tx_Typo3Forum_Utility_Localization::translate('Report_Edit_SetStatus', 'Typo3Forum',
 			array($status->getName())));
@@ -360,11 +361,11 @@ class Tx_Typo3Forum_Controller_ModerationController extends Tx_Typo3Forum_Contro
 	/**
 	 * Displays a form for editing a topic with special moderator-powers!
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Topic $topic The topic that is to be edited.
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic The topic that is to be edited.
 	 *
 	 * @return void
 	 */
-	public function editTopicAction(Tx_Typo3Forum_Domain_Model_Forum_Topic $topic) {
+	public function editTopicAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic) {
 		$this->authenticationService->assertModerationAuthorization($topic->getForum());
 		$this->view->assign('topic', $topic);
 	}
@@ -374,14 +375,14 @@ class Tx_Typo3Forum_Controller_ModerationController extends Tx_Typo3Forum_Contro
 	/**
 	 * Updates a forum with special super-moderator-powers!
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Topic  $topic           The topic that is be edited.
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Topic  $topic           The topic that is be edited.
 	 * @param  boolean                              $moveTopic       TRUE, if the topic is to be moved to another forum.
-	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Forum  $moveTopicTarget The forum to which the topic is to be moved.
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Forum  $moveTopicTarget The forum to which the topic is to be moved.
 	 *
 	 * @return void
 	 */
-	public function updateTopicAction(Tx_Typo3Forum_Domain_Model_Forum_Topic $topic, $moveTopic = FALSE,
-									  Tx_Typo3Forum_Domain_Model_Forum_Forum $moveTopicTarget = NULL) {
+	public function updateTopicAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic, $moveTopic = FALSE,
+									  \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $moveTopicTarget = NULL) {
 		$this->authenticationService->assertModerationAuthorization($topic->getForum());
 		$this->topicRepository->update($topic);
 
@@ -402,11 +403,11 @@ class Tx_Typo3Forum_Controller_ModerationController extends Tx_Typo3Forum_Contro
 	/**
 	 * Delete a topic from repository!
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Topic  $topic           The topic that is be deleted.
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Topic  $topic           The topic that is be deleted.
 	 *
 	 * @return void
 	 */
-	public function topicConformDeleteAction(Tx_Typo3Forum_Domain_Model_Forum_Topic $topic) {
+	public function topicConformDeleteAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic) {
 		$this->authenticationService->assertModerationAuthorization($topic->getForum());
 		foreach($topic->getPosts() as $post){
 			$this->postRepository->remove($post);

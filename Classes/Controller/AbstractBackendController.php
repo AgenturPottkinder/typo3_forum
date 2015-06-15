@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Controller;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -45,7 +45,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_Typo3Forum_Controller_AbstractBackendController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+abstract class AbstractBackendController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 
 

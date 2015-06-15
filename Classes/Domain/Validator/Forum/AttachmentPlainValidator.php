@@ -67,7 +67,7 @@ class Tx_Typo3Forum_Domain_Validator_Forum_AttachmentPlainValidator extends \TYP
 	 */
 	public function isValid($value) {
 		$result = TRUE;
-		$attachmentObj = $this->objectManager->create('Tx_Typo3Forum_Domain_Model_Forum_Attachment');
+		$attachmentObj = $this->objectManager->create('\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment');
 		foreach($value as $attachment){
 			if(empty($attachment['name'])) continue;
 			if(array_search($attachment['type'], $attachmentObj->getAllowedMimeTypes()) == false){

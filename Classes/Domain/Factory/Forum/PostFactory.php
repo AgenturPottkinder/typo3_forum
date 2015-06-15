@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Factory\Forum;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -42,7 +42,7 @@
  *                http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Domain_Factory_Forum_PostFactory extends Tx_Typo3Forum_Domain_Factory_AbstractFactory {
+class PostFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory {
 
 
 
@@ -70,7 +70,7 @@ class Tx_Typo3Forum_Domain_Factory_Forum_PostFactory extends Tx_Typo3Forum_Domai
 
 	/**
 	 * The topic factory.
-	 * @var Tx_Typo3Forum_Domain_Factory_Forum_TopicFactory
+	 * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory
 	 */
 	protected $topicFactory = NULL;
 
@@ -114,9 +114,9 @@ class Tx_Typo3Forum_Domain_Factory_Forum_PostFactory extends Tx_Typo3Forum_Domai
 
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Factory_Forum_TopicFactory $topicFactory
+	 * @param \Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory $topicFactory
 	 */
-	public function injectTopicFactory(Tx_Typo3Forum_Domain_Factory_Forum_TopicFactory $topicFactory) {
+	public function injectTopicFactory(\Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory $topicFactory) {
 		$this->topicFactory = $topicFactory;
 	}
 
@@ -141,7 +141,7 @@ class Tx_Typo3Forum_Domain_Factory_Forum_PostFactory extends Tx_Typo3Forum_Domai
 
 	/**
 	 * Creates an empty post
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Post An empty post.
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Post An empty post.
 	 */
 	public function createEmptyPost() {
 		return $this->getClassInstance();
@@ -152,15 +152,15 @@ class Tx_Typo3Forum_Domain_Factory_Forum_PostFactory extends Tx_Typo3Forum_Domai
 	/**
 	 * Creates a new post that quotes an already existing post.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $quotedPost
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $quotedPost
 	 *                                 The post that is to be quoted. The post
 	 *                                 text of this post will be wrapped in
 	 *                                 [quote] bb codes.
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Post
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Post
 	 *                                 The new post.
 	 */
-	public function createPostWithQuote(Tx_Typo3Forum_Domain_Model_Forum_Post $quotedPost) {
-		/** @var $post Tx_Typo3Forum_Domain_Model_Forum_Post */
+	public function createPostWithQuote(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $quotedPost) {
+		/** @var $post \Mittwald\Typo3Forum\Domain\Model\Forum\Post */
 		$post = $this->getClassInstance();
 		$post->setText('[quote=' . $quotedPost->getUid() . ']' . $quotedPost->getText() . '[/quote]');
 
@@ -172,15 +172,15 @@ class Tx_Typo3Forum_Domain_Factory_Forum_PostFactory extends Tx_Typo3Forum_Domai
 	/**
 	 * Assigns a user to a forum post and increases the user's post count.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post        $post
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post        $post
 	 *                             The post to which a user is to be assigned.
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 *                             The user that is to be assigned to the post. If
 	 *                             this value is NULL, the currently logged in user
 	 *                             will be used instead.
 	 */
-	public function assignUserToPost(Tx_Typo3Forum_Domain_Model_Forum_Post $post,
-	                                 Tx_Typo3Forum_Domain_Model_User_FrontendUser $user = NULL) {
+	public function assignUserToPost(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post,
+	                                 \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
 		// If no user is set, use current user is set.
 		if ($user === NULL) {
 			$user = $this->getCurrentUser();
@@ -188,7 +188,7 @@ class Tx_Typo3Forum_Domain_Factory_Forum_PostFactory extends Tx_Typo3Forum_Domai
 
 		// If still no user is set, abort.
 		if ($user === NULL) {
-			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException();
+			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException();
 		}
 
 		// If the post's author is already set, decrease this user's post count.
@@ -212,11 +212,11 @@ class Tx_Typo3Forum_Domain_Factory_Forum_PostFactory extends Tx_Typo3Forum_Domai
 	 *
 	 * Deletes a post and decreases the user's post count by 1.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
 	 *
 	 */
 
-	public function deletePost(Tx_Typo3Forum_Domain_Model_Forum_Post $post) {
+	public function deletePost(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
 		$topic = $post->getTopic();
 
 		// If the post is the only one in the topic, delete the whole topic instead of

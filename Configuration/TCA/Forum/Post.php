@@ -88,7 +88,7 @@ $TCA['tx_typo3forum_domain_model_forum_post'] = array(
 			'config'  => array(
 				'type' => 'select',
 				'foreign_table' => 'fe_users',
-				'foreign_class' => 'Tx_Typo3Forum_Domain_Model_User_FrontendUser',
+				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser',
 				'maxitems' => 1
 			)
 		),
@@ -104,7 +104,7 @@ $TCA['tx_typo3forum_domain_model_forum_post'] = array(
 			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_post.topic',
 			'config' => array(
 				'type' => 'select',
-				'foreign_class' => 'Tx_Typo3Forum_Domain_Model_Forum_Topic',
+				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\Forum\Topic',
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_topic',
 				'maxitems' => 1
 			)
@@ -132,7 +132,7 @@ $TCA['tx_typo3forum_domain_model_forum_post'] = array(
 			'config' => array(
 				'type' => 'select',
 				'foreign_table' => 'fe_users',
-				'foreign_class' => 'Tx_Typo3Forum_Domain_Model_User_FrontendUser',
+				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser',
 				'MM' => 'tx_typo3forum_domain_model_user_supportpost',
 				'MM_opposite_field' => 'tx_typo3forum_support_posts',
 				'maxitems' => PHP_INT_MAX

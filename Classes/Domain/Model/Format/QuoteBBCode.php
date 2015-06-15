@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Model\Format;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -39,7 +39,7 @@
  *
  */
 
-class Tx_Typo3Forum_Domain_Model_Format_QuoteBBCode extends Tx_Typo3Forum_Domain_Model_Format_BBCode {
+class QuoteBBCode extends \Mittwald\Typo3Forum\Domain\Model\Format\BBCode {
 
 
 

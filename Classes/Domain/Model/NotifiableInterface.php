@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Model;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -43,7 +43,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-interface Tx_Typo3Forum_Domain_Model_NotifiableInterface {
+interface NotifiableInterface {
 
 
 

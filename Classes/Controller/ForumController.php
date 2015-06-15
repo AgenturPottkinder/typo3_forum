@@ -1,4 +1,5 @@
 <?php
+namespace Mittwald\Typo3Forum\Controller;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -45,7 +46,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Controller_ForumController extends Tx_Typo3Forum_Controller_AbstractController {
+class ForumController extends \Mittwald\Typo3Forum\Controller\AbstractController {
 
 
 
@@ -77,7 +78,7 @@ class Tx_Typo3Forum_Controller_ForumController extends Tx_Typo3Forum_Controller_
 
 	/**
 	 * The virtual root forum.
-	 * @var Tx_Typo3Forum_Domain_Model_Forum_RootForum
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\RootForum
 	 */
 	protected $rootForum;
 
@@ -93,13 +94,13 @@ class Tx_Typo3Forum_Controller_ForumController extends Tx_Typo3Forum_Controller_
 	 *
 	 * @param Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository $forumRepository An instance of the forum repository.
 	 * @param Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository An instance of the topic repository.
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_RootForum            $rootForum       An instance of the virtual root forum.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\RootForum            $rootForum       An instance of the virtual root forum.
 	 * @param Tx_Typo3Forum_Service_SessionHandlingService $sessionHandling
 	 * @param Tx_Typo3Forum_Domain_Repository_Forum_AdsRepository   $adsRepository
 	 */
 	public function __construct(Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository $forumRepository,
 	                            Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository,
-	                            Tx_Typo3Forum_Domain_Model_Forum_RootForum $rootForum,
+	                            \Mittwald\Typo3Forum\Domain\Model\Forum\RootForum $rootForum,
 								Tx_Typo3Forum_Service_SessionHandlingService $sessionHandling,
 								Tx_Typo3Forum_Domain_Repository_Forum_AdsRepository $adsRepository) {
 		parent::__construct();
@@ -136,10 +137,10 @@ class Tx_Typo3Forum_Controller_ForumController extends Tx_Typo3Forum_Controller_
 	 *
 	 * @TODO: Remove $dummy variable when datamapper is stable
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Forum $forum The forum that is to be displayed.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum The forum that is to be displayed.
 	 * @return void
 	 */
-	public function showAction(Tx_Typo3Forum_Domain_Model_Forum_Forum $forum) {
+	public function showAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum) {
 		$topics = $this->topicRepository->findForIndex($forum);
 
 		// This variable is needed, equal if it is used or not. It's needed for creating the correct datamapping
@@ -158,10 +159,10 @@ class Tx_Typo3Forum_Controller_ForumController extends Tx_Typo3Forum_Controller_
 	 * Updates a forum.
 	 * This action method updates a forum. Admin authorization is required.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Forum $forum The forum to be updated.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum The forum to be updated.
 	 * @dontverifyrequesthash
 	 */
-	public function updateAction(Tx_Typo3Forum_Domain_Model_Forum_Forum $forum) {
+	public function updateAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum) {
 		$this->authenticationService->assertAdministrationAuthorization($forum);
 
 		$this->forumRepository->update($forum);
@@ -178,16 +179,16 @@ class Tx_Typo3Forum_Controller_ForumController extends Tx_Typo3Forum_Controller_
 	 * This action method creates a new forum. Admin authorization is required for
 	 * creating child forums, root forums may only be created from backend.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Forum $forum The forum to be created.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum The forum to be created.
 	 *
-	 * @throws Tx_Typo3Forum_Domain_Exception_Authentication_NoAccessException
+	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NoAccessException
 	 * @dontverifyrequesthash
 	 */
-	public function createAction(Tx_Typo3Forum_Domain_Model_Forum_Forum $forum) {
+	public function createAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum) {
 		if ($forum->getParent() !== NULL) {
 			$this->authenticationService->assertAdministrationAuthorization($forum->getParent());
 		} /** @noinspection PhpUndefinedConstantInspection */ elseif (TYPO3_MODE !== 'BE') {
-			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NoAccessException('This operation is allowed only from the TYPO3 backend.');
+			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NoAccessException('This operation is allowed only from the TYPO3 backend.');
 		}
 
 		$this->forumRepository->add($forum);
@@ -200,15 +201,15 @@ class Tx_Typo3Forum_Controller_ForumController extends Tx_Typo3Forum_Controller_
 
 	/**
 	 * Mark a whole forum as read
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Forum $forum
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
 	 *
-	 * @throws Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException
+	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
 	 * @return void
 	 */
-	public function markReadAction(Tx_Typo3Forum_Domain_Model_Forum_Forum $forum) {
+	public function markReadAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum) {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 		$forumStorage = array();
 		$forumStorage[] = $forum;
@@ -242,15 +243,15 @@ class Tx_Typo3Forum_Controller_ForumController extends Tx_Typo3Forum_Controller_
 
 	/**
 	 * Show all unread topics of the current user
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Forum $forum
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
 	 *
-	 * @throws Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException
+	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
 	 * @return void
 	 */
-	public function showUnreadAction(Tx_Typo3Forum_Domain_Model_Forum_Forum $forum) {
+	public function showUnreadAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum) {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 		$topics       = array();
 		$unreadTopics = array();

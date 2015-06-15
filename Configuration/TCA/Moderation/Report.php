@@ -10,8 +10,8 @@ $TCA['tx_typo3forum_domain_model_moderation_report'] = array(
 	),
 	'types' => array(
 		'1' => array('showitem' => 'type,reporter,moderator,workflow_status,comments'),
-		'Tx_Typo3Forum_Domain_Model_Moderation_UserReport' => array('showitem' => 'type,reporter,moderator,workflow_status,comments, feuser'),
-		'Tx_Typo3Forum_Domain_Model_Moderation_PostReport' => array('showitem' => 'type,reporter,moderator,workflow_status,comments, post')
+		'\Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport' => array('showitem' => 'type,reporter,moderator,workflow_status,comments, feuser'),
+		'\Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport' => array('showitem' => 'type,reporter,moderator,workflow_status,comments, post')
 	),
 	'palettes' => array(
 		'1' => array('showitem' => '')
@@ -37,8 +37,8 @@ $TCA['tx_typo3forum_domain_model_moderation_report'] = array(
 			'config'  => array(
 				'type' => 'select',
 				'items' => array(
-					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.type.userReport', 'Tx_Typo3Forum_Domain_Model_Moderation_UserReport'),
-					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.type.postReport', 'Tx_Typo3Forum_Domain_Model_Moderation_PostReport'),
+					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.type.userReport', '\Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport'),
+					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.type.postReport', '\Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport'),
 				)
 			)
 		),

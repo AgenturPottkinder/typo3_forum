@@ -90,7 +90,7 @@ $TCA['tx_typo3forum_domain_model_forum_access'] = array(
 			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_forum',
 			'config' => array(
 				'type' => 'select',
-				'foreign_class' => 'Tx_Typo3Forum_Domain_Model_Forum_Forum',
+				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\Forum\Forum',
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_forum',
 				'maxitems' => 1
 			)
@@ -101,7 +101,7 @@ $TCA['tx_typo3forum_domain_model_forum_access'] = array(
 			'config'  => array(
 				'type' => 'select',
 				'foreign_table' => 'fe_groups',
-				'foreign_class' => 'Tx_Typo3Forum_Domain_Model_User_FrontendUserGroup',
+				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup',
 				'maxitems' => 1
 			)
 		),

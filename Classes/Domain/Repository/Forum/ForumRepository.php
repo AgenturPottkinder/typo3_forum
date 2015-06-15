@@ -64,7 +64,7 @@ class Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository extends \TYPO3\CMS\E
 
 	/**
 	 * Finds all forums for the index view.
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Forum[] All forums for the index view.
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Forum[] All forums for the index view.
 	 */
 	public function findForIndex() {
 		return $this->findRootForums();
@@ -76,7 +76,7 @@ class Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository extends \TYPO3\CMS\E
 	 *
 	 * @param  array $uids
 	 *
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Topic[]
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[]
 	 *                               The selected subset of topcis
 	 *
 	 */
@@ -96,7 +96,7 @@ class Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository extends \TYPO3\CMS\E
 
 	/**
 	 * Finds all root forums.
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Forum[] All forums for the index view.
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Forum[] All forums for the index view.
 	 */
 	public function findRootForums() {
 		$query  = $this->createQuery();
@@ -127,7 +127,7 @@ class Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository extends \TYPO3\CMS\E
 
 
 
-	public function findBySubscriber(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user) {
+	public function findBySubscriber(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
 		$query = $this->createQuery();
 		$query
 			->matching($query->contains('subscribers', $user))
@@ -137,11 +137,11 @@ class Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository extends \TYPO3\CMS\E
 
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Forum $forum
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 * @return bool
 	 */
-	public function getForumReadByUser(Tx_Typo3Forum_Domain_Model_Forum_Forum $forum, Tx_Typo3Forum_Domain_Model_User_FrontendUser $user) {
+	public function getForumReadByUser(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum, \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
 		// find all unread forums
 		$sql ='SELECT f.uid
 			   FROM tx_typo3forum_domain_model_forum_forum AS f

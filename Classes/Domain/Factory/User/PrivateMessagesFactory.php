@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Factory\User;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Domain_Factory_User_PrivateMessagesFactory extends Tx_Typo3Forum_Domain_Factory_AbstractFactory {
+class PrivateMessagesFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory {
 
 
 
@@ -63,18 +63,18 @@ class Tx_Typo3Forum_Domain_Factory_User_PrivateMessagesFactory extends Tx_Typo3F
 	 *
 	 * Creates a new report.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $opponent
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $feUser
-	 * @param Tx_Typo3Forum_Domain_Model_User_PrivateMessagesText $text
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $opponent
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $feUser
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessagesText $text
 	 * @param int $type
 	 * @param int $userRead
-	 * @return Tx_Typo3Forum_Domain_Model_User_PrivateMessages
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessages
 	 *                             The new private message.
 	 *
 	 */
-	public function createPrivateMessage(Tx_Typo3Forum_Domain_Model_User_FrontendUser $opponent,
-										 Tx_Typo3Forum_Domain_Model_User_FrontendUser $feUser,
-										 Tx_Typo3Forum_Domain_Model_User_PrivateMessagesText $text,
+	public function createPrivateMessage(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $opponent,
+										 \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $feUser,
+										 \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessagesText $text,
 										 $type,
 										 $userRead) {
 		$pm = $this->getClassInstance();

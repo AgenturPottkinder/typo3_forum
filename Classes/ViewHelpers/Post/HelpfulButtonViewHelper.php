@@ -89,13 +89,13 @@ class Tx_Typo3Forum_ViewHelpers_Post_HelpfulButtonViewHelper extends \TYPO3\CMS\
 
 	/**
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
 	 * @param string $countTarget
 	 * @param string $countUserTarget
 	 * @param string $title
 	 * @return string
 	 */
-	public function render(Tx_Typo3Forum_Domain_Model_Forum_Post $post, $countTarget = NULL, $countUserTarget = NULL, $title = '') {
+	public function render(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post, $countTarget = NULL, $countUserTarget = NULL, $title = '') {
 		$class = $this->settings['forum']['post']['helpfulBtn']['iconClass'];
 
 		if ($this->hasArgument('class')) {

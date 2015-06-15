@@ -64,7 +64,7 @@ class Tx_Typo3Forum_TextParser_Service_SmilieParserService
 
 	/**
 	 * All smilies.
-	 * @var array<Tx_Typo3Forum_Domain_Model_Format_Smilie>
+	 * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\Smilie>
 	 */
 	protected $smilies;
 
@@ -106,14 +106,14 @@ class Tx_Typo3Forum_TextParser_Service_SmilieParserService
 	 *
 	 * Renders a smilie icon.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_Format_Smilie $smilie
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Format\Smilie $smilie
 	 *                             The smilie that is to be rendered.
 	 *
 	 * @return string              The smilie as HTML code.
 	 *
 	 */
 
-	protected function getSmilieIcon(Tx_Typo3Forum_Domain_Model_Format_Smilie $smilie) {
+	protected function getSmilieIcon(\Mittwald\Typo3Forum\Domain\Model\Format\Smilie $smilie) {
 		return '<i class="' . $smilie->getIconClass() . '"></i>';
 	}
 

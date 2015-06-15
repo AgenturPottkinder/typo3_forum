@@ -43,10 +43,10 @@ class Tx_Typo3Forum_Domain_Repository_User_RankRepository extends \TYPO3\CMS\Ext
 	/**
 	 * Find the rank of a specific user
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
-	 * @return Tx_Typo3Forum_Domain_Model_User_Rank[]
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\Rank[]
 	 */
-	public function findRankByUser(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user) {
+	public function findRankByUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
 		$query = $this->createQuery();
 		$query->matching($query->lessThan('point_limit', $user->getPoints()));
 		$query->setOrderings(array('point_limit' => 'DESC'));
@@ -59,7 +59,7 @@ class Tx_Typo3Forum_Domain_Repository_User_RankRepository extends \TYPO3\CMS\Ext
 	 *
 	 * @param int $points
 	 * @deprecated
-	 * @return Tx_Typo3Forum_Domain_Model_User_Rank[]
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\Rank[]
 	 */
 	public function findRankByPoints($points) {
 		$query = $this->createQuery();
@@ -73,7 +73,7 @@ class Tx_Typo3Forum_Domain_Repository_User_RankRepository extends \TYPO3\CMS\Ext
 	 * Find one rank for a given amount of points
 	 *
 	 * @param int $points
-	 * @return Tx_Typo3Forum_Domain_Model_User_Rank
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\Rank
 	 */
 	public function findOneRankByPoints($points) {
 		$query = $this->createQuery();
@@ -92,7 +92,7 @@ class Tx_Typo3Forum_Domain_Repository_User_RankRepository extends \TYPO3\CMS\Ext
 	/**
 	 * Find all rankings for the ranking overview
 	 *
-	 * @return Tx_Typo3Forum_Domain_Model_User_Rank[]
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\Rank[]
 	 */
 	public function findAllForRankingOverview() {
 		$query = $this->createQuery();

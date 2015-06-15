@@ -92,7 +92,7 @@ class Tx_Typo3Forum_ViewHelpers_Form_BbCodeEditorViewHelper extends \TYPO3\CMS\F
 
 
 
-	public function injectCache(Tx_Typo3Forum_Cache_Cache $cache) {
+	public function injectCache(\Mittwald\Typo3Forum\Cache\Cache $cache) {
 		$this->cache = $cache;
 	}
 

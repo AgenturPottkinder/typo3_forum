@@ -74,14 +74,14 @@ Class Tx_Typo3Forum_ViewHelpers_Authentication_IfAccessViewHelper Extends \TYPO3
 	/**
 	 * Renders this ViewHelper
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_AccessibleInterface $object
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object
 	 *                                                                  The object for which the access is to be checked.
 	 * @param  string                                      $accessType  The operation for which to check the access.
 	 *
 	 * @return string              The ViewHelper contents if the user has access to
 	 *                             the specified operation.
 	 */
-	Public Function render(Tx_Typo3Forum_Domain_Model_AccessibleInterface $object, $accessType = 'read') {
+	Public Function render(\Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object, $accessType = 'read') {
 		if ($object->checkAccess($this->frontendUserRepository->findCurrent(),
 			$accessType)) {
 			return $this->renderThenChild();

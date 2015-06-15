@@ -1,4 +1,5 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -35,7 +36,7 @@
 
  */
 
-class Tx_Typo3Forum_Domain_Model_Forum_Ads extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Ads extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 
 	/**

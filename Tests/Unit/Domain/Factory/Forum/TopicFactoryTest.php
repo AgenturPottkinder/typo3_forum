@@ -25,11 +25,11 @@
  *                                                                      */
 
 
-class Tx_Typo3Forum_Domain_Factory_Forum_TopicFactoryTest extends Tx_Typo3Forum_Unit_BaseTestCase {
+class TopicFactoryTest extends Tx_Typo3Forum_Unit_BaseTestCase {
 
 
 	/**
-	 * @var Tx_Typo3Forum_Domain_Factory_Forum_TopicFactory
+	 * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory
 	 */
 	protected $fixture;
 
@@ -49,7 +49,7 @@ class Tx_Typo3Forum_Domain_Factory_Forum_TopicFactoryTest extends Tx_Typo3Forum_
 		$this->criteriaRepositoryMock = $this->getMock('Tx_Typo3Forum_Domain_Repository_Forum_CriteriaOptionRepository');
 
 
-		$this->fixture = new Tx_Typo3Forum_Domain_Factory_Forum_TopicFactory($this->forumRepositoryMock, $this->topicRepositoryMock, $this->postRepositoryMock, $this->postFactoryMock, $this->criteriaRepositoryMock);
+		$this->fixture = new \Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory($this->forumRepositoryMock, $this->topicRepositoryMock, $this->postRepositoryMock, $this->postFactoryMock, $this->criteriaRepositoryMock);
 		$this->fixture->injectObjectManager($this->objectManager);
 		$this->fixture->injectFrontendUserRepository($this->userRepositoryMock);
 	}
@@ -59,18 +59,18 @@ class Tx_Typo3Forum_Domain_Factory_Forum_TopicFactoryTest extends Tx_Typo3Forum_
 	 * @test
 	 */
 	public function topicCanBeCreated() {
-		$forum = $this->getMock('Tx_Typo3Forum_Domain_Model_Forum_Forum');
-		$user = $this->getMock('Tx_Typo3Forum_Domain_Model_User_FrontendUser');
-		$option = new Tx_Typo3Forum_Domain_Model_Forum_CriteriaOption();
+		$forum = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
+		$user = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser');
+		$option = new \Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption();
 		$option->setName('test');
-		$option->setCriteria(new Tx_Typo3Forum_Domain_Model_Forum_Criteria());
-		$post = new Tx_Typo3Forum_Domain_Model_Forum_Post('Content');
+		$option->setCriteria(new \Mittwald\Typo3Forum\Domain\Model\Forum\Criteria());
+		$post = new \Mittwald\Typo3Forum\Domain\Model\Forum\Post('Content');
 		$post->setAuthor($user);
 
 		$forum->expects($this->once())->method('addTopic')
-			->with($this->isInstance('Tx_Typo3Forum_Domain_Model_Forum_Topic'));
+			->with($this->isInstance('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
 		$this->forumRepositoryMock->expects($this->once())->method('update')
-			->with($this->isInstance('Tx_Typo3Forum_Domain_Model_Forum_Forum'));
+			->with($this->isInstance('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum'));
 		$this->userRepositoryMock->expects($this->any())->method('findCurrent')->will($this->returnValue($user));
 		$this->topicRepositoryMock->expects($this->any())->method('addCriteriaOption')
 			->with($option);
@@ -94,23 +94,23 @@ class Tx_Typo3Forum_Domain_Factory_Forum_TopicFactoryTest extends Tx_Typo3Forum_
 	public function topicCanBeDeleted() {
 		$posts = array();
 		for ($i = 1; $i <= 5; $i++) {
-			$user = $this->getMock('Tx_Typo3Forum_Domain_Model_User_FrontendUser');
+			$user = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser');
 			$user->expects($this->once())->method('decreasePostCount');
-			$post = $this->getMock('Tx_Typo3Forum_Domain_Model_Forum_Post');
+			$post = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post');
 			$post->expects($this->any())->method('getAuthor')->will($this->returnValue($user));
 			$posts[] = $post;
 		}
 
-		$forum = $this->getMock('Tx_Typo3Forum_Domain_Model_Forum_Forum');
+		$forum = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
 
-		$topic = $this->getMock('Tx_Typo3Forum_Domain_Model_Forum_Topic');
+		$topic = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
 		$topic->expects($this->any())->method('getPosts')->will($this->returnValue($posts));
 		$topic->expects($this->any())->method('getForum')->will($this->returnValue($forum));
 
 		$forum->expects($this->once())->method('removeTopic')->with($this->isIdentical($topic));
 
 		$this->userRepositoryMock->expects($this->exactly(5))->method('update')
-			->with($this->isInstance('Tx_Typo3Forum_Domain_Model_User_FrontendUser'));
+			->with($this->isInstance('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'));
 		$this->forumRepositoryMock->expects($this->once())->method('update')->with($this->isIdentical($forum));
 
 		$this->fixture->deleteTopic($topic);
@@ -121,8 +121,8 @@ class Tx_Typo3Forum_Domain_Factory_Forum_TopicFactoryTest extends Tx_Typo3Forum_
 	 * @test
 	 */
 	public function shadowTopicCanBeCreated() {
-		$post = new Tx_Typo3Forum_Domain_Model_Forum_Post();
-		$topic = new Tx_Typo3Forum_Domain_Model_Forum_Topic('Subject');
+		$post = new \Mittwald\Typo3Forum\Domain\Model\Forum\Post();
+		$topic = new \Mittwald\Typo3Forum\Domain\Model\Forum\Topic('Subject');
 		$topic->addPost($post);
 
 		$shadowTopic = $this->fixture->createShadowTopic($topic);
@@ -137,23 +137,23 @@ class Tx_Typo3Forum_Domain_Factory_Forum_TopicFactoryTest extends Tx_Typo3Forum_
 	 * @test
 	 */
 	public function topicCanBeMoved() {
-		$sourceForum = $this->getMock('Tx_Typo3Forum_Domain_Model_Forum_Forum');
-		$targetForum = $this->getMock('Tx_Typo3Forum_Domain_Model_Forum_Forum');
+		$sourceForum = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
+		$targetForum = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
 
-		$post = new Tx_Typo3Forum_Domain_Model_Forum_Post();
-		$topic = new Tx_Typo3Forum_Domain_Model_Forum_Topic('Subject');
+		$post = new \Mittwald\Typo3Forum\Domain\Model\Forum\Post();
+		$topic = new \Mittwald\Typo3Forum\Domain\Model\Forum\Topic('Subject');
 		$topic->addPost($post);
 		$topic->setForum($sourceForum);
 
 		$sourceForum->expects($this->once())->method('removeTopic')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_Typo3Forum_Domain_Model_Forum_Topic'));
+			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
 		$sourceForum->expects($this->once())->method('addTopic')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_Typo3Forum_Domain_Model_Forum_ShadowTopic'));
+			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\ShadowTopic'));
 		$targetForum->expects($this->once())->method('addTopic')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_Typo3Forum_Domain_Model_Forum_Topic'));
+			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
 
 		$this->forumRepositoryMock->expects($this->exactly(2))->method('update')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_Typo3Forum_Domain_Model_Forum_Forum'));
+			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum'));
 
 		$this->fixture->moveTopic($topic, $targetForum);
 	}
@@ -164,8 +164,8 @@ class Tx_Typo3Forum_Domain_Factory_Forum_TopicFactoryTest extends Tx_Typo3Forum_
 	 * @expectedException Tx_Extbase_Object_InvalidClass
 	 */
 	public function shadowTopicCannotBeMoved() {
-		$shadowTopic = new Tx_Typo3Forum_Domain_Model_Forum_ShadowTopic();
-		$targetForum = new Tx_Typo3Forum_Domain_Model_Forum_Forum();
+		$shadowTopic = new \Mittwald\Typo3Forum\Domain\Model\Forum\ShadowTopic();
+		$targetForum = new \Mittwald\Typo3Forum\Domain\Model\Forum\Forum();
 
 		$this->fixture->moveTopic($shadowTopic, $targetForum);
 	}

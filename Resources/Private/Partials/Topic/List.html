@@ -29,7 +29,7 @@
     <f:if condition="{topics}">
         <f:then>
             <f:for each="{topics}" as="topic">
-                <mmf:ifInstanceOf object="{topic}" className="Tx_Typo3Forum_Domain_Model_Forum_ShadowTopic">
+                <mmf:ifInstanceOf object="{topic}" className="\Mittwald\Typo3Forum\Domain\Model\Forum\ShadowTopic">
                     <f:then>
                         <tr>
                             <td style="width:1px;">

@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Cache;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -46,7 +46,7 @@
  *
  */
 
-class Tx_Typo3Forum_Cache_Cache implements \TYPO3\CMS\Core\SingletonInterface {
+class Cache implements \TYPO3\CMS\Core\SingletonInterface {
 
 
 

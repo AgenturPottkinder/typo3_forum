@@ -47,7 +47,7 @@ class Tx_Typo3Forum_Domain_Validator_Forum_PostValidator extends \TYPO3\CMS\Extb
 	 * Check if $value is valid. If it is not valid, needs to add an error
 	 * to Result.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
 	 * @return void
 	 */
 	protected function isValid($post) {

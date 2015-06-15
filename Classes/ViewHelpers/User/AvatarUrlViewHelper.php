@@ -86,7 +86,7 @@ class Tx_Typo3Forum_ViewHelpers_User_AvatarUrlViewHelper extends \TYPO3\CMS\Flui
 	 *
 	 * Renders the avatar.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 *                                                               The user whose avatar is to be rendered.
 	 * @param  integer                                   $width      The desired avatar width
 	 * @param  integer                                   $height     The desired avatar height
@@ -96,7 +96,7 @@ class Tx_Typo3Forum_ViewHelpers_User_AvatarUrlViewHelper extends \TYPO3\CMS\Flui
 	 * @return string              HTML content or URL
 	 *
 	 */
-	public function render(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user = NULL ) {
+	public function render(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL ) {
 		// if user ist not set
 		$avatarFilename = NULL;
 

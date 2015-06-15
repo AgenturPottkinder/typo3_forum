@@ -46,11 +46,11 @@ class Tx_Typo3Forum_Domain_Repository_User_NotificationRepository extends \TYPO3
 
 	/**
 	 * Find notifications for a specific user
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 * @param int $limit
-	 * @return Tx_Typo3Forum_Domain_Model_User_Notification[]
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\Notification[]
 	 */
-	public function findNotificationsForUser(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user, $limit=0) {
+	public function findNotificationsForUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user, $limit=0) {
 		$query = $this->createQuery();
 		$query->matching($query->equals('feuser',$user));
 		$query->setOrderings(array('post.crdate' => 'DESC'));

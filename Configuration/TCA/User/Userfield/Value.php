@@ -63,7 +63,7 @@ $TCA['tx_typo3forum_domain_model_user_userfield_value'] = array(
 			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_value.user',
 			'config' => array(
 				'type' => 'select',
-				'foreign_class' => 'Tx_Typo3Forum_Domain_Model_User_FrontendUser',
+				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser',
 				'foreign_table' => 'fe_users',
 				'maxitems' => 1
 			)

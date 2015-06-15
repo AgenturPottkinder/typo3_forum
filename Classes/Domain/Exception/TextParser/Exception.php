@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Exception\TextParser;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -43,7 +43,7 @@
  *
  */
 
-Class Tx_Typo3Forum_Domain_Exception_TextParser_Exception Extends Tx_Typo3Forum_Domain_Exception_AbstractException {
+class Exception extends \Mittwald\Typo3Forum\Domain\Exception\AbstractException {
 
 
 

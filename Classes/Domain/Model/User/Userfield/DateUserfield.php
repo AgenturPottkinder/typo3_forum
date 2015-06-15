@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Model\User\Userfield;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -43,8 +43,7 @@
  *
  */
 
-Class Tx_Typo3Forum_Domain_Model_User_Userfield_DateUserfield
-	Extends Tx_Typo3Forum_Domain_Model_User_Userfield_TyposcriptUserfield {
+class DateUserfield extends \Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield {
 
 
 
@@ -52,7 +51,7 @@ Class Tx_Typo3Forum_Domain_Model_User_Userfield_DateUserfield
 	 * The typoscript path that is to be used for rendering this field.
 	 * @var string
 	 */
-	Protected $typoscriptPath = 'plugin.tx_typo3forum.userfields.date';
+	protected $typoscriptPath = 'plugin.tx_typo3forum.userfields.date';
 
 }
 

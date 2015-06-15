@@ -81,7 +81,7 @@ class Tx_Typo3Forum_Utility_TypoScript {
 		foreach ($pathSegments As $segment) {
 			if (!array_key_exists($segment . '.', $setup)
 			) {
-				throw new Tx_Typo3Forum_Domain_Exception_TextParser_Exception ('TypoScript object path "' . htmlspecialchars($configurationPath) . '" does not exist', 1253191023);
+				throw new \Mittwald\Typo3Forum\Domain\Exception\TextParser\Exception ('TypoScript object path "' . htmlspecialchars($configurationPath) . '" does not exist', 1253191023);
 			}
 			$setup = $setup[$segment . '.'];
 		}

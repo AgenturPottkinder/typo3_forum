@@ -1,4 +1,5 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -35,7 +36,7 @@
 
  */
 
-class Tx_Typo3Forum_Domain_Model_Forum_Criteria extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Criteria extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 		/**
 	 * The name of the criteria
@@ -46,14 +47,14 @@ class Tx_Typo3Forum_Domain_Model_Forum_Criteria extends \TYPO3\CMS\Extbase\Domai
 
 	/**
 	 * The options of a criteria
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Typo3Forum_Domain_Model_Forum_CriteriaOption>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption>
 	 */
 	protected $options;
 
 
 	/**
 	 * The default option
-	 * @var Tx_Typo3Forum_Domain_Model_Forum_CriteriaOption
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption
 	 */
 	protected $defaultOption;
 
@@ -69,7 +70,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Criteria extends \TYPO3\CMS\Extbase\Domai
 
 	/**
 	 * Get all options of this criteria.
-	 * @return	\TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Typo3Forum_Domain_Model_Forum_CriteriaOption>
+	 * @return	\TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption>
 	 *			All options of criteria.
 	 */
 	public function getOptions() {
@@ -79,7 +80,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Criteria extends \TYPO3\CMS\Extbase\Domai
 
 	/**
 	 * Get the default option
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_CriteriaOption
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption
 	 */
 	public function getDefaultOption() {
 		return $this->defaultOption;
@@ -106,10 +107,10 @@ class Tx_Typo3Forum_Domain_Model_Forum_Criteria extends \TYPO3\CMS\Extbase\Domai
 
 	/**
 	 * Set the default option
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_CriteriaOption $defaultOption
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption $defaultOption
 	 * @return void
 	 */
-	public function setDefaultOption(Tx_Typo3Forum_Domain_Model_Forum_CriteriaOption $defaultOption) {
+	public function setDefaultOption(\Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption $defaultOption) {
 		$this->defaultOption = $defaultOption;
 	}
 }

@@ -31,21 +31,21 @@ class Tx_Typo3Forum_Domain_Model_Forum_AccessTest extends Tx_Typo3Forum_Unit_Bas
 
 
 	/**
-	 * @var Tx_Typo3Forum_Domain_Model_Forum_Access
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Access
 	 */
 	protected $fixture = NULL;
 
 
 
 	public function setUp() {
-		$this->fixture = new Tx_Typo3Forum_Domain_Model_Forum_Access();
+		$this->fixture = new \Mittwald\Typo3Forum\Domain\Model\Forum\Access();
 	}
 
 
 
 	public function testConstructorSetsOperationLevelAndGroup() {
-		$group         = new Tx_Typo3Forum_Domain_Model_User_FrontendUserGroup('GROUP');
-		$this->fixture = new Tx_Typo3Forum_Domain_Model_Forum_Access('read', Tx_Typo3Forum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN, $group);
+		$group         = new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup('GROUP');
+		$this->fixture = new \Mittwald\Typo3Forum\Domain\Model\Forum\Access('read', \Mittwald\Typo3Forum\Domain\Model\Forum\Access::LOGIN_LEVEL_ANYLOGIN, $group);
 
 		$this->assertEquals('read', $this->fixture->getOperation());
 		$this->assertTrue($this->fixture->isAnyLogin());
@@ -69,66 +69,66 @@ class Tx_Typo3Forum_Domain_Model_Forum_AccessTest extends Tx_Typo3Forum_Unit_Bas
 
 
 	public function testMatchesNullAgainstEveryone() {
-		$this->fixture = new Tx_Typo3Forum_Domain_Model_Forum_Access('read', Tx_Typo3Forum_Domain_Model_Forum_Access::LOGIN_LEVEL_EVERYONE);
+		$this->fixture = new \Mittwald\Typo3Forum\Domain\Model\Forum\Access('read', \Mittwald\Typo3Forum\Domain\Model\Forum\Access::LOGIN_LEVEL_EVERYONE);
 		$this->assertTrue($this->fixture->matches(NULL));
 	}
 
 
 
 	public function testMatchesAnonymousUserAgainstEveryone() {
-		$this->fixture = new Tx_Typo3Forum_Domain_Model_Forum_Access('read', Tx_Typo3Forum_Domain_Model_Forum_Access::LOGIN_LEVEL_EVERYONE);
-		$this->assertTrue($this->fixture->matches(new Tx_Typo3Forum_Domain_Model_User_AnonymousFrontendUser()));
+		$this->fixture = new \Mittwald\Typo3Forum\Domain\Model\Forum\Access('read', \Mittwald\Typo3Forum\Domain\Model\Forum\Access::LOGIN_LEVEL_EVERYONE);
+		$this->assertTrue($this->fixture->matches(new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser()));
 	}
 
 
 
 	public function testMatchesLoggedInUserAgainstEveryone() {
-		$this->fixture = new Tx_Typo3Forum_Domain_Model_Forum_Access('read', Tx_Typo3Forum_Domain_Model_Forum_Access::LOGIN_LEVEL_EVERYONE);
-		$this->assertTrue($this->fixture->matches(new Tx_Typo3Forum_Domain_Model_User_FrontendUser('martin')));
+		$this->fixture = new \Mittwald\Typo3Forum\Domain\Model\Forum\Access('read', \Mittwald\Typo3Forum\Domain\Model\Forum\Access::LOGIN_LEVEL_EVERYONE);
+		$this->assertTrue($this->fixture->matches(new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser('martin')));
 	}
 
 
 
 	public function testMismatchesNullAgainstAnyLogin() {
-		$this->fixture = new Tx_Typo3Forum_Domain_Model_Forum_Access('read', Tx_Typo3Forum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN);
+		$this->fixture = new \Mittwald\Typo3Forum\Domain\Model\Forum\Access('read', \Mittwald\Typo3Forum\Domain\Model\Forum\Access::LOGIN_LEVEL_ANYLOGIN);
 		$this->assertFalse($this->fixture->matches(NULL));
 	}
 
 	public function testMismatchesAnonymousUserAgainstAnyLogin() {
-		$this->fixture = new Tx_Typo3Forum_Domain_Model_Forum_Access('read', Tx_Typo3Forum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN);
-		$this->assertFalse($this->fixture->matches(new Tx_Typo3Forum_Domain_Model_User_AnonymousFrontendUser()));
+		$this->fixture = new \Mittwald\Typo3Forum\Domain\Model\Forum\Access('read', \Mittwald\Typo3Forum\Domain\Model\Forum\Access::LOGIN_LEVEL_ANYLOGIN);
+		$this->assertFalse($this->fixture->matches(new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser()));
 	}
 
 
 
 	public function testMatchesLoggedInUserAgainstAnyLogin() {
-		$this->fixture = new Tx_Typo3Forum_Domain_Model_Forum_Access('read', Tx_Typo3Forum_Domain_Model_Forum_Access::LOGIN_LEVEL_ANYLOGIN);
-		$this->assertTrue($this->fixture->matches(new Tx_Typo3Forum_Domain_Model_User_FrontendUser('martin')));
+		$this->fixture = new \Mittwald\Typo3Forum\Domain\Model\Forum\Access('read', \Mittwald\Typo3Forum\Domain\Model\Forum\Access::LOGIN_LEVEL_ANYLOGIN);
+		$this->assertTrue($this->fixture->matches(new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser('martin')));
 	}
 
 
 
 	public function testMismatchesAnonymousUserAgainstSpecificLogin() {
-		$group         = new Tx_Typo3Forum_Domain_Model_User_FrontendUserGroup('GROUP');
-		$this->fixture = new Tx_Typo3Forum_Domain_Model_Forum_Access('read', Tx_Typo3Forum_Domain_Model_Forum_Access::LOGIN_LEVEL_SPECIFIC, $group);
+		$group         = new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup('GROUP');
+		$this->fixture = new \Mittwald\Typo3Forum\Domain\Model\Forum\Access('read', \Mittwald\Typo3Forum\Domain\Model\Forum\Access::LOGIN_LEVEL_SPECIFIC, $group);
 		$this->assertFalse($this->fixture->matches(NULL));
 	}
 
 
 
 	public function testMismatchesAnyUserAgainstSpecificLogin() {
-		$group         = new Tx_Typo3Forum_Domain_Model_User_FrontendUserGroup('GROUP');
-		$this->fixture = new Tx_Typo3Forum_Domain_Model_Forum_Access('read', Tx_Typo3Forum_Domain_Model_Forum_Access::LOGIN_LEVEL_SPECIFIC, $group);
-		$this->assertFalse($this->fixture->matches(new Tx_Typo3Forum_Domain_Model_User_FrontendUser('martin')));
+		$group         = new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup('GROUP');
+		$this->fixture = new \Mittwald\Typo3Forum\Domain\Model\Forum\Access('read', \Mittwald\Typo3Forum\Domain\Model\Forum\Access::LOGIN_LEVEL_SPECIFIC, $group);
+		$this->assertFalse($this->fixture->matches(new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser('martin')));
 	}
 
 
 
 	public function testMatchesGroupMemberUserAgainstSpecificLogin() {
-		$group = new Tx_Typo3Forum_Domain_Model_User_FrontendUserGroup('GROUP');
-		$user  = new Tx_Typo3Forum_Domain_Model_User_FrontendUser('martin');
+		$group = new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup('GROUP');
+		$user  = new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser('martin');
 		$user->addUsergroup($group);
-		$this->fixture = new Tx_Typo3Forum_Domain_Model_Forum_Access('read', Tx_Typo3Forum_Domain_Model_Forum_Access::LOGIN_LEVEL_SPECIFIC, $group);
+		$this->fixture = new \Mittwald\Typo3Forum\Domain\Model\Forum\Access('read', \Mittwald\Typo3Forum\Domain\Model\Forum\Access::LOGIN_LEVEL_SPECIFIC, $group);
 		$this->assertTrue($this->fixture->matches($user));
 	}
 

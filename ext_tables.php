@@ -167,7 +167,7 @@ $tempColumns = array(
 		'config'  => array(
 			'type' => 'select',
 			'foreign_table' => 'tx_typo3forum_domain_model_user_rank',
-			'foreign_class' => 'Tx_Typo3Forum_Domain_Model_User_Rank',
+			'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\Rank',
 			'maxitems' => 1
 		)
 	),
@@ -404,29 +404,29 @@ $tempColumns = array(
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('fe_groups', $tempColumns, 1);
-$TCA['fe_groups']['types']['Tx_Typo3Forum_Domain_Model_User_FrontendUserGroup'] = $TCA['fe_groups']['types']['0'];
+$TCA['fe_groups']['types']['\Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup'] = $TCA['fe_groups']['types']['0'];
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem('fe_groups', 'tx_extbase_type',
-	array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_groups.tx_extbase_type.typo3_forum', 'Tx_Typo3Forum_Domain_Model_User_FrontendUserGroup'));
+	array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_groups.tx_extbase_type.typo3_forum', '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup'));
 
 
-$TCA['fe_groups']['types']['Tx_Typo3Forum_Domain_Model_User_FrontendUserGroup']['showitem'] .=
+$TCA['fe_groups']['types']['\Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup']['showitem'] .=
 	',--div--;LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_typo3forum.tab.settings,'.
 	'tx_typo3forum_user_mod';
 
 
-$TCA['fe_users']['types']['Tx_Typo3Forum_Domain_Model_User_FrontendUser'] = $TCA['fe_users']['types']['0'];
-//$TCA['fe_users']['types']['Tx_Typo3Forum_Domain_Model_User_FrontendUser']['showitem'] .=
+$TCA['fe_users']['types']['\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'] = $TCA['fe_users']['types']['0'];
+//$TCA['fe_users']['types']['\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser']['showitem'] .=
 //	',--div--;LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_typo3forum.tab.settings,'
 //	. ' tx_typo3forum_points, tx_typo3forum_post_count, tx_typo3forum_topic_count, tx_typo3forum_helpful_count, tx_typo3forum_question_count, tx_typo3forum_rank, tx_typo3forum_topic_favsubscriptions, tx_typo3forum_topic_subscriptions, tx_typo3forum_forum_subscriptions,'
 //	. ' tx_typo3forum_signature, tx_typo3forum_userfield_values, tx_typo3forum_use_gravatar, tx_typo3forum_contact, tx_typo3forum_working_environment, tx_typo3forum_private_messages, tx_typo3forum_post_count_season, tx_typo3forum_helpful_count_season';
 
-$TCA['fe_users']['types']['Tx_Typo3Forum_Domain_Model_User_FrontendUser']['showitem'] .=
+$TCA['fe_users']['types']['\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser']['showitem'] .=
 	',--div--;LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_typo3forum.tab.settings,'
 	. ' tx_typo3forum_points, tx_typo3forum_post_count, tx_typo3forum_topic_count, tx_typo3forum_helpful_count, tx_typo3forum_question_count, tx_typo3forum_rank,'
 	. ' tx_typo3forum_signature, tx_typo3forum_userfield_values, tx_typo3forum_use_gravatar, tx_typo3forum_contact, tx_typo3forum_working_environment, tx_typo3forum_private_messages, tx_typo3forum_post_count_season, tx_typo3forum_helpful_count_season';
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem('fe_users', 'tx_extbase_type',
-	array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_extbase_type.typo3_forum', 'Tx_Typo3Forum_Domain_Model_User_FrontendUser'));
+	array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_extbase_type.typo3_forum', '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'));
 
 
 

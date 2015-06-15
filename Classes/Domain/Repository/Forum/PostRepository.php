@@ -57,7 +57,7 @@ class Tx_Typo3Forum_Domain_Repository_Forum_PostRepository extends Tx_Typo3Forum
 	 * @param  integer $limit
 	 * @param  array $orderings
 	 *
-	 * @return Array<Tx_Typo3Forum_Domain_Model_Forum_Post>
+	 * @return Array<\Mittwald\Typo3Forum\Domain\Model\Forum\Post>
 	 *                               The selected subset of posts
 	 *
 	 */
@@ -78,7 +78,7 @@ class Tx_Typo3Forum_Domain_Repository_Forum_PostRepository extends Tx_Typo3Forum
 	 *
 	 * @param  array $uids
 	 *
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Topic[]
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[]
 	 *                               The selected subset of topcis
 	 *
 	 */
@@ -100,15 +100,15 @@ class Tx_Typo3Forum_Domain_Repository_Forum_PostRepository extends Tx_Typo3Forum
 	 *
 	 * Finds posts for a specific topic. Page navigation is possible.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Topic $topic
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
 	 *                               The topic for which the posts are to be loaded.
 	 *
-	 * @return Array<Tx_Typo3Forum_Domain_Model_Forum_Post>
+	 * @return Array<\Mittwald\Typo3Forum\Domain\Model\Forum\Post>
 	 *                               The selected subset of posts in the specified
 	 *                               topic.
 	 *
 	 */
-	public function findForTopic(Tx_Typo3Forum_Domain_Model_Forum_Topic $topic) {
+	public function findForTopic(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic) {
 		$query = $this->createQuery();
 		$query->getQuerySettings()->setRespectSysLanguage(FALSE) ;
 		return $query->matching($query->equals('topic', $topic))
@@ -123,17 +123,17 @@ class Tx_Typo3Forum_Domain_Repository_Forum_PostRepository extends Tx_Typo3Forum
 	 *
 	 * Finds the last post in a topic.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Topic $topic
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
 	 *                             The topic for which the last post is to be
 	 *                             loaded.
 	 * @param int $offset
 	 * 								If you want to get the next to last post post
 	 *
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Post
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Post
 	 *                             The last post of the specified topic.
 	 *
 	 */
-	public function findLastByTopic(Tx_Typo3Forum_Domain_Model_Forum_Topic $topic, $offset=0) {
+	public function findLastByTopic(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic, $offset=0) {
 		$query = $this->createQuery();
 		$query->matching($query->equals('topic', $topic))
 			->setOrderings(Array('crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING))->setLimit(1);
@@ -151,16 +151,16 @@ class Tx_Typo3Forum_Domain_Repository_Forum_PostRepository extends Tx_Typo3Forum
 	 *
 	 * Finds the last post in a forum.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Forum $forum
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
 	 *                             The forum for which to load the last post.
 	 * @param int $offset
 	 * 								If you want to get the next to last post post
 	 *
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Post
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Post
 	 *                             The last post of the specified forum.
 	 *
 	 */
-	public function findLastByForum(Tx_Typo3Forum_Domain_Model_Forum_Forum $forum, $offset=0) {
+	public function findLastByForum(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum, $offset=0) {
 		$query = $this->createQuery();
 		$query->matching($query->equals('topic.forum', $forum))
 			->setOrderings(array('crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING))->setLimit(1);
@@ -175,10 +175,10 @@ class Tx_Typo3Forum_Domain_Repository_Forum_PostRepository extends Tx_Typo3Forum
 	 * Deletes the post with sql statements.
 	 * Only used on performance problems (Activate useSqlStatementsOnCriticalFunctions in settings).
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
 	 * @return void
 	 */
-	public function deletePostWithSqlStatement(Tx_Typo3Forum_Domain_Model_Forum_Post $post) {
+	public function deletePostWithSqlStatement(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
 		$lastPost = $post->getTopic()->getLastPost();
 		if($post->getUid() == $lastPost->getUid()) {
 			$lastPost = $this->findLastByTopic($post->getTopic(),1);

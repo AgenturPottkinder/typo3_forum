@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Controller;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -45,7 +45,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Controller_TagController extends Tx_Typo3Forum_Controller_AbstractController {
+class TagController extends \Mittwald\Typo3Forum\Controller\AbstractController {
 
 
 
@@ -103,22 +103,22 @@ class Tx_Typo3Forum_Controller_TagController extends Tx_Typo3Forum_Controller_Ab
 
 	/**
 	 * Show all topics of a given tag
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Tag $tag
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag
 	 * @return void
 	 */
-	public function showAction(Tx_Typo3Forum_Domain_Model_Forum_Tag $tag) {
+	public function showAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag) {
 		$this->view->assign('tag',$tag);
 		$this->view->assign('topics',$this->topicRepository->findAllTopicsWithGivenTag($tag));
 	}
 
 	/**
-	 * @throws Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException
+	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
 	 * @return void
 	 */
 	public function newAction() {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 	}
 
@@ -127,16 +127,16 @@ class Tx_Typo3Forum_Controller_TagController extends Tx_Typo3Forum_Controller_Ab
 	 * @param string $subscribe
 	 *
 	 * @validate $name Tx_Typo3Forum_Domain_Validator_Forum_TagValidator
-	 * @throws Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException
+	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
 	 * @return void
 	 */
 	public function createAction($name="",$subscribe="") {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in.", 1288084981);
 		}
-		/** @var Tx_Typo3Forum_Domain_Model_Forum_Tag $tag */
-		$tag = $this->objectManager->create('Tx_Typo3Forum_Domain_Model_Forum_Tag');
+		/** @var \Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag */
+		$tag = $this->objectManager->create('\Mittwald\Typo3Forum\Domain\Model\Forum\Tag');
 		$tag->setName($name);
 		$tag->setCrdate(new DateTime());
 		if(intval($subscribe) == 1) {
@@ -154,13 +154,13 @@ class Tx_Typo3Forum_Controller_TagController extends Tx_Typo3Forum_Controller_Ab
 
 	/**
 	 * List all subscribed tags of a user
-	 * @throws Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException
+	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
 	 * @return void
 	 */
 	public function listUserTagsAction() {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 		$this->redirect('list',NULL,NULL,array('mine' => 1));
 	}
@@ -168,16 +168,16 @@ class Tx_Typo3Forum_Controller_TagController extends Tx_Typo3Forum_Controller_Ab
 
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Tag $tag
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag
 	 * @param int $mine
 	 *
-	 * @throws Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException
+	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
 	 * @return void
 	 */
-	public function newUserTagAction(Tx_Typo3Forum_Domain_Model_Forum_Tag $tag, $mine) {
+	public function newUserTagAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag, $mine) {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 		$tag->addFeuser($user);
 		$this->tagRepository->update($tag);
@@ -186,16 +186,16 @@ class Tx_Typo3Forum_Controller_TagController extends Tx_Typo3Forum_Controller_Ab
 
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Tag $tag
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag
 	 * @param int $mine
 	 *
-	 * @throws Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException
+	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
 	 * @return void
 	 */
-	public function deleteUserTagAction(Tx_Typo3Forum_Domain_Model_Forum_Tag $tag, $mine) {
+	public function deleteUserTagAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag, $mine) {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 		$tag->removeFeuser($user);
 		$this->tagRepository->update($tag);

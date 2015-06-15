@@ -24,12 +24,12 @@ class Tx_Typo3Forum_Service_AttachmentService implements \TYPO3\CMS\Core\Singlet
 	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
 	 */
 	public function initAttachments(array $attachments){
-		/* @var Tx_Typo3Forum_Domain_Model_Forum_Attachment */
+		/* @var \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment */
 		$objAttachments = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 
 		foreach($attachments AS $attachmentID => $attachment) {
 			if($attachment['name'] == '') continue;
-			$attachmentObj = $this->objectManager->create('Tx_Typo3Forum_Domain_Model_Forum_Attachment');
+			$attachmentObj = $this->objectManager->create('\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment');
 			$tmp_name = $_FILES['tx_typo3forum_pi1']['tmp_name']['attachments'][$attachmentID];
 			$mime_type = mime_content_type($tmp_name);
 

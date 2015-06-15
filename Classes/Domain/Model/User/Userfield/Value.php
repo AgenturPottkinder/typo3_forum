@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Model\User\Userfield;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -44,7 +44,7 @@
  *
  */
 
-Class Tx_Typo3Forum_Domain_Model_User_Userfield_Value Extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
+class Value extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
 
 
 
@@ -56,23 +56,23 @@ Class Tx_Typo3Forum_Domain_Model_User_Userfield_Value Extends \TYPO3\CMS\Extbase
 
 	/**
 	 * The userfield.
-	 * @var Tx_Typo3Forum_Domain_Model_User_Userfield_AbstractUserfield
+	 * @var \Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield
 	 */
-	Protected $userfield;
+	protected $userfield;
 
 
 	/**
 	 * The user.
-	 * @var Tx_Typo3Forum_Domain_Model_User_FrontendUser
+	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 */
-	Protected $user;
+	protected $user;
 
 
 	/**
 	 * The value.
 	 * @var string
 	 */
-	Protected $value;
+	protected $value;
 
 
 
@@ -85,12 +85,12 @@ Class Tx_Typo3Forum_Domain_Model_User_Userfield_Value Extends \TYPO3\CMS\Extbase
 	/**
 	 *
 	 * Gets the userfield.
-	 * @return Tx_Typo3Forum_Domain_Model_User_Userfield_AbstractUserfield The userfield.
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield The userfield.
 	 *
 	 */
 
-	Public Function getUserfield() {
-		Return $this->userfield;
+	public function getUserfield() {
+		return $this->userfield;
 	}
 
 
@@ -98,11 +98,11 @@ Class Tx_Typo3Forum_Domain_Model_User_Userfield_Value Extends \TYPO3\CMS\Extbase
 	/**
 	 *
 	 * Gets the user.
-	 * @return Tx_Typo3Forum_Domain_Model_User_FrontendUser The user
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser The user
 	 *
 	 */
-	Public Function getUser() {
-		Return $this->user;
+	public function getUser() {
+		return $this->user;
 	}
 
 
@@ -114,8 +114,8 @@ Class Tx_Typo3Forum_Domain_Model_User_Userfield_Value Extends \TYPO3\CMS\Extbase
 	 *
 	 */
 
-	Public Function getValue() {
-		Return $this->value;
+	public function getValue() {
+		return $this->value;
 	}
 
 }

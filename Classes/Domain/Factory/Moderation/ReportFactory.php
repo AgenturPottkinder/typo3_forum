@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Factory\Moderation;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Domain_Factory_Moderation_ReportFactory extends Tx_Typo3Forum_Domain_Factory_AbstractFactory {
+class ReportFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory {
 
 
 
@@ -86,18 +86,18 @@ class Tx_Typo3Forum_Domain_Factory_Moderation_ReportFactory extends Tx_Typo3Foru
 	 *
 	 * Creates a new User report.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Moderation_ReportComment $firstComment
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $firstComment
 	 *                             The first report comment for this report.
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post               $post
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post               $post
 	 *                             The post that is to be reported.
-	 * @return Tx_Typo3Forum_Domain_Model_Moderation_Report
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Moderation\Report
 	 *                             The new report.
 	 *
 	 */
-	public function createUserReport(Tx_Typo3Forum_Domain_Model_Moderation_ReportComment $firstComment) {
+	public function createUserReport(\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $firstComment) {
 		$user = & $this->getCurrentUser();
 		$firstComment->setAuthor($user);
-		$report = $this->objectManager->create('Tx_Typo3Forum_Domain_Model_Moderation_UserReport');
+		$report = $this->objectManager->create('\Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport');
 		$report->setWorkflowStatus($this->workflowStatusRepository->findInitial());
 		$report->setReporter($user);
 		$report->addComment($firstComment);
@@ -108,18 +108,18 @@ class Tx_Typo3Forum_Domain_Factory_Moderation_ReportFactory extends Tx_Typo3Foru
 	 *
 	 * Creates a new User report.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Moderation_ReportComment $firstComment
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $firstComment
 	 *                             The first report comment for this report.
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post               $post
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post               $post
 	 *                             The post that is to be reported.
-	 * @return Tx_Typo3Forum_Domain_Model_Moderation_Report
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Moderation\Report
 	 *                             The new report.
 	 *
 	 */
-	public function createPostReport(Tx_Typo3Forum_Domain_Model_Moderation_ReportComment $firstComment) {
+	public function createPostReport(\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $firstComment) {
 		$user = & $this->getCurrentUser();
 		$firstComment->setAuthor($user);
-		$report = $this->objectManager->create('Tx_Typo3Forum_Domain_Model_Moderation_PostReport');
+		$report = $this->objectManager->create('\Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport');
 		$report->setWorkflowStatus($this->workflowStatusRepository->findInitial());
 		$report->setReporter($user);
 		$report->addComment($firstComment);

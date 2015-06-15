@@ -58,20 +58,20 @@ class Tx_Typo3Forum_Service_Notification_NotificationServiceTest extends \TYPO3\
 		// Add mock function.
 		$this->mailingServiceMock->expects($this->any())->method('getFormat')->will($this->returnValue($format));
 		$this->mailingServiceMock->expects($this->exactly(5))->method('sendMail')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Tx_Typo3Forum_Domain_Model_User_FrontendUser'));
+			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'));
 
-		$post  = new Tx_Typo3Forum_Domain_Model_Forum_Post('Post 1');
-		$topic = new Tx_Typo3Forum_Domain_Model_Forum_Topic('Topic');
-		$forum = new Tx_Typo3Forum_Domain_Model_Forum_Forum('Forum');
+		$post  = new \Mittwald\Typo3Forum\Domain\Model\Forum\Post('Post 1');
+		$topic = new \Mittwald\Typo3Forum\Domain\Model\Forum\Topic('Topic');
+		$forum = new \Mittwald\Typo3Forum\Domain\Model\Forum\Forum('Forum');
 		$topic->setForum($forum);
 		$topic->addPost($post);
 		$forum->addTopic($topic);
 
 		for ($i = 1; $i <= 5; $i++) {
-			$topic->addSubscriber(new Tx_Typo3Forum_Domain_Model_User_FrontendUser('User ' . $i, 'secret'));
+			$topic->addSubscriber(new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser('User ' . $i, 'secret'));
 		}
 
-		$notifiable = new Tx_Typo3Forum_Domain_Model_Forum_Post('Post 2');
+		$notifiable = new \Mittwald\Typo3Forum\Domain\Model\Forum\Post('Post 2');
 		$this->fixture->notifySubscribers($topic, $notifiable);
 	}
 

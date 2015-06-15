@@ -46,13 +46,13 @@ class Tx_Typo3Forum_Domain_Repository_User_PrivateMessagesRepository extends \TY
 	/**
 	 * Find all messages between user X and user Y
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $userX
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $userY
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $userX
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $userY
 	 * @param int $limit
-	 * @return Tx_Typo3Forum_Domain_Model_User_PrivateMessages[]
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessages[]
 	 */
-	public function findMessagesBetweenUser(Tx_Typo3Forum_Domain_Model_User_FrontendUser $userX,
-											Tx_Typo3Forum_Domain_Model_User_FrontendUser $userY, $limit=0) {
+	public function findMessagesBetweenUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $userX,
+											\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $userY, $limit=0) {
 		$query = $this->createQuery();
 		$constraintsX = array();
 		$constraintsY = array();
@@ -77,11 +77,11 @@ class Tx_Typo3Forum_Domain_Repository_User_PrivateMessagesRepository extends \TY
 	 * Find all started conversations for user
 	 *
 	 * @TODO: Should be overworked when default SQL functions will be added to Extbase (group by, distinct etc)
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 * @param int $limit
-	 * @return Tx_Typo3Forum_Domain_Model_User_FrontendUser[]
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser[]
 	 */
-	public function findStartedConversations(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user, $limit=0) {
+	public function findStartedConversations(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user, $limit=0) {
 		$query = $this->createQuery();
 		$constraintsX = array();
 		$constraintsY = array();
@@ -114,11 +114,11 @@ class Tx_Typo3Forum_Domain_Repository_User_PrivateMessagesRepository extends \TY
 
 	/**
 	 * Find all messages this user got
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 * @param int $limit
-	 * @return Tx_Typo3Forum_Domain_Model_User_PrivateMessages[]
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessages[]
 	 */
-	public function findReceivedMessagesForUser(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user, $limit=0) {
+	public function findReceivedMessagesForUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user, $limit=0) {
 		$query = $this->createQuery();
 		$constraints = array();
 		$constraints[] = $query->equals('opponent',$user);

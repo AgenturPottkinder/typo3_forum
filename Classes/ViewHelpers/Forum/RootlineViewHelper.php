@@ -104,7 +104,7 @@ class Tx_Typo3Forum_ViewHelpers_Forum_RootlineViewHelper extends \TYPO3\CMS\Flui
 	protected function renderNavigationNode($object) {
 		$extensionName = 'typo3forum';
 		$pluginName = 'pi1';
-		if ($object instanceof Tx_Typo3Forum_Domain_Model_Forum_Forum) {
+		if ($object instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Forum) {
 			$controller = 'Forum';
 			$arguments  = array('forum' => $object);
 			$icon       = 'iconset-22-folder';

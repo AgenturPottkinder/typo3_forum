@@ -182,7 +182,7 @@ class tx_typo3forum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abs
 						'pid'		=> $this->getNotificationPid(),
 						'feuser'	=> intval($user['author']),
 						'post'		=> intval($postRow['uid']),
-						'type'		=> 'Tx_Typo3Forum_Domain_Model_Forum_Post',
+						'type'		=> '\Mittwald\Typo3Forum\Domain\Model\Forum\Post',
 						'user_read'	=> (($this->getLastExecutedCron() == 0)?1:0)
 
 					);
@@ -235,7 +235,7 @@ class tx_typo3forum_scheduler_notification extends \TYPO3\CMS\Scheduler\Task\Abs
 						'feuser'	=> intval($userUid),
 						'post'		=> intval($postRow['uid']),
 						'tag'		=> intval($tagsRow['tagUid']),
-						'type'		=> 'Tx_Typo3Forum_Domain_Model_Forum_Tag',
+						'type'		=> '\Mittwald\Typo3Forum\Domain\Model\Forum\Tag',
 						'user_read'	=> (($this->getLastExecutedCron() == 0)?1:0)
 
 					);

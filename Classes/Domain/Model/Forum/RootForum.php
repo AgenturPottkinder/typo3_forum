@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -38,7 +38,7 @@
  * @license    GNU public License, version 2
  *             http://opensource.org/licenses/gpl-license.php
  */
-class Tx_Typo3Forum_Domain_Model_Forum_RootForum extends Tx_Typo3Forum_Domain_Model_Forum_Forum implements \TYPO3\CMS\Core\SingletonInterface {
+class \Mittwald\Typo3Forum\Domain\Model\Forum\RootForum extends \Mittwald\Typo3Forum\Domain\Model\Forum\Forum implements \TYPO3\CMS\Core\SingletonInterface {
 
 
 
@@ -69,7 +69,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_RootForum extends Tx_Typo3Forum_Domain_Mo
 
 
 
-	public function checkAccess(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'read') {
+	public function checkAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL, $accessType = 'read') {
 		if ($accessType === 'read') {
 			return TRUE;
 		}

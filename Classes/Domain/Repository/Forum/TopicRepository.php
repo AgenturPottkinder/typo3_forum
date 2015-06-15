@@ -57,7 +57,7 @@ class Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository extends Tx_Typo3Foru
 	 * @param  integer $limit
 	 * @param  array $orderings
 	 *
-	 * @return Array<Tx_Typo3Forum_Domain_Model_Forum_Topic>
+	 * @return Array<\Mittwald\Typo3Forum\Domain\Model\Forum\Topic>
 	 *                               The selected subset of posts
 	 *
 	 */
@@ -79,7 +79,7 @@ class Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository extends Tx_Typo3Foru
 	 *
 	 * @param  array $uids
 	 *
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Topic[]
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[]
 	 *                               The selected subset of topcis
 	 *
 	 */
@@ -100,12 +100,12 @@ class Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository extends Tx_Typo3Foru
 	/**
 	 * Finds topics for the forum show view. Page navigation is possible.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Forum $forum
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
 	 *                               The forum for which to load the topics.
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Topic[]
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[]
 	 *                               The selected subset of topics.
 	 */
-	public function findForIndex(Tx_Typo3Forum_Domain_Model_Forum_Forum $forum) {
+	public function findForIndex(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum) {
 		$query = $this->createQuery();
 		$query
 			->matching($query->equals('forum', $forum))
@@ -119,11 +119,11 @@ class Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository extends Tx_Typo3Foru
 	 *
 	 * @param null $limit
 	 * @param bool $showAnswered
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Topic[]
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[]
 	 */
 
-	public function findQuestions($limit = NULL, $showAnswered = FALSE, Tx_Typo3Forum_Domain_Model_User_FrontendUser $user = NULL) {
+	public function findQuestions($limit = NULL, $showAnswered = FALSE, \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
 
 		$query = $this->createQuery();
 
@@ -148,13 +148,13 @@ class Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository extends Tx_Typo3Foru
 	 * Finds topics by post authors, i.e. all topics that contain at least one post
 	 * by a specific author. Page navigation is possible.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 *                               The frontend user whose topics are to be loaded.
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Topic[]
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[]
 	 *                               All topics that contain a post by the specified
 	 *                               user.
 	 */
-	public function findByPostAuthor(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user) {
+	public function findByPostAuthor(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
 		$query = $this->createQuery();
 		$query
 			->matching($query->equals('posts.author', $user))
@@ -168,14 +168,14 @@ class Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository extends Tx_Typo3Foru
 	 * Finds topics by post authors, i.e. all topics that contain at least one post
 	 * by a specific author. Page navigation is possible.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 *                               The frontend user whose topics are to be loaded.
 	 * @param int $limit
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Topic[]
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[]
 	 *                               All topics that contain a post by the specified
 	 *                               user.
 	 */
-	public function findTopicsCreatedByAuthor(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user, $limit=0) {
+	public function findTopicsCreatedByAuthor(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user, $limit=0) {
 		$query = $this->createQuery();
 		$query
 			->matching($query->equals('author', $user))
@@ -190,14 +190,14 @@ class Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository extends Tx_Typo3Foru
 	 * Finds topics by post authors, i.e. all topics that contain at least one post
 	 * by a specific author. Page navigation is possible.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 *                               The frontend user whose topics are to be loaded.
 	 * @param int $limit
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Topic[]
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[]
 	 *                               All topics that contain a post by the specified
 	 *                               user.
 	 */
-	public function findTopicsFavSubscribedByUser(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user, $limit=0) {
+	public function findTopicsFavSubscribedByUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user, $limit=0) {
 		$query = $this->createQuery();
 		$query
 			->matching($query->contains('favSubscribers', $user))
@@ -214,12 +214,12 @@ class Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository extends Tx_Typo3Foru
 	/**
 	 * Counts topics by post authors. See findByPostAuthor.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 *                               The frontend user whose topics are to be loaded.
 	 * @return integer               The number of topics that contain a post by the
 	 *                               specified user.
 	 */
-	public function countByPostAuthor(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user) {
+	public function countByPostAuthor(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
 		return $this
 			->findByPostAuthor($user)
 			->count();
@@ -230,11 +230,11 @@ class Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository extends Tx_Typo3Foru
 	/**
 	 * Counts all topics for the forum show view.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Forum $forum
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
 	 *                             The forum for which the topics are to be counted.
 	 * @return integer             The topic count.
 	 */
-	public function countForIndex(Tx_Typo3Forum_Domain_Model_Forum_Forum $forum) {
+	public function countForIndex(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum) {
 		return $this->countByForum($forum);
 	}
 
@@ -243,12 +243,12 @@ class Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository extends Tx_Typo3Foru
 	/**
 	 * Finds all topic that have been subscribed by a certain user.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 *                             The user for whom the subscribed topics are to be loaded.
 	 * @return Tx_Extbase_Persistence_QueryInterface
 	 *                             The topics subscribed by the given user.
 	 */
-	public function findBySubscriber(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user) {
+	public function findBySubscriber(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
 		$query = $this->createQuery();
 		$query
 			->matching($query->contains('subscribers', $user))
@@ -260,11 +260,11 @@ class Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository extends Tx_Typo3Foru
 	/**
 	 * Finds all topic that have a specific tag
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Tag $tag
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag
 	 * @return Tx_Extbase_Persistence_QueryInterface
 	 *                             The topics of this tag.
 	 */
-	public function findAllTopicsWithGivenTag(Tx_Typo3Forum_Domain_Model_Forum_Tag $tag) {
+	public function findAllTopicsWithGivenTag(\Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag) {
 		$query = $this->createQuery();
 		$query
 			->matching($query->contains('tags', $tag))
@@ -304,16 +304,16 @@ class Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository extends Tx_Typo3Foru
 	 *
 	 * Finds the last topic in a forum.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Forum $forum
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
 	 *                             The forum for which to load the last topic.
 	 * @param int $offset
 	 * 								If you want to get the next to last topic topic
 	 *
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Topic
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic
 	 *                             The last topic of the specified forum.
 	 *
 	 */
-	public function findLastByForum(Tx_Typo3Forum_Domain_Model_Forum_Forum $forum, $offset=0) {
+	public function findLastByForum(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum, $offset=0) {
 		$query = $this->createQuery();
 		$query->matching($query->equals('forum', $forum))
 			->setOrderings(array('last_post_crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING))->setLimit(1);
@@ -331,7 +331,7 @@ class Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository extends Tx_Typo3Foru
 	 * @param int $limit		The Limit
 	 * @param int $offset		The Offset
 	 *
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Topic
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic
 	 *                             The last topics
 	 *
 	 */
@@ -349,11 +349,11 @@ class Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository extends Tx_Typo3Foru
 
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Forum $forum
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 * @return array
 	 */
-	public function getUnreadTopics(Tx_Typo3Forum_Domain_Model_Forum_Forum $forum, Tx_Typo3Forum_Domain_Model_User_FrontendUser $user) {
+	public function getUnreadTopics(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum, \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
 
 		$sql ='SELECT t.uid
 			   FROM tx_typo3forum_domain_model_forum_topic AS t
@@ -368,11 +368,11 @@ class Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository extends Tx_Typo3Foru
 
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Topic $topic
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 * @return bool
 	 */
-	public function getTopicReadByUser(Tx_Typo3Forum_Domain_Model_Forum_Topic $topic, Tx_Typo3Forum_Domain_Model_User_FrontendUser $user) {
+	public function getTopicReadByUser(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic, \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
 		$sql ='SELECT t.uid
 			   FROM tx_typo3forum_domain_model_forum_topic AS t
 			   LEFT JOIN tx_typo3forum_domain_model_user_readtopic AS rt

@@ -57,7 +57,7 @@ class Tx_Typo3Forum_TextParser_Panel_SyntaxHighlightingPanel extends Tx_Typo3For
 	/**
 	 * TODO
 	 *
-	 * @var array<Tx_Typo3Forum_Domain_Model_Format_SyntaxHighlighting>
+	 * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\SyntaxHighlighting>
 	 */
 	protected $syntaxHighlightings = NULL;
 

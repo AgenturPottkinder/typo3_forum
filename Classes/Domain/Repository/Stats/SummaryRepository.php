@@ -50,7 +50,7 @@ class Tx_Typo3Forum_Domain_Repository_Stats_SummaryRepository extends \TYPO3\CMS
 
 	/**
 	 * Get the latest items of the summary
-	 * @return Tx_Typo3Forum_Domain_Model_Stats_Summary[]
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Stats\Summary[]
 	 */
 	public function findLatestSummaryItems() {
 		$query = $this->createQuery();

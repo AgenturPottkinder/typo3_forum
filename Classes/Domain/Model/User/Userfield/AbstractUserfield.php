@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Model\User\Userfield;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -43,8 +43,7 @@
  *
  */
 
-Abstract Class Tx_Typo3Forum_Domain_Model_User_Userfield_AbstractUserfield
-	Extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
+abstract class AbstractUserfield extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
 
 
 
@@ -59,7 +58,7 @@ Abstract Class Tx_Typo3Forum_Domain_Model_User_Userfield_AbstractUserfield
 	 * @var string
 	 * @validate NotEmpty
 	 */
-	Protected $name;
+	protected $name;
 
 
 	/**
@@ -67,7 +66,7 @@ Abstract Class Tx_Typo3Forum_Domain_Model_User_Userfield_AbstractUserfield
 	 * be read instead for this userfield.
 	 * @var string
 	 */
-	Protected $mapToUserObject = NULL;
+	protected $mapToUserObject = NULL;
 
 
 
@@ -84,8 +83,8 @@ Abstract Class Tx_Typo3Forum_Domain_Model_User_Userfield_AbstractUserfield
 	 *
 	 */
 
-	Public Function getName() {
-		Return $this->name;
+	public function getName() {
+		return $this->name;
 	}
 
 
@@ -98,8 +97,8 @@ Abstract Class Tx_Typo3Forum_Domain_Model_User_Userfield_AbstractUserfield
 	 *
 	 */
 
-	Public Function isMappedToUserObject() {
-		Return $this->mapToUserObject !== NULL;
+	public function isMappedToUserObject() {
+		return $this->mapToUserObject !== NULL;
 	}
 
 
@@ -112,8 +111,8 @@ Abstract Class Tx_Typo3Forum_Domain_Model_User_Userfield_AbstractUserfield
 	 *
 	 */
 
-	Public Function getUserObjectPropertyName() {
-		Return $this->mapToUserObject;
+	public function getUserObjectPropertyName() {
+		return $this->mapToUserObject;
 	}
 
 
@@ -121,28 +120,28 @@ Abstract Class Tx_Typo3Forum_Domain_Model_User_Userfield_AbstractUserfield
 	/**
 	 *
 	 * Determines the value for this userfield and a specific user.
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 *                             The user for which the value of this userfield is
 	 *                             to be determined.
 	 * @return string              The userfield value.
 	 *
 	 */
 
-	Public Function getValueForUser(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user) {
-		If ($this->isMappedToUserObject()) {
+	public function getValueForUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
+		if ($this->isMappedToUserObject()) {
 			$propertyNames  = explode('|', $this->getUserObjectPropertyName());
-			$propertyValues = Array();
-			ForEach ($propertyNames As $propertyName) {
+			$propertyValues = array();
+			foreach ($propertyNames as $propertyName) {
 				$propertyValues[] = $user->_getProperty($propertyName);
 			}
-			Return $propertyValues;
-		} Else {
-			ForEach ($user->getUserfieldValues() as $userfieldValue) {
-				If ($userfieldValue->getUserfield() == $userfield) {
-					Return Array($userfieldValue->getValue());
+			return $propertyValues;
+		} else {
+			foreach ($user->getUserfieldValues() as $userfieldValue) {
+				if ($userfieldValue->getUserfield() == $userfield) {
+					return array($userfieldValue->getValue());
 				}
 			}
-			Return NULL;
+			return NULL;
 		}
 	}
 
@@ -163,7 +162,7 @@ Abstract Class Tx_Typo3Forum_Domain_Model_User_Userfield_AbstractUserfield
 	 *
 	 */
 
-	Public Function setName($name) {
+	public function setName($name) {
 		$this->name = $name;
 	}
 
@@ -178,7 +177,7 @@ Abstract Class Tx_Typo3Forum_Domain_Model_User_Userfield_AbstractUserfield
 	 *
 	 */
 
-	Public Function setUserObjectPropertyName($property = NULL) {
+	public function setUserObjectPropertyName($property = NULL) {
 		$this->mapToUserObject = $property;
 	}
 

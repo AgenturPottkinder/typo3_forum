@@ -29,7 +29,7 @@ abstract class Tx_Typo3Forum_Controller_AbstractControllerTest extends \TYPO3\CM
 
 
 	/**
-	 * @var Tx_Typo3Forum_Controller_AbstractController
+	 * @var \Mittwald\Typo3Forum\Controller\AbstractController
 	 */
 	protected $fixture;
 
@@ -73,7 +73,7 @@ abstract class Tx_Typo3Forum_Controller_AbstractControllerTest extends \TYPO3\CM
 	/**
 	 * @var string
 	 */
-	protected $fixtureClassName = 'Tx_Typo3Forum_Controller_ForumController';
+	protected $fixtureClassName = '\Mittwald\Typo3Forum\Controller\ForumController';
 
 
 
@@ -81,7 +81,7 @@ abstract class Tx_Typo3Forum_Controller_AbstractControllerTest extends \TYPO3\CM
 		$this->userRepositoryMock        = $this->getMock('Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository');
 		$this->authenticationServiceMock = $this->getMock('Tx_Typo3Forum_Service_Authentication_AuthenticationService',
 		                                                  array('checkAuthorization'), array($this->userRepositoryMock,
-		                                                                                    $this->getMock('Tx_Typo3Forum_Cache_Cache')));
+		                                                                                    $this->getMock('Mittwald\\TYPO3Forum\\Cache\\Cache')));
 
 		#$this->viewMock                  = $this->getMockForAbstractClass('Tx_Extbase_MVC_View_AbstractView');
 		$this->viewMock                  = new Tx_Typo3Forum_View_ViewMock();
@@ -127,8 +127,8 @@ abstract class Tx_Typo3Forum_Controller_AbstractControllerTest extends \TYPO3\CM
 		foreach ($method->getParameters() as $parameter) {
 			/** @var $parameter ReflectionParameter */
 			if ($parameter->getClass() !== NULL) {
-				if ($parameter->getClass()->getName() === 'Tx_Typo3Forum_Domain_Model_Forum_Forum') {
-					$forum = new Tx_Typo3Forum_Domain_Model_Forum_Forum();
+				if ($parameter->getClass()->getName() === '\Mittwald\Typo3Forum\Domain\Model\Forum\Forum') {
+					$forum = new \Mittwald\Typo3Forum\Domain\Model\Forum\Forum();
 					$forum->injectObjectManager(\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager'));
 					$parameters[] = $forum;
 				} else {
@@ -148,7 +148,7 @@ abstract class Tx_Typo3Forum_Controller_AbstractControllerTest extends \TYPO3\CM
 
 	protected function buildForumMockList() {
 		$list = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$list->attach($this->getMock('Tx_Typo3Forum_Domain_Model_Forum_Forum'));
+		$list->attach($this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum'));
 		return $list;
 	}
 
@@ -156,7 +156,7 @@ abstract class Tx_Typo3Forum_Controller_AbstractControllerTest extends \TYPO3\CM
 
 	protected function buildTopicMockList() {
 		$list = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$list->attach($this->getMock('Tx_Typo3Forum_Domain_Model_Forum_Topic'));
+		$list->attach($this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
 		return $list;
 	}
 
@@ -164,7 +164,7 @@ abstract class Tx_Typo3Forum_Controller_AbstractControllerTest extends \TYPO3\CM
 
 	protected function buildPostMockList() {
 		$list = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$list->attach($this->getMock('Tx_Typo3Forum_Domain_Model_Forum_Post'));
+		$list->attach($this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
 		return $list;
 	}
 

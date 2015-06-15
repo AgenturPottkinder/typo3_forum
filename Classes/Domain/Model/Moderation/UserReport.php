@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -48,34 +48,34 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Domain_Model_Moderation_UserReport extends Tx_Typo3Forum_Domain_Model_Moderation_Report {
+class UserReport extends \Mittwald\Typo3Forum\Domain\Model\Moderation\Report {
 
 	/**
 	 * A set of comments that are assigned to this report.
-	 * @var Tx_Typo3Forum_Domain_Model_User_FrontendUser
+	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 */
 	protected $feuser;
 
 
 	/**
 	 * Gets the topic to which the reported post belongs to.
-	 * @return Tx_Typo3Forum_Domain_Model_User_FrontendUser Frontend User
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser Frontend User
 	 */
 	public function getUser() {
 		if ($this->feuser instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
 			$this->feuser->_loadRealInstance();
 		}
 		if ($this->feuser === NULL) {
-			$this->feuser = new Tx_Typo3Forum_Domain_Model_User_AnonymousFrontendUser();
+			$this->feuser = new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
 		}
 		return $this->feuser;
 	}
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user.
 	 * @return voidc.
 	 */
-	public function setUser(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user) {
+	public function setUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
 		$this->feuser = $user;
 	}
 

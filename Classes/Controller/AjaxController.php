@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Controller;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -45,7 +45,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Controller_AjaxController extends Tx_Typo3Forum_Controller_AbstractController {
+class AjaxController extends \Mittwald\Typo3Forum\Controller\AbstractController {
 
 
 
@@ -78,7 +78,7 @@ class Tx_Typo3Forum_Controller_AjaxController extends Tx_Typo3Forum_Controller_A
 
 	/**
 	 * A post factory.
-	 * @var Tx_Typo3Forum_Domain_Factory_Forum_PostFactory
+	 * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory
 	 */
 	protected $postFactory;
 
@@ -102,7 +102,7 @@ class Tx_Typo3Forum_Controller_AjaxController extends Tx_Typo3Forum_Controller_A
 
 	/**
 	 * An instance of the typo3_forum authentication service.
-	 * @var TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
 	 */
 	protected $typoScriptService = NULL;
 
@@ -119,7 +119,7 @@ class Tx_Typo3Forum_Controller_AjaxController extends Tx_Typo3Forum_Controller_A
 	 * @param Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository $forumRepository
 	 * @param Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository
 	 * @param Tx_Typo3Forum_Domain_Repository_Forum_PostRepository $postRepository
-	 * @param Tx_Typo3Forum_Domain_Factory_Forum_PostFactory $postFactory
+	 * @param \Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory $postFactory
 	 * @param Tx_Typo3Forum_Domain_Repository_Forum_AttachmentRepository $attachmentRepository
 	 * @param Tx_Typo3Forum_Service_SessionHandlingService $sessionHandling
 	 * @param Tx_Typo3Forum_Service_AttachmentService $attachmentService
@@ -128,7 +128,7 @@ class Tx_Typo3Forum_Controller_AjaxController extends Tx_Typo3Forum_Controller_A
 	public function __construct(Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository $forumRepository,
 								Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository,
 								Tx_Typo3Forum_Domain_Repository_Forum_PostRepository $postRepository,
-								Tx_Typo3Forum_Domain_Factory_Forum_PostFactory $postFactory,
+								\Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory $postFactory,
 								Tx_Typo3Forum_Domain_Repository_Forum_AttachmentRepository $attachmentRepository,
 								Tx_Typo3Forum_Service_SessionHandlingService $sessionHandling,
 								Tx_Typo3Forum_Service_AttachmentService $attachmentService,
@@ -350,12 +350,12 @@ class Tx_Typo3Forum_Controller_AjaxController extends Tx_Typo3Forum_Controller_A
 			switch($summary->type){
 				case 'lastForumPost':
 					$forum  = $this->forumRepository->findByUid($summary->uid);
-					/* @var Tx_Typo3Forum_Domain_Model_Forum_Post */
+					/* @var \Mittwald\Typo3Forum\Domain\Model\Forum\Post */
 					$post = $forum->getLastPost();
 					break;
 				case 'lastTopicPost':
 					$topic  = $this->topicRepository->findByUid($summary->uid);
-					/* @var Tx_Typo3Forum_Domain_Model_Forum_Post */
+					/* @var \Mittwald\Typo3Forum\Domain\Model\Forum\Post */
 					$post = $topic->getLastPost();
 					break;
 			}

@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Controller;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -45,7 +45,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Controller_UserController extends Tx_Typo3Forum_Controller_AbstractController {
+class UserController extends \Mittwald\Typo3Forum\Controller\AbstractController {
 
 
 
@@ -86,7 +86,7 @@ class Tx_Typo3Forum_Controller_UserController extends Tx_Typo3Forum_Controller_A
 
 	/**
 	 * A message factory.
-	 * @var Tx_Typo3Forum_Domain_Factory_User_PrivateMessagesFactory
+	 * @var \Mittwald\Typo3Forum\Domain\Factory\User\PrivateMessagesFactory
 	 */
 	protected $privateMessagesFactory;
 
@@ -122,7 +122,7 @@ class Tx_Typo3Forum_Controller_UserController extends Tx_Typo3Forum_Controller_A
 	 *                                 An instance of the userfield repository.
 	 * @param Tx_Typo3Forum_Domain_Repository_User_PrivateMessagesRepository $messageRepository
 	 * 									An instance of the private message repository.
-	 * @param Tx_Typo3Forum_Domain_Factory_User_PrivateMessagesFactory $privateMessagesFactory
+	 * @param \Mittwald\Typo3Forum\Domain\Factory\User\PrivateMessagesFactory $privateMessagesFactory
 	 * 									An instance of the private message factory
 	 * @param Tx_Typo3Forum_Domain_Repository_User_RankRepository $rankRepository
 	 * 									An instance of the rank repository
@@ -133,7 +133,7 @@ class Tx_Typo3Forum_Controller_UserController extends Tx_Typo3Forum_Controller_A
 	                            Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository,
 	                            Tx_Typo3Forum_Domain_Repository_User_UserfieldRepository $userfieldRepository,
 								Tx_Typo3Forum_Domain_Repository_User_PrivateMessagesRepository $messageRepository,
-								Tx_Typo3Forum_Domain_Factory_User_PrivateMessagesFactory $privateMessagesFactory,
+								\Mittwald\Typo3Forum\Domain\Factory\User\PrivateMessagesFactory $privateMessagesFactory,
 								Tx_Typo3Forum_Domain_Repository_User_RankRepository $rankRepository,
 								Tx_Typo3Forum_Domain_Repository_User_NotificationRepository $notificationRepository) {
 		parent::__construct();
@@ -206,17 +206,17 @@ class Tx_Typo3Forum_Controller_UserController extends Tx_Typo3Forum_Controller_A
 	/**
 	 * Lists all posts of a specific user. If no user is specified, this action lists all
 	 * posts of the current user.
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 *
-	 * @throws Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException
+	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
 	 * @return void
 	 */
-	public function listPostsAction(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user = NULL) {
+	public function listPostsAction(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
 		if ($user === NULL) {
 			$user = $this->getCurrentUser();
 		}
 		if ($user->isAnonymous()) {
-			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
+			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
 		}
 		$this->view
 			->assign('topics', $this->topicRepository->findByPostAuthor($user))
@@ -226,17 +226,17 @@ class Tx_Typo3Forum_Controller_UserController extends Tx_Typo3Forum_Controller_A
 	/**
 	 * Lists all topics of a specific user. If no user is specified, this action lists all
 	 * topics of the current user.
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 *
-	 * @throws Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException
+	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
 	 * @return void
 	 */
-	public function listFavoritesAction(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user = NULL) {
+	public function listFavoritesAction(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
 		if ($user === NULL) {
 			$user = $this->getCurrentUser();
 		}
 		if ($user->isAnonymous()) {
-			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
+			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
 		}
 		$this->view
 			->assign('topics', $this->topicRepository->findTopicsFavSubscribedByUser($user))
@@ -246,17 +246,17 @@ class Tx_Typo3Forum_Controller_UserController extends Tx_Typo3Forum_Controller_A
 	/**
 	 * Lists all topics of a specific user. If no user is specified, this action lists all
 	 * topics of the current user.
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 *
-	 * @throws Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException
+	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
 	 * @return void
 	 */
-	public function listTopicsAction(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user = NULL) {
+	public function listTopicsAction(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
 		if ($user === NULL) {
 			$user = $this->getCurrentUser();
 		}
 		if ($user->isAnonymous()) {
-			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
+			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
 		}
 		$this->view
 			->assign('topics', $this->topicRepository->findTopicsCreatedByAuthor($user))
@@ -266,17 +266,17 @@ class Tx_Typo3Forum_Controller_UserController extends Tx_Typo3Forum_Controller_A
 	/**
 	 * Lists all questions of a specific user. If no user is specified, this action lists all
 	 * posts of the current user.
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 *
-	 * @throws Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException
+	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
 	 * @return void
 	 */
-	public function listQuestionsAction(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user = NULL) {
+	public function listQuestionsAction(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
 		if ($user === NULL) {
 			$user = $this->getCurrentUser();
 		}
 		if ($user->isAnonymous()) {
-			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
+			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
 		}
 		$this->view
 			->assign('topics', $this->topicRepository->findQuestions(null, true, $user))
@@ -287,16 +287,16 @@ class Tx_Typo3Forum_Controller_UserController extends Tx_Typo3Forum_Controller_A
 	/**
 	 * Lists all messages of a specific user. If no user is specified, this action lists all
 	 * messages of the current user.
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $opponent
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $opponent
 	 * 												The dialog with which user should be shown. If null get first dialog.
 	 *
-	 * @throws Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException
+	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
 	 * @return void
 	 */
-	public function listMessagesAction(Tx_Typo3Forum_Domain_Model_User_FrontendUser $opponent=NULL) {
+	public function listMessagesAction(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $opponent=NULL) {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
+			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in to view your own posts.", 1288084981);
 		}
 		/** @var TYPO3\CMS\Extbase\Persistence\Generic\QueryResult $dialog */
 		$dialog = null;
@@ -331,15 +331,15 @@ class Tx_Typo3Forum_Controller_UserController extends Tx_Typo3Forum_Controller_A
 
 	/**
  * Shows the form for creating a new message
- * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $recipient
+ * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $recipient
  *
- * @throws Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException
+ * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
  * @return void
  */
-	public function newMessageAction(Tx_Typo3Forum_Domain_Model_User_FrontendUser $recipient=NULL) {
+	public function newMessageAction(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $recipient=NULL) {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 		$readonly=0;
 		if($recipient !== NULL) {
@@ -354,7 +354,7 @@ class Tx_Typo3Forum_Controller_UserController extends Tx_Typo3Forum_Controller_A
 	 * @param string $recipient
 	 * @param string $text
 	 *
-	 * @throws Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException
+	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
 	 * @validate $recipient Tx_Typo3Forum_Domain_Validator_User_PrivateMessageRecipientValidator
 	 * @return void
 	 */
@@ -362,9 +362,9 @@ class Tx_Typo3Forum_Controller_UserController extends Tx_Typo3Forum_Controller_A
 		$user = $this->getCurrentUser();
 		$recipient = $this->frontendUserRepository->findOneByUsername($recipient);
 		if ($user->isAnonymous()) {
-			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in.", 1288084981);
 		}
-		$message = $this->objectManager->create('Tx_Typo3Forum_Domain_Model_User_PrivateMessagesText');
+		$message = $this->objectManager->create('\Mittwald\Typo3Forum\Domain\Model\User\PrivateMessagesText');
 		$message->setMessageText($text);
 		$pmFeUser = $this->privateMessagesFactory->createPrivateMessage($user,$recipient,$message,0,1);
 		$pmRecipient = $this->privateMessagesFactory->createPrivateMessage($recipient,$user,$message,1,0);
@@ -377,13 +377,13 @@ class Tx_Typo3Forum_Controller_UserController extends Tx_Typo3Forum_Controller_A
 	 * Lists all messages of a specific user. If no user is specified, this action lists all
 	 * messages of the current user.
 	 *
-	 * @throws Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException
+	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
 	 * @return void
 	 */
 	public function listNotificationsAction() {
 		$user = $this->authenticationService->getUser();
 		if ($user->isAnonymous()) {
-			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 		$notifications = $this->notificationRepository->findNotificationsForUser($user);
 
@@ -402,14 +402,14 @@ class Tx_Typo3Forum_Controller_UserController extends Tx_Typo3Forum_Controller_A
 	/**
 	 * Disable single user
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user The user whose profile is to be displayed.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user The user whose profile is to be displayed.
 	 * @return void
 	 */
-	public function disableUserAction(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user=NULL) {
+	public function disableUserAction(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user=NULL) {
 
 		$currentUser = $this->getCurrentUser();
 		if ($currentUser->isAnonymous()) {
-			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in.", 1288084981);
+			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 		$allowed = false;
 		foreach($currentUser->getUsergroup() as $group){
@@ -418,7 +418,7 @@ class Tx_Typo3Forum_Controller_UserController extends Tx_Typo3Forum_Controller_A
 			}
 		}
 		if(!$allowed){
-			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException("You need to be logged in as Admin.", 1288344981);
+			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in as Admin.", 1288344981);
 		}
 
 		$user->setDisable(true);
@@ -429,10 +429,10 @@ class Tx_Typo3Forum_Controller_UserController extends Tx_Typo3Forum_Controller_A
 	/**
 	 * Displays a single user.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user The user whose profile is to be displayed.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user The user whose profile is to be displayed.
 	 * @return void
 	 */
-	public function showAction(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user=NULL) {
+	public function showAction(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user=NULL) {
 		/** @noinspection PhpUndefinedMethodInspection */
 		if ($user === NULL) {
 			return $this->redirect('show', NULL, NULL, array('user' => $this->getCurrentUser()));
@@ -455,15 +455,15 @@ class Tx_Typo3Forum_Controller_UserController extends Tx_Typo3Forum_Controller_A
 	/**
 	 * Subscribes the current user to a forum or a topic.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Forum $forum       The forum that is to be subscribed. Either this
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum       The forum that is to be subscribed. Either this
 	 *                                                         value or the $topic parameter must be != NULL.
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Topic $topic       The topic that is to be subscribed. Either this
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic       The topic that is to be subscribed. Either this
 	 *                                                         value or the $forum parameter must be != NULL.
 	 * @param boolean                             $unsubscribe TRUE to unsubscribe the forum or topic instead.
 	 * @return void
 	 */
-	public function subscribeAction(Tx_Typo3Forum_Domain_Model_Forum_Forum $forum = NULL,
-	                                Tx_Typo3Forum_Domain_Model_Forum_Topic $topic = NULL, $unsubscribe = FALSE) {
+	public function subscribeAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum = NULL,
+	                                \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic = NULL, $unsubscribe = FALSE) {
 
 		// Validate arguments
 		if ($forum === NULL && $topic === NULL) {
@@ -471,7 +471,7 @@ class Tx_Typo3Forum_Controller_UserController extends Tx_Typo3Forum_Controller_A
 		}
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException('You need to be logged in to subscribe or unsubscribe an object.', 1335121482);
+			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException('You need to be logged in to subscribe or unsubscribe an object.', 1335121482);
 		}
 
 		# Create subscription
@@ -497,15 +497,15 @@ class Tx_Typo3Forum_Controller_UserController extends Tx_Typo3Forum_Controller_A
 	/**
 	 * Fav Subscribes the current user to a forum or a topic.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Forum $forum       The forum that is to be subscribed. Either this
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum       The forum that is to be subscribed. Either this
 	 *                                                         value or the $topic parameter must be != NULL.
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Topic $topic       The topic that is to be subscribed. Either this
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic       The topic that is to be subscribed. Either this
 	 *                                                         value or the $forum parameter must be != NULL.
 	 * @param boolean                             $unsubscribe TRUE to unsubscribe the forum or topic instead.
 	 * @return void
 	 */
-	public function favSubscribeAction(Tx_Typo3Forum_Domain_Model_Forum_Forum $forum = NULL,
-									Tx_Typo3Forum_Domain_Model_Forum_Topic $topic = NULL, $unsubscribe = FALSE) {
+	public function favSubscribeAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum = NULL,
+									\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic = NULL, $unsubscribe = FALSE) {
 
 		// Validate arguments
 		if ($forum === NULL && $topic === NULL) {
@@ -513,7 +513,7 @@ class Tx_Typo3Forum_Controller_UserController extends Tx_Typo3Forum_Controller_A
 		}
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException('You need to be logged in to subscribe or unsubscribe an object.', 1335121482);
+			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException('You need to be logged in to subscribe or unsubscribe an object.', 1335121482);
 		}
 
 		# Create subscription
@@ -543,12 +543,12 @@ class Tx_Typo3Forum_Controller_UserController extends Tx_Typo3Forum_Controller_A
 	 * Displays all topics and forums subscribed by the current user.
 	 * @return void
 	 *
-	 * @throws Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException
+	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
 	 */
 	public function listSubscriptionsAction() {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException('You need to be logged in to view your own subscriptions!', 1335120249);
+			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException('You need to be logged in to view your own subscriptions!', 1335120249);
 		}
 
 		$this->view
@@ -566,7 +566,7 @@ class Tx_Typo3Forum_Controller_UserController extends Tx_Typo3Forum_Controller_A
 	public function dashboardAction() {
 		$user = $this->frontendUserRepository->findCurrent();
 		if (!$user || $user->isAnonymous()) {
-			throw new Tx_Typo3Forum_Domain_Exception_Authentication_NotLoggedInException('You need to be logged in to view your dashboard!', 1335120249);
+			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException('You need to be logged in to view your dashboard!', 1335120249);
 		}
 		$this->view->assign('user',$user)
 					->assign('myNotifications', $this->notificationRepository->findNotificationsForUser($user, 6))
@@ -622,16 +622,16 @@ class Tx_Typo3Forum_Controller_UserController extends Tx_Typo3Forum_Controller_A
 	 * either be a forum or a topic, so this method redirects either to the
 	 * Forum->show or the Topic->show action.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_SubscribeableInterface $object
+	 * @param \Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $object
 	 *                             A subscribeable object, i.e. either a forum or a
 	 *                             topic.
 	 * @return void
 	 */
-	protected function redirectToSubscriptionObject(Tx_Typo3Forum_Domain_Model_SubscribeableInterface $object) {
-		if ($object instanceof Tx_Typo3Forum_Domain_Model_Forum_Forum) {
+	protected function redirectToSubscriptionObject(\Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $object) {
+		if ($object instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Forum) {
 			$this->redirect('show', 'Forum', NULL, array('forum' => $object));
 		}
-		if ($object instanceof Tx_Typo3Forum_Domain_Model_Forum_Topic) {
+		if ($object instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Topic) {
 			$this->redirect('show', 'Topic', NULL, array('topic' => $object, 'forum' => $object->getForum()));
 		}
 	}
@@ -642,11 +642,11 @@ class Tx_Typo3Forum_Controller_UserController extends Tx_Typo3Forum_Controller_A
 	 * Generates a flash message for when a subscription has successfully been
 	 * created or removed.
 	 *
-	 * @param \Tx_Typo3Forum_Domain_Model_SubscribeableInterface $object
+	 * @param \\Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $object
 	 * @param bool                                            $unsubscribe
 	 * @return string A flash message.
 	 */
-	protected function getSubscriptionFlashMessage(Tx_Typo3Forum_Domain_Model_SubscribeableInterface $object,
+	protected function getSubscriptionFlashMessage(\Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $object,
 	                                               $unsubscribe = FALSE) {
 		$type = array_pop(explode('_', get_class($object)));
 		$key  = 'User_' . ($unsubscribe ? 'Uns' : 'S') . 'ubscribe_' . $type . '_Success';

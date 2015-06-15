@@ -62,19 +62,19 @@ class Tx_Typo3Forum_ViewHelpers_User_UserfieldViewHelper extends \TYPO3\CMS\Flui
 	 *
 	 * Renders the userfield value.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_User_FrontendUser                $user
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser                $user
 	 *                             The user for whom the userfield value is to be
 	 *                             rendered.
-	 * @param  Tx_Typo3Forum_Domain_Model_User_Userfield_AbstractUserfield $userfield
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield $userfield
 	 *                             The userfield.
 	 * @return string              HTML content
 	 *
 	 */
 
-	public function render(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user,
-	                       Tx_Typo3Forum_Domain_Model_User_Userfield_AbstractUserfield $userfield) {
+	public function render(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user,
+	                       \Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield $userfield) {
 
-		if ($userfield instanceof Tx_Typo3Forum_Domain_Model_User_Userfield_TyposcriptUserfield) {
+		if ($userfield instanceof \Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield) {
 			$data = $userfield->getValueForUser($user);
 			$data = $this->convertDataToString($data);
 			return parent::render($userfield->getTyposcriptPath() . '.output', implode(' ', $data));

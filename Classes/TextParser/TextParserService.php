@@ -176,7 +176,7 @@ class Tx_Typo3Forum_TextParser_TextParserService extends Tx_Typo3Forum_Service_A
 				$newService->setControllerContext($this->controllerContext);
 				$this->parsingServices[] = $newService;
 			} else {
-				throw new Tx_Typo3Forum_Domain_Exception_TextParser_Exception('Invalid class; expected an instance of Tx_Typo3Forum_TextParser_Service_AbstractTextParserService!', 1315916625);
+				throw new \Mittwald\Typo3Forum\Domain\Exception\TextParser\Exception('Invalid class; expected an instance of Tx_Typo3Forum_TextParser_Service_AbstractTextParserService!', 1315916625);
 			}
 		}
 	}
@@ -191,7 +191,7 @@ class Tx_Typo3Forum_TextParser_TextParserService extends Tx_Typo3Forum_Service_A
 	 */
 	public function parseText($text) {
 		if ($this->settings === NULL) {
-			throw new Tx_Typo3Forum_Domain_Exception_TextParser_Exception
+			throw new \Mittwald\Typo3Forum\Domain\Exception\TextParser\Exception
 			("The textparser is not configured!", 1284730639);
 		}
 

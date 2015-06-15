@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -48,7 +48,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Report extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/*
 	 * ATTRIBUTES
@@ -57,28 +57,28 @@ class Tx_Typo3Forum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Do
 
 	/**
 	 * The frontend user that created this post.
-	 * @var Tx_Typo3Forum_Domain_Model_User_FrontendUser
+	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 */
 	protected $reporter;
 
 
 	/**
 	 * The moderator that is assigned to this report.
-	 * @var Tx_Typo3Forum_Domain_Model_User_FrontendUser
+	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 */
 	protected $moderator;
 
 
 	/**
 	 * The current status of this report.
-	 * @var Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus
 	 */
 	protected $workflowStatus;
 
 
 	/**
 	 * A set of comments that are assigned to this report.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Typo3Forum_Domain_Model_Moderation_ReportComment>
+	 * @var Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment>
 	 */
 	protected $comments;
 
@@ -114,14 +114,14 @@ class Tx_Typo3Forum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Do
 
 	/**
 	 * Gets the reporter of this report.
-	 * @return Tx_Typo3Forum_Domain_Model_User_FrontendUser The reporter
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser The reporter
 	 */
 	public function getReporter() {
 		if ($this->reporter instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
 			$this->reporter->_loadRealInstance();
 		}
 		if ($this->reporter === NULL) {
-			$this->reporter = new Tx_Typo3Forum_Domain_Model_User_AnonymousFrontendUser();
+			$this->reporter = new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
 		}
 		return $this->reporter;
 	}
@@ -130,14 +130,14 @@ class Tx_Typo3Forum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Do
 
 	/**
 	 * Gets the moderator that is assigned to this report.
-	 * @return Tx_Typo3Forum_Domain_Model_User_FrontendUser The moderator
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser The moderator
 	 */
 	public function getModerator() {
 		if ($this->moderator instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
 			$this->moderator->_loadRealInstance();
 		}
 		if ($this->moderator === NULL) {
-			$this->moderator = new Tx_Typo3Forum_Domain_Model_User_AnonymousFrontendUser();
+			$this->moderator = new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
 		}
 		return $this->moderator;
 	}
@@ -146,7 +146,7 @@ class Tx_Typo3Forum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Do
 
 	/**
 	 * Gets the current status of this report.
-	 * @return Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus
 	 *                             The current workflow status of this report.
 	 */
 	public function getWorkflowStatus() {
@@ -157,7 +157,7 @@ class Tx_Typo3Forum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Do
 
 	/**
 	 * Gets all comments for this report.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Typo3Forum_Domain_Model_Moderation_ReportComment>
+	 * @return Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment>
 	 *                             All comments for this report.
 	 */
 	public function getComments() {
@@ -168,7 +168,7 @@ class Tx_Typo3Forum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Do
 
 	/**
 	 * Returns the first comment for this report.
-	 * @return Tx_Typo3Forum_Domain_Model_Moderation_ReportComment The first comment.
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment The first comment.
 	 */
 	public function getFirstComment() {
 		return array_shift($this->comments->toArray());
@@ -194,10 +194,10 @@ class Tx_Typo3Forum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Do
 	/**
 	 * Sets the reporter.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_User_FrontendUser $reporter The reporter.
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reporter The reporter.
 	 * @return void
 	 */
-	public function setReporter(Tx_Typo3Forum_Domain_Model_User_FrontendUser $reporter) {
+	public function setReporter(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reporter) {
 		$this->reporter = $reporter;
 	}
 
@@ -206,10 +206,10 @@ class Tx_Typo3Forum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Do
 	/**
 	 * Sets the moderator.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_User_FrontendUser $moderator The moderator.
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $moderator The moderator.
 	 * @return void
 	 */
-	public function setModerator(Tx_Typo3Forum_Domain_Model_User_FrontendUser $moderator) {
+	public function setModerator(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $moderator) {
 		$this->moderator = $moderator;
 	}
 
@@ -218,11 +218,11 @@ class Tx_Typo3Forum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Do
 	/**
 	 * Sets the current workflow status.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus $workflowStatus
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $workflowStatus
 	 *                             The workflow status.
 	 * @return void
 	 */
-	public function setWorkflowStatus(Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus $workflowStatus) {
+	public function setWorkflowStatus(\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $workflowStatus) {
 		If (!$this->workflowStatus || ($this->workflowStatus && $this->workflowStatus->hasFollowupStatus($workflowStatus))) {
 			$this->workflowStatus = $workflowStatus;
 		}
@@ -233,10 +233,10 @@ class Tx_Typo3Forum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Do
 	/**
 	 * Adds a comment to this report.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_Moderation_ReportComment $comment A comment
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $comment A comment
 	 * @return void
 	 */
-	public function addComment(Tx_Typo3Forum_Domain_Model_Moderation_ReportComment $comment) {
+	public function addComment(\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $comment) {
 		$comment->setReport($this);
 		$this->comments->attach($comment);
 	}
@@ -246,12 +246,12 @@ class Tx_Typo3Forum_Domain_Model_Moderation_Report extends \TYPO3\CMS\Extbase\Do
 	/**
 	 * Removes a comment from this report.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_Moderation_ReportComment $comment A comment.
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $comment A comment.
 	 * @return void
 	 */
-	public function removeComment(Tx_Typo3Forum_Domain_Model_Moderation_ReportComment $comment) {
+	public function removeComment(\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $comment) {
 		if (count($this->comments) === 1) {
-			throw new Tx_Typo3Forum_Domain_Exception_InvalidOperationException('You cannot delete the last remaining comment!', 1334687977);
+			throw new \Mittwald\Typo3Forum\Domain\Exception\InvalidOperationException('You cannot delete the last remaining comment!', 1334687977);
 		}
 		$this->comments->detach($comment);
 	}

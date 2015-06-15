@@ -19,7 +19,7 @@ $TCA['tx_typo3forum_domain_model_user_privatemessages'] = array(
 			'config'  => array(
 				'type' => 'inline',
 				'foreign_table' => 'tx_typo3forum_domain_model_user_privatemessages_text',
-				'foreign_class' => 'Tx_Typo3Forum_Domain_Model_User_PrivateMessagesText',
+				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\PrivateMessagesText',
 				'maxitems'      => 1,
 				'appearance' => array(
 					'collapseAll' => 1,
@@ -34,7 +34,7 @@ $TCA['tx_typo3forum_domain_model_user_privatemessages'] = array(
 			'config'  => array(
 				'type' => 'select',
 				'foreign_table' => 'fe_users',
-				'foreign_class' => 'Tx_Typo3Forum_Domain_Model_User_FrontendUser',
+				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser',
 				'maxitems' => 1
 			)
 		),
@@ -44,7 +44,7 @@ $TCA['tx_typo3forum_domain_model_user_privatemessages'] = array(
 			'config'  => array(
 				'type' => 'select',
 				'foreign_table' => 'fe_users',
-				'foreign_class' => 'Tx_Typo3Forum_Domain_Model_User_FrontendUser',
+				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser',
 				'maxitems' => 1
 			)
 		),

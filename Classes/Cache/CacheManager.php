@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Cache;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -40,7 +40,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Cache_CacheManager {
+class CacheManager {
 
 
 
@@ -52,8 +52,8 @@ class Tx_Typo3Forum_Cache_CacheManager {
 		// Neither the Extbase autoloader nor the TYPO3 internal autoloader
 		// appear to be doing anything at this point, so we have to include
 		// manually... :(
-		require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('typo3_forum') . 'Classes/Cache/Cache.php';
-		$cache = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Typo3Forum_Cache_Cache');
+		//require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('typo3_forum') . 'Classes/Cache/Cache.php';
+		$cache = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Mittwald\\TYPO3Forum\\Cache\\Cache');
 		$cache->flush();
 
 		$this->deleteTemporaryFiles();

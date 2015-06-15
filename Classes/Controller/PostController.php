@@ -1,4 +1,5 @@
 <?php
+namespace Mittwald\Typo3Forum\Controller;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -44,7 +45,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Controller_PostController extends Tx_Typo3Forum_Controller_AbstractController {
+class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController {
 
 
 	/*
@@ -75,7 +76,7 @@ class Tx_Typo3Forum_Controller_PostController extends Tx_Typo3Forum_Controller_A
 
 	/**
 	 * A post factory.
-	 * @var Tx_Typo3Forum_Domain_Factory_Forum_PostFactory
+	 * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory
 	 */
 	protected $postFactory;
 
@@ -104,7 +105,7 @@ class Tx_Typo3Forum_Controller_PostController extends Tx_Typo3Forum_Controller_A
 	 * @param Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository $forumRepository
 	 * @param Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository
 	 * @param Tx_Typo3Forum_Domain_Repository_Forum_PostRepository $postRepository
-	 * @param Tx_Typo3Forum_Domain_Factory_Forum_PostFactory $postFactory
+	 * @param \Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory $postFactory
 	 * @param Tx_Typo3Forum_Domain_Repository_Forum_AttachmentRepository $attachmentRepository
 	 * @param Tx_Typo3Forum_Service_SessionHandlingService $sessionHandling
 	 * @param Tx_Typo3Forum_Service_AttachmentService $attachmentService
@@ -112,7 +113,7 @@ class Tx_Typo3Forum_Controller_PostController extends Tx_Typo3Forum_Controller_A
 	public function __construct(Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository $forumRepository,
 								Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository,
 								Tx_Typo3Forum_Domain_Repository_Forum_PostRepository $postRepository,
-								Tx_Typo3Forum_Domain_Factory_Forum_PostFactory $postFactory,
+								\Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory $postFactory,
 								Tx_Typo3Forum_Domain_Repository_Forum_AttachmentRepository $attachmentRepository,
 								Tx_Typo3Forum_Service_SessionHandlingService $sessionHandling,
 								Tx_Typo3Forum_Service_AttachmentService $attachmentService) {
@@ -155,14 +156,14 @@ class Tx_Typo3Forum_Controller_PostController extends Tx_Typo3Forum_Controller_A
 	/**
 	 * add Supporter Action.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
 	 * @return void
 	 */
-	public function addSupporterAction(Tx_Typo3Forum_Domain_Model_Forum_Post $post) {
+	public function addSupporterAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
 		// Assert authentication
 
 		/**
-		 * @var Tx_Typo3Forum_Domain_Model_User_FrontendUser
+		 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 		 */
 		$currentUser = $this->authenticationService->getUser();
 
@@ -188,10 +189,10 @@ class Tx_Typo3Forum_Controller_PostController extends Tx_Typo3Forum_Controller_A
 
 	/**
 	 *  remove Supporter Action.
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
 	 * @return void
 	 */
-	public function removeSupporterAction(Tx_Typo3Forum_Domain_Model_Forum_Post $post) {
+	public function removeSupporterAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
 		// Assert authentication
 		$currentUser = 	$this->authenticationService->getUser();
 
@@ -219,12 +220,12 @@ class Tx_Typo3Forum_Controller_PostController extends Tx_Typo3Forum_Controller_A
 	 * topic that contains the requested post.
 	 * This function is called by post summaries (last post link)
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post The post
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $quote The Quote
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post The post
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $quote The Quote
 	 * @param int $showForm ShowForm
 	 * @return void
 	 */
-	public function showAction(Tx_Typo3Forum_Domain_Model_Forum_Post $post, Tx_Typo3Forum_Domain_Model_Forum_Post $quote = NULL, $showForm = 0) {
+	public function showAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post, \Mittwald\Typo3Forum\Domain\Model\Forum\Post $quote = NULL, $showForm = 0) {
 		// Assert authentication
 		$this->authenticationService->assertReadAuthorization($post);
 
@@ -249,15 +250,15 @@ class Tx_Typo3Forum_Controller_PostController extends Tx_Typo3Forum_Controller_A
 	 *
 	 * @dontvalidate $post
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Topic $topic The topic in which the new post is to be created.
-	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Post $post  The new post.
-	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Post $quote An optional post that will be quoted within the
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic The topic in which the new post is to be created.
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post  The new post.
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Post $quote An optional post that will be quoted within the
 	 *                                                    bodytext of the new post.
 	 * @return void
 	 */
-	public function newAction(Tx_Typo3Forum_Domain_Model_Forum_Topic $topic,
-							  Tx_Typo3Forum_Domain_Model_Forum_Post $post = NULL,
-							  Tx_Typo3Forum_Domain_Model_Forum_Post $quote = NULL) {
+	public function newAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic,
+							  \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post = NULL,
+							  \Mittwald\Typo3Forum\Domain\Model\Forum\Post $quote = NULL) {
 		// Assert authorization
 		$this->authenticationService->assertNewPostAuthorization($topic);
 
@@ -286,15 +287,15 @@ class Tx_Typo3Forum_Controller_PostController extends Tx_Typo3Forum_Controller_A
 	/**
 	 * Creates a new post.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Topic $topic The topic in which the new post is to be created.
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post  The new post.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic The topic in which the new post is to be created.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post  The new post.
 	 * @param array $attachments File attachments for the post.
 	 *
 	 * @validate $post Tx_Typo3Forum_Domain_Validator_Forum_PostValidator
 	 * @validate $attachments Tx_Typo3Forum_Domain_Validator_Forum_AttachmentPlainValidator
 	 */
 
-	public function createAction(Tx_Typo3Forum_Domain_Model_Forum_Topic $topic, Tx_Typo3Forum_Domain_Model_Forum_Post $post, array $attachments = array()) {
+	public function createAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic, \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post, array $attachments = array()) {
 		// Assert authorization
 		$this->authenticationService->assertNewPostAuthorization($topic);
 
@@ -310,7 +311,7 @@ class Tx_Typo3Forum_Controller_PostController extends Tx_Typo3Forum_Controller_A
 		$this->topicRepository->update($topic);
 
 		// All potential listeners (Signal-Slot FTW!)
-		$this->signalSlotDispatcher->dispatch('Tx_Typo3Forum_Domain_Model_Forum_Post', 'postCreated',
+		$this->signalSlotDispatcher->dispatch('\Mittwald\Typo3Forum\Domain\Model\Forum\Post', 'postCreated',
 			array('post' => $post));
 
 		// Display flash message and redirect to topic->show action.
@@ -334,10 +335,10 @@ class Tx_Typo3Forum_Controller_PostController extends Tx_Typo3Forum_Controller_A
 	 * Displays a form for editing a post.
 	 *
 	 * @dontvalidate $post
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post The post that is to be edited.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post The post that is to be edited.
 	 * @return void
 	 */
-	public function editAction(Tx_Typo3Forum_Domain_Model_Forum_Post $post) {
+	public function editAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
 		if($post->getAuthor() != $this->authenticationService->getUser() or $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()){
 			// Assert authorization
 			$this->authenticationService->assertModerationAuthorization($post->getTopic()->getForum());
@@ -348,11 +349,11 @@ class Tx_Typo3Forum_Controller_PostController extends Tx_Typo3Forum_Controller_A
 	/**
 	 * Delete a Attachment.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Attachment $attachment The attachment that is to be deleted
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment $attachment The attachment that is to be deleted
 	 * @param string $redirect
 	 * @return void
 	 */
-	public function deletePostAttachmentAction(Tx_Typo3Forum_Domain_Model_Forum_Attachment $attachment, $redirect = false) {
+	public function deletePostAttachmentAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment $attachment, $redirect = false) {
 		if($attachment->getPost()->getAuthor() != $this->authenticationService->getUser() or
 			$attachment->getPost()->getTopic()->getLastPost()->getAuthor() != $attachment->getPost()->getAuthor()){
 			// Assert authorization
@@ -370,12 +371,12 @@ class Tx_Typo3Forum_Controller_PostController extends Tx_Typo3Forum_Controller_A
 	/**
 	 * Updates a post.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post The post that is to be updated.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post The post that is to be updated.
 	 * @param array $attachments File attachments for the post.
 	 *
 	 * @return void
 	 */
-	public function updateAction(Tx_Typo3Forum_Domain_Model_Forum_Post $post, array $attachments = array()) {
+	public function updateAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post, array $attachments = array()) {
 		if($post->getAuthor() != $this->authenticationService->getUser() or $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()){
 			// Assert authorization
 			$this->authenticationService->assertModerationAuthorization($post->getTopic()->getForum());
@@ -388,7 +389,7 @@ class Tx_Typo3Forum_Controller_PostController extends Tx_Typo3Forum_Controller_A
 		}
 		$this->postRepository->update($post);
 
-		$this->signalSlotDispatcher->dispatch('Tx_Typo3Forum_Domain_Model_Forum_Post', 'postUpdated',
+		$this->signalSlotDispatcher->dispatch('\Mittwald\Typo3Forum\Domain\Model\Forum\Post', 'postUpdated',
 			array('post' => $post));
 		$this->controllerContext->getFlashMessageQueue()->addMessage(
 			new \TYPO3\CMS\Core\Messaging\FlashMessage(
@@ -404,10 +405,10 @@ class Tx_Typo3Forum_Controller_PostController extends Tx_Typo3Forum_Controller_A
 	 * Displays a confirmation screen in which the user is prompted if a post
 	 * should really be deleted.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post The post that is to be deleted.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post The post that is to be deleted.
 	 * @return void
 	 */
-	public function confirmDeleteAction(Tx_Typo3Forum_Domain_Model_Forum_Post $post) {
+	public function confirmDeleteAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
 		$this->authenticationService->assertDeletePostAuthorization($post);
 		$this->view->assign('post', $post);
 	}
@@ -415,10 +416,10 @@ class Tx_Typo3Forum_Controller_PostController extends Tx_Typo3Forum_Controller_A
 	/**
 	 * Deletes a post.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post The post that is to be deleted.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post The post that is to be deleted.
 	 * @return void
 	 */
-	public function deleteAction(Tx_Typo3Forum_Domain_Model_Forum_Post $post) {
+	public function deleteAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
 		// Assert authorization
 		$this->authenticationService->assertDeletePostAuthorization($post);
 
@@ -432,7 +433,7 @@ class Tx_Typo3Forum_Controller_PostController extends Tx_Typo3Forum_Controller_A
 		);
 
 		// Notify observers and clear cache.
-		$this->signalSlotDispatcher->dispatch('Tx_Typo3Forum_Domain_Model_Forum_Post', 'postDeleted',
+		$this->signalSlotDispatcher->dispatch('\Mittwald\Typo3Forum\Domain\Model\Forum\Post', 'postDeleted',
 			array('post' => $post));
 		$this->clearCacheForCurrentPage();
 

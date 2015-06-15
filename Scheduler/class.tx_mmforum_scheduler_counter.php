@@ -201,7 +201,7 @@ class tx_typo3forum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\Abstract
 		//Find all users with their current rank
 		$query = 'SELECT fe.uid, fe.tx_typo3forum_rank
 				  FROM fe_users AS fe
-				  WHERE fe.disable=0 AND fe.deleted=0 AND fe.tx_extbase_type="Tx_Typo3Forum_Domain_Model_User_FrontendUser"
+				  WHERE fe.disable=0 AND fe.deleted=0 AND fe.tx_extbase_type="\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser"
 						AND fe.pid='.intval($this->getUserPid());
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 		while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
@@ -253,7 +253,7 @@ class tx_typo3forum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\Abstract
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 		$query = 'SELECT tx_typo3forum_rank, COUNT(*) AS counter
 				  FROM fe_users
-				  WHERE disable=0 AND deleted=0 AND tx_extbase_type="Tx_Typo3Forum_Domain_Model_User_FrontendUser"
+				  WHERE disable=0 AND deleted=0 AND tx_extbase_type="\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser"
 				  		AND pid='.intval($this->getUserPid()).'
 				  GROUP BY tx_typo3forum_rank';
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);

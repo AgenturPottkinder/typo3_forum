@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -48,18 +48,18 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Domain_Model_Moderation_PostReport extends Tx_Typo3Forum_Domain_Model_Moderation_Report {
+class PostReport extends \Mittwald\Typo3Forum\Domain\Model\Moderation\Report {
 
 	/**
 	 * A set of comments that are assigned to this report.
-	 * @var Tx_Typo3Forum_Domain_Model_Forum_Post
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Post
 	 */
 	protected $post;
 
 
 	/**
 	 * Gets the topic to which the reported post belongs to.
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Topic The topic.
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic The topic.
 	 */
 	public function getTopic() {
 		return $this->post->getTopic();
@@ -67,17 +67,17 @@ class Tx_Typo3Forum_Domain_Model_Moderation_PostReport extends Tx_Typo3Forum_Dom
 
 	/**
 	 * Gets the topic to which the reported post belongs to.
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Post The topic.
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Post The topic.
 	 */
 	public function getPost() {
 		return $this->post;
 	}
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $post.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post.
 	 * @return voidc.
 	 */
-	public function setPost(Tx_Typo3Forum_Domain_Model_Forum_Post $post) {
+	public function setPost(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
 		$this->post = $post;
 	}
 

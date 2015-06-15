@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -38,8 +38,8 @@
  *             http://opensource.org/licenses/gpl-license.php
 
  */
-class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
-	implements Tx_Typo3Forum_Domain_Model_AccessibleInterface, Tx_Typo3Forum_Domain_Model_SubscribeableInterface {
+class Forum extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+	implements \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface, \Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface {
 
 
 
@@ -67,7 +67,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 
 	/**
 	 * The child forums
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Typo3Forum_Domain_Model_Forum_Forum>
+	 * @var Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Forum>
 	 * @lazy
 	 */
 	protected $children;
@@ -77,7 +77,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	 * The VISIBLE child forums of this forum, i.e. all forums that the
 	 * currently logged in user has read access to.
 	 *
-	 * @var ArrayObject<Tx_Typo3Forum_Domain_Model_Forum_Forum>
+	 * @var ArrayObject<\Mittwald\Typo3Forum\Domain\Model\Forum\Forum>
 	 * @lazy
 	 */
 	protected $visibleChildren = NULL;
@@ -85,7 +85,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 
 	/**
 	 * The topics in this forum.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Typo3Forum_Domain_Model_Forum_Topic>
+	 * @var Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Topic>
 	 * @lazy
 	 */
 	protected $topics;
@@ -93,7 +93,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 
 	/**
 	 * The criterias of this forum.
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Typo3Forum_Domain_Model_Forum_Criteria>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Criteria>
 	 * @lazy
 	 */
 	protected $criteria;
@@ -115,28 +115,28 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 
 	/**
 	 * All access rules.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Typo3Forum_Domain_Model_Forum_Access>
+	 * @var Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Access>
 	 */
 	protected $acls;
 
 
 	/**
 	 * The last topic.
-	 * @var Tx_Typo3Forum_Domain_Model_Forum_Topic
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Topic
 	 */
 	protected $lastTopic;
 
 
 	/**
 	 * The last post.
-	 * @var Tx_Typo3Forum_Domain_Model_Forum_Post
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Post
 	 */
 	protected $lastPost;
 
 
 	/**
 	 * The parent forum.
-	 * @var Tx_Typo3Forum_Domain_Model_Forum_Forum
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Forum
 	 * @lazy
 	 */
 
@@ -145,7 +145,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 
 	/**
 	 * All subscribers of this forum.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Typo3Forum_Domain_Model_User_FrontendUser>
+	 * @var Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
 	 * @lazy
 	 */
 	protected $subscribers;
@@ -154,7 +154,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	/**
 	 * All users who have read this forum.
 	 *
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Typo3Forum_Domain_Model_User_FrontendUser>
+	 * @var Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
 	 * @lazy
 	 */
 	protected $readers;
@@ -308,7 +308,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	 * all child forums, but performs an access check on each forum, so
 	 * that only forums visible to the current user are returned.
 	 *
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Typo3Forum_Domain_Model_Forum_Forum>
+	 * @return Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Forum>
 	 *                             All visible child forums
 	 */
 	public function getChildren() {
@@ -332,7 +332,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 
 	/**
 	 * Gets all topics.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Typo3Forum_Domain_Model_Forum_Topic>
+	 * @return Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Topic>
 	 *                             All topics in this forum
 	 */
 	public function getTopics() {
@@ -342,10 +342,10 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 
 	/**
 	 * Get all criterias of this forum.
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Typo3Forum_Domain_Model_Forum_Criteria>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Criteria>
 	 */
 	public function getCriteria() {
-		/* @var Tx_Typo3Forum_Domain_Model_Forum_Criteria */
+		/* @var \Mittwald\Typo3Forum\Domain\Model\Forum\Criteria */
 		$obj =  new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 
 		$criteria = $this->getCriteriaRecursive(array($this,$obj));
@@ -374,7 +374,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 
 	/**
 	 * Gets all access rules.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Typo3Forum_Domain_Model_Forum_Access>
+	 * @return Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Access>
 	 *                             All access rules for this forum.
 	 */
 	public function getAcls() {
@@ -385,15 +385,15 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 
 	/**
 	 * Gets the last topic.
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Topic The last topic
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic The last topic
 	 */
 	public function getLastTopic() {
-		if(!$this->lastTopic instanceof Tx_Typo3Forum_Domain_Model_Forum_Topic){
+		if(!$this->lastTopic instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Topic){
 			return NULL;
 		}
 		$lastTopic = $this->lastTopic;
 		foreach ($this->getChildren() as $child) {
-			/** @var $child Tx_Typo3Forum_Domain_Model_Forum_Forum */
+			/** @var $child \Mittwald\Typo3Forum\Domain\Model\Forum\Forum */
 			/** @noinspection PhpUndefinedMethodInspection */
 			if ($lastTopic === NULL || ($child->getLastTopic() !== NULL && $child->getLastTopic()->getLastPost()
 				->getTimestamp() > $lastTopic->getLastPost()->getTimestamp())
@@ -408,15 +408,15 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 
 	/**
 	 * Gets the last post.
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Post The last post
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Post The last post
 	 */
 	public function getLastPost() {
-		if(!$this->lastPost instanceof Tx_Typo3Forum_Domain_Model_Forum_Post){
+		if(!$this->lastPost instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Post){
 			return NULL;
 		}
 		$lastPost = $this->lastPost;
 		foreach ($this->getChildren() as $child) {
-			/** @var $child Tx_Typo3Forum_Domain_Model_Forum_Forum */
+			/** @var $child \Mittwald\Typo3Forum\Domain\Model\Forum\Forum */
 			if ($lastPost === NULL || ($child->getLastPost() !== NULL && $child->getLastPost()
 				->getTimestamp() > $lastPost->getTimestamp())
 			) {
@@ -430,11 +430,11 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 
 	/**
 	 * Gets the parent forum.
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Forum The parent forum
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Forum The parent forum
 	 */
 	public function getForum() {
 		if ($this->forum == NULL) {
-			return $this->objectManager->get('Tx_Typo3Forum_Domain_Model_Forum_RootForum');
+			return $this->objectManager->get('\Mittwald\Typo3Forum\Domain\Model\Forum\RootForum');
 		}
 		return $this->forum;
 	}
@@ -443,7 +443,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 
 	/**
 	 * Alias for getForum().
-	 * @return Tx_Typo3Forum_Domain_Model_Forum_Forum The parent forum
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Forum The parent forum
 	 */
 	public function getParent() {
 		return $this->getForum();
@@ -458,7 +458,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	public function getTopicCount() {
 		$topicCount = $this->topicCount;
 		foreach ($this->getChildren() as $child) {
-			/** @var $child Tx_Typo3Forum_Domain_Model_Forum_Forum */
+			/** @var $child \Mittwald\Typo3Forum\Domain\Model\Forum\Forum */
 			$topicCount += $child->getTopicCount();
 		}
 		return $topicCount;
@@ -473,7 +473,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	public function getPostCount() {
 		$postCount = $this->postCount;
 		foreach ($this->getChildren() as $child) {
-			/** @var $child Tx_Typo3Forum_Domain_Model_Forum_Forum */
+			/** @var $child \Mittwald\Typo3Forum\Domain\Model\Forum\Forum */
 			$postCount += $child->getPostCount();
 		}
 		return $postCount;
@@ -484,7 +484,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	/**
 	 * Gets all users who have subscribed to this forum.
 	 *
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Typo3Forum_Domain_Model_User_FrontendUser>
+	 * @return Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
 	 *                             All subscribers of this forum.
 	 */
 	public function getSubscribers() {
@@ -506,12 +506,12 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	 * Determines if this forum (i.e. all topics in it) has been read by the
 	 * currently logged in user.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 *                             The user.
 	 * @return boolean             TRUE, if all topics in this forum have been read,
 	 *                             otherwise FALSE.
 	 */
-	public function hasBeenReadByUser(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user = NULL) {
+	public function hasBeenReadByUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
 		if ($user === NULL || $this->readers === NULL) {
 			return TRUE;
 		}
@@ -536,7 +536,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	 * @param  boolean $withSelf TRUE to include this forum into the rootline,
 	 *                           otherwise FALSE.
 	 *
-	 * @return array<Tx_Typo3Forum_Domain_Model_Forum_Forum>
+	 * @return array<\Mittwald\Typo3Forum\Domain\Model\Forum\Forum>
 	 */
 	public function getRootline($withSelf = TRUE) {
 		$rootline = $this->forum === NULL ? array() : $this->forum->getRootline(TRUE);
@@ -555,13 +555,13 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	 * *INTERAL USE ONLY!*
 	 *
 	 * @access                     private
-	 * @param  Tx_Typo3Forum_Domain_Model_User_FrontendUser $user        The user that is to be checked against the access
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user        The user that is to be checked against the access
 	 *                                                                rules of this forum.
 	 * @param  string                                    $accessType  The operation
 	 * @return boolean             TRUE, if the user has access to the requested
 	 *                             operation, otherwise FALSE.
 	 */
-	public function checkAccess(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'read') {
+	public function checkAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL, $accessType = 'read') {
 
 		// If there aren't any access rules defined for this forum, delegate
 		// the access check to the parent forum. If there is no parent forum
@@ -576,7 +576,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 		// access, if no parent is set).
 		$found = FALSE;
 		foreach ($this->acls as $acl) {
-			/** @var $acl Tx_Typo3Forum_Domain_Model_Forum_Access */
+			/** @var $acl \Mittwald\Typo3Forum\Domain\Model\Forum\Access */
 			if ($acl->getOperation() !== $accessType) {
 				continue;
 			}
@@ -594,11 +594,11 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	/**
 	 * Checks if a user has read access to this forum.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 *                             The user that is to be checked.
 	 * @return boolean             TRUE if the user has read access, otherwise FALSE.
 	 */
-	public function checkReadAccess(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user = NULL) {
+	public function checkReadAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
 		return $this->checkAccess($user, 'read');
 	}
 
@@ -607,11 +607,11 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	/**
 	 * Checks if a user has access to create new posts in this forum.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 *                             The user that is to be checked.
 	 * @return boolean             TRUE if the user has access, otherwise FALSE.
 	 */
-	public function checkNewPostAccess(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user = NULL) {
+	public function checkNewPostAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
 		return $this->checkAccess($user, 'newPost');
 	}
 
@@ -620,11 +620,11 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	/**
 	 * Checks if a user has access to create new topics in this forum.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 *                             The user that is to be checked.
 	 * @return boolean             TRUE if the user has access, otherwise FALSE.
 	 */
-	public function checkNewTopicAccess(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user = NULL) {
+	public function checkNewTopicAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
 		return $this->checkAccess($user, 'newTopic');
 	}
 
@@ -633,11 +633,11 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	/**
 	 * Checks if a user has access to moderate in this forum.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_User_FrontendUser $user
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 *                             The user that is to be checked.
 	 * @return boolean             TRUE if the user has access, otherwise FALSE.
 	 */
-	public function checkModerationAccess(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user = NULL) {
+	public function checkModerationAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
 		if ($user === NULL) {
 			return FALSE;
 		}
@@ -664,7 +664,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 
 	/**
 	 * Set the criteria of this forum..
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Typo3Forum_Domain_Model_Forum_Criteria> $criteria
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Criteria> $criteria
 	 * @return void
 	 */
 	public function setCriteria(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $criteria) {
@@ -687,10 +687,10 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	/**
 	 * Sets the parent forum.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Forum $parent The parent forum.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $parent The parent forum.
 	 * @return void
 	 */
-	public function setParent(Tx_Typo3Forum_Domain_Model_Forum_Forum $parent) {
+	public function setParent(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $parent) {
 		$this->forum = $parent;
 	}
 
@@ -699,10 +699,10 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	/**
 	 * Adds a child forum.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Forum The Forum to be added
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum The Forum to be added
 	 * @return void
 	 */
-	public function addChild(Tx_Typo3Forum_Domain_Model_Forum_Forum $child) {
+	public function addChild(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $child) {
 		$this->visibleChildren = NULL;
 		$this->children->attach($child);
 
@@ -717,10 +717,10 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	/**
 	 * Removes a child forum.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Forum The Forum to be removed
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum The Forum to be removed
 	 * @return void
 	 */
-	public function removeChild(Tx_Typo3Forum_Domain_Model_Forum_Forum $child) {
+	public function removeChild(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $child) {
 		$this->children->detach($child);
 	}
 
@@ -729,10 +729,10 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	/**
 	 * Adds a topic.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Topic The Topic to be added
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic The Topic to be added
 	 * @return void
 	 */
-	public function addTopic(Tx_Typo3Forum_Domain_Model_Forum_Topic $topic) {
+	public function addTopic(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic) {
 
 		if ($this->lastTopic === NULL || $this->lastTopic->getTimestamp() <= $topic->getTimestamp()) {
 			$this->setLastTopic($topic);
@@ -753,10 +753,10 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	/**
 	 * Removes a topic.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Topic The Topic to be removed
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic The Topic to be removed
 	 * @return void
 	 */
-	public function removeTopic(Tx_Typo3Forum_Domain_Model_Forum_Topic $topic) {
+	public function removeTopic(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic) {
 		$this->topics->detach($topic);
 		$this->_resetCounters();
 		$this->_resetLastPost();
@@ -768,7 +768,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	/**
 	 * Sets the access rules for this forum.
 	 *
-	 * @param Tx_Extbase_Persistence_ObjectStorage<Tx_Typo3Forum_Domain_Model_Forum_Access> $acls acls
+	 * @param Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Access> $acls acls
 	 * @return void
 	 */
 	public function setAcls(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $acls) {
@@ -780,10 +780,10 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	/**
 	 * Adds a new access rule.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Access The access rule to be added
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Access The access rule to be added
 	 * @return void
 	 */
-	public function addAcl(Tx_Typo3Forum_Domain_Model_Forum_Access $acl) {
+	public function addAcl(\Mittwald\Typo3Forum\Domain\Model\Forum\Access $acl) {
 		$this->acls->attach($acl);
 	}
 
@@ -792,10 +792,10 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	/**
 	 * Removes a access rule.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Access The access rule to be removed
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Access The access rule to be removed
 	 * @return void
 	 */
-	public function removeAcl(Tx_Typo3Forum_Domain_Model_Forum_Access $acl) {
+	public function removeAcl(\Mittwald\Typo3Forum\Domain\Model\Forum\Access $acl) {
 		$this->acls->detach($acl);
 	}
 
@@ -804,10 +804,10 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	/**
 	 * Sets the last topic.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Topic $lastTopic The last topic
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $lastTopic The last topic
 	 * @return void
 	 */
-	public function setLastTopic(Tx_Typo3Forum_Domain_Model_Forum_Topic $lastTopic=NULL) {
+	public function setLastTopic(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $lastTopic=NULL) {
 		$this->lastTopic = $lastTopic;
 	}
 
@@ -816,10 +816,10 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	/**
 	 * Sets the last post.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post $lastPost The last post.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $lastPost The last post.
 	 * @return void
 	 */
-	public function setLastPost(Tx_Typo3Forum_Domain_Model_Forum_Post $lastPost=NULL) {
+	public function setLastPost(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $lastPost=NULL) {
 		$this->lastPost = $lastPost;
 	}
 
@@ -827,10 +827,10 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 
 	/**
 	 * Adds a new subscriber.
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user The new subscriber.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user The new subscriber.
 	 * @return void
 	 */
-	public function addSubscriber(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user) {
+	public function addSubscriber(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
 		$this->subscribers->attach($user);
 	}
 
@@ -838,9 +838,9 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 
 	/**
 	 * Removes a subscriber.
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $user The subscriber to be removed.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user The subscriber to be removed.
 	 */
-	public function removeSubscriber(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user) {
+	public function removeSubscriber(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
 		$this->subscribers->detach($user);
 	}
 
@@ -850,10 +850,10 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	/**
 	 * Marks this forum as read by a certain user.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $reader The user who read this forum.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reader The user who read this forum.
 	 * @return void
 	 */
-	public function addReader(Tx_Typo3Forum_Domain_Model_User_FrontendUser $reader) {
+	public function addReader(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reader) {
 		$this->readers->attach($reader);
 	}
 
@@ -861,10 +861,10 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	/**
 	 * Mark this forum as unread for a certain user.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser $reader The user for whom to mark this forum as unread.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reader The user for whom to mark this forum as unread.
 	 * @return void
 	 */
-	public function removeReader(Tx_Typo3Forum_Domain_Model_User_FrontendUser $reader) {
+	public function removeReader(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reader) {
 		$this->readers->detach($reader);
 	}
 
@@ -888,10 +888,10 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	 * @access private
 	 */
 	public function _resetLastPost() {
-		/** @var $lastPost Tx_Typo3Forum_Domain_Model_Forum_Post */
+		/** @var $lastPost \Mittwald\Typo3Forum\Domain\Model\Forum\Post */
 		$lastPost = NULL;
 		foreach ($this->topics as $topic) {
-			/** @var $topic Tx_Typo3Forum_Domain_Model_Forum_Topic */
+			/** @var $topic \Mittwald\Typo3Forum\Domain\Model\Forum\Topic */
 			/** @noinspection PhpUndefinedMethodInspection */
 			$lastTopicPostTimestamp = $topic->getLastPost()->getTimestamp();
 			if ($lastPost === NULL || $lastTopicPostTimestamp > $lastPost->getTimestamp()) {
@@ -914,7 +914,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	public function _resetLastTopic() {
 		$lastTopic = NULL;
 		foreach ($this->topics as $topic) {
-			/** @var $topic Tx_Typo3Forum_Domain_Model_Forum_Topic */
+			/** @var $topic \Mittwald\Typo3Forum\Domain\Model\Forum\Topic */
 			/** @noinspection PhpUndefinedMethodInspection */
 			$lastTopicPostTimestamp = $topic->getLastPost()->getTimestamp();
 			if ($lastTopic === NULL || $lastTopicPostTimestamp > $lastTopic->getTimestamp()) {
@@ -978,7 +978,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_Forum extends \TYPO3\CMS\Extbase\DomainOb
 	public function _resetPostCount() {
 		$this->postCount = 0;
 		foreach ($this->topics as $topic) {
-			/** @var $topic Tx_Typo3Forum_Domain_Model_Forum_Topic */
+			/** @var $topic \Mittwald\Typo3Forum\Domain\Model\Forum\Topic */
 			$this->postCount += $topic->getPostCount();
 		}
 	}

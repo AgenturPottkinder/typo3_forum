@@ -25,12 +25,12 @@
  *                                                                      */
 
 
-class Tx_Typo3Forum_Domain_Factory_Moderation_ReportFactoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class \Mittwald\Typo3Forum\Domain\Factory\Moderation\ReportFactoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 
 
 	/**
-	 * @var Tx_Typo3Forum_Domain_Factory_Moderation_ReportFactory
+	 * @var \Mittwald\Typo3Forum\Domain\Factory\Moderation\ReportFactory
 	 */
 	protected $fixture;
 
@@ -42,7 +42,7 @@ class Tx_Typo3Forum_Domain_Factory_Moderation_ReportFactoryTest extends \TYPO3\C
 
 
 	/**
-	 * @var Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus
 	 */
 	protected $initialStatus;
 
@@ -52,9 +52,9 @@ class Tx_Typo3Forum_Domain_Factory_Moderation_ReportFactoryTest extends \TYPO3\C
 		$this->userRepositoryMock           = $this->getMock('Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository');
 		$this->workflowStatusRepositoryMock = $this->getMock('Tx_Typo3Forum_Domain_Repository_Moderation_ReportWorkflowStatusRepository');
 		$this->workflowStatusRepositoryMock->expects($this->any())->method('findInitial')
-			->will($this->returnValue($this->initialStatus = new Tx_Typo3Forum_Domain_Model_Moderation_ReportWorkflowStatus('Open', TRUE, FALSE)));
+			->will($this->returnValue($this->initialStatus = new \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus('Open', TRUE, FALSE)));
 
-		$this->fixture = new Tx_Typo3Forum_Domain_Factory_Moderation_ReportFactory($this->workflowStatusRepositoryMock);
+		$this->fixture = new \Mittwald\Typo3Forum\Domain\Factory\Moderation\ReportFactory($this->workflowStatusRepositoryMock);
 		$this->fixture->injectObjectManager($this->objectManager);
 		$this->fixture->injectFrontendUserRepository($this->userRepositoryMock);
 	}
@@ -65,14 +65,14 @@ class Tx_Typo3Forum_Domain_Factory_Moderation_ReportFactoryTest extends \TYPO3\C
 	 * @test
 	 */
 	public function createReportCreatesNewReportFromComment() {
-		$user = new Tx_Typo3Forum_Domain_Model_User_FrontendUser('martin', 'secret');
-		$post = new Tx_Typo3Forum_Domain_Model_Forum_Post('Content');
+		$user = new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser('martin', 'secret');
+		$post = new \Mittwald\Typo3Forum\Domain\Model\Forum\Post('Content');
 		$this->userRepositoryMock->expects($this->any())->method('findCurrent')->will($this->returnValue($user));
 
-		$comment = new Tx_Typo3Forum_Domain_Model_Moderation_ReportComment($user, 'Content');
+		$comment = new \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment($user, 'Content');
 		$report  = $this->fixture->createReport($comment, $post);
 
-		$this->assertInstanceOf('Tx_Typo3Forum_Domain_Model_Moderation_Report', $report);
+		$this->assertInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Moderation\Report', $report);
 		$this->assertTrue($report->getPost() === $post);
 		$this->assertTrue($report->getWorkflowStatus() === $this->initialStatus);
 		$this->assertTrue($report->getReporter() === $user);

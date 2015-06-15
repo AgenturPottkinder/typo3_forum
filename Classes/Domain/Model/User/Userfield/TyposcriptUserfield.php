@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Model\User\Userfield;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -44,8 +44,7 @@
  *
  */
 
-Class Tx_Typo3Forum_Domain_Model_User_Userfield_TyposcriptUserfield
-	Extends Tx_Typo3Forum_Domain_Model_User_Userfield_AbstractUserfield {
+class TyposcriptUserfield extends \Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield {
 
 
 
@@ -53,7 +52,7 @@ Class Tx_Typo3Forum_Domain_Model_User_Userfield_TyposcriptUserfield
 	 * The typoscript path that is to be used for rendering this field.
 	 * @var string
 	 */
-	Protected $typoscriptPath;
+	protected $typoscriptPath;
 
 
 
@@ -64,8 +63,8 @@ Class Tx_Typo3Forum_Domain_Model_User_Userfield_TyposcriptUserfield
 	 *
 	 */
 
-	Public Function getTyposcriptPath() {
-		Return $this->typoscriptPath;
+	public function getTyposcriptPath() {
+		return $this->typoscriptPath;
 	}
 
 }

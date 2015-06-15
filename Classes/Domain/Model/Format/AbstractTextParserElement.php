@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Model;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -39,8 +39,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_Typo3Forum_Domain_Model_Format_AbstractTextParserElement
-	extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
+abstract class AbstractTextParserElement extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
 
 
 

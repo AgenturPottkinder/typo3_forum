@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Controller;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -46,7 +46,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_Typo3Forum_Controller_AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 
 
@@ -111,7 +111,7 @@ abstract class Tx_Typo3Forum_Controller_AbstractController extends \TYPO3\CMS\Ex
 
 	/**
 	 * The non-namespaced class name of this controller (e.g. ForumController
-	 * instead of Tx_Typo3Forum_Controller_ForumController).
+	 * instead of \Mittwald\Typo3Forum\Controller\ForumController).
 	 *
 	 * @var string
 	 */
@@ -202,12 +202,12 @@ abstract class Tx_Typo3Forum_Controller_AbstractController extends \TYPO3\CMS\Ex
 	 * template view, causing the view class to look in the same directory regardless
 	 * of the controller.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Exception_AbstractException $e The exception that is to be handled
+	 * @param \Mittwald\Typo3Forum\Domain\Exception\AbstractException $e The exception that is to be handled
 	 *
 	 * @return void
 	 *
 	 */
-	protected function handleError(Tx_Typo3Forum_Domain_Exception_AbstractException $e) {
+	protected function handleError(\Mittwald\Typo3Forum\Domain\Exception\AbstractException $e) {
 		$controllerContext = $this->buildControllerContext();
 		$controllerContext->getRequest()->setControllerName('Default');
 		$controllerContext->getRequest()->setControllerActionName('error');
@@ -233,7 +233,7 @@ abstract class Tx_Typo3Forum_Controller_AbstractController extends \TYPO3\CMS\Ex
 	protected function callActionMethod() {
 		try {
 			parent::callActionMethod();
-		} catch (Tx_Typo3Forum_Domain_Exception_AbstractException $e) {
+		} catch (\Mittwald\Typo3Forum\Domain\Exception\AbstractException $e) {
 			$this->handleError($e);
 		}
 	}
@@ -266,7 +266,7 @@ abstract class Tx_Typo3Forum_Controller_AbstractController extends \TYPO3\CMS\Ex
 	 * Gets the currently logged in frontend user. This method is only a convenience
 	 * wrapper for the findCurrent-Method of the frontend user repository class.
 	 *
-	 * @return Tx_Typo3Forum_Domain_Model_User_FrontendUser
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 *                             The frontend user that is currently logged in, or
 	 *                             NULL if no user is logged in.
 	 *

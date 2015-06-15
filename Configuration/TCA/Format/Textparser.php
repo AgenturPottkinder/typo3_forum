@@ -8,11 +8,11 @@ $TCA['tx_typo3forum_domain_model_format_textparser'] = array(
 	),
 	'types' => array(
 		'1' => array('showitem' => 'type'),
-		'Tx_Typo3Forum_Domain_Model_Format_BBCode' => array('showitem' => 'type,name,icon_class,bbcode_wrap,regular_expression,regular_expression_replacement'),
-		'Tx_Typo3Forum_Domain_Model_Format_QuoteBBCode' => array('showitem' => 'type,name,icon_class'),
-		'Tx_Typo3Forum_Domain_Model_Format_ListBBCode' => array('showitem' => 'type,name,icon_class'),
-		'Tx_Typo3Forum_Domain_Model_Format_Smilie' => array('showitem' => 'type,name,icon_class,smilie_shortcut'),
-		'Tx_Typo3Forum_Domain_Model_Format_SyntaxHighlighting' => array('showitem' => 'type,name,icon,language')
+		'\Mittwald\Typo3Forum\Domain\Model\Format\BBCode' => array('showitem' => 'type,name,icon_class,bbcode_wrap,regular_expression,regular_expression_replacement'),
+		'\Mittwald\Typo3Forum\Domain\Model\Format\QuoteBBCode' => array('showitem' => 'type,name,icon_class'),
+		'\Mittwald\Typo3Forum\Domain\Model\Format\ListBBCode' => array('showitem' => 'type,name,icon_class'),
+		'\Mittwald\Typo3Forum\Domain\Model\Format\Smilie' => array('showitem' => 'type,name,icon_class,smilie_shortcut'),
+		'\Mittwald\Typo3Forum\Domain\Model\Format\SyntaxHighlighting' => array('showitem' => 'type,name,icon,language')
 	),
 	'palettes' => array(
 		'1' => array('showitem' => '')
@@ -69,11 +69,11 @@ $TCA['tx_typo3forum_domain_model_format_textparser'] = array(
 			'config'  => array(
 				'type' => 'select',
 				'items' => array(
-					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_format_textparser.type.bbcode', 'Tx_Typo3Forum_Domain_Model_Format_BBCode'),
-					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_format_textparser.type.quote', 'Tx_Typo3Forum_Domain_Model_Format_QuoteBBCode'),
-					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_format_textparser.type.list', 'Tx_Typo3Forum_Domain_Model_Format_ListBBCode'),
-					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_format_textparser.type.smilie', 'Tx_Typo3Forum_Domain_Model_Format_Smilie'),
-					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_format_textparser.type.syntax', 'Tx_Typo3Forum_Domain_Model_Format_SyntaxHighlighting'),
+					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_format_textparser.type.bbcode', '\Mittwald\Typo3Forum\Domain\Model\Format\BBCode'),
+					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_format_textparser.type.quote', '\Mittwald\Typo3Forum\Domain\Model\Format\QuoteBBCode'),
+					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_format_textparser.type.list', '\Mittwald\Typo3Forum\Domain\Model\Format\ListBBCode'),
+					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_format_textparser.type.smilie', '\Mittwald\Typo3Forum\Domain\Model\Format\Smilie'),
+					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_format_textparser.type.syntax', '\Mittwald\Typo3Forum\Domain\Model\Format\SyntaxHighlighting'),
 				)
 			)
 		),

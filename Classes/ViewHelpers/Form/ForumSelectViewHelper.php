@@ -131,7 +131,7 @@ Class Tx_Typo3Forum_ViewHelpers_Form_ForumSelectViewHelper Extends \TYPO3\CMS\Fl
 	 *
 	 * Recursively generates option rows for a forum and each subforum of this forum.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_Forum_Forum $forum
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
 	 *                                                         The forum for which to generate the option row.
 	 * @param  boolean                             $isRoot     TRUE, if the forum is a root category, otherwise
 	 *                                                         FALSE.
@@ -139,7 +139,7 @@ Class Tx_Typo3Forum_ViewHelpers_Form_ForumSelectViewHelper Extends \TYPO3\CMS\Fl
 	 *
 	 */
 
-	Protected Function getForumOptionRow(Tx_Typo3Forum_Domain_Model_Forum_Forum $forum, $isRoot = FALSE) {
+	Protected Function getForumOptionRow(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum, $isRoot = FALSE) {
 		$result = Array('name'      => $forum->getTitle(),
 		                'uid'       => $forum->getUid(),
 		                '_isRoot'   => $isRoot,

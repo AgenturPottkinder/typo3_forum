@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Model\User;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -40,7 +40,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Domain_Model_User_AnonymousFrontendUser extends Tx_Typo3Forum_Domain_Model_User_FrontendUser {
+class \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser extends \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser {
 
 
 

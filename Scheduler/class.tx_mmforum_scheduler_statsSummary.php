@@ -112,7 +112,7 @@ class tx_typo3forum_scheduler_statsSummary extends \TYPO3\CMS\Scheduler\Task\Abs
 
 		$query = 'SELECT COUNT(*) AS counter
 				  FROM fe_users
-				  WHERE deleted=0 AND disable=0 AND tx_extbase_type = "Tx_Typo3Forum_Domain_Model_User_FrontendUser"
+				  WHERE deleted=0 AND disable=0 AND tx_extbase_type = "\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser"
 				  		AND pid IN ('.$this->getUserPids().');';
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);

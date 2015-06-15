@@ -27,24 +27,24 @@ class Tx_Typo3Forum_Domain_Model_Forum_CriteriaTest extends Tx_Typo3Forum_Unit_B
 
 
 	/**
-	 * @var Tx_Typo3Forum_Domain_Model_Forum_Criteria
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Criteria
 	 */
 	private $criteria;
 
 	/**
-	 * @var Tx_Typo3Forum_Domain_Model_Forum_CriteriaOption
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption
 	 */
 	private $option;
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_Typo3Forum_Domain_Model_Forum_CriteriaOption>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption>
 	 */
 	private $optionStorage;
 
 
 	public function setUp() {
-		$this->criteria = $this->objectManager->create('Tx_Typo3Forum_Domain_Model_Forum_Criteria');
-		$this->option = $this->objectManager->create('Tx_Typo3Forum_Domain_Model_Forum_CriteriaOption');
+		$this->criteria = $this->objectManager->create('\Mittwald\Typo3Forum\Domain\Model\Forum\Criteria');
+		$this->option = $this->objectManager->create('\Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption');
 		$this->optionStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 

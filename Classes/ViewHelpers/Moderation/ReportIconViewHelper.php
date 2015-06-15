@@ -60,14 +60,14 @@ class Tx_Typo3Forum_ViewHelpers_Moderation_ReportIconViewHelper extends \TYPO3\C
 	 *
 	 * Renders the report icon.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_Moderation_Report $report
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report
 	 *                                                               The report for which the icon is to be rendered.
 	 * @param  integer                                   $width      Image width
 	 * @param  string                                    $alt        Alt text
 	 * @return string             The rendered icon.
 	 *
 	 */
-	public function render(Tx_Typo3Forum_Domain_Model_Moderation_Report $report = NULL, $width = NULL, $alt = "") {
+	public function render(\Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report = NULL, $width = NULL, $alt = "") {
 		return parent::render('plugin.tx_typo3forum.renderer.icons.report', $this->getDataArray($report));
 	}
 
@@ -77,12 +77,12 @@ class Tx_Typo3Forum_ViewHelpers_Moderation_ReportIconViewHelper extends \TYPO3\C
 	 *
 	 * Generates a data array that will be passed to the typoscript object for
 	 * rendering the icon.
-	 * @param  Tx_Typo3Forum_Domain_Model_Moderation_Report $report
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report
 	 *                             The report for which the icon is to be displayed.
 	 * @return array               The data array for the typoscript object.
 	 *
 	 */
-	protected function getDataArray(Tx_Typo3Forum_Domain_Model_Moderation_Report $report = NULL) {
+	protected function getDataArray(\Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report = NULL) {
 		if ($report === NULL) {
 			return array();
 		} else {

@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Controller;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -45,7 +45,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Controller_ReportController extends Tx_Typo3Forum_Controller_AbstractController {
+class ReportController extends \Mittwald\Typo3Forum\Controller\AbstractController {
 
 
 
@@ -58,7 +58,7 @@ class Tx_Typo3Forum_Controller_ReportController extends Tx_Typo3Forum_Controller
 	/**
 	 * A report factory class.
 	 *
-	 * @var Tx_Typo3Forum_Domain_Factory_Moderation_ReportFactory
+	 * @var \Mittwald\Typo3Forum\Domain\Factory\Moderation\ReportFactory
 	 */
 	protected $reportFactory;
 
@@ -119,9 +119,9 @@ class Tx_Typo3Forum_Controller_ReportController extends Tx_Typo3Forum_Controller
 
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Factory_Moderation_ReportFactory $reportFactory
+	 * @param \Mittwald\Typo3Forum\Domain\Factory\Moderation\ReportFactory $reportFactory
 	 */
-	public function injectReportFactory(Tx_Typo3Forum_Domain_Factory_Moderation_ReportFactory $reportFactory) {
+	public function injectReportFactory(\Mittwald\Typo3Forum\Domain\Factory\Moderation\ReportFactory $reportFactory) {
 		$this->reportFactory = $reportFactory;
 	}
 
@@ -134,14 +134,14 @@ class Tx_Typo3Forum_Controller_ReportController extends Tx_Typo3Forum_Controller
 	/**
 	 * Displays a form for creating a new post report.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_User_FrontendUser       $user
-	 * @param Tx_Typo3Forum_Domain_Model_Moderation_ReportComment $firstComment
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser       $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $firstComment
 	 *
 	 * @dontvalidate $firstComment
 	 * @return void
 	 */
-	public function newUserReportAction(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user,
-										Tx_Typo3Forum_Domain_Model_Moderation_ReportComment $firstComment = NULL) {
+	public function newUserReportAction(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user,
+										\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $firstComment = NULL) {
 		$this->view->assign('firstComment', $firstComment)->assign('user', $user);
 	}
 
@@ -149,14 +149,14 @@ class Tx_Typo3Forum_Controller_ReportController extends Tx_Typo3Forum_Controller
 	/**
 	 * Displays a form for creating a new post report.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post               $post
-	 * @param Tx_Typo3Forum_Domain_Model_Moderation_ReportComment $firstComment
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post               $post
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $firstComment
 	 *
 	 * @dontvalidate $firstComment
 	 * @return void
 	 */
-	public function newPostReportAction(Tx_Typo3Forum_Domain_Model_Forum_Post $post,
-	                          Tx_Typo3Forum_Domain_Model_Moderation_ReportComment $firstComment = NULL) {
+	public function newPostReportAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post,
+	                          \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $firstComment = NULL) {
 		$this->authenticationService->assertReadAuthorization($post);
 		$this->view->assign('firstComment', $firstComment)->assign('post', $post);
 	}
@@ -166,13 +166,13 @@ class Tx_Typo3Forum_Controller_ReportController extends Tx_Typo3Forum_Controller
 	/**
 	 * Creates a new post report and stores it into the database.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_User_FrontendUser               $user
-	 * @param Tx_Typo3Forum_Domain_Model_Moderation_ReportComment $firstComment
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser               $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $firstComment
 	 *
 	 * @return void
 	 */
-	public function createUserReportAction(Tx_Typo3Forum_Domain_Model_User_FrontendUser $user,
-								 Tx_Typo3Forum_Domain_Model_Moderation_ReportComment $firstComment = NULL) {
+	public function createUserReportAction(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user,
+								 \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $firstComment = NULL) {
 
 		// Create the new report using the factory class and persist the new object
 		$report = $this->reportFactory->createUserReport($firstComment);
@@ -180,7 +180,7 @@ class Tx_Typo3Forum_Controller_ReportController extends Tx_Typo3Forum_Controller
 		$this->userReportRepository->add($report);
 
 		// Notify observers.
-		$this->signalSlotDispatcher->dispatch('Tx_Typo3Forum_Domain_Model_Moderation_Report', 'reportCreated',
+		$this->signalSlotDispatcher->dispatch('\Mittwald\Typo3Forum\Domain\Model\Moderation\Report', 'reportCreated',
 			array('report' => $report));
 
 		// Display success message and redirect to topic->show action.
@@ -196,13 +196,13 @@ class Tx_Typo3Forum_Controller_ReportController extends Tx_Typo3Forum_Controller
 	/**
 	 * Creates a new post report and stores it into the database.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Model_Forum_Post               $post
-	 * @param Tx_Typo3Forum_Domain_Model_Moderation_ReportComment $firstComment
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post               $post
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $firstComment
 	 *
 	 * @return void
 	 */
-	public function createPostReportAction(Tx_Typo3Forum_Domain_Model_Forum_Post $post,
-	                             Tx_Typo3Forum_Domain_Model_Moderation_ReportComment $firstComment = NULL) {
+	public function createPostReportAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post,
+	                             \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $firstComment = NULL) {
 		// Assert authorization;
 		$this->authenticationService->assertReadAuthorization($post);
 
@@ -212,7 +212,7 @@ class Tx_Typo3Forum_Controller_ReportController extends Tx_Typo3Forum_Controller
 		$this->postReportRepository->add($report);
 
 		// Notify observers.
-		$this->signalSlotDispatcher->dispatch('Tx_Typo3Forum_Domain_Model_Moderation_Report', 'reportCreated',
+		$this->signalSlotDispatcher->dispatch('\Mittwald\Typo3Forum\Domain\Model\Moderation\Report', 'reportCreated',
 		                                      array('report' => $report));
 
 		// Display success message and redirect to topic->show action.

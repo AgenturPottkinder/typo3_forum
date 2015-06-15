@@ -53,8 +53,8 @@ class Tx_Typo3Forum_ViewHelpers_Tag_GenerateActionViewHelper extends \TYPO3\CMS\
 	public function initializeArguments() {
 		parent::initializeArguments();
 
-		$this->registerTagAttribute('currentUser', 'Tx_Typo3Forum_Domain_Model_User_FrontendUser', 'a');
-		$this->registerTagAttribute('subscribedUser', 'Tx_Typo3Forum_Domain_Model_User_FrontendUser[]', 'a');
+		$this->registerTagAttribute('currentUser', '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser', 'a');
+		$this->registerTagAttribute('subscribedUser', '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser[]', 'a');
 	}
 
 	/**

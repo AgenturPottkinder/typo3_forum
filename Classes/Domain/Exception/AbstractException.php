@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Exception;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -43,7 +43,7 @@
  *
  */
 
-Abstract Class Tx_Typo3Forum_Domain_Exception_AbstractException Extends \TYPO3\CMS\Extbase\Exception {
+abstract class AbstractException extends \TYPO3\CMS\Extbase\Exception {
 
 
 
