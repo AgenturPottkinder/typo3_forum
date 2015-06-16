@@ -55,7 +55,7 @@ class Tx_Typo3Forum_TextParser_Service_BBCodeParserService
 
 	/**
 	 * The bb code repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_Format_BBCodeRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\BBcodeRepository
 	 */
 	protected $bbCodeRepository;
 
@@ -77,9 +77,9 @@ class Tx_Typo3Forum_TextParser_Service_BBCodeParserService
 
 	/**
 	 * Injects an instance of the bbcode repository.
-	 * @param \Tx_Typo3Forum_Domain_Repository_Format_BBCodeRepository $bbCodeRepository
+	 * @param \\Mittwald\Typo3Forum\Domain\Repository\Forum\BBcodeRepository $bbCodeRepository
 	 */
-	public function injectBbCodeRepository(Tx_Typo3Forum_Domain_Repository_Format_BBCodeRepository $bbCodeRepository) {
+	public function injectBbCodeRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\BBcodeRepository $bbCodeRepository) {
 		$this->bbCodeRepository = $bbCodeRepository;
 		$this->bbCodes          = $this->bbCodeRepository->findAll();
 	}

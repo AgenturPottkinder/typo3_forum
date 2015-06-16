@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Validator\Forum;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -39,7 +39,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Domain_Validator_Forum_AttachmentPlainValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
+class AttachmentPlainValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
 
 	/**
 	 * An instance of the extbase object manager.

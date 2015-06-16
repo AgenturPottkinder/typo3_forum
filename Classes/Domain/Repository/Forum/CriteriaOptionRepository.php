@@ -1,4 +1,5 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Repository\Forum;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -40,7 +41,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Domain_Repository_Forum_CriteriaOptionRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class CriteriaOptionRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 
 }

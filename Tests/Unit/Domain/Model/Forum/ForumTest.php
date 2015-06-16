@@ -50,7 +50,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_ForumTest extends Tx_Typo3Forum_Unit_Base
 
 
 	public function setUp() {
-		$this->userRepositoryMock = $this->getMock('Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository');
+		$this->userRepositoryMock = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository');
 		$this->userRepositoryMock->expects($this->any())->method('findCurrent')->will($this->returnValue(NULL));
 		$this->cacheMock = $this->getMock('Mittwald\\TYPO3Forum\\Cache\\Cache');
 		$this->cacheMock->expects($this->any())->method('has')->will($this->returnValue(FALSE));

@@ -64,7 +64,7 @@ class Tx_Typo3Forum_ViewHelpers_User_IfFavSubscribedViewHelper extends \TYPO3\CM
 	public function render(\Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $object,
 	                       \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser      $user = NULL) {
 		if ($user === NULL) {
-			$user =& \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository')->findCurrent();
+			$user =& \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository')->findCurrent();
 		}
 		foreach ($object->getFavSubscribers() As $subscriber) {
 			if ($subscriber->getUid() == $user->getUid()) {

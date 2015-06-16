@@ -1,5 +1,6 @@
 <?php
-class Tx_Typo3Forum_Service_TagService implements \TYPO3\CMS\Core\SingletonInterface {
+namespace Mittwald\Typo3Forum\Service;
+class TagService implements \TYPO3\CMS\Core\SingletonInterface {
 
 	/**
 	 * An instance of the Extbase object manager.
@@ -9,7 +10,7 @@ class Tx_Typo3Forum_Service_TagService implements \TYPO3\CMS\Core\SingletonInter
 
 	/**
 	 * An instance of the tag repository
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_TagRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository
 	 */
 	protected $tagRepository;
 
@@ -25,10 +26,10 @@ class Tx_Typo3Forum_Service_TagService implements \TYPO3\CMS\Core\SingletonInter
 
 	/**
 	 * Injects an instance of the tag repository
-	 * @param Tx_Typo3Forum_Domain_Repository_Forum_TagRepository $tagRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository $tagRepository
 	 * @return void
 	 */
-	public function injectTagRepository(Tx_Typo3Forum_Domain_Repository_Forum_TagRepository $tagRepository) {
+	public function injectTagRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository $tagRepository) {
 		$this->tagRepository = $tagRepository;
 	}
 

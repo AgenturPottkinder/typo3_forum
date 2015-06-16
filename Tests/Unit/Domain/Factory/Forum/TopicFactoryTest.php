@@ -41,12 +41,12 @@ class TopicFactoryTest extends Tx_Typo3Forum_Unit_BaseTestCase {
 
 
 	public function setUp() {
-		$this->userRepositoryMock = $this->getMock('Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository');
-		$this->forumRepositoryMock = $this->getMock('Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository');
-		$this->topicRepositoryMock = $this->getMock('Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository');
-		$this->postRepositoryMock = $this->getMock('Tx_Typo3Forum_Domain_Repository_Forum_PostRepository');
+		$this->userRepositoryMock = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository');
+		$this->forumRepositoryMock = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository');
+		$this->topicRepositoryMock = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository');
+		$this->postRepositoryMock = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository');
 		$this->postFactoryMock = $this->getMock('Tx_Typo3Forum_Domain_Factory_Forum_PostFactory');
-		$this->criteriaRepositoryMock = $this->getMock('Tx_Typo3Forum_Domain_Repository_Forum_CriteriaOptionRepository');
+		$this->criteriaRepositoryMock = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Forum\CriteriaOptionRepository');
 
 
 		$this->fixture = new \Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory($this->forumRepositoryMock, $this->topicRepositoryMock, $this->postRepositoryMock, $this->postFactoryMock, $this->criteriaRepositoryMock);

@@ -49,7 +49,7 @@ class Tx_Typo3Forum_ViewHelpers_Post_HelpfulButtonViewHelper extends \TYPO3\CMS\
 
 	/**
 	 * The frontend user repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
 	 */
 	protected $frontendUserRepository = NULL;
 

@@ -54,30 +54,30 @@ class TagController extends \Mittwald\Typo3Forum\Controller\AbstractController {
 	 */
 
 	/**
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_TagRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository
 	 */
 	protected $tagRepository;
 
 	/**
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
 	 */
 	protected $topicRepository;
 
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Repository_Forum_TagRepository $tagRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository $tagRepository
 	 * @return void
 	 */
-	public function injectTagRepository(Tx_Typo3Forum_Domain_Repository_Forum_TagRepository $tagRepository) {
+	public function injectTagRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository $tagRepository) {
 		$this->tagRepository = $tagRepository;
 	}
 
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository
 	 * @return void
 	 */
-	public function injectTopicRepository(Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository) {
+	public function injectTopicRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository) {
 		$this->topicRepository = $topicRepository;
 	}
 
@@ -126,7 +126,7 @@ class TagController extends \Mittwald\Typo3Forum\Controller\AbstractController {
 	 * @param string $name
 	 * @param string $subscribe
 	 *
-	 * @validate $name Tx_Typo3Forum_Domain_Validator_Forum_TagValidator
+	 * @validate $name \Mittwald\Typo3Forum\Domain\Validator\Forum\TagValidator
 	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
 	 * @return void
 	 */

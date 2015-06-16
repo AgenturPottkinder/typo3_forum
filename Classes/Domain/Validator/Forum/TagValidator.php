@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Validator\Forum;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -40,21 +40,21 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Domain_Validator_Forum_TagValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
+class TagValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
 
 
 	/**
 	 * An instance of the tag repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_TagRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository
 	 */
 	protected $tagRepository;
 
 
 	/**
 	 * Injects an instance of the tag repository.
-	 * @param Tx_Typo3Forum_Domain_Repository_Forum_TagRepository $tagRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository $tagRepository
 	 */
-	public function injectTagRepository(Tx_Typo3Forum_Domain_Repository_Forum_TagRepository $tagRepository) {
+	public function injectTagRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository $tagRepository) {
 		$this->tagRepository = $tagRepository;
 	}
 

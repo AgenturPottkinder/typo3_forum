@@ -1,4 +1,5 @@
 <?php
+namespace ExtbaseTeam\BlogExample\Domain\Repository\User;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -40,7 +41,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Domain_Repository_User_PrivateMessagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class PrivateMessagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 
 	/**

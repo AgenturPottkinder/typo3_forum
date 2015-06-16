@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Validator\Forum;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -40,7 +40,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Domain_Validator_Forum_PostValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
+class PostValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
 
 
 	/**

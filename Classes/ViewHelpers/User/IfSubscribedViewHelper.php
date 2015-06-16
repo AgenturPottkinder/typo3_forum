@@ -64,7 +64,7 @@ class Tx_Typo3Forum_ViewHelpers_User_IfSubscribedViewHelper extends \TYPO3\CMS\F
 	public function render(\Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $object,
 	                       \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser      $user = NULL) {
 		if ($user === NULL) {
-			$user =& \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository')->findCurrent();
+			$user =& \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository')->findCurrent();
 		}
 
 		foreach ($object->getSubscribers() As $subscriber) {

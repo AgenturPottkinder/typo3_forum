@@ -48,7 +48,7 @@ class Tx_Typo3Forum_TextParser_Panel_SmiliePanel extends Tx_Typo3Forum_TextParse
 	/**
 	 * TODO
 	 *
-	 * @var Tx_Typo3Forum_Domain_Repository_Format_SmilieRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\SmilieRepository
 	 */
 	protected $smilieRepository = NULL;
 
@@ -66,11 +66,11 @@ class Tx_Typo3Forum_TextParser_Panel_SmiliePanel extends Tx_Typo3Forum_TextParse
 	/**
 	 * TODO
 	 *
-	 * @param Tx_Typo3Forum_Domain_Repository_Format_SmilieRepository $smilieRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\SmilieRepository $smilieRepository
 	 *
 	 * @return void
 	 */
-	public function injectSmilieRepository(Tx_Typo3Forum_Domain_Repository_Format_SmilieRepository $smilieRepository) {
+	public function injectSmilieRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\SmilieRepository $smilieRepository) {
 		$this->smilieRepository = $smilieRepository;
 		$this->smilies          = $this->smilieRepository->findAll();
 	}

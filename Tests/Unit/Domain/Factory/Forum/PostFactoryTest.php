@@ -43,7 +43,7 @@ class Tx_Typo3Forum_Domain_Factory_Forum_PostFactoryTest extends \TYPO3\CMS\Extb
 
 
 	public function setUp() {
-		$this->userRepositoryMock = $this->getMock('Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository');
+		$this->userRepositoryMock = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository');
 
 		$this->fixture = new Tx_Typo3Forum_Domain_Factory_Forum_PostFactory();
 		$this->fixture->injectObjectManager($this->objectManager);
@@ -194,7 +194,7 @@ class Tx_Typo3Forum_Domain_Factory_Forum_PostFactoryTest extends \TYPO3\CMS\Extb
 		$post->setTopic($topic);
 		$post->setAuthor($user);
 
-		$topicRepository = $this->getMock('Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository');
+		$topicRepository = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository');
 		$topicRepository->expects($this->once())->method('update')
 			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
 		$this->userRepositoryMock->expects($this->once())->method('update')

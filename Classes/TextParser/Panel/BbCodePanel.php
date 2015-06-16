@@ -45,7 +45,7 @@ class Tx_Typo3Forum_TextParser_Panel_BbCodePanel extends Tx_Typo3Forum_TextParse
 
 
 	/**
-	 * @var Tx_Typo3Forum_Domain_Repository_Format_BBCodeRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\BBcodeRepository
 	 */
 	protected $bbCodeRepository = NULL;
 
@@ -59,9 +59,9 @@ class Tx_Typo3Forum_TextParser_Panel_BbCodePanel extends Tx_Typo3Forum_TextParse
 
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Repository_Format_BBCodeRepository $bbCodeRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\BBcodeRepository $bbCodeRepository
 	 */
-	public function injectBbCodeRepository(Tx_Typo3Forum_Domain_Repository_Format_BBCodeRepository $bbCodeRepository) {
+	public function injectBbCodeRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\BBcodeRepository $bbCodeRepository) {
 		$this->bbCodeRepository = $bbCodeRepository;
 		$this->bbCodes          = $this->bbCodeRepository->findAll();
 	}

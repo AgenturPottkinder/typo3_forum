@@ -57,28 +57,28 @@ class TopicController extends \Mittwald\Typo3Forum\Controller\AbstractController
 
 	/**
 	 * The topic repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
 	 */
 	protected $topicRepository;
 
 
 	/**
 	 * The forum repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
 	 */
 	protected $forumRepository;
 
 
 	/**
 	 * The post repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_PostRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository
 	 */
 	protected $postRepository;
 
 
 	/**
 	 * The ads repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_AdsRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdsRepository
 	 */
 	protected $adsRepository;
 
@@ -86,7 +86,7 @@ class TopicController extends \Mittwald\Typo3Forum\Controller\AbstractController
 
 	/**
 	 * The tags repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_TagRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository
 	 */
 	protected $tagRepository;
 
@@ -107,14 +107,14 @@ class TopicController extends \Mittwald\Typo3Forum\Controller\AbstractController
 
 	/**
 	 * The criteria repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_CriteriaRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\CriteriaRepository
 	 */
 	protected $criteraRepository;
 
 
 	/**
 	 * SessionHandling
-	 * @var Tx_Typo3Forum_Service_SessionHandlingService
+	 * @var \Mittwald\Typo3Forum\Service\SessionHandlingService
 	 */
 	protected $sessionHandling;
 
@@ -126,7 +126,7 @@ class TopicController extends \Mittwald\Typo3Forum\Controller\AbstractController
 
 
 	/**
-	 * @var Tx_Typo3Forum_Service_TagService
+	 * @var \Mittwald\Typo3Forum\Service\TagService
 	 */
 	protected $tagService = NULL;
 
@@ -141,29 +141,29 @@ class TopicController extends \Mittwald\Typo3Forum\Controller\AbstractController
 	/**
 	 * Constructor of this controller. Used primarily for dependency injection.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository	$forumRepository
-	 * @param Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository	$topicRepository
-	 * @param Tx_Typo3Forum_Domain_Repository_Forum_PostRepository		$postRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository	$forumRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository	$topicRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository		$postRepository
 	 * @param \Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory			$topicFactory
 	 * @param \Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory			$postFactory
-	 * @param Tx_Typo3Forum_Domain_Repository_Forum_CriteriaRepository $criteraRepository
-	 * @param Tx_Typo3Forum_Service_SessionHandlingService             $sessionHandling
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\CriteriaRepository $criteraRepository
+	 * @param \Mittwald\Typo3Forum\Service\SessionHandlingService             $sessionHandling
 	 * @param Tx_Typo3Forum_Service_AttachmentService					$attachmentService
-	 * @param Tx_Typo3Forum_Domain_Repository_Forum_AdsRepository		$adsRepository
-	 * @param Tx_Typo3Forum_Service_TagService							$tagService
-	 * @param Tx_Typo3Forum_Domain_Repository_Forum_TagRepository		$tagRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\AdsRepository		$adsRepository
+	 * @param \Mittwald\Typo3Forum\Service\TagService							$tagService
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository		$tagRepository
 	 */
-	public function __construct(Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository $forumRepository,
-								Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository,
-								Tx_Typo3Forum_Domain_Repository_Forum_PostRepository $postRepository,
+	public function __construct(\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository,
+								\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository,
+								\Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository $postRepository,
 								\Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory $topicFactory,
 								\Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory $postFactory,
-								Tx_Typo3Forum_Domain_Repository_Forum_CriteriaRepository $criteraRepository,
-								Tx_Typo3Forum_Service_SessionHandlingService $sessionHandling,
+								\Mittwald\Typo3Forum\Domain\Repository\Forum\CriteriaRepository $criteraRepository,
+								\Mittwald\Typo3Forum\Service\SessionHandlingService $sessionHandling,
 								Tx_Typo3Forum_Service_AttachmentService $attachmentService,
-								Tx_Typo3Forum_Domain_Repository_Forum_AdsRepository $adsRepository,
-								Tx_Typo3Forum_Service_TagService $tagService,
-								Tx_Typo3Forum_Domain_Repository_Forum_TagRepository $tagRepository) {
+								\Mittwald\Typo3Forum\Domain\Repository\Forum\AdsRepository $adsRepository,
+								\Mittwald\Typo3Forum\Service\TagService $tagService,
+								\Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository $tagRepository) {
 		parent::__construct();
 		$this->forumRepository   = $forumRepository;
 		$this->topicRepository   = $topicRepository;
@@ -316,8 +316,8 @@ class TopicController extends \Mittwald\Typo3Forum\Controller\AbstractController
 	 * @param string $tags All defined tags for this topic
 	 * @param string $subscribe    The flag if the new topic is subscribed by author
 	 *
-	 * @validate $post Tx_Typo3Forum_Domain_Validator_Forum_PostValidator
-	 * @validate $attachments Tx_Typo3Forum_Domain_Validator_Forum_AttachmentPlainValidator
+	 * @validate $post \Mittwald\Typo3Forum\Domain\Validator\Forum\PostValidator
+	 * @validate $attachments \Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator
 	 * @validate $subject NotEmpty
 	 */
 	public function createAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum, \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post,

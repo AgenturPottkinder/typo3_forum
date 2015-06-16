@@ -55,7 +55,7 @@ class Tx_Typo3Forum_Service_Authentication_AuthenticationService extends Tx_Typo
 
 	/**
 	 * A frontend user repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
 	 */
 	protected $frontendUserRepository = NULL;
 
@@ -102,10 +102,10 @@ class Tx_Typo3Forum_Service_Authentication_AuthenticationService extends Tx_Typo
 	/**
 	 * Constructor of this class.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository A frontend user repository.
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository $frontendUserRepository A frontend user repository.
 	 * @param \Mittwald\Typo3Forum\Cache\Cache                                   $cache                  An instance of the typo3_forum cache.
 	 */
-	public function __construct(Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository
+	public function __construct(\Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
 	                            $frontendUserRepository, \Mittwald\Typo3Forum\Cache\Cache $cache) {
 		$this->frontendUserRepository = $frontendUserRepository;
 		$this->cache                  = $cache;

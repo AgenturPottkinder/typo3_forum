@@ -56,7 +56,7 @@ class StatsController extends \Mittwald\Typo3Forum\Controller\AbstractController
 	/**
 	 * The report repository.
 	 *
-	 * @var Tx_Typo3Forum_Domain_Repository_Stats_SummaryRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Stats\SummaryRepository
 	 */
 	protected $summaryRepository;
 
@@ -66,9 +66,9 @@ class StatsController extends \Mittwald\Typo3Forum\Controller\AbstractController
 	 */
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Repository_Stats_SummaryRepository $summaryRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Stats\SummaryRepository $summaryRepository
 	 */
-	public function injectSummaryRepository(Tx_Typo3Forum_Domain_Repository_Stats_SummaryRepository $summaryRepository) {
+	public function injectSummaryRepository(\Mittwald\Typo3Forum\Domain\Repository\Stats\SummaryRepository $summaryRepository) {
 		$this->summaryRepository = $summaryRepository;
 
 	}

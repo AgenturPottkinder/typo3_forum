@@ -58,21 +58,21 @@ class ForumController extends \Mittwald\Typo3Forum\Controller\AbstractController
 
 	/**
 	 * A forum repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
 	 */
 	protected $forumRepository;
 
 
 	/**
 	 * A topic repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
 	 */
 	protected $topicRepository;
 
 
 	/**
 	 * The ads repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_AdsRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdsRepository
 	 */
 	protected $adsRepository;
 
@@ -92,17 +92,17 @@ class ForumController extends \Mittwald\Typo3Forum\Controller\AbstractController
 	/**
 	 * Constructor of this controller. Needs to get all required repositories injected.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository $forumRepository An instance of the forum repository.
-	 * @param Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository An instance of the topic repository.
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository An instance of the forum repository.
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository An instance of the topic repository.
 	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\RootForum            $rootForum       An instance of the virtual root forum.
-	 * @param Tx_Typo3Forum_Service_SessionHandlingService $sessionHandling
-	 * @param Tx_Typo3Forum_Domain_Repository_Forum_AdsRepository   $adsRepository
+	 * @param \Mittwald\Typo3Forum\Service\SessionHandlingService $sessionHandling
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\AdsRepository   $adsRepository
 	 */
-	public function __construct(Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository $forumRepository,
-	                            Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository,
+	public function __construct(\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository,
+	                            \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository,
 	                            \Mittwald\Typo3Forum\Domain\Model\Forum\RootForum $rootForum,
-								Tx_Typo3Forum_Service_SessionHandlingService $sessionHandling,
-								Tx_Typo3Forum_Domain_Repository_Forum_AdsRepository $adsRepository) {
+								\Mittwald\Typo3Forum\Service\SessionHandlingService $sessionHandling,
+								\Mittwald\Typo3Forum\Domain\Repository\Forum\AdsRepository $adsRepository) {
 		parent::__construct();
 		$this->forumRepository	= $forumRepository;
 		$this->topicRepository	= $topicRepository;

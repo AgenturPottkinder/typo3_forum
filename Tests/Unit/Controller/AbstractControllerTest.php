@@ -41,7 +41,7 @@ abstract class Tx_Typo3Forum_Controller_AbstractControllerTest extends \TYPO3\CM
 
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject|Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository
+	 * @var PHPUnit_Framework_MockObject_MockObject|\Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
 	 */
 	protected $userRepositoryMock;
 
@@ -78,7 +78,7 @@ abstract class Tx_Typo3Forum_Controller_AbstractControllerTest extends \TYPO3\CM
 
 
 	protected function buildFixture($className, array $constructorArguments = array()) {
-		$this->userRepositoryMock        = $this->getMock('Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository');
+		$this->userRepositoryMock        = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository');
 		$this->authenticationServiceMock = $this->getMock('Tx_Typo3Forum_Service_Authentication_AuthenticationService',
 		                                                  array('checkAuthorization'), array($this->userRepositoryMock,
 		                                                                                    $this->getMock('Mittwald\\TYPO3Forum\\Cache\\Cache')));

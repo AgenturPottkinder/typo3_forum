@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\ExtDirect;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -41,14 +41,14 @@
  *
  */
 
-class Tx_Typo3Forum_ExtDirect_ForumDataProvider extends Tx_Typo3Forum_ExtDirect_AbstractDataProvider {
+class ForumDataProvider extends \Mittwald\Typo3Forum\ExtDirect\AbstractDataProvider {
 
 
 
 	/**
 	 * An instance of the forum repository.
 	 *
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
 	 */
 	protected $forumRepository = NULL;
 
@@ -62,7 +62,7 @@ class Tx_Typo3Forum_ExtDirect_ForumDataProvider extends Tx_Typo3Forum_ExtDirect_
 
 		// Since the ExtDirect provider is not created using the
 		// object manager, no dependency injection is available here.
-		$this->forumRepository = $this->objectManager->get('Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository');
+		$this->forumRepository = $this->objectManager->get('\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository');
 	}
 
 

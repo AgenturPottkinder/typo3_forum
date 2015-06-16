@@ -48,7 +48,7 @@ class Tx_Typo3Forum_TextParser_Service_QuoteParserService extends Tx_Typo3Forum_
 
 	/**
 	 * The post repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_PostRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository
 	 */
 	protected $postRepository;
 
@@ -65,12 +65,12 @@ class Tx_Typo3Forum_TextParser_Service_QuoteParserService extends Tx_Typo3Forum_
 	/**
 	 * Injects an instance of the post repository class.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Repository_Forum_PostRepository $postRepository
+	 * @param  \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository $postRepository
 	 *                             An instance of the post repository class
 	 * @return void
 	 */
 
-	public function injectPostRepository(Tx_Typo3Forum_Domain_Repository_Forum_PostRepository $postRepository) {
+	public function injectPostRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository $postRepository) {
 		$this->postRepository = $postRepository;
 	}
 

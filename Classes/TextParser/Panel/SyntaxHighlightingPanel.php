@@ -48,7 +48,7 @@ class Tx_Typo3Forum_TextParser_Panel_SyntaxHighlightingPanel extends Tx_Typo3For
 	/**
 	 * TODO
 	 *
-	 * @var Tx_Typo3Forum_Domain_Repository_Format_SyntaxHighlightingRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\SyntaxHighlightingRepository
 	 */
 	protected $syntaxHighlightingRepository = NULL;
 
@@ -66,11 +66,11 @@ class Tx_Typo3Forum_TextParser_Panel_SyntaxHighlightingPanel extends Tx_Typo3For
 	/**
 	 * TODO
 	 *
-	 * @param Tx_Typo3Forum_Domain_Repository_Format_SyntaxHighlightingRepository $syntaxHighlightingRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\SyntaxHighlightingRepository $syntaxHighlightingRepository
 	 *
 	 * @return void
 	 */
-	public function injectSyntaxHighlightingRepository(Tx_Typo3Forum_Domain_Repository_Format_SyntaxHighlightingRepository $syntaxHighlightingRepository) {
+	public function injectSyntaxHighlightingRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\SyntaxHighlightingRepository $syntaxHighlightingRepository) {
 		$this->syntaxHighlightingRepository = $syntaxHighlightingRepository;
 		$this->syntaxHighlightings          = $this->syntaxHighlightingRepository->findAll();
 	}

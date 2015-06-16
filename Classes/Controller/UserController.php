@@ -57,21 +57,21 @@ class UserController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 
 	/**
 	 * The userfield repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_User_UserfieldRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\UserfieldRepository
 	 */
 	protected $userfieldRepository = NULL;
 
 
 	/**
 	 * The topic repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
 	 */
 	protected $topicRepository = NULL;
 
 
 	/**
 	 * The forum repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
 	 */
 	protected $forumRepository = NULL;
 
@@ -79,7 +79,7 @@ class UserController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 
 	/**
 	 * The forum repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_User_PrivateMessagesRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\PrivateMessagesRepository
 	 */
 	protected $messageRepository = NULL;
 
@@ -93,14 +93,14 @@ class UserController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 
 	/**
 	 * The rank repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_User_RankRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\RankRepository
 	 */
 	protected $rankRepository = NULL;
 
 
 	/**
 	 * The notification repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_User_NotificationRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\NotificationRepository
 	 */
 	protected $notificationRepository = NULL;
 
@@ -114,28 +114,28 @@ class UserController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 	/**
 	 * Constructor. Used primarily for dependency injection.
 	 *
-	 * @param \Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository    $forumRepository
+	 * @param \\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository    $forumRepository
 	 *                                 An instance of the forum repository.
-	 * @param \Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository    $topicRepository
+	 * @param \\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository    $topicRepository
 	 *                                 An instance of the topic repository.
-	 * @param \Tx_Typo3Forum_Domain_Repository_User_UserfieldRepository $userfieldRepository
+	 * @param \\Mittwald\Typo3Forum\Domain\Repository\User\UserfieldRepository $userfieldRepository
 	 *                                 An instance of the userfield repository.
-	 * @param Tx_Typo3Forum_Domain_Repository_User_PrivateMessagesRepository $messageRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\User\PrivateMessagesRepository $messageRepository
 	 * 									An instance of the private message repository.
 	 * @param \Mittwald\Typo3Forum\Domain\Factory\User\PrivateMessagesFactory $privateMessagesFactory
 	 * 									An instance of the private message factory
-	 * @param Tx_Typo3Forum_Domain_Repository_User_RankRepository $rankRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\User\RankRepository $rankRepository
 	 * 									An instance of the rank repository
-	 * @param Tx_Typo3Forum_Domain_Repository_User_NotificationRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\User\NotificationRepository
 	 *									An instance of the notification repository
 	 */
-	public function __construct(Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository $forumRepository,
-	                            Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository,
-	                            Tx_Typo3Forum_Domain_Repository_User_UserfieldRepository $userfieldRepository,
-								Tx_Typo3Forum_Domain_Repository_User_PrivateMessagesRepository $messageRepository,
+	public function __construct(\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository,
+	                            \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository,
+	                            \Mittwald\Typo3Forum\Domain\Repository\User\UserfieldRepository $userfieldRepository,
+								\Mittwald\Typo3Forum\Domain\Repository\User\PrivateMessagesRepository $messageRepository,
 								\Mittwald\Typo3Forum\Domain\Factory\User\PrivateMessagesFactory $privateMessagesFactory,
-								Tx_Typo3Forum_Domain_Repository_User_RankRepository $rankRepository,
-								Tx_Typo3Forum_Domain_Repository_User_NotificationRepository $notificationRepository) {
+								\Mittwald\Typo3Forum\Domain\Repository\User\RankRepository $rankRepository,
+								\Mittwald\Typo3Forum\Domain\Repository\User\NotificationRepository $notificationRepository) {
 		parent::__construct();
 		$this->forumRepository			= $forumRepository;
 		$this->topicRepository			= $topicRepository;
@@ -355,7 +355,7 @@ class UserController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 	 * @param string $text
 	 *
 	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
-	 * @validate $recipient Tx_Typo3Forum_Domain_Validator_User_PrivateMessageRecipientValidator
+	 * @validate $recipient \Mittwald\Typo3Forum\Domain\Validator\User\PrivateMessageRecipientValidator
 	 * @return void
 	 */
 	public function createMessageAction($recipient, $text) {

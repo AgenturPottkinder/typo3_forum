@@ -43,13 +43,13 @@ class \Mittwald\Typo3Forum\Domain\Model\Forum\RootForum extends \Mittwald\Typo3F
 
 
 	/**
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
 	 */
 	protected $forumRepository = NULL;
 
 
 
-	public function injectForumRepository(Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository $forumRepository) {
+	public function injectForumRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository) {
 		$this->forumRepository = $forumRepository;
 	}
 

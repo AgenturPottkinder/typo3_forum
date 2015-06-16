@@ -54,7 +54,7 @@ class ReportFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory 
 
 	/**
 	 * The workflow status repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_Moderation_ReportWorkflowStatusRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportWorkflowStatusRepository
 	 */
 	protected $workflowStatusRepository;
 
@@ -68,9 +68,9 @@ class ReportFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory 
 
 	/**
 	 * Constructor.
-	 * @param Tx_Typo3Forum_Domain_Repository_Moderation_ReportWorkflowStatusRepository $workflowStatusRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportWorkflowStatusRepository $workflowStatusRepository
 	 */
-	public function __construct(Tx_Typo3Forum_Domain_Repository_Moderation_ReportWorkflowStatusRepository $workflowStatusRepository) {
+	public function __construct(\Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportWorkflowStatusRepository $workflowStatusRepository) {
 		$this->workflowStatusRepository = $workflowStatusRepository;
 	}
 

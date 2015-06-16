@@ -49,8 +49,8 @@ class \Mittwald\Typo3Forum\Domain\Factory\Moderation\ReportFactoryTest extends \
 
 
 	public function setUp() {
-		$this->userRepositoryMock           = $this->getMock('Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository');
-		$this->workflowStatusRepositoryMock = $this->getMock('Tx_Typo3Forum_Domain_Repository_Moderation_ReportWorkflowStatusRepository');
+		$this->userRepositoryMock           = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository');
+		$this->workflowStatusRepositoryMock = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportWorkflowStatusRepository');
 		$this->workflowStatusRepositoryMock->expects($this->any())->method('findInitial')
 			->will($this->returnValue($this->initialStatus = new \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus('Open', TRUE, FALSE)));
 

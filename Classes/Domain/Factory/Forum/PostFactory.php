@@ -54,7 +54,7 @@ class PostFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory {
 
 	/**
 	 * The topic repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
 	 */
 	protected $topicRepository = NULL;
 
@@ -62,7 +62,7 @@ class PostFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory {
 
 	/**
 	 * The post repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_PostRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository
 	 */
 	protected $postRepository = NULL;
 
@@ -98,17 +98,17 @@ class PostFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory {
 
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository
 	 */
-	public function injectTopicRepository(Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository) {
+	public function injectTopicRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository) {
 		$this->topicRepository = $topicRepository;
 	}
 
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Repository_Forum_PostRepository $postRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository $postRepository
 	 */
-	public function injectPostRepository(Tx_Typo3Forum_Domain_Repository_Forum_PostRepository $postRepository) {
+	public function injectPostRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository $postRepository) {
 		$this->postRepository = $postRepository;
 	}
 

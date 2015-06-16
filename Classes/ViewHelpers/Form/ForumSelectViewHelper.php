@@ -55,7 +55,7 @@ Class Tx_Typo3Forum_ViewHelpers_Form_ForumSelectViewHelper Extends \TYPO3\CMS\Fl
 
 	/**
 	 * The forum repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
 	 */
 	protected $forumRepository = NULL;
 
@@ -70,13 +70,13 @@ Class Tx_Typo3Forum_ViewHelpers_Form_ForumSelectViewHelper Extends \TYPO3\CMS\Fl
 	/**
 	 *
 	 * Injects a forum repository.
-	 * @param  Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository $forumRepository
+	 * @param  \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository
 	 *                             A forum repository.
 	 * @return void
 	 *
 	 */
 
-	public function injectForumRepository(Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository $forumRepository) {
+	public function injectForumRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository) {
 		$this->forumRepository = $forumRepository;
 	}
 

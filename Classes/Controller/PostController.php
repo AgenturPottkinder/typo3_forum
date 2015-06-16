@@ -55,21 +55,21 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 
 	/**
 	 * A forum repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
 	 */
 	protected $forumRepository;
 
 
 	/**
 	 * A topic repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
 	 */
 	protected $topicRepository;
 
 
 	/**
 	 * A post repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_PostRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository
 	 */
 	protected $postRepository;
 
@@ -83,7 +83,7 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 
 	/**
 	 * A post factory.
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_AttachmentRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AttachmentRepository
 	 */
 	protected $attachmentRepository;
 
@@ -102,20 +102,20 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 	/**
 	 * Constructor. Used primarily for dependency injection.
 	 *
-	 * @param Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository $forumRepository
-	 * @param Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository
-	 * @param Tx_Typo3Forum_Domain_Repository_Forum_PostRepository $postRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository $postRepository
 	 * @param \Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory $postFactory
-	 * @param Tx_Typo3Forum_Domain_Repository_Forum_AttachmentRepository $attachmentRepository
-	 * @param Tx_Typo3Forum_Service_SessionHandlingService $sessionHandling
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\AttachmentRepository $attachmentRepository
+	 * @param \Mittwald\Typo3Forum\Service\SessionHandlingService $sessionHandling
 	 * @param Tx_Typo3Forum_Service_AttachmentService $attachmentService
 	 */
-	public function __construct(Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository $forumRepository,
-								Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository,
-								Tx_Typo3Forum_Domain_Repository_Forum_PostRepository $postRepository,
+	public function __construct(\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository,
+								\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository,
+								\Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository $postRepository,
 								\Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory $postFactory,
-								Tx_Typo3Forum_Domain_Repository_Forum_AttachmentRepository $attachmentRepository,
-								Tx_Typo3Forum_Service_SessionHandlingService $sessionHandling,
+								\Mittwald\Typo3Forum\Domain\Repository\Forum\AttachmentRepository $attachmentRepository,
+								\Mittwald\Typo3Forum\Service\SessionHandlingService $sessionHandling,
 								Tx_Typo3Forum_Service_AttachmentService $attachmentService) {
 		$this->forumRepository		= $forumRepository;
 		$this->topicRepository		= $topicRepository;
@@ -291,8 +291,8 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post  The new post.
 	 * @param array $attachments File attachments for the post.
 	 *
-	 * @validate $post Tx_Typo3Forum_Domain_Validator_Forum_PostValidator
-	 * @validate $attachments Tx_Typo3Forum_Domain_Validator_Forum_AttachmentPlainValidator
+	 * @validate $post \Mittwald\Typo3Forum\Domain\Validator\Forum\PostValidator
+	 * @validate $attachments \Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator
 	 */
 
 	public function createAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic, \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post, array $attachments = array()) {

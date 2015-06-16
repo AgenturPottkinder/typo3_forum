@@ -66,7 +66,7 @@ class Tx_Typo3Forum_Service_Authentication_AuthenticationServiceTest extends Tx_
 		$this->user->addUsergroup($this->group);
 		$this->forum = $this->objectManager->create('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum', 'Forum', NULL);
 
-		$this->userRepositoryMock = $this->getMock('Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository');
+		$this->userRepositoryMock = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository');
 		$this->userRepositoryMock
 			->expects($this->any())
 			->method('findCurrent')

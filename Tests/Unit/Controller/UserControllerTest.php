@@ -47,9 +47,9 @@ class Tx_Typo3Forum_Controller_UserControllerTest extends Tx_Typo3Forum_Controll
 
 
 	public function setUp() {
-		$this->topicRepositoryMock     = $this->getMock('Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository');
-		$this->forumRepositoryMock     = $this->getMock('Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository');
-		$this->userfieldRepositoryMock = $this->getMock('Tx_Typo3Forum_Domain_Repository_User_UserfieldRepository');
+		$this->topicRepositoryMock     = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository');
+		$this->forumRepositoryMock     = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository');
+		$this->userfieldRepositoryMock = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\User\UserfieldRepository');
 		$this->userMock                = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser');
 
 		$this->buildFixture($this->fixtureClassName, array($this->forumRepositoryMock, $this->topicRepositoryMock,

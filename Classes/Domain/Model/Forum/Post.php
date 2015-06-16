@@ -85,7 +85,7 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * The author's username. Necessary for anonymous postings.
 	 * @var string
-	 * @validate Tx_Typo3Forum_Domain_Validator_Forum_AuthorNameValidator
+	 * @validate \Mittwald\Typo3Forum\Domain\Validator\Forum\AuthorNameValidator
 	 */
 	protected $authorName = '';
 

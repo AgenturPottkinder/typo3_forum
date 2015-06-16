@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Repository;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_Typo3Forum_Domain_Repository_AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 
 

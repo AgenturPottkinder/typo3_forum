@@ -48,7 +48,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
 	/**
 	 * The rank repository
 	 *
-	 * @var Tx_Typo3Forum_Domain_Repository_User_RankRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\RankRepository
 	 */
 	protected $rankRepository = NULL;
 
@@ -313,10 +313,10 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
 	/**
 	 * Inject the rank repository
 	 *
-	 * @param Tx_Typo3Forum_Domain_Repository_User_RankRepository $rankRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\User\RankRepository $rankRepository
 	 * @return void
 	 */
-	public function injectRankRepository(Tx_Typo3Forum_Domain_Repository_User_RankRepository $rankRepository) {
+	public function injectRankRepository(\Mittwald\Typo3Forum\Domain\Repository\User\RankRepository $rankRepository) {
 		$this->rankRepository = $rankRepository;
 	}
 

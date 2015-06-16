@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Validator\User;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -39,18 +39,18 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Domain_Validator_User_PrivateMessageRecipientValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
+class PrivateMessageRecipientValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator {
 
 
 
 	/**
-	 * @var Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
 	 */
 	protected $userRepository = NULL;
 
 
 
-	public function injectUserRepository(Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository $userRepository) {
+	public function injectUserRepository(\Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository $userRepository) {
 		$this->userRepository = $userRepository;
 	}
 

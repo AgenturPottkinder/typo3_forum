@@ -16,7 +16,7 @@ if (TYPO3_MODE === 'BE')
 {
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::registerExtDirectComponent(
 		'Typo3Forum.ForumIndex.DataProvider',
-		$extPath . 'Classes/ExtDirect/ForumDataProvider.php:Tx_Typo3Forum_ExtDirect_ForumDataProvider',
+		$extPath . 'Classes/ExtDirect/ForumDataProvider.php:\Mittwald\Typo3Forum\ExtDirect\ForumDataProvider',
 		'web', 'user,group'
 	);
 

@@ -56,7 +56,7 @@ class Tx_Typo3Forum_ViewHelpers_Format_TextParserViewHelper extends \TYPO3\CMS\F
 	/**
 	 * An instance of the post repository class. The repository is needed
 	 * only when a rendered post text has to be persisted in the database.
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_PostRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository
 	 */
 	protected $postRepository;
 
@@ -79,12 +79,12 @@ class Tx_Typo3Forum_ViewHelpers_Format_TextParserViewHelper extends \TYPO3\CMS\F
 	/**
 	 *
 	 * Injects an instance of the post repository class.
-	 * @param  Tx_Typo3Forum_Domain_Repository_Forum_PostRepository $postRepository
+	 * @param  \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository $postRepository
 	 *                             An instance of the post repository class.
 	 * @return void
 	 *
 	 */
-	public function injectPostRepository(Tx_Typo3Forum_Domain_Repository_Forum_PostRepository $postRepository) {
+	public function injectPostRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository $postRepository) {
 		$this->postRepository = $postRepository;
 	}
 

@@ -189,7 +189,7 @@ class Forum extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * An instance of the forum repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
 	 */
 	protected $forumRepository;
 
@@ -252,9 +252,9 @@ class Forum extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * Injects an instance of the forum repository
-	 * @param Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository $forumRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository
 	 */
-	public function injectForumRepository(Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository $forumRepository) {
+	public function injectForumRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository) {
 		$this->forumRepository = $forumRepository;
 	}
 

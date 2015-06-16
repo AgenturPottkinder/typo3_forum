@@ -67,21 +67,21 @@ class ReportController extends \Mittwald\Typo3Forum\Controller\AbstractControlle
 	/**
 	 * The report repository.
 	 *
-	 * @var Tx_Typo3Forum_Domain_Repository_Moderation_ReportRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportRepository
 	 */
 	protected $reportRepository;
 
 	/**
 	 * The report repository.
 	 *
-	 * @var Tx_Typo3Forum_Domain_Repository_Moderation_UserReportRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\UserReportRepository
 	 */
 	protected $userReportRepository;
 
 	/**
 	 * The report repository.
 	 *
-	 * @var Tx_Typo3Forum_Domain_Repository_Moderation_PostReportRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\PostReportRepository
 	 */
 	protected $postReportRepository;
 
@@ -94,24 +94,24 @@ class ReportController extends \Mittwald\Typo3Forum\Controller\AbstractControlle
 
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Repository_Moderation_ReportRepository $reportRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportRepository $reportRepository
 	 */
-	public function injectReportRepository(Tx_Typo3Forum_Domain_Repository_Moderation_ReportRepository $reportRepository) {
+	public function injectReportRepository(\Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportRepository $reportRepository) {
 		$this->reportRepository = $reportRepository;
 
 	}
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Repository_Moderation_UserReportRepository $userReportRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Moderation\UserReportRepository $userReportRepository
 	 */
-	public function injectUserReportRepository(Tx_Typo3Forum_Domain_Repository_Moderation_UserReportRepository $userReportRepository) {
+	public function injectUserReportRepository(\Mittwald\Typo3Forum\Domain\Repository\Moderation\UserReportRepository $userReportRepository) {
 		$this->userReportRepository = $userReportRepository;
 	}
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Repository_Moderation_PostReportRepository $postReportRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Moderation\PostReportRepository $postReportRepository
 	 */
-	public function injectPostReportRepository(Tx_Typo3Forum_Domain_Repository_Moderation_PostReportRepository $postReportRepository) {
+	public function injectPostReportRepository(\Mittwald\Typo3Forum\Domain\Repository\Moderation\PostReportRepository $postReportRepository) {
 		$this->postReportRepository = $postReportRepository;
 	}
 

@@ -48,7 +48,7 @@ class Tx_Typo3Forum_ViewHelpers_Forum_ForumIconViewHelper extends \TYPO3\CMS\Flu
 
 	/**
 	 * The frontend user repository.
-	 * @var Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
 	 */
 	protected $frontendUserRepository = NULL;
 
@@ -57,12 +57,12 @@ class Tx_Typo3Forum_ViewHelpers_Forum_ForumIconViewHelper extends \TYPO3\CMS\Flu
 	/**
 	 *
 	 * Injects a frontend user repository.
-	 * @param  Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository
+	 * @param  \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository $frontendUserRepository
 	 *                             A frontend user repository.
 	 * @return void
 	 *
 	 */
-	public function injectFrontendUserRepository(Tx_Typo3Forum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository) {
+	public function injectFrontendUserRepository(\Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository $frontendUserRepository) {
 		$this->frontendUserRepository = $frontendUserRepository;
 	}
 

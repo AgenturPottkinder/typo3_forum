@@ -192,7 +192,7 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	protected $tags;
 
 	/**
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
 	 * @lazy
 	 */
 	protected $topicRepository;
@@ -226,9 +226,9 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 
 	/**
-	 * @param Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository
 	 */
-	public function injectTopicRepository(Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository) {
+	public function injectTopicRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository) {
 		$this->topicRepository = $topicRepository;
 	}
 

@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\ExtDirect;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -32,7 +32,7 @@
  * @author  Stefan Galinski <sgalinski@df.eu>
  * @package df_tools
  */
-abstract class Tx_Typo3Forum_ExtDirect_AbstractDataProvider {
+abstract class AbstractDataProvider {
 
 
 
@@ -56,12 +56,12 @@ abstract class Tx_Typo3Forum_ExtDirect_AbstractDataProvider {
 	 * Constructor
 	 */
 	public function __construct() {
-		$key                    = 'web_Typo3ForumTxMmforumM1';
+		$key                    = 'web_Typo3ForumTxTypo3forumM1';
 		$this->extBaseConnector = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Typo3Forum_Service_ExtBaseConnectorService');
 		$this->extBaseConnector->setExtensionKey('Typo3Forum');
 		$this->extBaseConnector->setModuleOrPluginKey($key);
 		$this->extBaseConnector->initialize(array('extensionName'               => 'Typo3Forum',
-		                                         'pluginName'                   => 'web_Typo3ForumTxMmforumM1',
+		                                         'pluginName'                   => 'web_Typo3ForumTxTypo3forumM1',
 		                                         'switchableControllerActions'  => array('Backend' => array('forumIndex')),));
 
 		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');

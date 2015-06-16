@@ -1,6 +1,6 @@
 <?php
-
-class Tx_Typo3Forum_Service_SessionHandlingService implements \TYPO3\CMS\Core\SingletonInterface {
+namespace Mittwald\Typo3Forum\Service;
+class SessionHandlingService implements \TYPO3\CMS\Core\SingletonInterface {
 
 	Public function set($key, $object){
 		$sessionData = serialize($object);

@@ -1,4 +1,5 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Repository\Stats;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -40,7 +41,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Domain_Repository_Stats_SummaryRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class SummaryRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 	/**
 	 * The amount of types the summary includes (post,topic,user = 3)

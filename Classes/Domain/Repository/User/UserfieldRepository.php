@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Repository\User;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -48,7 +48,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Domain_Repository_User_UserfieldRepository extends Tx_Typo3Forum_Domain_Repository_AbstractRepository {
+class UserfieldRepository extends \Mittwald\Typo3Forum\Domain\Repository\AbstractRepository {
 
 
 

@@ -49,15 +49,15 @@ class Tx_Typo3Forum_Controller_TopicControllerTest extends Tx_Typo3Forum_Control
 
 
 	public function setUp() {
-		$this->forumRepositoryMock		= $this->getMock('Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository');
-		$this->topicRepositoryMock		= $this->getMock('Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository');
-		$this->postRepositoryMock		= $this->getMock('Tx_Typo3Forum_Domain_Repository_Forum_PostRepository');
+		$this->forumRepositoryMock		= $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository');
+		$this->topicRepositoryMock		= $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository');
+		$this->postRepositoryMock		= $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository');
 		$this->topicFactoryMock			= $this->getMock('\Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory', array(), array(),
 														'', FALSE);
 		$this->postFactoryMock			= $this->getMock('Tx_Typo3Forum_Domain_Factory_Forum_PostFactory', array(), array(), '',
 														FALSE);
-		$this->criteraRepositoryMock	= $this->getMock('Tx_Typo3Forum_Domain_Repository_Forum_CriteriaRepository');
-		$this->sessionHandlingMock		= $this->getMock('Tx_Typo3Forum_Service_SessionHandlingService');
+		$this->criteraRepositoryMock	= $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Forum\CriteriaRepository');
+		$this->sessionHandlingMock		= $this->getMock('\Mittwald\Typo3Forum\Service\SessionHandlingService');
 		$this->attachmentServiceMock	= $this->getMock('Tx_Typo3Forum_Service_AttachmentService');
 
 		$this->buildFixture('\Mittwald\Typo3Forum\Controller\TopicController',

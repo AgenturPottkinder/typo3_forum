@@ -52,36 +52,36 @@ class ModerationController extends \Mittwald\Typo3Forum\Controller\AbstractContr
 	/**
 	 * The topic repository.
 	 *
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
 	 */
 	protected $forumRepository;
 
 	/**
 	 * The topic repository.
 	 *
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
 	 */
 	protected $topicRepository;
 
 	/**
 	 * The topic repository.
 	 *
-	 * @var Tx_Typo3Forum_Domain_Repository_Forum_PostRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository
 	 */
 	protected $postRepository;
 
 	/**
-	 * @var Tx_Typo3Forum_Domain_Repository_Moderation_UserReportRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\UserReportRepository
 	 */
 	protected $userReportRepository = NULL;
 
 	/**
-	 * @var Tx_Typo3Forum_Domain_Repository_Moderation_PostReportRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\PostReportRepository
 	 */
 	protected $postReportRepository = NULL;
 
 	/**
-	 * @var Tx_Typo3Forum_Domain_Repository_Moderation_ReportRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportRepository
 	 */
 	protected $reportRepository = NULL;
 
@@ -108,12 +108,12 @@ class ModerationController extends \Mittwald\Typo3Forum\Controller\AbstractContr
 	/**
 	 * Injects an instance of the report repository.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Repository_Moderation_UserReportRepository $userReportRepository
+	 * @param  \Mittwald\Typo3Forum\Domain\Repository\Moderation\UserReportRepository $userReportRepository
 	 *
 	 * @return void
 	 */
 	public function injectUserReportRepository(
-		Tx_Typo3Forum_Domain_Repository_Moderation_UserReportRepository $userReportRepository) {
+		\Mittwald\Typo3Forum\Domain\Repository\Moderation\UserReportRepository $userReportRepository) {
 		$this->userReportRepository = $userReportRepository;
 	}
 
@@ -121,11 +121,11 @@ class ModerationController extends \Mittwald\Typo3Forum\Controller\AbstractContr
 	/**
 	 * Injects an instance of the topic repository.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository $forumRepository
+	 * @param  \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository
 	 *
 	 * @return void
 	 */
-	public function injectForumRepository(Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository $forumRepository) {
+	public function injectForumRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository) {
 		$this->forumRepository = $forumRepository;
 	}
 
@@ -133,45 +133,45 @@ class ModerationController extends \Mittwald\Typo3Forum\Controller\AbstractContr
 	/**
 	 * Injects an instance of the topic repository.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository
+	 * @param  \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository
 	 *
 	 * @return void
 	 */
-	public function injectTopicRepository(Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository $topicRepository) {
+	public function injectTopicRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository) {
 		$this->topicRepository = $topicRepository;
 	}
 
 	/**
 	 * Injects an instance of the topic repository.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Repository_Forum_PostRepository $postRepository
+	 * @param  \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository $postRepository
 	 *
 	 * @return void
 	 */
-	public function injectPostRepository(Tx_Typo3Forum_Domain_Repository_Forum_PostRepository $postRepository) {
+	public function injectPostRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository $postRepository) {
 		$this->postRepository = $postRepository;
 	}
 
 	/**
 	 * Injects an instance of the report repository.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Repository_Moderation_ReportRepository $reportRepository
+	 * @param  \Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportRepository $reportRepository
 	 *
 	 * @return void
 	 */
-	public function injectReportRepository(Tx_Typo3Forum_Domain_Repository_Moderation_ReportRepository $reportRepository) {
+	public function injectReportRepository(\Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportRepository $reportRepository) {
 		$this->reportRepository = $reportRepository;
 	}
 
 	/**
 	 * Injects an instance of the report repository.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Repository_Moderation_PostReportRepository $postReportRepository
+	 * @param  \Mittwald\Typo3Forum\Domain\Repository\Moderation\PostReportRepository $postReportRepository
 	 *
 	 * @return void
 	 */
 	public function injectPostReportRepository(
-		Tx_Typo3Forum_Domain_Repository_Moderation_PostReportRepository $postReportRepository) {
+		\Mittwald\Typo3Forum\Domain\Repository\Moderation\PostReportRepository $postReportRepository) {
 		$this->postReportRepository = $postReportRepository;
 	}
 

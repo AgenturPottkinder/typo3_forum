@@ -35,13 +35,13 @@ class Tx_Typo3Forum_Controller_ForumControllerTest extends Tx_Typo3Forum_Control
 
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject|Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository
+	 * @var PHPUnit_Framework_MockObject_MockObject|\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
 	 */
 	public $forumRepositoryMock;
 
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject|Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository
+	 * @var PHPUnit_Framework_MockObject_MockObject|\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
 	 */
 	public $topicRepositoryMock;
 
@@ -54,8 +54,8 @@ class Tx_Typo3Forum_Controller_ForumControllerTest extends Tx_Typo3Forum_Control
 
 
 	public function setUp() {
-		$this->forumRepositoryMock = $this->getMock('Tx_Typo3Forum_Domain_Repository_Forum_ForumRepository');
-		$this->topicRepositoryMock = $this->getMock('Tx_Typo3Forum_Domain_Repository_Forum_TopicRepository');
+		$this->forumRepositoryMock = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository');
+		$this->topicRepositoryMock = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository');
 		$this->rootForumMock       = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\RootForum');
 		$this->buildFixture('\Mittwald\Typo3Forum\Controller\ForumController',
 		                    array($this->forumRepositoryMock, $this->topicRepositoryMock, $this->rootForumMock));
