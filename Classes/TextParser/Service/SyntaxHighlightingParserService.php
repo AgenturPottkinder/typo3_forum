@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\TextParser\Service;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -42,13 +42,13 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_TextParser_Service_SyntaxHighlightingParserService
-	extends Tx_Typo3Forum_TextParser_Service_AbstractTextParserService {
+class SyntaxHighlightingParserService
+	extends \Mittwald\Typo3Forum\TextParser\Service\AbstractTextParserService {
 
 
 
 	/**
-	 * @var Tx_Typo3Forum_TextParser_Service_AbstractGeshiService
+	 * @var \Mittwald\Typo3Forum\TextParser\Service\AbstractGeshiService
 	 */
 	protected $xtGeshi;
 
@@ -59,9 +59,9 @@ class Tx_Typo3Forum_TextParser_Service_SyntaxHighlightingParserService
 
 	/**
 	 * Injects an instance of the smilie repository.
-	 * @param Tx_Typo3Forum_TextParser_Service_AbstractGeshiService $xtGeshi
+	 * @param \Mittwald\Typo3Forum\TextParser\Service\AbstractGeshiService $xtGeshi
 	 */
-	public function injectAbstractGeshiService(Tx_Typo3Forum_TextParser_Service_AbstractGeshiService $xtGeshi) {
+	public function injectAbstractGeshiService(\Mittwald\Typo3Forum\TextParser\Service\AbstractGeshiService $xtGeshi) {
 		$this->xtGeshi = $xtGeshi;
 	}
 

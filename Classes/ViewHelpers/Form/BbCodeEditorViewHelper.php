@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\ViewHelpers\Form;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_ViewHelpers_Form_BbCodeEditorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\TextareaViewHelper {
+class BbCodeEditorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\TextareaViewHelper {
 
 
 
@@ -73,7 +73,7 @@ class Tx_Typo3Forum_ViewHelpers_Form_BbCodeEditorViewHelper extends \TYPO3\CMS\F
 
 	/**
 	 * Panels that contain bb code buttons.
-	 * @var array<Tx_Typo3Forum_TextParser_Panel_AbstractPanel>
+	 * @var array<\Mittwald\Typo3Forum\TextParser\Panel\AbstractPanel>
 	 */
 	protected $panels = array();
 
@@ -101,12 +101,12 @@ class Tx_Typo3Forum_ViewHelpers_Form_BbCodeEditorViewHelper extends \TYPO3\CMS\F
 	/**
 	 *
 	 * Injects an instance of the typo3_forum typoscript reader.
-	 * @param  Tx_Typo3Forum_Utility_TypoScript $typoscriptReader
+	 * @param  \Mittwald\Typo3Forum\Utility\TypoScript $typoscriptReader
 	 *                             An instance of the typo3_forum typoscript reader
 	 * @return void
 	 *
 	 */
-	public function injectTyposcriptReader(Tx_Typo3Forum_Utility_TypoScript $typoscriptReader) {
+	public function injectTyposcriptReader(\Mittwald\Typo3Forum\Utility\TypoScript $typoscriptReader) {
 		$this->typoscriptReader = $typoscriptReader;
 	}
 
@@ -157,8 +157,8 @@ class Tx_Typo3Forum_ViewHelpers_Form_BbCodeEditorViewHelper extends \TYPO3\CMS\F
 
 		foreach ($this->configuration['panels.'] as $key => $panelConfiguration) {
 			$panel = $this->objectManager->get($panelConfiguration['className']);
-			if (!$panel instanceof Tx_Typo3Forum_TextParser_Panel_PanelInterface) {
-				throw new \TYPO3\CMS\Extbase\Object\InvalidClassException('Expected an implementation of the Tx_Typo3Forum_TextParser_Panel_PanelInterface interface!', 1315835842);
+			if (!$panel instanceof \Mittwald\Typo3Forum\TextParser\Panel\PanelInterface) {
+				throw new \TYPO3\CMS\Extbase\Object\InvalidClassException('Expected an implementation of the \Mittwald\Typo3Forum\TextParser\Panel\PanelInterface interface!', 1315835842);
 			}
 			$panel->setSettings($panelConfiguration);
 			$this->panels[] = $panel;
@@ -194,10 +194,10 @@ class Tx_Typo3Forum_ViewHelpers_Form_BbCodeEditorViewHelper extends \TYPO3\CMS\F
 
 		//		foreach ($this->configuration['includeJs.'] as $key => $filename)
 		//			$GLOBALS['TSFE']->additionalHeaderData['Typo3Forum_Js_' . $key]
-		//					= '<script src="' . Tx_Typo3Forum_Utility_File::replaceSiteRelPath($filename) . '" type="text/javascript"></script>';
+		//					= '<script src="' . \Mittwald\Typo3Forum\Utility\File::replaceSiteRelPath($filename) . '" type="text/javascript"></script>';
 		//		foreach ($this->configuration['includeCss.'] as $key => $filename)
 		//			$GLOBALS['TSFE']->additionalHeaderData['Typo3Forum_Css_' . $key]
-		//					= '<link rel="stylesheet" type="text/css" href="' . Tx_Typo3Forum_Utility_File::replaceSiteRelPath($filename) . '" />';
+		//					= '<link rel="stylesheet" type="text/css" href="' . \Mittwald\Typo3Forum\Utility\File::replaceSiteRelPath($filename) . '" />';
 
 		return $this->javascriptSetup . parent::render();
 	}

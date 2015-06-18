@@ -176,7 +176,7 @@ abstract class AbstractBackendController extends \TYPO3\CMS\Extbase\Mvc\Controll
 	 */
 	protected function registerAlternativeImplementations() {
 		//		$this->objectContainer->registerImplementation(
-		//			'Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface',
+		//			'\Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface',
 		//			'Tx_Typo3Forum_Service_Authentication_BackendAuthenticationService');
 	}
 

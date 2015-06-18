@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\TextParser;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -43,7 +43,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_TextParser_TextParserService extends Tx_Typo3Forum_Service_AbstractService {
+class TextParserService extends \Mittwald\Typo3Forum\Service\AbstractService {
 
 
 
@@ -65,7 +65,7 @@ class Tx_Typo3Forum_TextParser_TextParserService extends Tx_Typo3Forum_Service_A
 	 * An instance of the typo3_forum typoscript reader. Is used to read the
 	 * text parser's tyoscript configuration.
 	 *
-	 * @var Tx_Typo3Forum_Utility_TypoScript
+	 * @var \Mittwald\Typo3Forum\Utility\TypoScript
 	 */
 	protected $typoscriptReader;
 
@@ -73,7 +73,7 @@ class Tx_Typo3Forum_TextParser_TextParserService extends Tx_Typo3Forum_Service_A
 
 	/**
 	 * An array of the parsing services that are to be used to render text input.
-	 * @var array<Tx_Typo3Forum_TextParser_Service_AbstractTextParserService>
+	 * @var array<\Mittwald\Typo3Forum\TextParser\Service\AbstractTextParserService>
 	 */
 	protected $parsingServices;
 
@@ -118,9 +118,9 @@ class Tx_Typo3Forum_TextParser_TextParserService extends Tx_Typo3Forum_Service_A
 
 	/**
 	 * Injects the typo3_forum typoscript reader.
-	 * @param Tx_Typo3Forum_Utility_TypoScript $typoscriptReader The typoscript reader.
+	 * @param \Mittwald\Typo3Forum\Utility\TypoScript $typoscriptReader The typoscript reader.
 	 */
-	public function injectTyposcriptReader(Tx_Typo3Forum_Utility_TypoScript $typoscriptReader) {
+	public function injectTyposcriptReader(\Mittwald\Typo3Forum\Utility\TypoScript $typoscriptReader) {
 		$this->typoscriptReader = $typoscriptReader;
 	}
 
@@ -169,14 +169,14 @@ class Tx_Typo3Forum_TextParser_TextParserService extends Tx_Typo3Forum_Service_A
 				continue;
 			}
 
-			/** @var $newService Tx_Typo3Forum_TextParser_Service_AbstractTextParserService */
+			/** @var $newService \Mittwald\Typo3Forum\TextParser\Service\AbstractTextParserService */
 			$newService = $this->objectManager->get($className);
-			if ($newService instanceof Tx_Typo3Forum_TextParser_Service_AbstractTextParserService) {
+			if ($newService instanceof \Mittwald\Typo3Forum\TextParser\Service\AbstractTextParserService) {
 				$newService->setSettings((array)$this->settings['enabledServices.'][$key . '.']);
 				$newService->setControllerContext($this->controllerContext);
 				$this->parsingServices[] = $newService;
 			} else {
-				throw new \Mittwald\Typo3Forum\Domain\Exception\TextParser\Exception('Invalid class; expected an instance of Tx_Typo3Forum_TextParser_Service_AbstractTextParserService!', 1315916625);
+				throw new \Mittwald\Typo3Forum\Domain\Exception\TextParser\Exception('Invalid class; expected an instance of \Mittwald\Typo3Forum\TextParser\Service\AbstractTextParserService!', 1315916625);
 			}
 		}
 	}
@@ -196,7 +196,7 @@ class Tx_Typo3Forum_TextParser_TextParserService extends Tx_Typo3Forum_Service_A
 		}
 
 		foreach ($this->parsingServices as &$parsingService) {
-			/** @var $parsingService Tx_Typo3Forum_TextParser_Service_AbstractTextParserService */
+			/** @var $parsingService \Mittwald\Typo3Forum\TextParser\Service\AbstractTextParserService */
 			$text = $parsingService->getParsedText($text);
 		}
 		return $text;

@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\ViewHelpers\Control;
 /* *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_ViewHelpers_Control_SmallButtonViewHelper extends Tx_Typo3Forum_ViewHelpers_Control_BigButtonViewHelper {
+class SmallButtonViewHelper extends \Mittwald\Typo3Forum\ViewHelpers\Control\BigButtonViewHelper {
 
 
 

@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\TextParser\Service;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -44,7 +44,7 @@
  *
  */
 
-class Tx_Typo3Forum_TextParser_Service_BasicParserService extends Tx_Typo3Forum_TextParser_Service_AbstractTextParserService {
+class BasicParserService extends \Mittwald\Typo3Forum\TextParser\Service\AbstractTextParserService {
 
 
 
@@ -193,7 +193,7 @@ class Tx_Typo3Forum_TextParser_Service_BasicParserService extends Tx_Typo3Forum_
 	/**
 	 * Performs simple HTML escaping on the text.
 	 *
-	 * @return Tx_Typo3Forum_TextParser_Service_BasicParserService
+	 * @return \Mittwald\Typo3Forum\TextParser\Service\BasicParserService
 	 *                             $this, for chaining
 	 */
 	protected function escape() {
@@ -206,7 +206,7 @@ class Tx_Typo3Forum_TextParser_Service_BasicParserService extends Tx_Typo3Forum_
 	/**
 	 * Replaces double line breaks with paragraphs.
 	 *
-	 * @return Tx_Typo3Forum_TextParser_Service_BasicParserService
+	 * @return \Mittwald\Typo3Forum\TextParser\Service\BasicParserService
 	 *                             $this, for chaining
 	 */
 	protected function paragraphs() {
@@ -223,7 +223,7 @@ class Tx_Typo3Forum_TextParser_Service_BasicParserService extends Tx_Typo3Forum_
 	/**
 	 * Replaces single line breaks with <br> tags.
 	 *
-	 * @return Tx_Typo3Forum_TextParser_Service_BasicParserService
+	 * @return \Mittwald\Typo3Forum\TextParser\Service\BasicParserService
 	 *                             $this, for chaining
 	 */
 	protected function lineBreaks() {

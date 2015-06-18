@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\ViewHelpers\Control;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -43,7 +43,7 @@
  *
  */
 
-class Tx_Typo3Forum_ViewHelpers_Control_SubmitButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SubmitViewHelper {
+class SubmitButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SubmitViewHelper {
 
 
 

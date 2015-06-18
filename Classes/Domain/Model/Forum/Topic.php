@@ -40,7 +40,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  */
 class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	implements \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface, \Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface,
-	\Mittwald\Typo3Forum\Domain\Model\NotifiableInterface, Tx_Typo3Forum_Domain_Model_ReadableInterface {
+	\Mittwald\Typo3Forum\Domain\Model\NotifiableInterface, \Mittwald\Typo3Forum\Domain\Model\ReadableInterface {
 
 
 	/*

@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Service\Mailing;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -43,7 +43,7 @@
  *
  */
 
-interface Tx_Typo3Forum_Service_Mailing_MailingServiceInterface {
+interface MailingServiceInterface {
 
 
 

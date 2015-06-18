@@ -1,4 +1,5 @@
 <?php
+namespace Mittwald\Typo3Forum\ViewHelpers\Social;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -42,7 +43,7 @@
  *
  */
 
-class Tx_Typo3Forum_ViewHelpers_Social_FacebookShareLinkViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper  {
+class FacebookShareLinkViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper  {
 
 	/**
 	 * @var	string

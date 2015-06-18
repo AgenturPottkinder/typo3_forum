@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\TextParser\Service;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_TextParser_Service_QuoteParserService extends Tx_Typo3Forum_TextParser_Service_AbstractTextParserService {
+class QuoteParserService extends \Mittwald\Typo3Forum\TextParser\Service\AbstractTextParserService {
 
 
 
@@ -117,7 +117,7 @@ class Tx_Typo3Forum_TextParser_Service_QuoteParserService extends Tx_Typo3Forum_
 
 	protected function replaceSingleCallback($matches) {
 		$this->view->setControllerContext($this->controllerContext);
-		$this->view->setTemplatePathAndFilename(Tx_Typo3Forum_Utility_File::replaceSiteRelPath($this->settings['template']));
+		$this->view->setTemplatePathAndFilename(\Mittwald\Typo3Forum\Utility\File::replaceSiteRelPath($this->settings['template']));
 		$this->view->assign('quote', trim($matches[1]));
 		$this->view->assign('post', null);
 		return $this->view->render();
@@ -135,7 +135,7 @@ class Tx_Typo3Forum_TextParser_Service_QuoteParserService extends Tx_Typo3Forum_
 
 	protected function replaceCallback($matches) {
 		$this->view->setControllerContext($this->controllerContext);
-		$this->view->setTemplatePathAndFilename(Tx_Typo3Forum_Utility_File::replaceSiteRelPath($this->settings['template']));
+		$this->view->setTemplatePathAndFilename(\Mittwald\Typo3Forum\Utility\File::replaceSiteRelPath($this->settings['template']));
 
 		$tmp = $this->postRepository->findByUid((int)$matches[1]);
 		if(!empty($tmp)){

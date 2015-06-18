@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\TextParser\Service;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -42,8 +42,8 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_TextParser_Service_BBCodeParserService
-	extends Tx_Typo3Forum_TextParser_Service_AbstractTextParserService {
+class BBCodeParserService
+	extends \Mittwald\Typo3Forum\TextParser\Service\AbstractTextParserService {
 
 
 

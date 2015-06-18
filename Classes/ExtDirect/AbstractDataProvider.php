@@ -39,7 +39,7 @@ abstract class AbstractDataProvider {
 	/**
 	 * BootStrap Instance
 	 *
-	 * @var Tx_Typo3Forum_Service_ExtBaseConnectorService
+	 * @var \Mittwald\Typo3Forum\Service\ExtBaseConnectorService
 	 */
 	protected $extBaseConnector = NULL;
 
@@ -57,7 +57,7 @@ abstract class AbstractDataProvider {
 	 */
 	public function __construct() {
 		$key                    = 'web_Typo3ForumTxTypo3forumM1';
-		$this->extBaseConnector = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Typo3Forum_Service_ExtBaseConnectorService');
+		$this->extBaseConnector = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\Mittwald\Typo3Forum\Service\ExtBaseConnectorService');
 		$this->extBaseConnector->setExtensionKey('Typo3Forum');
 		$this->extBaseConnector->setModuleOrPluginKey($key);
 		$this->extBaseConnector->initialize(array('extensionName'               => 'Typo3Forum',

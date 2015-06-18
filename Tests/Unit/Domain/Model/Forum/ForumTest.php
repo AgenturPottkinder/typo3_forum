@@ -43,7 +43,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_ForumTest extends Tx_Typo3Forum_Unit_Base
 
 
 	/**
-	 * @var Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface
+	 * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
 	 */
 	protected $authenticationService;
 
@@ -55,8 +55,8 @@ class Tx_Typo3Forum_Domain_Model_Forum_ForumTest extends Tx_Typo3Forum_Unit_Base
 		$this->cacheMock = $this->getMock('Mittwald\\TYPO3Forum\\Cache\\Cache');
 		$this->cacheMock->expects($this->any())->method('has')->will($this->returnValue(FALSE));
 
-		$this->authenticationService     = new Tx_Typo3Forum_Service_Authentication_AuthenticationService($this->userRepositoryMock, $this->cacheMock);
-		$this->authenticationServiceMock = $this->getMock('Tx_Typo3Forum_Service_Authentication_AuthenticationService',
+		$this->authenticationService     = new \Mittwald\Typo3Forum\Service\Authentication\AuthenticationService($this->userRepositoryMock, $this->cacheMock);
+		$this->authenticationServiceMock = $this->getMock('\Mittwald\Typo3Forum\Service\Authentication\AuthenticationService',
 		                                                  array('checkAuthorization'), array(), '', FALSE);
 		$this->authenticationServiceMock->expects($this->any())->method('checkAuthorization')
 			->will($this->returnValue(TRUE));
@@ -129,7 +129,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_ForumTest extends Tx_Typo3Forum_Unit_Base
 
 
 	public function testGetChildrenReturnsOnlyAccessibleChildren() {
-		$this->authenticationServiceMock = $this->getMock('Tx_Typo3Forum_Service_Authentication_AuthenticationService',
+		$this->authenticationServiceMock = $this->getMock('\Mittwald\Typo3Forum\Service\Authentication\AuthenticationService',
 		                                                  array(), array(), '', FALSE);
 		$this->authenticationServiceMock->expects($this->exactly(3))->method('checkAuthorization')
 			->with(self::isInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum'), self::equalTo('read'))

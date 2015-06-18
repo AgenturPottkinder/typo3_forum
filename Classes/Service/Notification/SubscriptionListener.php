@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Service\Notification;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -42,13 +42,13 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-final class Tx_Typo3Forum_Service_Notification_SubscriptionListener {
+final class SubscriptionListener {
 
 
 
 	/**
 	 * An instance of the notification service.
-	 * @var Tx_Typo3Forum_Service_Notification_NotificationServiceInterface
+	 * @var \Mittwald\Typo3Forum\Service\Notification\NotificationServiceInterface
 	 */
 	protected $notificationService = NULL;
 
@@ -57,11 +57,11 @@ final class Tx_Typo3Forum_Service_Notification_SubscriptionListener {
 	/**
 	 * Injects an instance of the notification service.
 	 *
-	 * @param Tx_Typo3Forum_Service_Notification_NotificationServiceInterface $notificationService
+	 * @param \Mittwald\Typo3Forum\Service\Notification\NotificationServiceInterface $notificationService
 	 *                                 An instance of the notification service.
 	 * @return void
 	 */
-	public function injectNotificationService(Tx_Typo3Forum_Service_Notification_NotificationServiceInterface $notificationService) {
+	public function injectNotificationService(\Mittwald\Typo3Forum\Service\Notification\NotificationServiceInterface $notificationService) {
 		$this->notificationService = $notificationService;
 	}
 

@@ -81,10 +81,10 @@ $TYPO3_CONF_VARS['FE']['eID_include']['typo3_forum'] = 'EXT:typo3_forum/Classes/
 // pattern is really cool! :P
 $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\SignalSlot\Dispatcher');
 $signalSlotDispatcher->connect('\Mittwald\Typo3Forum\Domain\Model\Forum\Post',
-							   'postCreated', 'Tx_Typo3Forum_Service_Notification_SubscriptionListener',
+							   'postCreated', '\Mittwald\Typo3Forum\Service\Notification\SubscriptionListener',
 							   'onPostCreated');
 $signalSlotDispatcher->connect('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic',
-							   'topicCreated', 'Tx_Typo3Forum_Service_Notification_SubscriptionListener',
+							   'topicCreated', '\Mittwald\Typo3Forum\Service\Notification\SubscriptionListener',
 							   'onTopicCreated');
 
 // adding scheduler tasks

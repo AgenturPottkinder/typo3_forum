@@ -41,7 +41,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Format;
  */
 
 class BBCode extends \Mittwald\Typo3Forum\Domain\Model\Format\AbstractTextParserElement
-	implements Tx_Typo3Forum_TextParser_Panel_MarkItUpExportableInterface {
+	implements \Mittwald\Typo3Forum\TextParser\Panel\MarkItUpExportableInterface {
 
 
 

@@ -30,7 +30,7 @@ class Tx_Typo3Forum_Service_Notification_SubscriptionListenerTest extends \TYPO3
 
 
 	/**
-	 * @var Tx_Typo3Forum_Service_Notification_SubscriptionListener
+	 * @var \Mittwald\Typo3Forum\Service\Notification\SubscriptionListener
 	 */
 	protected $fixture;
 
@@ -43,9 +43,9 @@ class Tx_Typo3Forum_Service_Notification_SubscriptionListenerTest extends \TYPO3
 
 
 	public function setUp() {
-		$this->notificationServiceMock = $this->getMock('Tx_Typo3Forum_Service_Notification_NotificationService', array(),
+		$this->notificationServiceMock = $this->getMock('\Mittwald\Typo3Forum\Service\Notification\NotificationService', array(),
 			array(), '', FALSE);
-		$this->fixture                 = new Tx_Typo3Forum_Service_Notification_SubscriptionListener($this->mailingServiceMock);
+		$this->fixture                 = new \Mittwald\Typo3Forum\Service\Notification\SubscriptionListener($this->mailingServiceMock);
 		$this->fixture->injectNotificationService($this->notificationServiceMock);
 	}
 

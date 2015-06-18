@@ -88,7 +88,7 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 	protected $attachmentRepository;
 
 	/**
-	 * @var Tx_Typo3Forum_Service_AttachmentService
+	 * @var \Mittwald\Typo3Forum\Service\AttachmentService
 	 */
 	protected $attachmentService = NULL;
 
@@ -108,7 +108,7 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 	 * @param \Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory $postFactory
 	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\AttachmentRepository $attachmentRepository
 	 * @param \Mittwald\Typo3Forum\Service\SessionHandlingService $sessionHandling
-	 * @param Tx_Typo3Forum_Service_AttachmentService $attachmentService
+	 * @param \Mittwald\Typo3Forum\Service\AttachmentService $attachmentService
 	 */
 	public function __construct(\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository,
 								\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository,
@@ -116,7 +116,7 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 								\Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory $postFactory,
 								\Mittwald\Typo3Forum\Domain\Repository\Forum\AttachmentRepository $attachmentRepository,
 								\Mittwald\Typo3Forum\Service\SessionHandlingService $sessionHandling,
-								Tx_Typo3Forum_Service_AttachmentService $attachmentService) {
+								\Mittwald\Typo3Forum\Service\AttachmentService $attachmentService) {
 		$this->forumRepository		= $forumRepository;
 		$this->topicRepository		= $topicRepository;
 		$this->postRepository		= $postRepository;
@@ -317,7 +317,7 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 		// Display flash message and redirect to topic->show action.
 		$this->controllerContext->getFlashMessageQueue()->addMessage(
 			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				Tx_Typo3Forum_Utility_Localization::translate('Post_Create_Success')
+				\Mittwald\Typo3Forum\Utility\Localization::translate('Post_Create_Success')
 			)
 		);
 		$this->clearCacheForCurrentPage();
@@ -393,7 +393,7 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 			array('post' => $post));
 		$this->controllerContext->getFlashMessageQueue()->addMessage(
 			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				Tx_Typo3Forum_Utility_Localization::translate('Post_Update_Success')
+				\Mittwald\Typo3Forum\Utility\Localization::translate('Post_Update_Success')
 			)
 		);
 		$this->clearCacheForCurrentPage();
@@ -428,7 +428,7 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 		$this->postFactory->deletePost($post);
 		$this->controllerContext->getFlashMessageQueue()->addMessage(
 			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				Tx_Typo3Forum_Utility_Localization::translate('Post_Delete_Success')
+				\Mittwald\Typo3Forum\Utility\Localization::translate('Post_Delete_Success')
 			)
 		);
 

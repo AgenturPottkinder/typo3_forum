@@ -6,7 +6,7 @@ plugin.tx_srfeuserregister_pi1 {
 }
 
 config.tx_extbase.objects {
-	Tx_Typo3Forum_Service_Mailing_MailingServiceInterface.className = Tx_Typo3Forum_Service_Mailing_PlainMailingService
+	\Mittwald\Typo3Forum\Service\Mailing\MailingServiceInterface.className = \Mittwald\Typo3Forum\Service\Mailing\PlainMailingService
 }
 
 config.tx_extbase.persistence.classes {
@@ -321,32 +321,32 @@ plugin.tx_typo3forum.settings {
         }
 	textParsing {
 		enabledServices {
-			basic = Tx_Typo3Forum_TextParser_Service_BasicParserService
+			basic = \Mittwald\Typo3Forum\TextParser\Service\BasicParserService
 			#tidy = Tx_Typo3Forum_TextParser_Service_TidyService
-			bbCodes = Tx_Typo3Forum_TextParser_Service_BBCodeParserService
-			smilies = Tx_Typo3Forum_TextParser_Service_SmilieParserService
-			syntax = Tx_Typo3Forum_TextParser_Service_SyntaxHighlightingParserService
-			quotes = Tx_Typo3Forum_TextParser_Service_QuoteParserService
+			bbCodes = \Mittwald\Typo3Forum\TextParser\Service\BBCodeParserService
+			smilies = \Mittwald\Typo3Forum\TextParser\Service\SmilieParserService
+			syntax = \Mittwald\Typo3Forum\TextParser\Service\SyntaxHighlightingParserService
+			quotes = \Mittwald\Typo3Forum\TextParser\Service\QuoteParserService
 			quotes {
 				template = EXT:typo3_forum/Resources/Private/Partials/Format/Quote.html
 			}
 
-			lists = Tx_Typo3Forum_TextParser_Service_ListParserService
+			lists = \Mittwald\Typo3Forum\TextParser\Service\ListParserService
 		}
 
 		editorPanel {
 			panels {
 				bbCodes {
-					className = Tx_Typo3Forum_TextParser_Panel_BbCodePanel
+					className = \Mittwald\Typo3Forum\TextParser\Panel\BbCodePanel
 					title = LLL:LLLEXT:typo3_forum/Resources/Private/Language/locallang.xml:Editor_Panel_Formatting
 				}
 				syntax {
-					className = Tx_Typo3Forum_TextParser_Panel_SyntaxHighlightingPanel
+					className = \Mittwald\Typo3Forum\TextParser\Panel\SyntaxHighlightingPanel
 					title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:Editor_Panel_SyntaxHighlighting
 					iconClassName = tx-typo3forum-miu-code
 				}
 				smilies {
-					className = Tx_Typo3Forum_TextParser_Panel_SmiliePanel
+					className = \Mittwald\Typo3Forum\TextParser\Panel\SmiliePanel
 					title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:Editor_Panel_Smilies
 					iconClassName = tx-typo3forum-miu-smilies
 				}

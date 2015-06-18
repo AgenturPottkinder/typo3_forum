@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Service\Mailing;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Service_Mailing_PlainMailingService extends Tx_Typo3Forum_Service_Mailing_AbstractMailingService {
+class PlainMailingService extends \Mittwald\Typo3Forum\Service\Mailing\AbstractMailingService {
 
 
 
@@ -57,7 +57,7 @@ class Tx_Typo3Forum_Service_Mailing_PlainMailingService extends Tx_Typo3Forum_Se
 	 *
 	 * @var string
 	 */
-	protected $format = Tx_Typo3Forum_Service_Mailing_AbstractMailingService::MAILING_FORMAT_PLAIN;
+	protected $format = \Mittwald\Typo3Forum\Service\Mailing\AbstractMailingService::MAILING_FORMAT_PLAIN;
 
 
 

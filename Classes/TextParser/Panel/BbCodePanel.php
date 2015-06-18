@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\TextParser\Panel;
 /* *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -40,7 +40,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_TextParser_Panel_BbCodePanel extends Tx_Typo3Forum_TextParser_Panel_AbstractPanel {
+class BbCodePanel extends \Mittwald\Typo3Forum\TextParser\Panel\AbstractPanel {
 
 
 

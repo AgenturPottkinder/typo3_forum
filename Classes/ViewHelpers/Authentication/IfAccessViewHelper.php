@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\ViewHelpers\Authentication;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -44,7 +44,7 @@
  *
  */
 
-Class Tx_Typo3Forum_ViewHelpers_Authentication_IfAccessViewHelper Extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper {
+class IfAccessViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper {
 
 
 
@@ -53,7 +53,7 @@ Class Tx_Typo3Forum_ViewHelpers_Authentication_IfAccessViewHelper Extends \TYPO3
 	 *
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
 	 */
-	Protected $frontendUserRepository;
+	protected $frontendUserRepository;
 
 
 
@@ -81,7 +81,7 @@ Class Tx_Typo3Forum_ViewHelpers_Authentication_IfAccessViewHelper Extends \TYPO3
 	 * @return string              The ViewHelper contents if the user has access to
 	 *                             the specified operation.
 	 */
-	Public Function render(\Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object, $accessType = 'read') {
+	public function render(\Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object, $accessType = 'read') {
 		if ($object->checkAccess($this->frontendUserRepository->findCurrent(),
 			$accessType)) {
 			return $this->renderThenChild();

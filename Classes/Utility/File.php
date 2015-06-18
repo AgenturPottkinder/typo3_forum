@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Utility;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -41,7 +41,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  */
 
-class Tx_Typo3Forum_Utility_File {
+class File {
 
 
 

@@ -93,7 +93,7 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
 	/**
 	 * An authentication service. Handles the authentication mechanism.
 	 *
-	 * @var Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface
+	 * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
 	 */
 	protected $authenticationService;
 
@@ -162,13 +162,13 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
 	 *
 	 * Injects an authentication service.
 	 *
-	 * @param  Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface $authenticationService
+	 * @param  \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface $authenticationService
 	 *                             An authentication service.
 	 *
 	 * @return void
 	 *
 	 */
-	public function injectAuthenticationService(Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface $authenticationService) {
+	public function injectAuthenticationService(\Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface $authenticationService) {
 		$this->authenticationService = $authenticationService;
 	}
 
@@ -327,8 +327,8 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
 	                                            $severity = \TYPO3\CMS\Core\Messaging\FlashMessage::OK) {
 		$this->controllerContext->getFlashMessageQueue()->addMessage(
 			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				Tx_Typo3Forum_Utility_Localization::translate($key, 'Typo3Forum', $arguments),
-				Tx_Typo3Forum_Utility_Localization::translate($titleKey, 'Typo3Forum'), $severity
+				\Mittwald\Typo3Forum\Utility\Localization::translate($key, 'Typo3Forum', $arguments),
+				\Mittwald\Typo3Forum\Utility\Localization::translate($titleKey, 'Typo3Forum'), $severity
 			)
 		);
 	}

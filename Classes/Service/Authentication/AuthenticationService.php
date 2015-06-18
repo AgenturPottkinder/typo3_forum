@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Service\Authentication;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -42,8 +42,8 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Service_Authentication_AuthenticationService extends Tx_Typo3Forum_Service_AbstractService
-	implements Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface {
+class AuthenticationService extends \Mittwald\Typo3Forum\Service\AbstractService
+	implements \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface {
 
 
 

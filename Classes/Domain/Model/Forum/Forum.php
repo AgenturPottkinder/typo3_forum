@@ -175,7 +175,7 @@ class Forum extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * An instance of the typo3_forum authentication service.
-	 * @var Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface
+	 * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
 	 */
 	protected $authenticationService = NULL;
 
@@ -243,9 +243,9 @@ class Forum extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * Injects an instance of the typo3_forum authentication service.
-	 * @param Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface $authenticationService
+	 * @param \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface $authenticationService
 	 */
-	public function injectAuthenticationService(Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface $authenticationService) {
+	public function injectAuthenticationService(\Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface $authenticationService) {
 		$this->authenticationService = $authenticationService;
 	}
 

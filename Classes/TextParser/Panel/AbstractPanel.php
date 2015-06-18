@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\TextParser\Panel;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -41,7 +41,7 @@
  *
  */
 
-abstract class Tx_Typo3Forum_TextParser_Panel_AbstractPanel implements Tx_Typo3Forum_TextParser_Panel_PanelInterface {
+abstract class AbstractPanel implements \Mittwald\Typo3Forum\TextParser\Panel\PanelInterface {
 
 
 

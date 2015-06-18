@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Service\Mailing;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -43,7 +43,7 @@
  *
  */
 
-Class Tx_Typo3Forum_Service_Mailing_HTMLMailingService Extends Tx_Typo3Forum_Service_Mailing_AbstractMailingService {
+class HTMLMailingService extends \Mittwald\Typo3Forum\Service\Mailing\AbstractMailingService {
 
 
 	/**

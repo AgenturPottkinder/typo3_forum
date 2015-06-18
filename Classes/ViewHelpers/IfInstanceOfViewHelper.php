@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\ViewHelpers;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -44,7 +44,7 @@
  *
  */
 
-class Tx_Typo3Forum_ViewHelpers_IfInstanceOfViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\IfViewHelper {
+class IfInstanceOfViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\IfViewHelper {
 
 
 

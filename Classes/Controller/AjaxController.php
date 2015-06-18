@@ -90,7 +90,7 @@ class AjaxController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 	protected $attachmentRepository;
 
 	/**
-	 * @var Tx_Typo3Forum_Service_AttachmentService
+	 * @var \Mittwald\Typo3Forum\Service\AttachmentService
 	 */
 	protected $attachmentService = NULL;
 
@@ -122,7 +122,7 @@ class AjaxController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 	 * @param \Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory $postFactory
 	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\AttachmentRepository $attachmentRepository
 	 * @param \Mittwald\Typo3Forum\Service\SessionHandlingService $sessionHandling
-	 * @param Tx_Typo3Forum_Service_AttachmentService $attachmentService
+	 * @param \Mittwald\Typo3Forum\Service\AttachmentService $attachmentService
 	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\AdsRepository   $adsRepository
 	 */
 	public function __construct(\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository,
@@ -131,7 +131,7 @@ class AjaxController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 								\Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory $postFactory,
 								\Mittwald\Typo3Forum\Domain\Repository\Forum\AttachmentRepository $attachmentRepository,
 								\Mittwald\Typo3Forum\Service\SessionHandlingService $sessionHandling,
-								Tx_Typo3Forum_Service_AttachmentService $attachmentService,
+								\Mittwald\Typo3Forum\Service\AttachmentService $attachmentService,
 								\Mittwald\Typo3Forum\Domain\Repository\Forum\AdsRepository   $adsRepository) {
 		$this->forumRepository = $forumRepository;
 		$this->topicRepository = $topicRepository;

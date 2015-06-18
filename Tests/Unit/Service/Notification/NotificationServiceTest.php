@@ -30,7 +30,7 @@ class Tx_Typo3Forum_Service_Notification_NotificationServiceTest extends \TYPO3\
 
 
 	/**
-	 * @var Tx_Typo3Forum_Service_Notification_NotificationService
+	 * @var \Mittwald\Typo3Forum\Service\Notification\NotificationService
 	 */
 	protected $fixture;
 
@@ -43,8 +43,8 @@ class Tx_Typo3Forum_Service_Notification_NotificationServiceTest extends \TYPO3\
 
 
 	public function setUp() {
-		$this->mailingServiceMock = $this->getMock('Tx_Typo3Forum_Service_Mailing_PlainMailingService');
-		$this->fixture            = new Tx_Typo3Forum_Service_Notification_NotificationService($this->mailingServiceMock);
+		$this->mailingServiceMock = $this->getMock('\Mittwald\Typo3Forum\Service\Mailing\PlainMailingService');
+		$this->fixture            = new \Mittwald\Typo3Forum\Service\Notification\NotificationService($this->mailingServiceMock);
 	}
 
 

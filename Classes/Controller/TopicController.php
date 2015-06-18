@@ -120,7 +120,7 @@ class TopicController extends \Mittwald\Typo3Forum\Controller\AbstractController
 
 
 	/**
-	 * @var Tx_Typo3Forum_Service_AttachmentService
+	 * @var \Mittwald\Typo3Forum\Service\AttachmentService
 	 */
 	protected $attachmentService = NULL;
 
@@ -148,7 +148,7 @@ class TopicController extends \Mittwald\Typo3Forum\Controller\AbstractController
 	 * @param \Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory			$postFactory
 	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\CriteriaRepository $criteraRepository
 	 * @param \Mittwald\Typo3Forum\Service\SessionHandlingService             $sessionHandling
-	 * @param Tx_Typo3Forum_Service_AttachmentService					$attachmentService
+	 * @param \Mittwald\Typo3Forum\Service\AttachmentService					$attachmentService
 	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\AdsRepository		$adsRepository
 	 * @param \Mittwald\Typo3Forum\Service\TagService							$tagService
 	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository		$tagRepository
@@ -160,7 +160,7 @@ class TopicController extends \Mittwald\Typo3Forum\Controller\AbstractController
 								\Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory $postFactory,
 								\Mittwald\Typo3Forum\Domain\Repository\Forum\CriteriaRepository $criteraRepository,
 								\Mittwald\Typo3Forum\Service\SessionHandlingService $sessionHandling,
-								Tx_Typo3Forum_Service_AttachmentService $attachmentService,
+								\Mittwald\Typo3Forum\Service\AttachmentService $attachmentService,
 								\Mittwald\Typo3Forum\Domain\Repository\Forum\AdsRepository $adsRepository,
 								\Mittwald\Typo3Forum\Service\TagService $tagService,
 								\Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository $tagRepository) {

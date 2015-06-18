@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Service\Mailing;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -43,8 +43,8 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_Typo3Forum_Service_Mailing_AbstractMailingService extends Tx_Typo3Forum_Service_AbstractService
-	implements Tx_Typo3Forum_Service_Mailing_MailingServiceInterface {
+abstract class AbstractMailingService extends \Mittwald\Typo3Forum\Service\AbstractService
+	implements \Mittwald\Typo3Forum\Service\Mailing\MailingServiceInterface {
 
 
 	/**
@@ -93,7 +93,7 @@ abstract class Tx_Typo3Forum_Service_Mailing_AbstractMailingService extends Tx_T
 	 * The format in which this service sends mails. Usually, this would be either 'html' or 'txt'.
 	 * @var string
 	 */
-	protected $format = Tx_Typo3Forum_Service_Mailing_AbstractMailingService::MAILING_FORMAT_HTML;
+	protected $format = \Mittwald\Typo3Forum\Service\Mailing\AbstractMailingService::MAILING_FORMAT_HTML;
 
 
 

@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\ViewHelpers\Control;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -43,7 +43,7 @@
  *
  */
 
-Class Tx_Typo3Forum_ViewHelpers_Control_PageBrowserViewHelper Extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class PageBrowserViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 
 
@@ -58,7 +58,7 @@ Class Tx_Typo3Forum_ViewHelpers_Control_PageBrowserViewHelper Extends \TYPO3\CMS
 	 *
 	 */
 
-	Public Function render($elements, $itemsPerPage, $currentPage = 1) {
+	public function render($elements, $itemsPerPage, $currentPage = 1) {
 
 		$output    = '';
 		$pageCount = ceil($elements / $itemsPerPage);
@@ -66,14 +66,14 @@ Class Tx_Typo3Forum_ViewHelpers_Control_PageBrowserViewHelper Extends \TYPO3\CMS
 		$output .= $this->renderChildItemWithPage(1, '«');
 		$output .= $this->renderChildItemWithPage(max($currentPage - 1, 1), '‹');
 
-		For ($page = 1; $page <= $pageCount; $page++) {
+		for ($page = 1; $page <= $pageCount; $page++) {
 			$output .= $this->renderChildItemWithPage($page, $page);
 		}
 
 		$output .= $this->renderChildItemWithPage(min($currentPage + 1, $pageCount), '›');
 		$output .= $this->renderChildItemWithPage($pageCount, '»');
 
-		Return $output;
+		return $output;
 
 	}
 
@@ -89,7 +89,7 @@ Class Tx_Typo3Forum_ViewHelpers_Control_PageBrowserViewHelper Extends \TYPO3\CMS
 	 *
 	 */
 
-	Private Function renderChildItemWithPage($pageNum, $pageLabel) {
+	private function renderChildItemWithPage($pageNum, $pageLabel) {
 		$this->templateVariableContainer->add('pageLabel', $pageLabel);
 		$this->templateVariableContainer->add('page', $pageNum);
 		$output = $this->renderChildren();

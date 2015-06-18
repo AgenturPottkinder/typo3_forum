@@ -41,7 +41,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_TopicTest extends Tx_Typo3Forum_Unit_Base
 
 
 	/**
-	 * @var Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface
+	 * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
 	 */
 	protected $authenticationService;
 

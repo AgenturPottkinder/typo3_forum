@@ -30,7 +30,7 @@ class Tx_Typo3Forum_Service_Authentication_AuthenticationServiceTest extends Tx_
 
 
 	/**
-	 * @var Tx_Typo3Forum_Service_Authentication_AuthenticationService
+	 * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationService
 	 */
 	protected $fixture;
 
@@ -79,7 +79,7 @@ class Tx_Typo3Forum_Service_Authentication_AuthenticationServiceTest extends Tx_
 			->will($this->returnValue(FALSE));
 
 		/** @noinspection PhpParamsInspection */
-		$this->fixture = new Tx_Typo3Forum_Service_Authentication_AuthenticationService($this->userRepositoryMock, $cacheMock);
+		$this->fixture = new \Mittwald\Typo3Forum\Service\Authentication\AuthenticationService($this->userRepositoryMock, $cacheMock);
 		$this->fixture->disableImplicitAdministrationInBackend();
 	}
 

@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\ViewHelpers\Format;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -42,13 +42,13 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_ViewHelpers_Format_TextParserViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class TextParserViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 
 
 	/**
 	 * The text parser service
-	 * @var Tx_Typo3Forum_TextParser_TextParserService
+	 * @var \Mittwald\Typo3Forum\TextParser\TextParserService
 	 */
 	protected $textParserService;
 
@@ -65,12 +65,12 @@ class Tx_Typo3Forum_ViewHelpers_Format_TextParserViewHelper extends \TYPO3\CMS\F
 	/**
 	 *
 	 * Injects an instance of the text parser service.
-	 * @param  Tx_Typo3Forum_TextParser_TextParserService $textParserService
+	 * @param  \Mittwald\Typo3Forum\TextParser\TextParserService $textParserService
 	 *                             An instance of the text parser service.
 	 * @return void
 	 *
 	 */
-	public function injectTextParserService(Tx_Typo3Forum_TextParser_TextParserService $textParserService) {
+	public function injectTextParserService(\Mittwald\Typo3Forum\TextParser\TextParserService $textParserService) {
 		$this->textParserService = $textParserService;
 	}
 

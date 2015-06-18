@@ -788,11 +788,11 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
 	/**
 	 * Adds a readable object to the list of objects read by this user.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_ReadableInterface $readObject
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\ReadableInterface $readObject
 	 *                             The object that is to be marked as read.
 	 * @return void
 	 */
-	public function addReadObject(Tx_Typo3Forum_Domain_Model_ReadableInterface $readObject) {
+	public function addReadObject(\Mittwald\Typo3Forum\Domain\Model\ReadableInterface $readObject) {
 		if ($readObject instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Topic) {
 			$this->readTopics->attach($readObject);
 		}
@@ -801,11 +801,11 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
 	/**
 	 * Removes a readable object from the list of objects read by this user.
 	 *
-	 * @param  Tx_Typo3Forum_Domain_Model_ReadableInterface $readObject
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\ReadableInterface $readObject
 	 *                             The object that is to be marked as unread.
 	 * @return void
 	 */
-	public function removeReadObject(Tx_Typo3Forum_Domain_Model_ReadableInterface $readObject) {
+	public function removeReadObject(\Mittwald\Typo3Forum\Domain\Model\ReadableInterface $readObject) {
 		if ($readObject instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Topic) {
 			$this->readTopics->detach($readObject);
 		}

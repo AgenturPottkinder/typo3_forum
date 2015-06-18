@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Service;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -31,7 +31,7 @@
  * @author  Stefan Galinski <sgalinski@df.eu>
  * @package df_tools
  */
-class Tx_Typo3Forum_Service_ExtBaseConnectorService extends \TYPO3\CMS\Extbase\Core\Bootstrap {
+class ExtBaseConnectorService extends \TYPO3\CMS\Extbase\Core\Bootstrap {
 
 
 

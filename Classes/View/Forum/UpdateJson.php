@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\View\Forum;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -38,7 +38,7 @@
  * @license    GNU Public License, version 2
  *             http://opensource.org/licenses/gpl-license.php
  */
-class Tx_Typo3Forum_View_Forum_UpdateJson extends \TYPO3\CMS\Extbase\Mvc\View\AbstractView {
+class UpdateJson extends \TYPO3\CMS\Extbase\Mvc\View\AbstractView {
 
 
 

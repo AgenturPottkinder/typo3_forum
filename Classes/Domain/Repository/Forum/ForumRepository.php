@@ -47,16 +47,16 @@ class ForumRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 
 	/**
-	 * @var Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface
+	 * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
 	 */
 	protected $authenticationService = NULL;
 
 
 
 	/**
-	 * @param Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface $authenticationService
+	 * @param \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface $authenticationService
 	 */
-	public function injectAuthenticationService(Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface $authenticationService) {
+	public function injectAuthenticationService(\Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface $authenticationService) {
 		$this->authenticationService = $authenticationService;
 	}
 

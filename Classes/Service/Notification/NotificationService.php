@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Service\Notification;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -42,8 +42,8 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_Service_Notification_NotificationService extends Tx_Typo3Forum_Service_AbstractService
-	implements Tx_Typo3Forum_Service_Notification_NotificationServiceInterface
+class NotificationService extends \Mittwald\Typo3Forum\Service\AbstractService
+	implements \Mittwald\Typo3Forum\Service\Notification\NotificationServiceInterface
 {
 
 
@@ -52,7 +52,7 @@ class Tx_Typo3Forum_Service_Notification_NotificationService extends Tx_Typo3For
 	 */
 
 	/**
-	 * @var Tx_Typo3Forum_Service_Mailing_HTMLMailingService
+	 * @var \Mittwald\Typo3Forum\Service\Mailing\HTMLMailingService
 	 */
 	protected $htmlMailingService;
 
@@ -84,10 +84,10 @@ class Tx_Typo3Forum_Service_Notification_NotificationService extends Tx_Typo3For
 	/**
 	 * Constructor. Used primarily for dependency injection.
 	 *
-	 * @param Tx_Typo3Forum_Service_Mailing_HTMLMailingService $htmlMailingService
+	 * @param \Mittwald\Typo3Forum\Service\Mailing\HTMLMailingService $htmlMailingService
 	 * @param \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder
 	 */
-	public function __construct(Tx_Typo3Forum_Service_Mailing_HTMLMailingService $htmlMailingService, \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder)
+	public function __construct(\Mittwald\Typo3Forum\Service\Mailing\HTMLMailingService $htmlMailingService, \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder)
 	{
 		$this->htmlMailingService = $htmlMailingService;
 		$this->uriBuilder = $uriBuilder;

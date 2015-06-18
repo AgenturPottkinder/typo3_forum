@@ -58,7 +58,7 @@ class Tx_Typo3Forum_Controller_TopicControllerTest extends Tx_Typo3Forum_Control
 														FALSE);
 		$this->criteraRepositoryMock	= $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Forum\CriteriaRepository');
 		$this->sessionHandlingMock		= $this->getMock('\Mittwald\Typo3Forum\Service\SessionHandlingService');
-		$this->attachmentServiceMock	= $this->getMock('Tx_Typo3Forum_Service_AttachmentService');
+		$this->attachmentServiceMock	= $this->getMock('\Mittwald\Typo3Forum\Service\AttachmentService');
 
 		$this->buildFixture('\Mittwald\Typo3Forum\Controller\TopicController',
 		                    array($this->forumRepositoryMock, $this->topicRepositoryMock, $this->postRepositoryMock,

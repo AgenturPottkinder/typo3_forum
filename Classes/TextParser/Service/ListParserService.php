@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\TextParser\Service;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -43,7 +43,7 @@
  *
  */
 
-class Tx_Typo3Forum_TextParser_Service_ListParserService extends Tx_Typo3Forum_TextParser_Service_AbstractTextParserService {
+class ListParserService extends \Mittwald\Typo3Forum\TextParser\Service\AbstractTextParserService {
 
 
 

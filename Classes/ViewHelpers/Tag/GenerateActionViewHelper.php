@@ -1,4 +1,5 @@
 <?php
+namespace Mittwald\Typo3Forum\ViewHelpers\Tag;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -42,7 +43,7 @@
  *
  */
 
-class Tx_Typo3Forum_ViewHelpers_Tag_GenerateActionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper  {
+class GenerateActionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper  {
 
 
 	/**

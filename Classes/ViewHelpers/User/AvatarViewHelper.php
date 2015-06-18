@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\ViewHelpers\User;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_ViewHelpers_User_AvatarViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\ImageViewHelper {
+class AvatarViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\ImageViewHelper {
 
 
 

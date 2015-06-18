@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Service;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -43,7 +43,7 @@
  *
  */
 
-Abstract Class Tx_Typo3Forum_Service_AbstractService Implements \TYPO3\CMS\Core\SingletonInterface {
+abstract class AbstractService implements \TYPO3\CMS\Core\SingletonInterface {
 
 
 }

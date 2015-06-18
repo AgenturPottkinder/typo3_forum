@@ -1,4 +1,5 @@
 <?php
+namespace Mittwald\Typo3Forum\ViewHelpers\Ext;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -38,7 +39,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_Typo3Forum_ViewHelpers_Ext_UserLinkViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
+class UserLinkViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
 
 
 	/**
@@ -56,7 +57,7 @@ class Tx_Typo3Forum_ViewHelpers_Ext_UserLinkViewHelper extends \TYPO3\CMS\Fluid\
 	/**
 	 * An authentication service. Handles the authentication mechanism.
 	 *
-	 * @var Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface
+	 * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
 	 */
 	protected $authenticationService = NULL;
 
@@ -65,13 +66,13 @@ class Tx_Typo3Forum_ViewHelpers_Ext_UserLinkViewHelper extends \TYPO3\CMS\Fluid\
 	 *
 	 * Injects an authentication service.
 	 *
-	 * @param  Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface $authenticationService
+	 * @param  \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface $authenticationService
 	 *                             An authentication service.
 	 *
 	 * @return void
 	 *
 	 */
-	public function injectAuthenticationService(Tx_Typo3Forum_Service_Authentication_AuthenticationServiceInterface $authenticationService) {
+	public function injectAuthenticationService(\Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface $authenticationService) {
 		$this->authenticationService = $authenticationService;
 	}
 

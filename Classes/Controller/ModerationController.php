@@ -252,7 +252,7 @@ class ModerationController extends \Mittwald\Typo3Forum\Controller\AbstractContr
 
 		$this->controllerContext->getFlashMessageQueue()->addMessage(
 			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				Tx_Typo3Forum_Utility_Localization::translate('Report_NewComment_Success')
+				\Mittwald\Typo3Forum\Utility\Localization::translate('Report_NewComment_Success')
 			)
 		);
 
@@ -282,7 +282,7 @@ class ModerationController extends \Mittwald\Typo3Forum\Controller\AbstractContr
 
 		$this->controllerContext->getFlashMessageQueue()->addMessage(
 			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				Tx_Typo3Forum_Utility_Localization::translate('Report_NewComment_Success')
+				\Mittwald\Typo3Forum\Utility\Localization::translate('Report_NewComment_Success')
 			)
 		);
 
@@ -306,7 +306,7 @@ class ModerationController extends \Mittwald\Typo3Forum\Controller\AbstractContr
 		$report->setWorkflowStatus($status);
 		$comment = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment');
 		$comment->setAuthor($this->getCurrentUser());
-		$comment->setText(Tx_Typo3Forum_Utility_Localization::translate('Report_Edit_SetStatus', 'Typo3Forum',
+		$comment->setText(\Mittwald\Typo3Forum\Utility\Localization::translate('Report_Edit_SetStatus', 'Typo3Forum',
 			array($status->getName())));
 		$report->addComment($comment);
 		$this->reportRepository->update($report);
@@ -341,7 +341,7 @@ class ModerationController extends \Mittwald\Typo3Forum\Controller\AbstractContr
 		$report->setWorkflowStatus($status);
 		$comment = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment');
 		$comment->setAuthor($this->getCurrentUser());
-		$comment->setText(Tx_Typo3Forum_Utility_Localization::translate('Report_Edit_SetStatus', 'Typo3Forum',
+		$comment->setText(\Mittwald\Typo3Forum\Utility\Localization::translate('Report_Edit_SetStatus', 'Typo3Forum',
 			array($status->getName())));
 		$report->addComment($comment);
 		$this->reportRepository->update($report);
@@ -392,7 +392,7 @@ class ModerationController extends \Mittwald\Typo3Forum\Controller\AbstractContr
 
 		$this->controllerContext->getFlashMessageQueue()->addMessage(
 			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				Tx_Typo3Forum_Utility_Localization::translate('Moderation_UpdateTopic_Success',
+				\Mittwald\Typo3Forum\Utility\Localization::translate('Moderation_UpdateTopic_Success',
 					'Typo3Forum')
 			)
 		);
@@ -433,7 +433,7 @@ class ModerationController extends \Mittwald\Typo3Forum\Controller\AbstractContr
 
 		$this->controllerContext->getFlashMessageQueue()->addMessage(
 			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				Tx_Typo3Forum_Utility_Localization::translate('Moderation_DeleteTopic_Success',
+				\Mittwald\Typo3Forum\Utility\Localization::translate('Moderation_DeleteTopic_Success',
 					'Typo3Forum')
 			)
 		);

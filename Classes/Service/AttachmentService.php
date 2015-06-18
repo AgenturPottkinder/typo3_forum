@@ -1,5 +1,6 @@
 <?php
-class Tx_Typo3Forum_Service_AttachmentService implements \TYPO3\CMS\Core\SingletonInterface {
+namespace Mittwald\Typo3Forum\Service;
+class AttachmentService implements \TYPO3\CMS\Core\SingletonInterface {
 
 
 	/**
