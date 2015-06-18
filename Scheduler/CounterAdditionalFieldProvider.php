@@ -1,4 +1,5 @@
 <?php
+namespace Mittwald\Typo3Forum\Scheduler;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -31,7 +32,7 @@
  * @package	TYPO3
  * @subpackage	typo3_forum
  */
-class tx_typo3forum_scheduler_counter_additionalFieldProvider implements \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface {
+class CounterAdditionalFieldProvider implements \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface {
 
 	/**
 	 * Lorem

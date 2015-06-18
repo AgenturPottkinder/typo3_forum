@@ -1,4 +1,5 @@
 <?php
+namespace Mittwald\Typo3Forum\Scheduler;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -30,7 +31,7 @@
  * @package	TYPO3
  * @subpackage	typo3_forum
  */
-class tx_typo3forum_scheduler_counter extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
+class Counter extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
 	/**
 	 * @var int

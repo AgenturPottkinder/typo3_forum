@@ -1,4 +1,5 @@
 <?php
+namespace Mittwald\Typo3Forum\Scheduler;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -25,13 +26,13 @@
 
 
 /**
- * Additional field provider for the forum-read task
+ * Additional field provider for the notification generator task
  *
  * @author	Ruven Fehling <r.fehling@mittwald.de>
  * @package	TYPO3
  * @subpackage	typo3_forum
  */
-class tx_typo3forum_scheduler_forumRead_additionalFieldProvider implements \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface {
+class SessionResetterAdditionalFieldProvider implements \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface {
 
 	/**
 	 * Lorem
@@ -47,25 +48,16 @@ class tx_typo3forum_scheduler_forumRead_additionalFieldProvider implements \TYPO
 		$additionalFields = array();
 
 		if ($schedulerModule->CMD == 'add') {
-			$taskInfo['ForumRead_forumPid'] = 1337;
-			$taskInfo['ForumRead_userPid'] = 1337;
+			$taskInfo['SeasonResetter_userPid'] = 1337;
 		}
 
 		if ($schedulerModule->CMD == 'edit') {
-			$taskInfo['ForumRead_forumPid'] = $task->getForumPid();
-			$taskInfo['ForumRead_userPid'] = $task->getUserPid();
+			$taskInfo['SeasonResetter_userPid'] = $task->getUserPid();
 		}
 
-		$additionalFields['ForumRead_forumPid'] = array(
-			'code'     => '<input type="text" name="tx_scheduler[ForumRead_forumPid]" value="' . intval($taskInfo['ForumRead_forumPid']) . '" />',
-			'label'    => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_forumRead_forumPid',
-			'cshKey'   => '',
-			'cshLabel' => ''
-		);
-
-		$additionalFields['ForumRead_userPid'] = array(
-			'code'     => '<input type="text" name="tx_scheduler[ForumRead_userPid]" value="' . intval($taskInfo['ForumRead_userPid']) . '" />',
-			'label'    => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_forumRead_userPid',
+		$additionalFields['SeasonResetter_userPid'] = array(
+			'code'     => '<input type="text" name="tx_scheduler[SeasonResetter_userPid]" value="' . intval($taskInfo['SeasonResetter_userPid']) . '" />',
+			'label'    => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_seasonResetter_userPid',
 			'cshKey'   => '',
 			'cshLabel' => ''
 		);
@@ -82,8 +74,7 @@ class tx_typo3forum_scheduler_forumRead_additionalFieldProvider implements \TYPO
 	 * @return	boolean														True if validation was ok (or selected class is not relevant), FALSE otherwise
 	 */
 	public function validateAdditionalFields(array &$submittedData, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule) {
-		$submittedData['ForumRead_forumPid'] = intval($submittedData['ForumRead_forumPid']);
-		$submittedData['ForumRead_userPid'] = intval($submittedData['ForumRead_userPid']);
+		$submittedData['SeasonResetter_userPid'] = intval($submittedData['SeasonResetter_userPid']);
 		return true;
 	}
 
@@ -95,14 +86,13 @@ class tx_typo3forum_scheduler_forumRead_additionalFieldProvider implements \TYPO
 	 * @param	\TYPO3\CMS\Scheduler\Task\AbstractTask	$task: reference to the current task object
 	 */
 	public function saveAdditionalFields(array $submittedData, \TYPO3\CMS\Scheduler\Task\AbstractTask $task) {
-		$task->setUserPid($submittedData['ForumRead_userPid']);
-		$task->setForumPid($submittedData['ForumRead_forumPid']);
+		$task->setUserPid($submittedData['SeasonResetter_userPid']);
 	}
 }
 
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_forumRead_additionalFieldProvider.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_forumRead_additionalFieldProvider.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_seasonResetter_additionalFieldProvider.php'])	{
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_seasonResetter_additionalFieldProvider.php']);
 }
 
 ?>

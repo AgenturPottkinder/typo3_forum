@@ -1,4 +1,5 @@
 <?php
+namespace Mittwald\Typo3Forum\Scheduler;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -31,10 +32,9 @@
  * @package	TYPO3
  * @subpackage	typo3_forum
  */
-class tx_typo3forum_scheduler_seasonResetter_additionalFieldProvider implements \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface {
+class NotificationAdditionalFieldProvider implements \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface {
 
 	/**
-	 * Lorem
 	 *
 	 * @param	array														$taskInfo: reference to the array containing the info used in the add/edit form
 	 * @param	tx_scheduler_Task											$task: when editing, reference to the current task object. Null when adding.
@@ -47,16 +47,34 @@ class tx_typo3forum_scheduler_seasonResetter_additionalFieldProvider implements 
 		$additionalFields = array();
 
 		if ($schedulerModule->CMD == 'add') {
-			$taskInfo['SeasonResetter_userPid'] = 1337;
+			$taskInfo['Notification_forumPids'] = 1337;
+			$taskInfo['Notification_userPids'] = 1337;
+			$taskInfo['Notification_notificationPid'] = 1337;
 		}
 
 		if ($schedulerModule->CMD == 'edit') {
-			$taskInfo['SeasonResetter_userPid'] = $task->getUserPid();
+			$taskInfo['Notification_forumPids'] = $task->getForumPids();
+			$taskInfo['Notification_userPids'] = $task->getUserPids();
+			$taskInfo['Notification_notificationPid'] = $task->getNotificationPid();
 		}
 
-		$additionalFields['SeasonResetter_userPid'] = array(
-			'code'     => '<input type="text" name="tx_scheduler[SeasonResetter_userPid]" value="' . intval($taskInfo['SeasonResetter_userPid']) . '" />',
-			'label'    => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_seasonResetter_userPid',
+		$additionalFields['Notification_forumPids'] = array(
+			'code'     => '<input type="text" name="tx_scheduler[Notification_forumPids]" value="' . htmlspecialchars($taskInfo['Notification_forumPids']) . '" />',
+			'label'    => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_notification_forumPid',
+			'cshKey'   => '',
+			'cshLabel' => ''
+		);
+
+		$additionalFields['Notification_userPids'] = array(
+			'code'     => '<input type="text" name="tx_scheduler[Notification_userPids]" value="' . htmlspecialchars($taskInfo['Notification_userPids']) . '" />',
+			'label'    => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_notification_userPid',
+			'cshKey'   => '',
+			'cshLabel' => ''
+		);
+
+		$additionalFields['Notification_notificationPid'] = array(
+			'code'     => '<input type="text" name="tx_scheduler[Notification_notificationPid]" value="' . intval($taskInfo['Notification_notificationPid']) . '" />',
+			'label'    => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_notification_notificationPid',
 			'cshKey'   => '',
 			'cshLabel' => ''
 		);
@@ -73,7 +91,9 @@ class tx_typo3forum_scheduler_seasonResetter_additionalFieldProvider implements 
 	 * @return	boolean														True if validation was ok (or selected class is not relevant), FALSE otherwise
 	 */
 	public function validateAdditionalFields(array &$submittedData, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule) {
-		$submittedData['SeasonResetter_userPid'] = intval($submittedData['SeasonResetter_userPid']);
+		$submittedData['Notification_forumPids'] = htmlspecialchars($submittedData['Notification_forumPids']);
+		$submittedData['Notification_userPids'] = htmlspecialchars($submittedData['Notification_userPids']);
+		$submittedData['Notification_notificationPid'] = intval($submittedData['Notification_notificationPid']);
 		return true;
 	}
 
@@ -85,13 +105,15 @@ class tx_typo3forum_scheduler_seasonResetter_additionalFieldProvider implements 
 	 * @param	\TYPO3\CMS\Scheduler\Task\AbstractTask	$task: reference to the current task object
 	 */
 	public function saveAdditionalFields(array $submittedData, \TYPO3\CMS\Scheduler\Task\AbstractTask $task) {
-		$task->setUserPid($submittedData['SeasonResetter_userPid']);
+		$task->setUserPids($submittedData['Notification_userPids']);
+		$task->setForumPids($submittedData['Notification_forumPids']);
+		$task->setNotificationPid($submittedData['Notification_notificationPid']);
 	}
 }
 
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_seasonResetter_additionalFieldProvider.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_seasonResetter_additionalFieldProvider.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_notification_additionalFieldProvider.php'])	{
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_notification_additionalFieldProvider.php']);
 }
 
 ?>
