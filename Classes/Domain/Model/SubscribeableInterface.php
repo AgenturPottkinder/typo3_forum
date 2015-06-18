@@ -46,7 +46,7 @@ interface SubscribeableInterface {
 
 	/**
 	 * Returns all users that have subscribed to this object.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser> All subscribers.
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser> All subscribers.
 	 */
 	public function getSubscribers();
 

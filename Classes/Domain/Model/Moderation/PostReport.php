@@ -75,7 +75,7 @@ class PostReport extends \Mittwald\Typo3Forum\Domain\Model\Moderation\Report {
 
 	/**
 	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post.
-	 * @return voidc.
+	 * @return void
 	 */
 	public function setPost(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
 		$this->post = $post;

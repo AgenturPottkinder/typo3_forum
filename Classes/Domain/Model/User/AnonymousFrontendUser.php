@@ -40,7 +40,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser extends \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser {
+class AnonymousFrontendUser extends \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser {
 
 
 

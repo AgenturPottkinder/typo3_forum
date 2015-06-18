@@ -100,14 +100,14 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * Creation date.
-	 * @var DateTime
+	 * @var \DateTime
 	 */
 	protected $crdate;
 
 
 	/**
 	 * All subscribers of this forum.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
 	 * @lazy
 	 */
 	protected $supporters;
@@ -115,7 +115,7 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * Attachments.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment>
 	 * @lazy
 	 */
 	protected $attachments;
@@ -137,7 +137,7 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	public function __construct($text = '') {
 		$this->attachments = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->supporters = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->crdate      = new DateTime();
+		$this->crdate      = new \DateTime();
 		$this->text        = $text;
 	}
 
@@ -150,7 +150,7 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * Gets all users who have subscribed to this forum.
 	 *
-	 * @return Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
 	 *                             All subscribers of this forum.
 	 */
 	public function getSupporters() {
@@ -177,7 +177,7 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * Gets the post name. This is just an alias for the topic->getTitle method.
-	 * @return The post name.
+	 * @return string The post name.
 	 */
 	public function getName() {
 		return $this->topic->getTitle();
@@ -252,7 +252,7 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * Gets the post's timestamp.
-	 * @return DateTime
+	 * @return \DateTime
 	 */
 	public function getTimestamp() {
 		return $this->crdate;
@@ -260,7 +260,7 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
 	 * Gets the post's crdate.
-	 * @return DateTime
+	 * @return \DateTime
 	 */
 	public function getCrdate() {
 		return $this->crdate;
@@ -269,7 +269,7 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * Gets the post's attachments.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment>
 	 */
 	public function getAttachments() {
 		return $this->attachments;
@@ -385,7 +385,7 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * Sets the post author's name. Necessary for anonymous postings.
-	 * @param $authorName The author's name.
+	 * @param $authorName string The author's name.
 	 */
 	public function setAuthorName($authorName) {
 		$this->authorName = $authorName;

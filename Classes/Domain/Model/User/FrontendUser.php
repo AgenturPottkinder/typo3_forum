@@ -997,8 +997,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
 	 * Sets a single contact data record. A contact data record can be unset by setting
 	 * it to a empty or FALSE value.
 	 *
-	 * @param  $type  The contact record key (e.g. "twitter", "facebook", "icq", ...)
-	 * @param  $value The new value. Set to a FALSE value to unset.
+	 * @param  $type  string The contact record key (e.g. "twitter", "facebook", "icq", ...)
+	 * @param  $value string The new value. Set to a FALSE value to unset.
 	 * @return void
 	 */
 	public function setContactDataItem($type, $value) {

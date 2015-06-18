@@ -182,5 +182,3 @@ abstract class AbstractUserfield extends \TYPO3\CMS\Extbase\DomainObject\Abstrac
 	}
 
 }
-
-?>

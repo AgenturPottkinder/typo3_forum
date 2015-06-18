@@ -61,7 +61,7 @@ class ReportWorkflowStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractValue
 
 	/**
 	 * A list of allowed follow-up status.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus>
 	 */
 	protected $followupStatus;
 
@@ -127,7 +127,7 @@ class ReportWorkflowStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractValue
 
 	/**
 	 * Gets the allowed follow-up status.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus>
 	 *                             The allowed follow-up status.
 	 */
 	public function getFollowupStatus() {
@@ -186,7 +186,7 @@ class ReportWorkflowStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractValue
 	 * looks in the configured upload directory (uploads/tx_typo3forum/workflowstatus
 	 * by default) and the extensions' Resources/Public directory as fallback.
 	 *
-	 * @global type $TCA
+	 * @global array $TCA
 	 * @return string The site relative path of this status' icon.
 	 */
 	public function getIconFullpath() {

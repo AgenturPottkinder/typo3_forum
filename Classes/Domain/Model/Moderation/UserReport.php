@@ -73,7 +73,7 @@ class UserReport extends \Mittwald\Typo3Forum\Domain\Model\Moderation\Report {
 
 	/**
 	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user.
-	 * @return voidc.
+	 * @return void
 	 */
 	public function setUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
 		$this->feuser = $user;

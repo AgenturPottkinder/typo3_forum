@@ -1,5 +1,5 @@
 <?php
-namespace Mittwald\Typo3Forum\Domain\Model;
+namespace Mittwald\Typo3Forum\Domain\Model\Format;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *

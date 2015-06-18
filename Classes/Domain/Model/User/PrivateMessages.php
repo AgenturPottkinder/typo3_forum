@@ -44,7 +44,7 @@ class PrivateMessages extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * The creation date of pm
-	 * @var DateTime
+	 * @var \DateTime
 	 */
 	public $crdate;
 
@@ -87,7 +87,7 @@ class PrivateMessages extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * Get the date this message has been sent
-	 * @return DateTime
+	 * @return \DateTime
 	 */
 	public function getCrdate() {
 		return $this->crdate;
@@ -155,10 +155,10 @@ class PrivateMessages extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * Get the date this message has been sent
-	 * @param DateTime $crdate
+	 * @param \DateTime $crdate
 	 * @return void
 	 */
-	public function setCrdate(DateTime $crdate) {
+	public function setCrdate(\DateTime $crdate) {
 		$this->crdate = $crdate;
 	}
 

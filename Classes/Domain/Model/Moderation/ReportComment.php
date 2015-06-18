@@ -76,7 +76,7 @@ class ReportComment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * Creation date of this comment
-	 * @var DateTime
+	 * @var \DateTime
 	 */
 	protected $tstamp;
 
@@ -144,7 +144,7 @@ class ReportComment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * Gets this comment's creation timestamp.
-	 * @return DateTime The timestamp.
+	 * @return \DateTime The timestamp.
 	 */
 	public function getTimestamp() {
 		return $this->tstamp;

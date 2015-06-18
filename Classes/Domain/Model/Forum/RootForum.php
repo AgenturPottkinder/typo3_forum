@@ -38,7 +38,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  * @license    GNU public License, version 2
  *             http://opensource.org/licenses/gpl-license.php
  */
-class \Mittwald\Typo3Forum\Domain\Model\Forum\RootForum extends \Mittwald\Typo3Forum\Domain\Model\Forum\Forum implements \TYPO3\CMS\Core\SingletonInterface {
+class RootForum extends \Mittwald\Typo3Forum\Domain\Model\Forum\Forum implements \TYPO3\CMS\Core\SingletonInterface {
 
 
 

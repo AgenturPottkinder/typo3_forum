@@ -47,14 +47,14 @@ class Tag extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * Timestamp of this tag
-	 * @var DateTime
+	 * @var \DateTime
 	 */
 	protected $tstamp;
 
 
 	/**
 	 * Crdate of this tag
-	 * @var DateTime
+	 * @var \DateTime
 	 */
 	protected $crdate;
 
@@ -99,7 +99,7 @@ class Tag extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * Get the timestamp of this tag
-	 * @return DateTime
+	 * @return \DateTime
 	 */
 	public function getTstamp() {
 		return $this->tstamp;
@@ -108,7 +108,7 @@ class Tag extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * Get the crdate of this tag
-	 * @return DateTime
+	 * @return \DateTime
 	 */
 	public function getCrdate() {
 		return $this->crdate;
@@ -141,7 +141,7 @@ class Tag extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
-	 * @param DateTime $crdate
+	 * @param \DateTime $crdate
 	 */
 	public function setCrdate($crdate) {
 		$this->crdate = $crdate;

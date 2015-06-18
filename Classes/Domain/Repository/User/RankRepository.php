@@ -1,5 +1,5 @@
 <?php
-namespace ExtbaseTeam\BlogExample\Domain\Repository\User;
+namespace Mittwald\Typo3Forum\Domain\Repository\User;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *

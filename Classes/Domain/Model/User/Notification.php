@@ -44,7 +44,7 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * The execution date of the cron
-	 * @var DateTime
+	 * @var \DateTime
 	 */
 	public $crdate;
 
@@ -89,7 +89,7 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * Get the date this message has been sent
-	 * @return DateTime
+	 * @return \DateTime
 	 */
 	public function getCrdate() {
 		return $this->crdate;

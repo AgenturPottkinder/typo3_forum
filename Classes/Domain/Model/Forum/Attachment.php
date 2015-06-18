@@ -80,7 +80,7 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * An instance of the typo3_forum authentication service.
-	 * @var TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
 	 */
 	protected $typoScriptService = NULL;
 

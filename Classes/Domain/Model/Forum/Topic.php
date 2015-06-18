@@ -59,7 +59,7 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * The posts in this topic.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Post>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Post>
 	 * @lazy
 	 */
 	protected $posts;
@@ -84,7 +84,7 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * All users who have subscribed this topic.
 	 *
-	 * @var Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
 	 * @lazy
 	 */
 	protected $subscribers;
@@ -92,7 +92,7 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * All users who have subscribed this topic.
 	 *
-	 * @var Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
 	 * @lazy
 	 */
 	protected $favSubscribers;
@@ -127,7 +127,7 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 * The creation timestamp of the last post. Enables sorting topics
 	 * without a SQL join on the posts table.
 	 *
-	 * @var DateTime
+	 * @var \DateTime
 	 */
 	protected $lastPostCrdate;
 
@@ -162,7 +162,7 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * The topic date.
-	 * @var DateTime
+	 * @var \DateTime
 	 */
 	protected $crdate;
 
@@ -170,7 +170,7 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * All users who have read this topic.
 	 *
-	 * @var Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
 	 * @lazy
 	 */
 	protected $readers;
@@ -200,7 +200,7 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * An instance of the typo3_forum authentication service.
-     * @var TYPO3\CMS\Extbase\Service\TypoScriptService
+     * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
      */
     protected $typoScriptService = NULL;
 
@@ -245,7 +245,7 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 
 	/**
-	 * Constructor. Initializes all Tx_Extbase_Persistence_ObjectStorage instances.
+	 * Constructor. Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage instances.
 	 * @param string $subject The topic's subject.
 	 */
 	public function __construct($subject = '') {
@@ -254,7 +254,7 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		$this->readers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->criteriaOptions = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->tags = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->crdate = new DateTime();
+		$this->crdate = new \DateTime();
 		$this->subject = $subject;
 	}
 
@@ -322,7 +322,7 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * Gets all users who have subscribes to this forum.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
 	 */
 	public function getSubscribers() {
 		return $this->subscribers;
@@ -330,7 +330,7 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * Gets all users who have subscribes to this forum.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
 	 */
 	public function getFavSubscribers() {
 		return $this->favSubscribers;
@@ -352,7 +352,7 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * Gets all posts.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Post> posts
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Post> posts
 	 */
 	public function getPosts() {
 		return $this->posts;
@@ -419,7 +419,7 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * Gets the creation time of this topic.
-	 * @return DateTime
+	 * @return \DateTime
 	 */
 	public function getTimestamp() {
 		return $this->crdate;

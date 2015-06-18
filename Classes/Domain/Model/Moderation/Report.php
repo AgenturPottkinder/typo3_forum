@@ -78,14 +78,14 @@ class Report extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * A set of comments that are assigned to this report.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment>
 	 */
 	protected $comments;
 
 
 	/**
 	 * The creation timestamp of this report.
-	 * @var DateTime
+	 * @var \DateTime
 	 */
 	protected $crdate;
 
@@ -157,7 +157,7 @@ class Report extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * Gets all comments for this report.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment>
 	 *                             All comments for this report.
 	 */
 	public function getComments() {
@@ -178,7 +178,7 @@ class Report extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * Returns the creation time of this report.
-	 * @return DateTime The creation time.
+	 * @return \DateTime The creation time.
 	 */
 	public function getCrdate() {
 		return $this->crdate;

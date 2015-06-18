@@ -89,38 +89,38 @@ $signalSlotDispatcher->connect('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic',
 
 // adding scheduler tasks
 
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_typo3forum_scheduler_notification'] = array(
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['\Mittwald\Typo3Forum\Scheduler\Notification'] = array(
 	'extension'        => $_EXTKEY,
 	'title'            => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_notification_title',
 	'description'      => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_notification_description',
-	'additionalFields' => 'tx_typo3forum_scheduler_notification_additionalFieldProvider'
+	'additionalFields' => '\Mittwald\Typo3Forum\Scheduler\NotificationAdditionalFieldProvider'
 );
 
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_typo3forum_scheduler_statsSummary'] = array(
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['\Mittwald\Typo3Forum\Scheduler\StatsSummary'] = array(
 	'extension'        => $_EXTKEY,
 	'title'            => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_statsSummary_title',
 	'description'      => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_statsSummary_description',
-	'additionalFields' => 'tx_typo3forum_scheduler_statsSummary_additionalFieldProvider'
+	'additionalFields' => '\Mittwald\Typo3Forum\Scheduler\StatsSummaryAdditionalFieldProvider'
 );
 
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_typo3forum_scheduler_counter'] = array(
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['\Mittwald\Typo3Forum\Scheduler\Counter'] = array(
 	'extension'        => $_EXTKEY,
 	'title'            => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_counter_title',
 	'description'      => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_counter_description',
-	'additionalFields' => 'tx_typo3forum_scheduler_counter_additionalFieldProvider'
+	'additionalFields' => '\Mittwald\Typo3Forum\Scheduler\CounterAdditionalFieldProvider'
 );
 
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_typo3forum_scheduler_forumRead'] = array(
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['\Mittwald\Typo3Forum\Scheduler\ForumRead'] = array(
 	'extension'        => $_EXTKEY,
 	'title'            => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_forumRead_title',
 	'description'      => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_forumRead_description',
-	'additionalFields' => 'tx_typo3forum_scheduler_forumRead_additionalFieldProvider'
+	'additionalFields' => '\Mittwald\Typo3Forum\Scheduler\ForumReadAdditionalFieldProvider'
 );
 
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_typo3forum_scheduler_seasonResetter'] = array(
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['\Mittwald\Typo3Forum\Scheduler\SessionResetter'] = array(
 	'extension'        => $_EXTKEY,
 	'title'            => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_seasonResetter_title',
 	'description'      => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_seasonResetter_description',
-	'additionalFields' => 'tx_typo3forum_scheduler_seasonResetter_additionalFieldProvider'
+	'additionalFields' => '\Mittwald\Typo3Forum\Scheduler\SessionResetterAdditionalFieldProvider'
 );
 

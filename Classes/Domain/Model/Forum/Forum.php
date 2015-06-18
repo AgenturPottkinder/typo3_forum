@@ -67,7 +67,7 @@ class Forum extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * The child forums
-	 * @var Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Forum>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Forum>
 	 * @lazy
 	 */
 	protected $children;
@@ -77,7 +77,7 @@ class Forum extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 * The VISIBLE child forums of this forum, i.e. all forums that the
 	 * currently logged in user has read access to.
 	 *
-	 * @var ArrayObject<\Mittwald\Typo3Forum\Domain\Model\Forum\Forum>
+	 * @var \ArrayObject<\Mittwald\Typo3Forum\Domain\Model\Forum\Forum>
 	 * @lazy
 	 */
 	protected $visibleChildren = NULL;
@@ -85,7 +85,7 @@ class Forum extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * The topics in this forum.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Topic>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Topic>
 	 * @lazy
 	 */
 	protected $topics;
@@ -115,7 +115,7 @@ class Forum extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * All access rules.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Access>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Access>
 	 */
 	protected $acls;
 
@@ -145,7 +145,7 @@ class Forum extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * All subscribers of this forum.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
 	 * @lazy
 	 */
 	protected $subscribers;
@@ -154,7 +154,7 @@ class Forum extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * All users who have read this forum.
 	 *
-	 * @var Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
 	 * @lazy
 	 */
 	protected $readers;
@@ -196,7 +196,7 @@ class Forum extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * An instance of the typo3_forum authentication service.
-	 * @var TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
 	 */
 	protected $typoScriptService = NULL;
 
@@ -215,7 +215,7 @@ class Forum extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 
 	/**
-	 * Constructor. Initializes all Tx_Extbase_Persistence_ObjectStorage instances.
+	 * Constructor. Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage instances.
 	 * @param string                               $title  The forum title.
 	 */
 	public function __construct($title = '') {
@@ -308,7 +308,7 @@ class Forum extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 * all child forums, but performs an access check on each forum, so
 	 * that only forums visible to the current user are returned.
 	 *
-	 * @return Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Forum>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Forum>
 	 *                             All visible child forums
 	 */
 	public function getChildren() {
@@ -332,7 +332,7 @@ class Forum extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * Gets all topics.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Topic>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Topic>
 	 *                             All topics in this forum
 	 */
 	public function getTopics() {
@@ -374,7 +374,7 @@ class Forum extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * Gets all access rules.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Access>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Access>
 	 *                             All access rules for this forum.
 	 */
 	public function getAcls() {
@@ -484,7 +484,7 @@ class Forum extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * Gets all users who have subscribed to this forum.
 	 *
-	 * @return Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
 	 *                             All subscribers of this forum.
 	 */
 	public function getSubscribers() {
@@ -768,7 +768,7 @@ class Forum extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * Sets the access rules for this forum.
 	 *
-	 * @param Tx_Extbase_Persistence_ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Access> $acls acls
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Access> $acls acls
 	 * @return void
 	 */
 	public function setAcls(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $acls) {
