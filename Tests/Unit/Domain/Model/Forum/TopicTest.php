@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Tests\Unit\Domain\Model\Forum;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -25,7 +25,7 @@
  *                                                                      */
 
 
-class Tx_Typo3Forum_Domain_Model_Forum_TopicTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
+class TopicTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 
 
 	/**
@@ -35,7 +35,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_TopicTest extends \Mittwald\Typo3Forum\Te
 
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject
+	 * @var \PHPUnit_Framework_MockObject_MockObject
 	 */
 	protected $authenticationServiceMock, $userRepositoryMock, $cacheMock;
 
@@ -52,7 +52,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_TopicTest extends \Mittwald\Typo3Forum\Te
 
 
 	public function testInitialValueOfTimestampIsCurrentDate() {
-		$this->assertEquals(new DateTime(), $this->fixture->getTimestamp());
+		$this->assertEquals(new \DateTime(), $this->fixture->getTimestamp());
 	}
 
 
@@ -142,7 +142,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_TopicTest extends \Mittwald\Typo3Forum\Te
 	 */
 	public function testAddPostRefreshesCounterAndReferencesForLaterPost() {
 		$post = new \Mittwald\Typo3Forum\Domain\Model\Forum\Post('CONTENT_2');
-		$post->_setProperty('crdate', new DateTime('tomorrow'));
+		$post->_setProperty('crdate', new \DateTime('tomorrow'));
 		$this->testAddPostRefreshesCounterAndReferencesForFirstPost();
 		$this->fixture->addPost($post);
 		$this->assertEquals(2, $this->fixture->getPostCount());
@@ -182,7 +182,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_TopicTest extends \Mittwald\Typo3Forum\Te
 	 */
 	public function testRemovePostRemovesNonlastPost() {
 		$post2 = new \Mittwald\Typo3Forum\Domain\Model\Forum\Post('CONTENT');
-		$post2->_setProperty('crdate', new DateTime('tomorrow'));
+		$post2->_setProperty('crdate', new \DateTime('tomorrow'));
 		$this->fixture->addPost($post1 = new \Mittwald\Typo3Forum\Domain\Model\Forum\Post('CONTENT'));
 		$this->fixture->addPost($post2);
 		$this->fixture->removePost($post2);
@@ -198,7 +198,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_TopicTest extends \Mittwald\Typo3Forum\Te
 	public function testRemovePostRefreshesForumPostCounterAndReference() {
 		$forum = new \Mittwald\Typo3Forum\Domain\Model\Forum\Forum();
 		$post2 = new \Mittwald\Typo3Forum\Domain\Model\Forum\Post('CONTENT');
-		$post2->_setProperty('crdate', new DateTime('tomorrow'));
+		$post2->_setProperty('crdate', new \DateTime('tomorrow'));
 
 		$this->fixture->addPost($post1 = new \Mittwald\Typo3Forum\Domain\Model\Forum\Post('CONTENT'));
 		$forum->addTopic($this->fixture);

@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Tests\Unit\Domain\Model\Forum;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -26,7 +26,7 @@
 
 
 
-class Tx_Typo3Forum_Domain_Model_Forum_ForumTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
+class ForumTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 
 
 
@@ -37,7 +37,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_ForumTest extends \Mittwald\Typo3Forum\Te
 
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject
+	 * @var \PHPUnit_Framework_MockObject_MockObject
 	 */
 	protected $authenticationServiceMock, $userRepositoryMock, $cacheMock;
 
@@ -290,7 +290,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_ForumTest extends \Mittwald\Typo3Forum\Te
 		$this->testAddTopicRefreshesCountersAndReferencesOnFirstTopic();
 
 		$post3 = new \Mittwald\Typo3Forum\Domain\Model\Forum\Post('CONTENT 3');
-		$post3->_setProperty('crdate', new DateTime('now + 2 days'));
+		$post3->_setProperty('crdate', new \DateTime('now + 2 days'));
 		$topic = new \Mittwald\Typo3Forum\Domain\Model\Forum\Topic('TOPIC_2');
 		$topic->addPost($post3);
 

@@ -1,4 +1,5 @@
 <?php
+namespace Mittwald\Typo3Forum\Tests\Unit\Domain\Model\Forum;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -23,7 +24,7 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-class Tx_Typo3Forum_Domain_Model_Forum_CriteriaTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
+class CriteriaTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 
 
 	/**

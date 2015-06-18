@@ -106,9 +106,9 @@ class UserControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abst
 
 	public function getActionsThatRequireALoggedInUser() {
 		return array(array('subscribeAction',
-		                   $this->getMockParametersForActionMethod(new ReflectionMethod($this->fixtureClassName, 'subscribeAction'))),
+		                   $this->getMockParametersForActionMethod(new \ReflectionMethod($this->fixtureClassName, 'subscribeAction'))),
 		             array('listSubscriptionsAction',
-		                   $this->getMockParametersForActionMethod(new ReflectionMethod($this->fixtureClassName, 'listSubscriptionsAction'))));
+		                   $this->getMockParametersForActionMethod(new \ReflectionMethod($this->fixtureClassName, 'listSubscriptionsAction'))));
 	}
 
 

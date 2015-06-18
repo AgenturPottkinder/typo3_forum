@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Tests\Unit\Domain\Model\Moderation;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -26,7 +26,7 @@
 
 
 
-class Tx_Typo3Forum_Domain_Model_Moderation_ReportCommentTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
+class ReportCommentTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 
 
 

@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Tests\Unit\Domain\Factory\Forum;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -25,7 +25,7 @@
  *                                                                      */
 
 
-class Tx_Typo3Forum_Domain_Factory_Forum_PostFactoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class PostFactoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 
 
@@ -36,7 +36,7 @@ class Tx_Typo3Forum_Domain_Factory_Forum_PostFactoryTest extends \TYPO3\CMS\Core
 
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject
+	 * @var \PHPUnit_Framework_MockObject_MockObject
 	 */
 	protected $userRepositoryMock;
 
@@ -45,7 +45,7 @@ class Tx_Typo3Forum_Domain_Factory_Forum_PostFactoryTest extends \TYPO3\CMS\Core
 	public function setUp() {
 		$this->userRepositoryMock = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository');
 
-		$this->fixture = new Tx_Typo3Forum_Domain_Factory_Forum_PostFactory();
+		$this->fixture = new \Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory();
 		$this->fixture->injectObjectManager($this->objectManager);
 		$this->fixture->injectFrontendUserRepository($this->userRepositoryMock);
 	}
@@ -87,7 +87,7 @@ class Tx_Typo3Forum_Domain_Factory_Forum_PostFactoryTest extends \TYPO3\CMS\Core
 		$user = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser');
 		$user->expects($this->once())->method('increasePostCount');
 		$this->userRepositoryMock->expects($this->once())->method('update')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'));
+			->with(new \PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'));
 
 		$this->fixture->assignUserToPost($post, $user);
 
@@ -105,7 +105,7 @@ class Tx_Typo3Forum_Domain_Factory_Forum_PostFactoryTest extends \TYPO3\CMS\Core
 		$user->expects($this->once())->method('increasePostCount');
 		$this->userRepositoryMock->expects($this->any())->method('findCurrent')->will($this->returnValue($user));
 		$this->userRepositoryMock->expects($this->once())->method('update')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'));
+			->with(new \PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'));
 
 		$this->fixture->assignUserToPost($post);
 
@@ -151,7 +151,7 @@ class Tx_Typo3Forum_Domain_Factory_Forum_PostFactoryTest extends \TYPO3\CMS\Core
 		$post->setAuthor($oldUser);
 
 		$this->userRepositoryMock->expects($this->exactly(2))->method('update')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'));
+			->with(new \PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'));
 
 		$this->fixture->assignUserToPost($post, $newUser);
 
@@ -172,7 +172,7 @@ class Tx_Typo3Forum_Domain_Factory_Forum_PostFactoryTest extends \TYPO3\CMS\Core
 
 		$topicFactory = $this->getMock('\Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory', array(), array(), '', FALSE);
 		$topicFactory->expects($this->once())->method('deleteTopic')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
+			->with(new \PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
 		$this->fixture->injectTopicFactory($topicFactory);
 		$this->fixture->deletePost($post);
 	}
@@ -186,7 +186,7 @@ class Tx_Typo3Forum_Domain_Factory_Forum_PostFactoryTest extends \TYPO3\CMS\Core
 		$topic = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
 		$topic->expects($this->any())->method('getPostCount')->will($this->returnValue(3));
 		$topic->expects($this->once())->method('removePost')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
+			->with(new \PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
 		$user = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser');
 		$user->expects($this->once())->method('decreasePostCount');
 
@@ -196,9 +196,9 @@ class Tx_Typo3Forum_Domain_Factory_Forum_PostFactoryTest extends \TYPO3\CMS\Core
 
 		$topicRepository = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository');
 		$topicRepository->expects($this->once())->method('update')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
+			->with(new \PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
 		$this->userRepositoryMock->expects($this->once())->method('update')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'));
+			->with(new \PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'));
 
 		$this->fixture->injectTopicRepository($topicRepository);
 		$this->fixture->deletePost($post);

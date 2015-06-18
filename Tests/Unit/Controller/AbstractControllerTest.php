@@ -47,7 +47,7 @@ abstract class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
 
 	/**
-	 * @var Tx_Typo3Forum_View_ViewMock
+	 * @var \Mittwald\Typo3Forum\Tests\Unit\View\ViewMock
 	 */
 	protected $viewMock;
 
@@ -84,7 +84,7 @@ abstract class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 		                                                                                    $this->getMock('Mittwald\\TYPO3Forum\\Cache\\Cache')));
 
 		#$this->viewMock                  = $this->getMockForAbstractClass('Tx_Extbase_MVC_View_AbstractView');
-		$this->viewMock                  = new Tx_Typo3Forum_View_ViewMock();
+		$this->viewMock                  = new \Mittwald\Typo3Forum\Tests\Unit\View\ViewMock();
 		$this->flashMessageContainerMock = $this->getMock('Tx_Extbase_MVC_Controller_FlashMessages');
 		$this->requestMock               = $this->getMock('Tx_Extbase_MVC_Web_Request');
 		$this->requestMock->expects($this->any())->method('getFormat')->will($this->returnValue('html'));

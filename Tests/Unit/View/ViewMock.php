@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Tests\Unit\View;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -25,7 +25,7 @@
 
 
 
-class Tx_Typo3Forum_View_ViewMock implements \TYPO3\CMS\Extbase\Mvc\View\ViewInterface {
+class ViewMock implements \TYPO3\CMS\Extbase\Mvc\View\ViewInterface {
 
 
 

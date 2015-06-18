@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Tests\Unit\Service\Notification;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -25,7 +25,7 @@
  *                                                                      */
 
 
-class Tx_Typo3Forum_Service_Notification_SubscriptionListenerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class SubscriptionListenerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 
 
@@ -36,7 +36,7 @@ class Tx_Typo3Forum_Service_Notification_SubscriptionListenerTest extends \TYPO3
 
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject
+	 * @var \PHPUnit_Framework_MockObject_MockObject
 	 */
 	protected $notificationServiceMock = NULL;
 
@@ -63,8 +63,8 @@ class Tx_Typo3Forum_Service_Notification_SubscriptionListenerTest extends \TYPO3
 		$forum->addTopic($topic);
 
 		$this->notificationServiceMock->expects($this->once())->method('notifySubscribers')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum'),
-			new PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
+			->with(new \PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum'),
+			new \PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
 		$this->fixture->onTopicCreated($topic);
 	}
 
@@ -82,8 +82,8 @@ class Tx_Typo3Forum_Service_Notification_SubscriptionListenerTest extends \TYPO3
 		$forum->addTopic($topic);
 
 		$this->notificationServiceMock->expects($this->once())->method('notifySubscribers')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'),
-			new PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
+			->with(new \PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'),
+			new \PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
 		$this->fixture->onPostCreated($post);
 	}
 

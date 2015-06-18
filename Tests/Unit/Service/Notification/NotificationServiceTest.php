@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Tests\Unit\Service\Notification;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -25,7 +25,7 @@
  *                                                                      */
 
 
-class Tx_Typo3Forum_Service_Notification_NotificationServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class NotificationServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 
 
@@ -36,7 +36,7 @@ class Tx_Typo3Forum_Service_Notification_NotificationServiceTest extends \TYPO3\
 
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject
+	 * @var \PHPUnit_Framework_MockObject_MockObject
 	 */
 	protected $mailingServiceMock = NULL;
 
@@ -58,7 +58,7 @@ class Tx_Typo3Forum_Service_Notification_NotificationServiceTest extends \TYPO3\
 		// Add mock function.
 		$this->mailingServiceMock->expects($this->any())->method('getFormat')->will($this->returnValue($format));
 		$this->mailingServiceMock->expects($this->exactly(5))->method('sendMail')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'));
+			->with(new \PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'));
 
 		$post  = new \Mittwald\Typo3Forum\Domain\Model\Forum\Post('Post 1');
 		$topic = new \Mittwald\Typo3Forum\Domain\Model\Forum\Topic('Topic');

@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Tests\Unit\Domain\Model\Forum;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -26,7 +26,7 @@
 
 
 
-class Tx_Typo3Forum_Domain_Model_Forum_PostTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
+class PostTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 
 
 
@@ -44,7 +44,7 @@ class Tx_Typo3Forum_Domain_Model_Forum_PostTest extends \Mittwald\Typo3Forum\Tes
 
 
 	public function testTimestampIsInitiallyCurrentDate() {
-		$this->assertEquals(new DateTime(), $this->fixture->getTimestamp());
+		$this->assertEquals(new \DateTime(), $this->fixture->getTimestamp());
 	}
 
 

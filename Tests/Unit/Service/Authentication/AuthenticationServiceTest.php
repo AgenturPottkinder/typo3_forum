@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Tests\Unit\Service\Authentication;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -25,7 +25,7 @@
  *                                                                      */
 
 
-class Tx_Typo3Forum_Service_Authentication_AuthenticationServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class AuthenticationServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 
 
@@ -54,7 +54,7 @@ class Tx_Typo3Forum_Service_Authentication_AuthenticationServiceTest extends \TY
 
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject
+	 * @var \PHPUnit_Framework_MockObject_MockObject
 	 */
 	protected $userRepositoryMock;
 

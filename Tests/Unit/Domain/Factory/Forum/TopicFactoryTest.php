@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Tests\Unit\Domain\Factory\Forum;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -35,7 +35,7 @@ class TopicFactoryTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject
+	 * @var \PHPUnit_Framework_MockObject_MockObject
 	 */
 	protected $userRepositoryMock, $forumRepositoryMock, $topicRepositoryMock, $postRepositoryMock, $postFactoryMock, $criteriaRepositoryMock;
 
@@ -146,14 +146,14 @@ class TopicFactoryTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 		$topic->setForum($sourceForum);
 
 		$sourceForum->expects($this->once())->method('removeTopic')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
+			->with(new \PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
 		$sourceForum->expects($this->once())->method('addTopic')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\ShadowTopic'));
+			->with(new \PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\ShadowTopic'));
 		$targetForum->expects($this->once())->method('addTopic')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
+			->with(new \PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
 
 		$this->forumRepositoryMock->expects($this->exactly(2))->method('update')
-			->with(new PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum'));
+			->with(new \PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum'));
 
 		$this->fixture->moveTopic($topic, $targetForum);
 	}
@@ -161,7 +161,7 @@ class TopicFactoryTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 
 	/**
 	 * @test
-	 * @expectedException Tx_Extbase_Object_InvalidClass
+	 * @expectedException \TYPO3\CMS\Extbase\Object\InvalidClassException
 	 */
 	public function shadowTopicCannotBeMoved() {
 		$shadowTopic = new \Mittwald\Typo3Forum\Domain\Model\Forum\ShadowTopic();

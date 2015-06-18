@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Tests\Unit\Domain\Model\Format;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -26,7 +26,7 @@
 
 
 
-class Tx_Typo3Forum_Domain_Model_Format_BBCodeTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
+class BBCodeTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 
 
 
