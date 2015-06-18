@@ -43,8 +43,8 @@ class NotificationServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 
 	public function setUp() {
-		$this->mailingServiceMock = $this->getMock('\Mittwald\Typo3Forum\Service\Mailing\PlainMailingService');
-		$this->fixture            = new \Mittwald\Typo3Forum\Service\Notification\NotificationService($this->mailingServiceMock);
+		$this->mailingServiceMock = $this->getMock('Mittwald\Typo3Forum\Service\Mailing\PlainMailingService');
+		$this->fixture            = new \Mittwald\Typo3Forum\Service\Notification\NotificationService($this->mailingServiceMock,$this->uriBuilderMock);
 	}
 
 
@@ -58,7 +58,7 @@ class NotificationServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		// Add mock function.
 		$this->mailingServiceMock->expects($this->any())->method('getFormat')->will($this->returnValue($format));
 		$this->mailingServiceMock->expects($this->exactly(5))->method('sendMail')
-			->with(new \PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'));
+			->with(new \PHPUnit_Framework_Constraint_IsInstanceOf('Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'));
 
 		$post  = new \Mittwald\Typo3Forum\Domain\Model\Forum\Post('Post 1');
 		$topic = new \Mittwald\Typo3Forum\Domain\Model\Forum\Topic('Topic');

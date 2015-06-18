@@ -43,7 +43,7 @@ class SubscriptionListenerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 
 	public function setUp() {
-		$this->notificationServiceMock = $this->getMock('\Mittwald\Typo3Forum\Service\Notification\NotificationService', array(),
+		$this->notificationServiceMock = $this->getMock('Mittwald\Typo3Forum\Service\Notification\NotificationService', array(),
 			array(), '', FALSE);
 		$this->fixture                 = new \Mittwald\Typo3Forum\Service\Notification\SubscriptionListener($this->mailingServiceMock);
 		$this->fixture->injectNotificationService($this->notificationServiceMock);
@@ -63,8 +63,8 @@ class SubscriptionListenerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$forum->addTopic($topic);
 
 		$this->notificationServiceMock->expects($this->once())->method('notifySubscribers')
-			->with(new \PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum'),
-			new \PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
+			->with(new \PHPUnit_Framework_Constraint_IsInstanceOf('Mittwald\Typo3Forum\Domain\Model\Forum\Forum'),
+			new \PHPUnit_Framework_Constraint_IsInstanceOf('Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
 		$this->fixture->onTopicCreated($topic);
 	}
 
@@ -82,8 +82,8 @@ class SubscriptionListenerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$forum->addTopic($topic);
 
 		$this->notificationServiceMock->expects($this->once())->method('notifySubscribers')
-			->with(new \PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'),
-			new \PHPUnit_Framework_Constraint_IsInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
+			->with(new \PHPUnit_Framework_Constraint_IsInstanceOf('Mittwald\Typo3Forum\Domain\Model\Forum\Topic'),
+			new \PHPUnit_Framework_Constraint_IsInstanceOf('Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
 		$this->fixture->onPostCreated($post);
 	}
 

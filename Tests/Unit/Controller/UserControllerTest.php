@@ -140,10 +140,10 @@ class UserControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abst
 
 
 //	public function getActionMethodsThatNotifySignalSlotDispatcher() {
-//		return array(array('createAction', 'postCreated', array($this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'),
-//		                                                        $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'))),
-//		             array('updateAction', 'postUpdated', array($this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'))),
-//		             array('deleteAction', 'postDeleted', array($this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'))));
+//		return array(array('createAction', 'postCreated', array($this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Topic'),
+//		                                                        $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post'))),
+//		             array('updateAction', 'postUpdated', array($this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post'))),
+//		             array('deleteAction', 'postDeleted', array($this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post'))));
 //	}
 
 

@@ -213,11 +213,13 @@ class Access extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
 		}
 
 		if ($this->loginLevel === self::LOGIN_LEVEL_SPECIFIC) {
-			foreach($user->getUsergroup() as $group) {
-				/** @var $group \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup */
-				if ($group->getUid() === $this->affectedGroup->getUid()) {
-					$result = TRUE;
-					break;
+			if (!is_null($user)) {
+				foreach ($user->getUsergroup() as $group) {
+					/** @var $group \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup */
+					if ($group->getUid() === $this->affectedGroup->getUid()) {
+						$result = TRUE;
+						break;
+					}
 				}
 			}
 		}

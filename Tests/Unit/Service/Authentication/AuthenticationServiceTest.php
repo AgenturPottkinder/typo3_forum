@@ -64,15 +64,15 @@ class AuthenticationServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->group = new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup('Users');
 		$this->user = new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser('martin', 'secret');
 		$this->user->addUsergroup($this->group);
-		$this->forum = $this->objectManager->create('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum', 'Forum', NULL);
+		$this->forum = $this->objectManager->create('Mittwald\Typo3Forum\Domain\Model\Forum\Forum', 'Forum', NULL);
 
-		$this->userRepositoryMock = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository');
+		$this->userRepositoryMock = $this->getMock('Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository');
 		$this->userRepositoryMock
 			->expects($this->any())
 			->method('findCurrent')
 			->will($this->returnValue($this->user));
 
-		$cacheMock = $this->getMock('Mittwald\\TYPO3Forum\\Cache\\Cache');
+		$cacheMock = $this->getMock('Mittwald\TYPO3Forum\Cache\Cache');
 		$cacheMock
 			->expects($this->any())
 			->method('has')

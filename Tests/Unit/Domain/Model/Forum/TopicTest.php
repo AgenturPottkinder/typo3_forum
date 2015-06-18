@@ -47,7 +47,7 @@ class TopicTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 
 
 	public function setUp() {
-		$this->fixture = $this->objectManager->create('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
+		$this->fixture = $this->objectManager->create('Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
 	}
 
 
