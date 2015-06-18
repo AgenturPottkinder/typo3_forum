@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Tests\Unit;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -25,18 +25,18 @@
 
 
 
-abstract class Tx_Typo3Forum_Unit_BaseTestCase extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+abstract class BaseTestCase extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 
 
 	protected function isInstance($class) {
-		return new PHPUnit_Framework_Constraint_IsInstanceOf($class);
+		return new \PHPUnit_Framework_Constraint_IsInstanceOf($class);
 	}
 
 
 
 	protected function isIdentical($object) {
-		return new PHPUnit_Framework_Constraint_IsInstanceOf(get_class($object));
+		return new \PHPUnit_Framework_Constraint_IsInstanceOf(get_class($object));
 	}
 
 }

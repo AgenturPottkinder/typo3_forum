@@ -26,7 +26,7 @@
 
 
 
-class Tx_Typo3Forum_Domain_Model_Forum_ForumTest extends Tx_Typo3Forum_Unit_BaseTestCase {
+class Tx_Typo3Forum_Domain_Model_Forum_ForumTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 
 
 

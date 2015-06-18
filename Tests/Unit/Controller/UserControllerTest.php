@@ -1,4 +1,5 @@
 <?php
+namespace Mittwald\Typo3Forum\Tests\Unit\Controller;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -23,7 +24,7 @@
  *                                                                      */
 
 
-class Tx_Typo3Forum_Controller_UserControllerTest extends Tx_Typo3Forum_Controller_AbstractControllerTest {
+class UserControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\AbstractControllerTest {
 
 
 
@@ -40,7 +41,7 @@ class Tx_Typo3Forum_Controller_UserControllerTest extends Tx_Typo3Forum_Controll
 
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject
+	 * @var \PHPUnit_Framework_MockObject_MockObject
 	 */
 	protected $topicRepositoryMock, $userfieldRepositoryMock, $forumRepositoryMock, $userMock;
 

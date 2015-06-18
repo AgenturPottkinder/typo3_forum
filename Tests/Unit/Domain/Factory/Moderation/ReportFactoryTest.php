@@ -25,7 +25,7 @@
  *                                                                      */
 
 
-class \Mittwald\Typo3Forum\Domain\Factory\Moderation\ReportFactoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class ReportFactoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 
 

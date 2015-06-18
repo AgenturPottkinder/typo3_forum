@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Tests\Unit\Controller;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -24,7 +24,7 @@
  *                                                                      */
 
 
-class Tx_Typo3Forum_Controller_ForumControllerTest extends Tx_Typo3Forum_Controller_AbstractControllerTest {
+class ForumControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\AbstractControllerTest {
 
 
 
@@ -35,19 +35,19 @@ class Tx_Typo3Forum_Controller_ForumControllerTest extends Tx_Typo3Forum_Control
 
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject|\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
+	 * @var \PHPUnit_Framework_MockObject_MockObject|\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
 	 */
 	public $forumRepositoryMock;
 
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject|\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
+	 * @var \PHPUnit_Framework_MockObject_MockObject|\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
 	 */
 	public $topicRepositoryMock;
 
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject|\Mittwald\Typo3Forum\Domain\Model\Forum\RootForum
+	 * @var \PHPUnit_Framework_MockObject_MockObject|\Mittwald\Typo3Forum\Domain\Model\Forum\RootForum
 	 */
 	protected $rootForumMock;
 

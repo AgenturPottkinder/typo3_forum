@@ -23,7 +23,7 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-class Tx_Typo3Forum_Domain_Model_Forum_CriteriaTest extends Tx_Typo3Forum_Unit_BaseTestCase {
+class Tx_Typo3Forum_Domain_Model_Forum_CriteriaTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 
 
 	/**

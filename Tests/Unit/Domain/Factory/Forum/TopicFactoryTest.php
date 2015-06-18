@@ -25,7 +25,7 @@
  *                                                                      */
 
 
-class TopicFactoryTest extends Tx_Typo3Forum_Unit_BaseTestCase {
+class TopicFactoryTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 
 
 	/**

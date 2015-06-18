@@ -25,7 +25,7 @@
  *                                                                      */
 
 
-class Tx_Typo3Forum_Service_Authentication_AuthenticationServiceTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+class Tx_Typo3Forum_Service_Authentication_AuthenticationServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 
 

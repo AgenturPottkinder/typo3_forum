@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Tests\Unit\Controller;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -24,7 +24,7 @@
  *                                                                      */
 
 
-abstract class Tx_Typo3Forum_Controller_AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+abstract class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 
 
@@ -35,13 +35,13 @@ abstract class Tx_Typo3Forum_Controller_AbstractControllerTest extends \TYPO3\CM
 
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject|\Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
+	 * @var \PHPUnit_Framework_MockObject_MockObject|\Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
 	 */
 	protected $authenticationServiceMock;
 
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject|\Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
+	 * @var \PHPUnit_Framework_MockObject_MockObject|\Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
 	 */
 	protected $userRepositoryMock;
 
@@ -53,19 +53,19 @@ abstract class Tx_Typo3Forum_Controller_AbstractControllerTest extends \TYPO3\CM
 
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject|Tx_Extbase_MVC_Controller_FlashMessages
+	 * @var \PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Extbase\Mvc\Controller\FlashMessageContainer
 	 */
 	protected $flashMessageContainerMock;
 
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject|Tx_Extbase_MVC_Web_Request
+	 * @var \PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Extbase\Mvc\Web\Request
 	 */
 	protected $requestMock;
 
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject|Tx_Extbase_SignalSlot_Dispatcher
+	 * @var \PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Extbase\SignalSlot\Dispatcher
 	 */
 	protected $signalSlotDispatcherMock;
 
@@ -105,11 +105,11 @@ abstract class Tx_Typo3Forum_Controller_AbstractControllerTest extends \TYPO3\CM
 
 
 	public function getAllControllerActionsWithMockParameters() {
-		$reflectionClass = new ReflectionClass($this->fixtureClassName);
+		$reflectionClass = new \ReflectionClass($this->fixtureClassName);
 		$data            = array();
 
-		foreach ($reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC) as $method) {
-			/** @var $method ReflectionMethod */
+		foreach ($reflectionClass->getMethods(\ReflectionMethod::IS_PUBLIC) as $method) {
+			/** @var $method \ReflectionMethod */
 			if (substr($method->getName(), -6) !== 'Action') {
 				continue;
 			}
@@ -122,10 +122,10 @@ abstract class Tx_Typo3Forum_Controller_AbstractControllerTest extends \TYPO3\CM
 
 
 
-	protected function getMockParametersForActionMethod(ReflectionMethod $method) {
+	protected function getMockParametersForActionMethod(\ReflectionMethod $method) {
 		$parameters = array();
 		foreach ($method->getParameters() as $parameter) {
-			/** @var $parameter ReflectionParameter */
+			/** @var $parameter \ReflectionParameter */
 			if ($parameter->getClass() !== NULL) {
 				if ($parameter->getClass()->getName() === '\Mittwald\Typo3Forum\Domain\Model\Forum\Forum') {
 					$forum = new \Mittwald\Typo3Forum\Domain\Model\Forum\Forum();
@@ -196,7 +196,7 @@ abstract class Tx_Typo3Forum_Controller_AbstractControllerTest extends \TYPO3\CM
 		$result = array();
 		foreach ($this->getModifyingActions() as $modifyingAction) {
 			$result[] = array($modifyingAction,
-			                  $this->getMockParametersForActionMethod(new ReflectionMethod($this->fixtureClassName, $modifyingAction)));
+			                  $this->getMockParametersForActionMethod(new \ReflectionMethod($this->fixtureClassName, $modifyingAction)));
 		}
 		return $result;
 	}
