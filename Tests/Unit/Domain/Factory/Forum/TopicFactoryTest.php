@@ -45,7 +45,7 @@ class TopicFactoryTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 		$this->forumRepositoryMock = $this->getMock('Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository');
 		$this->topicRepositoryMock = $this->getMock('Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository');
 		$this->postRepositoryMock = $this->getMock('Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository');
-		$this->postFactoryMock = $this->getMock('Tx_Typo3Forum_Domain_Factory_Forum_PostFactory');
+		$this->postFactoryMock = $this->getMock('Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory');
 		$this->criteriaRepositoryMock = $this->getMock('Mittwald\Typo3Forum\Domain\Repository\Forum\CriteriaOptionRepository');
 
 

@@ -54,7 +54,7 @@ class TopicControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abs
 		$this->postRepositoryMock		= $this->getMock('Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository');
 		$this->topicFactoryMock			= $this->getMock('Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory', array(), array(),
 														'', FALSE);
-		$this->postFactoryMock			= $this->getMock('Tx_Typo3Forum_Domain_Factory_Forum_PostFactory', array(), array(), '',
+		$this->postFactoryMock			= $this->getMock('Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory', array(), array(), '',
 														FALSE);
 		$this->criteraRepositoryMock	= $this->getMock('Mittwald\Typo3Forum\Domain\Repository\Forum\CriteriaRepository');
 		$this->sessionHandlingMock		= $this->getMock('Mittwald\Typo3Forum\Service\SessionHandlingService');

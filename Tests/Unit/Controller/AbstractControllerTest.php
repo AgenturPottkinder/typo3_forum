@@ -81,14 +81,14 @@ abstract class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 		$this->userRepositoryMock        = $this->getMock('Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository');
 		$this->authenticationServiceMock = $this->getMock('Mittwald\Typo3Forum\Service\Authentication\AuthenticationService',
 		                                                  array('checkAuthorization'), array($this->userRepositoryMock,
-		                                                                                    $this->getMock('Mittwald\\TYPO3Forum\\Cache\\Cache')));
+		                                                                                    $this->getMock('Mittwald\TYPO3Forum\Cache\Cache')));
 
 		#$this->viewMock                  = $this->getMockForAbstractClass('TYPO3\CMS\Extbase\Mvc\View\AbstractView');
 		$this->viewMock                  = new \Mittwald\Typo3Forum\Tests\Unit\View\ViewMock();
 		$this->flashMessageContainerMock = $this->getMock('TYPO3\CMS\Extbase\Mvc\Controller\FlashMessageContainer');
-		$this->requestMock               = $this->getMock('Tx_Extbase_MVC_Web_Request');
+		$this->requestMock               = $this->getMock('TYPO3\CMS\Extbase\Mvc\Web\Request');
 		$this->requestMock->expects($this->any())->method('getFormat')->will($this->returnValue('html'));
-		$this->signalSlotDispatcherMock = $this->getMock('Tx_Extbase_SignalSlot_Dispatcher');
+		$this->signalSlotDispatcherMock = $this->getMock('TYPO3\CMS\Extbase\SignalSlot\Dispatcher');
 
 		$this->fixture = $this->getAccessibleMock($className, array('redirect', 'clearCacheForCurrentPage'),
 		                                          $constructorArguments);
