@@ -83,7 +83,7 @@ abstract class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 		                                                  array('checkAuthorization'), array($this->userRepositoryMock,
 		                                                                                    $this->getMock('Mittwald\\TYPO3Forum\\Cache\\Cache')));
 
-		#$this->viewMock                  = $this->getMockForAbstractClass('Tx_Extbase_MVC_View_AbstractView');
+		#$this->viewMock                  = $this->getMockForAbstractClass('TYPO3\CMS\Extbase\Mvc\View\AbstractView');
 		$this->viewMock                  = new \Mittwald\Typo3Forum\Tests\Unit\View\ViewMock();
 		$this->flashMessageContainerMock = $this->getMock('TYPO3\CMS\Extbase\Mvc\Controller\FlashMessageContainer');
 		$this->requestMock               = $this->getMock('Tx_Extbase_MVC_Web_Request');
@@ -148,7 +148,7 @@ abstract class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
 	protected function buildForumMockList() {
 		$list = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$list->attach($this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum'));
+		$list->attach($this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Forum'));
 		return $list;
 	}
 
@@ -156,7 +156,7 @@ abstract class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
 	protected function buildTopicMockList() {
 		$list = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$list->attach($this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
+		$list->attach($this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
 		return $list;
 	}
 
@@ -164,7 +164,7 @@ abstract class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
 	protected function buildPostMockList() {
 		$list = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$list->attach($this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
+		$list->attach($this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
 		return $list;
 	}
 

@@ -48,10 +48,10 @@ class UserControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abst
 
 
 	public function setUp() {
-		$this->topicRepositoryMock     = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository');
-		$this->forumRepositoryMock     = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository');
-		$this->userfieldRepositoryMock = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\User\UserfieldRepository');
-		$this->userMock                = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser');
+		$this->topicRepositoryMock     = $this->getMock('Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository');
+		$this->forumRepositoryMock     = $this->getMock('Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository');
+		$this->userfieldRepositoryMock = $this->getMock('Mittwald\Typo3Forum\Domain\Repository\User\UserfieldRepository');
+		$this->userMock                = $this->getMock('Mittwald\Typo3Forum\Domain\Model\User\FrontendUser');
 
 		$this->buildFixture($this->fixtureClassName, array($this->forumRepositoryMock, $this->topicRepositoryMock,
 		                                                  $this->userfieldRepositoryMock));

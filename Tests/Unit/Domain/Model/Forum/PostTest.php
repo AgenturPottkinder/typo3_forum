@@ -121,7 +121,7 @@ class PostTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 
 
 	public function testGetAuthorReturnsAnonymousUserIfNoAuthorIsSet() {
-		$this->assertInstanceOf('\Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser', $this->fixture->getAuthor());
+		$this->assertInstanceOf('Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser', $this->fixture->getAuthor());
 	}
 
 
@@ -163,16 +163,16 @@ class PostTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 	                                                                                                 $moderator,
 	                                                                                                 $expectedOutcome) {
 		// Grant moderation access.
-		$forum = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
+		$forum = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
 		$forum->expects($this->any())->method('checkModerationAccess')->will($this->returnValue($moderator));
-		$topic = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
+		$topic = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
 		// $this->topic->getLastPost() will return another post than $this!
 		$topic->expects($this->any())->method('getLastPost')
 			->will($this->returnValue($lastPost ? $this->fixture : new \Mittwald\Typo3Forum\Domain\Model\Forum\Post()));
 		// Grant delete post access (should fail anyway)
 		if (!$moderator) {
 			$topic->expects($this->any())->method('checkAccess')
-				->with(self::isInstanceOf('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'), $operation)
+				->with(self::isInstanceOf('Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'), $operation)
 				->will($this->returnValue(TRUE));
 		}
 		$topic->expects($this->any())->method('getForum')->will($this->returnValue($forum));
@@ -197,14 +197,14 @@ class PostTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 	                                                                                                    $user,
 	                                                                                                    $moderator,
 	                                                                                                    $expectedOutcome) {
-		$forum = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
+		$forum = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
 		$forum->expects($this->any())->method('checkModerationAccess')->will($this->returnValue($moderator));
 
-		$topic = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
+		$topic = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
 		$topic->expects($this->any())->method('getLastPost')->will($this->returnValue($this->fixture));
 		if (!$moderator) {
 			$topic->expects($this->any())->method('checkAccess')
-				->with(self::isInstanceOf('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'), $operation)
+				->with(self::isInstanceOf('Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'), $operation)
 				->will($this->returnValue(TRUE));
 		}
 		$topic->expects($this->any())->method('getForum')->will($this->returnValue($forum));
@@ -248,9 +248,9 @@ class PostTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 	 */
 	public function testDelegatesOtherAccessChecksToParentTopic($operation) {
 		$user  = new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser('martin');
-		$topic = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
+		$topic = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
 		$topic->expects($this->atLeastOnce())->method('checkAccess')
-			->with(self::isInstanceOf('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'), $operation)
+			->with(self::isInstanceOf('Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'), $operation)
 			->will($this->returnValue(TRUE));
 		$this->fixture->setTopic($topic);
 		$this->assertTrue($this->fixture->checkAccess($user, $operation));

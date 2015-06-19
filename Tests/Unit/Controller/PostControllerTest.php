@@ -48,9 +48,9 @@ class PostControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abst
 
 
 	public function setUp() {
-		$this->forumRepositoryMock = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository');
-		$this->topicRepositoryMock = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository');
-		$this->postRepositoryMock  = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository');
+		$this->forumRepositoryMock = $this->getMock('Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository');
+		$this->topicRepositoryMock = $this->getMock('Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository');
+		$this->postRepositoryMock  = $this->getMock('Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository');
 		$this->postFactoryMock     = $this->getMock('Tx_Typo3Forum_Domain_Factory_Forum_PostFactory', array(), array(), '',
 		                                            FALSE);
 		$this->buildFixture('Mittwald\Typo3Forum\Controller\PostController',
@@ -79,15 +79,15 @@ class PostControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abst
 
 	public function testShowActionRedirectsToTopicController() {
 		$this->fixture->expects($this->once())->method('redirect')->with('show', 'Topic');
-		$this->fixture->showAction($this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
+		$this->fixture->showAction($this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
 	}
 
 
 
 	public function testNewActionWithoutPostAndWithoutQuoteCreatesEmptyPost() {
 		$this->postFactoryMock->expects($this->once())->method('createEmptyPost')
-			->will($this->returnValue($this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post')));
-		$this->fixture->newAction($this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
+			->will($this->returnValue($this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post')));
+		$this->fixture->newAction($this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
 	}
 
 
@@ -97,8 +97,8 @@ class PostControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abst
 	 */
 	public function testNewActionWithoutPostAndWithoutQuoteAssignsPostToView() {
 		$this->postFactoryMock->expects($this->once())->method('createEmptyPost')
-			->will($this->returnValue($post = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post')));
-		$this->fixture->newAction($this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
+			->will($this->returnValue($post = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post')));
+		$this->fixture->newAction($this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
 		$this->assertViewContains('post', $post);
 	}
 
@@ -106,8 +106,8 @@ class PostControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abst
 
 	public function testNewActionAssignsCurrentUserToView() {
 		$this->userRepositoryMock->expects($this->any())->method('findCurrent')
-			->will($this->returnValue($user = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser')));
-		$this->fixture->newAction($this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
+			->will($this->returnValue($user = $this->getMock('Mittwald\Typo3Forum\Domain\Model\User\FrontendUser')));
+		$this->fixture->newAction($this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
 		$this->assertViewContains('currentUser', $user);
 	}
 
@@ -115,10 +115,10 @@ class PostControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abst
 
 	public function testNewActionWithoutPostButWithQuoteCreatesPostFromQuote() {
 		$this->postFactoryMock->expects($this->once())->method('createPostWithQuote')
-			->with($this->isInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'))
-			->will($this->returnValue($this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post')));
-		$this->fixture->newAction($this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'), NULL,
-		                          $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
+			->with($this->isInstanceOf('Mittwald\Typo3Forum\Domain\Model\Forum\Post'))
+			->will($this->returnValue($this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post')));
+		$this->fixture->newAction($this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Topic'), NULL,
+		                          $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
 	}
 
 
@@ -128,42 +128,42 @@ class PostControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abst
 	 */
 	public function testNewActionWithoutPostButWithQuoteAssignsPostToView() {
 		$this->postFactoryMock->expects($this->once())->method('createPostWithQuote')
-			->with($this->isInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'))
-			->will($this->returnValue($post = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post')));
-		$this->fixture->newAction($this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'), NULL,
-		                          $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
+			->with($this->isInstanceOf('Mittwald\Typo3Forum\Domain\Model\Forum\Post'))
+			->will($this->returnValue($post = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post')));
+		$this->fixture->newAction($this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Topic'), NULL,
+		                          $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
 		$this->assertViewContains('post', $post);
 	}
 
 
 
 	public function testNewActionWithPostAssignsPostToView() {
-		$this->fixture->newAction($this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'),
-		                          $post = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
+		$this->fixture->newAction($this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Topic'),
+		                          $post = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
 		$this->assertViewContains('post', $post);
 	}
 
 
 
 	public function testNewActionAssignsTopicToView() {
-		$this->fixture->newAction($topic = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
+		$this->fixture->newAction($topic = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
 		$this->assertViewContains('topic', $topic);
 	}
 
 
 
 	public function testCreateActionAddsPostToTopic() {
-		$topic = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
+		$topic = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
 		$topic->expects($this->once())->method('addPost');
-		$post = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post');
+		$post = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post');
 		$this->fixture->createAction($topic, $post);
 	}
 
 
 
 	public function testCreateActionUpdatesTopicInTopicRepository() {
-		$topic = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
-		$post  = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post');
+		$topic = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
+		$post  = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post');
 		$this->topicRepositoryMock->expects($this->atLeastOnce())->method('update');
 		$this->fixture->createAction($topic, $post);
 	}
@@ -175,7 +175,7 @@ class PostControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abst
 	 * @param $actionMethodName
 	 */
 	public function testActionsAssignPostToView($actionMethodName) {
-		$this->fixture->$actionMethodName($post = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
+		$this->fixture->$actionMethodName($post = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
 		$this->assertViewContains('post', $post);
 	}
 
@@ -189,14 +189,14 @@ class PostControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abst
 
 	public function testUpdateActionUpdatePostInPostRepository() {
 		$this->postRepositoryMock->expects($this->atLeastOnce())->method('update');
-		$this->fixture->updateAction($post = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
+		$this->fixture->updateAction($post = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
 	}
 
 
 
 	public function testDeleteActionDelegatesToPostFactory() {
 		$this->postFactoryMock->expects($this->once())->method('deletePost');
-		$this->fixture->deleteAction($post = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
+		$this->fixture->deleteAction($post = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
 	}
 
 
@@ -209,26 +209,26 @@ class PostControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abst
 	 */
 	public function testActionsNotifiySignalSlotDispatcher($actionMethodName, $expectedEventName, $arguments) {
 		$this->signalSlotDispatcherMock->expects($this->once())->method('dispatch')
-			->with('\Mittwald\Typo3Forum\Domain\Model\Forum\Post', $expectedEventName, $this->anything());
+			->with('Mittwald\Typo3Forum\Domain\Model\Forum\Post', $expectedEventName, $this->anything());
 		call_user_func_array(array($this->fixture, $actionMethodName), $arguments);
 	}
 
 
 
 	public function testDeleteActionRedirectsToForumIfLastPostOfTopicIsDeleted() {
-		$topic = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
+		$topic = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
 		$topic->expects($this->any())->method('getPostCount')->will($this->returnValue(1));
 		$this->fixture->expects($this->once())->method('redirect')->with('show', 'Forum');
-		$this->fixture->deleteAction($post = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
+		$this->fixture->deleteAction($post = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
 	}
 
 
 
 	public function testDeleteActionRedirectsToTopicIfOtherPostsAreLeftInTopic() {
-		$topic = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
+		$topic = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
 		$topic->expects($this->any())->method('getPostCount')->will($this->returnValue(3));
 		$this->fixture->expects($this->once())->method('redirect')->with('show', 'Topic');
-		$this->fixture->deleteAction($post = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
+		$this->fixture->deleteAction($post = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
 	}
 
 
@@ -241,10 +241,10 @@ class PostControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abst
 
 
 	public function getActionMethodsThatNotifySignalSlotDispatcher() {
-		return array(array('createAction', 'postCreated', array($this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'),
-		                                                        $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'))),
-		             array('updateAction', 'postUpdated', array($this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'))),
-		             array('deleteAction', 'postDeleted', array($this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'))));
+		return array(array('createAction', 'postCreated', array($this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Topic'),
+		                                                        $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post'))),
+		             array('updateAction', 'postUpdated', array($this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post'))),
+		             array('deleteAction', 'postDeleted', array($this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post'))));
 	}
 
 
@@ -253,8 +253,8 @@ class PostControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abst
 	                        $callOriginalConstructor = TRUE, $callOriginalClone = TRUE, $callAutoload = TRUE) {
 		if ($originalClassName === '\Mittwald\Typo3Forum\Domain\Model\Forum\Topic' || $originalClassName === '\Mittwald\Typo3Forum\Domain\Model\Forum\Post') {
 			if ($this->topicMock === NULL || $this->postMock === NULL) {
-				$this->topicMock = parent::getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
-				$this->postMock  = parent::getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post');
+				$this->topicMock = parent::getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
+				$this->postMock  = parent::getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post');
 				$this->postMock->expects($this->any())->method('getTopic')->will($this->returnValue($this->topicMock));
 				$this->topicMock->expects($this->any())->method('getPosts')
 					->will($this->returnValue($this->buildPostMockList()));

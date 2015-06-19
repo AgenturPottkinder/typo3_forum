@@ -49,18 +49,18 @@ class TopicControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abs
 
 
 	public function setUp() {
-		$this->forumRepositoryMock		= $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository');
-		$this->topicRepositoryMock		= $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository');
-		$this->postRepositoryMock		= $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository');
-		$this->topicFactoryMock			= $this->getMock('\Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory', array(), array(),
+		$this->forumRepositoryMock		= $this->getMock('Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository');
+		$this->topicRepositoryMock		= $this->getMock('Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository');
+		$this->postRepositoryMock		= $this->getMock('Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository');
+		$this->topicFactoryMock			= $this->getMock('Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory', array(), array(),
 														'', FALSE);
 		$this->postFactoryMock			= $this->getMock('Tx_Typo3Forum_Domain_Factory_Forum_PostFactory', array(), array(), '',
 														FALSE);
-		$this->criteraRepositoryMock	= $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Forum\CriteriaRepository');
-		$this->sessionHandlingMock		= $this->getMock('\Mittwald\Typo3Forum\Service\SessionHandlingService');
-		$this->attachmentServiceMock	= $this->getMock('\Mittwald\Typo3Forum\Service\AttachmentService');
+		$this->criteraRepositoryMock	= $this->getMock('Mittwald\Typo3Forum\Domain\Repository\Forum\CriteriaRepository');
+		$this->sessionHandlingMock		= $this->getMock('Mittwald\Typo3Forum\Service\SessionHandlingService');
+		$this->attachmentServiceMock	= $this->getMock('Mittwald\Typo3Forum\Service\AttachmentService');
 
-		$this->buildFixture('\Mittwald\Typo3Forum\Controller\TopicController',
+		$this->buildFixture('Mittwald\Typo3Forum\Controller\TopicController',
 		                    array($this->forumRepositoryMock, $this->topicRepositoryMock, $this->postRepositoryMock,
 		                         $this->topicFactoryMock, $this->postFactoryMock, $this->criteraRepositoryMock,
 								 $this->sessionHandlingMock, $this->attachmentServiceMock
@@ -85,7 +85,7 @@ class TopicControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abs
 	public function testShowActionQueriesPostsFromRepository() {
 		$this->postRepositoryMock->expects($this->atLeastOnce())->method('findForTopic')
 			->will($this->returnValue($posts = $this->buildPostMockList()));
-		$this->fixture->showAction($topic = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
+		$this->fixture->showAction($topic = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
 	}
 
 
@@ -93,7 +93,7 @@ class TopicControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abs
 	public function testShowActionAssignsTopicToView() {
 		$this->postRepositoryMock->expects($this->atLeastOnce())->method('findForTopic')
 			->will($this->returnValue($posts = $this->buildPostMockList()));
-		$this->fixture->showAction($topic = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
+		$this->fixture->showAction($topic = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
 		$this->assertTrue($this->viewMock->containsKeyValuePair('topic', $topic));
 	}
 
@@ -102,7 +102,7 @@ class TopicControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abs
 	public function testShowActionAssignsPostsToView() {
 		$this->postRepositoryMock->expects($this->atLeastOnce())->method('findForTopic')
 			->will($this->returnValue($posts = $this->buildPostMockList()));
-		$this->fixture->showAction($topic = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
+		$this->fixture->showAction($topic = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
 		$this->assertTrue($this->viewMock->containsKeyValuePair('posts', $posts));
 	}
 
@@ -110,11 +110,11 @@ class TopicControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abs
 
 	public function testShowActionAddsTopicToUsersReadTopicsIfUserIsLoggedIn() {
 		$this->userRepositoryMock->expects($this->any())->method('findCurrent')
-			->will($this->returnValue($user = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser')));
+			->will($this->returnValue($user = $this->getMock('Mittwald\Typo3Forum\Domain\Model\User\FrontendUser')));
 		$this->userRepositoryMock->expects($this->atLeastOnce())->method('update');
 		$user->expects($this->once())->method('addReadObject')
-			->with($this->isInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
-		$this->fixture->showAction($topic = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
+			->with($this->isInstanceOf('Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
+		$this->fixture->showAction($topic = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
 	}
 
 
@@ -123,14 +123,14 @@ class TopicControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abs
 		$this->userRepositoryMock->expects($this->any())->method('findCurrent')
 			->will($this->returnValue($user = new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser()));
 		$this->userRepositoryMock->expects($this->never())->method('update');
-		$this->fixture->showAction($topic = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
+		$this->fixture->showAction($topic = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Topic'));
 	}
 
 
 
 	public function testNewActionAssignsForumPostAndSubjectToView() {
-		$this->fixture->newAction($forum = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum'),
-		                          $post = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'), 'Foo');
+		$this->fixture->newAction($forum = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Forum'),
+		                          $post = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post'), 'Foo');
 		$this->assertTrue($this->viewMock->containsKeyValuePair('forum', $forum));
 		$this->assertTrue($this->viewMock->containsKeyValuePair('post', $post));
 		$this->assertTrue($this->viewMock->containsKeyValuePair('subject', 'Foo'));
@@ -140,9 +140,9 @@ class TopicControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abs
 
 	public function testNewActionAssignsCurrentUserToView() {
 		$this->userRepositoryMock->expects($this->any())->method('findCurrent')
-			->will($this->returnValue($user = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser')));
-		$this->fixture->newAction($forum = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum'),
-		                          $post = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'), 'Foo');
+			->will($this->returnValue($user = $this->getMock('Mittwald\Typo3Forum\Domain\Model\User\FrontendUser')));
+		$this->fixture->newAction($forum = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Forum'),
+		                          $post = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post'), 'Foo');
 		$this->assertViewContains('currentUser', $user);
 	}
 
@@ -150,23 +150,23 @@ class TopicControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abs
 
 	public function testCreateActionDelegatesTopicCreationToTopicFactory() {
 		$this->topicFactoryMock->expects($this->once())->method('createTopic');
-		$this->fixture->createAction($forum = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum'),
-		                             $post = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'), 'Foo');
+		$this->fixture->createAction($forum = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Forum'),
+		                             $post = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post'), 'Foo');
 	}
 
 
 
 	public function testCreateActionNotifiesSignalSlotDispatcher() {
 		$this->signalSlotDispatcherMock->expects($this->once())->method('dispatch')
-			->with('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic', 'topicCreated', $this->anything());
-		$this->fixture->createAction($forum = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum'),
-		                             $post = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post'), 'Foo');
+			->with('Mittwald\Typo3Forum\Domain\Model\Forum\Topic', 'topicCreated', $this->anything());
+		$this->fixture->createAction($forum = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Forum'),
+		                             $post = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post'), 'Foo');
 	}
 
 
 	public function testSolutionActionSetsSolution() {
-		$post = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post');
-		$topic = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
+		$post = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post');
+		$topic = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
 		$post->expects($this->any())->method('setSolution');
 		$post->expects($this->any())->method('getTopic')->will($this->returnValue($topic));
 
@@ -179,7 +179,7 @@ class TopicControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abs
 	 * @expectedException \Mittwald\Typo3Forum\Domain\Exception\Authentication\NoAccessException
 	 */
 	public function testSolutionUnauthorizedAccessThrowsException() {
-		$post = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Post');
+		$post = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post');
 		$this->authenticationServiceMock->expects($this->any())->method('getUser')->will($this->returnValue('Foo'));
 		$post->expects($this->any())->method('getAuthor')->will($this->returnValue('Bar'));
 

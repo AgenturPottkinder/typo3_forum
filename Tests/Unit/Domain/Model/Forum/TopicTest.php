@@ -287,7 +287,7 @@ class TopicTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 
 	public function testDeniesNewPostAccessOnClosedTopicsToRegularUsersWithAccess() {
 		/** @var $forum \Mittwald\Typo3Forum\Domain\Model\Forum\Forum */
-		$forum = $this->objectManager->create('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
+		$forum = $this->objectManager->create('Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
 		$forum->addAcl(new \Mittwald\Typo3Forum\Domain\Model\Forum\Access('newPost', \Mittwald\Typo3Forum\Domain\Model\Forum\Access::LOGIN_LEVEL_ANYLOGIN));
 		$user = new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser('martin');
 
@@ -313,9 +313,9 @@ class TopicTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 
 	public function testDelegatesAccessChecksOtherThanNewpostToParentForum() {
 		$user = new \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser('martin');
-		$forum = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
+		$forum = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
 		$forum->expects($this->atLeastOnce())->method('checkAccess')
-			->with(self::isInstanceOf('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'), 'read')
+			->with(self::isInstanceOf('Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'), 'read')
 			->will($this->returnValue(FALSE));
 
 		$this->fixture->setForum($forum);
@@ -324,7 +324,7 @@ class TopicTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 
 
 	public function testGetAuthorReturnsAnonymousUserIfNoAuthorIsSet() {
-		$this->assertInstanceOf('\Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser', $this->fixture->getAuthor());
+		$this->assertInstanceOf('Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser', $this->fixture->getAuthor());
 	}
 
 

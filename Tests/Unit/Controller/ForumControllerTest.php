@@ -54,10 +54,10 @@ class ForumControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abs
 
 
 	public function setUp() {
-		$this->forumRepositoryMock = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository');
-		$this->topicRepositoryMock = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository');
-		$this->rootForumMock       = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\RootForum');
-		$this->buildFixture('\Mittwald\Typo3Forum\Controller\ForumController',
+		$this->forumRepositoryMock = $this->getMock('Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository');
+		$this->topicRepositoryMock = $this->getMock('Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository');
+		$this->rootForumMock       = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\RootForum');
+		$this->buildFixture('Mittwald\Typo3Forum\Controller\ForumController',
 		                    array($this->forumRepositoryMock, $this->topicRepositoryMock, $this->rootForumMock));
 	}
 
@@ -70,7 +70,7 @@ class ForumControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abs
 	 */
 	public function testAllControllerActionsPerformAuthorizationCheck($actionMethodName, $parameters) {
 		$this->authenticationServiceMock->expects($this->atLeastOnce())->method('checkAuthorization')
-			->with($this->isInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum'), $this->anything())
+			->with($this->isInstanceOf('Mittwald\Typo3Forum\Domain\Model\Forum\Forum'), $this->anything())
 			->will($this->returnValue(TRUE));
 		call_user_func_array(array($this->fixture, $actionMethodName), $parameters);
 	}
@@ -98,9 +98,9 @@ class ForumControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abs
 
 
 	public function testShowActionLoadsAllTopicsFromRepository() {
-		$forum = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
+		$forum = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
 		$this->topicRepositoryMock->expects($this->atLeastOnce())->method('findForIndex')
-			->with($this->isInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum'))
+			->with($this->isInstanceOf('Mittwald\Typo3Forum\Domain\Model\Forum\Forum'))
 			->will($this->returnValue($topics = $this->buildTopicMockList()));
 		$this->fixture->showAction($forum);
 
@@ -114,9 +114,9 @@ class ForumControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abs
 	 * @depends testShowActionLoadsAllTopicsFromRepository
 	 */
 	public function testShowActionAssignsForumAndTopicsToView() {
-		$forum = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
+		$forum = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
 		$this->topicRepositoryMock->expects($this->atLeastOnce())->method('findForIndex')
-			->with($this->isInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum'))
+			->with($this->isInstanceOf('Mittwald\Typo3Forum\Domain\Model\Forum\Forum'))
 			->will($this->returnValue($topics = $this->buildTopicMockList()));
 		$this->fixture->showAction($forum);
 
@@ -127,18 +127,18 @@ class ForumControllerTest extends \Mittwald\Typo3Forum\Tests\Unit\Controller\Abs
 
 
 	public function testUpdateActionCallsUpdateMethodOnRepository() {
-		$forum = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
+		$forum = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
 		$this->forumRepositoryMock->expects($this->once())->method('update')
-			->with($this->isInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum'));
+			->with($this->isInstanceOf('Mittwald\Typo3Forum\Domain\Model\Forum\Forum'));
 		$this->fixture->updateAction($forum);
 	}
 
 
 
 	public function testCreateActionCallsAddMethodOnRepository() {
-		$forum = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
+		$forum = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
 		$this->forumRepositoryMock->expects($this->once())->method('add')
-			->with($this->isInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum'));
+			->with($this->isInstanceOf('Mittwald\Typo3Forum\Domain\Model\Forum\Forum'));
 		$this->fixture->createAction($forum);
 	}
 

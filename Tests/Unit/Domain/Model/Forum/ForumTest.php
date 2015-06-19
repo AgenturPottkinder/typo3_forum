@@ -50,13 +50,13 @@ class ForumTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 
 
 	public function setUp() {
-		$this->userRepositoryMock = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository');
+		$this->userRepositoryMock = $this->getMock('Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository');
 		$this->userRepositoryMock->expects($this->any())->method('findCurrent')->will($this->returnValue(NULL));
-		$this->cacheMock = $this->getMock('Mittwald\\TYPO3Forum\\Cache\\Cache');
+		$this->cacheMock = $this->getMock('Mittwald\TYPO3Forum\Cache\Cache');
 		$this->cacheMock->expects($this->any())->method('has')->will($this->returnValue(FALSE));
 
 		$this->authenticationService     = new \Mittwald\Typo3Forum\Service\Authentication\AuthenticationService($this->userRepositoryMock, $this->cacheMock);
-		$this->authenticationServiceMock = $this->getMock('\Mittwald\Typo3Forum\Service\Authentication\AuthenticationService',
+		$this->authenticationServiceMock = $this->getMock('Mittwald\Typo3Forum\Service\Authentication\AuthenticationService',
 		                                                  array('checkAuthorization'), array(), '', FALSE);
 		$this->authenticationServiceMock->expects($this->any())->method('checkAuthorization')
 			->will($this->returnValue(TRUE));
@@ -129,10 +129,10 @@ class ForumTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 
 
 	public function testGetChildrenReturnsOnlyAccessibleChildren() {
-		$this->authenticationServiceMock = $this->getMock('\Mittwald\Typo3Forum\Service\Authentication\AuthenticationService',
+		$this->authenticationServiceMock = $this->getMock('Mittwald\Typo3Forum\Service\Authentication\AuthenticationService',
 		                                                  array(), array(), '', FALSE);
 		$this->authenticationServiceMock->expects($this->exactly(3))->method('checkAuthorization')
-			->with(self::isInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum'), self::equalTo('read'))
+			->with(self::isInstanceOf('Mittwald\Typo3Forum\Domain\Model\Forum\Forum'), self::equalTo('read'))
 			->will($this->returnCallback(function($forum) {
 			return $forum->getTitle() !== 'Child 3';
 		}));
@@ -154,9 +154,9 @@ class ForumTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 
 
 	public function testHasBeenReadByUserIsTrueWhenAllTopicsAreRead() {
-		$user = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser');
+		$user = $this->getMock('Mittwald\Typo3Forum\Domain\Model\User\FrontendUser');
 		for ($i = 1; $i <= 3; $i++) {
-			$topic = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
+			$topic = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
 			$topic->expects($this->any())->method('getLastPost')
 				->will($this->returnValue(new \Mittwald\Typo3Forum\Domain\Model\Forum\Post('Content')));
 			$topic->expects($this->atLeastOnce())->method('hasBeenReadByUser')
@@ -170,9 +170,9 @@ class ForumTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 
 
 	public function testHasBeenReadByUserIsFalseWhenAtLeastOneTopicIsUnread() {
-		$user = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser');
+		$user = $this->getMock('Mittwald\Typo3Forum\Domain\Model\User\FrontendUser');
 		for ($i = 1; $i <= 3; $i++) {
-			$topic = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
+			$topic = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Topic');
 			$topic->expects($this->any())->method('getLastPost')
 				->will($this->returnValue(new \Mittwald\Typo3Forum\Domain\Model\Forum\Post('Content')));
 			$topic->expects($this->atLeastOnce())->method('hasBeenReadByUser')
@@ -207,9 +207,9 @@ class ForumTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 	 * @depends testAddChildAddsChild
 	 */
 	public function testAddChildCallsSetParentOnChild() {
-		$child = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
+		$child = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
 		$child->expects($this->once())->method('setParent')
-			->with(self::isInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum'));
+			->with(self::isInstanceOf('Mittwald\Typo3Forum\Domain\Model\Forum\Forum'));
 
 		$this->fixture->addChild($child);
 	}
@@ -268,7 +268,7 @@ class ForumTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 	public function testAddTopicRefreshesCountersAndReferencesOnFirstTopic() {
 		$post1 = new \Mittwald\Typo3Forum\Domain\Model\Forum\Post('CONTENT 1');
 		$post2 = new \Mittwald\Typo3Forum\Domain\Model\Forum\Post('CONTENT 2');
-		$post2->_setProperty('crdate', new DateTime('tomorrow'));
+		$post2->_setProperty('crdate', new \DateTime('tomorrow'));
 		$topic = new \Mittwald\Typo3Forum\Domain\Model\Forum\Topic('TOPIC_1');
 		$topic->addPost($post1);
 		$topic->addPost($post2);
@@ -346,9 +346,9 @@ class ForumTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 
 		$this->assertEquals(2, $this->fixture->getPostCount());
 		$this->assertEquals(1, $this->fixture->getTopicCount());
-		$this->assertInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic', $this->fixture->getLastTopic());
+		$this->assertInstanceOf('Mittwald\Typo3Forum\Domain\Model\Forum\Topic', $this->fixture->getLastTopic());
 		$this->assertTrue($this->fixture->getLastTopic() !== $topic);
-		$this->assertInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\Post', $this->fixture->getLastPost());
+		$this->assertInstanceOf('Mittwald\Typo3Forum\Domain\Model\Forum\Post', $this->fixture->getLastPost());
 		$this->assertTrue($this->fixture->getLastPost() !== $topic->getLastPost());
 	}
 
@@ -462,7 +462,7 @@ class ForumTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 	 * @param string $operation
 	 */
 	public function testDelegatesAccessCheckToParentIfNoAclsAreSet($operation = 'newTopic') {
-		$parent = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
+		$parent = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
 		$parent->expects($this->once())->method('checkAccess')->with(NULL, $operation)->will($this->returnValue(FALSE));
 		$this->fixture->setParent($parent);
 
@@ -567,7 +567,7 @@ class ForumTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 	 * @param string $operation
 	 */
 	public function testDelegatesAccessCheckToParentIfNoAclMatches($operation = 'newTopic') {
-		$parent = $this->getMock('\Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
+		$parent = $this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Forum');
 		$parent->expects($this->once())->method('checkAccess')->with(NULL, $operation)->will($this->returnValue(FALSE));
 
 		$this->fixture->addAcl(new \Mittwald\Typo3Forum\Domain\Model\Forum\Access('not_matching_operation', \Mittwald\Typo3Forum\Domain\Model\Forum\Access::LOGIN_LEVEL_ANYLOGIN));
@@ -579,8 +579,8 @@ class ForumTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 
 
 	public function testGetParentReturnsVirtualRootForumIfNoneIsSet() {
-		$this->assertInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\RootForum', $this->fixture->getParent());
-		$this->assertInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Forum\RootForum', $this->fixture->getForum());
+		$this->assertInstanceOf('Mittwald\Typo3Forum\Domain\Model\Forum\RootForum', $this->fixture->getParent());
+		$this->assertInstanceOf('Mittwald\Typo3Forum\Domain\Model\Forum\RootForum', $this->fixture->getForum());
 	}
 
 

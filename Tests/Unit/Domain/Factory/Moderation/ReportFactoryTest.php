@@ -49,8 +49,8 @@ class ReportFactoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 
 	public function setUp() {
-		$this->userRepositoryMock           = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository');
-		$this->workflowStatusRepositoryMock = $this->getMock('\Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportWorkflowStatusRepository');
+		$this->userRepositoryMock           = $this->getMock('Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository');
+		$this->workflowStatusRepositoryMock = $this->getMock('Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportWorkflowStatusRepository');
 		$this->workflowStatusRepositoryMock->expects($this->any())->method('findInitial')
 			->will($this->returnValue($this->initialStatus = new \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus('Open', TRUE, FALSE)));
 
@@ -72,7 +72,7 @@ class ReportFactoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$comment = new \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment($user, 'Content');
 		$report  = $this->fixture->createReport($comment, $post);
 
-		$this->assertInstanceOf('\Mittwald\Typo3Forum\Domain\Model\Moderation\Report', $report);
+		$this->assertInstanceOf('Mittwald\Typo3Forum\Domain\Model\Moderation\Report', $report);
 		$this->assertTrue($report->getPost() === $post);
 		$this->assertTrue($report->getWorkflowStatus() === $this->initialStatus);
 		$this->assertTrue($report->getReporter() === $user);
