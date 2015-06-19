@@ -27,7 +27,13 @@ namespace Mittwald\Typo3Forum\Tests\Unit;
 
 abstract class BaseTestCase extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
-
+	/**
+	 * objectManager
+	 *
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManager
+	 * @inject
+	 */
+	protected $objectManager;
 
 	protected function isInstance($class) {
 		return new \PHPUnit_Framework_Constraint_IsInstanceOf($class);

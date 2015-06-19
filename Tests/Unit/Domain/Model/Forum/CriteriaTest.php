@@ -44,8 +44,8 @@ class CriteriaTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 
 
 	public function setUp() {
-		$this->criteria = $this->objectManager->create('Mittwald\Typo3Forum\Domain\Model\Forum\Criteria');
-		$this->option = $this->objectManager->create('Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption');
+		$this->criteria = $this->objectManager->get('Mittwald\Typo3Forum\Domain\Model\Forum\Criteria');
+		$this->option = $this->objectManager->get('Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption');
 		$this->optionStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 
