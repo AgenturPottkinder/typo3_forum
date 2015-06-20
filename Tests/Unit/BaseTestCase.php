@@ -31,9 +31,13 @@ abstract class BaseTestCase extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * objectManager
 	 *
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-	 * @inject
 	 */
 	protected $objectManager;
+
+	public function __construct($name = null, array $data = array(), $dataName = '') {
+		parent::__construct($name,$data,$dataName);
+		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+	}
 
 	protected function isInstance($class) {
 		return new \PHPUnit_Framework_Constraint_IsInstanceOf($class);
