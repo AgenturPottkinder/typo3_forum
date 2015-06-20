@@ -44,9 +44,12 @@ class CriteriaTest extends \Mittwald\Typo3Forum\Tests\Unit\BaseTestCase {
 
 
 	public function setUp() {
-		$this->criteria = $this->objectManager->get('Mittwald\Typo3Forum\Domain\Model\Forum\Criteria');
-		$this->option = $this->objectManager->get('Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption');
-		$this->optionStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		//$this->criteria = $this->objectManager->get('Mittwald\Typo3Forum\Domain\Model\Forum\Criteria');
+		//$this->option = $this->objectManager->get('Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption');
+		//$this->optionStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->criteria = $this->getMock('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Criteria');
+		$this->option = $this->getMock('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\CriteriaOption');
+		$this->optionStorage = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\ObjectStorage');
 	}
 
 
