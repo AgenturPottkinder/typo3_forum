@@ -36,7 +36,7 @@ abstract class BaseTestCase extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	public function __construct($name = null, array $data = array(), $dataName = '') {
 		parent::__construct($name,$data,$dataName);
-		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+		$this->objectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
 	}
 
 	protected function isInstance($class) {
