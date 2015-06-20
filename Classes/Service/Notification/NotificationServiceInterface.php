@@ -51,10 +51,10 @@ interface NotificationServiceInterface {
 	 * @abstract
 	 *
 	 * @param \Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $subscriptionObject
-	 * @param Tx_Typo3Forum_Domain_Model_NotifiableInterface    $notificationObject
+	 * @param \Mittwald\Typo3Forum\Domain\Model\NotifiableInterface    $notificationObject
 	 */
 	public function notifySubscribers(\Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $subscriptionObject,
-	                                  Tx_Typo3Forum_Domain_Model_NotifiableInterface $notificationObject);
+	                                  \Mittwald\Typo3Forum\Domain\Model\NotifiableInterface $notificationObject);
 
 
 
