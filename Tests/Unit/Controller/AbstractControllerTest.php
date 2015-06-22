@@ -24,8 +24,12 @@ namespace Mittwald\Typo3Forum\Tests\Unit\Controller;
  *                                                                      */
 
 
-abstract class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+use Mittwald\Typo3Forum\Tests\Unit\View\ViewMock;
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
+abstract class AbstractControllerTest extends UnitTestCase {
 
 
 	/**
@@ -47,7 +51,7 @@ abstract class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
 
 	/**
-	 * @var \Mittwald\Typo3Forum\Tests\Unit\View\ViewMock
+	 * @var ViewMock
 	 */
 	protected $viewMock;
 
@@ -76,23 +80,24 @@ abstract class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	protected $fixtureClassName = '\Mittwald\Typo3Forum\Controller\ForumController';
 
 
-
 	protected function buildFixture($className, array $constructorArguments = array()) {
-		$this->userRepositoryMock        = $this->getMock('Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository');
-		$this->authenticationServiceMock = $this->getMock('Mittwald\Typo3Forum\Service\Authentication\AuthenticationService',
-		                                                  array('checkAuthorization'), array($this->userRepositoryMock,
-		                                                                                    $this->getMock('Mittwald\TYPO3Forum\Cache\Cache')));
+		/** @var ObjectManager $objectManager */
+		$objectManager = $this->getMock('TYPO3\CMS\Extbase\Object\ObjectManager');
+		$this->userRepositoryMock = $this->getMock('Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository', [], [$objectManager]);
+		$this->authenticationServiceMock = $this->getMock(
+			'Mittwald\Typo3Forum\Service\Authentication\AuthenticationService',
+			array('checkAuthorization'),
+			array($this->userRepositoryMock, $this->getMock('Mittwald\TYPO3Forum\Cache\Cache'))
+		);
 
-		#$this->viewMock                  = $this->getMockForAbstractClass('TYPO3\CMS\Extbase\Mvc\View\AbstractView');
-		$this->viewMock                  = new \Mittwald\Typo3Forum\Tests\Unit\View\ViewMock();
+		$this->viewMock = new ViewMock();
 		$this->flashMessageContainerMock = $this->getMock('TYPO3\CMS\Extbase\Mvc\Controller\FlashMessageContainer');
-		$this->requestMock               = $this->getMock('TYPO3\CMS\Extbase\Mvc\Web\Request');
+		$this->requestMock = $this->getMock('TYPO3\CMS\Extbase\Mvc\Web\Request');
 		$this->requestMock->expects($this->any())->method('getFormat')->will($this->returnValue('html'));
 		$this->signalSlotDispatcherMock = $this->getMock('TYPO3\CMS\Extbase\SignalSlot\Dispatcher');
 
-		$this->fixture = $this->getAccessibleMock($className, array('redirect', 'clearCacheForCurrentPage'),
-		                                          $constructorArguments);
-		$this->fixture->injectObjectManager($this->objectManager);
+		$this->fixture = $this->getAccessibleMock($className, array('redirect', 'clearCacheForCurrentPage'), $constructorArguments);
+		$this->fixture->injectObjectManager($objectManager);
 		$this->fixture->injectFrontendUserRepository($this->userRepositoryMock);
 		$this->fixture->injectAuthenticationService($this->authenticationServiceMock);
 		$this->fixture->injectSignalSlotDispatcher($this->signalSlotDispatcherMock);
@@ -103,10 +108,9 @@ abstract class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	}
 
 
-
 	public function getAllControllerActionsWithMockParameters() {
 		$reflectionClass = new \ReflectionClass($this->fixtureClassName);
-		$data            = array();
+		$data = array();
 
 		foreach ($reflectionClass->getMethods(\ReflectionMethod::IS_PUBLIC) as $method) {
 			/** @var $method \ReflectionMethod */
@@ -119,7 +123,6 @@ abstract class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
 		return $data;
 	}
-
 
 
 	protected function getMockParametersForActionMethod(\ReflectionMethod $method) {
@@ -145,13 +148,11 @@ abstract class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	}
 
 
-
 	protected function buildForumMockList() {
 		$list = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$list->attach($this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Forum'));
 		return $list;
 	}
-
 
 
 	protected function buildTopicMockList() {
@@ -161,7 +162,6 @@ abstract class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	}
 
 
-
 	protected function buildPostMockList() {
 		$list = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$list->attach($this->getMock('Mittwald\Typo3Forum\Domain\Model\Forum\Post'));
@@ -169,11 +169,9 @@ abstract class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	}
 
 
-
 	protected function assertViewContains($key, $value) {
 		$this->assertTrue($this->viewMock->containsKeyValuePair($key, $value), 'View did not contain key ' . $key);
 	}
-
 
 
 	/**
@@ -187,20 +185,17 @@ abstract class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	}
 
 
-
 	abstract public function getModifyingActions();
-
 
 
 	public function getModifyingActionsWithParameters() {
 		$result = array();
 		foreach ($this->getModifyingActions() as $modifyingAction) {
 			$result[] = array($modifyingAction,
-			                  $this->getMockParametersForActionMethod(new \ReflectionMethod($this->fixtureClassName, $modifyingAction)));
+				$this->getMockParametersForActionMethod(new \ReflectionMethod($this->fixtureClassName, $modifyingAction)));
 		}
 		return $result;
 	}
-
 
 
 }

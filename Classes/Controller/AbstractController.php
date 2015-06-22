@@ -26,53 +26,15 @@ namespace Mittwald\Typo3Forum\Controller;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
+use Mittwald\Typo3Forum\Utility\Localization;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
+abstract class AbstractController extends ActionController {
 
-/**
- *
- * This class implements a simple dispatcher for a mm_form eID script.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Controller
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
-
-
-
-	/*
-	 * CONSTANTS
-	 */
-
-	/**
-	 *
-	 */
 	const CONTEXT_WEB = 0;
-
-
-
-	/**
-	 *
-	 */
 	const CONTEXT_AJAX = 1;
-
-
-
-	/**
-	 *
-	 */
 	const CONTEXT_CLI = 2;
-
 
 
 	/*
@@ -319,18 +281,15 @@ abstract class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\Acti
 	 *                                  flash messages.
 	 * @param  array  $arguments        Arguments for the flash message.
 	 * @param  string $titleKey         Optional language key for the message's title.
-	 * @param  string $severity         Message severity (see \TYPO3\CMS\Core\Messaging\FlashMessage::*)
+	 * @param  int $severity         Message severity (see \TYPO3\CMS\Core\Messaging\FlashMessage::*)
 	 *
 	 * @return void
 	 */
-	protected function addLocalizedFlashmessage($key, array $arguments = array(), $titleKey = NULL,
-	                                            $severity = \TYPO3\CMS\Core\Messaging\FlashMessage::OK) {
-		$this->controllerContext->getFlashMessageQueue()->addMessage(
-			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				\Mittwald\Typo3Forum\Utility\Localization::translate($key, 'Typo3Forum', $arguments),
-				\Mittwald\Typo3Forum\Utility\Localization::translate($titleKey, 'Typo3Forum'), $severity
-			)
-		);
+	protected function addLocalizedFlashmessage($key, array $arguments = array(), $titleKey = NULL, $severity = FlashMessage::OK) {
+		if (php_sapi_name() !== 'cli') {
+			$message = new FlashMessage(Localization::translate($key, 'Typo3Forum', $arguments), Localization::translate($titleKey, 'Typo3Forum'), $severity);
+			$this->controllerContext->getFlashMessageQueue()->addMessage($message);
+		}
 	}
 
 
