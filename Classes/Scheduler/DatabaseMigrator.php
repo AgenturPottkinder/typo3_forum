@@ -51,12 +51,73 @@ class DatabaseMigrator extends AbstractTask {
 	];
 
 	/**
+	 * @var array
+	 */
+	protected $legacyFeUsersFields = [
+		'tx_mmforum_rank',
+		'tx_mmforum_points',
+		'tx_mmforum_post_count',
+		'tx_mmforum_topic_count',
+		'tx_mmforum_question_count',
+		'tx_mmforum_topic_favsubscriptions',
+		'tx_mmforum_topic_subscriptions',
+		'tx_mmforum_forum_subscriptions',
+		'tx_mmforum_helpful_count',
+		'tx_mmforum_private_messages',
+		'tx_mmforum_helpful_count_season',
+		'tx_mmforum_post_count_season',
+		'tx_mmforum_signature',
+		'tx_mmforum_interests',
+		'tx_mmforum_userfield_values',
+		'tx_mmforum_read_forum',
+		'tx_mmforum_read_topics',
+		'tx_mmforum_support_posts',
+		'tx_mmforum_use_gravatar',
+		'tx_mmforum_facebook',
+		'tx_mmforum_twitter',
+		'tx_mmforum_google',
+		'tx_mmforum_skype',
+		'tx_mmforum_job',
+		'tx_mmforum_working_environment',
+		'tx_mmforum_contact',
+	];
+
+	/**
+	 * @var array
+	 */
+	protected $legacyFeGroupsFields = [
+		'tx_mmforum_user_mod'
+	];
+
+	/**
+	 * @var array
+	 */
+	protected $legacyTtContentListTypes = [
+		'mmforum_pi1'
+	];
+
+	/**
 	 *
 	 */
 	public function execute() {
 		$this->databaseConnection = $GLOBALS['TYPO3_DB'];
+		$this->migrateTables();
+		$this->migrateFeUserFields();
+		$this->migrateFeGroupsFields();
+		$this->migrateTtContentPlugins();
+		return TRUE;
+	}
+
+	/**
+	 *
+	 */
+	protected function migrateTables() {
 		foreach ($this->legacyTableNames as $legacyTableName) {
 			$newTableName = str_replace('_mmforum_', '_typo3forum_', $legacyTableName);
+			// special case for tx_typo3forum_domain_model_moderation_reportworkflowstatus_followup which is too long for MySQL (>64 characters)
+			if ($newTableName === 'tx_typo3forum_domain_model_moderation_reportworkflowstatus_followup') {
+				$newTableName = 'tx_typo3forum_domain_model_moderation_reportworkflowstatus_mm';
+			}
 			if ($this->tableExists($legacyTableName)) {
 				if ($this->tableExists($newTableName)) {
 					if (!$this->tableIsEmpty($newTableName)) {
@@ -72,7 +133,56 @@ class DatabaseMigrator extends AbstractTask {
 				}
 			}
 		}
-		return TRUE;
+	}
+
+	/**
+	 *
+	 */
+	protected function migrateFeUserFields() {
+		$users = $this->databaseConnection->exec_SELECTgetRows('*', 'fe_users', '1=1');
+		foreach ($users as $user) {
+			foreach($this->legacyFeUsersFields as $legacyFeUsersField) {
+				$newFeUsersField = str_replace('_mmforum_', '_typo3forum_', $legacyFeUsersField);
+				if (isset($user[$legacyFeUsersField]) && isset($user[$newFeUsersField]) && !empty($user[$legacyFeUsersField])) {
+					$user[$newFeUsersField] = $user[$legacyFeUsersField];
+					$user[$legacyFeUsersField] = '';
+					$this->databaseConnection->exec_UPDATEquery('fe_users', 'uid = ' . (int)$user['uid'], $user);
+				}
+			}
+		}
+	}
+
+	/**
+	 *
+	 */
+	protected function migrateFeGroupsFields() {
+		$groups = $this->databaseConnection->exec_SELECTgetRows('*', 'fe_groups', '1=1');
+		foreach ($groups as $group) {
+			foreach($this->legacyFeGroupsFields as $legacyFeGroupsField) {
+				$newFeGroupsField = str_replace('_mmforum_', '_typo3forum_', $legacyFeGroupsField);
+				if (isset($group[$legacyFeGroupsField]) && isset($group[$newFeGroupsField]) && !empty($group[$legacyFeGroupsField])) {
+					$group[$newFeGroupsField] = $group[$legacyFeGroupsField];
+					$group[$legacyFeGroupsField] = '';
+					$this->databaseConnection->exec_UPDATEquery('fe_groups', 'uid = ' . (int)$group['uid'], $group);
+				}
+			}
+		}
+	}
+
+	/**
+	 *
+	 */
+	protected function migrateTtContentPlugins() {
+		$contentElements = $this->databaseConnection->exec_SELECTgetRows('*', 'tt_content', '1=1');
+		foreach ($contentElements as $contentElement) {
+			foreach ($this->legacyTtContentListTypes as $legacyTtContentListType) {
+				$newTtContentListType = str_replace('mmforum_', 'typo3forum_', $legacyTtContentListType);
+				if ($contentElement['list_type'] === $legacyTtContentListType) {
+					$contentElement['list_type'] = $newTtContentListType;
+					$this->databaseConnection->exec_UPDATEquery('tt_content', 'uid = ' . (int)$contentElement['uid'], $contentElement);
+				}
+			}
+		}
 	}
 
 	/**
@@ -96,7 +206,7 @@ class DatabaseMigrator extends AbstractTask {
 	 * @param string $message
 	 */
 	protected function log($message) {
-		
+
 	}
 
 }

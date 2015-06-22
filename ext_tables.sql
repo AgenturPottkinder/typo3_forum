@@ -292,9 +292,9 @@ CREATE TABLE tx_typo3forum_domain_model_moderation_reportworkflowstatus (
 
 
 #
-# Table structure for table "tx_typo3forum_domain_model_moderation_reportworkflowstatus_followup"
+# Table structure for table "tx_typo3forum_domain_model_moderation_reportworkflowstatus_mm"
 #
-CREATE TABLE tx_typo3forum_domain_model_moderation_reportworkflowstatus_followup (
+CREATE TABLE tx_typo3forum_domain_model_moderation_reportworkflowstatus_mm (
   uid int(10) NOT NULL auto_increment,
   pid int(11) NOT NULL default '0',
   uid_local int(11) unsigned NOT NULL default '0',
