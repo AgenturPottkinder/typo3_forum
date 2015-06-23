@@ -97,7 +97,7 @@ class ReportFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory 
 	public function createUserReport(\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $firstComment) {
 		$user = & $this->getCurrentUser();
 		$firstComment->setAuthor($user);
-		$report = $this->objectManager->create('\Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport');
+		$report = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\UserReport');
 		$report->setWorkflowStatus($this->workflowStatusRepository->findInitial());
 		$report->setReporter($user);
 		$report->addComment($firstComment);
@@ -119,7 +119,7 @@ class ReportFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory 
 	public function createPostReport(\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $firstComment) {
 		$user = & $this->getCurrentUser();
 		$firstComment->setAuthor($user);
-		$report = $this->objectManager->create('\Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport');
+		$report = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\PostReport');
 		$report->setWorkflowStatus($this->workflowStatusRepository->findInitial());
 		$report->setReporter($user);
 		$report->addComment($firstComment);

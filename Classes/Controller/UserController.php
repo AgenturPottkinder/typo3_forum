@@ -285,7 +285,7 @@ class UserController extends AbstractController {
 		if ($user->isAnonymous()) {
 			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in.", 1288084981);
 		}
-		$message = $this->objectManager->create('\Mittwald\Typo3Forum\Domain\Model\User\PrivateMessagesText');
+		$message = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\User\\PrivateMessagesText');
 		$message->setMessageText($text);
 		$pmFeUser = $this->privateMessagesFactory->createPrivateMessage($user,$recipient,$message,0,1);
 		$pmRecipient = $this->privateMessagesFactory->createPrivateMessage($recipient,$user,$message,1,0);

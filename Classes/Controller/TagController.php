@@ -136,9 +136,9 @@ class TagController extends \Mittwald\Typo3Forum\Controller\AbstractController {
 			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 		/** @var \Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag */
-		$tag = $this->objectManager->create('\Mittwald\Typo3Forum\Domain\Model\Forum\Tag');
+		$tag = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Tag');
 		$tag->setName($name);
-		$tag->setCrdate(new DateTime());
+		$tag->setCrdate(new \DateTime());
 		if(intval($subscribe) == 1) {
 			$tag->addFeuser($user);
 		}

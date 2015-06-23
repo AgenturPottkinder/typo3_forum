@@ -350,7 +350,7 @@ class TopicController extends \Mittwald\Typo3Forum\Controller\AbstractController
 		$topic = $this->topicFactory->createTopic($forum, $post, $subject, intval($question), $criteria, $tags, intval($subscribe));
 
 		// Notify potential listeners.
-		$this->signalSlotDispatcher->dispatch('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic', 'topicCreated',
+		$this->signalSlotDispatcher->dispatch(__CLASS__, 'topicCreated',
 											  array('topic' => $topic));
 		$this->clearCacheForCurrentPage();
 		$uriBuilder = $this->controllerContext->getUriBuilder();

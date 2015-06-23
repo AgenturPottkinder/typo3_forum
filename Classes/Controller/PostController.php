@@ -311,7 +311,7 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 		$this->topicRepository->update($topic);
 
 		// All potential listeners (Signal-Slot FTW!)
-		$this->signalSlotDispatcher->dispatch('\Mittwald\Typo3Forum\Domain\Model\Forum\Post', 'postCreated',
+		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Post', 'postCreated',
 			array('post' => $post));
 
 		// Display flash message and redirect to topic->show action.
@@ -389,7 +389,7 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 		}
 		$this->postRepository->update($post);
 
-		$this->signalSlotDispatcher->dispatch('\Mittwald\Typo3Forum\Domain\Model\Forum\Post', 'postUpdated',
+		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Post', 'postUpdated',
 			array('post' => $post));
 		$this->controllerContext->getFlashMessageQueue()->addMessage(
 			new \TYPO3\CMS\Core\Messaging\FlashMessage(
@@ -433,7 +433,7 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 		);
 
 		// Notify observers and clear cache.
-		$this->signalSlotDispatcher->dispatch('\Mittwald\Typo3Forum\Domain\Model\Forum\Post', 'postDeleted',
+		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Post', 'postDeleted',
 			array('post' => $post));
 		$this->clearCacheForCurrentPage();
 

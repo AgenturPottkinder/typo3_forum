@@ -224,7 +224,7 @@ class TopicFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory {
 	 */
 	public function createShadowTopic(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic) {
 		/** @var $shadowTopic \Mittwald\Typo3Forum\Domain\Model\Forum\ShadowTopic */
-		$shadowTopic = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\Mittwald\Typo3Forum\Domain\Model\Forum\ShadowTopic');
+		$shadowTopic = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\ShadowTopic');
 		$shadowTopic->setTarget($topic);
 
 		Return $shadowTopic;

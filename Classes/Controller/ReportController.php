@@ -180,7 +180,7 @@ class ReportController extends \Mittwald\Typo3Forum\Controller\AbstractControlle
 		$this->userReportRepository->add($report);
 
 		// Notify observers.
-		$this->signalSlotDispatcher->dispatch('\Mittwald\Typo3Forum\Domain\Model\Moderation\Report', 'reportCreated',
+		$this->signalSlotDispatcher->dispatch(__CLASS__, 'reportCreated',
 			array('report' => $report));
 
 		// Display success message and redirect to topic->show action.
@@ -212,7 +212,7 @@ class ReportController extends \Mittwald\Typo3Forum\Controller\AbstractControlle
 		$this->postReportRepository->add($report);
 
 		// Notify observers.
-		$this->signalSlotDispatcher->dispatch('\Mittwald\Typo3Forum\Domain\Model\Moderation\Report', 'reportCreated',
+		$this->signalSlotDispatcher->dispatch(__CLASS__, 'reportCreated',
 		                                      array('report' => $report));
 
 		// Display success message and redirect to topic->show action.
