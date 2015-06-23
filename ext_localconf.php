@@ -5,7 +5,8 @@ if (!defined('TYPO3_MODE')) {
 }
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	'Mittwald.Typo3Forum', 'Pi1',
+	'Mittwald.Typo3Forum',
+	'Pi1',
 	array(
 		'Forum' => 'index, show, new, create, edit, update, delete, markRead, showUnread',
 		'Topic' => 'index, list, show, new, create, edit, update, delete, questionsHelpBox, solution, listLatest',
@@ -26,7 +27,8 @@ if (!defined('TYPO3_MODE')) {
 	)
 );
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	$_EXTKEY, 'Widget',
+	'Mittwald.Typo3Forum',
+	'Widget',
 	array(
 		'User' => 'list',
 		'Stats' => 'list',
@@ -37,12 +39,15 @@ if (!defined('TYPO3_MODE')) {
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	$_EXTKEY, 'Ajax', array(
-	'Forum' => 'index',
-	'Post' => 'preview, addSupporter, removeSupporter',
-	'Tag' => 'autoComplete',
-	'Ajax' => 'main, postSummary, loginbox'
-), array(
+	'Mittwald.Typo3Forum',
+	'Ajax',
+	array(
+		'Forum' => 'index',
+		'Post' => 'preview, addSupporter, removeSupporter',
+		'Tag' => 'autoComplete',
+		'Ajax' => 'main, postSummary, loginbox'
+	),
+	array(
 		'Forum' => 'index',
 		'Post' => 'preview, addSupporter, removeSupporter',
 		'Ajax' => 'main, postSummary, loginbox',
@@ -50,8 +55,7 @@ if (!defined('TYPO3_MODE')) {
 );
 
 # TCE-Main hook for clearing all typo3_forum caches
-$TYPO3_CONF_VARS['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearCachePostProc'][]
-	= '\Mittwald\Typo3Forum\Cache\CacheManager->clearAll';
+$TYPO3_CONF_VARS['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearCachePostProc'][] = '\Mittwald\Typo3Forum\Cache\CacheManager->clearAll';
 
 if (!is_array($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['typo3forum_main'])) {
 	$TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['typo3forum_main'] = array();

@@ -1,10 +1,10 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Repository\User;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,7 +24,7 @@ namespace Mittwald\Typo3Forum\Domain\Repository\User;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use Mittwald\Typo3Forum\Domain\Repository\AbstractRepository;
 
 /**
  *
@@ -36,27 +36,8 @@ namespace Mittwald\Typo3Forum\Domain\Repository\User;
  * displayed in the user profile view independently of whether they are
  * configured in the database.
  *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Repository_User
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class UserfieldRepository extends \Mittwald\Typo3Forum\Domain\Repository\AbstractRepository {
-
-
-
-	/*
-	 * ATTRIBUTES
-	 */
-
-
+class UserfieldRepository extends AbstractRepository {
 
 	/**
 	 * A list of core userfields.
@@ -65,16 +46,12 @@ class UserfieldRepository extends \Mittwald\Typo3Forum\Domain\Repository\Abstrac
 	 */
 	private $coreUserfields = NULL;
 
-    /**
-     * ConfigurationManagerInterface
-     * @var Tx_Extbase_Configuration_ConfigurationManagerInterface
-     */
-    protected $configurationManagerInterface = NULL;
-
-	/*
-	 * CONSTRUCTOR
+	/**
+	 * ConfigurationManagerInterface
+	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+	 * @inject
 	 */
-
+	protected $configurationManagerInterface = NULL;
 
 	/**
 	 * Creates a new instance of the userfield repository.
@@ -83,17 +60,8 @@ class UserfieldRepository extends \Mittwald\Typo3Forum\Domain\Repository\Abstrac
 	 */
 	public function __construct(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
 		parent::__construct($objectManager);
-		$this->objectType = '\Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield';
-
+		$this->objectType = 'Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield';
 	}
-
-    /**
-    * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManagerInterface
-    */
-    public function injectConfigurationManagerInterface(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManagerInterface) {
-        $this->configurationManagerInterface = $configurationManagerInterface;
-    }
-
 
 
 	/*
@@ -111,7 +79,7 @@ class UserfieldRepository extends \Mittwald\Typo3Forum\Domain\Repository\Abstrac
 	 */
 	protected function findCoreUserfields() {
 		if ($this->coreUserfields === NULL) {
-			$conf                 =  $this->configurationManagerInterface->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+			$conf = $this->configurationManagerInterface->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 			$this->coreUserfields = array();
 
 			foreach ($conf['settings']['userfields']['core_fields'] as $coreFieldKey => $coreFieldValues) {
@@ -139,7 +107,6 @@ class UserfieldRepository extends \Mittwald\Typo3Forum\Domain\Repository\Abstrac
 	}
 
 
-
 	/**
 	 * Finds all userfields. This method loads all userfields from the database
 	 * and merges the result with the core userfields that are loaded from the
@@ -153,7 +120,6 @@ class UserfieldRepository extends \Mittwald\Typo3Forum\Domain\Repository\Abstrac
 		$query = $this->createQueryWithFallbackStoragePage();
 		return array_merge($this->findCoreUserfields(), $query->execute()->toArray());
 	}
-
 
 
 }

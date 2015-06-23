@@ -1,10 +1,10 @@
 <?php
 namespace Mittwald\Typo3Forum\TextParser\Service;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,35 +24,9 @@ namespace Mittwald\Typo3Forum\TextParser\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-
-/**
- *
- * Text parser class that performs basic text parsing functions, such as
- * HTML escaping, line formatting, etc.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage TextParser_Service
- * @version    $Id$
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-
-class BasicParserService extends \Mittwald\Typo3Forum\TextParser\Service\AbstractTextParserService {
-
-
-
-	/*
-	 * ATTRIBUTES
-	 */
-
-
+class BasicParserService extends AbstractTextParserService {
 
 	/**
 	 * The text.
@@ -60,42 +34,16 @@ class BasicParserService extends \Mittwald\Typo3Forum\TextParser\Service\Abstrac
 	 */
 	protected $text;
 
-
-
 	/**
 	 * Protected parts of the parsed text. In these parts, no parsing will be done.
 	 * @var array
 	 */
 	private $protectedParts = array();
 
-
-
-	/*
-	 * CONSTRUCTOR
-	 */
-
-
-
-	/**
-	 * Creates a new instance of this service.
-	 */
-	public function __construct() {
-		parent::__construct();
-	}
-
-
-
-	/*
-	 * SERVICE METHODS
-	 */
-
-
-
 	/**
 	 * Renders the parsed text.
 	 *
 	 * @param  string $text The text to be parsed.
-	 *
 	 * @return string       The parsed text.
 	 */
 	public function getParsedText($text) {
@@ -106,55 +54,64 @@ class BasicParserService extends \Mittwald\Typo3Forum\TextParser\Service\Abstrac
 		$this->paragraphs()->lineBreaks();
 		$this->restoreProtectedParts();
 
-		Return $this->text;
+		return $this->text;
 	}
 
-
-
-	/*
-	 * HELPER METHODS
+	/**
+	 * @param array $matches
+	 * @return string
 	 */
-
-	function _make_url_clickable_cb($matches) {
+	protected function makeUrlClickable($matches) {
 		$ret = '';
 		$url = $matches[2];
 
-		if ( empty($url) )
+		if (empty($url))
 			return $matches[0];
 		// removed trailing [.,;:] from URL
-		if ( in_array(substr($url, -1), array('.', ',', ';', ':')) === true ) {
+		if (in_array(substr($url, -1), array('.', ',', ';', ':')) === true) {
 			$ret = substr($url, -1);
-			$url = substr($url, 0, strlen($url)-1);
+			$url = substr($url, 0, strlen($url) - 1);
 		}
 		return $matches[1] . "<a href=\"$url\" rel=\"nofollow\">$url</a>" . $ret;
 	}
 
-	function _make_web_ftp_clickable_cb($matches) {
+	/**
+	 * @param array $matches
+	 * @return string
+	 */
+	protected function makeWebFtpClickable($matches) {
 		$ret = '';
 		$dest = $matches[2];
 		$dest = 'http://' . $dest;
 
-		if ( empty($dest) )
+		if (empty($dest))
 			return $matches[0];
 		// removed trailing [,;:] from URL
-		if ( in_array(substr($dest, -1), array('.', ',', ';', ':')) === true ) {
+		if (in_array(substr($dest, -1), array('.', ',', ';', ':')) === true) {
 			$ret = substr($dest, -1);
-			$dest = substr($dest, 0, strlen($dest)-1);
+			$dest = substr($dest, 0, strlen($dest) - 1);
 		}
 		return $matches[1] . "<a href=\"$dest\" rel=\"nofollow\">$dest</a>" . $ret;
 	}
 
-	function _make_email_clickable_cb($matches) {
+	/**
+	 * @param array $matches
+	 * @return string
+	 */
+	protected function makeEmailClickable($matches) {
 		$email = $matches[2] . '@' . $matches[3];
 		return $matches[1] . "<a href=\"mailto:$email\">$email</a>";
 	}
 
-	function regUrls() {
+	/**
+	 *
+	 */
+	protected function regUrls() {
 		$ret = ' ' . $this->text;
 		// in testing, using arrays here was found to be faster
-		$ret = preg_replace_callback('#([\s>])([\w]+?://[\w\\x80-\\xff\#$%&~/.\-;:=,?@\[\]+]*)#is', array(&$this, '_make_url_clickable_cb'), $ret);
-		$ret = preg_replace_callback('#([\s>])((www|ftp)\.[\w\\x80-\\xff\#$%&~/.\-;:=,?@\[\]+]*)#is', array(&$this, '_make_web_ftp_clickable_cb'), $ret);
-		$ret = preg_replace_callback('#([\s>])([.0-9a-z_+-]+)@(([0-9a-z-]+\.)+[0-9a-z]{2,})#i', array(&$this, '_make_email_clickable_cb'), $ret);
+		$ret = preg_replace_callback('#([\s>])([\w]+?://[\w\\x80-\\xff\#$%&~/.\-;:=,?@\[\]+]*)#is', array(&$this, 'makeUrlClickable'), $ret);
+		$ret = preg_replace_callback('#([\s>])((www|ftp)\.[\w\\x80-\\xff\#$%&~/.\-;:=,?@\[\]+]*)#is', array(&$this, 'makeWebFtpClickable'), $ret);
+		$ret = preg_replace_callback('#([\s>])([.0-9a-z_+-]+)@(([0-9a-z-]+\.)+[0-9a-z]{2,})#i', array(&$this, 'makeEmailClickable'), $ret);
 
 		// this one is not in an array because we need it to run last, for cleanup of accidental links within links
 		$ret = preg_replace("#(<a( [^>]+?>|>))<a [^>]+?>([^>]+?)</a></a>#i", "$1$3</a>", $ret);
@@ -175,7 +132,6 @@ class BasicParserService extends \Mittwald\Typo3Forum\TextParser\Service\Abstrac
 	}
 
 
-
 	/**
 	 * Replaces all placeholders for protected parts with the original contents.
 	 *
@@ -183,67 +139,55 @@ class BasicParserService extends \Mittwald\Typo3Forum\TextParser\Service\Abstrac
 	 */
 	protected function restoreProtectedParts() {
 		while (($s = strpos($this->text, '###MMFORUM_PROTECTED###')) !== FALSE) {
-			$this->text = substr_replace($this->text, array_shift($this->protectedParts[0]), $s,
-			                             strlen('###MMFORUM_PROTECTED###'));
+			$this->text = substr_replace($this->text, array_shift($this->protectedParts[0]), $s, strlen('###MMFORUM_PROTECTED###'));
 		}
 	}
-
-
 
 	/**
 	 * Performs simple HTML escaping on the text.
 	 *
-	 * @return \Mittwald\Typo3Forum\TextParser\Service\BasicParserService
-	 *                             $this, for chaining
+	 * @return BasicParserService $this, for chaining
 	 */
 	protected function escape() {
 		$this->text = htmlspecialchars($this->text);
-		Return $this;
+		return $this;
 	}
-
-
 
 	/**
 	 * Replaces double line breaks with paragraphs.
 	 *
-	 * @return \Mittwald\Typo3Forum\TextParser\Service\BasicParserService
-	 *                             $this, for chaining
+	 * @return BasicParserService $this, for chaining
 	 */
 	protected function paragraphs() {
 		$this->text = str_replace("\r", '', $this->text);
 		$this->text = preg_replace(';\n{2,};s', "\n\n", $this->text);
 
-		$paragraphs = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode("\n\n", $this->text);
+		$paragraphs = GeneralUtility::trimExplode("\n\n", $this->text);
 		$this->text = '<p>' . implode('</p><p>', $paragraphs) . '</p>';
-		Return $this;
+		return $this;
 	}
-
-
 
 	/**
 	 * Replaces single line breaks with <br> tags.
 	 *
-	 * @return \Mittwald\Typo3Forum\TextParser\Service\BasicParserService
-	 *                             $this, for chaining
+	 * @return BasicParserService $this, for chaining
 	 */
 	protected function lineBreaks() {
 		$this->text = $this->removeUnneccesaryLinebreaks($this->text);
 		$this->text = nl2br($this->text);
-		Return $this;
+		return $this;
 	}
-
-
 
 	/**
 	 * Removes superflous line breaks within the text.
 	 *
 	 * @param  string $text The text with linebreaks.
 	 *
-	 * @return string       The text with less linebreaks.
+	 * @return string The text with less linebreaks.
 	 */
 	protected function removeUnneccesaryLinebreaks($text) {
 		$text = preg_replace(',(\[[a-z0-9 ]+\])\s*,is', '$1', $text);
-		Return $text;
+		return $text;
 	}
 
 }

@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\User;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,65 +22,35 @@ namespace Mittwald\Typo3Forum\ViewHelpers\User;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
-
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield;
+use Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield;
+use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 
 
 /**
  *
  * ViewHelper that renders the value of a specific userfield for a user.
  *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage ViewHelpers_User
- * @version    $Id$
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-
-class UserfieldViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
-
-
-
-	/**
-	 *
-	 * Initializes the view helper arguments.
-	 *
-	 */
-
-	public function initializeArguments() { /* Empty! Haw, haw! */
-	}
-
-
+class UserfieldViewHelper extends CObjectViewHelper {
 
 	/**
 	 *
 	 * Renders the userfield value.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser                $user
-	 *                             The user for whom the userfield value is to be
-	 *                             rendered.
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield $userfield
-	 *                             The userfield.
-	 * @return string              HTML content
+	 * @param FrontendUser $user The user for whom the userfield value is to be rendered.
+	 * @param AbstractUserfield $userfield The userfield
+	 * @return string HTML content
 	 *
 	 */
-
-	public function render(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user,
-	                       \Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield $userfield) {
-
-		if ($userfield instanceof \Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield) {
-			$data = $userfield->getValueForUser($user);
-			$data = $this->convertDataToString($data);
-			return parent::render($userfield->getTyposcriptPath() . '.output', implode(' ', $data));
-		} else {
-			return 'Do not know what to do!';
+	public function render(FrontendUser $user, AbstractUserfield $userfield) {
+		if (!$userfield instanceof TyposcriptUserfield) {
+			return new \InvalidArgumentException('Only userfields of type TyposcriptUserField are supported', 1435048481);
 		}
-
+		$data = $userfield->getValueForUser($user);
+		$data = $this->convertDataToString($data);
+		return parent::render($userfield->getTyposcriptPath() . '.output', implode(' ', $data));
 	}
 
 
@@ -90,11 +59,10 @@ class UserfieldViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper
 	 *
 	 * Helper method that converts any type of variable to a string.
 	 *
-	 * @param   mixed $data Anything
-	 * @return string       Anything converted to a string
+	 * @param mixed $data Anything
+	 * @return string Anything converted to a string
 	 *
 	 */
-
 	protected function convertDataToString($data) {
 		if (is_array($data)) {
 			foreach ($data as $k => &$v) {
@@ -102,7 +70,7 @@ class UserfieldViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper
 			}
 			return $data;
 		} else {
-			if ($data instanceof DateTime) {
+			if ($data instanceof \DateTime) {
 				return $data->format('U');
 			} else {
 				return $data;
@@ -111,5 +79,3 @@ class UserfieldViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper
 	}
 
 }
-
-?>

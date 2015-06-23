@@ -4,10 +4,7 @@ namespace Mittwald\Typo3Forum\Controller;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Sebastian Gieselmann <s.gieselmann@mittwald.de>            *
- *           Ruven Fehling <r.fehling@mittwald.de>                      *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -28,70 +25,48 @@ namespace Mittwald\Typo3Forum\Controller;
  *                                                                      */
 
 
+use Mittwald\Typo3Forum\Domain\Exception\Authentication\NoAccessException;
+use Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException;
+
 class ForumController extends AbstractController {
 
 	/**
-	 * A forum repository.
+	 * @var \TYPO3\CMS\Core\Database\DatabaseConnection
+	 */
+	protected $databaseConnection;
+
+	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
+	 * @inject
 	 */
 	protected $forumRepository;
 
 
 	/**
-	 * A topic repository.
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
+	 * @inject
 	 */
 	protected $topicRepository;
 
 
 	/**
-	 * The ads repository.
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdsRepository
+	 * @inject
 	 */
 	protected $adsRepository;
 
 	/**
-	 * The virtual root forum.
 	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\RootForum
+	 * @inject
 	 */
 	protected $rootForum;
 
-
-	//
-	// DEPENDENCY INJECTION METHODS
-	//
-
-
-
 	/**
-	 * Constructor of this controller. Needs to get all required repositories injected.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository An instance of the forum repository.
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository An instance of the topic repository.
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\RootForum            $rootForum       An instance of the virtual root forum.
-	 * @param \Mittwald\Typo3Forum\Service\SessionHandlingService $sessionHandling
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\AdsRepository   $adsRepository
 	 */
-	public function __construct(\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository,
-	                            \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository,
-	                            \Mittwald\Typo3Forum\Domain\Model\Forum\RootForum $rootForum,
-								\Mittwald\Typo3Forum\Service\SessionHandlingService $sessionHandling,
-								\Mittwald\Typo3Forum\Domain\Repository\Forum\AdsRepository $adsRepository) {
-		parent::__construct();
-		$this->forumRepository	= $forumRepository;
-		$this->topicRepository	= $topicRepository;
-		$this->rootForum		= $rootForum;
-		$this->sessionHandling	= $sessionHandling;
-		$this->adsRepository	= $adsRepository;
+	public function initializeAction() {
+		$this->databaseConnection = $GLOBALS['TYPO3_DB'];
 	}
-
-
-
-	//
-	// ACTION METHODS
-	//
-
-
 
 	/**
 	 * Index action. Displays the first two levels of the forum tree.
@@ -102,8 +77,6 @@ class ForumController extends AbstractController {
 		$forums = $this->forumRepository->findForIndex();
 		$this->view->assign('forums', $forums);
 	}
-
-
 
 	/**
 	 * Show action. Displays a single forum, all subforums of this forum and the
@@ -127,8 +100,6 @@ class ForumController extends AbstractController {
 			->assign('topics', $topics);
 	}
 
-
-
 	/**
 	 * Updates a forum.
 	 * This action method updates a forum. Admin authorization is required.
@@ -146,8 +117,6 @@ class ForumController extends AbstractController {
 		$this->redirect('index');
 	}
 
-
-
 	/**
 	 * Creates a forum.
 	 * This action method creates a new forum. Admin authorization is required for
@@ -155,14 +124,14 @@ class ForumController extends AbstractController {
 	 *
 	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum The forum to be created.
 	 *
-	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NoAccessException
+	 * @throws NoAccessException
 	 * @dontverifyrequesthash
 	 */
 	public function createAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum) {
 		if ($forum->getParent() !== NULL) {
 			$this->authenticationService->assertAdministrationAuthorization($forum->getParent());
 		} /** @noinspection PhpUndefinedConstantInspection */ elseif (TYPO3_MODE !== 'BE') {
-			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NoAccessException('This operation is allowed only from the TYPO3 backend.');
+			throw new NoAccessException('This operation is allowed only from the TYPO3 backend.');
 		}
 
 		$this->forumRepository->add($forum);
@@ -177,13 +146,13 @@ class ForumController extends AbstractController {
 	 * Mark a whole forum as read
 	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
 	 *
-	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
+	 * @throws NotLoggedInException
 	 * @return void
 	 */
 	public function markReadAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum) {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in.", 1288084981);
+			throw new NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 		$forumStorage = array();
 		$forumStorage[] = $forum;
@@ -192,6 +161,7 @@ class ForumController extends AbstractController {
 		}
 
 		foreach($forumStorage AS $checkForum) {
+			/** @var \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $checkForum */
 			if(intval($this->settings['useSqlStatementsOnCriticalFunctions']) == 0) {
 				foreach($checkForum->getTopics() AS $topic) {
 					$topic->addReader($user);
@@ -202,8 +172,7 @@ class ForumController extends AbstractController {
 				foreach($topics AS $topic) {
 					$values = array('uid_foreign' => intval($topic['uid']),
 						'uid_local'	 => intval($user->getUid()));
-					$query = $GLOBALS['TYPO3_DB']->INSERTquery('tx_typo3forum_domain_model_user_readtopic',$values);
-					$res =  $GLOBALS['TYPO3_DB']->sql_query($query);
+					$this->databaseConnection->exec_INSERTquery('tx_typo3forum_domain_model_user_readtopic', $values);
 				}
 			}
 
@@ -219,13 +188,13 @@ class ForumController extends AbstractController {
 	 * Show all unread topics of the current user
 	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
 	 *
-	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
+	 * @throws NotLoggedInException
 	 * @return void
 	 */
 	public function showUnreadAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum) {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in.", 1288084981);
+			throw new NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 		$topics       = array();
 		$unreadTopics = array();

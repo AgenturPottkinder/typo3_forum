@@ -1,5 +1,4 @@
-{namespace m=Tx_Typo3Forum_ViewHelpers}
-
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 <f:layout name="default" />
 
 <f:section name="main">
@@ -55,7 +54,7 @@
 						<f:for each="{paginatedReports}" as="report">
 							<tr rel="popover" data-content="{report.firstComment.text}" data-original-title="{report.topic.subject}">
 								<td style="width: 1px;">
-									<m:moderation.reportIcon report="{report}" width="32" />
+									<mmf:moderation.reportIcon report="{report}" width="32" />
 								</td>
 								<td>{report.uid}</td>
 								<td>

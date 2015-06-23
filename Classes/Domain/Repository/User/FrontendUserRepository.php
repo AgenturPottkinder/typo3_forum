@@ -44,10 +44,15 @@ namespace Mittwald\Typo3Forum\Domain\Repository\User;
  */
 class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository {
 
+	/**
+	 * @var \TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager
+	 * @inject
+	 */
+	protected $frontendConfigurationManager;
 
 	/**
-	 * An instance of the typo3_forum authentication service.
 	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @inject
 	 */
 	protected $typoScriptService = NULL;
 
@@ -57,22 +62,13 @@ class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronte
 	 */
 	protected $settings;
 
-
-	/**
-	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
-	 *
-	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
-	 * @return void
-	 */
-	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
-		$this->typoScriptService = $typoScriptService;
-		$typoScriptArray = \TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup();
+	public function initializeObject() {
+		$typoScriptArray = $this->frontendConfigurationManager->getTypoScriptSetup();
 		if(is_array($typoScriptArray)) {
 			$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray($typoScriptArray);
 			$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 		}
 	}
-
 
 	/**
 	 * Finds the user that is currently logged in, or NULL if no user is logged in.
@@ -86,7 +82,6 @@ class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronte
 		return $currentUserUid ? $this->findByUid($currentUserUid) : new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
 	}
 
-
 	/**
 	 *
 	 * Finds users for a specific filterset. Page navigation is possible.
@@ -99,11 +94,10 @@ class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronte
 	 *                               The selected subset of posts
 	 *
 	 */
-	public function findByFilter($limit = '', $orderings = array(), $onlyOnline = FALSE, $uids = array()) {
-
+	public function findByFilter($limit = 0, $orderings = array(), $onlyOnline = FALSE, $uids = array()) {
 		$query = $this->createQuery();
 		$constraints = array();
-		if (!empty($limit)) {
+		if ($limit !== 0) {
 			$query->setLimit($limit);
 		}
 		if (!empty($orderings)) {

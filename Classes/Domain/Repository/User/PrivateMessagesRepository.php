@@ -1,10 +1,10 @@
 <?php
-namespace ExtbaseTeam\BlogExample\Domain\Repository\User;
+namespace Mittwald\Typo3Forum\Domain\Repository\User;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Ruven Fehling <r.fehling@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,36 +24,20 @@ namespace ExtbaseTeam\BlogExample\Domain\Repository\User;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
-/**
- *
- * Repository class for forum objects.
- *
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Repository_User
- * @version    $Id$
- *
- * @copyright  2013 Ruven Fehling <r.fehling@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-class PrivateMessagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
-
+class PrivateMessagesRepository extends Repository {
 
 	/**
 	 * Find all messages between user X and user Y
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $userX
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $userY
+	 * @param FrontendUser $userX
+	 * @param FrontendUser $userY
 	 * @param int $limit
 	 * @return \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessages[]
 	 */
-	public function findMessagesBetweenUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $userX,
-											\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $userY, $limit=0) {
+	public function findMessagesBetweenUser(FrontendUser $userX, FrontendUser $userY, $limit=0) {
 		$query = $this->createQuery();
 		$constraintsX = array();
 		$constraintsY = array();
@@ -73,16 +57,15 @@ class PrivateMessagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repositor
 		return $query->execute();
 	}
 
-
 	/**
 	 * Find all started conversations for user
 	 *
 	 * @TODO: Should be overworked when default SQL functions will be added to Extbase (group by, distinct etc)
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @param FrontendUser $user
 	 * @param int $limit
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser[]
+	 * @return FrontendUser[]
 	 */
-	public function findStartedConversations(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user, $limit=0) {
+	public function findStartedConversations(FrontendUser $user, $limit=0) {
 		$query = $this->createQuery();
 		$constraintsX = array();
 		$constraintsY = array();
@@ -110,16 +93,13 @@ class PrivateMessagesRepository extends \TYPO3\CMS\Extbase\Persistence\Repositor
 		return $userResult;
 	}
 
-
-
-
 	/**
 	 * Find all messages this user got
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @param FrontendUser $user
 	 * @param int $limit
 	 * @return \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessages[]
 	 */
-	public function findReceivedMessagesForUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user, $limit=0) {
+	public function findReceivedMessagesForUser(FrontendUser $user, $limit=0) {
 		$query = $this->createQuery();
 		$constraints = array();
 		$constraints[] = $query->equals('opponent',$user);

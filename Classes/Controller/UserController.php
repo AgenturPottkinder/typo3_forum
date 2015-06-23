@@ -1,12 +1,10 @@
 <?php
 namespace Mittwald\Typo3Forum\Controller;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Sebastian Gieselmann <s.gieselmann@mittwald.de>            *
- *           Ruven Fehling <r.fehling@mittwald.de>                      *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -26,133 +24,56 @@ namespace Mittwald\Typo3Forum\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
-/**
- *
- * This class implements a simple dispatcher for a mm_form eID script.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Controller
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-class UserController extends \Mittwald\Typo3Forum\Controller\AbstractController {
-
-
-
-	/*
-	 * ATTRIBUTES
-	 */
-
-
+class UserController extends AbstractController {
 
 	/**
-	 * The userfield repository.
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\UserfieldRepository
+	 * @inject
 	 */
 	protected $userfieldRepository = NULL;
 
 
 	/**
-	 * The topic repository.
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
+	 * @inject
 	 */
 	protected $topicRepository = NULL;
 
 
 	/**
-	 * The forum repository.
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
+	 * @inject
 	 */
 	protected $forumRepository = NULL;
 
 
 
 	/**
-	 * The forum repository.
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\PrivateMessagesRepository
+	 * @inject
 	 */
 	protected $messageRepository = NULL;
 
 
 	/**
-	 * A message factory.
 	 * @var \Mittwald\Typo3Forum\Domain\Factory\User\PrivateMessagesFactory
+	 * @inject
 	 */
 	protected $privateMessagesFactory;
 
 
 	/**
-	 * The rank repository.
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\RankRepository
+	 * @inject
 	 */
 	protected $rankRepository = NULL;
 
 
 	/**
-	 * The notification repository.
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\NotificationRepository
+	 * @inject
 	 */
 	protected $notificationRepository = NULL;
-
-
-	/*
-	 * DEPENDENCY INJECTORS
-	 */
-
-
-
-	/**
-	 * Constructor. Used primarily for dependency injection.
-	 *
-	 * @param \\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository    $forumRepository
-	 *                                 An instance of the forum repository.
-	 * @param \\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository    $topicRepository
-	 *                                 An instance of the topic repository.
-	 * @param \\Mittwald\Typo3Forum\Domain\Repository\User\UserfieldRepository $userfieldRepository
-	 *                                 An instance of the userfield repository.
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\User\PrivateMessagesRepository $messageRepository
-	 * 									An instance of the private message repository.
-	 * @param \Mittwald\Typo3Forum\Domain\Factory\User\PrivateMessagesFactory $privateMessagesFactory
-	 * 									An instance of the private message factory
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\User\RankRepository $rankRepository
-	 * 									An instance of the rank repository
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\User\NotificationRepository
-	 *									An instance of the notification repository
-	 */
-	public function __construct(\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository,
-	                            \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository,
-	                            \Mittwald\Typo3Forum\Domain\Repository\User\UserfieldRepository $userfieldRepository,
-								\Mittwald\Typo3Forum\Domain\Repository\User\PrivateMessagesRepository $messageRepository,
-								\Mittwald\Typo3Forum\Domain\Factory\User\PrivateMessagesFactory $privateMessagesFactory,
-								\Mittwald\Typo3Forum\Domain\Repository\User\RankRepository $rankRepository,
-								\Mittwald\Typo3Forum\Domain\Repository\User\NotificationRepository $notificationRepository) {
-		parent::__construct();
-		$this->forumRepository			= $forumRepository;
-		$this->topicRepository			= $topicRepository;
-		$this->userfieldRepository		= $userfieldRepository;
-		$this->messageRepository		= $messageRepository;
-		$this->privateMessagesFactory	= $privateMessagesFactory;
-		$this->rankRepository			= $rankRepository;
-		$this->notificationRepository	= $notificationRepository;
-	}
-
-
-
-	/*
-	  * ACTION METHODS
-	  */
-
-
 
 	/**
 	 * Displays a list of all existing users.

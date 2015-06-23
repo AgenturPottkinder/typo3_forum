@@ -10,7 +10,6 @@ config.tx_extbase.objects {
 }
 
 config.tx_extbase.persistence.classes {
-
 	TYPO3\CMS\Extbase\Domain\Model\FrontendUser.subclasses {
 		\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser = \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	}
@@ -20,7 +19,6 @@ config.tx_extbase.persistence.classes {
 	}
 
 	Mittwald\Typo3Forum\Domain\Model\User\FrontendUser {
-
 		mapping {
 			tableName = fe_users
 			recordType = \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
@@ -57,12 +55,11 @@ config.tx_extbase.persistence.classes {
 	}
 
 	Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup {
-
 		mapping {
 			tableName = fe_groups
 			recordType = \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup
 			columns {
-						tx_typo3forum_user_mod.mapOnProperty = userMod
+				tx_typo3forum_user_mod.mapOnProperty = userMod
 			}
 		}
 	}
@@ -101,6 +98,7 @@ config.tx_extbase.persistence.classes {
 		mapping {
 			tableName = tx_typo3forum_domain_model_moderation_report
 		}
+
 		subclasses {
 			\Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport = \Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport
 			\Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport = \Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport
@@ -178,6 +176,7 @@ config.tx_extbase.persistence.classes {
 			tableName = tx_typo3forum_domain_model_forum_topic
 			recordType = 0
 		}
+
 		subclasses {
 			\Mittwald\Typo3Forum\Domain\Model\Forum\ShadowTopic = \Mittwald\Typo3Forum\Domain\Model\Forum\ShadowTopic
 		}
@@ -210,12 +209,14 @@ plugin.tx_typo3forum.settings {
 	debug {
 		disableACLs = 0
 	}
+
 	images {
 		avatar.uploadDir = uploads/tx_srfeuserregister
 		# use following definitions to have different Default avatars for male and female
 		#avatar.dummyMale = /uploads/path_to_male_avatar.jpg
 		#avatar.dummyFemale = /uploads/path_to_female_avatar.jpg
 	}
+
 	pids {
 		Forum =
 		UserShow =
@@ -243,15 +244,19 @@ plugin.tx_typo3forum.settings {
 			}
 		}
 	}
+
 	ads {
 		timeInterval = 30
 	}
+
 	topicIcon {
 		basepath =
 	}
+
 	forumIcon {
 		basepath =
 	}
+
 	pagebrowser {
 		default {
 			itemsPerPage = 20
@@ -259,18 +264,19 @@ plugin.tx_typo3forum.settings {
 			insertBelow = 1
 			maximumNumberOfLinks = 9
 			showFirstLast = 1
-            browseBoxWrap = <div class="tx-ttnews-browsebox"><p>|</ul></div>
-            showResultsWrap = |</p><ul>
-            LinksWrap = |
-            browseLinksWrap = |
-            activeLinkWrap = <li><strong>|</strong></li>
-            disabledLinkWrap = <li>|</li>
-            inactiveLinkWrap = <li>|</li>
+			browseBoxWrap = <div class="tx-ttnews-browsebox"><p>|</ul></div>
+			showResultsWrap = |</p><ul>
+			LinksWrap = |
+			browseLinksWrap = |
+			activeLinkWrap = <li><strong>|</strong></li>
+			disabledLinkWrap = <li>|</li>
+			inactiveLinkWrap = <li>|</li>
 		}
+
 		topicShow < default
 		topicShow {
-		    insertAbove = 1
-		    itemsPerPage = 10
+			insertAbove = 1
+			itemsPerPage = 10
 		}
 	}
 
@@ -283,7 +289,6 @@ plugin.tx_typo3forum.settings {
 		pagebrowser {
 			itemsPerPage = 10
 		}
-
 	}
 
 	userController.index {
@@ -298,6 +303,7 @@ plugin.tx_typo3forum.settings {
 		dateFormat = d. m. Y
 		dateTimeFormat = d. m. Y, H:i
 	}
+
 	widgets {
 		newestPosts.limit = 6
 		questionPosts.limit = 6
@@ -309,16 +315,17 @@ plugin.tx_typo3forum.settings {
 			timeInterval = 900
 		}
 	}
-        mailing {
-            sender {
-                address = mail@mail.de
-                name = Absender
-            }
-        }
+
+	mailing {
+		sender {
+			address = mail@mail.de
+			name = Absender
+		}
+	}
+
 	textParsing {
 		enabledServices {
 			basic = \Mittwald\Typo3Forum\TextParser\Service\BasicParserService
-			#tidy = Tx_Typo3Forum_TextParser_Service_TidyService
 			bbCodes = \Mittwald\Typo3Forum\TextParser\Service\BBCodeParserService
 			smilies = \Mittwald\Typo3Forum\TextParser\Service\SmilieParserService
 			syntax = \Mittwald\Typo3Forum\TextParser\Service\SyntaxHighlightingParserService
@@ -336,11 +343,13 @@ plugin.tx_typo3forum.settings {
 					className = \Mittwald\Typo3Forum\TextParser\Panel\BbCodePanel
 					title = LLL:LLLEXT:typo3_forum/Resources/Private/Language/locallang.xml:Editor_Panel_Formatting
 				}
+
 				syntax {
 					className = \Mittwald\Typo3Forum\TextParser\Panel\SyntaxHighlightingPanel
 					title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:Editor_Panel_SyntaxHighlighting
 					iconClassName = tx-typo3forum-miu-code
 				}
+
 				smilies {
 					className = \Mittwald\Typo3Forum\TextParser\Panel\SmiliePanel
 					title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:Editor_Panel_Smilies
@@ -358,13 +367,15 @@ plugin.tx_typo3forum.settings {
 				mapToUserObject = username
 			}
 		}
+
 		registered_since {
-			class = Tx_Typo3Forum_Domain_Model_User_Userfield_DateUserfield
+			class = \Mittwald\Typo3Forum\Domain\Model\User\Userfield\DateUserfield
 			properties {
 				name = LLL:EXT:typo3_forum/Resources/Private/Language/locallang_user.xml:RegisteredSince
 				mapToUserObject = crdate
 			}
 		}
+
 		real_name {
 			class = \Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield
 			properties {
@@ -376,14 +387,13 @@ plugin.tx_typo3forum.settings {
 }
 
 plugin.tx_typo3forum.view {
-    widget.Tx_Fluid_ViewHelpers_Widget_PaginateViewHelper.templateRootPath = {$plugin.tx_typo3forum.view.templateRootPath}
-    templateRootPath = {$plugin.tx_typo3forum.view.templateRootPath}
-    partialRootPath = {$plugin.tx_typo3forum.view.partialRootPath}
-    layoutRootPath = {$plugin.tx_typo3forum.view.layoutRootPath}
+	widget.Tx_Fluid_ViewHelpers_Widget_PaginateViewHelper.templateRootPath = {$plugin.tx_typo3forum.view.templateRootPath}
+	templateRootPath = {$plugin.tx_typo3forum.view.templateRootPath}
+	partialRootPath = {$plugin.tx_typo3forum.view.partialRootPath}
+	layoutRootPath = {$plugin.tx_typo3forum.view.layoutRootPath}
 }
 
 plugin.tx_typo3forum.renderer.navigation {
-
 	userlink = COA
 	userlink {
 		stdWrap.wrap = <li class="dropdown"> | </li>
@@ -400,7 +410,6 @@ plugin.tx_typo3forum.renderer.navigation {
 			default.noTrimWrap = |<a class="dropdown-toggle" data-toggle="dropdown" href="#" style="padding-top: 4px; padding-bottom: 4px;"> | <b class="caret"></b></a>|
 		}
 
-
 		20 = COA
 		20 {
 			stdWrap.wrap = <ul class="dropdown-menu"> | </ul>
@@ -416,6 +425,7 @@ plugin.tx_typo3forum.renderer.navigation {
 				ATagBeforeWrap = 1
 				wrap = <i class="tx-typo3forum-icon-16-user-profile"></i>
 			}
+
 			10.wrap = <li>|</li>
 
 			50 = TEXT
@@ -432,11 +442,9 @@ plugin.tx_typo3forum.renderer.navigation {
 			}
 		}
 	}
-
 }
 
 plugin.tx_typo3forum.renderer.icons {
-
 	abstract_icon = COA
 	abstract_icon {
 		10 = IMG_RESOURCE
@@ -455,7 +463,8 @@ plugin.tx_typo3forum.renderer.icons {
 		21.file.import.field = statusIcon
 		21.stdWrap.wrap = <div class="tx-typo3forum-icon-overlay-br" style="background-image: url(|)"></div>
 	}
-    forum < .abstract_icon
+
+	forum < .abstract_icon
 	forum {
 		10.file = EXT:typo3_forum/Resources/Public/Images/Icons/Forum/BaseIcon.png
 		21 = IMG_RESOURCE
@@ -463,6 +472,7 @@ plugin.tx_typo3forum.renderer.icons {
 		21.stdWrap.wrap = <div class="tx-typo3forum-icon-overlay-bl" style="background-image: url(|)" title="closed"></div>
 		21.stdWrap.if.isTrue.field = closed
 	}
+
 	forum_new < .forum
 	forum_new {
 		10.file = EXT:typo3_forum/Resources/Public/Images/Icons/Forum/BaseIcon.png
@@ -507,8 +517,9 @@ plugin.tx_typo3forum.renderer.icons {
 		25.stdWrap.wrap = <div class="tx-typo3forum-icon-overlay-tr" style="background-image: url(|)" title="sticky"></div>
 		25.stdWrap.if.isTrue.field = sticky
 	}
+
 	topic_new < .topic
-	topic_new  {
+	topic_new {
 		10.file = EXT:typo3_forum/Resources/Public/Images/Icons/Topic/BaseIcon.png
 
 		22 = IMG_RESOURCE
@@ -521,8 +532,6 @@ plugin.tx_typo3forum.renderer.icons {
 		26.stdWrap.wrap = <div class="tx-typo3forum-icon-overlay-bl" style="background-image: url(|)" title="new"></div>
 		26.stdWrap.if.isFalse.field = closed
 	}
-
-
 }
 
 plugin.tx_typo3forum.userfields {
@@ -545,6 +554,7 @@ plugin.tx_typo3forum.userfields {
 			andWhere.wrap = cn_iso_3="|"
 			pidInList = 0
 		}
+
 		table = static_countries
 		renderObj = TEXT
 		renderObj.field = cn_official_name_local
