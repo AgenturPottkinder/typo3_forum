@@ -95,8 +95,12 @@ class ModerationController extends AbstractController {
 	}
 
 	/**
+	 * editReportAction
+	 *
 	 * @param UserReport $userReport
-	 * @param PostReport $postReport
+	 * @param PostReport|NULL $postReport
+	 *
+	 * @return void
 	 * @throws InvalidArgumentValueException
 	 */
 	public function editReportAction(UserReport $userReport = NULL, PostReport $postReport = NULL) {
@@ -135,6 +139,7 @@ class ModerationController extends AbstractController {
 	/**
 	 * @param UserReport $report
 	 * @param ReportComment $comment
+	 * @return void
 	 * @throws InvalidArgumentValueException
 	 */
 	public function createUserReportCommentAction(UserReport $report = NULL, ReportComment $comment) {
@@ -158,9 +163,14 @@ class ModerationController extends AbstractController {
 	}
 
 	/**
-	 * @param PostReport $report
-	 * @param ReportComment $comment
+	 * createPostReportCommentAction
+	 *
+	 * @param PostReport|NULL $report
+	 * @param ReportComment   $comment
+	 *
+	 * @return void
 	 * @throws InvalidArgumentValueException
+	 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
 	 */
 	public function createPostReportCommentAction(PostReport $report = NULL, ReportComment $comment) {
 
@@ -186,9 +196,14 @@ class ModerationController extends AbstractController {
 	}
 
 	/**
+	 * Sets the workflow status of a report.
+	 *
 	 * @param UserReport $report
 	 * @param ReportWorkflowStatus $status
 	 * @param string $redirect
+	 *
+	 * @return void
+	 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
 	 */
 	public function updateUserReportStatusAction(UserReport $report, ReportWorkflowStatus $status, $redirect = 'indexReport') {
 
@@ -214,6 +229,8 @@ class ModerationController extends AbstractController {
 	}
 
 	/**
+	 * Sets the workflow status of a report.
+	 *
 	 * @param PostReport $report
 	 * @param ReportWorkflowStatus $status
 	 * @param string $redirect

@@ -141,13 +141,13 @@ class BbCodeEditorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\TextareaV
 
 
 	/**
-	 *
 	 * Loads the editor configuration
 	 *
 	 * @param  string $configurationPath The typoscript setup path in which the
 	 *                                   editor configuration is stored.
-	 * @return   void
 	 *
+	 * @return string
+	 * @throws \TYPO3\CMS\Extbase\Object\InvalidClassException
 	 */
 	protected function initializeJavascriptSetupFromConfiguration($configurationPath) {
 		$this->configuration = $this->typoscriptReader->loadTyposcriptFromPath($configurationPath);

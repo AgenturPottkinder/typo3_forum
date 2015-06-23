@@ -73,9 +73,10 @@ class UserfieldRepository extends AbstractRepository {
 	 * Finds all core userfields. These are stored in the typoscript setting
 	 * plugin.tx_typo3forum.settings.userfields.core_fields.
 	 *
-	 * @return Array<\Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield>
+	 * @return array|\Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield
 	 *                             The core userfields that are generated from the
 	 *                             typoscript configuration.
+	 * @throws \TYPO3\CMS\Extbase\Object\UnknownClassException
 	 */
 	protected function findCoreUserfields() {
 		if ($this->coreUserfields === NULL) {

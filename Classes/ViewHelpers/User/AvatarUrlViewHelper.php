@@ -83,18 +83,11 @@ class AvatarUrlViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper
 
 
 	/**
-	 *
 	 * Renders the avatar.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
-	 *                                                               The user whose avatar is to be rendered.
-	 * @param  integer                                   $width      The desired avatar width
-	 * @param  integer                                   $height     The desired avatar height
-	 * @param  integer                                   $minWidth      The desired avatar width
-	 * @param  integer                                   $minHeight     The desired avatar height
-	 * @param  boolean								     $returnURL     if true just return image URL
-	 * @return string              HTML content or URL
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser|NULL $user
 	 *
+	 * @return null|string
 	 */
 	public function render(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL ) {
 		// if user ist not set

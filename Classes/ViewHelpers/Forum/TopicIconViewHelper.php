@@ -89,7 +89,6 @@ class TopicIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper
 	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
 	 *                                                         The topic for which the icon is to be rendered.
 	 * @param  integer                             $width      Image width
-	 * @param  string                              $alt        Alt text
 	 * @return string             The rendered icon.
 	 *
 	 */

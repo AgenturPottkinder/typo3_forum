@@ -325,10 +325,11 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 * OR:
 	 * b.)  The current user has moderator access to the forum.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser|NULL $user
 	 *                             The user for which the authenication is to be
 	 *                             checked.
-	 * @param                                           $operation
+	 * @param                                                          $operation
+	 *
 	 * @return boolean             TRUE, if the user is allowed to edit this post,
 	 *                             otherwise FALSE.
 	 */
@@ -359,6 +360,8 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * Sets the city value
+	 *
+	 * @param $count
 	 *
 	 * @return void
 	 * @api

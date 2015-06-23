@@ -44,4 +44,3 @@ $TCA['tx_typo3forum_domain_model_stats_summary'] = array(
 		),
 	)
 );
-?>

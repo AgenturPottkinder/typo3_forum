@@ -90,4 +90,3 @@ $TCA['tx_typo3forum_domain_model_user_userfield_userfield'] = array(
 		),
 	),
 );
-?>

@@ -665,7 +665,9 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 
 	/**
 	 * Set the criteria of this forum..
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Criteria> $criteria
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $criteria
+	 *
 	 * @return void
 	 */
 	public function setCriteria(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $criteria) {
@@ -700,7 +702,8 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Adds a child forum.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum The Forum to be added
+	 * @param Forum $child
+	 *
 	 * @return void
 	 */
 	public function addChild(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $child) {
@@ -730,7 +733,8 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Adds a topic.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic The Topic to be added
+	 * @param Topic $topic
+	 *
 	 * @return void
 	 */
 	public function addTopic(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic) {
@@ -769,7 +773,8 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Sets the access rules for this forum.
 	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Access> $acls acls
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $acls
+	 *
 	 * @return void
 	 */
 	public function setAcls(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $acls) {

@@ -58,13 +58,15 @@ class FacebookShareLinkViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstr
 	public function initializeArguments() {
 		$this->registerTagAttribute('target', 'string', 'Specifies where to open the linked document');
 	}
+
 	/**
 	 * Render a share button
 	 *
-	 * @param string $title Title for share
-	 * @param string $description Title for share
-	 * @param string $image Title for share
-	 * @param string $shareUrl Title for share
+	 * @param string $title
+	 * @param string $text
+	 * @param string $image
+	 * @param string $shareUrl
+	 *
 	 * @return string
 	 */
 	public function render($title = NULL,  $text = NULL, $image = NULL, $shareUrl = NULL) {

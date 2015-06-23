@@ -173,12 +173,16 @@ class PostFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory {
 	/**
 	 * Assigns a user to a forum post and increases the user's post count.
 	 *
-	 * @param Post        $post
+	 * @param Post             $post
 	 *                             The post to which a user is to be assigned.
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser|NULL $user
 	 *                             The user that is to be assigned to the post. If
 	 *                             this value is NULL, the currently logged in user
 	 *                             will be used instead.
+	 *
+	 * @return void
+	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
+	 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
 	 */
 	public function assignUserToPost(Post $post,
 	                                 \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
@@ -210,6 +214,7 @@ class PostFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory {
 
 
 	/**
+	 *
 	 * Deletes a post and decreases the user's post count by 1.
 	 *
 	 * @param Post $post

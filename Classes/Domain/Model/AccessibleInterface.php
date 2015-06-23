@@ -48,7 +48,7 @@ interface AccessibleInterface {
 	/**
 	 * Checks if a certain frontend user has access to a specific operation.
 	 *
-	 * @param \\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 * @param string                                     $accessType
 	 *
 	 * @return boolean

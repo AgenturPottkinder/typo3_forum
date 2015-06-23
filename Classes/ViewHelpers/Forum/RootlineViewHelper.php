@@ -70,12 +70,13 @@ class RootlineViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBas
 	}
 
 
-
 	/**
+	 * render
 	 *
-	 * @param array   $rootline
-	 * @param boolean $reverse
+	 * @param array      $rootline
+	 * @param bool|FALSE $reverse
 	 *
+	 * @return string
 	 */
 	public function render(array $rootline, $reverse = FALSE) {
 		if ($reverse) {

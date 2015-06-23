@@ -101,8 +101,10 @@ class UserLinkViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper 
 	}
 
 	/**
-	 * @param string $type
-	 * @param bool $showOnlineStatus
+	 * render
+	 *
+	 * @param bool|TRUE $link
+	 *
 	 * @return string
 	 */
 	public function render($link = TRUE) {

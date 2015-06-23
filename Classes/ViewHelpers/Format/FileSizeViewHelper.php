@@ -62,16 +62,14 @@ class FileSizeViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 
 
 	/**
-	 *
 	 * Renders the file size.
 	 *
-	 * @param  integer $decimals           Amount of decimal places (default 2)
-	 * @param  integer $decimalSeparator   Decimal separator (default ',')
-	 * @param  integer $thousandsSeparator Thousands seperator (default '.')
-	 * @return  string                     The formatted file size.
+	 * @param int    $decimals
+	 * @param string $decimalSeparator
+	 * @param string $thousandsSeparator
 	 *
+	 * @return string
 	 */
-
 	public function render($decimals = 2, $decimalSeparator = ',', $thousandsSeparator = '.') {
 		$fileSize = $this->renderChildren();
 		$suffix   = 0;

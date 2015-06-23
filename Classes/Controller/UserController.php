@@ -318,8 +318,13 @@ class UserController extends AbstractController {
 	}
 
 	/**
+	 * disableUserAction
+	 *
 	 * @param FrontendUser $user
+	 *
+	 * @return void
 	 * @throws NotLoggedInException
+	 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
 	 */
 	public function disableUserAction(FrontendUser $user = NULL) {
 
@@ -372,6 +377,9 @@ class UserController extends AbstractController {
 	 * @param Forum $forum The forum that is to be subscribed. Either this value or the $topic parameter must be != NULL.
 	 * @param Topic $topic The topic that is to be subscribed. Either this value or the $forum parameter must be != NULL.
 	 * @param bool $unsubscribe TRUE to unsubscribe the forum or topic instead.
+	 *
+	 * @return void
+	 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
 	 * @throws NotLoggedInException
 	 * @throws InvalidArgumentValueException
 	 */
@@ -410,6 +418,7 @@ class UserController extends AbstractController {
 	 * @param Forum $forum The forum that is to be subscribed. Either this value or the $topic parameter must be != NULL.
 	 * @param Topic $topic The topic that is to be subscribed. Either this value or the $forum parameter must be != NULL.
 	 * @param bool $unsubscribe TRUE to unsubscribe the forum or topic instead.
+	 * @return void
 	 * @throws InvalidArgumentValueException
 	 * @throws NotLoggedInException
 	 */
@@ -465,6 +474,9 @@ class UserController extends AbstractController {
 
 	/**
 	 * Displays a dashboard for the current user
+	 *
+	 * @return void
+	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
 	 */
 	public function dashboardAction() {
 		$user = $this->frontendUserRepository->findCurrent();
@@ -484,6 +496,7 @@ class UserController extends AbstractController {
 	 * @param string $searchValue
 	 * @param string $filter
 	 * @param int $order
+	 * @return void
 	 */
 	public function searchUserAction($searchValue = NULL, $filter = NULL, $order = NULL) {
 	}

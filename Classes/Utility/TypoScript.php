@@ -71,6 +71,7 @@ class TypoScript {
 	 *
 	 * @return  array                    The typoscript configuration for the
 	 *                                   specified path.
+	 * @throws \Mittwald\Typo3Forum\Domain\Exception\TextParser\Exception
 	 */
 	public function loadTyposcriptFromPath($configurationPath) {
 		$setup = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);

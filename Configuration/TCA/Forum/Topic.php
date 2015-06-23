@@ -259,4 +259,3 @@ $TCA['tx_typo3forum_domain_model_forum_topic'] = array(
 		),
 	),
 );
-?>

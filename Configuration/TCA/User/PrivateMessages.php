@@ -78,4 +78,3 @@ $TCA['tx_typo3forum_domain_model_user_privatemessages'] = array(
 		),
 	)
 );
-?>

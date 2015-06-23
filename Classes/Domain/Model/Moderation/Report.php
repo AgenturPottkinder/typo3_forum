@@ -246,8 +246,10 @@ class Report extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Removes a comment from this report.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $comment A comment.
+	 * @param ReportComment $comment
+	 *
 	 * @return void
+	 * @throws \Mittwald\Typo3Forum\Domain\Exception\InvalidOperationException
 	 */
 	public function removeComment(\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $comment) {
 		if (count($this->comments) === 1) {

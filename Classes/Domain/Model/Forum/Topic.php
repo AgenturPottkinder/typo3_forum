@@ -651,8 +651,10 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * Removes a Post.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post The Post to be removed
+	 * @param Post $post The Post to be removed
+	 *
 	 * @return void
+	 * @throws \Mittwald\Typo3Forum\Domain\Exception\InvalidOperationException
 	 */
 	public function removePost(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
 		if ($this->postCount === 1) {

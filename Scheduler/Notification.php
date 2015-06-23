@@ -194,7 +194,7 @@ class Notification extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 	}
 
 	/**
-	 * @return void
+	 * @return boolean
 	 */
 	private function checkTagsNotification() {
 		$query = 'SELECT tg.uid AS tagUid, t.uid AS topicUid

@@ -88,10 +88,8 @@ class ReportFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory 
 	 *
 	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $firstComment
 	 *                             The first report comment for this report.
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post               $post
-	 *                             The post that is to be reported.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Moderation\Report
-	 *                             The new report.
+	 *
+	 * @return object
 	 *
 	 */
 	public function createUserReport(\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $firstComment) {
@@ -110,11 +108,7 @@ class ReportFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory 
 	 *
 	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $firstComment
 	 *                             The first report comment for this report.
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post               $post
-	 *                             The post that is to be reported.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Moderation\Report
-	 *                             The new report.
-	 *
+	 * @return object
 	 */
 	public function createPostReport(\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $firstComment) {
 		$user = & $this->getCurrentUser();

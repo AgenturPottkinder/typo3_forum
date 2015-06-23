@@ -156,7 +156,9 @@ class TextParserService extends \Mittwald\Typo3Forum\Service\AbstractService {
 	 * Loads the text parser configuration from a certain configuration path.
 	 *
 	 * @param  string $configurationPath The typoscript configuration path.
+	 *
 	 * @return void
+	 * @throws \Mittwald\Typo3Forum\Domain\Exception\TextParser\Exception
 	 */
 	public function loadConfiguration($configurationPath = 'plugin.tx_typo3forum.settings.textParsing') {
 		if ($this->settings !== NULL) {
@@ -188,6 +190,7 @@ class TextParserService extends \Mittwald\Typo3Forum\Service\AbstractService {
 	 *
 	 * @param  string $text The text that is to be parsed.
 	 * @return string       The parsed text
+	 * @throws \Mittwald\Typo3Forum\Domain\Exception\TextParser\Exception
 	 */
 	public function parseText($text) {
 		if ($this->settings === NULL) {
