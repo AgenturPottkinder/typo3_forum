@@ -23,7 +23,8 @@ namespace Mittwald\Typo3Forum\Domain\Repository\Format;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
-
+use Mittwald\Typo3Forum\Domain\Repository\AbstractRepository;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 
 /**
@@ -42,19 +43,15 @@ namespace Mittwald\Typo3Forum\Domain\Repository\Format;
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class BBCodeRepository extends \Mittwald\Typo3Forum\Domain\Repository\AbstractRepository {
-
-
+class BBCodeRepository extends AbstractRepository {
 
 	/**
-	 * @return array|Tx_Extbase_Persistence_QueryResultInterface
+	 * @return QueryResultInterface
 	 */
 	public function findAll() {
 		$query = $this->createQueryWithFallbackStoragePage();
 		$query->setOrderings(array('uid' => 'ASC'));
 		return $query->execute();
 	}
-
-
 
 }

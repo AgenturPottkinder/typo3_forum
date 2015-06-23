@@ -1,10 +1,10 @@
 <?php
 namespace Mittwald\Typo3Forum\TextParser\Service;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,76 +24,32 @@ namespace Mittwald\Typo3Forum\TextParser\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\Format\Smilie;
 
-
-/**
- *
- * Text parser class for parsing smilies.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage TextParser_Service
- * @version    $Id$
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-
-class SmilieParserService
-	extends \Mittwald\Typo3Forum\TextParser\Service\AbstractTextParserService {
-
-
-
-	/*
-	 * ATTRIBUTES
-	 */
-
-
+class SmilieParserService extends AbstractTextParserService {
 
 	/**
-	 * The smilie repository.
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\SmilieRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Format\SmilieRepository
+	 * @inject
 	 */
 	protected $smilieRepository;
-
-
 
 	/**
 	 * All smilies.
 	 * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\Smilie>
 	 */
-	protected $smilies;
-
-
-
-	/*
-	 * METHODS
-	 */
-
-
-
-	/**
-	 * Injects an instance of the smilie repository.
-	 * @param \\Mittwald\Typo3Forum\Domain\Repository\Forum\SmilieRepository $smilieRepository An instance of the smilie repository.
-	 */
-	public function injectSmilieRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\SmilieRepository $smilieRepository) {
-		$this->smilieRepository = $smilieRepository;
-		$this->smilies          = $this->smilieRepository->findAll();
-	}
-
-
+	protected $smilies = NULL;
 
 	/**
 	 * Renders the parsed text.
 	 *
 	 * @param  string $text The text to be parsed.
-	 * @return string       The parsed text.
+	 * @return string The parsed text.
 	 */
 	public function getParsedText($text) {
+		if ($this->smilies === NULL) {
+			$this->smilies = $this->smilieRepository->findAll();
+		}
 		foreach ($this->smilies as $smilie) {
 			$text = str_replace($smilie->getSmilieShortcut(), $this->getSmilieIcon($smilie), $text);
 		}
@@ -106,17 +62,14 @@ class SmilieParserService
 	 *
 	 * Renders a smilie icon.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Format\Smilie $smilie
-	 *                             The smilie that is to be rendered.
+	 * @param  Smilie $smilie The smilie that is to be rendered.
 	 *
-	 * @return string              The smilie as HTML code.
+	 * @return string The smilie as HTML code.
 	 *
 	 */
 
-	protected function getSmilieIcon(\Mittwald\Typo3Forum\Domain\Model\Format\Smilie $smilie) {
+	protected function getSmilieIcon(Smilie $smilie) {
 		return '<i class="' . $smilie->getIconClass() . '"></i>';
 	}
 
 }
-
-?>

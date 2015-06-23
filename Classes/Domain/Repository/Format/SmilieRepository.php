@@ -1,10 +1,10 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Repository\Format;
-/*                                                                    - *
+
+/*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,35 +24,16 @@ namespace Mittwald\Typo3Forum\Domain\Repository\Format;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Repository\AbstractRepository;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
-
-/**
- *
- * Repository class for smilies.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Repository_Format
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-class SmilieRepository extends \Mittwald\Typo3Forum\Domain\Repository\AbstractRepository {
-
-
+class SmilieRepository extends AbstractRepository {
 
 	/**
-	 * @return array|Tx_Extbase_Persistence_QueryResultInterface
+	 * @return QueryResultInterface
 	 */
 	public function findAll() {
 		return $this->createQueryWithFallbackStoragePage()->execute();
 	}
-
-
 
 }

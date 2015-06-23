@@ -24,65 +24,28 @@ namespace Mittwald\Typo3Forum\TextParser\Panel;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
-
-/**
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage TextParser_Panel
- * @version    $Id$
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-
-class SmiliePanel extends \Mittwald\Typo3Forum\TextParser\Panel\AbstractPanel {
-
-
+class SmiliePanel extends AbstractPanel {
 
 	/**
-	 * TODO
-	 *
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\SmilieRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Format\SmilieRepository
+	 * @inject
 	 */
 	protected $smilieRepository = NULL;
 
-
-
 	/**
-	 * TODO
-	 *
 	 * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\Smilie>
 	 */
 	protected $smilies = NULL;
 
-
-
 	/**
-	 * TODO
-	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\SmilieRepository $smilieRepository
-	 *
-	 * @return void
-	 */
-	public function injectSmilieRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\SmilieRepository $smilieRepository) {
-		$this->smilieRepository = $smilieRepository;
-		$this->smilies          = $this->smilieRepository->findAll();
-	}
-
-
-
-	/**
-	 * TODO
-	 *
 	 * @return array
 	 */
 	public function getItems() {
+
+		if ($this->smilies === NULL) {
+			$this->smilies = $this->smilieRepository->findAll();
+		}
+
 		if (count($this->smilies) === 0) {
 			return FALSE;
 		}
@@ -91,10 +54,10 @@ class SmiliePanel extends \Mittwald\Typo3Forum\TextParser\Panel\AbstractPanel {
 		foreach ($this->smilies as $smilie) {
 			$result[] = $smilie->exportForMarkItUp();
 		}
-		return array(array('name'        => $this->settings['title'],
-		                   'className'   => $this->settings['iconClassName'],
-		                   'replaceWith' => $this->smilies[0]->getSmilieShortcut(),
-		                   'dropMenu'    => $result));
+		return array(array('name' => $this->settings['title'],
+			'className' => $this->settings['iconClassName'],
+			'replaceWith' => $this->smilies[0]->getSmilieShortcut(),
+			'dropMenu' => $result));
 	}
 
 }

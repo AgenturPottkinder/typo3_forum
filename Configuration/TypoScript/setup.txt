@@ -577,7 +577,7 @@ page.includeJS {
 
 page.includeJSFooter {
 	bootstrap = EXT:typo3_forum/Resources/Public/Bootstrap/js/bootstrap.min.js
-	typo3forum = EXT:typo3_forum/Resources/Public/Javascript/mm-forum.js
+	typo3forum = EXT:typo3_forum/Resources/Public/Javascript/forum.js
 }
 
 module.tx_typo3forum.persistence {

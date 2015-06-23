@@ -27,8 +27,6 @@ namespace Mittwald\Typo3Forum\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 use Mittwald\Typo3Forum\Domain\Exception\AbstractException;
-use Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository;
-use Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface;
 use Mittwald\Typo3Forum\Utility\Localization;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;

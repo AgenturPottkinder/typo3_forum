@@ -24,7 +24,8 @@ namespace Mittwald\Typo3Forum\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
  *
@@ -42,12 +43,10 @@ namespace Mittwald\Typo3Forum\Domain\Repository;
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
-
-
+abstract class AbstractRepository extends Repository {
 
 	/**
-	 * @return Tx_Extbase_Persistence_QueryInterface
+	 * @return QueryInterface
 	 */
 	protected function createQueryWithFallbackStoragePage() {
 		$query = $this->createQuery();
@@ -58,7 +57,5 @@ abstract class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
 		$query->getQuerySettings()->setStoragePageIds($storagePageIds);
 		return $query;
 	}
-
-
 
 }
