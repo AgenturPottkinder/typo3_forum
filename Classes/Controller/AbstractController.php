@@ -69,7 +69,7 @@ abstract class AbstractController extends ActionController {
 	/**
 	 * The global SignalSlot-Dispatcher.
 	 *
-	 * @var Dispatcher
+	 * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
 	 * @inject
 	 */
 	protected $signalSlotDispatcher;
