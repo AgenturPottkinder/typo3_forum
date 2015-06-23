@@ -66,11 +66,11 @@ class SyntaxHighlightingPanel extends \Mittwald\Typo3Forum\TextParser\Panel\Abst
 	/**
 	 * TODO
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\SyntaxHighlightingRepository $syntaxHighlightingRepository
+	 * @param \Mittwald\Typo3Forum\Domain\Repository\Format\SyntaxHighlightingRepository $syntaxHighlightingRepository
 	 *
 	 * @return void
 	 */
-	public function injectSyntaxHighlightingRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\SyntaxHighlightingRepository $syntaxHighlightingRepository) {
+	public function injectSyntaxHighlightingRepository(\Mittwald\Typo3Forum\Domain\Repository\Format\SyntaxHighlightingRepository $syntaxHighlightingRepository) {
 		$this->syntaxHighlightingRepository = $syntaxHighlightingRepository;
 		$this->syntaxHighlightings          = $this->syntaxHighlightingRepository->findAll();
 	}
