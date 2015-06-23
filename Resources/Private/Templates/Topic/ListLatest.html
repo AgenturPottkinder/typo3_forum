@@ -1,4 +1,4 @@
-{namespace mmf=Tx_Typo3Forum_ViewHelpers}
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 <f:layout name="default" />
 
 
@@ -21,7 +21,7 @@
                                            class="tx-typo3forum-topic-show-post-user-link"
                                            pageUid="{settings.pids.UserShow}">{topic.author.username}</f:link.action><br>
                         in <f:link.action action="show" arguments="{forum : topic.forum}" pageUid="{settings.pids.Forum}">{topic.forum.title}</f:link.action>
-                        </p>    
+                        </p>
                         <p class="pull-right">
                         <f:format.date format="d.m.Y H:i">{topic.timestamp}</f:format.date>
                         </p>

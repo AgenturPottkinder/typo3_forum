@@ -26,9 +26,13 @@ namespace Mittwald\Typo3Forum\Controller;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
+use Mittwald\Typo3Forum\Domain\Exception\AbstractException;
+use Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository;
+use Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface;
 use Mittwald\Typo3Forum\Utility\Localization;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 
 abstract class AbstractController extends ActionController {
 
@@ -36,26 +40,18 @@ abstract class AbstractController extends ActionController {
 	const CONTEXT_AJAX = 1;
 	const CONTEXT_CLI = 2;
 
-
-	/*
-	  * ATTRIBUTES
-	  */
-
-
-
 	/**
-	 * A repository for frontend users.
-	 *
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
+	 * @inject
 	 */
 	protected $frontendUserRepository;
-
 
 
 	/**
 	 * An authentication service. Handles the authentication mechanism.
 	 *
 	 * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
+	 * @inject
 	 */
 	protected $authenticationService;
 
@@ -84,7 +80,7 @@ abstract class AbstractController extends ActionController {
 	/**
 	 * The global SignalSlot-Dispatcher.
 	 *
-	 * @var Tx_Extbase_SignalSlot_Dispatcher
+	 * @var Dispatcher
 	 */
 	protected $signalSlotDispatcher;
 
@@ -99,55 +95,18 @@ abstract class AbstractController extends ActionController {
 	protected $context = self::CONTEXT_WEB;
 
 
-
-	/*
-	  * DEPENDENCY INJECTORS
-	  */
-
-
-	/**
-	 *
-	 * Injects a frontend user repository.
-	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository $frontendUserRepository
-	 *                             A frontend user repository.
-	 *
-	 * @return void
-	 *
-	 */
-	public function injectFrontendUserRepository(\Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository $frontendUserRepository) {
-		$this->frontendUserRepository = $frontendUserRepository;
-	}
-
-
-	/**
-	 *
-	 * Injects an authentication service.
-	 *
-	 * @param  \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface $authenticationService
-	 *                             An authentication service.
-	 *
-	 * @return void
-	 *
-	 */
-	public function injectAuthenticationService(\Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface $authenticationService) {
-		$this->authenticationService = $authenticationService;
-	}
-
-
-
 	/**
 	 *
 	 * Injects an instance of the Extbase SignalSlot-Dispatcher.
 	 *
-	 * @param \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher
+	 * @param Dispatcher $signalSlotDispatcher
 	 *                                 An instance of the Extbase SignalSlot
 	 *                                 Dispatcher.
 	 *
 	 * @return void
 	 *
 	 */
-	public function injectSignalSlotDispatcher(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher) {
+	public function injectSignalSlotDispatcher(Dispatcher $signalSlotDispatcher) {
 		$this->signalSlotDispatcher = $signalSlotDispatcher;
 	}
 
@@ -164,12 +123,12 @@ abstract class AbstractController extends ActionController {
 	 * template view, causing the view class to look in the same directory regardless
 	 * of the controller.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Exception\AbstractException $e The exception that is to be handled
+	 * @param AbstractException $e The exception that is to be handled
 	 *
 	 * @return void
 	 *
 	 */
-	protected function handleError(\Mittwald\Typo3Forum\Domain\Exception\AbstractException $e) {
+	protected function handleError(AbstractException $e) {
 		$controllerContext = $this->buildControllerContext();
 		$controllerContext->getRequest()->setControllerName('Default');
 		$controllerContext->getRequest()->setControllerActionName('error');
@@ -195,7 +154,7 @@ abstract class AbstractController extends ActionController {
 	protected function callActionMethod() {
 		try {
 			parent::callActionMethod();
-		} catch (\Mittwald\Typo3Forum\Domain\Exception\AbstractException $e) {
+		} catch (AbstractException $e) {
 			$this->handleError($e);
 		}
 	}
@@ -286,10 +245,8 @@ abstract class AbstractController extends ActionController {
 	 * @return void
 	 */
 	protected function addLocalizedFlashmessage($key, array $arguments = array(), $titleKey = NULL, $severity = FlashMessage::OK) {
-		if (php_sapi_name() !== 'cli') {
-			$message = new FlashMessage(Localization::translate($key, 'Typo3Forum', $arguments), Localization::translate($titleKey, 'Typo3Forum'), $severity);
-			$this->controllerContext->getFlashMessageQueue()->addMessage($message);
-		}
+		$message = new FlashMessage(Localization::translate($key, 'Typo3Forum', $arguments), Localization::translate($titleKey, 'Typo3Forum'), $severity);
+		$this->controllerContext->getFlashMessageQueue()->enqueue($message);
 	}
 
 

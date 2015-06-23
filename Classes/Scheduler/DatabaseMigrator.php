@@ -53,6 +53,13 @@ class DatabaseMigrator extends AbstractTask {
 	/**
 	 * @var array
 	 */
+	protected $legacyFeGroupsFields = [
+		'tx_mmforum_user_mod'
+	];
+
+	/**
+	 * @var array
+	 */
 	protected $legacyFeUsersFields = [
 		'tx_mmforum_rank',
 		'tx_mmforum_points',
@@ -85,8 +92,8 @@ class DatabaseMigrator extends AbstractTask {
 	/**
 	 * @var array
 	 */
-	protected $legacyFeGroupsFields = [
-		'tx_mmforum_user_mod'
+	protected $legacyFeUsersTypes = [
+		'Tx_MmForum_Domain_Model_User_FrontendUser',
 	];
 
 	/**
@@ -102,8 +109,9 @@ class DatabaseMigrator extends AbstractTask {
 	public function execute() {
 		$this->databaseConnection = $GLOBALS['TYPO3_DB'];
 		$this->migrateTables();
-		$this->migrateFeUserFields();
 		$this->migrateFeGroupsFields();
+		$this->migrateFeUsersFields();
+		$this->migrateFeUsersTypes();
 		$this->migrateTtContentPlugins();
 		return TRUE;
 	}
@@ -138,7 +146,7 @@ class DatabaseMigrator extends AbstractTask {
 	/**
 	 *
 	 */
-	protected function migrateFeUserFields() {
+	protected function migrateFeUsersFields() {
 		$users = $this->databaseConnection->exec_SELECTgetRows('*', 'fe_users', '1=1');
 		foreach ($users as $user) {
 			foreach($this->legacyFeUsersFields as $legacyFeUsersField) {
@@ -164,6 +172,26 @@ class DatabaseMigrator extends AbstractTask {
 					$group[$newFeGroupsField] = $group[$legacyFeGroupsField];
 					$group[$legacyFeGroupsField] = '';
 					$this->databaseConnection->exec_UPDATEquery('fe_groups', 'uid = ' . (int)$group['uid'], $group);
+				}
+			}
+		}
+	}
+
+	/**
+	 *
+	 */
+	protected function migrateFeUsersTypes() {
+		$users = $this->databaseConnection->exec_SELECTgetRows('*', 'fe_users', '1=1');
+		foreach ($users as $user) {
+			foreach($this->legacyFeUsersTypes as $legacyFeUsersType) {
+				$newFeUsersType = str_replace(
+					['Tx_MmForum', '_'],
+					['\Mittwald\Typo3Forum', '\\'],
+					$legacyFeUsersType
+				);
+				if ($user['tx_extbase_type'] === $legacyFeUsersType) {
+					$user['tx_extbase_type'] = $newFeUsersType;
+					$this->databaseConnection->exec_UPDATEquery('fe_users', 'uid = ' . (int)$user['uid'], $user);
 				}
 			}
 		}

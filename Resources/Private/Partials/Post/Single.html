@@ -1,4 +1,4 @@
-{namespace mmf=Tx_Typo3Forum_ViewHelpers}
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 
 <div class="well">
 	<div class="tx-typo3forum-topic-show-post-menu">
@@ -10,7 +10,7 @@
     </f:if>
 	<div class="tx-typo3forum-topic-show-post-text">
 <mmf:format.textParser post="{post}" />
-		
+
 		<f:if condition="{post.attachments}">
 			<div class="tx-typo3forum-topic-show-post-attachments">
 				<div class="tx-typo3forum-topic-show-post-attachments-header">

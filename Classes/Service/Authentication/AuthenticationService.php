@@ -297,7 +297,7 @@ class AuthenticationService extends \Mittwald\Typo3Forum\Service\AbstractService
 	 * @access private
 	 */
 	protected function getCacheIdentifier(\Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object, $action) {
-		$className = array_pop(explode('_', get_class($object)));
+		$className = array_pop(explode('\\', get_class($object)));
 		/** @noinspection PhpUndefinedMethodInspection */
 		return 'acl-' . $className . '-' . $object->getUid() . '-' . $this->getUserGroupIdentifier() . '-' . $action;
 	}

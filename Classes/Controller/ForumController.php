@@ -28,33 +28,7 @@ namespace Mittwald\Typo3Forum\Controller;
  *                                                                      */
 
 
-/**
- *
- * This class implements a simple dispatcher for a mm_form eID script.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Controller
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-class ForumController extends \Mittwald\Typo3Forum\Controller\AbstractController {
-
-
-
-	//
-	// ATTRIBUTES
-	//
-
-
+class ForumController extends AbstractController {
 
 	/**
 	 * A forum repository.

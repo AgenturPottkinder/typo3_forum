@@ -5,7 +5,7 @@ if (!defined('TYPO3_MODE')) {
 }
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	$_EXTKEY, 'Pi1',
+	'Mittwald.Typo3Forum', 'Pi1',
 	array(
 		'Forum' => 'index, show, new, create, edit, update, delete, markRead, showUnread',
 		'Topic' => 'index, list, show, new, create, edit, update, delete, questionsHelpBox, solution, listLatest',

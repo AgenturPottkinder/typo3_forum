@@ -23,7 +23,9 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
-
+use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
+use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 
 /**
@@ -38,8 +40,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *             http://opensource.org/licenses/gpl-license.php
 
  */
-class Forum extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
-	implements \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface, \Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface {
+class Forum extends AbstractEntity implements AccessibleInterface, SubscribeableInterface {
 
 
 
@@ -313,7 +314,7 @@ class Forum extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 */
 	public function getChildren() {
 		if ($this->visibleChildren === NULL) {
-			$this->visibleChildren = new ArrayObject();
+			$this->visibleChildren = new \ArrayObject();
 
 			// Note: Use the authentication service instead of performing the
 			// access checks on the domain objects themselves, since the authentication
