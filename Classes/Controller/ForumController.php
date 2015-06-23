@@ -24,9 +24,9 @@ namespace Mittwald\Typo3Forum\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
 use Mittwald\Typo3Forum\Domain\Exception\Authentication\NoAccessException;
 use Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
 
 class ForumController extends AbstractController {
 
@@ -41,13 +41,11 @@ class ForumController extends AbstractController {
 	 */
 	protected $forumRepository;
 
-
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
 	 * @inject
 	 */
 	protected $topicRepository;
-
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdsRepository
@@ -82,32 +80,26 @@ class ForumController extends AbstractController {
 	 * Show action. Displays a single forum, all subforums of this forum and the
 	 * topics contained in this forum.
 	 *
-	 * @TODO: Remove $dummy variable when datamapper is stable
-	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum The forum that is to be displayed.
+	 * @param Forum $forum The forum that is to be displayed.
 	 * @return void
 	 */
-	public function showAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum) {
+	public function showAction(Forum $forum) {
 		$topics = $this->topicRepository->findForIndex($forum);
-
-		// This variable is needed, equal if it is used or not. It's needed for creating the correct datamapping
-		// of the model and the repository. Otherwise an ajax request will destroy the datamapping of this model (Core Bug 6.X)
-		$dummy = $this->adsRepository->findForForumView(1);
-
 		$this->authenticationService->assertReadAuthorization($forum);
-		$this->view
-			->assign('forum', $forum)
-			->assign('topics', $topics);
+		$this->view->assignMultiple([
+			'forum' => $forum,
+			'topics' => $topics
+		]);
 	}
 
 	/**
 	 * Updates a forum.
 	 * This action method updates a forum. Admin authorization is required.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum The forum to be updated.
+	 * @param Forum $forum The forum to be updated.
 	 * @dontverifyrequesthash
 	 */
-	public function updateAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum) {
+	public function updateAction(Forum $forum) {
 		$this->authenticationService->assertAdministrationAuthorization($forum);
 
 		$this->forumRepository->update($forum);
@@ -122,12 +114,12 @@ class ForumController extends AbstractController {
 	 * This action method creates a new forum. Admin authorization is required for
 	 * creating child forums, root forums may only be created from backend.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum The forum to be created.
+	 * @param Forum $forum The forum to be created.
 	 *
 	 * @throws NoAccessException
 	 * @dontverifyrequesthash
 	 */
-	public function createAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum) {
+	public function createAction(Forum $forum) {
 		if ($forum->getParent() !== NULL) {
 			$this->authenticationService->assertAdministrationAuthorization($forum->getParent());
 		} /** @noinspection PhpUndefinedConstantInspection */ elseif (TYPO3_MODE !== 'BE') {
@@ -141,37 +133,36 @@ class ForumController extends AbstractController {
 		$this->redirect('index');
 	}
 
-
 	/**
 	 * Mark a whole forum as read
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
+	 * @param Forum $forum
 	 *
 	 * @throws NotLoggedInException
 	 * @return void
 	 */
-	public function markReadAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum) {
+	public function markReadAction(Forum $forum) {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
 			throw new NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 		$forumStorage = array();
 		$forumStorage[] = $forum;
-		foreach($forum->getChildren() AS $children) {
+		foreach ($forum->getChildren() AS $children) {
 			$forumStorage[] = $children;
 		}
 
-		foreach($forumStorage AS $checkForum) {
-			/** @var \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $checkForum */
-			if(intval($this->settings['useSqlStatementsOnCriticalFunctions']) == 0) {
-				foreach($checkForum->getTopics() AS $topic) {
+		foreach ($forumStorage AS $checkForum) {
+			/** @var Forum $checkForum */
+			if (intval($this->settings['useSqlStatementsOnCriticalFunctions']) == 0) {
+				foreach ($checkForum->getTopics() AS $topic) {
 					$topic->addReader($user);
 				}
 			} else {
-				$topics = $this->topicRepository->getUnreadTopics($checkForum,$user);
+				$topics = $this->topicRepository->getUnreadTopics($checkForum, $user);
 
-				foreach($topics AS $topic) {
+				foreach ($topics AS $topic) {
 					$values = array('uid_foreign' => intval($topic['uid']),
-						'uid_local'	 => intval($user->getUid()));
+						'uid_local' => intval($user->getUid()));
 					$this->databaseConnection->exec_INSERTquery('tx_typo3forum_domain_model_user_readtopic', $values);
 				}
 			}
@@ -183,32 +174,30 @@ class ForumController extends AbstractController {
 		$this->redirect('show', 'Forum', NULL, array('forum' => $forum));
 	}
 
-
 	/**
 	 * Show all unread topics of the current user
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
+	 * @param Forum $forum
 	 *
 	 * @throws NotLoggedInException
 	 * @return void
 	 */
-	public function showUnreadAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum) {
+	public function showUnreadAction(Forum $forum) {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
 			throw new NotLoggedInException("You need to be logged in.", 1288084981);
 		}
-		$topics       = array();
+		$topics = array();
 		$unreadTopics = array();
 
-		$tmpTopics = $this->topicRepository->getUnreadTopics($forum,$user);
-		foreach($tmpTopics AS $tmpTopic) {
+		$tmpTopics = $this->topicRepository->getUnreadTopics($forum, $user);
+		foreach ($tmpTopics AS $tmpTopic) {
 			$unreadTopics[] = $tmpTopic['uid'];
 		}
-		if(!empty($unreadTopics)) {
+		if (!empty($unreadTopics)) {
 			$topics = $this->topicRepository->findByUids($unreadTopics);
 		}
 
-		$this->view->assign('forum',$forum)->assign('topics',$topics);
+		$this->view->assign('forum', $forum)->assign('topics', $topics);
 	}
-
 
 }

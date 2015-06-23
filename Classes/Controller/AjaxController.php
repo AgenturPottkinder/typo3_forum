@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Controller;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -26,85 +27,51 @@ namespace Mittwald\Typo3Forum\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 
-/**
- *
- * This class implements a simple dispatcher for a mm_form eID script.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Controller
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-class AjaxController extends \Mittwald\Typo3Forum\Controller\AbstractController {
-
-
-
-
-	/*
-	 * ATTRIBUTES
-	 */
-
+class AjaxController extends AbstractController {
 
 	/**
-	 * A forum repository.
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdsRepository
+	 * @inject
 	 */
-	protected $forumRepository;
-
+	protected $adsRepository;
 
 	/**
-	 * A topic repository.
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
-	 */
-	protected $topicRepository;
-
-
-	/**
-	 * A post repository.
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository
-	 */
-	protected $postRepository;
-
-
-	/**
-	 * A post factory.
-	 * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory
-	 */
-	protected $postFactory;
-
-
-	/**
-	 * A post factory.
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AttachmentRepository
+	 * @inject
 	 */
 	protected $attachmentRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Service\AttachmentService
+	 * @inject
 	 */
 	protected $attachmentService = NULL;
 
 	/**
-	 * The ads repository.
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdsRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
+	 * @inject
 	 */
-	protected $adsRepository;
+	protected $forumRepository;
 
 	/**
-	 * An instance of the typo3_forum authentication service.
-	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @var \TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager
+	 * @inject
 	 */
-	protected $typoScriptService = NULL;
+	protected $frontendConfigurationManager;
+
+	/**
+	 * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory
+	 * @inject
+	 */
+	protected $postFactory;
+
+	/**
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository
+	 * @inject
+	 */
+	protected $postRepository;
 
 	/**
 	 * Whole TypoScript typo3_forum settings
@@ -112,51 +79,25 @@ class AjaxController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 	 */
 	protected $settings;
 
+	/**
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
+	 * @inject
+	 */
+	protected $topicRepository;
 
 	/**
-	 * Constructor. Used primarily for dependency injection.
+	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @inject
+	 */
+	protected $typoScriptService = NULL;
+
+	/**
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository $postRepository
-	 * @param \Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory $postFactory
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\AttachmentRepository $attachmentRepository
-	 * @param \Mittwald\Typo3Forum\Service\SessionHandlingService $sessionHandling
-	 * @param \Mittwald\Typo3Forum\Service\AttachmentService $attachmentService
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\AdsRepository   $adsRepository
 	 */
-	public function __construct(\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository,
-								\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository,
-								\Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository $postRepository,
-								\Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory $postFactory,
-								\Mittwald\Typo3Forum\Domain\Repository\Forum\AttachmentRepository $attachmentRepository,
-								\Mittwald\Typo3Forum\Service\SessionHandlingService $sessionHandling,
-								\Mittwald\Typo3Forum\Service\AttachmentService $attachmentService,
-								\Mittwald\Typo3Forum\Domain\Repository\Forum\AdsRepository   $adsRepository) {
-		$this->forumRepository = $forumRepository;
-		$this->topicRepository = $topicRepository;
-		$this->postRepository = $postRepository;
-		$this->postFactory = $postFactory;
-		$this->attachmentRepository = $attachmentRepository;
-		$this->sessionHandling		= $sessionHandling;
-		$this->attachmentService = $attachmentService;
-		$this->adsRepository = $adsRepository;
-	}
-
-
-	/**
-	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
-	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
-	 */
-	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
-		$this->typoScriptService = $typoScriptService;
-		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
+	public function initializeObject() {
+		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray($this->frontendConfigurationManager->getTypoScriptSetup());
 		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
-
-	//
-	// ACTION METHODS
-	//
 
 	/**
 	 * @param string $displayedUser
@@ -216,6 +157,9 @@ class AjaxController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 		$this->view->assign('user', $this->getCurrentUser());
 	}
 
+	/**
+	 * @return array
+	 */
 	private function _getOnlinebox(){
 		$data = array();
 		$data['count'] = $this->frontendUserRepository->countByFilter(TRUE);
@@ -248,7 +192,7 @@ class AjaxController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 		return $data;
 	}
 	/**
-	 * @param string $displayedTopics
+	 * @param string $displayedPosts
 	 * @return array
 	 */
 	private function _getPosts($displayedPosts){
@@ -259,6 +203,7 @@ class AjaxController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 		$posts = $this->postRepository->findByUids($displayedPosts);
 		$counter = 0;
 		foreach($posts as $post){
+			/** @var Post $post */
 			$this->view->assign('post', $post)
 			->assign('user', $this->getCurrentUser());
 			$data[$counter]['uid'] = $post->getUid();
@@ -338,7 +283,7 @@ class AjaxController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 
 	/**
 	 * @param string $postSummarys
-	 * @return void
+	 * @return array
 	 */
 	private function _getPostSummarys($postSummarys) {
 		$postSummarys = json_decode($postSummarys);
@@ -350,12 +295,12 @@ class AjaxController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 			switch($summary->type){
 				case 'lastForumPost':
 					$forum  = $this->forumRepository->findByUid($summary->uid);
-					/* @var \Mittwald\Typo3Forum\Domain\Model\Forum\Post */
+					/* @var Post */
 					$post = $forum->getLastPost();
 					break;
 				case 'lastTopicPost':
 					$topic  = $this->topicRepository->findByUid($summary->uid);
-					/* @var \Mittwald\Typo3Forum\Domain\Model\Forum\Post */
+					/* @var Post */
 					$post = $topic->getLastPost();
 					break;
 			}
@@ -388,15 +333,15 @@ class AjaxController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 
 
 	/**
-	 * @param stdClass $meta
+	 * @param \stdClass $meta
 	 * @return array
 	 */
-	private function _getAds(stdClass $meta){
+	private function _getAds(\stdClass $meta){
 		$count = intval($meta->count);
 		$result = array();
 		$this->request->setFormat('html');
 
-		$actDatetime = new DateTime();
+		$actDatetime = new \DateTime();
 		if(!$this->sessionHandling->get('adTime')) {
 			$this->sessionHandling->set('adTime', $actDatetime);
 			$adDateTime = $actDatetime;

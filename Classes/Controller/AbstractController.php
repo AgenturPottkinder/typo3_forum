@@ -4,10 +4,7 @@ namespace Mittwald\Typo3Forum\Controller;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Sebastian Gieselmann <s.gieselmann@mittwald.de>            *
- *           Ruven Fehling <r.fehling@mittwald.de>                      *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -26,6 +23,7 @@ namespace Mittwald\Typo3Forum\Controller;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
+
 use Mittwald\Typo3Forum\Domain\Exception\AbstractException;
 use Mittwald\Typo3Forum\Utility\Localization;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
@@ -44,7 +42,6 @@ abstract class AbstractController extends ActionController {
 	 */
 	protected $frontendUserRepository;
 
-
 	/**
 	 * An authentication service. Handles the authentication mechanism.
 	 *
@@ -52,8 +49,6 @@ abstract class AbstractController extends ActionController {
 	 * @inject
 	 */
 	protected $authenticationService;
-
-
 
 	/**
 	 * An array with controller-specific settings. This is read from
@@ -63,8 +58,6 @@ abstract class AbstractController extends ActionController {
 	 */
 	protected $localSettings;
 
-
-
 	/**
 	 * The non-namespaced class name of this controller (e.g. ForumController
 	 * instead of \Mittwald\Typo3Forum\Controller\ForumController).
@@ -73,16 +66,12 @@ abstract class AbstractController extends ActionController {
 	 */
 	protected $className;
 
-
-
 	/**
 	 * The global SignalSlot-Dispatcher.
 	 *
 	 * @var Dispatcher
 	 */
 	protected $signalSlotDispatcher;
-
-
 
 	/**
 	 * The current controller context. This context is necessary to enable
@@ -91,7 +80,6 @@ abstract class AbstractController extends ActionController {
 	 * @var integer
 	 */
 	protected $context = self::CONTEXT_WEB;
-
 
 	/**
 	 *
@@ -109,11 +97,9 @@ abstract class AbstractController extends ActionController {
 	}
 
 
-
 	/*
 	 * METHODS
 	 */
-
 
 	/**
 	 *
@@ -136,8 +122,6 @@ abstract class AbstractController extends ActionController {
 		$this->response->appendContent($content);
 	}
 
-
-
 	/**
 	 *
 	 * Calls a controller action. This method wraps the callActionMethod method of
@@ -157,8 +141,6 @@ abstract class AbstractController extends ActionController {
 		}
 	}
 
-
-
 	/**
 	 *
 	 * Initializes all action methods. This method does basic initialization tasks,
@@ -168,7 +150,7 @@ abstract class AbstractController extends ActionController {
 	 *
 	 */
 	protected function initializeAction() {
-		$this->className     = array_pop(explode('_', get_class($this)));
+		$this->className = array_pop(explode('_', get_class($this)));
 		$this->localSettings = $this->settings[lcfirst($this->className)];
 
 		foreach ($this->settings['pids'] as &$value) {
@@ -177,8 +159,6 @@ abstract class AbstractController extends ActionController {
 			}
 		}
 	}
-
-
 
 	/**
 	 *
@@ -194,8 +174,6 @@ abstract class AbstractController extends ActionController {
 		return $this->frontendUserRepository->findCurrent();
 	}
 
-
-
 	/**
 	 *
 	 * Disable default error flash messages (who actually wants to see those?)
@@ -206,8 +184,6 @@ abstract class AbstractController extends ActionController {
 	protected function getErrorFlashMessage() {
 		return FALSE;
 	}
-
-
 
 	/**
 	 *
@@ -225,8 +201,6 @@ abstract class AbstractController extends ActionController {
 		$this->cacheService->clearPageCache((int)$GLOBALS['TSFE']->id);
 	}
 
-
-
 	/**
 	 *
 	 * Adds a localized message to the flash message container. This method is
@@ -234,11 +208,11 @@ abstract class AbstractController extends ActionController {
 	 *
 	 *     this->flashMessageContainer->add(Tx_Extbase_Utility_Localization(...));
 	 *
-	 * @param  string $key              The language key that is to be used for the
+	 * @param  string $key The language key that is to be used for the
 	 *                                  flash messages.
-	 * @param  array  $arguments        Arguments for the flash message.
-	 * @param  string $titleKey         Optional language key for the message's title.
-	 * @param  int $severity         Message severity (see \TYPO3\CMS\Core\Messaging\FlashMessage::*)
+	 * @param  array $arguments Arguments for the flash message.
+	 * @param  string $titleKey Optional language key for the message's title.
+	 * @param  int $severity Message severity (see \TYPO3\CMS\Core\Messaging\FlashMessage::*)
 	 *
 	 * @return void
 	 */
@@ -247,33 +221,20 @@ abstract class AbstractController extends ActionController {
 		$this->controllerContext->getFlashMessageQueue()->enqueue($message);
 	}
 
-
-
 	/**
 	 * @param            $actionName
-	 * @param null       $controllerName
-	 * @param null       $extensionName
+	 * @param null $controllerName
+	 * @param null $extensionName
 	 * @param array|null $arguments
-	 * @param null       $pageUid
-	 * @param int        $delay
-	 * @param int        $statusCode
-	 *
-	 * @return void
+	 * @param null $pageUid
+	 * @param int $delay
+	 * @param int $statusCode
 	 */
-	protected function redirect($actionName, $controllerName = NULL, $extensionName = NULL, array $arguments = NULL,
-	                            $pageUid = NULL, $delay = 0, $statusCode = 303) {
+	protected function redirect($actionName, $controllerName = NULL, $extensionName = NULL, array $arguments = NULL, $pageUid = NULL, $delay = 0, $statusCode = 303) {
 		if ($this->context === self::CONTEXT_WEB && $this->request->getFormat() === 'html') {
-			/** @noinspection PhpInconsistentReturnPointsInspection */
-			return parent::redirect($actionName, $controllerName, $extensionName, $arguments, $pageUid, $delay,
-			                        $statusCode);
-		} else {
-			// Ignore for now...
-			/** @noinspection PhpInconsistentReturnPointsInspection */
-			return;
+			parent::redirect($actionName, $controllerName, $extensionName, $arguments, $pageUid, $delay, $statusCode);
 		}
 	}
-
-
 
 	/**
 	 * @return mixed|null
@@ -286,8 +247,6 @@ abstract class AbstractController extends ActionController {
 		return NULL;
 	}
 
-
-
 	/**
 	 * @param $context
 	 */
@@ -299,14 +258,13 @@ abstract class AbstractController extends ActionController {
 	 * @param string $url
 	 * @return mixed
 	 */
-	public function purgeUrl($url)
-	{
+	public function purgeUrl($url) {
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_URL, $url);
 		curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PURGE");
 		curl_setopt($curl, CURLOPT_HEADER, TRUE);
 		curl_setopt($curl, CURLOPT_NOBODY, true);
-		curl_setopt($curl, CURLOPT_HTTPHEADER, array('Host:'.$_SERVER['HTTP_HOST']));
+		curl_setopt($curl, CURLOPT_HTTPHEADER, array('Host:' . $_SERVER['HTTP_HOST']));
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
 		$result = curl_exec($curl);
 		return $result;
