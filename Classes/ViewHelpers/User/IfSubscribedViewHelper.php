@@ -65,7 +65,7 @@ class IfSubscribedViewHelper extends IfViewHelper {
 
 	public function render(SubscribeableInterface $object, FrontendUser      $user = NULL) {
 		if ($user === NULL) {
-			$user =& \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository')->findCurrent();
+			$user =& \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Mittwald\\Typo3Forum\\Domain\\Repository\\User\\FrontendUserRepository')->findCurrent();
 		}
 
 		foreach ($object->getSubscribers() As $subscriber) {

@@ -53,9 +53,9 @@ class TagService implements \TYPO3\CMS\Core\SingletonInterface {
 				$objTags->attach($searchResult[0]);
 			} else {
 				/* @var \Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag */
-				$tag = $this->objectManager->create('\Mittwald\Typo3Forum\Domain\Model\Forum\Tag');
+				$tag = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Tag');
 				$tag->setName($tagName);
-				$tag->setCrdate(new DateTime());
+				$tag->setCrdate(new \DateTime());
 				$tag->increaseTopicCount();
 				$objTags->attach($tag);
 			}

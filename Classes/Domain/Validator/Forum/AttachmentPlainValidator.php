@@ -67,7 +67,7 @@ class AttachmentPlainValidator extends \TYPO3\CMS\Extbase\Validation\Validator\A
 	 */
 	public function isValid($value) {
 		$result = TRUE;
-		$attachmentObj = $this->objectManager->create('\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment');
+		$attachmentObj = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Attachment');
 		foreach($value as $attachment){
 			if(empty($attachment['name'])) continue;
 			if(array_search($attachment['type'], $attachmentObj->getAllowedMimeTypes()) == false){

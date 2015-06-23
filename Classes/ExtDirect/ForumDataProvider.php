@@ -62,7 +62,7 @@ class ForumDataProvider extends \Mittwald\Typo3Forum\ExtDirect\AbstractDataProvi
 
 		// Since the ExtDirect provider is not created using the
 		// object manager, no dependency injection is available here.
-		$this->forumRepository = $this->objectManager->get('\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository');
+		$this->forumRepository = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Repository\\Forum\\ForumRepository');
 	}
 
 
@@ -112,12 +112,12 @@ class ForumDataProvider extends \Mittwald\Typo3Forum\ExtDirect\AbstractDataProvi
 	 * @param integer $forumId
 	 *
 	 * @return array
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function getForum($forumId) {
 		$forum = $this->forumRepository->findByUid($forumId);
 		if ($forum === NULL) {
-			throw new Exception("The forum $forumId does not exist!", 1332447187);
+			throw new \Exception("The forum $forumId does not exist!", 1332447187);
 		}
 		return array('success' => true,
 		             'data'    => array('title'       => $forum->getTitle(),

@@ -57,14 +57,14 @@ abstract class AbstractDataProvider {
 	 */
 	public function __construct() {
 		$key                    = 'web_Typo3ForumTxTypo3forumM1';
-		$this->extBaseConnector = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\Mittwald\Typo3Forum\Service\ExtBaseConnectorService');
+		$this->extBaseConnector = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Mittwald\\Typo3Forum\\Service\\ExtBaseConnectorService');
 		$this->extBaseConnector->setExtensionKey('Typo3Forum');
 		$this->extBaseConnector->setModuleOrPluginKey($key);
 		$this->extBaseConnector->initialize(array('extensionName'               => 'Typo3Forum',
 		                                         'pluginName'                   => 'web_Typo3ForumTxTypo3forumM1',
 		                                         'switchableControllerActions'  => array('Backend' => array('forumIndex')),));
 
-		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
+		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
 	}
 
 
@@ -72,7 +72,7 @@ abstract class AbstractDataProvider {
 	/**
 	 * Checks the access rights for using Ext.Direct calls
 	 *
-	 * @throws Exception if the user has no rights to proceed
+	 * @throws \Exception if the user has no rights to proceed
 	 * @return bool
 	 */
 	public function hasAccess() {
@@ -91,7 +91,7 @@ abstract class AbstractDataProvider {
 	 * know on the client side which records are written successfully. Always
 	 * update a record once by once!
 	 *
-	 * @param stdClass $updatedRecords
+	 * @param \stdClass $updatedRecords
 	 *
 	 * @return array
 	 */
@@ -113,7 +113,7 @@ abstract class AbstractDataProvider {
 					$data['records'] = array_merge_recursive($data['records'], $record['records']);
 				}
 			}
-		} catch (Exception $exception) {
+		} catch (\Exception $exception) {
 			$data = array('success' => FALSE,
 			              'message' => $exception->getMessage(),
 			              'records' => array(),);
@@ -127,7 +127,7 @@ abstract class AbstractDataProvider {
 	/**
 	 * Handles the incoming create record calls
 	 *
-	 * @param stdClass $newRecord
+	 * @param \stdClass $newRecord
 	 *
 	 * @return array
 	 */
@@ -145,7 +145,7 @@ abstract class AbstractDataProvider {
 	 * Note: ExtJS transfers a single identifier object or multiple
 	 * ones based on the amount of deleted records.
 	 *
-	 * @param stdClass $identifiers
+	 * @param \stdClass $identifiers
 	 *
 	 * @return array
 	 */
@@ -161,7 +161,7 @@ abstract class AbstractDataProvider {
 			$this->destroyRecords($identifiers);
 			$data = array('success' => TRUE,
 			              'records' => array());
-		} catch (Exception $exception) {
+		} catch (\Exception $exception) {
 			$data = array('success' => FALSE,
 			              'message' => $exception->getMessage(),
 			              'records' => array(),);
@@ -184,9 +184,9 @@ abstract class AbstractDataProvider {
 			$data   = $this->runTestForRecord($identity);
 			$result = array('success' => TRUE,
 			                'data'    => $data,);
-		} catch (Exception $exception) {
+		} catch (\Exception $exception) {
 			$result = array('success' => FALSE,
-			                'data'    => array('testResult'  => Tx_DfTools_Service_UrlChecker_AbstractService::SEVERITY_EXCEPTION,
+			                'data'    => array('testResult'  => \Tx_DfTools_Service_UrlChecker_AbstractService::SEVERITY_EXCEPTION,
 			                                   'testMessage' => htmlspecialchars($exception->getMessage()),),);
 		}
 

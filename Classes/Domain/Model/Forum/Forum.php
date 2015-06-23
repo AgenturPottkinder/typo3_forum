@@ -435,7 +435,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 */
 	public function getForum() {
 		if ($this->forum == NULL) {
-			return $this->objectManager->get('\Mittwald\Typo3Forum\Domain\Model\Forum\RootForum');
+			return $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\RootForum');
 		}
 		return $this->forum;
 	}
