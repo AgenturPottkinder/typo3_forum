@@ -1,12 +1,10 @@
 <?php
 namespace Mittwald\Typo3Forum\Ajax;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Sebastian Gieselmann <s.gieselmann@mittwald.de>            *
- *           Ruven Fehling <r.fehling@mittwald.de>                      *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -26,38 +24,16 @@ namespace Mittwald\Typo3Forum\Ajax;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Core\Bootstrap;
+use TYPO3\CMS\Extbase\Mvc\Dispatcher as ExtbaseDispatcher;
+use TYPO3\CMS\Extbase\Mvc\Web\RequestBuilder;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
-/**
- *
- * This class implements a simple dispatcher for a mm_form eID script.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Ajax
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-final class Dispatcher implements \TYPO3\CMS\Core\SingletonInterface {
-
-
-	/*
-	 * ATTRIBUTES
-	 */
-
+final class Dispatcher implements SingletonInterface {
 
 	/**
-	 * The current extension name.
-	 * CAUTION: This is NOT the extension KEY (so not "typo3_forum", but
-	 * "Typo3Forum" instead!)
-	 *
 	 * @var string
 	 */
 	protected $extensionKey = 'Typo3Forum';
@@ -65,84 +41,51 @@ final class Dispatcher implements \TYPO3\CMS\Core\SingletonInterface {
 
 	/**
 	 * An instance of the extbase bootstrapping class.
-	 * @var Tx_Extbase_Core_Bootstrap
+	 * @var Bootstrap
 	 */
 	protected $extbaseBootstap = NULL;
 
 
 	/**
 	 * An instance of the extbase object manager.
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 * @var ObjectManagerInterface
 	 */
 	protected $objectManager = NULL;
 
 
 	/**
 	 * An instance of the extbase request builder.
-	 * @var Tx_Extbase_MVC_Web_RequestBuilder
+	 * @var RequestBuilder
 	 */
 	protected $requestBuilder = NULL;
 
 
 	/**
 	 * An instance of the extbase dispatcher.
-	 * @var Tx_Extbase_MVC_Dispatcher
+	 * @var ExtbaseDispatcher
 	 */
 	protected $dispatcher = NULL;
 
-
-	/*
-	  * INITIALIZATION
-	  */
-
-
 	/**
 	 * Initialize the dispatcher.
-	 * @return void
 	 */
 	protected function init() {
-		// @todo initTCA wird noch benötigt... leider keiner Ahnung wo und wie! :(
-		// @todo next 3 lines: try...
-		$this->initializeDatabase();
-		$this->initializeTca();
 		$this->initializeTsfe();
-
-		//\TYPO3\CMS\Frontend\Utility\EidUtility::initTCA();
 		$this->initTYPO3();
 		$this->initExtbase();
 	}
 
 	/**
-	 * Initializes TYPO3 db.
-	 *
-	 * @return void
-	 */
-	protected function initializeDatabase() {
-		\TYPO3\CMS\Frontend\Utility\EidUtility::connectDB();
-	}
-
-	/**
-	 * Initializes the TCA.
-	 *
-	 * @return void
-	 */
-	protected function initializeTca() {
-		\TYPO3\CMS\Frontend\Utility\EidUtility::initTCA();
-	}
-
-	/**
 	 * Initializes TSFE.
-	 *
-	 * @return void
 	 */
 	protected function initializeTsfe() {
-		$GLOBALS['TSFE'] = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tslib_fe', $GLOBALS['TYPO3_CONF_VARS'], \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id'), \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('type'), true);
+		$GLOBALS['TSFE'] = GeneralUtility::makeInstance('tslib_fe', $GLOBALS['TYPO3_CONF_VARS'], GeneralUtility::_GP('id'), GeneralUtility::_GP('type'), true);
 		$GLOBALS['TSFE']->initFEuser();
 		$GLOBALS['TSFE']->initUserGroups();
 		$GLOBALS['TSFE']->checkAlternativeIdMethods();
 		$GLOBALS['TSFE']->determineId();
 		$GLOBALS['TSFE']->getCompressedTCarray();
-		$GLOBALS['TSFE']->sys_page =  \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Page\PageRepository');
+		$GLOBALS['TSFE']->sys_page =  GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Page\PageRepository');
 		$GLOBALS['TSFE']->initTemplate();
 		$GLOBALS['TSFE']->getConfigArray();
 		$GLOBALS['TSFE']->newCObj();
@@ -153,14 +96,8 @@ final class Dispatcher implements \TYPO3\CMS\Core\SingletonInterface {
 	 *
 	 * Most of the code was adapted from the df_tools extension by Stefan
 	 * Galinski.
-	 *
-	 * @return void.
 	 */
 	protected function initTYPO3() {
-		if (version_compare(TYPO3_branch, '6.1', '<')) {
-			\TYPO3\CMS\Frontend\Utility\EidUtility::connectDB();
-		}
-
 		//Check which language should be used
 		$ts = $this->loadTS((int)$_GET['id']);
 		$languages = explode(',',$ts['plugin.']['tx_typo3forum.']['settings.']['allowedLanguages']);
@@ -174,9 +111,9 @@ final class Dispatcher implements \TYPO3\CMS\Core\SingletonInterface {
 
 		// The following code was adapted from the df_tools extension.
 		// Credits go to Stefan Galinski.
-		$GLOBALS['TSFE'] = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController',
+		$GLOBALS['TSFE'] = GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController',
 		$GLOBALS['TYPO3_CONF_VARS'], (int)$_GET['id'], 0);
-		$GLOBALS['TSFE']->sys_page = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Page\PageRepository');
+		$GLOBALS['TSFE']->sys_page = GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Page\PageRepository');
 		$GLOBALS['TSFE']->getPageAndRootline();
 		$GLOBALS['TSFE']->initTemplate();
 		$GLOBALS['TSFE']->forceTemplateParsing = TRUE;
@@ -205,9 +142,9 @@ final class Dispatcher implements \TYPO3\CMS\Core\SingletonInterface {
 	 * @return void
 	 */
 	protected function initExtbase() {
-		$this->extbaseBootstap = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Core\Bootstrap');
+		$this->extbaseBootstap = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Core\Bootstrap');
 		$this->extbaseBootstap->initialize(array('extensionName' => $this->extensionKey, 'pluginName' => 'ajax'));
-		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
+		$this->objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
 	}
 
 
@@ -215,11 +152,11 @@ final class Dispatcher implements \TYPO3\CMS\Core\SingletonInterface {
 	 * @param integer $pageUid
 	 */
 	protected function loadTS($pageUid = 0) {
-		$sysPageObj =  \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Page\PageRepository');
+		$sysPageObj =  GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Page\PageRepository');
 
 		$rootLine = $sysPageObj->getRootLine($pageUid);
 
-		$typoscriptParser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\ExtendedTemplateService');
+		$typoscriptParser = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\ExtendedTemplateService');
 		$typoscriptParser->tt_track = 0;
 		$typoscriptParser->init();
 		$typoscriptParser->runThroughTemplates($rootLine);
@@ -236,26 +173,26 @@ final class Dispatcher implements \TYPO3\CMS\Core\SingletonInterface {
 
 	/**
 	 * Initializes this class and starts the dispatching process.
-	 * @return void
+	 * @return string
 	 */
 	public function run() {
 		$this->init();
-		$this->dispatch();
+		return $this->dispatch();
 	}
 
 
 	/**
 	 * Dispatches a request.
-	 * @return void
+	 * @return string
 	 */
 	public function dispatch() {
-		echo $this->extbaseBootstap->run('', array('extensionName' => $this->extensionKey,
-			'pluginName' => 'Ajax'));
+		return $this->extbaseBootstap->run('', array('extensionName' => $this->extensionKey, 'pluginName' => 'Ajax'));
 	}
 
 
 }
 
 // Instantiate and start dispatcher.
-$dispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Mittwald\Typo3Forum\Ajax\Dispatcher');
-$dispatcher->run();
+/** @var Dispatcher $dispatcher */
+$dispatcher = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager')->get('Mittwald\Typo3Forum\Ajax\Dispatcher');
+echo $dispatcher->run();
