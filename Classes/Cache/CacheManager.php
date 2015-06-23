@@ -44,7 +44,7 @@ class CacheManager {
 		//require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('typo3_forum') . 'Classes/Cache/Cache.php';
 		/** @var ObjectManager $objectManager */
 		$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-		$cache = $objectManager->get('Mittwald\\TYPO3Forum\\Cache\\Cache');
+		$cache = $objectManager->get('Mittwald\\Typo3Forum\\Cache\\Cache');
 		$cache->flush();
 		$this->deleteTemporaryFiles();
 	}
