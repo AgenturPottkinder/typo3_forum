@@ -4,10 +4,10 @@ if (!defined('TYPO3_MODE'))
 	die('Access denied.');
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-	$_EXTKEY, 'Pi1', 'typo3_forum'
+	'Mittwald.Typo3Forum', 'Pi1', 'typo3_forum'
 );
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-	$_EXTKEY, 'Widget', 'typo3_forum Widgets'
+	'Mittwald.Typo3Forum', 'Widget', 'typo3_forum Widgets'
 );
 
 $extPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY);
@@ -22,7 +22,7 @@ if (TYPO3_MODE === 'BE')
 
 
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-		$_EXTKEY, 'web', 'tx_typo3forum_m1', '', array('Backend' => 'indexForum', 'Forum' => 'update'),
+		'Mittwald.Typo3Forum', 'web', 'tx_typo3forum_m1', '', array('Backend' => 'indexForum', 'Forum' => 'update'),
 		array(
 			'access' => 'user,group',
 			'icon' => 'EXT:' . $_EXTKEY . '/ext_icon.gif',
