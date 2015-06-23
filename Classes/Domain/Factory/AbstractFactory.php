@@ -1,10 +1,10 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Factory;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,54 +24,35 @@ namespace Mittwald\Typo3Forum\Domain\Factory;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
 
-
-/**
- *
- * Abstract factory class. Base class for all typo3_forum factory classes.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Factory
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-abstract class AbstractFactory implements \TYPO3\CMS\Core\SingletonInterface {
-
-
-
-	/*
-	 * ATTRIBUTES
-	 */
-
-
+abstract class AbstractFactory implements SingletonInterface {
 
 	/**
-	 * A reference to the frontend user repository.
+	 * @var \TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager
+	 * @inject
+	 */
+	protected $frontendConfigurationManager;
+
+	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
+	 * @inject
 	 */
 	protected $frontendUserRepository = NULL;
 
-
 	/**
-	 * An instance of the extbase object manager.
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 * @inject
 	 */
 	protected $objectManager = NULL;
 
-
 	/**
-	 * An instance of the typo3_forum authentication service.
-	 * @var TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @inject
 	 */
 	protected $typoScriptService = NULL;
-
 
 	/**
 	 * Whole TypoScript typo3_forum settings
@@ -79,53 +60,18 @@ abstract class AbstractFactory implements \TYPO3\CMS\Core\SingletonInterface {
 	 */
 	protected $settings;
 
-
-	/*
-	  * DEPENDENCY INJECTORS
-	  */
-
-
-
 	/**
-	 * Injects an instance of the frontend user repository.
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository $frontendUserRepository
+	 *
 	 */
-	public function injectFrontendUserRepository(\Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository $frontendUserRepository) {
-		$this->frontendUserRepository = $frontendUserRepository;
-	}
-
-
-
-	/**
-	 * Injects an instance of the extbase object manager.
-	 * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-	 */
-	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
-		$this->objectManager = $objectManager;
-	}
-
-
-	/**
-	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
-	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
-	 */
-	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
-		$this->typoScriptService = $typoScriptService;
-		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
+	public function initializeObject() {
+		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray($this->frontendConfigurationManager->getTypoScriptSetup());
 		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
 
-	/*
-	 * METHODS
-	 */
-
-
-
 	/**
-	 *
 	 * Determines the class name of the domain object this factory is used for.
-	 * @return string The class name
 	 *
+	 * @return string The class name
 	 */
 	protected function getClassName() {
 		$thisClass = get_class($this);
@@ -134,34 +80,23 @@ abstract class AbstractFactory implements \TYPO3\CMS\Core\SingletonInterface {
 		return $thisClass;
 	}
 
-
-
 	/**
-	 *
 	 * Creates an instance of the domain object class.
-	 * @return Tx_Extbase_DomainObject_AbstractDomainObject
-	 *                             An instance of the domain object.
 	 *
+	 * @return AbstractDomainObject An instance of the domain object.
 	 */
 	protected function getClassInstance() {
-		return $this->objectManager->create($this->getClassName());
+		return $this->objectManager->get($this->getClassName());
 	}
 
-
-
 	/**
-	 *
 	 * Gets the currently logged in user. Convenience wrapper for the findCurrent
 	 * method of the frontend user repository.
 	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
-	 *                             The user that is currently logged in.
-	 *
+	 * @return FrontendUser The user that is currently logged in.
 	 */
 	protected function getCurrentUser() {
 		return $this->frontendUserRepository->findCurrent();
 	}
-
-
 
 }
