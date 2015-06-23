@@ -1,12 +1,10 @@
 <?php
 namespace Mittwald\Typo3Forum\Controller;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Sebastian Gieselmann <s.gieselmann@mittwald.de>            *
- *           Ruven Fehling <r.fehling@mittwald.de>                      *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -26,65 +24,20 @@ namespace Mittwald\Typo3Forum\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
-/**
- *
- * This class implements a simple dispatcher for a mm_form eID script.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Controller
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-class StatsController extends \Mittwald\Typo3Forum\Controller\AbstractController {
-
-
-
-	/*
-	 * ATTRIBUTES
-	 */
+class StatsController extends AbstractController {
 
 	/**
-	 * The report repository.
-	 *
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Stats\SummaryRepository
+	 * @inject
 	 */
 	protected $summaryRepository;
-
-
-	/*
-	 * DEPENDENCY INJECTORS
-	 */
-
-	/**
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Stats\SummaryRepository $summaryRepository
-	 */
-	public function injectSummaryRepository(\Mittwald\Typo3Forum\Domain\Repository\Stats\SummaryRepository $summaryRepository) {
-		$this->summaryRepository = $summaryRepository;
-
-	}
-
-
-
-	/*
-	 * ACTION METHODS
-	 */
 
 	/**
 	 * Listing Action.
 	 * @return void
 	 */
 	public function listAction() {
-		switch($this->settings['listStats']){
+		switch ($this->settings['listStats']) {
 			default:
 			case 'summary':
 				$dataset['items'] = $this->summaryRepository->findLatestSummaryItems();
@@ -94,6 +47,5 @@ class StatsController extends \Mittwald\Typo3Forum\Controller\AbstractController
 		$this->view->assign('partial', $partial);
 		$this->view->assign('dataset', $dataset);
 	}
-
 
 }

@@ -1,12 +1,10 @@
 <?php
 namespace Mittwald\Typo3Forum\Controller;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Sebastian Gieselmann <s.gieselmann@mittwald.de>            *
- *           Ruven Fehling <r.fehling@mittwald.de>                      *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -26,204 +24,114 @@ namespace Mittwald\Typo3Forum\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
+use Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport;
+use Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment;
+use Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport;
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
-/**
- *
- * This class implements a simple dispatcher for a mm_form eID script.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Controller
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-class ReportController extends \Mittwald\Typo3Forum\Controller\AbstractController {
-
-
-
-	/*
-	 * ATTRIBUTES
-	 */
-
-
+class ReportController extends AbstractController {
 
 	/**
-	 * A report factory class.
-	 *
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\PostReportRepository
+	 * @inject
+	 */
+	protected $postReportRepository;
+
+	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Factory\Moderation\ReportFactory
+	 * @inject
 	 */
 	protected $reportFactory;
 
-
-
 	/**
-	 * The report repository.
-	 *
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportRepository
+	 * @inject
 	 */
 	protected $reportRepository;
 
 	/**
-	 * The report repository.
-	 *
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\UserReportRepository
+	 * @inject
 	 */
 	protected $userReportRepository;
 
 	/**
-	 * The report repository.
+	 * Displays a form for creating a new post report.
 	 *
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\PostReportRepository
+	 * @param FrontendUser $user
+	 * @param ReportComment $firstComment
+	 *
+	 * @dontvalidate $firstComment
 	 */
-	protected $postReportRepository;
-
-
-
-	/*
-	 * DEPENDENCY INJECTORS
-	 */
-
-
-
-	/**
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportRepository $reportRepository
-	 */
-	public function injectReportRepository(\Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportRepository $reportRepository) {
-		$this->reportRepository = $reportRepository;
-
+	public function newUserReportAction(FrontendUser $user, ReportComment $firstComment = NULL) {
+		$this->view->assignMultiple([
+			'firstComment' => $firstComment,
+			'user' => $user,
+		]);
 	}
-
-	/**
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Moderation\UserReportRepository $userReportRepository
-	 */
-	public function injectUserReportRepository(\Mittwald\Typo3Forum\Domain\Repository\Moderation\UserReportRepository $userReportRepository) {
-		$this->userReportRepository = $userReportRepository;
-	}
-
-	/**
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Moderation\PostReportRepository $postReportRepository
-	 */
-	public function injectPostReportRepository(\Mittwald\Typo3Forum\Domain\Repository\Moderation\PostReportRepository $postReportRepository) {
-		$this->postReportRepository = $postReportRepository;
-	}
-
-
-
-
-	/**
-	 * @param \Mittwald\Typo3Forum\Domain\Factory\Moderation\ReportFactory $reportFactory
-	 */
-	public function injectReportFactory(\Mittwald\Typo3Forum\Domain\Factory\Moderation\ReportFactory $reportFactory) {
-		$this->reportFactory = $reportFactory;
-	}
-
-
-
-	/*
-	 * ACTION METHODS
-	 */
 
 	/**
 	 * Displays a form for creating a new post report.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser       $user
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $firstComment
+	 * @param Post $post
+	 * @param ReportComment $firstComment
 	 *
 	 * @dontvalidate $firstComment
-	 * @return void
 	 */
-	public function newUserReportAction(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user,
-										\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $firstComment = NULL) {
-		$this->view->assign('firstComment', $firstComment)->assign('user', $user);
-	}
-
-
-	/**
-	 * Displays a form for creating a new post report.
-	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post               $post
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $firstComment
-	 *
-	 * @dontvalidate $firstComment
-	 * @return void
-	 */
-	public function newPostReportAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post,
-	                          \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $firstComment = NULL) {
+	public function newPostReportAction(Post $post, ReportComment $firstComment = NULL) {
 		$this->authenticationService->assertReadAuthorization($post);
 		$this->view->assign('firstComment', $firstComment)->assign('post', $post);
 	}
 
-
-
 	/**
 	 * Creates a new post report and stores it into the database.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser               $user
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $firstComment
-	 *
-	 * @return void
+	 * @param FrontendUser $user
+	 * @param ReportComment $firstComment
 	 */
-	public function createUserReportAction(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user,
-								 \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $firstComment = NULL) {
+	public function createUserReportAction(FrontendUser $user, ReportComment $firstComment = NULL) {
 
-		// Create the new report using the factory class and persist the new object
+		/** @var UserReport $report */
 		$report = $this->reportFactory->createUserReport($firstComment);
 		$report->setUser($user);
 		$this->userReportRepository->add($report);
 
 		// Notify observers.
-		$this->signalSlotDispatcher->dispatch(__CLASS__, 'reportCreated',
-			array('report' => $report));
+		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\Report', 'reportCreated', ['report' => $report]);
 
 		// Display success message and redirect to topic->show action.
-		$this->controllerContext->getFlashMessageQueue()->addMessage(
-			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('Report_New_Success', 'Typo3Forum')
-			)
+		$this->controllerContext->getFlashMessageQueue()->enqueue(
+			new FlashMessage(LocalizationUtility::translate('Report_New_Success', 'Typo3Forum'))
 		);
 		$this->redirect('show', 'User', NULL, array('user' => $user), $this->settings['pids']['UserShow']);
 	}
 
-
 	/**
 	 * Creates a new post report and stores it into the database.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post               $post
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $firstComment
-	 *
-	 * @return void
+	 * @param Post $post
+	 * @param ReportComment $firstComment
 	 */
-	public function createPostReportAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post,
-	                             \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $firstComment = NULL) {
+	public function createPostReportAction(Post $post, ReportComment $firstComment = NULL) {
 		// Assert authorization;
 		$this->authenticationService->assertReadAuthorization($post);
 
-		// Create the new report using the factory class and persist the new object
+		/** @var PostReport $report */
 		$report = $this->reportFactory->createPostReport($firstComment);
 		$report->setPost($post);
 		$this->postReportRepository->add($report);
 
 		// Notify observers.
-		$this->signalSlotDispatcher->dispatch(__CLASS__, 'reportCreated',
-		                                      array('report' => $report));
+		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\Report', 'reportCreated', ['report' => $report]);
 
 		// Display success message and redirect to topic->show action.
-		$this->controllerContext->getFlashMessageQueue()->addMessage(
-			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('Report_New_Success', 'Typo3Forum')
-			)
+		$this->controllerContext->getFlashMessageQueue()->enqueue(
+			new FlashMessage(LocalizationUtility::translate('Report_New_Success', 'Typo3Forum'))
 		);
 		$this->redirect('show', 'Topic', NULL, array('topic' => $post->getTopic()));
 	}
-
-
 
 }

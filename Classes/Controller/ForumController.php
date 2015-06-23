@@ -153,7 +153,7 @@ class ForumController extends AbstractController {
 
 		foreach ($forumStorage AS $checkForum) {
 			/** @var Forum $checkForum */
-			if (intval($this->settings['useSqlStatementsOnCriticalFunctions']) == 0) {
+			if ((int)$this->settings['useSqlStatementsOnCriticalFunctions'] === 0) {
 				foreach ($checkForum->getTopics() AS $topic) {
 					$topic->addReader($user);
 				}
@@ -161,8 +161,10 @@ class ForumController extends AbstractController {
 				$topics = $this->topicRepository->getUnreadTopics($checkForum, $user);
 
 				foreach ($topics AS $topic) {
-					$values = array('uid_foreign' => intval($topic['uid']),
-						'uid_local' => intval($user->getUid()));
+					$values = [
+						'uid_foreign' => (int)$topic['uid'],
+						'uid_local' => (int)$user->getUid(),
+					];
 					$this->databaseConnection->exec_INSERTquery('tx_typo3forum_domain_model_user_readtopic', $values);
 				}
 			}

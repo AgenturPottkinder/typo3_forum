@@ -1,12 +1,10 @@
 <?php
 namespace Mittwald\Typo3Forum\Controller;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Sebastian Gieselmann <s.gieselmann@mittwald.de>            *
- *           Ruven Fehling <r.fehling@mittwald.de>                      *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -26,120 +24,60 @@ namespace Mittwald\Typo3Forum\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\Forum\Attachment;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use Mittwald\Typo3Forum\Utility\Localization;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
 
-/**
- *
- * This class implements a simple dispatcher for a mm_form eID script.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Controller
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController {
-
-
-	/*
-	 * ATTRIBUTES
-	 */
-
+class PostController extends AbstractController {
 
 	/**
-	 * A forum repository.
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
-	 */
-	protected $forumRepository;
-
-
-	/**
-	 * A topic repository.
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
-	 */
-	protected $topicRepository;
-
-
-	/**
-	 * A post repository.
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository
-	 */
-	protected $postRepository;
-
-
-	/**
-	 * A post factory.
-	 * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory
-	 */
-	protected $postFactory;
-
-
-	/**
-	 * A post factory.
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AttachmentRepository
+	 * @inject
 	 */
 	protected $attachmentRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Service\AttachmentService
+	 * @inject
 	 */
 	protected $attachmentService = NULL;
 
-
-
-	/*
-	 * DEPENDENCY INJECTORS
+	/**
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
+	 * @inject
 	 */
-
+	protected $forumRepository;
 
 	/**
-	 * Constructor. Used primarily for dependency injection.
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository
+	 * @inject
+	 */
+	protected $postRepository;
+
+	/**
+	 * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory
+	 * @inject
+	 */
+	protected $postFactory;
+
+	/**
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
+	 * @inject
+	 */
+	protected $topicRepository;
+
+	/**
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository $postRepository
-	 * @param \Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory $postFactory
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\AttachmentRepository $attachmentRepository
-	 * @param \Mittwald\Typo3Forum\Service\SessionHandlingService $sessionHandling
-	 * @param \Mittwald\Typo3Forum\Service\AttachmentService $attachmentService
-	 */
-	public function __construct(\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository,
-								\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository,
-								\Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository $postRepository,
-								\Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory $postFactory,
-								\Mittwald\Typo3Forum\Domain\Repository\Forum\AttachmentRepository $attachmentRepository,
-								\Mittwald\Typo3Forum\Service\SessionHandlingService $sessionHandling,
-								\Mittwald\Typo3Forum\Service\AttachmentService $attachmentService) {
-		$this->forumRepository		= $forumRepository;
-		$this->topicRepository		= $topicRepository;
-		$this->postRepository		= $postRepository;
-		$this->postFactory			= $postFactory;
-		$this->attachmentRepository	= $attachmentRepository;
-		$this->sessionHandling		= $sessionHandling;
-		$this->attachmentService	= $attachmentService;
-	}
-
-	/*
-	 * ACTION METHODS
-	 */
-
-	/**
-	 *  Listing Action.
-	 * @return void
 	 */
 	public function listAction() {
 
 		$showPaginate = FALSE;
-		switch($this->settings['listPosts']){
+		switch ($this->settings['listPosts']) {
 			case '2':
-				$dataset = $this->postRepository->findByFilter(intval($this->settings['widgets']['newestPosts']['limit']), array('crdate' => 'DESC'));
+				$dataset = $this->postRepository->findByFilter((int)$this->settings['widgets']['newestPosts']['limit'], array('crdate' => 'DESC'));
 				$partial = 'Post/LatestBox';
 				break;
 			default:
@@ -150,21 +88,15 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 		}
 		$this->view->assign('showPaginate', $showPaginate);
 		$this->view->assign('partial', $partial);
-		$this->view->assign('posts',$dataset);
+		$this->view->assign('posts', $dataset);
 	}
 
 	/**
-	 * add Supporter Action.
-	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
-	 * @return void
+	 * @param Post $post
+	 * @return string
 	 */
-	public function addSupporterAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
-		// Assert authentication
-
-		/**
-		 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
-		 */
+	public function addSupporterAction(Post $post) {
+		/** @var FrontendUser $currentUser */
 		$currentUser = $this->authenticationService->getUser();
 
 		// Return if User not logged in or user is post author or user has already supported the post
@@ -177,10 +109,10 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 		$this->postRepository->update($post);
 
 		$post->getAuthor()->setHelpfulCount($post->getAuthor()->getHelpfulCount() + 1);
-		$post->getAuthor()->increasePoints(intval($this->settings['rankScore']['gotHelpful']));
+		$post->getAuthor()->increasePoints((int)$this->settings['rankScore']['gotHelpful']);
 		$this->frontendUserRepository->update($post->getAuthor());
 
-		$currentUser->increasePoints(intval($this->settings['rankScore']['markHelpful']));
+		$currentUser->increasePoints((int)$this->settings['rankScore']['markHelpful']);
 		$this->frontendUserRepository->update($currentUser);
 
 		// output new Data
@@ -188,15 +120,14 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 	}
 
 	/**
-	 *  remove Supporter Action.
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
-	 * @return void
+	 * @param Post $post
+	 * @return string
 	 */
-	public function removeSupporterAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
-		// Assert authentication
-		$currentUser = 	$this->authenticationService->getUser();
+	public function removeSupporterAction(Post $post) {
+		/** @var FrontendUser $currentUser */
+		$currentUser = $this->authenticationService->getUser();
 
-		if(!$post->hasBeenSupportedByUser($currentUser)) {
+		if (!$post->hasBeenSupportedByUser($currentUser)) {
 			return json_encode(array("error" => true, "error_msg" => "not_allowed"));
 		}
 
@@ -204,10 +135,10 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 		$post->removeSupporter($currentUser);
 		$this->postRepository->update($post);
 
-		$post->getAuthor()->setHelpfulCount($post->getAuthor()->getHelpfulCount()-1);
-		$post->getAuthor()->decreasePoints(intval($this->settings['rankScore']['gotHelpful']));
+		$post->getAuthor()->setHelpfulCount($post->getAuthor()->getHelpfulCount() - 1);
+		$post->getAuthor()->decreasePoints((int)$this->settings['rankScore']['gotHelpful']);
 		$this->frontendUserRepository->update($post->getAuthor());
-		$currentUser->decreasePoints(intval($this->settings['rankScore']['markHelpful']));
+		$currentUser->decreasePoints((int)$this->settings['rankScore']['markHelpful']);
 		$this->frontendUserRepository->update($currentUser);
 
 		// output new Data
@@ -220,23 +151,22 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 	 * topic that contains the requested post.
 	 * This function is called by post summaries (last post link)
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post The post
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $quote The Quote
+	 * @param Post $post The post
+	 * @param Post $quote The Quote
 	 * @param int $showForm ShowForm
 	 * @return void
 	 */
-	public function showAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post, \Mittwald\Typo3Forum\Domain\Model\Forum\Post $quote = NULL, $showForm = 0) {
+	public function showAction(Post $post, Post $quote = NULL, $showForm = 0) {
 		// Assert authentication
 		$this->authenticationService->assertReadAuthorization($post);
 
-
 		$redirectArguments = array('topic' => $post->getTopic(), 'showForm' => $showForm);
 
-		if(!empty($quote)){
-			$redirectArguments['quote'] =  $quote;
+		if (!empty($quote)) {
+			$redirectArguments['quote'] = $quote;
 		}
 		$pageNumber = $post->getTopic()->getPageCount();
-		if($pageNumber > 1) {
+		if ($pageNumber > 1) {
 			$redirectArguments['@widget_0'] = array('currentPage' => $pageNumber);
 		}
 
@@ -244,21 +174,17 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 		$this->redirect('show', 'Topic', NULL, $redirectArguments);
 	}
 
-
 	/**
 	 * Displays the form for creating a new post.
 	 *
 	 * @dontvalidate $post
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic The topic in which the new post is to be created.
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post  The new post.
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Post $quote An optional post that will be quoted within the
-	 *                                                    bodytext of the new post.
+	 * @param  Topic $topic The topic in which the new post is to be created.
+	 * @param  Post $post The new post.
+	 * @param  Post $quote An optional post that will be quoted within the bodytext of the new post.
 	 * @return void
 	 */
-	public function newAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic,
-							  \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post = NULL,
-							  \Mittwald\Typo3Forum\Domain\Model\Forum\Post $quote = NULL) {
+	public function newAction(Topic $topic, Post $post = NULL, Post $quote = NULL) {
 		// Assert authorization
 		$this->authenticationService->assertNewPostAuthorization($topic);
 
@@ -273,36 +199,25 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 			->assign('currentUser', $this->frontendUserRepository->findCurrent());
 	}
 
-//	/**
-//	 * initializeCreateAction
-//	 *
-//	 * manipulate attachments
-//	 */
-//	public function initializeCreateAction() {
-//		$this->request->setArgument('attachments', $this->attachmentService->initAttachments($this->request->getArgument('attachments')));
-//		$this->mapRequestArgumentsToControllerArguments();
-//
-//	}
-
 	/**
 	 * Creates a new post.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic The topic in which the new post is to be created.
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post  The new post.
+	 * @param Topic $topic The topic in which the new post is to be created.
+	 * @param Post $post The new post.
 	 * @param array $attachments File attachments for the post.
 	 *
 	 * @validate $post \Mittwald\Typo3Forum\Domain\Validator\Forum\PostValidator
 	 * @validate $attachments \Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator
 	 */
 
-	public function createAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic, \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post, array $attachments = array()) {
+	public function createAction(Topic $topic, Post $post, array $attachments = array()) {
 		// Assert authorization
 		$this->authenticationService->assertNewPostAuthorization($topic);
 
 		// Create new post, add the new post to the topic and persist the topic.
 		$this->postFactory->assignUserToPost($post);
 
-		if(!empty($attachments)) {
+		if (!empty($attachments)) {
 			$attachments = $this->attachmentService->initAttachments($attachments);
 			$post->setAttachments($attachments);
 		}
@@ -315,31 +230,28 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 			array('post' => $post));
 
 		// Display flash message and redirect to topic->show action.
-		$this->controllerContext->getFlashMessageQueue()->addMessage(
-			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				\Mittwald\Typo3Forum\Utility\Localization::translate('Post_Create_Success')
-			)
+		$this->controllerContext->getFlashMessageQueue()->enqueue(
+			new FlashMessage(Localization::translate('Post_Create_Success'))
 		);
 		$this->clearCacheForCurrentPage();
 
 		$redirectArguments = array('topic' => $topic, 'forum' => $topic->getForum());
 		$pageNumber = $topic->getPageCount();
-		if($pageNumber > 1) {
+		if ($pageNumber > 1) {
 			$redirectArguments['@widget_0'] = array('currentPage' => $pageNumber);
 		}
 		$this->redirect('show', 'Topic', NULL, $redirectArguments);
 	}
 
-
 	/**
 	 * Displays a form for editing a post.
 	 *
 	 * @dontvalidate $post
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post The post that is to be edited.
+	 * @param Post $post The post that is to be edited.
 	 * @return void
 	 */
-	public function editAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
-		if($post->getAuthor() != $this->authenticationService->getUser() or $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()){
+	public function editAction(Post $post) {
+		if ($post->getAuthor() != $this->authenticationService->getUser() || $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()) {
 			// Assert authorization
 			$this->authenticationService->assertModerationAuthorization($post->getTopic()->getForum());
 		}
@@ -349,21 +261,21 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 	/**
 	 * Delete a Attachment.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment $attachment The attachment that is to be deleted
+	 * @param Attachment $attachment The attachment that is to be deleted
 	 * @param string $redirect
-	 * @return void
 	 */
-	public function deletePostAttachmentAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment $attachment, $redirect = false) {
-		if($attachment->getPost()->getAuthor() != $this->authenticationService->getUser() or
-			$attachment->getPost()->getTopic()->getLastPost()->getAuthor() != $attachment->getPost()->getAuthor()){
+	public function deletePostAttachmentAction(Attachment $attachment, $redirect = '') {
+		if ($attachment->getPost()->getAuthor() != $this->authenticationService->getUser() ||
+			$attachment->getPost()->getTopic()->getLastPost()->getAuthor() != $attachment->getPost()->getAuthor()
+		) {
 			// Assert authorization
 			$this->authenticationService->assertModerationAuthorization($attachment->getPost()->getTopic()->getForum());
 		}
 		$attachment->getPost()->removeAttachment($attachment);
 		$this->postRepository->update($attachment->getPost());
-		if($redirect){
+		if ($redirect !== '') {
 			$this->redirect('show', 'Post', NULL, array('post' => $attachment->getPost()));
-		}else{
+		} else {
 			$this->redirect('edit', 'Post', NULL, array('post' => $attachment->getPost()));
 		}
 	}
@@ -371,19 +283,19 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 	/**
 	 * Updates a post.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post The post that is to be updated.
+	 * @param Post $post The post that is to be updated.
 	 * @param array $attachments File attachments for the post.
 	 *
 	 * @return void
 	 */
-	public function updateAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post, array $attachments = array()) {
-		if($post->getAuthor() != $this->authenticationService->getUser() or $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()){
+	public function updateAction(Post $post, array $attachments = array()) {
+		if ($post->getAuthor() != $this->authenticationService->getUser() || $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()) {
 			// Assert authorization
 			$this->authenticationService->assertModerationAuthorization($post->getTopic()->getForum());
 		}
-		if(!empty($attachments)) {
+		if (!empty($attachments)) {
 			$attachments = $this->attachmentService->initAttachments($attachments);
-			foreach($attachments as $attachment){
+			foreach ($attachments as $attachment) {
 				$post->addAttachments($attachment);
 			}
 		}
@@ -391,24 +303,21 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 
 		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Post', 'postUpdated',
 			array('post' => $post));
-		$this->controllerContext->getFlashMessageQueue()->addMessage(
-			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				\Mittwald\Typo3Forum\Utility\Localization::translate('Post_Update_Success')
-			)
+		$this->controllerContext->getFlashMessageQueue()->enqueue(
+			new FlashMessage(Localization::translate('Post_Update_Success'))
 		);
 		$this->clearCacheForCurrentPage();
 		$this->redirect('show', 'Topic', NULL, array('topic' => $post->getTopic()));
 	}
 
-
 	/**
 	 * Displays a confirmation screen in which the user is prompted if a post
 	 * should really be deleted.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post The post that is to be deleted.
+	 * @param Post $post The post that is to be deleted.
 	 * @return void
 	 */
-	public function confirmDeleteAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
+	public function confirmDeleteAction(Post $post) {
 		$this->authenticationService->assertDeletePostAuthorization($post);
 		$this->view->assign('post', $post);
 	}
@@ -416,20 +325,18 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 	/**
 	 * Deletes a post.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post The post that is to be deleted.
+	 * @param Post $post The post that is to be deleted.
 	 * @return void
 	 */
-	public function deleteAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
+	public function deleteAction(Post $post) {
 		// Assert authorization
 		$this->authenticationService->assertDeletePostAuthorization($post);
 
 		// Delete the post.
 		$postCount = $post->getTopic()->getPostCount();
 		$this->postFactory->deletePost($post);
-		$this->controllerContext->getFlashMessageQueue()->addMessage(
-			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				\Mittwald\Typo3Forum\Utility\Localization::translate('Post_Delete_Success')
-			)
+		$this->controllerContext->getFlashMessageQueue()->enqueue(
+			new FlashMessage(Localization::translate('Post_Delete_Success'))
 		);
 
 		// Notify observers and clear cache.
@@ -447,7 +354,6 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 		}
 	}
 
-
 	/**
 	 * Displays a preview of a rendered post text.
 	 * @param string $text The content.
@@ -456,21 +362,19 @@ class PostController extends \Mittwald\Typo3Forum\Controller\AbstractController 
 		$this->view->assign('text', $text);
 	}
 
-
 	/**
 	 * Downloads a attachment and increase the download counter
-	 * @param int Uid of Attachment
+	 * @param int $attachmentId Uid of Attachment
 	 */
-	public function downloadAttachmentAction($attachment) {
-		$file = $this->attachmentRepository->findByUid(intval($attachment));
+	public function downloadAttachmentAction($attachmentId) {
+		$file = $this->attachmentRepository->findByUid((int)$attachmentId);
 		$file->increaseDownloadCount();
 		$this->attachmentRepository->update($file);
 
-		header('Content-type: '.$file->getMimeType());
+		header('Content-type: ' . $file->getMimeType());
 		header("Content-Type: application/download");
-		header('Content-Disposition: attachment; filename="'.$file->getFilename().'"');
+		header('Content-Disposition: attachment; filename="' . $file->getFilename() . '"');
 		readfile($file->getAbsoluteFilename());
 	}
-
 
 }

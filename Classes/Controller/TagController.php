@@ -1,12 +1,10 @@
 <?php
 namespace Mittwald\Typo3Forum\Controller;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Sebastian Gieselmann <s.gieselmann@mittwald.de>            *
- *           Ruven Fehling <r.fehling@mittwald.de>                      *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -26,99 +24,57 @@ namespace Mittwald\Typo3Forum\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Tag;
 
-/**
- *
- * This class implements a simple dispatcher for a mm_form eID script.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Controller
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-class TagController extends \Mittwald\Typo3Forum\Controller\AbstractController {
-
-
-
-	/*
-	 * ATTRIBUTES
-	 */
+class TagController extends AbstractController {
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository
+	 * @inject
 	 */
 	protected $tagRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
+	 * @inject
 	 */
 	protected $topicRepository;
-
-
-	/**
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository $tagRepository
-	 * @return void
-	 */
-	public function injectTagRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository $tagRepository) {
-		$this->tagRepository = $tagRepository;
-	}
-
-
-	/**
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository
-	 * @return void
-	 */
-	public function injectTopicRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository) {
-		$this->topicRepository = $topicRepository;
-	}
-
-
-	/*
-	 * ACTION METHODS
-	 */
 
 	/**
 	 * Listing all tags of this forum.
 	 * @param int $mine
-	 * @return void
 	 */
 	public function listAction($mine = 0) {
 		$user = $this->getCurrentUser();
-		if($mine == 0) {
+		if ($mine == 0) {
 			$tags = $this->tagRepository->findAllOrderedByCounter();
 		} else {
 			$tags = $this->tagRepository->findTagsOfUser($user);
 		}
-		$this->view->assign('tags', $tags)->assign('user',$user)->assign('mine',$mine);
+		$this->view->assignMultiple([
+			'tags' => $tags,
+			'user' => $user,
+			'mine' => $mine
+		]);
 	}
 
 	/**
 	 * Show all topics of a given tag
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag
-	 * @return void
+	 * @param Tag $tag
 	 */
-	public function showAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag) {
-		$this->view->assign('tag',$tag);
-		$this->view->assign('topics',$this->topicRepository->findAllTopicsWithGivenTag($tag));
+	public function showAction(Tag $tag) {
+		$this->view->assign('tag', $tag);
+		$this->view->assign('topics', $this->topicRepository->findAllTopicsWithGivenTag($tag));
 	}
 
 	/**
-	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
-	 * @return void
+	 * @throws NotLoggedInException
 	 */
 	public function newAction() {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in.", 1288084981);
+			throw new NotLoggedInException('You need to be logged in.', 1288084981);
 		}
 	}
 
@@ -127,81 +83,70 @@ class TagController extends \Mittwald\Typo3Forum\Controller\AbstractController {
 	 * @param string $subscribe
 	 *
 	 * @validate $name \Mittwald\Typo3Forum\Domain\Validator\Forum\TagValidator
-	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
-	 * @return void
+	 * @throws NotLoggedInException
 	 */
-	public function createAction($name="",$subscribe="") {
+	public function createAction($name = '', $subscribe = '') {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in.", 1288084981);
+			throw new NotLoggedInException("You need to be logged in.", 1288084981);
 		}
-		/** @var \Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag */
+		/** @var Tag $tag */
 		$tag = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Tag');
 		$tag->setName($name);
 		$tag->setCrdate(new \DateTime());
-		if(intval($subscribe) == 1) {
+		if ((int)$subscribe === 1) {
 			$tag->addFeuser($user);
 		}
 		$this->tagRepository->add($tag);
 
-		if(intval($subscribe) == 0) {
+		if ((int)$subscribe === 0) {
 			$this->redirect('list');
 		} else {
 			$this->redirect('listUserTags');
 		}
 	}
 
-
 	/**
 	 * List all subscribed tags of a user
-	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
-	 * @return void
+	 * @throws NotLoggedInException
 	 */
 	public function listUserTagsAction() {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in.", 1288084981);
+			throw new NotLoggedInException("You need to be logged in.", 1288084981);
 		}
-		$this->redirect('list',NULL,NULL,array('mine' => 1));
+		$this->redirect('list', NULL, NULL, array('mine' => 1));
 	}
 
-
-
 	/**
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag
+	 * @param Tag $tag
 	 * @param int $mine
-	 *
-	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
-	 * @return void
+	 * @throws NotLoggedInException
 	 */
-	public function newUserTagAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag, $mine) {
+	public function newUserTagAction(Tag $tag, $mine) {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in.", 1288084981);
+			throw new NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 		$tag->addFeuser($user);
 		$this->tagRepository->update($tag);
-		$this->redirect('list',NULL,NULL,array('mine' => $mine));
+		$this->redirect('list', NULL, NULL, array('mine' => $mine));
 	}
 
-
 	/**
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag
+	 * @param Tag $tag
 	 * @param int $mine
-	 *
-	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
-	 * @return void
+	 * @throws NotLoggedInException
 	 */
-	public function deleteUserTagAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag, $mine) {
+	public function deleteUserTagAction(Tag $tag, $mine) {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException("You need to be logged in.", 1288084981);
+			throw new NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 		$tag->removeFeuser($user);
 		$this->tagRepository->update($tag);
-		$this->redirect('list',NULL,NULL,array('mine' => $mine));
+		$this->redirect('list', NULL, NULL, array('mine' => $mine));
 	}
-
 
 	/**
 	 * @param string $value
@@ -210,11 +155,10 @@ class TagController extends \Mittwald\Typo3Forum\Controller\AbstractController {
 	public function autoCompleteAction($value) {
 		$result = array();
 		$tagObj = $this->tagRepository->findTagLikeAName($value);
-		foreach($tagObj AS $tag) {
+		foreach ($tagObj AS $tag) {
 			$result[] = $tag->getName();
 		}
 		return json_encode($result);
 	}
-
 
 }

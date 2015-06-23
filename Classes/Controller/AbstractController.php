@@ -37,26 +37,12 @@ abstract class AbstractController extends ActionController {
 	const CONTEXT_CLI = 2;
 
 	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
-	 * @inject
-	 */
-	protected $frontendUserRepository;
-
-	/**
 	 * An authentication service. Handles the authentication mechanism.
 	 *
 	 * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
 	 * @inject
 	 */
 	protected $authenticationService;
-
-	/**
-	 * An array with controller-specific settings. This is read from
-	 * plugin.tx_typo3forum.settings.[controller-name].
-	 *
-	 * @var array
-	 */
-	protected $localSettings;
 
 	/**
 	 * The non-namespaced class name of this controller (e.g. ForumController
@@ -67,9 +53,24 @@ abstract class AbstractController extends ActionController {
 	protected $className;
 
 	/**
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
+	 * @inject
+	 */
+	protected $frontendUserRepository;
+
+	/**
+	 * An array with controller-specific settings. This is read from
+	 * plugin.tx_typo3forum.settings.[controller-name].
+	 *
+	 * @var array
+	 */
+	protected $localSettings;
+
+	/**
 	 * The global SignalSlot-Dispatcher.
 	 *
 	 * @var Dispatcher
+	 * @inject
 	 */
 	protected $signalSlotDispatcher;
 
@@ -80,21 +81,6 @@ abstract class AbstractController extends ActionController {
 	 * @var integer
 	 */
 	protected $context = self::CONTEXT_WEB;
-
-	/**
-	 *
-	 * Injects an instance of the Extbase SignalSlot-Dispatcher.
-	 *
-	 * @param Dispatcher $signalSlotDispatcher
-	 *                                 An instance of the Extbase SignalSlot
-	 *                                 Dispatcher.
-	 *
-	 * @return void
-	 *
-	 */
-	public function injectSignalSlotDispatcher(Dispatcher $signalSlotDispatcher) {
-		$this->signalSlotDispatcher = $signalSlotDispatcher;
-	}
 
 
 	/*

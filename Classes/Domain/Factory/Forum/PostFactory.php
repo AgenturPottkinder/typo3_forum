@@ -23,6 +23,7 @@ namespace Mittwald\Typo3Forum\Domain\Factory\Forum;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
+use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 
 
 /**
@@ -141,7 +142,7 @@ class PostFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory {
 
 	/**
 	 * Creates an empty post
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Post An empty post.
+	 * @return Post An empty post.
 	 */
 	public function createEmptyPost() {
 		return $this->getClassInstance();
@@ -152,15 +153,15 @@ class PostFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory {
 	/**
 	 * Creates a new post that quotes an already existing post.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $quotedPost
+	 * @param Post $quotedPost
 	 *                                 The post that is to be quoted. The post
 	 *                                 text of this post will be wrapped in
 	 *                                 [quote] bb codes.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Post
+	 * @return Post
 	 *                                 The new post.
 	 */
-	public function createPostWithQuote(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $quotedPost) {
-		/** @var $post \Mittwald\Typo3Forum\Domain\Model\Forum\Post */
+	public function createPostWithQuote(Post $quotedPost) {
+		/** @var $post Post */
 		$post = $this->getClassInstance();
 		$post->setText('[quote=' . $quotedPost->getUid() . ']' . $quotedPost->getText() . '[/quote]');
 
@@ -172,14 +173,14 @@ class PostFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory {
 	/**
 	 * Assigns a user to a forum post and increases the user's post count.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post        $post
+	 * @param Post        $post
 	 *                             The post to which a user is to be assigned.
 	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 *                             The user that is to be assigned to the post. If
 	 *                             this value is NULL, the currently logged in user
 	 *                             will be used instead.
 	 */
-	public function assignUserToPost(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post,
+	public function assignUserToPost(Post $post,
 	                                 \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
 		// If no user is set, use current user is set.
 		if ($user === NULL) {
@@ -201,7 +202,7 @@ class PostFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory {
 		if (!$user->isAnonymous()) {
 			$post->setAuthor($user);
 			$user->increasePostCount();
-			$user->increasePoints(intval($this->settings['rankScore']['newPost']));
+			$user->increasePoints((int)$this->settings['rankScore']['newPost']);
 			$this->frontendUserRepository->update($user);
 		}
 	}
@@ -209,14 +210,11 @@ class PostFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory {
 
 
 	/**
-	 *
 	 * Deletes a post and decreases the user's post count by 1.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
-	 *
+	 * @param Post $post
 	 */
-
-	public function deletePost(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
+	public function deletePost(Post $post) {
 		$topic = $post->getTopic();
 
 		// If the post is the only one in the topic, delete the whole topic instead of
@@ -225,9 +223,9 @@ class PostFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory {
 			$this->topicFactory->deleteTopic($topic);
 		} else {
 			$post->getAuthor()->decreasePostCount();
-			$post->getAuthor()->decreasePoints(intval($this->settings['rankScore']['newPost']));
+			$post->getAuthor()->decreasePoints((int)$this->settings['rankScore']['newPost']);
 			$this->frontendUserRepository->update($post->getAuthor());
-			if(intval($this->settings['useSqlStatementsOnCriticalFunctions']) == 0) {
+			if((int)$this->settings['useSqlStatementsOnCriticalFunctions'] === 0) {
 				$topic->removePost($post);
 				$this->topicRepository->update($topic);
 			} else {
@@ -237,5 +235,3 @@ class PostFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory {
 	}
 
 }
-
-?>

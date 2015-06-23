@@ -99,7 +99,7 @@ abstract class AbstractBackendController extends ActionController {
 	 */
 	protected function initializeAction() {
 
-		$this->pageId = intval(GeneralUtility::_GP('id'));
+		$this->pageId = (int)GeneralUtility::_GP('id');
 
 		$this->pageRenderer->addInlineLanguageLabelArray(array('title' => $this->languageService->getLL('title'),
 			'path' => $this->languageService->sL('LLL:EXT:lang/locallang_core.xml:labels.path'),

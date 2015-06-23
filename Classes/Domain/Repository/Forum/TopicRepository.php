@@ -23,7 +23,7 @@ namespace Mittwald\Typo3Forum\Domain\Repository\Forum;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
-
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 
 
 /**
@@ -119,11 +119,11 @@ class TopicRepository extends \Mittwald\Typo3Forum\Domain\Repository\AbstractRep
 	 *
 	 * @param null $limit
 	 * @param bool $showAnswered
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @param FrontendUser $user
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[]
 	 */
 
-	public function findQuestions($limit = NULL, $showAnswered = FALSE, \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
+	public function findQuestions($limit = NULL, $showAnswered = FALSE, FrontendUser $user = NULL) {
 
 		$query = $this->createQuery();
 
@@ -143,18 +143,14 @@ class TopicRepository extends \Mittwald\Typo3Forum\Domain\Repository\AbstractRep
 		return $query->execute();
 	}
 
-
 	/**
 	 * Finds topics by post authors, i.e. all topics that contain at least one post
 	 * by a specific author. Page navigation is possible.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
-	 *                               The frontend user whose topics are to be loaded.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[]
-	 *                               All topics that contain a post by the specified
-	 *                               user.
+	 * @param FrontendUser $user
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
-	public function findByPostAuthor(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
+	public function findByPostAuthor(FrontendUser $user) {
 		$query = $this->createQuery();
 		$query
 			->matching($query->equals('posts.author', $user))
@@ -168,14 +164,14 @@ class TopicRepository extends \Mittwald\Typo3Forum\Domain\Repository\AbstractRep
 	 * Finds topics by post authors, i.e. all topics that contain at least one post
 	 * by a specific author. Page navigation is possible.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @param  FrontendUser $user
 	 *                               The frontend user whose topics are to be loaded.
 	 * @param int $limit
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[]
 	 *                               All topics that contain a post by the specified
 	 *                               user.
 	 */
-	public function findTopicsCreatedByAuthor(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user, $limit=0) {
+	public function findTopicsCreatedByAuthor(FrontendUser $user, $limit=0) {
 		$query = $this->createQuery();
 		$query
 			->matching($query->equals('author', $user))
@@ -190,14 +186,14 @@ class TopicRepository extends \Mittwald\Typo3Forum\Domain\Repository\AbstractRep
 	 * Finds topics by post authors, i.e. all topics that contain at least one post
 	 * by a specific author. Page navigation is possible.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @param  FrontendUser $user
 	 *                               The frontend user whose topics are to be loaded.
 	 * @param int $limit
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[]
 	 *                               All topics that contain a post by the specified
 	 *                               user.
 	 */
-	public function findTopicsFavSubscribedByUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user, $limit=0) {
+	public function findTopicsFavSubscribedByUser(FrontendUser $user, $limit=0) {
 		$query = $this->createQuery();
 		$query
 			->matching($query->contains('favSubscribers', $user))
@@ -214,12 +210,12 @@ class TopicRepository extends \Mittwald\Typo3Forum\Domain\Repository\AbstractRep
 	/**
 	 * Counts topics by post authors. See findByPostAuthor.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @param  FrontendUser $user
 	 *                               The frontend user whose topics are to be loaded.
 	 * @return integer               The number of topics that contain a post by the
 	 *                               specified user.
 	 */
-	public function countByPostAuthor(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
+	public function countByPostAuthor(FrontendUser $user) {
 		return $this
 			->findByPostAuthor($user)
 			->count();
@@ -243,12 +239,12 @@ class TopicRepository extends \Mittwald\Typo3Forum\Domain\Repository\AbstractRep
 	/**
 	 * Finds all topic that have been subscribed by a certain user.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @param FrontendUser $user
 	 *                             The user for whom the subscribed topics are to be loaded.
 	 * @return Tx_Extbase_Persistence_QueryInterface
 	 *                             The topics subscribed by the given user.
 	 */
-	public function findBySubscriber(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
+	public function findBySubscriber(FrontendUser $user) {
 		$query = $this->createQuery();
 		$query
 			->matching($query->contains('subscribers', $user))
@@ -323,7 +319,7 @@ class TopicRepository extends \Mittwald\Typo3Forum\Domain\Repository\AbstractRep
 		return $query->execute()->getFirst();
 	}
 
-        
+
         /**
 	 *
 	 * Finds the last topic in a forum.
@@ -350,10 +346,10 @@ class TopicRepository extends \Mittwald\Typo3Forum\Domain\Repository\AbstractRep
 
 	/**
 	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @param FrontendUser $user
 	 * @return array
 	 */
-	public function getUnreadTopics(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum, \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
+	public function getUnreadTopics(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum, FrontendUser $user) {
 
 		$sql ='SELECT t.uid
 			   FROM tx_typo3forum_domain_model_forum_topic AS t
@@ -369,10 +365,10 @@ class TopicRepository extends \Mittwald\Typo3Forum\Domain\Repository\AbstractRep
 
 	/**
 	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @param FrontendUser $user
 	 * @return bool
 	 */
-	public function getTopicReadByUser(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic, \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
+	public function getTopicReadByUser(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic, FrontendUser $user) {
 		$sql ='SELECT t.uid
 			   FROM tx_typo3forum_domain_model_forum_topic AS t
 			   LEFT JOIN tx_typo3forum_domain_model_user_readtopic AS rt

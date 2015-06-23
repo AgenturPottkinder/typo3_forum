@@ -142,7 +142,7 @@ class AjaxController extends AbstractController {
 			$content['onlineBox'] = $this->_getOnlinebox();
 		}
 		$displayedAds = json_decode($displayedAds);
-		if(intval($displayedAds->count) > 1) {
+		if((int)$displayedAds->count > 1) {
 			$content['ads'] = $this->_getAds($displayedAds);
 		}
 
@@ -164,7 +164,7 @@ class AjaxController extends AbstractController {
 		$data = array();
 		$data['count'] = $this->frontendUserRepository->countByFilter(TRUE);
 		$this->request->setFormat('html');
-		$users = $this->frontendUserRepository->findByFilter(intval($this->settings['widgets']['onlinebox']['limit']), array(), TRUE);
+		$users = $this->frontendUserRepository->findByFilter((int)$this->settings['widgets']['onlinebox']['limit'], array(), TRUE);
 		$this->view->assign('users', $users);
 		$data['html'] = $this->view->render('Onlinebox');
 		$this->request->setFormat('json');
@@ -337,7 +337,7 @@ class AjaxController extends AbstractController {
 	 * @return array
 	 */
 	private function _getAds(\stdClass $meta){
-		$count = intval($meta->count);
+		$count = (int)$meta->count;
 		$result = array();
 		$this->request->setFormat('html');
 
@@ -350,7 +350,7 @@ class AjaxController extends AbstractController {
 		}
 		if($actDatetime->getTimestamp() - $adDateTime->getTimestamp() > $this->settings['ads']['timeInterval'] && $count > 2){
 			$this->sessionHandling->set('adTime', $actDatetime);
-			if(intval($meta->mode) == 0) {
+			if((int)$meta->mode === 0) {
 				$ads = $this->adsRepository->findForForumView(1);
 			} else {
 				$ads = $this->adsRepository->findForTopicView(1);

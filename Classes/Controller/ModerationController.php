@@ -24,145 +24,67 @@ namespace Mittwald\Typo3Forum\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
+use Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport;
+use Mittwald\Typo3Forum\Domain\Model\Moderation\Report;
+use Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment;
+use Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus;
+use Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport;
+use Mittwald\Typo3Forum\Utility\Localization;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
+
 class ModerationController extends AbstractController {
 
 	/**
-	 * The topic repository.
-	 *
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
+	 * @inject
 	 */
 	protected $forumRepository;
 
 	/**
-	 * The topic repository.
-	 *
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
+	 * @var \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface
+	 * @inject
 	 */
-	protected $topicRepository;
-
-	/**
-	 * The topic repository.
-	 *
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository
-	 */
-	protected $postRepository;
-
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\UserReportRepository
-	 */
-	protected $userReportRepository = NULL;
+	protected $persistenceManager;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\PostReportRepository
+	 * @inject
 	 */
 	protected $postReportRepository = NULL;
 
 	/**
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository
+	 * @inject
+	 */
+	protected $postRepository;
+
+	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportRepository
+	 * @inject
 	 */
 	protected $reportRepository = NULL;
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface
-	 */
-	protected $persistenceManager;
-
-
-	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory
+	 * @inject
 	 */
 	protected $topicFactory;
 
+	/**
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
+	 * @inject
+	 */
+	protected $topicRepository;
 
 	/**
-	 * @param \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface $persistenceManager
-	 * @return void
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\UserReportRepository
+	 * @inject
 	 */
-	public function injectPersistenceManager(\TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface $persistenceManager) {
-		$this->persistenceManager = $persistenceManager;
-	}
-
-	/**
-	 * Injects an instance of the report repository.
-	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Repository\Moderation\UserReportRepository $userReportRepository
-	 *
-	 * @return void
-	 */
-	public function injectUserReportRepository(
-		\Mittwald\Typo3Forum\Domain\Repository\Moderation\UserReportRepository $userReportRepository) {
-		$this->userReportRepository = $userReportRepository;
-	}
-
-
-	/**
-	 * Injects an instance of the topic repository.
-	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository
-	 *
-	 * @return void
-	 */
-	public function injectForumRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository) {
-		$this->forumRepository = $forumRepository;
-	}
-
-
-	/**
-	 * Injects an instance of the topic repository.
-	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository
-	 *
-	 * @return void
-	 */
-	public function injectTopicRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository) {
-		$this->topicRepository = $topicRepository;
-	}
-
-	/**
-	 * Injects an instance of the topic repository.
-	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository $postRepository
-	 *
-	 * @return void
-	 */
-	public function injectPostRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository $postRepository) {
-		$this->postRepository = $postRepository;
-	}
-
-	/**
-	 * Injects an instance of the report repository.
-	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportRepository $reportRepository
-	 *
-	 * @return void
-	 */
-	public function injectReportRepository(\Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportRepository $reportRepository) {
-		$this->reportRepository = $reportRepository;
-	}
-
-	/**
-	 * Injects an instance of the report repository.
-	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Repository\Moderation\PostReportRepository $postReportRepository
-	 *
-	 * @return void
-	 */
-	public function injectPostReportRepository(\Mittwald\Typo3Forum\Domain\Repository\Moderation\PostReportRepository $postReportRepository) {
-		$this->postReportRepository = $postReportRepository;
-	}
-
-
-	/**
-	 * Injects an instance of the topic factory.
-	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory $topicFactory
-	 *
-	 * @return void
-	 */
-	public function injectTopicFactory(\Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory $topicFactory) {
-		$this->topicFactory = $topicFactory;
-	}
-
+	protected $userReportRepository = NULL;
 
 	/**
 	 * @return void
@@ -173,15 +95,14 @@ class ModerationController extends AbstractController {
 	}
 
 	/**
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport $userReport
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport $postReport
-	 * @return void
+	 * @param UserReport $userReport
+	 * @param PostReport $postReport
+	 * @throws InvalidArgumentValueException
 	 */
-	public function editReportAction(\Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport $userReport = NULL,
-									 \Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport $postReport = NULL) {
+	public function editReportAction(UserReport $userReport = NULL, PostReport $postReport = NULL) {
 		// Validate arguments
 		if ($userReport === NULL && $postReport === NULL) {
-			throw new \TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException("You need to show a user report or post report!", 1285059341);
+			throw new InvalidArgumentValueException("You need to show a user report or post report!", 1285059341);
 		}
 		if ($postReport) {
 			$report = $postReport;
@@ -192,98 +113,92 @@ class ModerationController extends AbstractController {
 			$report = $userReport;
 		}
 
-		$this->view->assign('report', $report)
-			->assign('type', $type);
+		$this->view->assignMultiple([
+			'report' => $report,
+			'type' => $type,
+		]);
 	}
 
 	/**
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $comment
+	 * @param Report $report
+	 * @param ReportComment $comment
 	 *
 	 * @dontvalidate $comment
 	 */
-	public function newReportCommentAction(\Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report,
-										   \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $comment = NULL) {
-		$this->view->assignMultiple(array('report' => $report,
-			'comment' => $comment));
+	public function newReportCommentAction(Report $report, ReportComment $comment = NULL) {
+		$this->view->assignMultiple([
+			'comment' => $comment,
+			'report' => $report,
+		]);
 	}
 
-
 	/**
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport $report
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $comment
-	 * @return void
+	 * @param UserReport $report
+	 * @param ReportComment $comment
+	 * @throws InvalidArgumentValueException
 	 */
-	public function createUserReportCommentAction(\Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport $report = NULL,
-											  \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $comment) {
+	public function createUserReportCommentAction(UserReport $report = NULL, ReportComment $comment) {
 
 		// Validate arguments
 		if ($report === NULL) {
-			throw new \TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException("You need to comment a user report!", 1285059341);
+			throw new InvalidArgumentValueException("You need to comment a user report!", 1285059341);
 		}
 
 		$comment->setAuthor($this->authenticationService->getUser());
 		$report->addComment($comment);
 		$this->reportRepository->update($report);
 
-		$this->controllerContext->getFlashMessageQueue()->addMessage(
-			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				\Mittwald\Typo3Forum\Utility\Localization::translate('Report_NewComment_Success')
-			)
+		$this->controllerContext->getFlashMessageQueue()->enqueue(
+			new FlashMessage(Localization::translate('Report_NewComment_Success'))
 		);
 
 		$this->clearCacheForCurrentPage();
 		$this->redirect('editReport', NULL, NULL, array('userReport' => $report));
 
 	}
+
 	/**
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport $report
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $comment
-	 * @return void
+	 * @param PostReport $report
+	 * @param ReportComment $comment
+	 * @throws InvalidArgumentValueException
 	 */
-	public function createPostReportCommentAction(\Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport $report = NULL,
-												  \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $comment) {
+	public function createPostReportCommentAction(PostReport $report = NULL, ReportComment $comment) {
 
 		// Assert authorization
 		$this->authenticationService->assertModerationAuthorization($report->getTopic()->getForum());
 
 		// Validate arguments
 		if ($report === NULL) {
-			throw new \TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException("You need to comment a user report!", 1285059341);
+			throw new InvalidArgumentValueException("You need to comment a user report!", 1285059341);
 		}
 
 		$comment->setAuthor($this->authenticationService->getUser());
 		$report->addComment($comment);
 		$this->reportRepository->update($report);
 
-		$this->controllerContext->getFlashMessageQueue()->addMessage(
-			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				\Mittwald\Typo3Forum\Utility\Localization::translate('Report_NewComment_Success')
-			)
+		$this->controllerContext->getFlashMessageQueue()->enqueue(
+			new FlashMessage(Localization::translate('Report_NewComment_Success'))
 		);
 
 		$this->clearCacheForCurrentPage();
 		$this->redirect('editReport', NULL, NULL, array('postReport' => $report));
 
 	}
+
 	/**
-	 * Sets the workflow status of a report.
-	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport               $userReport   The report for which to set the status.
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $status   The report's new status.
-	 * @param string                                                  $redirect Where to redirect after updating the report ('index' or 'show').
+	 * @param UserReport $report
+	 * @param ReportWorkflowStatus $status
+	 * @param string $redirect
 	 */
-	public function updateUserReportStatusAction(\Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport $report,
-											 \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $status,
-											 $redirect = 'indexReport') {
+	public function updateUserReportStatusAction(UserReport $report, ReportWorkflowStatus $status, $redirect = 'indexReport') {
 
 		// Set status and update the report. Add a comment to the report that
 		// documents the status change.
 		$report->setWorkflowStatus($status);
-		$comment = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\ReportComment');
+		/** @var ReportComment $comment */
+		$comment = GeneralUtility::makeInstance('Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\ReportComment');
 		$comment->setAuthor($this->getCurrentUser());
-		$comment->setText(\Mittwald\Typo3Forum\Utility\Localization::translate('Report_Edit_SetStatus', 'Typo3Forum',
-			array($status->getName())));
+		$comment->setText(Localization::translate('Report_Edit_SetStatus', 'Typo3Forum', array($status->getName())));
 		$report->addComment($comment);
 		$this->reportRepository->update($report);
 
@@ -299,15 +214,11 @@ class ModerationController extends AbstractController {
 	}
 
 	/**
-	 * Sets the workflow status of a report.
-	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport               $postReport   The report for which to set the status.
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $status   The report's new status.
-	 * @param string                                                  $redirect Where to redirect after updating the report ('index' or 'show').
+	 * @param PostReport $report
+	 * @param ReportWorkflowStatus $status
+	 * @param string $redirect
 	 */
-	public function updatePostReportStatusAction(\Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport $report,
-											 \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $status,
-											 $redirect = 'indexReport') {
+	public function updatePostReportStatusAction(PostReport $report, ReportWorkflowStatus $status, $redirect = 'indexReport') {
 
 		// Assert authorization
 		$this->authenticationService->assertModerationAuthorization($report->getTopic()->getForum());
@@ -315,9 +226,10 @@ class ModerationController extends AbstractController {
 		// Set status and update the report. Add a comment to the report that
 		// documents the status change.
 		$report->setWorkflowStatus($status);
-		$comment = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\ReportComment');
+		/** @var ReportComment $comment */
+		$comment = GeneralUtility::makeInstance('Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\ReportComment');
 		$comment->setAuthor($this->getCurrentUser());
-		$comment->setText(\Mittwald\Typo3Forum\Utility\Localization::translate('Report_Edit_SetStatus', 'Typo3Forum',
+		$comment->setText(Localization::translate('Report_Edit_SetStatus', 'Typo3Forum',
 			array($status->getName())));
 		$report->addComment($comment);
 		$this->reportRepository->update($report);
@@ -333,32 +245,24 @@ class ModerationController extends AbstractController {
 		$this->redirect('indexReport');
 	}
 
-
 	/**
 	 * Displays a form for editing a topic with special moderator-powers!
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic The topic that is to be edited.
-	 *
-	 * @return void
+	 * @param  Topic $topic The topic that is to be edited.
 	 */
-	public function editTopicAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic) {
+	public function editTopicAction(Topic $topic) {
 		$this->authenticationService->assertModerationAuthorization($topic->getForum());
 		$this->view->assign('topic', $topic);
 	}
 
-
-
 	/**
 	 * Updates a forum with special super-moderator-powers!
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Topic  $topic           The topic that is be edited.
-	 * @param  boolean                              $moveTopic       TRUE, if the topic is to be moved to another forum.
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Forum  $moveTopicTarget The forum to which the topic is to be moved.
-	 *
-	 * @return void
+	 * @param Topic $topic The topic that is be edited.
+	 * @param boolean $moveTopic TRUE, if the topic is to be moved to another forum.
+	 * @param Forum $moveTopicTarget The forum to which the topic is to be moved.
 	 */
-	public function updateTopicAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic, $moveTopic = FALSE,
-									  \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $moveTopicTarget = NULL) {
+	public function updateTopicAction(Topic $topic, $moveTopic = FALSE, Forum $moveTopicTarget = NULL) {
 		$this->authenticationService->assertModerationAuthorization($topic->getForum());
 		$this->topicRepository->update($topic);
 
@@ -366,11 +270,8 @@ class ModerationController extends AbstractController {
 			$this->topicFactory->moveTopic($topic, $moveTopicTarget);
 		}
 
-		$this->controllerContext->getFlashMessageQueue()->addMessage(
-			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				\Mittwald\Typo3Forum\Utility\Localization::translate('Moderation_UpdateTopic_Success',
-					'Typo3Forum')
-			)
+		$this->controllerContext->getFlashMessageQueue()->enqueue(
+			new FlashMessage(Localization::translate('Moderation_UpdateTopic_Success', 'Typo3Forum'))
 		);
 		$this->clearCacheForCurrentPage();
 		$this->redirect('show', 'Topic', NULL, Array('topic' => $topic));
@@ -379,39 +280,18 @@ class ModerationController extends AbstractController {
 	/**
 	 * Delete a topic from repository!
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Topic  $topic           The topic that is be deleted.
+	 * @param  Topic $topic The topic that is be deleted.
 	 *
 	 * @return void
 	 */
-	public function topicConformDeleteAction(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic) {
+	public function topicConformDeleteAction(Topic $topic) {
 		$this->authenticationService->assertModerationAuthorization($topic->getForum());
-		foreach($topic->getPosts() as $post){
+		foreach ($topic->getPosts() as $post) {
 			$this->postRepository->remove($post);
 		}
 		$this->topicRepository->remove($topic);
-
-//		$forum = $topic->getForum();
-//
-//
-//		$this->persistenceManager->persistAll();
-//
-//		$forum->_resetLastPost();
-//
-//		$lastTopic = $this->topicRepository->findLastByForum($forum);
-//		if($lastTopic !== NULL) {
-//			$lastPost = $lastTopic->getLastPost();
-//		} else {
-//			$lastPost = NULL;
-//		}
-//		$forum->setLastPost($lastPost);
-//		$forum->setLastTopic($lastTopic);
-//		$this->forumRepository->update($forum);
-
-		$this->controllerContext->getFlashMessageQueue()->addMessage(
-			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				\Mittwald\Typo3Forum\Utility\Localization::translate('Moderation_DeleteTopic_Success',
-					'Typo3Forum')
-			)
+		$this->controllerContext->getFlashMessageQueue()->enqueue(
+			new FlashMessage(Localization::translate('Moderation_DeleteTopic_Success', 'Typo3Forum'))
 		);
 		$this->clearCacheForCurrentPage();
 
