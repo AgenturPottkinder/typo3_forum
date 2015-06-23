@@ -1,10 +1,10 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Factory\Forum;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,122 +23,31 @@ namespace Mittwald\Typo3Forum\Domain\Factory\Forum;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
+
+use Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException;
+use Mittwald\Typo3Forum\Domain\Factory\AbstractFactory;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 
-
-/**
- *
- * Post factory class. Is used to encapsulate post creation logic from the controller
- * classes.
- *
- * @author        Martin Helmich <m.helmich@mittwald.de>
- * @package       Typo3Forum
- * @subpackage    Domain\Factory\Forum
- * @version       $Id$
- *
- * @copyright     2012 Martin Helmich <m.helmich@mittwald.de>
- *                Mittwald CM Service GmbH & Co. KG
- *                http://www.mittwald.de
- * @license       GNU Public License, version 2
- *                http://opensource.org/licenses/gpl-license.php
- *
- */
-class PostFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory {
-
-
-
-	/*
-	 * ATTRIBUTES
-	 */
-
-
+class PostFactory extends AbstractFactory {
 
 	/**
-	 * The topic repository.
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
-	 */
-	protected $topicRepository = NULL;
-
-
-
-	/**
-	 * The post repository.
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository
+	 * @inject
 	 */
-	protected $postRepository = NULL;
-
-
+	protected $postRepository;
 
 	/**
-	 * The topic factory.
 	 * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory
+	 * @inject
 	 */
-	protected $topicFactory = NULL;
-
-
-
+	protected $topicFactory;
 
 	/**
-	 * An instance of the typo3_forum authentication service.
-	 * @var TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
+	 * @inject
 	 */
-	protected $typoScriptService = NULL;
-
-	/**
-	 * Whole TypoScript typo3_forum settings
-	 * @var array
-	 */
-	protected $settings;
-
-
-
-	/*
-	 * DEPENDENCY INJECTORS
-	 */
-
-
-
-	/**
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository
-	 */
-	public function injectTopicRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository) {
-		$this->topicRepository = $topicRepository;
-	}
-
-
-	/**
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository $postRepository
-	 */
-	public function injectPostRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository $postRepository) {
-		$this->postRepository = $postRepository;
-	}
-
-
-	/**
-	 * @param \Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory $topicFactory
-	 */
-	public function injectTopicFactory(\Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory $topicFactory) {
-		$this->topicFactory = $topicFactory;
-	}
-
-
-	/**
-	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
-	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
-	 */
-	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
-		$this->typoScriptService = $typoScriptService;
-		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
-		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
-	}
-
-
-
-	/*
-	 * METHODS
-	 */
-
-
+	protected $topicRepository;
 
 	/**
 	 * Creates an empty post
@@ -148,44 +57,28 @@ class PostFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory {
 		return $this->getClassInstance();
 	}
 
-
-
 	/**
 	 * Creates a new post that quotes an already existing post.
 	 *
-	 * @param Post $quotedPost
-	 *                                 The post that is to be quoted. The post
-	 *                                 text of this post will be wrapped in
-	 *                                 [quote] bb codes.
-	 * @return Post
-	 *                                 The new post.
+	 * @param Post $quotedPost The post that is to be quoted. The post text of this post will be wrapped in [quote] bb codes.
+	 * @return Post The new post.
 	 */
 	public function createPostWithQuote(Post $quotedPost) {
 		/** @var $post Post */
 		$post = $this->getClassInstance();
 		$post->setText('[quote=' . $quotedPost->getUid() . ']' . $quotedPost->getText() . '[/quote]');
-
 		return $post;
 	}
-
-
 
 	/**
 	 * Assigns a user to a forum post and increases the user's post count.
 	 *
-	 * @param Post             $post
-	 *                             The post to which a user is to be assigned.
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser|NULL $user
-	 *                             The user that is to be assigned to the post. If
-	 *                             this value is NULL, the currently logged in user
-	 *                             will be used instead.
-	 *
-	 * @return void
-	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
+	 * @param Post $post The post to which a user is to be assigned.
+	 * @param FrontendUser $user The user that is to be assigned to the post. If this value is NULL, the currently logged in user will be used instead.
+	 * @throws NotLoggedInException
 	 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
 	 */
-	public function assignUserToPost(Post $post,
-	                                 \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
+	public function assignUserToPost(Post $post, FrontendUser $user = NULL) {
 		// If no user is set, use current user is set.
 		if ($user === NULL) {
 			$user = $this->getCurrentUser();
@@ -193,7 +86,7 @@ class PostFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory {
 
 		// If still no user is set, abort.
 		if ($user === NULL) {
-			throw new \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException();
+			throw new NotLoggedInException();
 		}
 
 		// If the post's author is already set, decrease this user's post count.
@@ -210,8 +103,6 @@ class PostFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory {
 			$this->frontendUserRepository->update($user);
 		}
 	}
-
-
 
 	/**
 	 *
@@ -230,7 +121,7 @@ class PostFactory extends \Mittwald\Typo3Forum\Domain\Factory\AbstractFactory {
 			$post->getAuthor()->decreasePostCount();
 			$post->getAuthor()->decreasePoints((int)$this->settings['rankScore']['newPost']);
 			$this->frontendUserRepository->update($post->getAuthor());
-			if((int)$this->settings['useSqlStatementsOnCriticalFunctions'] === 0) {
+			if ((int)$this->settings['useSqlStatementsOnCriticalFunctions'] === 0) {
 				$topic->removePost($post);
 				$this->topicRepository->update($topic);
 			} else {
