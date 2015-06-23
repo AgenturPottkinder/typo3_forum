@@ -1,10 +1,10 @@
 <?php
 namespace Mittwald\Typo3Forum\Cache;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,43 +24,34 @@ namespace Mittwald\Typo3Forum\Cache;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
-
-/**
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Cache
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
 class CacheManager {
 
-
-
+	/**
+	 * @var array
+	 */
 	protected $fileCachePaths = array('typo3temp/typo3_forum', 'typo3temp/typo3_forum/gravatar');
 
-
-
+	/**
+	 *
+	 */
 	public function clearAll() {
 		// Neither the Extbase autoloader nor the TYPO3 internal autoloader
 		// appear to be doing anything at this point, so we have to include
 		// manually... :(
 		//require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('typo3_forum') . 'Classes/Cache/Cache.php';
-		$cache = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Mittwald\\TYPO3Forum\\Cache\\Cache');
+		/** @var ObjectManager $objectManager */
+		$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+		$cache = $objectManager->get('Mittwald\\TYPO3Forum\\Cache\\Cache');
 		$cache->flush();
-
 		$this->deleteTemporaryFiles();
 	}
 
-
-
+	/**
+	 *
+	 */
 	protected function deleteTemporaryFiles() {
 		foreach ($this->fileCachePaths as $fileCachePath) {
 			$files = glob(PATH_site . $fileCachePath . '/*');
@@ -71,7 +62,5 @@ class CacheManager {
 			}
 		}
 	}
-
-
 
 }
