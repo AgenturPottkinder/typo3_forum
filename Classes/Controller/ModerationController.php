@@ -170,8 +170,7 @@ class ModerationController extends \Mittwald\Typo3Forum\Controller\AbstractContr
 	 *
 	 * @return void
 	 */
-	public function injectPostReportRepository(
-		\Mittwald\Typo3Forum\Domain\Repository\Moderation\PostReportRepository $postReportRepository) {
+	public function injectPostReportRepository(\Mittwald\Typo3Forum\Domain\Repository\Moderation\PostReportRepository $postReportRepository) {
 		$this->postReportRepository = $postReportRepository;
 	}
 
@@ -183,7 +182,7 @@ class ModerationController extends \Mittwald\Typo3Forum\Controller\AbstractContr
 	 *
 	 * @return void
 	 */
-	public function injectTopicFactory(Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory $topicFactory) {
+	public function injectTopicFactory(\Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory $topicFactory) {
 		$this->topicFactory = $topicFactory;
 	}
 
