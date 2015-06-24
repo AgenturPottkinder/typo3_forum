@@ -1,27 +1,27 @@
 plugin.tx_srfeuserregister_pi1 {
 	create {
-		overrideValues.tx_extbase_type = \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
+		overrideValues.tx_extbase_type = Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 		fields := addToList(tx_extbase_type)
 	}
 }
 
 config.tx_extbase.objects {
-	\Mittwald\Typo3Forum\Service\Mailing\MailingServiceInterface.className = \Mittwald\Typo3Forum\Service\Mailing\PlainMailingService
+	Mittwald\Typo3Forum\Service\Mailing\MailingServiceInterface.className = Mittwald\Typo3Forum\Service\Mailing\PlainMailingService
 }
 
 config.tx_extbase.persistence.classes {
 	TYPO3\CMS\Extbase\Domain\Model\FrontendUser.subclasses {
-		\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser = \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
+		Mittwald\Typo3Forum\Domain\Model\User\FrontendUser = Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	}
 
 	TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup.subclasses {
-		\Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup = \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup
+		Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup = Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup
 	}
 
 	Mittwald\Typo3Forum\Domain\Model\User\FrontendUser {
 		mapping {
 			tableName = fe_users
-			recordType = \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
+			recordType = Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 
 			columns {
 				tx_typo3forum_signature.mapOnProperty = signature
@@ -57,7 +57,7 @@ config.tx_extbase.persistence.classes {
 	Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup {
 		mapping {
 			tableName = fe_groups
-			recordType = \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup
+			recordType = Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup
 			columns {
 				tx_typo3forum_user_mod.mapOnProperty = userMod
 			}
@@ -67,30 +67,30 @@ config.tx_extbase.persistence.classes {
 	Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield {
 		mapping {
 			tableName = tx_typo3forum_domain_model_user_userfield_userfield
-			recordType = \Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield
+			recordType = Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield
 		}
 
 		subclasses {
-			\Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield = \Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield
-			\Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield = \Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield
+			Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield = Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield
+			Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield = Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield
 		}
 	}
 
 	Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield {
 		mapping {
 			tableName = tx_typo3forum_domain_model_user_userfield_userfield
-			recordType = \Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield
+			recordType = Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield
 		}
 
 		subclasses {
-			\Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield = \Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield
+			Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield = Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield
 		}
 	}
 
 	Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield {
 		mapping {
 			tableName = tx_typo3forum_domain_model_user_userfield_userfield
-			recordType = \Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield
+			recordType = Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield
 		}
 	}
 
@@ -100,22 +100,22 @@ config.tx_extbase.persistence.classes {
 		}
 
 		subclasses {
-			\Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport = \Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport
-			\Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport = \Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport
+			Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport = Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport
+			Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport = Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport
 		}
 	}
 
 	Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport {
 		mapping {
 			tableName = tx_typo3forum_domain_model_moderation_report
-			recordType = \Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport
+			recordType = Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport
 		}
 	}
 
 	Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport {
 		mapping {
 			tableName = tx_typo3forum_domain_model_moderation_report
-			recordType = \Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport
+			recordType = Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport
 		}
 	}
 
@@ -125,49 +125,49 @@ config.tx_extbase.persistence.classes {
 		}
 
 		subclasses {
-			\Mittwald\Typo3Forum\Domain\Model\Format\BBCode = \Mittwald\Typo3Forum\Domain\Model\Format\BBCode
-			\Mittwald\Typo3Forum\Domain\Model\Format\Smilie = \Mittwald\Typo3Forum\Domain\Model\Format\Smilie
-			\Mittwald\Typo3Forum\Domain\Model\Format\SyntaxHighlighting = \Mittwald\Typo3Forum\Domain\Model\Format\SyntaxHighlighting
+			Mittwald\Typo3Forum\Domain\Model\Format\BBCode = Mittwald\Typo3Forum\Domain\Model\Format\BBCode
+			Mittwald\Typo3Forum\Domain\Model\Format\Smilie = Mittwald\Typo3Forum\Domain\Model\Format\Smilie
+			Mittwald\Typo3Forum\Domain\Model\Format\SyntaxHighlighting = Mittwald\Typo3Forum\Domain\Model\Format\SyntaxHighlighting
 		}
 	}
 
 	Mittwald\Typo3Forum\Domain\Model\Format\BBCode {
 		mapping {
 			tableName = tx_typo3forum_domain_model_format_textparser
-			recordType = \Mittwald\Typo3Forum\Domain\Model\Format\BBCode
+			recordType = Mittwald\Typo3Forum\Domain\Model\Format\BBCode
 		}
 
 		subclasses {
-			\Mittwald\Typo3Forum\Domain\Model\Format\QuoteBBCode = \Mittwald\Typo3Forum\Domain\Model\Format\QuoteBBCode
-			\Mittwald\Typo3Forum\Domain\Model\Format\ListBBCode = \Mittwald\Typo3Forum\Domain\Model\Format\ListBBCode
+			Mittwald\Typo3Forum\Domain\Model\Format\QuoteBBCode = Mittwald\Typo3Forum\Domain\Model\Format\QuoteBBCode
+			Mittwald\Typo3Forum\Domain\Model\Format\ListBBCode = Mittwald\Typo3Forum\Domain\Model\Format\ListBBCode
 		}
 	}
 
 	Mittwald\Typo3Forum\Domain\Model\Format\QuoteBBCode {
 		mapping {
 			tableName = tx_typo3forum_domain_model_format_textparser
-			recordType = \Mittwald\Typo3Forum\Domain\Model\Format\QuoteBBCode
+			recordType = Mittwald\Typo3Forum\Domain\Model\Format\QuoteBBCode
 		}
 	}
 
 	Mittwald\Typo3Forum\Domain\Model\Format\ListBBCode {
 		mapping {
 			tableName = tx_typo3forum_domain_model_format_textparser
-			recordType = \Mittwald\Typo3Forum\Domain\Model\Format\ListBBCode
+			recordType = Mittwald\Typo3Forum\Domain\Model\Format\ListBBCode
 		}
 	}
 
 	Mittwald\Typo3Forum\Domain\Model\Format\Smilie {
 		mapping {
 			tableName = tx_typo3forum_domain_model_format_textparser
-			recordType = \Mittwald\Typo3Forum\Domain\Model\Format\Smilie
+			recordType = Mittwald\Typo3Forum\Domain\Model\Format\Smilie
 		}
 	}
 
 	Mittwald\Typo3Forum\Domain\Model\Format\SyntaxHighlighting {
 		mapping {
 			tableName = tx_typo3forum_domain_model_format_textparser
-			recordType = \Mittwald\Typo3Forum\Domain\Model\Format\SyntaxHighlighting
+			recordType = Mittwald\Typo3Forum\Domain\Model\Format\SyntaxHighlighting
 		}
 	}
 
@@ -178,7 +178,7 @@ config.tx_extbase.persistence.classes {
 		}
 
 		subclasses {
-			\Mittwald\Typo3Forum\Domain\Model\Forum\ShadowTopic = \Mittwald\Typo3Forum\Domain\Model\Forum\ShadowTopic
+			Mittwald\Typo3Forum\Domain\Model\Forum\ShadowTopic = Mittwald\Typo3Forum\Domain\Model\Forum\ShadowTopic
 		}
 	}
 
@@ -325,33 +325,33 @@ plugin.tx_typo3forum.settings {
 
 	textParsing {
 		enabledServices {
-			basic = \Mittwald\Typo3Forum\TextParser\Service\BasicParserService
-			bbCodes = \Mittwald\Typo3Forum\TextParser\Service\BBCodeParserService
-			smilies = \Mittwald\Typo3Forum\TextParser\Service\SmilieParserService
-			syntax = \Mittwald\Typo3Forum\TextParser\Service\SyntaxHighlightingParserService
-			quotes = \Mittwald\Typo3Forum\TextParser\Service\QuoteParserService
+			basic = Mittwald\Typo3Forum\TextParser\Service\BasicParserService
+			bbCodes = Mittwald\Typo3Forum\TextParser\Service\BBCodeParserService
+			smilies = Mittwald\Typo3Forum\TextParser\Service\SmilieParserService
+			syntax = Mittwald\Typo3Forum\TextParser\Service\SyntaxHighlightingParserService
+			quotes = Mittwald\Typo3Forum\TextParser\Service\QuoteParserService
 			quotes {
 				template = EXT:typo3_forum/Resources/Private/Partials/Format/Quote.html
 			}
 
-			lists = \Mittwald\Typo3Forum\TextParser\Service\ListParserService
+			lists = Mittwald\Typo3Forum\TextParser\Service\ListParserService
 		}
 
 		editorPanel {
 			panels {
 				bbCodes {
-					className = \Mittwald\Typo3Forum\TextParser\Panel\BbCodePanel
+					className = Mittwald\Typo3Forum\TextParser\Panel\BbCodePanel
 					title = LLL:LLLEXT:typo3_forum/Resources/Private/Language/locallang.xml:Editor_Panel_Formatting
 				}
 
 				syntax {
-					className = \Mittwald\Typo3Forum\TextParser\Panel\SyntaxHighlightingPanel
+					className = Mittwald\Typo3Forum\TextParser\Panel\SyntaxHighlightingPanel
 					title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:Editor_Panel_SyntaxHighlighting
 					iconClassName = tx-typo3forum-miu-code
 				}
 
 				smilies {
-					className = \Mittwald\Typo3Forum\TextParser\Panel\SmiliePanel
+					className = Mittwald\Typo3Forum\TextParser\Panel\SmiliePanel
 					title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:Editor_Panel_Smilies
 					iconClassName = tx-typo3forum-miu-smilies
 				}
@@ -361,7 +361,7 @@ plugin.tx_typo3forum.settings {
 
 	userfields.core_fields {
 		username {
-			class = \Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield
+			class = Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield
 			properties {
 				name = LLL:EXT:typo3_forum/Resources/Private/Language/locallang_user.xml:Username
 				mapToUserObject = username
@@ -369,7 +369,7 @@ plugin.tx_typo3forum.settings {
 		}
 
 		registered_since {
-			class = \Mittwald\Typo3Forum\Domain\Model\User\Userfield\DateUserfield
+			class = Mittwald\Typo3Forum\Domain\Model\User\Userfield\DateUserfield
 			properties {
 				name = LLL:EXT:typo3_forum/Resources/Private/Language/locallang_user.xml:RegisteredSince
 				mapToUserObject = crdate
@@ -377,7 +377,7 @@ plugin.tx_typo3forum.settings {
 		}
 
 		real_name {
-			class = \Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield
+			class = Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield
 			properties {
 				name = LLL:EXT:typo3_forum/Resources/Private/Language/locallang_user.xml:RealName
 				mapToUserObject = name

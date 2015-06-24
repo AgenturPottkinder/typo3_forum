@@ -390,7 +390,7 @@ class UserController extends AbstractController {
 			throw new InvalidArgumentValueException("You need to subscribe a Forum or Topic!", 1285059341);
 		}
 		$user = $this->getCurrentUser();
-		if ($user->isAnonymous()) {
+		if (!is_object($user) || $user->isAnonymous()) {
 			throw new NotLoggedInException('You need to be logged in to subscribe or unsubscribe an object.', 1335121482);
 		}
 

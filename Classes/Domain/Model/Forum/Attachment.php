@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -25,19 +24,6 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *                                                                      */
 
 
-
-/**
- *
- * A file attachment. These attachments can be attached to any forum post.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Model_Format
- * @version    $Id$
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
 
 class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
@@ -81,6 +67,7 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * An instance of the typo3_forum authentication service.
 	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @inject
 	 */
 	protected $typoScriptService = NULL;
 
@@ -93,10 +80,8 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
-	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
 	 */
-	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
-		$this->typoScriptService = $typoScriptService;
+	public function initializeObject() {
 		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
 		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
@@ -134,24 +119,11 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 
 	/**
-	 * Gets the whole TCA config of tx_typo3forum_domain_model_forum_attachment
-	 * @return array The whole TCA config of tx_typo3forum_domain_model_forum_attachment
-	 */
-	public function getTCAConfig() {
-		global $TCA;
-		$GLOBALS['TSFE']->includeTCA();
-		\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA('tx_typo3forum_domain_model_forum_attachment');
-
-		return $TCA['tx_typo3forum_domain_model_forum_attachment'];
-	}
-
-
-	/**
 	 * Gets the absolute filename of this attachment.
 	 * @return string The absolute filename of this attachment.
 	 */
 	public function getAbsoluteFilename() {
-		$tca = $this->getTCAConfig();
+		$tca = $TCA['tx_typo3forum_domain_model_forum_attachment'];
 
 		$uploadPath = $tca['columns']['real_filename']['config']['uploadfolder'];
 
