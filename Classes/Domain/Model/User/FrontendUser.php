@@ -49,6 +49,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
 	 * The rank repository
 	 *
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\RankRepository
+	 * @inject
 	 */
 	protected $rankRepository = NULL;
 
@@ -288,12 +289,19 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
 	protected $settings;
 
 	/**
-	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
+	 * typoScriptService
 	 *
-	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
+	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
+	 * @inject
 	 */
-	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
-		$this->typoScriptService = $typoScriptService;
+	protected $typoScriptService;
+
+	/**
+	 * initializeObject
+	 *
+	 * @return void
+	 */
+	public function initializeObject() {
 		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
 		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
@@ -309,20 +317,6 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
 		$this->readTopics = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->readForum = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
-
-	/**
-	 * Inject the rank repository
-	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\User\RankRepository $rankRepository
-	 * @return void
-	 */
-	public function injectRankRepository(\Mittwald\Typo3Forum\Domain\Repository\User\RankRepository $rankRepository) {
-		$this->rankRepository = $rankRepository;
-	}
-
-	/*
-	 * GETTERS
-	 */
 
 	/**
 	 * Returns the usergroups. Keep in mind that the property is called "usergroup"

@@ -56,6 +56,7 @@ class TextParserService extends \Mittwald\Typo3Forum\Service\AbstractService {
 	/**
 	 * An instance of the Extbase object manager.
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 * @inject
 	 */
 	protected $objectManager;
 
@@ -66,6 +67,7 @@ class TextParserService extends \Mittwald\Typo3Forum\Service\AbstractService {
 	 * text parser's tyoscript configuration.
 	 *
 	 * @var \Mittwald\Typo3Forum\Utility\TypoScript
+	 * @inject
 	 */
 	protected $typoscriptReader;
 
@@ -83,7 +85,8 @@ class TextParserService extends \Mittwald\Typo3Forum\Service\AbstractService {
 	 * The viewHelper variable container. This needs to be set when this service is
 	 * called from a viewHelper context.
 	 *
-	 * @var Tx_Fluid_Core_ViewHelper_ViewHelperVariableContainer
+	 * @var \TYPO3\CMS\Fluid\Core\ViewHelper\ViewHelperVariableContainer
+	 * @inject
 	 */
 	protected $viewHelperVariableContainer;
 
@@ -91,50 +94,9 @@ class TextParserService extends \Mittwald\Typo3Forum\Service\AbstractService {
 
 	/**
 	 * The current controller context.
-	 * @var Tx_Extbase_MVC_Controller_ControllerContext
+	 * @var \TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext
 	 */
 	protected $controllerContext;
-
-
-
-	/*
-	 * INITIALIZATION
-	 */
-
-
-
-	/**
-	 * Injects the viewHelperVariableContainer.
-	 *
-	 * @param  \TYPO3\CMS\Fluid\Core\ViewHelper\ViewHelperVariableContainer $viewHelperVariableContainer
-	 *                             The viewHelperVariableContainer.
-	 * @return void
-	 */
-	public function injectViewHelperVariableContainer(\TYPO3\CMS\Fluid\Core\ViewHelper\ViewHelperVariableContainer $viewHelperVariableContainer) {
-		$this->viewHelperVariableContainer = $viewHelperVariableContainer;
-	}
-
-
-
-	/**
-	 * Injects the typo3_forum typoscript reader.
-	 * @param \Mittwald\Typo3Forum\Utility\TypoScript $typoscriptReader The typoscript reader.
-	 */
-	public function injectTyposcriptReader(\Mittwald\Typo3Forum\Utility\TypoScript $typoscriptReader) {
-		$this->typoscriptReader = $typoscriptReader;
-	}
-
-
-
-	/**
-	 * Injects an instance of the Extbase object manager.
-	 * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager An instance of the Extbase object manager.
-	 */
-	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
-		$this->objectManager = $objectManager;
-	}
-
-
 
 	/**
 	 * Sets the current Extbase controller context.
@@ -143,13 +105,6 @@ class TextParserService extends \Mittwald\Typo3Forum\Service\AbstractService {
 	public function setControllerContext(\TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext $controllerContext) {
 		$this->controllerContext = $controllerContext;
 	}
-
-
-
-	/*
-	 * SERVICE METHODS
-	 */
-
 
 
 	/**

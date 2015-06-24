@@ -49,6 +49,7 @@ class QuoteParserService extends \Mittwald\Typo3Forum\TextParser\Service\Abstrac
 	/**
 	 * The post repository.
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository
+	 * @inject
 	 */
 	protected $postRepository;
 
@@ -56,36 +57,10 @@ class QuoteParserService extends \Mittwald\Typo3Forum\TextParser\Service\Abstrac
 
 	/**
 	 * A standalone fluid view, used to render each individual quote.
-	 * @var Tx_Fluid_View_StandaloneView
+	 * @var \TYPO3\CMS\Fluid\View\StandaloneView
+	 * @inject
 	 */
-	protected $standaloneView;
-
-
-
-	/**
-	 * Injects an instance of the post repository class.
-	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository $postRepository
-	 *                             An instance of the post repository class
-	 * @return void
-	 */
-
-	public function injectPostRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository $postRepository) {
-		$this->postRepository = $postRepository;
-	}
-
-
-
-	/**
-	 * Injects an instance of the fluid standalone view.
-	 * @param  \TYPO3\CMS\Fluid\View\StandaloneView $view An instance of the fluid standalone view.
-	 * @return void
-	 */
-	public function injectView(\TYPO3\CMS\Fluid\View\StandaloneView $view) {
-		$this->view = $view;
-	}
-
-
+	protected $view;
 
 	/**
 	 * Renders the parsed text.

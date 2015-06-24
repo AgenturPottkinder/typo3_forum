@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -31,23 +30,8 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 /**
  * A forum. Forums can be infinitely nested and contain a number of topics. Forums
  * are submitted to the access control mechanism and can be subscribed by users.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Model_Forum
- * @version    $Id$
- * @license    GNU public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
-
  */
 class Forum extends AbstractEntity implements AccessibleInterface, SubscribeableInterface {
-
-
-
-	/*
-	 * ATTRIBUTES
-	 */
-
 
 
 	/**
@@ -81,7 +65,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * @var \ArrayObject<\Mittwald\Typo3Forum\Domain\Model\Forum\Forum>
 	 * @lazy
 	 */
-	protected $visibleChildren = NULL;
+	protected $visibleChildren;
 
 
 	/**
@@ -170,15 +154,17 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * An instance of the Extbase object manager.
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 * @inject
 	 */
-	protected $objectManager = NULL;
+	protected $objectManager;
 
 
 	/**
 	 * An instance of the typo3_forum authentication service.
 	 * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
+	 * @inject
 	 */
-	protected $authenticationService = NULL;
+	protected $authenticationService;
 
 
 	/**
@@ -191,29 +177,23 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * An instance of the forum repository.
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
+	 * @inject
 	 */
 	protected $forumRepository;
 
 
 	/**
 	 * An instance of the typo3_forum authentication service.
-	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
+	 * @inject
 	 */
-	protected $typoScriptService = NULL;
+	protected $typoScriptService;
 
 	/**
 	 * Whole TypoScript typo3_forum settings
 	 * @var array
 	 */
 	protected $settings;
-
-
-
-	/*
-	 * CONSTRUCTOR
-	 */
-
-
 
 	/**
 	 * Constructor. Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage instances.
@@ -230,52 +210,15 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 		$this->title = $title;
 	}
 
-
-
 	/**
-	 * Injects an instance of the extbase object manager.
-	 * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
+	 * initializeObject
+	 *
+	 * @return void
 	 */
-	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
-		$this->objectManager = $objectManager;
-	}
-
-
-
-	/**
-	 * Injects an instance of the typo3_forum authentication service.
-	 * @param \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface $authenticationService
-	 */
-	public function injectAuthenticationService(\Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface $authenticationService) {
-		$this->authenticationService = $authenticationService;
-	}
-
-
-	/**
-	 * Injects an instance of the forum repository
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository
-	 */
-	public function injectForumRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository) {
-		$this->forumRepository = $forumRepository;
-	}
-
-
-	/**
-	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
-	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
-	 */
-	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
-		$this->typoScriptService = $typoScriptService;
+	public function initializeObject() {
 		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
 		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
-
-
-
-	/*
-	 * GETTERS
-	 */
-
 
 	/**
 	 * @return int
@@ -646,13 +589,6 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	}
 
 
-
-	/*
-	 * SETTERS
-	 */
-
-
-
 	/**
 	 * Sets the title.
 	 *
@@ -999,7 +935,4 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 		$this->topicCount = count($this->topics);
 	}
 
-
-
 }
-

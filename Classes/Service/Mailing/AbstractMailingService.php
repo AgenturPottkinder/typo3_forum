@@ -49,11 +49,10 @@ abstract class AbstractMailingService extends \Mittwald\Typo3Forum\Service\Abstr
 
 	/**
 	 * An instance of the typo3_forum authentication service.
-	 * @var TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @inject
 	 */
 	protected $typoScriptService = NULL;
-
-
 
 	/**
 	 * Whole TypoScript typo3_forum settings
@@ -61,33 +60,15 @@ abstract class AbstractMailingService extends \Mittwald\Typo3Forum\Service\Abstr
 	 */
 	protected $settings;
 
-
-
-	/*
-	 * CONSTANTS
-	 */
-
-
-
 	/**
 	 * HTML mail format.
 	 */
 	const MAILING_FORMAT_HTML = 'html';
 
-
-
 	/**
 	 * Plaintext mail format.
 	 */
 	const MAILING_FORMAT_PLAIN = 'txt';
-
-
-
-	/*
-	  * ATTRIBUTES
-	  */
-
-
 
 	/**
 	 * The format in which this service sends mails. Usually, this would be either 'html' or 'txt'.
@@ -95,24 +76,10 @@ abstract class AbstractMailingService extends \Mittwald\Typo3Forum\Service\Abstr
 	 */
 	protected $format = \Mittwald\Typo3Forum\Service\Mailing\AbstractMailingService::MAILING_FORMAT_HTML;
 
-
-
-	/**
-	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
-	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
-	 */
-	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
-		$this->typoScriptService = $typoScriptService;
+	public function initializeObject() {
 		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
 		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
-
-
-	/*
-	  * SERVICE METHODS
-	  */
-
-
 
 	/**
 	 * Gets the preferred format of this mailing service.
@@ -121,14 +88,6 @@ abstract class AbstractMailingService extends \Mittwald\Typo3Forum\Service\Abstr
 	public function getFormat() {
 		return $this->format;
 	}
-
-
-
-	/*
-	 * HELPER METHODS
-	 */
-
-
 
 	/**
 	 * Gets the default sender name. Can be configured in the typoscript setup.
@@ -171,7 +130,4 @@ abstract class AbstractMailingService extends \Mittwald\Typo3Forum\Service\Abstr
 	protected function getCharset() {
 		return $GLOBALS['TSFE']->renderCharset;
 	}
-
-
-
 }

@@ -44,21 +44,20 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Form;
  */
 class BbCodeEditorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\TextareaViewHelper {
 
-
-
-	/*
-	 * ATTRIBUTES
+	/**
+	 * cache
+	 *
+	 * @var \Mittwald\Typo3Forum\Cache\Cache
+	 * @inject
 	 */
-
-
-
 	protected $cache = NULL;
 
 
 	/**
 	 * Instance of the typo3_forum TypoScript reader class. This class is used
 	 * to read a bbcode editor's configuration from the typoscript setup.
-	 * @var unknown_type
+	 * @var \Mittwald\Typo3Forum\Utility\TypoScript
+	 * @inject
 	 */
 	protected $typoscriptReader = NULL;
 
@@ -81,50 +80,9 @@ class BbCodeEditorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\TextareaV
 	/**
 	 * An Instance of the Extbase Object Manager class.
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 * @inject
 	 */
 	protected $objectManager = NULL;
-
-
-
-	/*
-	  * INITIALIZATION
-	  */
-
-
-
-	public function injectCache(\Mittwald\Typo3Forum\Cache\Cache $cache) {
-		$this->cache = $cache;
-	}
-
-
-
-	/**
-	 *
-	 * Injects an instance of the typo3_forum typoscript reader.
-	 * @param  \Mittwald\Typo3Forum\Utility\TypoScript $typoscriptReader
-	 *                             An instance of the typo3_forum typoscript reader
-	 * @return void
-	 *
-	 */
-	public function injectTyposcriptReader(\Mittwald\Typo3Forum\Utility\TypoScript $typoscriptReader) {
-		$this->typoscriptReader = $typoscriptReader;
-	}
-
-
-
-	/**
-	 *
-	 * Injects an instance of the Extbase object manager.
-	 * @param  \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-	 *                                 An instance of the Extbase object manager.
-	 * @return void
-	 *
-	 */
-	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
-		$this->objectManager = $objectManager;
-	}
-
-
 
 	/**
 	 *
@@ -137,7 +95,6 @@ class BbCodeEditorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\TextareaV
 		$this->registerArgument('configuration', 'string', 'Path to TS configuration', FALSE,
 		                        'plugin.tx_typo3forum.settings.textParsing.editorPanel');
 	}
-
 
 
 	/**
@@ -170,14 +127,6 @@ class BbCodeEditorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\TextareaV
 		$this->cache->set('bbcodeeditor-jsonconfig', $this->javascriptSetup);
 		return $this->javascriptSetup;
 	}
-
-
-
-	/*
-	 * METHODS
-	 */
-
-
 
 	/**
 	 *
@@ -229,9 +178,4 @@ class BbCodeEditorViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\TextareaV
 
 		return $editorSettings;
 	}
-
-
-
 }
-
-?>

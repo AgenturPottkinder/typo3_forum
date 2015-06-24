@@ -44,7 +44,8 @@ class UserLinkViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper 
 
 	/**
 	 * An instance of the typo3_forum authentication service.
-	 * @var TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @inject
 	 */
 	protected $typoScriptService = NULL;
 
@@ -58,32 +59,11 @@ class UserLinkViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper 
 	 * An authentication service. Handles the authentication mechanism.
 	 *
 	 * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
+	 * @inject
 	 */
 	protected $authenticationService = NULL;
 
-
-	/**
-	 *
-	 * Injects an authentication service.
-	 *
-	 * @param  \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface $authenticationService
-	 *                             An authentication service.
-	 *
-	 * @return void
-	 *
-	 */
-	public function injectAuthenticationService(\Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface $authenticationService) {
-		$this->authenticationService = $authenticationService;
-	}
-
-	/**
-	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
-	 * @param
-	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
-	 */
-	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
-
-		$this->typoScriptService = $typoScriptService;
+	public function initializeObject() {
 		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
 		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}

@@ -46,18 +46,9 @@ class TagValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValid
 	/**
 	 * An instance of the tag repository.
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository
+	 * @inject
 	 */
 	protected $tagRepository;
-
-
-	/**
-	 * Injects an instance of the tag repository.
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository $tagRepository
-	 */
-	public function injectTagRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository $tagRepository) {
-		$this->tagRepository = $tagRepository;
-	}
-
 
 	/**
 	 * Check if $value is valid. If it is not valid, needs to add an error

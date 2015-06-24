@@ -5,34 +5,16 @@ class TagService implements \TYPO3\CMS\Core\SingletonInterface {
 	/**
 	 * An instance of the Extbase object manager.
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 * @inject
 	 */
 	protected $objectManager = NULL;
 
 	/**
 	 * An instance of the tag repository
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository
+	 * @inject
 	 */
 	protected $tagRepository;
-
-
-	/**
-	 * Injects an instance of the extbase object manager.
-	 * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-	 * @return void
-	 */
-	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
-		$this->objectManager = $objectManager;
-	}
-
-	/**
-	 * Injects an instance of the tag repository
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository $tagRepository
-	 * @return void
-	 */
-	public function injectTagRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository $tagRepository) {
-		$this->tagRepository = $tagRepository;
-	}
-
 
 	/**
 	 * Converts string of tags to an object

@@ -44,30 +44,17 @@ class RootForum extends \Mittwald\Typo3Forum\Domain\Model\Forum\Forum implements
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
+	 * @inject
 	 */
 	protected $forumRepository = NULL;
-
-
-
-	public function injectForumRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository) {
-		$this->forumRepository = $forumRepository;
-	}
-
-
 
 	public function __construct() {
 		$this->uid = 0;
 	}
 
-
-
 	public function getChildren() {
 		return $this->forumRepository->findRootForums();
 	}
-
-
-
-
 
 	public function checkAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL, $accessType = 'read') {
 		if ($accessType === 'read') {
@@ -77,7 +64,5 @@ class RootForum extends \Mittwald\Typo3Forum\Domain\Model\Forum\Forum implements
 		return FALSE;
 		#return TYPO3_MODE === 'BE';
 	}
-
-
 
 }

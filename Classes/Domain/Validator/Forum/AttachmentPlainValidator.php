@@ -48,16 +48,6 @@ class AttachmentPlainValidator extends \TYPO3\CMS\Extbase\Validation\Validator\A
 	 */
 	protected $objectManager = NULL;
 
-
-	/**
-	 * Injects an instance of the extbase object manager.
-	 * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-	 */
-	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
-		$this->objectManager = $objectManager;
-	}
-
-
 	/**
 	 * Check if $value is valid. If it is not valid, needs to add an error
 	 * to Result.

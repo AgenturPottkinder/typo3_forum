@@ -48,20 +48,10 @@ class TypoScript {
 
 	/**
 	 * The extbase configuration manager.
-	 * @var Tx_Extbase_Configuration_ConfigurationManagerInterface
+	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+	 * @inject
 	 */
 	protected $configurationManager = NULL;
-
-
-
-	/**
-	 * Injects an instance of the Extbase configuration manager.
-	 * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager
-	 */
-	public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager) {
-		$this->configurationManager = $configurationManager;
-	}
-
 
 
 	/**
@@ -90,5 +80,3 @@ class TypoScript {
 	}
 
 }
-
-?>

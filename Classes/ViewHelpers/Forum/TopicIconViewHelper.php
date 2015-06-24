@@ -49,23 +49,9 @@ class TopicIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper
 	/**
 	 * The frontend user repository.
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
+	 * @inject
 	 */
 	protected $frontendUserRepository = NULL;
-
-
-
-	/**
-	 *
-	 * Injects a frontend user repository.
-	 * @param  \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository $frontendUserRepository
-	 *                             A frontend user repository.
-	 * @return void
-	 *
-	 */
-	public function injectFrontendUserRepository(\Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository $frontendUserRepository) {
-		$this->frontendUserRepository = $frontendUserRepository;
-	}
-
 
 
 	/**
@@ -79,7 +65,6 @@ class TopicIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper
 		                        'Amount of posts required for a topic to contain in order to be marked as important',
 		                        FALSE, 15);
 	}
-
 
 
 	/**

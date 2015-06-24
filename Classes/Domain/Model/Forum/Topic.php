@@ -193,7 +193,7 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
-	 * @lazy
+	 * @inject
 	 */
 	protected $topicRepository;
 
@@ -201,6 +201,7 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * An instance of the typo3_forum authentication service.
      * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+     * @inject
      */
     protected $typoScriptService = NULL;
 
@@ -210,39 +211,15 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected $settings;
 
-
- 	/**
-	 * Helper variable to store if the parent object was modified. This is necessary
-	 * due to http://forge.typo3.org/issues/8952
-	 *
-	 * @var boolean
-	 */
-//	private $_modifiedParent = FALSE;
-
-
-	/*
-	 * CONSTRUCTOR
-	 */
-
-
 	/**
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository
+	 * initializeObject
+	 *
+	 * @return void
 	 */
-	public function injectTopicRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository $topicRepository) {
-		$this->topicRepository = $topicRepository;
+	public function initializeObject() {
+		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
+		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
-
-
-    /**
-     * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
-     * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
-     */
-    public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
-        $this->typoScriptService = $typoScriptService;
-        $ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
-        $this->settings = $ts['plugin']['tx_typo3forum']['settings'];
-    }
-
 
 	/**
 	 * Constructor. Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage instances.

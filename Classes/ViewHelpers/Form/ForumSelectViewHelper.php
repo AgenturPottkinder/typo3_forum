@@ -43,43 +43,14 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Form;
  *
  */
 
-Class ForumSelectViewHelper Extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper {
-
-
-
-	/*
-		  * ATTRIBUTES
-		  */
-
-
+class ForumSelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper {
 
 	/**
 	 * The forum repository.
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
+	 * @inject
 	 */
 	protected $forumRepository = NULL;
-
-
-
-	/*
-		  * INITIALIZATION
-		  */
-
-
-
-	/**
-	 *
-	 * Injects a forum repository.
-	 * @param  \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository
-	 *                             A forum repository.
-	 * @return void
-	 *
-	 */
-
-	public function injectForumRepository(\Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository $forumRepository) {
-		$this->forumRepository = $forumRepository;
-	}
-
 
 
 	/**
@@ -88,8 +59,7 @@ Class ForumSelectViewHelper Extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectView
 	 * @return void
 	 *
 	 */
-
-	Public Function initializeArguments() {
+	public function initializeArguments() {
 		\TYPO3\CMS\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper::initializeArguments();
 		$this->registerUniversalTagAttributes();
 		$this->registerTagAttribute('multiple', 'string', 'if set, multiple select field');
@@ -101,21 +71,13 @@ Class ForumSelectViewHelper Extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectView
 	}
 
 
-
-	/*
-		  * RENDERING METHODS
-		  */
-
-
-
 	/**
 	 *
 	 * Loads the option rows for this select field.
 	 * @return array All option rows.
 	 *
 	 */
-
-	Protected Function getOptions() {
+	protected function getOptions() {
 		$rootForums = $this->forumRepository->findRootForums();
 		$values     = array();
 
@@ -138,8 +100,7 @@ Class ForumSelectViewHelper Extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectView
 	 * @return array               An option row for the specified forum.
 	 *
 	 */
-
-	Protected Function getForumOptionRow(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum, $isRoot = FALSE) {
+	protected function getForumOptionRow(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum, $isRoot = FALSE) {
 		$result = Array('name'      => $forum->getTitle(),
 		                'uid'       => $forum->getUid(),
 		                '_isRoot'   => $isRoot,
@@ -162,15 +123,14 @@ Class ForumSelectViewHelper Extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectView
 	 * @return  string
 	 *
 	 */
-
-	Protected Function renderOptionTags($options, $nestingLevel = 1) {
+	protected function renderOptionTags($options, $nestingLevel = 1) {
 		$content = '';
-		ForEach ($options As $option) {
-			If ($option['_isRoot']) {
+		foreach ($options as $option) {
+			if ($option['_isRoot']) {
 				$content .= '<optgroup label="' . htmlspecialchars($option['name']) . '">' . chr(10);
 				$content .= $this->renderOptionTags($option['_children'], $nestingLevel + 1);
 				$content .= '</optgroup>';
-			} Else {
+			} else {
 				$isSelected = $this->isSelected($option['uid']);
 				$indent     = ($nestingLevel - 1) * 20;
 				$style      = 'padding-left: ' . $indent . 'px;';
@@ -178,9 +138,6 @@ Class ForumSelectViewHelper Extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectView
 				$content .= $this->renderOptionTags($option['_children'], $nestingLevel + 1);
 			}
 		}
-		Return $content;
+		return $content;
 	}
-
 }
-
-?>

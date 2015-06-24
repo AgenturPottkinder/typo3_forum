@@ -57,23 +57,9 @@ class HelpfulButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHe
 	 * An authentication service. Handles the authentication mechanism.
 	 *
 	 * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
+	 * @inject
 	 */
 	protected $authenticationService;
-
-
-	/**
-	 *
-	 * Injects an authentication service.
-	 *
-	 * @param  \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface $authenticationService
-	 *                             An authentication service.
-	 *
-	 * @return void
-	 *
-	 */
-	public function injectAuthenticationService(\Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface $authenticationService) {
-		$this->authenticationService = $authenticationService;
-	}
 
 
 	public function initialize() {

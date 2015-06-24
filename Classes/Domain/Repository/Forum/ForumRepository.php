@@ -47,6 +47,7 @@ class ForumRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
+	 * @inject
 	 */
 	protected $authenticationService = NULL;
 

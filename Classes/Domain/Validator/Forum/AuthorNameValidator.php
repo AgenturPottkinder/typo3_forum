@@ -47,16 +47,9 @@ class AuthorNameValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstra
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
+	 * @inject
 	 */
 	protected $userRepository = NULL;
-
-
-
-	public function injectUserRepository(\Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository $userRepository) {
-		$this->userRepository = $userRepository;
-	}
-
-
 
 	/**
 	 * Check if $value is valid. If it is not valid, needs to add an error

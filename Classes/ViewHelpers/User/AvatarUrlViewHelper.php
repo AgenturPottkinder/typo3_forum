@@ -50,26 +50,9 @@ class AvatarUrlViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper
 	/**
 	 * An instance of the Extbase Signal-/Slot-Dispatcher.
 	 * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
+	 * @inject
 	 */
 	protected $slots;
-
-
-
-	/**
-	 *
-	 * Injector for the Signal-/Slot-Dispatcher.
-	 *
-	 * @param \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher
-	 *                                 An instance of the Extbase Signal-/Slot-
-	 *                                 Dispatcher.
-	 * @return void
-	 *
-	 */
-	public function injectSignalSlotDispatcher(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher) {
-		$this->slots = $signalSlotDispatcher;
-	}
-
-
 
 	/**
 	 *
@@ -79,8 +62,6 @@ class AvatarUrlViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper
 	public function initializeArguments() {
 		parent::initializeArguments();
 	}
-
-
 
 	/**
 	 * Renders the avatar.
@@ -103,7 +84,5 @@ class AvatarUrlViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper
 		return $avatarFilename ;
 
 	}
-
-
 
 }

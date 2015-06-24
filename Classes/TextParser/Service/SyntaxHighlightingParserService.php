@@ -42,29 +42,13 @@ namespace Mittwald\Typo3Forum\TextParser\Service;
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class SyntaxHighlightingParserService
-	extends \Mittwald\Typo3Forum\TextParser\Service\AbstractTextParserService {
-
-
+class SyntaxHighlightingParserService extends \Mittwald\Typo3Forum\TextParser\Service\AbstractTextParserService {
 
 	/**
 	 * @var \Mittwald\Typo3Forum\TextParser\Service\AbstractGeshiService
+	 * @inject
 	 */
 	protected $xtGeshi;
-
-
-	/*
-	 * METHODS
-	 */
-
-	/**
-	 * Injects an instance of the smilie repository.
-	 * @param \Mittwald\Typo3Forum\TextParser\Service\AbstractGeshiService $xtGeshi
-	 */
-	public function injectAbstractGeshiService(\Mittwald\Typo3Forum\TextParser\Service\AbstractGeshiService $xtGeshi) {
-		$this->xtGeshi = $xtGeshi;
-	}
-
 
 
 	/**
@@ -79,7 +63,6 @@ class SyntaxHighlightingParserService
 	}
 
 
-
 	/**
 	 * Callback function that renders each source code block.
 	 *
@@ -89,7 +72,4 @@ class SyntaxHighlightingParserService
 	protected function parseSourceCode($matches) {
 		return $this->xtGeshi->getFormattedText(trim($matches[2]), trim($matches[1]));
 	}
-
-
-
 }

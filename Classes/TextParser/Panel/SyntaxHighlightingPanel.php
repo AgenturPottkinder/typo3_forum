@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\TextParser\Panel;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,35 +23,15 @@ namespace Mittwald\Typo3Forum\TextParser\Panel;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
-
-/**
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage TextParser_Panel
- * @version    $Id$
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-
 class SyntaxHighlightingPanel extends \Mittwald\Typo3Forum\TextParser\Panel\AbstractPanel {
-
-
 
 	/**
 	 * TODO
 	 *
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\SyntaxHighlightingRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Format\SyntaxHighlightingRepository
+	 * @inject
 	 */
 	protected $syntaxHighlightingRepository = NULL;
-
-
 
 	/**
 	 * TODO
@@ -62,20 +41,9 @@ class SyntaxHighlightingPanel extends \Mittwald\Typo3Forum\TextParser\Panel\Abst
 	protected $syntaxHighlightings = NULL;
 
 
-
-	/**
-	 * TODO
-	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Repository\Format\SyntaxHighlightingRepository $syntaxHighlightingRepository
-	 *
-	 * @return void
-	 */
-	public function injectSyntaxHighlightingRepository(\Mittwald\Typo3Forum\Domain\Repository\Format\SyntaxHighlightingRepository $syntaxHighlightingRepository) {
-		$this->syntaxHighlightingRepository = $syntaxHighlightingRepository;
+	public function initializeObject() {
 		$this->syntaxHighlightings          = $this->syntaxHighlightingRepository->findAll();
 	}
-
-
 
 	/**
 	 * TODO
@@ -93,5 +61,4 @@ class SyntaxHighlightingPanel extends \Mittwald\Typo3Forum\TextParser\Panel\Abst
 		                   'closeWith' => '[/code]',
 		                   'dropMenu'  => $result));
 	}
-
 }

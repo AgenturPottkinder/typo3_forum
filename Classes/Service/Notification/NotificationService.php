@@ -43,13 +43,7 @@ namespace Mittwald\Typo3Forum\Service\Notification;
  *
  */
 class NotificationService extends \Mittwald\Typo3Forum\Service\AbstractService
-	implements \Mittwald\Typo3Forum\Service\Notification\NotificationServiceInterface
-{
-
-
-	/*
-	 * ATTRIBUTES
-	 */
+	implements \Mittwald\Typo3Forum\Service\Notification\NotificationServiceInterface {
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Service\Mailing\HTMLMailingService
@@ -65,7 +59,8 @@ class NotificationService extends \Mittwald\Typo3Forum\Service\AbstractService
 
 	/**
 	 * An instance of the typo3_forum authentication service.
-	 * @var TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @inject
 	 */
 	protected $typoScriptService = NULL;
 
@@ -75,41 +70,21 @@ class NotificationService extends \Mittwald\Typo3Forum\Service\AbstractService
 	 */
 	protected $settings;
 
-
-	/*
-	  * INITIALIZATION METHODS
-	  */
-
-
 	/**
 	 * Constructor. Used primarily for dependency injection.
 	 *
 	 * @param \Mittwald\Typo3Forum\Service\Mailing\HTMLMailingService $htmlMailingService
 	 * @param \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder
 	 */
-	public function __construct(\Mittwald\Typo3Forum\Service\Mailing\HTMLMailingService $htmlMailingService, \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder)
-	{
+	public function __construct(\Mittwald\Typo3Forum\Service\Mailing\HTMLMailingService $htmlMailingService, \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder) {
 		$this->htmlMailingService = $htmlMailingService;
 		$this->uriBuilder = $uriBuilder;
 	}
 
-
-	/**
-	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
-	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
-	 */
-	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService)
-	{
-		$this->typoScriptService = $typoScriptService;
+	public function initializeObject() {
 		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
 		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
-
-
-	/*
-	 * SERVICE METHODS
-	 */
-
 
 	/**
 	 *
@@ -129,8 +104,7 @@ class NotificationService extends \Mittwald\Typo3Forum\Service\AbstractService
 	 *
 	 */
 	public function notifySubscribers(\Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $subscriptionObject,
-									  \Mittwald\Typo3Forum\Domain\Model\NotifiableInterface $notificationObject)
-	{
+									  \Mittwald\Typo3Forum\Domain\Model\NotifiableInterface $notificationObject) {
 		$topic = $subscriptionObject;
 		$post  = $notificationObject;
 
@@ -171,8 +145,4 @@ class NotificationService extends \Mittwald\Typo3Forum\Service\AbstractService
 			}
 		}
 	}
-
-
 }
-
-?>

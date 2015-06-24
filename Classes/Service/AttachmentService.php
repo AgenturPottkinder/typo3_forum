@@ -6,18 +6,9 @@ class AttachmentService implements \TYPO3\CMS\Core\SingletonInterface {
 	/**
 	 * An instance of the Extbase object manager.
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 * @inject
 	 */
 	protected $objectManager = NULL;
-
-	/**
-	 * Injects an instance of the extbase object manager.
-	 * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-	 * @return void
-	 */
-	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
-		$this->objectManager = $objectManager;
-	}
-
 
 	/**
 	 * Converts HTML-array to an object

@@ -46,30 +46,13 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Authentication;
 
 class IfAccessViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper {
 
-
-
 	/**
 	 * The frontend user repository.
 	 *
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
+	 * @inject
 	 */
 	protected $frontendUserRepository;
-
-
-
-	/**
-	 * Injects a frontend user repository.
-	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository $frontendUserRepository
-	 *                             A frontend user repository.
-	 *
-	 * @return void
-	 */
-	public function injectFrontendUserRepository(\Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository $frontendUserRepository) {
-		$this->frontendUserRepository = $frontendUserRepository;
-	}
-
-
 
 	/**
 	 * Renders this ViewHelper
@@ -91,4 +74,3 @@ class IfAccessViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractCondit
 	}
 
 }
-
