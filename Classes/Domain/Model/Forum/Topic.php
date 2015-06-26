@@ -211,15 +211,15 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected $settings;
 
-	/**
-	 * initializeObject
-	 *
-	 * @return void
-	 */
-	public function initializeObject() {
-		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
-		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
-	}
+    /**
+     * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
+     * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
+     */
+    public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
+        $this->typoScriptService = $typoScriptService;
+        $ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
+        $this->settings = $ts['plugin']['tx_typo3forum']['settings'];
+    }
 
 	/**
 	 * Constructor. Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage instances.

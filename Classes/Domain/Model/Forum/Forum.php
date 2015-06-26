@@ -211,11 +211,11 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	}
 
 	/**
-	 * initializeObject
-	 *
-	 * @return void
+	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
+	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
 	 */
-	public function initializeObject() {
+	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
+		$this->typoScriptService = $typoScriptService;
 		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
 		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
