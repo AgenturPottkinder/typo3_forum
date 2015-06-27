@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\Forum;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -22,10 +23,12 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
+
 use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 
 /**
@@ -35,16 +38,10 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 class Forum extends AbstractEntity implements AccessibleInterface, SubscribeableInterface {
 
 	/**
-	 * A description for the forum
-	 * @var string
+	 * All access rules.
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Access>
 	 */
-	protected $description;
-
-	/**
-	 * @var string
-	 * @validate NotEmpty
-	 */
-	protected $title;
+	protected $acls;
 
 	/**
 	 * The child forums
@@ -53,6 +50,87 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 */
 	protected $children;
 
+	/**
+	 * The criterias of this forum.
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Criteria>
+	 * @lazy
+	 */
+	protected $criteria;
+
+	/**
+	 * A description for the forum
+	 * @var string
+	 */
+	protected $description;
+
+	/**
+	 * @var int
+	 */
+	protected $displayedPid;
+
+	/**
+	 * The parent forum.
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Forum
+	 * @lazy
+	 */
+	protected $forum;
+
+	/**
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Post
+	 */
+	protected $lastPost;
+
+	/**
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Topic
+	 */
+	protected $lastTopic;
+
+	/**
+	 * An instance of the Extbase object manager.
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 * @inject
+	 */
+	protected $objectManager;
+
+	/**
+	 * The amount of post in this forum.
+	 * @var int
+	 */
+	protected $postCount;
+
+	/**
+	 * All users who have read this forum.
+	 *
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
+	 * @lazy
+	 */
+	protected $readers;
+
+	/**
+	 * All subscribers of this forum.
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
+	 * @lazy
+	 */
+	protected $subscribers;
+
+	/**
+	 * @var string
+	 * @validate NotEmpty
+	 */
+	protected $title;
+
+	/**
+	 * Amount of topics in this forum.
+	 * @var int
+	 */
+	protected $topicCount;
+
+	/**
+	 * The topics in this forum.
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Topic>
+	 * @lazy
+	 */
+	protected $topics;
 
 	/**
 	 * The VISIBLE child forums of this forum, i.e. all forums that the
@@ -63,98 +141,6 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 */
 	protected $visibleChildren;
 
-
-	/**
-	 * The topics in this forum.
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Topic>
-	 * @lazy
-	 */
-	protected $topics;
-
-
-	/**
-	 * The criterias of this forum.
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Criteria>
-	 * @lazy
-	 */
-	protected $criteria;
-
-
-	/**
-	 * Amount of topics in this forum.
-	 * @var int
-	 */
-	protected $topicCount;
-
-
-	/**
-	 * The amount of post in this forum.
-	 * @var int
-	 */
-	protected $postCount;
-
-
-	/**
-	 * All access rules.
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Access>
-	 */
-	protected $acls;
-
-
-	/**
-	 * The last topic.
-	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Topic
-	 */
-	protected $lastTopic;
-
-
-	/**
-	 * The last post.
-	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Post
-	 */
-	protected $lastPost;
-
-
-	/**
-	 * The parent forum.
-	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Forum
-	 * @lazy
-	 */
-
-	protected $forum;
-
-
-	/**
-	 * All subscribers of this forum.
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
-	 * @lazy
-	 */
-	protected $subscribers;
-
-
-	/**
-	 * All users who have read this forum.
-	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
-	 * @lazy
-	 */
-	protected $readers;
-
-
-	/**
-	 * @var int
-	 */
-	protected $displayedPid;
-
-
-	/**
-	 * An instance of the Extbase object manager.
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-	 * @inject
-	 */
-	protected $objectManager;
-
-
 	/**
 	 * An instance of the typo3_forum authentication service.
 	 * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
@@ -162,32 +148,23 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 */
 	protected $authenticationService;
 
-
 	/**
 	 * The sorting value
 	 * @var int
 	 */
 	protected $sorting;
 
-
-	/**
-	 * An instance of the forum repository.
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
-	 * @inject
-	 */
-	protected $forumRepository;
-
 	/**
 	 * Constructor. Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage instances.
-	 * @param string                               $title  The forum title.
+	 * @param string $title The forum title.
 	 */
 	public function __construct($title = '') {
-		$this->children    = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->topics      = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->criteria    = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->acls        = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->subscribers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->readers     = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->children = new ObjectStorage();
+		$this->topics = new ObjectStorage();
+		$this->criteria = new ObjectStorage();
+		$this->acls = new ObjectStorage();
+		$this->subscribers = new ObjectStorage();
+		$this->readers = new ObjectStorage();
 
 		$this->title = $title;
 	}
@@ -208,7 +185,6 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	}
 
 
-
 	/**
 	 * Gets the forum description.
 	 * @return string A description for the forum.
@@ -218,13 +194,12 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	}
 
 
-
 	/**
 	 * Gets all VISIBLE child forums. This function does NOT simply return
 	 * all child forums, but performs an access check on each forum, so
 	 * that only forums visible to the current user are returned.
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Forum>
+	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Forum>
 	 *                             All visible child forums
 	 */
 	public function getChildren() {
@@ -245,10 +220,9 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	}
 
 
-
 	/**
 	 * Gets all topics.
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Topic>
+	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Topic>
 	 *                             All topics in this forum
 	 */
 	public function getTopics() {
@@ -258,13 +232,12 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 
 	/**
 	 * Get all criterias of this forum.
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Criteria>
+	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Criteria>
 	 */
 	public function getCriteria() {
-		/* @var \Mittwald\Typo3Forum\Domain\Model\Forum\Criteria */
-		$obj =  new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-
-		$criteria = $this->getCriteriaRecursive(array($this,$obj));
+		$criteriaStorage = new ObjectStorage();
+		/* @var \Mittwald\Typo3Forum\Domain\Model\Forum\Criteria $criteria */
+		$criteria = $this->getCriteriaRecursive(array($this, $criteriaStorage));
 		$obj = $criteria[1];
 		return $obj;
 	}
@@ -276,43 +249,40 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * @return array
 	 */
 	private function getCriteriaRecursive($array) {
-		//$array[0] current object. Will be repleaced with the parent object in the next call
-		//$array[1] object storage with the desired criteria data. Will be filled in every call.
-		if ($array[0]->criteria !== NULL) {
-			$array[1]->addAll($array[0]->criteria);
+		/** @var Forum $forum */
+		/** @var ObjectStorage $criteriaStorage */
+		list($forum, $criteriaStorage) = $array;
+		if ($forum->getCriteria() !== NULL) {
+			$criteriaStorage->addAll($forum->getCriteria());
 		}
-		if($array[0]->getParent()->getUid() > 0) {
-			$tmp = $this->getCriteriaRecursive(array($array[0]->getParent(),$array[1]));
-			$array[1] = $tmp[1];
+		if ($forum->getParent()->getUid() > 0) {
+			list(,$criteriaStorage) = $this->getCriteriaRecursive([$forum->getParent(), $criteriaStorage]);
 		}
-		return $array;
+		return [$forum, $criteriaStorage];
 	}
 
 	/**
 	 * Gets all access rules.
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Access>
-	 *                             All access rules for this forum.
+	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Access> All access rules for this forum
 	 */
 	public function getAcls() {
 		return $this->acls;
 	}
 
-
-
 	/**
 	 * Gets the last topic.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic The last topic
+	 * @return Topic The last topic
 	 */
 	public function getLastTopic() {
-		if(!$this->lastTopic instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Topic){
+		if (!$this->lastTopic instanceof Topic) {
 			return NULL;
 		}
 		$lastTopic = $this->lastTopic;
 		foreach ($this->getChildren() as $child) {
-			/** @var $child \Mittwald\Typo3Forum\Domain\Model\Forum\Forum */
+			/** @var $child Forum */
 			/** @noinspection PhpUndefinedMethodInspection */
 			if ($lastTopic === NULL || ($child->getLastTopic() !== NULL && $child->getLastTopic()->getLastPost()
-				->getTimestamp() > $lastTopic->getLastPost()->getTimestamp())
+						->getTimestamp() > $lastTopic->getLastPost()->getTimestamp())
 			) {
 				$lastTopic = $child->getLastTopic();
 			}
@@ -320,21 +290,20 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 		return $lastTopic;
 	}
 
-
-
 	/**
 	 * Gets the last post.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Post The last post
+	 * @return Post The last post
 	 */
 	public function getLastPost() {
-		if(!$this->lastPost instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Post){
+		if (!$this->lastPost instanceof Post) {
 			return NULL;
 		}
 		$lastPost = $this->lastPost;
 		foreach ($this->getChildren() as $child) {
-			/** @var $child \Mittwald\Typo3Forum\Domain\Model\Forum\Forum */
-			if ($lastPost === NULL || ($child->getLastPost() !== NULL && $child->getLastPost()
-				->getTimestamp() > $lastPost->getTimestamp())
+			/** @var $child Forum */
+			if (
+				$lastPost === NULL ||
+				($child->getLastPost() !== NULL && $child->getLastPost()->getTimestamp() > $lastPost->getTimestamp())
 			) {
 				$lastPost = $child->getLastPost();
 			}
@@ -342,11 +311,9 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 		return $lastPost;
 	}
 
-
-
 	/**
 	 * Gets the parent forum.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Forum The parent forum
+	 * @return Forum The parent forum
 	 */
 	public function getForum() {
 		if ($this->forum == NULL) {
@@ -355,17 +322,13 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 		return $this->forum;
 	}
 
-
-
 	/**
 	 * Alias for getForum().
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Forum The parent forum
+	 * @return Forum The parent forum
 	 */
 	public function getParent() {
 		return $this->getForum();
 	}
-
-
 
 	/**
 	 * Gets the amount of topics in this forum.
@@ -374,12 +337,11 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	public function getTopicCount() {
 		$topicCount = $this->topicCount;
 		foreach ($this->getChildren() as $child) {
-			/** @var $child \Mittwald\Typo3Forum\Domain\Model\Forum\Forum */
+			/** @var $child Forum */
 			$topicCount += $child->getTopicCount();
 		}
 		return $topicCount;
 	}
-
 
 
 	/**
@@ -389,18 +351,17 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	public function getPostCount() {
 		$postCount = $this->postCount;
 		foreach ($this->getChildren() as $child) {
-			/** @var $child \Mittwald\Typo3Forum\Domain\Model\Forum\Forum */
+			/** @var $child Forum */
 			$postCount += $child->getPostCount();
 		}
 		return $postCount;
 	}
 
 
-
 	/**
 	 * Gets all users who have subscribed to this forum.
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
+	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
 	 *                             All subscribers of this forum.
 	 */
 	public function getSubscribers() {
@@ -417,7 +378,6 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	}
 
 
-
 	/**
 	 * Determines if this forum (i.e. all topics in it) has been read by the
 	 * currently logged in user.
@@ -431,7 +391,6 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 		}
 		return $this->readers->contains($user);
 	}
-
 
 
 	/**
@@ -454,15 +413,14 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	}
 
 
-
 	/**
 	 * Performs an access check for this forum.
 	 * *INTERAL USE ONLY!*
 	 *
 	 * @access                     private
-	 * @param  FrontendUser $user        The user that is to be checked against the access
+	 * @param  FrontendUser $user The user that is to be checked against the access
 	 *                                                                rules of this forum.
-	 * @param  string                                    $accessType  The operation
+	 * @param  string $accessType The operation
 	 * @return boolean             TRUE, if the user has access to the requested
 	 *                             operation, otherwise FALSE.
 	 */
@@ -479,21 +437,17 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 		// that explicitly grants or denies access. If no matching rule is
 		// found, delegate to the parent object or deny access (grant read
 		// access, if no parent is set).
-		$found = FALSE;
 		foreach ($this->acls as $acl) {
-			/** @var $acl \Mittwald\Typo3Forum\Domain\Model\Forum\Access */
+			/** @var $acl Access */
 			if ($acl->getOperation() !== $accessType) {
 				continue;
 			}
-
 			if ($acl->matches($user)) {
 				return !$acl->isNegated();
 			}
-
 		}
 		return $this->getParent()->checkAccess($user, $accessType);
 	}
-
 
 
 	/**
@@ -508,7 +462,6 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	}
 
 
-
 	/**
 	 * Checks if a user has access to create new posts in this forum.
 	 *
@@ -521,7 +474,6 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	}
 
 
-
 	/**
 	 * Checks if a user has access to create new topics in this forum.
 	 *
@@ -532,7 +484,6 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	public function checkNewTopicAccess(FrontendUser $user = NULL) {
 		return $this->checkAccess($user, 'newTopic');
 	}
-
 
 
 	/**
@@ -563,11 +514,11 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Set the criteria of this forum..
 	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $criteria
+	 * @param ObjectStorage $criteria
 	 *
 	 * @return void
 	 */
-	public function setCriteria(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $criteria) {
+	public function setCriteria(ObjectStorage $criteria) {
 		$this->criteria = $criteria;
 	}
 
@@ -582,19 +533,15 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 		$this->description = $description;
 	}
 
-
-
 	/**
 	 * Sets the parent forum.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $parent The parent forum.
+	 * @param Forum $parent The parent forum.
 	 * @return void
 	 */
-	public function setParent(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $parent) {
+	public function setParent(Forum $parent) {
 		$this->forum = $parent;
 	}
-
-
 
 	/**
 	 * Adds a child forum.
@@ -603,7 +550,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @return void
 	 */
-	public function addChild(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $child) {
+	public function addChild(Forum $child) {
 		$this->visibleChildren = NULL;
 		$this->children->attach($child);
 
@@ -614,17 +561,15 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	}
 
 
-
 	/**
 	 * Removes a child forum.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum The Forum to be removed
+	 * @param Forum The Forum to be removed
 	 * @return void
 	 */
-	public function removeChild(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $child) {
+	public function removeChild(Forum $child) {
 		$this->children->detach($child);
 	}
-
 
 
 	/**
@@ -634,7 +579,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @return void
 	 */
-	public function addTopic(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic) {
+	public function addTopic(Topic $topic) {
 
 		if ($this->lastTopic === NULL || $this->lastTopic->getTimestamp() <= $topic->getTimestamp()) {
 			$this->setLastTopic($topic);
@@ -651,14 +596,13 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	}
 
 
-
 	/**
 	 * Removes a topic.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic The Topic to be removed
+	 * @param Topic $topic The Topic to be removed
 	 * @return void
 	 */
-	public function removeTopic(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic) {
+	public function removeTopic(Topic $topic) {
 		$this->topics->detach($topic);
 		$this->_resetCounters();
 		$this->_resetLastPost();
@@ -666,66 +610,60 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	}
 
 
-
 	/**
 	 * Sets the access rules for this forum.
 	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $acls
+	 * @param ObjectStorage $acls
 	 *
 	 * @return void
 	 */
-	public function setAcls(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $acls) {
+	public function setAcls(ObjectStorage $acls) {
 		$this->acls = $acls;
 	}
-
 
 
 	/**
 	 * Adds a new access rule.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Access The access rule to be added
+	 * @param Access The access rule to be added
 	 * @return void
 	 */
-	public function addAcl(\Mittwald\Typo3Forum\Domain\Model\Forum\Access $acl) {
+	public function addAcl(Access $acl) {
 		$this->acls->attach($acl);
 	}
-
 
 
 	/**
 	 * Removes a access rule.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Access The access rule to be removed
+	 * @param Access The access rule to be removed
 	 * @return void
 	 */
-	public function removeAcl(\Mittwald\Typo3Forum\Domain\Model\Forum\Access $acl) {
+	public function removeAcl(Access $acl) {
 		$this->acls->detach($acl);
 	}
-
 
 
 	/**
 	 * Sets the last topic.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $lastTopic The last topic
+	 * @param Topic $lastTopic The last topic
 	 * @return void
 	 */
-	public function setLastTopic(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $lastTopic=NULL) {
+	public function setLastTopic(Topic $lastTopic = NULL) {
 		$this->lastTopic = $lastTopic;
 	}
-
 
 
 	/**
 	 * Sets the last post.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $lastPost The last post.
+	 * @param Post $lastPost The last post.
 	 * @return void
 	 */
-	public function setLastPost(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $lastPost=NULL) {
+	public function setLastPost(Post $lastPost = NULL) {
 		$this->lastPost = $lastPost;
 	}
-
 
 
 	/**
@@ -738,7 +676,6 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	}
 
 
-
 	/**
 	 * Removes a subscriber.
 	 * @param FrontendUser $user The subscriber to be removed.
@@ -746,8 +683,6 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	public function removeSubscriber(FrontendUser $user) {
 		$this->subscribers->detach($user);
 	}
-
-
 
 
 	/**
@@ -777,9 +712,8 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * @return void
 	 */
 	public function removeAllReaders() {
-		$this->readers = New \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->readers = New ObjectStorage();
 	}
-
 
 
 	/**
@@ -791,10 +725,10 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * @access private
 	 */
 	public function _resetLastPost() {
-		/** @var $lastPost \Mittwald\Typo3Forum\Domain\Model\Forum\Post */
+		/** @var $lastPost Post */
 		$lastPost = NULL;
 		foreach ($this->topics as $topic) {
-			/** @var $topic \Mittwald\Typo3Forum\Domain\Model\Forum\Topic */
+			/** @var $topic Topic */
 			/** @noinspection PhpUndefinedMethodInspection */
 			$lastTopicPostTimestamp = $topic->getLastPost()->getTimestamp();
 			if ($lastPost === NULL || $lastTopicPostTimestamp > $lastPost->getTimestamp()) {
@@ -804,7 +738,6 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 
 		$this->lastPost = $lastPost;
 	}
-
 
 
 	/**
@@ -817,8 +750,8 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	public function _resetLastTopic() {
 		$lastTopic = NULL;
 		foreach ($this->topics as $topic) {
-			/** @var $topic \Mittwald\Typo3Forum\Domain\Model\Forum\Topic */
-			/** @noinspection PhpUndefinedMethodInspection */
+			/** @var $topic Topic */
+			/** @var $lastTopic Topic */
 			$lastTopicPostTimestamp = $topic->getLastPost()->getTimestamp();
 			if ($lastTopic === NULL || $lastTopicPostTimestamp > $lastTopic->getTimestamp()) {
 				$lastTopic = $topic;
@@ -827,7 +760,6 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 
 		$this->lastTopic = $lastTopic;
 	}
-
 
 
 	/**
@@ -846,7 +778,6 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	}
 
 
-
 	/**
 	 * Increases (or decreases) the topic count of this forum, and of ALL
 	 * PARENT FORUMS.
@@ -862,7 +793,6 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	}
 
 
-
 	/**
 	 * Resets all internal counters (e.g. topic and post counter).
 	 * @access private
@@ -873,7 +803,6 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	}
 
 
-
 	/**
 	 * Resets the internal post counter.
 	 * @access private
@@ -881,11 +810,10 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	public function _resetPostCount() {
 		$this->postCount = 0;
 		foreach ($this->topics as $topic) {
-			/** @var $topic \Mittwald\Typo3Forum\Domain\Model\Forum\Topic */
+			/** @var $topic Topic */
 			$this->postCount += $topic->getPostCount();
 		}
 	}
-
 
 
 	/**
