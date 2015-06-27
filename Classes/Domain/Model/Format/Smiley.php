@@ -28,7 +28,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Format;
 
 /**
  *
- * A smilie. This class implements the abstract AbstractTextParserElement class.
+ * A smiley. This class implements the abstract AbstractTextParserElement class.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
  * @package    Typo3Forum
@@ -39,7 +39,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Format;
  *
  */
 
-class Smilie extends \Mittwald\Typo3Forum\Domain\Model\Format\AbstractTextParserElement
+class Smiley extends \Mittwald\Typo3Forum\Domain\Model\Format\AbstractTextParserElement
 	implements \Mittwald\Typo3Forum\TextParser\Panel\MarkItUpExportableInterface {
 
 
@@ -51,17 +51,17 @@ class Smilie extends \Mittwald\Typo3Forum\Domain\Model\Format\AbstractTextParser
 
 
 	/**
-	 * The smilie shortcut, e.g. ":)" or ":/"
+	 * The smiley shortcut, e.g. ":)" or ":/"
 	 * @var string
 	 */
-	protected $smilieShortcut;
+	protected $smileyShortcut;
 
 
 	/**
-	 * The default smilie directory.
+	 * The default smiley directory.
 	 * @var string
 	 */
-	protected $defaultIconDir = 'Smilie/';
+	protected $defaultIconDir = 'Smiley/';
 
 
 
@@ -73,19 +73,19 @@ class Smilie extends \Mittwald\Typo3Forum\Domain\Model\Format\AbstractTextParser
 
 	/**
 	 *
-	 * Gets the smilie shortcut.
-	 * @return string The smilie shortcut.
+	 * Gets the smiley shortcut.
+	 * @return string The smiley shortcut.
 	 *
 	 */
 
-	public function getSmilieShortcut() {
-		return $this->smilieShortcut;
+	public function getSmileyShortcut() {
+		return $this->smileyShortcut;
 	}
 
 	/**
 	 *
-	 * Gets the smilie IconClass.
-	 * @return string The smilie IconClass.
+	 * Gets the smiley IconClass.
+	 * @return string The smiley IconClass.
 	 *
 	 */
 
@@ -97,16 +97,16 @@ class Smilie extends \Mittwald\Typo3Forum\Domain\Model\Format\AbstractTextParser
 
 	/**
 	 *
-	 * Exports this smilie object as a plain array, that can be used in
+	 * Exports this smiley object as a plain array, that can be used in
 	 * a MarkItUp configuration object.
-	 * @return array A plain array describing this smilie
+	 * @return array A plain array describing this smiley
 	 *
 	 */
 
 	public function exportForMarkItUp() {
 		return array('name'        => $this->getName(),
 		             'className'   => $this->getIconClass(),
-		             'replaceWith' => $this->getSmilieShortcut());
+		             'replaceWith' => $this->getSmileyShortcut());
 	}
 
 }

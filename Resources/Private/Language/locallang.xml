@@ -22,7 +22,7 @@
 			<label index="Button_User_Profile">User profile</label>
 			<label index="Button_More">More</label>
 			<label index="Editor_Panel_Formatting">Formatting</label>
-			<label index="Editor_Panel_Smilies">Smilies</label>
+			<label index="Editor_Panel_Smileys">Smileys</label>
 			<label index="Editor_Panel_SyntaxHighlighting">Syntax highlighting</label>
 			<label index="Error_1335120249">You need to be logged in to view your own subscriptions.</label>
 			<label index="Error_Exception_Title">Whoops!</label>
@@ -336,7 +336,7 @@ Your ###FORUM_NAME###-Team</label>
 			<label index="Button_Unsubscribe">Ukončení odběru</label>
 			<label index="Button_User_Profile">Profil uživatele</label>
 			<label index="Editor_Panel_Formatting">Formátování</label>
-			<label index="Editor_Panel_Smilies">Emotikony</label>
+			<label index="Editor_Panel_Smileys">Emotikony</label>
 			<label index="Editor_Panel_SyntaxHighlighting">Zvýraznění syntaxe</label>
 			<label index="Error_1335120249">Musíte být přihlášeni, abyste mohli prohlížet své vlastní odběry.</label>
 			<label index="Error_Exception_Title">Jejda!</label>
@@ -627,7 +627,7 @@ Your ###FORUM_NAME###-Team</label>
 			<label index="Button_User_Profile">Benutzerprofil</label>
 			<label index="Button_More">Mehr</label>
 			<label index="Editor_Panel_Formatting">Formatierung</label>
-			<label index="Editor_Panel_Smilies">Smilies</label>
+			<label index="Editor_Panel_Smileys">Smileys</label>
 			<label index="Editor_Panel_SyntaxHighlighting">Syntax hervorheben</label>
 			<label index="Error_1335120249">Sie müssen eingeloggt sein um Ihre Abonnements einzusehen</label>
 			<label index="Error_Exception_Title">Fehler!</label>
@@ -933,7 +933,7 @@ Dein ###FORUM_NAME###-Team</label>
 			<label index="Button_Unsubscribe">Desactivar suscripción</label>
 			<label index="Button_User_Profile">Perfil de usuario</label>
 			<label index="Editor_Panel_Formatting">Formatear</label>
-			<label index="Editor_Panel_Smilies">Iconos</label>
+			<label index="Editor_Panel_Smileys">Iconos</label>
 			<label index="Editor_Panel_SyntaxHighlighting">Resaltar sintaxis</label>
 			<label index="Error_1335120249">Necesita iniciar sesión para ver sus suscripciones.</label>
 			<label index="Error_Exception_Title">¡Error!</label>
@@ -1229,7 +1229,7 @@ Dein ###FORUM_NAME###-Team</label>
 			<label index="Button_Unsubscribe">Se désabonner</label>
 			<label index="Button_User_Profile">Profil d'utilisateur</label>
 			<label index="Editor_Panel_Formatting">Mise en forme</label>
-			<label index="Editor_Panel_Smilies">Emoticons</label>
+			<label index="Editor_Panel_Smileys">Emoticons</label>
 			<label index="Editor_Panel_SyntaxHighlighting">Sélectionner la syntaxe</label>
 			<label index="Error_1335120249">Vous devez être connecté pour consulter vos abonnements.</label>
 			<label index="Error_Exception_Title">Erreur !</label>
@@ -1527,7 +1527,7 @@ Dein ###FORUM_NAME###-Team</label>
 			<label index="Button_Unsubscribe">Annulla iscrizione</label>
 			<label index="Button_User_Profile">Profilo utente</label>
 			<label index="Editor_Panel_Formatting">Formattazione</label>
-			<label index="Editor_Panel_Smilies">Smilies</label>
+			<label index="Editor_Panel_Smileys">Smileys</label>
 			<label index="Editor_Panel_SyntaxHighlighting">Evidenzia sintassi</label>
 			<label index="Error_1335120249">Per poter vedere le tue iscrizioni devi essere loggato.</label>
 			<label index="Error_Exception_Title">Errore!</label>
@@ -1834,7 +1834,7 @@ Dein ###FORUM_NAME###-Team</label>
 			<label index="Button_Unsubscribe">Больше не абонировать</label>
 			<label index="Button_User_Profile">Профиль пользователя</label>
 			<label index="Editor_Panel_Formatting">Форматирование</label>
-			<label index="Editor_Panel_Smilies">Смайлы</label>
+			<label index="Editor_Panel_Smileys">Смайлы</label>
 			<label index="Editor_Panel_SyntaxHighlighting">Подчеркнуть синтаксис</label>
 			<label index="Error_1335120249">Вам нужно войти, чтобы увидеть Ваши абонементы</label>
 			<label index="Error_Exception_Title">Ошибка!</label>

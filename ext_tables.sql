@@ -16,7 +16,7 @@ CREATE TABLE tx_typo3forum_domain_model_format_textparser (
   bbcode_wrap varchar(64) default '',
   regular_expression tinytext,
   regular_expression_replacement tinytext,
-  smilie_shortcut varchar(16) default '',
+  smiley_shortcut varchar(16) default '',
   language varchar(16) default '',
   tstamp int(11) unsigned NOT NULL default '0',
   crdate int(11) unsigned NOT NULL default '0',

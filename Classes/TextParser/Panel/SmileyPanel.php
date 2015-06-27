@@ -24,39 +24,39 @@ namespace Mittwald\Typo3Forum\TextParser\Panel;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-class SmiliePanel extends AbstractPanel {
+class SmileyPanel extends AbstractPanel {
 
 	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Format\SmilieRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Format\SmileyRepository
 	 * @inject
 	 */
-	protected $smilieRepository = NULL;
+	protected $smileyRepository = NULL;
 
 	/**
-	 * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\Smilie>
+	 * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\Smiley>
 	 */
-	protected $smilies = NULL;
+	protected $smileys = NULL;
 
 	/**
 	 * @return array
 	 */
 	public function getItems() {
 
-		if ($this->smilies === NULL) {
-			$this->smilies = $this->smilieRepository->findAll();
+		if ($this->smileys === NULL) {
+			$this->smileys = $this->smileyRepository->findAll();
 		}
 
-		if (count($this->smilies) === 0) {
+		if (count($this->smileys) === 0) {
 			return FALSE;
 		}
 
 		$result = array();
-		foreach ($this->smilies as $smilie) {
-			$result[] = $smilie->exportForMarkItUp();
+		foreach ($this->smileys as $smiley) {
+			$result[] = $smiley->exportForMarkItUp();
 		}
 		return array(array('name' => $this->settings['title'],
 			'className' => $this->settings['iconClassName'],
-			'replaceWith' => $this->smilies[0]->getSmilieShortcut(),
+			'replaceWith' => $this->smileys[0]->getSmileyShortcut(),
 			'dropMenu' => $result));
 	}
 

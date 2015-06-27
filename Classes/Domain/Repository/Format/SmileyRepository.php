@@ -27,7 +27,7 @@ namespace Mittwald\Typo3Forum\Domain\Repository\Format;
 use Mittwald\Typo3Forum\Domain\Repository\AbstractRepository;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
-class SmilieRepository extends AbstractRepository {
+class SmileyRepository extends AbstractRepository {
 
 	/**
 	 * @return QueryResultInterface

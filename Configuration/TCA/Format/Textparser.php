@@ -4,14 +4,14 @@ if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 $TCA['tx_typo3forum_domain_model_format_textparser'] = array(
 	'ctrl' => $TCA['tx_typo3forum_domain_model_format_textparser']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'type,name,icon_class,bbcode_wrap,regular_expression,regular_expression_replacement,smilie_shortcut,language'
+		'showRecordFieldList' => 'type,name,icon_class,bbcode_wrap,regular_expression,regular_expression_replacement,smiley_shortcut,language'
 	),
 	'types' => array(
 		'1' => array('showitem' => 'type'),
 		'\Mittwald\Typo3Forum\Domain\Model\Format\BBCode' => array('showitem' => 'type,name,icon_class,bbcode_wrap,regular_expression,regular_expression_replacement'),
 		'\Mittwald\Typo3Forum\Domain\Model\Format\QuoteBBCode' => array('showitem' => 'type,name,icon_class'),
 		'\Mittwald\Typo3Forum\Domain\Model\Format\ListBBCode' => array('showitem' => 'type,name,icon_class'),
-		'\Mittwald\Typo3Forum\Domain\Model\Format\Smilie' => array('showitem' => 'type,name,icon_class,smilie_shortcut'),
+		'\Mittwald\Typo3Forum\Domain\Model\Format\Smiley' => array('showitem' => 'type,name,icon_class,smiley_shortcut'),
 		'\Mittwald\Typo3Forum\Domain\Model\Format\SyntaxHighlighting' => array('showitem' => 'type,name,icon,language')
 	),
 	'palettes' => array(
@@ -72,7 +72,7 @@ $TCA['tx_typo3forum_domain_model_format_textparser'] = array(
 					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_format_textparser.type.bbcode', '\Mittwald\Typo3Forum\Domain\Model\Format\BBCode'),
 					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_format_textparser.type.quote', '\Mittwald\Typo3Forum\Domain\Model\Format\QuoteBBCode'),
 					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_format_textparser.type.list', '\Mittwald\Typo3Forum\Domain\Model\Format\ListBBCode'),
-					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_format_textparser.type.smilie', '\Mittwald\Typo3Forum\Domain\Model\Format\Smilie'),
+					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_format_textparser.type.smiley', '\Mittwald\Typo3Forum\Domain\Model\Format\Smiley'),
 					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_format_textparser.type.syntax', '\Mittwald\Typo3Forum\Domain\Model\Format\SyntaxHighlighting'),
 				)
 			)
@@ -122,9 +122,9 @@ $TCA['tx_typo3forum_domain_model_format_textparser'] = array(
 				'eval' => 'trim,required'
 			)
 		),
-		'smilie_shortcut' => array(
+		'smiley_shortcut' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_format_textparser.smilie_shortcut',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_format_textparser.smiley_shortcut',
 			'config'  => array(
 				'type' => 'input',
 				'size' => 30,

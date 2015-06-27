@@ -126,7 +126,7 @@ config.tx_extbase.persistence.classes {
 
 		subclasses {
 			Mittwald\Typo3Forum\Domain\Model\Format\BBCode = Mittwald\Typo3Forum\Domain\Model\Format\BBCode
-			Mittwald\Typo3Forum\Domain\Model\Format\Smilie = Mittwald\Typo3Forum\Domain\Model\Format\Smilie
+			Mittwald\Typo3Forum\Domain\Model\Format\Smiley = Mittwald\Typo3Forum\Domain\Model\Format\Smiley
 			Mittwald\Typo3Forum\Domain\Model\Format\SyntaxHighlighting = Mittwald\Typo3Forum\Domain\Model\Format\SyntaxHighlighting
 		}
 	}
@@ -157,10 +157,10 @@ config.tx_extbase.persistence.classes {
 		}
 	}
 
-	Mittwald\Typo3Forum\Domain\Model\Format\Smilie {
+	Mittwald\Typo3Forum\Domain\Model\Format\Smiley {
 		mapping {
 			tableName = tx_typo3forum_domain_model_format_textparser
-			recordType = Mittwald\Typo3Forum\Domain\Model\Format\Smilie
+			recordType = Mittwald\Typo3Forum\Domain\Model\Format\Smiley
 		}
 	}
 
@@ -327,7 +327,7 @@ plugin.tx_typo3forum.settings {
 		enabledServices {
 			basic = Mittwald\Typo3Forum\TextParser\Service\BasicParserService
 			bbCodes = Mittwald\Typo3Forum\TextParser\Service\BBCodeParserService
-			smilies = Mittwald\Typo3Forum\TextParser\Service\SmilieParserService
+			smileys = Mittwald\Typo3Forum\TextParser\Service\SmileyParserService
 			syntax = Mittwald\Typo3Forum\TextParser\Service\SyntaxHighlightingParserService
 			quotes = Mittwald\Typo3Forum\TextParser\Service\QuoteParserService
 			quotes {
@@ -350,10 +350,10 @@ plugin.tx_typo3forum.settings {
 					iconClassName = tx-typo3forum-miu-code
 				}
 
-				smilies {
-					className = Mittwald\Typo3Forum\TextParser\Panel\SmiliePanel
-					title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:Editor_Panel_Smilies
-					iconClassName = tx-typo3forum-miu-smilies
+				smileys {
+					className = Mittwald\Typo3Forum\TextParser\Panel\SmileyPanel
+					title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:Editor_Panel_Smileys
+					iconClassName = tx-typo3forum-miu-smileys
 				}
 			}
 		}

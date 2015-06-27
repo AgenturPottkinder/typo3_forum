@@ -24,21 +24,21 @@ namespace Mittwald\Typo3Forum\TextParser\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Domain\Model\Format\Smilie;
+use Mittwald\Typo3Forum\Domain\Model\Format\Smiley;
 
-class SmilieParserService extends AbstractTextParserService {
+class SmileyParserService extends AbstractTextParserService {
 
 	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Format\SmilieRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Format\SmileyRepository
 	 * @inject
 	 */
-	protected $smilieRepository;
+	protected $smileyRepository;
 
 	/**
-	 * All smilies.
-	 * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\Smilie>
+	 * All smileys.
+	 * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\Smiley>
 	 */
-	protected $smilies = NULL;
+	protected $smileys = NULL;
 
 	/**
 	 * Renders the parsed text.
@@ -47,11 +47,11 @@ class SmilieParserService extends AbstractTextParserService {
 	 * @return string The parsed text.
 	 */
 	public function getParsedText($text) {
-		if ($this->smilies === NULL) {
-			$this->smilies = $this->smilieRepository->findAll();
+		if ($this->smileys === NULL) {
+			$this->smileys = $this->smileyRepository->findAll();
 		}
-		foreach ($this->smilies as $smilie) {
-			$text = str_replace($smilie->getSmilieShortcut(), $this->getSmilieIcon($smilie), $text);
+		foreach ($this->smileys as $smiley) {
+			$text = str_replace($smiley->getSmileyShortcut(), $this->getSmileyIcon($smiley), $text);
 		}
 		return $text;
 	}
@@ -60,16 +60,16 @@ class SmilieParserService extends AbstractTextParserService {
 
 	/**
 	 *
-	 * Renders a smilie icon.
+	 * Renders a smiley icon.
 	 *
-	 * @param  Smilie $smilie The smilie that is to be rendered.
+	 * @param  Smiley $smiley The smiley that is to be rendered.
 	 *
-	 * @return string The smilie as HTML code.
+	 * @return string The smiley as HTML code.
 	 *
 	 */
 
-	protected function getSmilieIcon(Smilie $smilie) {
-		return '<i class="' . $smilie->getIconClass() . '"></i>';
+	protected function getSmileyIcon(Smiley $smiley) {
+		return '<i class="' . $smiley->getIconClass() . '"></i>';
 	}
 
 }

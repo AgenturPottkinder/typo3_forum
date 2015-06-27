@@ -140,12 +140,12 @@
 			<label index="tx_typo3forum_domain_model_format_textparser.type.bbcode">BB Code</label>
 			<label index="tx_typo3forum_domain_model_format_textparser.type.quote">Quotation</label>
 			<label index="tx_typo3forum_domain_model_format_textparser.type.list">List</label>
-			<label index="tx_typo3forum_domain_model_format_textparser.type.smilie">Smilie</label>
+			<label index="tx_typo3forum_domain_model_format_textparser.type.smiley">Smiley</label>
 			<label index="tx_typo3forum_domain_model_format_textparser.type.syntax">Syntax highlighting</label>
 			<label index="tx_typo3forum_domain_model_format_textparser.icon">Icon</label>
 			<label index="tx_typo3forum_domain_model_format_textparser.regular_expression">Regular expression</label>
 			<label index="tx_typo3forum_domain_model_format_textparser.regular_expression_replacement">Replacement pattern</label>
-			<label index="tx_typo3forum_domain_model_format_textparser.smilie_shortcut">Smilie shortcut</label>
+			<label index="tx_typo3forum_domain_model_format_textparser.smiley_shortcut">Smiley shortcut</label>
 			<label index="tx_typo3forum_domain_model_format_textparser.language">Language</label>
 
 			<label index="tx_typo3forum_domain_model_moderation_report">Report</label>

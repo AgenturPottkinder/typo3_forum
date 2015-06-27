@@ -52,7 +52,7 @@ class SyntaxHighlighting extends \Mittwald\Typo3Forum\Domain\Model\Format\BBCode
 
 
 	/**
-	 * The default smilie directory.
+	 * The default smiley directory.
 	 * @var string
 	 */
 	protected $defaultIconDir = 'Syntax/';

@@ -29,7 +29,7 @@ namespace Mittwald\Typo3Forum\TextParser;
 /**
  *
  * Service class for parsing text values for display. This service handles
- * for example the rendering of bb codes, smilies, etc.
+ * for example the rendering of bb codes, smileys, etc.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
  * @package    Typo3Forum

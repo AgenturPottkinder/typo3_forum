@@ -52,14 +52,14 @@
 .markItUp .tx-typo3forum-miu-code a	{
 	background-image:url(images/code.png);
 }	
-.markItUp .tx-typo3forum-miu-smilies a	{
-	background-image:url(images/smilie.png);
+.markItUp .tx-typo3forum-miu-smileys a	{
+	background-image:url(images/smiley.png);
 }
-.markItUp .tx-typo3forum-miu-smilies ul {
+.markItUp .tx-typo3forum-miu-smileys ul {
 	width: 125px;
 	padding: 4px;
 }
-.markItUp .tx-typo3forum-miu-smilies li {
+.markItUp .tx-typo3forum-miu-smileys li {
 	border: 1px solid #fff;
 	padding: 0px;
 	margin: 0px;

@@ -28,7 +28,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Format;
 
 /**
  *
- * An abstract text parser element. This may later be a bb code, a smilie or anything
+ * An abstract text parser element. This may later be a bb code, a smiley or anything
  * you want.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
