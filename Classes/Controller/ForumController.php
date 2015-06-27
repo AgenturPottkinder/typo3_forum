@@ -27,6 +27,7 @@ namespace Mittwald\Typo3Forum\Controller;
 use Mittwald\Typo3Forum\Domain\Exception\Authentication\NoAccessException;
 use Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 
 class ForumController extends AbstractController {
 
@@ -153,22 +154,10 @@ class ForumController extends AbstractController {
 
 		foreach ($forumStorage AS $checkForum) {
 			/** @var Forum $checkForum */
-			if ((int)$this->settings['useSqlStatementsOnCriticalFunctions'] === 0) {
-				foreach ($checkForum->getTopics() AS $topic) {
-					$topic->addReader($user);
-				}
-			} else {
-				$topics = $this->topicRepository->getUnreadTopics($checkForum, $user);
-
-				foreach ($topics AS $topic) {
-					$values = [
-						'uid_foreign' => (int)$topic['uid'],
-						'uid_local' => (int)$user->getUid(),
-					];
-					$this->databaseConnection->exec_INSERTquery('tx_typo3forum_domain_model_user_readtopic', $values);
-				}
+			foreach ($checkForum->getTopics() AS $topic) {
+				/** @var Topic $topic */
+				$topic->addReader($user);
 			}
-
 			$checkForum->addReader($user);
 			$this->forumRepository->update($checkForum);
 		}

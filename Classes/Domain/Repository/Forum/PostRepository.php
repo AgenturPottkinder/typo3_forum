@@ -149,31 +149,4 @@ class PostRepository extends AbstractRepository {
 	}
 
 
-	/**
-	 * Deletes the post with sql statements.
-	 * Only used on performance problems (Activate useSqlStatementsOnCriticalFunctions in settings).
-	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
-	 * @return void
-	 */
-	public function deletePostWithSqlStatement(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
-		$lastPost = $post->getTopic()->getLastPost();
-		if($post->getUid() == $lastPost->getUid()) {
-			$lastPost = $this->findLastByTopic($post->getTopic(),1);
-		}
-
-		$queries = array(
-			'UPDATE tx_typo3forum_domain_model_forum_topic SET post_count = post_count - 1, last_post = '.intval($lastPost->getUid()).', last_post_crdate = '.intval($lastPost->getTimestamp()->getTimestamp()).'
-					WHERE uid = '.intval($post->getTopic()->getUid()),
-			'UPDATE tx_typo3forum_domain_model_forum_forum SET post_count = post_count - 1, last_post = '.intval($lastPost->getUid()).'
-					WHERE uid = '.intval($post->getTopic()->getForum()->getUid()),
-			'UPDATE tx_typo3forum_domain_model_forum_post SET deleted=1 WHERE uid='.intval($post->getUid()),
-		);
-
-		foreach($queries AS $sql) {
-			$GLOBALS['TYPO3_DB']->sql_query($sql);
-		}
-	}
-
-
 }

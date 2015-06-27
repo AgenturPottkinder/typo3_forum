@@ -24,6 +24,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *                                                                      */
 use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 
@@ -33,22 +34,17 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  */
 class Forum extends AbstractEntity implements AccessibleInterface, SubscribeableInterface {
 
-
-	/**
-	 * The title of the forum
-	 *
-	 * @var string
-	 * @validate NotEmpty
-	 */
-	protected $title;
-
-
 	/**
 	 * A description for the forum
 	 * @var string
 	 */
 	protected $description;
 
+	/**
+	 * @var string
+	 * @validate NotEmpty
+	 */
+	protected $title;
 
 	/**
 	 * The child forums
@@ -181,20 +177,6 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 */
 	protected $forumRepository;
 
-
-	/**
-	 * An instance of the typo3_forum authentication service.
-	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
-	 * @inject
-	 */
-	protected $typoScriptService;
-
-	/**
-	 * Whole TypoScript typo3_forum settings
-	 * @var array
-	 */
-	protected $settings;
-
 	/**
 	 * Constructor. Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage instances.
 	 * @param string                               $title  The forum title.
@@ -208,16 +190,6 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 		$this->readers     = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 
 		$this->title = $title;
-	}
-
-	/**
-	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
-	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
-	 */
-	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
-		$this->typoScriptService = $typoScriptService;
-		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
-		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
 
 	/**
@@ -450,25 +422,14 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Determines if this forum (i.e. all topics in it) has been read by the
 	 * currently logged in user.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
-	 *                             The user.
-	 * @return boolean             TRUE, if all topics in this forum have been read,
-	 *                             otherwise FALSE.
+	 * @param FrontendUser $user The user.
+	 * @return boolean TRUE, if all topics in this forum have been read, otherwise FALSE.
 	 */
-	public function hasBeenReadByUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
+	public function hasBeenReadByUser(FrontendUser $user = NULL) {
 		if ($user === NULL || $this->readers === NULL) {
 			return TRUE;
 		}
-
-		if(intval($this->settings['useSqlStatementsOnCriticalFunctions']) == 0) {
-			if($this->readers->contains($user)) {
-				return TRUE;
-			} else {
-				return FALSE;
-			}
-		} else {
-			return $this->forumRepository->getForumReadByUser($this,$user);
-		}
+		return $this->readers->contains($user);
 	}
 
 
@@ -499,13 +460,13 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * *INTERAL USE ONLY!*
 	 *
 	 * @access                     private
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user        The user that is to be checked against the access
+	 * @param  FrontendUser $user        The user that is to be checked against the access
 	 *                                                                rules of this forum.
 	 * @param  string                                    $accessType  The operation
 	 * @return boolean             TRUE, if the user has access to the requested
 	 *                             operation, otherwise FALSE.
 	 */
-	public function checkAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL, $accessType = 'read') {
+	public function checkAccess(FrontendUser $user = NULL, $accessType = 'read') {
 
 		// If there aren't any access rules defined for this forum, delegate
 		// the access check to the parent forum. If there is no parent forum
@@ -538,11 +499,11 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Checks if a user has read access to this forum.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @param  FrontendUser $user
 	 *                             The user that is to be checked.
 	 * @return boolean             TRUE if the user has read access, otherwise FALSE.
 	 */
-	public function checkReadAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
+	public function checkReadAccess(FrontendUser $user = NULL) {
 		return $this->checkAccess($user, 'read');
 	}
 
@@ -551,11 +512,11 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Checks if a user has access to create new posts in this forum.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @param  FrontendUser $user
 	 *                             The user that is to be checked.
 	 * @return boolean             TRUE if the user has access, otherwise FALSE.
 	 */
-	public function checkNewPostAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
+	public function checkNewPostAccess(FrontendUser $user = NULL) {
 		return $this->checkAccess($user, 'newPost');
 	}
 
@@ -564,11 +525,11 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Checks if a user has access to create new topics in this forum.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @param  FrontendUser $user
 	 *                             The user that is to be checked.
 	 * @return boolean             TRUE if the user has access, otherwise FALSE.
 	 */
-	public function checkNewTopicAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
+	public function checkNewTopicAccess(FrontendUser $user = NULL) {
 		return $this->checkAccess($user, 'newTopic');
 	}
 
@@ -577,11 +538,11 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Checks if a user has access to moderate in this forum.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @param  FrontendUser $user
 	 *                             The user that is to be checked.
 	 * @return boolean             TRUE if the user has access, otherwise FALSE.
 	 */
-	public function checkModerationAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
+	public function checkModerationAccess(FrontendUser $user = NULL) {
 		if ($user === NULL) {
 			return FALSE;
 		}
@@ -769,10 +730,10 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 
 	/**
 	 * Adds a new subscriber.
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user The new subscriber.
+	 * @param FrontendUser $user The new subscriber.
 	 * @return void
 	 */
-	public function addSubscriber(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
+	public function addSubscriber(FrontendUser $user) {
 		$this->subscribers->attach($user);
 	}
 
@@ -780,9 +741,9 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 
 	/**
 	 * Removes a subscriber.
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user The subscriber to be removed.
+	 * @param FrontendUser $user The subscriber to be removed.
 	 */
-	public function removeSubscriber(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
+	public function removeSubscriber(FrontendUser $user) {
 		$this->subscribers->detach($user);
 	}
 
@@ -792,10 +753,10 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Marks this forum as read by a certain user.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reader The user who read this forum.
+	 * @param FrontendUser $reader The user who read this forum.
 	 * @return void
 	 */
-	public function addReader(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reader) {
+	public function addReader(FrontendUser $reader) {
 		$this->readers->attach($reader);
 	}
 
@@ -803,10 +764,10 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Mark this forum as unread for a certain user.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reader The user for whom to mark this forum as unread.
+	 * @param FrontendUser $reader The user for whom to mark this forum as unread.
 	 * @return void
 	 */
-	public function removeReader(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reader) {
+	public function removeReader(FrontendUser $reader) {
 		$this->readers->detach($reader);
 	}
 

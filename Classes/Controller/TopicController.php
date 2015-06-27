@@ -285,19 +285,9 @@ class TopicController extends AbstractController {
 		if ($currentUser === NULL || $currentUser->isAnonymous()) {
 			return;
 		} else {
-			if ((int)$this->settings['useSqlStatementsOnCriticalFunctions'] === 0) {
-				if ($topic->hasBeenReadByUser($currentUser)) {
-					$currentUser->addReadObject($topic);
-					$this->frontendUserRepository->update($currentUser);
-				}
-			} else {
-				if ($this->topicRepository->getTopicReadByUser($topic, $currentUser)) {
-					$values = array(
-						'uid_local' => $currentUser->getUid(),
-						'uid_foreign' => $topic->getUid(),
-					);
-					$this->databaseConnection->exec_INSERTquery('tx_typo3forum_domain_model_user_readtopic', $values);
-				}
+			if ($topic->hasBeenReadByUser($currentUser)) {
+				$currentUser->addReadObject($topic);
+				$this->frontendUserRepository->update($currentUser);
 			}
 		}
 	}

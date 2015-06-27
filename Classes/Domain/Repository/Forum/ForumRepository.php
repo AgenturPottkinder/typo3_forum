@@ -134,28 +134,4 @@ class ForumRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		return $query->execute();
 	}
 
-
-	/**
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
-	 * @return bool
-	 */
-	public function getForumReadByUser(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum, \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
-		// find all unread forums
-		$sql = 'SELECT f.uid
-			   FROM tx_typo3forum_domain_model_forum_forum AS f
-			   LEFT JOIN tx_typo3forum_domain_model_user_readforum AS rf
-					   ON rf.uid_foreign = f.uid AND rf.uid_local = ' . intval($user->getUid()) . '
-			   WHERE rf.uid_local IS NULL AND f.uid=' . intval($forum->getUid());
-		$query = $this->createQuery();
-		$query->getQuerySettings()->setReturnRawQueryResult(TRUE);
-		$query->statement($sql);
-		$res = $query->execute();
-		// if there are no unread forums
-		if (empty($res)) {
-			return TRUE;
-		} else {
-			return FALSE;
-		}
-	}
 }

@@ -316,7 +316,7 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	public function getIsSolved(){
 		if($this->isSolved ==  1 || $this->getSolution() != null){
 			return true;
-		} 
+		}
 		return false;
 	}
 	/**
@@ -443,12 +443,7 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 * @return boolean                                           TRUE, if the user did read this topic, otherwise FALSE.
 	 */
 	public function hasBeenReadByUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reader = NULL) {
-		if(intval($this->settings['useSqlStatementsOnCriticalFunctions']) == 0) {
-			return $reader ? $this->readers->contains($reader) : TRUE;
-		} else {
-			$res = $this->topicRepository->getTopicReadByUser($this,$reader);
-			return !$res;
-		}
+		return $reader ? $this->readers->contains($reader) : TRUE;
 	}
 
 

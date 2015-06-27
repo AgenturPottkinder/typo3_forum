@@ -121,12 +121,8 @@ class PostFactory extends AbstractFactory {
 			$post->getAuthor()->decreasePostCount();
 			$post->getAuthor()->decreasePoints((int)$this->settings['rankScore']['newPost']);
 			$this->frontendUserRepository->update($post->getAuthor());
-			if ((int)$this->settings['useSqlStatementsOnCriticalFunctions'] === 0) {
-				$topic->removePost($post);
-				$this->topicRepository->update($topic);
-			} else {
-				$this->postRepository->deletePostWithSqlStatement($post);
-			}
+			$topic->removePost($post);
+			$this->topicRepository->update($topic);
 		}
 	}
 

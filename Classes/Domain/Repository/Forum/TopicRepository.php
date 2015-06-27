@@ -362,27 +362,4 @@ class TopicRepository extends \Mittwald\Typo3Forum\Domain\Repository\AbstractRep
 		return $query->execute();
 	}
 
-
-	/**
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
-	 * @param FrontendUser $user
-	 * @return bool
-	 */
-	public function getTopicReadByUser(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic, FrontendUser $user) {
-		$sql ='SELECT t.uid
-			   FROM tx_typo3forum_domain_model_forum_topic AS t
-			   LEFT JOIN tx_typo3forum_domain_model_user_readtopic AS rt
-					   ON rt.uid_foreign = t.uid AND rt.uid_local = '.intval($user->getUid()).'
-			   WHERE rt.uid_local IS NULL AND t.uid='.intval($topic->getUid());
-		$query = $this->createQuery();
-		$query->getQuerySettings()->setReturnRawQueryResult(TRUE);
-		$query->statement($sql);
-		$res = $query->execute();
-		if($res != false) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 }
