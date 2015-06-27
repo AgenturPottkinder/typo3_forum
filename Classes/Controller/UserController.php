@@ -29,6 +29,7 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use Mittwald\Typo3Forum\Domain\Model\User\PrivateMessages;
 use Mittwald\Typo3Forum\Domain\Model\User\PrivateMessagesText;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
@@ -55,10 +56,10 @@ class UserController extends AbstractController {
 	protected $notificationRepository = NULL;
 
 	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Factory\User\PrivateMessagesFactory
+	 * @var \Mittwald\Typo3Forum\Domain\Factory\User\PrivateMessageFactory
 	 * @inject
 	 */
-	protected $privateMessagesFactory;
+	protected $privateMessageFactory;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\RankRepository
@@ -284,8 +285,8 @@ class UserController extends AbstractController {
 		/** @var PrivateMessagesText $message */
 		$message = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\User\\PrivateMessagesText');
 		$message->setMessageText($text);
-		$pmFeUser = $this->privateMessagesFactory->createPrivateMessage($user, $recipient, $message, 0, 1);
-		$pmRecipient = $this->privateMessagesFactory->createPrivateMessage($recipient, $user, $message, 1, 0);
+		$pmFeUser = $this->privateMessageFactory->createPrivateMessage($user, $recipient, $message, PrivateMessages::TYPE_SENDER, 1);
+		$pmRecipient = $this->privateMessageFactory->createPrivateMessage($recipient, $user, $message, PrivateMessages::TYPE_RECIPIENT, 0);
 		$this->messageRepository->add($pmFeUser);
 		$this->messageRepository->add($pmRecipient);
 		$this->redirect('listMessages');

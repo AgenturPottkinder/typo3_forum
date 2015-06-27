@@ -1,7 +1,7 @@
 <?php
-namespace Mittwald\Typo3Forum\Domain\Factory\Moderation;
+namespace Mittwald\Typo3Forum\Domain\Factory\User;
 
-/*                                                                    - *
+/*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
  *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
@@ -25,51 +25,34 @@ namespace Mittwald\Typo3Forum\Domain\Factory\Moderation;
  *                                                                      */
 
 use Mittwald\Typo3Forum\Domain\Factory\AbstractFactory;
-use Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment;
-use Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport;
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use Mittwald\Typo3Forum\Domain\Model\User\PrivateMessages;
+use Mittwald\Typo3Forum\Domain\Model\User\PrivateMessagesText;
 
-class ReportFactory extends AbstractFactory {
-
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportWorkflowStatusRepository
-	 * @inject
-	 */
-	protected $workflowStatusRepository;
+class PrivateMessageFactory extends AbstractFactory {
 
 	/**
 	 *
-	 * Creates a new User report.
+	 * Creates a new report.
 	 *
-	 * @param ReportComment $firstComment The first report comment for this report.
-	 * @return UserReport
+	 * @param FrontendUser $opponent
+	 * @param FrontendUser $feUser
+	 * @param PrivateMessagesText $text
+	 * @param int $type
+	 * @param int $userRead
+	 * @return PrivateMessages The new private message.
 	 *
 	 */
-	public function createUserReport(ReportComment $firstComment) {
-		$user = & $this->getCurrentUser();
-		$firstComment->setAuthor($user);
-		/** @var UserReport $report */
-		$report = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\UserReport');
-		$report->setWorkflowStatus($this->workflowStatusRepository->findInitial());
-		$report->setReporter($user);
-		$report->addComment($firstComment);
-		return $report;
-	}
-
-	/**
-	 *
-	 * Creates a new User report.
-	 *
-	 * @param ReportComment $firstComment The first report comment for this report.
-	 * @return object
-	 */
-	public function createPostReport(ReportComment $firstComment) {
-		$user = & $this->getCurrentUser();
-		$firstComment->setAuthor($user);
-		$report = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\PostReport');
-		$report->setWorkflowStatus($this->workflowStatusRepository->findInitial());
-		$report->setReporter($user);
-		$report->addComment($firstComment);
-		return $report;
+	public function createPrivateMessage(FrontendUser $opponent, FrontendUser $feUser, PrivateMessagesText $text, $type, $userRead) {
+		/** @var PrivateMessages $privateMessage */
+		$privateMessage = $this->getClassInstance();
+		$privateMessage->setFeuser($feUser);
+		$privateMessage->setOpponent($opponent);
+		$privateMessage->setType($type);
+		$privateMessage->setCrdate(new \DateTime());
+		$privateMessage->setUserRead($userRead);
+		$privateMessage->setMessage($text);
+		return $privateMessage;
 	}
 
 }

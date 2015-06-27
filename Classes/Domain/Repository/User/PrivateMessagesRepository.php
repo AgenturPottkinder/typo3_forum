@@ -37,21 +37,25 @@ class PrivateMessagesRepository extends Repository {
 	 * @param int $limit
 	 * @return \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessages[]
 	 */
-	public function findMessagesBetweenUser(FrontendUser $userX, FrontendUser $userY, $limit=0) {
+	public function findMessagesBetweenUser(FrontendUser $userX, FrontendUser $userY, $limit = 0) {
 		$query = $this->createQuery();
-		$constraintsX = array();
-		$constraintsY = array();
-		$constraintsX[] = $query->equals('feuser',$userY);
-		$constraintsX[] = $query->equals('opponent',$userX);
-		$constraintsX[] = $query->equals('type',1);
-		$constraintsX[] = $query->equals('feuser.disable',0);
-		$constraintsY[] = $query->equals('feuser',$userX);
-		$constraintsY[] = $query->equals('opponent',$userY);
-		$constraintsY[] = $query->equals('type',1);
-		$constraintsY[] = $query->equals('opponent.disable',0);
-		$query->matching($query->logicalOr($query->logicalAnd($constraintsX),$query->logicalAnd($constraintsY)));
-		$query->setOrderings(array('crdate'=> 'DESC'));
-		if($limit > 0) {
+		$query->matching($query->logicalAnd(
+			$query->equals('type', 1),
+			$query->logicalOr(
+				$query->logicalAnd(
+					$query->equals('feuser', $userY),
+					$query->equals('opponent', $userX),
+					$query->equals('feuser.disable', 0)
+				),
+				$query->logicalAnd(
+					$query->equals('feuser', $userX),
+					$query->equals('opponent', $userY),
+					$query->equals('opponent.disable', 0)
+				)
+			)
+		));
+		$query->setOrderings(array('crdate' => 'DESC'));
+		if ($limit > 0) {
 			$query->setLimit($limit);
 		}
 		return $query->execute();
@@ -65,27 +69,27 @@ class PrivateMessagesRepository extends Repository {
 	 * @param int $limit
 	 * @return FrontendUser[]
 	 */
-	public function findStartedConversations(FrontendUser $user, $limit=0) {
+	public function findStartedConversations(FrontendUser $user, $limit = 0) {
 		$query = $this->createQuery();
 		$constraintsX = array();
 		$constraintsY = array();
 		$userResult = array();
 		$userInArray = array();
-		$constraintsX[] = $query->equals('feuser',$user);
-		$constraintsX[] = $query->equals('type',0);
-		$constraintsX[] = $query->equals('opponent.disable',0);
-		$constraintsY[] = $query->equals('feuser',$user);
-		$constraintsY[] = $query->equals('type',1);
-		$constraintsY[] = $query->equals('opponent.disable',0);
-		$query->matching($query->logicalOr($query->logicalAnd($constraintsX),$query->logicalAnd($constraintsY)));
-		if($limit > 0) {
+		$constraintsX[] = $query->equals('feuser', $user);
+		$constraintsX[] = $query->equals('type', 0);
+		$constraintsX[] = $query->equals('opponent.disable', 0);
+		$constraintsY[] = $query->equals('feuser', $user);
+		$constraintsY[] = $query->equals('type', 1);
+		$constraintsY[] = $query->equals('opponent.disable', 0);
+		$query->matching($query->logicalOr($query->logicalAnd($constraintsX), $query->logicalAnd($constraintsY)));
+		if ($limit > 0) {
 			$query->setLimit($limit);
 		}
 		$query->setOrderings(array('crdate' => 'DESC'));
 		$result = $query->execute();
 		//Parse result for the user ListBox
-		foreach($result AS $entry) {
-			if(array_search($entry->getOpponent()->getUid(),$userInArray) === false) {
+		foreach ($result AS $entry) {
+			if (array_search($entry->getOpponent()->getUid(), $userInArray) === false) {
 				$userInArray[] = $entry->getOpponent()->getUid();
 				$userResult[] = $entry;
 			}
@@ -99,15 +103,15 @@ class PrivateMessagesRepository extends Repository {
 	 * @param int $limit
 	 * @return \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessages[]
 	 */
-	public function findReceivedMessagesForUser(FrontendUser $user, $limit=0) {
+	public function findReceivedMessagesForUser(FrontendUser $user, $limit = 0) {
 		$query = $this->createQuery();
 		$constraints = array();
-		$constraints[] = $query->equals('opponent',$user);
-		$constraints[] = $query->equals('type',1);
-		$constraints[] = $query->equals('feuser.disable',0);
+		$constraints[] = $query->equals('opponent', $user);
+		$constraints[] = $query->equals('type', 1);
+		$constraints[] = $query->equals('feuser.disable', 0);
 		$query->matching($query->logicalAnd($constraints));
-		$query->setOrderings(array('crdate'=> 'DESC'));
-		if($limit > 0) {
+		$query->setOrderings(array('crdate' => 'DESC'));
+		if ($limit > 0) {
 			$query->setLimit($limit);
 		}
 		return $query->execute();

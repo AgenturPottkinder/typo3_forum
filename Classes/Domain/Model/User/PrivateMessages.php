@@ -1,10 +1,9 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\User;
-/*                                                                    - *
+/*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Ruven Fehling <r.fehling@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,23 +23,14 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 
-/**
- *
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Model_User
- * @version    $Id$
- * @license    GNU public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
+class PrivateMessages extends AbstractEntity {
 
- */
+	const TYPE_SENDER = 0;
 
-class PrivateMessages extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
-
-	/**
-	 * ATTRIBUTES
-	 */
+	const TYPE_RECIPIENT = 1;
 
 	/**
 	 * The creation date of pm
@@ -50,13 +40,13 @@ class PrivateMessages extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * User who read this message
-	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
+	 * @var FrontendUser
 	 */
 	public $feuser;
 
 	/**
 	 * Opponent user of this message
-	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
+	 * @var FrontendUser
 	 */
 	public $opponent;
 
@@ -76,7 +66,7 @@ class PrivateMessages extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * The message of this pm
-	 * @var \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessagesText
+	 * @var PrivateMessagesText
 	 */
 	public $message;
 
@@ -103,30 +93,29 @@ class PrivateMessages extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * Get the User who read this message
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser The User who read this message
+	 * @return FrontendUser The User who read this message
 	 */
 	public function getFeuser() {
-		if ($this->feuser instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+		if ($this->feuser instanceof LazyLoadingProxy) {
 			$this->feuser->_loadRealInstance();
 		}
 		if ($this->feuser === NULL) {
-			$this->feuser = new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
+			$this->feuser = new AnonymousFrontendUser();
 		}
 		return $this->feuser;
-
 	}
 
 
 	/**
 	 * Get the other User who is involved in this message
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser The other User who is involved in this message
+	 * @return FrontendUser The other User who is involved in this message
 	 */
 	public function getOpponent() {
-		if ($this->opponent instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+		if ($this->opponent instanceof LazyLoadingProxy) {
 			$this->opponent->_loadRealInstance();
 		}
 		if ($this->opponent === NULL) {
-			$this->opponent = new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
+			$this->opponent = new AnonymousFrontendUser();
 		}
 		return $this->opponent;
 	}
@@ -137,12 +126,12 @@ class PrivateMessages extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @return int The flag
 	 */
 	public function getUserRead() {
-		return intval($this->userRead);
+		return (int)$this->userRead;
 	}
 
 	/**
 	 * Gets the message of this pm
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessagesText
+	 * @return PrivateMessagesText
 	 */
 	public function getMessage() {
 		return $this->message;
@@ -173,20 +162,20 @@ class PrivateMessages extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * Sets the user
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $feuser
+	 * @param FrontendUser $feuser
 	 * @return void
 	 */
-	public function setFeuser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $feuser) {
+	public function setFeuser(FrontendUser $feuser) {
 		$this->feuser = $feuser;
 	}
 
 
 	/**
 	 * Sets the opponent user
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $opponent
+	 * @param FrontendUser $opponent
 	 * @return void
 	 */
-	public function setOpponent(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $opponent) {
+	public function setOpponent(FrontendUser $opponent) {
 		$this->opponent = $opponent;
 	}
 
@@ -203,9 +192,9 @@ class PrivateMessages extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * Sets the message of this pm
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessagesText $message
+	 * @param PrivateMessagesText $message
 	 */
-	public function setMessage(\Mittwald\Typo3Forum\Domain\Model\User\PrivateMessagesText $message) {
+	public function setMessage(PrivateMessagesText $message) {
 		$this->message = $message;
 	}
 }
