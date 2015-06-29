@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -62,15 +63,16 @@ class ReportWorkflowStatus extends AbstractValueObject {
 
 	/**
 	 * Constructor.
+	 *
 	 * @param string  $name    The status name
 	 * @param boolean $initial TRUE to mark this status as initial status.
 	 * @param boolean $final   TRUE to mark this status as final status.
 	 */
 	public function __construct($name = NULL, $initial = NULL, $final = NULL) {
 		$this->followupStatus = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->name           = $name;
-		$this->initial        = $initial;
-		$this->final          = $final;
+		$this->name = $name;
+		$this->initial = $initial;
+		$this->final = $final;
 	}
 
 	/**
@@ -95,6 +97,7 @@ class ReportWorkflowStatus extends AbstractValueObject {
 	 *
 	 * @param  \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $status
 	 *                             The status that is to be checked.
+	 *
 	 * @return boolean             TRUE, if $status is a valid follow-up status,
 	 *                             otherwise FALSE.
 	 */
@@ -142,11 +145,11 @@ class ReportWorkflowStatus extends AbstractValueObject {
 		global $TCA;
 
 		$imageDirectoryName = $TCA[strtolower(__CLASS__)]['columns']['icon']['config']['uploadfolder'];
-		$imageFilename      = rtrim($imageDirectoryName, '/') . '/' . $this->icon;
+		$imageFilename = rtrim($imageDirectoryName, '/') . '/' . $this->icon;
 
 		if (!file_exists(PATH_site . '/' . $imageFilename)) {
 			$imageDirectoryName = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('typo3_forum') . 'Resources/Public/Images/Icons/Moderation';
-			$imageFilename      = "$imageDirectoryName/{$this->icon}";
+			$imageFilename = "$imageDirectoryName/{$this->icon}";
 		}
 
 		return file_exists(PATH_site . '/' . $imageFilename) ? $imageFilename : NULL;
@@ -154,6 +157,7 @@ class ReportWorkflowStatus extends AbstractValueObject {
 
 	/**
 	 * Adds an additional allowed followup status.
+	 *
 	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $followupStatus
 	 */
 	public function addAllowedFollowupStatus(\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $followupStatus) {

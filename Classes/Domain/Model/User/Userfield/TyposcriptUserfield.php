@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\User\Userfield;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -22,8 +23,6 @@ namespace Mittwald\Typo3Forum\Domain\Model\User\Userfield;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
-
-use Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield;
 
 /**
  * Userfield that renders its content using a previously defined typoscript

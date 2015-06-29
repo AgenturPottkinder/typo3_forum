@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -22,8 +23,6 @@ namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
-
-use Mittwald\Typo3Forum\Domain\Model\Moderation\Report;
 
 /**
  * Models a post report. Reports are the central object of the moderation
@@ -53,11 +52,13 @@ class UserReport extends Report {
 		if ($this->feuser === NULL) {
 			$this->feuser = new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
 		}
+
 		return $this->feuser;
 	}
 
 	/**
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user .
+	 *
 	 * @return void
 	 */
 	public function setUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {

@@ -33,7 +33,7 @@ class PostRepository extends AbstractRepository {
 	 * Finds posts for a specific filterset. Page navigation is possible.
 	 *
 	 * @param  integer $limit
-	 * @param  array $orderings
+	 * @param  array   $orderings
 	 *
 	 * @return Array<\Mittwald\Typo3Forum\Domain\Model\Forum\Post>
 	 *                               The selected subset of posts
@@ -47,6 +47,7 @@ class PostRepository extends AbstractRepository {
 		if (!empty($orderings)) {
 			$query->setOrderings($orderings);
 		}
+
 		return $query->execute();
 	}
 
@@ -64,14 +65,14 @@ class PostRepository extends AbstractRepository {
 
 		$query = $this->createQuery();
 		$constraints = array();
-		if(!empty($uids)) {
+		if (!empty($uids)) {
 			$constraints[] = $query->in('uid', $uids);
 		}
-		if(!empty($constraints)){
+		if (!empty($constraints)) {
 			$query->matching($query->logicalAnd($constraints));
 		}
 
-		return  $query->execute();
+		return $query->execute();
 	}
 
 	/**
@@ -88,7 +89,8 @@ class PostRepository extends AbstractRepository {
 	 */
 	public function findForTopic(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic) {
 		$query = $this->createQuery();
-		$query->getQuerySettings()->setRespectSysLanguage(FALSE) ;
+		$query->getQuerySettings()->setRespectSysLanguage(FALSE);
+
 		return $query->matching($query->equals('topic', $topic))
 			->setOrderings(array('crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING))
 			->setLimit(1000000)
@@ -96,33 +98,30 @@ class PostRepository extends AbstractRepository {
 	}
 
 
-
 	/**
 	 *
 	 * Finds the last post in a topic.
 	 *
 	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
-	 *                             The topic for which the last post is to be
-	 *                             loaded.
-	 * @param int $offset
-	 * 								If you want to get the next to last post post
+	 *                                The topic for which the last post is to be
+	 *                                loaded.
+	 * @param int                                            $offset
+	 *                                If you want to get the next to last post post
 	 *
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Post
 	 *                             The last post of the specified topic.
 	 *
 	 */
-	public function findLastByTopic(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic, $offset=0) {
+	public function findLastByTopic(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic, $offset = 0) {
 		$query = $this->createQuery();
 		$query->matching($query->equals('topic', $topic))
 			->setOrderings(Array('crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING))->setLimit(1);
-		if($offset > 0) {
+		if ($offset > 0) {
 			$query->setOffset($offset);
 		}
+
 		return $query->execute()->getFirst();
 	}
-
-
-
 
 
 	/**
@@ -130,21 +129,22 @@ class PostRepository extends AbstractRepository {
 	 * Finds the last post in a forum.
 	 *
 	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
-	 *                             The forum for which to load the last post.
-	 * @param int $offset
-	 * 								If you want to get the next to last post post
+	 *                                The forum for which to load the last post.
+	 * @param int                                            $offset
+	 *                                If you want to get the next to last post post
 	 *
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Post
 	 *                             The last post of the specified forum.
 	 *
 	 */
-	public function findLastByForum(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum, $offset=0) {
+	public function findLastByForum(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum, $offset = 0) {
 		$query = $this->createQuery();
 		$query->matching($query->equals('topic.forum', $forum))
 			->setOrderings(array('crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING))->setLimit(1);
-		if($offset > 0) {
+		if ($offset > 0) {
 			$query->setOffset($offset);
 		}
+
 		return $query->execute()->getFirst();
 	}
 

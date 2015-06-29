@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\User\Userfield;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -53,6 +54,46 @@ abstract class AbstractUserfield extends AbstractValueObject {
 	}
 
 	/**
+	 * Sets the userfield name.
+	 *
+	 * @param string $name Name of the userfield
+	 *
+	 * @return void
+	 */
+	public function setName($name) {
+		$this->name = $name;
+	}
+
+	/**
+	 * Determines the value for this userfield and a specific user.
+	 *
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 *                             The user for which the value of this userfield is
+	 *                             to be determined.
+	 *
+	 * @return string              The userfield value.
+	 */
+	public function getValueForUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
+		if ($this->isMappedToUserObject()) {
+			$propertyNames = explode('|', $this->getUserObjectPropertyName());
+			$propertyValues = array();
+			foreach ($propertyNames as $propertyName) {
+				$propertyValues[] = $user->_getProperty($propertyName);
+			}
+
+			return $propertyValues;
+		} else {
+			foreach ($user->getUserfieldValues() as $userfieldValue) {
+				if ($userfieldValue->getUserfield() == $userfield) {
+					return array($userfieldValue->getValue());
+				}
+			}
+
+			return NULL;
+		}
+	}
+
+	/**
 	 * Determines if this userfield is mapped to a FrontendUser property.
 	 * @return boolean TRUE, if this userfield is mapped to a FrontendUser property,
 	 *                 otherwise FALSE.
@@ -71,44 +112,10 @@ abstract class AbstractUserfield extends AbstractValueObject {
 	}
 
 	/**
-	 * Determines the value for this userfield and a specific user.
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
-	 *                             The user for which the value of this userfield is
-	 *                             to be determined.
-	 * @return string              The userfield value.
-	 */
-	public function getValueForUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
-		if ($this->isMappedToUserObject()) {
-			$propertyNames  = explode('|', $this->getUserObjectPropertyName());
-			$propertyValues = array();
-			foreach ($propertyNames as $propertyName) {
-				$propertyValues[] = $user->_getProperty($propertyName);
-			}
-			return $propertyValues;
-		} else {
-			foreach ($user->getUserfieldValues() as $userfieldValue) {
-				if ($userfieldValue->getUserfield() == $userfield) {
-					return array($userfieldValue->getValue());
-				}
-			}
-			return NULL;
-		}
-	}
-
-	/**
-	 * Sets the userfield name.
-	 *
-	 * @param string $name Name of the userfield
-	 * @return void
-	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
-
-	/**
 	 * Sets the FrontendUser property name.
 	 *
 	 * @param  string $property The FrontendUser property name.
+	 *
 	 * @return void
 	 */
 	public function setUserObjectPropertyName($property = NULL) {

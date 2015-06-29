@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\User;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -54,6 +55,17 @@ class Rank extends AbstractEntity {
 	}
 
 	/**
+	 * Set the name of this rank
+	 *
+	 * @param string $name
+	 *
+	 * @return void
+	 */
+	public function setName($name) {
+		$this->name = $name;
+	}
+
+	/**
 	 * Get the limit of this rank
 	 * @return int
 	 */
@@ -62,29 +74,22 @@ class Rank extends AbstractEntity {
 	}
 
 	/**
+	 * Set the limit of this rank
+	 *
+	 * @param int $pointLimit
+	 *
+	 * @return void
+	 */
+	public function setPointLimit($pointLimit) {
+		$this->pointLimit = $pointLimit;
+	}
+
+	/**
 	 * Get the amount of users of this rank
 	 * @return int
 	 */
 	public function getUserCount() {
 		return $this->userCount;
-	}
-
-	/**
-	 * Set the name of this rank
-	 * @param string $name
-	 * @return void
-	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
-
-	/**
-	 * Set the limit of this rank
-	 * @param int $pointLimit
-	 * @return void
-	 */
-	public function setPointLimit($pointLimit) {
-		$this->pointLimit = $pointLimit;
 	}
 
 	/**

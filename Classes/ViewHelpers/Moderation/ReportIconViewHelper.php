@@ -3,7 +3,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Moderation;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <typo3@martin-helmich.de>                   *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,38 +23,17 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Moderation;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 
-
-/**
- *
- * ViewHelper that renders a forum icon.
- *
- * @author     Martin Helmich <typo3@martin-helmich.de>
- * @package    Typo3Forum
- * @subpackage ViewHelpers_Forum
- * @version    $Id: ForumIconViewHelper.php 52309 2011-09-20 18:54:26Z mhelmich $
- *
- * @copyright  2012 Martin Helmich <typo3@martin-helmich.de>
- *             http://www.martin-helmich.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-class ReportIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
-
-
+class ReportIconViewHelper extends CObjectViewHelper {
 
 	/**
-	 *
 	 * Initializes the view helper arguments.
 	 * @return void
-	 *
 	 */
 	public function initializeArguments() {
 
 	}
-
-
 
 	/**
 	 *
@@ -70,8 +49,6 @@ class ReportIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelpe
 	public function render(\Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report = NULL, $width = NULL, $alt = "") {
 		return parent::render('plugin.tx_typo3forum.renderer.icons.report', $this->getDataArray($report));
 	}
-
-
 
 	/**
 	 *
@@ -89,7 +66,4 @@ class ReportIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelpe
 			return array('statusIcon' => $report->getWorkflowStatus()->getIconFullpath());
 		}
 	}
-
-
-
 }

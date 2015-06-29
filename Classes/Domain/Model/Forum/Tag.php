@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\Forum;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -24,7 +25,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *                                                                      */
 
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
-use \TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class Tag extends AbstractEntity {
 
@@ -137,6 +138,7 @@ class Tag extends AbstractEntity {
 
 	/**
 	 * Add a user to this tag
+	 *
 	 * @param $feuser FrontendUser
 	 */
 	public function addFeuser(FrontendUser $feuser) {
@@ -145,6 +147,7 @@ class Tag extends AbstractEntity {
 
 	/**
 	 * Removes a user from this tag
+	 *
 	 * @param $feuser FrontendUser
 	 */
 	public function removeFeuser(FrontendUser $feuser) {

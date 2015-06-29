@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\Forum;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -24,7 +25,6 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *                                                                      */
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
-use Mittwald\Typo3Forum\Domain\Model\Forum\Criteria;
 
 class CriteriaOption extends AbstractEntity {
 
@@ -55,27 +55,10 @@ class CriteriaOption extends AbstractEntity {
 	}
 
 	/**
-	 * Gets the value of criteria.
-	 * @return string The name of a option.
-	 */
-	public function getName() {
-		return $this->name;
-	}
-
-
-	/**
-	 * Gets the sorting value of this option
-	 * @return int
-	 */
-	public function getSorting() {
-		return $this->sorting;
-	}
-
-
-	/**
 	 * Sets the criteria object.
 	 *
 	 * @param Criteria $criteria The criteria object
+	 *
 	 * @return void
 	 */
 	public function setCriteria(Criteria $criteria) {
@@ -83,13 +66,30 @@ class CriteriaOption extends AbstractEntity {
 	}
 
 	/**
+	 * Gets the value of criteria.
+	 * @return string The name of a option.
+	 */
+	public function getName() {
+		return $this->name;
+	}
+
+	/**
 	 * Sets the value.
 	 *
 	 * @param string $name The name of a option
+	 *
 	 * @return void
 	 */
 	public function setName($name) {
 		$this->name = $name;
+	}
+
+	/**
+	 * Gets the sorting value of this option
+	 * @return int
+	 */
+	public function getSorting() {
+		return $this->sorting;
 	}
 
 }

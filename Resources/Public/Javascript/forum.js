@@ -12,11 +12,11 @@ $(document).ready(function () {
 	});
 
 	// forum_last_post_summary
-	var postSummarys  = new Array();
+	var postSummarys  = [];
 	var postSummarysCount  = 0;
 
 	$('.post_summary_box').each(function (index) {
-		postSummarys[postSummarysCount] = new Object();
+		postSummarys[postSummarysCount] = {};
 		postSummarys[postSummarysCount]['type'] = $(this).data('type');
 		postSummarys[postSummarysCount]['hiddenimage'] = $(this).data('hiddenimage');
 		postSummarys[postSummarysCount]['uid'] = $(this).data('uid');
@@ -24,7 +24,7 @@ $(document).ready(function () {
 	});
 
 	// onlinepoint
-	var displayedUser = new Array();
+	var displayedUser = [];
 	var displayedUserCount = 0;
 	$('.user_onlinepoint').each(function (index) {
 		displayedUser[displayedUserCount] = $(this).data('uid');
@@ -32,7 +32,7 @@ $(document).ready(function () {
 	});
 
 	// topicIcons
-	var displayedTopicIcons = new Array();
+	var displayedTopicIcons = [];
 	var displayedTopicIconsCount = 0;
 	$('.topic_icon').each(function (index) {
 		displayedTopicIcons[displayedTopicIconsCount] = $(this).data('uid');
@@ -40,7 +40,7 @@ $(document).ready(function () {
 	});
 
 	// forumIcons
-	var displayedForumIcons = new Array();
+	var displayedForumIcons = [];
 	var displayedForumIconsCount = 0;
 	$('.forum_icon').each(function (index) {
 		displayedForumIcons[displayedForumIconsCount] = $(this).data('uid');
@@ -48,7 +48,7 @@ $(document).ready(function () {
 	});
 
 	// forumMenus
-	var displayedForumMenus = new Array();
+	var displayedForumMenus = [];
 	var displayedForumMenusCount = 0;
 	$('.forum_menu').each(function (index) {
 		displayedForumMenus[displayedForumMenusCount] = $(this).data('uid');
@@ -57,7 +57,7 @@ $(document).ready(function () {
 
 
 	// topicIcons
-	var displayedTopics = new Array();
+	var displayedTopics = [];
 	var displayedTopicsCount = 0;
 	$('.topic_entry').each(function (index) {
 		displayedTopics[displayedTopicsCount] = $(this).data('uid');
@@ -70,7 +70,7 @@ $(document).ready(function () {
 	}
 
 	// post_item
-	var displayedPosts = new Array();
+	var displayedPosts = [];
 	var displayedPostCount = 0;
 	$('.post_item').each(function (index) {
 		displayedPosts[displayedPostCount] = $(this).data('uid');
@@ -79,7 +79,7 @@ $(document).ready(function () {
 
 
 	// ads
-	var displayedAds = new Object;
+	var displayedAds = {};
 	var displayedAdsIteration = 0;
 	$('.ad-topic').each(function (index) {
 		displayedAdsIteration = displayedAdsIteration + 1;
@@ -91,7 +91,7 @@ $(document).ready(function () {
 	displayedAds['mode'] = 0;
 	$('.userInfo').each(function (index) {
 		displayedAds['mode'] = 1;
-		return;
+
 	});
 
 

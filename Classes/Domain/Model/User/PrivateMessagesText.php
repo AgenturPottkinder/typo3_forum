@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\User;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -32,6 +33,20 @@ class PrivateMessagesText extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	public $messageText;
 
 	/**
+	 * Get the short text of this pm
+	 * @return string The short text
+	 */
+	public function getShortMessageText() {
+		$limit = 80;
+		$text = $this->getMessageText();
+		if (strlen($text) < $limit) {
+			return $text;
+		} else {
+			return substr($text, 0, $limit) . "...";
+		}
+	}
+
+	/**
 	 * Get the text of this pm
 	 * @return string The text
 	 */
@@ -40,22 +55,10 @@ class PrivateMessagesText extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	}
 
 	/**
-	 * Get the short text of this pm
-	 * @return string The short text
-	 */
-	public function getShortMessageText() {
-		$limit = 80;
-		$text = $this->getMessageText();
-		if(strlen($text) < $limit) {
-			return $text;
-		} else {
-			return substr($text,0,$limit)."...";
-		}
-	}
-
-	/**
 	 * Sets the text
+	 *
 	 * @param string $messageText
+	 *
 	 * @return void
 	 */
 	public function setMessageText($messageText) {

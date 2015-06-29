@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\Forum;
+
 /* *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -23,9 +24,9 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
 use Mittwald\Typo3Forum\Domain\Model\NotifiableInterface;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
  * A forum post. Forum posts are submitted to the access control mechanism and can be
@@ -99,13 +100,14 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 
 	/**
 	 * Creates a new post.
+	 *
 	 * @param string $text The post text.
 	 */
 	public function __construct($text = '') {
 		$this->attachments = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->supporters = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->crdate      = new \DateTime();
-		$this->text        = $text;
+		$this->crdate = new \DateTime();
+		$this->text = $text;
 	}
 
 	/**
@@ -160,10 +162,11 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 		}
 		if ($this->author === NULL) {
 			$this->author = new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
-			if($this->authorName){
+			if ($this->authorName) {
 				$this->author->setUsername($this->authorName);
 			}
 		}
+
 		return $this->author;
 	}
 
@@ -205,7 +208,7 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 		return $this->crdate;
 	}
 
-    /**
+	/**
 	 * Gets the post's crdate.
 	 * @return \DateTime
 	 */
@@ -227,6 +230,7 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 *
 	 * @param mixed $previousValue
 	 * @param mixed $currentValue
+	 *
 	 * @return boolean
 	 */
 	protected function isPropertyDirty($previousValue, $currentValue) {
@@ -242,8 +246,10 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * Performs an access check for this post.
 	 *
 	 * @access private
+	 *
 	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
-	 * @param  string                                    $accessType
+	 * @param  string                                              $accessType
+	 *
 	 * @return boolean
 	 */
 	public function checkAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL, $accessType = 'read') {
@@ -282,9 +288,9 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 				return TRUE;
 			}
 
-			$currentUserIsAuthor   = ($user === $this->getAuthor());
+			$currentUserIsAuthor = ($user === $this->getAuthor());
 			$postIsLastPostInTopic = ($this === $this->getTopic()->getLastPost());
-			$topicGrantsAccess     = $this->getTopic()->checkAccess($user, $operation);
+			$topicGrantsAccess = $this->getTopic()->checkAccess($user, $operation);
 
 			if ($currentUserIsAuthor && $postIsLastPostInTopic && $topicGrantsAccess) {
 				return TRUE;
@@ -310,6 +316,7 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * Sets the post author.
 	 *
 	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $author The post author.
+	 *
 	 * @return void
 	 */
 	public function setAuthor(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $author) {
@@ -322,6 +329,7 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 
 	/**
 	 * Sets the post author's name. Necessary for anonymous postings.
+	 *
 	 * @param $authorName string The author's name.
 	 */
 	public function setAuthorName($authorName) {
@@ -332,6 +340,7 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * Sets the post text.
 	 *
 	 * @param string $text The post text.
+	 *
 	 * @return void
 	 */
 	public function setText($text) {
@@ -346,6 +355,7 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 *
 	 * @param  \TYPO3\CMS\Extbase\Persistence\ObjectStorage $attachments The attachments.
 	 * @validate $attachments Tx_Typo3Forum_Domain_Validator_Forum_AttachmentValidator
+	 *
 	 * @return void
 	 */
 	public function setAttachments(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $attachments) {
@@ -356,6 +366,7 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * Adds an or more attachments.
 	 *
 	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment $attachments The attachment.
+	 *
 	 * @return void
 	 */
 	public function addAttachments(\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment $attachments) {
@@ -367,27 +378,30 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * Removes an attachment.
 	 *
 	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment $attachment The attachment.
+	 *
 	 * @return void
 	 */
 	public function removeAttachment(\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment $attachment) {
-		if(file_exists($attachment->getAbsoluteFilename())){
+		if (file_exists($attachment->getAbsoluteFilename())) {
 			unlink($attachment->getAbsoluteFilename());
 		}
 		$this->attachments->detach($attachment);
 	}
 
-    /**
-     * Determines whether this topic has been read by a certain user.
-     *
-     * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $supporter The user who is to be checked.
-     * @return boolean                                           TRUE, if the user did read this topic, otherwise FALSE.
-     */
-    public function hasBeenSupportedByUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $supporter = NULL) {
-        return $supporter ? $this->supporters->contains($supporter) : TRUE;
-    }
+	/**
+	 * Determines whether this topic has been read by a certain user.
+	 *
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $supporter The user who is to be checked.
+	 *
+	 * @return boolean                                           TRUE, if the user did read this topic, otherwise FALSE.
+	 */
+	public function hasBeenSupportedByUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $supporter = NULL) {
+		return $supporter ? $this->supporters->contains($supporter) : TRUE;
+	}
 
 	/**
 	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
+	 *
 	 * @return void
 	 */
 	public function setTopic(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic) {
@@ -398,10 +412,11 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * Marks this topic as read by a certain user.
 	 *
 	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $supporter The user who read this topic.
+	 *
 	 * @return void
 	 */
 	public function addSupporter(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $supporter) {
-		$this->setHelpfulCount($this->getHelpfulCount()+1);
+		$this->setHelpfulCount($this->getHelpfulCount() + 1);
 		$this->supporters->attach($supporter);
 	}
 
@@ -409,10 +424,11 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * Mark this topic as unread for a certain user.
 	 *
 	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $supporter The user for whom to mark this topic as unread.
+	 *
 	 * @return void
 	 */
 	public function removeSupporter(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $supporter) {
-		$this->setHelpfulCount($this->getHelpfulCount()-1);
+		$this->setHelpfulCount($this->getHelpfulCount() - 1);
 		$this->supporters->detach($supporter);
 	}
 

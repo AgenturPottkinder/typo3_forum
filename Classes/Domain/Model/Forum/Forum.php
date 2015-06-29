@@ -156,6 +156,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 
 	/**
 	 * Constructor. Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage instances.
+	 *
 	 * @param string $title The forum title.
 	 */
 	public function __construct($title = '') {
@@ -239,13 +240,16 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 		/* @var \Mittwald\Typo3Forum\Domain\Model\Forum\Criteria $criteria */
 		$criteria = $this->getCriteriaRecursive(array($this, $criteriaStorage));
 		$obj = $criteria[1];
+
 		return $obj;
 	}
 
 	/**
 	 * Get all criterias recursive.
 	 * Please don't call this function. Use getCriteria()!!!
+	 *
 	 * @param array $array
+	 *
 	 * @return array
 	 */
 	private function getCriteriaRecursive($array) {
@@ -256,8 +260,9 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 			$criteriaStorage->addAll($forum->getCriteria());
 		}
 		if ($forum->getParent()->getUid() > 0) {
-			list(,$criteriaStorage) = $this->getCriteriaRecursive([$forum->getParent(), $criteriaStorage]);
+			list(, $criteriaStorage) = $this->getCriteriaRecursive([$forum->getParent(), $criteriaStorage]);
 		}
+
 		return [$forum, $criteriaStorage];
 	}
 
@@ -287,6 +292,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 				$lastTopic = $child->getLastTopic();
 			}
 		}
+
 		return $lastTopic;
 	}
 
@@ -308,6 +314,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 				$lastPost = $child->getLastPost();
 			}
 		}
+
 		return $lastPost;
 	}
 
@@ -319,6 +326,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 		if ($this->forum == NULL) {
 			return $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\RootForum');
 		}
+
 		return $this->forum;
 	}
 
@@ -340,6 +348,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 			/** @var $child Forum */
 			$topicCount += $child->getTopicCount();
 		}
+
 		return $topicCount;
 	}
 
@@ -354,6 +363,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 			/** @var $child Forum */
 			$postCount += $child->getPostCount();
 		}
+
 		return $postCount;
 	}
 
@@ -383,12 +393,14 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * currently logged in user.
 	 *
 	 * @param FrontendUser $user The user.
+	 *
 	 * @return boolean TRUE, if all topics in this forum have been read, otherwise FALSE.
 	 */
 	public function hasBeenReadByUser(FrontendUser $user = NULL) {
 		if ($user === NULL || $this->readers === NULL) {
 			return TRUE;
 		}
+
 		return $this->readers->contains($user);
 	}
 
@@ -418,9 +430,11 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * *INTERAL USE ONLY!*
 	 *
 	 * @access                     private
-	 * @param  FrontendUser $user The user that is to be checked against the access
+	 *
+	 * @param  FrontendUser $user                                     The user that is to be checked against the access
 	 *                                                                rules of this forum.
-	 * @param  string $accessType The operation
+	 * @param  string       $accessType                               The operation
+	 *
 	 * @return boolean             TRUE, if the user has access to the requested
 	 *                             operation, otherwise FALSE.
 	 */
@@ -446,6 +460,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 				return !$acl->isNegated();
 			}
 		}
+
 		return $this->getParent()->checkAccess($user, $accessType);
 	}
 
@@ -455,6 +470,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @param  FrontendUser $user
 	 *                             The user that is to be checked.
+	 *
 	 * @return boolean             TRUE if the user has read access, otherwise FALSE.
 	 */
 	public function checkReadAccess(FrontendUser $user = NULL) {
@@ -467,6 +483,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @param  FrontendUser $user
 	 *                             The user that is to be checked.
+	 *
 	 * @return boolean             TRUE if the user has access, otherwise FALSE.
 	 */
 	public function checkNewPostAccess(FrontendUser $user = NULL) {
@@ -479,6 +496,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @param  FrontendUser $user
 	 *                             The user that is to be checked.
+	 *
 	 * @return boolean             TRUE if the user has access, otherwise FALSE.
 	 */
 	public function checkNewTopicAccess(FrontendUser $user = NULL) {
@@ -491,12 +509,14 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @param  FrontendUser $user
 	 *                             The user that is to be checked.
+	 *
 	 * @return boolean             TRUE if the user has access, otherwise FALSE.
 	 */
 	public function checkModerationAccess(FrontendUser $user = NULL) {
 		if ($user === NULL) {
 			return FALSE;
 		}
+
 		return $this->checkAccess($user, 'moderate');
 	}
 
@@ -505,6 +525,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Sets the title.
 	 *
 	 * @param string $title The title of the forum
+	 *
 	 * @return void
 	 */
 	public function setTitle($title) {
@@ -527,6 +548,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Sets the description.
 	 *
 	 * @param string $description A description for the forum
+	 *
 	 * @return void
 	 */
 	public function setDescription($description) {
@@ -537,6 +559,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Sets the parent forum.
 	 *
 	 * @param Forum $parent The parent forum.
+	 *
 	 * @return void
 	 */
 	public function setParent(Forum $parent) {
@@ -565,6 +588,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Removes a child forum.
 	 *
 	 * @param Forum The Forum to be removed
+	 *
 	 * @return void
 	 */
 	public function removeChild(Forum $child) {
@@ -600,6 +624,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Removes a topic.
 	 *
 	 * @param Topic $topic The Topic to be removed
+	 *
 	 * @return void
 	 */
 	public function removeTopic(Topic $topic) {
@@ -626,6 +651,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Adds a new access rule.
 	 *
 	 * @param Access The access rule to be added
+	 *
 	 * @return void
 	 */
 	public function addAcl(Access $acl) {
@@ -637,6 +663,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Removes a access rule.
 	 *
 	 * @param Access The access rule to be removed
+	 *
 	 * @return void
 	 */
 	public function removeAcl(Access $acl) {
@@ -648,6 +675,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Sets the last topic.
 	 *
 	 * @param Topic $lastTopic The last topic
+	 *
 	 * @return void
 	 */
 	public function setLastTopic(Topic $lastTopic = NULL) {
@@ -659,6 +687,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Sets the last post.
 	 *
 	 * @param Post $lastPost The last post.
+	 *
 	 * @return void
 	 */
 	public function setLastPost(Post $lastPost = NULL) {
@@ -668,7 +697,9 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 
 	/**
 	 * Adds a new subscriber.
+	 *
 	 * @param FrontendUser $user The new subscriber.
+	 *
 	 * @return void
 	 */
 	public function addSubscriber(FrontendUser $user) {
@@ -678,6 +709,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 
 	/**
 	 * Removes a subscriber.
+	 *
 	 * @param FrontendUser $user The subscriber to be removed.
 	 */
 	public function removeSubscriber(FrontendUser $user) {
@@ -689,6 +721,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Marks this forum as read by a certain user.
 	 *
 	 * @param FrontendUser $reader The user who read this forum.
+	 *
 	 * @return void
 	 */
 	public function addReader(FrontendUser $reader) {
@@ -700,6 +733,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Mark this forum as unread for a certain user.
 	 *
 	 * @param FrontendUser $reader The user for whom to mark this forum as unread.
+	 *
 	 * @return void
 	 */
 	public function removeReader(FrontendUser $reader) {
@@ -785,6 +819,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @param  int $amount The amount by which to increase the topic count
 	 *                     (set a negative amount to decrease).
+	 *
 	 * @return void
 	 * @access private
 	 */

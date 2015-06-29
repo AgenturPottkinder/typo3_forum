@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\Forum;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -24,7 +25,6 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *                                                                      */
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
-use Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption;
 
 class Criteria extends AbstractEntity {
 
@@ -57,16 +57,34 @@ class Criteria extends AbstractEntity {
 		return $this->name;
 	}
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param string $name The name of a criteria
+	 *
+	 * @return void
+	 */
+	public function setName($name) {
+		$this->name = $name;
+	}
 
 	/**
 	 * Get all options of this criteria.
-	 * @return	\TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption>
-	 *			All options of criteria.
+	 * @return    \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption>
+	 *            All options of criteria.
 	 */
 	public function getOptions() {
 		return $this->options;
 	}
 
+	/**
+	 * Set a whole object storage as options for this criteria
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $options
+	 */
+	public function setOptions(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $options) {
+		$this->options = $options;
+	}
 
 	/**
 	 * Get the default option
@@ -77,26 +95,10 @@ class Criteria extends AbstractEntity {
 	}
 
 	/**
-	 * Set a whole object storage as options for this criteria
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $options
-	 */
-	public function setOptions(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $options) {
-		$this->options = $options;
-	}
-
-	/**
-	 * Sets the name.
-	 *
-	 * @param string $name The name of a criteria
-	 * @return void
-	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
-
-	/**
 	 * Set the default option
+	 *
 	 * @param CriteriaOption $defaultOption
+	 *
 	 * @return void
 	 */
 	public function setDefaultOption(CriteriaOption $defaultOption) {

@@ -3,7 +3,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Ext;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <typo3@martin-helmich.de>                   *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,24 +23,9 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Ext;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 
-/**
- *
- * ViewHelper that renders a big button.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage ViewHelpers_Control
- * @version    $Id: BigButtonViewHelper.php 52309 2011-09-20 18:54:26Z mhelmich $
- *
- * @copyright  2012 Martin Helmich <typo3@martin-helmich.de>
- *             http://www.martin-helmich.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-class UserLinkViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
-
+class UserLinkViewHelper extends CObjectViewHelper {
 
 	/**
 	 * An instance of the typo3_forum authentication service.
@@ -68,11 +53,9 @@ class UserLinkViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper 
 		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
 
-
 	public function initialize() {
 		parent::initialize();
 	}
-
 
 	public function initializeArguments() {
 		parent::initializeArguments();

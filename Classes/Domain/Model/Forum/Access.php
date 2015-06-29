@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\Forum;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -23,8 +24,8 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup;
+use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
 
 /**
  *
@@ -86,8 +87,8 @@ class Access extends AbstractValueObject {
 
 
 	public function __construct($operation = NULL, $level = NULL, FrontendUserGroup $group = NULL) {
-		$this->operation     = $operation;
-		$this->loginLevel    = $level;
+		$this->operation = $operation;
+		$this->loginLevel = $level;
 		$this->affectedGroup = $group;
 	}
 
@@ -97,6 +98,17 @@ class Access extends AbstractValueObject {
 	 */
 	public function getOperation() {
 		return $this->operation;
+	}
+
+	/**
+	 * Sets the affected operation.
+	 *
+	 * @param string $operation The affected operation
+	 *
+	 * @return void
+	 */
+	public function setOperation($operation) {
+		$this->operation = $operation;
 	}
 
 	/**
@@ -142,9 +154,11 @@ class Access extends AbstractValueObject {
 
 	/**
 	 * Matches a certain user against this access rule.
+	 *
 	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 *                                 The user to be matched. Can also be NULL (for anonymous
 	 *                                 users).
+	 *
 	 * @return bool                    TRUE if this access rule matches the given user, otherwise
 	 *                                 FALSE. This result may be negated using the "negate" property.
 	 */
@@ -174,19 +188,10 @@ class Access extends AbstractValueObject {
 	}
 
 	/**
-	 * Sets the affected operation.
-	 *
-	 * @param string $operation The affected operation
-	 * @return void
-	 */
-	public function setOperation($operation) {
-		$this->operation = $operation;
-	}
-
-	/**
 	 * Negates this entry.
 	 *
 	 * @param boolean $negate TRUE to negate
+	 *
 	 * @return void
 	 */
 	public function setNegated($negate) {
@@ -197,6 +202,7 @@ class Access extends AbstractValueObject {
 	 * Sets the group.
 	 *
 	 * @param FrontendUserGroup $group The group
+	 *
 	 * @return void
 	 */
 	public function setAffectedGroup(FrontendUserGroup $group) {

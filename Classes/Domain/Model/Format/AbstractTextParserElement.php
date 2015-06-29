@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\Format;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -62,6 +63,17 @@ abstract class AbstractTextParserElement extends AbstractValueObject {
 
 	/**
 	 *
+	 * Sets the icon CSS class.
+	 *
+	 * @param string $iconClass The icon CSS class.
+	 *
+	 */
+	public function setIconClass($iconClass) {
+		$this->iconClass = $iconClass;
+	}
+
+	/**
+	 *
 	 * Gets the text parser element name.
 	 * @return string The text parser element name
 	 *
@@ -72,17 +84,8 @@ abstract class AbstractTextParserElement extends AbstractValueObject {
 
 	/**
 	 *
-	 * Sets the icon CSS class.
-	 * @param string $iconClass The icon CSS class.
-	 *
-	 */
-	public function setIconClass($iconClass) {
-		$this->iconClass = $iconClass;
-	}
-
-	/**
-	 *
 	 * Sets the element name.
+	 *
 	 * @param string $name The element name.
 	 *
 	 */

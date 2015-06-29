@@ -61,20 +61,23 @@ class PostFactory extends AbstractFactory {
 	 * Creates a new post that quotes an already existing post.
 	 *
 	 * @param Post $quotedPost The post that is to be quoted. The post text of this post will be wrapped in [quote] bb codes.
+	 *
 	 * @return Post The new post.
 	 */
 	public function createPostWithQuote(Post $quotedPost) {
 		/** @var $post Post */
 		$post = $this->getClassInstance();
 		$post->setText('[quote=' . $quotedPost->getUid() . ']' . $quotedPost->getText() . '[/quote]');
+
 		return $post;
 	}
 
 	/**
 	 * Assigns a user to a forum post and increases the user's post count.
 	 *
-	 * @param Post $post The post to which a user is to be assigned.
+	 * @param Post         $post The post to which a user is to be assigned.
 	 * @param FrontendUser $user The user that is to be assigned to the post. If this value is NULL, the currently logged in user will be used instead.
+	 *
 	 * @throws NotLoggedInException
 	 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
 	 */
@@ -99,7 +102,7 @@ class PostFactory extends AbstractFactory {
 		if (!$user->isAnonymous()) {
 			$post->setAuthor($user);
 			$user->increasePostCount();
-			$user->increasePoints((int)$this->settings['rankScore']['newPost']);
+			$user->increasePoints((int) $this->settings['rankScore']['newPost']);
 			$this->frontendUserRepository->update($user);
 		}
 	}
@@ -119,7 +122,7 @@ class PostFactory extends AbstractFactory {
 			$this->topicFactory->deleteTopic($topic);
 		} else {
 			$post->getAuthor()->decreasePostCount();
-			$post->getAuthor()->decreasePoints((int)$this->settings['rankScore']['newPost']);
+			$post->getAuthor()->decreasePoints((int) $this->settings['rankScore']['newPost']);
 			$this->frontendUserRepository->update($post->getAuthor());
 			$topic->removePost($post);
 			$this->topicRepository->update($topic);

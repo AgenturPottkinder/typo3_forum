@@ -1,29 +1,29 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Repository\Moderation;
-/*                                                                    - *
- *  COPYRIGHT NOTICE                                                    *
- *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
- *           All rights reserved                                        *
- *                                                                      *
- *  This script is part of the TYPO3 project. The TYPO3 project is      *
- *  free software; you can redistribute it and/or modify                *
- *  it under the terms of the GNU General Public License as published   *
- *  by the Free Software Foundation; either version 2 of the License,   *
- *  or (at your option) any later version.                              *
- *                                                                      *
- *  The GNU General Public License can be found at                      *
- *  http://www.gnu.org/copyleft/gpl.html.                               *
- *                                                                      *
- *  This script is distributed in the hope that it will be useful,      *
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of      *
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the       *
- *  GNU General Public License for more details.                        *
- *                                                                      *
- *  This copyright notice MUST APPEAR in all copies of the script!      *
- *                                                                      */
 
+	/*                                                                    - *
+	 *  COPYRIGHT NOTICE                                                    *
+	 *                                                                      *
+	 *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
+	 *           Mittwald CM Service GmbH & Co KG                           *
+	 *           All rights reserved                                        *
+	 *                                                                      *
+	 *  This script is part of the TYPO3 project. The TYPO3 project is      *
+	 *  free software; you can redistribute it and/or modify                *
+	 *  it under the terms of the GNU General Public License as published   *
+	 *  by the Free Software Foundation; either version 2 of the License,   *
+	 *  or (at your option) any later version.                              *
+	 *                                                                      *
+	 *  The GNU General Public License can be found at                      *
+	 *  http://www.gnu.org/copyleft/gpl.html.                               *
+	 *                                                                      *
+	 *  This script is distributed in the hope that it will be useful,      *
+	 *  but WITHOUT ANY WARRANTY; without even the implied warranty of      *
+	 *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the       *
+	 *  GNU General Public License for more details.                        *
+	 *                                                                      *
+	 *  This copyright notice MUST APPEAR in all copies of the script!      *
+	 *                                                                      */
 
 
 /**
@@ -45,7 +45,6 @@ namespace Mittwald\Typo3Forum\Domain\Repository\Moderation;
 class ReportWorkflowStatusRepository extends \Mittwald\Typo3Forum\Domain\Repository\AbstractRepository {
 
 
-
 	/**
 	 *
 	 * Finds the initial status that is to be used for new reports.
@@ -57,9 +56,9 @@ class ReportWorkflowStatusRepository extends \Mittwald\Typo3Forum\Domain\Reposit
 	 */
 	public function findInitial() {
 		$query = $this->createQueryWithFallbackStoragePage();
+
 		return $query->matching($query->equals('initial', TRUE))->setLimit(1)->execute()->getFirst();
 	}
-
 
 
 	/**
@@ -68,13 +67,13 @@ class ReportWorkflowStatusRepository extends \Mittwald\Typo3Forum\Domain\Reposit
 	public function createQuery() {
 		$query = parent::createQuery();
 
-		$storagePageIds   = $query->getQuerySettings()->getStoragePageIds();
+		$storagePageIds = $query->getQuerySettings()->getStoragePageIds();
 		$storagePageIds[] = 0;
 
 		$query->getQuerySettings()->setStoragePageIds($storagePageIds);
+
 		return $query;
 	}
-
 
 
 }

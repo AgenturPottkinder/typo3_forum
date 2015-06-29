@@ -3,7 +3,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Bootstrap;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <typo3@martin-helmich.de>                   *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,26 +23,12 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Bootstrap;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper;
 
 /**
- *
  * ViewHelper that renders a big button.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage ViewHelpers_Control
- * @version    $Id: BigButtonViewHelper.php 52309 2011-09-20 18:54:26Z mhelmich $
- *
- * @copyright  2012 Martin Helmich <typo3@martin-helmich.de>
- *             http://www.martin-helmich.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class ButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper {
-
-
+class ButtonViewHelper extends ActionViewHelper {
 
 	public function initializeArguments() {
 		parent::initializeArguments();
@@ -51,8 +37,6 @@ class ButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelpe
 		$this->registerArgument('label', 'string', 'Button label', TRUE);
 		$this->registerArgument('icon', 'string', 'Icon', FALSE, NULL);
 	}
-
-
 
 	public function initialize() {
 		parent::initialize();
@@ -66,8 +50,6 @@ class ButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelpe
 		$this->tag->addAttribute('class', $class);
 	}
 
-
-
 	public function renderChildren() {
 		if ($this->arguments['icon']) {
 			$content = '<i class="tx-typo3forum-icon-16-' . $this->arguments['icon'] . '"></i> ';
@@ -77,7 +59,4 @@ class ButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelpe
 		$content .= \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($this->arguments['label'], 'typo3_forum');
 		return $content;
 	}
-
-
-
 }

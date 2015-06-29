@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\Forum;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -23,11 +24,11 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use \TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
-use \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
-use \Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
-use \Mittwald\Typo3Forum\Domain\Model\NotifiableInterface;
-use \Mittwald\Typo3Forum\Domain\Model\ReadableInterface;
+use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
+use Mittwald\Typo3Forum\Domain\Model\NotifiableInterface;
+use Mittwald\Typo3Forum\Domain\Model\ReadableInterface;
+use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 
 /**
@@ -172,31 +173,33 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 */
 	protected $topicRepository;
 
-    /**
-     * An instance of the typo3_forum authentication service.
-     * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
-     * @inject
-     */
-    protected $typoScriptService = NULL;
+	/**
+	 * An instance of the typo3_forum authentication service.
+	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @inject
+	 */
+	protected $typoScriptService = NULL;
 
-    /**
-     * Whole TypoScript typo3_forum settings
-     * @var array
-     */
-    protected $settings;
+	/**
+	 * Whole TypoScript typo3_forum settings
+	 * @var array
+	 */
+	protected $settings;
 
-    /**
-     * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
-     * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
-     */
-    public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
-        $this->typoScriptService = $typoScriptService;
-        $ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
-        $this->settings = $ts['plugin']['tx_typo3forum']['settings'];
-    }
+	/**
+	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
+	 *
+	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
+	 */
+	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
+		$this->typoScriptService = $typoScriptService;
+		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
+		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
+	}
 
 	/**
 	 * Constructor. Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage instances.
+	 *
 	 * @param string $subject The topic's subject.
 	 */
 	public function __construct($subject = '') {
@@ -257,6 +260,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 				$this->author = new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
 			}
 		}
+
 		return $this->author;
 	}
 
@@ -276,10 +280,11 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 		return $this->favSubscribers;
 	}
 
-	public function getIsSolved(){
-		if($this->isSolved ==  1 || $this->getSolution() != null){
+	public function getIsSolved() {
+		if ($this->isSolved == 1 || $this->getSolution() != null) {
 			return true;
 		}
+
 		return false;
 	}
 
@@ -307,7 +312,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 		return $this->postCount;
 	}
 
-	 /**
+	/**
 	 * Gets the amount of pages of this topic.
 	 * @return integer Page count
 	 */
@@ -320,7 +325,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * @return integer Reply count
 	 */
 	public function getReplyCount() {
-		if($this->getPostCount() == 0) {
+		if ($this->getPostCount() == 0) {
 			return 0;
 		} else {
 			return $this->getPostCount() - 1;
@@ -372,7 +377,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * @return int
 	 */
 	public function getQuestion() {
-		return (int)$this->question;
+		return (int) $this->question;
 	}
 
 	/**
@@ -395,6 +400,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Determines whether this topic has been read by a certain user.
 	 *
 	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reader The user who is to be checked.
+	 *
 	 * @return boolean                                           TRUE, if the user did read this topic, otherwise FALSE.
 	 */
 	public function hasBeenReadByUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reader = NULL) {
@@ -406,6 +412,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * with or without this topic itself).
 	 *
 	 * @param  boolean $withSelf TRUE to include this forum into the rootline, otherwise FALSE.
+	 *
 	 * @return array<\Mittwald\Typo3Forum\Domain\Model\Forum\Forum>
 	 */
 	public function getRootline($withSelf = TRUE) {
@@ -414,6 +421,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 		if ($withSelf === TRUE) {
 			$rootline[] = $this;
 		}
+
 		return $rootline;
 	}
 
@@ -423,6 +431,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 */
 	public function getFirstPost() {
 		$this->getPosts()->rewind();
+
 		return $this->getPosts()->current();
 	}
 
@@ -438,6 +447,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 				$oPost = $post;
 			}
 		}
+
 		return $oPost;
 	}
 
@@ -446,7 +456,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * topic.
 	 *
 	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user       The user.
-	 * @param  string $accessType The access type to be checked.
+	 * @param  string                                              $accessType The access type to be checked.
+	 *
 	 * @return boolean
 	 */
 	public function checkAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL, $accessType = 'read') {
@@ -466,12 +477,14 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Checks if a user may reply to this topic.
 	 *
 	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 *
 	 * @return boolean
 	 */
 	public function checkNewPostAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
 		if ($user === NULL) {
 			return FALSE;
 		}
+
 		return $this->getForum()->checkModerationAccess($user) ? TRUE : ($this->isClosed() ? FALSE : $this->getForum()
 			->checkNewPostAccess($user));
 	}
@@ -480,6 +493,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Checks if a user has moderative access to this topic.
 	 *
 	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 *
 	 * @return boolean
 	 */
 	public function checkModerationAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
@@ -490,10 +504,11 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Checks if a user has solution access to this topic.
 	 *
 	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 *
 	 * @return boolean
 	 */
 	public function checkSolutionAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
-		if($this->getAuthor()->getUid() == $user->getUid() || $this->checkModerationAccess($user)) {
+		if ($this->getAuthor()->getUid() == $user->getUid() || $this->checkModerationAccess($user)) {
 			return true;
 		} else {
 			return false;
@@ -505,6 +520,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * for all users who have read this topic before.
 	 *
 	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post The Post to be added
+	 *
 	 * @return void
 	 */
 	public function addPost(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
@@ -536,6 +552,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Adds a criteria option to the repository.
 	 *
 	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption $option The Option to be added
+	 *
 	 * @return void
 	 */
 	public function addCriteriaOption(\Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption $option) {
@@ -576,6 +593,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Sets the topic author.
 	 *
 	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $author The topic author.
+	 *
 	 * @return void
 	 */
 	public function setAuthor(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $author) {
@@ -587,6 +605,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * automatically when a new post is added to this topic.
 	 *
 	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Post $lastPost The last post.
+	 *
 	 * @return void
 	 */
 	protected function setLastPost(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $lastPost) {
@@ -598,6 +617,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Sets the subject of this topic.
 	 *
 	 * @param  string $subject The subject
+	 *
 	 * @return void
 	 */
 	public function setSubject($subject) {
@@ -606,7 +626,9 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 
 	/**
 	 * Set a post as solution
+	 *
 	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $solution
+	 *
 	 * @return void
 	 */
 	public function setSolution(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $solution) {
@@ -617,6 +639,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Sets the forum.
 	 *
 	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum The forum
+	 *
 	 * @return void
 	 */
 	public function setForum(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum) {
@@ -627,10 +650,11 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Sets this topic to closed.
 	 *
 	 * @param  boolean $closed TRUE to close this topic, FALSE to re-open it.
+	 *
 	 * @return void
 	 */
 	public function setClosed($closed) {
-		$this->closed = (boolean)$closed;
+		$this->closed = (boolean) $closed;
 	}
 
 	/**
@@ -638,25 +662,29 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * forum list, regardless of the timestamp of the last post.
 	 *
 	 * @param  boolean $sticky TRUE to make this topic sticky, FALSE to reset this.
+	 *
 	 * @return void
 	 */
 	public function setSticky($sticky) {
-		$this->sticky = (boolean)$sticky;
+		$this->sticky = (boolean) $sticky;
 	}
 
 	/**
 	 * Sets this topic to a question. Question topics will be shown at the support queries helpbox.
 	 *
 	 * @param  int $question TRUE to make this topic a question, FALSE to reset this.
+	 *
 	 * @return void
 	 */
 	public function setQuestion($question) {
-		$this->question = (int)$question;
+		$this->question = (int) $question;
 	}
 
 	/**
 	 * Set all criteria and options
+	 *
 	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $criteriaOptions
+	 *
 	 * @return void
 	 */
 	public function setCriteriaOptions(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $criteriaOptions) {
@@ -665,7 +693,9 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 
 	/**
 	 * Add a tag to this topic
+	 *
 	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag
+	 *
 	 * @return void
 	 */
 	public function addTag(\Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag) {
@@ -674,7 +704,9 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 
 	/**
 	 * Remove a tag of this topic
+	 *
 	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag
+	 *
 	 * @return void
 	 */
 	public function removeTag(\Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag) {
@@ -683,7 +715,9 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 
 	/**
 	 * Set a whole ObjectStorage as tag
+	 *
 	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $tags
+	 *
 	 * @return void
 	 */
 	public function setTags(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $tags) {
@@ -694,6 +728,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Marks this topic as read by a certain user.
 	 *
 	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reader The user who read this topic.
+	 *
 	 * @return void
 	 */
 	public function addReader(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reader) {
@@ -704,6 +739,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Mark this topic as unread for a certain user.
 	 *
 	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reader The user for whom to mark this topic as unread.
+	 *
 	 * @return void
 	 */
 	public function removeReader(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reader) {
@@ -720,7 +756,9 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 
 	/**
 	 * Adds a new subscriber.
+	 *
 	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user The new subscriber.
+	 *
 	 * @return void
 	 */
 	public function addFavSubscriber(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
@@ -729,6 +767,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 
 	/**
 	 * Removes a subscriber.
+	 *
 	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user The subscriber to be removed.
 	 */
 	public function removeFavSubscriber(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
@@ -737,7 +776,9 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 
 	/**
 	 * Adds a new subscriber.
+	 *
 	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user The new subscriber.
+	 *
 	 * @return void
 	 */
 	public function addSubscriber(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
@@ -747,6 +788,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 
 	/**
 	 * Removes a subscriber.
+	 *
 	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user The subscriber to be removed.
 	 */
 	public function removeSubscriber(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {

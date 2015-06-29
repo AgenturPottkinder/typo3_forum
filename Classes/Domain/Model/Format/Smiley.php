@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\Format;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -23,8 +24,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Format;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use \Mittwald\Typo3Forum\Domain\Model\Format\AbstractTextParserElement;
-use \Mittwald\Typo3Forum\TextParser\Panel\MarkItUpExportableInterface;
+use Mittwald\Typo3Forum\TextParser\Panel\MarkItUpExportableInterface;
 
 /**
  *
@@ -38,7 +38,6 @@ use \Mittwald\Typo3Forum\TextParser\Panel\MarkItUpExportableInterface;
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-
 class Smiley extends AbstractTextParserElement implements MarkItUpExportableInterface {
 
 	/**
@@ -54,11 +53,14 @@ class Smiley extends AbstractTextParserElement implements MarkItUpExportableInte
 	protected $defaultIconDir = 'Smiley/';
 
 	/**
-	 * Gets the smiley shortcut.
-	 * @return string The smiley shortcut.
+	 * Exports this smiley object as a plain array, that can be used in
+	 * a MarkItUp configuration object.
+	 * @return array A plain array describing this smiley
 	 */
-	public function getSmileyShortcut() {
-		return $this->smileyShortcut;
+	public function exportForMarkItUp() {
+		return array('name' => $this->getName(),
+			'className' => $this->getIconClass(),
+			'replaceWith' => $this->getSmileyShortcut());
 	}
 
 	/**
@@ -70,13 +72,10 @@ class Smiley extends AbstractTextParserElement implements MarkItUpExportableInte
 	}
 
 	/**
-	 * Exports this smiley object as a plain array, that can be used in
-	 * a MarkItUp configuration object.
-	 * @return array A plain array describing this smiley
+	 * Gets the smiley shortcut.
+	 * @return string The smiley shortcut.
 	 */
-	public function exportForMarkItUp() {
-		return array('name'        => $this->getName(),
-		             'className'   => $this->getIconClass(),
-		             'replaceWith' => $this->getSmileyShortcut());
+	public function getSmileyShortcut() {
+		return $this->smileyShortcut;
 	}
 }

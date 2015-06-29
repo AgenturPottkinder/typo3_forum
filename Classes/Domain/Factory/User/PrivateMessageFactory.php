@@ -35,11 +35,12 @@ class PrivateMessageFactory extends AbstractFactory {
 	 *
 	 * Creates a new report.
 	 *
-	 * @param FrontendUser $opponent
-	 * @param FrontendUser $feUser
+	 * @param FrontendUser        $opponent
+	 * @param FrontendUser        $feUser
 	 * @param PrivateMessagesText $text
-	 * @param int $type
-	 * @param int $userRead
+	 * @param int                 $type
+	 * @param int                 $userRead
+	 *
 	 * @return PrivateMessages The new private message.
 	 *
 	 */
@@ -52,6 +53,7 @@ class PrivateMessageFactory extends AbstractFactory {
 		$privateMessage->setCrdate(new \DateTime());
 		$privateMessage->setUserRead($userRead);
 		$privateMessage->setMessage($text);
+
 		return $privateMessage;
 	}
 

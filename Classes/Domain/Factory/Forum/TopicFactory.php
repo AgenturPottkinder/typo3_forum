@@ -74,13 +74,13 @@ class TopicFactory extends AbstractFactory {
 	/**
 	 * Creates a new topic.
 	 *
-	 * @param Forum $forum The forum in which the new topic is to be created.
-	 * @param Post $firstPost The first post of the new topic.
-	 * @param string $subject The subject of the new topic
-	 * @param int $question The flag if the new topic is declared as question
-	 * @param array $criteriaOptions All submitted criteria with option.
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $tags All user defined tags
-	 * @param int $subscribe The flag if the new topic is subscribed by author
+	 * @param Forum                                        $forum           The forum in which the new topic is to be created.
+	 * @param Post                                         $firstPost       The first post of the new topic.
+	 * @param string                                       $subject         The subject of the new topic
+	 * @param int                                          $question        The flag if the new topic is declared as question
+	 * @param array                                        $criteriaOptions All submitted criteria with option.
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $tags            All user defined tags
+	 * @param int                                          $subscribe       The flag if the new topic is subscribed by author
 	 *
 	 * @return Topic The new topic.
 	 */
@@ -125,6 +125,7 @@ class TopicFactory extends AbstractFactory {
 
 	/**
 	 * Deletes a topic and all posts contained in it.
+	 *
 	 * @param Topic $topic
 	 */
 	public function deleteTopic(Topic $topic) {
@@ -156,12 +157,14 @@ class TopicFactory extends AbstractFactory {
 	 * Creates a new shadow topic.
 	 *
 	 * @param  Topic $topic The original topic. The newly created shadow topic will then point towards this topic.
+	 *
 	 * @return ShadowTopic The newly created shadow topic.
 	 */
 	public function createShadowTopic(Topic $topic) {
 		/** @var $shadowTopic ShadowTopic */
 		$shadowTopic = GeneralUtility::makeInstance('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\ShadowTopic');
 		$shadowTopic->setTarget($topic);
+
 		Return $shadowTopic;
 	}
 
@@ -170,7 +173,7 @@ class TopicFactory extends AbstractFactory {
 	 * topic in the original place that will point to the new location of the
 	 * topic.
 	 *
-	 * @param Topic $topic The topic that is to be moved.
+	 * @param Topic $topic       The topic that is to be moved.
 	 * @param Forum $targetForum The target forum. The topic will be moved to this location.
 	 *
 	 * @throws InvalidClassException
@@ -193,7 +196,7 @@ class TopicFactory extends AbstractFactory {
 	 * Sets a post as solution
 	 *
 	 * @param Topic $topic
-	 * @param Post $post
+	 * @param Post  $post
 	 */
 	public function setPostAsSolution(Topic $topic, Post $post) {
 		$topic->setSolution($post);

@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\User;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -82,6 +83,17 @@ class Notification extends AbstractEntity {
 	}
 
 	/**
+	 * Get the type of this notification (Model Name)
+	 *
+	 * @param string $type
+	 *
+	 * @return void
+	 */
+	public function setType($type) {
+		$this->type = $type;
+	}
+
+	/**
 	 * Get the User who is related with this notification
 	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 */
@@ -92,7 +104,19 @@ class Notification extends AbstractEntity {
 		if ($this->feuser === NULL) {
 			$this->feuser = new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
 		}
+
 		return $this->feuser;
+	}
+
+	/**
+	 * Sets the user
+	 *
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $feuser
+	 *
+	 * @return void
+	 */
+	public function setFeuser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $feuser) {
+		$this->feuser = $feuser;
 	}
 
 	/**
@@ -104,11 +128,33 @@ class Notification extends AbstractEntity {
 	}
 
 	/**
+	 * Sets the post
+	 *
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
+	 *
+	 * @return void
+	 */
+	public function setPost(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
+		$this->post = $post;
+	}
+
+	/**
 	 * Get the tag which is related with this notification
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag
 	 */
 	public function getTag() {
 		return $this->tag;
+	}
+
+	/**
+	 * Set the tag
+	 *
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag
+	 *
+	 * @return void
+	 */
+	public function setTag(\Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag) {
+		$this->tag = $tag;
 	}
 
 	/**
@@ -120,44 +166,10 @@ class Notification extends AbstractEntity {
 	}
 
 	/**
-	 * Get the type of this notification (Model Name)
-	 * @param string $type
-	 * @return void
-	 */
-	public function setType($type) {
-		$this->type = $type;
-	}
-
-	/**
-	 * Sets the user
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $feuser
-	 * @return void
-	 */
-	public function setFeuser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $feuser) {
-		$this->feuser = $feuser;
-	}
-
-	/**
-	 * Sets the post
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
-	 * @return void
-	 */
-	public function setPost(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
-		$this->post = $post;
-	}
-
-	/**
-	 * Set the tag
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag
-	 * @return void
-	 */
-	public function setTag(\Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag) {
-		$this->tag = $tag;
-	}
-
-	/**
 	 * Sets the flag
+	 *
 	 * @param int $userRead
+	 *
 	 * @return void
 	 */
 	public function setUserRead($userRead) {

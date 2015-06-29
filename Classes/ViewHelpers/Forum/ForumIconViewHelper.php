@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Forum;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,27 +23,12 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 
 /**
- *
  * ViewHelper that renders a forum icon.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage ViewHelpers_Forum
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class ForumIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
-
-
+class ForumIconViewHelper extends CObjectViewHelper {
 
 	/**
 	 * The frontend user repository.
@@ -52,7 +36,6 @@ class ForumIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper
 	 * @inject
 	 */
 	protected $frontendUserRepository = NULL;
-
 
 	/**
 	 *
@@ -63,8 +46,6 @@ class ForumIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper
 	public function initializeArguments() {
 
 	}
-
-
 
 	/**
 	 *
@@ -88,8 +69,6 @@ class ForumIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper
 
 	}
 
-
-
 	/**
 	 *
 	 * Generates a data array that will be passed to the typoscript object for
@@ -108,7 +87,4 @@ class ForumIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper
 			             'closed' => !$forum->checkNewPostAccess($user));
 		}
 	}
-
-
-
 }

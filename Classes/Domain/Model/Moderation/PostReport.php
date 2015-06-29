@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -22,8 +23,6 @@ namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
-
-use Mittwald\Typo3Forum\Domain\Model\Moderation\Report;
 
 /**
  * Models a post report. Reports are the central object of the moderation
@@ -59,7 +58,8 @@ class PostReport extends Report {
 	}
 
 	/**
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post .
+	 *
 	 * @return void
 	 */
 	public function setPost(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {

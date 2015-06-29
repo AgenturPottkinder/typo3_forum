@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -86,7 +87,19 @@ class Report extends AbstractEntity {
 		if ($this->reporter === NULL) {
 			$this->reporter = new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
 		}
+
 		return $this->reporter;
+	}
+
+	/**
+	 * Sets the reporter.
+	 *
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reporter The reporter.
+	 *
+	 * @return void
+	 */
+	public function setReporter(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reporter) {
+		$this->reporter = $reporter;
 	}
 
 	/**
@@ -100,7 +113,19 @@ class Report extends AbstractEntity {
 		if ($this->moderator === NULL) {
 			$this->moderator = new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
 		}
+
 		return $this->moderator;
+	}
+
+	/**
+	 * Sets the moderator.
+	 *
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $moderator The moderator.
+	 *
+	 * @return void
+	 */
+	public function setModerator(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $moderator) {
+		$this->moderator = $moderator;
 	}
 
 	/**
@@ -110,6 +135,20 @@ class Report extends AbstractEntity {
 	 */
 	public function getWorkflowStatus() {
 		return $this->workflowStatus;
+	}
+
+	/**
+	 * Sets the current workflow status.
+	 *
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $workflowStatus
+	 *                             The workflow status.
+	 *
+	 * @return void
+	 */
+	public function setWorkflowStatus(\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $workflowStatus) {
+		If (!$this->workflowStatus || ($this->workflowStatus && $this->workflowStatus->hasFollowupStatus($workflowStatus))) {
+			$this->workflowStatus = $workflowStatus;
+		}
 	}
 
 	/**
@@ -138,42 +177,10 @@ class Report extends AbstractEntity {
 	}
 
 	/**
-	 * Sets the reporter.
-	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reporter The reporter.
-	 * @return void
-	 */
-	public function setReporter(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reporter) {
-		$this->reporter = $reporter;
-	}
-
-	/**
-	 * Sets the moderator.
-	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $moderator The moderator.
-	 * @return void
-	 */
-	public function setModerator(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $moderator) {
-		$this->moderator = $moderator;
-	}
-
-	/**
-	 * Sets the current workflow status.
-	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $workflowStatus
-	 *                             The workflow status.
-	 * @return void
-	 */
-	public function setWorkflowStatus(\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $workflowStatus) {
-		If (!$this->workflowStatus || ($this->workflowStatus && $this->workflowStatus->hasFollowupStatus($workflowStatus))) {
-			$this->workflowStatus = $workflowStatus;
-		}
-	}
-
-	/**
 	 * Adds a comment to this report.
 	 *
 	 * @param  \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $comment A comment
+	 *
 	 * @return void
 	 */
 	public function addComment(\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $comment) {

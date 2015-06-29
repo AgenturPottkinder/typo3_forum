@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\User;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -22,8 +23,6 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
-
-use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 
 /**
  * A frontend user.

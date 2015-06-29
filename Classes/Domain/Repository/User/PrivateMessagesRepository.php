@@ -34,7 +34,8 @@ class PrivateMessagesRepository extends Repository {
 	 *
 	 * @param FrontendUser $userX
 	 * @param FrontendUser $userY
-	 * @param int $limit
+	 * @param int          $limit
+	 *
 	 * @return \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessages[]
 	 */
 	public function findMessagesBetweenUser(FrontendUser $userX, FrontendUser $userY, $limit = 0) {
@@ -58,6 +59,7 @@ class PrivateMessagesRepository extends Repository {
 		if ($limit > 0) {
 			$query->setLimit($limit);
 		}
+
 		return $query->execute();
 	}
 
@@ -65,8 +67,10 @@ class PrivateMessagesRepository extends Repository {
 	 * Find all started conversations for user
 	 *
 	 * @TODO: Should be overworked when default SQL functions will be added to Extbase (group by, distinct etc)
+	 *
 	 * @param FrontendUser $user
-	 * @param int $limit
+	 * @param int          $limit
+	 *
 	 * @return FrontendUser[]
 	 */
 	public function findStartedConversations(FrontendUser $user, $limit = 0) {
@@ -94,13 +98,16 @@ class PrivateMessagesRepository extends Repository {
 				$userResult[] = $entry;
 			}
 		}
+
 		return $userResult;
 	}
 
 	/**
 	 * Find all messages this user got
+	 *
 	 * @param FrontendUser $user
-	 * @param int $limit
+	 * @param int          $limit
+	 *
 	 * @return \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessages[]
 	 */
 	public function findReceivedMessagesForUser(FrontendUser $user, $limit = 0) {
@@ -114,6 +121,7 @@ class PrivateMessagesRepository extends Repository {
 		if ($limit > 0) {
 			$query->setLimit($limit);
 		}
+
 		return $query->execute();
 	}
 

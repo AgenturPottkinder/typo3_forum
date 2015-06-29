@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Tag;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Ruven Fehling <r.fehling@mittwald.de>          *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,27 +23,9 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Tag;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
-
-/**
- *
- * ViewHelper that renders a user's avatar.
- *
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    Typo3Forum
- * @subpackage ViewHelpers_Tag
- * @version    $Id$
- *
- * @copyright  2013 Ruven Fehling <r.fehling@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-
-class GenerateActionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper  {
-
+class GenerateActionViewHelper extends AbstractTagBasedViewHelper {
 
 	/**
 	 * Arguments initialization
@@ -68,9 +49,9 @@ class GenerateActionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstract
 		$subscribedUser = $this->arguments['subscribedUser'];
 
 		$new = 1;
-		if(!empty($subscribedUser)) {
-			foreach($subscribedUser AS $user) {
-				if($currentUser == $user) {
+		if (!empty($subscribedUser)) {
+			foreach ($subscribedUser AS $user) {
+				if ($currentUser == $user) {
 					$new = 0;
 					break;
 				}
@@ -79,7 +60,4 @@ class GenerateActionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstract
 
 		return $new;
 	}
-
 }
-
-?>

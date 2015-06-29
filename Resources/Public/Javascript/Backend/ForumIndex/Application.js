@@ -11,7 +11,7 @@ Typo3Forum.ForumIndex.Application = Ext.extend(Ext.TabPanel, {
 				title: TYPO3.l10n.localize("ForumIndex_Grid_Title"),
 				dataProvider: Typo3Forum.ForumIndex.DataProvider
 			})
-		]
+		];
 		config.plugins = [new Ext.ux.plugins.FitToParent()];
 		Typo3Forum.ForumIndex.Application.superclass.constructor.call(this, config);
 	}

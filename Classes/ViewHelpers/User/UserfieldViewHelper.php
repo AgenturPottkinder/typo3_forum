@@ -53,8 +53,6 @@ class UserfieldViewHelper extends CObjectViewHelper {
 		return parent::render($userfield->getTyposcriptPath() . '.output', implode(' ', $data));
 	}
 
-
-
 	/**
 	 *
 	 * Helper method that converts any type of variable to a string.
@@ -77,5 +75,4 @@ class UserfieldViewHelper extends CObjectViewHelper {
 			}
 		}
 	}
-
 }

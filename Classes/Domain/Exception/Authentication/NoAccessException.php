@@ -25,7 +25,6 @@ namespace Mittwald\Typo3Forum\Domain\Exception\Authentication;
  *                                                                      */
 
 
-
 /**
  *
  * An exception that is thrown when the current user is not authorized to perform
@@ -43,9 +42,7 @@ namespace Mittwald\Typo3Forum\Domain\Exception\Authentication;
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-
 class NoAccessException extends \Mittwald\Typo3Forum\Domain\Exception\AbstractException {
-
 
 
 	/**

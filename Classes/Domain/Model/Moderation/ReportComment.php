@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -57,10 +58,11 @@ class ReportComment extends AbstractEntity {
 
 	/**
 	 * Constructor
-	 * @param  string  $text.
+	 *
+	 * @param  string $text .
 	 */
 	public function __construct($text = NULL) {
-		$this->text   = $text;
+		$this->text = $text;
 	}
 
 	/**
@@ -74,7 +76,19 @@ class ReportComment extends AbstractEntity {
 		if ($this->author === NULL) {
 			$this->author = new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
 		}
+
 		return $this->author;
+	}
+
+	/**
+	 * Sets the comment's author.
+	 *
+	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $author The author.
+	 *
+	 * @return void
+	 */
+	public function setAuthor(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $author) {
+		$this->author = $author;
 	}
 
 	/**
@@ -86,6 +100,17 @@ class ReportComment extends AbstractEntity {
 	}
 
 	/**
+	 * Sets the comment text.
+	 *
+	 * @param string $text The comment text.
+	 *
+	 * @return void
+	 */
+	public function setText($text) {
+		$this->text = $text;
+	}
+
+	/**
 	 * Gets the parent report.
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Moderation\Report The report.
 	 */
@@ -94,38 +119,21 @@ class ReportComment extends AbstractEntity {
 	}
 
 	/**
+	 * Sets the comment's report.
+	 *
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report
+	 *
+	 * @return void
+	 */
+	public function setReport(\Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report) {
+		$this->report = $report;
+	}
+
+	/**
 	 * Gets this comment's creation timestamp.
 	 * @return \DateTime The timestamp.
 	 */
 	public function getTimestamp() {
 		return $this->tstamp;
-	}
-
-	/**
-	 * Sets the comment's author.
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $author The author.
-	 * @return void
-	 */
-	public function setAuthor(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $author) {
-		$this->author = $author;
-	}
-
-	/**
-	 * Sets the comment text.
-	 * @param string $text The comment text.
-	 * @return void
-	 */
-	public function setText($text) {
-		$this->text = $text;
-	}
-
-	/**
-	 * Sets the comment's report.
-	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report
-	 * @return void
-	 */
-	public function setReport(\Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report) {
-		$this->report = $report;
 	}
 }

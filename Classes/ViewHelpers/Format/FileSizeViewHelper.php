@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Format;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,30 +23,14 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Format;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- *
  * ViewHelper that formats an integer value into a file size. The unit
  * which is to be used for the file size (B, KiB, MiB, ...) is determined
  * automatically.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage ViewHelpers_Format
- * @version    $Id$
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-
-class FileSizeViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
-
-
+class FileSizeViewHelper extends AbstractViewHelper {
 
 	/**
 	 * Diffentently scaled units for file sizes.
@@ -58,8 +41,6 @@ class FileSizeViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 	                            2 => 'MiB',
 	                            3 => 'GiB',
 	                            4 => 'TiB');
-
-
 
 	/**
 	 * Renders the file size.
@@ -80,7 +61,4 @@ class FileSizeViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 		return number_format($fileSize, $decimals, $decimalSeparator,
 		                     $thousandsSeparator) . ' ' . $this->suffixes[$suffix];
 	}
-
 }
-
-?>

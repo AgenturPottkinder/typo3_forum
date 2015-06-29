@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Repository;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -51,10 +52,11 @@ abstract class AbstractRepository extends Repository {
 	protected function createQueryWithFallbackStoragePage() {
 		$query = $this->createQuery();
 
-		$storagePageIds   = $query->getQuerySettings()->getStoragePageIds();
+		$storagePageIds = $query->getQuerySettings()->getStoragePageIds();
 		$storagePageIds[] = 0;
 
 		$query->getQuerySettings()->setStoragePageIds($storagePageIds);
+
 		return $query;
 	}
 

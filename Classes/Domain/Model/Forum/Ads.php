@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\Forum;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -64,7 +65,17 @@ class Ads extends AbstractEntity {
 	 */
 	protected $category;
 
-
+	/**
+	 * Gets the flag if ad is visible as boolean.
+	 * @return bool The flag if the ad is visible
+	 */
+	public function isActive() {
+		if ($this->getActive() == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	/**
 	 * Gets the flag if ad is visible.
@@ -74,17 +85,15 @@ class Ads extends AbstractEntity {
 		return $this->active;
 	}
 
-	
 	/**
-	 * Gets the flag if ad is visible as boolean.
-	 * @return bool The flag if the ad is visible
+	 * Sets the active flag.
+	 *
+	 * @param int $active Flag if ad is visible
+	 *
+	 * @return void
 	 */
-	public function isActive() {
-		if($this->getActive() == 1) {
-			return true;
-		} else {
-			return false;
-		}
+	public function setActive($active) {
+		$this->active = intval($active);
 	}
 
 	/**
@@ -96,6 +105,17 @@ class Ads extends AbstractEntity {
 	}
 
 	/**
+	 * Sets the url.
+	 *
+	 * @param string $url URL of a website
+	 *
+	 * @return void
+	 */
+	public function setUrl($url) {
+		$this->url = $url;
+	}
+
+	/**
 	 * Gets the alt-text of the advertisement
 	 * @return string The alt-text of the advertisement.
 	 */
@@ -103,6 +123,16 @@ class Ads extends AbstractEntity {
 		return $this->altText;
 	}
 
+	/**
+	 * Sets the alt-text.
+	 *
+	 * @param string $altText Alt-text for the image
+	 *
+	 * @return void
+	 */
+	public function setAltText($altText) {
+		$this->altText = $altText;
+	}
 
 	/**
 	 * Gets the absolute name of this advertisement.
@@ -110,6 +140,17 @@ class Ads extends AbstractEntity {
 	 */
 	public function getName() {
 		return $this->name;
+	}
+
+	/**
+	 * Sets the name.
+	 *
+	 * @param string $name The name of a advertisement
+	 *
+	 * @return void
+	 */
+	public function setName($name) {
+		$this->name = $name;
 	}
 
 	/**
@@ -121,6 +162,17 @@ class Ads extends AbstractEntity {
 	}
 
 	/**
+	 * Sets the path.
+	 *
+	 * @param string $path The path to the image
+	 *
+	 * @return void
+	 */
+	public function setPath($path) {
+		$this->path = $path;
+	}
+
+	/**
 	 * Gets the category of this advertisement.
 	 * @return int The category of the advertisement.
 	 */
@@ -129,64 +181,13 @@ class Ads extends AbstractEntity {
 	}
 
 	/**
-	 * Sets the active flag.
-	 *
-	 * @param int $active Flag if ad is visible
-	 * @return void
-	 */
-	public function setActive($active) {
-		$this->active = intval($active);
-	}
-
-	/**
-	 * Sets the url.
-	 *
-	 * @param string $url URL of a website
-	 * @return void
-	 */
-	public function setUrl($url) {
-		$this->url = $url;
-	}
-
-	/**
-	 * Sets the alt-text.
-	 *
-	 * @param string $altText Alt-text for the image
-	 * @return void
-	 */
-	public function setAltText($altText) {
-		$this->altText = $altText;
-	}
-
-	/**
 	 * Sets the category.
 	 *
 	 * @param int $category The category of ad
+	 *
 	 * @return void
 	 */
 	public function setCategory($category) {
 		$this->category = $category;
-	}
-
-
-	/**
-	 * Sets the name.
-	 *
-	 * @param string $name The name of a advertisement
-	 * @return void
-	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
-
-
-	/**
-	 * Sets the path.
-	 *
-	 * @param string $path The path to the image
-	 * @return void
-	 */
-	public function setPath($path) {
-		$this->path = $path;
 	}
 }

@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\Stats;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -23,7 +24,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Stats;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class Summary extends AbstractEntity {
 
@@ -56,11 +57,25 @@ class Summary extends AbstractEntity {
 	}
 
 	/**
+	 * @param string $type
+	 */
+	public function setType($type) {
+		$this->type = $type;
+	}
+
+	/**
 	 * Get the amount of this summary
 	 * @return int
 	 */
 	public function getAmount() {
 		return $this->amount;
+	}
+
+	/**
+	 * @param int $amount
+	 */
+	public function setAmount($amount) {
+		$this->amount = $amount;
 	}
 
 	/**
@@ -71,26 +86,11 @@ class Summary extends AbstractEntity {
 		return number_format($this->amount, 0, '', '.');
 	}
 
-
 	/**
 	 * Get the timestamp of this summary
 	 * @return int
 	 */
 	public function getTstamp() {
 		return $this->tstamp;
-	}
-
-	/**
-	 * @param string $type
-	 */
-	public function setType($type) {
-		$this->type = $type;
-	}
-
-	/**
-	 * @param int $amount
-	 */
-	public function setAmount($amount) {
-		$this->amount = $amount;
 	}
 }

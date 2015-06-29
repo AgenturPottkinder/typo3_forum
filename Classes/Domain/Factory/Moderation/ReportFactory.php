@@ -41,17 +41,19 @@ class ReportFactory extends AbstractFactory {
 	 * Creates a new User report.
 	 *
 	 * @param ReportComment $firstComment The first report comment for this report.
+	 *
 	 * @return UserReport
 	 *
 	 */
 	public function createUserReport(ReportComment $firstComment) {
-		$user = & $this->getCurrentUser();
+		$user = &$this->getCurrentUser();
 		$firstComment->setAuthor($user);
 		/** @var UserReport $report */
 		$report = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\UserReport');
 		$report->setWorkflowStatus($this->workflowStatusRepository->findInitial());
 		$report->setReporter($user);
 		$report->addComment($firstComment);
+
 		return $report;
 	}
 
@@ -60,15 +62,17 @@ class ReportFactory extends AbstractFactory {
 	 * Creates a new User report.
 	 *
 	 * @param ReportComment $firstComment The first report comment for this report.
+	 *
 	 * @return object
 	 */
 	public function createPostReport(ReportComment $firstComment) {
-		$user = & $this->getCurrentUser();
+		$user = &$this->getCurrentUser();
 		$firstComment->setAuthor($user);
 		$report = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\PostReport');
 		$report->setWorkflowStatus($this->workflowStatusRepository->findInitial());
 		$report->setReporter($user);
 		$report->addComment($firstComment);
+
 		return $report;
 	}
 

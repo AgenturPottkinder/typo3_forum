@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\Format;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -23,7 +24,6 @@ namespace Mittwald\Typo3Forum\Domain\Model\Format;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Domain\Model\Format\AbstractTextParserElement;
 use Mittwald\Typo3Forum\TextParser\Panel\MarkItUpExportableInterface;
 
 /**
@@ -39,7 +39,6 @@ use Mittwald\Typo3Forum\TextParser\Panel\MarkItUpExportableInterface;
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-
 class BBCode extends AbstractTextParserElement implements MarkItUpExportableInterface {
 
 	/**
@@ -63,13 +62,14 @@ class BBCode extends AbstractTextParserElement implements MarkItUpExportableInte
 
 	/**
 	 * Constructor.
+	 *
 	 * @param string $bbcodeWrap
 	 * @param string $regularExpression
 	 * @param string $regularExpressionReplacement
 	 */
 	public function __construct($bbcodeWrap = NULL, $regularExpression = NULL, $regularExpressionReplacement = NULL) {
-		$this->bbcodeWrap                   = $bbcodeWrap;
-		$this->regularExpression            = $regularExpression;
+		$this->bbcodeWrap = $bbcodeWrap;
+		$this->regularExpression = $regularExpression;
 		$this->regularExpressionReplacement = $regularExpressionReplacement;
 	}
 
@@ -82,11 +82,37 @@ class BBCode extends AbstractTextParserElement implements MarkItUpExportableInte
 	}
 
 	/**
+	 * @param string $regularExpression
+	 */
+	public function setRegularExpression($regularExpression) {
+		$this->regularExpression = $regularExpression;
+	}
+
+	/**
 	 * Gets the replacement pattern for the regular expression.
 	 * @return string The replacement pattern for the regular expression.
 	 */
 	public function getRegularExpressionReplacement() {
 		return $this->regularExpressionReplacement;
+	}
+
+	/**
+	 * @param string $regularExpressionReplacement
+	 */
+	public function setRegularExpressionReplacement($regularExpressionReplacement) {
+		$this->regularExpressionReplacement = $regularExpressionReplacement;
+	}
+
+	/**
+	 * Exports this bb code object as a plain array, that can be used in
+	 * a MarkItUp configuration object.
+	 * @return array A plain array describing this bb code
+	 */
+	public function exportForMarkItUp() {
+		return array('name' => $this->getName(),
+			'className' => $this->getIconClass(),
+			'openWith' => $this->getLeftBBCode(),
+			'closeWith' => $this->getRightBBCode());
 	}
 
 	/**
@@ -106,35 +132,9 @@ class BBCode extends AbstractTextParserElement implements MarkItUpExportableInte
 	}
 
 	/**
-	 * Exports this bb code object as a plain array, that can be used in
-	 * a MarkItUp configuration object.
-	 * @return array A plain array describing this bb code
-	 */
-	public function exportForMarkItUp() {
-		return array('name'      => $this->getName(),
-		             'className' => $this->getIconClass(),
-		             'openWith'  => $this->getLeftBBCode(),
-		             'closeWith' => $this->getRightBBCode());
-	}
-
-	/**
 	 * @param string $bbcodeWrap
 	 */
 	public function setBbcodeWrap($bbcodeWrap) {
 		$this->bbcodeWrap = $bbcodeWrap;
-	}
-
-	/**
-	 * @param string $regularExpression
-	 */
-	public function setRegularExpression($regularExpression) {
-		$this->regularExpression = $regularExpression;
-	}
-
-	/**
-	 * @param string $regularExpressionReplacement
-	 */
-	public function setRegularExpressionReplacement($regularExpressionReplacement) {
-		$this->regularExpressionReplacement = $regularExpressionReplacement;
 	}
 }

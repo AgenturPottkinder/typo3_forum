@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -39,13 +40,16 @@ interface SubscribeableInterface {
 
 	/**
 	 * Adds a new subscriber.
+	 *
 	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user The new subscriber.
+	 *
 	 * @return void
 	 */
 	public function addSubscriber(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user);
 
 	/**
 	 * Removes a subscriber.
+	 *
 	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user The subscriber to be removed.
 	 */
 	public function removeSubscriber(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user);

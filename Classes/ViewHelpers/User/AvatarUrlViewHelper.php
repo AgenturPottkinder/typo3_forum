@@ -24,28 +24,12 @@ namespace Mittwald\Typo3Forum\ViewHelpers\User;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
-
+use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 
 /**
- *
  * ViewHelper that renders a user's avatar.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage ViewHelpers_User
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class AvatarUrlViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
-
-
+class AvatarUrlViewHelper extends CObjectViewHelper {
 
 	/**
 	 * An instance of the Extbase Signal-/Slot-Dispatcher.
@@ -84,5 +68,4 @@ class AvatarUrlViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper
 		return $avatarFilename ;
 
 	}
-
 }

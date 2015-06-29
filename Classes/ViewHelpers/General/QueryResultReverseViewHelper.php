@@ -3,7 +3,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\General;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Ruven Fehling <r.fehling@mittwald.de>                  *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,24 +23,9 @@ namespace Mittwald\Typo3Forum\ViewHelpers\General;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper;
 
-
-/**
- *
- * ViewHelper that renders a big button.
- *
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    Typo3Forum
- * @subpackage ViewHelpers_General
- *
- * @copyright  2013 Ruven Fehling <r.fehling@mittwald.de>
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-class QueryResultReverseViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper {
-
+class QueryResultReverseViewHelper extends ActionViewHelper {
 
 	public function initializeArguments() {
 		parent::initializeArguments();
@@ -48,7 +33,11 @@ class QueryResultReverseViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\Act
 		$this->registerArgument('array', 'array', 'Array to be reverted', TRUE, array());
 	}
 
-
+	/**
+	 * render
+	 *
+	 * @return array
+	 */
 	public function render() {
 		$oldArray = $this->arguments['array'];
 		$newArray = array();

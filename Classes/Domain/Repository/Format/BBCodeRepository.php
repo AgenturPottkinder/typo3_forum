@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Repository\Format;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -51,6 +52,7 @@ class BBCodeRepository extends AbstractRepository {
 	public function findAll() {
 		$query = $this->createQueryWithFallbackStoragePage();
 		$query->setOrderings(array('uid' => 'ASC'));
+
 		return $query->execute();
 	}
 

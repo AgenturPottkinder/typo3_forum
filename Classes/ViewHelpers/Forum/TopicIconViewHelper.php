@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Forum;
 /* *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,27 +23,12 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 
 /**
- *
  * ViewHelper that renders a topic icon.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage ViewHelpers_Forum
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
 class TopicIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
-
-
 
 	/**
 	 * The frontend user repository.
@@ -52,7 +36,6 @@ class TopicIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper
 	 * @inject
 	 */
 	protected $frontendUserRepository = NULL;
-
 
 	/**
 	 *
@@ -65,7 +48,6 @@ class TopicIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper
 		                        'Amount of posts required for a topic to contain in order to be marked as important',
 		                        FALSE, 15);
 	}
-
 
 	/**
 	 *
@@ -87,8 +69,6 @@ class TopicIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper
         }
 
 	}
-
-
 
 	/**
 	 *
@@ -112,7 +92,4 @@ class TopicIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper
 			             'solved'    => $topic->getIsSolved());
 		}
 	}
-
-
-
 }

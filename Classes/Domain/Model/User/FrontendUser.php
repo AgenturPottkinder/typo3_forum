@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\User;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -283,16 +284,6 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	protected $typoScriptService;
 
 	/**
-	 * initializeObject
-	 *
-	 * @return void
-	 */
-	public function initializeObject() {
-		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
-		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
-	}
-
-	/**
 	 * Constructor.
 	 *
 	 * @param string $username The user's username.
@@ -305,23 +296,13 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	}
 
 	/**
-	 * Returns the usergroups. Keep in mind that the property is called "usergroup"
-	 * although it can hold several usergroups.
+	 * initializeObject
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage An object storage containing the usergroup
-	 * @api
+	 * @return void
 	 */
-	public function getUsergroup() {
-		return $this->usergroup;
-	}
-
-	/**
-	 * Gets the points of this user
-	 *
-	 * @return integer
-	 */
-	public function getPoints() {
-		return $this->points;
+	public function initializeObject() {
+		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
+		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
 
 	/**
@@ -431,15 +412,6 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	}
 
 	/**
-	 * Get the rank of this user
-	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\Rank
-	 */
-	public function  getRank() {
-		return $this->rank;
-	}
-
-	/**
 	 * Gets the private messages of this user.
 	 *
 	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\PrivateMessages>
@@ -456,15 +428,6 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 */
 	public function getTopicSubscriptions() {
 		return $this->topicSubscriptions;
-	}
-
-	/**
-	 * Gets the helpful count of this user.
-	 *
-	 * @return integer The helpful count.
-	 */
-	public function getHelpfulCount() {
-		return $this->helpfulCount;
 	}
 
 	/**
@@ -506,6 +469,17 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	}
 
 	/**
+	 * Get the age of a user
+	 *
+	 * @return int
+	 */
+	public function getAge() {
+		$age = (time() - $this->getDateOfBirth()) / (3600 * 24 * 365);
+
+		return floor($age);
+	}
+
+	/**
 	 * Get the date_of_birth value from fe_users
 	 *
 	 * @return int
@@ -515,21 +489,13 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	}
 
 	/**
-	 * Get the age of a user
-	 *
-	 * @return int
-	 */
-	public function getAge() {
-		$age = (time() - $this->getDateOfBirth()) / (3600 * 24 * 365);
-		return floor($age);
-	}
-
-	/**
 	 * Performs an access check for this post.
 	 *
 	 * @access private
+	 *
 	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
-	 * @param  string $accessType
+	 * @param  string                                              $accessType
+	 *
 	 * @return boolean
 	 */
 	public function checkAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL, $accessType = 'moderate') {
@@ -540,14 +506,27 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 						return TRUE;
 					}
 				}
+
 				return FALSE;
 		}
+	}
+
+	/**
+	 * Returns the usergroups. Keep in mind that the property is called "usergroup"
+	 * although it can hold several usergroups.
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage An object storage containing the usergroup
+	 * @api
+	 */
+	public function getUsergroup() {
+		return $this->usergroup;
 	}
 
 	/**
 	 * Determines if this user is member of a specific group.
 	 *
 	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup $checkGroup
+	 *
 	 * @return boolean
 	 */
 	public function isInGroup(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup $checkGroup) {
@@ -556,6 +535,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 				return TRUE;
 			}
 		}
+
 		return FALSE;
 	}
 
@@ -631,6 +611,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 		if ($this->image) {
 			$imageDirectoryName = $this->settings['images']['avatar']['uploadDir'];
 			$imageFilename = rtrim($imageDirectoryName, '/') . '/' . $this->image;
+
 			return file_exists($imageFilename) ? $imageFilename : NULL;
 		}
 
@@ -645,18 +626,19 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 				$image = \TYPO3\CMS\Core\Utility\GeneralUtility::getUrl('https://secure.gravatar.com/avatar/' . $emailHash . '.jpg');
 				file_put_contents(PATH_site . $temporaryFilename, $image);
 			}
+
 			return $temporaryFilename;
 		}
 
 		switch ($this->gender) {
 			case '0':
-				$imageFilename =  $this->settings['images']['avatar']['dummyMale'];
+				$imageFilename = $this->settings['images']['avatar']['dummyMale'];
 				break;
 			case '1':
-				$imageFilename =  $this->settings['images']['avatar']['dummyFemale'];
+				$imageFilename = $this->settings['images']['avatar']['dummyFemale'];
 				break;
 		}
-		if ( $imageFilename <> '' ) {
+		if ($imageFilename <> '') {
 			return file_exists($imageFilename) ? $imageFilename : NULL;
 		}
 
@@ -665,18 +647,12 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	}
 
 	/**
-	 * Returns all this user's contact information. In order to keep this extensible and
-	 * not to add too many columns to the already overloaded fe_users table, these data is
-	 * stored in JSON serialized format in a single column.
+	 * Alias for isAnonymous().
 	 *
-	 * @return array All contact information for this user.
+	 * @return bool TRUE when this user is an anonymous user.
 	 */
-	public function getContactData() {
-		$decoded = json_decode($this->contact, TRUE);
-		if ($decoded === NULL) {
-			return array();
-		}
-		return $decoded;
+	public function getAnonymous() {
+		return $this->isAnonymous();
 	}
 
 	/**
@@ -689,26 +665,12 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	}
 
 	/**
-	 * Alias for isAnonymous().
-	 *
-	 * @return bool TRUE when this user is an anonymous user.
-	 */
-	public function getAnonymous() {
-		return $this->isAnonymous();
-	}
-
-
-
-	/*
-	 * SETTERS
-	 */
-
-	/**
 	 * Subscribes this user to a subscribeable object, like a topic or a forum.
 	 *
 	 * @param \Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $object
 	 *                             The object that is to be subscribed. This may
 	 *                             either be a topic or a forum.
+	 *
 	 * @return void
 	 */
 	public function addFavSubscription(\Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $object) {
@@ -724,6 +686,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @param \Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $object
 	 *                             The object that is to be unsubscribed.
+	 *
 	 * @return void
 	 */
 	public function removeFavSubscription(\Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $object) {
@@ -740,6 +703,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 * @param \Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $object
 	 *                             The object that is to be subscribed. This may
 	 *                             either be a topic or a forum.
+	 *
 	 * @return void
 	 */
 	public function addSubscription(\Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $object) {
@@ -755,6 +719,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @param \Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $object
 	 *                             The object that is to be unsubscribed.
+	 *
 	 * @return void
 	 */
 	public function removeSubscription(\Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $object) {
@@ -765,11 +730,18 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 		}
 	}
 
+
+
+	/*
+	 * SETTERS
+	 */
+
 	/**
 	 * Adds a readable object to the list of objects read by this user.
 	 *
 	 * @param  \Mittwald\Typo3Forum\Domain\Model\ReadableInterface $readObject
 	 *                             The object that is to be marked as read.
+	 *
 	 * @return void
 	 */
 	public function addReadObject(\Mittwald\Typo3Forum\Domain\Model\ReadableInterface $readObject) {
@@ -783,6 +755,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @param  \Mittwald\Typo3Forum\Domain\Model\ReadableInterface $readObject
 	 *                             The object that is to be marked as unread.
+	 *
 	 * @return void
 	 */
 	public function removeReadObject(\Mittwald\Typo3Forum\Domain\Model\ReadableInterface $readObject) {
@@ -820,19 +793,10 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	}
 
 	/**
-	 * Increase the user's post count.
-	 *
-	 * @return void
-	 */
-	public function increasePostCount() {
-		$this->postCount++;
-		$this->increasePostCountSeason(1);
-	}
-
-	/**
 	 * Decrease the user's post count of the current season (Widgets).
 	 *
 	 * @param int $by
+	 *
 	 * @return void
 	 */
 	public function decreasePostCountSeason($by = 1) {
@@ -843,9 +807,20 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	}
 
 	/**
+	 * Increase the user's post count.
+	 *
+	 * @return void
+	 */
+	public function increasePostCount() {
+		$this->postCount++;
+		$this->increasePostCountSeason(1);
+	}
+
+	/**
 	 * Increase the user's post count of the current season (Widgets)
 	 *
 	 * @param int $by
+	 *
 	 * @return void
 	 */
 	public function increasePostCountSeason($by = 1) {
@@ -859,6 +834,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 * Decrease the user's helpful count of the current season (Widgets)
 	 *
 	 * @param int $by
+	 *
 	 * @return void
 	 */
 	public function decreaseHelpfulCountSeason($by = 1) {
@@ -866,19 +842,6 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 			$by = 1;
 		}
 		$this->helpfulCountSeason = $this->helpfulCountSeason - $by;
-	}
-
-	/**
-	 * Increase the user's helpful count of the current season (Widgets)
-	 *
-	 * @param int $by
-	 * @return void
-	 */
-	public function increaseHelpfulCountSeason($by) {
-		if ($by < 0) {
-			$by = 1;
-		}
-		$this->helpfulCountSeason = $this->helpfulCountSeason + $by;
 	}
 
 	/**
@@ -921,6 +884,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 * Increase the user's points.
 	 *
 	 * @param int $by The amount of points to be added
+	 *
 	 * @return void
 	 */
 	public function increasePoints($by) {
@@ -943,9 +907,37 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	}
 
 	/**
+	 * Get the rank of this user
+	 *
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\Rank
+	 */
+	public function  getRank() {
+		return $this->rank;
+	}
+
+	/**
+	 * Set the rank of this user
+	 *
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\Rank $rank
+	 */
+	public function setRank(\Mittwald\Typo3Forum\Domain\Model\User\Rank $rank) {
+		$this->rank = $rank;
+	}
+
+	/**
+	 * Gets the points of this user
+	 *
+	 * @return integer
+	 */
+	public function getPoints() {
+		return $this->points;
+	}
+
+	/**
 	 * Decrease the user's points.
 	 *
 	 * @param int $by The amount of points to be removed
+	 *
 	 * @return void
 	 */
 	public function decreasePoints($by) {
@@ -967,6 +959,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 * a JSON serialized format.
 	 *
 	 * @param  array $values All contact data of this user.
+	 *
 	 * @return void
 	 */
 	public function setContactData(array $values) {
@@ -979,6 +972,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @param  $type  string The contact record key (e.g. "twitter", "facebook", "icq", ...)
 	 * @param  $value string The new value. Set to a FALSE value to unset.
+	 *
 	 * @return void
 	 */
 	public function setContactDataItem($type, $value) {
@@ -995,6 +989,22 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	}
 
 	/**
+	 * Returns all this user's contact information. In order to keep this extensible and
+	 * not to add too many columns to the already overloaded fe_users table, these data is
+	 * stored in JSON serialized format in a single column.
+	 *
+	 * @return array All contact information for this user.
+	 */
+	public function getContactData() {
+		$decoded = json_decode($this->contact, TRUE);
+		if ($decoded === NULL) {
+			return array();
+		}
+
+		return $decoded;
+	}
+
+	/**
 	 * Sets the helpfulCount value +1
 	 *
 	 * @return void
@@ -1006,9 +1016,19 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	}
 
 	/**
+	 * Gets the helpful count of this user.
+	 *
+	 * @return integer The helpful count.
+	 */
+	public function getHelpfulCount() {
+		return $this->helpfulCount;
+	}
+
+	/**
 	 * Sets the helpfulCount value
 	 *
 	 * @param int $count
+	 *
 	 * @return void
 	 * @api
 	 */
@@ -1024,11 +1044,16 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	}
 
 	/**
-	 * Set the rank of this user
+	 * Increase the user's helpful count of the current season (Widgets)
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\Rank $rank
+	 * @param int $by
+	 *
+	 * @return void
 	 */
-	public function setRank(\Mittwald\Typo3Forum\Domain\Model\User\Rank $rank) {
-		$this->rank = $rank;
+	public function increaseHelpfulCountSeason($by) {
+		if ($by < 0) {
+			$by = 1;
+		}
+		$this->helpfulCountSeason = $this->helpfulCountSeason + $by;
 	}
 }

@@ -25,7 +25,6 @@ namespace Mittwald\Typo3Forum\Domain\Exception\TextParser;
  *                                                                      */
 
 
-
 /**
  *
  * General text parser exception.
@@ -42,9 +41,7 @@ namespace Mittwald\Typo3Forum\Domain\Exception\TextParser;
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-
 class Exception extends \Mittwald\Typo3Forum\Domain\Exception\AbstractException {
-
 
 
 	/**

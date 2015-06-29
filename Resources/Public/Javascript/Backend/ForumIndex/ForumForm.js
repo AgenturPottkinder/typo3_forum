@@ -53,7 +53,7 @@ Typo3Forum.ForumIndex.ForumForm = Ext.extend(Ext.form.FormPanel, {
 		config.api = {
             load: config.dataProvider.getForum,
             submit: config.dataProvider.saveForum
-        }
+        };
 		config.paramOrder = ['__identity'];
 
 		Typo3Forum.ForumIndex.ForumForm.superclass.constructor.call(this, config);

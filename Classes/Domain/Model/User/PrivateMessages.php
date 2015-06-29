@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\User;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -84,11 +85,33 @@ class PrivateMessages extends AbstractEntity {
 	}
 
 	/**
+	 * Get the date this message has been sent
+	 *
+	 * @param \DateTime $crdate
+	 *
+	 * @return void
+	 */
+	public function setCrdate(\DateTime $crdate) {
+		$this->crdate = $crdate;
+	}
+
+	/**
 	 * Get the type of this pm
 	 * @return int
 	 */
 	public function getType() {
 		return $this->type;
+	}
+
+	/**
+	 * Get the type of this pm
+	 *
+	 * @param int $type
+	 *
+	 * @return void
+	 */
+	public function setType($type) {
+		$this->type = $type;
 	}
 
 	/**
@@ -102,9 +125,25 @@ class PrivateMessages extends AbstractEntity {
 		if ($this->feuser === NULL) {
 			$this->feuser = new AnonymousFrontendUser();
 		}
+
 		return $this->feuser;
 	}
 
+	/**
+	 * Sets the user
+	 *
+	 * @param FrontendUser $feuser
+	 *
+	 * @return void
+	 */
+	public function setFeuser(FrontendUser $feuser) {
+		$this->feuser = $feuser;
+	}
+
+
+	/**
+	 * SETTER
+	 */
 
 	/**
 	 * Get the other User who is involved in this message
@@ -117,16 +156,38 @@ class PrivateMessages extends AbstractEntity {
 		if ($this->opponent === NULL) {
 			$this->opponent = new AnonymousFrontendUser();
 		}
+
 		return $this->opponent;
 	}
 
+	/**
+	 * Sets the opponent user
+	 *
+	 * @param FrontendUser $opponent
+	 *
+	 * @return void
+	 */
+	public function setOpponent(FrontendUser $opponent) {
+		$this->opponent = $opponent;
+	}
 
 	/**
 	 * Get if the recipient already read this message
 	 * @return int The flag
 	 */
 	public function getUserRead() {
-		return (int)$this->userRead;
+		return (int) $this->userRead;
+	}
+
+	/**
+	 * Sets the flag
+	 *
+	 * @param int $userRead
+	 *
+	 * @return void
+	 */
+	public function setUserRead($userRead) {
+		$this->userRead = $userRead;
 	}
 
 	/**
@@ -137,61 +198,9 @@ class PrivateMessages extends AbstractEntity {
 		return $this->message;
 	}
 
-
-	/**
-	 * SETTER
-	 */
-
-	/**
-	 * Get the date this message has been sent
-	 * @param \DateTime $crdate
-	 * @return void
-	 */
-	public function setCrdate(\DateTime $crdate) {
-		$this->crdate = $crdate;
-	}
-
-	/**
-	 * Get the type of this pm
-	 * @param int $type
-	 * @return void
-	 */
-	public function setType($type) {
-		$this->type = $type;
-	}
-
-	/**
-	 * Sets the user
-	 * @param FrontendUser $feuser
-	 * @return void
-	 */
-	public function setFeuser(FrontendUser $feuser) {
-		$this->feuser = $feuser;
-	}
-
-
-	/**
-	 * Sets the opponent user
-	 * @param FrontendUser $opponent
-	 * @return void
-	 */
-	public function setOpponent(FrontendUser $opponent) {
-		$this->opponent = $opponent;
-	}
-
-
-	/**
-	 * Sets the flag
-	 * @param int $userRead
-	 * @return void
-	 */
-	public function setUserRead($userRead) {
-		$this->userRead = $userRead;
-	}
-
-
 	/**
 	 * Sets the message of this pm
+	 *
 	 * @param PrivateMessagesText $message
 	 */
 	public function setMessage(PrivateMessagesText $message) {

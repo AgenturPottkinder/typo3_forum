@@ -30,20 +30,22 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 class NotificationRepository extends Repository {
 
 
-
 	/**
 	 * Find notifications for a specific user
+	 *
 	 * @param FrontendUser $user
-	 * @param int $limit
+	 * @param int          $limit
+	 *
 	 * @return \Mittwald\Typo3Forum\Domain\Model\User\Notification[]
 	 */
-	public function findNotificationsForUser(FrontendUser $user, $limit=0) {
+	public function findNotificationsForUser(FrontendUser $user, $limit = 0) {
 		$query = $this->createQuery();
-		$query->matching($query->equals('feuser',$user));
+		$query->matching($query->equals('feuser', $user));
 		$query->setOrderings(array('post.crdate' => 'DESC'));
-		if($limit > 0) {
+		if ($limit > 0) {
 			$query->setLimit($limit);
 		}
+
 		return $query->execute();
 	}
 

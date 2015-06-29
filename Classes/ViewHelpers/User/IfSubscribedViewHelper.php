@@ -4,8 +4,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\User;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -30,28 +29,12 @@ use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Fluid\ViewHelpers\IfViewHelper;
 
 /**
- *
  * ViewHelper that renders its contents, when a certain user has subscribed
  * a specific object.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage ViewHelpers_User
- * @version    $Id$
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
 class IfSubscribedViewHelper extends IfViewHelper {
 
-
-
 	/**
-	 *
 	 * Renders the contents of this view helper, when a user has subscribed a
 	 * specific subscribeable object.
 	 *
@@ -60,9 +43,7 @@ class IfSubscribedViewHelper extends IfViewHelper {
 	 *                             for the contents to be rendered.
 	 * @param FrontendUser      $user
 	 * @return string
-	 *
 	 */
-
 	public function render(SubscribeableInterface $object, FrontendUser      $user = NULL) {
 		if ($user === NULL) {
 			$user =& \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Mittwald\\Typo3Forum\\Domain\\Repository\\User\\FrontendUserRepository')->findCurrent();
@@ -75,7 +56,4 @@ class IfSubscribedViewHelper extends IfViewHelper {
 		}
 		return $this->renderElseChild();
 	}
-
 }
-
-?>

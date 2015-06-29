@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Format;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,26 +23,12 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Format;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- *
  * ViewHelper that performs text parsing operations on text input.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage ViewHelpers_Format
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class TextParserViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
-
+class TextParserViewHelper extends AbstractViewHelper {
 
 	/**
 	 * The text parser service
@@ -51,7 +36,6 @@ class TextParserViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractView
 	 * @inject
 	 */
 	protected $textParserService;
-
 
 	/**
 	 * An instance of the post repository class. The repository is needed

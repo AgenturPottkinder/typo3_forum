@@ -23,8 +23,6 @@ namespace Mittwald\Typo3Forum\Domain\Model\User\Userfield;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield;
-
 /**
  * Special userfield that renders its contents as plain text.
  */

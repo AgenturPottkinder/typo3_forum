@@ -22,7 +22,7 @@
  *                                                                      */
 
 
-Ext.ns('Typo3Forum.ForumIndex')
+Ext.ns('Typo3Forum.ForumIndex');
 
 Typo3Forum.ForumIndex.ForumTreeContextMenu = Ext.extend(Ext.menu.Menu, {
 
@@ -39,7 +39,7 @@ Typo3Forum.ForumIndex.ForumTreeContextMenu = Ext.extend(Ext.menu.Menu, {
 						text    : TYPO3.l10n.localize('ForumIndex_NewForum_DefaultTitle'),
 						iconCls : 'tx-typo3forum-icon-16-forum',
 						children: []
-					})
+					});
 					this.selectedNode.appendChild(newForumNode);
 					this.tree.treeEditor.triggerEdit(newForumNode);
 				}
@@ -67,7 +67,7 @@ Typo3Forum.ForumIndex.ForumTreeContextMenu = Ext.extend(Ext.menu.Menu, {
 				text   : TYPO3.l10n.localize('ForumIndex_Grid_Context_EditAcls'),
 				iconCls: 'tx-typo3forum-icon-16-forum-acledit'
 			})
-		]
+		];
 
 		Typo3Forum.ForumIndex.ForumTreeContextMenu.superclass.constructor.call(this, config);
 	},

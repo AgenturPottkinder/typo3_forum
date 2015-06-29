@@ -77,6 +77,7 @@ abstract class AbstractFactory implements SingletonInterface {
 		$thisClass = get_class($this);
 		$thisClass = preg_replace('/Factory/', 'Model', $thisClass);
 		$thisClass = preg_replace('/Model$/', '', $thisClass);
+
 		return $thisClass;
 	}
 

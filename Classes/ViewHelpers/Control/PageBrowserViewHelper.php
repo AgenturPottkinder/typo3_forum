@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Control;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,42 +23,23 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Control;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- *
  * ViewHelper that renders a page browser.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage ViewHelpers_Control
- * @version    $Id$
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
 
-class PageBrowserViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
-
-
+class PageBrowserViewHelper extends AbstractViewHelper {
 
 	/**
-	 *
 	 * Renders the page browser.
 	 *
 	 * @param  integer $elements     Number of elements
 	 * @param  integer $itemsPerPage Number of items per page
 	 * @param  integer $currentPage  Current page
 	 * @return  string               HTML content of the page browser.
-	 *
 	 */
-
 	public function render($elements, $itemsPerPage, $currentPage = 1) {
-
 		$output    = '';
 		$pageCount = ceil($elements / $itemsPerPage);
 
@@ -74,21 +54,15 @@ class PageBrowserViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVie
 		$output .= $this->renderChildItemWithPage($pageCount, '»');
 
 		return $output;
-
 	}
 
-
-
 	/**
-	 *
 	 * Renders a single page link.
 	 *
 	 * @param  integer $pageNum   The page number
 	 * @param  integer $pageLabel Page label
 	 * @return  string            Rendered page link
-	 *
 	 */
-
 	private function renderChildItemWithPage($pageNum, $pageLabel) {
 		$this->templateVariableContainer->add('pageLabel', $pageLabel);
 		$this->templateVariableContainer->add('page', $pageNum);
@@ -97,7 +71,4 @@ class PageBrowserViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVie
 		$this->templateVariableContainer->remove('page');
 		return $output;
 	}
-
 }
-
-?>

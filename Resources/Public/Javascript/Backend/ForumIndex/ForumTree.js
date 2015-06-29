@@ -22,7 +22,7 @@
  *                                                                      */
 
 
-Ext.ns('Typo3Forum.ForumIndex')
+Ext.ns('Typo3Forum.ForumIndex');
 
 
 /**

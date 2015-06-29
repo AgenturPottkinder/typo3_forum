@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\Forum;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -24,7 +25,6 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *                                                                      */
 
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
-use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 
 /**
  * A shadow topic. This type of topic is created when a topic is
@@ -49,11 +49,26 @@ class ShadowTopic extends Topic {
 	}
 
 	/**
+	 * Sets the target topic. Also reads the topic subject and the last post pointer
+	 * from the target object.
+	 *
+	 * @param Topic $topic The target topic.
+	 *
+	 * @return void
+	 */
+	public function setTarget(Topic $topic) {
+		$this->target = $topic;
+		$this->lastPost = $topic->getLastPost();
+		$this->lastPostCrdate = $this->lastPost->getTimestamp();
+		$this->subject = $topic->getSubject();
+	}
+
+	/**
 	 * Checks if a user can create new posts inside this topic. Since this topic is
 	 * only a shadow topic, this method will ALWAYS return FALSE.
 	 *
 	 * @param  FrontendUser $user       The user.
-	 * @param string                                     $accessType The access type to be checked.
+	 * @param string        $accessType The access type to be checked.
 	 *
 	 * @return boolean TRUE, if the user can create new posts. Always FALSE.
 	 */
@@ -70,23 +85,10 @@ class ShadowTopic extends Topic {
 	 * only a shadow topic, this method will ALWAYS return FALSE.
 	 *
 	 * @param  FrontendUser $user The user.
+	 *
 	 * @return boolean TRUE, if the user can create new posts. Always FALSE.
 	 */
 	public function checkNewPostAccess(FrontendUser $user = NULL) {
 		return FALSE;
-	}
-
-	/**
-	 * Sets the target topic. Also reads the topic subject and the last post pointer
-	 * from the target object.
-	 *
-	 * @param Topic $topic The target topic.
-	 * @return void
-	 */
-	public function setTarget(Topic $topic) {
-		$this->target         = $topic;
-		$this->lastPost       = $topic->getLastPost();
-		$this->lastPostCrdate = $this->lastPost->getTimestamp();
-		$this->subject        = $topic->getSubject();
 	}
 }

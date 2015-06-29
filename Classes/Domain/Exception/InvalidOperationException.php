@@ -25,7 +25,6 @@ namespace Mittwald\Typo3Forum\Domain\Exception;
  *                                                                      */
 
 
-
 /**
  *
  * General text parser exception.
@@ -42,9 +41,7 @@ namespace Mittwald\Typo3Forum\Domain\Exception;
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-
 class InvalidOperationException extends \Mittwald\Typo3Forum\Domain\Exception\AbstractException {
-
 
 
 	/**

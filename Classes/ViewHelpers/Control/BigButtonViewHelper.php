@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Control;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,31 +23,19 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Control;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper;
 
 /**
- *
  * ViewHelper that renders a big button.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage ViewHelpers_Control
- * @version    $Id$
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class BigButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper {
+class BigButtonViewHelper extends ActionViewHelper {
 
-
-
+	/**
+	 * iconBaseClass
+	 *
+	 * @var string
+	 */
 	protected $iconBaseClass = 'tx-typo3forum-icon-32-';
-
-
 
 	public function initializeArguments() {
 		parent::initializeArguments();
@@ -58,14 +45,10 @@ class BigButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHe
 		$this->registerArgument('iconClass', 'string', 'Classname for the icon');
 	}
 
-
-
 	public function initialize() {
 		parent::initialize();
 		$this->tag->addAttribute('class', 'tx-typo3forum-button-big');
 	}
-
-
 
 	public function renderChildren() {
 		$content   = parent::renderChildren();
@@ -88,9 +71,4 @@ class BigButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHe
 		}
 		return $content;
 	}
-
-
-
 }
-
-?>

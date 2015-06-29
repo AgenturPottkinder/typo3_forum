@@ -40,18 +40,17 @@ use Mittwald\Typo3Forum\Domain\Repository\AbstractRepository;
 class UserfieldRepository extends AbstractRepository {
 
 	/**
-	 * A list of core userfields.
-	 *
-	 * @var \Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield
-	 */
-	private $coreUserfields = NULL;
-
-	/**
 	 * ConfigurationManagerInterface
 	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
 	 * @inject
 	 */
 	protected $configurationManagerInterface = NULL;
+	/**
+	 * A list of core userfields.
+	 *
+	 * @var \Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield
+	 */
+	private $coreUserfields = NULL;
 
 	/**
 	 * Creates a new instance of the userfield repository.
@@ -68,6 +67,20 @@ class UserfieldRepository extends AbstractRepository {
 	 * REPOSITORY METHODS
 	 */
 
+	/**
+	 * Finds all userfields. This method loads all userfields from the database
+	 * and merges the result with the core userfields that are loaded from the
+	 * typoscript setup.
+	 *
+	 * @return Traversable<\Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield>
+	 *                             All userfields, both from the database and
+	 *                             the core typoscript setup.
+	 */
+	public function findAll() {
+		$query = $this->createQueryWithFallbackStoragePage();
+
+		return array_merge($this->findCoreUserfields(), $query->execute()->toArray());
+	}
 
 	/**
 	 * Finds all core userfields. These are stored in the typoscript setting
@@ -105,21 +118,6 @@ class UserfieldRepository extends AbstractRepository {
 		}
 
 		return $this->coreUserfields;
-	}
-
-
-	/**
-	 * Finds all userfields. This method loads all userfields from the database
-	 * and merges the result with the core userfields that are loaded from the
-	 * typoscript setup.
-	 *
-	 * @return Traversable<\Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield>
-	 *                             All userfields, both from the database and
-	 *                             the core typoscript setup.
-	 */
-	public function findAll() {
-		$query = $this->createQueryWithFallbackStoragePage();
-		return array_merge($this->findCoreUserfields(), $query->execute()->toArray());
 	}
 
 
