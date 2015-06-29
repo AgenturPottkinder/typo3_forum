@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Format;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,23 +23,13 @@ namespace Mittwald\Typo3Forum\Domain\Model\Format;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use Mittwald\Typo3Forum\Domain\Model\Format\BBCode;
 
 /**
  *
  * A special bb code element that implements an unordered list.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Model_Format
- * @version    $Id$
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class ListBBCode extends \Mittwald\Typo3Forum\Domain\Model\Format\BBCode {
-
-
+class ListBBCode extends BBCode {
 
 	/**
 	 * Return the left (opening) bb code tag.
@@ -50,8 +39,6 @@ class ListBBCode extends \Mittwald\Typo3Forum\Domain\Model\Format\BBCode {
 		return "[list]\n[*] ";
 	}
 
-
-
 	/**
 	 * Return the right (closing) bb code tag.
 	 * @return string The right bb code tag.
@@ -59,7 +46,4 @@ class ListBBCode extends \Mittwald\Typo3Forum\Domain\Model\Format\BBCode {
 	public function getRightBBCode() {
 		return "\n[/list]";
 	}
-
 }
-
-?>

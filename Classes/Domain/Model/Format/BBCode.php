@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Format;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2011 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,7 +23,8 @@ namespace Mittwald\Typo3Forum\Domain\Model\Format;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use Mittwald\Typo3Forum\Domain\Model\Format\AbstractTextParserElement;
+use Mittwald\Typo3Forum\TextParser\Panel\MarkItUpExportableInterface;
 
 /**
  *
@@ -40,16 +40,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Format;
  *
  */
 
-class BBCode extends \Mittwald\Typo3Forum\Domain\Model\Format\AbstractTextParserElement
-	implements \Mittwald\Typo3Forum\TextParser\Panel\MarkItUpExportableInterface {
-
-
-
-	/*
-		  * ATTRIBUTES
-		  */
-
-
+class BBCode extends AbstractTextParserElement implements MarkItUpExportableInterface {
 
 	/**
 	 * The regular expression that will be used to match the bb code.
@@ -57,13 +48,11 @@ class BBCode extends \Mittwald\Typo3Forum\Domain\Model\Format\AbstractTextParser
 	 */
 	protected $regularExpression;
 
-
 	/**
 	 * The replacement pattern or the regular expression.
 	 * @var string
 	 */
 	protected $regularExpressionReplacement;
-
 
 	/**
 	 * The bb code wrap. This string specifies which bb codes are to be inserted into
@@ -71,14 +60,6 @@ class BBCode extends \Mittwald\Typo3Forum\Domain\Model\Format\AbstractTextParser
 	 * @var string
 	 */
 	protected $bbcodeWrap;
-
-
-
-	/*
-	 * CONSTRUCTOR
-	 */
-
-
 
 	/**
 	 * Constructor.
@@ -92,14 +73,6 @@ class BBCode extends \Mittwald\Typo3Forum\Domain\Model\Format\AbstractTextParser
 		$this->regularExpressionReplacement = $regularExpressionReplacement;
 	}
 
-
-
-	/*
-	  * GETTERS
-	  */
-
-
-
 	/**
 	 * Get the regular expression.
 	 * @return string The regular expression
@@ -107,8 +80,6 @@ class BBCode extends \Mittwald\Typo3Forum\Domain\Model\Format\AbstractTextParser
 	public function getRegularExpression() {
 		return $this->regularExpression;
 	}
-
-
 
 	/**
 	 * Gets the replacement pattern for the regular expression.
@@ -118,8 +89,6 @@ class BBCode extends \Mittwald\Typo3Forum\Domain\Model\Format\AbstractTextParser
 		return $this->regularExpressionReplacement;
 	}
 
-
-
 	/**
 	 * Return the left (opening) bb code tag.
 	 * @return string The left bb code tag.
@@ -128,8 +97,6 @@ class BBCode extends \Mittwald\Typo3Forum\Domain\Model\Format\AbstractTextParser
 		return array_shift(explode('|', $this->bbcodeWrap));
 	}
 
-
-
 	/**
 	 * Return the right (closing) bb code tag.
 	 * @return string The right bb code tag.
@@ -137,8 +104,6 @@ class BBCode extends \Mittwald\Typo3Forum\Domain\Model\Format\AbstractTextParser
 	public function getRightBBCode() {
 		return array_pop(explode('|', $this->bbcodeWrap));
 	}
-
-
 
 	/**
 	 * Exports this bb code object as a plain array, that can be used in
@@ -152,22 +117,12 @@ class BBCode extends \Mittwald\Typo3Forum\Domain\Model\Format\AbstractTextParser
 		             'closeWith' => $this->getRightBBCode());
 	}
 
-
-
-	/*
-	 * SETTERS
-	 */
-
-
-
 	/**
 	 * @param string $bbcodeWrap
 	 */
 	public function setBbcodeWrap($bbcodeWrap) {
 		$this->bbcodeWrap = $bbcodeWrap;
 	}
-
-
 
 	/**
 	 * @param string $regularExpression
@@ -176,15 +131,10 @@ class BBCode extends \Mittwald\Typo3Forum\Domain\Model\Format\AbstractTextParser
 		$this->regularExpression = $regularExpression;
 	}
 
-
-
 	/**
 	 * @param string $regularExpressionReplacement
 	 */
 	public function setRegularExpressionReplacement($regularExpressionReplacement) {
 		$this->regularExpressionReplacement = $regularExpressionReplacement;
 	}
-
-
 }
-
