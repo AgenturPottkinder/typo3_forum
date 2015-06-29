@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 /* *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,33 +23,15 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
+use Mittwald\Typo3Forum\Domain\Model\NotifiableInterface;
 
 /**
  * A forum post. Forum posts are submitted to the access control mechanism and can be
  * subscribed by users.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Model_Format
- * @version    $Id$
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
-
  */
-class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
-	implements \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface, \Mittwald\Typo3Forum\Domain\Model\NotifiableInterface {
-
-
-
-	/*
-	 * ATTRIBUTES
-	 */
-
-
+class Post extends AbstractEntity implements AccessibleInterface, NotifiableInterface {
 
 	/**
 	 * The post text.
@@ -59,8 +40,6 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 * @validate NotEmpty
 	 */
 	protected $text;
-
-
 
 	/**
 	 * The rendered post text (contains raw HTML). This attribute has been
@@ -72,15 +51,12 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 */
 	protected $renderedText;
 
-
-
 	/**
 	 * The post author.
 	 *
 	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 */
 	protected $author;
-
 
 	/**
 	 * The author's username. Necessary for anonymous postings.
@@ -89,14 +65,11 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 */
 	protected $authorName = '';
 
-
 	/**
 	 * The topic.
 	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Topic
 	 */
 	protected $topic;
-
-
 
 	/**
 	 * Creation date.
@@ -104,14 +77,12 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 */
 	protected $crdate;
 
-
 	/**
 	 * All subscribers of this forum.
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
 	 * @lazy
 	 */
 	protected $supporters;
-
 
 	/**
 	 * Attachments.
@@ -126,10 +97,6 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 */
 	protected $helpfulCount;
 
-	/*
-	  * CONSTRUCTOR
-	  */
-
 	/**
 	 * Creates a new post.
 	 * @param string $text The post text.
@@ -140,12 +107,6 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		$this->crdate      = new \DateTime();
 		$this->text        = $text;
 	}
-
-
-
-	/*
-	 * GETTERS
-	 */
 
 	/**
 	 * Gets all users who have subscribed to this forum.
@@ -173,8 +134,6 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		return $this->text;
 	}
 
-
-
 	/**
 	 * Gets the post name. This is just an alias for the topic->getTitle method.
 	 * @return string The post name.
@@ -183,8 +142,6 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		return $this->topic->getTitle();
 	}
 
-
-
 	/**
 	 * Alias for getText(). Necessary to implement the NotifiableInterface.
 	 * @return string The post text.
@@ -192,8 +149,6 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	public function getDescription() {
 		return $this->getText();
 	}
-
-
 
 	/**
 	 * Gets the post author.
@@ -212,8 +167,6 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		return $this->author;
 	}
 
-
-
 	/**
 	 * Gets the post author's name. Diffentiates between posts created by logged in
 	 * users (in this case this user's username is returned) and posts by anonymous
@@ -228,8 +181,6 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		}
 	}
 
-
-
 	/**
 	 * Gets the topic.
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic A topic
@@ -238,8 +189,6 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		return $this->topic;
 	}
 
-
-
 	/**
 	 * Gets the forum.
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Forum
@@ -247,8 +196,6 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	public function getForum() {
 		return $this->topic->getForum();
 	}
-
-
 
 	/**
 	 * Gets the post's timestamp.
@@ -266,7 +213,6 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		return $this->crdate;
 	}
 
-
 	/**
 	 * Gets the post's attachments.
 	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment>
@@ -274,8 +220,6 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	public function getAttachments() {
 		return $this->attachments;
 	}
-
-
 
 	/**
 	 * Overrides the isPropertyDirty method. See http://forge.typo3.org/issues/8952
@@ -294,8 +238,6 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		}
 	}
 
-
-
 	/**
 	 * Performs an access check for this post.
 	 *
@@ -313,8 +255,6 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 				return $this->topic->checkAccess($user, $accessType);
 		}
 	}
-
-
 
 	/**
 	 * Determines if a user may edit this post. This is only possible if EITHER:
@@ -354,10 +294,6 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		return FALSE;
 	}
 
-	/*
-	 * SETTERS
-	 */
-
 	/**
 	 * Sets the city value
 	 *
@@ -384,8 +320,6 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		}
 	}
 
-
-
 	/**
 	 * Sets the post author's name. Necessary for anonymous postings.
 	 * @param $authorName string The author's name.
@@ -393,8 +327,6 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	public function setAuthorName($authorName) {
 		$this->authorName = $authorName;
 	}
-
-
 
 	/**
 	 * Sets the post text.
@@ -409,8 +341,6 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		$this->renderedText = '';
 	}
 
-
-
 	/**
 	 * Sets the attachments.
 	 *
@@ -421,8 +351,6 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	public function setAttachments(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $attachments) {
 		$this->attachments = $attachments;
 	}
-
-
 
 	/**
 	 * Adds an or more attachments.
@@ -477,8 +405,6 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		$this->supporters->attach($supporter);
 	}
 
-
-
 	/**
 	 * Mark this topic as unread for a certain user.
 	 *
@@ -490,8 +416,6 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		$this->supporters->detach($supporter);
 	}
 
-
-
 	/**
 	 * Mark this topic as unread for all users.
 	 * @return void
@@ -499,5 +423,4 @@ class Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	public function removeAllSupporters() {
 		$this->readers = New \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
-
 }

@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,29 +23,19 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use \TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
+use \Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
+use \Mittwald\Typo3Forum\Domain\Model\NotifiableInterface;
+use \Mittwald\Typo3Forum\Domain\Model\ReadableInterface;
+
 
 /**
  * A single topic. Each topic can contain an infinite number of
  * posts. Topic are submitted to the access control mechanism and
  * can be subscribed by users.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Model_Forum
- * @version    $Id$
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
-
  */
-class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
-	implements \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface, \Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface,
-	\Mittwald\Typo3Forum\Domain\Model\NotifiableInterface, \Mittwald\Typo3Forum\Domain\Model\ReadableInterface {
-
-
-	/*
-	 * ATTRIBUTES
-	 */
-
+class Topic extends AbstractEntity implements AccessibleInterface, SubscribeableInterface, NotifiableInterface, ReadableInterface {
 
 	/**
 	 * The subject
@@ -56,14 +45,12 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 */
 	protected $subject;
 
-
 	/**
 	 * The posts in this topic.
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Post>
 	 * @lazy
 	 */
 	protected $posts;
-
 
 	/**
 	 * The amount of posts in this topic (of course, we could simply do
@@ -73,13 +60,11 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 */
 	protected $postCount;
 
-
 	/**
 	 * The user who created the topic.
 	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 */
 	protected $author;
-
 
 	/**
 	 * All users who have subscribed this topic.
@@ -97,7 +82,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 */
 	protected $favSubscribers;
 
-
 	/**
 	 * The as solution marked post
 	 *
@@ -113,7 +97,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 */
 	protected $isSolved;
 
-
 	/**
 	 * A pointer to the last post in this topic.
 	 *
@@ -121,7 +104,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 *
 	 */
 	protected $lastPost;
-
 
 	/**
 	 * The creation timestamp of the last post. Enables sorting topics
@@ -131,13 +113,11 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 */
 	protected $lastPostCrdate;
 
-
 	/**
 	 * The forum in which this topic is located.
 	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Forum
 	 */
 	protected $forum;
-
 
 	/**
 	 * Defines whether this topic is closed.
@@ -145,13 +125,11 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 */
 	protected $closed;
 
-
 	/**
 	 * Defines whether this topic is sticky.
 	 * @var boolean
 	 */
 	protected $sticky;
-
 
 	/**
 	 * Defines whether this topic is a question.
@@ -159,13 +137,11 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 */
 	protected $question;
 
-
 	/**
 	 * The topic date.
 	 * @var \DateTime
 	 */
 	protected $crdate;
-
 
 	/**
 	 * All users who have read this topic.
@@ -174,7 +150,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 * @lazy
 	 */
 	protected $readers;
-
 
 	/**
 	 * Get all options of a criteria of this topic
@@ -196,7 +171,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	 * @inject
 	 */
 	protected $topicRepository;
-
 
     /**
      * An instance of the typo3_forum authentication service.
@@ -235,12 +209,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		$this->subject = $subject;
 	}
 
-
-	/*
-	 * GETTER METHODS
-	 */
-
-
 	/**
 	 * Gets the topic subject.
 	 * @return string The subject
@@ -248,7 +216,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	public function getSubject() {
 		return $this->subject;
 	}
-
 
 	/**
 	 * Alias for getSubject. Necessary to implement the SubscribeableInterface.
@@ -258,7 +225,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		return $this->getSubject();
 	}
 
-
 	/**
 	 * Alias for getSubject. Necessary to implement the NofifiableInterface.
 	 * @return string  The subject
@@ -266,7 +232,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	public function getName() {
 		return $this->getSubject();
 	}
-
 
 	/**
 	 * Delegate function to call getText() of the first post. Necessary to implement
@@ -278,7 +243,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		/** @noinspection PhpUndefinedMethodInspection */
 		return $this->posts->current()->getText();
 	}
-
 
 	/**
 	 * Gets the topic author.
@@ -295,7 +259,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		}
 		return $this->author;
 	}
-
 
 	/**
 	 * Gets all users who have subscribes to this forum.
@@ -319,6 +282,7 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		}
 		return false;
 	}
+
 	/**
 	 * Get the as solution marked post
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Post
@@ -335,7 +299,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		return $this->posts;
 	}
 
-
 	/**
 	 * Gets the post count.
 	 * @return integer Post count
@@ -344,7 +307,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		return $this->postCount;
 	}
 
-
 	 /**
 	 * Gets the amount of pages of this topic.
 	 * @return integer Page count
@@ -352,7 +314,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	public function getPageCount() {
 		return ceil($this->postCount / intval($this->settings['pagebrowser']['topicShow']['itemsPerPage']));
 	}
-
 
 	/**
 	 * Gets the reply count.
@@ -366,7 +327,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		}
 	}
 
-
 	/**
 	 * Gets whether the topic is closed.
 	 * @return boolean
@@ -374,7 +334,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	public function isClosed() {
 		return $this->closed;
 	}
-
 
 	/**
 	 * Gets the last post.
@@ -384,7 +343,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		return $this->lastPost;
 	}
 
-
 	/**
 	 * Gets the forum.
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Forum A forum
@@ -392,7 +350,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	public function getForum() {
 		return $this->forum;
 	}
-
 
 	/**
 	 * Gets the creation time of this topic.
@@ -402,7 +359,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		return $this->crdate;
 	}
 
-
 	/**
 	 * Checks if this topic is sticky.
 	 * @return boolean
@@ -410,7 +366,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	public function isSticky() {
 		return $this->sticky;
 	}
-
 
 	/**
 	 * Checks if this topic is a question.
@@ -445,7 +400,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	public function hasBeenReadByUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reader = NULL) {
 		return $reader ? $this->readers->contains($reader) : TRUE;
 	}
-
 
 	/**
 	 * Returns all parent forums in hiearchical order as a flat list (optionally
@@ -487,7 +441,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		return $oPost;
 	}
 
-
 	/**
 	 * Checks if a user may perform a certain operation (read, answer...) with this
 	 * topic.
@@ -509,7 +462,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		}
 	}
 
-
 	/**
 	 * Checks if a user may reply to this topic.
 	 *
@@ -524,7 +476,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 			->checkNewPostAccess($user));
 	}
 
-
 	/**
 	 * Checks if a user has moderative access to this topic.
 	 *
@@ -534,7 +485,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	public function checkModerationAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
 		return ($user === NULL) ? FALSE : $this->getForum()->checkModerationAccess($user);
 	}
-
 
 	/**
 	 * Checks if a user has solution access to this topic.
@@ -550,28 +500,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		}
 	}
 
-
-	/**
-	 * Workaround to prevent endless-recursive object persisting.
-	 *
-	 * @param  mixed $previousValue
-	 * @param  mixed $currentValue
-	 * @return boolean
-	 */
-//	protected function isPropertyDirty($previousValue, $currentValue) {
-//		if ($currentValue instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Forum) {
-//			return $this->_modifiedParent;
-//		} else {
-//			return parent::isPropertyDirty($previousValue, $currentValue);
-//		}
-//	}
-
-
-	/*
-	 * SETTER METHODS
-	 */
-
-
 	/**
 	 * Adds a Post. By adding a new post, this topic is automatically marked unread
 	 * for all users who have read this topic before.
@@ -584,10 +512,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		$post->setTopic($this);
 		$this->postCount++;
 		$this->removeAllReaders();
-
-		//		if ($this->forum !== NULL) {
-		//			$this->_modifiedParent = TRUE;
-		//		}
 
 		// If the added posts is the first post or has a newer timestamp than the
 		// latest post in this topic, mark then new post at the latest post in this
@@ -608,7 +532,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		}
 	}
 
-
 	/**
 	 * Adds a criteria option to the repository.
 	 *
@@ -618,7 +541,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	public function addCriteriaOption(\Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption $option) {
 		$this->criteriaOptions->attach($option);
 	}
-
 
 	/**
 	 * Removes a Post.
@@ -646,11 +568,9 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 			if ($this->forum->getLastPost() === $post) {
 				$this->forum->_resetLastPost();
 			}
-			//		    $this->_modifiedParent = TRUE;
 		}
 
 	}
-
 
 	/**
 	 * Sets the topic author.
@@ -661,7 +581,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	public function setAuthor(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $author) {
 		$this->author = $author;
 	}
-
 
 	/**
 	 * Sets the last post. This method is not publicy accessible; is is called
@@ -675,7 +594,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		$this->lastPostCrdate = $lastPost->getTimestamp();
 	}
 
-
 	/**
 	 * Sets the subject of this topic.
 	 *
@@ -685,7 +603,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	public function setSubject($subject) {
 		$this->subject = $subject;
 	}
-
 
 	/**
 	 * Set a post as solution
@@ -706,7 +623,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		$this->forum = $forum;
 	}
 
-
 	/**
 	 * Sets this topic to closed.
 	 *
@@ -716,7 +632,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	public function setClosed($closed) {
 		$this->closed = (boolean)$closed;
 	}
-
 
 	/**
 	 * Sets this topic to sticky. Sticky topics will always remain at the top of the
@@ -729,7 +644,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		$this->sticky = (boolean)$sticky;
 	}
 
-
 	/**
 	 * Sets this topic to a question. Question topics will be shown at the support queries helpbox.
 	 *
@@ -740,7 +654,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		$this->question = (int)$question;
 	}
 
-
 	/**
 	 * Set all criteria and options
 	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $criteriaOptions
@@ -749,7 +662,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	public function setCriteriaOptions(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $criteriaOptions) {
 		$this->criteriaOptions = $criteriaOptions;
 	}
-
 
 	/**
 	 * Add a tag to this topic
@@ -788,7 +700,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 		$this->readers->attach($reader);
 	}
 
-
 	/**
 	 * Mark this topic as unread for a certain user.
 	 *
@@ -798,7 +709,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	public function removeReader(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reader) {
 		$this->readers->detach($reader);
 	}
-
 
 	/**
 	 * Mark this topic as unread for all users.
@@ -816,7 +726,6 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	public function addFavSubscriber(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
 		$this->favSubscribers->attach($user);
 	}
-
 
 	/**
 	 * Removes a subscriber.
@@ -843,6 +752,4 @@ class Topic extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	public function removeSubscriber(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
 		$this->subscribers->detach($user);
 	}
-
-
 }

@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Ruven Fehling <r.fehling@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,21 +23,12 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption;
 
-/**
- *
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Model_Forum
- * @version    $Id$
- * @license    GNU public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
+class Criteria extends AbstractEntity {
 
- */
-
-class Criteria extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
-
-		/**
+	/**
 	 * The name of the criteria
 	 * @var string
 	 */
@@ -54,7 +44,7 @@ class Criteria extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * The default option
-	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption
+	 * @var CriteriaOption
 	 */
 	protected $defaultOption;
 
@@ -80,7 +70,7 @@ class Criteria extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * Get the default option
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption
+	 * @return CriteriaOption
 	 */
 	public function getDefaultOption() {
 		return $this->defaultOption;
@@ -104,13 +94,12 @@ class Criteria extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		$this->name = $name;
 	}
 
-
 	/**
 	 * Set the default option
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption $defaultOption
+	 * @param CriteriaOption $defaultOption
 	 * @return void
 	 */
-	public function setDefaultOption(\Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption $defaultOption) {
+	public function setDefaultOption(CriteriaOption $defaultOption) {
 		$this->defaultOption = $defaultOption;
 	}
 }

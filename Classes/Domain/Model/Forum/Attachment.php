@@ -23,19 +23,14 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 
-
-class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
-
-
-
-	/*
-	 * ATTRIBUTES
-	 */
+class Attachment extends AbstractEntity {
 
 	/**
 	 * The attachment file name.
-	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Post
+	 * @var Post
 	 * @lazy
 	 */
 	protected $post;
@@ -77,7 +72,6 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	protected $settings;
 
-
 	/**
 	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
 	 */
@@ -86,19 +80,13 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
 
-	/*
-	 * GETTERS
-	 */
-
 	/**
 	 * Gets the attachment's filename on file system.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Post
+	 * @return Post
 	 */
 	public function getPost() {
 		return $this->post;
 	}
-
-
 
 	/**
 	 * Gets the attachment's filename.
@@ -108,7 +96,6 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		return $this->filename;
 	}
 
-
 	/**
 	 * Gets the attachment's filename on file system.
 	 * @return string The attachment's filename on file system.
@@ -116,7 +103,6 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function getRealFilename() {
 		return $this->realFilename;
 	}
-
 
 	/**
 	 * Gets the absolute filename of this attachment.
@@ -129,7 +115,6 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 		return $uploadPath . $this->getRealFilename();
 	}
-
 
 	/**
 	 * Gets the allowed mime types.
@@ -147,7 +132,6 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		return $res;
 	}
 
-
 	/**
 	 * Gets the allowed max size of a attachment.
 	 * @return int The allowed max size of a attachment.
@@ -160,9 +144,6 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		}
 	}
 
-
-
-
 	/**
 	 * Gets the filesize.
 	 * @return integer The filesize.
@@ -170,8 +151,6 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function getFilesize() {
 		return filesize($this->getAbsoluteFilename());
 	}
-
-
 
 	/**
 	 * Gets the MIME type.
@@ -181,8 +160,6 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		return $this->mimeType;
 	}
 
-
-
 	/**
 	 * Gets the download count.
 	 * @return integer The download count.
@@ -190,14 +167,6 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function getDownloadCount() {
 		return $this->downloadCount;
 	}
-
-
-
-	/*
-	 * SETTERS
-	 */
-
-
 
 	/**
 	 * Sets the filename.
@@ -208,7 +177,6 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function setFilename($filename) {
 		$this->filename = $filename;
 	}
-
 
 	/**
 	 * Sets the filename on file system.
@@ -223,13 +191,12 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the filename on file system.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
+	 * @param Post $post
 	 * @return void
 	 */
 	public function setPost($post) {
 		$this->post = $post;
 	}
-
 
 	/**
 	 * Sets the MIME type.
@@ -241,8 +208,6 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		$this->mimeType = $mimeType;
 	}
 
-
-
 	/**
 	 * Increases the download counter by 1.
 	 * @return void
@@ -250,6 +215,4 @@ class Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function increaseDownloadCount() {
 		$this->downloadCount++;
 	}
-
-
 }

@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,66 +23,41 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 
 /**
  * A shadow topic. This type of topic is created when a topic is
  * moved from one forum to another. The shadow topic remains in
  * the original forum, while the topic itself is moved to the
  * other forum.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Model_Forum
- * @version    $Id$
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
-
  */
-class ShadowTopic extends \Mittwald\Typo3Forum\Domain\Model\Forum\Topic {
-
-
-
-	/*
-	 * ATTRIBUTES
-	 */
-
-
+class ShadowTopic extends Topic {
 
 	/**
 	 * The target topic, i.e. the topic this shadow is pointing to.
-	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Topic
+	 * @var Topic
 	 */
 	protected $target = NULL;
 
-
-
-	/*
-	 * GETTERS
-	 */
-
-
-
 	/**
 	 * Gets the target topic, i.e. the topic this shadow is pointing to.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic The target topic
+	 * @return Topic The target topic
 	 */
 	public function getTarget() {
 		return $this->target;
 	}
 
-
-
 	/**
 	 * Checks if a user can create new posts inside this topic. Since this topic is
 	 * only a shadow topic, this method will ALWAYS return FALSE.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user       The user.
+	 * @param  FrontendUser $user       The user.
 	 * @param string                                     $accessType The access type to be checked.
 	 *
 	 * @return boolean TRUE, if the user can create new posts. Always FALSE.
 	 */
-	public function checkAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL, $accessType = 'read') {
+	public function checkAccess(FrontendUser $user = NULL, $accessType = 'read') {
 		if ($accessType === 'newPost') {
 			return FALSE;
 		} else {
@@ -91,41 +65,28 @@ class ShadowTopic extends \Mittwald\Typo3Forum\Domain\Model\Forum\Topic {
 		}
 	}
 
-
-
 	/**
 	 * Checks if a user can create new posts inside this topic. Since this topic is
 	 * only a shadow topic, this method will ALWAYS return FALSE.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user The user.
+	 * @param  FrontendUser $user The user.
 	 * @return boolean TRUE, if the user can create new posts. Always FALSE.
 	 */
-	public function checkNewPostAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
+	public function checkNewPostAccess(FrontendUser $user = NULL) {
 		return FALSE;
 	}
-
-
-
-	/*
-	 * SETTERS
-	 */
-
-
 
 	/**
 	 * Sets the target topic. Also reads the topic subject and the last post pointer
 	 * from the target object.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic The target topic.
+	 * @param Topic $topic The target topic.
 	 * @return void
 	 */
-	public function setTarget(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic) {
+	public function setTarget(Topic $topic) {
 		$this->target         = $topic;
 		$this->lastPost       = $topic->getLastPost();
 		$this->lastPostCrdate = $this->lastPost->getTimestamp();
 		$this->subject        = $topic->getSubject();
 	}
-
-
-
 }
