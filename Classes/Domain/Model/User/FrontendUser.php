@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,26 +23,13 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
+
+
 /**
  * A frontend user.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Model_User
- * @version    $Id$
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
-
  */
-class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
-	implements \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface {
-
-	/*
-	 * ATTRIBUTES
-	 */
+class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implements AccessibleInterface {
 
 	/**
 	 * The rank repository
@@ -513,7 +499,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
 	/**
 	 * Gets the user's registration date.
 	 *
-	 * @return DateTime The registration date
+	 * @return \DateTime The registration date
 	 */
 	public function getTimestamp() {
 		return $this->crdate;

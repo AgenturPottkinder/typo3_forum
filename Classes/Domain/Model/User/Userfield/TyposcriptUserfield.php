@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\User\Userfield;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,29 +23,13 @@ namespace Mittwald\Typo3Forum\Domain\Model\User\Userfield;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield;
 
 /**
- *
  * Userfield that renders its content using a previously defined typoscript
  * object.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Model_User_Userfield
- * @version    $Id$
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-
-class TyposcriptUserfield extends \Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield {
-
-
+class TyposcriptUserfield extends AbstractUserfield {
 
 	/**
 	 * The typoscript path that is to be used for rendering this field.
@@ -54,19 +37,13 @@ class TyposcriptUserfield extends \Mittwald\Typo3Forum\Domain\Model\User\Userfie
 	 */
 	protected $typoscriptPath;
 
-
-
 	/**
 	 *
 	 * Gets the typoscript path.
 	 * @return string The typoscript path.
 	 *
 	 */
-
 	public function getTyposcriptPath() {
 		return $this->typoscriptPath;
 	}
-
 }
-
-?>

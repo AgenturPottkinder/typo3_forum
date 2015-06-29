@@ -3,7 +3,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <typo3@martin-helmich.de>                   *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,26 +23,12 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 
 /**
- *
  * A frontend user.
- *
- * @author     Martin Helmich <typo3@martin-helmich.de>
- * @package    Typo3Forum
- * @subpackage Domain_Model_User
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <typo3@martin-helmich.de>
- *             http://www.martin-helmich.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class AnonymousFrontendUser extends \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser {
-
-
+class AnonymousFrontendUser extends FrontendUser {
 
 	public function __construct($username = '', $password = '') {
 		parent::__construct($username, $password);
@@ -53,7 +39,4 @@ class AnonymousFrontendUser extends \Mittwald\Typo3Forum\Domain\Model\User\Front
 	public function isAnonymous() {
 		return TRUE;
 	}
-
-
-
 }

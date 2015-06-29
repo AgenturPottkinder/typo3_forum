@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Ruven Fehling <r.fehling@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,23 +23,9 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-/**
- *
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Model_User
- * @version    $Id$
- * @license    GNU public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
-
- */
-
-class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
-
-	/**
-	 * ATTRIBUTES
-	 */
+class Notification extends AbstractEntity {
 
 	/**
 	 * The execution date of the cron
@@ -61,8 +46,6 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public $post;
 
-
-
 	/**
 	 * Tag which is related with this notification
 	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Tag
@@ -81,11 +64,6 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @var int
 	 */
 	public $userRead;
-
-
-	/**
-	 * GETTER
-	 */
 
 	/**
 	 * Get the date this message has been sent
@@ -125,7 +103,6 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		return $this->post;
 	}
 
-
 	/**
 	 * Get the tag which is related with this notification
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag
@@ -134,7 +111,6 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		return $this->tag;
 	}
 
-
 	/**
 	 * Get if the user already read this notification
 	 * @return int The flag
@@ -142,10 +118,6 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function getUserRead() {
 		return intval($this->userRead);
 	}
-
-	/**
-	 * SETTER
-	 */
 
 	/**
 	 * Get the type of this notification (Model Name)
@@ -165,7 +137,6 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		$this->feuser = $feuser;
 	}
 
-
 	/**
 	 * Sets the post
 	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
@@ -174,7 +145,6 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function setPost(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
 		$this->post = $post;
 	}
-
 
 	/**
 	 * Set the tag
@@ -185,7 +155,6 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		$this->tag = $tag;
 	}
 
-
 	/**
 	 * Sets the flag
 	 * @param int $userRead
@@ -194,5 +163,4 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function setUserRead($userRead) {
 		$this->userRead = $userRead;
 	}
-
 }

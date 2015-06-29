@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\User\Userfield;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,35 +23,13 @@ namespace Mittwald\Typo3Forum\Domain\Model\User\Userfield;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
 
 /**
- *
  * A userfield value. This class models an association between userfields,
  * users and a specific userfield value.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Model_User_Userfield
- * @version    $Id$
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-
-class Value extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
-
-
-
-	/*
-		  * ATTRIBUTES
-		  */
-
-
+class Value extends AbstractValueObject {
 
 	/**
 	 * The userfield.
@@ -60,13 +37,11 @@ class Value extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
 	 */
 	protected $userfield;
 
-
 	/**
 	 * The user.
 	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 */
 	protected $user;
-
 
 	/**
 	 * The value.
@@ -74,26 +49,15 @@ class Value extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
 	 */
 	protected $value;
 
-
-
-	/*
-		  * GETTER METHODS
-		  */
-
-
-
 	/**
 	 *
 	 * Gets the userfield.
 	 * @return \Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield The userfield.
 	 *
 	 */
-
 	public function getUserfield() {
 		return $this->userfield;
 	}
-
-
 
 	/**
 	 *
@@ -105,19 +69,13 @@ class Value extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
 		return $this->user;
 	}
 
-
-
 	/**
 	 *
 	 * Gets the value.
 	 * @return string The value
 	 *
 	 */
-
 	public function getValue() {
 		return $this->value;
 	}
-
 }
-
-?>

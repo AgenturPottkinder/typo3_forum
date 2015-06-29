@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\Domain\Model;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -27,33 +26,16 @@ namespace Mittwald\Typo3Forum\Domain\Model;
 
 
 /**
- *
  * Interface definition for objects that can be subjects of notification
  * emails.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Model_User
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
 interface NotifiableInterface {
-
-
 
 	/**
 	 * Gets this object's name (e.g. the topic subject or the forum title).
 	 * @return string
 	 */
 	public function getName();
-
-
 
 	/**
 	 * Gets this object's description (e.g. the first post's content or the forum
@@ -62,7 +44,4 @@ interface NotifiableInterface {
 	 * @return string
 	 */
 	public function getDescription();
-
-
-
 }
