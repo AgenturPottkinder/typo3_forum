@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\Scheduler;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Ruven Fehling <r.fehling@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,14 +23,12 @@ namespace Mittwald\Typo3Forum\Scheduler;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Scheduler\Task\AbstractTask;
+
 /**
  * Check for any user which forum is read and which not. Best way to ensure performance.
- *
- * @author	Ruven Fehling <r.fehling@mittwald.de>
- * @package	TYPO3
- * @subpackage	typo3_forum
  */
-class ForumRead extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
+class ForumRead extends AbstractTask {
 
 	/**
 	 * @var int
@@ -122,10 +119,4 @@ class ForumRead extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
 		return true;
 	}
-
-
-}
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_forumRead.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_forumRead.php']);
 }

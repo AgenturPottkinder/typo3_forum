@@ -24,21 +24,16 @@ namespace Mittwald\Typo3Forum\Scheduler;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface;
 
 /**
  * Additional field provider for the notification generator task
- *
- * @author	Ruven Fehling <r.fehling@mittwald.de>
- * @package	TYPO3
- * @subpackage	typo3_forum
  */
-class StatsSummaryAdditionalFieldProvider implements \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface {
+class SessionResetterAdditionalFieldProvider implements AdditionalFieldProviderInterface {
 
 	/**
-	 * Lorem
-	 *
 	 * @param	array														$taskInfo: reference to the array containing the info used in the add/edit form
-	 * @param	tx_scheduler_Task											$task: when editing, reference to the current task object. Null when adding.
+	 * @param	\TYPO3\CMS\Scheduler\Task\AbstractTask											$task: when editing, reference to the current task object. Null when adding.
 	 * @param	\TYPO3\CMS\Scheduler\Controller\SchedulerModuleController	$schedulerModule: reference to the calling object (Scheduler's BE module)
 	 * @return	array														Array containg all the information pertaining to the additional fields
 	 *																		The array is multidimensional, keyed to the task class name and each field's id
@@ -48,34 +43,16 @@ class StatsSummaryAdditionalFieldProvider implements \TYPO3\CMS\Scheduler\Additi
 		$additionalFields = array();
 
 		if ($schedulerModule->CMD == 'add') {
-			$taskInfo['StatsSummary_forumPids'] = 1337;
-			$taskInfo['StatsSummary_userPids'] = 1337;
-			$taskInfo['StatsSummary_statsPid'] = 1337;
+			$taskInfo['SeasonResetter_userPid'] = 1337;
 		}
 
 		if ($schedulerModule->CMD == 'edit') {
-			$taskInfo['StatsSummary_forumPids'] = $task->getForumPids();
-			$taskInfo['StatsSummary_userPids'] = $task->getUserPids();
-			$taskInfo['StatsSummary_statsPid'] = $task->getStatsPid();
+			$taskInfo['SeasonResetter_userPid'] = $task->getUserPid();
 		}
 
-		$additionalFields['StatsSummary_forumPids'] = array(
-			'code'     => '<input type="text" name="tx_scheduler[StatsSummary_forumPids]" value="' . htmlspecialchars($taskInfo['StatsSummary_forumPids']) . '" />',
-			'label'    => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_statsSummary_forumPid',
-			'cshKey'   => '',
-			'cshLabel' => ''
-		);
-
-		$additionalFields['StatsSummary_userPids'] = array(
-			'code'     => '<input type="text" name="tx_scheduler[StatsSummary_userPids]" value="' . htmlspecialchars($taskInfo['StatsSummary_userPids']) . '" />',
-			'label'    => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_statsSummary_userPid',
-			'cshKey'   => '',
-			'cshLabel' => ''
-		);
-
-		$additionalFields['StatsSummary_statsPid'] = array(
-			'code'     => '<input type="text" name="tx_scheduler[StatsSummary_statsPid]" value="' . htmlspecialchars($taskInfo['StatsSummary_statsPid']) . '" />',
-			'label'    => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_statsSummary_statsPid',
+		$additionalFields['SeasonResetter_userPid'] = array(
+			'code'     => '<input type="text" name="tx_scheduler[SeasonResetter_userPid]" value="' . intval($taskInfo['SeasonResetter_userPid']) . '" />',
+			'label'    => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_seasonResetter_userPid',
 			'cshKey'   => '',
 			'cshLabel' => ''
 		);
@@ -92,9 +69,7 @@ class StatsSummaryAdditionalFieldProvider implements \TYPO3\CMS\Scheduler\Additi
 	 * @return	boolean														True if validation was ok (or selected class is not relevant), FALSE otherwise
 	 */
 	public function validateAdditionalFields(array &$submittedData, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule) {
-		$submittedData['StatsSummary_forumPids'] = htmlspecialchars($submittedData['StatsSummary_forumPids']);
-		$submittedData['StatsSummary_userPids'] = htmlspecialchars($submittedData['StatsSummary_userPids']);
-		$submittedData['StatsSummary_statsPid'] = intval($submittedData['StatsSummary_statsPid']);
+		$submittedData['SeasonResetter_userPid'] = intval($submittedData['SeasonResetter_userPid']);
 		return true;
 	}
 
@@ -106,15 +81,6 @@ class StatsSummaryAdditionalFieldProvider implements \TYPO3\CMS\Scheduler\Additi
 	 * @param	\TYPO3\CMS\Scheduler\Task\AbstractTask	$task: reference to the current task object
 	 */
 	public function saveAdditionalFields(array $submittedData, \TYPO3\CMS\Scheduler\Task\AbstractTask $task) {
-		$task->setUserPids($submittedData['StatsSummary_userPids']);
-		$task->setForumPids($submittedData['StatsSummary_forumPids']);
-		$task->setStatsPid($submittedData['StatsSummary_statsPid']);
+		$task->setUserPid($submittedData['SeasonResetter_userPid']);
 	}
 }
-
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_statsSummary_additionalFieldProvider.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_statsSummary_additionalFieldProvider.php']);
-}
-
-?>

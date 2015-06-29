@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\Scheduler;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Ruven Fehling <r.fehling@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,21 +23,18 @@ namespace Mittwald\Typo3Forum\Scheduler;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface;
 
 /**
- * Additional field provider for the notification generator task
- *
- * @author	Ruven Fehling <r.fehling@mittwald.de>
- * @package	TYPO3
- * @subpackage	typo3_forum
+ * Additional field provider for the counter task
  */
-class SessionResetterAdditionalFieldProvider implements \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface {
+class CounterAdditionalFieldProvider implements AdditionalFieldProviderInterface {
 
 	/**
 	 * Lorem
 	 *
 	 * @param	array														$taskInfo: reference to the array containing the info used in the add/edit form
-	 * @param	tx_scheduler_Task											$task: when editing, reference to the current task object. Null when adding.
+	 * @param	\TYPO3\CMS\Scheduler\Task\AbstractTask						$task: when editing, reference to the current task object. Null when adding.
 	 * @param	\TYPO3\CMS\Scheduler\Controller\SchedulerModuleController	$schedulerModule: reference to the calling object (Scheduler's BE module)
 	 * @return	array														Array containg all the information pertaining to the additional fields
 	 *																		The array is multidimensional, keyed to the task class name and each field's id
@@ -48,16 +44,25 @@ class SessionResetterAdditionalFieldProvider implements \TYPO3\CMS\Scheduler\Add
 		$additionalFields = array();
 
 		if ($schedulerModule->CMD == 'add') {
-			$taskInfo['SeasonResetter_userPid'] = 1337;
+			$taskInfo['Counter_forumPid'] = 1337;
+			$taskInfo['Counter_userPid'] = 1337;
 		}
 
 		if ($schedulerModule->CMD == 'edit') {
-			$taskInfo['SeasonResetter_userPid'] = $task->getUserPid();
+			$taskInfo['Counter_forumPid'] = $task->getForumPid();
+			$taskInfo['Counter_userPid'] = $task->getUserPid();
 		}
 
-		$additionalFields['SeasonResetter_userPid'] = array(
-			'code'     => '<input type="text" name="tx_scheduler[SeasonResetter_userPid]" value="' . intval($taskInfo['SeasonResetter_userPid']) . '" />',
-			'label'    => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_seasonResetter_userPid',
+		$additionalFields['Counter_forumPid'] = array(
+			'code'     => '<input type="text" name="tx_scheduler[Counter_forumPid]" value="' . intval($taskInfo['Counter_forumPid']) . '" />',
+			'label'    => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_counter_forumPid',
+			'cshKey'   => '',
+			'cshLabel' => ''
+		);
+
+		$additionalFields['Counter_userPid'] = array(
+			'code'     => '<input type="text" name="tx_scheduler[Counter_userPid]" value="' . intval($taskInfo['Counter_userPid']) . '" />',
+			'label'    => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_counter_userPid',
 			'cshKey'   => '',
 			'cshLabel' => ''
 		);
@@ -74,7 +79,8 @@ class SessionResetterAdditionalFieldProvider implements \TYPO3\CMS\Scheduler\Add
 	 * @return	boolean														True if validation was ok (or selected class is not relevant), FALSE otherwise
 	 */
 	public function validateAdditionalFields(array &$submittedData, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule) {
-		$submittedData['SeasonResetter_userPid'] = intval($submittedData['SeasonResetter_userPid']);
+		$submittedData['Counter_forumPid'] = intval($submittedData['Counter_forumPid']);
+		$submittedData['Counter_userPid'] = intval($submittedData['Counter_userPid']);
 		return true;
 	}
 
@@ -86,13 +92,7 @@ class SessionResetterAdditionalFieldProvider implements \TYPO3\CMS\Scheduler\Add
 	 * @param	\TYPO3\CMS\Scheduler\Task\AbstractTask	$task: reference to the current task object
 	 */
 	public function saveAdditionalFields(array $submittedData, \TYPO3\CMS\Scheduler\Task\AbstractTask $task) {
-		$task->setUserPid($submittedData['SeasonResetter_userPid']);
+		$task->setUserPid($submittedData['Counter_userPid']);
+		$task->setForumPid($submittedData['Counter_forumPid']);
 	}
 }
-
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_seasonResetter_additionalFieldProvider.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_seasonResetter_additionalFieldProvider.php']);
-}
-
-?>

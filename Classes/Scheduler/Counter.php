@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\Scheduler;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Ruven Fehling <r.fehling@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,6 +23,7 @@ namespace Mittwald\Typo3Forum\Scheduler;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Scheduler\Task\AbstractTask;
 /**
  * A turtle with maths skills checks all counter columns of any user and update them on a error.
  *
@@ -31,7 +31,7 @@ namespace Mittwald\Typo3Forum\Scheduler;
  * @package	TYPO3
  * @subpackage	typo3_forum
  */
-class Counter extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
+class Counter extends AbstractTask {
 
 	/**
 	 * @var int
@@ -81,8 +81,8 @@ class Counter extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 	 * @return void
 	 */
 	public function setSettings() {
-		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_Extbase_Object_ObjectManager');
-		$configurationManager = $objectManager->get('Tx_Extbase_Configuration_ConfigurationManagerInterface');
+		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+		$configurationManager = $objectManager->get('TYPO3\\CMS\Extbase\\Object\\ObjectManagerInterface');
 
 		$this->settings = $configurationManager->getConfiguration(
 			\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
@@ -128,8 +128,6 @@ class Counter extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 			$lastCounter = $postCount;
 		}
 	}
-
-
 
 	/**
 	 * @return void
@@ -264,11 +262,4 @@ class Counter extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 			$res2 = $GLOBALS['TYPO3_DB']->sql_query($query);
 		}
 	}
-
-
-
-}
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_counter.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_counter.php']);
 }

@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\Scheduler;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Ruven Fehling <r.fehling@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,21 +23,16 @@ namespace Mittwald\Typo3Forum\Scheduler;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface;
 
 /**
  * Additional field provider for the forum-read task
- *
- * @author	Ruven Fehling <r.fehling@mittwald.de>
- * @package	TYPO3
- * @subpackage	typo3_forum
  */
-class ForumReadAdditionalFieldProvider implements \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface {
+class ForumReadAdditionalFieldProvider implements AdditionalFieldProviderInterface {
 
 	/**
-	 * Lorem
-	 *
 	 * @param	array														$taskInfo: reference to the array containing the info used in the add/edit form
-	 * @param	tx_scheduler_Task											$task: when editing, reference to the current task object. Null when adding.
+	 * @param	\TYPO3\CMS\Scheduler\Task\AbstractTask						$task: when editing, reference to the current task object. Null when adding.
 	 * @param	\TYPO3\CMS\Scheduler\Controller\SchedulerModuleController	$schedulerModule: reference to the calling object (Scheduler's BE module)
 	 * @return	array														Array containg all the information pertaining to the additional fields
 	 *																		The array is multidimensional, keyed to the task class name and each field's id
@@ -100,10 +94,3 @@ class ForumReadAdditionalFieldProvider implements \TYPO3\CMS\Scheduler\Additiona
 		$task->setForumPid($submittedData['ForumRead_forumPid']);
 	}
 }
-
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_forumRead_additionalFieldProvider.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_forumRead_additionalFieldProvider.php']);
-}
-
-?>

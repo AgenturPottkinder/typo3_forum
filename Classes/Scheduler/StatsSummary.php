@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\Scheduler;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Ruven Fehling <r.fehling@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -26,10 +25,6 @@ namespace Mittwald\Typo3Forum\Scheduler;
 
 /**
  * Count all Topics, Posts and Users and write result into summary table
- *
- * @author	Ruven Fehling <r.fehling@mittwald.de>
- * @package	TYPO3
- * @subpackage	typo3_forum
  */
 class StatsSummary extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
@@ -132,10 +127,4 @@ class StatsSummary extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
 		return true;
 	}
-
-
-}
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_statsSummary.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/typo3_forum/Scheduler/class.tx_typo3forum_scheduler_statsSummary.php']);
 }
