@@ -24,10 +24,10 @@ namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
- *
  * Models a post report. Reports are the central object of the moderation
  * component of the typo3_forum extension. Each user can report a forum post
  * to the respective moderator group. In this case, a report object is
@@ -35,25 +35,8 @@ namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
  *
  * These report objects can be assigned to moderators ans be organized in
  * different workflow stages. Moderators can post comments to each report.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Model_Moderation
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class Report extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
-
-	/*
-	 * ATTRIBUTES
-	 */
-
+class Report extends AbstractEntity {
 
 	/**
 	 * The frontend user that created this post.
@@ -61,13 +44,11 @@ class Report extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	protected $reporter;
 
-
 	/**
 	 * The moderator that is assigned to this report.
 	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 */
 	protected $moderator;
-
 
 	/**
 	 * The current status of this report.
@@ -75,13 +56,11 @@ class Report extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	protected $workflowStatus;
 
-
 	/**
 	 * A set of comments that are assigned to this report.
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment>
+	 * @var ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment>
 	 */
 	protected $comments;
-
 
 	/**
 	 * The creation timestamp of this report.
@@ -89,28 +68,12 @@ class Report extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	protected $crdate;
 
-
-
-	/*
-	  * CONSTRUCTOR
-	  */
-
-
-
 	/**
 	 * Creates a new report.
 	 */
 	public function __construct() {
-		$this->comments = New \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->comments = new ObjectStorage();
 	}
-
-
-
-	/*
-	 * GETTERS
-	 */
-
-
 
 	/**
 	 * Gets the reporter of this report.
@@ -126,8 +89,6 @@ class Report extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		return $this->reporter;
 	}
 
-
-
 	/**
 	 * Gets the moderator that is assigned to this report.
 	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser The moderator
@@ -142,8 +103,6 @@ class Report extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		return $this->moderator;
 	}
 
-
-
 	/**
 	 * Gets the current status of this report.
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus
@@ -153,18 +112,14 @@ class Report extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		return $this->workflowStatus;
 	}
 
-
-
 	/**
 	 * Gets all comments for this report.
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment>
+	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment>
 	 *                             All comments for this report.
 	 */
 	public function getComments() {
 		return $this->comments;
 	}
-
-
 
 	/**
 	 * Returns the first comment for this report.
@@ -174,8 +129,6 @@ class Report extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		return array_shift($this->comments->toArray());
 	}
 
-
-
 	/**
 	 * Returns the creation time of this report.
 	 * @return \DateTime The creation time.
@@ -183,13 +136,6 @@ class Report extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function getCrdate() {
 		return $this->crdate;
 	}
-
-
-
-	/*
-	 * SETTERS
-	 */
-
 
 	/**
 	 * Sets the reporter.
@@ -201,8 +147,6 @@ class Report extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		$this->reporter = $reporter;
 	}
 
-
-
 	/**
 	 * Sets the moderator.
 	 *
@@ -212,8 +156,6 @@ class Report extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function setModerator(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $moderator) {
 		$this->moderator = $moderator;
 	}
-
-
 
 	/**
 	 * Sets the current workflow status.
@@ -228,8 +170,6 @@ class Report extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		}
 	}
 
-
-
 	/**
 	 * Adds a comment to this report.
 	 *
@@ -240,8 +180,6 @@ class Report extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		$comment->setReport($this);
 		$this->comments->attach($comment);
 	}
-
-
 
 	/**
 	 * Removes a comment from this report.

@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Stats;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Ruven Fehling <r.fehling@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,20 +23,9 @@ namespace Mittwald\Typo3Forum\Domain\Model\Stats;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
-/**
- *
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Model_Stats
- * @version    $Id$
- * @license    GNU public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
-
- */
-
-class Summary extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
-
+class Summary extends AbstractEntity {
 
 	/**
 	 * Type of summary
@@ -105,6 +93,4 @@ class Summary extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function setAmount($amount) {
 		$this->amount = $amount;
 	}
-
-
 }

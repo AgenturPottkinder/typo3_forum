@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,33 +23,12 @@ namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
 
 /**
- *
  * A report workflow status.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Model_Moderation
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class ReportWorkflowStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
-
-
-
-	/*
-	 * ATTRIBUTES
-	 */
-
-
+class ReportWorkflowStatus extends AbstractValueObject {
 
 	/**
 	 * The name.
@@ -58,13 +36,11 @@ class ReportWorkflowStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractValue
 	 */
 	protected $name;
 
-
 	/**
 	 * A list of allowed follow-up status.
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus>
 	 */
 	protected $followupStatus;
-
 
 	/**
 	 * Defines whether this status shall be used as initial status for new reports.
@@ -72,27 +48,17 @@ class ReportWorkflowStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractValue
 	 */
 	protected $initial;
 
-
 	/**
 	 * Defines whether this status marks a final status of a report.
 	 * @var boolean
 	 */
 	protected $final = FALSE;
 
-
 	/**
 	 * An icon filename.
 	 * @var string
 	 */
 	protected $icon;
-
-
-
-	/*
-	 * CONSTRUCTOR
-	 */
-
-
 
 	/**
 	 * Constructor.
@@ -107,14 +73,6 @@ class ReportWorkflowStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractValue
 		$this->final          = $final;
 	}
 
-
-
-	/*
-	  * GETTERS
-	  */
-
-
-
 	/**
 	 * Gets the status name.
 	 * @return string The status name.
@@ -122,8 +80,6 @@ class ReportWorkflowStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractValue
 	public function getName() {
 		return $this->name;
 	}
-
-
 
 	/**
 	 * Gets the allowed follow-up status.
@@ -133,8 +89,6 @@ class ReportWorkflowStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractValue
 	public function getFollowupStatus() {
 		return $this->followupStatus;
 	}
-
-
 
 	/**
 	 * Determines if a workflow status is an allowed follow-up status for this status.
@@ -148,8 +102,6 @@ class ReportWorkflowStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractValue
 		return $this->followupStatus->contains($status);
 	}
 
-
-
 	/**
 	 * Determines if this status is the initial status for newly created reports.
 	 * @return boolean TRUE, if this status is the initial status for newly created
@@ -159,8 +111,6 @@ class ReportWorkflowStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractValue
 		return $this->initial;
 	}
 
-
-
 	/**
 	 * Determines if this status is a final status for edited reports.
 	 * @return boolean TRUE, if this status is a final status for edited reports, otherwise FALSE.
@@ -169,8 +119,6 @@ class ReportWorkflowStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractValue
 		return $this->final;
 	}
 
-
-
 	/**
 	 * Return the icon filename.
 	 * @return string The icon filename.
@@ -178,8 +126,6 @@ class ReportWorkflowStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractValue
 	public function getIcon() {
 		return $this->icon;
 	}
-
-
 
 	/**
 	 * Returns the site relative path of this status' icon. This method first
@@ -206,14 +152,6 @@ class ReportWorkflowStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractValue
 		return file_exists(PATH_site . '/' . $imageFilename) ? $imageFilename : NULL;
 	}
 
-
-
-	/*
-	 * SETTERS
-	 */
-
-
-
 	/**
 	 * Adds an additional allowed followup status.
 	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $followupStatus
@@ -221,7 +159,4 @@ class ReportWorkflowStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractValue
 	public function addAllowedFollowupStatus(\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $followupStatus) {
 		$this->followupStatus->attach($followupStatus);
 	}
-
-
-
 }

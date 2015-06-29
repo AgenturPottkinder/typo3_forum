@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,34 +23,13 @@ namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
- *
  * A report comment. Each moderation report consists of a set -- and at least one --
  * of these comments.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Model_Moderation
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class ReportComment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
-
-
-
-	/*
-	 * ATTRIBUTES
-	 */
-
-
+class ReportComment extends AbstractEntity {
 
 	/**
 	 * The comment author
@@ -59,13 +37,11 @@ class ReportComment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	protected $author;
 
-
 	/**
 	 * The comment
 	 * @var string
 	 */
 	protected $text;
-
 
 	/**
 	 * The report this comment belongs to.
@@ -73,38 +49,19 @@ class ReportComment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	protected $report;
 
-
 	/**
 	 * Creation date of this comment
 	 * @var \DateTime
 	 */
 	protected $tstamp;
 
-
-
-
-
-	/*
-	 * CONSTRUCTOR
-	 */
-
-
-
 	/**
 	 * Constructor
-	 * @param  string                                  $text.
+	 * @param  string  $text.
 	 */
 	public function __construct($text = NULL) {
 		$this->text   = $text;
 	}
-
-
-
-	/*
-	  * GETTERS
-	  */
-
-
 
 	/**
 	 * Gets the comment author.
@@ -120,8 +77,6 @@ class ReportComment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		return $this->author;
 	}
 
-
-
 	/**
 	 * Gets the comment text.
 	 * @return string The comment text.
@@ -129,8 +84,6 @@ class ReportComment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function getText() {
 		return $this->text;
 	}
-
-
 
 	/**
 	 * Gets the parent report.
@@ -140,8 +93,6 @@ class ReportComment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		return $this->report;
 	}
 
-
-
 	/**
 	 * Gets this comment's creation timestamp.
 	 * @return \DateTime The timestamp.
@@ -149,14 +100,6 @@ class ReportComment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function getTimestamp() {
 		return $this->tstamp;
 	}
-
-
-
-	/*
-	 * SETTERS
-	 */
-
-
 
 	/**
 	 * Sets the comment's author.
@@ -167,8 +110,6 @@ class ReportComment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		$this->author = $author;
 	}
 
-
-
 	/**
 	 * Sets the comment text.
 	 * @param string $text The comment text.
@@ -177,8 +118,6 @@ class ReportComment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function setText($text) {
 		$this->text = $text;
 	}
-
-
 
 	/**
 	 * Sets the comment's report.
@@ -189,7 +128,4 @@ class ReportComment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function setReport(\Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report) {
 		$this->report = $report;
 	}
-
-
-
 }

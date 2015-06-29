@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,10 +23,9 @@ namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use Mittwald\Typo3Forum\Domain\Model\Moderation\Report;
 
 /**
- *
  * Models a post report. Reports are the central object of the moderation
  * component of the typo3_forum extension. Each user can report a forum post
  * to the respective moderator group. In this case, a report object is
@@ -35,27 +33,14 @@ namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
  *
  * These report objects can be assigned to moderators ans be organized in
  * different workflow stages. Moderators can post comments to each report.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Model_Moderation
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class PostReport extends \Mittwald\Typo3Forum\Domain\Model\Moderation\Report {
+class PostReport extends Report {
 
 	/**
 	 * A set of comments that are assigned to this report.
 	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Post
 	 */
 	protected $post;
-
 
 	/**
 	 * Gets the topic to which the reported post belongs to.
