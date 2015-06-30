@@ -256,8 +256,8 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 		/** @var Forum $forum */
 		/** @var ObjectStorage $criteriaStorage */
 		list($forum, $criteriaStorage) = $array;
-		if ($forum->getCriteria() !== NULL) {
-			$criteriaStorage->addAll($forum->getCriteria());
+		if ($forum->criteria !== NULL) {
+			$criteriaStorage->addAll($forum->criteria);
 		}
 		if ($forum->getParent()->getUid() > 0) {
 			list(, $criteriaStorage) = $this->getCriteriaRecursive([$forum->getParent(), $criteriaStorage]);
