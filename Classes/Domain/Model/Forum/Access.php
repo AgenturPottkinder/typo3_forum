@@ -24,7 +24,6 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup;
 use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
 
 /**
@@ -81,12 +80,12 @@ class Access extends AbstractValueObject {
 	 * The user group that is affected by this ACL entry. This property is only
 	 * relevant if $loginLevel == LOGIN_LEVEL_SPECIFIC.
 	 *
-	 * @var FrontendUserGroup
+	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup
 	 */
 	protected $affectedGroup;
 
 
-	public function __construct($operation = NULL, $level = NULL, FrontendUserGroup $group = NULL) {
+	public function __construct($operation = NULL, $level = NULL, \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup $group = NULL) {
 		$this->operation = $operation;
 		$this->loginLevel = $level;
 		$this->affectedGroup = $group;
@@ -129,7 +128,7 @@ class Access extends AbstractValueObject {
 
 	/**
 	 * Gets the group for this entry.
-	 * @return FrontendUserGroup group The group
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup group The group
 	 */
 	public function getGroup() {
 		return $this->affectedGroup;
@@ -175,7 +174,7 @@ class Access extends AbstractValueObject {
 		if ($this->loginLevel === self::LOGIN_LEVEL_SPECIFIC) {
 			if (!is_null($user)) {
 				foreach ($user->getUsergroup() as $group) {
-					/** @var $group FrontendUserGroup */
+					/** @var $group \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup */
 					if ($group->getUid() === $this->affectedGroup->getUid()) {
 						$result = TRUE;
 						break;
@@ -201,11 +200,11 @@ class Access extends AbstractValueObject {
 	/**
 	 * Sets the group.
 	 *
-	 * @param FrontendUserGroup $group The group
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup $group The group
 	 *
 	 * @return void
 	 */
-	public function setAffectedGroup(FrontendUserGroup $group) {
+	public function setAffectedGroup(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup $group) {
 		$this->affectedGroup = $group;
 	}
 }
