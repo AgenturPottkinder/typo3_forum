@@ -4,8 +4,7 @@ namespace Mittwald\Typo3Forum\Domain\Repository\Forum;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,44 +23,25 @@ namespace Mittwald\Typo3Forum\Domain\Repository\Forum;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
+
+use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use Mittwald\Typo3Forum\Domain\Repository\AbstractRepository;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
-
-/**
- *
- * Repository class for topic objects.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Repository_Forum
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-class TopicRepository extends \Mittwald\Typo3Forum\Domain\Repository\AbstractRepository {
-
-
-	/*
-	 * REPOSITORY METHODS
-	 */
+class TopicRepository extends AbstractRepository {
 
 	/**
 	 *
 	 * Finds topics for a specific filterset. Page navigation is possible.
 	 *
-	 * @param  integer $limit
-	 * @param  array   $orderings
+	 * @param integer $limit
+	 * @param array $orderings
 	 *
-	 * @return Array<\Mittwald\Typo3Forum\Domain\Model\Forum\Topic>
-	 *                               The selected subset of posts
+	 * @return Array<\Mittwald\Typo3Forum\Domain\Model\Forum\Topic> The selected subset of posts
 	 *
 	 */
-	public function findByFilter($limit = '', $orderings = array()) {
+	public function findByFilter($limit = NULL, $orderings = array()) {
 		$query = $this->createQuery();
 		if (!empty($limit)) {
 			$query->setLimit($limit);
@@ -69,10 +49,8 @@ class TopicRepository extends \Mittwald\Typo3Forum\Domain\Repository\AbstractRep
 		if (!empty($orderings)) {
 			$query->setOrderings($orderings);
 		}
-
 		return $query->execute();
 	}
-
 
 	/**
 	 *
@@ -101,13 +79,13 @@ class TopicRepository extends \Mittwald\Typo3Forum\Domain\Repository\AbstractRep
 	/**
 	 * Finds topics for the forum show view. Page navigation is possible.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
+	 * @param  Forum $forum
 	 *                               The forum for which to load the topics.
 	 *
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[]
 	 *                               The selected subset of topics.
 	 */
-	public function findForIndex(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum) {
+	public function findForIndex(Forum $forum) {
 		$query = $this->createQuery();
 		$query
 			->matching($query->equals('forum', $forum))
@@ -176,39 +154,28 @@ class TopicRepository extends \Mittwald\Typo3Forum\Domain\Repository\AbstractRep
 	 * Finds topics by post authors, i.e. all topics that contain at least one post
 	 * by a specific author. Page navigation is possible.
 	 *
-	 * @param  FrontendUser $user
-	 *                               The frontend user whose topics are to be loaded.
-	 * @param int           $limit
+	 * @param FrontendUser $user The frontend user whose topics are to be loaded.
+	 * @param int $limit
 	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[]
-	 *                               All topics that contain a post by the specified
-	 *                               user.
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[] All topics that contain a post by the specified user
 	 */
 	public function findTopicsFavSubscribedByUser(FrontendUser $user, $limit = 0) {
 		$query = $this->createQuery();
-		$query
-			->matching($query->contains('favSubscribers', $user))
-			->setOrderings(array('crdate' => 'DESC'));
+		$query->matching($query->contains('favSubscribers', $user))->setOrderings(array('crdate' => 'DESC'));
 		if ($limit > 0) {
 			$query->setLimit($limit);
 		}
-
 		return $query->execute();
 	}
 
 	/**
 	 * Counts topics by post authors. See findByPostAuthor.
 	 *
-	 * @param  FrontendUser $user
-	 *                               The frontend user whose topics are to be loaded.
-	 *
-	 * @return integer               The number of topics that contain a post by the
-	 *                               specified user.
+	 * @param FrontendUser $user The frontend user whose topics are to be loaded.
+	 * @return integer The number of topics that contain a post by the specified user.
 	 */
 	public function countByPostAuthor(FrontendUser $user) {
-		return $this
-			->findByPostAuthor($user)
-			->count();
+		return $this->findByPostAuthor($user)->count();
 	}
 
 	/**
@@ -221,22 +188,18 @@ class TopicRepository extends \Mittwald\Typo3Forum\Domain\Repository\AbstractRep
 	 */
 	public function findByPostAuthor(FrontendUser $user) {
 		$query = $this->createQuery();
-		$query
-			->matching($query->equals('posts.author', $user))
-			->setOrderings(array('posts.crdate' => 'DESC'));
-
+		$query->matching($query->equals('posts.author', $user))->setOrderings(array('posts.crdate' => 'DESC'));
 		return $query->execute();
 	}
 
 	/**
 	 * Counts all topics for the forum show view.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
-	 *                             The forum for which the topics are to be counted.
+	 * @param  Forum $forum The forum for which the topics are to be counted.
 	 *
-	 * @return integer             The topic count.
+	 * @return integer The topic count.
 	 */
-	public function countForIndex(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum) {
+	public function countForIndex(Forum $forum) {
 		return $this->countByForum($forum);
 	}
 
@@ -244,11 +207,9 @@ class TopicRepository extends \Mittwald\Typo3Forum\Domain\Repository\AbstractRep
 	/**
 	 * Finds all topic that have been subscribed by a certain user.
 	 *
-	 * @param FrontendUser $user
-	 *                             The user for whom the subscribed topics are to be loaded.
+	 * @param FrontendUser $user The user for whom the subscribed topics are to be loaded.
 	 *
-	 * @return Tx_Extbase_Persistence_QueryInterface
-	 *                             The topics subscribed by the given user.
+	 * @return QueryInterface The topics subscribed by the given user.
 	 */
 	public function findBySubscriber(FrontendUser $user) {
 		$query = $this->createQuery();
@@ -309,7 +270,7 @@ class TopicRepository extends \Mittwald\Typo3Forum\Domain\Repository\AbstractRep
 	 *
 	 * Finds the last topic in a forum.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
+	 * @param  Forum $forum
 	 *                                The forum for which to load the last topic.
 	 * @param int                                            $offset
 	 *                                If you want to get the next to last topic topic
@@ -318,10 +279,10 @@ class TopicRepository extends \Mittwald\Typo3Forum\Domain\Repository\AbstractRep
 	 *                             The last topic of the specified forum.
 	 *
 	 */
-	public function findLastByForum(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum, $offset = 0) {
+	public function findLastByForum(Forum $forum, $offset = 0) {
 		$query = $this->createQuery();
 		$query->matching($query->equals('forum', $forum))
-			->setOrderings(array('last_post_crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING))->setLimit(1);
+			->setOrderings(array('last_post_crdate' => QueryInterface::ORDER_DESCENDING))->setLimit(1);
 		if ($offset > 0) {
 			$query->setOffset($offset);
 		}
@@ -343,7 +304,7 @@ class TopicRepository extends \Mittwald\Typo3Forum\Domain\Repository\AbstractRep
 	 */
 	public function findLatest($offset = 0, $limit = 5) {
 		$query = $this->createQuery();
-		$query->setOrderings(array('last_post_crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING))
+		$query->setOrderings(array('last_post_crdate' => QueryInterface::ORDER_DESCENDING))
 			->setLimit($limit);
 		if ($offset > 0) {
 			$query->setOffset($offset);
@@ -354,12 +315,12 @@ class TopicRepository extends \Mittwald\Typo3Forum\Domain\Repository\AbstractRep
 
 
 	/**
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
+	 * @param Forum $forum
 	 * @param FrontendUser                                  $user
 	 *
 	 * @return array
 	 */
-	public function getUnreadTopics(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum, FrontendUser $user) {
+	public function getUnreadTopics(Forum $forum, FrontendUser $user) {
 
 		$sql = 'SELECT t.uid
 			   FROM tx_typo3forum_domain_model_forum_topic AS t
