@@ -1,10 +1,10 @@
 <?php
 namespace Mittwald\Typo3Forum\Utility;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,27 +24,14 @@ namespace Mittwald\Typo3Forum\Utility;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use Mittwald\Typo3Forum\Domain\Exception\TextParser\Exception;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
- *
  * Utility module for TypoScript related functions.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Utility
- * @version    $Id$
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
 class TypoScript {
-
-
 
 	/**
 	 * The extbase configuration manager.
@@ -53,26 +40,21 @@ class TypoScript {
 	 */
 	protected $configurationManager = NULL;
 
-
 	/**
 	 * Loads the typoscript configuration from a certain setup path.
 	 *
 	 * @param string $configurationPath The typoscript path
-	 *
-	 * @return array                    The typoscript configuration for the
-	 *                                   specified path.
-	 * @throws \Mittwald\Typo3Forum\Domain\Exception\TextParser\Exception
+	 * @return array The typoscript configuration for the specified path.
+	 * @throws Exception
 	 */
 	public function loadTyposcriptFromPath($configurationPath) {
-		$setup = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-
-		$pathSegments = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode('.', $configurationPath);
-
+		$setup = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+		$pathSegments = GeneralUtility::trimExplode('.', $configurationPath);
 		$lastSegment = array_pop($pathSegments);
 		foreach ($pathSegments As $segment) {
 			if (!array_key_exists($segment . '.', $setup)
 			) {
-				throw new \Mittwald\Typo3Forum\Domain\Exception\TextParser\Exception ('TypoScript object path "' . htmlspecialchars($configurationPath) . '" does not exist', 1253191023);
+				throw new Exception ('TypoScript object path "' . htmlspecialchars($configurationPath) . '" does not exist', 1253191023);
 			}
 			$setup = $setup[$segment . '.'];
 		}
