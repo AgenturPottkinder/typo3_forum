@@ -1,13 +1,10 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
-<f:layout name="default" />
+<f:layout name="default"/>
 
-
-
-	<!-- MAIN Section -->
 <f:section name="main">
 
 	<h2>
-		<f:translate key="User_Show" />
+		<f:translate key="User_Show"/>
 		<small>{user.username}</small>
 	</h2>
 
@@ -15,31 +12,33 @@
 		<div class="span6">
 
 			<fieldset class="form-horizontal">
-				<legend><f:translate key="User_Show_GeneralInformation" /></legend>
+				<legend>
+					<f:translate key="User_Show_GeneralInformation"/>
+				</legend>
 
 				<table class="table">
 					<colgroup>
-						<col width="30%" />
-						<col width="70%" />
+						<col width="30%"/>
+						<col width="70%"/>
 					</colgroup>
 					<thead>
-						<tr>
-							<td colspan="2">
-								<f:render partial="User/InformationRow" arguments="{user: user, settings:settings}" />
-							</td>
-						</tr>
+					<tr>
+						<td colspan="2">
+							<f:render partial="User/InformationRow" arguments="{user: user}"/>
+						</td>
+					</tr>
 					</thead>
 					<tbody>
-						<f:for each="{userfields}" as="userfield">
-							<tr>
-								<td style="text-align: right;">
-									<f:translate key="{userfield.name}" default="{userfield.name}" />
-								</td>
-								<td>
-									<mmf:user.userfield user="{user}" userfield="{userfield}" />
-								</td>
-							</tr>
-						</f:for>
+					<f:for each="{userfields}" as="userfield">
+						<tr>
+							<td style="text-align: right;">
+								<f:translate key="{userfield.name}" default="{userfield.name}"/>
+							</td>
+							<td>
+								<mmf:user.userfield user="{user}" userfield="{userfield}"/>
+							</td>
+						</tr>
+					</f:for>
 					</tbody>
 				</table>
 			</fieldset>
@@ -47,20 +46,18 @@
 		<div class="span6">
 			<fieldset class="form-horizontal">
 				<legend>
-					<f:translate key="User_Show_LatestPosts" />
+					<f:translate key="User_Show_LatestPosts"/>
 					<f:link.action action="listPosts" arguments="{user: user}" class="btn btn-small" style="float: right;">
-						<f:translate key="Generic_More" />
+						<f:translate key="Generic_More"/>
 					</f:link.action>
 				</legend>
-				<f:render partial="Topic/List" arguments="{topics: topics}" />
+				<f:render partial="Topic/List" arguments="{topics: topics}"/>
 			</fieldset>
 		</div>
 	</div>
 
 </f:section>
 
-
-
-	<!-- MENU Section -->
 <f:section name="menu">
+	
 </f:section>
