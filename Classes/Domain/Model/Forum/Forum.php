@@ -587,7 +587,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Removes a child forum.
 	 *
-	 * @param Forum The Forum to be removed
+	 * @param Forum $child The Forum to be removed
 	 *
 	 * @return void
 	 */
@@ -650,7 +650,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Adds a new access rule.
 	 *
-	 * @param Access The access rule to be added
+	 * @param Access $acl The access rule to be added
 	 *
 	 * @return void
 	 */
@@ -662,7 +662,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Removes a access rule.
 	 *
-	 * @param Access The access rule to be removed
+	 * @param Access $acl The access rule to be removed
 	 *
 	 * @return void
 	 */
