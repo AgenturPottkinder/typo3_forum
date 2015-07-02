@@ -56,7 +56,7 @@ final class SubscriptionListener {
 	/**
 	 * Is fired when a new post is created.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post Event data.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post Event data.
 	 * @return void
 	 */
 	public function onPostCreated($post) {
@@ -70,7 +70,7 @@ final class SubscriptionListener {
 	/**
 	 * Is fired when a new topic is created.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic Event data.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic Event data.
 	 * @return void
 	 */
 	public function onTopicCreated($topic) {

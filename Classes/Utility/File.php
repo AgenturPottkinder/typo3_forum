@@ -49,7 +49,7 @@ class File {
 	 * Replaces extension path references (EXT:...) inside path with the actual paths
 	 * relative to the site root.
 	 *
-	 * @param  string $string The path that is to be parsed
+	 * @param string $string The path that is to be parsed
 	 * @return string         The parsed path.
 	 */
 	public static function replaceSiteRelPath($string) {

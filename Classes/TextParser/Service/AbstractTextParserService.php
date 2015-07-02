@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\TextParser\Service;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,27 +23,13 @@ namespace Mittwald\Typo3Forum\TextParser\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use Mittwald\Typo3Forum\Service\AbstractService;
+use TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext;
 
 /**
- *
  * Abstract base class for all kinds of text parsing services.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage TextParser_Service
- * @version    $Id$
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-abstract class AbstractTextParserService extends \Mittwald\Typo3Forum\Service\AbstractService {
-
-
+abstract class AbstractTextParserService extends AbstractService {
 
 	/**
 	 * The configuration of this service.
@@ -52,54 +37,36 @@ abstract class AbstractTextParserService extends \Mittwald\Typo3Forum\Service\Ab
 	 */
 	protected $settings = NULL;
 
-
-
 	/**
 	 * The current controller context.
-	 * @var Tx_Extbase_MVC_Controller_ControllerContext
+	 * @var ControllerContext
 	 */
 	protected $controllerContext = NULL;
-
-
-
-	/**
-	 * Creates a new instance of this service.
-	 */
-
-	public function __construct() {
-	}
-
-
 
 	/**
 	 * Injects this service's configuration.
 	 * @param array $settings The configuration for this service.
+	 * @return void
 	 */
-
 	public function setSettings(array $settings) {
 		$this->settings = $settings;
 	}
 
-
-
 	/**
 	 * Sets the extbase controller context.
-	 * @param \TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext $controllerContext
+	 * @param ControllerContext $controllerContext
 	 * @return void
 	 */
-	public function setControllerContext(\TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext $controllerContext) {
+	public function setControllerContext(ControllerContext $controllerContext) {
 		$this->controllerContext = $controllerContext;
 	}
-
-
 
 	/**
 	 * Renders the parsed text.
 	 *
-	 * @param  string $text The text to be parsed.
-	 * @return string       The parsed text.
+	 * @param string $text The text to be parsed.
+	 * @return string The parsed text.
 	 */
-
 	abstract function getParsedText($text);
 
 }

@@ -1,10 +1,10 @@
 <?php
 namespace Mittwald\Typo3Forum\Service\Mailing;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,41 +24,24 @@ namespace Mittwald\Typo3Forum\Service\Mailing;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
 
 /**
- *
  * Interface descriptor for mailing services.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Service_Mailing
- * @version    $Id: AbstractMailingService.php 39978 2010-11-09 14:19:52Z mhelmich $
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
 
 interface MailingServiceInterface {
-
-
 
 	/**
 	 * Sends a mail with a certain subject and bodytext to a recipient in form of a
 	 * frontend user.
 	 *
-	 * @param  \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $recipient The recipient of the mail. This is a plain frontend user.
-	 * @param  string                               $subject   The mail's subject.
-	 * @param  string                               $bodytext  The mail's bodytext.
+	 * @param FrontendUser $recipient The recipient of the mail. This is a plain frontend user.
+	 * @param string $subject The mail's subject.
+	 * @param string $bodytext The mail's bodytext.
 	 * @return void
 	 */
-	public function sendMail(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $recipient, $subject, $bodytext);
-
-
+	public function sendMail(FrontendUser $recipient, $subject, $bodytext);
 
 	/**
 	 * Gets the preferred format of this mailing service.
@@ -67,5 +50,3 @@ interface MailingServiceInterface {
 	public function getFormat();
 
 }
-
-?>

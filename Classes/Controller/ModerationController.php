@@ -265,7 +265,7 @@ class ModerationController extends AbstractController {
 	/**
 	 * Displays a form for editing a topic with special moderator-powers!
 	 *
-	 * @param  Topic $topic The topic that is to be edited.
+	 * @param Topic $topic The topic that is to be edited.
 	 */
 	public function editTopicAction(Topic $topic) {
 		$this->authenticationService->assertModerationAuthorization($topic->getForum());
@@ -297,7 +297,7 @@ class ModerationController extends AbstractController {
 	/**
 	 * Delete a topic from repository!
 	 *
-	 * @param  Topic $topic The topic that is be deleted.
+	 * @param Topic $topic The topic that is be deleted.
 	 *
 	 * @return void
 	 */

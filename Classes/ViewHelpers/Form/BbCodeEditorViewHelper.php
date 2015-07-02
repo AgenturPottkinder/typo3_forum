@@ -81,7 +81,7 @@ class BbCodeEditorViewHelper extends TextareaViewHelper {
 	/**
 	 * Loads the editor configuration
 	 *
-	 * @param  string $configurationPath The typoscript setup path in which the
+	 * @param string $configurationPath The typoscript setup path in which the
 	 *                                   editor configuration is stored.
 	 *
 	 * @return string

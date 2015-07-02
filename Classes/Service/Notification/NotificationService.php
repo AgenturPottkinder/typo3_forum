@@ -91,10 +91,10 @@ class NotificationService extends \Mittwald\Typo3Forum\Service\AbstractService
 	 * Notifies subscribers of a subscribeable objects about a new notifiable object
 	 * within the subscribeable object, e.g. of a new post within a subscribed topic.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $subscriptionObject
+	 * @param \Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $subscriptionObject
 	 *                             The subscribed object. This may for example be a
 	 *                             forum or a topic.
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\NotifiableInterface $notificationObject
+	 * @param \Mittwald\Typo3Forum\Domain\Model\NotifiableInterface $notificationObject
 	 *                             The object that the subscriber is notified about.
 	 *                             This may for example be a new post within an
 	 *                             observed topic or forum or a new topic within an

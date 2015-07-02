@@ -65,7 +65,7 @@ class QuoteParserService extends \Mittwald\Typo3Forum\TextParser\Service\Abstrac
 	/**
 	 * Renders the parsed text.
 	 *
-	 * @param  string $text The text to be parsed.
+	 * @param string $text The text to be parsed.
 	 * @return string       The parsed text.
 	 */
 
@@ -84,7 +84,7 @@ class QuoteParserService extends \Mittwald\Typo3Forum\TextParser\Service\Abstrac
 	 *
 	 * Callback function for rendering quotes.
 	 *
-	 * @param  string $matches PCRE matches.
+	 * @param string $matches PCRE matches.
 	 *
 	 * @return string          The quote content.
 	 *
@@ -102,7 +102,7 @@ class QuoteParserService extends \Mittwald\Typo3Forum\TextParser\Service\Abstrac
 	 *
 	 * Callback function for rendering quotes.
 	 *
-	 * @param  string $matches PCRE matches.
+	 * @param string $matches PCRE matches.
 	 *
 	 * @return string          The quote content.
 	 *

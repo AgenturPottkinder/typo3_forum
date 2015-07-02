@@ -4,8 +4,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -25,7 +24,10 @@ namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser;
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
@@ -53,7 +55,7 @@ class Report extends AbstractEntity {
 
 	/**
 	 * The current status of this report.
-	 * @var \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus
+	 * @var ReportWorkflowStatus
 	 */
 	protected $workflowStatus;
 
@@ -78,14 +80,14 @@ class Report extends AbstractEntity {
 
 	/**
 	 * Gets the reporter of this report.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser The reporter
+	 * @return FrontendUser The reporter
 	 */
 	public function getReporter() {
-		if ($this->reporter instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+		if ($this->reporter instanceof LazyLoadingProxy) {
 			$this->reporter->_loadRealInstance();
 		}
 		if ($this->reporter === NULL) {
-			$this->reporter = new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
+			$this->reporter = new AnonymousFrontendUser();
 		}
 
 		return $this->reporter;
@@ -94,24 +96,23 @@ class Report extends AbstractEntity {
 	/**
 	 * Sets the reporter.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reporter The reporter.
-	 *
+	 * @param FrontendUser $reporter The reporter.
 	 * @return void
 	 */
-	public function setReporter(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reporter) {
+	public function setReporter(FrontendUser $reporter) {
 		$this->reporter = $reporter;
 	}
 
 	/**
 	 * Gets the moderator that is assigned to this report.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser The moderator
+	 * @return FrontendUser The moderator
 	 */
 	public function getModerator() {
-		if ($this->moderator instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+		if ($this->moderator instanceof LazyLoadingProxy) {
 			$this->moderator->_loadRealInstance();
 		}
 		if ($this->moderator === NULL) {
-			$this->moderator = new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
+			$this->moderator = new AnonymousFrontendUser();
 		}
 
 		return $this->moderator;
@@ -120,18 +121,16 @@ class Report extends AbstractEntity {
 	/**
 	 * Sets the moderator.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $moderator The moderator.
-	 *
+	 * @param FrontendUser $moderator The moderator.
 	 * @return void
 	 */
-	public function setModerator(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $moderator) {
+	public function setModerator(FrontendUser $moderator) {
 		$this->moderator = $moderator;
 	}
 
 	/**
 	 * Gets the current status of this report.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus
-	 *                             The current workflow status of this report.
+	 * @return ReportWorkflowStatus The current workflow status of this report.
 	 */
 	public function getWorkflowStatus() {
 		return $this->workflowStatus;
@@ -140,12 +139,11 @@ class Report extends AbstractEntity {
 	/**
 	 * Sets the current workflow status.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $workflowStatus
-	 *                             The workflow status.
+	 * @param ReportWorkflowStatus $workflowStatus The workflow status.
 	 *
 	 * @return void
 	 */
-	public function setWorkflowStatus(\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $workflowStatus) {
+	public function setWorkflowStatus(ReportWorkflowStatus $workflowStatus) {
 		If (!$this->workflowStatus || ($this->workflowStatus && $this->workflowStatus->hasFollowupStatus($workflowStatus))) {
 			$this->workflowStatus = $workflowStatus;
 		}
@@ -179,7 +177,7 @@ class Report extends AbstractEntity {
 	/**
 	 * Adds a comment to this report.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $comment A comment
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $comment A comment
 	 *
 	 * @return void
 	 */

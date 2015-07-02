@@ -53,9 +53,9 @@ class TopicIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper
 	 *
 	 * Renders the topic icon.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
 	 *                                                         The topic for which the icon is to be rendered.
-	 * @param  integer                             $width      Image width
+	 * @param integer                             $width      Image width
 	 * @return string             The rendered icon.
 	 *
 	 */
@@ -74,7 +74,7 @@ class TopicIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper
 	 *
 	 * Generates a data array that will be passed to the typoscript object for
 	 * rendering the icon.
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
 	 *                             The topic for which the icon is to be displayed.
 	 * @return array               The data array for the typoscript object.
 	 *

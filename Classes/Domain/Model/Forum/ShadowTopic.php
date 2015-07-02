@@ -67,7 +67,7 @@ class ShadowTopic extends Topic {
 	 * Checks if a user can create new posts inside this topic. Since this topic is
 	 * only a shadow topic, this method will ALWAYS return FALSE.
 	 *
-	 * @param  FrontendUser $user       The user.
+	 * @param FrontendUser $user       The user.
 	 * @param string        $accessType The access type to be checked.
 	 *
 	 * @return boolean TRUE, if the user can create new posts. Always FALSE.
@@ -84,7 +84,7 @@ class ShadowTopic extends Topic {
 	 * Checks if a user can create new posts inside this topic. Since this topic is
 	 * only a shadow topic, this method will ALWAYS return FALSE.
 	 *
-	 * @param  FrontendUser $user The user.
+	 * @param FrontendUser $user The user.
 	 *
 	 * @return boolean TRUE, if the user can create new posts. Always FALSE.
 	 */

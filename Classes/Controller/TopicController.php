@@ -277,7 +277,7 @@ class TopicController extends AbstractController {
 	/**
 	 * Marks a topic as read by the current user.
 	 *
-	 * @param  Topic $topic The topic that is to be marked as read.
+	 * @param Topic $topic The topic that is to be marked as read.
 	 *
 	 */
 	protected function markTopicRead(Topic $topic) {

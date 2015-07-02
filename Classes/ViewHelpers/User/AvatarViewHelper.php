@@ -50,10 +50,10 @@ class AvatarViewHelper extends ImageViewHelper {
 	 *
 	 * Renders the avatar.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 *                                                               The user whose avatar is to be rendered.
-	 * @param  integer                                   $width      The desired avatar width
-	 * @param  integer                                   $height     The desired avatar height
+	 * @param integer                                   $width      The desired avatar width
+	 * @param integer                                   $height     The desired avatar height
 	 * @return string              HTML content
 	 *
 	 */

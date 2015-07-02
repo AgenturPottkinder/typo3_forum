@@ -32,8 +32,8 @@ class PostRepository extends AbstractRepository {
 	 *
 	 * Finds posts for a specific filterset. Page navigation is possible.
 	 *
-	 * @param  integer $limit
-	 * @param  array   $orderings
+	 * @param integer $limit
+	 * @param array   $orderings
 	 *
 	 * @return Array<\Mittwald\Typo3Forum\Domain\Model\Forum\Post>
 	 *                               The selected subset of posts
@@ -55,7 +55,7 @@ class PostRepository extends AbstractRepository {
 	 *
 	 * Finds topics for a specific filterset. Page navigation is possible.
 	 *
-	 * @param  array $uids
+	 * @param array $uids
 	 *
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[]
 	 *                               The selected subset of topcis
@@ -79,7 +79,7 @@ class PostRepository extends AbstractRepository {
 	 *
 	 * Finds posts for a specific topic. Page navigation is possible.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
 	 *                               The topic for which the posts are to be loaded.
 	 *
 	 * @return Array<\Mittwald\Typo3Forum\Domain\Model\Forum\Post>
@@ -102,7 +102,7 @@ class PostRepository extends AbstractRepository {
 	 *
 	 * Finds the last post in a topic.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
 	 *                                The topic for which the last post is to be
 	 *                                loaded.
 	 * @param int                                            $offset
@@ -128,7 +128,7 @@ class PostRepository extends AbstractRepository {
 	 *
 	 * Finds the last post in a forum.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
 	 *                                The forum for which to load the last post.
 	 * @param int                                            $offset
 	 *                                If you want to get the next to last post post

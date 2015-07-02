@@ -409,7 +409,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Returns all parent forums in hiearchical order as a flat list (optionally
 	 * with or without this forum itself).
 	 *
-	 * @param  boolean $withSelf TRUE to include this forum into the rootline,
+	 * @param boolean $withSelf TRUE to include this forum into the rootline,
 	 *                           otherwise FALSE.
 	 *
 	 * @return array<\Mittwald\Typo3Forum\Domain\Model\Forum\Forum>
@@ -431,9 +431,9 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 *
 	 * @access                     private
 	 *
-	 * @param  FrontendUser $user                                     The user that is to be checked against the access
+	 * @param FrontendUser $user                                     The user that is to be checked against the access
 	 *                                                                rules of this forum.
-	 * @param  string       $accessType                               The operation
+	 * @param string       $accessType                               The operation
 	 *
 	 * @return boolean             TRUE, if the user has access to the requested
 	 *                             operation, otherwise FALSE.
@@ -468,7 +468,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Checks if a user has read access to this forum.
 	 *
-	 * @param  FrontendUser $user
+	 * @param FrontendUser $user
 	 *                             The user that is to be checked.
 	 *
 	 * @return boolean             TRUE if the user has read access, otherwise FALSE.
@@ -481,7 +481,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Checks if a user has access to create new posts in this forum.
 	 *
-	 * @param  FrontendUser $user
+	 * @param FrontendUser $user
 	 *                             The user that is to be checked.
 	 *
 	 * @return boolean             TRUE if the user has access, otherwise FALSE.
@@ -494,7 +494,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Checks if a user has access to create new topics in this forum.
 	 *
-	 * @param  FrontendUser $user
+	 * @param FrontendUser $user
 	 *                             The user that is to be checked.
 	 *
 	 * @return boolean             TRUE if the user has access, otherwise FALSE.
@@ -507,7 +507,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Checks if a user has access to moderate in this forum.
 	 *
-	 * @param  FrontendUser $user
+	 * @param FrontendUser $user
 	 *                             The user that is to be checked.
 	 *
 	 * @return boolean             TRUE if the user has access, otherwise FALSE.
@@ -801,7 +801,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * PARENT FORUMS.
 	 * INTERNAL USE ONLY!
 	 *
-	 * @param  int $amount The amount by which to increase the post count
+	 * @param int $amount The amount by which to increase the post count
 	 *                     (set a negative amount to decrease).
 	 *
 	 * @return void
@@ -817,7 +817,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * PARENT FORUMS.
 	 * INTERNAL USE ONLY!
 	 *
-	 * @param  int $amount The amount by which to increase the topic count
+	 * @param int $amount The amount by which to increase the topic count
 	 *                     (set a negative amount to decrease).
 	 *
 	 * @return void

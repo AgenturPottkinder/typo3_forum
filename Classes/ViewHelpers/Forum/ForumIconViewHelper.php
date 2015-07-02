@@ -51,10 +51,10 @@ class ForumIconViewHelper extends CObjectViewHelper {
 	 *
 	 * Renders the forum icon.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
 	 *                                                         The forum for which the icon is to be rendered.
-	 * @param  integer                             $width      Image width
-	 * @param  string                              $alt        Alt text
+	 * @param integer                             $width      Image width
+	 * @param string                              $alt        Alt text
 	 * @return string             The rendered icon.
 	 *
 	 */
@@ -73,7 +73,7 @@ class ForumIconViewHelper extends CObjectViewHelper {
 	 *
 	 * Generates a data array that will be passed to the typoscript object for
 	 * rendering the icon.
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
 	 *                             The topic for which the icon is to be displayed.
 	 * @return array               The data array for the typoscript object.
 	 *

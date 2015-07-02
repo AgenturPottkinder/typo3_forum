@@ -36,9 +36,9 @@ class IfInstanceOfViewHelper extends IfViewHelper {
 	 * Renders the contents of this view helper if $object is an instance of
 	 * $className.
 	 *
-	 * @param  \TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject $object
+	 * @param \TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject $object
 	 *                                                                   The object.
-	 * @param  string                                       $className   The class.
+	 * @param string                                       $className   The class.
 	 * @return string              HTML content.
 	 *
 	 */

@@ -34,10 +34,10 @@ class PageBrowserViewHelper extends AbstractViewHelper {
 	/**
 	 * Renders the page browser.
 	 *
-	 * @param  integer $elements     Number of elements
-	 * @param  integer $itemsPerPage Number of items per page
-	 * @param  integer $currentPage  Current page
-	 * @return  string               HTML content of the page browser.
+	 * @param integer $elements     Number of elements
+	 * @param integer $itemsPerPage Number of items per page
+	 * @param integer $currentPage  Current page
+	 * @return string               HTML content of the page browser.
 	 */
 	public function render($elements, $itemsPerPage, $currentPage = 1) {
 		$output    = '';
@@ -59,9 +59,9 @@ class PageBrowserViewHelper extends AbstractViewHelper {
 	/**
 	 * Renders a single page link.
 	 *
-	 * @param  integer $pageNum   The page number
-	 * @param  integer $pageLabel Page label
-	 * @return  string            Rendered page link
+	 * @param integer $pageNum   The page number
+	 * @param integer $pageLabel Page label
+	 * @return string            Rendered page link
 	 */
 	private function renderChildItemWithPage($pageNum, $pageLabel) {
 		$this->templateVariableContainer->add('pageLabel', $pageLabel);

@@ -52,9 +52,9 @@ class Localization {
 	 * offers the possibility to give a default value, in case that a label is not
 	 * found.
 	 *
-	 * @param  string $key       The label key.
-	 * @param  string $default   The default value.
-	 * @param  array  $arguments Arguments that are to be replaced
+	 * @param string $key       The label key.
+	 * @param string $default   The default value.
+	 * @param array  $arguments Arguments that are to be replaced
 	 *
 	 * @return string            The translated value.
 	 */

@@ -192,11 +192,11 @@ abstract class AbstractController extends ActionController {
 	 *
 	 *     this->flashMessageContainer->add(Tx_Extbase_Utility_Localization(...));
 	 *
-	 * @param  string $key The language key that is to be used for the
+	 * @param string $key The language key that is to be used for the
 	 *                                  flash messages.
-	 * @param  array $arguments Arguments for the flash message.
-	 * @param  string $titleKey Optional language key for the message's title.
-	 * @param  int $severity Message severity (see \TYPO3\CMS\Core\Messaging\FlashMessage::*)
+	 * @param array $arguments Arguments for the flash message.
+	 * @param string $titleKey Optional language key for the message's title.
+	 * @param int $severity Message severity (see \TYPO3\CMS\Core\Messaging\FlashMessage::*)
 	 *
 	 * @return void
 	 */
@@ -206,11 +206,11 @@ abstract class AbstractController extends ActionController {
 	}
 
 	/**
-	 * @param            $actionName
-	 * @param null $controllerName
-	 * @param null $extensionName
-	 * @param array|null $arguments
-	 * @param null $pageUid
+	 * @param string $actionName
+	 * @param string $controllerName
+	 * @param string $extensionName
+	 * @param array $arguments
+	 * @param int $pageUid
 	 * @param int $delay
 	 * @param int $statusCode
 	 */

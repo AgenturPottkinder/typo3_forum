@@ -135,7 +135,7 @@ class AuthenticationService extends \Mittwald\Typo3Forum\Service\AbstractService
 	/**
 	 * Asserts that the current user is authorized to read a specific object.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object
+	 * @param \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object
 	 *                             The object that is to be accessed.
 	 *
 	 * @return void
@@ -150,7 +150,7 @@ class AuthenticationService extends \Mittwald\Typo3Forum\Service\AbstractService
 	 * Asserts that the current user is authorized to create a new topic in a
 	 * certain forum.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
 	 *                             The forum in which the new topic is to be created.
 	 *
 	 * @return void
@@ -165,7 +165,7 @@ class AuthenticationService extends \Mittwald\Typo3Forum\Service\AbstractService
 	 * Asserts that the current user is authorized to create a new post within a
 	 * topic.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
 	 *                             The topic in which the new post is to be created.
 	 *
 	 * @return void
@@ -179,7 +179,7 @@ class AuthenticationService extends \Mittwald\Typo3Forum\Service\AbstractService
 	/**
 	 * Asserts that the current user is authorized to edit an existing post.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
 	 *                             The post that shall be edited.
 	 *
 	 * @return void
@@ -193,7 +193,7 @@ class AuthenticationService extends \Mittwald\Typo3Forum\Service\AbstractService
 	/**
 	 * Asserts that the current user is authorized to delete a post.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
 	 *                             The post that is to be deleted.
 	 *
 	 * @return void
@@ -207,7 +207,7 @@ class AuthenticationService extends \Mittwald\Typo3Forum\Service\AbstractService
 	/**
 	 * Asserts that the current user has moderator access to a certain forum.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object
+	 * @param \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object
 	 *                             The object that is to be moderated.
 	 *
 	 * @return void
@@ -237,10 +237,10 @@ class AuthenticationService extends \Mittwald\Typo3Forum\Service\AbstractService
 	 * Asserts that the current user is authorized to perform a certain
 	 * action on an potentially protected object.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object
+	 * @param \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object
 	 *                                                                  The object for which the access is to be
 	 *                                                                  checked.
-	 * @param  string                                      $action      The action for which the access check is
+	 * @param string                                      $action      The action for which the access check is
 	 *                                                                  to be performed.
 	 *
 	 * @return void
@@ -258,8 +258,8 @@ class AuthenticationService extends \Mittwald\Typo3Forum\Service\AbstractService
 	 * Checks whether the current user is authorized to perform a certain
 	 * action on an object.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object The object for which the access is to be checked.
-	 * @param  string                                      $action The action for which the access check is to be
+	 * @param \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object The object for which the access is to be checked.
+	 * @param string                                      $action The action for which the access check is to be
 	 *                                                             performed.
 	 *
 	 * @return boolean             TRUE, when the user is authorized,
@@ -289,8 +289,8 @@ class AuthenticationService extends \Mittwald\Typo3Forum\Service\AbstractService
 	 * check.
 	 * INTERNAL USE ONLY!
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object The object for which the access is to be checked.
-	 * @param  string                                      $action The action for which the access check is to be
+	 * @param \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object The object for which the access is to be checked.
+	 * @param string                                      $action The action for which the access check is to be
 	 *                                                             performed.
 	 *
 	 * @return string              The cache identifier.

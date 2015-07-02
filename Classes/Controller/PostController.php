@@ -179,9 +179,9 @@ class PostController extends AbstractController {
 	 *
 	 * @dontvalidate $post
 	 *
-	 * @param  Topic $topic The topic in which the new post is to be created.
-	 * @param  Post $post The new post.
-	 * @param  Post $quote An optional post that will be quoted within the bodytext of the new post.
+	 * @param Topic $topic The topic in which the new post is to be created.
+	 * @param Post $post The new post.
+	 * @param Post $quote An optional post that will be quoted within the bodytext of the new post.
 	 * @return void
 	 */
 	public function newAction(Topic $topic, Post $post = NULL, Post $quote = NULL) {

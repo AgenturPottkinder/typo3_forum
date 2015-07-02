@@ -60,7 +60,7 @@ class AdsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 * @TODO: If extbase 6.3 is released, don't use a sql statement -> http://forge.typo3.org/issues/14026
 	 *
 	 * @param array $categories Which categories should be shown? (0=all,1=forum,2=topic)
-	 * @param       int         How many results should come back
+	 * @param      int         How many results should come back
 	 *
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Ads[]
 	 */

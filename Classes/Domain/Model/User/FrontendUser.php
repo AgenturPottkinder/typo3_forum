@@ -508,8 +508,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @access private
 	 *
-	 * @param  FrontendUser $user
-	 * @param  string $accessType
+	 * @param FrontendUser $user
+	 * @param string $accessType
 	 *
 	 * @return boolean
 	 */
@@ -732,7 +732,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	/**
 	 * Adds a readable object to the list of objects read by this user.
 	 *
-	 * @param  ReadableInterface $readObject The object that is to be marked as read.
+	 * @param ReadableInterface $readObject The object that is to be marked as read.
 	 * @return void
 	 */
 	public function addReadObject(ReadableInterface $readObject) {
@@ -744,7 +744,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	/**
 	 * Removes a readable object from the list of objects read by this user.
 	 *
-	 * @param  ReadableInterface $readObject The object that is to be marked as unread.
+	 * @param ReadableInterface $readObject The object that is to be marked as unread.
 	 *
 	 * @return void
 	 */
@@ -948,7 +948,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 * Resets the whole contact data array of this user. This array will be stored in
 	 * a JSON serialized format.
 	 *
-	 * @param  array $values All contact data of this user.
+	 * @param array $values All contact data of this user.
 	 *
 	 * @return void
 	 */
@@ -960,8 +960,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 * Sets a single contact data record. A contact data record can be unset by setting
 	 * it to a empty or FALSE value.
 	 *
-	 * @param  $type  string The contact record key (e.g. "twitter", "facebook", "icq", ...)
-	 * @param  $value string The new value. Set to a FALSE value to unset.
+	 * @param $type  string The contact record key (e.g. "twitter", "facebook", "icq", ...)
+	 * @param $value string The new value. Set to a FALSE value to unset.
 	 *
 	 * @return void
 	 */

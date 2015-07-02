@@ -156,7 +156,7 @@ class TopicFactory extends AbstractFactory {
 	/**
 	 * Creates a new shadow topic.
 	 *
-	 * @param  Topic $topic The original topic. The newly created shadow topic will then point towards this topic.
+	 * @param Topic $topic The original topic. The newly created shadow topic will then point towards this topic.
 	 *
 	 * @return ShadowTopic The newly created shadow topic.
 	 */

@@ -75,9 +75,9 @@ class ForumSelectViewHelper extends SelectViewHelper {
 	 *
 	 * Recursively generates option rows for a forum and each subforum of this forum.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
 	 *                                                         The forum for which to generate the option row.
-	 * @param  boolean                             $isRoot     TRUE, if the forum is a root category, otherwise
+	 * @param boolean                             $isRoot     TRUE, if the forum is a root category, otherwise
 	 *                                                         FALSE.
 	 * @return array               An option row for the specified forum.
 	 *
@@ -97,10 +97,10 @@ class ForumSelectViewHelper extends SelectViewHelper {
 	 *
 	 * Recursively renders all option tags.
 	 *
-	 * @param    array $options      All option rows.
-	 * @param  integer $nestingLevel The current nesting level. Required for correct
+	 * @param   array $options      All option rows.
+	 * @param integer $nestingLevel The current nesting level. Required for correct
 	 *                               formatting.
-	 * @return  string
+	 * @return string
 	 *
 	 */
 	protected function renderOptionTags($options, $nestingLevel = 1) {

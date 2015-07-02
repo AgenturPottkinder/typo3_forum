@@ -114,7 +114,7 @@ abstract class AbstractUserfield extends AbstractValueObject {
 	/**
 	 * Sets the FrontendUser property name.
 	 *
-	 * @param  string $property The FrontendUser property name.
+	 * @param string $property The FrontendUser property name.
 	 *
 	 * @return void
 	 */

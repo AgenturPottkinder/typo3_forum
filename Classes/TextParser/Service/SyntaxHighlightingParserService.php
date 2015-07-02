@@ -54,7 +54,7 @@ class SyntaxHighlightingParserService extends \Mittwald\Typo3Forum\TextParser\Se
 	/**
 	 * Renders the parsed text.
 	 *
-	 * @param  string $text The text to be parsed.
+	 * @param string $text The text to be parsed.
 	 * @return string       The parsed text.
 	 */
 	public function getParsedText($text) {
@@ -66,7 +66,7 @@ class SyntaxHighlightingParserService extends \Mittwald\Typo3Forum\TextParser\Se
 	/**
 	 * Callback function that renders each source code block.
 	 *
-	 * @param  array $matches PCRE matches.
+	 * @param array $matches PCRE matches.
 	 * @return string         The rendered source code block.
 	 */
 	protected function parseSourceCode($matches) {

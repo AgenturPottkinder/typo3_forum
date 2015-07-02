@@ -154,7 +154,7 @@ class Access extends AbstractValueObject {
 	/**
 	 * Matches a certain user against this access rule.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 *                                 The user to be matched. Can also be NULL (for anonymous
 	 *                                 users).
 	 *

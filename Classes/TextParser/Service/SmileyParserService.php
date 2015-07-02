@@ -43,7 +43,7 @@ class SmileyParserService extends AbstractTextParserService {
 	/**
 	 * Renders the parsed text.
 	 *
-	 * @param  string $text The text to be parsed.
+	 * @param string $text The text to be parsed.
 	 * @return string The parsed text.
 	 */
 	public function getParsedText($text) {
@@ -62,7 +62,7 @@ class SmileyParserService extends AbstractTextParserService {
 	 *
 	 * Renders a smiley icon.
 	 *
-	 * @param  Smiley $smiley The smiley that is to be rendered.
+	 * @param Smiley $smiley The smiley that is to be rendered.
 	 *
 	 * @return string The smiley as HTML code.
 	 *

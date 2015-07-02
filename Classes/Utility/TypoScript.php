@@ -57,9 +57,9 @@ class TypoScript {
 	/**
 	 * Loads the typoscript configuration from a certain setup path.
 	 *
-	 * @param  string $configurationPath The typoscript path
+	 * @param string $configurationPath The typoscript path
 	 *
-	 * @return  array                    The typoscript configuration for the
+	 * @return array                    The typoscript configuration for the
 	 *                                   specified path.
 	 * @throws \Mittwald\Typo3Forum\Domain\Exception\TextParser\Exception
 	 */

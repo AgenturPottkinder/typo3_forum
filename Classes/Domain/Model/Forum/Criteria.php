@@ -70,7 +70,7 @@ class Criteria extends AbstractEntity {
 
 	/**
 	 * Get all options of this criteria.
-	 * @return    \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption>
 	 *            All options of criteria.
 	 */
 	public function getOptions() {

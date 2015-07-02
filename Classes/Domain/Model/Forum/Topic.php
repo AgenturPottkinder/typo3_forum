@@ -399,7 +399,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Determines whether this topic has been read by a certain user.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reader The user who is to be checked.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reader The user who is to be checked.
 	 *
 	 * @return boolean                                           TRUE, if the user did read this topic, otherwise FALSE.
 	 */
@@ -411,7 +411,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Returns all parent forums in hiearchical order as a flat list (optionally
 	 * with or without this topic itself).
 	 *
-	 * @param  boolean $withSelf TRUE to include this forum into the rootline, otherwise FALSE.
+	 * @param boolean $withSelf TRUE to include this forum into the rootline, otherwise FALSE.
 	 *
 	 * @return array<\Mittwald\Typo3Forum\Domain\Model\Forum\Forum>
 	 */
@@ -455,8 +455,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Checks if a user may perform a certain operation (read, answer...) with this
 	 * topic.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user       The user.
-	 * @param  string                                              $accessType The access type to be checked.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user       The user.
+	 * @param string                                              $accessType The access type to be checked.
 	 *
 	 * @return boolean
 	 */
@@ -476,7 +476,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Checks if a user may reply to this topic.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 *
 	 * @return boolean
 	 */
@@ -492,7 +492,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Checks if a user has moderative access to this topic.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 *
 	 * @return boolean
 	 */
@@ -503,7 +503,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Checks if a user has solution access to this topic.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 *
 	 * @return boolean
 	 */
@@ -519,7 +519,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Adds a Post. By adding a new post, this topic is automatically marked unread
 	 * for all users who have read this topic before.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post The Post to be added
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post The Post to be added
 	 *
 	 * @return void
 	 */
@@ -551,7 +551,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Adds a criteria option to the repository.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption $option The Option to be added
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption $option The Option to be added
 	 *
 	 * @return void
 	 */
@@ -592,7 +592,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Sets the topic author.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $author The topic author.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $author The topic author.
 	 *
 	 * @return void
 	 */
@@ -604,7 +604,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Sets the last post. This method is not publicy accessible; is is called
 	 * automatically when a new post is added to this topic.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Post $lastPost The last post.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $lastPost The last post.
 	 *
 	 * @return void
 	 */
@@ -616,7 +616,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Sets the subject of this topic.
 	 *
-	 * @param  string $subject The subject
+	 * @param string $subject The subject
 	 *
 	 * @return void
 	 */
@@ -638,7 +638,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Sets the forum.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum The forum
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum The forum
 	 *
 	 * @return void
 	 */
@@ -649,7 +649,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Sets this topic to closed.
 	 *
-	 * @param  boolean $closed TRUE to close this topic, FALSE to re-open it.
+	 * @param boolean $closed TRUE to close this topic, FALSE to re-open it.
 	 *
 	 * @return void
 	 */
@@ -661,7 +661,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Sets this topic to sticky. Sticky topics will always remain at the top of the
 	 * forum list, regardless of the timestamp of the last post.
 	 *
-	 * @param  boolean $sticky TRUE to make this topic sticky, FALSE to reset this.
+	 * @param boolean $sticky TRUE to make this topic sticky, FALSE to reset this.
 	 *
 	 * @return void
 	 */
@@ -672,7 +672,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Sets this topic to a question. Question topics will be shown at the support queries helpbox.
 	 *
-	 * @param  int $question TRUE to make this topic a question, FALSE to reset this.
+	 * @param int $question TRUE to make this topic a question, FALSE to reset this.
 	 *
 	 * @return void
 	 */

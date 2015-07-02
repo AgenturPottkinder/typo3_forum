@@ -98,7 +98,7 @@ interface AuthenticationServiceInterface {
 
 	/**
 	 * @param \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object
-	 * @param                                             $action
+	 * @param                                            $action
 	 */
 	public function assertAuthorization(\Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object, $action);
 
@@ -106,7 +106,7 @@ interface AuthenticationServiceInterface {
 
 	/**
 	 * @param \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object
-	 * @param                                             $action
+	 * @param                                            $action
 	 */
 	public function checkAuthorization(\Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object, $action);
 

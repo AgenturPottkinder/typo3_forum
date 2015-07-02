@@ -175,7 +175,7 @@ class ForumController extends AbstractController {
 	public function showUnreadAction(Forum $forum) {
 		$user = $this->getCurrentUser();
 		if ($user->isAnonymous()) {
-			throw new NotLoggedInException("You need to be logged in.", 1288084981);
+			throw new NotLoggedInException('You need to be logged in.', 1288084981);
 		}
 		$topics = array();
 		$unreadTopics = array();

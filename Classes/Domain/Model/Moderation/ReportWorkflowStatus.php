@@ -95,7 +95,7 @@ class ReportWorkflowStatus extends AbstractValueObject {
 	/**
 	 * Determines if a workflow status is an allowed follow-up status for this status.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $status
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $status
 	 *                             The status that is to be checked.
 	 *
 	 * @return boolean             TRUE, if $status is a valid follow-up status,

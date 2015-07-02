@@ -104,7 +104,7 @@ class ForumRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 *
 	 * Finds forum for a specific filterset. Page navigation is possible.
 	 *
-	 * @param  array $uids
+	 * @param array $uids
 	 *
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[]
 	 *                               The selected subset of topcis

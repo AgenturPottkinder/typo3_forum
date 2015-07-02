@@ -247,8 +247,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 *
 	 * @access private
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
-	 * @param  string                                              $accessType
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @param string                                              $accessType
 	 *
 	 * @return boolean
 	 */
@@ -274,7 +274,7 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser|NULL $user
 	 *                             The user for which the authenication is to be
 	 *                             checked.
-	 * @param                                                          $operation
+	 * @param                                                         $operation
 	 *
 	 * @return boolean             TRUE, if the user is allowed to edit this post,
 	 *                             otherwise FALSE.
@@ -353,7 +353,7 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	/**
 	 * Sets the attachments.
 	 *
-	 * @param  \TYPO3\CMS\Extbase\Persistence\ObjectStorage $attachments The attachments.
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $attachments The attachments.
 	 * @validate $attachments Tx_Typo3Forum_Domain_Validator_Forum_AttachmentValidator
 	 *
 	 * @return void
@@ -365,7 +365,7 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	/**
 	 * Adds an or more attachments.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment $attachments The attachment.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment $attachments The attachment.
 	 *
 	 * @return void
 	 */
@@ -377,7 +377,7 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	/**
 	 * Removes an attachment.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment $attachment The attachment.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment $attachment The attachment.
 	 *
 	 * @return void
 	 */
@@ -391,7 +391,7 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	/**
 	 * Determines whether this topic has been read by a certain user.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $supporter The user who is to be checked.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $supporter The user who is to be checked.
 	 *
 	 * @return boolean                                           TRUE, if the user did read this topic, otherwise FALSE.
 	 */

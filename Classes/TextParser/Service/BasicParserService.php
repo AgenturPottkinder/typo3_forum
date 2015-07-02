@@ -43,7 +43,7 @@ class BasicParserService extends AbstractTextParserService {
 	/**
 	 * Renders the parsed text.
 	 *
-	 * @param  string $text The text to be parsed.
+	 * @param string $text The text to be parsed.
 	 * @return string       The parsed text.
 	 */
 	public function getParsedText($text) {
@@ -181,7 +181,7 @@ class BasicParserService extends AbstractTextParserService {
 	/**
 	 * Removes superflous line breaks within the text.
 	 *
-	 * @param  string $text The text with linebreaks.
+	 * @param string $text The text with linebreaks.
 	 *
 	 * @return string The text with less linebreaks.
 	 */

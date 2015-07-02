@@ -44,7 +44,7 @@ class BBCodeParserService extends AbstractTextParserService {
 	/**
 	 * Parses the text. Replaces all bb codes in the text with appropriate HTML tags.
 	 *
-	 * @param  string $text The text that is to be parsed.
+	 * @param string $text The text that is to be parsed.
 	 * @return string       The parsed text.
 	 */
 	public function getParsedText($text) {

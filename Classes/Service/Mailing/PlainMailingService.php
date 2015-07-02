@@ -72,11 +72,11 @@ class PlainMailingService extends \Mittwald\Typo3Forum\Service\Mailing\AbstractM
 	 * Sends a mail with a certain subject and bodytext to a recipient in form of a
 	 * frontend user.
 	 *
-	 * @param         \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $recipient
+	 * @param        \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $recipient
 	 *                                                             The recipient of the mail. This is a plain
 	 *                                                             frontend user.
-	 * @param  string $subject                                     The mail's subject
-	 * @param  string $bodyText                                    The mail's bodytext
+	 * @param string $subject                                     The mail's subject
+	 * @param string $bodyText                                    The mail's bodytext
 	 *
 	 * @return void
 	 *

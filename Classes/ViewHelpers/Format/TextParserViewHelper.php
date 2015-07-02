@@ -49,9 +49,9 @@ class TextParserViewHelper extends AbstractViewHelper {
 	 *
 	 * Renders the input text.
 	 *
-	 * @param  string                             $configuration The configuration path
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
-	 * @param  string                             $content       The content to be rendered. If NULL, the node
+	 * @param string                             $configuration The configuration path
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
+	 * @param string                             $content       The content to be rendered. If NULL, the node
 	 *                                                           content will be rendered instead.
 	 * @return string                The rendered text
 	 *

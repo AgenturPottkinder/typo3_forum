@@ -86,10 +86,10 @@ class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronte
 	 *
 	 * Finds users for a specific filterset. Page navigation is possible.
 	 *
-	 * @param  integer $limit
-	 * @param  array   $orderings
-	 * @param  boolean $onlyOnline
-	 * @param  array   $uids
+	 * @param integer $limit
+	 * @param array   $orderings
+	 * @param boolean $onlyOnline
+	 * @param array   $uids
 	 *
 	 * @return Array<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
 	 *                               The selected subset of posts

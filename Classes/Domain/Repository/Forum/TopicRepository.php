@@ -56,7 +56,7 @@ class TopicRepository extends AbstractRepository {
 	 *
 	 * Finds topics for a specific filterset. Page navigation is possible.
 	 *
-	 * @param  array $uids
+	 * @param array $uids
 	 *
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[]
 	 *                               The selected subset of topcis
@@ -79,7 +79,7 @@ class TopicRepository extends AbstractRepository {
 	/**
 	 * Finds topics for the forum show view. Page navigation is possible.
 	 *
-	 * @param  Forum $forum
+	 * @param Forum $forum
 	 *                               The forum for which to load the topics.
 	 *
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[]
@@ -130,7 +130,7 @@ class TopicRepository extends AbstractRepository {
 	 * Finds topics by post authors, i.e. all topics that contain at least one post
 	 * by a specific author. Page navigation is possible.
 	 *
-	 * @param  FrontendUser $user
+	 * @param FrontendUser $user
 	 *                               The frontend user whose topics are to be loaded.
 	 * @param int           $limit
 	 *
@@ -195,7 +195,7 @@ class TopicRepository extends AbstractRepository {
 	/**
 	 * Counts all topics for the forum show view.
 	 *
-	 * @param  Forum $forum The forum for which the topics are to be counted.
+	 * @param Forum $forum The forum for which the topics are to be counted.
 	 *
 	 * @return integer The topic count.
 	 */
@@ -270,7 +270,7 @@ class TopicRepository extends AbstractRepository {
 	 *
 	 * Finds the last topic in a forum.
 	 *
-	 * @param  Forum $forum
+	 * @param Forum $forum
 	 *                                The forum for which to load the last topic.
 	 * @param int                                            $offset
 	 *                                If you want to get the next to last topic topic

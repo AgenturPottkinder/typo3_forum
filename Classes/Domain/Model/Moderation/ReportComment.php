@@ -59,7 +59,7 @@ class ReportComment extends AbstractEntity {
 	/**
 	 * Constructor
 	 *
-	 * @param  string $text .
+	 * @param string $text .
 	 */
 	public function __construct($text = NULL) {
 		$this->text = $text;
@@ -83,7 +83,7 @@ class ReportComment extends AbstractEntity {
 	/**
 	 * Sets the comment's author.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $author The author.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $author The author.
 	 *
 	 * @return void
 	 */
