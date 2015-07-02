@@ -25,12 +25,28 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
  *                                                                      */
 
 use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
+use Mittwald\Typo3Forum\Domain\Model\ReadableInterface;
+use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 
 /**
  * A frontend user.
  */
 class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implements AccessibleInterface {
+
+	const GENDER_MALE = 0;
+	const GENDER_FEMALE = 1;
+	const GENDER_PRIVATE = 99;
+
+	/**
+	 * @var \TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager
+	 * @inject
+	 */
+	protected $frontendConfigurationManager;
 
 	/**
 	 * The rank repository
@@ -273,12 +289,10 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @var array
 	 */
-	protected $settings;
+	protected $settings = NULL;
 
 	/**
-	 * typoScriptService
-	 *
-	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
+	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
 	 * @inject
 	 */
 	protected $typoScriptService;
@@ -291,18 +305,19 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 */
 	public function __construct($username = '', $password = '') {
 		parent::__construct($username, $password);
-		$this->readTopics = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->readForum = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->readTopics = new ObjectStorage();
+		$this->readForum = new ObjectStorage();
 	}
 
 	/**
-	 * initializeObject
-	 *
-	 * @return void
+	 * @return array
 	 */
-	public function initializeObject() {
-		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
-		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
+	protected function getSettings() {
+		if ($this->settings === NULL) {
+			$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray($this->frontendConfigurationManager->getTypoScriptSetup());
+			$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
+		}
+		return $this->settings;
 	}
 
 	/**
@@ -398,7 +413,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	/**
 	 * Gets the gender of the user
 	 *
-	 * @return integer (0=male, 1=female, 99=private)
+	 * @return integer See GENDER_ constants of this class
 	 */
 	public function getGender() {
 		return $this->gender;
@@ -414,7 +429,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	/**
 	 * Gets the private messages of this user.
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\PrivateMessages>
+	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\PrivateMessages>
 	 */
 	public function getPrivateMessages() {
 		return $this->privateMessages;
@@ -423,7 +438,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	/**
 	 * Gets the subscribed topics.
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Topic>
+	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Topic>
 	 *                             The subscribed topics.
 	 */
 	public function getTopicSubscriptions() {
@@ -442,7 +457,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	/**
 	 * Gets the subscribed forums.
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Forum>
+	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Forum>
 	 *                             The subscribed forums.
 	 */
 	public function getForumSubscriptions() {
@@ -452,7 +467,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	/**
 	 * Gets the subscribed forums.
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Post>
+	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Post>
 	 *                             The subscribed forums.
 	 */
 	public function getSupportPosts() {
@@ -493,12 +508,12 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @access private
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
-	 * @param  string                                              $accessType
+	 * @param  FrontendUser $user
+	 * @param  string $accessType
 	 *
 	 * @return boolean
 	 */
-	public function checkAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL, $accessType = 'moderate') {
+	public function checkAccess(FrontendUser $user = NULL, $accessType = 'moderate') {
 		switch ($accessType) {
 			default:
 				foreach ($user->getUsergroup() as $group) {
@@ -506,7 +521,6 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 						return TRUE;
 					}
 				}
-
 				return FALSE;
 		}
 	}
@@ -515,7 +529,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 * Returns the usergroups. Keep in mind that the property is called "usergroup"
 	 * although it can hold several usergroups.
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage An object storage containing the usergroup
+	 * @return ObjectStorage An object storage containing the usergroup
 	 * @api
 	 */
 	public function getUsergroup() {
@@ -525,11 +539,11 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	/**
 	 * Determines if this user is member of a specific group.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup $checkGroup
+	 * @param FrontendUserGroup $checkGroup
 	 *
 	 * @return boolean
 	 */
-	public function isInGroup(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup $checkGroup) {
+	public function isInGroup(FrontendUserGroup $checkGroup) {
 		foreach ($this->getUsergroup() As $group) {
 			if ($group == $checkGroup) {
 				return TRUE;
@@ -580,21 +594,14 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	/**
 	 * Gets the userfield values for this user.
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\Userfield\Value>
+	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\Userfield\Value>
 	 */
 	public function getUserfieldValues() {
 		return $this->userfieldValues;
 	}
 
 	/**
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\Userfield\Value>
-	 */
-	public function getComments() {
-		return $this->comments;
-	}
-
-	/**
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\Userfield\Value>
+	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\Userfield\Value>
 	 */
 	public function getInterests() {
 		return $this->interests;
@@ -609,7 +616,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	public function getImagePath() {
 
 		if ($this->image) {
-			$imageDirectoryName = $this->settings['images']['avatar']['uploadDir'];
+			$imageDirectoryName = $this->getSettings()['images']['avatar']['uploadDir'];
 			$imageFilename = rtrim($imageDirectoryName, '/') . '/' . $this->image;
 
 			return file_exists($imageFilename) ? $imageFilename : NULL;
@@ -623,7 +630,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 			$emailHash = md5(strtolower($this->email));
 			$temporaryFilename = 'typo3temp/typo3_forum/gravatar/' . $emailHash . '.jpg';
 			if (!file_exists(PATH_site . $temporaryFilename)) {
-				$image = \TYPO3\CMS\Core\Utility\GeneralUtility::getUrl('https://secure.gravatar.com/avatar/' . $emailHash . '.jpg');
+				$image = GeneralUtility::getUrl('https://secure.gravatar.com/avatar/' . $emailHash . '.jpg');
 				file_put_contents(PATH_site . $temporaryFilename, $image);
 			}
 
@@ -631,19 +638,19 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 		}
 
 		switch ($this->gender) {
-			case '0':
-				$imageFilename = $this->settings['images']['avatar']['dummyMale'];
+			case self::GENDER_MALE:
+				$imageFilename = $this->getSettings()['images']['avatar']['dummyMale'];
 				break;
-			case '1':
-				$imageFilename = $this->settings['images']['avatar']['dummyFemale'];
+			case self::GENDER_FEMALE:
+				$imageFilename = $this->getSettings()['images']['avatar']['dummyFemale'];
 				break;
 		}
-		if ($imageFilename <> '') {
-			return file_exists($imageFilename) ? $imageFilename : NULL;
+
+		if (!isset($imageFilename) || !file_exists($imageFilename)) {
+			return NULL;
 		}
 
-
-		return NULL;
+		return $imageFilename;
 	}
 
 	/**
@@ -667,16 +674,13 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	/**
 	 * Subscribes this user to a subscribeable object, like a topic or a forum.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $object
-	 *                             The object that is to be subscribed. This may
-	 *                             either be a topic or a forum.
-	 *
+	 * @param SubscribeableInterface $object The object that is to be subscribed. This may either be a topic or a forum.
 	 * @return void
 	 */
-	public function addFavSubscription(\Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $object) {
-		if ($object instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Topic) {
+	public function addFavSubscription(SubscribeableInterface $object) {
+		if ($object instanceof Topic) {
 			$this->topicFavSubscriptions->attach($object);
-		} elseif ($object instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Forum) {
+		} elseif ($object instanceof Forum) {
 			$this->forumFavSubscriptions->attach($object);
 		}
 	}
@@ -684,15 +688,13 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	/**
 	 * Unsubscribes this user from a subscribeable object.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $object
-	 *                             The object that is to be unsubscribed.
-	 *
+	 * @param SubscribeableInterface $object The object that is to be unsubscribed.
 	 * @return void
 	 */
-	public function removeFavSubscription(\Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $object) {
-		if ($object instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Topic) {
+	public function removeFavSubscription(SubscribeableInterface $object) {
+		if ($object instanceof Topic) {
 			$this->topicFavSubscriptions->detach($object);
-		} elseif ($object instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Forum) {
+		} elseif ($object instanceof Forum) {
 			$this->forumFavSubscriptions->detach($object);
 		}
 	}
@@ -700,16 +702,14 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	/**
 	 * Subscribes this user to a subscribeable object, like a topic or a forum.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $object
-	 *                             The object that is to be subscribed. This may
-	 *                             either be a topic or a forum.
+	 * @param SubscribeableInterface $object The object that is to be subscribed. This may either be a topic or a forum.
 	 *
 	 * @return void
 	 */
-	public function addSubscription(\Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $object) {
-		if ($object instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Topic) {
+	public function addSubscription(SubscribeableInterface $object) {
+		if ($object instanceof Topic) {
 			$this->topicSubscriptions->attach($object);
-		} elseif ($object instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Forum) {
+		} elseif ($object instanceof Forum) {
 			$this->forumSubscriptions->attach($object);
 		}
 	}
@@ -717,35 +717,26 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	/**
 	 * Unsubscribes this user from a subscribeable object.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $object
-	 *                             The object that is to be unsubscribed.
+	 * @param SubscribeableInterface $object The object that is to be unsubscribed.
 	 *
 	 * @return void
 	 */
-	public function removeSubscription(\Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $object) {
-		if ($object instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Topic) {
+	public function removeSubscription(SubscribeableInterface $object) {
+		if ($object instanceof Topic) {
 			$this->topicSubscriptions->detach($object);
-		} elseif ($object instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Forum) {
+		} elseif ($object instanceof Forum) {
 			$this->forumSubscriptions->detach($object);
 		}
 	}
 
-
-
-	/*
-	 * SETTERS
-	 */
-
 	/**
 	 * Adds a readable object to the list of objects read by this user.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\ReadableInterface $readObject
-	 *                             The object that is to be marked as read.
-	 *
+	 * @param  ReadableInterface $readObject The object that is to be marked as read.
 	 * @return void
 	 */
-	public function addReadObject(\Mittwald\Typo3Forum\Domain\Model\ReadableInterface $readObject) {
-		if ($readObject instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Topic) {
+	public function addReadObject(ReadableInterface $readObject) {
+		if ($readObject instanceof Topic) {
 			$this->readTopics->attach($readObject);
 		}
 	}
@@ -753,13 +744,12 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	/**
 	 * Removes a readable object from the list of objects read by this user.
 	 *
-	 * @param  \Mittwald\Typo3Forum\Domain\Model\ReadableInterface $readObject
-	 *                             The object that is to be marked as unread.
+	 * @param  ReadableInterface $readObject The object that is to be marked as unread.
 	 *
 	 * @return void
 	 */
-	public function removeReadObject(\Mittwald\Typo3Forum\Domain\Model\ReadableInterface $readObject) {
-		if ($readObject instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Topic) {
+	public function removeReadObject(ReadableInterface $readObject) {
+		if ($readObject instanceof Topic) {
 			$this->readTopics->detach($readObject);
 		}
 	}
@@ -767,18 +757,18 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	/**
 	 * Add a private message
 	 *
-	 * @param $message \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessages
+	 * @param $message PrivateMessages
 	 */
-	public function addPrivateMessage(\Mittwald\Typo3Forum\Domain\Model\User\PrivateMessages $message) {
+	public function addPrivateMessage(PrivateMessages $message) {
 		$this->privateMessages->attach($message);
 	}
 
 	/**
 	 * Removes a private messages
 	 *
-	 * @param $message \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessages
+	 * @param $message PrivateMessages
 	 */
-	public function removePrivateMessage(\Mittwald\Typo3Forum\Domain\Model\User\PrivateMessages $message) {
+	public function removePrivateMessage(PrivateMessages $message) {
 		$this->privateMessages->detach($message);
 	}
 
@@ -893,7 +883,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 		$this->points = $this->points + $by;
 
 		/**
-		 * @var \Mittwald\Typo3Forum\Domain\Model\User\Rank
+		 * @var Rank
 		 */
 		$rank = $this->rankRepository->findOneRankByPoints($this->getPoints());
 
@@ -909,18 +899,18 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	/**
 	 * Get the rank of this user
 	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\Rank
+	 * @return Rank
 	 */
-	public function  getRank() {
+	public function getRank() {
 		return $this->rank;
 	}
 
 	/**
 	 * Set the rank of this user
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\Rank $rank
+	 * @param Rank $rank
 	 */
-	public function setRank(\Mittwald\Typo3Forum\Domain\Model\User\Rank $rank) {
+	public function setRank(Rank $rank) {
 		$this->rank = $rank;
 	}
 

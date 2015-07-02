@@ -4,8 +4,7 @@ namespace Mittwald\Typo3Forum\Domain\Repository\User;
 	/*                                                                    - *
 	 *  COPYRIGHT NOTICE                                                    *
 	 *                                                                      *
-	 *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
-	 *           Mittwald CM Service GmbH & Co KG                           *
+	 *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
 	 *           All rights reserved                                        *
 	 *                                                                      *
 	 *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,6 +23,9 @@ namespace Mittwald\Typo3Forum\Domain\Repository\User;
 	 *                                                                      *
 	 *  This copyright notice MUST APPEAR in all copies of the script!      *
 	 *                                                                      */
+use Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser;
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 
 /**
@@ -73,14 +75,11 @@ class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronte
 	/**
 	 * Finds the user that is currently logged in, or NULL if no user is logged in.
 	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
-	 *                             The user that is currently logged in, or NULL if
-	 *                             no user is logged in.
+	 * @return FrontendUser The user that is currently logged in, or AnonymousFrontendUser if no user is logged in.
 	 */
 	public function findCurrent() {
 		$currentUserUid = (int) $GLOBALS['TSFE']->fe_user->user['uid'];
-
-		return $currentUserUid ? $this->findByUid($currentUserUid) : new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
+		return $currentUserUid ? $this->findByUid($currentUserUid) : new AnonymousFrontendUser();
 	}
 
 	/**
@@ -132,21 +131,20 @@ class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronte
 
 	/**
 	 * Returns an anonymous frontend user.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser An anonymous frontend user.
+	 * @return AnonymousFrontendUser An anonymous frontend user.
 	 */
 	public function findAnonymous() {
-		return new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
+		return new AnonymousFrontendUser();
 	}
 
 
 	/**
 	 * Find all user with a part of $username in his name
 	 *
-	 * @param $part   Part of the users nickname
-	 * @param $filter Order by which field?
-	 * @param $order  ASC or DESC ordering
-	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser[] The frontend users with the specified username.
+	 * @param string $part Part of the users nickname
+	 * @param string $filter Order by which field?
+	 * @param string $order QueryInterface::ORDER_ASCENDING or QueryInterface::ORDER_DESCENDING ordering
+	 * @return FrontendUser[] The frontend users with the specified username.
 	 */
 	public function findLikeUsername($part = NULL, $filter = NULL, $order = NULL) {
 		$query = $this->createQuery();
@@ -154,11 +152,10 @@ class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronte
 			$query->matching($query->like('username', '%' . $part . '%'));
 		}
 		if ($filter === NULL || $order === NULL) {
-			$query->setOrderings(array('username' => 'ASC'));
+			$query->setOrderings(array('username' => QueryInterface::ORDER_ASCENDING));
 		} else {
 			$query->setOrderings(array($filter => $order));
 		}
-
 		return $query->execute();
 	}
 
@@ -167,7 +164,7 @@ class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronte
 	 * Finds users for the user index view. Sorting and page navigation to be
 	 * handled in controller/view.
 	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser[] All users.
+	 * @return FrontendUser[] All users.
 	 */
 	public function findForIndex() {
 		return $this->findAll();
@@ -179,12 +176,14 @@ class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronte
 	 *
 	 * @param int $limit
 	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser[] The Top $limit User of this forum.
+	 * @return FrontendUser[] The Top $limit User of this forum.
 	 */
 	public function findTopUserByPoints($limit = 50) {
 		$query = $this->createQuery();
-		$query->setOrderings(array('tx_typo3forum_points' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
-			'username' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING));
+		$query->setOrderings([
+			'tx_typo3forum_points' => QueryInterface::ORDER_DESCENDING,
+			'username' => QueryInterface::ORDER_ASCENDING,
+		]);
 		$query->setLimit($limit);
 
 		return $query->execute();
