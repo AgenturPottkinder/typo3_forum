@@ -1,9 +1,10 @@
 <?php
 namespace Mittwald\Typo3Forum\ExtDirect;
-/*                                                                    - *
+
+/*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2011 domainfactory GmbH (Stefan Galinski <sgalinski@df.eu>      *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,17 +24,13 @@ namespace Mittwald\Typo3Forum\ExtDirect;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 
 /**
  * Abstract ExtDirect Data Provider
- *
- *
- * @author  Stefan Galinski <sgalinski@df.eu>
- * @package df_tools
  */
 abstract class AbstractDataProvider {
-
 
 
 	/**
@@ -44,29 +41,26 @@ abstract class AbstractDataProvider {
 	protected $extBaseConnector = NULL;
 
 
-
 	/**
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
 	 */
 	protected $objectManager = NULL;
 
 
-
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
-		$key                    = 'web_Typo3ForumTxTypo3forumM1';
-		$this->extBaseConnector = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Mittwald\\Typo3Forum\\Service\\ExtBaseConnectorService');
+		$key = 'web_Typo3ForumTxTypo3forumM1';
+		$this->extBaseConnector = GeneralUtility::makeInstance('Mittwald\\Typo3Forum\\Service\\ExtBaseConnectorService');
 		$this->extBaseConnector->setExtensionKey('Typo3Forum');
 		$this->extBaseConnector->setModuleOrPluginKey($key);
-		$this->extBaseConnector->initialize(array('extensionName'               => 'Typo3Forum',
-		                                         'pluginName'                   => 'web_Typo3ForumTxTypo3forumM1',
-		                                         'switchableControllerActions'  => array('Backend' => array('forumIndex')),));
+		$this->extBaseConnector->initialize(array('extensionName' => 'Typo3Forum',
+			'pluginName' => 'web_Typo3ForumTxTypo3forumM1',
+			'switchableControllerActions' => array('Backend' => array('forumIndex')),));
 
-		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+		$this->objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
 	}
-
 
 
 	/**
@@ -78,7 +72,6 @@ abstract class AbstractDataProvider {
 	public function hasAccess() {
 		return TRUE;
 	}
-
 
 
 	/**
@@ -115,13 +108,12 @@ abstract class AbstractDataProvider {
 			}
 		} catch (\Exception $exception) {
 			$data = array('success' => FALSE,
-			              'message' => $exception->getMessage(),
-			              'records' => array(),);
+				'message' => $exception->getMessage(),
+				'records' => array(),);
 		}
 
 		return $data;
 	}
-
 
 
 	/**
@@ -136,7 +128,6 @@ abstract class AbstractDataProvider {
 
 		return $this->createRecord((array)$newRecord->records);
 	}
-
 
 
 	/**
@@ -160,16 +151,15 @@ abstract class AbstractDataProvider {
 		try {
 			$this->destroyRecords($identifiers);
 			$data = array('success' => TRUE,
-			              'records' => array());
+				'records' => array());
 		} catch (\Exception $exception) {
 			$data = array('success' => FALSE,
-			              'message' => $exception->getMessage(),
-			              'records' => array(),);
+				'message' => $exception->getMessage(),
+				'records' => array(),);
 		}
 
 		return $data;
 	}
-
 
 
 	/**
@@ -181,53 +171,16 @@ abstract class AbstractDataProvider {
 	 */
 	public function runTest($identity) {
 		try {
-			$data   = $this->runTestForRecord($identity);
+			$data = $this->runTestForRecord($identity);
 			$result = array('success' => TRUE,
-			                'data'    => $data,);
+				'data' => $data,);
 		} catch (\Exception $exception) {
 			$result = array('success' => FALSE,
-			                'data'    => array('testResult'  => \Tx_DfTools_Service_UrlChecker_AbstractService::SEVERITY_EXCEPTION,
-			                                   'testMessage' => htmlspecialchars($exception->getMessage()),),);
+				'data' => array('testResult' => \Tx_DfTools_Service_UrlChecker_AbstractService::SEVERITY_EXCEPTION,
+					'testMessage' => htmlspecialchars($exception->getMessage()),),);
 		}
 
 		return $result;
 	}
-
-
-
-	/**
-	 * @abstract
-	 *
-	 * @param int $identity
-	 *
-	 * @return array
-	 */
-//	abstract protected function runTestForRecord($identity);
-//	/**
-//	 * @abstract
-//	 * @param array $updatedRecord
-//	 * @return void
-//	 */
-//	abstract protected function updateRecord(array $updatedRecord);
-//
-//
-//
-//	/**
-//	 * @abstract
-//	 * @param array $newRecord
-//	 * @return void
-//	 */
-//	abstract protected function createRecord(array $newRecord);
-//
-//
-//
-//	/**
-//	 * @abstract
-//	 * @param array $identifiers
-//	 * @return void
-//	 */
-//	abstract protected function destroyRecords(array $identifiers);
-
-
 
 }

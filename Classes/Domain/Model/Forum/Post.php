@@ -62,7 +62,6 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	/**
 	 * The author's username. Necessary for anonymous postings.
 	 * @var string
-	 * @validate \Mittwald\Typo3Forum\Domain\Validator\Forum\AuthorNameValidator
 	 */
 	protected $authorName = '';
 

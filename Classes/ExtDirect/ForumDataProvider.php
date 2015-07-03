@@ -1,9 +1,9 @@
 <?php
 namespace Mittwald\Typo3Forum\ExtDirect;
-/*                                                                    - *
+/*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <typo3@martin-helmich.de>                   *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,36 +23,15 @@ namespace Mittwald\Typo3Forum\ExtDirect;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
-
-/**
- *
- * ViewHelper that renders a big button.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage ViewHelpers_Control
- * @version    $Id: BigButtonViewHelper.php 52309 2011-09-20 18:54:26Z mhelmich $
- *
- * @copyright  2012 Martin Helmich <typo3@martin-helmich.de>
- *             http://www.martin-helmich.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-
-class ForumDataProvider extends \Mittwald\Typo3Forum\ExtDirect\AbstractDataProvider {
-
-
+class ForumDataProvider extends AbstractDataProvider {
 
 	/**
 	 * An instance of the forum repository.
 	 *
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
+	 *
 	 */
 	protected $forumRepository = NULL;
-
-
 
 	/**
 	 * Constructor.
@@ -65,34 +44,31 @@ class ForumDataProvider extends \Mittwald\Typo3Forum\ExtDirect\AbstractDataProvi
 		$this->forumRepository = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Repository\\Forum\\ForumRepository');
 	}
 
-
-
 	/**
 	 * @param integer $nodeId
-	 *
 	 * @return array
 	 */
 	public function getTreeNode($nodeId) {
 
 		if ($nodeId === 'forum-root') {
 			$forumId = NULL;
-			$forums  = $this->forumRepository->findRootForums();
+			$forums = $this->forumRepository->findRootForums();
 		} else {
 			$forumId = (int)str_replace('forum-', '', $nodeId);
-			$forums  = $this->forumRepository->findByUid($forumId)->getChildren();
+			$forums = $this->forumRepository->findByUid($forumId)->getChildren();
 		}
 		$result = array();
 		foreach ($forums as $forum) {
-			$forumNode = array('text'       => $forum->getTitle(),
-			                   'title'      => $forum->getTitle(),
-			                   'topicCount' => $forum->getTopicCount(),
-			                   'postCount'  => $forum->getPostCount(),
-			                   'id'         => 'forum-' . $forum->getUid(),
-			                   'iconCls'    => 'tx-typo3forum-icon-16-forum',
-			                   'draggable'  => TRUE,
-			                   'allowDrop'  => TRUE,
-			                   'isTarget'   => TRUE,
-			                   '__identity' => $forum->getUid());
+			$forumNode = array('text' => $forum->getTitle(),
+				'title' => $forum->getTitle(),
+				'topicCount' => $forum->getTopicCount(),
+				'postCount' => $forum->getPostCount(),
+				'id' => 'forum-' . $forum->getUid(),
+				'iconCls' => 'tx-typo3forum-icon-16-forum',
+				'draggable' => TRUE,
+				'allowDrop' => TRUE,
+				'isTarget' => TRUE,
+				'__identity' => $forum->getUid());
 
 			if (count($forum->getChildren()) === 0) {
 				#$forumNode['leaf'] = TRUE;
@@ -107,7 +83,6 @@ class ForumDataProvider extends \Mittwald\Typo3Forum\ExtDirect\AbstractDataProvi
 	}
 
 
-
 	/**
 	 * @param integer $forumId
 	 *
@@ -120,11 +95,10 @@ class ForumDataProvider extends \Mittwald\Typo3Forum\ExtDirect\AbstractDataProvi
 			throw new \Exception("The forum $forumId does not exist!", 1332447187);
 		}
 		return array('success' => true,
-		             'data'    => array('title'       => $forum->getTitle(),
-		                                'description' => $forum->getDescription(),
-		                                '__identity'  => $forum->getUid()));
+			'data' => array('title' => $forum->getTitle(),
+				'description' => $forum->getDescription(),
+				'__identity' => $forum->getUid()));
 	}
-
 
 
 	/**
@@ -139,14 +113,12 @@ class ForumDataProvider extends \Mittwald\Typo3Forum\ExtDirect\AbstractDataProvi
 	}
 
 
-
 	/**
 	 * @param $parentId
 	 */
 	public function createForum($parentId) {
 
 	}
-
 
 
 	/**
@@ -157,10 +129,9 @@ class ForumDataProvider extends \Mittwald\Typo3Forum\ExtDirect\AbstractDataProvi
 	 */
 	public function updateForumTitle($id, $title) {
 		$this->extBaseConnector->setParameters(array('forum' => array('__identity' => $id,
-		                                                              'title'      => $title)));
+			'title' => $title)));
 		return unserialize($this->extBaseConnector->runControllerAction('Forum', 'update'));
 	}
-
 
 
 	/**
@@ -171,7 +142,6 @@ class ForumDataProvider extends \Mittwald\Typo3Forum\ExtDirect\AbstractDataProvi
 	public function moveForum($forumId, $relativeForum, $position) {
 
 	}
-
 
 
 }

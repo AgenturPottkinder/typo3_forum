@@ -4,8 +4,7 @@ namespace Mittwald\Typo3Forum\Domain\Repository\Forum;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,26 +23,15 @@ namespace Mittwald\Typo3Forum\Domain\Repository\Forum;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
+
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
- *
  * Repository class for forum objects.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Repository_Forum
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class ForumRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class ForumRepository extends Repository {
 
 
 	/**
@@ -51,14 +39,6 @@ class ForumRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 * @inject
 	 */
 	protected $authenticationService = NULL;
-
-
-	/**
-	 * @param \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface $authenticationService
-	 */
-	public function injectAuthenticationService(\Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface $authenticationService) {
-		$this->authenticationService = $authenticationService;
-	}
 
 
 	/**
@@ -85,8 +65,7 @@ class ForumRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 	/**
 	 * @param QueryResultInterface $objects
-	 * @param string               $action
-	 *
+	 * @param string $action
 	 * @return array
 	 */
 	protected function filterByAccess(QueryResultInterface $objects, $action = 'read') {
@@ -105,9 +84,7 @@ class ForumRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 * Finds forum for a specific filterset. Page navigation is possible.
 	 *
 	 * @param array $uids
-	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[]
-	 *                               The selected subset of topcis
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[] The selected subset of topcis
 	 *
 	 */
 	public function findByUids($uids) {
@@ -126,7 +103,6 @@ class ForumRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 	/**
 	 * @param FrontendUser $user
-	 *
 	 * @return QueryResultInterface
 	 */
 	public function findBySubscriber(FrontendUser $user) {
