@@ -112,37 +112,6 @@ class TopicController extends AbstractController {
 	/**
 	 *  Listing Action.
 	 */
-	public function listAction() {
-
-		$showPaginate = FALSE;
-		switch ($this->settings['listTopics']) {
-			case '2':
-				$dataset = $this->topicRepository->findQuestions();
-				$showPaginate = TRUE;
-				$partial = 'Topic/List';
-				break;
-			case '3':
-				$dataset = $this->topicRepository->findQuestions(6);
-				$partial = 'Topic/QuestionBox';
-				break;
-			case '4':
-				$dataset = $this->topicRepository->findPopularTopics((int)$this->settings['popularTopicTimeDiff'], 6);
-				$partial = 'Topic/ListBox';
-				break;
-			default:
-				$dataset = $this->topicRepository->findAll();
-				$partial = 'Topic/List';
-				$showPaginate = TRUE;
-				break;
-		}
-		$this->view->assign('showPaginate', $showPaginate);
-		$this->view->assign('partial', $partial);
-		$this->view->assign('topics', $dataset);
-	}
-
-	/**
-	 *  Listing Action.
-	 */
 	public function listLatestAction() {
 		if (!empty($this->settings['countLatestPost'])) {
 			$limit = (int)$this->settings['countLatestPost'];
