@@ -25,8 +25,11 @@ namespace Mittwald\Typo3Forum\Domain\Repository\Forum;
  *                                                                      */
 
 use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Tag;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Domain\Repository\AbstractRepository;
+use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 class TopicRepository extends AbstractRepository {
@@ -58,7 +61,7 @@ class TopicRepository extends AbstractRepository {
 	 *
 	 * @param array $uids
 	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[]
+	 * @return Topic[]
 	 *                               The selected subset of topcis
 	 *
 	 */
@@ -82,7 +85,7 @@ class TopicRepository extends AbstractRepository {
 	 * @param Forum $forum
 	 *                               The forum for which to load the topics.
 	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[]
+	 * @return Topic[]
 	 *                               The selected subset of topics.
 	 */
 	public function findForIndex(Forum $forum) {
@@ -98,11 +101,10 @@ class TopicRepository extends AbstractRepository {
 	/**
 	 * Finds topics with questions flag.
 	 *
-	 * @param null         $limit
-	 * @param bool         $showAnswered
+	 * @param int $limit
+	 * @param bool $showAnswered
 	 * @param FrontendUser $user
-	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[]
+	 * @return Topic[]
 	 */
 
 	public function findQuestions($limit = NULL, $showAnswered = FALSE, FrontendUser $user = NULL) {
@@ -130,13 +132,9 @@ class TopicRepository extends AbstractRepository {
 	 * Finds topics by post authors, i.e. all topics that contain at least one post
 	 * by a specific author. Page navigation is possible.
 	 *
-	 * @param FrontendUser $user
-	 *                               The frontend user whose topics are to be loaded.
-	 * @param int           $limit
-	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[]
-	 *                               All topics that contain a post by the specified
-	 *                               user.
+	 * @param FrontendUser $user The frontend user whose topics are to be loaded.
+	 * @param int $limit
+	 * @return Topic[] All topics that contain a post by the specified user.
 	 */
 	public function findTopicsCreatedByAuthor(FrontendUser $user, $limit = 0) {
 		$query = $this->createQuery();
@@ -157,7 +155,7 @@ class TopicRepository extends AbstractRepository {
 	 * @param FrontendUser $user The frontend user whose topics are to be loaded.
 	 * @param int $limit
 	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[] All topics that contain a post by the specified user
+	 * @return Topic[] All topics that contain a post by the specified user
 	 */
 	public function findTopicsFavSubscribedByUser(FrontendUser $user, $limit = 0) {
 		$query = $this->createQuery();
@@ -193,22 +191,9 @@ class TopicRepository extends AbstractRepository {
 	}
 
 	/**
-	 * Counts all topics for the forum show view.
-	 *
-	 * @param Forum $forum The forum for which the topics are to be counted.
-	 *
-	 * @return integer The topic count.
-	 */
-	public function countForIndex(Forum $forum) {
-		return $this->countByForum($forum);
-	}
-
-
-	/**
 	 * Finds all topic that have been subscribed by a certain user.
 	 *
 	 * @param FrontendUser $user The user for whom the subscribed topics are to be loaded.
-	 *
 	 * @return QueryInterface The topics subscribed by the given user.
 	 */
 	public function findBySubscriber(FrontendUser $user) {
@@ -220,16 +205,13 @@ class TopicRepository extends AbstractRepository {
 		return $query->execute();
 	}
 
-
 	/**
 	 * Finds all topic that have a specific tag
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag
-	 *
-	 * @return Tx_Extbase_Persistence_QueryInterface
-	 *                             The topics of this tag.
+	 * @param Tag $tag
+	 * @return QueryInterface The topics of this tag.
 	 */
-	public function findAllTopicsWithGivenTag(\Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag) {
+	public function findAllTopicsWithGivenTag(Tag $tag) {
 		$query = $this->createQuery();
 		$query
 			->matching($query->contains('tags', $tag))
@@ -238,15 +220,12 @@ class TopicRepository extends AbstractRepository {
 		return $query->execute();
 	}
 
-
 	/**
 	 * Finds all popular topics
 	 *
 	 * @param int $timeDiff
 	 * @param int $displayLimit
-	 *
-	 * @return Tx_Extbase_Persistence_QueryInterface
-	 *                             The topics of this tag.
+	 * @return QueryInterface
 	 */
 	public function findPopularTopics($timeDiff = 0, $displayLimit = 0) {
 		if ($timeDiff == 0) {
@@ -265,18 +244,13 @@ class TopicRepository extends AbstractRepository {
 		return $query->execute();
 	}
 
-
 	/**
 	 *
 	 * Finds the last topic in a forum.
 	 *
-	 * @param Forum $forum
-	 *                                The forum for which to load the last topic.
-	 * @param int                                            $offset
-	 *                                If you want to get the next to last topic topic
-	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic
-	 *                             The last topic of the specified forum.
+	 * @param Forum $forum The forum for which to load the last topic.
+	 * @param int $offset If you want to get the next to last topic topic
+	 * @return Topic The last topic of the specified forum.
 	 *
 	 */
 	public function findLastByForum(Forum $forum, $offset = 0) {
@@ -290,16 +264,13 @@ class TopicRepository extends AbstractRepository {
 		return $query->execute()->getFirst();
 	}
 
-
 	/**
 	 *
 	 * Finds the last topic in a forum.
 	 *
 	 * @param int $limit  The Limit
 	 * @param int $offset The Offset
-	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic
-	 *                             The last topics
+	 * @return Topic The last topics
 	 *
 	 */
 	public function findLatest($offset = 0, $limit = 5) {
@@ -313,25 +284,21 @@ class TopicRepository extends AbstractRepository {
 		return $query->execute();
 	}
 
-
 	/**
 	 * @param Forum $forum
-	 * @param FrontendUser                                  $user
-	 *
+	 * @param FrontendUser $user
 	 * @return array
 	 */
 	public function getUnreadTopics(Forum $forum, FrontendUser $user) {
-
 		$sql = 'SELECT t.uid
 			   FROM tx_typo3forum_domain_model_forum_topic AS t
 			   LEFT JOIN tx_typo3forum_domain_model_user_readtopic AS rt
 					   ON rt.uid_foreign = t.uid AND rt.uid_local = ' . intval($user->getUid()) . '
 			   WHERE rt.uid_local IS NULL AND t.forum=' . intval($forum->getUid());
+		/** @var Query $query */
 		$query = $this->createQuery();
-		$query->getQuerySettings()->setReturnRawQueryResult(TRUE);
 		$query->statement($sql);
-
-		return $query->execute();
+		return $query->execute()->toArray();
 	}
 
 }

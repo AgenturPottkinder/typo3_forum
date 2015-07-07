@@ -172,9 +172,11 @@ class PostController extends AbstractController {
 			$post = ($quote !== NULL) ? $this->postFactory->createPostWithQuote($quote) : $this->postFactory->createEmptyPost();
 		}
 
-		// Display view
-		$this->view->assign('topic', $topic)->assign('post', $post)
-			->assign('currentUser', $this->frontendUserRepository->findCurrent());
+		$this->view->assignMultiple([
+			'topic' => $topic,
+			'post' => $post,
+			'currentUser' => $this->frontendUserRepository->findCurrent()
+		]);
 	}
 
 	/**
