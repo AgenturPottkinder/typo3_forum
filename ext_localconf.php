@@ -21,7 +21,7 @@ if (!defined('TYPO3_MODE')) {
 		'Topic' => 'new, create, edit, update, delete, list',
 		'Post' => 'new, create, edit, update, delete',
 		'User' => 'showMyProfile, dashboard, subscribe, favSubscribe, listFavorites, listNotifications, listTopics, listMessages, createMessage',
-		'Report' => 'new, create',
+		'Report' => 'newUserReport, newPostReport, createUserReport, createPostReport',
 		'Moderation' => 'indexReport, updateTopic, updateUserReportStatus, updatePostReportStatus, newReportComment, createUserReportComment, createPostReportComment',
 		'Tag' => 'list, show, new, create, listUserTags, newUserTag, deleteUserTag',
 	)
