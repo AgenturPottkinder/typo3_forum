@@ -26,6 +26,7 @@ if (!defined('TYPO3_MODE')) {
 		'Tag' => 'list, show, new, create, listUserTags, newUserTag, deleteUserTag',
 	)
 );
+
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 	'Mittwald.Typo3Forum',
 	'Widget',
