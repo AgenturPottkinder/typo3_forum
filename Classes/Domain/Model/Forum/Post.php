@@ -26,6 +26,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 
 use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
 use Mittwald\Typo3Forum\Domain\Model\NotifiableInterface;
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
@@ -55,7 +56,7 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	/**
 	 * The post author.
 	 *
-	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
+	 * @var FrontendUser
 	 */
 	protected $author;
 
@@ -153,7 +154,7 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 
 	/**
 	 * Gets the post author.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser author
+	 * @return FrontendUser author
 	 */
 	public function getAuthor() {
 		if ($this->author instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
@@ -246,12 +247,12 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 *
 	 * @access private
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
-	 * @param string                                              $accessType
+	 * @param FrontendUser $user
+	 * @param string $accessType
 	 *
 	 * @return boolean
 	 */
-	public function checkAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL, $accessType = 'read') {
+	public function checkAccess(FrontendUser $user = NULL, $accessType = 'read') {
 		switch ($accessType) {
 			case 'editPost':
 			case 'deletePost':
@@ -270,16 +271,11 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * OR:
 	 * b.)  The current user has moderator access to the forum.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser|NULL $user
-	 *                             The user for which the authenication is to be
-	 *                             checked.
-	 * @param                                                         $operation
-	 *
-	 * @return boolean             TRUE, if the user is allowed to edit this post,
-	 *                             otherwise FALSE.
+	 * @param FrontendUser $user The user for which the authenication is to be checked.
+	 * @param string $operation
+	 * @return boolean TRUE, if the user is allowed to edit this post, otherwise FALSE.
 	 */
-	public function checkEditOrDeletePostAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL, $operation) {
-
+	public function checkEditOrDeletePostAccess(FrontendUser $user, $operation) {
 		if ($user === NULL || $user->isAnonymous()) {
 			return FALSE;
 		} else {
@@ -314,11 +310,11 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	/**
 	 * Sets the post author.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $author The post author.
+	 * @param FrontendUser $author The post author.
 	 *
 	 * @return void
 	 */
-	public function setAuthor(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $author) {
+	public function setAuthor(FrontendUser $author) {
 		if ($author->isAnonymous()) {
 			$this->author = NULL;
 		} else {
@@ -390,11 +386,11 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	/**
 	 * Determines whether this topic has been read by a certain user.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $supporter The user who is to be checked.
+	 * @param FrontendUser $supporter The user who is to be checked.
 	 *
 	 * @return boolean                                           TRUE, if the user did read this topic, otherwise FALSE.
 	 */
-	public function hasBeenSupportedByUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $supporter = NULL) {
+	public function hasBeenSupportedByUser(FrontendUser $supporter = NULL) {
 		return $supporter ? $this->supporters->contains($supporter) : TRUE;
 	}
 
@@ -410,11 +406,11 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	/**
 	 * Marks this topic as read by a certain user.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $supporter The user who read this topic.
+	 * @param FrontendUser $supporter The user who read this topic.
 	 *
 	 * @return void
 	 */
-	public function addSupporter(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $supporter) {
+	public function addSupporter(FrontendUser $supporter) {
 		$this->setHelpfulCount($this->getHelpfulCount() + 1);
 		$this->supporters->attach($supporter);
 	}
@@ -422,11 +418,11 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	/**
 	 * Mark this topic as unread for a certain user.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $supporter The user for whom to mark this topic as unread.
+	 * @param FrontendUser $supporter The user for whom to mark this topic as unread.
 	 *
 	 * @return void
 	 */
-	public function removeSupporter(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $supporter) {
+	public function removeSupporter(FrontendUser $supporter) {
 		$this->setHelpfulCount($this->getHelpfulCount() - 1);
 		$this->supporters->detach($supporter);
 	}

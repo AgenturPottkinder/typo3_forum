@@ -237,28 +237,6 @@ class PostController extends AbstractController {
 	}
 
 	/**
-	 * Delete a Attachment.
-	 *
-	 * @param Attachment $attachment The attachment that is to be deleted
-	 * @param string $redirect
-	 */
-	public function deletePostAttachmentAction(Attachment $attachment, $redirect = '') {
-		if ($attachment->getPost()->getAuthor() != $this->authenticationService->getUser() ||
-			$attachment->getPost()->getTopic()->getLastPost()->getAuthor() != $attachment->getPost()->getAuthor()
-		) {
-			// Assert authorization
-			$this->authenticationService->assertModerationAuthorization($attachment->getPost()->getTopic()->getForum());
-		}
-		$attachment->getPost()->removeAttachment($attachment);
-		$this->postRepository->update($attachment->getPost());
-		if ($redirect !== '') {
-			$this->redirect('show', 'Post', NULL, array('post' => $attachment->getPost()));
-		} else {
-			$this->redirect('edit', 'Post', NULL, array('post' => $attachment->getPost()));
-		}
-	}
-
-	/**
 	 * Updates a post.
 	 *
 	 * @param Post $post The post that is to be updated.

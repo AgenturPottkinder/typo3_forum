@@ -764,9 +764,11 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 		foreach ($this->topics as $topic) {
 			/** @var $topic Topic */
 			/** @noinspection PhpUndefinedMethodInspection */
-			$lastTopicPostTimestamp = $topic->getLastPost()->getTimestamp();
-			if ($lastPost === NULL || $lastTopicPostTimestamp > $lastPost->getTimestamp()) {
-				$lastPost = $topic->getLastPost();
+			if ($topic->getLastPost() instanceof Post) {
+				$lastTopicPostTimestamp = $topic->getLastPost()->getTimestamp();
+				if ($lastPost === NULL || $lastTopicPostTimestamp > $lastPost->getTimestamp()) {
+					$lastPost = $topic->getLastPost();
+				}
 			}
 		}
 
@@ -786,9 +788,11 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 		foreach ($this->topics as $topic) {
 			/** @var $topic Topic */
 			/** @var $lastTopic Topic */
-			$lastTopicPostTimestamp = $topic->getLastPost()->getTimestamp();
-			if ($lastTopic === NULL || $lastTopicPostTimestamp > $lastTopic->getTimestamp()) {
-				$lastTopic = $topic;
+			if ($topic->getLastPost() instanceof Post) {
+				$lastTopicPostTimestamp = $topic->getLastPost()->getTimestamp();
+				if ($lastTopic === NULL || $lastTopicPostTimestamp > $lastTopic->getTimestamp()) {
+					$lastTopic = $topic;
+				}
 			}
 		}
 
@@ -817,8 +821,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * PARENT FORUMS.
 	 * INTERNAL USE ONLY!
 	 *
-	 * @param int $amount The amount by which to increase the topic count
-	 *                     (set a negative amount to decrease).
+	 * @param int $amount The amount by which to increase the topic count (set a negative amount to decrease).
 	 *
 	 * @return void
 	 * @access private
