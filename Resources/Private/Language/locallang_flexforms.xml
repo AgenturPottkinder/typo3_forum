@@ -22,15 +22,11 @@
 			<label index="Behaviour_Action_MyTags">"MyTags" of a user</label>
 			<label index="Behaviour_Action_PrivateMessage">Private Messages</label>
 			<label index="Display">Display View</label>
-			<label index="Display_Default">Default</label>
 			<label index="Display_Latest_Box">Latest Posts Box</label>
 			<label index="Display_Active_User_Widget">Active User</label>
 			<label index="Display_Helpful_User_Widget">Helpful User</label>
 			<label index="Display_Online_User_Widget">Online User</label>
 			<label index="Display_Stats_Summary_Widget">Summary</label>
-			<label index="Display_QuestionBox">Latest Questions Box</label>
-			<label index="Display_Questionslist">Questions List</label>
-			<label index="Display_PopularBox">Popular Topics  Box</label>
 			<label index="Display_Active_Box">Active User Box</label>
 			<label index="Display_Ranking_List">Ranking List</label>
 			<label index="Display_TopUser_List">TopUser List</label>

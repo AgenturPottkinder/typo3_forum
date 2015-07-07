@@ -109,34 +109,6 @@
 						</TCEforms>
 					</settings.listPosts>
 
-					<settings.listTopics>
-						<TCEforms>
-							<label>LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Display</label>
-							<config>
-								<type>select</type>
-								<items type="array">
-									<numIndex index="0" type="array">
-										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Display_Default</numIndex>
-										<numIndex index="1">1</numIndex>
-									</numIndex>
-									<numIndex index="1" type="array">
-										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Display_Questionslist</numIndex>
-										<numIndex index="1">2</numIndex>
-									</numIndex>
-									<numIndex index="2" type="array">
-										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Display_QuestionBox</numIndex>
-										<numIndex index="1">3</numIndex>
-									</numIndex>
-									<numIndex index="3" type="array">
-										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Display_PopularBox</numIndex>
-										<numIndex index="1">4</numIndex>
-									</numIndex>
-								</items>
-							</config>
-							<displayCond>FIELD:switchableControllerActions:=:Topic->list</displayCond>
-						</TCEforms>
-					</settings.listTopics>
-
 					<listViewUser>
 						<TCEforms>
 							<label>LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Display</label>
