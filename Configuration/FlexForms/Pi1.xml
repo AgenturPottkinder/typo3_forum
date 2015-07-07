@@ -13,8 +13,6 @@
 							<label>LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action</label>
 							<config>
 								<type>radio</type>
-								<!--<maxitems>1</maxitems>
-								<size>6</size>-->
 								<items>
 									<numIndex index="0">
 										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Forum</numIndex>
@@ -35,28 +33,24 @@
 										</numIndex>
 									</numIndex>
 									<numIndex index="4">
-										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Posts_List</numIndex>
-										<numIndex index="1">Post->list</numIndex>
-									</numIndex>
-									<numIndex index="5">
 										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Users_List</numIndex>
 										<numIndex index="1">User->list;User->searchUser;User->newMessage;User->createMessage</numIndex>
 									</numIndex>
-									<numIndex index="6">
+									<numIndex index="5">
 										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Dashboard</numIndex>
 										<numIndex index="1">
 											User->dashboard;User->listPosts;User->listMessages;User->createMessage;User->listNotifications;User->listFavorites;Tag->list
 										</numIndex>
 									</numIndex>
-									<numIndex index="7">
+									<numIndex index="6">
 										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Tags</numIndex>
 										<numIndex index="1">Tag->list;Tag->listUserTags;Tag->show;Tag->newUserTag;Tag->deleteUserTag;Tag->new;Tag->create</numIndex>
 									</numIndex>
-									<numIndex index="8">
+									<numIndex index="7">
 										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_MyTags</numIndex>
 										<numIndex index="1">Tag->listUserTags;Tag->list;Tag->newUserTag;Tag->deleteUserTag;Tag->new;Tag->create</numIndex>
 									</numIndex>
-									<numIndex index="9">
+									<numIndex index="8">
 										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_PrivateMessage</numIndex>
 										<numIndex index="1">User->listMessages;User->newMessage;User->createMessage</numIndex>
 									</numIndex>
@@ -88,26 +82,6 @@
 							<displayCond>FIELD:switchableControllerActions:=:User->list;User->searchUser;User->newMessage;User->createMessage</displayCond>
 						</TCEforms>
 					</settings.listUsers>
-
-					<settings.listPosts>
-						<TCEforms>
-							<label>LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Display</label>
-							<config>
-								<type>select</type>
-								<items type="array">
-									<numIndex index="0" type="array">
-										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Display_Default</numIndex>
-										<numIndex index="1">1</numIndex>
-									</numIndex>
-									<numIndex index="1" type="array">
-										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Display_Latest_Box</numIndex>
-										<numIndex index="1">2</numIndex>
-									</numIndex>
-								</items>
-							</config>
-							<displayCond>FIELD:switchableControllerActions:=:Post->list</displayCond>
-						</TCEforms>
-					</settings.listPosts>
 
 					<listViewUser>
 						<TCEforms>

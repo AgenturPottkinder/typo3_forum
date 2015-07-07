@@ -70,28 +70,6 @@ class PostController extends AbstractController {
 	protected $topicRepository;
 
 	/**
-	 *
-	 */
-	public function listAction() {
-
-		$showPaginate = FALSE;
-		switch ($this->settings['listPosts']) {
-			case '2':
-				$dataset = $this->postRepository->findByFilter((int)$this->settings['widgets']['newestPosts']['limit'], array('crdate' => 'DESC'));
-				$partial = 'Post/LatestBox';
-				break;
-			default:
-				$dataset = $this->postRepository->findByFilter();
-				$partial = 'Post/List';
-				$showPaginate = TRUE;
-				break;
-		}
-		$this->view->assign('showPaginate', $showPaginate);
-		$this->view->assign('partial', $partial);
-		$this->view->assign('posts', $dataset);
-	}
-
-	/**
 	 * @param Post $post
 	 * @return string
 	 */
