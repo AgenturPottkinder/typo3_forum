@@ -8,7 +8,7 @@ if (!defined('TYPO3_MODE')) {
 	'Mittwald.Typo3Forum',
 	'Pi1',
 	array(
-		'Forum' => 'index, show, new, create, edit, update, delete, markRead, showUnread',
+		'Forum' => 'index, show, create, update, delete, markRead, showUnread',
 		'Topic' => 'index, list, show, new, create, edit, update, delete, questionsHelpBox, solution, listLatest',
 		'Post' => 'show, new, create, edit, update, delete, deleteAttachment',
 		'User' => 'showMyProfile, index, list, subscribe, favSubscribe, show, disableUser, unDisableUser, listNotifications, listMessages, createMessage, newMessage',
@@ -17,7 +17,7 @@ if (!defined('TYPO3_MODE')) {
 		'Tag' => 'list, show, new, create, listUserTags, newUserTag, deleteUserTag',
 	),
 	array(
-		'Forum' => 'show, index, new, create, edit, update, delete, markRead, showUnread',
+		'Forum' => 'show, index, create, update, delete, markRead, showUnread',
 		'Topic' => 'new, create, edit, update, delete, list',
 		'Post' => 'new, create, edit, update, delete',
 		'User' => 'showMyProfile, dashboard, subscribe, favSubscribe, listFavorites, listNotifications, listTopics, listMessages, createMessage',
