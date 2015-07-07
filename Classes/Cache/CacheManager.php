@@ -38,10 +38,6 @@ class CacheManager {
 	 *
 	 */
 	public function clearAll() {
-		// Neither the Extbase autoloader nor the TYPO3 internal autoloader
-		// appear to be doing anything at this point, so we have to include
-		// manually... :(
-		//require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('typo3_forum') . 'Classes/Cache/Cache.php';
 		/** @var ObjectManager $objectManager */
 		$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
 		$cache = $objectManager->get('Mittwald\\Typo3Forum\\Cache\\Cache');
