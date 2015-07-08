@@ -33,29 +33,6 @@ if (TYPO3_MODE === 'BE') {
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'typo3_forum');
 
-$tempColumns = array(
-	'tx_typo3forum_user_mod' => array(
-		'exclude' => 0,
-		'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_users.user_mod',
-		'config' => array(
-			'type' => 'check'
-		)
-	),
-);
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('fe_groups', $tempColumns, 1);
-$TCA['fe_groups']['types']['Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup'] = $TCA['fe_groups']['types']['0'];
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem('fe_groups', 'tx_extbase_type', [
-	'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_groups.tx_extbase_type.typo3_forum',
-	'Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup',
-]);
-
-
-$TCA['fe_groups']['types']['Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup']['showitem'] .=
-	',--div--;LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_typo3forum.tab.settings,' .
-	'tx_typo3forum_user_mod';
-
-
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_typo3forum_domain_model_forum_access',
 	'EXT:typo3_forum/Resources/Private/Language/locallang_csh_tx_typo3forum_domain_model_forum_access.xml');
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_typo3forum_domain_model_forum_access');
