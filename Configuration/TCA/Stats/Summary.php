@@ -1,8 +1,8 @@
 <?php
 if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 
-$TCA['tx_mmforum_domain_model_stats_summary'] = array(
-	'ctrl' => $TCA['tx_mmforum_domain_model_stats_summary']['ctrl'],
+$TCA['tx_typo3forum_domain_model_stats_summary'] = array(
+	'ctrl' => $TCA['tx_typo3forum_domain_model_stats_summary']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'type,amount,tstamp'
 	),
@@ -15,7 +15,7 @@ $TCA['tx_mmforum_domain_model_stats_summary'] = array(
 	'columns' => array(
 		'type' => array(
 			'exclude' => 0,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_stats_summary_type',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_stats_summary_type',
 			'config'  => array(
 				'type' => 'radio',
 				'items' => Array (
@@ -28,14 +28,14 @@ $TCA['tx_mmforum_domain_model_stats_summary'] = array(
 		),
 		'amount' => array(
 			'exclude' => 0,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_stats_summary_amount',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_stats_summary_amount',
 			'config'  => array(
 				'type' => 'input'
 			)
 		),
 		'tstamp' => array(
 			'exclude' => 0,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_stats_summary_tstamp',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_stats_summary_tstamp',
 			'config' => Array (
 				'type' => 'none',
 				'format' => 'date',
@@ -44,4 +44,3 @@ $TCA['tx_mmforum_domain_model_stats_summary'] = array(
 		),
 	)
 );
-?>

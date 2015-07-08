@@ -1,9 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Model\Forum;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Ruven Fehling <r.fehling@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,20 +24,9 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-/**
- *
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
- * @subpackage Domain_Model_Forum
- * @version    $Id$
- * @license    GNU public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
-
- */
-
-class Tx_MmForum_Domain_Model_Forum_Ads extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
-
+class Ads extends AbstractEntity {
 
 	/**
 	 * Flag if advertisement is visible
@@ -49,7 +39,6 @@ class Tx_MmForum_Domain_Model_Forum_Ads extends \TYPO3\CMS\Extbase\DomainObject\
 	 * @var string
 	 */
 	protected $name;
-
 
 	/**
 	 * The url to a website
@@ -76,7 +65,17 @@ class Tx_MmForum_Domain_Model_Forum_Ads extends \TYPO3\CMS\Extbase\DomainObject\
 	 */
 	protected $category;
 
-
+	/**
+	 * Gets the flag if ad is visible as boolean.
+	 * @return bool The flag if the ad is visible
+	 */
+	public function isActive() {
+		if ($this->getActive() == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	/**
 	 * Gets the flag if ad is visible.
@@ -86,17 +85,15 @@ class Tx_MmForum_Domain_Model_Forum_Ads extends \TYPO3\CMS\Extbase\DomainObject\
 		return $this->active;
 	}
 
-	
 	/**
-	 * Gets the flag if ad is visible as boolean.
-	 * @return bool The flag if the ad is visible
+	 * Sets the active flag.
+	 *
+	 * @param int $active Flag if ad is visible
+	 *
+	 * @return void
 	 */
-	public function isActive() {
-		if($this->getActive() == 1) {
-			return true;
-		} else {
-			return false;
-		}
+	public function setActive($active) {
+		$this->active = intval($active);
 	}
 
 	/**
@@ -108,6 +105,17 @@ class Tx_MmForum_Domain_Model_Forum_Ads extends \TYPO3\CMS\Extbase\DomainObject\
 	}
 
 	/**
+	 * Sets the url.
+	 *
+	 * @param string $url URL of a website
+	 *
+	 * @return void
+	 */
+	public function setUrl($url) {
+		$this->url = $url;
+	}
+
+	/**
 	 * Gets the alt-text of the advertisement
 	 * @return string The alt-text of the advertisement.
 	 */
@@ -115,6 +123,16 @@ class Tx_MmForum_Domain_Model_Forum_Ads extends \TYPO3\CMS\Extbase\DomainObject\
 		return $this->altText;
 	}
 
+	/**
+	 * Sets the alt-text.
+	 *
+	 * @param string $altText Alt-text for the image
+	 *
+	 * @return void
+	 */
+	public function setAltText($altText) {
+		$this->altText = $altText;
+	}
 
 	/**
 	 * Gets the absolute name of this advertisement.
@@ -122,6 +140,17 @@ class Tx_MmForum_Domain_Model_Forum_Ads extends \TYPO3\CMS\Extbase\DomainObject\
 	 */
 	public function getName() {
 		return $this->name;
+	}
+
+	/**
+	 * Sets the name.
+	 *
+	 * @param string $name The name of a advertisement
+	 *
+	 * @return void
+	 */
+	public function setName($name) {
+		$this->name = $name;
 	}
 
 	/**
@@ -133,6 +162,17 @@ class Tx_MmForum_Domain_Model_Forum_Ads extends \TYPO3\CMS\Extbase\DomainObject\
 	}
 
 	/**
+	 * Sets the path.
+	 *
+	 * @param string $path The path to the image
+	 *
+	 * @return void
+	 */
+	public function setPath($path) {
+		$this->path = $path;
+	}
+
+	/**
 	 * Gets the category of this advertisement.
 	 * @return int The category of the advertisement.
 	 */
@@ -140,66 +180,14 @@ class Tx_MmForum_Domain_Model_Forum_Ads extends \TYPO3\CMS\Extbase\DomainObject\
 		return $this->category;
 	}
 
-
-	/**
-	 * Sets the active flag.
-	 *
-	 * @param int $active Flag if ad is visible
-	 * @return void
-	 */
-	public function setActive($active) {
-		$this->active = intval($active);
-	}
-
-	/**
-	 * Sets the url.
-	 *
-	 * @param string $url URL of a website
-	 * @return void
-	 */
-	public function setUrl($url) {
-		$this->url = $url;
-	}
-
-	/**
-	 * Sets the alt-text.
-	 *
-	 * @param string $altText Alt-text for the image
-	 * @return void
-	 */
-	public function setAltText($altText) {
-		$this->altText = $altText;
-	}
-
 	/**
 	 * Sets the category.
 	 *
 	 * @param int $category The category of ad
+	 *
 	 * @return void
 	 */
 	public function setCategory($category) {
 		$this->category = $category;
-	}
-
-
-	/**
-	 * Sets the name.
-	 *
-	 * @param string $name The name of a advertisement
-	 * @return void
-	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
-
-
-	/**
-	 * Sets the path.
-	 *
-	 * @param string $path The path to the image
-	 * @return void
-	 */
-	public function setPath($path) {
-		$this->path = $path;
 	}
 }

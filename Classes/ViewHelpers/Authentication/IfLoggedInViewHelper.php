@@ -1,10 +1,9 @@
 <?php
-
+namespace Mittwald\Typo3Forum\ViewHelpers\Authentication;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,38 +23,21 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- *
  * ViewHelper that renders its contents if there is a user currently logged
  * in.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage ViewHelpers_Authentication
- * @version    $Id$
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
 
-class Tx_MmForum_ViewHelpers_Authentication_IfLoggedInViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
-
-
+class IfLoggedInViewHelper extends AbstractViewHelper {
 
 	/**
 	 * Renders the ViewHelper contents if there is a user logged in.
 	 *
 	 * @return string HTML content
 	 */
-
 	public function render() {
 		return $GLOBALS['TSFE']->fe_user->user['uid'] ? $this->renderChildren() : '';
 	}
-
 }

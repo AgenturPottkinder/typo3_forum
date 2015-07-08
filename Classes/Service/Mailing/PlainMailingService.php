@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Service\Mailing;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -31,7 +31,7 @@
  * Service class for sending plain text emails.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Service_Mailing
  * @version    $Id$
  *
@@ -42,7 +42,7 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_Service_Mailing_PlainMailingService extends Tx_MmForum_Service_Mailing_AbstractMailingService {
+class PlainMailingService extends \Mittwald\Typo3Forum\Service\Mailing\AbstractMailingService {
 
 
 
@@ -57,7 +57,7 @@ class Tx_MmForum_Service_Mailing_PlainMailingService extends Tx_MmForum_Service_
 	 *
 	 * @var string
 	 */
-	protected $format = Tx_MmForum_Service_Mailing_AbstractMailingService::MAILING_FORMAT_PLAIN;
+	protected $format = \Mittwald\Typo3Forum\Service\Mailing\AbstractMailingService::MAILING_FORMAT_PLAIN;
 
 
 
@@ -72,11 +72,11 @@ class Tx_MmForum_Service_Mailing_PlainMailingService extends Tx_MmForum_Service_
 	 * Sends a mail with a certain subject and bodytext to a recipient in form of a
 	 * frontend user.
 	 *
-	 * @param         \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $recipient
+	 * @param        \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $recipient
 	 *                                                             The recipient of the mail. This is a plain
 	 *                                                             frontend user.
-	 * @param  string $subject                                     The mail's subject
-	 * @param  string $bodyText                                    The mail's bodytext
+	 * @param string $subject                                     The mail's subject
+	 * @param string $bodyText                                    The mail's bodytext
 	 *
 	 * @return void
 	 *

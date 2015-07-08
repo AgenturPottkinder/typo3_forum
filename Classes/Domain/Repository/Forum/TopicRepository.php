@@ -1,10 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Repository\Forum;
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,44 +24,27 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Tag;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use Mittwald\Typo3Forum\Domain\Repository\AbstractRepository;
+use TYPO3\CMS\Extbase\Persistence\Generic\Query;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
-
-/**
- *
- * Repository class for topic objects.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage Domain_Repository_Forum
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Domain_Repository_AbstractRepository {
-
-
-
-	/*
-	 * REPOSITORY METHODS
-	 */
+class TopicRepository extends AbstractRepository {
 
 	/**
 	 *
 	 * Finds topics for a specific filterset. Page navigation is possible.
 	 *
-	 * @param  integer $limit
-	 * @param  array $orderings
+	 * @param integer $limit
+	 * @param array $orderings
 	 *
-	 * @return Array<Tx_MmForum_Domain_Model_Forum_Topic>
-	 *                               The selected subset of posts
+	 * @return Array<\Mittwald\Typo3Forum\Domain\Model\Forum\Topic> The selected subset of posts
 	 *
 	 */
-	public function findByFilter($limit = '', $orderings = array()) {
+	public function findByFilter($limit = NULL, $orderings = array()) {
 		$query = $this->createQuery();
 		if (!empty($limit)) {
 			$query->setLimit($limit);
@@ -72,14 +55,13 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 		return $query->execute();
 	}
 
-
 	/**
 	 *
 	 * Finds topics for a specific filterset. Page navigation is possible.
 	 *
-	 * @param  array $uids
+	 * @param array $uids
 	 *
-	 * @return Tx_MmForum_Domain_Model_Forum_Topic[]
+	 * @return Topic[]
 	 *                               The selected subset of topcis
 	 *
 	 */
@@ -87,43 +69,45 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 
 		$query = $this->createQuery();
 		$constraints = array();
-		if(!empty($uids)) {
+		if (!empty($uids)) {
 			$constraints[] = $query->in('uid', $uids);
 		}
-		if(!empty($constraints)){
+		if (!empty($constraints)) {
 			$query->matching($query->logicalAnd($constraints));
 		}
 
-		return  $query->execute();
+		return $query->execute();
 	}
 
 	/**
 	 * Finds topics for the forum show view. Page navigation is possible.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 * @param Forum $forum
 	 *                               The forum for which to load the topics.
-	 * @return Tx_MmForum_Domain_Model_Forum_Topic[]
+	 *
+	 * @return Topic[]
 	 *                               The selected subset of topics.
 	 */
-	public function findForIndex(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
+	public function findForIndex(Forum $forum) {
 		$query = $this->createQuery();
 		$query
 			->matching($query->equals('forum', $forum))
-			->setOrderings(array('sticky'           => 'DESC',
-			                    'last_post_crdate'  => 'DESC'));
+			->setOrderings(array('sticky' => 'DESC',
+				'last_post_crdate' => 'DESC'));
+
 		return $query->execute();
 	}
 
 	/**
 	 * Finds topics with questions flag.
 	 *
-	 * @param null $limit
+	 * @param int $limit
 	 * @param bool $showAnswered
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 * @return Tx_MmForum_Domain_Model_Forum_Topic[]
+	 * @param FrontendUser $user
+	 * @return Topic[]
 	 */
 
-	public function findQuestions($limit = NULL, $showAnswered = FALSE, Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL) {
+	public function findQuestions($limit = NULL, $showAnswered = FALSE, FrontendUser $user = NULL) {
 
 		$query = $this->createQuery();
 
@@ -140,49 +124,27 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 			$query->setLimit($limit);
 		}
 		$query->matching($query->logicalAnd($constraint));
+
 		return $query->execute();
 	}
-
 
 	/**
 	 * Finds topics by post authors, i.e. all topics that contain at least one post
 	 * by a specific author. Page navigation is possible.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 *                               The frontend user whose topics are to be loaded.
-	 * @return Tx_MmForum_Domain_Model_Forum_Topic[]
-	 *                               All topics that contain a post by the specified
-	 *                               user.
-	 */
-	public function findByPostAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
-		$query = $this->createQuery();
-		$query
-			->matching($query->equals('posts.author', $user))
-			->setOrderings(array('posts.crdate' => 'DESC'));
-		return $query->execute();
-	}
-
-
-
-	/**
-	 * Finds topics by post authors, i.e. all topics that contain at least one post
-	 * by a specific author. Page navigation is possible.
-	 *
-	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 *                               The frontend user whose topics are to be loaded.
+	 * @param FrontendUser $user The frontend user whose topics are to be loaded.
 	 * @param int $limit
-	 * @return Tx_MmForum_Domain_Model_Forum_Topic[]
-	 *                               All topics that contain a post by the specified
-	 *                               user.
+	 * @return Topic[] All topics that contain a post by the specified user.
 	 */
-	public function findTopicsCreatedByAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $user, $limit=0) {
+	public function findTopicsCreatedByAuthor(FrontendUser $user, $limit = 0) {
 		$query = $this->createQuery();
 		$query
 			->matching($query->equals('author', $user))
 			->setOrderings(array('crdate' => 'DESC'));
-		if($limit > 0) {
+		if ($limit > 0) {
 			$query->setLimit($limit);
 		}
+
 		return $query->execute();
 	}
 
@@ -190,203 +152,153 @@ class Tx_MmForum_Domain_Repository_Forum_TopicRepository extends Tx_MmForum_Doma
 	 * Finds topics by post authors, i.e. all topics that contain at least one post
 	 * by a specific author. Page navigation is possible.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 *                               The frontend user whose topics are to be loaded.
+	 * @param FrontendUser $user The frontend user whose topics are to be loaded.
 	 * @param int $limit
-	 * @return Tx_MmForum_Domain_Model_Forum_Topic[]
-	 *                               All topics that contain a post by the specified
-	 *                               user.
+	 *
+	 * @return Topic[] All topics that contain a post by the specified user
 	 */
-	public function findTopicsFavSubscribedByUser(Tx_MmForum_Domain_Model_User_FrontendUser $user, $limit=0) {
+	public function findTopicsFavSubscribedByUser(FrontendUser $user, $limit = 0) {
 		$query = $this->createQuery();
-		$query
-			->matching($query->contains('favSubscribers', $user))
-			->setOrderings(array('crdate' => 'DESC'));
-		if($limit > 0) {
+		$query->matching($query->contains('favSubscribers', $user))->setOrderings(array('crdate' => 'DESC'));
+		if ($limit > 0) {
 			$query->setLimit($limit);
 		}
 		return $query->execute();
 	}
 
-
-
-
 	/**
 	 * Counts topics by post authors. See findByPostAuthor.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 *                               The frontend user whose topics are to be loaded.
-	 * @return integer               The number of topics that contain a post by the
-	 *                               specified user.
+	 * @param FrontendUser $user The frontend user whose topics are to be loaded.
+	 * @return integer The number of topics that contain a post by the specified user.
 	 */
-	public function countByPostAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
-		return $this
-			->findByPostAuthor($user)
-			->count();
+	public function countByPostAuthor(FrontendUser $user) {
+		return $this->findByPostAuthor($user)->count();
 	}
-
-
 
 	/**
-	 * Counts all topics for the forum show view.
+	 * Finds topics by post authors, i.e. all topics that contain at least one post
+	 * by a specific author. Page navigation is possible.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Forum $forum
-	 *                             The forum for which the topics are to be counted.
-	 * @return integer             The topic count.
+	 * @param FrontendUser $user
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
-	public function countForIndex(Tx_MmForum_Domain_Model_Forum_Forum $forum) {
-		return $this->countByForum($forum);
+	public function findByPostAuthor(FrontendUser $user) {
+		$query = $this->createQuery();
+		$query->matching($query->equals('posts.author', $user))->setOrderings(array('posts.crdate' => 'DESC'));
+		return $query->execute();
 	}
-
-
 
 	/**
 	 * Finds all topic that have been subscribed by a certain user.
 	 *
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 *                             The user for whom the subscribed topics are to be loaded.
-	 * @return Tx_Extbase_Persistence_QueryInterface
-	 *                             The topics subscribed by the given user.
+	 * @param FrontendUser $user The user for whom the subscribed topics are to be loaded.
+	 * @return QueryInterface The topics subscribed by the given user.
 	 */
-	public function findBySubscriber(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+	public function findBySubscriber(FrontendUser $user) {
 		$query = $this->createQuery();
 		$query
 			->matching($query->contains('subscribers', $user))
 			->setOrderings(array('lastPost.crdate' => 'ASC'));
+
 		return $query->execute();
 	}
-
 
 	/**
 	 * Finds all topic that have a specific tag
 	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Tag $tag
-	 * @return Tx_Extbase_Persistence_QueryInterface
-	 *                             The topics of this tag.
+	 * @param Tag $tag
+	 * @return QueryInterface The topics of this tag.
 	 */
-	public function findAllTopicsWithGivenTag(Tx_MmForum_Domain_Model_Forum_Tag $tag) {
+	public function findAllTopicsWithGivenTag(Tag $tag) {
 		$query = $this->createQuery();
 		$query
 			->matching($query->contains('tags', $tag))
 			->setOrderings(array('lastPost.crdate' => 'ASC'));
+
 		return $query->execute();
 	}
-
-
 
 	/**
 	 * Finds all popular topics
 	 *
 	 * @param int $timeDiff
 	 * @param int $displayLimit
-	 * @return Tx_Extbase_Persistence_QueryInterface
-	 *                             The topics of this tag.
+	 * @return QueryInterface
 	 */
-	public function findPopularTopics($timeDiff=0, $displayLimit=0) {
-		if($timeDiff == 0) {
+	public function findPopularTopics($timeDiff = 0, $displayLimit = 0) {
+		if ($timeDiff == 0) {
 			$timeLimit = 0;
 		} else {
 			$timeLimit = time() - $timeDiff;
 		}
 
 		$query = $this->createQuery();
-		$query->matching($query->greaterThan('lastPost.crdate',$timeLimit));
+		$query->matching($query->greaterThan('lastPost.crdate', $timeLimit));
 		$query->setOrderings(array('postCount' => 'DESC'));
-		if($displayLimit > 0) {
+		if ($displayLimit > 0) {
 			$query->setLimit($displayLimit);
 		}
+
 		return $query->execute();
 	}
-
-
 
 	/**
 	 *
 	 * Finds the last topic in a forum.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Forum $forum
-	 *                             The forum for which to load the last topic.
-	 * @param int $offset
-	 * 								If you want to get the next to last topic topic
-	 *
-	 * @return Tx_MmForum_Domain_Model_Forum_Topic
-	 *                             The last topic of the specified forum.
+	 * @param Forum $forum The forum for which to load the last topic.
+	 * @param int $offset If you want to get the next to last topic topic
+	 * @return Topic The last topic of the specified forum.
 	 *
 	 */
-	public function findLastByForum(Tx_MmForum_Domain_Model_Forum_Forum $forum, $offset=0) {
+	public function findLastByForum(Forum $forum, $offset = 0) {
 		$query = $this->createQuery();
 		$query->matching($query->equals('forum', $forum))
-			->setOrderings(array('last_post_crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING))->setLimit(1);
-		if($offset > 0) {
+			->setOrderings(array('last_post_crdate' => QueryInterface::ORDER_DESCENDING))->setLimit(1);
+		if ($offset > 0) {
 			$query->setOffset($offset);
 		}
+
 		return $query->execute()->getFirst();
 	}
 
-        
-        /**
+	/**
 	 *
 	 * Finds the last topic in a forum.
 	 *
-	 * @param int $limit		The Limit
-	 * @param int $offset		The Offset
-	 *
-	 * @return Tx_MmForum_Domain_Model_Forum_Topic
-	 *                             The last topics
+	 * @param int $limit  The Limit
+	 * @param int $offset The Offset
+	 * @return Topic The last topics
 	 *
 	 */
-	public function findLatest($offset=0, $limit=5) {
+	public function findLatest($offset = 0, $limit = 5) {
 		$query = $this->createQuery();
-		$query->setOrderings(array('last_post_crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING))
-                        ->setLimit($limit);
-		if($offset > 0) {
+		$query->setOrderings(array('last_post_crdate' => QueryInterface::ORDER_DESCENDING))
+			->setLimit($limit);
+		if ($offset > 0) {
 			$query->setOffset($offset);
 		}
+
 		return $query->execute();
 	}
 
-
-
-
 	/**
-	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param Forum $forum
+	 * @param FrontendUser $user
 	 * @return array
 	 */
-	public function getUnreadTopics(Tx_MmForum_Domain_Model_Forum_Forum $forum, Tx_MmForum_Domain_Model_User_FrontendUser $user) {
-
-		$sql ='SELECT t.uid
-			   FROM tx_mmforum_domain_model_forum_topic AS t
-			   LEFT JOIN tx_mmforum_domain_model_user_readtopic AS rt
-					   ON rt.uid_foreign = t.uid AND rt.uid_local = '.intval($user->getUid()).'
-			   WHERE rt.uid_local IS NULL AND t.forum='.intval($forum->getUid());
+	public function getUnreadTopics(Forum $forum, FrontendUser $user) {
+		$sql = 'SELECT t.uid
+			   FROM tx_typo3forum_domain_model_forum_topic AS t
+			   LEFT JOIN tx_typo3forum_domain_model_user_readtopic AS rt
+					   ON rt.uid_foreign = t.uid AND rt.uid_local = ' . intval($user->getUid()) . '
+			   WHERE rt.uid_local IS NULL AND t.forum=' . intval($forum->getUid());
+		/** @var Query $query */
 		$query = $this->createQuery();
-		$query->getQuerySettings()->setReturnRawQueryResult(TRUE);
 		$query->statement($sql);
-		return $query->execute();
-	}
-
-
-	/**
-	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 * @return bool
-	 */
-	public function getTopicReadByUser(Tx_MmForum_Domain_Model_Forum_Topic $topic, Tx_MmForum_Domain_Model_User_FrontendUser $user) {
-		$sql ='SELECT t.uid
-			   FROM tx_mmforum_domain_model_forum_topic AS t
-			   LEFT JOIN tx_mmforum_domain_model_user_readtopic AS rt
-					   ON rt.uid_foreign = t.uid AND rt.uid_local = '.intval($user->getUid()).'
-			   WHERE rt.uid_local IS NULL AND t.uid='.intval($topic->getUid());
-		$query = $this->createQuery();
-		$query->getQuerySettings()->setReturnRawQueryResult(TRUE);
-		$query->statement($sql);
-		$res = $query->execute();
-		if($res != false) {
-			return true;
-		} else {
-			return false;
-		}
+		return $query->execute()->toArray();
 	}
 
 }

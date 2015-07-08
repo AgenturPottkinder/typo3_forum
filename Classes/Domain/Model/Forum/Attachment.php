@@ -1,10 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,32 +24,13 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-
-/**
- *
- * A file attachment. These attachments can be attached to any forum post.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage Domain_Model_Format
- * @version    $Id$
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-
-class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
-
-
-
-	/*
-	 * ATTRIBUTES
-	 */
+class Attachment extends AbstractEntity {
 
 	/**
 	 * The attachment file name.
-	 * @var Tx_MmForum_Domain_Model_Forum_Post
+	 * @var Post
 	 * @lazy
 	 */
 	protected $post;
@@ -79,41 +60,44 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\Domain
 	protected $downloadCount;
 
 	/**
-	 * An instance of the mm_forum authentication service.
-	 * @var TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * An instance of the typo3_forum authentication service.
+	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @inject
 	 */
 	protected $typoScriptService = NULL;
 
 	/**
-	 * Whole TypoScript mm_forum settings
+	 * Whole TypoScript typo3_forum settings
 	 * @var array
 	 */
 	protected $settings;
 
-
 	/**
 	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
-	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
 	 */
-	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
-		$this->typoScriptService = $typoScriptService;
+	public function initializeObject() {
 		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
-		$this->settings = $ts['plugin']['tx_mmforum']['settings'];
+		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
-
-	/*
-	 * GETTERS
-	 */
 
 	/**
 	 * Gets the attachment's filename on file system.
-	 * @return Tx_MmForum_Domain_Model_Forum_Post
+	 * @return Post
 	 */
 	public function getPost() {
 		return $this->post;
 	}
 
-
+	/**
+	 * Sets the filename on file system.
+	 *
+	 * @param Post $post
+	 *
+	 * @return void
+	 */
+	public function setPost($post) {
+		$this->post = $post;
+	}
 
 	/**
 	 * Gets the attachment's filename.
@@ -123,73 +107,45 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\Domain
 		return $this->filename;
 	}
 
-
 	/**
-	 * Gets the attachment's filename on file system.
-	 * @return string The attachment's filename on file system.
+	 * Sets the filename.
+	 *
+	 * @param string $filename The filename
+	 *
+	 * @return void
 	 */
-	public function getRealFilename() {
-		return $this->realFilename;
+	public function setFilename($filename) {
+		$this->filename = $filename;
 	}
-
-
-	/**
-	 * Gets the whole TCA config of tx_mmforum_domain_model_forum_attachment
-	 * @return array The whole TCA config of tx_mmforum_domain_model_forum_attachment
-	 */
-	public function getTCAConfig() {
-		global $TCA;
-		$GLOBALS['TSFE']->includeTCA();
-		\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA('tx_mmforum_domain_model_forum_attachment');
-
-		return $TCA['tx_mmforum_domain_model_forum_attachment'];
-	}
-
-
-	/**
-	 * Gets the absolute filename of this attachment.
-	 * @return string The absolute filename of this attachment.
-	 */
-	public function getAbsoluteFilename() {
-		$tca = $this->getTCAConfig();
-
-		$uploadPath = $tca['columns']['real_filename']['config']['uploadfolder'];
-
-		return $uploadPath . $this->getRealFilename();
-	}
-
 
 	/**
 	 * Gets the allowed mime types.
 	 * @return array The allowed mime types.
 	 */
 	public function getAllowedMimeTypes() {
-		$mime_types = explode(',',$this->settings['attachment']['allowedMimeTypes']);
-		if(empty($mime_types)) {
+		$mime_types = explode(',', $this->settings['attachment']['allowedMimeTypes']);
+		if (empty($mime_types)) {
 			$res = array('text/plain');
 		} else {
-			foreach($mime_types AS $mime_type) {
+			foreach ($mime_types AS $mime_type) {
 				$res[] = trim($mime_type);
 			}
 		}
+
 		return $res;
 	}
-
 
 	/**
 	 * Gets the allowed max size of a attachment.
 	 * @return int The allowed max size of a attachment.
 	 */
 	public function getAllowedMaxSize() {
-		if($this->settings['attachment']['allowedSizeInByte'] == false) {
+		if ($this->settings['attachment']['allowedSizeInByte'] == false) {
 			return 4096;
 		} else {
 			return intval($this->settings['attachment']['allowedSizeInByte']);
 		}
 	}
-
-
-
 
 	/**
 	 * Gets the filesize.
@@ -199,7 +155,36 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\Domain
 		return filesize($this->getAbsoluteFilename());
 	}
 
+	/**
+	 * Gets the absolute filename of this attachment.
+	 * @return string The absolute filename of this attachment.
+	 */
+	public function getAbsoluteFilename() {
+		$tca = $TCA['tx_typo3forum_domain_model_forum_attachment'];
 
+		$uploadPath = $tca['columns']['real_filename']['config']['uploadfolder'];
+
+		return $uploadPath . $this->getRealFilename();
+	}
+
+	/**
+	 * Gets the attachment's filename on file system.
+	 * @return string The attachment's filename on file system.
+	 */
+	public function getRealFilename() {
+		return $this->realFilename;
+	}
+
+	/**
+	 * Sets the filename on file system.
+	 *
+	 * @param string $realFilename The filename on file system
+	 *
+	 * @return void
+	 */
+	public function setRealFilename($realFilename) {
+		$this->realFilename = $realFilename;
+	}
 
 	/**
 	 * Gets the MIME type.
@@ -209,7 +194,16 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\Domain
 		return $this->mimeType;
 	}
 
-
+	/**
+	 * Sets the MIME type.
+	 *
+	 * @param string $mimeType The MIME type.
+	 *
+	 * @return void
+	 */
+	public function setMimeType($mimeType) {
+		$this->mimeType = $mimeType;
+	}
 
 	/**
 	 * Gets the download count.
@@ -219,58 +213,6 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\Domain
 		return $this->downloadCount;
 	}
 
-
-
-	/*
-	 * SETTERS
-	 */
-
-
-
-	/**
-	 * Sets the filename.
-	 *
-	 * @param string $filename The filename
-	 * @return void
-	 */
-	public function setFilename($filename) {
-		$this->filename = $filename;
-	}
-
-
-	/**
-	 * Sets the filename on file system.
-	 *
-	 * @param string $realFilename The filename on file system
-	 * @return void
-	 */
-	public function setRealFilename($realFilename) {
-		$this->realFilename = $realFilename;
-	}
-
-	/**
-	 * Sets the filename on file system.
-	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
-	 * @return void
-	 */
-	public function setPost($post) {
-		$this->post = $post;
-	}
-
-
-	/**
-	 * Sets the MIME type.
-	 *
-	 * @param string $mimeType The MIME type.
-	 * @return void
-	 */
-	public function setMimeType($mimeType) {
-		$this->mimeType = $mimeType;
-	}
-
-
-
 	/**
 	 * Increases the download counter by 1.
 	 * @return void
@@ -278,6 +220,4 @@ class Tx_MmForum_Domain_Model_Forum_Attachment extends \TYPO3\CMS\Extbase\Domain
 	public function increaseDownloadCount() {
 		$this->downloadCount++;
 	}
-
-
 }

@@ -1,8 +1,8 @@
 <?php
 if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 
-$TCA['tx_mmforum_domain_model_user_rank'] = array(
-	'ctrl' => $TCA['tx_mmforum_domain_model_user_rank']['ctrl'],
+$TCA['tx_typo3forum_domain_model_user_rank'] = array(
+	'ctrl' => $TCA['tx_typo3forum_domain_model_user_rank']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'name,point_limit,user_count'
 	),
@@ -15,25 +15,24 @@ $TCA['tx_mmforum_domain_model_user_rank'] = array(
 	'columns' => array(
 		'name' => array(
 			'exclude' => 0,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_rank_name',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_rank_name',
 			'config'  => array(
 				'type' => 'input'
 			)
 		),
 		'point_limit' => array(
 			'exclude' => 0,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_rank_limit',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_rank_limit',
 			'config'  => array(
 				'type' => 'input'
 			)
 		),
 		'user_count' => Array (
 			'exclude' => 1,
-			'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_rank_userCount',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_rank_userCount',
 			'config' => Array (
 				'type' => 'none'
 			)
 		),
 	)
 );
-?>

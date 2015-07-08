@@ -1,10 +1,9 @@
 <?php
-
+namespace Mittwald\Typo3Forum\TextParser\Service;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,35 +22,12 @@
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
-
-
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- *
  * Text parser class for parsing complex lists.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage TextParser_Service
- * @version    $Id$
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-
-class Tx_MmForum_TextParser_Service_ListParserService extends Tx_MmForum_TextParser_Service_AbstractTextParserService {
-
-
-
-	/*
-	 * CONSTANTS
-	 */
-
-
+class ListParserService extends AbstractTextParserService {
 
 	/**
 	 * The regular expression for matching lists.
@@ -59,29 +35,18 @@ class Tx_MmForum_TextParser_Service_ListParserService extends Tx_MmForum_TextPar
 	 */
 	const PREG_MATCH_LIST = ',\[list\]\s*(.*?)\s*\[\/list\],is';
 
-
-
-	/*
-	 * METHODS
-	 */
-
-
-
 	/**
 	 * Parses lists inside a text.
 	 *
-	 * @param  string $text The text
+	 * @param string $text The text
 	 * @return string       The parsed text.
 	 */
-
 	public function getParsedText($text) {
 		$callback = function($matches) {
-			$items = array_filter(\TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode('[*]', $matches[1]));
+			$items = array_filter(GeneralUtility::trimExplode('[*]', $matches[1]));
 			return '<ul><li>' . implode('</li><li>', $items) . '</li></ul>';
 		};
 		return preg_replace_callback(self::PREG_MATCH_LIST, $callback, $text);
 	}
 
 }
-
-?>

@@ -1,9 +1,10 @@
 <?php
-/*                                                                    - *
+namespace Mittwald\Typo3Forum\Domain\Model\User;
+
+/*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Ruven Fehling <r.fehling@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,39 +24,30 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 
-/**
- *
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
- * @subpackage Domain_Model_User
- * @version    $Id$
- * @license    GNU public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
+class PrivateMessages extends AbstractEntity {
 
- */
+	const TYPE_SENDER = 0;
 
-class Tx_MmForum_Domain_Model_User_PrivateMessages extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
-
-	/**
-	 * ATTRIBUTES
-	 */
+	const TYPE_RECIPIENT = 1;
 
 	/**
 	 * The creation date of pm
-	 * @var DateTime
+	 * @var \DateTime
 	 */
 	public $crdate;
 
 	/**
 	 * User who read this message
-	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @var FrontendUser
 	 */
 	public $feuser;
 
 	/**
 	 * Opponent user of this message
-	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @var FrontendUser
 	 */
 	public $opponent;
 
@@ -75,7 +67,7 @@ class Tx_MmForum_Domain_Model_User_PrivateMessages extends \TYPO3\CMS\Extbase\Do
 
 	/**
 	 * The message of this pm
-	 * @var Tx_MmForum_Domain_Model_User_PrivateMessagesText
+	 * @var PrivateMessagesText
 	 */
 	public $message;
 
@@ -86,10 +78,21 @@ class Tx_MmForum_Domain_Model_User_PrivateMessages extends \TYPO3\CMS\Extbase\Do
 
 	/**
 	 * Get the date this message has been sent
-	 * @return DateTime
+	 * @return \DateTime
 	 */
 	public function getCrdate() {
 		return $this->crdate;
+	}
+
+	/**
+	 * Get the date this message has been sent
+	 *
+	 * @param \DateTime $crdate
+	 *
+	 * @return void
+	 */
+	public function setCrdate(\DateTime $crdate) {
+		$this->crdate = $crdate;
 	}
 
 	/**
@@ -101,50 +104,40 @@ class Tx_MmForum_Domain_Model_User_PrivateMessages extends \TYPO3\CMS\Extbase\Do
 	}
 
 	/**
+	 * Get the type of this pm
+	 *
+	 * @param int $type
+	 *
+	 * @return void
+	 */
+	public function setType($type) {
+		$this->type = $type;
+	}
+
+	/**
 	 * Get the User who read this message
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The User who read this message
+	 * @return FrontendUser The User who read this message
 	 */
 	public function getFeuser() {
-		if ($this->feuser instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+		if ($this->feuser instanceof LazyLoadingProxy) {
 			$this->feuser->_loadRealInstance();
 		}
 		if ($this->feuser === NULL) {
-			$this->feuser = new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
+			$this->feuser = new AnonymousFrontendUser();
 		}
+
 		return $this->feuser;
-
-	}
-
-
-	/**
-	 * Get the other User who is involved in this message
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The other User who is involved in this message
-	 */
-	public function getOpponent() {
-		if ($this->opponent instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
-			$this->opponent->_loadRealInstance();
-		}
-		if ($this->opponent === NULL) {
-			$this->opponent = new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
-		}
-		return $this->opponent;
-	}
-
-
-	/**
-	 * Get if the recipient already read this message
-	 * @return int The flag
-	 */
-	public function getUserRead() {
-		return intval($this->userRead);
 	}
 
 	/**
-	 * Gets the message of this pm
-	 * @return Tx_MmForum_Domain_Model_User_PrivateMessagesText
+	 * Sets the user
+	 *
+	 * @param FrontendUser $feuser
+	 *
+	 * @return void
 	 */
-	public function getMessage() {
-		return $this->message;
+	public function setFeuser(FrontendUser $feuser) {
+		$this->feuser = $feuser;
 	}
 
 
@@ -153,58 +146,64 @@ class Tx_MmForum_Domain_Model_User_PrivateMessages extends \TYPO3\CMS\Extbase\Do
 	 */
 
 	/**
-	 * Get the date this message has been sent
-	 * @param DateTime $crdate
-	 * @return void
+	 * Get the other User who is involved in this message
+	 * @return FrontendUser The other User who is involved in this message
 	 */
-	public function setCrdate(DateTime $crdate) {
-		$this->crdate = $crdate;
-	}
+	public function getOpponent() {
+		if ($this->opponent instanceof LazyLoadingProxy) {
+			$this->opponent->_loadRealInstance();
+		}
+		if ($this->opponent === NULL) {
+			$this->opponent = new AnonymousFrontendUser();
+		}
 
-	/**
-	 * Get the type of this pm
-	 * @param int $type
-	 * @return void
-	 */
-	public function setType($type) {
-		$this->type = $type;
+		return $this->opponent;
 	}
-
-	/**
-	 * Sets the user
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $feuser
-	 * @return void
-	 */
-	public function setFeuser(Tx_MmForum_Domain_Model_User_FrontendUser $feuser) {
-		$this->feuser = $feuser;
-	}
-
 
 	/**
 	 * Sets the opponent user
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $opponent
+	 *
+	 * @param FrontendUser $opponent
+	 *
 	 * @return void
 	 */
-	public function setOpponent(Tx_MmForum_Domain_Model_User_FrontendUser $opponent) {
+	public function setOpponent(FrontendUser $opponent) {
 		$this->opponent = $opponent;
 	}
 
+	/**
+	 * Get if the recipient already read this message
+	 * @return int The flag
+	 */
+	public function getUserRead() {
+		return (int) $this->userRead;
+	}
 
 	/**
 	 * Sets the flag
+	 *
 	 * @param int $userRead
+	 *
 	 * @return void
 	 */
 	public function setUserRead($userRead) {
 		$this->userRead = $userRead;
 	}
 
+	/**
+	 * Gets the message of this pm
+	 * @return PrivateMessagesText
+	 */
+	public function getMessage() {
+		return $this->message;
+	}
 
 	/**
 	 * Sets the message of this pm
-	 * @param Tx_MmForum_Domain_Model_User_PrivateMessagesText $message
+	 *
+	 * @param PrivateMessagesText $message
 	 */
-	public function setMessage(Tx_MmForum_Domain_Model_User_PrivateMessagesText $message) {
+	public function setMessage(PrivateMessagesText $message) {
 		$this->message = $message;
 	}
 }

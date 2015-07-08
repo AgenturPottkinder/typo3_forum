@@ -1,9 +1,9 @@
 <?php
-
+namespace Mittwald\Typo3Forum\ViewHelpers\Post;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <typo3@martin-helmich.de>                   *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,24 +23,9 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 
-/**
- *
- * ViewHelper that renders a big button.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage ViewHelpers_Control
- * @version    $Id: BigButtonViewHelper.php 52309 2011-09-20 18:54:26Z mhelmich $
- *
- * @copyright  2012 Martin Helmich <typo3@martin-helmich.de>
- *             http://www.martin-helmich.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-class Tx_MmForum_ViewHelpers_Post_HelpfulButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
-
+class HelpfulButtonViewHelper extends CObjectViewHelper {
 
 	/**
 	 * @var array
@@ -49,38 +34,22 @@ class Tx_MmForum_ViewHelpers_Post_HelpfulButtonViewHelper extends \TYPO3\CMS\Flu
 
 	/**
 	 * The frontend user repository.
-	 * @var Tx_MmForum_Domain_Repository_User_FrontendUserRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
 	 */
 	protected $frontendUserRepository = NULL;
 
 	/**
 	 * An authentication service. Handles the authentication mechanism.
 	 *
-	 * @var Tx_MmForum_Service_Authentication_AuthenticationServiceInterface
+	 * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
+	 * @inject
 	 */
 	protected $authenticationService;
-
-
-	/**
-	 *
-	 * Injects an authentication service.
-	 *
-	 * @param  Tx_MmForum_Service_Authentication_AuthenticationServiceInterface $authenticationService
-	 *                             An authentication service.
-	 *
-	 * @return void
-	 *
-	 */
-	public function injectAuthenticationService(Tx_MmForum_Service_Authentication_AuthenticationServiceInterface $authenticationService) {
-		$this->authenticationService = $authenticationService;
-	}
-
 
 	public function initialize() {
 		parent::initialize();
 		$this->settings = $this->templateVariableContainer->get('settings');
 	}
-
 
 	public function initializeArguments() {
 		parent::initializeArguments();
@@ -88,21 +57,20 @@ class Tx_MmForum_ViewHelpers_Post_HelpfulButtonViewHelper extends \TYPO3\CMS\Flu
 	}
 
 	/**
-	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
 	 * @param string $countTarget
 	 * @param string $countUserTarget
 	 * @param string $title
 	 * @return string
 	 */
-	public function render(Tx_MmForum_Domain_Model_Forum_Post $post, $countTarget = NULL, $countUserTarget = NULL, $title = '') {
+	public function render(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post, $countTarget = NULL, $countUserTarget = NULL, $title = '') {
 		$class = $this->settings['forum']['post']['helpfulBtn']['iconClass'];
 
 		if ($this->hasArgument('class')) {
 			$class .= ' ' . $this->arguments['class'];
 		}
 		if($post->getAuthor()->getUid() != $this->authenticationService->getUser()->getUid() and !$this->authenticationService->getUser()->isAnonymous()){
-			$class .= ' tx-mmforum-helpfull-btn';
+			$class .= ' tx-typo3forum-helpfull-btn';
 		}
 
 		if ($post->hasBeenSupportedByUser($this->authenticationService->getUser())) {

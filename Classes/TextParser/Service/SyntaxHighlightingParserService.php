@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\TextParser\Service;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -31,7 +31,7 @@
  * Text parser class for parsing syntax highlighting.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage TextParser_Service
  * @version    $Id$
  *
@@ -42,35 +42,19 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class Tx_MmForum_TextParser_Service_SyntaxHighlightingParserService
-	extends Tx_MmForum_TextParser_Service_AbstractTextParserService {
-
-
+class SyntaxHighlightingParserService extends \Mittwald\Typo3Forum\TextParser\Service\AbstractTextParserService {
 
 	/**
-	 * @var Tx_MmForum_TextParser_Service_AbstractGeshiService
+	 * @var \Mittwald\Typo3Forum\TextParser\Service\AbstractGeshiService
+	 * @inject
 	 */
 	protected $xtGeshi;
-
-
-	/*
-	 * METHODS
-	 */
-
-	/**
-	 * Injects an instance of the smilie repository.
-	 * @param Tx_MmForum_TextParser_Service_AbstractGeshiService $xtGeshi
-	 */
-	public function injectAbstractGeshiService(Tx_MmForum_TextParser_Service_AbstractGeshiService $xtGeshi) {
-		$this->xtGeshi = $xtGeshi;
-	}
-
 
 
 	/**
 	 * Renders the parsed text.
 	 *
-	 * @param  string $text The text to be parsed.
+	 * @param string $text The text to be parsed.
 	 * @return string       The parsed text.
 	 */
 	public function getParsedText($text) {
@@ -79,17 +63,13 @@ class Tx_MmForum_TextParser_Service_SyntaxHighlightingParserService
 	}
 
 
-
 	/**
 	 * Callback function that renders each source code block.
 	 *
-	 * @param  array $matches PCRE matches.
+	 * @param array $matches PCRE matches.
 	 * @return string         The rendered source code block.
 	 */
 	protected function parseSourceCode($matches) {
 		return $this->xtGeshi->getFormattedText(trim($matches[2]), trim($matches[1]));
 	}
-
-
-
 }

@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Service\Mailing;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -32,7 +32,7 @@
  * forums and topic about new posts within the subscribed objects.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Service_Mailing
  * @version    $Id$
  *
@@ -43,76 +43,43 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_MmForum_Service_Mailing_AbstractMailingService extends Tx_MmForum_Service_AbstractService
-	implements Tx_MmForum_Service_Mailing_MailingServiceInterface {
+abstract class AbstractMailingService extends \Mittwald\Typo3Forum\Service\AbstractService
+	implements \Mittwald\Typo3Forum\Service\Mailing\MailingServiceInterface {
 
 
 	/**
-	 * An instance of the mm_forum authentication service.
-	 * @var TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * An instance of the typo3_forum authentication service.
+	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @inject
 	 */
 	protected $typoScriptService = NULL;
 
-
-
 	/**
-	 * Whole TypoScript mm_forum settings
+	 * Whole TypoScript typo3_forum settings
 	 * @var array
 	 */
 	protected $settings;
-
-
-
-	/*
-	 * CONSTANTS
-	 */
-
-
 
 	/**
 	 * HTML mail format.
 	 */
 	const MAILING_FORMAT_HTML = 'html';
 
-
-
 	/**
 	 * Plaintext mail format.
 	 */
 	const MAILING_FORMAT_PLAIN = 'txt';
 
-
-
-	/*
-	  * ATTRIBUTES
-	  */
-
-
-
 	/**
 	 * The format in which this service sends mails. Usually, this would be either 'html' or 'txt'.
 	 * @var string
 	 */
-	protected $format = Tx_MmForum_Service_Mailing_AbstractMailingService::MAILING_FORMAT_HTML;
+	protected $format = \Mittwald\Typo3Forum\Service\Mailing\AbstractMailingService::MAILING_FORMAT_HTML;
 
-
-
-	/**
-	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
-	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
-	 */
-	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
-		$this->typoScriptService = $typoScriptService;
+	public function initializeObject() {
 		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
-		$this->settings = $ts['plugin']['tx_mmforum']['settings'];
+		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
-
-
-	/*
-	  * SERVICE METHODS
-	  */
-
-
 
 	/**
 	 * Gets the preferred format of this mailing service.
@@ -121,14 +88,6 @@ abstract class Tx_MmForum_Service_Mailing_AbstractMailingService extends Tx_MmFo
 	public function getFormat() {
 		return $this->format;
 	}
-
-
-
-	/*
-	 * HELPER METHODS
-	 */
-
-
 
 	/**
 	 * Gets the default sender name. Can be configured in the typoscript setup.
@@ -171,7 +130,4 @@ abstract class Tx_MmForum_Service_Mailing_AbstractMailingService extends Tx_MmFo
 	protected function getCharset() {
 		return $GLOBALS['TSFE']->renderCharset;
 	}
-
-
-
 }

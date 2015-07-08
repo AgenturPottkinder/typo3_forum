@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Service\Notification;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -32,7 +32,7 @@
  * forums and topic about new posts within the subscribed objects.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Service
  * @version    $Id: NotificationService.php 39978 2010-11-09 14:19:52Z mhelmich $
  *
@@ -43,18 +43,18 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-interface Tx_MmForum_Service_Notification_NotificationServiceInterface {
+interface NotificationServiceInterface {
 
 
 
 	/**
 	 * @abstract
 	 *
-	 * @param Tx_MmForum_Domain_Model_SubscribeableInterface $subscriptionObject
-	 * @param Tx_MmForum_Domain_Model_NotifiableInterface    $notificationObject
+	 * @param \Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $subscriptionObject
+	 * @param \Mittwald\Typo3Forum\Domain\Model\NotifiableInterface    $notificationObject
 	 */
-	public function notifySubscribers(Tx_MmForum_Domain_Model_SubscribeableInterface $subscriptionObject,
-	                                  Tx_MmForum_Domain_Model_NotifiableInterface $notificationObject);
+	public function notifySubscribers(\Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $subscriptionObject,
+	                                  \Mittwald\Typo3Forum\Domain\Model\NotifiableInterface $notificationObject);
 
 
 

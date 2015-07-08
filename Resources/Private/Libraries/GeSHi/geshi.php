@@ -1436,17 +1436,19 @@ class GeSHi {
         $this->enable_important_blocks = $flag;
     }
 
-    /**
-     * Given a file extension, this method returns either a valid geshi language
-     * name, or the empty string if it couldn't be found
-     *
-     * @param string The extension to get a language name for
-     * @param array  A lookup array to use instead of the default one
-     * @since 1.0.5
-     * @todo Re-think about how this method works (maybe make it private and/or make it
-     *       a extension->lang lookup?)
-     * @todo static?
-     */
+	/**
+	 * Given a file extension, this method returns either a valid geshi language
+	 * name, or the empty string if it couldn't be found
+	 *
+	 * @param       $extension
+	 * @param array $lookup
+	 *
+	 * @return int|string
+	 * @since 1.0.5
+	 * @todo Re-think about how this method works (maybe make it private and/or make it
+	 *       a extension->lang lookup?)
+	 * @todo static?
+	 */
     function get_language_name_from_extension( $extension, $lookup = array() ) {
         $extension = strtolower($extension);
 
@@ -1610,15 +1612,17 @@ class GeSHi {
         }
     }
 
-    /**
-     * Creates a new keyword group
-     *
-     * @param int    The key of the keyword group to create
-     * @param string The styles for the keyword group
-     * @param boolean Whether the keyword group is case sensitive ornot
-     * @param array  The words to use for the keyword group
-     * @since 1.0.0
-     */
+	/**
+	 * add_keyword_group
+	 *
+     * @param int       $key
+	 * @param string    $styles
+	 * @param bool|true $case_sensitive
+	 * @param array     $words
+	 *
+	 * @return bool
+	 * @since 1.0.0
+	 */
     function add_keyword_group($key, $styles, $case_sensitive = true, $words = array()) {
         $words = (array) $words;
         if  (empty($words)) {
@@ -3346,15 +3350,17 @@ class GeSHi {
               . $after;
     }
 
-    /**
-     * Takes a string that has no strings or comments in it, and highlights
-     * stuff like keywords, numbers and methods.
-     *
-     * @param string The string to parse for keyword, numbers etc.
-     * @since 1.0.0
-     * @access private
-     * @todo BUGGY! Why? Why not build string and return?
-     */
+	/**
+	 * Takes a string that has no strings or comments in it, and highlights
+	 * stuff like keywords, numbers and methods.
+	 *
+	 * @param $stuff_to_parse
+	 *
+	 * @return string The string to parse for keyword, numbers etc.
+	 * @since 1.0.0
+	 * @access private
+	 * @todo BUGGY! Why? Why not build string and return?
+	 */
     function parse_non_string_part($stuff_to_parse) {
         $stuff_to_parse = ' ' . $this->hsc($stuff_to_parse);
 
@@ -4549,13 +4555,15 @@ class GeSHi {
         return $stylesheet;
     }
 
-    /**
-     * Get's the style that is used for the specified line
-     *
-     * @param int The line number information is requested for
-     * @access private
-     * @since 1.0.7.21
-     */
+	/**
+	 * Get's the style that is used for the specified line
+	 *
+	 * @param int $line
+	 *
+	 * @return null|string
+	 * @access private
+	 * @since 1.0.7.21
+	 */
     function get_line_style($line) {
         //$style = null;
         $style = null;

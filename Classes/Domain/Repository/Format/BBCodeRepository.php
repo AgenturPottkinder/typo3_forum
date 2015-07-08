@@ -1,10 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Repository\Format;
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,37 +24,22 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use Mittwald\Typo3Forum\Domain\Repository\AbstractRepository;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
- *
  * Repository class for bb codes.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage Domain_Repository_Format
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class Tx_MmForum_Domain_Repository_Format_BBCodeRepository extends Tx_MmForum_Domain_Repository_AbstractRepository {
-
-
+class BBCodeRepository extends AbstractRepository {
 
 	/**
-	 * @return array|Tx_Extbase_Persistence_QueryResultInterface
+	 * @return QueryResultInterface
 	 */
 	public function findAll() {
 		$query = $this->createQueryWithFallbackStoragePage();
 		$query->setOrderings(array('uid' => 'ASC'));
+
 		return $query->execute();
 	}
-
-
 
 }

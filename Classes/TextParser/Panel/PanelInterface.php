@@ -1,10 +1,9 @@
 <?php
-
+namespace Mittwald\Typo3Forum\TextParser\Panel;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,46 +23,16 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
-
-/**
- *
- * TODO
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage TextParser_Panel
- * @version    $Id: BasicParserService.php 39978 2010-11-09 14:19:52Z mhelmich $
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-
-interface Tx_MmForum_TextParser_Panel_PanelInterface {
-
-
+interface PanelInterface {
 
 	/**
-	 * TODO
-	 *
 	 * @param array $settings
-	 *
-	 * @abstract
 	 * @return void
 	 */
 	public function setSettings(array $settings);
 
-
-
 	/**
-	 * TODO
-	 *
-	 * @abstract
-	 * @return array<array>
+	 * @return array
 	 */
 	public function getItems();
 

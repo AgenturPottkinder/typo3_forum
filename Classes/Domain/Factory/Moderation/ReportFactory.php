@@ -1,10 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Factory\Moderation;
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,83 +24,36 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Factory\AbstractFactory;
+use Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment;
+use Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport;
 
-
-/**
- *
- * Factory class for post reports.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage Domain_Factory_Forum
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-class Tx_MmForum_Domain_Factory_Moderation_ReportFactory extends Tx_MmForum_Domain_Factory_AbstractFactory {
-
-
-
-	/*
-	 * ATTRIBUTES
-	 */
-
-
+class ReportFactory extends AbstractFactory {
 
 	/**
-	 * The workflow status repository.
-	 * @var Tx_MmForum_Domain_Repository_Moderation_ReportWorkflowStatusRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportWorkflowStatusRepository
+	 * @inject
 	 */
 	protected $workflowStatusRepository;
 
-
-
-	/*
-	 * DEPENDENCY INJECTORS
-	 */
-
-
-
-	/**
-	 * Constructor.
-	 * @param Tx_MmForum_Domain_Repository_Moderation_ReportWorkflowStatusRepository $workflowStatusRepository
-	 */
-	public function __construct(Tx_MmForum_Domain_Repository_Moderation_ReportWorkflowStatusRepository $workflowStatusRepository) {
-		$this->workflowStatusRepository = $workflowStatusRepository;
-	}
-
-
-
-	/*
-	 * FACTORY METHODS
-	 */
-
-
-
 	/**
 	 *
 	 * Creates a new User report.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment
-	 *                             The first report comment for this report.
-	 * @param Tx_MmForum_Domain_Model_Forum_Post               $post
-	 *                             The post that is to be reported.
-	 * @return Tx_MmForum_Domain_Model_Moderation_Report
-	 *                             The new report.
+	 * @param ReportComment $firstComment The first report comment for this report.
+	 *
+	 * @return UserReport
 	 *
 	 */
-	public function createUserReport(Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment) {
-		$user = & $this->getCurrentUser();
+	public function createUserReport(ReportComment $firstComment) {
+		$user = &$this->getCurrentUser();
 		$firstComment->setAuthor($user);
-		$report = $this->objectManager->create('Tx_MmForum_Domain_Model_Moderation_UserReport');
+		/** @var UserReport $report */
+		$report = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\UserReport');
 		$report->setWorkflowStatus($this->workflowStatusRepository->findInitial());
 		$report->setReporter($user);
 		$report->addComment($firstComment);
+
 		return $report;
 	}
 
@@ -108,26 +61,19 @@ class Tx_MmForum_Domain_Factory_Moderation_ReportFactory extends Tx_MmForum_Doma
 	 *
 	 * Creates a new User report.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment
-	 *                             The first report comment for this report.
-	 * @param Tx_MmForum_Domain_Model_Forum_Post               $post
-	 *                             The post that is to be reported.
-	 * @return Tx_MmForum_Domain_Model_Moderation_Report
-	 *                             The new report.
+	 * @param ReportComment $firstComment The first report comment for this report.
 	 *
+	 * @return object
 	 */
-	public function createPostReport(Tx_MmForum_Domain_Model_Moderation_ReportComment $firstComment) {
-		$user = & $this->getCurrentUser();
+	public function createPostReport(ReportComment $firstComment) {
+		$user = &$this->getCurrentUser();
 		$firstComment->setAuthor($user);
-		$report = $this->objectManager->create('Tx_MmForum_Domain_Model_Moderation_PostReport');
+		$report = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\PostReport');
 		$report->setWorkflowStatus($this->workflowStatusRepository->findInitial());
 		$report->setReporter($user);
 		$report->addComment($firstComment);
+
 		return $report;
 	}
-
-
 
 }
-
-?>

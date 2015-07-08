@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Service\Authentication;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -32,7 +32,7 @@
  * implement his own solution... ;)
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Service
  * @version    $Id: AuthenticationServiceInterface.php 39978 2010-11-09 14:19:52Z mhelmich $
  *
@@ -43,72 +43,72 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-interface Tx_MmForum_Service_Authentication_AuthenticationServiceInterface {
+interface AuthenticationServiceInterface {
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_AccessibleInterface $object
+	 * @param \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object
 	 */
-	public function assertReadAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object);
+	public function assertReadAuthorization(\Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object);
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
 	 */
-	public function assertNewTopicAuthorization(Tx_MmForum_Domain_Model_Forum_Forum $forum);
+	public function assertNewTopicAuthorization(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum);
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
 	 */
-	public function assertNewPostAuthorization(Tx_MmForum_Domain_Model_Forum_Topic $topic);
+	public function assertNewPostAuthorization(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic);
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
 	 */
-	public function assertEditPostAuthorization(Tx_MmForum_Domain_Model_Forum_Post $post);
+	public function assertEditPostAuthorization(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post);
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
 	 */
-	public function assertDeletePostAuthorization(Tx_MmForum_Domain_Model_Forum_Post $post);
+	public function assertDeletePostAuthorization(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post);
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_AccessibleInterface $object
+	 * @param \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object
 	 */
-	public function assertModerationAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object);
+	public function assertModerationAuthorization(\Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object);
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_AccessibleInterface $object
+	 * @param \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object
 	 */
-	public function assertAdministrationAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object);
+	public function assertAdministrationAuthorization(\Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object);
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_AccessibleInterface $object
-	 * @param                                             $action
+	 * @param \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object
+	 * @param                                            $action
 	 */
-	public function assertAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object, $action);
+	public function assertAuthorization(\Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object, $action);
 
 
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_AccessibleInterface $object
-	 * @param                                             $action
+	 * @param \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object
+	 * @param                                            $action
 	 */
-	public function checkAuthorization(Tx_MmForum_Domain_Model_AccessibleInterface $object, $action);
+	public function checkAuthorization(\Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object, $action);
 
 
 

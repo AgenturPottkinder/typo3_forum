@@ -1,10 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Model\User\Userfield;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,164 +24,101 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
 
 /**
- *
  * Abstract base class for additional user fields.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage Domain_Model_User_Userfield
- * @version    $Id$
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-
-Abstract Class Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield
-	Extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
-
-
-
-	/*
-		  * ATTRIBUTES
-		  */
-
-
+abstract class AbstractUserfield extends AbstractValueObject {
 
 	/**
 	 * The name of the userfield.
 	 * @var string
 	 * @validate NotEmpty
 	 */
-	Protected $name;
-
+	protected $name;
 
 	/**
 	 * A property name of the FrontendUser object. If this is set, this property will
 	 * be read instead for this userfield.
 	 * @var string
 	 */
-	Protected $mapToUserObject = NULL;
-
-
-
-	/*
-		  * GETTERS
-		  */
-
-
+	protected $mapToUserObject = NULL;
 
 	/**
-	 *
 	 * Gets the field name.
 	 * @return string The field name.
-	 *
 	 */
-
-	Public Function getName() {
-		Return $this->name;
+	public function getName() {
+		return $this->name;
 	}
 
-
-
 	/**
-	 *
-	 * Determines if this userfield is mapped to a FrontendUser property.
-	 * @return boolean TRUE, if this userfield is mapped to a FrontendUser property,
-	 *                 otherwise FALSE.
-	 *
-	 */
-
-	Public Function isMappedToUserObject() {
-		Return $this->mapToUserObject !== NULL;
-	}
-
-
-
-	/**
-	 *
-	 * If this userfield is mapped to a FrontendUser property, this method gets the
-	 * name of the property this userfield is mapped to.
-	 * @return string The FrontendUser property name.
-	 *
-	 */
-
-	Public Function getUserObjectPropertyName() {
-		Return $this->mapToUserObject;
-	}
-
-
-
-	/**
-	 *
-	 * Determines the value for this userfield and a specific user.
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 *                             The user for which the value of this userfield is
-	 *                             to be determined.
-	 * @return string              The userfield value.
-	 *
-	 */
-
-	Public Function getValueForUser(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
-		If ($this->isMappedToUserObject()) {
-			$propertyNames  = explode('|', $this->getUserObjectPropertyName());
-			$propertyValues = Array();
-			ForEach ($propertyNames As $propertyName) {
-				$propertyValues[] = $user->_getProperty($propertyName);
-			}
-			Return $propertyValues;
-		} Else {
-			ForEach ($user->getUserfieldValues() as $userfieldValue) {
-				If ($userfieldValue->getUserfield() == $userfield) {
-					Return Array($userfieldValue->getValue());
-				}
-			}
-			Return NULL;
-		}
-	}
-
-
-
-	/*
-		  * SETTERS
-		  */
-
-
-
-	/**
-	 *
 	 * Sets the userfield name.
 	 *
 	 * @param string $name Name of the userfield
-	 * @return void
 	 *
+	 * @return void
 	 */
-
-	Public Function setName($name) {
+	public function setName($name) {
 		$this->name = $name;
 	}
 
-
-
 	/**
+	 * Determines the value for this userfield and a specific user.
 	 *
-	 * Sets the FrontendUser property name.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 *                             The user for which the value of this userfield is
+	 *                             to be determined.
 	 *
-	 * @param  string $property The FrontendUser property name.
-	 * @return void
-	 *
+	 * @return string              The userfield value.
 	 */
+	public function getValueForUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
+		if ($this->isMappedToUserObject()) {
+			$propertyNames = explode('|', $this->getUserObjectPropertyName());
+			$propertyValues = array();
+			foreach ($propertyNames as $propertyName) {
+				$propertyValues[] = $user->_getProperty($propertyName);
+			}
 
-	Public Function setUserObjectPropertyName($property = NULL) {
-		$this->mapToUserObject = $property;
+			return $propertyValues;
+		} else {
+			foreach ($user->getUserfieldValues() as $userfieldValue) {
+				if ($userfieldValue->getUserfield() == $userfield) {
+					return array($userfieldValue->getValue());
+				}
+			}
+
+			return NULL;
+		}
 	}
 
-}
+	/**
+	 * Determines if this userfield is mapped to a FrontendUser property.
+	 * @return boolean TRUE, if this userfield is mapped to a FrontendUser property,
+	 *                 otherwise FALSE.
+	 */
+	public function isMappedToUserObject() {
+		return $this->mapToUserObject !== NULL;
+	}
 
-?>
+	/**
+	 * If this userfield is mapped to a FrontendUser property, this method gets the
+	 * name of the property this userfield is mapped to.
+	 * @return string The FrontendUser property name.
+	 */
+	public function getUserObjectPropertyName() {
+		return $this->mapToUserObject;
+	}
+
+	/**
+	 * Sets the FrontendUser property name.
+	 *
+	 * @param string $property The FrontendUser property name.
+	 *
+	 * @return void
+	 */
+	public function setUserObjectPropertyName($property = NULL) {
+		$this->mapToUserObject = $property;
+	}
+}

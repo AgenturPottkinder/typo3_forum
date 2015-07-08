@@ -1,9 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Model\Forum;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Ruven Fehling <r.fehling@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,21 +24,11 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-/**
- *
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
- * @subpackage Domain_Model_Forum
- * @version    $Id$
- * @license    GNU public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
+class Criteria extends AbstractEntity {
 
- */
-
-class Tx_MmForum_Domain_Model_Forum_Criteria extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
-
-		/**
+	/**
 	 * The name of the criteria
 	 * @var string
 	 */
@@ -46,14 +37,14 @@ class Tx_MmForum_Domain_Model_Forum_Criteria extends \TYPO3\CMS\Extbase\DomainOb
 
 	/**
 	 * The options of a criteria
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_CriteriaOption>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption>
 	 */
 	protected $options;
 
 
 	/**
 	 * The default option
-	 * @var Tx_MmForum_Domain_Model_Forum_CriteriaOption
+	 * @var CriteriaOption
 	 */
 	protected $defaultOption;
 
@@ -66,27 +57,29 @@ class Tx_MmForum_Domain_Model_Forum_Criteria extends \TYPO3\CMS\Extbase\DomainOb
 		return $this->name;
 	}
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param string $name The name of a criteria
+	 *
+	 * @return void
+	 */
+	public function setName($name) {
+		$this->name = $name;
+	}
 
 	/**
 	 * Get all options of this criteria.
-	 * @return	\TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_Forum_CriteriaOption>
-	 *			All options of criteria.
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption>
+	 *            All options of criteria.
 	 */
 	public function getOptions() {
 		return $this->options;
 	}
 
-
-	/**
-	 * Get the default option
-	 * @return Tx_MmForum_Domain_Model_Forum_CriteriaOption
-	 */
-	public function getDefaultOption() {
-		return $this->defaultOption;
-	}
-
 	/**
 	 * Set a whole object storage as options for this criteria
+	 *
 	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $options
 	 */
 	public function setOptions(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $options) {
@@ -94,22 +87,21 @@ class Tx_MmForum_Domain_Model_Forum_Criteria extends \TYPO3\CMS\Extbase\DomainOb
 	}
 
 	/**
-	 * Sets the name.
-	 *
-	 * @param string $name The name of a criteria
-	 * @return void
+	 * Get the default option
+	 * @return CriteriaOption
 	 */
-	public function setName($name) {
-		$this->name = $name;
+	public function getDefaultOption() {
+		return $this->defaultOption;
 	}
-
 
 	/**
 	 * Set the default option
-	 * @param Tx_MmForum_Domain_Model_Forum_CriteriaOption $defaultOption
+	 *
+	 * @param CriteriaOption $defaultOption
+	 *
 	 * @return void
 	 */
-	public function setDefaultOption(Tx_MmForum_Domain_Model_Forum_CriteriaOption $defaultOption) {
+	public function setDefaultOption(CriteriaOption $defaultOption) {
 		$this->defaultOption = $defaultOption;
 	}
 }

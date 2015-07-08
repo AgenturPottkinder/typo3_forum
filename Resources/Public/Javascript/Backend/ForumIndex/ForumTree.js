@@ -22,7 +22,7 @@
  *                                                                      */
 
 
-Ext.ns('MmForum.ForumIndex')
+Ext.ns('Typo3Forum.ForumIndex');
 
 
 /**
@@ -30,7 +30,7 @@ Ext.ns('MmForum.ForumIndex')
  * ...
  *
  * @author     Martin Helmich <typo3@martin-helmich.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Controller
  * @version    $Id: ForumController.php 52309 2011-09-20 18:54:26Z mhelmich $
  *
@@ -40,15 +40,15 @@ Ext.ns('MmForum.ForumIndex')
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-//MmForum.ForumIndex.ForumTree = Ext.extend(Ext.ux.tree.TreeGrid, {
-MmForum.ForumIndex.ForumTree = Ext.extend(Ext.tree.TreePanel, {
+//Typo3Forum.ForumIndex.ForumTree = Ext.extend(Ext.ux.tree.TreeGrid, {
+Typo3Forum.ForumIndex.ForumTree = Ext.extend(Ext.tree.TreePanel, {
 
 	border    : false,
 	plain     : false,
 	bodyStyle : 'padding: 10px;',
 	stripeRows: true,
 	enableDD  : true,
-	ddGroup   : 'tx-mmforum-forumtree',
+	ddGroup   : 'tx-typo3forum-forumtree',
 
 	columns    : [
 		{
@@ -79,7 +79,7 @@ MmForum.ForumIndex.ForumTree = Ext.extend(Ext.tree.TreePanel, {
 		text       : TYPO3.l10n.localize("ForumIndex_Tree_Root"),
 		expanded   : true,
 		collapsible: false,
-		iconCls    : 'tx-mmforum-icon-16-forum-root'
+		iconCls    : 'tx-typo3forum-icon-16-forum-root'
 	},
 	rootVisible: true,
 
@@ -101,9 +101,9 @@ MmForum.ForumIndex.ForumTree = Ext.extend(Ext.tree.TreePanel, {
 //			}
 //		});
 
-		MmForum.ForumIndex.ForumTree.superclass.constructor.call(this, config);
+		Typo3Forum.ForumIndex.ForumTree.superclass.constructor.call(this, config);
 
-		this.contextMenu = new MmForum.ForumIndex.ForumTreeContextMenu({
+		this.contextMenu = new Typo3Forum.ForumIndex.ForumTreeContextMenu({
 			tree: this
 		});
 		this.treeEditor = new Ext.tree.TreeEditor(this);
@@ -165,7 +165,7 @@ MmForum.ForumIndex.ForumTree = Ext.extend(Ext.tree.TreePanel, {
 //
 //				this.proxyElement.shadow = false;
 //				this.proxyElement.innerHTML = '<div class="x-dd-drag-ghost-pagetree">' +
-//					'<span class="x-dd-drag-ghost-pagetree-icon tx-mmforum-icon-16-forum">&nbsp;</span>' +
+//					'<span class="x-dd-drag-ghost-pagetree-icon tx-typo3forum-icon-16-forum">&nbsp;</span>' +
 //					'<span class="x-dd-drag-ghost-pagetree-text"> New Forum' + '' + '</span>' +
 //					'</div>';
 //
@@ -177,7 +177,7 @@ MmForum.ForumIndex.ForumTree = Ext.extend(Ext.tree.TreePanel, {
 
 	editForum: function (node)
 	{
-		var forumForm = new MmForum.ForumIndex.ForumForm({
+		var forumForm = new Typo3Forum.ForumIndex.ForumForm({
 			dataProvider: this.dataProvider,
 			tree        : this,
 			treeNode    : node

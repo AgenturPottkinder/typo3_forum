@@ -1,22 +1,14 @@
 <?php
-class Tx_MmForum_Service_AttachmentService implements \TYPO3\CMS\Core\SingletonInterface {
+namespace Mittwald\Typo3Forum\Service;
+class AttachmentService implements \TYPO3\CMS\Core\SingletonInterface {
 
 
 	/**
 	 * An instance of the Extbase object manager.
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 * @inject
 	 */
 	protected $objectManager = NULL;
-
-	/**
-	 * Injects an instance of the extbase object manager.
-	 * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-	 * @return void
-	 */
-	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
-		$this->objectManager = $objectManager;
-	}
-
 
 	/**
 	 * Converts HTML-array to an object
@@ -24,13 +16,13 @@ class Tx_MmForum_Service_AttachmentService implements \TYPO3\CMS\Core\SingletonI
 	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
 	 */
 	public function initAttachments(array $attachments){
-		/* @var Tx_MmForum_Domain_Model_Forum_Attachment */
+		/* @var \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment */
 		$objAttachments = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 
 		foreach($attachments AS $attachmentID => $attachment) {
 			if($attachment['name'] == '') continue;
-			$attachmentObj = $this->objectManager->create('Tx_MmForum_Domain_Model_Forum_Attachment');
-			$tmp_name = $_FILES['tx_mmforum_pi1']['tmp_name']['attachments'][$attachmentID];
+			$attachmentObj = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Attachment');
+			$tmp_name = $_FILES['tx_typo3forum_pi1']['tmp_name']['attachments'][$attachmentID];
 			$mime_type = mime_content_type($tmp_name);
 
 			//Save in ObjectStorage and in file system

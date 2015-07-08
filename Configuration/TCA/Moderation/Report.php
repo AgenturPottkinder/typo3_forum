@@ -3,15 +3,15 @@
 if (!defined('TYPO3_MODE'))
 	die('Access denied.');
 
-$TCA['tx_mmforum_domain_model_moderation_report'] = array(
-	'ctrl' => $TCA['tx_mmforum_domain_model_moderation_report']['ctrl'],
+$TCA['tx_typo3forum_domain_model_moderation_report'] = array(
+	'ctrl' => $TCA['tx_typo3forum_domain_model_moderation_report']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'type,reporter,moderator,workflow_status,comments, post, feuser'
 	),
 	'types' => array(
 		'1' => array('showitem' => 'type,reporter,moderator,workflow_status,comments'),
-		'Tx_MmForum_Domain_Model_Moderation_UserReport' => array('showitem' => 'type,reporter,moderator,workflow_status,comments, feuser'),
-		'Tx_MmForum_Domain_Model_Moderation_PostReport' => array('showitem' => 'type,reporter,moderator,workflow_status,comments, post')
+		'\Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport' => array('showitem' => 'type,reporter,moderator,workflow_status,comments, feuser'),
+		'\Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport' => array('showitem' => 'type,reporter,moderator,workflow_status,comments, post')
 	),
 	'palettes' => array(
 		'1' => array('showitem' => '')
@@ -33,27 +33,27 @@ $TCA['tx_mmforum_domain_model_moderation_report'] = array(
 		),
 		'type' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.type',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.type',
 			'config'  => array(
 				'type' => 'select',
 				'items' => array(
-					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.type.userReport', 'Tx_MmForum_Domain_Model_Moderation_UserReport'),
-					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.type.postReport', 'Tx_MmForum_Domain_Model_Moderation_PostReport'),
+					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.type.userReport', '\Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport'),
+					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.type.postReport', '\Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport'),
 				)
 			)
 		),
 		'post' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.post',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.post',
 			'config' => array(
 				'type' => 'select',
-				'foreign_table' => 'tx_mmforum_domain_model_forum_post',
+				'foreign_table' => 'tx_typo3forum_domain_model_forum_post',
 				'maxitems' => 1
 			)
 		),
 		'feuser' => array(
 			'exclude' => 1,
-			'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.user',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.user',
 			'config' => array(
 				'type' => 'select',
 				'foreign_table' => 'fe_users',
@@ -62,7 +62,7 @@ $TCA['tx_mmforum_domain_model_moderation_report'] = array(
 		),
 		'reporter' => array(
 			'exclude' => 1,
-			'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.reporter',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.reporter',
 			'config' => array(
 				'type' => 'select',
 				'foreign_table' => 'fe_users',
@@ -71,7 +71,7 @@ $TCA['tx_mmforum_domain_model_moderation_report'] = array(
 		),
 		'moderator' => array(
 			'exclude' => 1,
-			'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.moderator',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.moderator',
 			'config' => array(
 				'type' => 'select',
 				'foreign_table' => 'fe_users',
@@ -80,19 +80,19 @@ $TCA['tx_mmforum_domain_model_moderation_report'] = array(
 		),
 		'workflow_status' => array(
 			'exclude' => 1,
-			'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.workflow_status',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.workflow_status',
 			'config' => array(
 				'type' => 'select',
-				'foreign_table' => 'tx_mmforum_domain_model_moderation_reportworkflowstatus',
+				'foreign_table' => 'tx_typo3forum_domain_model_moderation_reportworkflowstatus',
 				'maxitems' => 1
 			)
 		),
 		'comments' => array(
 			'exclude' => 1,
-			'label' => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_moderation_report.comments',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.comments',
 			'config' => array(
 				'type' => 'inline',
-				'foreign_table' => 'tx_mmforum_domain_model_moderation_reportcomment',
+				'foreign_table' => 'tx_typo3forum_domain_model_moderation_reportcomment',
 				'foreign_field' => 'report',
 				'maxitems' => 9999,
 				'foreign_sortby' => 'tstamp',

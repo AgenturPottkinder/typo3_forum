@@ -1,4 +1,5 @@
 <?php
+namespace Mittwald\Typo3Forum\Controller;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -26,137 +27,77 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 
-/**
- *
- * This class implements a simple dispatcher for a mm_form eID script.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
- * @subpackage Controller
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_AbstractController {
-
-
-
-
-	/*
-	 * ATTRIBUTES
-	 */
-
+class AjaxController extends AbstractController {
 
 	/**
-	 * A forum repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
-	 */
-	protected $forumRepository;
-
-
-	/**
-	 * A topic repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_TopicRepository
-	 */
-	protected $topicRepository;
-
-
-	/**
-	 * A post repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_PostRepository
-	 */
-	protected $postRepository;
-
-
-	/**
-	 * A post factory.
-	 * @var Tx_MmForum_Domain_Factory_Forum_PostFactory
-	 */
-	protected $postFactory;
-
-
-	/**
-	 * A post factory.
-	 * @var Tx_MmForum_Domain_Repository_Forum_AttachmentRepository
-	 */
-	protected $attachmentRepository;
-
-	/**
-	 * @var Tx_MmForum_Service_AttachmentService
-	 */
-	protected $attachmentService = NULL;
-
-	/**
-	 * The ads repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_AdsRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdsRepository
+	 * @inject
 	 */
 	protected $adsRepository;
 
 	/**
-	 * An instance of the mm_forum authentication service.
-	 * @var TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AttachmentRepository
+	 * @inject
 	 */
-	protected $typoScriptService = NULL;
+	protected $attachmentRepository;
 
 	/**
-	 * Whole TypoScript mm_forum settings
+	 * @var \Mittwald\Typo3Forum\Service\AttachmentService
+	 * @inject
+	 */
+	protected $attachmentService = NULL;
+
+	/**
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
+	 * @inject
+	 */
+	protected $forumRepository;
+
+	/**
+	 * @var \TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager
+	 * @inject
+	 */
+	protected $frontendConfigurationManager;
+
+	/**
+	 * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory
+	 * @inject
+	 */
+	protected $postFactory;
+
+	/**
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository
+	 * @inject
+	 */
+	protected $postRepository;
+
+	/**
+	 * Whole TypoScript typo3_forum settings
 	 * @var array
 	 */
 	protected $settings;
 
+	/**
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
+	 * @inject
+	 */
+	protected $topicRepository;
 
 	/**
-	 * Constructor. Used primarily for dependency injection.
+	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @inject
+	 */
+	protected $typoScriptService = NULL;
+
+	/**
 	 *
-	 * @param Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository
-	 * @param Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository
-	 * @param Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository
-	 * @param Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory
-	 * @param Tx_MmForum_Domain_Repository_Forum_AttachmentRepository $attachmentRepository
-	 * @param Tx_MmForum_Service_SessionHandlingService $sessionHandling
-	 * @param Tx_MmForum_Service_AttachmentService $attachmentService
-	 * @param Tx_MmForum_Domain_Repository_Forum_AdsRepository   $adsRepository
 	 */
-	public function __construct(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository,
-								Tx_MmForum_Domain_Repository_Forum_TopicRepository $topicRepository,
-								Tx_MmForum_Domain_Repository_Forum_PostRepository $postRepository,
-								Tx_MmForum_Domain_Factory_Forum_PostFactory $postFactory,
-								Tx_MmForum_Domain_Repository_Forum_AttachmentRepository $attachmentRepository,
-								Tx_MmForum_Service_SessionHandlingService $sessionHandling,
-								Tx_MmForum_Service_AttachmentService $attachmentService,
-								Tx_MmForum_Domain_Repository_Forum_AdsRepository   $adsRepository) {
-		$this->forumRepository = $forumRepository;
-		$this->topicRepository = $topicRepository;
-		$this->postRepository = $postRepository;
-		$this->postFactory = $postFactory;
-		$this->attachmentRepository = $attachmentRepository;
-		$this->sessionHandling		= $sessionHandling;
-		$this->attachmentService = $attachmentService;
-		$this->adsRepository = $adsRepository;
+	public function initializeObject() {
+		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray($this->frontendConfigurationManager->getTypoScriptSetup());
+		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
-
-
-	/**
-	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
-	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
-	 */
-	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
-		$this->typoScriptService = $typoScriptService;
-		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
-		$this->settings = $ts['plugin']['tx_mmforum']['settings'];
-	}
-
-	//
-	// ACTION METHODS
-	//
 
 	/**
 	 * @param string $displayedUser
@@ -201,7 +142,7 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 			$content['onlineBox'] = $this->_getOnlinebox();
 		}
 		$displayedAds = json_decode($displayedAds);
-		if(intval($displayedAds->count) > 1) {
+		if((int)$displayedAds->count > 1) {
 			$content['ads'] = $this->_getAds($displayedAds);
 		}
 
@@ -216,11 +157,14 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 		$this->view->assign('user', $this->getCurrentUser());
 	}
 
+	/**
+	 * @return array
+	 */
 	private function _getOnlinebox(){
 		$data = array();
 		$data['count'] = $this->frontendUserRepository->countByFilter(TRUE);
 		$this->request->setFormat('html');
-		$users = $this->frontendUserRepository->findByFilter(intval($this->settings['widgets']['onlinebox']['limit']), array(), TRUE);
+		$users = $this->frontendUserRepository->findByFilter((int)$this->settings['widgets']['onlinebox']['limit'], array(), TRUE);
 		$this->view->assign('users', $users);
 		$data['html'] = $this->view->render('Onlinebox');
 		$this->request->setFormat('json');
@@ -248,7 +192,7 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 		return $data;
 	}
 	/**
-	 * @param string $displayedTopics
+	 * @param string $displayedPosts
 	 * @return array
 	 */
 	private function _getPosts($displayedPosts){
@@ -259,6 +203,7 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 		$posts = $this->postRepository->findByUids($displayedPosts);
 		$counter = 0;
 		foreach($posts as $post){
+			/** @var Post $post */
 			$this->view->assign('post', $post)
 			->assign('user', $this->getCurrentUser());
 			$data[$counter]['uid'] = $post->getUid();
@@ -338,7 +283,7 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 
 	/**
 	 * @param string $postSummarys
-	 * @return void
+	 * @return array
 	 */
 	private function _getPostSummarys($postSummarys) {
 		$postSummarys = json_decode($postSummarys);
@@ -350,12 +295,12 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 			switch($summary->type){
 				case 'lastForumPost':
 					$forum  = $this->forumRepository->findByUid($summary->uid);
-					/* @var Tx_MmForum_Domain_Model_Forum_Post */
+					/* @var Post */
 					$post = $forum->getLastPost();
 					break;
 				case 'lastTopicPost':
 					$topic  = $this->topicRepository->findByUid($summary->uid);
-					/* @var Tx_MmForum_Domain_Model_Forum_Post */
+					/* @var Post */
 					$post = $topic->getLastPost();
 					break;
 			}
@@ -388,15 +333,15 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 
 
 	/**
-	 * @param stdClass $meta
+	 * @param \stdClass $meta
 	 * @return array
 	 */
-	private function _getAds(stdClass $meta){
-		$count = intval($meta->count);
+	private function _getAds(\stdClass $meta){
+		$count = (int)$meta->count;
 		$result = array();
 		$this->request->setFormat('html');
 
-		$actDatetime = new DateTime();
+		$actDatetime = new \DateTime();
 		if(!$this->sessionHandling->get('adTime')) {
 			$this->sessionHandling->set('adTime', $actDatetime);
 			$adDateTime = $actDatetime;
@@ -405,7 +350,7 @@ class Tx_MmForum_Controller_AjaxController extends Tx_MmForum_Controller_Abstrac
 		}
 		if($actDatetime->getTimestamp() - $adDateTime->getTimestamp() > $this->settings['ads']['timeInterval'] && $count > 2){
 			$this->sessionHandling->set('adTime', $actDatetime);
-			if(intval($meta->mode) == 0) {
+			if((int)$meta->mode === 0) {
 				$ads = $this->adsRepository->findForForumView(1);
 			} else {
 				$ads = $this->adsRepository->findForTopicView(1);

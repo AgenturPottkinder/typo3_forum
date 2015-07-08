@@ -1,13 +1,10 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Controller;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Sebastian Gieselmann <s.gieselmann@mittwald.de>            *
- *           Ruven Fehling <r.fehling@mittwald.de>                      *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -27,106 +24,54 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Exception\AbstractException;
+use Mittwald\Typo3Forum\Utility\Localization;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
-/**
- *
- * This class implements a simple dispatcher for a mm_form eID script.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
- * @subpackage Controller
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+abstract class AbstractController extends ActionController {
 
-
-
-	/*
-	 * CONSTANTS
-	 */
-
-	/**
-	 *
-	 */
 	const CONTEXT_WEB = 0;
-
-
-
-	/**
-	 *
-	 */
 	const CONTEXT_AJAX = 1;
-
-
-
-	/**
-	 *
-	 */
 	const CONTEXT_CLI = 2;
-
-
-
-	/*
-	  * ATTRIBUTES
-	  */
-
-
-
-	/**
-	 * A repository for frontend users.
-	 *
-	 * @var Tx_MmForum_Domain_Repository_User_FrontendUserRepository
-	 */
-	protected $frontendUserRepository;
-
-
 
 	/**
 	 * An authentication service. Handles the authentication mechanism.
 	 *
-	 * @var Tx_MmForum_Service_Authentication_AuthenticationServiceInterface
+	 * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
+	 * @inject
 	 */
 	protected $authenticationService;
 
-
-
-	/**
-	 * An array with controller-specific settings. This is read from
-	 * plugin.tx_mmforum.settings.[controller-name].
-	 *
-	 * @var array
-	 */
-	protected $localSettings;
-
-
-
 	/**
 	 * The non-namespaced class name of this controller (e.g. ForumController
-	 * instead of Tx_MmForum_Controller_ForumController).
+	 * instead of \Mittwald\Typo3Forum\Controller\ForumController).
 	 *
 	 * @var string
 	 */
 	protected $className;
 
+	/**
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
+	 * @inject
+	 */
+	protected $frontendUserRepository;
 
+	/**
+	 * An array with controller-specific settings. This is read from
+	 * plugin.tx_typo3forum.settings.[controller-name].
+	 *
+	 * @var array
+	 */
+	protected $localSettings;
 
 	/**
 	 * The global SignalSlot-Dispatcher.
 	 *
-	 * @var Tx_Extbase_SignalSlot_Dispatcher
+	 * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
+	 * @inject
 	 */
 	protected $signalSlotDispatcher;
-
-
 
 	/**
 	 * The current controller context. This context is necessary to enable
@@ -136,65 +81,9 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 	 */
 	protected $context = self::CONTEXT_WEB;
 
-
-
-	/*
-	  * DEPENDENCY INJECTORS
-	  */
-
-
-	/**
-	 *
-	 * Injects a frontend user repository.
-	 *
-	 * @param  Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository
-	 *                             A frontend user repository.
-	 *
-	 * @return void
-	 *
-	 */
-	public function injectFrontendUserRepository(Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository) {
-		$this->frontendUserRepository = $frontendUserRepository;
-	}
-
-
-	/**
-	 *
-	 * Injects an authentication service.
-	 *
-	 * @param  Tx_MmForum_Service_Authentication_AuthenticationServiceInterface $authenticationService
-	 *                             An authentication service.
-	 *
-	 * @return void
-	 *
-	 */
-	public function injectAuthenticationService(Tx_MmForum_Service_Authentication_AuthenticationServiceInterface $authenticationService) {
-		$this->authenticationService = $authenticationService;
-	}
-
-
-
-	/**
-	 *
-	 * Injects an instance of the Extbase SignalSlot-Dispatcher.
-	 *
-	 * @param \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher
-	 *                                 An instance of the Extbase SignalSlot
-	 *                                 Dispatcher.
-	 *
-	 * @return void
-	 *
-	 */
-	public function injectSignalSlotDispatcher(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher) {
-		$this->signalSlotDispatcher = $signalSlotDispatcher;
-	}
-
-
-
 	/*
 	 * METHODS
 	 */
-
 
 	/**
 	 *
@@ -202,12 +91,12 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 	 * template view, causing the view class to look in the same directory regardless
 	 * of the controller.
 	 *
-	 * @param Tx_MmForum_Domain_Exception_AbstractException $e The exception that is to be handled
+	 * @param AbstractException $e The exception that is to be handled
 	 *
 	 * @return void
 	 *
 	 */
-	protected function handleError(Tx_MmForum_Domain_Exception_AbstractException $e) {
+	protected function handleError(AbstractException $e) {
 		$controllerContext = $this->buildControllerContext();
 		$controllerContext->getRequest()->setControllerName('Default');
 		$controllerContext->getRequest()->setControllerActionName('error');
@@ -217,14 +106,12 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 		$this->response->appendContent($content);
 	}
 
-
-
 	/**
 	 *
 	 * Calls a controller action. This method wraps the callActionMethod method of
 	 * the parent Tx_Extbase_MVC_Controller_ActionController class. It catches all
 	 * Exceptions that might be thrown inside one of the action methods.
-	 * This method ONLY catches exceptions that belong to the mm_forum extension.
+	 * This method ONLY catches exceptions that belong to the typo3_forum extension.
 	 * All other exceptions are not caught.
 	 *
 	 * @return void
@@ -233,12 +120,10 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 	protected function callActionMethod() {
 		try {
 			parent::callActionMethod();
-		} catch (Tx_MmForum_Domain_Exception_AbstractException $e) {
+		} catch (AbstractException $e) {
 			$this->handleError($e);
 		}
 	}
-
-
 
 	/**
 	 *
@@ -249,7 +134,7 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 	 *
 	 */
 	protected function initializeAction() {
-		$this->className     = array_pop(explode('_', get_class($this)));
+		$this->className = array_pop(explode('_', get_class($this)));
 		$this->localSettings = $this->settings[lcfirst($this->className)];
 
 		foreach ($this->settings['pids'] as &$value) {
@@ -259,14 +144,12 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 		}
 	}
 
-
-
 	/**
 	 *
 	 * Gets the currently logged in frontend user. This method is only a convenience
 	 * wrapper for the findCurrent-Method of the frontend user repository class.
 	 *
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 *                             The frontend user that is currently logged in, or
 	 *                             NULL if no user is logged in.
 	 *
@@ -274,8 +157,6 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 	protected function getCurrentUser() {
 		return $this->frontendUserRepository->findCurrent();
 	}
-
-
 
 	/**
 	 *
@@ -287,8 +168,6 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 	protected function getErrorFlashMessage() {
 		return FALSE;
 	}
-
-
 
 	/**
 	 *
@@ -306,8 +185,6 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 		$this->cacheService->clearPageCache((int)$GLOBALS['TSFE']->id);
 	}
 
-
-
 	/**
 	 *
 	 * Adds a localized message to the flash message container. This method is
@@ -315,51 +192,33 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 	 *
 	 *     this->flashMessageContainer->add(Tx_Extbase_Utility_Localization(...));
 	 *
-	 * @param  string $key              The language key that is to be used for the
+	 * @param string $key The language key that is to be used for the
 	 *                                  flash messages.
-	 * @param  array  $arguments        Arguments for the flash message.
-	 * @param  string $titleKey         Optional language key for the message's title.
-	 * @param  string $severity         Message severity (see \TYPO3\CMS\Core\Messaging\FlashMessage::*)
+	 * @param array $arguments Arguments for the flash message.
+	 * @param string $titleKey Optional language key for the message's title.
+	 * @param int $severity Message severity (see \TYPO3\CMS\Core\Messaging\FlashMessage::*)
 	 *
 	 * @return void
 	 */
-	protected function addLocalizedFlashmessage($key, array $arguments = array(), $titleKey = NULL,
-	                                            $severity = \TYPO3\CMS\Core\Messaging\FlashMessage::OK) {
-		$this->controllerContext->getFlashMessageQueue()->addMessage(
-			new \TYPO3\CMS\Core\Messaging\FlashMessage(
-				Tx_MmForum_Utility_Localization::translate($key, 'MmForum', $arguments),
-				Tx_MmForum_Utility_Localization::translate($titleKey, 'MmForum'), $severity
-			)
-		);
+	protected function addLocalizedFlashmessage($key, array $arguments = array(), $titleKey = NULL, $severity = FlashMessage::OK) {
+		$message = new FlashMessage(Localization::translate($key, 'Typo3Forum', $arguments), Localization::translate($titleKey, 'Typo3Forum'), $severity);
+		$this->controllerContext->getFlashMessageQueue()->enqueue($message);
 	}
-
-
 
 	/**
-	 * @param            $actionName
-	 * @param null       $controllerName
-	 * @param null       $extensionName
-	 * @param array|null $arguments
-	 * @param null       $pageUid
-	 * @param int        $delay
-	 * @param int        $statusCode
-	 *
-	 * @return void
+	 * @param string $actionName
+	 * @param string $controllerName
+	 * @param string $extensionName
+	 * @param array $arguments
+	 * @param int $pageUid
+	 * @param int $delay
+	 * @param int $statusCode
 	 */
-	protected function redirect($actionName, $controllerName = NULL, $extensionName = NULL, array $arguments = NULL,
-	                            $pageUid = NULL, $delay = 0, $statusCode = 303) {
+	protected function redirect($actionName, $controllerName = NULL, $extensionName = NULL, array $arguments = NULL, $pageUid = NULL, $delay = 0, $statusCode = 303) {
 		if ($this->context === self::CONTEXT_WEB && $this->request->getFormat() === 'html') {
-			/** @noinspection PhpInconsistentReturnPointsInspection */
-			return parent::redirect($actionName, $controllerName, $extensionName, $arguments, $pageUid, $delay,
-			                        $statusCode);
-		} else {
-			// Ignore for now...
-			/** @noinspection PhpInconsistentReturnPointsInspection */
-			return;
+			parent::redirect($actionName, $controllerName, $extensionName, $arguments, $pageUid, $delay, $statusCode);
 		}
 	}
-
-
 
 	/**
 	 * @return mixed|null
@@ -372,8 +231,6 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 		return NULL;
 	}
 
-
-
 	/**
 	 * @param $context
 	 */
@@ -385,14 +242,13 @@ abstract class Tx_MmForum_Controller_AbstractController extends \TYPO3\CMS\Extba
 	 * @param string $url
 	 * @return mixed
 	 */
-	public function purgeUrl($url)
-	{
+	public function purgeUrl($url) {
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_URL, $url);
 		curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PURGE");
 		curl_setopt($curl, CURLOPT_HEADER, TRUE);
 		curl_setopt($curl, CURLOPT_NOBODY, true);
-		curl_setopt($curl, CURLOPT_HTTPHEADER, array('Host:'.$_SERVER['HTTP_HOST']));
+		curl_setopt($curl, CURLOPT_HTTPHEADER, array('Host:' . $_SERVER['HTTP_HOST']));
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
 		$result = curl_exec($curl);
 		return $result;

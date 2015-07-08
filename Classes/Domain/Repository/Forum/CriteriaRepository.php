@@ -1,8 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Repository\Forum;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Ruven Fehling <r.fehling@mittwald.de>                     *
+ *  (c) 2015 Ruven Fehling <r.fehling@mittwald.de>                     *
  *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
@@ -23,23 +25,9 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
- *
  * Repository class for forum objects.
- *
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
- * @subpackage Domain_Repository_Forum
- * @version    $Id$
- *
- * @copyright  2012 Ruven Fehling <r.fehling@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class Tx_MmForum_Domain_Repository_Forum_CriteriaRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
-
-}
+class CriteriaRepository extends Repository {}

@@ -1,9 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Model\Forum;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Ruven Fehling <r.fehling@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,23 +24,13 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-/**
- *
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
- * @subpackage Domain_Model_Forum
- * @version    $Id$
- * @license    GNU public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
-
- */
-
-class Tx_MmForum_Domain_Model_Forum_CriteriaOption extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class CriteriaOption extends AbstractEntity {
 
 	/**
 	 * The criteria object.
-	 * @var Tx_MmForum_Domain_Model_Forum_Criteria
+	 * @var Criteria
 	 */
 	protected $criteria;
 
@@ -55,14 +46,23 @@ class Tx_MmForum_Domain_Model_Forum_CriteriaOption extends \TYPO3\CMS\Extbase\Do
 	 */
 	protected $sorting;
 
-
-
 	/**
 	 * Get the criteria object.
-	 * @return Tx_MmForum_Domain_Model_Forum_Criteria
+	 * @return Criteria
 	 */
 	public function getCriteria() {
 		return $this->criteria;
+	}
+
+	/**
+	 * Sets the criteria object.
+	 *
+	 * @param Criteria $criteria The criteria object
+	 *
+	 * @return void
+	 */
+	public function setCriteria(Criteria $criteria) {
+		$this->criteria = $criteria;
 	}
 
 	/**
@@ -73,6 +73,16 @@ class Tx_MmForum_Domain_Model_Forum_CriteriaOption extends \TYPO3\CMS\Extbase\Do
 		return $this->name;
 	}
 
+	/**
+	 * Sets the value.
+	 *
+	 * @param string $name The name of a option
+	 *
+	 * @return void
+	 */
+	public function setName($name) {
+		$this->name = $name;
+	}
 
 	/**
 	 * Gets the sorting value of this option
@@ -80,27 +90,6 @@ class Tx_MmForum_Domain_Model_Forum_CriteriaOption extends \TYPO3\CMS\Extbase\Do
 	 */
 	public function getSorting() {
 		return $this->sorting;
-	}
-
-
-	/**
-	 * Sets the criteria object.
-	 *
-	 * @param Tx_MmForum_Domain_Model_Forum_Criteria $criteria The criteria object
-	 * @return void
-	 */
-	public function setCriteria(Tx_MmForum_Domain_Model_Forum_Criteria $criteria) {
-		$this->criteria = $criteria;
-	}
-
-	/**
-	 * Sets the value.
-	 *
-	 * @param string $name The name of a option
-	 * @return void
-	 */
-	public function setName($name) {
-		$this->name = $name;
 	}
 
 }

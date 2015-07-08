@@ -40,60 +40,14 @@ function make_header ( $title )
     echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <title>GeSHi CSS Generator :: ' . $title . ' </title>
-    <style type="text/css" media="screen">
-    <!--
-        html {
-            font-family: Verdana, Arial, sans-serif;
-            font-size: 80%;
-            background-color: #d0d0d0;
-        }
-        body {
-            margin: 10px;
-            padding: 5px;
-            border: 1px solid #f0f0f0;
-            background-color: #f6f6f6;
-        }
-        h1 {
-            border-bottom: 2px solid #e0e0e0;
-            font-weight: normal;
-            font-size: 150%;
-            color: #c0c0c0;
-        }
-        input, textarea {
-            border: 1px solid #d0d0d0;
-        }
-        th {
-            text-align: right;
-            font-weight: normal;
-        }
-        pre {
-            font-size: 110%;
-            color: #202020;
-        }
-        #footer {
-            color: #b0b0b0;
-            text-align: center;
-            font-size: 90%;
-            margin: 0 auto;
-            border-top: 1px solid #e0e0e0;
-        }
-        #footer a {
-            color: #c0c0c0;
-        }
-    -->
-    </style>
-    <script type="text/javascript">
-    function select (state)
-    {
-        var cboxes = document.getElementsByTagName(\'input\');
+    <title>GeSHi CSS Generator :: ' . $title . ');
         for (var i = 0; i < cboxes.length; i++) {
             if (cboxes[i].type == "checkbox") {
                 if (state == "true") {
                     cboxes[i].checked = true;
-                } elseif (state == "false") {
+                } elseif (state == "false"); {
                     cboxes[i].checked = false;
-                } elseif (state == "invert") {
+                } elseif (state == "invert"); {
                     cboxes[i].checked = !cboxes[i].checked;
                 }
             }

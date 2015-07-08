@@ -1,10 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,41 +24,19 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
- *
  * A report comment. Each moderation report consists of a set -- and at least one --
  * of these comments.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage Domain_Model_Moderation
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class Tx_MmForum_Domain_Model_Moderation_ReportComment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
-
-
-
-	/*
-	 * ATTRIBUTES
-	 */
-
-
+class ReportComment extends AbstractEntity {
 
 	/**
 	 * The comment author
-	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 */
 	protected $author;
-
 
 	/**
 	 * The comment
@@ -66,61 +44,52 @@ class Tx_MmForum_Domain_Model_Moderation_ReportComment extends \TYPO3\CMS\Extbas
 	 */
 	protected $text;
 
-
 	/**
 	 * The report this comment belongs to.
-	 * @var Tx_MmForum_Domain_Model_Moderation_Report
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Moderation\Report
 	 */
 	protected $report;
 
-
 	/**
 	 * Creation date of this comment
-	 * @var DateTime
+	 * @var \DateTime
 	 */
 	protected $tstamp;
 
-
-
-
-
-	/*
-	 * CONSTRUCTOR
-	 */
-
-
-
 	/**
 	 * Constructor
-	 * @param  string                                  $text.
+	 *
+	 * @param string $text .
 	 */
 	public function __construct($text = NULL) {
-		$this->text   = $text;
+		$this->text = $text;
 	}
-
-
-
-	/*
-	  * GETTERS
-	  */
-
-
 
 	/**
 	 * Gets the comment author.
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The comment author.
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser The comment author.
 	 */
 	public function getAuthor() {
 		if ($this->author instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
 			$this->author->_loadRealInstance();
 		}
 		if ($this->author === NULL) {
-			$this->author = new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
+			$this->author = new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
 		}
+
 		return $this->author;
 	}
 
-
+	/**
+	 * Sets the comment's author.
+	 *
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $author The author.
+	 *
+	 * @return void
+	 */
+	public function setAuthor(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $author) {
+		$this->author = $author;
+	}
 
 	/**
 	 * Gets the comment text.
@@ -130,66 +99,41 @@ class Tx_MmForum_Domain_Model_Moderation_ReportComment extends \TYPO3\CMS\Extbas
 		return $this->text;
 	}
 
-
-
-	/**
-	 * Gets the parent report.
-	 * @return Tx_MmForum_Domain_Model_Moderation_Report The report.
-	 */
-	public function getReport() {
-		return $this->report;
-	}
-
-
-
-	/**
-	 * Gets this comment's creation timestamp.
-	 * @return DateTime The timestamp.
-	 */
-	public function getTimestamp() {
-		return $this->tstamp;
-	}
-
-
-
-	/*
-	 * SETTERS
-	 */
-
-
-
-	/**
-	 * Sets the comment's author.
-	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $author The author.
-	 * @return void
-	 */
-	public function setAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $author) {
-		$this->author = $author;
-	}
-
-
-
 	/**
 	 * Sets the comment text.
+	 *
 	 * @param string $text The comment text.
+	 *
 	 * @return void
 	 */
 	public function setText($text) {
 		$this->text = $text;
 	}
 
-
+	/**
+	 * Gets the parent report.
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Moderation\Report The report.
+	 */
+	public function getReport() {
+		return $this->report;
+	}
 
 	/**
 	 * Sets the comment's report.
 	 *
-	 * @param Tx_MmForum_Domain_Model_Moderation_Report $report
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report
+	 *
 	 * @return void
 	 */
-	public function setReport(Tx_MmForum_Domain_Model_Moderation_Report $report) {
+	public function setReport(\Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report) {
 		$this->report = $report;
 	}
 
-
-
+	/**
+	 * Gets this comment's creation timestamp.
+	 * @return \DateTime The timestamp.
+	 */
+	public function getTimestamp() {
+		return $this->tstamp;
+	}
 }

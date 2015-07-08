@@ -1,14 +1,14 @@
 <?php
 if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 
-$TCA['tx_mmforum_domain_model_user_userfield_userfield'] = array(
-	'ctrl' => $TCA['tx_mmforum_domain_model_user_userfield_userfield']['ctrl'],
+$TCA['tx_typo3forum_domain_model_user_userfield_userfield'] = array(
+	'ctrl' => $TCA['tx_typo3forum_domain_model_user_userfield_userfield']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'type,name,typoscript_path'
 	),
 	'types' => array(
 		'0' => array('showitem' => 'type,name'),
-		'Tx_MmForum_Domain_Model_User_Userfield_TyposcriptUserfield' => array('showitem' => 'type,name,typoscript_path')
+		'\Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield' => array('showitem' => 'type,name,typoscript_path')
 	),
 	'palettes' => array(
 		'1' => array('showitem' => '')
@@ -36,8 +36,8 @@ $TCA['tx_mmforum_domain_model_user_userfield_userfield'] = array(
 				'items' => array(
 					array('', 0),
 				),
-				'foreign_table' => 'tx_mmforum_domain_model_user_userfield_userfield',
-				'foreign_table_where' => 'AND tx_mmforum_domain_model_user_userfield_userfield.uid=###REC_FIELD_l18n_parent### AND tx_mmforum_domain_model_user_userfield_userfield.sys_language_uid IN (-1,0)',
+				'foreign_table' => 'tx_typo3forum_domain_model_user_userfield_userfield',
+				'foreign_table_where' => 'AND tx_typo3forum_domain_model_user_userfield_userfield.uid=###REC_FIELD_l18n_parent### AND tx_typo3forum_domain_model_user_userfield_userfield.sys_language_uid IN (-1,0)',
 			)
 		),
 		'l18n_diffsource' => array(
@@ -60,19 +60,19 @@ $TCA['tx_mmforum_domain_model_user_userfield_userfield'] = array(
 			)
 		),
 		'type' => array(
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_userfield_userfield.type',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_userfield.type',
 			'config' => array(
 				'type' => 'select',
 				'items' => array(
-					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_userfield_userfield.type.undefined', 0),
-					array('LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_userfield_userfield.type.typoscript', 'Tx_MmForum_Domain_Model_User_Userfield_TyposcriptUserfield')
+					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_userfield.type.undefined', 0),
+					array('LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_userfield.type.typoscript', '\Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield')
 
 				)
 			)
 		),
 		'name' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_userfield_userfield.name',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_userfield.name',
 			'config'  => array(
 				'type' => 'input',
 				'size' => 30,
@@ -81,7 +81,7 @@ $TCA['tx_mmforum_domain_model_user_userfield_userfield'] = array(
 		),
 		'typoscript_path' => array(
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:mm_forum/Resources/Private/Language/locallang_db.xml:tx_mmforum_domain_model_user_userfield_userfield.typoscript_path',
+			'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_userfield.typoscript_path',
 			'config'  => array(
 				'type' => 'input',
 				'size' => 30,
@@ -90,4 +90,3 @@ $TCA['tx_mmforum_domain_model_user_userfield_userfield'] = array(
 		),
 	),
 );
-?>

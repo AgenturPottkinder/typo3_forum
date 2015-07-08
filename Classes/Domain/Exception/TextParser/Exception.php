@@ -1,10 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Exception\TextParser;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,42 +24,22 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Exception\AbstractException;
 
-
-/**
- *
- * General text parser exception.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage Domain_Exception
- * @version    $Id$
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-
-Class Tx_MmForum_Domain_Exception_TextParser_Exception Extends Tx_MmForum_Domain_Exception_AbstractException {
-
+class Exception extends AbstractException {
 
 
 	/**
 	 * Exception message.
 	 * @var string
 	 */
-	Protected $message = "Textparser error.";
+	protected $message = "Textparser error.";
 
 
 	/**
 	 * Exception code
 	 * @var int
 	 */
-	Protected $code = 1284730638;
+	protected $code = 1284730638;
 
 }
-
-?>

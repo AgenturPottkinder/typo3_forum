@@ -1,9 +1,9 @@
 <?php
-
+namespace Mittwald\Typo3Forum\ViewHelpers\Forum;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <typo3@martin-helmich.de>                   *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,59 +23,40 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /**
- *
  * ViewHelper that renders a big button.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage ViewHelpers_Control
- * @version    $Id: BigButtonViewHelper.php 52309 2011-09-20 18:54:26Z mhelmich $
- *
- * @copyright  2012 Martin Helmich <typo3@martin-helmich.de>
- *             http://www.martin-helmich.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class Tx_MmForum_ViewHelpers_Forum_RootlineViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
-
-
+class RootlineViewHelper extends AbstractTagBasedViewHelper {
 
 	/**
 	 * @var string
 	 */
 	protected $tagName = 'ul';
 
-
 	/**
 	 * @var array
 	 */
 	protected $settings = NULL;
-
-
 
 	public function initializeArguments() {
 		parent::initializeArguments();
 		$this->registerUniversalTagAttributes();
 	}
 
-
-
 	public function initialize() {
 		parent::initialize();
 		$this->settings = $this->templateVariableContainer->get('settings');
 	}
 
-
-
 	/**
+	 * render
 	 *
-	 * @param array   $rootline
-	 * @param boolean $reverse
+	 * @param array      $rootline
+	 * @param bool|FALSE $reverse
 	 *
+	 * @return string
 	 */
 	public function render(array $rootline, $reverse = FALSE) {
 		if ($reverse) {
@@ -99,12 +80,17 @@ class Tx_MmForum_ViewHelpers_Forum_RootlineViewHelper extends \TYPO3\CMS\Fluid\C
 		return $this->tag->render();
 	}
 
-
-
+	/**
+	 * renderNavigationNode
+	 *
+	 * @param $object
+	 *
+	 * @return string
+	 */
 	protected function renderNavigationNode($object) {
-		$extensionName = 'mmforum';
+		$extensionName = 'typo3forum';
 		$pluginName = 'pi1';
-		if ($object instanceof Tx_MmForum_Domain_Model_Forum_Forum) {
+		if ($object instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Forum) {
 			$controller = 'Forum';
 			$arguments  = array('forum' => $object);
 			$icon       = 'iconset-22-folder';
@@ -128,9 +114,13 @@ class Tx_MmForum_ViewHelpers_Forum_RootlineViewHelper extends \TYPO3\CMS\Fluid\C
 		return '<li><a href="' . $uri . '" title="'.$fullTitle.'"><i class="' . $icon . '"></i>' . $title . '</a></li>';
 	}
 
-
+	/**
+	 * renderMainForumNode
+	 *
+	 * @return string
+	 */
 	protected function renderMainForumNode() {
-		$extensionName = 'mmforum';
+		$extensionName = 'typo3forum';
 		$pluginName = 'pi1';
 		$controller = 'Forum';
 		$uriBuilder = $this->controllerContext->getUriBuilder();
@@ -139,7 +129,4 @@ class Tx_MmForum_ViewHelpers_Forum_RootlineViewHelper extends \TYPO3\CMS\Fluid\C
 
 		return '<li><a href="' . $uri . '"><i class="iconset-22-folder"></i>Forum</a></li>';
 	}
-
-
-
 }

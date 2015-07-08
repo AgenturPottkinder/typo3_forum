@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Service\Notification;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -32,7 +32,7 @@
  * of the regarding objects.
  *
  * @author     Martin Helmich <typo3@martin-helmich.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Service\Notification
  * @version    $Id: NotificationService.php 39978 2010-11-09 14:19:52Z mhelmich $
  *
@@ -42,39 +42,25 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-final class Tx_MmForum_Service_Notification_SubscriptionListener {
+final class SubscriptionListener {
 
 
 
 	/**
 	 * An instance of the notification service.
-	 * @var Tx_MmForum_Service_Notification_NotificationServiceInterface
+	 * @var \Mittwald\Typo3Forum\Service\Notification\NotificationServiceInterface
+	 * @inject
 	 */
 	protected $notificationService = NULL;
-
-
-
-	/**
-	 * Injects an instance of the notification service.
-	 *
-	 * @param Tx_MmForum_Service_Notification_NotificationServiceInterface $notificationService
-	 *                                 An instance of the notification service.
-	 * @return void
-	 */
-	public function injectNotificationService(Tx_MmForum_Service_Notification_NotificationServiceInterface $notificationService) {
-		$this->notificationService = $notificationService;
-	}
-
-
 
 	/**
 	 * Is fired when a new post is created.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Post $post Event data.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post Event data.
 	 * @return void
 	 */
 	public function onPostCreated($post) {
-		if ($post instanceof Tx_MmForum_Domain_Model_Forum_Post) {
+		if ($post instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Post) {
 			$this->notificationService->notifySubscribers($post->getTopic(), $post);
 		}
 	}
@@ -84,15 +70,12 @@ final class Tx_MmForum_Service_Notification_SubscriptionListener {
 	/**
 	 * Is fired when a new topic is created.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Topic $topic Event data.
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic Event data.
 	 * @return void
 	 */
 	public function onTopicCreated($topic) {
-		if ($topic instanceof Tx_MmForum_Domain_Model_Forum_Topic) {
+		if ($topic instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Topic) {
 
 		}
 	}
-
-
-
 }

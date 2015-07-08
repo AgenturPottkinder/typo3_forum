@@ -1,10 +1,9 @@
 <?php
-
+namespace Mittwald\Typo3Forum\ViewHelpers\Control;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,72 +23,47 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- *
  * ViewHelper that renders a page browser.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage ViewHelpers_Control
- * @version    $Id$
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
 
-Class Tx_MmForum_ViewHelpers_Control_PageBrowserViewHelper Extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
-
-
+class PageBrowserViewHelper extends AbstractViewHelper {
 
 	/**
-	 *
 	 * Renders the page browser.
 	 *
-	 * @param  integer $elements     Number of elements
-	 * @param  integer $itemsPerPage Number of items per page
-	 * @param  integer $currentPage  Current page
-	 * @return  string               HTML content of the page browser.
-	 *
+	 * @param integer $elements     Number of elements
+	 * @param integer $itemsPerPage Number of items per page
+	 * @param integer $currentPage  Current page
+	 * @return string               HTML content of the page browser.
 	 */
-
-	Public Function render($elements, $itemsPerPage, $currentPage = 1) {
-
+	public function render($elements, $itemsPerPage, $currentPage = 1) {
 		$output    = '';
 		$pageCount = ceil($elements / $itemsPerPage);
 
 		$output .= $this->renderChildItemWithPage(1, '«');
 		$output .= $this->renderChildItemWithPage(max($currentPage - 1, 1), '‹');
 
-		For ($page = 1; $page <= $pageCount; $page++) {
+		for ($page = 1; $page <= $pageCount; $page++) {
 			$output .= $this->renderChildItemWithPage($page, $page);
 		}
 
 		$output .= $this->renderChildItemWithPage(min($currentPage + 1, $pageCount), '›');
 		$output .= $this->renderChildItemWithPage($pageCount, '»');
 
-		Return $output;
-
+		return $output;
 	}
 
-
-
 	/**
-	 *
 	 * Renders a single page link.
 	 *
-	 * @param  integer $pageNum   The page number
-	 * @param  integer $pageLabel Page label
-	 * @return  string            Rendered page link
-	 *
+	 * @param integer $pageNum   The page number
+	 * @param integer $pageLabel Page label
+	 * @return string            Rendered page link
 	 */
-
-	Private Function renderChildItemWithPage($pageNum, $pageLabel) {
+	private function renderChildItemWithPage($pageNum, $pageLabel) {
 		$this->templateVariableContainer->add('pageLabel', $pageLabel);
 		$this->templateVariableContainer->add('page', $pageNum);
 		$output = $this->renderChildren();
@@ -97,7 +71,4 @@ Class Tx_MmForum_ViewHelpers_Control_PageBrowserViewHelper Extends \TYPO3\CMS\Fl
 		$this->templateVariableContainer->remove('page');
 		return $output;
 	}
-
 }
-
-?>

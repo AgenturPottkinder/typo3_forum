@@ -1,9 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\ExtDirect;
 
-/*                                                                    - *
+/*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2011 domainfactory GmbH (Stefan Galinski <sgalinski@df.eu>      *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,26 +24,21 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 
 /**
  * Abstract ExtDirect Data Provider
- *
- *
- * @author  Stefan Galinski <sgalinski@df.eu>
- * @package df_tools
  */
-abstract class Tx_MmForum_ExtDirect_AbstractDataProvider {
-
+abstract class AbstractDataProvider {
 
 
 	/**
 	 * BootStrap Instance
 	 *
-	 * @var Tx_MmForum_Service_ExtBaseConnectorService
+	 * @var \Mittwald\Typo3Forum\Service\ExtBaseConnectorService
 	 */
 	protected $extBaseConnector = NULL;
-
 
 
 	/**
@@ -51,34 +47,31 @@ abstract class Tx_MmForum_ExtDirect_AbstractDataProvider {
 	protected $objectManager = NULL;
 
 
-
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
-		$key                    = 'web_MmForumTxMmforumM1';
-		$this->extBaseConnector = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Tx_MmForum_Service_ExtBaseConnectorService');
-		$this->extBaseConnector->setExtensionKey('MmForum');
+		$key = 'web_Typo3ForumTxTypo3forumM1';
+		$this->extBaseConnector = GeneralUtility::makeInstance('Mittwald\\Typo3Forum\\Service\\ExtBaseConnectorService');
+		$this->extBaseConnector->setExtensionKey('Typo3Forum');
 		$this->extBaseConnector->setModuleOrPluginKey($key);
-		$this->extBaseConnector->initialize(array('extensionName'               => 'MmForum',
-		                                         'pluginName'                   => 'web_MmForumTxMmforumM1',
-		                                         'switchableControllerActions'  => array('Backend' => array('forumIndex')),));
+		$this->extBaseConnector->initialize(array('extensionName' => 'Typo3Forum',
+			'pluginName' => 'web_Typo3ForumTxTypo3forumM1',
+			'switchableControllerActions' => array('Backend' => array('forumIndex')),));
 
-		$this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
+		$this->objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
 	}
-
 
 
 	/**
 	 * Checks the access rights for using Ext.Direct calls
 	 *
-	 * @throws Exception if the user has no rights to proceed
+	 * @throws \Exception if the user has no rights to proceed
 	 * @return bool
 	 */
 	public function hasAccess() {
 		return TRUE;
 	}
-
 
 
 	/**
@@ -91,7 +84,7 @@ abstract class Tx_MmForum_ExtDirect_AbstractDataProvider {
 	 * know on the client side which records are written successfully. Always
 	 * update a record once by once!
 	 *
-	 * @param stdClass $updatedRecords
+	 * @param \stdClass $updatedRecords
 	 *
 	 * @return array
 	 */
@@ -113,21 +106,20 @@ abstract class Tx_MmForum_ExtDirect_AbstractDataProvider {
 					$data['records'] = array_merge_recursive($data['records'], $record['records']);
 				}
 			}
-		} catch (Exception $exception) {
+		} catch (\Exception $exception) {
 			$data = array('success' => FALSE,
-			              'message' => $exception->getMessage(),
-			              'records' => array(),);
+				'message' => $exception->getMessage(),
+				'records' => array(),);
 		}
 
 		return $data;
 	}
 
 
-
 	/**
 	 * Handles the incoming create record calls
 	 *
-	 * @param stdClass $newRecord
+	 * @param \stdClass $newRecord
 	 *
 	 * @return array
 	 */
@@ -138,14 +130,13 @@ abstract class Tx_MmForum_ExtDirect_AbstractDataProvider {
 	}
 
 
-
 	/**
 	 * Destroys records based on their identifiers
 	 *
 	 * Note: ExtJS transfers a single identifier object or multiple
 	 * ones based on the amount of deleted records.
 	 *
-	 * @param stdClass $identifiers
+	 * @param \stdClass $identifiers
 	 *
 	 * @return array
 	 */
@@ -160,16 +151,15 @@ abstract class Tx_MmForum_ExtDirect_AbstractDataProvider {
 		try {
 			$this->destroyRecords($identifiers);
 			$data = array('success' => TRUE,
-			              'records' => array());
-		} catch (Exception $exception) {
+				'records' => array());
+		} catch (\Exception $exception) {
 			$data = array('success' => FALSE,
-			              'message' => $exception->getMessage(),
-			              'records' => array(),);
+				'message' => $exception->getMessage(),
+				'records' => array(),);
 		}
 
 		return $data;
 	}
-
 
 
 	/**
@@ -181,53 +171,16 @@ abstract class Tx_MmForum_ExtDirect_AbstractDataProvider {
 	 */
 	public function runTest($identity) {
 		try {
-			$data   = $this->runTestForRecord($identity);
+			$data = $this->runTestForRecord($identity);
 			$result = array('success' => TRUE,
-			                'data'    => $data,);
-		} catch (Exception $exception) {
+				'data' => $data,);
+		} catch (\Exception $exception) {
 			$result = array('success' => FALSE,
-			                'data'    => array('testResult'  => Tx_DfTools_Service_UrlChecker_AbstractService::SEVERITY_EXCEPTION,
-			                                   'testMessage' => htmlspecialchars($exception->getMessage()),),);
+				'data' => array('testResult' => \Tx_DfTools_Service_UrlChecker_AbstractService::SEVERITY_EXCEPTION,
+					'testMessage' => htmlspecialchars($exception->getMessage()),),);
 		}
 
 		return $result;
 	}
-
-
-
-	/**
-	 * @abstract
-	 *
-	 * @param int $identity
-	 *
-	 * @return array
-	 */
-//	abstract protected function runTestForRecord($identity);
-//	/**
-//	 * @abstract
-//	 * @param array $updatedRecord
-//	 * @return void
-//	 */
-//	abstract protected function updateRecord(array $updatedRecord);
-//
-//
-//
-//	/**
-//	 * @abstract
-//	 * @param array $newRecord
-//	 * @return void
-//	 */
-//	abstract protected function createRecord(array $newRecord);
-//
-//
-//
-//	/**
-//	 * @abstract
-//	 * @param array $identifiers
-//	 * @return void
-//	 */
-//	abstract protected function destroyRecords(array $identifiers);
-
-
 
 }

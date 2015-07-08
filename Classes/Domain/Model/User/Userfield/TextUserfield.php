@@ -1,10 +1,9 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Domain\Model\User\Userfield;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,35 +23,16 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
-
 /**
- *
  * Special userfield that renders its contents as plain text.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage Domain_Model_User_Userfield
- * @version    $Id$
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-
-Class Tx_MmForum_Domain_Model_User_Userfield_TextUserfield
-	Extends Tx_MmForum_Domain_Model_User_Userfield_TyposcriptUserfield {
-
-
+class TextUserfield extends TyposcriptUserfield {
 
 	/**
 	 * The typoscript path that is to be used for rendering this field.
 	 * @var string
 	 */
-	Protected $typoscriptPath = 'plugin.tx_mmforum.userfields.text';
+	protected $typoscriptPath = 'plugin.tx_typo3forum.userfields.text';
 
 }
 

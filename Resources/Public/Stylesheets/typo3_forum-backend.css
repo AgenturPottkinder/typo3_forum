@@ -1,0 +1,107 @@
+.tx-typo3forum-icon-32-back {
+  background-image: url("../Images/Icons/Navigation/Back-32.png") !important;
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  margin-right: 0.3em;
+  vertical-align: text-top; }
+
+.tx-typo3forum-icon-16-back {
+  background-image: url("../Images/Icons/Navigation/Back-16.png") !important;
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin-right: 0.3em;
+  vertical-align: text-top; }
+
+.tx-typo3forum-icon-32-edit {
+  background-image: url("../Images/Icons/Edit-32.png") !important;
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  margin-right: 0.3em;
+  vertical-align: text-top; }
+
+.tx-typo3forum-icon-16-edit {
+  background-image: url("../Images/Icons/Edit-16.png") !important;
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin-right: 0.3em;
+  vertical-align: text-top; }
+
+.tx-typo3forum-icon-32-forum {
+  background-image: url("../Images/Icons/Forum/Forum-32.png") !important;
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  margin-right: 0.3em;
+  vertical-align: text-top; }
+
+.tx-typo3forum-icon-16-forum {
+  background-image: url("../Images/Icons/Forum/Forum-16.png") !important;
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin-right: 0.3em;
+  vertical-align: text-top; }
+
+.tx-typo3forum-icon-32-forum-root {
+  background-image: url("../Images/Icons/Forum/Root-32.png") !important;
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  margin-right: 0.3em;
+  vertical-align: text-top; }
+
+.tx-typo3forum-icon-16-forum-root {
+  background-image: url("../Images/Icons/Forum/Root-16.png") !important;
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin-right: 0.3em;
+  vertical-align: text-top; }
+
+.tx-typo3forum-icon-32-forum-edit {
+  background-image: url("../Images/Icons/Forum/Edit-32.png") !important;
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  margin-right: 0.3em;
+  vertical-align: text-top; }
+
+.tx-typo3forum-icon-16-forum-edit {
+  background-image: url("../Images/Icons/Forum/Edit-16.png") !important;
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin-right: 0.3em;
+  vertical-align: text-top; }
+
+.tx-typo3forum-icon-32-forum-acledit {
+  background-image: url("../Images/Icons/Forum/AclEdit-32.png") !important;
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  margin-right: 0.3em;
+  vertical-align: text-top; }
+
+.tx-typo3forum-icon-16-forum-acledit {
+  background-image: url("../Images/Icons/Forum/AclEdit-16.png") !important;
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin-right: 0.3em;
+  vertical-align: text-top; }

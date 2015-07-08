@@ -1,9 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Model\User;
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <typo3@martin-helmich.de>                   *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,26 +24,10 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
-
 /**
- *
  * A frontend user.
- *
- * @author     Martin Helmich <typo3@martin-helmich.de>
- * @package    MmForum
- * @subpackage Domain_Model_User
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <typo3@martin-helmich.de>
- *             http://www.martin-helmich.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class Tx_MmForum_Domain_Model_User_AnonymousFrontendUser extends Tx_MmForum_Domain_Model_User_FrontendUser {
-
-
+class AnonymousFrontendUser extends FrontendUser {
 
 	public function __construct($username = '', $password = '') {
 		parent::__construct($username, $password);
@@ -53,7 +38,4 @@ class Tx_MmForum_Domain_Model_User_AnonymousFrontendUser extends Tx_MmForum_Doma
 	public function isAnonymous() {
 		return TRUE;
 	}
-
-
-
 }

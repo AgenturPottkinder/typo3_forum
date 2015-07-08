@@ -1,4 +1,4 @@
-{namespace mmf=Tx_MmForum_ViewHelpers}
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 <f:layout name="default" />
 
 
@@ -32,8 +32,8 @@
 					<f:translate key="Moderation_EditTopic_Move" default="TODO: Move" />
 				</label>
 				<div class="controls">
-					<f:form.checkbox id="tx-mmforum-movetopic" name="moveTopic" value="1" />
-					<mmf:form.forumSelect name="moveTopicTarget" value="{topic.forum}" id="tx-mmforum-movetopic-target" disabled="disabled" />
+					<f:form.checkbox id="tx-typo3forum-movetopic" name="moveTopic" value="1" />
+					<mmf:form.forumSelect name="moveTopicTarget" value="{topic.forum}" id="tx-typo3forum-movetopic-target" disabled="disabled" />
 				</div>
 			</div>
 			<div class="form-actions">
@@ -46,10 +46,10 @@
 	</f:form>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$('#tx-mmforum-movetopic').click(function() {
+			$('#tx-typo3forum-movetopic').click(function() {
 				if($(this).attr('checked'))
-					$('#tx-mmforum-movetopic-target').removeAttr('disabled');
-				else $('#tx-mmforum-movetopic-target').attr('disabled','disabled');
+					$('#tx-typo3forum-movetopic-target').removeAttr('disabled');
+				else $('#tx-typo3forum-movetopic-target').attr('disabled','disabled');
 			});
 		});
 	</script>

@@ -1,9 +1,9 @@
-{namespace mmf=Tx_MmForum_ViewHelpers}
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 
 <ul class="nav nav-pills">
 	<li>
 		<f:link.action controller="Forum" action="show" arguments="{forum: topic.forum}">
-			<i class="tx-mmforum-icon-16-back"></i>
+			<i class="tx-typo3forum-icon-16-back"></i>
 			<f:translate key="Button_Back" />
 		</f:link.action>
 	</li>
@@ -11,7 +11,7 @@
 	<mmf:authentication.ifAccess object="{topic}" accessType="newPost">
 		<li>
 			<f:link.action controller="Post" action="new" arguments="{topic: topic}">
-				<i class="tx-mmforum-icon-16-post-new"></i>
+				<i class="tx-typo3forum-icon-16-post-new"></i>
 				<f:translate key="Button_Reply" />
 			</f:link.action>
 		</li>
@@ -22,13 +22,13 @@
 			<mmf:user.ifSubscribed object="{topic}">
 				<f:then>
 					<f:link.action controller="User" action="subscribe" arguments="{topic: topic, unsubscribe: 1}">
-						<i class="tx-mmforum-icon-16-unsubscribe"></i>
+						<i class="tx-typo3forum-icon-16-unsubscribe"></i>
 						<f:translate key="Button_Unsubscribe" />
 					</f:link.action>
 				</f:then>
 				<f:else>
 					<f:link.action controller="User" action="subscribe" arguments="{topic: topic}">
-						<i class="tx-mmforum-icon-16-subscribe"></i>
+						<i class="tx-typo3forum-icon-16-subscribe"></i>
 						<f:translate key="Button_Subscribe" />
 					</f:link.action>
 				</f:else>
@@ -39,21 +39,21 @@
 	<mmf:authentication.ifAccess object="{topic}" accessType="moderate">
 		<li class="dropdown dropup">
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-				<i class="tx-mmforum-icon-16-moderate"></i>
+				<i class="tx-typo3forum-icon-16-moderate"></i>
 				<f:translate key="Button_Moderate" />
 				<b class="caret"></b>
 			</a>
 			<ul class="dropdown-menu">
 				<li>
 					<f:link.action controller="Moderation" action="editTopic" arguments="{topic: topic}">
-						<i class="tx-mmforum-icon-16-moderate"></i>
+						<i class="tx-typo3forum-icon-16-moderate"></i>
 						<f:translate key="Button_Moderate" />
 					</f:link.action>
 				</li>
 				<li class="divider"></li>
 				<li>
 					<f:link.action controller="Moderation" action="topicConformDelete" arguments="{topic: topic}">
-						<i class="tx-mmforum-icon-16-post-delete"></i>
+						<i class="tx-typo3forum-icon-16-post-delete"></i>
 				Delete Topic
 					</f:link.action>
 				</li>

@@ -1,9 +1,9 @@
 <?php
+namespace Mittwald\Typo3Forum\ViewHelpers\Social;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Sebastian Gieselmann <s.gieselmann@mittwald.de>            *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,26 +23,9 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
-
-/**
- *
- * ViewHelper that renders a user's avatar.
- *
- * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
- * @package    MmForum
- * @subpackage ViewHelpers_User
- * @version    $Id$
- *
- * @copyright  2013 Sebastian Gieselmann <s.gieselmann@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-
-class Tx_MmForum_ViewHelpers_Social_TwitterShareLinkViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper  {
+class TwitterShareLinkViewHelper extends AbstractTagBasedViewHelper  {
 
 	/**
 	 * @var	string
@@ -57,6 +40,7 @@ class Tx_MmForum_ViewHelpers_Social_TwitterShareLinkViewHelper extends \TYPO3\CM
 	public function initializeArguments() {
 		$this->registerTagAttribute('target', 'string', 'Specifies where to open the linked document');
 	}
+
 	/**
 	 * Render a share button
 	 *
@@ -102,7 +86,4 @@ class Tx_MmForum_ViewHelpers_Social_TwitterShareLinkViewHelper extends \TYPO3\CM
 		$this->tag->setContent($this->renderChildren());
 		return $this->tag->render();
 	}
-
 }
-
-?>

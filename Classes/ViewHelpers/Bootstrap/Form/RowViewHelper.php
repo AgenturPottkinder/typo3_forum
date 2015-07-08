@@ -1,9 +1,9 @@
 <?php
-
+namespace Mittwald\Typo3Forum\ViewHelpers\Bootstrap\Form;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <typo3@martin-helmich.de>                   *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,30 +23,19 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /**
- *
  * ViewHelper that renders a form row.
- *
- * @author     Martin Helmich <typo3@martin-helmich.de>
- * @package    MmForum
- * @subpackage ViewHelpers_Control
- * @version    $Id: BigButtonViewHelper.php 52309 2011-09-20 18:54:26Z mhelmich $
- *
- * @copyright  2012 Martin Helmich <typo3@martin-helmich.de>
- *             http://www.martin-helmich.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class Tx_MmForum_ViewHelpers_Bootstrap_Form_RowViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
+class RowViewHelper extends AbstractTagBasedViewHelper {
 
-
-
+	/**
+	 * tagName
+	 *
+	 * @var string
+	 */
 	protected $tagName = 'div';
-
-
 
 	/**
 	 * @return void
@@ -54,8 +43,6 @@ class Tx_MmForum_ViewHelpers_Bootstrap_Form_RowViewHelper extends \TYPO3\CMS\Flu
 	public function initialize() {
 		parent::initialize();
 	}
-
-
 
 	public function initializeArguments() {
 		parent::initializeArguments();
@@ -65,13 +52,11 @@ class Tx_MmForum_ViewHelpers_Bootstrap_Form_RowViewHelper extends \TYPO3\CMS\Flu
 		$this->registerArgument('errorLLPrefix', 'string', 'Error label locallang prefix.', FALSE);
 	}
 
-
-
 	public function render() {
 		$class = 'control-group';
 
 		if ($this->arguments['llLabel']) {
-			$label = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($this->arguments['llLabel'], 'mm_forum');
+			$label = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($this->arguments['llLabel'], 'typo3_forum');
 		} else {
 			$label = $this->arguments['label'];
 		}
@@ -89,7 +74,7 @@ class Tx_MmForum_ViewHelpers_Bootstrap_Form_RowViewHelper extends \TYPO3\CMS\Flu
 				$errorContent = '';
 				foreach ($errors as $error) {
 					$errorText = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($this->arguments['errorLLPrefix'] . '_' . $error->getCode(),
-					                                                        'mm_forum');
+					                                                        'typo3_forum');
 					if (!$errorText) {
 						$errorText = 'TRANSLATE: ' . $this->arguments['errorLLPrefix'] . '_' . $error->getCode();
 					}
@@ -109,8 +94,6 @@ class Tx_MmForum_ViewHelpers_Bootstrap_Form_RowViewHelper extends \TYPO3\CMS\Flu
 		return $this->tag->render();
 	}
 
-
-
 	/**
 	 * Find errors for a specific property in the given errors array
 	 *
@@ -126,7 +109,4 @@ class Tx_MmForum_ViewHelpers_Bootstrap_Form_RowViewHelper extends \TYPO3\CMS\Flu
 		}
 		return array();
 	}
-
-
-
 }

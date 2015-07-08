@@ -1,9 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Model\User;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Ruven Fehling <r.fehling@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,48 +24,32 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-/**
- *
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
- * @subpackage Domain_Model_User
- * @version    $Id$
- * @license    GNU public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
-
- */
-
-class Tx_MmForum_Domain_Model_User_Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
-
-	/**
-	 * ATTRIBUTES
-	 */
+class Notification extends AbstractEntity {
 
 	/**
 	 * The execution date of the cron
-	 * @var DateTime
+	 * @var \DateTime
 	 */
 	public $crdate;
 
 	/**
 	 * User who is related with this notification
-	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 */
 	public $feuser;
 
 
 	/**
 	 * Post which is related with this notification
-	 * @var Tx_MmForum_Domain_Model_Forum_Post
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Post
 	 */
 	public $post;
 
-
-
 	/**
 	 * Tag which is related with this notification
-	 * @var Tx_MmForum_Domain_Model_Forum_Tag
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Tag
 	 */
 	public $tag;
 
@@ -81,14 +66,9 @@ class Tx_MmForum_Domain_Model_User_Notification extends \TYPO3\CMS\Extbase\Domai
 	 */
 	public $userRead;
 
-
-	/**
-	 * GETTER
-	 */
-
 	/**
 	 * Get the date this message has been sent
-	 * @return DateTime
+	 * @return \DateTime
 	 */
 	public function getCrdate() {
 		return $this->crdate;
@@ -103,36 +83,79 @@ class Tx_MmForum_Domain_Model_User_Notification extends \TYPO3\CMS\Extbase\Domai
 	}
 
 	/**
+	 * Get the type of this notification (Model Name)
+	 *
+	 * @param string $type
+	 *
+	 * @return void
+	 */
+	public function setType($type) {
+		$this->type = $type;
+	}
+
+	/**
 	 * Get the User who is related with this notification
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 */
 	public function getFeuser() {
 		if ($this->feuser instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
 			$this->feuser->_loadRealInstance();
 		}
 		if ($this->feuser === NULL) {
-			$this->feuser = new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
+			$this->feuser = new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
 		}
+
 		return $this->feuser;
 	}
 
 	/**
+	 * Sets the user
+	 *
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $feuser
+	 *
+	 * @return void
+	 */
+	public function setFeuser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $feuser) {
+		$this->feuser = $feuser;
+	}
+
+	/**
 	 * Get the Post which is related with this notification
-	 * @return Tx_MmForum_Domain_Model_Forum_Post
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Post
 	 */
 	public function getPost() {
 		return $this->post;
 	}
 
+	/**
+	 * Sets the post
+	 *
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
+	 *
+	 * @return void
+	 */
+	public function setPost(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
+		$this->post = $post;
+	}
 
 	/**
 	 * Get the tag which is related with this notification
-	 * @return Tx_MmForum_Domain_Model_Forum_Tag
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag
 	 */
 	public function getTag() {
 		return $this->tag;
 	}
 
+	/**
+	 * Set the tag
+	 *
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag
+	 *
+	 * @return void
+	 */
+	public function setTag(\Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag) {
+		$this->tag = $tag;
+	}
 
 	/**
 	 * Get if the user already read this notification
@@ -143,55 +166,13 @@ class Tx_MmForum_Domain_Model_User_Notification extends \TYPO3\CMS\Extbase\Domai
 	}
 
 	/**
-	 * SETTER
-	 */
-
-	/**
-	 * Get the type of this notification (Model Name)
-	 * @param string $type
-	 * @return void
-	 */
-	public function setType($type) {
-		$this->type = $type;
-	}
-
-	/**
-	 * Sets the user
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $feuser
-	 * @return void
-	 */
-	public function setFeuser(Tx_MmForum_Domain_Model_User_FrontendUser $feuser) {
-		$this->feuser = $feuser;
-	}
-
-
-	/**
-	 * Sets the post
-	 * @param Tx_MmForum_Domain_Model_Forum_Post $post
-	 * @return void
-	 */
-	public function setPost(Tx_MmForum_Domain_Model_Forum_Post $post) {
-		$this->post = $post;
-	}
-
-
-	/**
-	 * Set the tag
-	 * @param Tx_MmForum_Domain_Model_Forum_Tag $tag
-	 * @return void
-	 */
-	public function setTag(Tx_MmForum_Domain_Model_Forum_Tag $tag) {
-		$this->tag = $tag;
-	}
-
-
-	/**
 	 * Sets the flag
+	 *
 	 * @param int $userRead
+	 *
 	 * @return void
 	 */
 	public function setUserRead($userRead) {
 		$this->userRead = $userRead;
 	}
-
 }

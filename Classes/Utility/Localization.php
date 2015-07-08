@@ -1,10 +1,9 @@
 <?php
-
+namespace Mittwald\Typo3Forum\Utility;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,28 +22,12 @@
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
-
-
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
- *
  * Utility module for localization related functions.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage Utility
- * @version    $Id$
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class Tx_MmForum_Utility_Localization {
-
-
+class Localization {
 
 	/**
 	 * Translates something. Basically, this is just a wrapper function for the
@@ -52,17 +35,14 @@ class Tx_MmForum_Utility_Localization {
 	 * offers the possibility to give a default value, in case that a label is not
 	 * found.
 	 *
-	 * @param  string $key       The label key.
-	 * @param  string $default   The default value.
-	 * @param  array  $arguments Arguments that are to be replaced
+	 * @param string $key       The label key.
+	 * @param string $default   The default value.
+	 * @param array  $arguments Arguments that are to be replaced
 	 *
 	 * @return string            The translated value.
 	 */
-	public static function translate($key, $default = NULL, $arguments = Array()) {
-		$l = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($key, 'MmForum', $arguments);
-		return $l === NULL ? $default : $l;
+	public static function translate($key, $default = NULL, $arguments = array()) {
+		return LocalizationUtility::translate($key, 'Typo3Forum', $arguments) ?: $default;
 	}
 
 }
-
-?>

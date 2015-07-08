@@ -1,10 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Model;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,33 +24,13 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
-
-/**
- * Interface definition for objects that can be subscribed by users.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage Domain_Model_User
- * @version    $Id$
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- */
-interface Tx_MmForum_Domain_Model_SubscribeableInterface {
-
-
+interface SubscribeableInterface {
 
 	/**
 	 * Returns all users that have subscribed to this object.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser> All subscribers.
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser> All subscribers.
 	 */
 	public function getSubscribers();
-
-
 
 	/**
 	 * Returns this object's title.
@@ -58,21 +38,20 @@ interface Tx_MmForum_Domain_Model_SubscribeableInterface {
 	 */
 	public function getTitle();
 
-
-
 	/**
 	 * Adds a new subscriber.
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user The new subscriber.
+	 *
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user The new subscriber.
+	 *
 	 * @return void
 	 */
-	public function addSubscriber(Tx_MmForum_Domain_Model_User_FrontendUser $user);
-
-
+	public function addSubscriber(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user);
 
 	/**
 	 * Removes a subscriber.
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user The subscriber to be removed.
+	 *
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user The subscriber to be removed.
 	 */
-	public function removeSubscriber(Tx_MmForum_Domain_Model_User_FrontendUser $user);
+	public function removeSubscriber(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user);
 
 }
