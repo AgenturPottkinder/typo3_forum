@@ -175,9 +175,9 @@ $tempColumns = array(
 		'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_typo3forum_post_count',
 		'config' => array('type' => 'none'),
 	),
-	'tx_typo3forum_post_count_season' => array(
+	'tx_typo3forum_post_count_session' => array(
 		'exclude' => 1,
-		'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_typo3forum_post_count_season',
+		'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_typo3forum_post_count_session',
 		'config' => array('type' => 'none'),
 	),
 	'tx_typo3forum_topic_count' => array(
@@ -190,9 +190,9 @@ $tempColumns = array(
 		'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_typo3forum_helpful_count',
 		'config' => array('type' => 'none'),
 	),
-	'tx_typo3forum_helpful_count_season' => array(
+	'tx_typo3forum_helpful_count_session' => array(
 		'exclude' => 1,
-		'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_typo3forum_helpful_count_season',
+		'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_typo3forum_helpful_count_session',
 		'config' => array('type' => 'none'),
 	),
 	'tx_typo3forum_question_count' => array(
@@ -413,7 +413,7 @@ $TCA['fe_users']['types']['Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'] 
 $TCA['fe_users']['types']['Mittwald\Typo3Forum\Domain\Model\User\FrontendUser']['showitem'] .=
 	',--div--;LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_typo3forum.tab.settings,'
 	. ' tx_typo3forum_points, tx_typo3forum_post_count, tx_typo3forum_topic_count, tx_typo3forum_helpful_count, tx_typo3forum_question_count, tx_typo3forum_rank,'
-	. ' tx_typo3forum_signature, tx_typo3forum_userfield_values, tx_typo3forum_use_gravatar, tx_typo3forum_contact, tx_typo3forum_working_environment, tx_typo3forum_private_messages, tx_typo3forum_post_count_season, tx_typo3forum_helpful_count_season';
+	. ' tx_typo3forum_signature, tx_typo3forum_userfield_values, tx_typo3forum_use_gravatar, tx_typo3forum_contact, tx_typo3forum_working_environment, tx_typo3forum_private_messages, tx_typo3forum_post_count_session, tx_typo3forum_helpful_count_session';
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem('fe_users', 'tx_extbase_type', [
 	'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_extbase_type.typo3_forum',

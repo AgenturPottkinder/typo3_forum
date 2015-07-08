@@ -119,8 +119,8 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['\Mittwald\Typo3
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['\Mittwald\Typo3Forum\Scheduler\SessionResetter'] = array(
 	'extension' => $_EXTKEY,
-	'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_seasonResetter_title',
-	'description' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_seasonResetter_description',
+	'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_sessionResetter_title',
+	'description' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_sessionResetter_description',
 	'additionalFields' => '\Mittwald\Typo3Forum\Scheduler\SessionResetterAdditionalFieldProvider'
 );
 

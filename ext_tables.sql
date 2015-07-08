@@ -693,8 +693,8 @@ CREATE TABLE fe_users (
   tx_typo3forum_forum_subscriptions int(11) unsigned default '0',
   tx_typo3forum_helpful_count int(11) default '0',
   tx_typo3forum_private_messages int(11) unsigned default '0',
-  tx_typo3forum_helpful_count_season int(11) default '0',
-  tx_typo3forum_post_count_season int(11) default '0',
+  tx_typo3forum_helpful_count_session int(11) default '0',
+  tx_typo3forum_post_count_session int(11) default '0',
   tx_typo3forum_signature text,
   tx_typo3forum_interests text,
   tx_typo3forum_userfield_values int(11) unsigned default '0'

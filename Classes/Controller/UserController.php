@@ -95,14 +95,14 @@ class UserController extends AbstractController {
 			case 'activeUserWidget':
 				$dataset['users'] = $this->frontendUserRepository->findByFilter(
 					(int)$this->settings['widgets']['activeUser']['limit'],
-					['postCountSeason' => 'DESC', 'username' => 'ASC']
+					['postCountSession' => 'DESC', 'username' => 'ASC']
 				);
 				$partial = 'User/ActiveBox';
 				break;
 			case 'helpfulUserWidget':
 				$dataset['users'] = $this->frontendUserRepository->findByFilter(
 					(int)$this->settings['widgets']['helpfulUser']['limit'],
-					['helpfulCountSeason' => 'DESC', 'username' => 'ASC']
+					['helpfulCountSession' => 'DESC', 'username' => 'ASC']
 				);
 				$partial = 'User/HelpfulBox';
 				break;

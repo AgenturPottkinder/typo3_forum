@@ -53,8 +53,8 @@ class SessionResetter extends AbstractTask {
 		if(intval($this->getUserPid()) == 0) return false;
 
 		$updateArray= array(
-			'tx_typo3forum_helpful_count_season' => 0,
-			'tx_typo3forum_post_count_season' => 0,
+			'tx_typo3forum_helpful_count_session' => 0,
+			'tx_typo3forum_post_count_session' => 0,
 		);
 		$query = $GLOBALS['TYPO3_DB']->UPDATEquery('fe_users','pid='.intval($this->getUserPid()),$updateArray);
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);

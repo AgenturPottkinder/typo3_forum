@@ -64,11 +64,11 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	protected $postCount;
 
 	/**
-	 * Forum post count for the current season (Widgets)
+	 * Forum post count for the current session (Widgets)
 	 *
 	 * @var integer
 	 */
-	protected $postCountSeason;
+	protected $postCountSession;
 
 	/**
 	 * Topic count of a user
@@ -85,11 +85,11 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	protected $helpfulCount;
 
 	/**
-	 * Forum helpful count for the current season (Widgets)
+	 * Forum helpful count for the current session (Widgets)
 	 *
 	 * @var integer
 	 */
-	protected $helpfulCountSeason;
+	protected $helpfulCountSession;
 
 	/**
 	 * Question count of a user
@@ -330,12 +330,12 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	}
 
 	/**
-	 * Gets the post count of this user of the current season (Widgets).
+	 * Gets the post count of this user of the current session (Widgets).
 	 *
 	 * @return integer The post count.
 	 */
-	public function getPostCountSeason() {
-		return $this->postCountSeason;
+	public function getPostCountSession() {
+		return $this->postCountSession;
 	}
 
 	/**
@@ -446,12 +446,12 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	}
 
 	/**
-	 * Gets the helpful count of this user of the current season (Widgets).
+	 * Gets the helpful count of this user of the current session (Widgets).
 	 *
 	 * @return integer The helpful count.
 	 */
-	public function getHelpfulCountSeason() {
-		return $this->helpfulCountSeason;
+	public function getHelpfulCountSession() {
+		return $this->helpfulCountSession;
 	}
 
 	/**
@@ -779,21 +779,21 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 */
 	public function decreasePostCount() {
 		$this->postCount--;
-		$this->decreasePostCountSeason(1);
+		$this->decreasePostCountSession(1);
 	}
 
 	/**
-	 * Decrease the user's post count of the current season (Widgets).
+	 * Decrease the user's post count of the current session (Widgets).
 	 *
 	 * @param int $by
 	 *
 	 * @return void
 	 */
-	public function decreasePostCountSeason($by = 1) {
+	public function decreasePostCountSession($by = 1) {
 		if ($by < 0) {
 			$by = 1;
 		}
-		$this->postCountSeason = $this->postCountSeason - $by;
+		$this->postCountSession = $this->postCountSession - $by;
 	}
 
 	/**
@@ -803,35 +803,35 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 */
 	public function increasePostCount() {
 		$this->postCount++;
-		$this->increasePostCountSeason(1);
+		$this->increasePostCountSession(1);
 	}
 
 	/**
-	 * Increase the user's post count of the current season (Widgets)
+	 * Increase the user's post count of the current session (Widgets)
 	 *
 	 * @param int $by
 	 *
 	 * @return void
 	 */
-	public function increasePostCountSeason($by = 1) {
+	public function increasePostCountSession($by = 1) {
 		if ($by < 0) {
 			$by = 1;
 		}
-		$this->postCountSeason = $this->postCountSeason + $by;
+		$this->postCountSession = $this->postCountSession + $by;
 	}
 
 	/**
-	 * Decrease the user's helpful count of the current season (Widgets)
+	 * Decrease the user's helpful count of the current session (Widgets)
 	 *
 	 * @param int $by
 	 *
 	 * @return void
 	 */
-	public function decreaseHelpfulCountSeason($by = 1) {
+	public function decreaseHelpfulCountSession($by = 1) {
 		if ($by < 0) {
 			$by = 1;
 		}
-		$this->helpfulCountSeason = $this->helpfulCountSeason - $by;
+		$this->helpfulCountSession = $this->helpfulCountSession - $by;
 	}
 
 	/**
@@ -1002,7 +1002,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 */
 	public function setHelpful() {
 		$this->setHelpfulCount($this->getHelpfulCount() + 1);
-		$this->increaseHelpfulCountSeason(1);
+		$this->increaseHelpfulCountSession(1);
 	}
 
 	/**
@@ -1025,25 +1025,25 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	public function setHelpfulCount($count) {
 		$diff = $count - $this->getHelpfulCount();
 		if ($diff >= 0) {
-			$this->increaseHelpfulCountSeason($diff);
+			$this->increaseHelpfulCountSession($diff);
 		} else {
 			$diff = $diff * -1; //Positive only
-			$this->decreaseHelpfulCountSeason($diff);
+			$this->decreaseHelpfulCountSession($diff);
 		}
 		$this->helpfulCount = $count;
 	}
 
 	/**
-	 * Increase the user's helpful count of the current season (Widgets)
+	 * Increase the user's helpful count of the current session (Widgets)
 	 *
 	 * @param int $by
 	 *
 	 * @return void
 	 */
-	public function increaseHelpfulCountSeason($by) {
+	public function increaseHelpfulCountSession($by) {
 		if ($by < 0) {
 			$by = 1;
 		}
-		$this->helpfulCountSeason = $this->helpfulCountSeason + $by;
+		$this->helpfulCountSession = $this->helpfulCountSession + $by;
 	}
 }

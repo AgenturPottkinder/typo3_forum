@@ -26,10 +26,10 @@ config.tx_extbase.persistence.classes {
 			columns {
 				tx_typo3forum_signature.mapOnProperty = signature
 				tx_typo3forum_post_count.mapOnProperty = postCount
-				tx_typo3forum_post_count_season.mapOnProperty = postCountSeason
+				tx_typo3forum_post_count_session.mapOnProperty = postCountSession
 				tx_typo3forum_topic_count.mapOnProperty = topicCount
 				tx_typo3forum_helpful_count.mapOnProperty = helpfulCount
-				tx_typo3forum_helpful_count_season.mapOnProperty = helpfulCountSeason
+				tx_typo3forum_helpful_count_session.mapOnProperty = helpfulCountSession
 				tx_typo3forum_question_count.mapOnProperty = questionCount
 				tx_typo3forum_support_posts.mapOnProperty = supportPosts
 				tx_typo3forum_facebook.mapOnProperty = facebook

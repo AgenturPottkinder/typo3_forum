@@ -43,16 +43,16 @@ class SessionResetterAdditionalFieldProvider implements AdditionalFieldProviderI
 		$additionalFields = array();
 
 		if ($schedulerModule->CMD == 'add') {
-			$taskInfo['SeasonResetter_userPid'] = 1337;
+			$taskInfo['SessionResetter_userPid'] = 1337;
 		}
 
 		if ($schedulerModule->CMD == 'edit') {
-			$taskInfo['SeasonResetter_userPid'] = $task->getUserPid();
+			$taskInfo['SessionResetter_userPid'] = $task->getUserPid();
 		}
 
-		$additionalFields['SeasonResetter_userPid'] = array(
-			'code'     => '<input type="text" name="tx_scheduler[SeasonResetter_userPid]" value="' . intval($taskInfo['SeasonResetter_userPid']) . '" />',
-			'label'    => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_seasonResetter_userPid',
+		$additionalFields['SessionResetter_userPid'] = array(
+			'code'     => '<input type="text" name="tx_scheduler[SessionResetter_userPid]" value="' . intval($taskInfo['SessionResetter_userPid']) . '" />',
+			'label'    => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_sessionResetter_userPid',
 			'cshKey'   => '',
 			'cshLabel' => ''
 		);
@@ -69,7 +69,7 @@ class SessionResetterAdditionalFieldProvider implements AdditionalFieldProviderI
 	 * @return	boolean														True if validation was ok (or selected class is not relevant), FALSE otherwise
 	 */
 	public function validateAdditionalFields(array &$submittedData, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule) {
-		$submittedData['SeasonResetter_userPid'] = intval($submittedData['SeasonResetter_userPid']);
+		$submittedData['SessionResetter_userPid'] = intval($submittedData['SessionResetter_userPid']);
 		return true;
 	}
 
@@ -81,6 +81,6 @@ class SessionResetterAdditionalFieldProvider implements AdditionalFieldProviderI
 	 * @param	\TYPO3\CMS\Scheduler\Task\AbstractTask	$task: reference to the current task object
 	 */
 	public function saveAdditionalFields(array $submittedData, \TYPO3\CMS\Scheduler\Task\AbstractTask $task) {
-		$task->setUserPid($submittedData['SeasonResetter_userPid']);
+		$task->setUserPid($submittedData['SessionResetter_userPid']);
 	}
 }

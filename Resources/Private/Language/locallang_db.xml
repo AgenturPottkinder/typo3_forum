@@ -175,10 +175,10 @@
 			<label index="fe_users.contact">Contact addresses and social network profiles (JSON encoded)</label>
 			<label index="fe_users.tx_extbase_type.typo3_forum">typo3_forum user</label>
 			<label index="fe_users.tx_typo3forum_post_count">Post count</label>
-			<label index="fe_users.tx_typo3forum_post_count_season">Post count season</label>
+			<label index="fe_users.tx_typo3forum_post_count_session">Post count session</label>
 			<label index="fe_users.tx_typo3forum_topic_count">Topic count</label>
 			<label index="fe_users.tx_typo3forum_helpful_count">Helpful count</label>
-			<label index="fe_users.tx_typo3forum_helpful_count_season">Helpful count season</label>
+			<label index="fe_users.tx_typo3forum_helpful_count_session">Helpful count session</label>
 			<label index="fe_users.tx_typo3forum_question_count">Question count</label>
 			<label index="fe_users.tx_typo3forum_topic_subscriptions">Subscribed topics</label>
 			<label index="fe_users.tx_typo3forum_forum_subscriptions">Subscribed forums</label>
