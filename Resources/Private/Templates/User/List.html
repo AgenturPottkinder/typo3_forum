@@ -1,0 +1,15 @@
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
+<f:layout name="default"/>
+<f:section name="main">
+	<f:if condition="{showPaginate}">
+		<f:then>
+			<f:widget.paginate objects="{users}" as="paginatedUsers" configuration="{settings.pagebrowser.default}">
+				<f:render partial="{partial}" arguments="{dataset: dataset}" />
+			</f:widget.paginate>
+		</f:then>
+		<f:else>
+			<f:render partial="{partial}" arguments="{dataset: dataset}" />
+		</f:else>
+	</f:if>
+</f:section>
+<f:section name="menu"/>
