@@ -61,7 +61,7 @@ class Report extends AbstractEntity {
 
 	/**
 	 * A set of comments that are assigned to this report.
-	 * @var ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment>
 	 */
 	protected $comments;
 
