@@ -57,8 +57,6 @@ $TCA['tx_typo3forum_domain_model_forum_forum'] = array(
 		'versioning_followPages' => TRUE,
 		'origUid' => 't3_origuid',
 		'languageField' => 'sys_language_uid',
-//		'transOrigPointerField' => 'l18n_parent',
-//		'transOrigDiffSourceField' => 'l18n_diffsource',
 		'delete' => 'deleted',
 		'enablecolumns' => array(
 			'disabled' => 'hidden'
@@ -83,8 +81,6 @@ $TCA['tx_typo3forum_domain_model_forum_topic'] = array(
 		'versioning_followPages' => TRUE,
 		'origUid' => 't3_origuid',
 		'languageField' => 'sys_language_uid',
-//		'transOrigPointerField' => 'l18n_parent',
-//		'transOrigDiffSourceField' => 'l18n_diffsource',
 		'delete' => 'deleted',
 		'enablecolumns' => array(
 			'disabled' => 'hidden'
@@ -107,8 +103,6 @@ $TCA['tx_typo3forum_domain_model_forum_post'] = array(
 		'versioning_followPages' => TRUE,
 		'origUid' => 't3_origuid',
 		'languageField' => 'sys_language_uid',
-//		'transOrigPointerField' => 'l18n_parent',
-//		'transOrigDiffSourceField' => 'l18n_diffsource',
 		'delete' => 'deleted',
 		'enablecolumns' => array(
 			'disabled' => 'hidden'
@@ -388,9 +382,7 @@ $tempColumns = array(
 		)
 	),
 );
-if (version_compare(TYPO3_branch, '6.1', '<')) {
-	\TYPO3\CMS\Core\Utility\GeneralUtility::loadTCA('fe_users');
-}
+
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('fe_users', $tempColumns, 1);
 
 $tempColumns = array(
@@ -566,8 +558,6 @@ $TCA['tx_typo3forum_domain_model_moderation_reportworkflowstatus'] = array(
 		'versioning_followPages' => TRUE,
 		'origUid' => 't3_origuid',
 		'languageField' => 'sys_language_uid',
-//		'transOrigPointerField' => 'l18n_parent',
-//		'transOrigDiffSourceField' => 'l18n_diffsource',
 		'delete' => 'deleted',
 		'enablecolumns' => array(
 			'disabled' => 'hidden'
