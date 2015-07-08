@@ -120,7 +120,7 @@ class UserController extends AbstractController {
 				$partial = 'User/ListTopUser';
 				break;
 			default:
-				$dataset['users'] = $this->frontendUserRepository->findByFilter('', array('username' => 'ASC'));
+				$dataset['users'] = $this->frontendUserRepository->findByFilter(0, array('username' => 'ASC'));
 				$partial = 'User/List';
 				break;
 		}
