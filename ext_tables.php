@@ -12,8 +12,7 @@ if (!defined('TYPO3_MODE'))
 
 $extPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY);
 
-if (TYPO3_MODE === 'BE')
-{
+if (TYPO3_MODE === 'BE') {
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::registerExtDirectComponent(
 		'Typo3Forum.ForumIndex.DataProvider',
 		$extPath . 'Classes/ExtDirect/ForumDataProvider.php:\Mittwald\Typo3Forum\ExtDirect\ForumDataProvider',
@@ -33,16 +32,6 @@ if (TYPO3_MODE === 'BE')
 }
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'typo3_forum');
-
-$pluginSignature = strtolower(\TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($_EXTKEY)) . '_pi1';
-$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature,
-	'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/Pi1.xml');
-
-$pluginSignature = strtolower(\TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($_EXTKEY)) . '_widget';
-$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature,
-	'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/Widgets.xml');
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_typo3forum_domain_model_forum_forum',
 	'EXT:typo3_forum/Resources/Private/Language/locallang_csh_tx_typo3forum_domain_model_forum_forum.xml');
@@ -157,8 +146,8 @@ $tempColumns = array(
 	),
 	'tx_typo3forum_rank' => array(
 		'exclude' => 0,
-		'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_rank',
-		'config'  => array(
+		'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_rank',
+		'config' => array(
 			'type' => 'select',
 			'foreign_table' => 'tx_typo3forum_domain_model_user_rank',
 			'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\Rank',
@@ -354,9 +343,9 @@ $tempColumns = array(
 	"tx_typo3forum_working_environment" => Array(
 		"exclude" => 1,
 		"label" => "LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_typo3forum_working_environment",
-		"config"  => array(
+		"config" => array(
 			'type' => 'select',
-			'items' => Array (
+			'items' => Array(
 				Array("LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:Working_Environment_0", 0),
 				Array("LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:Working_Environment_1", 1),
 				Array("LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:Working_Environment_2", 2),
@@ -373,7 +362,7 @@ $tempColumns = array(
 			'type' => 'inline',
 			'foreign_table' => 'tx_typo3forum_domain_model_user_privatemessages',
 			'foreign_field' => 'feuser',
-			'maxitems'      => 9999,
+			'maxitems' => 9999,
 			'appearance' => array(
 				'collapseAll' => 1,
 				'newRecordLinkPosition' => 'bottom',
@@ -404,7 +393,7 @@ $TCA['fe_groups']['types']['Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGr
 
 
 $TCA['fe_groups']['types']['Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup']['showitem'] .=
-	',--div--;LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_typo3forum.tab.settings,'.
+	',--div--;LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_typo3forum.tab.settings,' .
 	'tx_typo3forum_user_mod';
 
 
@@ -419,7 +408,6 @@ $TCA['fe_users']['types']['Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'][
 	'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_extbase_type.typo3_forum',
 	'Mittwald\Typo3Forum\Domain\Model\User\FrontendUser',
 ]);
-
 
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_typo3forum_domain_model_forum_access',
@@ -566,8 +554,6 @@ $TCA['tx_typo3forum_domain_model_moderation_reportworkflowstatus'] = array(
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/Moderation/ReportWorkflowStatus.png'
 	)
 );
-
-
 
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_typo3forum_domain_model_forum_criteria');
