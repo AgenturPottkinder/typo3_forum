@@ -11,7 +11,7 @@ return [
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
 		'delete' => 'deleted',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/Forum/Tag.png',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/Forum/Tag.png',
 	],
 	'interface' => [
 		'showRecordFieldList' => 'name,tstamp,crdate,topic_count,feuser',

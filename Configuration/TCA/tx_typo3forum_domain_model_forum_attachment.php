@@ -17,7 +17,7 @@ return [
 		'crdate' => 'crdate',
 		'delete' => 'deleted',
 		'enablecolumns' => ['disabled' => 'hidden'],
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/Forum/Attachment.png'
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/Forum/Attachment.png'
 	],
 	'interface' => [
 		'showRecordFieldList' => 'filename,real_filename,mime_type,download_count'

@@ -19,7 +19,7 @@ return [
 		'enablecolumns' => [
 			'disabled' => 'hidden'
 		],
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/Moderation/ReportWorkflowStatus.png'
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/Moderation/ReportWorkflowStatus.png'
 	],
 	'interface' => [
 		'showRecordFieldList' => 'name,icon,followup_status,initial,final'

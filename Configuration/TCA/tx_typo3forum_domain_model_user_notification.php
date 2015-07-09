@@ -14,7 +14,7 @@ return [
 		'crdate' => 'crdate',
 		'delete' => 'deleted',
 		'sortby' => 'crdate DESC',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/User/notification.png',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/User/notification.png',
 	],
 	'interface' => [
 		'showRecordFieldList' => 'feuser,post,tag,user_read,type,crdate',

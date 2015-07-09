@@ -10,8 +10,7 @@ return [
 		'label' => 'name',
 		'tstamp' => 'tstamp',
 		'delete' => 'deleted',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/Forum/Criteria.png',
-		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Forum/Criteria.php',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/Forum/Criteria.png',
 	],
 	'interface' => [
 		'showRecordFieldList' => 'name,options,default_option',

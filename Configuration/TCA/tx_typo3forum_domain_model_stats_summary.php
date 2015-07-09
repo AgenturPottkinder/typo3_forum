@@ -13,7 +13,7 @@ return [
 		'tstamp' => 'tstamp',
 		'delete' => 'deleted',
 		'sortby' => 'tstamp DESC',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/Stats/summary.png',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/Stats/summary.png',
 	],
 	'interface' => [
 		'showRecordFieldList' => 'type,amount,tstamp',

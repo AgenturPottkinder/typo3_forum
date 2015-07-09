@@ -10,10 +10,10 @@ return [
 		'label' => 'name',
 		'tstamp' => 'tstamp',
 		'delete' => 'deleted',
-		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Forum/Ads.php',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/Forum/Ads.png',
 	],
 	'interface' => [
-		'showRecordFieldList' => 'name,alt_text,url,path,active,category,groups'
+		'showRecordFieldList' => 'name,alt_text,url,path,active,category,groups',
 	],
 	'types' => [
 		'1' => ['showitem' => 'name,alt_text,url,path,active,category,groups'],

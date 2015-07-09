@@ -11,7 +11,7 @@ return [
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
 		'delete' => 'deleted',
-		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/User/PrivateMessages.php',
+		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('typo3_forum') . 'Configuration/TCA/User/PrivateMessages.php',
 	],
 	'interface' => [
 		'showRecordFieldList' => 'message, feuser, opponent, type, user_read, crdate'

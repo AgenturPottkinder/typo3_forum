@@ -11,7 +11,7 @@ return [
 		'tstamp' => 'tstamp',
 		'delete' => 'deleted',
 		'sortby' => 'sorting',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/Forum/CriteriaOption.png',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/Forum/CriteriaOption.png',
 	],
 	'interface' => [
 		'showRecordFieldList' => 'name,criteria,sorting'
