@@ -35,20 +35,6 @@ if (TYPO3_MODE === 'BE') {
 
 
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_typo3forum_domain_model_moderation_reportcomment');
-$TCA['tx_typo3forum_domain_model_moderation_reportcomment'] = [
-	'ctrl' => [
-		'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportcomment',
-		'label' => 'text',
-		'tstamp' => 'tstamp',
-		'delete' => 'deleted',
-		'enablecolumns' => [
-			'disabled' => 'hidden'
-		],
-		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Moderation/ReportComment.php',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/Moderation/ReportComment.png'
-	]
-];
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_typo3forum_domain_model_moderation_reportworkflowstatus');
 $TCA['tx_typo3forum_domain_model_moderation_reportworkflowstatus'] = [
