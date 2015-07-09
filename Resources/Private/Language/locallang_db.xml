@@ -62,12 +62,12 @@
 			<label index="tx_typo3forum_domain_model_forum_criteria_options.sorting">Sorting</label>
 
 			<label index="tx_typo3forum_domain_model_forum_ads">Advertisements</label>
-			<label index="tx_typo3forum_domain_model_forum_ads_name">Name</label>
-			<label index="tx_typo3forum_domain_model_forum_ads_url">URL</label>
-			<label index="tx_typo3forum_domain_model_forum_ads_alt">Alt-Text</label>
-			<label index="tx_typo3forum_domain_model_forum_ads_path">Path To Image</label>
-			<label index="tx_typo3forum_domain_model_forum_ads_category">Category</label>
-			<label index="tx_typo3forum_domain_model_forum_ads_active">Active</label>
+			<label index="tx_typo3forum_domain_model_forum_ads.name">Name</label>
+			<label index="tx_typo3forum_domain_model_forum_ads.url">URL</label>
+			<label index="tx_typo3forum_domain_model_forum_ads.alt">Alt-Text</label>
+			<label index="tx_typo3forum_domain_model_forum_ads.path">Path To Image</label>
+			<label index="tx_typo3forum_domain_model_forum_ads.category">Category</label>
+			<label index="tx_typo3forum_domain_model_forum_ads.active">Active</label>
 
 			<label index="tx_typo3forum_domain_model_user_rank">User rank</label>
 			<label index="tx_typo3forum_domain_model_user_rank_name">Rank name</label>
