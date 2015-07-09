@@ -19,7 +19,6 @@ if (TYPO3_MODE === 'BE') {
 		'web', 'user,group'
 	);
 
-
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
 		'Mittwald.Typo3Forum', 'web', 'tx_typo3forum_m1', '', ['Backend' => 'indexForum', 'Forum' => 'update'],
 		[
@@ -32,8 +31,6 @@ if (TYPO3_MODE === 'BE') {
 }
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'typo3_forum');
-
-
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_typo3forum_domain_model_user_rank');
 $TCA['tx_typo3forum_domain_model_user_rank'] = [
