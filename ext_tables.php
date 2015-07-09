@@ -36,26 +36,7 @@ if (TYPO3_MODE === 'BE') {
 
 
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_typo3forum_domain_model_moderation_reportworkflowstatus');
-$TCA['tx_typo3forum_domain_model_moderation_reportworkflowstatus'] = [
-	'ctrl' => [
-		'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportworkflowstatus',
-		'label' => 'name',
-		'type' => 'login_level',
-		'tstamp' => 'tstamp',
-		'crdate' => 'crdate',
-		'versioningWS' => 2,
-		'versioning_followPages' => TRUE,
-		'origUid' => 't3_origuid',
-		'languageField' => 'sys_language_uid',
-		'delete' => 'deleted',
-		'enablecolumns' => [
-			'disabled' => 'hidden'
-		],
-		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Moderation/ReportWorkflowStatus.php',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/Moderation/ReportWorkflowStatus.png'
-	]
-];
+
 
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_typo3forum_domain_model_forum_criteria');
