@@ -53,45 +53,46 @@
 			<label index="tx_typo3forum_domain_model_forum_attachment.download_count">Download count</label>
 
 			<label index="tx_typo3forum_domain_model_forum_criteria">Criteria</label>
-			<label index="tx_typo3forum_domain_model_forum_criteria_name">Criteria Name</label>
-			<label index="tx_typo3forum_domain_model_forum_criteria_default_option">Default Option</label>
-			<label index="tx_typo3forum_domain_model_forum_criteria_options">Criteria Options</label>
-			<label index="tx_typo3forum_domain_model_forum_criteria_options_name">Criteria Option Name</label>
-			<label index="tx_typo3forum_domain_model_forum_criteria_options_criteria">Criteria Option Relation</label>
-			<label index="tx_typo3forum_domain_model_forum_criteria_options_sorting">Sorting</label>
+			<label index="tx_typo3forum_domain_model_forum_criteria.name">Criteria Name</label>
+			<label index="tx_typo3forum_domain_model_forum_criteria.default_option">Default Option</label>
+			<label index="tx_typo3forum_domain_model_forum_criteria.options">Criteria Options</label>
+
+			<label index="tx_typo3forum_domain_model_forum_criteria_options.name">Criteria Option Name</label>
+			<label index="tx_typo3forum_domain_model_forum_criteria_options.criteria">Criteria Option Relation</label>
+			<label index="tx_typo3forum_domain_model_forum_criteria_options.sorting">Sorting</label>
 
 			<label index="tx_typo3forum_domain_model_forum_ads">Advertisements</label>
-			<label index="tx_typo3forum_domain_model_forum_ads_name">Name</label>
-			<label index="tx_typo3forum_domain_model_forum_ads_url">URL</label>
-			<label index="tx_typo3forum_domain_model_forum_ads_alt">Alt-Text</label>
-			<label index="tx_typo3forum_domain_model_forum_ads_path">Path To Image</label>
-			<label index="tx_typo3forum_domain_model_forum_ads_category">Category</label>
-			<label index="tx_typo3forum_domain_model_forum_ads_active">Active</label>
+			<label index="tx_typo3forum_domain_model_forum_ads.name">Name</label>
+			<label index="tx_typo3forum_domain_model_forum_ads.url">URL</label>
+			<label index="tx_typo3forum_domain_model_forum_ads.alt">Alt-Text</label>
+			<label index="tx_typo3forum_domain_model_forum_ads.path">Path To Image</label>
+			<label index="tx_typo3forum_domain_model_forum_ads.category">Category</label>
+			<label index="tx_typo3forum_domain_model_forum_ads.active">Active</label>
 
 			<label index="tx_typo3forum_domain_model_user_rank">User rank</label>
-			<label index="tx_typo3forum_domain_model_user_rank_name">Rank name</label>
-			<label index="tx_typo3forum_domain_model_user_rank_limit">Limit of points</label>
-			<label index="tx_typo3forum_domain_model_user_rank_userCount">User Count</label>
+			<label index="tx_typo3forum_domain_model_user_rank.name">Rank name</label>
+			<label index="tx_typo3forum_domain_model_user_rank.point_limit">Limit of points</label>
+			<label index="tx_typo3forum_domain_model_user_rank.user_count">User Count</label>
 
 			<label index="tx_typo3forum_domain_model_user_notification">User notification</label>
-			<label index="tx_typo3forum_domain_model_user_notification_feuser">User</label>
-			<label index="tx_typo3forum_domain_model_user_notification_userRead">User Read</label>
-			<label index="tx_typo3forum_domain_model_user_notification_post">Post</label>
-			<label index="tx_typo3forum_domain_model_user_notification_tag">Tag</label>
-			<label index="tx_typo3forum_domain_model_user_notification_type">Type</label>
-			<label index="tx_typo3forum_domain_model_user_notification_crdate">Cron executed timestamp</label>
+			<label index="tx_typo3forum_domain_model_user_notification.feuser">User</label>
+			<label index="tx_typo3forum_domain_model_user_notification.user_read">User Read</label>
+			<label index="tx_typo3forum_domain_model_user_notification.post">Post</label>
+			<label index="tx_typo3forum_domain_model_user_notification.tag">Tag</label>
+			<label index="tx_typo3forum_domain_model_user_notification.type">Type</label>
+			<label index="tx_typo3forum_domain_model_user_notification.crdate">Cron executed timestamp</label>
 
 			<label index="tx_typo3forum_domain_model_stats_summary">Summary Stats</label>
-			<label index="tx_typo3forum_domain_model_stats_summary_type">Type</label>
-			<label index="tx_typo3forum_domain_model_stats_summary_amount">Amount</label>
-			<label index="tx_typo3forum_domain_model_stats_summary_tstamp">Timestamp</label>
-
+			<label index="tx_typo3forum_domain_model_stats_summary.amount">Amount</label>
+			<label index="tx_typo3forum_domain_model_stats_summary.tstamp">Timestamp</label>
+			<label index="tx_typo3forum_domain_model_stats_summary.type">Type</label>
 
 			<label index="tx_typo3forum_domain_model_forum_tag">Tags</label>
-			<label index="tx_typo3forum_domain_model_forum_tag_crdate">Creation Date</label>
-			<label index="tx_typo3forum_domain_model_forum_tag_tstamp">Timestamp</label>
-			<label index="tx_typo3forum_domain_model_forum_tag_name">Name</label>
-			<label index="tx_typo3forum_domain_model_forum_tag_topicCount">Topic Count</label>
+			<label index="tx_typo3forum_domain_model_forum_tag.crdate">Creation Date</label>
+			<label index="tx_typo3forum_domain_model_forum_tag.feuser">Topic Count</label>
+			<label index="tx_typo3forum_domain_model_forum_tag.name">Name</label>
+			<label index="tx_typo3forum_domain_model_forum_tag.topicCount">Topic Count</label>
+			<label index="tx_typo3forum_domain_model_forum_tag.tstamp">Timestamp</label>
 
 			<label index="tx_typo3forum_domain_model_forum_access">Access</label>
 			<label index="tx_typo3forum_domain_model_forum_access.operation">Operation</label>
@@ -110,15 +111,15 @@
 			<label index="tx_typo3forum_domain_model_forum_access.login_level.anylogin">Any login</label>
 			<label index="tx_typo3forum_domain_model_forum_access.login_level.specific">Specific group</label>
 
-			<label index="tx_typo3forum_domain_model_user_pm">Private Messages</label>
-			<label index="tx_typo3forum_domain_model_user_pm_text">Private Messages Text</label>
-			<label index="tx_typo3forum_domain_model_user_pm_feuser">User</label>
-			<label index="tx_typo3forum_domain_model_user_pm_opponent">Opponent User</label>
-			<label index="tx_typo3forum_domain_model_user_pm_message">Message</label>
-			<label index="tx_typo3forum_domain_model_user_pm_message_text">Text</label>
-			<label index="tx_typo3forum_domain_model_user_pm_recipient_type">User Type</label>
-			<label index="tx_typo3forum_domain_model_user_pm_recipient_read">Private Read</label>
-			<label index="tx_typo3forum_domain_model_user_pm_recipient_read">User Read</label>
+			<label index="tx_typo3forum_domain_model_user_privatemessages">Private Messages</label>
+			<label index="tx_typo3forum_domain_model_user_privatemessages.feuser">User</label>
+			<label index="tx_typo3forum_domain_model_user_privatemessages.opponent">Opponent User</label>
+			<label index="tx_typo3forum_domain_model_user_privatemessages.message">Message</label>
+			<label index="tx_typo3forum_domain_model_user_privatemessages.type">User Type</label>
+			<label index="tx_typo3forum_domain_model_user_privatemessages.user_read">User Read</label>
+
+			<label index="tx_typo3forum_domain_model_user_privatemessages_text">Message</label>
+			<label index="tx_typo3forum_domain_model_user_privatemessages_text.message_text">Text</label>
 
 			<label index="tx_typo3forum_domain_model_user_userfield_userfield">Userfield</label>
 			<label index="tx_typo3forum_domain_model_user_userfield_userfield.name">Name:</label>
