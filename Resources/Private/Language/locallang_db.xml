@@ -118,8 +118,8 @@
 			<label index="tx_typo3forum_domain_model_user_privatemessages.type">User Type</label>
 			<label index="tx_typo3forum_domain_model_user_privatemessages.user_read">User Read</label>
 
-			<label index="tx_typo3forum_domain_model_user_pm_message">Message</label>
-			<label index="tx_typo3forum_domain_model_user_pm_message_text">Text</label>
+			<label index="tx_typo3forum_domain_model_user_privatemessages_text">Message</label>
+			<label index="tx_typo3forum_domain_model_user_privatemessages_text.message_text">Text</label>
 
 			<label index="tx_typo3forum_domain_model_user_userfield_userfield">Userfield</label>
 			<label index="tx_typo3forum_domain_model_user_userfield_userfield.name">Name:</label>
