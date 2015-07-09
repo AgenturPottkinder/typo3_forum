@@ -75,12 +75,12 @@
 			<label index="tx_typo3forum_domain_model_user_rank.user_count">User Count</label>
 
 			<label index="tx_typo3forum_domain_model_user_notification">User notification</label>
-			<label index="tx_typo3forum_domain_model_user_notification_feuser">User</label>
-			<label index="tx_typo3forum_domain_model_user_notification_userRead">User Read</label>
-			<label index="tx_typo3forum_domain_model_user_notification_post">Post</label>
-			<label index="tx_typo3forum_domain_model_user_notification_tag">Tag</label>
-			<label index="tx_typo3forum_domain_model_user_notification_type">Type</label>
-			<label index="tx_typo3forum_domain_model_user_notification_crdate">Cron executed timestamp</label>
+			<label index="tx_typo3forum_domain_model_user_notification.feuser">User</label>
+			<label index="tx_typo3forum_domain_model_user_notification.user_read">User Read</label>
+			<label index="tx_typo3forum_domain_model_user_notification.post">Post</label>
+			<label index="tx_typo3forum_domain_model_user_notification.tag">Tag</label>
+			<label index="tx_typo3forum_domain_model_user_notification.type">Type</label>
+			<label index="tx_typo3forum_domain_model_user_notification.crdate">Cron executed timestamp</label>
 
 			<label index="tx_typo3forum_domain_model_stats_summary">Summary Stats</label>
 			<label index="tx_typo3forum_domain_model_stats_summary_type">Type</label>
