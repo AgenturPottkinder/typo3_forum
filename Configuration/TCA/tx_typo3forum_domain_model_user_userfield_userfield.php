@@ -24,9 +24,9 @@ return [
 		'transOrigDiffSourceField' => 'l18n_diffsource',
 		'delete' => 'deleted',
 		'enablecolumns' => [
-			'disabled' => 'hidden'
+			'disabled' => 'hidden',
 		],
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/User/Userfield/Userfield.png'
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/User/Userfield/Userfield.png',
 	],
 	'interface' => [
 		'showRecordFieldList' => 'type,name,typoscript_path,map_to_user_object'
@@ -65,7 +65,7 @@ return [
 		],
 		'l18n_diffsource' => [
 			'config' => [
-				'type' => 'passthrough'
+				'type' => 'passthrough',
 			],
 		],
 		't3ver_label' => [
@@ -73,14 +73,14 @@ return [
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.versionLabel',
 			'config' => [
 				'type' => 'none',
-				'cols' => 27
+				'cols' => 27,
 			],
 		],
 		'hidden' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
 			'config' => [
-				'type' => 'check'
+				'type' => 'check',
 			],
 		],
 		'type' => [
@@ -91,7 +91,6 @@ return [
 					[$lllPath . 'type.undefined', 0],
 					[$lllPath . 'type.typoscript', '\Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield'],
 					[$lllPath . 'type.text', '\Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield'],
-
 				],
 			],
 		],
@@ -101,7 +100,7 @@ return [
 			'config' => [
 				'type' => 'input',
 				'size' => 30,
-				'eval' => 'trim,required'
+				'eval' => 'trim,required',
 			],
 		],
 		'typoscript_path' => [
@@ -110,7 +109,7 @@ return [
 			'config' => [
 				'type' => 'input',
 				'size' => 30,
-				'eval' => 'trim,required'
+				'eval' => 'trim,required',
 			],
 		],
 		'map_to_user_object' => [
@@ -120,7 +119,7 @@ return [
 				'type' => 'input',
 				'size' => 30,
 				'eval' => 'trim',
-				'checkbox' => TRUE
+				'checkbox' => TRUE,
 			],
 		],
 	],
