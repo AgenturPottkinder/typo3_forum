@@ -33,20 +33,6 @@ if (TYPO3_MODE === 'BE') {
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'typo3_forum');
 
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_typo3forum_domain_model_forum_criteria_options');
-$TCA['tx_typo3forum_domain_model_forum_criteria_options'] = [
-	'ctrl' => [
-		'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_criteria_options',
-		'label' => 'name',
-		'tstamp' => 'tstamp',
-		'delete' => 'deleted',
-		'sortby' => 'sorting',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY) . 'Resources/Public/Icons/Forum/CriteriaOption.png',
-		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/TCA/Forum/CriteriaOption.php',
-	]
-];
-
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_typo3forum_domain_model_forum_ads');
 $TCA['tx_typo3forum_domain_model_forum_ads'] = [
 	'ctrl' => [

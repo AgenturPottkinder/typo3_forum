@@ -53,12 +53,13 @@
 			<label index="tx_typo3forum_domain_model_forum_attachment.download_count">Download count</label>
 
 			<label index="tx_typo3forum_domain_model_forum_criteria">Criteria</label>
-			<label index="tx_typo3forum_domain_model_forum_criteria_name">Criteria Name</label>
-			<label index="tx_typo3forum_domain_model_forum_criteria_default_option">Default Option</label>
-			<label index="tx_typo3forum_domain_model_forum_criteria_options">Criteria Options</label>
-			<label index="tx_typo3forum_domain_model_forum_criteria_options_name">Criteria Option Name</label>
-			<label index="tx_typo3forum_domain_model_forum_criteria_options_criteria">Criteria Option Relation</label>
-			<label index="tx_typo3forum_domain_model_forum_criteria_options_sorting">Sorting</label>
+			<label index="tx_typo3forum_domain_model_forum_criteria.name">Criteria Name</label>
+			<label index="tx_typo3forum_domain_model_forum_criteria.default_option">Default Option</label>
+			<label index="tx_typo3forum_domain_model_forum_criteria.options">Criteria Options</label>
+
+			<label index="tx_typo3forum_domain_model_forum_criteria_options.name">Criteria Option Name</label>
+			<label index="tx_typo3forum_domain_model_forum_criteria_options.criteria">Criteria Option Relation</label>
+			<label index="tx_typo3forum_domain_model_forum_criteria_options.sorting">Sorting</label>
 
 			<label index="tx_typo3forum_domain_model_forum_ads">Advertisements</label>
 			<label index="tx_typo3forum_domain_model_forum_ads_name">Name</label>
