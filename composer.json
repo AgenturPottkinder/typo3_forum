@@ -7,6 +7,12 @@
 			"Mittwald\\Typo3Forum\\": "Classes"
 		}
 	},
+	"repositories": [
+        {
+            "type": "composer",
+            "url": "http://composer.typo3.org/"
+        }
+    ],
 	"require": {
 		"typo3/cms-core": "6.2.*"
 	},
