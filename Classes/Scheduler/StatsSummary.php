@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Scheduler;
+
 	/*                                                                    - *
 	 *  COPYRIGHT NOTICE                                                    *
 	 *                                                                      *
@@ -23,10 +24,12 @@ namespace Mittwald\Typo3Forum\Scheduler;
 	 *  This copyright notice MUST APPEAR in all copies of the script!      *
 	 *                                                                      */
 
+use TYPO3\CMS\Scheduler\Task\AbstractTask;
+
 /**
  * Count all Topics, Posts and Users and write result into summary table
  */
-class StatsSummary extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
+class StatsSummary extends AbstractTask {
 
 	/**
 	 * @var string
@@ -89,7 +92,9 @@ class StatsSummary extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 	 * @return bool
 	 */
 	public function execute() {
-		if ($this->getForumPids() == false || $this->getUserPids() == false || $this->getStatsPid() == false) return false;
+		if (!$this->getForumPids() || !$this->getUserPids() || !$this->getStatsPid()) {
+			return FALSE;
+		}
 		$results = [];
 
 		$query = 'SELECT COUNT(*) AS counter
