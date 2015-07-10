@@ -5,8 +5,6 @@
 	'EXT:typo3_forum/Resources/Private/Language/locallang_csh_tx_typo3forum_domain_model_user_userfield_userfield.xml'
 );
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_typo3forum_domain_model_user_userfield_userfield');
-
 $lllPath = 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_userfield.';
 
 return [
@@ -29,7 +27,7 @@ return [
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/User/Userfield/Userfield.png',
 	],
 	'interface' => [
-		'showRecordFieldList' => 'type,name,typoscript_path,map_to_user_object'
+		'showRecordFieldList' => 'type,name,typoscript_path,map_to_user_object',
 	],
 	'types' => [
 		'0' => ['showitem' => 'type,name,map_to_user_object'],
