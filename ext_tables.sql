@@ -581,7 +581,7 @@ CREATE TABLE tx_typo3forum_domain_model_user_privatemessage_text (
 
 
 #
-# Table structure for table 'x_typo3forum_domain_model_user_rank'
+# Table structure for table 'tx_typo3forum_domain_model_user_rank'
 #
 CREATE TABLE tx_typo3forum_domain_model_user_rank (
   uid int(11) unsigned NOT NULL auto_increment,

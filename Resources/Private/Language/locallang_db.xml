@@ -57,6 +57,7 @@
 			<label index="tx_typo3forum_domain_model_forum_criteria.default_option">Default Option</label>
 			<label index="tx_typo3forum_domain_model_forum_criteria.options">Criteria Options</label>
 
+			<label index="tx_typo3forum_domain_model_forum_criteria_options">Criteria Option</label>
 			<label index="tx_typo3forum_domain_model_forum_criteria_options.name">Criteria Option Name</label>
 			<label index="tx_typo3forum_domain_model_forum_criteria_options.criteria">Criteria Option Relation</label>
 			<label index="tx_typo3forum_domain_model_forum_criteria_options.sorting">Sorting</label>
@@ -111,7 +112,7 @@
 			<label index="tx_typo3forum_domain_model_forum_access.login_level.anylogin">Any login</label>
 			<label index="tx_typo3forum_domain_model_forum_access.login_level.specific">Specific group</label>
 
-			<label index="tx_typo3forum_domain_model_user_privatemessage">Private Messages</label>
+			<label index="tx_typo3forum_domain_model_user_privatemessage">Private Message</label>
 			<label index="tx_typo3forum_domain_model_user_privatemessage.feuser">User</label>
 			<label index="tx_typo3forum_domain_model_user_privatemessage.opponent">Opponent User</label>
 			<label index="tx_typo3forum_domain_model_user_privatemessage.message">Message</label>

@@ -26,7 +26,7 @@ return [
 		'enablecolumns' => [
 			'disabled' => 'hidden'
 		],
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/Forum/Access.png'
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/Forum/Access.png',
 	],
 	'interface' => [
 		'showRecordFieldList' => 'login_level,operation,negate,forum,affected_group'

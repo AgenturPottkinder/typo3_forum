@@ -11,6 +11,7 @@ return [
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
 		'delete' => 'deleted',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/User/pm.png',
 	],
 	'interface' => [
 		'showRecordFieldList' => 'message, feuser, opponent, type, user_read, crdate'

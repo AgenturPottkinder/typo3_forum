@@ -9,6 +9,7 @@ return [
 		'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_rank',
 		'label' => 'name',
 		'sortby' => 'point_limit',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/User/rank.png',
 	],
 	'interface' => [
 		'showRecordFieldList' => 'name,point_limit,user_count',
