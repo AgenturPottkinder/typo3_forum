@@ -1,7 +1,5 @@
 <?php
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_typo3forum_domain_model_user_notification');
-
 $lllPath = 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_notification.';
 
 return [
@@ -14,6 +12,7 @@ return [
 		'crdate' => 'crdate',
 		'delete' => 'deleted',
 		'sortby' => 'crdate DESC',
+		'hideTable' => TRUE,
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/User/notification.png',
 	],
 	'interface' => [
