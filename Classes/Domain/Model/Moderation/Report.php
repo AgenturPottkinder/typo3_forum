@@ -24,6 +24,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Exception\InvalidOperationException;
 use Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
@@ -55,7 +56,7 @@ class Report extends AbstractEntity {
 
 	/**
 	 * The current status of this report.
-	 * @var ReportWorkflowStatus
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus
 	 */
 	protected $workflowStatus;
 
@@ -160,7 +161,7 @@ class Report extends AbstractEntity {
 
 	/**
 	 * Returns the first comment for this report.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment The first comment.
+	 * @return ReportComment The first comment.
 	 */
 	public function getFirstComment() {
 		return array_shift($this->comments->toArray());
@@ -177,11 +178,11 @@ class Report extends AbstractEntity {
 	/**
 	 * Adds a comment to this report.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $comment A comment
+	 * @param ReportComment $comment A comment
 	 *
 	 * @return void
 	 */
-	public function addComment(\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $comment) {
+	public function addComment(ReportComment $comment) {
 		$comment->setReport($this);
 		$this->comments->attach($comment);
 	}
@@ -190,13 +191,12 @@ class Report extends AbstractEntity {
 	 * Removes a comment from this report.
 	 *
 	 * @param ReportComment $comment
-	 *
 	 * @return void
-	 * @throws \Mittwald\Typo3Forum\Domain\Exception\InvalidOperationException
+	 * @throws InvalidOperationException
 	 */
-	public function removeComment(\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment $comment) {
+	public function removeComment(ReportComment $comment) {
 		if (count($this->comments) === 1) {
-			throw new \Mittwald\Typo3Forum\Domain\Exception\InvalidOperationException('You cannot delete the last remaining comment!', 1334687977);
+			throw new InvalidOperationException('You cannot delete the last remaining comment!', 1334687977);
 		}
 		$this->comments->detach($comment);
 	}
