@@ -27,7 +27,7 @@ namespace Mittwald\Typo3Forum\Domain\Factory\User;
 use Mittwald\Typo3Forum\Domain\Factory\AbstractFactory;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Domain\Model\User\PrivateMessage;
-use Mittwald\Typo3Forum\Domain\Model\User\PrivateMessagesText;
+use Mittwald\Typo3Forum\Domain\Model\User\PrivateMessageText;
 
 class PrivateMessageFactory extends AbstractFactory {
 
@@ -37,13 +37,13 @@ class PrivateMessageFactory extends AbstractFactory {
 	 *
 	 * @param FrontendUser $opponent
 	 * @param FrontendUser $feUser
-	 * @param PrivateMessagesText $text
+	 * @param PrivateMessageText $text
 	 * @param int $type
 	 * @param int $userRead
 	 * @return PrivateMessage The new private message.
 	 *
 	 */
-	public function createPrivateMessage(FrontendUser $opponent, FrontendUser $feUser, PrivateMessagesText $text, $type, $userRead) {
+	public function createPrivateMessage(FrontendUser $opponent, FrontendUser $feUser, PrivateMessageText $text, $type, $userRead) {
 		/** @var PrivateMessage $privateMessage */
 		$privateMessage = $this->getClassInstance();
 		$privateMessage->setFeuser($feUser);

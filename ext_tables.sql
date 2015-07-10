@@ -570,9 +570,9 @@ CREATE TABLE tx_typo3forum_domain_model_user_privatemessage (
 );
 
 #
-# Table structure for table 'tx_typo3forum_domain_model_user_privatemessages_text'
+# Table structure for table 'tx_typo3forum_domain_model_user_privatemessage_text'
 #
-CREATE TABLE tx_typo3forum_domain_model_user_privatemessages_text (
+CREATE TABLE tx_typo3forum_domain_model_user_privatemessage_text (
   uid int(11) unsigned NOT NULL auto_increment,
   pid int(11) unsigned default NULL,
   message_text text NOT NULL,

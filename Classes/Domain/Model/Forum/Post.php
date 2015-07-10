@@ -71,7 +71,7 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 
 	/**
 	 * The topic.
-	 * @var Topic
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Topic
 	 */
 	protected $topic;
 

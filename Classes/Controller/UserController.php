@@ -30,7 +30,7 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Domain\Model\User\PrivateMessage;
-use Mittwald\Typo3Forum\Domain\Model\User\PrivateMessagesText;
+use Mittwald\Typo3Forum\Domain\Model\User\PrivateMessageText;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -282,8 +282,8 @@ class UserController extends AbstractController {
 		if ($user->isAnonymous()) {
 			throw new NotLoggedInException("You need to be logged in.", 1288084981);
 		}
-		/** @var PrivateMessagesText $message */
-		$message = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\User\\PrivateMessagesText');
+		/** @var PrivateMessageText $message */
+		$message = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\User\\PrivateMessageText');
 		$message->setMessageText($text);
 		$pmFeUser = $this->privateMessageFactory->createPrivateMessage($user, $recipient, $message, PrivateMessage::TYPE_SENDER, 1);
 		$pmRecipient = $this->privateMessageFactory->createPrivateMessage($recipient, $user, $message, PrivateMessage::TYPE_RECIPIENT, 0);

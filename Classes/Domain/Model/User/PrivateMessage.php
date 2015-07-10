@@ -67,7 +67,7 @@ class PrivateMessage extends AbstractEntity {
 
 	/**
 	 * The message of this pm
-	 * @var \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessagesText
+	 * @var \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessageText
 	 */
 	public $message;
 
@@ -190,7 +190,7 @@ class PrivateMessage extends AbstractEntity {
 
 	/**
 	 * Gets the message of this pm
-	 * @return PrivateMessagesText
+	 * @return PrivateMessageText
 	 */
 	public function getMessage() {
 		return $this->message;
@@ -199,9 +199,9 @@ class PrivateMessage extends AbstractEntity {
 	/**
 	 * Sets the message of this pm
 	 *
-	 * @param PrivateMessagesText $message
+	 * @param PrivateMessageText $message
 	 */
-	public function setMessage(PrivateMessagesText $message) {
+	public function setMessage(PrivateMessageText $message) {
 		$this->message = $message;
 	}
 }

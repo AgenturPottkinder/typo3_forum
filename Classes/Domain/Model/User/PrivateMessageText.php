@@ -26,7 +26,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-class PrivateMessagesText extends AbstractEntity {
+class PrivateMessageText extends AbstractEntity {
 
 	/**
 	 * The submitted text

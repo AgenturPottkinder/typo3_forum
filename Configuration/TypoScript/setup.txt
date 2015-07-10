@@ -196,9 +196,9 @@ config.tx_extbase.persistence.classes {
 		}
 	}
 
-	Mittwald\Typo3Forum\Domain\Model\User\PrivateMessagesText {
+	Mittwald\Typo3Forum\Domain\Model\User\PrivateMessageText {
 		mapping {
-			tableName = tx_typo3forum_domain_model_user_privatemessages_text
+			tableName = tx_typo3forum_domain_model_user_privatemessage_text
 			recordType = 1
 		}
 	}
