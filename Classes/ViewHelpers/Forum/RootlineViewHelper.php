@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\ViewHelpers\Forum;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -53,7 +54,7 @@ class RootlineViewHelper extends AbstractTagBasedViewHelper {
 	/**
 	 * render
 	 *
-	 * @param array      $rootline
+	 * @param array $rootline
 	 * @param bool|FALSE $reverse
 	 *
 	 * @return string
@@ -71,7 +72,7 @@ class RootlineViewHelper extends AbstractTagBasedViewHelper {
 
 		$content = '';
 		foreach ($rootline as $element) {
-			if($content == '') $content .= $this->renderMainForumNode();
+			if ($content == '') $content .= $this->renderMainForumNode();
 			$content .= $this->renderNavigationNode($element);
 		}
 		$content .= '';
@@ -92,26 +93,26 @@ class RootlineViewHelper extends AbstractTagBasedViewHelper {
 		$pluginName = 'pi1';
 		if ($object instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Forum) {
 			$controller = 'Forum';
-			$arguments  = array('forum' => $object);
-			$icon       = 'iconset-22-folder';
+			$arguments = array('forum' => $object);
+			$icon = 'iconset-22-folder';
 		} else {
 			$controller = 'Topic';
-			$arguments  = array('topic' => $object);
-			$icon       = 'iconset-22-balloon';
+			$arguments = array('topic' => $object);
+			$icon = 'iconset-22-balloon';
 		}
 		$fullTitle = htmlspecialchars($object->getTitle());
-		$limit = intval($this->settings['cutBreadcrumbOnChar']);
-		if($limit == 0 || strlen($fullTitle) < $limit) {
+		$limit = (int)$this->settings['cutBreadcrumbOnChar'];
+		if ($limit == 0 || strlen($fullTitle) < $limit) {
 			$title = $fullTitle;
 		} else {
-			$title = substr($fullTitle,0,$limit)."...";
+			$title = substr($fullTitle, 0, $limit) . "...";
 		}
 
 		$uriBuilder = $this->controllerContext->getUriBuilder();
-		$uri        = $uriBuilder->reset()->setTargetPageUid((int)$this->settings['pids']['Forum'])
+		$uri = $uriBuilder->reset()->setTargetPageUid((int)$this->settings['pids']['Forum'])
 			->uriFor('show', $arguments, $controller, $extensionName, $pluginName);
 
-		return '<li><a href="' . $uri . '" title="'.$fullTitle.'"><i class="' . $icon . '"></i>' . $title . '</a></li>';
+		return '<li><a href="' . $uri . '" title="' . $fullTitle . '"><i class="' . $icon . '"></i>' . $title . '</a></li>';
 	}
 
 	/**
@@ -124,7 +125,7 @@ class RootlineViewHelper extends AbstractTagBasedViewHelper {
 		$pluginName = 'pi1';
 		$controller = 'Forum';
 		$uriBuilder = $this->controllerContext->getUriBuilder();
-		$uri        = $uriBuilder->reset()->setTargetPageUid((int)$this->settings['pids']['Forum'])
+		$uri = $uriBuilder->reset()->setTargetPageUid((int)$this->settings['pids']['Forum'])
 			->uriFor(NULL, NULL, $controller, $extensionName, $pluginName);
 
 		return '<li><a href="' . $uri . '"><i class="iconset-22-folder"></i>Forum</a></li>';

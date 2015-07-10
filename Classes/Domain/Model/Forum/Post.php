@@ -26,8 +26,11 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 
 use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
 use Mittwald\Typo3Forum\Domain\Model\NotifiableInterface;
+use Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * A forum post. Forum posts are submitted to the access control mechanism and can be
@@ -56,7 +59,7 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	/**
 	 * The post author.
 	 *
-	 * @var FrontendUser
+	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 */
 	protected $author;
 
@@ -68,7 +71,7 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 
 	/**
 	 * The topic.
-	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Topic
+	 * @var Topic
 	 */
 	protected $topic;
 
@@ -104,8 +107,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * @param string $text The post text.
 	 */
 	public function __construct($text = '') {
-		$this->attachments = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->supporters = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->attachments = new ObjectStorage();
+		$this->supporters = new ObjectStorage();
 		$this->crdate = new \DateTime();
 		$this->text = $text;
 	}
@@ -113,8 +116,7 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	/**
 	 * Gets all users who have subscribed to this forum.
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
-	 *                             All subscribers of this forum.
+	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser> All subscribers of this forum.
 	 */
 	public function getSupporters() {
 		return $this->supporters;
@@ -157,11 +159,11 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * @return FrontendUser author
 	 */
 	public function getAuthor() {
-		if ($this->author instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+		if ($this->author instanceof LazyLoadingProxy) {
 			$this->author->_loadRealInstance();
 		}
 		if ($this->author === NULL) {
-			$this->author = new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
+			$this->author = new AnonymousFrontendUser();
 			if ($this->authorName) {
 				$this->author->setUsername($this->authorName);
 			}
@@ -186,7 +188,7 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 
 	/**
 	 * Gets the topic.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic A topic
+	 * @return Topic A topic
 	 */
 	public function getTopic() {
 		return $this->topic;
@@ -194,7 +196,7 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 
 	/**
 	 * Gets the forum.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Forum
+	 * @return Forum
 	 */
 	public function getForum() {
 		return $this->topic->getForum();
@@ -218,7 +220,7 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 
 	/**
 	 * Gets the post's attachments.
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment>
+	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment>
 	 */
 	public function getAttachments() {
 		return $this->attachments;
@@ -234,8 +236,7 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * @return boolean
 	 */
 	protected function isPropertyDirty($previousValue, $currentValue) {
-		if ($currentValue InstanceOf \Mittwald\Typo3Forum\Domain\Model\Forum\Forum || $currentValue InstanceOf \Mittwald\Typo3Forum\Domain\Model\Forum\Topic
-		) {
+		if ($currentValue InstanceOf Forum || $currentValue InstanceOf Topic) {
 			return FALSE;
 		} else {
 			return parent::isPropertyDirty($previousValue, $currentValue);
@@ -348,35 +349,33 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	/**
 	 * Sets the attachments.
 	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $attachments The attachments.
+	 * @param ObjectStorage $attachments The attachments.
 	 * @validate $attachments Tx_Typo3Forum_Domain_Validator_Forum_AttachmentValidator
 	 *
 	 * @return void
 	 */
-	public function setAttachments(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $attachments) {
+	public function setAttachments(ObjectStorage $attachments) {
 		$this->attachments = $attachments;
 	}
 
 	/**
 	 * Adds an or more attachments.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment $attachments The attachment.
-	 *
+	 * @param Attachment $attachments The attachment.
 	 * @return void
 	 */
-	public function addAttachments(\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment $attachments) {
-		/* @var \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment */
+	public function addAttachments(Attachment $attachments) {
+		/* @var Attachment */
 		$this->attachments->attach($attachments);
 	}
 
 	/**
 	 * Removes an attachment.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment $attachment The attachment.
-	 *
+	 * @param Attachment $attachment The attachment.
 	 * @return void
 	 */
-	public function removeAttachment(\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment $attachment) {
+	public function removeAttachment(Attachment $attachment) {
 		if (file_exists($attachment->getAbsoluteFilename())) {
 			unlink($attachment->getAbsoluteFilename());
 		}
@@ -387,19 +386,17 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * Determines whether this topic has been read by a certain user.
 	 *
 	 * @param FrontendUser $supporter The user who is to be checked.
-	 *
-	 * @return boolean                                           TRUE, if the user did read this topic, otherwise FALSE.
+	 * @return boolean TRUE, if the user did read this topic, otherwise FALSE.
 	 */
 	public function hasBeenSupportedByUser(FrontendUser $supporter = NULL) {
 		return $supporter ? $this->supporters->contains($supporter) : TRUE;
 	}
 
 	/**
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
-	 *
+	 * @param Topic $topic
 	 * @return void
 	 */
-	public function setTopic(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic) {
+	public function setTopic(Topic $topic) {
 		$this->topic = $topic;
 	}
 
@@ -407,7 +404,6 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * Marks this topic as read by a certain user.
 	 *
 	 * @param FrontendUser $supporter The user who read this topic.
-	 *
 	 * @return void
 	 */
 	public function addSupporter(FrontendUser $supporter) {
@@ -432,6 +428,7 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * @return void
 	 */
 	public function removeAllSupporters() {
-		$this->readers = New \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->supporters = new ObjectStorage();
 	}
+
 }

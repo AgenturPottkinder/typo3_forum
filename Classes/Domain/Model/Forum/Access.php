@@ -24,6 +24,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
 
 /**
@@ -154,14 +155,10 @@ class Access extends AbstractValueObject {
 	/**
 	 * Matches a certain user against this access rule.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
-	 *                                 The user to be matched. Can also be NULL (for anonymous
-	 *                                 users).
-	 *
-	 * @return bool                    TRUE if this access rule matches the given user, otherwise
-	 *                                 FALSE. This result may be negated using the "negate" property.
+	 * @param FrontendUser $user The user to be matched. Can also be NULL (for anonymous  users).
+	 * @return bool TRUE if this access rule matches the given user, otherwise FALSE. This result may be negated using the "negate" property.
 	 */
-	public function matches(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
+	public function matches(FrontendUser $user = NULL) {
 		$result = FALSE;
 		if ($this->loginLevel === self::LOGIN_LEVEL_EVERYONE) {
 			$result = TRUE;
@@ -172,7 +169,7 @@ class Access extends AbstractValueObject {
 		}
 
 		if ($this->loginLevel === self::LOGIN_LEVEL_SPECIFIC) {
-			if (!is_null($user)) {
+			if ($user !== NULL) {
 				foreach ($user->getUsergroup() as $group) {
 					/** @var $group \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup */
 					if ($group->getUid() === $this->affectedGroup->getUid()) {

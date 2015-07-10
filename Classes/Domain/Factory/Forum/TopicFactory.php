@@ -107,13 +107,13 @@ class TopicFactory extends AbstractFactory {
 				}
 			}
 		}
-		if (intval($subscribe) == 1) {
+		if ((int)$subscribe === 1) {
 			$topic->addSubscriber($user);
 		}
 
 		if (!$user->isAnonymous()) {
 			$user->increaseTopicCount();
-			if ($topic->getQuestion() == 1) {
+			if ($topic->getQuestion() === 1) {
 				$user->increaseQuestionCount();
 			}
 			$this->frontendUserRepository->update($user);
@@ -132,7 +132,7 @@ class TopicFactory extends AbstractFactory {
 		foreach ($topic->getPosts() as $post) {
 			/** @var $post Post */
 			$post->getAuthor()->decreasePostCount();
-			$post->getAuthor()->decreasePoints(intval($this->settings['rankScore']['newPost']));
+			$post->getAuthor()->decreasePoints((int)$this->settings['rankScore']['newPost']);
 			$this->frontendUserRepository->update($post->getAuthor());
 		}
 

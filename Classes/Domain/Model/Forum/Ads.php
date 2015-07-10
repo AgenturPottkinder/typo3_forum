@@ -93,7 +93,7 @@ class Ads extends AbstractEntity {
 	 * @return void
 	 */
 	public function setActive($active) {
-		$this->active = intval($active);
+		$this->active = (int)$active;
 	}
 
 	/**

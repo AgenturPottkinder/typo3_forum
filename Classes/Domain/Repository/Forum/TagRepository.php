@@ -69,7 +69,7 @@ class TagRepository extends Repository {
 		$query = $this->createQuery();
 		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 		$pids = $query->getQuerySettings()->getStoragePageIds();
-		$pid = intval($pids[0]);
+		$pid = (int)$pids[0];
 		$constraints = array();
 		$constraints[] = $query->like('name', "%" . $name . "%", false);
 		$constraints[] = $query->equals('pid', $pid);

@@ -200,8 +200,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * all child forums, but performs an access check on each forum, so
 	 * that only forums visible to the current user are returned.
 	 *
-	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Forum>
-	 *                             All visible child forums
+	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Forum> All visible child forums
 	 */
 	public function getChildren() {
 		if ($this->visibleChildren === NULL) {
@@ -223,8 +222,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 
 	/**
 	 * Gets all topics.
-	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Topic>
-	 *                             All topics in this forum
+	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Topic> All topics in this forum
 	 */
 	public function getTopics() {
 		return $this->topics;
@@ -238,7 +236,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	public function getCriteria() {
 		$criteriaStorage = new ObjectStorage();
 		/* @var \Mittwald\Typo3Forum\Domain\Model\Forum\Criteria $criteria */
-		$criteria = $this->getCriteriaRecursive(array($this, $criteriaStorage));
+		$criteria = $this->getCriteriaRecursive([$this, $criteriaStorage]);
 		$obj = $criteria[1];
 
 		return $obj;
@@ -348,7 +346,6 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 			/** @var $child Forum */
 			$topicCount += $child->getTopicCount();
 		}
-
 		return $topicCount;
 	}
 
@@ -363,7 +360,6 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 			/** @var $child Forum */
 			$postCount += $child->getPostCount();
 		}
-
 		return $postCount;
 	}
 
@@ -371,8 +367,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Gets all users who have subscribed to this forum.
 	 *
-	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
-	 *                             All subscribers of this forum.
+	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser> All subscribers of this forum.
 	 */
 	public function getSubscribers() {
 		return $this->subscribers;
@@ -393,7 +388,6 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * currently logged in user.
 	 *
 	 * @param FrontendUser $user The user.
-	 *
 	 * @return boolean TRUE, if all topics in this forum have been read, otherwise FALSE.
 	 */
 	public function hasBeenReadByUser(FrontendUser $user = NULL) {
@@ -409,13 +403,11 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Returns all parent forums in hiearchical order as a flat list (optionally
 	 * with or without this forum itself).
 	 *
-	 * @param boolean $withSelf TRUE to include this forum into the rootline,
-	 *                           otherwise FALSE.
-	 *
+	 * @param boolean $withSelf TRUE to include this forum into the rootline, otherwise FALSE.
 	 * @return array<\Mittwald\Typo3Forum\Domain\Model\Forum\Forum>
 	 */
 	public function getRootline($withSelf = TRUE) {
-		$rootline = $this->forum === NULL ? array() : $this->forum->getRootline(TRUE);
+		$rootline = $this->forum === NULL ? [] : $this->forum->getRootline(TRUE);
 
 		if ($withSelf === TRUE) {
 			$rootline[] = $this;
@@ -429,14 +421,10 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Performs an access check for this forum.
 	 * *INTERAL USE ONLY!*
 	 *
-	 * @access                     private
-	 *
-	 * @param FrontendUser $user                                     The user that is to be checked against the access
-	 *                                                                rules of this forum.
-	 * @param string       $accessType                               The operation
-	 *
-	 * @return boolean             TRUE, if the user has access to the requested
-	 *                             operation, otherwise FALSE.
+	 * @access private
+	 * @param FrontendUser $user The user that is to be checked against the access rules of this forum.
+	 * @param string $accessType The operation
+	 * @return boolean TRUE, if the user has access to the requested operation, otherwise FALSE.
 	 */
 	public function checkAccess(FrontendUser $user = NULL, $accessType = 'read') {
 
@@ -468,10 +456,9 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Checks if a user has read access to this forum.
 	 *
-	 * @param FrontendUser $user
-	 *                             The user that is to be checked.
+	 * @param FrontendUser $user The user that is to be checked.
 	 *
-	 * @return boolean             TRUE if the user has read access, otherwise FALSE.
+	 * @return boolean TRUE if the user has read access, otherwise FALSE.
 	 */
 	public function checkReadAccess(FrontendUser $user = NULL) {
 		return $this->checkAccess($user, 'read');
@@ -481,10 +468,9 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Checks if a user has access to create new posts in this forum.
 	 *
-	 * @param FrontendUser $user
-	 *                             The user that is to be checked.
+	 * @param FrontendUser $user The user that is to be checked.
 	 *
-	 * @return boolean             TRUE if the user has access, otherwise FALSE.
+	 * @return boolean TRUE if the user has access, otherwise FALSE.
 	 */
 	public function checkNewPostAccess(FrontendUser $user = NULL) {
 		return $this->checkAccess($user, 'newPost');
@@ -746,7 +732,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * @return void
 	 */
 	public function removeAllReaders() {
-		$this->readers = New ObjectStorage();
+		$this->readers = new ObjectStorage();
 	}
 
 

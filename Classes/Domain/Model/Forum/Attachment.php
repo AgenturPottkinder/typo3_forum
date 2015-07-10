@@ -143,7 +143,7 @@ class Attachment extends AbstractEntity {
 		if ($this->settings['attachment']['allowedSizeInByte'] == false) {
 			return 4096;
 		} else {
-			return intval($this->settings['attachment']['allowedSizeInByte']);
+			return (int)$this->settings['attachment']['allowedSizeInByte'];
 		}
 	}
 
@@ -160,10 +160,8 @@ class Attachment extends AbstractEntity {
 	 * @return string The absolute filename of this attachment.
 	 */
 	public function getAbsoluteFilename() {
-		$tca = $TCA['tx_typo3forum_domain_model_forum_attachment'];
-
+		$tca = $GLOBALS['TCA']['tx_typo3forum_domain_model_forum_attachment'];
 		$uploadPath = $tca['columns']['real_filename']['config']['uploadfolder'];
-
 		return $uploadPath . $this->getRealFilename();
 	}
 

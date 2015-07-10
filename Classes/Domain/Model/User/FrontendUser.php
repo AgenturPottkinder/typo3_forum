@@ -500,7 +500,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 * @return int
 	 */
 	public function getDateOfBirth() {
-		return intval($this->dateOfBirth);
+		return (int)$this->dateOfBirth;
 	}
 
 	/**
@@ -510,7 +510,6 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @param FrontendUser $user
 	 * @param string $accessType
-	 *
 	 * @return boolean
 	 */
 	public function checkAccess(FrontendUser $user = NULL, $accessType = 'moderate') {
@@ -588,7 +587,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 * @param bool $val
 	 */
 	public function setDisable($val) {
-		$this->disable = intval($val);
+		$this->disable = (int)$val;
 	}
 
 	/**
@@ -610,7 +609,6 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	/**
 	 * Returns the absolute path of this user's avatar image (if existent).
 	 *
-	 * @global array $TCA
 	 * @return string The absolute path of this user's avatar image (if existent).
 	 */
 	public function getImagePath() {

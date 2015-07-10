@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Scheduler;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -50,18 +51,20 @@ class SessionResetter extends AbstractTask {
 	 * @return bool
 	 */
 	public function execute() {
-		if(intval($this->getUserPid()) == 0) return false;
+		if ((int)$this->getUserPid() === 0) {
+			return FALSE;
+		}
 
-		$updateArray= array(
+		$updateArray = [
 			'tx_typo3forum_helpful_count_session' => 0,
 			'tx_typo3forum_post_count_session' => 0,
-		);
-		$query = $GLOBALS['TYPO3_DB']->UPDATEquery('fe_users','pid='.intval($this->getUserPid()),$updateArray);
+		];
+		$query = $GLOBALS['TYPO3_DB']->UPDATEquery('fe_users', 'pid=' . (int)$this->getUserPid(), $updateArray);
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
-		if($res == false) {
-			return false;
+		if (!$res) {
+			return FALSE;
 		} else {
-			return true;
+			return TRUE;
 		}
 	}
 }
