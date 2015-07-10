@@ -25,6 +25,7 @@ namespace Mittwald\Typo3Forum\Controller;
  *                                                                      */
 
 use Mittwald\Typo3Forum\Domain\Exception\AbstractException;
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Utility\Localization;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -149,9 +150,7 @@ abstract class AbstractController extends ActionController {
 	 * Gets the currently logged in frontend user. This method is only a convenience
 	 * wrapper for the findCurrent-Method of the frontend user repository class.
 	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
-	 *                             The frontend user that is currently logged in, or
-	 *                             NULL if no user is logged in.
+	 * @return FrontendUser The frontend user that is currently logged in, or NULL if no user is logged in.
 	 *
 	 */
 	protected function getCurrentUser() {

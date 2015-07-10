@@ -27,16 +27,16 @@ namespace Mittwald\Typo3Forum\Domain\Repository\User;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-class PrivateMessagesRepository extends Repository {
+class PrivateMessageRepository extends Repository {
 
 	/**
 	 * Find all messages between user X and user Y
 	 *
 	 * @param FrontendUser $userX
 	 * @param FrontendUser $userY
-	 * @param int          $limit
+	 * @param int $limit
 	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessages[]
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessage[]
 	 */
 	public function findMessagesBetweenUser(FrontendUser $userX, FrontendUser $userY, $limit = 0) {
 		$query = $this->createQuery();
@@ -55,7 +55,7 @@ class PrivateMessagesRepository extends Repository {
 				)
 			)
 		));
-		$query->setOrderings(array('crdate' => 'DESC'));
+		$query->setOrderings(['crdate' => 'DESC']);
 		if ($limit > 0) {
 			$query->setLimit($limit);
 		}
@@ -69,16 +69,16 @@ class PrivateMessagesRepository extends Repository {
 	 * @TODO: Should be overworked when default SQL functions will be added to Extbase (group by, distinct etc)
 	 *
 	 * @param FrontendUser $user
-	 * @param int          $limit
+	 * @param int $limit
 	 *
 	 * @return FrontendUser[]
 	 */
 	public function findStartedConversations(FrontendUser $user, $limit = 0) {
 		$query = $this->createQuery();
-		$constraintsX = array();
-		$constraintsY = array();
-		$userResult = array();
-		$userInArray = array();
+		$constraintsX = [];
+		$constraintsY = [];
+		$userResult = [];
+		$userInArray = [];
 		$constraintsX[] = $query->equals('feuser', $user);
 		$constraintsX[] = $query->equals('type', 0);
 		$constraintsX[] = $query->equals('opponent.disable', 0);
@@ -89,7 +89,7 @@ class PrivateMessagesRepository extends Repository {
 		if ($limit > 0) {
 			$query->setLimit($limit);
 		}
-		$query->setOrderings(array('crdate' => 'DESC'));
+		$query->setOrderings(['crdate' => 'DESC']);
 		$result = $query->execute();
 		//Parse result for the user ListBox
 		foreach ($result AS $entry) {
@@ -106,18 +106,18 @@ class PrivateMessagesRepository extends Repository {
 	 * Find all messages this user got
 	 *
 	 * @param FrontendUser $user
-	 * @param int          $limit
+	 * @param int $limit
 	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessages[]
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessage[]
 	 */
 	public function findReceivedMessagesForUser(FrontendUser $user, $limit = 0) {
 		$query = $this->createQuery();
-		$constraints = array();
+		$constraints = [];
 		$constraints[] = $query->equals('opponent', $user);
 		$constraints[] = $query->equals('type', 1);
 		$constraints[] = $query->equals('feuser.disable', 0);
 		$query->matching($query->logicalAnd($constraints));
-		$query->setOrderings(array('crdate' => 'DESC'));
+		$query->setOrderings(['crdate' => 'DESC']);
 		if ($limit > 0) {
 			$query->setLimit($limit);
 		}

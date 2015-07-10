@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Scheduler;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -78,7 +79,7 @@ class Notification extends AbstractTask {
 	 * @return int
 	 */
 	public function getLastExecutedCron() {
-		return intval($this->lastExecutedCron);
+		return (int)$this->lastExecutedCron;
 	}
 
 
@@ -86,7 +87,7 @@ class Notification extends AbstractTask {
 	 * @return int
 	 */
 	public function getExecutedOn() {
-		return intval($this->executedOn);
+		return (int)$this->executedOn;
 	}
 
 	/**
@@ -131,9 +132,9 @@ class Notification extends AbstractTask {
 	 * @return bool
 	 */
 	public function execute() {
-		if($this->getForumPids() == false || $this->getUserPids() == false) return false;
+		if ($this->getForumPids() == false || $this->getUserPids() == false) return false;
 
-		$this->setLastExecutedCron(intval($this->findLastCronExecutionDate()));
+		$this->setLastExecutedCron((int)$this->findLastCronExecutionDate());
 		$this->setExecutedOn(time());
 
 		$this->checkPostNotifications();
@@ -150,35 +151,35 @@ class Notification extends AbstractTask {
 		$query = 'SELECT t.uid
 				  FROM tx_typo3forum_domain_model_forum_topic AS t
 				  INNER JOIN tx_typo3forum_domain_model_forum_post AS p ON p.uid = t.last_post
-				  WHERE t.pid IN ('.$this->getForumPids().') AND t.deleted=0
-				  		AND p.crdate > '.$this->getLastExecutedCron().'
+				  WHERE t.pid IN (' . $this->getForumPids() . ') AND t.deleted=0
+				  		AND p.crdate > ' . $this->getLastExecutedCron() . '
 				  GROUP BY t.uid
 				  ORDER BY t.last_post DESC';
 
 		$topicRes = $GLOBALS['TYPO3_DB']->sql_query($query);
 
-		while($topicRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($topicRes)) {
+		while ($topicRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($topicRes)) {
 			$involvedUser = $this->getUserInvolvedInTopic($topicRow['uid']);
 			$query = 'SELECT uid, author
 					  FROM tx_typo3forum_domain_model_forum_post
-					  WHERE topic='.intval($topicRow['uid']).' AND crdate > '.$this->getLastExecutedCron().'
-					  	 	AND deleted=0 AND pid IN ('.$this->getForumPids().')';
+					  WHERE topic=' . (int)$topicRow['uid'] . ' AND crdate > ' . $this->getLastExecutedCron() . '
+					  	 	AND deleted=0 AND pid IN (' . $this->getForumPids() . ')';
 			$postRes = $GLOBALS['TYPO3_DB']->sql_query($query);
-			while($postRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($postRes)) {
-				foreach($involvedUser AS $user) {
-					if($user['author'] == $postRow['author']) continue;
-					if($user['firstPostOfUser'] > $postRow['uid']) continue;
+			while ($postRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($postRes)) {
+				foreach ($involvedUser AS $user) {
+					if ($user['author'] == $postRow['author']) continue;
+					if ($user['firstPostOfUser'] > $postRow['uid']) continue;
 
-					$insert = array(
-						'crdate'	=> $this->getExecutedOn(),
-						'pid'		=> $this->getNotificationPid(),
-						'feuser'	=> intval($user['author']),
-						'post'		=> intval($postRow['uid']),
-						'type'		=> '\Mittwald\Typo3Forum\Domain\Model\Forum\Post',
-						'user_read'	=> (($this->getLastExecutedCron() == 0)?1:0)
+					$insert = [
+						'crdate' => $this->getExecutedOn(),
+						'pid' => $this->getNotificationPid(),
+						'feuser' => (int)$user['author'],
+						'post' => (int)$postRow['uid'],
+						'type' => '\Mittwald\Typo3Forum\Domain\Model\Forum\Post',
+						'user_read' => (($this->getLastExecutedCron() == 0) ? 1 : 0)
 
-					);
-					$res = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_typo3forum_domain_model_user_notification',$insert);
+					];
+					$GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_typo3forum_domain_model_user_notification', $insert);
 				}
 			}
 		}
@@ -193,49 +194,48 @@ class Notification extends AbstractTask {
 				 INNER JOIN tx_typo3forum_domain_model_forum_tag_topic AS mm ON mm.uid_foreign = tg.uid
 				 INNER JOIN tx_typo3forum_domain_model_forum_topic AS t ON t.uid = mm.uid_local
 				 INNER JOIN tx_typo3forum_domain_model_forum_post AS p ON p.uid = t.last_post
-				 WHERE tg.deleted=0 AND t.deleted=0 AND tg.pid IN ('.$this->getForumPids().')
-				 	   AND p.crdate > '.$this->getLastExecutedCron().'
+				 WHERE tg.deleted=0 AND t.deleted=0 AND tg.pid IN (' . $this->getForumPids() . ')
+				 	   AND p.crdate > ' . $this->getLastExecutedCron() . '
 				 ORDER BY t.last_post DESC';
 		$tagsRes = $GLOBALS['TYPO3_DB']->sql_query($query);
 
-		while($tagsRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($tagsRes)) {
-			$subscribedTagUser = array();
+		while ($tagsRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($tagsRes)) {
+			$subscribedTagUser = [];
 			$query = 'SELECT fe.uid
 					  FROM tx_typo3forum_domain_model_forum_tag AS tg
 					  INNER JOIN tx_typo3forum_domain_model_forum_tag_user AS mm ON mm.uid_local = tg.uid
 					  INNER JOIN fe_users AS fe ON fe.uid = mm.uid_foreign
-					  WHERE tg.uid='.intval($tagsRow['tagUid']);
+					  WHERE tg.uid=' . (int)$tagsRow['tagUid'];
 			$userRes = $GLOBALS['TYPO3_DB']->sql_query($query);
-			while($userRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($userRes)) {
+			while ($userRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($userRes)) {
 				$subscribedTagUser[] = $userRow['uid'];
 			}
 
-			$posts = array();
 			$query = 'SELECT *
 						  FROM tx_typo3forum_domain_model_forum_post AS p
-						  WHERE p.topic='.intval($tagsRow['topicUid']).' AND p.deleted=0 AND p.author > 0
-						  		AND p.crdate > '.intval($this->getLastExecutedCron()).' AND pid IN ('.$this->getForumPids().')';
+						  WHERE p.topic=' . (int)$tagsRow['topicUid'] . ' AND p.deleted=0 AND p.author > 0
+						  		AND p.crdate > ' . (int)$this->getLastExecutedCron() . ' AND pid IN (' . $this->getForumPids() . ')';
 			$postRes = $GLOBALS['TYPO3_DB']->sql_query($query);
-			while($postRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($postRes)) {
-				foreach($subscribedTagUser AS $userUid) {
+			while ($postRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($postRes)) {
+				foreach ($subscribedTagUser AS $userUid) {
 
-					if($postRow['author'] == $userUid) continue;
+					if ($postRow['author'] == $userUid) continue;
 
-					$insert = array(
-						'crdate'	=> $this->getExecutedOn(),
-						'pid'		=> $this->getNotificationPid(),
-						'feuser'	=> intval($userUid),
-						'post'		=> intval($postRow['uid']),
-						'tag'		=> intval($tagsRow['tagUid']),
-						'type'		=> '\Mittwald\Typo3Forum\Domain\Model\Forum\Tag',
-						'user_read'	=> (($this->getLastExecutedCron() == 0)?1:0)
+					$insert = [
+						'crdate' => $this->getExecutedOn(),
+						'pid' => $this->getNotificationPid(),
+						'feuser' => (int)$userUid,
+						'post' => (int)$postRow['uid'],
+						'tag' => (int)$tagsRow['tagUid'],
+						'type' => '\Mittwald\Typo3Forum\Domain\Model\Forum\Tag',
+						'user_read' => (($this->getLastExecutedCron() == 0) ? 1 : 0)
 
-					);
-					$res = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_typo3forum_domain_model_user_notification',$insert);
+					];
+					$GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_typo3forum_domain_model_user_notification', $insert);
 				}
 			}
 		}
-		return true;
+		return TRUE;
 	}
 
 	/**
@@ -245,12 +245,12 @@ class Notification extends AbstractTask {
 	private function findLastCronExecutionDate() {
 		$query = 'SELECT crdate
 				  FROM tx_typo3forum_domain_model_user_notification
-				  WHERE pid ='.$this->getNotificationPid().'
+				  WHERE pid =' . $this->getNotificationPid() . '
 				  ORDER BY crdate DESC
 				  LIMIT 1';
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
-		return intval($row['crdate']);
+		return (int)$row['crdate'];
 	}
 
 	/**
@@ -259,15 +259,18 @@ class Notification extends AbstractTask {
 	 * @return array
 	 */
 	private function getUserInvolvedInTopic($topicUid) {
-		$user = array();
+		$user = [];
 		$query = 'SELECT author, uid
 				  FROM tx_typo3forum_domain_model_forum_post
-				  WHERE pid IN ('.$this->getForumPids().') AND deleted=0 AND author > 0
-				  		AND topic='.intval($topicUid).'
+				  WHERE pid IN (' . $this->getForumPids() . ') AND deleted=0 AND author > 0
+				  		AND topic=' . (int)$topicUid . '
 				  GROUP BY author';
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
-		while($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-			$user[] = array('author' => intval($row['author']), 'firstPostOfUser' => intval($row['uid']));
+		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+			$user[] = [
+				'author' => (int)$row['author'],
+				'firstPostOfUser' => (int)$row['uid'],
+			];
 		}
 		return $user;
 	}

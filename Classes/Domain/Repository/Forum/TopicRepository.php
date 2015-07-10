@@ -293,8 +293,8 @@ class TopicRepository extends AbstractRepository {
 		$sql = 'SELECT t.uid
 			   FROM tx_typo3forum_domain_model_forum_topic AS t
 			   LEFT JOIN tx_typo3forum_domain_model_user_readtopic AS rt
-					   ON rt.uid_foreign = t.uid AND rt.uid_local = ' . intval($user->getUid()) . '
-			   WHERE rt.uid_local IS NULL AND t.forum=' . intval($forum->getUid());
+					   ON rt.uid_foreign = t.uid AND rt.uid_local = ' . (int)$user->getUid() . '
+			   WHERE rt.uid_local IS NULL AND t.forum=' . (int)$forum->getUid();
 		/** @var Query $query */
 		$query = $this->createQuery();
 		$query->statement($sql);

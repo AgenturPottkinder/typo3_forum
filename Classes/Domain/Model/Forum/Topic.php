@@ -317,7 +317,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * @return integer Page count
 	 */
 	public function getPageCount() {
-		return ceil($this->postCount / intval($this->settings['pagebrowser']['topicShow']['itemsPerPage']));
+		return ceil($this->postCount / (int)$this->settings['pagebrowser']['topicShow']['itemsPerPage']);
 	}
 
 	/**
@@ -751,7 +751,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * @return void
 	 */
 	public function removeAllReaders() {
-		$this->readers = New \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->readers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 
 	/**

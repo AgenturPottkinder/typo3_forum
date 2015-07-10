@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\ViewHelpers\User;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -24,6 +25,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\User;
  *                                                                      */
 
 use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup;
 
 class LinkViewHelper extends CObjectViewHelper {
 
@@ -61,38 +63,37 @@ class LinkViewHelper extends CObjectViewHelper {
 
 		$class = 'user-link';
 
-
 		if ($this->hasArgument('class')) {
 			$class .= ' ' . $this->arguments['class'];
 		}
 
 		$fullUsername = htmlspecialchars($user->getUsername());
-		$limit = intval($this->settings['cutUsernameOnChar']);
-		if($limit == 0 || strlen($fullUsername) <= $limit) {
+		$limit = (int)$this->settings['cutUsernameOnChar'];
+		if ($limit == 0 || strlen($fullUsername) <= $limit) {
 			$username = $fullUsername;
 		} else {
-			$username = substr($fullUsername,0,$limit)."...";
+			$username = substr($fullUsername, 0, $limit) . "...";
 		}
 		$moderatorMark = "";
-		if($this->settings['moderatorMark']['image']) {
-			foreach($user->getUsergroup() AS $group) {
-				if($group->getUserMod() == 1) {
-					$moderatorMark = '<img src="'.$this->settings['moderatorMark']['image'].'"
-											title="'.$this->settings['moderatorMark']['title'].'" />';
+		if ($this->settings['moderatorMark']['image']) {
+			foreach ($user->getUsergroup() AS $group) {
+				/** @var FrontendUserGroup $group */
+				if ($group->getUserMod() === 1) {
+					$moderatorMark = '<img src="' . $this->settings['moderatorMark']['image'] . '" title="' . $this->settings['moderatorMark']['title'] . '" />';
 					break;
 				}
 			}
 		}
 
 		if ($showOnlineStatus) {
-			if($showOnline) {
+			if ($showOnline) {
 				$onlineStatus = 'user_onlinepoint iconset-8-user-online';
-			}else{
+			} else {
 				$onlineStatus = 'user_onlinepoint iconset-8-user-offline';
 			}
-			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $fullUsername.'">' . $username . ' <i class="'.$onlineStatus.'" data-uid="'.$user->getUid().'"></i> '.$moderatorMark.'</a>';
+			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $fullUsername . '">' . $username . ' <i class="' . $onlineStatus . '" data-uid="' . $user->getUid() . '"></i> ' . $moderatorMark . '</a>';
 		} else {
-			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $fullUsername . '">' . $username . ' '.$moderatorMark.'</a>';
+			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $fullUsername . '">' . $username . ' ' . $moderatorMark . '</a>';
 		}
 
 		return $link;

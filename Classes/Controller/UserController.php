@@ -29,7 +29,7 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
-use Mittwald\Typo3Forum\Domain\Model\User\PrivateMessages;
+use Mittwald\Typo3Forum\Domain\Model\User\PrivateMessage;
 use Mittwald\Typo3Forum\Domain\Model\User\PrivateMessagesText;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
@@ -44,10 +44,10 @@ class UserController extends AbstractController {
 	protected $forumRepository = NULL;
 
 	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\PrivateMessagesRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\PrivateMessageRepository
 	 * @inject
 	 */
-	protected $messageRepository = NULL;
+	protected $privateMessageRepository = NULL;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\NotificationRepository
@@ -215,20 +215,20 @@ class UserController extends AbstractController {
 	 */
 	public function listMessagesAction(FrontendUser $opponent = NULL) {
 		$user = $this->getCurrentUser();
-		if ($user->isAnonymous()) {
+		if (!$user instanceof FrontendUser || $user->isAnonymous()) {
 			throw new NotLoggedInException('You need to be logged in to view your own posts.', 1288084981);
 		}
 		/** @var \TYPO3\CMS\Extbase\Persistence\Generic\QueryResult $dialog */
 		$dialog = null;
 		$partner = 'unknown';
-		$userList = $this->messageRepository->findStartedConversations($user);
+		$userList = $this->privateMessageRepository->findStartedConversations($user);
 
 		if (!empty($userList)) {
 			if ($opponent === NULL) {
-				$dialog = $this->messageRepository->findMessagesBetweenUser($userList[0]->getFeuser(), $userList[0]->getOpponent());
+				$dialog = $this->privateMessageRepository->findMessagesBetweenUser($userList[0]->getFeuser(), $userList[0]->getOpponent());
 				$partner = $userList[0]->getOpponent();
 			} else {
-				$dialog = $this->messageRepository->findMessagesBetweenUser($user, $opponent);
+				$dialog = $this->privateMessageRepository->findMessagesBetweenUser($user, $opponent);
 				$partner = $opponent;
 			}
 
@@ -236,7 +236,7 @@ class UserController extends AbstractController {
 				if ($pm->getOpponent()->getUid() == $user->getUid()) {
 					if ($pm->getUserRead() == 1) break; // if user already read this message, the next should be already read
 					$pm->setUserRead(1);
-					$this->messageRepository->update($pm);
+					$this->privateMessageRepository->update($pm);
 				}
 			}
 		}
@@ -285,10 +285,10 @@ class UserController extends AbstractController {
 		/** @var PrivateMessagesText $message */
 		$message = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\User\\PrivateMessagesText');
 		$message->setMessageText($text);
-		$pmFeUser = $this->privateMessageFactory->createPrivateMessage($user, $recipient, $message, PrivateMessages::TYPE_SENDER, 1);
-		$pmRecipient = $this->privateMessageFactory->createPrivateMessage($recipient, $user, $message, PrivateMessages::TYPE_RECIPIENT, 0);
-		$this->messageRepository->add($pmFeUser);
-		$this->messageRepository->add($pmRecipient);
+		$pmFeUser = $this->privateMessageFactory->createPrivateMessage($user, $recipient, $message, PrivateMessage::TYPE_SENDER, 1);
+		$pmRecipient = $this->privateMessageFactory->createPrivateMessage($recipient, $user, $message, PrivateMessage::TYPE_RECIPIENT, 0);
+		$this->privateMessageRepository->add($pmFeUser);
+		$this->privateMessageRepository->add($pmRecipient);
 		$this->redirect('listMessages');
 	}
 
@@ -487,7 +487,7 @@ class UserController extends AbstractController {
 		$this->view->assignMultiple([
 			'user', $user,
 			'myNotifications', $this->notificationRepository->findNotificationsForUser($user, 6),
-			'myMessages', $this->messageRepository->findReceivedMessagesForUser($user, 6),
+			'myMessages', $this->privateMessageRepository->findReceivedMessagesForUser($user, 6),
 			'myFavorites', $this->topicRepository->findTopicsFavSubscribedByUser($user, 6),
 			'myTopics', $this->topicRepository->findTopicsCreatedByAuthor($user, 6),
 		]);

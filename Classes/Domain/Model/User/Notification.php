@@ -24,7 +24,10 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Tag;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 
 class Notification extends AbstractEntity {
 
@@ -95,14 +98,14 @@ class Notification extends AbstractEntity {
 
 	/**
 	 * Get the User who is related with this notification
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
+	 * @return FrontendUser
 	 */
 	public function getFeuser() {
-		if ($this->feuser instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+		if ($this->feuser instanceof LazyLoadingProxy) {
 			$this->feuser->_loadRealInstance();
 		}
 		if ($this->feuser === NULL) {
-			$this->feuser = new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
+			$this->feuser = new AnonymousFrontendUser();
 		}
 
 		return $this->feuser;
@@ -111,17 +114,17 @@ class Notification extends AbstractEntity {
 	/**
 	 * Sets the user
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $feuser
+	 * @param FrontendUser $feuser
 	 *
 	 * @return void
 	 */
-	public function setFeuser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $feuser) {
+	public function setFeuser(FrontendUser $feuser) {
 		$this->feuser = $feuser;
 	}
 
 	/**
 	 * Get the Post which is related with this notification
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Post
+	 * @return Post
 	 */
 	public function getPost() {
 		return $this->post;
@@ -130,17 +133,17 @@ class Notification extends AbstractEntity {
 	/**
 	 * Sets the post
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
+	 * @param Post $post
 	 *
 	 * @return void
 	 */
-	public function setPost(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
+	public function setPost(Post $post) {
 		$this->post = $post;
 	}
 
 	/**
 	 * Get the tag which is related with this notification
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag
+	 * @return Tag
 	 */
 	public function getTag() {
 		return $this->tag;
@@ -149,11 +152,11 @@ class Notification extends AbstractEntity {
 	/**
 	 * Set the tag
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag
+	 * @param Tag $tag
 	 *
 	 * @return void
 	 */
-	public function setTag(\Mittwald\Typo3Forum\Domain\Model\Forum\Tag $tag) {
+	public function setTag(Tag $tag) {
 		$this->tag = $tag;
 	}
 
@@ -162,7 +165,7 @@ class Notification extends AbstractEntity {
 	 * @return int The flag
 	 */
 	public function getUserRead() {
-		return intval($this->userRead);
+		return (int)$this->userRead;
 	}
 
 	/**

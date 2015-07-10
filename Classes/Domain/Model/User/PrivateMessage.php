@@ -27,7 +27,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 
-class PrivateMessages extends AbstractEntity {
+class PrivateMessage extends AbstractEntity {
 
 	const TYPE_SENDER = 0;
 
@@ -41,13 +41,13 @@ class PrivateMessages extends AbstractEntity {
 
 	/**
 	 * User who read this message
-	 * @var FrontendUser
+	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 */
 	public $feuser;
 
 	/**
 	 * Opponent user of this message
-	 * @var FrontendUser
+	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 */
 	public $opponent;
 
@@ -67,7 +67,7 @@ class PrivateMessages extends AbstractEntity {
 
 	/**
 	 * The message of this pm
-	 * @var PrivateMessagesText
+	 * @var \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessagesText
 	 */
 	public $message;
 
@@ -88,7 +88,6 @@ class PrivateMessages extends AbstractEntity {
 	 * Get the date this message has been sent
 	 *
 	 * @param \DateTime $crdate
-	 *
 	 * @return void
 	 */
 	public function setCrdate(\DateTime $crdate) {
@@ -107,7 +106,6 @@ class PrivateMessages extends AbstractEntity {
 	 * Get the type of this pm
 	 *
 	 * @param int $type
-	 *
 	 * @return void
 	 */
 	public function setType($type) {

@@ -265,7 +265,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	/**
 	 * The private messages of this user.
 	 *
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\PrivateMessages>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\PrivateMessage>
 	 * @lazy
 	 */
 	protected $privateMessages;
@@ -429,7 +429,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	/**
 	 * Gets the private messages of this user.
 	 *
-	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\PrivateMessages>
+	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\PrivateMessage>
 	 */
 	public function getPrivateMessages() {
 		return $this->privateMessages;
@@ -438,8 +438,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	/**
 	 * Gets the subscribed topics.
 	 *
-	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Topic>
-	 *                             The subscribed topics.
+	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Topic> The subscribed topics.
 	 */
 	public function getTopicSubscriptions() {
 		return $this->topicSubscriptions;
@@ -500,7 +499,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 * @return int
 	 */
 	public function getDateOfBirth() {
-		return intval($this->dateOfBirth);
+		return (int)$this->dateOfBirth;
 	}
 
 	/**
@@ -510,7 +509,6 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 *
 	 * @param FrontendUser $user
 	 * @param string $accessType
-	 *
 	 * @return boolean
 	 */
 	public function checkAccess(FrontendUser $user = NULL, $accessType = 'moderate') {
@@ -588,7 +586,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 * @param bool $val
 	 */
 	public function setDisable($val) {
-		$this->disable = intval($val);
+		$this->disable = (int)$val;
 	}
 
 	/**
@@ -610,7 +608,6 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	/**
 	 * Returns the absolute path of this user's avatar image (if existent).
 	 *
-	 * @global array $TCA
 	 * @return string The absolute path of this user's avatar image (if existent).
 	 */
 	public function getImagePath() {
@@ -757,18 +754,18 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	/**
 	 * Add a private message
 	 *
-	 * @param $message PrivateMessages
+	 * @param $message PrivateMessage
 	 */
-	public function addPrivateMessage(PrivateMessages $message) {
+	public function addPrivateMessage(PrivateMessage $message) {
 		$this->privateMessages->attach($message);
 	}
 
 	/**
 	 * Removes a private messages
 	 *
-	 * @param $message PrivateMessages
+	 * @param $message PrivateMessage
 	 */
-	public function removePrivateMessage(PrivateMessages $message) {
+	public function removePrivateMessage(PrivateMessage $message) {
 		$this->privateMessages->detach($message);
 	}
 

@@ -111,12 +111,12 @@
 			<label index="tx_typo3forum_domain_model_forum_access.login_level.anylogin">Any login</label>
 			<label index="tx_typo3forum_domain_model_forum_access.login_level.specific">Specific group</label>
 
-			<label index="tx_typo3forum_domain_model_user_privatemessages">Private Messages</label>
-			<label index="tx_typo3forum_domain_model_user_privatemessages.feuser">User</label>
-			<label index="tx_typo3forum_domain_model_user_privatemessages.opponent">Opponent User</label>
-			<label index="tx_typo3forum_domain_model_user_privatemessages.message">Message</label>
-			<label index="tx_typo3forum_domain_model_user_privatemessages.type">User Type</label>
-			<label index="tx_typo3forum_domain_model_user_privatemessages.user_read">User Read</label>
+			<label index="tx_typo3forum_domain_model_user_privatemessage">Private Messages</label>
+			<label index="tx_typo3forum_domain_model_user_privatemessage.feuser">User</label>
+			<label index="tx_typo3forum_domain_model_user_privatemessage.opponent">Opponent User</label>
+			<label index="tx_typo3forum_domain_model_user_privatemessage.message">Message</label>
+			<label index="tx_typo3forum_domain_model_user_privatemessage.type">User Type</label>
+			<label index="tx_typo3forum_domain_model_user_privatemessage.user_read">User Read</label>
 
 			<label index="tx_typo3forum_domain_model_user_privatemessages_text">Message</label>
 			<label index="tx_typo3forum_domain_model_user_privatemessages_text.message_text">Text</label>

@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Scheduler;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -73,50 +74,50 @@ class ForumRead extends AbstractTask {
 	 * @return bool
 	 */
 	public function execute() {
-		if($this->getForumPid() == false || $this->getUserPid() == false) return false;
+		if ($this->getForumPid() == false || $this->getUserPid() == false) return false;
 
 		$limit = 86400;
 
 		$query = 'SELECT t.forum, COUNT(*) AS topic_amount
 					  FROM tx_typo3forum_domain_model_forum_topic AS t
-					  WHERE t.pid='.intval($this->getForumPid()).'
+					  WHERE t.pid=' . (int)$this->getForumPid() . '
 					  GROUP BY t.forum';
 		$forumRes = $GLOBALS['TYPO3_DB']->sql_query($query);
-		while($forumRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($forumRes)) {
-			$query = "SELECT uid FROM tx_typo3forum_domain_model_forum_topic WHERE forum=".$forumRow['forum'];
+		while ($forumRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($forumRes)) {
+			$query = "SELECT uid FROM tx_typo3forum_domain_model_forum_topic WHERE forum=" . $forumRow['forum'];
 			$topicRes = $GLOBALS['TYPO3_DB']->sql_query($query);
 			$topics = array();
-			while($topicRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($topicRes)) {
+			while ($topicRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($topicRes)) {
 				$topics[] = $topicRow['uid'];
 			}
 
 			$query = 'SELECT fe.uid, COUNT(*) AS read_amount
 					  FROM fe_users AS fe
 					  LEFT JOIN tx_typo3forum_domain_model_user_readtopic AS rt ON rt.uid_local = fe.uid
-								AND rt.uid_foreign IN ('.implode(',',$topics).')
+								AND rt.uid_foreign IN (' . implode(',', $topics) . ')
 					  WHERE fe.disable=0 AND fe.deleted=0 AND fe.tx_extbase_type="\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser"
-						AND fe.pid='.intval($this->getUserPid()).' AND fe.lastlogin > '.(time()-$limit).'
+						AND fe.pid=' . (int)$this->getUserPid() . ' AND fe.lastlogin > ' . (time() - $limit) . '
 						GROUP BY fe.uid';
 			$userRes = $GLOBALS['TYPO3_DB']->sql_query($query);
-			while($userRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($userRes)) {
+			while ($userRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($userRes)) {
 				//First delete all entries for a user to resolve duplicate primaries
 				$query = "DELETE FROM tx_typo3forum_domain_model_user_readforum
-										WHERE uid_local=".intval($userRow['uid']).'
-											 AND uid_foreign='.intval($forumRow['forum']);
-				$res = $GLOBALS['TYPO3_DB']->sql_query($query);
+										WHERE uid_local=" . (int)$userRow['uid'] . '
+											 AND uid_foreign=' . (int)$forumRow['forum'];
+				$GLOBALS['TYPO3_DB']->sql_query($query);
 
-				if($forumRow['topic_amount'] == $userRow['read_amount']) {
+				if ($forumRow['topic_amount'] == $userRow['read_amount']) {
 					$insert = array(
-						'uid_local'	  => $userRow['uid'],
+						'uid_local' => $userRow['uid'],
 						'uid_foreign' => $forumRow['forum'],
 
 					);
-					$query = $GLOBALS['TYPO3_DB']->INSERTquery('tx_typo3forum_domain_model_user_readforum',$insert);
-					$res = $GLOBALS['TYPO3_DB']->sql_query($query);
+					$query = $GLOBALS['TYPO3_DB']->INSERTquery('tx_typo3forum_domain_model_user_readforum', $insert);
+					$GLOBALS['TYPO3_DB']->sql_query($query);
 				}
 			}
 		}
 
-		return true;
+		return TRUE;
 	}
 }
