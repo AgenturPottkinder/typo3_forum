@@ -12,6 +12,7 @@ return [
 		'crdate' => 'crdate',
 		'delete' => 'deleted',
 		'sortby' => 'crdate DESC',
+		'hideTable' => TRUE,
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/User/notification.png',
 	],
 	'interface' => [
