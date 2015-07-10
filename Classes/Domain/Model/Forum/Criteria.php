@@ -44,7 +44,7 @@ class Criteria extends AbstractEntity {
 
 	/**
 	 * The default option
-	 * @var CriteriaOption
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption
 	 */
 	protected $defaultOption;
 

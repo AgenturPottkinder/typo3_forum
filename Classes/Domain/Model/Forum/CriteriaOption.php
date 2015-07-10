@@ -30,7 +30,7 @@ class CriteriaOption extends AbstractEntity {
 
 	/**
 	 * The criteria object.
-	 * @var Criteria
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Criteria
 	 */
 	protected $criteria;
 
@@ -58,7 +58,6 @@ class CriteriaOption extends AbstractEntity {
 	 * Sets the criteria object.
 	 *
 	 * @param Criteria $criteria The criteria object
-	 *
 	 * @return void
 	 */
 	public function setCriteria(Criteria $criteria) {

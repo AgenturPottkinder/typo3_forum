@@ -25,6 +25,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *                                                                      */
 
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup;
 use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
 
 /**
@@ -155,6 +156,7 @@ class Access extends AbstractValueObject {
 	/**
 	 * Matches a certain user against this access rule.
 	 *
+	 * @throws \Exception
 	 * @param FrontendUser $user The user to be matched. Can also be NULL (for anonymous  users).
 	 * @return bool TRUE if this access rule matches the given user, otherwise FALSE. This result may be negated using the "negate" property.
 	 */
@@ -169,6 +171,9 @@ class Access extends AbstractValueObject {
 		}
 
 		if ($this->loginLevel === self::LOGIN_LEVEL_SPECIFIC) {
+			if (!$this->affectedGroup instanceof FrontendUserGroup) {
+				throw new \Exception('access record #' . $this->getUid() . ' is of login level type "specific", but has not valid affected user group', 1436527735);
+			}
 			if ($user !== NULL) {
 				foreach ($user->getUsergroup() as $group) {
 					/** @var $group \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup */
