@@ -1,9 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Repository\Forum;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Ruven Fehling <r.fehling@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,78 +24,73 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
-/**
- *
- * Repository class for forum objects.
- *
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
- * @subpackage Domain_Repository_Forum
- * @version    $Id$
- *
- * @copyright  2012 Ruven Fehling <r.fehling@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-class Tx_MmForum_Domain_Repository_Forum_TagRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
-
+class TagRepository extends Repository {
 
 
 	/**
 	 * Find all ordered by topic count
-	 * @return Tx_MmForum_Domain_Model_Forum_Tag[]
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag[]
 	 */
 	public function findAllOrderedByCounter() {
 		$query = $this->createQuery();
 		$query->setOrderings(array('topic_count' => 'DESC'));
+
 		return $query->execute();
 	}
 
 
 	/**
 	 * Find a tag with a specific name
+	 *
 	 * @param $name
-	 * @return Tx_MmForum_Domain_Model_Forum_Tag[]
+	 *
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag[]
 	 */
 	public function findTagWithSpecificName($name) {
 		$query = $this->createQuery();
-		$query->matching($query->equals('name',$name));
+		$query->matching($query->equals('name', $name));
 		$query->setLimit(1);
+
 		return $query->execute();
 	}
 
 
 	/**
 	 * Find a tag including a specific name
+	 *
 	 * @param string $name
-	 * @return Tx_MmForum_Domain_Model_Forum_Tag[]
+	 *
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag[]
 	 */
 	public function findTagLikeAName($name) {
 		$query = $this->createQuery();
 		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 		$pids = $query->getQuerySettings()->getStoragePageIds();
-		$pid = intval($pids[0]);
+		$pid = (int)$pids[0];
 		$constraints = array();
-		$constraints[] = $query->like('name',"%".$name."%",false);
-		$constraints[] = $query->equals('pid',$pid);
+		$constraints[] = $query->like('name', "%" . $name . "%", false);
+		$constraints[] = $query->equals('pid', $pid);
 
 		$query->matching($query->logicalAnd($constraints));
+
 		return $query->execute();
 	}
 
 	/**
 	 * Find all tags of a specific user
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 * @return Tx_MmForum_Domain_Model_Forum_Tag[]
+	 *
+	 * @param FrontendUser $user
+	 *
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag[]
 	 */
-	public function findTagsOfUser(Tx_MmForum_Domain_Model_User_FrontendUser $user) {
+	public function findTagsOfUser(FrontendUser $user) {
 		$query = $this->createQuery();
-		$query->matching($query->equals('feuser.uid',$user));
+		$query->matching($query->equals('feuser.uid', $user));
 		$query->setOrderings(array('name' => 'ASC'));
+
 		return $query->execute();
 	}
 

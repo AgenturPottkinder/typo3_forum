@@ -1,9 +1,9 @@
 <?php
-
+namespace Mittwald\Typo3Forum\ViewHelpers\Moderation;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <typo3@martin-helmich.de>                   *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,73 +23,47 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 
-
-/**
- *
- * ViewHelper that renders a forum icon.
- *
- * @author     Martin Helmich <typo3@martin-helmich.de>
- * @package    MmForum
- * @subpackage ViewHelpers_Forum
- * @version    $Id: ForumIconViewHelper.php 52309 2011-09-20 18:54:26Z mhelmich $
- *
- * @copyright  2012 Martin Helmich <typo3@martin-helmich.de>
- *             http://www.martin-helmich.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-class Tx_MmForum_ViewHelpers_Moderation_ReportIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
-
-
+class ReportIconViewHelper extends CObjectViewHelper {
 
 	/**
-	 *
 	 * Initializes the view helper arguments.
 	 * @return void
-	 *
 	 */
 	public function initializeArguments() {
 
 	}
 
-
-
 	/**
 	 *
 	 * Renders the report icon.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Moderation_Report $report
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report
 	 *                                                               The report for which the icon is to be rendered.
-	 * @param  integer                                   $width      Image width
-	 * @param  string                                    $alt        Alt text
+	 * @param integer                                   $width      Image width
+	 * @param string                                    $alt        Alt text
 	 * @return string             The rendered icon.
 	 *
 	 */
-	public function render(Tx_MmForum_Domain_Model_Moderation_Report $report = NULL, $width = NULL, $alt = "") {
-		return parent::render('plugin.tx_mmforum.renderer.icons.report', $this->getDataArray($report));
+	public function render(\Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report = NULL, $width = NULL, $alt = "") {
+		return parent::render('plugin.tx_typo3forum.renderer.icons.report', $this->getDataArray($report));
 	}
-
-
 
 	/**
 	 *
 	 * Generates a data array that will be passed to the typoscript object for
 	 * rendering the icon.
-	 * @param  Tx_MmForum_Domain_Model_Moderation_Report $report
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report
 	 *                             The report for which the icon is to be displayed.
 	 * @return array               The data array for the typoscript object.
 	 *
 	 */
-	protected function getDataArray(Tx_MmForum_Domain_Model_Moderation_Report $report = NULL) {
+	protected function getDataArray(\Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report = NULL) {
 		if ($report === NULL) {
 			return array();
 		} else {
 			return array('statusIcon' => $report->getWorkflowStatus()->getIconFullpath());
 		}
 	}
-
-
-
 }

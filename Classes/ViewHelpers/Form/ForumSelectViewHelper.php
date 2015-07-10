@@ -1,10 +1,9 @@
 <?php
-
+namespace Mittwald\Typo3Forum\ViewHelpers\Form;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,63 +23,20 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper;
 
 /**
- *
  * ViewHelper that renders a selectbox with a hierarchical list of all forums.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage ViewHelpers_Form
- * @version    $Id$
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
 
-Class Tx_MmForum_ViewHelpers_Form_ForumSelectViewHelper Extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper {
-
-
-
-	/*
-		  * ATTRIBUTES
-		  */
-
-
+class ForumSelectViewHelper extends SelectViewHelper {
 
 	/**
 	 * The forum repository.
-	 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
+	 * @inject
 	 */
 	protected $forumRepository = NULL;
-
-
-
-	/*
-		  * INITIALIZATION
-		  */
-
-
-
-	/**
-	 *
-	 * Injects a forum repository.
-	 * @param  Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository
-	 *                             A forum repository.
-	 * @return void
-	 *
-	 */
-
-	public function injectForumRepository(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository) {
-		$this->forumRepository = $forumRepository;
-	}
-
-
 
 	/**
 	 *
@@ -88,8 +44,7 @@ Class Tx_MmForum_ViewHelpers_Form_ForumSelectViewHelper Extends \TYPO3\CMS\Fluid
 	 * @return void
 	 *
 	 */
-
-	Public Function initializeArguments() {
+	public function initializeArguments() {
 		\TYPO3\CMS\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper::initializeArguments();
 		$this->registerUniversalTagAttributes();
 		$this->registerTagAttribute('multiple', 'string', 'if set, multiple select field');
@@ -100,22 +55,13 @@ Class Tx_MmForum_ViewHelpers_Form_ForumSelectViewHelper Extends \TYPO3\CMS\Fluid
 		                        FALSE, 'f3-form-error');
 	}
 
-
-
-	/*
-		  * RENDERING METHODS
-		  */
-
-
-
 	/**
 	 *
 	 * Loads the option rows for this select field.
 	 * @return array All option rows.
 	 *
 	 */
-
-	Protected Function getOptions() {
+	protected function getOptions() {
 		$rootForums = $this->forumRepository->findRootForums();
 		$values     = array();
 
@@ -125,21 +71,18 @@ Class Tx_MmForum_ViewHelpers_Form_ForumSelectViewHelper Extends \TYPO3\CMS\Fluid
 		Return $values;
 	}
 
-
-
 	/**
 	 *
 	 * Recursively generates option rows for a forum and each subforum of this forum.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
 	 *                                                         The forum for which to generate the option row.
-	 * @param  boolean                             $isRoot     TRUE, if the forum is a root category, otherwise
+	 * @param boolean                             $isRoot     TRUE, if the forum is a root category, otherwise
 	 *                                                         FALSE.
 	 * @return array               An option row for the specified forum.
 	 *
 	 */
-
-	Protected Function getForumOptionRow(Tx_MmForum_Domain_Model_Forum_Forum $forum, $isRoot = FALSE) {
+	protected function getForumOptionRow(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum, $isRoot = FALSE) {
 		$result = Array('name'      => $forum->getTitle(),
 		                'uid'       => $forum->getUid(),
 		                '_isRoot'   => $isRoot,
@@ -150,27 +93,24 @@ Class Tx_MmForum_ViewHelpers_Form_ForumSelectViewHelper Extends \TYPO3\CMS\Fluid
 		Return $result;
 	}
 
-
-
 	/**
 	 *
 	 * Recursively renders all option tags.
 	 *
-	 * @param    array $options      All option rows.
-	 * @param  integer $nestingLevel The current nesting level. Required for correct
+	 * @param   array $options      All option rows.
+	 * @param integer $nestingLevel The current nesting level. Required for correct
 	 *                               formatting.
-	 * @return  string
+	 * @return string
 	 *
 	 */
-
-	Protected Function renderOptionTags($options, $nestingLevel = 1) {
+	protected function renderOptionTags($options, $nestingLevel = 1) {
 		$content = '';
-		ForEach ($options As $option) {
-			If ($option['_isRoot']) {
+		foreach ($options as $option) {
+			if ($option['_isRoot']) {
 				$content .= '<optgroup label="' . htmlspecialchars($option['name']) . '">' . chr(10);
 				$content .= $this->renderOptionTags($option['_children'], $nestingLevel + 1);
 				$content .= '</optgroup>';
-			} Else {
+			} else {
 				$isSelected = $this->isSelected($option['uid']);
 				$indent     = ($nestingLevel - 1) * 20;
 				$style      = 'padding-left: ' . $indent . 'px;';
@@ -178,9 +118,6 @@ Class Tx_MmForum_ViewHelpers_Form_ForumSelectViewHelper Extends \TYPO3\CMS\Fluid
 				$content .= $this->renderOptionTags($option['_children'], $nestingLevel + 1);
 			}
 		}
-		Return $content;
+		return $content;
 	}
-
 }
-
-?>

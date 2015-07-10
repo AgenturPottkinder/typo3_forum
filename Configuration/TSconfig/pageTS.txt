@@ -1,0 +1,3 @@
+mod.web_list {
+	deniedNewTables := addToList(tx_typo3forum_domain_model_forum_access,tx_typo3forum_domain_model_forum_attachment,tx_typo3forum_domain_model_moderation_reportcomment,tx_typo3forum_domain_model_user_privatemessage_text)
+}

@@ -1,10 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Model\User\Userfield;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,88 +24,51 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
 
 /**
- *
  * A userfield value. This class models an association between userfields,
  * users and a specific userfield value.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage Domain_Model_User_Userfield
- * @version    $Id$
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-
-Class Tx_MmForum_Domain_Model_User_Userfield_Value Extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
-
-
-
-	/*
-		  * ATTRIBUTES
-		  */
-
-
+class Value extends AbstractValueObject {
 
 	/**
 	 * The userfield.
-	 * @var Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield
+	 * @var \Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield
 	 */
-	Protected $userfield;
-
+	protected $userfield;
 
 	/**
 	 * The user.
-	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 */
-	Protected $user;
-
+	protected $user;
 
 	/**
 	 * The value.
 	 * @var string
 	 */
-	Protected $value;
-
-
-
-	/*
-		  * GETTER METHODS
-		  */
-
-
+	protected $value;
 
 	/**
 	 *
 	 * Gets the userfield.
-	 * @return Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield The userfield.
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield The userfield.
 	 *
 	 */
-
-	Public Function getUserfield() {
-		Return $this->userfield;
+	public function getUserfield() {
+		return $this->userfield;
 	}
-
-
 
 	/**
 	 *
 	 * Gets the user.
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser The user
+	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser The user
 	 *
 	 */
-	Public Function getUser() {
-		Return $this->user;
+	public function getUser() {
+		return $this->user;
 	}
-
-
 
 	/**
 	 *
@@ -113,11 +76,7 @@ Class Tx_MmForum_Domain_Model_User_Userfield_Value Extends \TYPO3\CMS\Extbase\Do
 	 * @return string The value
 	 *
 	 */
-
-	Public Function getValue() {
-		Return $this->value;
+	public function getValue() {
+		return $this->value;
 	}
-
 }
-
-?>

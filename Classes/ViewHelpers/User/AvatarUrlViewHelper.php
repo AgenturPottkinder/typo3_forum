@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\ViewHelpers\User;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -24,52 +24,19 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
-
+use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 
 /**
- *
  * ViewHelper that renders a user's avatar.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage ViewHelpers_User
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class Tx_MmForum_ViewHelpers_User_AvatarUrlViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
-
-
+class AvatarUrlViewHelper extends CObjectViewHelper {
 
 	/**
 	 * An instance of the Extbase Signal-/Slot-Dispatcher.
 	 * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
+	 * @inject
 	 */
 	protected $slots;
-
-
-
-	/**
-	 *
-	 * Injector for the Signal-/Slot-Dispatcher.
-	 *
-	 * @param \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher
-	 *                                 An instance of the Extbase Signal-/Slot-
-	 *                                 Dispatcher.
-	 * @return void
-	 *
-	 */
-	public function injectSignalSlotDispatcher(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher) {
-		$this->slots = $signalSlotDispatcher;
-	}
-
-
 
 	/**
 	 *
@@ -80,23 +47,14 @@ class Tx_MmForum_ViewHelpers_User_AvatarUrlViewHelper extends \TYPO3\CMS\Fluid\V
 		parent::initializeArguments();
 	}
 
-
-
 	/**
-	 *
 	 * Renders the avatar.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 *                                                               The user whose avatar is to be rendered.
-	 * @param  integer                                   $width      The desired avatar width
-	 * @param  integer                                   $height     The desired avatar height
-	 * @param  integer                                   $minWidth      The desired avatar width
-	 * @param  integer                                   $minHeight     The desired avatar height
-	 * @param  boolean								     $returnURL     if true just return image URL
-	 * @return string              HTML content or URL
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser|NULL $user
 	 *
+	 * @return null|string
 	 */
-	public function render(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL ) {
+	public function render(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL ) {
 		// if user ist not set
 		$avatarFilename = NULL;
 
@@ -105,12 +63,9 @@ class Tx_MmForum_ViewHelpers_User_AvatarUrlViewHelper extends \TYPO3\CMS\Fluid\V
 		}
 
 		if ($avatarFilename === NULL) {
-			$avatarFilename = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('mm_forum') . 'Resources/Public/Images/Icons/AvatarEmpty.png';
+			$avatarFilename = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('typo3_forum') . 'Resources/Public/Images/Icons/AvatarEmpty.png';
 		}
 		return $avatarFilename ;
 
 	}
-
-
-
 }

@@ -1,9 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Model\User;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Ruven Fehling <r.fehling@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,23 +24,9 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-/**
- *
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
- * @subpackage Domain_Model_User
- * @version    $Id$
- * @license    GNU public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
-
- */
-
-class Tx_MmForum_Domain_Model_User_Rank extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
-
-	/**
-	 * ATTRIBUTES
-	 */
+class Rank extends AbstractEntity {
 
 	/**
 	 * The name of this rank
@@ -60,15 +47,22 @@ class Tx_MmForum_Domain_Model_User_Rank extends \TYPO3\CMS\Extbase\DomainObject\
 	public $userCount;
 
 	/**
-	 * GETTER
-	 */
-
-	/**
 	 * Get the name of this rank
 	 * @return string
 	 */
 	public function getName() {
 		return $this->name;
+	}
+
+	/**
+	 * Set the name of this rank
+	 *
+	 * @param string $name
+	 *
+	 * @return void
+	 */
+	public function setName($name) {
+		$this->name = $name;
 	}
 
 	/**
@@ -79,6 +73,16 @@ class Tx_MmForum_Domain_Model_User_Rank extends \TYPO3\CMS\Extbase\DomainObject\
 		return $this->pointLimit;
 	}
 
+	/**
+	 * Set the limit of this rank
+	 *
+	 * @param int $pointLimit
+	 *
+	 * @return void
+	 */
+	public function setPointLimit($pointLimit) {
+		$this->pointLimit = $pointLimit;
+	}
 
 	/**
 	 * Get the amount of users of this rank
@@ -87,30 +91,6 @@ class Tx_MmForum_Domain_Model_User_Rank extends \TYPO3\CMS\Extbase\DomainObject\
 	public function getUserCount() {
 		return $this->userCount;
 	}
-
-
-	/**
-	 * SETTER
-	 */
-
-	/**
-	 * Set the name of this rank
-	 * @param string $name
-	 * @return void
-	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
-
-	/**
-	 * Set the limit of this rank
-	 * @param int $pointLimit
-	 * @return void
-	 */
-	public function setPointLimit($pointLimit) {
-		$this->pointLimit = $pointLimit;
-	}
-
 
 	/**
 	 * Set the counter of user count +1

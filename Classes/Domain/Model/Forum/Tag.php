@@ -1,9 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Model\Forum;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Ruven Fehling <r.fehling@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,20 +24,10 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-/**
- *
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
- * @subpackage Domain_Model_Forum
- * @version    $Id$
- * @license    GNU public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
-
- */
-
-class Tx_MmForum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
-
+class Tag extends AbstractEntity {
 
 	/**
 	 * Tame of a tag
@@ -46,14 +37,13 @@ class Tx_MmForum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObject\
 
 	/**
 	 * Timestamp of this tag
-	 * @var DateTime
+	 * @var \DateTime
 	 */
 	protected $tstamp;
 
-
 	/**
 	 * Crdate of this tag
-	 * @var DateTime
+	 * @var \DateTime
 	 */
 	protected $crdate;
 
@@ -66,15 +56,9 @@ class Tx_MmForum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObject\
 
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
 	 */
 	protected $feuser;
-
-
-
-	/*
-	  * CONSTRUCTOR
-	  */
 
 	/**
 	 * Creates a new Tag.
@@ -82,10 +66,6 @@ class Tx_MmForum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObject\
 	public function __construct() {
 		$this->feuser = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
-
-
-
-
 
 	/**
 	 * Get the name of this tag
@@ -95,24 +75,21 @@ class Tx_MmForum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObject\
 		return $this->name;
 	}
 
-
 	/**
 	 * Get the timestamp of this tag
-	 * @return DateTime
+	 * @return \DateTime
 	 */
 	public function getTstamp() {
 		return $this->tstamp;
 	}
 
-
 	/**
 	 * Get the crdate of this tag
-	 * @return DateTime
+	 * @return \DateTime
 	 */
 	public function getCrdate() {
 		return $this->crdate;
 	}
-
 
 	/**
 	 * Get the amount of topics which are using this tag
@@ -122,15 +99,12 @@ class Tx_MmForum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObject\
 		return $this->topicCount;
 	}
 
-
 	/**
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
 	 */
 	public function getFeuser() {
 		return $this->feuser;
 	}
-
-
 
 	/**
 	 * @param string $name
@@ -140,7 +114,7 @@ class Tx_MmForum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObject\
 	}
 
 	/**
-	 * @param DateTime $crdate
+	 * @param \DateTime $crdate
 	 */
 	public function setCrdate($crdate) {
 		$this->crdate = $crdate;
@@ -162,25 +136,21 @@ class Tx_MmForum_Domain_Model_Forum_Tag extends \TYPO3\CMS\Extbase\DomainObject\
 		$this->topicCount--;
 	}
 
-
 	/**
 	 * Add a user to this tag
-	 * @param $feuser Tx_MmForum_Domain_Model_User_FrontendUser
+	 *
+	 * @param $feuser FrontendUser
 	 */
-	public function addFeuser(Tx_MmForum_Domain_Model_User_FrontendUser $feuser) {
+	public function addFeuser(FrontendUser $feuser) {
 		$this->feuser->attach($feuser);
 	}
 
 	/**
 	 * Removes a user from this tag
-	 * @param $feuser Tx_MmForum_Domain_Model_User_FrontendUser
+	 *
+	 * @param $feuser FrontendUser
 	 */
-	public function removeFeuser(Tx_MmForum_Domain_Model_User_FrontendUser $feuser) {
+	public function removeFeuser(FrontendUser $feuser) {
 		$this->feuser->detach($feuser);
 	}
-
-
-
-
-
 }

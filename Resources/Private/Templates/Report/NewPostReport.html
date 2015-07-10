@@ -1,5 +1,5 @@
-{namespace mmf=Tx_MmForum_ViewHelpers}
-{namespace b=Tx_MmForum_ViewHelpers_Bootstrap}
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
+{namespace b=Mittwald\Typo3Forum\ViewHelpers\Bootstrap}
 <f:layout name="default" />
 
 
@@ -27,7 +27,7 @@
 				</div>
 			</b:form.row>
 			<b:form.row llLabel="Report_New_Reason" error="firstComment.text" errorLLPrefix="Report_New_Error_Reason">
-				<mmf:form.bbCodeEditor class="tx-mmforum-editor" property="text" id="mmforum_editor" rows="5" cols="80" class="span8" />
+				<mmf:form.bbCodeEditor class="tx-typo3forum-editor" property="text" id="typo3forum_editor" rows="5" cols="80" class="span8" />
 			</b:form.row>
 			<div class="form-actions">
 				<f:form.hidden name="post" value="{post}" />

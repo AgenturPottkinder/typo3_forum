@@ -1,10 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Repository;
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,14 +24,15 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
  *
- * Abstract base class for all mm_forum repositories.
+ * Abstract base class for all typo3_forum repositories.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Repository_User
  * @version    $Id$
  *
@@ -42,23 +43,20 @@
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class Tx_MmForum_Domain_Repository_AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
-
-
+abstract class AbstractRepository extends Repository {
 
 	/**
-	 * @return Tx_Extbase_Persistence_QueryInterface
+	 * @return QueryInterface
 	 */
 	protected function createQueryWithFallbackStoragePage() {
 		$query = $this->createQuery();
 
-		$storagePageIds   = $query->getQuerySettings()->getStoragePageIds();
+		$storagePageIds = $query->getQuerySettings()->getStoragePageIds();
 		$storagePageIds[] = 0;
 
 		$query->getQuerySettings()->setStoragePageIds($storagePageIds);
+
 		return $query;
 	}
-
-
 
 }

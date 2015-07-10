@@ -1,9 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Service;
 
-/*                                                                    - *
+/*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2011 domainfactory GmbH (Stefan Galinski <sgalinski@df.eu>      *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,16 +24,14 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Extbase\Core\Bootstrap;
+use TYPO3\CMS\Extbase\Service\ExtensionService;
 
 
 /**
  * Utility class to simplify the execution of extbase actions from external sources (e.g. from Ext.Direct)
- *
- * @author  Stefan Galinski <sgalinski@df.eu>
- * @package df_tools
  */
-class Tx_MmForum_Service_ExtBaseConnectorService extends \TYPO3\CMS\Extbase\Core\Bootstrap {
-
+class ExtBaseConnectorService extends Bootstrap {
 
 
 	/**
@@ -43,7 +42,6 @@ class Tx_MmForum_Service_ExtBaseConnectorService extends \TYPO3\CMS\Extbase\Core
 	protected $extensionKey;
 
 
-
 	/**
 	 * Module Key
 	 *
@@ -52,14 +50,12 @@ class Tx_MmForum_Service_ExtBaseConnectorService extends \TYPO3\CMS\Extbase\Core
 	protected $moduleOrPluginKey;
 
 
-
 	/**
 	 * Parameters
 	 *
 	 * @var array
 	 */
 	protected $parameters;
-
 
 
 	/**
@@ -74,7 +70,6 @@ class Tx_MmForum_Service_ExtBaseConnectorService extends \TYPO3\CMS\Extbase\Core
 	}
 
 
-
 	/**
 	 * Setter for the module or plugin key
 	 *
@@ -85,7 +80,6 @@ class Tx_MmForum_Service_ExtBaseConnectorService extends \TYPO3\CMS\Extbase\Core
 	public function setModuleOrPluginKey($moduleOrPluginKey) {
 		$this->moduleOrPluginKey = $moduleOrPluginKey;
 	}
-
 
 
 	/**
@@ -100,33 +94,32 @@ class Tx_MmForum_Service_ExtBaseConnectorService extends \TYPO3\CMS\Extbase\Core
 	}
 
 
-
 	/**
 	 * Runs the given ExtBase configuration and returns the result
 	 *
 	 * @param string $controller
 	 * @param string $action
 	 *
-	 * @throws InvalidArgumentException
+	 * @throws \InvalidArgumentException
 	 * @return array
 	 */
 	public function runControllerAction($controller, $action) {
 		if ($controller === '' || $action === '') {
-			throw new InvalidArgumentException('Invalid Controller/Action Combination!');
+			throw new \InvalidArgumentException('Invalid Controller/Action Combination!');
 		}
 
-		$configuration = array('extensionName'               => $this->extensionKey,
-		                       'pluginName'                  => $this->moduleOrPluginKey,
-		                       'switchableControllerActions' => array($controller => array($action)),);
+		$configuration = array('extensionName' => $this->extensionKey,
+			'pluginName' => $this->moduleOrPluginKey,
+			'switchableControllerActions' => array($controller => array($action)),);
 
 		$this->initialize($configuration);
 
-		/** @var $extensionService Tx_Extbase_Service_ExtensionService */
-		$extensionService   = $this->objectManager->get('Tx_Extbase_Service_ExtensionService');
+		/** @var $extensionService ExtensionService */
+		$extensionService = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Service\\ExtensionService');
 		$parameterNamespace = $extensionService->getPluginNamespace($this->extensionKey, $this->moduleOrPluginKey);
 
 		if (is_array($this->parameters)) {
-			$_POST[$parameterNamespace]           = $this->parameters;
+			$_POST[$parameterNamespace] = $this->parameters;
 			$_POST[$parameterNamespace]['format'] = 'json';
 		}
 
@@ -134,7 +127,6 @@ class Tx_MmForum_Service_ExtBaseConnectorService extends \TYPO3\CMS\Extbase\Core
 
 		return $content;
 	}
-
 
 
 }

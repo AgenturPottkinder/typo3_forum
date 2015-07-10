@@ -1,10 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,33 +24,12 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
 
 /**
- *
  * A report workflow status.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage Domain_Model_Moderation
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
-
-
-
-	/*
-	 * ATTRIBUTES
-	 */
-
-
+class ReportWorkflowStatus extends AbstractValueObject {
 
 	/**
 	 * The name.
@@ -58,13 +37,11 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends \TYPO3\CMS
 	 */
 	protected $name;
 
-
 	/**
 	 * A list of allowed follow-up status.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus>
 	 */
 	protected $followupStatus;
-
 
 	/**
 	 * Defines whether this status shall be used as initial status for new reports.
@@ -72,13 +49,11 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends \TYPO3\CMS
 	 */
 	protected $initial;
 
-
 	/**
 	 * Defines whether this status marks a final status of a report.
 	 * @var boolean
 	 */
 	protected $final = FALSE;
-
 
 	/**
 	 * An icon filename.
@@ -86,34 +61,19 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends \TYPO3\CMS
 	 */
 	protected $icon;
 
-
-
-	/*
-	 * CONSTRUCTOR
-	 */
-
-
-
 	/**
 	 * Constructor.
+	 *
 	 * @param string  $name    The status name
 	 * @param boolean $initial TRUE to mark this status as initial status.
 	 * @param boolean $final   TRUE to mark this status as final status.
 	 */
 	public function __construct($name = NULL, $initial = NULL, $final = NULL) {
 		$this->followupStatus = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->name           = $name;
-		$this->initial        = $initial;
-		$this->final          = $final;
+		$this->name = $name;
+		$this->initial = $initial;
+		$this->final = $final;
 	}
-
-
-
-	/*
-	  * GETTERS
-	  */
-
-
 
 	/**
 	 * Gets the status name.
@@ -123,32 +83,27 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends \TYPO3\CMS
 		return $this->name;
 	}
 
-
-
 	/**
 	 * Gets the allowed follow-up status.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus>
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus>
 	 *                             The allowed follow-up status.
 	 */
 	public function getFollowupStatus() {
 		return $this->followupStatus;
 	}
 
-
-
 	/**
 	 * Determines if a workflow status is an allowed follow-up status for this status.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $status
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $status
 	 *                             The status that is to be checked.
+	 *
 	 * @return boolean             TRUE, if $status is a valid follow-up status,
 	 *                             otherwise FALSE.
 	 */
-	public function hasFollowupStatus(Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $status) {
+	public function hasFollowupStatus(\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $status) {
 		return $this->followupStatus->contains($status);
 	}
-
-
 
 	/**
 	 * Determines if this status is the initial status for newly created reports.
@@ -159,8 +114,6 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends \TYPO3\CMS
 		return $this->initial;
 	}
 
-
-
 	/**
 	 * Determines if this status is a final status for edited reports.
 	 * @return boolean TRUE, if this status is a final status for edited reports, otherwise FALSE.
@@ -168,8 +121,6 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends \TYPO3\CMS
 	public function isFinal() {
 		return $this->final;
 	}
-
-
 
 	/**
 	 * Return the icon filename.
@@ -179,14 +130,12 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends \TYPO3\CMS
 		return $this->icon;
 	}
 
-
-
 	/**
 	 * Returns the site relative path of this status' icon. This method first
-	 * looks in the configured upload directory (uploads/tx_mmforum/workflowstatus
+	 * looks in the configured upload directory (uploads/tx_typo3forum/workflowstatus
 	 * by default) and the extensions' Resources/Public directory as fallback.
 	 *
-	 * @global type $TCA
+	 * @global array $TCA
 	 * @return string The site relative path of this status' icon.
 	 */
 	public function getIconFullpath() {
@@ -196,32 +145,22 @@ class Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus extends \TYPO3\CMS
 		global $TCA;
 
 		$imageDirectoryName = $TCA[strtolower(__CLASS__)]['columns']['icon']['config']['uploadfolder'];
-		$imageFilename      = rtrim($imageDirectoryName, '/') . '/' . $this->icon;
+		$imageFilename = rtrim($imageDirectoryName, '/') . '/' . $this->icon;
 
 		if (!file_exists(PATH_site . '/' . $imageFilename)) {
-			$imageDirectoryName = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('mm_forum') . 'Resources/Public/Images/Icons/Moderation';
-			$imageFilename      = "$imageDirectoryName/{$this->icon}";
+			$imageDirectoryName = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('typo3_forum') . 'Resources/Public/Images/Icons/Moderation';
+			$imageFilename = "$imageDirectoryName/{$this->icon}";
 		}
 
 		return file_exists(PATH_site . '/' . $imageFilename) ? $imageFilename : NULL;
 	}
 
-
-
-	/*
-	 * SETTERS
-	 */
-
-
-
 	/**
 	 * Adds an additional allowed followup status.
-	 * @param Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $followupStatus
+	 *
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $followupStatus
 	 */
-	public function addAllowedFollowupStatus(Tx_MmForum_Domain_Model_Moderation_ReportWorkflowStatus $followupStatus) {
+	public function addAllowedFollowupStatus(\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus $followupStatus) {
 		$this->followupStatus->attach($followupStatus);
 	}
-
-
-
 }

@@ -1,10 +1,9 @@
 <?php
-
+namespace Mittwald\Typo3Forum\ViewHelpers\Format;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2011 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,31 +23,18 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
+class JsonViewHelper extends AbstractViewHelper {
 
-/**
- *
- * ...
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage ViewHelpers_Format
- * @version    $Id: FileSizeViewHelper.php 52309 2011-09-20 18:54:26Z mhelmich $
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-
-class Tx_MmForum_ViewHelpers_Format_JsonViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
-
-
-
+	/**
+	 * render
+	 *
+	 * @param array $data
+	 *
+	 * @return string
+	 */
 	public function render(array $data) {
 		return json_encode($data);
 	}
-
 }

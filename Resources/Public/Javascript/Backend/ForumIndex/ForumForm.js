@@ -1,6 +1,6 @@
-Ext.ns('MmForum.ForumIndex');
+Ext.ns('Typo3Forum.ForumIndex');
 
-MmForum.ForumIndex.ForumForm = Ext.extend(Ext.form.FormPanel, {
+Typo3Forum.ForumIndex.ForumForm = Ext.extend(Ext.form.FormPanel, {
 	plain: true,
 	frame: false,
 	bodyStyle: 'padding: 10px;',
@@ -53,9 +53,9 @@ MmForum.ForumIndex.ForumForm = Ext.extend(Ext.form.FormPanel, {
 		config.api = {
             load: config.dataProvider.getForum,
             submit: config.dataProvider.saveForum
-        }
+        };
 		config.paramOrder = ['__identity'];
 
-		MmForum.ForumIndex.ForumForm.superclass.constructor.call(this, config);
+		Typo3Forum.ForumIndex.ForumForm.superclass.constructor.call(this, config);
 	}
 });

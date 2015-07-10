@@ -1,9 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\ViewHelpers\User;
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <typo3@martin-helmich.de>                   *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,36 +24,20 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup;
 
-/**
- *
- * ViewHelper that renders a big button.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage ViewHelpers_Control
- * @version    $Id: BigButtonViewHelper.php 52309 2011-09-20 18:54:26Z mhelmich $
- *
- * @copyright  2012 Martin Helmich <typo3@martin-helmich.de>
- *             http://www.martin-helmich.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-class Tx_MmForum_ViewHelpers_User_LinkViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
-
+class LinkViewHelper extends CObjectViewHelper {
 
 	/**
 	 * @var array
 	 */
 	protected $settings = NULL;
 
-
 	public function initialize() {
 		parent::initialize();
 		$this->settings = $this->templateVariableContainer->get('settings');
 	}
-
 
 	public function initializeArguments() {
 		parent::initializeArguments();
@@ -62,54 +47,53 @@ class Tx_MmForum_ViewHelpers_User_LinkViewHelper extends \TYPO3\CMS\Fluid\ViewHe
 
 	/**
 	 *
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
+	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
 	 * @param boolean $showOnlineStatus
 	 * @param boolean $showOnline
 	 * @return string
 	 */
-	public function render(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $showOnlineStatus = TRUE, $showOnline = FALSE) {
+	public function render(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL, $showOnlineStatus = TRUE, $showOnline = FALSE) {
 		// if user anonymous: show only the username
 		if ($user->isAnonymous()) {
 			return $user->getUsername();
 		}
 		// use uribuilder to genreate the uri for the userprofile
 		$uriBuilder = $this->controllerContext->getUriBuilder();
-		$uri = $uriBuilder->setTargetPageUid($this->settings['pids']['UserShow'])->setArguments(array('tx_mmforum_pi1[user]' => $user->getUid(), 'tx_mmforum_pi1[controller]' => 'User', 'tx_mmforum_pi1[action]' => 'show'))->build();
+		$uri = $uriBuilder->setTargetPageUid($this->settings['pids']['UserShow'])->setArguments(array('tx_typo3forum_pi1[user]' => $user->getUid(), 'tx_typo3forum_pi1[controller]' => 'User', 'tx_typo3forum_pi1[action]' => 'show'))->build();
 
 		$class = 'user-link';
-
 
 		if ($this->hasArgument('class')) {
 			$class .= ' ' . $this->arguments['class'];
 		}
 
 		$fullUsername = htmlspecialchars($user->getUsername());
-		$limit = intval($this->settings['cutUsernameOnChar']);
-		if($limit == 0 || strlen($fullUsername) <= $limit) {
+		$limit = (int)$this->settings['cutUsernameOnChar'];
+		if ($limit == 0 || strlen($fullUsername) <= $limit) {
 			$username = $fullUsername;
 		} else {
-			$username = substr($fullUsername,0,$limit)."...";
+			$username = substr($fullUsername, 0, $limit) . "...";
 		}
 		$moderatorMark = "";
-		if($this->settings['moderatorMark']['image']) {
-			foreach($user->getUsergroup() AS $group) {
-				if($group->getUserMod() == 1) {
-					$moderatorMark = '<img src="'.$this->settings['moderatorMark']['image'].'"
-											title="'.$this->settings['moderatorMark']['title'].'" />';
+		if ($this->settings['moderatorMark']['image']) {
+			foreach ($user->getUsergroup() AS $group) {
+				/** @var FrontendUserGroup $group */
+				if ($group->getUserMod() === 1) {
+					$moderatorMark = '<img src="' . $this->settings['moderatorMark']['image'] . '" title="' . $this->settings['moderatorMark']['title'] . '" />';
 					break;
 				}
 			}
 		}
 
 		if ($showOnlineStatus) {
-			if($showOnline) {
+			if ($showOnline) {
 				$onlineStatus = 'user_onlinepoint iconset-8-user-online';
-			}else{
+			} else {
 				$onlineStatus = 'user_onlinepoint iconset-8-user-offline';
 			}
-			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $fullUsername.'">' . $username . ' <i class="'.$onlineStatus.'" data-uid="'.$user->getUid().'"></i> '.$moderatorMark.'</a>';
+			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $fullUsername . '">' . $username . ' <i class="' . $onlineStatus . '" data-uid="' . $user->getUid() . '"></i> ' . $moderatorMark . '</a>';
 		} else {
-			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $fullUsername . '">' . $username . ' '.$moderatorMark.'</a>';
+			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $fullUsername . '">' . $username . ' ' . $moderatorMark . '</a>';
 		}
 
 		return $link;

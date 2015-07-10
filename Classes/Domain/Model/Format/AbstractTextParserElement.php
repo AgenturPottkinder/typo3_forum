@@ -1,10 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Model\Format;
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,31 +24,14 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
 
 /**
  *
- * An abstract text parser element. This may later be a bb code, a smilie or anything
+ * An abstract text parser element. This may later be a bb code, a smiley or anything
  * you want.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage Domain_Model_Format
- * @version    $Id$
- * @license    GNU public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-abstract class Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
-	extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
-
-
-
-	/*
-	 * ATTRIBUTES
-	 */
-
-
+abstract class AbstractTextParserElement extends AbstractValueObject {
 
 	/**
 	 * The CSS class that will be used to render this element's button.
@@ -56,27 +39,17 @@ abstract class Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
 	 */
 	protected $iconClass;
 
-
 	/**
 	 * The name of this element. Can also be a locallang label.
 	 * @var string
 	 */
 	protected $name;
 
-
 	/**
 	 * The default icon directory. This may be overridden by subclasses.
 	 * @var string
 	 */
 	protected $defaultIconDir = 'Editor/';
-
-
-
-	/*
-	  * GETTER METHODS
-	  */
-
-
 
 	/**
 	 *
@@ -88,7 +61,16 @@ abstract class Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
 		return $this->iconClass;
 	}
 
-
+	/**
+	 *
+	 * Sets the icon CSS class.
+	 *
+	 * @param string $iconClass The icon CSS class.
+	 *
+	 */
+	public function setIconClass($iconClass) {
+		$this->iconClass = $iconClass;
+	}
 
 	/**
 	 *
@@ -100,29 +82,10 @@ abstract class Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
 		return $this->name;
 	}
 
-
-
-	/*
-	 * SETTERS
-	 */
-
-
-
-	/**
-	 *
-	 * Sets the icon CSS class.
-	 * @param string $iconClass The icon CSS class.
-	 *
-	 */
-	public function setIconClass($iconClass) {
-		$this->iconClass = $iconClass;
-	}
-
-
-
 	/**
 	 *
 	 * Sets the element name.
+	 *
 	 * @param string $name The element name.
 	 *
 	 */
@@ -130,17 +93,10 @@ abstract class Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
 		$this->name = $name;
 	}
 
-
-
 	/**
 	 * @param string $defaultIconDir
 	 */
 	public function setDefaultIconDir($defaultIconDir) {
 		$this->defaultIconDir = $defaultIconDir;
 	}
-
-
-
 }
-
-?>

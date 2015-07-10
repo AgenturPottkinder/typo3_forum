@@ -1,10 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 
 /* *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,33 +24,19 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
+use Mittwald\Typo3Forum\Domain\Model\NotifiableInterface;
+use Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser;
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * A forum post. Forum posts are submitted to the access control mechanism and can be
  * subscribed by users.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage Domain_Model_Format
- * @version    $Id$
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
-
  */
-class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
-	implements Tx_MmForum_Domain_Model_AccessibleInterface, Tx_MmForum_Domain_Model_NotifiableInterface {
-
-
-
-	/*
-	 * ATTRIBUTES
-	 */
-
-
+class Post extends AbstractEntity implements AccessibleInterface, NotifiableInterface {
 
 	/**
 	 * The post text.
@@ -59,8 +45,6 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 	 * @validate NotEmpty
 	 */
 	protected $text;
-
-
 
 	/**
 	 * The rendered post text (contains raw HTML). This attribute has been
@@ -72,50 +56,41 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 	 */
 	protected $renderedText;
 
-
-
 	/**
 	 * The post author.
 	 *
-	 * @var Tx_MmForum_Domain_Model_User_FrontendUser
+	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 */
 	protected $author;
-
 
 	/**
 	 * The author's username. Necessary for anonymous postings.
 	 * @var string
-	 * @validate Tx_MmForum_Domain_Validator_Forum_AuthorNameValidator
 	 */
 	protected $authorName = '';
 
-
 	/**
 	 * The topic.
-	 * @var Tx_MmForum_Domain_Model_Forum_Topic
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Topic
 	 */
 	protected $topic;
 
-
-
 	/**
 	 * Creation date.
-	 * @var DateTime
+	 * @var \DateTime
 	 */
 	protected $crdate;
 
-
 	/**
 	 * All subscribers of this forum.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
 	 * @lazy
 	 */
 	protected $supporters;
 
-
 	/**
 	 * Attachments.
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Attachment>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment>
 	 * @lazy
 	 */
 	protected $attachments;
@@ -126,32 +101,22 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 	 */
 	protected $helpfulCount;
 
-	/*
-	  * CONSTRUCTOR
-	  */
-
 	/**
 	 * Creates a new post.
+	 *
 	 * @param string $text The post text.
 	 */
 	public function __construct($text = '') {
-		$this->attachments = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->supporters = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->crdate      = new DateTime();
-		$this->text        = $text;
+		$this->attachments = new ObjectStorage();
+		$this->supporters = new ObjectStorage();
+		$this->crdate = new \DateTime();
+		$this->text = $text;
 	}
-
-
-
-	/*
-	 * GETTERS
-	 */
 
 	/**
 	 * Gets all users who have subscribed to this forum.
 	 *
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_User_FrontendUser>
-	 *                             All subscribers of this forum.
+	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser> All subscribers of this forum.
 	 */
 	public function getSupporters() {
 		return $this->supporters;
@@ -173,17 +138,13 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 		return $this->text;
 	}
 
-
-
 	/**
 	 * Gets the post name. This is just an alias for the topic->getTitle method.
-	 * @return The post name.
+	 * @return string The post name.
 	 */
 	public function getName() {
 		return $this->topic->getTitle();
 	}
-
-
 
 	/**
 	 * Alias for getText(). Necessary to implement the NotifiableInterface.
@@ -193,26 +154,23 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 		return $this->getText();
 	}
 
-
-
 	/**
 	 * Gets the post author.
-	 * @return Tx_MmForum_Domain_Model_User_FrontendUser author
+	 * @return FrontendUser author
 	 */
 	public function getAuthor() {
-		if ($this->author instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
+		if ($this->author instanceof LazyLoadingProxy) {
 			$this->author->_loadRealInstance();
 		}
 		if ($this->author === NULL) {
-			$this->author = new Tx_MmForum_Domain_Model_User_AnonymousFrontendUser();
-			if($this->authorName){
+			$this->author = new AnonymousFrontendUser();
+			if ($this->authorName) {
 				$this->author->setUsername($this->authorName);
 			}
 		}
+
 		return $this->author;
 	}
-
-
 
 	/**
 	 * Gets the post author's name. Diffentiates between posts created by logged in
@@ -228,54 +186,45 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 		}
 	}
 
-
-
 	/**
 	 * Gets the topic.
-	 * @return Tx_MmForum_Domain_Model_Forum_Topic A topic
+	 * @return Topic A topic
 	 */
 	public function getTopic() {
 		return $this->topic;
 	}
 
-
-
 	/**
 	 * Gets the forum.
-	 * @return Tx_MmForum_Domain_Model_Forum_Forum
+	 * @return Forum
 	 */
 	public function getForum() {
 		return $this->topic->getForum();
 	}
 
-
-
 	/**
 	 * Gets the post's timestamp.
-	 * @return DateTime
+	 * @return \DateTime
 	 */
 	public function getTimestamp() {
 		return $this->crdate;
 	}
 
-    /**
+	/**
 	 * Gets the post's crdate.
-	 * @return DateTime
+	 * @return \DateTime
 	 */
 	public function getCrdate() {
 		return $this->crdate;
 	}
 
-
 	/**
 	 * Gets the post's attachments.
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_MmForum_Domain_Model_Forum_Attachment>
+	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment>
 	 */
 	public function getAttachments() {
 		return $this->attachments;
 	}
-
-
 
 	/**
 	 * Overrides the isPropertyDirty method. See http://forge.typo3.org/issues/8952
@@ -283,28 +232,28 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 	 *
 	 * @param mixed $previousValue
 	 * @param mixed $currentValue
+	 *
 	 * @return boolean
 	 */
 	protected function isPropertyDirty($previousValue, $currentValue) {
-		if ($currentValue InstanceOf Tx_MmForum_Domain_Model_Forum_Forum || $currentValue InstanceOf Tx_MmForum_Domain_Model_Forum_Topic
-		) {
+		if ($currentValue InstanceOf Forum || $currentValue InstanceOf Topic) {
 			return FALSE;
 		} else {
 			return parent::isPropertyDirty($previousValue, $currentValue);
 		}
 	}
 
-
-
 	/**
 	 * Performs an access check for this post.
 	 *
 	 * @access private
-	 * @param  Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 * @param  string                                    $accessType
+	 *
+	 * @param FrontendUser $user
+	 * @param string $accessType
+	 *
 	 * @return boolean
 	 */
-	public function checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'read') {
+	public function checkAccess(FrontendUser $user = NULL, $accessType = 'read') {
 		switch ($accessType) {
 			case 'editPost':
 			case 'deletePost':
@@ -313,8 +262,6 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 				return $this->topic->checkAccess($user, $accessType);
 		}
 	}
-
-
 
 	/**
 	 * Determines if a user may edit this post. This is only possible if EITHER:
@@ -325,15 +272,11 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 	 * OR:
 	 * b.)  The current user has moderator access to the forum.
 	 *
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $user
-	 *                             The user for which the authenication is to be
-	 *                             checked.
-	 * @param                                           $operation
-	 * @return boolean             TRUE, if the user is allowed to edit this post,
-	 *                             otherwise FALSE.
+	 * @param FrontendUser $user The user for which the authenication is to be checked.
+	 * @param string $operation
+	 * @return boolean TRUE, if the user is allowed to edit this post, otherwise FALSE.
 	 */
-	public function checkEditOrDeletePostAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $operation) {
-
+	public function checkEditOrDeletePostAccess(FrontendUser $user, $operation) {
 		if ($user === NULL || $user->isAnonymous()) {
 			return FALSE;
 		} else {
@@ -341,9 +284,9 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 				return TRUE;
 			}
 
-			$currentUserIsAuthor   = ($user === $this->getAuthor());
+			$currentUserIsAuthor = ($user === $this->getAuthor());
 			$postIsLastPostInTopic = ($this === $this->getTopic()->getLastPost());
-			$topicGrantsAccess     = $this->getTopic()->checkAccess($user, $operation);
+			$topicGrantsAccess = $this->getTopic()->checkAccess($user, $operation);
 
 			if ($currentUserIsAuthor && $postIsLastPostInTopic && $topicGrantsAccess) {
 				return TRUE;
@@ -353,12 +296,10 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 		return FALSE;
 	}
 
-	/*
-	 * SETTERS
-	 */
-
 	/**
 	 * Sets the city value
+	 *
+	 * @param $count
 	 *
 	 * @return void
 	 * @api
@@ -370,10 +311,11 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 	/**
 	 * Sets the post author.
 	 *
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $author The post author.
+	 * @param FrontendUser $author The post author.
+	 *
 	 * @return void
 	 */
-	public function setAuthor(Tx_MmForum_Domain_Model_User_FrontendUser $author) {
+	public function setAuthor(FrontendUser $author) {
 		if ($author->isAnonymous()) {
 			$this->author = NULL;
 		} else {
@@ -381,22 +323,20 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 		}
 	}
 
-
-
 	/**
 	 * Sets the post author's name. Necessary for anonymous postings.
-	 * @param $authorName The author's name.
+	 *
+	 * @param $authorName string The author's name.
 	 */
 	public function setAuthorName($authorName) {
 		$this->authorName = $authorName;
 	}
 
-
-
 	/**
 	 * Sets the post text.
 	 *
 	 * @param string $text The post text.
+	 *
 	 * @return void
 	 */
 	public function setText($text) {
@@ -406,95 +346,89 @@ class Tx_MmForum_Domain_Model_Forum_Post extends \TYPO3\CMS\Extbase\DomainObject
 		$this->renderedText = '';
 	}
 
-
-
 	/**
 	 * Sets the attachments.
 	 *
-	 * @param  \TYPO3\CMS\Extbase\Persistence\ObjectStorage $attachments The attachments.
-	 * @validate $attachments Tx_MmForum_Domain_Validator_Forum_AttachmentValidator
+	 * @param ObjectStorage $attachments The attachments.
+	 * @validate $attachments Tx_Typo3Forum_Domain_Validator_Forum_AttachmentValidator
+	 *
 	 * @return void
 	 */
-	public function setAttachments(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $attachments) {
+	public function setAttachments(ObjectStorage $attachments) {
 		$this->attachments = $attachments;
 	}
-
-
 
 	/**
 	 * Adds an or more attachments.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Attachment $attachments The attachment.
+	 * @param Attachment $attachments The attachment.
 	 * @return void
 	 */
-	public function addAttachments(Tx_MmForum_Domain_Model_Forum_Attachment $attachments) {
-		/* @var Tx_MmForum_Domain_Model_Forum_Attachment */
+	public function addAttachments(Attachment $attachments) {
+		/* @var Attachment */
 		$this->attachments->attach($attachments);
 	}
 
 	/**
 	 * Removes an attachment.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Attachment $attachment The attachment.
+	 * @param Attachment $attachment The attachment.
 	 * @return void
 	 */
-	public function removeAttachment(Tx_MmForum_Domain_Model_Forum_Attachment $attachment) {
-		if(file_exists($attachment->getAbsoluteFilename())){
+	public function removeAttachment(Attachment $attachment) {
+		if (file_exists($attachment->getAbsoluteFilename())) {
 			unlink($attachment->getAbsoluteFilename());
 		}
 		$this->attachments->detach($attachment);
 	}
 
-    /**
-     * Determines whether this topic has been read by a certain user.
-     *
-     * @param  Tx_MmForum_Domain_Model_User_FrontendUser $supporter The user who is to be checked.
-     * @return boolean                                           TRUE, if the user did read this topic, otherwise FALSE.
-     */
-    public function hasBeenSupportedByUser(Tx_MmForum_Domain_Model_User_FrontendUser $supporter = NULL) {
-        return $supporter ? $this->supporters->contains($supporter) : TRUE;
-    }
+	/**
+	 * Determines whether this topic has been read by a certain user.
+	 *
+	 * @param FrontendUser $supporter The user who is to be checked.
+	 * @return boolean TRUE, if the user did read this topic, otherwise FALSE.
+	 */
+	public function hasBeenSupportedByUser(FrontendUser $supporter = NULL) {
+		return $supporter ? $this->supporters->contains($supporter) : TRUE;
+	}
 
 	/**
-	 * @param Tx_MmForum_Domain_Model_Forum_Topic $topic
+	 * @param Topic $topic
 	 * @return void
 	 */
-	public function setTopic(Tx_MmForum_Domain_Model_Forum_Topic $topic) {
+	public function setTopic(Topic $topic) {
 		$this->topic = $topic;
 	}
 
 	/**
 	 * Marks this topic as read by a certain user.
 	 *
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $supporter The user who read this topic.
+	 * @param FrontendUser $supporter The user who read this topic.
 	 * @return void
 	 */
-	public function addSupporter(Tx_MmForum_Domain_Model_User_FrontendUser $supporter) {
-		$this->setHelpfulCount($this->getHelpfulCount()+1);
+	public function addSupporter(FrontendUser $supporter) {
+		$this->setHelpfulCount($this->getHelpfulCount() + 1);
 		$this->supporters->attach($supporter);
 	}
-
-
 
 	/**
 	 * Mark this topic as unread for a certain user.
 	 *
-	 * @param Tx_MmForum_Domain_Model_User_FrontendUser $supporter The user for whom to mark this topic as unread.
+	 * @param FrontendUser $supporter The user for whom to mark this topic as unread.
+	 *
 	 * @return void
 	 */
-	public function removeSupporter(Tx_MmForum_Domain_Model_User_FrontendUser $supporter) {
-		$this->setHelpfulCount($this->getHelpfulCount()-1);
+	public function removeSupporter(FrontendUser $supporter) {
+		$this->setHelpfulCount($this->getHelpfulCount() - 1);
 		$this->supporters->detach($supporter);
 	}
-
-
 
 	/**
 	 * Mark this topic as unread for all users.
 	 * @return void
 	 */
 	public function removeAllSupporters() {
-		$this->readers = New \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->supporters = new ObjectStorage();
 	}
 
 }

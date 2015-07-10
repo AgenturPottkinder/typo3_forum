@@ -1,22 +1,22 @@
 # TYPO3 Extension Manager dump 1.1
 #
-# Host: localhost    Database: mm_forum
+# Host: localhost    Database: typo3_forum
 #--------------------------------------------------------
 
 
 #
-# Table structure for table "tx_mmforum_domain_model_format_textparser"
+# Table structure for table "tx_typo3forum_domain_model_format_textparser"
 #
-CREATE TABLE tx_mmforum_domain_model_format_textparser (
+CREATE TABLE tx_typo3forum_domain_model_format_textparser (
   uid int(11) NOT NULL auto_increment,
   pid int(11) NOT NULL default '0',
-  type varchar(64) NOT NULL default 'Tx_MmForum_Domain_Model_Format_BBCode',
+  type varchar(64) NOT NULL default '\Mittwald\Typo3Forum\Domain\Model\Format\BBCode',
   name tinytext,
   icon_class tinytext,
   bbcode_wrap varchar(64) default '',
   regular_expression tinytext,
   regular_expression_replacement tinytext,
-  smilie_shortcut varchar(16) default '',
+  smiley_shortcut varchar(16) default '',
   language varchar(16) default '',
   tstamp int(11) unsigned NOT NULL default '0',
   crdate int(11) unsigned NOT NULL default '0',
@@ -41,9 +41,9 @@ CREATE TABLE tx_mmforum_domain_model_format_textparser (
 
 
 #
-# Table structure for table "tx_mmforum_domain_model_forum_access"
+# Table structure for table "tx_typo3forum_domain_model_forum_access"
 #
-CREATE TABLE tx_mmforum_domain_model_forum_access (
+CREATE TABLE tx_typo3forum_domain_model_forum_access (
   uid int(11) NOT NULL auto_increment,
   pid int(11) NOT NULL default '0',
   login_level tinyint(4) unsigned default '0',
@@ -74,9 +74,9 @@ CREATE TABLE tx_mmforum_domain_model_forum_access (
 
 
 #
-# Table structure for table "tx_mmforum_domain_model_forum_attachment"
+# Table structure for table "tx_typo3forum_domain_model_forum_attachment"
 #
-CREATE TABLE tx_mmforum_domain_model_forum_attachment (
+CREATE TABLE tx_typo3forum_domain_model_forum_attachment (
   uid int(11) NOT NULL auto_increment,
   pid int(11) NOT NULL default '0',
   post int(11) unsigned default '0',
@@ -94,9 +94,9 @@ CREATE TABLE tx_mmforum_domain_model_forum_attachment (
 
 
 #
-# Table structure for table "tx_mmforum_domain_model_forum_forum"
+# Table structure for table "tx_typo3forum_domain_model_forum_forum"
 #
-CREATE TABLE tx_mmforum_domain_model_forum_forum (
+CREATE TABLE tx_typo3forum_domain_model_forum_forum (
   uid int(11) NOT NULL auto_increment,
   pid int(11) NOT NULL default '0',
   displayed_pid int(11) unsigned NOT NULL default '0',
@@ -137,9 +137,9 @@ CREATE TABLE tx_mmforum_domain_model_forum_forum (
 
 
 #
-# Table structure for table "tx_mmforum_domain_model_forum_post"
+# Table structure for table "tx_typo3forum_domain_model_forum_post"
 #
-CREATE TABLE tx_mmforum_domain_model_forum_post (
+CREATE TABLE tx_typo3forum_domain_model_forum_post (
   uid int(11) NOT NULL auto_increment,
   pid int(11) NOT NULL default '0',
   topic int(11) unsigned NOT NULL default '0',
@@ -173,9 +173,9 @@ CREATE TABLE tx_mmforum_domain_model_forum_post (
 
 
 #
-# Table structure for table "tx_mmforum_domain_model_forum_topic"
+# Table structure for table "tx_typo3forum_domain_model_forum_topic"
 #
-CREATE TABLE tx_mmforum_domain_model_forum_topic (
+CREATE TABLE tx_typo3forum_domain_model_forum_topic (
   uid int(11) NOT NULL auto_increment,
   pid int(11) NOT NULL default '0',
   type tinyint(1) NOT NULL default '0',
@@ -220,14 +220,14 @@ CREATE TABLE tx_mmforum_domain_model_forum_topic (
 
 
 #
-# Table structure for table "tx_mmforum_domain_model_moderation_report"
+# Table structure for table "tx_typo3forum_domain_model_moderation_report"
 #
-CREATE TABLE tx_mmforum_domain_model_moderation_report (
+CREATE TABLE tx_typo3forum_domain_model_moderation_report (
   uid int(11) NOT NULL auto_increment,
   pid int(11) NOT NULL default '0',
   post int(11) unsigned NOT NULL default '0',
   feuser int(11) unsigned NOT NULL default '0',
-  type varchar(64) NOT NULL default 'Tx_MmForum_Domain_Model_Moderation_UserReport',
+  type varchar(64) NOT NULL default '\Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport',
   reporter int(11) unsigned NOT NULL default '0',
   moderator int(11) unsigned default '0',
   workflow_status int(11) unsigned default '0',
@@ -242,9 +242,9 @@ CREATE TABLE tx_mmforum_domain_model_moderation_report (
 
 
 #
-# Table structure for table "tx_mmforum_domain_model_moderation_reportcomment"
+# Table structure for table "tx_typo3forum_domain_model_moderation_reportcomment"
 #
-CREATE TABLE tx_mmforum_domain_model_moderation_reportcomment (
+CREATE TABLE tx_typo3forum_domain_model_moderation_reportcomment (
   uid int(11) NOT NULL auto_increment,
   pid int(11) NOT NULL default '0',
   report int(11) unsigned NOT NULL default '0',
@@ -259,9 +259,9 @@ CREATE TABLE tx_mmforum_domain_model_moderation_reportcomment (
 
 
 #
-# Table structure for table "tx_mmforum_domain_model_moderation_reportworkflowstatus"
+# Table structure for table "tx_typo3forum_domain_model_moderation_reportworkflowstatus"
 #
-CREATE TABLE tx_mmforum_domain_model_moderation_reportworkflowstatus (
+CREATE TABLE tx_typo3forum_domain_model_moderation_reportworkflowstatus (
   uid int(11) NOT NULL auto_increment,
   pid int(11) NOT NULL default '0',
   name tinytext,
@@ -292,9 +292,9 @@ CREATE TABLE tx_mmforum_domain_model_moderation_reportworkflowstatus (
 
 
 #
-# Table structure for table "tx_mmforum_domain_model_moderation_reportworkflowstatus_followup"
+# Table structure for table "tx_typo3forum_domain_model_moderation_reportworkflowstatus_mm"
 #
-CREATE TABLE tx_mmforum_domain_model_moderation_reportworkflowstatus_followup (
+CREATE TABLE tx_typo3forum_domain_model_moderation_reportworkflowstatus_mm (
   uid int(10) NOT NULL auto_increment,
   pid int(11) NOT NULL default '0',
   uid_local int(11) unsigned NOT NULL default '0',
@@ -312,69 +312,9 @@ CREATE TABLE tx_mmforum_domain_model_moderation_reportworkflowstatus_followup (
 
 
 #
-# Table structure for table "tx_mmforum_domain_model_user_forumsubscription"
+# Table structure for table "tx_typo3forum_domain_model_user_forumsubscription"
 #
-CREATE TABLE tx_mmforum_domain_model_user_forumsubscription (
-  uid int(10) NOT NULL auto_increment,
-  pid int(11) NOT NULL default '0',
-  uid_local int(11) unsigned NOT NULL default '0',
-  uid_foreign int(11) unsigned NOT NULL default '0',
-  tablenames varchar(255) NOT NULL default '',
-  sorting int(11) unsigned NOT NULL default '0',
-  sorting_foreign int(11) unsigned NOT NULL default '0',
-  tstamp int(10) unsigned NOT NULL default '0',
-  crdate int(10) unsigned NOT NULL default '0',
-  hidden tinyint(3) unsigned NOT NULL default '0',
-  PRIMARY KEY (uid),
-  KEY parent (pid),
-  KEY uid_local (uid_local),
-  KEY uid_foreign (uid_foreign)
-);
-
-
-#
-# Table structure for table "tx_mmforum_domain_model_user_readtopic"
-#
-CREATE TABLE tx_mmforum_domain_model_user_readtopic (
-  uid int(10) NOT NULL auto_increment,
-  pid int(11) NOT NULL default '0',
-  uid_local int(11) unsigned NOT NULL default '0',
-  uid_foreign int(11) unsigned NOT NULL default '0',
-  sorting int(11) unsigned NOT NULL default '0',
-  sorting_foreign int(11) unsigned NOT NULL default '0',
-  tstamp int(10) unsigned NOT NULL default '0',
-  crdate int(10) unsigned NOT NULL default '0',
-  hidden tinyint(3) unsigned NOT NULL default '0',
-  PRIMARY KEY (uid),
-  KEY parent (pid),
-  KEY uid_local (uid_local),
-  KEY uid_foreign (uid_foreign)
-);
-
-#
-# Table structure for table "tx_mmforum_domain_model_user_supportpost"
-#
-CREATE TABLE tx_mmforum_domain_model_user_supportpost (
-  uid int(10) NOT NULL auto_increment,
-  pid int(11) NOT NULL default '0',
-  uid_local int(11) unsigned NOT NULL default '0',
-  uid_foreign int(11) unsigned NOT NULL default '0',
-  sorting int(11) unsigned NOT NULL default '0',
-  sorting_foreign int(11) unsigned NOT NULL default '0',
-  tstamp int(10) unsigned NOT NULL default '0',
-  crdate int(10) unsigned NOT NULL default '0',
-  hidden tinyint(3) unsigned NOT NULL default '0',
-  PRIMARY KEY (uid),
-  KEY parent (pid),
-  KEY uid_local (uid_local),
-  KEY uid_foreign (uid_foreign)
-);
-
-
-#
-# Table structure for table "tx_mmforum_domain_model_user_topicfavsubscription"
-#
-CREATE TABLE tx_mmforum_domain_model_user_topicsubscription (
+CREATE TABLE tx_typo3forum_domain_model_user_forumsubscription (
   uid int(10) NOT NULL auto_increment,
   pid int(11) NOT NULL default '0',
   uid_local int(11) unsigned NOT NULL default '0',
@@ -391,10 +331,50 @@ CREATE TABLE tx_mmforum_domain_model_user_topicsubscription (
   KEY uid_foreign (uid_foreign)
 );
 
+
 #
-# Table structure for table "tx_mmforum_domain_model_user_topicsubscription"
+# Table structure for table "tx_typo3forum_domain_model_user_readtopic"
 #
-CREATE TABLE tx_mmforum_domain_model_user_topicfavsubscription (
+CREATE TABLE tx_typo3forum_domain_model_user_readtopic (
+  uid int(10) NOT NULL auto_increment,
+  pid int(11) NOT NULL default '0',
+  uid_local int(11) unsigned NOT NULL default '0',
+  uid_foreign int(11) unsigned NOT NULL default '0',
+  sorting int(11) unsigned NOT NULL default '0',
+  sorting_foreign int(11) unsigned NOT NULL default '0',
+  tstamp int(10) unsigned NOT NULL default '0',
+  crdate int(10) unsigned NOT NULL default '0',
+  hidden tinyint(3) unsigned NOT NULL default '0',
+  PRIMARY KEY (uid),
+  KEY parent (pid),
+  KEY uid_local (uid_local),
+  KEY uid_foreign (uid_foreign)
+);
+
+#
+# Table structure for table "tx_typo3forum_domain_model_user_supportpost"
+#
+CREATE TABLE tx_typo3forum_domain_model_user_supportpost (
+  uid int(10) NOT NULL auto_increment,
+  pid int(11) NOT NULL default '0',
+  uid_local int(11) unsigned NOT NULL default '0',
+  uid_foreign int(11) unsigned NOT NULL default '0',
+  sorting int(11) unsigned NOT NULL default '0',
+  sorting_foreign int(11) unsigned NOT NULL default '0',
+  tstamp int(10) unsigned NOT NULL default '0',
+  crdate int(10) unsigned NOT NULL default '0',
+  hidden tinyint(3) unsigned NOT NULL default '0',
+  PRIMARY KEY (uid),
+  KEY parent (pid),
+  KEY uid_local (uid_local),
+  KEY uid_foreign (uid_foreign)
+);
+
+
+#
+# Table structure for table "tx_typo3forum_domain_model_user_topicfavsubscription"
+#
+CREATE TABLE tx_typo3forum_domain_model_user_topicsubscription (
   uid int(10) NOT NULL auto_increment,
   pid int(11) NOT NULL default '0',
   uid_local int(11) unsigned NOT NULL default '0',
@@ -412,9 +392,29 @@ CREATE TABLE tx_mmforum_domain_model_user_topicfavsubscription (
 );
 
 #
-# Table structure for table "tx_mmforum_domain_model_user_userfield_userfield"
+# Table structure for table "tx_typo3forum_domain_model_user_topicsubscription"
 #
-CREATE TABLE tx_mmforum_domain_model_user_userfield_userfield (
+CREATE TABLE tx_typo3forum_domain_model_user_topicfavsubscription (
+  uid int(10) NOT NULL auto_increment,
+  pid int(11) NOT NULL default '0',
+  uid_local int(11) unsigned NOT NULL default '0',
+  uid_foreign int(11) unsigned NOT NULL default '0',
+  tablenames varchar(255) NOT NULL default '',
+  sorting int(11) unsigned NOT NULL default '0',
+  sorting_foreign int(11) unsigned NOT NULL default '0',
+  tstamp int(10) unsigned NOT NULL default '0',
+  crdate int(10) unsigned NOT NULL default '0',
+  hidden tinyint(3) unsigned NOT NULL default '0',
+  PRIMARY KEY (uid),
+  KEY parent (pid),
+  KEY uid_local (uid_local),
+  KEY uid_foreign (uid_foreign)
+);
+
+#
+# Table structure for table "tx_typo3forum_domain_model_user_userfield_userfield"
+#
+CREATE TABLE tx_typo3forum_domain_model_user_userfield_userfield (
   uid int(11) NOT NULL auto_increment,
   pid int(11) NOT NULL default '0',
   type tinytext,
@@ -444,9 +444,9 @@ CREATE TABLE tx_mmforum_domain_model_user_userfield_userfield (
 
 
 #
-# Table structure for table "tx_mmforum_domain_model_user_userfield_value"
+# Table structure for table "tx_typo3forum_domain_model_user_userfield_value"
 #
-CREATE TABLE tx_mmforum_domain_model_user_userfield_value (
+CREATE TABLE tx_typo3forum_domain_model_user_userfield_value (
   uid int(11) NOT NULL auto_increment,
   pid int(11) NOT NULL default '0',
   user int(11) unsigned NOT NULL default '0',
@@ -475,9 +475,9 @@ CREATE TABLE tx_mmforum_domain_model_user_userfield_value (
 
 
 #
-# Table structure for table 'tx_mmforum_domain_model_forum_criteria'
+# Table structure for table 'tx_typo3forum_domain_model_forum_criteria'
 #
-CREATE TABLE tx_mmforum_domain_model_forum_criteria (
+CREATE TABLE tx_typo3forum_domain_model_forum_criteria (
   uid int(11) unsigned NOT NULL auto_increment,
   pid int(11) unsigned NOT NULL default '0',
   tstamp int(11) unsigned NOT NULL default '0',
@@ -490,9 +490,9 @@ CREATE TABLE tx_mmforum_domain_model_forum_criteria (
 
 
 #
-# Table structure for table 'tx_mmforum_domain_model_forum_criteria_forum'
+# Table structure for table 'tx_typo3forum_domain_model_forum_criteria_forum'
 #
-CREATE TABLE tx_mmforum_domain_model_forum_criteria_forum (
+CREATE TABLE tx_typo3forum_domain_model_forum_criteria_forum (
   uid int(10) unsigned NOT NULL auto_increment,
   uid_local int(10) unsigned default '0',
   uid_foreign int(10) unsigned default '0',
@@ -505,9 +505,9 @@ CREATE TABLE tx_mmforum_domain_model_forum_criteria_forum (
 
 
 #
-# Table structure for table 'tx_mmforum_domain_model_forum_criteria_options'
+# Table structure for table 'tx_typo3forum_domain_model_forum_criteria_options'
 #
-CREATE TABLE tx_mmforum_domain_model_forum_criteria_options (
+CREATE TABLE tx_typo3forum_domain_model_forum_criteria_options (
   uid int(11) unsigned NOT NULL auto_increment,
   pid int(11) unsigned NOT NULL default '0',
   tstamp int(11) unsigned NOT NULL default '0',
@@ -520,9 +520,9 @@ CREATE TABLE tx_mmforum_domain_model_forum_criteria_options (
 
 
 #
-# Table structure for table 'tx_mmforum_domain_model_forum_criteria_topic_options'
+# Table structure for table 'tx_typo3forum_domain_model_forum_criteria_topic_options'
 #
-CREATE TABLE tx_mmforum_domain_model_forum_criteria_topic_options (
+CREATE TABLE tx_typo3forum_domain_model_forum_criteria_topic_options (
   uid int(10) unsigned NOT NULL auto_increment,
   uid_local int(10) unsigned default '0',
   uid_foreign int(10) unsigned default '0',
@@ -534,9 +534,9 @@ CREATE TABLE tx_mmforum_domain_model_forum_criteria_topic_options (
 );
 
 #
-# Table structure for table 'tx_mmforum_domain_model_forum_ads'
+# Table structure for table 'tx_typo3forum_domain_model_forum_ads'
 #
-CREATE TABLE tx_mmforum_domain_model_forum_ads (
+CREATE TABLE tx_typo3forum_domain_model_forum_ads (
   uid int(11) unsigned NOT NULL auto_increment,
   pid int(11) unsigned NOT NULL default '0',
   tstamp int(11) unsigned NOT NULL default '0',
@@ -551,9 +551,9 @@ CREATE TABLE tx_mmforum_domain_model_forum_ads (
 );
 
 
-# Table structure for table 'tx_mmforum_domain_model_forum_user_privatemessages'
+# Table structure for table 'tx_typo3forum_domain_model_forum_user_privatemessage'
 #
-CREATE TABLE tx_mmforum_domain_model_user_privatemessages (
+CREATE TABLE tx_typo3forum_domain_model_user_privatemessage (
   uid int(11) unsigned NOT NULL auto_increment,
   pid int(11) unsigned NOT NULL default '0',
   tstamp int(11) unsigned NOT NULL default '0',
@@ -570,9 +570,9 @@ CREATE TABLE tx_mmforum_domain_model_user_privatemessages (
 );
 
 #
-# Table structure for table 'tx_mmforum_domain_model_user_privatemessages_text'
+# Table structure for table 'tx_typo3forum_domain_model_user_privatemessage_text'
 #
-CREATE TABLE tx_mmforum_domain_model_user_privatemessages_text (
+CREATE TABLE tx_typo3forum_domain_model_user_privatemessage_text (
   uid int(11) unsigned NOT NULL auto_increment,
   pid int(11) unsigned default NULL,
   message_text text NOT NULL,
@@ -581,9 +581,9 @@ CREATE TABLE tx_mmforum_domain_model_user_privatemessages_text (
 
 
 #
-# Table structure for table 'x_mmforum_domain_model_user_rank'
+# Table structure for table 'tx_typo3forum_domain_model_user_rank'
 #
-CREATE TABLE tx_mmforum_domain_model_user_rank (
+CREATE TABLE tx_typo3forum_domain_model_user_rank (
   uid int(11) unsigned NOT NULL auto_increment,
   pid int(11) unsigned NOT NULL default '0',
   deleted tinyint(3) unsigned NOT NULL default '0',
@@ -594,9 +594,9 @@ CREATE TABLE tx_mmforum_domain_model_user_rank (
 );
 
 #
-# Table structure for table 'tx_mmforum_domain_model_user_notification'
+# Table structure for table 'tx_typo3forum_domain_model_user_notification'
 #
-CREATE TABLE tx_mmforum_domain_model_user_notification (
+CREATE TABLE tx_typo3forum_domain_model_user_notification (
   uid int(11) unsigned NOT NULL auto_increment,
   pid int(11) unsigned default '0',
   crdate int(11) unsigned NOT NULL default '0',
@@ -604,7 +604,7 @@ CREATE TABLE tx_mmforum_domain_model_user_notification (
   feuser int(11) unsigned default NULL,
   post int(11) unsigned NOT NULL default '0',
   user_read tinyint(3) default '0',
-  type varchar(64) NOT NULL default 'Tx_MmForum_Domain_Model_Forum_Post',
+  type varchar(64) NOT NULL default '\Mittwald\Typo3Forum\Domain\Model\Forum\Post',
   tag int(11) unsigned default NULL,
   PRIMARY KEY (uid),
   KEY user (feuser,post),
@@ -614,9 +614,9 @@ CREATE TABLE tx_mmforum_domain_model_user_notification (
 );
 
 #
-# Table structure for table 'tx_mmforum_domain_model_stats_summary'
+# Table structure for table 'tx_typo3forum_domain_model_stats_summary'
 #
-CREATE TABLE tx_mmforum_domain_model_stats_summary (
+CREATE TABLE tx_typo3forum_domain_model_stats_summary (
   uid int(11) unsigned NOT NULL auto_increment,
   pid int(11) unsigned NOT NULL default '0',
   tstamp int(11) unsigned NOT NULL default '0',
@@ -627,9 +627,9 @@ CREATE TABLE tx_mmforum_domain_model_stats_summary (
 );
 
 #
-# Table structure for table 'tx_mmforum_domain_model_forum_tag'
+# Table structure for table 'tx_typo3forum_domain_model_forum_tag'
 #
-CREATE TABLE tx_mmforum_domain_model_forum_tag (
+CREATE TABLE tx_typo3forum_domain_model_forum_tag (
   uid int(11) unsigned NOT NULL auto_increment,
   pid int(11) unsigned NOT NULL  default '0',
   crdate int(11) unsigned NOT NULL default '0',
@@ -642,9 +642,9 @@ CREATE TABLE tx_mmforum_domain_model_forum_tag (
 );
 
 #
-# Table structure for table 'tx_mmforum_domain_model_forum_tag_topic'
+# Table structure for table 'tx_typo3forum_domain_model_forum_tag_topic'
 #
-CREATE TABLE tx_mmforum_domain_model_forum_tag_topic (
+CREATE TABLE tx_typo3forum_domain_model_forum_tag_topic (
   uid_local int(10) unsigned default '0',
   uid_foreign int(10) unsigned default '0',
   sorting int(10) unsigned default '0',
@@ -654,9 +654,9 @@ CREATE TABLE tx_mmforum_domain_model_forum_tag_topic (
 );
 
 #
-# Table structure for table 'tx_mmforum_domain_model_forum_tag_user'
+# Table structure for table 'tx_typo3forum_domain_model_forum_tag_user'
 #
-CREATE TABLE tx_mmforum_domain_model_forum_tag_user (
+CREATE TABLE tx_typo3forum_domain_model_forum_tag_user (
   uid_local int(10) unsigned NOT NULL default '0',
   uid_foreign int(10) unsigned NOT NULL default '0',
   sorting int(10) unsigned NOT NULL default '0',
@@ -667,9 +667,9 @@ CREATE TABLE tx_mmforum_domain_model_forum_tag_user (
 
 
 #
-# Table structure for table 'tx_mmforum_domain_model_user_readforum'
+# Table structure for table 'tx_typo3forum_domain_model_user_readforum'
 #
-CREATE TABLE tx_mmforum_domain_model_user_readforum (
+CREATE TABLE tx_typo3forum_domain_model_user_readforum (
   uid_local int(10) unsigned NOT NULL default '0',
   uid_foreign int(10) unsigned NOT NULL default '0',
   sorting int(10) unsigned NOT NULL default '0',
@@ -683,47 +683,47 @@ CREATE TABLE tx_mmforum_domain_model_user_readforum (
 # Table structure for table "fe_users"
 #
 CREATE TABLE fe_users (
-  tx_mmforum_rank int(11) unsigned default '1',
-  tx_mmforum_points int(11) unsigned default '0',
-  tx_mmforum_post_count int(11) default '0',
-  tx_mmforum_topic_count int(11) default '0',
-  tx_mmforum_question_count int(11) default '0',
-  tx_mmforum_topic_favsubscriptions int(11) unsigned default '0',
-  tx_mmforum_topic_subscriptions int(11) unsigned default '0',
-  tx_mmforum_forum_subscriptions int(11) unsigned default '0',
-  tx_mmforum_helpful_count int(11) default '0',
-  tx_mmforum_private_messages int(11) unsigned default '0',
-  tx_mmforum_helpful_count_season int(11) default '0',
-  tx_mmforum_post_count_season int(11) default '0',
-  tx_mmforum_signature text,
-  tx_mmforum_interests text,
-  tx_mmforum_userfield_values int(11) unsigned default '0'
-  tx_mmforum_read_forum int(11) unsigned default '0',
-  tx_mmforum_read_topics int(11) unsigned default '0',
-  tx_mmforum_support_posts int(11) unsigned default '0',
-  tx_mmforum_use_gravatar tinyint(1) unsigned default '0',
-  tx_mmforum_facebook varchar(255) default NULL,
-  tx_mmforum_twitter varchar(255) default NULL ,
-  tx_mmforum_google varchar(255) default NULL,
-  tx_mmforum_skype varchar(255) default NULL,
-  tx_mmforum_job varchar(255) default NULL,
-  tx_mmforum_working_environment int(11) unsigned default '0',
-  tx_mmforum_contact text,
-  KEY `tx_mmforum_rank` (`tx_mmforum_rank`)
+  tx_typo3forum_rank int(11) unsigned default '1',
+  tx_typo3forum_points int(11) unsigned default '0',
+  tx_typo3forum_post_count int(11) default '0',
+  tx_typo3forum_topic_count int(11) default '0',
+  tx_typo3forum_question_count int(11) default '0',
+  tx_typo3forum_topic_favsubscriptions int(11) unsigned default '0',
+  tx_typo3forum_topic_subscriptions int(11) unsigned default '0',
+  tx_typo3forum_forum_subscriptions int(11) unsigned default '0',
+  tx_typo3forum_helpful_count int(11) default '0',
+  tx_typo3forum_private_messages int(11) unsigned default '0',
+  tx_typo3forum_helpful_count_session int(11) default '0',
+  tx_typo3forum_post_count_session int(11) default '0',
+  tx_typo3forum_signature text,
+  tx_typo3forum_interests text,
+  tx_typo3forum_userfield_values int(11) unsigned default '0'
+  tx_typo3forum_read_forum int(11) unsigned default '0',
+  tx_typo3forum_read_topics int(11) unsigned default '0',
+  tx_typo3forum_support_posts int(11) unsigned default '0',
+  tx_typo3forum_use_gravatar tinyint(1) unsigned default '0',
+  tx_typo3forum_facebook varchar(255) default NULL,
+  tx_typo3forum_twitter varchar(255) default NULL ,
+  tx_typo3forum_google varchar(255) default NULL,
+  tx_typo3forum_skype varchar(255) default NULL,
+  tx_typo3forum_job varchar(255) default NULL,
+  tx_typo3forum_working_environment int(11) unsigned default '0',
+  tx_typo3forum_contact text,
+  KEY `tx_typo3forum_rank` (`tx_typo3forum_rank`)
 );
 
 #
 # Table structure for table "fe_groups"
 #
 CREATE TABLE fe_groups (
-  tx_mmforum_user_mod tinyint(3) unsigned default '0'
+  tx_typo3forum_user_mod tinyint(3) unsigned default '0'
 );
 
 
 #
-# Table structure for table 'tx_mmforum_cache'
+# Table structure for table 'tx_typo3forum_cache'
 #
-CREATE TABLE tx_mmforum_cache (
+CREATE TABLE tx_typo3forum_cache (
   id int(11) unsigned NOT NULL auto_increment,
   identifier varchar(250) NOT NULL default '',
   crdate int(11) unsigned default '0',
@@ -735,9 +735,9 @@ CREATE TABLE tx_mmforum_cache (
 
 
 #
-# Table structure for table 'tx_mmforum_cache_tags'
+# Table structure for table 'tx_typo3forum_cache_tags'
 #
-CREATE TABLE tx_mmforum_cache_tags (
+CREATE TABLE tx_typo3forum_cache_tags (
   id int(11) unsigned NOT NULL auto_increment,
   identifier varchar(250) NOT NULL default '',
   tag varchar(250) NOT NULL default '',

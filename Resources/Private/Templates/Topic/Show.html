@@ -1,4 +1,4 @@
-{namespace mmf=Tx_MmForum_ViewHelpers}
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 <f:layout name="default" />
 
 
@@ -15,11 +15,11 @@
 			<f:render partial="Post/Single" arguments="{post: post}" />
 		</f:for>
 	</f:widget.paginate>
-	
+
 </f:section>
 
 
-	
+
 	<!-- MENU section -->
 <f:section name="menu">
 	<f:render partial="Topic/Menu" arguments="{topic: topic}" />

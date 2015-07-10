@@ -1,10 +1,9 @@
 <?php
-
+namespace Mittwald\Typo3Forum\ViewHelpers\Control;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,29 +23,11 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Fluid\ViewHelpers\Form\SubmitViewHelper;
 
 /**
- *
  * ViewHelper that renders a big submit button.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage ViewHelpers_Control
- * @version    $Id$
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-
-class Tx_MmForum_ViewHelpers_Control_SubmitButtonViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SubmitViewHelper {
-
-
+class SubmitButtonViewHelper extends SubmitViewHelper {
 
 }
-
-?>

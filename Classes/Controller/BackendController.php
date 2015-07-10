@@ -1,12 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Controller;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Sebastian Gieselmann <s.gieselmann@mittwald.de>            *
- *           Ruven Fehling <r.fehling@mittwald.de>                      *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -26,28 +24,9 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
 
-/**
- *
- * This class implements a simple dispatcher for a mm_form eID script.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
- * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    MmForum
- * @subpackage Controller
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-class Tx_MmForum_Controller_BackendController extends Tx_MmForum_Controller_AbstractBackendController {
-
-
+class BackendController extends AbstractBackendController {
 
 	/**
 	 *
@@ -56,13 +35,10 @@ class Tx_MmForum_Controller_BackendController extends Tx_MmForum_Controller_Abst
 		$this->view->assign('pageUid', $this->pageId);
 	}
 
-
-
 	/**
-	 * @param null|Tx_MmForum_Domain_Model_Forum_Forum $parent
+	 * @param Forum $parent
 	 */
-	public function readForumTreeNodeAction(Tx_MmForum_Domain_Model_Forum_Forum $parent = NULL) {
-
+	public function readForumTreeNodeAction(Forum $parent = NULL) {
 	}
 
 

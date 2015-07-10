@@ -1,5 +1,5 @@
 <?php
-
+namespace Mittwald\Typo3Forum\View\Forum;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -29,7 +29,7 @@
  * View that renders the result of a forum update action.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage View\Forum
  * @version    $Id: BigButtonViewHelper.php 52309 2011-09-20 18:54:26Z mhelmich $
  *
@@ -38,7 +38,7 @@
  * @license    GNU Public License, version 2
  *             http://opensource.org/licenses/gpl-license.php
  */
-class Tx_MmForum_View_Forum_UpdateJson extends \TYPO3\CMS\Extbase\Mvc\View\AbstractView {
+class UpdateJson extends \TYPO3\CMS\Extbase\Mvc\View\AbstractView {
 
 
 

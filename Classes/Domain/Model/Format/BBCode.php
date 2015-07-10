@@ -1,10 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Model\Format;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2011 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,7 +24,7 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use Mittwald\Typo3Forum\TextParser\Panel\MarkItUpExportableInterface;
 
 /**
  *
@@ -32,24 +32,14 @@
  * class.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
+ * @package    Typo3Forum
  * @subpackage Domain_Model_Format
  * @version    $Id$
  * @license    GNU public License, version 2
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-
-class Tx_MmForum_Domain_Model_Format_BBCode extends Tx_MmForum_Domain_Model_Format_AbstractTextParserElement
-	implements Tx_MmForum_TextParser_Panel_MarkItUpExportableInterface {
-
-
-
-	/*
-		  * ATTRIBUTES
-		  */
-
-
+class BBCode extends AbstractTextParserElement implements MarkItUpExportableInterface {
 
 	/**
 	 * The regular expression that will be used to match the bb code.
@@ -57,13 +47,11 @@ class Tx_MmForum_Domain_Model_Format_BBCode extends Tx_MmForum_Domain_Model_Form
 	 */
 	protected $regularExpression;
 
-
 	/**
 	 * The replacement pattern or the regular expression.
 	 * @var string
 	 */
 	protected $regularExpressionReplacement;
-
 
 	/**
 	 * The bb code wrap. This string specifies which bb codes are to be inserted into
@@ -72,33 +60,18 @@ class Tx_MmForum_Domain_Model_Format_BBCode extends Tx_MmForum_Domain_Model_Form
 	 */
 	protected $bbcodeWrap;
 
-
-
-	/*
-	 * CONSTRUCTOR
-	 */
-
-
-
 	/**
 	 * Constructor.
+	 *
 	 * @param string $bbcodeWrap
 	 * @param string $regularExpression
 	 * @param string $regularExpressionReplacement
 	 */
 	public function __construct($bbcodeWrap = NULL, $regularExpression = NULL, $regularExpressionReplacement = NULL) {
-		$this->bbcodeWrap                   = $bbcodeWrap;
-		$this->regularExpression            = $regularExpression;
+		$this->bbcodeWrap = $bbcodeWrap;
+		$this->regularExpression = $regularExpression;
 		$this->regularExpressionReplacement = $regularExpressionReplacement;
 	}
-
-
-
-	/*
-	  * GETTERS
-	  */
-
-
 
 	/**
 	 * Get the regular expression.
@@ -108,7 +81,12 @@ class Tx_MmForum_Domain_Model_Format_BBCode extends Tx_MmForum_Domain_Model_Form
 		return $this->regularExpression;
 	}
 
-
+	/**
+	 * @param string $regularExpression
+	 */
+	public function setRegularExpression($regularExpression) {
+		$this->regularExpression = $regularExpression;
+	}
 
 	/**
 	 * Gets the replacement pattern for the regular expression.
@@ -118,7 +96,24 @@ class Tx_MmForum_Domain_Model_Format_BBCode extends Tx_MmForum_Domain_Model_Form
 		return $this->regularExpressionReplacement;
 	}
 
+	/**
+	 * @param string $regularExpressionReplacement
+	 */
+	public function setRegularExpressionReplacement($regularExpressionReplacement) {
+		$this->regularExpressionReplacement = $regularExpressionReplacement;
+	}
 
+	/**
+	 * Exports this bb code object as a plain array, that can be used in
+	 * a MarkItUp configuration object.
+	 * @return array A plain array describing this bb code
+	 */
+	public function exportForMarkItUp() {
+		return array('name' => $this->getName(),
+			'className' => $this->getIconClass(),
+			'openWith' => $this->getLeftBBCode(),
+			'closeWith' => $this->getRightBBCode());
+	}
 
 	/**
 	 * Return the left (opening) bb code tag.
@@ -128,8 +123,6 @@ class Tx_MmForum_Domain_Model_Format_BBCode extends Tx_MmForum_Domain_Model_Form
 		return array_shift(explode('|', $this->bbcodeWrap));
 	}
 
-
-
 	/**
 	 * Return the right (closing) bb code tag.
 	 * @return string The right bb code tag.
@@ -138,53 +131,10 @@ class Tx_MmForum_Domain_Model_Format_BBCode extends Tx_MmForum_Domain_Model_Form
 		return array_pop(explode('|', $this->bbcodeWrap));
 	}
 
-
-
-	/**
-	 * Exports this bb code object as a plain array, that can be used in
-	 * a MarkItUp configuration object.
-	 * @return array A plain array describing this bb code
-	 */
-	public function exportForMarkItUp() {
-		return array('name'      => $this->getName(),
-		             'className' => $this->getIconClass(),
-		             'openWith'  => $this->getLeftBBCode(),
-		             'closeWith' => $this->getRightBBCode());
-	}
-
-
-
-	/*
-	 * SETTERS
-	 */
-
-
-
 	/**
 	 * @param string $bbcodeWrap
 	 */
 	public function setBbcodeWrap($bbcodeWrap) {
 		$this->bbcodeWrap = $bbcodeWrap;
 	}
-
-
-
-	/**
-	 * @param string $regularExpression
-	 */
-	public function setRegularExpression($regularExpression) {
-		$this->regularExpression = $regularExpression;
-	}
-
-
-
-	/**
-	 * @param string $regularExpressionReplacement
-	 */
-	public function setRegularExpressionReplacement($regularExpressionReplacement) {
-		$this->regularExpressionReplacement = $regularExpressionReplacement;
-	}
-
-
 }
-

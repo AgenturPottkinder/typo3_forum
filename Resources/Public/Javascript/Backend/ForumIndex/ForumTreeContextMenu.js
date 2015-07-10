@@ -22,24 +22,24 @@
  *                                                                      */
 
 
-Ext.ns('MmForum.ForumIndex')
+Ext.ns('Typo3Forum.ForumIndex');
 
-MmForum.ForumIndex.ForumTreeContextMenu = Ext.extend(Ext.menu.Menu, {
+Typo3Forum.ForumIndex.ForumTreeContextMenu = Ext.extend(Ext.menu.Menu, {
 
 	constructor: function (config)
 	{
 		config.items = [
 			new Ext.menu.Item({
 				text   : TYPO3.l10n.localize('ForumIndex_Grid_Context_New'),
-				iconCls: 'tx-mmforum-icon-16-forum-new',
+				iconCls: 'tx-typo3forum-icon-16-forum-new',
 				scope  : this,
 				handler: function ()
 				{
 					var newForumNode = new Ext.tree.TreeNode({
 						text    : TYPO3.l10n.localize('ForumIndex_NewForum_DefaultTitle'),
-						iconCls : 'tx-mmforum-icon-16-forum',
+						iconCls : 'tx-typo3forum-icon-16-forum',
 						children: []
-					})
+					});
 					this.selectedNode.appendChild(newForumNode);
 					this.tree.treeEditor.triggerEdit(newForumNode);
 				}
@@ -47,7 +47,7 @@ MmForum.ForumIndex.ForumTreeContextMenu = Ext.extend(Ext.menu.Menu, {
 			new Ext.menu.Separator({}),
 			this.updateTitleItem = new Ext.menu.Item({
 				text   : TYPO3.l10n.localize('ForumIndex_Grid_Context_UpdateTitle'),
-				iconCls: 'tx-mmforum-icon-16-forum-edit',
+				iconCls: 'tx-typo3forum-icon-16-forum-edit',
 				scope  : this,
 				handler: function ()
 				{
@@ -56,7 +56,7 @@ MmForum.ForumIndex.ForumTreeContextMenu = Ext.extend(Ext.menu.Menu, {
 			}),
 			this.editItem = new Ext.menu.Item({
 				text   : TYPO3.l10n.localize('ForumIndex_Grid_Context_Edit'),
-				iconCls: 'tx-mmforum-icon-16-edit',
+				iconCls: 'tx-typo3forum-icon-16-edit',
 				scope  : this,
 				handler: function ()
 				{
@@ -65,11 +65,11 @@ MmForum.ForumIndex.ForumTreeContextMenu = Ext.extend(Ext.menu.Menu, {
 			}),
 			this.editAclsItem = new Ext.menu.Item({
 				text   : TYPO3.l10n.localize('ForumIndex_Grid_Context_EditAcls'),
-				iconCls: 'tx-mmforum-icon-16-forum-acledit'
+				iconCls: 'tx-typo3forum-icon-16-forum-acledit'
 			})
-		]
+		];
 
-		MmForum.ForumIndex.ForumTreeContextMenu.superclass.constructor.call(this, config);
+		Typo3Forum.ForumIndex.ForumTreeContextMenu.superclass.constructor.call(this, config);
 	},
 
 	setSelectedNode: function (node)

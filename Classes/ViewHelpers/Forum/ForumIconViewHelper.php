@@ -1,10 +1,9 @@
 <?php
-
+namespace Mittwald\Typo3Forum\ViewHelpers\Forum;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,49 +23,19 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 
 /**
- *
  * ViewHelper that renders a forum icon.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage ViewHelpers_Forum
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class Tx_MmForum_ViewHelpers_Forum_ForumIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
-
-
+class ForumIconViewHelper extends CObjectViewHelper {
 
 	/**
 	 * The frontend user repository.
-	 * @var Tx_MmForum_Domain_Repository_User_FrontendUserRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
+	 * @inject
 	 */
 	protected $frontendUserRepository = NULL;
-
-
-
-	/**
-	 *
-	 * Injects a frontend user repository.
-	 * @param  Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository
-	 *                             A frontend user repository.
-	 * @return void
-	 *
-	 */
-	public function injectFrontendUserRepository(Tx_MmForum_Domain_Repository_User_FrontendUserRepository $frontendUserRepository) {
-		$this->frontendUserRepository = $frontendUserRepository;
-	}
-
-
 
 	/**
 	 *
@@ -78,42 +47,38 @@ class Tx_MmForum_ViewHelpers_Forum_ForumIconViewHelper extends \TYPO3\CMS\Fluid\
 
 	}
 
-
-
 	/**
 	 *
 	 * Renders the forum icon.
 	 *
-	 * @param  Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
 	 *                                                         The forum for which the icon is to be rendered.
-	 * @param  integer                             $width      Image width
-	 * @param  string                              $alt        Alt text
+	 * @param integer                             $width      Image width
+	 * @param string                              $alt        Alt text
 	 * @return string             The rendered icon.
 	 *
 	 */
-	public function render(Tx_MmForum_Domain_Model_Forum_Forum $forum = NULL, $width = NULL, $alt = "") {
+	public function render(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum = NULL, $width = NULL, $alt = "") {
         $data = $this->getDataArray($forum);
 
         if($data['new']){
-            return parent::render('plugin.tx_mmforum.renderer.icons.forum_new', $data);
+            return parent::render('plugin.tx_typo3forum.renderer.icons.forum_new', $data);
         }else{
-            return parent::render('plugin.tx_mmforum.renderer.icons.forum', $data);
+            return parent::render('plugin.tx_typo3forum.renderer.icons.forum', $data);
         }
 
 	}
-
-
 
 	/**
 	 *
 	 * Generates a data array that will be passed to the typoscript object for
 	 * rendering the icon.
-	 * @param  Tx_MmForum_Domain_Model_Forum_Forum $forum
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
 	 *                             The topic for which the icon is to be displayed.
 	 * @return array               The data array for the typoscript object.
 	 *
 	 */
-	protected function getDataArray(Tx_MmForum_Domain_Model_Forum_Forum $forum = NULL) {
+	protected function getDataArray(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum = NULL) {
 		if ($forum === NULL) {
 			return array();
 		} else {
@@ -122,9 +87,4 @@ class Tx_MmForum_ViewHelpers_Forum_ForumIconViewHelper extends \TYPO3\CMS\Fluid\
 			             'closed' => !$forum->checkNewPostAccess($user));
 		}
 	}
-
-
-
 }
-
-?>

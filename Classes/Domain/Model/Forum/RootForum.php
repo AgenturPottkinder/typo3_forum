@@ -1,10 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,61 +23,33 @@
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
-
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use TYPO3\CMS\Core\SingletonInterface;
 
 
 /**
  * A virtual root forum.
  * This class models a virtual root forum that is the parent forum of all
  * other forums.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage Domain_Model_Forum
- * @version    $Id: Forum.php 60797 2012-04-16 18:51:49Z mhelmich $
- * @license    GNU public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
  */
-class Tx_MmForum_Domain_Model_Forum_RootForum extends Tx_MmForum_Domain_Model_Forum_Forum implements \TYPO3\CMS\Core\SingletonInterface {
-
-
+class RootForum extends Forum implements SingletonInterface {
 
 	/**
-	 * @var Tx_MmForum_Domain_Repository_Forum_ForumRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
+	 * @inject
 	 */
 	protected $forumRepository = NULL;
-
-
-
-	public function injectForumRepository(Tx_MmForum_Domain_Repository_Forum_ForumRepository $forumRepository) {
-		$this->forumRepository = $forumRepository;
-	}
-
-
 
 	public function __construct() {
 		$this->uid = 0;
 	}
 
-
-
 	public function getChildren() {
 		return $this->forumRepository->findRootForums();
 	}
 
-
-
-
-
-	public function checkAccess(Tx_MmForum_Domain_Model_User_FrontendUser $user = NULL, $accessType = 'read') {
-		if ($accessType === 'read') {
-			return TRUE;
-		}
-
-		return FALSE;
-		#return TYPO3_MODE === 'BE';
+	public function checkAccess(FrontendUser $user = NULL, $accessType = 'read') {
+		return $accessType === 'read';
 	}
-
-
 
 }

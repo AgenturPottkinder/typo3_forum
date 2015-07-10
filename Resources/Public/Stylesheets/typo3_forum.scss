@@ -1,0 +1,483 @@
+
+
+/*
+ * COLOR DEFINITIONS
+*/
+
+$baseColor: #26467B;
+$errorColor: #ff0000;
+$successColor: #00ff00;
+$lineColor: #e0e0e0;
+
+
+/*
+ * SECONDARY COLOR DEFINITIONS
+*/
+
+$highlightColor: lighten($lineColor, (100 - lightness($lineColor)) * 0.75);
+$lightBaseColor: lighten($baseColor, (100 - lightness($baseColor)) * 0.9);
+$lightErrorColor: lighten($errorColor, (100 - lightness($errorColor)) * 0.9);
+$lightSuccessColor: lighten($successColor, (100 - lightness($successColor)) * 0.9);
+$darkSuccessColor: darken($successColor, lightness($successColor) * 0.5);
+
+
+/*
+ * OTHER DEFINITIONS
+*/
+
+$baseFontSize: 0.75em;
+
+
+@mixin vgradient($top, $bottom) {
+	background: $top; /* Old browsers */
+	background: -moz-linear-gradient(top, $top 0%, $bottom 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$top), color-stop(100%,$bottom)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, $top 0%,$bottom 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, $top 0%, $bottom 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, $top 0%, $bottom 100%); /* IE10+ */
+	background: linear-gradient(top, $top 0%, $bottom 100%); /* W3C */
+}
+
+@mixin default-row {
+	font-size: $baseFontSize;
+	border-top: 1px solid $lineColor;
+	border-collapse: collapse;
+	padding: 0.3em;
+}
+
+
+/*
+ * GENERAL STYLES
+*/
+
+.tx-typo3forum-exception {
+	background-color: $lightErrorColor;
+	padding: 1em;
+}
+
+.tx-typo3forum-pages {
+	border: 1px solid #dde6ff;
+	background-color: #f0f0f0;
+	padding: 0.3em;
+	float:right;
+	margin: 1em 0em;
+}
+
+.tx-typo3forum-success {
+	background-color: $lightSuccessColor;
+	padding: 1em;
+	margin-top: 0px;
+	border: 1px solid $darkSuccessColor;
+	@include vgradient(#ffffff, $lightSuccessColor);
+
+	li {
+		list-style-type: none;
+		margin: 0px;
+	}
+}
+
+.tx-typo3forum-helpfull-btn {
+	cursor: pointer;
+}
+.tx-typo3forum-posts-listing .tx-typo3forum-ajax-loader {
+  width: 16px;
+  height: 16px;
+  background-image: url("../Images/loader_main_bg.gif");
+  background-repeat: no-repeat;
+}
+
+.tx-typo3forum-posts-listing .topic .tx-typo3forum-ajax-loader {
+  width: 16px;
+  height: 16px;
+  background-image: url("../Images/loader_main.gif");
+  background-repeat: no-repeat;
+}
+
+
+/*
+ * BASIC TABLE STYLES
+*/
+
+.tx-typo3forum-header {
+	color: $baseColor;
+	font-size: $baseFontSize * 4/3;
+	padding: 0.3em;
+	@include vgradient(#ffffff, $lightBaseColor);
+	border-bottom: 2px solid $baseColor;
+	overflow: auto;
+
+	img {
+		vertical-align: middle;
+		margin-right: 0.6em;
+	}
+}
+
+.tx-typo3forum-header-end {
+	background-color: $lightBaseColor;
+	border-top: 2px solid $baseColor;
+	height: 16px;
+}
+
+table.tx-typo3forum-table {
+	width: 100%;
+	border-collapse: collapse;
+
+	tr {
+		td {
+			@include default-row;
+		}
+	}
+
+	tr.tx-typo3forum-even {
+		background-color: $highlightColor;
+	}
+
+	tr.tx-typo3forum-odd {
+
+	}
+
+	tr.tx-typo3forum-table-legend {
+		color: $baseColor;
+		background-color: $highlightColor;
+		font-size: $baseFontSize * 0.75;
+		text-align: left;
+		font-weight: normal;
+
+		th {
+			padding: 0.3em;
+		}
+	}
+}
+
+
+/*
+ * BUTTONS
+*/
+
+$bigButtonSize: 32px;
+
+a.tx-typo3forum-button {
+	text-decoration: none;
+	color: $baseColor;
+}
+
+a.tx-typo3forum-button-small {
+	@extend a.tx-typo3forum-button;
+	font-size: $baseFontSize;
+	float: left;
+
+	margin-left: 4px;
+
+	img {
+		float:left;
+		vertical-align: middle;
+		margin-right: 4px;
+	}
+
+	div.tx-typo3forum-button-text {
+		margin-left: 20px;
+		font-size: 0.8em;
+		display: none;
+	}
+
+}
+
+a.tx-typo3forum-button-big {
+	@extend a.tx-typo3forum-button;
+	display: block;
+	float: left;
+	padding: 0px 0px;
+	margin-right: 8px;
+	overflow: auto;
+	height: $bigButtonSize;
+	font-size: $baseFontSize;
+
+	img {
+		vertical-align: middle;
+	}
+
+	div.tx-typo3forum-button-text {
+		@include vgradient(#ffffff, $highlightColor);
+		border: 1px solid $lineColor;
+		float: left;
+		padding: 4px 8px;
+	}
+
+	&:hover {
+		div.tx-typo3forum-button-text {
+			@include vgradient(#ffffff, $lightBaseColor);
+			border: 1px solid $baseColor;
+		}
+	}
+}
+
+
+/*
+ * FORUM AND TOPIC ICONS
+*/
+
+$iconSize: 32px;
+$overlayIconSize: $iconSize / 2;
+
+div.tx-typo3forum-icon {
+	float: left;
+	width: $iconSize;
+	height: $iconSize;
+	margin-right: 8px;
+	position: relative;
+
+	div.tx-typo3forum-icon-overlay {
+		width: $overlayIconSize;
+		height: $overlayIconSize;
+		background-repeat: no-repeat;
+		position: absolute;
+	}
+
+	div.tx-typo3forum-icon-overlay-tl {
+		@extend div.tx-typo3forum-icon-overlay;
+	}
+
+	div.tx-typo3forum-icon-overlay-bl {
+		@extend div.tx-typo3forum-icon-overlay;
+		top: $overlayIconSize;
+	}
+
+	div.tx-typo3forum-icon-overlay-tr {
+		@extend div.tx-typo3forum-icon-overlay;
+		left: $overlayIconSize;
+	}
+
+	div.tx-typo3forum-icon-overlay-br {
+		@extend div.tx-typo3forum-icon-overlay;
+		top: $overlayIconSize;
+		left: $overlayIconSize;
+	}
+}
+
+@mixin image($filename, $width, $height) {
+	background-image: url($filename);
+	background-repeat: no-repeat;
+	width: $width;
+	height: $height;
+	display: inline-block;
+	margin-right: 0.3em;
+	vertical-align: text-top;
+}
+
+@mixin icon($key, $filename) {
+	.tx-typo3forum-icon-32-#{$key} { @include image('../Images/Icons/'+$filename+'-32.png', 32px, 32px); }
+	.tx-typo3forum-icon-16-#{$key} { @include image('../Images/Icons/'+$filename+'-16.png', 16px, 16px); }
+}
+
+@include icon('back', 'Navigation/Back');
+@include icon('edit', 'Edit');
+@include icon('forum', 'Forum/Forum');
+@include icon('topic', 'Topic/Topic');
+@include icon('topic-goto', 'Topic/Goto');
+@include icon('topic-new', 'Topic/New');
+@include icon('post-new', 'Post/New');
+@include icon('post-edit', 'Post/Edit');
+@include icon('post-delete', 'Post/Delete');
+@include icon('subscribe', 'Subscribe');
+@include icon('unsubscribe', 'Unsubscribe');
+@include icon('quote', 'Post/Quote');
+@include icon('report-new', 'Moderation/ReportNew');
+@include icon('moderate', 'Moderate');
+@include icon('advanced', 'Advanced');
+@include icon('user', 'User/User');
+@include icon('user-profile', 'User/Profile');
+@include icon('user-twitter', 'User/Twitter');
+
+
+/*
+ * FORMS
+*/
+
+.tx-typo3forum-form-row {
+	clear:left;
+	@include default-row;
+
+	label {
+		float:left;
+		vertical-align: middle;
+	}
+
+	.tx-typo3forum-form-right {
+		margin-left: 30%;
+		width: 60%;
+		vertical-align: middle;
+	}
+
+	.tx-typo3forum-form-span {
+		clear: left;
+	}
+
+	input {
+		border: 1px solid $lineColor;
+		@include vgradient(#ffffff, $highlightColor);
+		padding: 4px 8px;
+		width: 100%;
+	}
+
+	input[type="submit"], input[type="checkbox"] {
+		width: auto;
+	}
+
+	textarea {
+		@extend input;
+	}
+}
+
+
+/*
+ * TOPIC SHOW ACTION
+*/
+
+div.tx-typo3forum-topic-show-post-user {
+	/*padding: 0.3em;
+	border-bottom: 1px solid #e0e0e0;
+	font-size: $baseFontSize;*/
+	line-height: normal;
+	/*@include vgradient(#ffffff, $highlightColor);*/
+	height: 64px;
+}
+
+img.tx-typo3forum-topic-show-post-user-icon {
+	float:left;
+	margin-right: 8px;
+}
+
+.tx-typo3forum-topic-show-post-user-link {
+	font-size: 1.33em;
+}
+
+div.tx-typo3forum-topic-show-post-text, div.tx-typo3forum-topic-show-post-signature {
+	padding-top: 1em;
+}
+
+div.tx-typo3forum-topic-show-post-attachments, div.tx-typo3forum-quote {
+	padding: 0.3em;
+	margin: 1em;
+	font-size: smaller;
+
+	border: 1px solid #dde6ff;
+	background-color: #f0f0f0;
+	-moz-border-radius-topleft: 1em;
+	-webkit-border-top-left-radius: 1em;
+	-moz-border-radius-bottomright: 1em;
+	-webkit-border-bottom-right-radius: 1em;
+}
+
+div.tx-typo3forum-topic-show-post-attachments-header, div.tx-typo3forum-quote-user {
+	color: #234479;
+	font-weight: bold;
+}
+
+div.tx-typo3forum-topic-show-post-attachments table {
+	width: 100%;
+	display: none;
+}
+
+div.tx-typo3forum-topic-show-post-attachments:hover table {
+	display: table;
+}
+
+div.tx-typo3forum-topic-show-post-attachments table td {
+	padding: 0px;
+	font-size: smaller;
+}
+
+.tx-typo3forum-topic-show-post-menu {
+	float: right;
+	padding: 4px 8px;
+}
+
+.tx-typo3forum-topic-show-post-date {
+	float: right;
+	color: #aaa;
+	font-style: italic;
+}
+.ad {
+  display: none;
+}
+
+/*
+ * TEXTPARSER PANEL
+*/
+
+.tx-typo3forum-panel, .tx-typo3forum-dropdown {
+	float: left;
+	border: 1px solid #234479;
+	border-bottom: 0px;
+	-moz-border-radius-topleft: 1em;
+	-webkit-border-top-left-radius: 1em;
+	background-color: #dde6ff;
+	margin-right: 8px;
+	padding: 4px 8px;
+	text-decoration: none;
+	color: #234479;
+	font-size: small;
+}
+
+.tx-typo3forum-dropdown {
+	position:absolute;
+}
+
+.tx-typo3forum-panel-title, .tx-typo3forum-dropdown-title {
+	text-decoration: none;
+	color: #234479;
+	font-size: small;
+	vertical-align: top !important;
+	float: left;
+}
+
+.tx-typo3forum-panel-items, .tx-typo3forum-dropdown-firstitem {
+	margin-left: 8px;
+	float: left;
+}
+
+.tx-typo3forum-dropdown-items {
+	display:none;
+	max-width: 200px;
+	padding-top: 30px;
+}
+
+.tx-typo3forum-dropdown-items img, .tx-typo3forum-panel-items img {
+	cursor: pointer;
+}
+
+.tx-typo3forum-dropdown-items img {
+	margin-right: 4px;
+	margin-bottom: 4px;
+}
+
+.tx-typo3forum-dropdown:hover {
+	border: 1px solid #234479;
+	-moz-border-radius-bottomright: 1em;
+	-webkit-border-bottom-right-radius: 1em;
+}
+
+.tx-typo3forum-dropdown:hover .tx-typo3forum-dropdown-items {
+	display:block;
+	position:relative;
+}
+
+ul.nav-pills-condensed {
+	margin: 0px;
+	a {
+		padding: 4px !important;
+	}
+}
+
+ul.nav-pills-inline {
+	display: inline-block;
+	margin: 0px;
+
+	a {
+		padding: 4px !important;
+		margin-top: -4px !important;
+		margin-bottom: -4px !important;
+	}
+}
+
+@import 'markitup';

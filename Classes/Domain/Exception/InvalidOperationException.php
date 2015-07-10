@@ -1,10 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Exception;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2010 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,27 +24,7 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
-
-/**
- *
- * General text parser exception.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage Domain_Exception
- * @version    $Id: Exception.php 60797 2012-04-16 18:51:49Z mhelmich $
- *
- * @copyright  2010 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-
-class Tx_MmForum_Domain_Exception_InvalidOperationException extends Tx_MmForum_Domain_Exception_AbstractException {
-
+class InvalidOperationException extends AbstractException {
 
 
 	/**
@@ -61,5 +41,3 @@ class Tx_MmForum_Domain_Exception_InvalidOperationException extends Tx_MmForum_D
 	protected $code = 1334603802;
 
 }
-
-?>

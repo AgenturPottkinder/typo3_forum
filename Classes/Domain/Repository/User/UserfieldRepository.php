@@ -1,10 +1,10 @@
 <?php
+namespace Mittwald\Typo3Forum\Domain\Repository\User;
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,7 +24,7 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-
+use Mittwald\Typo3Forum\Domain\Repository\AbstractRepository;
 
 /**
  *
@@ -36,45 +36,21 @@
  * displayed in the user profile view independently of whether they are
  * configured in the database.
  *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    MmForum
- * @subpackage Domain_Repository_User
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class Tx_MmForum_Domain_Repository_User_UserfieldRepository extends Tx_MmForum_Domain_Repository_AbstractRepository {
+class UserfieldRepository extends AbstractRepository {
 
-
-
-	/*
-	 * ATTRIBUTES
+	/**
+	 * ConfigurationManagerInterface
+	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+	 * @inject
 	 */
-
-
-
+	protected $configurationManagerInterface = NULL;
 	/**
 	 * A list of core userfields.
 	 *
-	 * @var Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield
+	 * @var \Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield
 	 */
 	private $coreUserfields = NULL;
-
-    /**
-     * ConfigurationManagerInterface
-     * @var Tx_Extbase_Configuration_ConfigurationManagerInterface
-     */
-    protected $configurationManagerInterface = NULL;
-
-	/*
-	 * CONSTRUCTOR
-	 */
-
 
 	/**
 	 * Creates a new instance of the userfield repository.
@@ -83,35 +59,41 @@ class Tx_MmForum_Domain_Repository_User_UserfieldRepository extends Tx_MmForum_D
 	 */
 	public function __construct(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
 		parent::__construct($objectManager);
-		$this->objectType = 'Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield';
-
+		$this->objectType = 'Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield';
 	}
-
-    /**
-    * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManagerInterface
-    */
-    public function injectConfigurationManagerInterface(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManagerInterface) {
-        $this->configurationManagerInterface = $configurationManagerInterface;
-    }
-
 
 
 	/*
 	 * REPOSITORY METHODS
 	 */
 
+	/**
+	 * Finds all userfields. This method loads all userfields from the database
+	 * and merges the result with the core userfields that are loaded from the
+	 * typoscript setup.
+	 *
+	 * @return Traversable<\Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield>
+	 *                             All userfields, both from the database and
+	 *                             the core typoscript setup.
+	 */
+	public function findAll() {
+		$query = $this->createQueryWithFallbackStoragePage();
+
+		return array_merge($this->findCoreUserfields(), $query->execute()->toArray());
+	}
 
 	/**
 	 * Finds all core userfields. These are stored in the typoscript setting
-	 * plugin.tx_mmforum.settings.userfields.core_fields.
+	 * plugin.tx_typo3forum.settings.userfields.core_fields.
 	 *
-	 * @return Array<Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield>
+	 * @return array|\Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield
 	 *                             The core userfields that are generated from the
 	 *                             typoscript configuration.
+	 * @throws \TYPO3\CMS\Extbase\Object\UnknownClassException
 	 */
 	protected function findCoreUserfields() {
 		if ($this->coreUserfields === NULL) {
-			$conf                 =  $this->configurationManagerInterface->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+			$conf = $this->configurationManagerInterface->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 			$this->coreUserfields = array();
 
 			foreach ($conf['settings']['userfields']['core_fields'] as $coreFieldKey => $coreFieldValues) {
@@ -122,8 +104,8 @@ class Tx_MmForum_Domain_Repository_User_UserfieldRepository extends Tx_MmForum_D
 
 				$object = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance($className);
 
-				if (!$object instanceof Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield) {
-					throw new \TYPO3\CMS\Extbase\Object\UnknownClassException("The class $className is not a subclass of Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield", 1287756386);
+				if (!$object instanceof \Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield) {
+					throw new \TYPO3\CMS\Extbase\Object\UnknownClassException("The class $className is not a subclass of \Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield", 1287756386);
 				}
 
 				foreach ($coreFieldValues['properties'] as $propertyName => $propertyValue) {
@@ -137,23 +119,6 @@ class Tx_MmForum_Domain_Repository_User_UserfieldRepository extends Tx_MmForum_D
 
 		return $this->coreUserfields;
 	}
-
-
-
-	/**
-	 * Finds all userfields. This method loads all userfields from the database
-	 * and merges the result with the core userfields that are loaded from the
-	 * typoscript setup.
-	 *
-	 * @return Traversable<Tx_MmForum_Domain_Model_User_Userfield_AbstractUserfield>
-	 *                             All userfields, both from the database and
-	 *                             the core typoscript setup.
-	 */
-	public function findAll() {
-		$query = $this->createQueryWithFallbackStoragePage();
-		return array_merge($this->findCoreUserfields(), $query->execute()->toArray());
-	}
-
 
 
 }

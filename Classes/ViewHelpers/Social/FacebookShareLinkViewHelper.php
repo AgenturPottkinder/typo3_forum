@@ -1,9 +1,9 @@
 <?php
+namespace Mittwald\Typo3Forum\ViewHelpers\Social;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Sebastian Gieselmann <s.gieselmann@mittwald.de>            *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,26 +23,9 @@
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
-
-/**
- *
- * ViewHelper that renders a user's avatar.
- *
- * @author     Sebastian Gieselmann <s.gieselmann@mittwald.de>
- * @package    MmForum
- * @subpackage ViewHelpers_User
- * @version    $Id$
- *
- * @copyright  2013 Sebastian Gieselmann <s.gieselmann@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-
-class Tx_MmForum_ViewHelpers_Social_FacebookShareLinkViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper  {
+class FacebookShareLinkViewHelper extends AbstractTagBasedViewHelper  {
 
 	/**
 	 * @var	string
@@ -57,13 +40,15 @@ class Tx_MmForum_ViewHelpers_Social_FacebookShareLinkViewHelper extends \TYPO3\C
 	public function initializeArguments() {
 		$this->registerTagAttribute('target', 'string', 'Specifies where to open the linked document');
 	}
+
 	/**
 	 * Render a share button
 	 *
-	 * @param string $title Title for share
-	 * @param string $description Title for share
-	 * @param string $image Title for share
-	 * @param string $shareUrl Title for share
+	 * @param string $title
+	 * @param string $text
+	 * @param string $image
+	 * @param string $shareUrl
+	 *
 	 * @return string
 	 */
 	public function render($title = NULL,  $text = NULL, $image = NULL, $shareUrl = NULL) {
@@ -105,7 +90,4 @@ class Tx_MmForum_ViewHelpers_Social_FacebookShareLinkViewHelper extends \TYPO3\C
 		$this->tag->setContent($this->renderChildren());
 		return $this->tag->render();
 	}
-
 }
-
-?>
