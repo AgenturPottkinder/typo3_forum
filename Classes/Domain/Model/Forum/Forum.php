@@ -210,7 +210,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 			// access checks on the domain objects themselves, since the authentication
 			// service caches its results (which should be safe in this case).
 			foreach ($this->children as $child) {
-				if ($this->authenticationService->checkAuthorization($child, 'read')) {
+				if ($this->authenticationService->checkAuthorization($child, Access::TYPE_READ)) {
 					$this->visibleChildren->append($child);
 				}
 			}
@@ -426,7 +426,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * @param string $accessType The operation
 	 * @return boolean TRUE, if the user has access to the requested operation, otherwise FALSE.
 	 */
-	public function checkAccess(FrontendUser $user = NULL, $accessType = 'read') {
+	public function checkAccess(FrontendUser $user = NULL, $accessType = Access::TYPE_READ) {
 
 		// If there aren't any access rules defined for this forum, delegate
 		// the access check to the parent forum. If there is no parent forum
@@ -461,7 +461,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * @return boolean TRUE if the user has read access, otherwise FALSE.
 	 */
 	public function checkReadAccess(FrontendUser $user = NULL) {
-		return $this->checkAccess($user, 'read');
+		return $this->checkAccess($user, Access::TYPE_READ);
 	}
 
 
@@ -473,37 +473,33 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * @return boolean TRUE if the user has access, otherwise FALSE.
 	 */
 	public function checkNewPostAccess(FrontendUser $user = NULL) {
-		return $this->checkAccess($user, 'newPost');
+		return $this->checkAccess($user, Access::TYPE_NEW_POST);
 	}
 
 
 	/**
 	 * Checks if a user has access to create new topics in this forum.
 	 *
-	 * @param FrontendUser $user
-	 *                             The user that is to be checked.
-	 *
-	 * @return boolean             TRUE if the user has access, otherwise FALSE.
+	 * @param FrontendUser $user The user that is to be checked.
+	 * @return boolean TRUE if the user has access, otherwise FALSE.
 	 */
 	public function checkNewTopicAccess(FrontendUser $user = NULL) {
-		return $this->checkAccess($user, 'newTopic');
+		return $this->checkAccess($user, Access::TYPE_NEW_TOPIC);
 	}
 
 
 	/**
 	 * Checks if a user has access to moderate in this forum.
 	 *
-	 * @param FrontendUser $user
-	 *                             The user that is to be checked.
+	 * @param FrontendUser $user The user that is to be checked.
 	 *
-	 * @return boolean             TRUE if the user has access, otherwise FALSE.
+	 * @return boolean TRUE if the user has access, otherwise FALSE.
 	 */
 	public function checkModerationAccess(FrontendUser $user = NULL) {
 		if ($user === NULL) {
 			return FALSE;
 		}
-
-		return $this->checkAccess($user, 'moderate');
+		return $this->checkAccess($user, Access::TYPE_MODERATE);
 	}
 
 

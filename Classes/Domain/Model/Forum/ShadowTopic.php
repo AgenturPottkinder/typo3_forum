@@ -67,13 +67,13 @@ class ShadowTopic extends Topic {
 	 * Checks if a user can create new posts inside this topic. Since this topic is
 	 * only a shadow topic, this method will ALWAYS return FALSE.
 	 *
-	 * @param FrontendUser $user       The user.
-	 * @param string        $accessType The access type to be checked.
+	 * @param FrontendUser $user The user.
+	 * @param string $accessType The access type to be checked.
 	 *
 	 * @return boolean TRUE, if the user can create new posts. Always FALSE.
 	 */
-	public function checkAccess(FrontendUser $user = NULL, $accessType = 'read') {
-		if ($accessType === 'newPost') {
+	public function checkAccess(FrontendUser $user = NULL, $accessType = Access::TYPE_READ) {
+		if ($accessType === Access::TYPE_NEW_POST) {
 			return FALSE;
 		} else {
 			return parent::checkAccess($user, $accessType);

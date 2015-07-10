@@ -24,6 +24,7 @@ namespace Mittwald\Typo3Forum\Domain\Repository\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\Forum\Access;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
@@ -57,10 +58,10 @@ class ForumRepository extends Repository {
 		$query = $this->createQuery();
 		$result = $query
 			->matching($query->equals('forum', 0))
-			->setOrderings(array('sorting' => 'ASC', 'uid' => 'ASC'))
+			->setOrderings(['sorting' => 'ASC', 'uid' => 'ASC'])
 			->execute();
 
-		return $this->filterByAccess($result, 'read');
+		return $this->filterByAccess($result, Access::TYPE_READ);
 	}
 
 	/**
@@ -68,8 +69,8 @@ class ForumRepository extends Repository {
 	 * @param string $action
 	 * @return array
 	 */
-	protected function filterByAccess(QueryResultInterface $objects, $action = 'read') {
-		$result = array();
+	protected function filterByAccess(QueryResultInterface $objects, $action = Access::TYPE_READ) {
+		$result = [];
 		foreach ($objects as $forum) {
 			if ($this->authenticationService->checkAuthorization($forum, $action)) {
 				$result[] = $forum;
@@ -90,7 +91,7 @@ class ForumRepository extends Repository {
 	public function findByUids($uids) {
 
 		$query = $this->createQuery();
-		$constraints = array();
+		$constraints = [];
 		if (!empty($uids)) {
 			$constraints[] = $query->in('uid', $uids);
 		}
@@ -109,7 +110,7 @@ class ForumRepository extends Repository {
 		$query = $this->createQuery();
 		$query
 			->matching($query->contains('subscribers', $user))
-			->setOrderings(array('lastPost.crdate' => 'ASC'));
+			->setOrderings(['lastPost.crdate' => 'ASC']);
 
 		return $query->execute();
 	}

@@ -40,6 +40,14 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
  */
 class Access extends AbstractValueObject {
 
+
+	const TYPE_READ = 'read';
+	const TYPE_NEW_TOPIC = 'newTopic';
+	const TYPE_NEW_POST = 'newPost';
+	const TYPE_EDIT_POST = 'editPost';
+	const TYPE_DELETE_POST = 'deletePost';
+	const TYPE_MODERATE = 'moderate';
+
 	/**
 	 * Anyone.
 	 */

@@ -28,6 +28,7 @@ use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
 use Mittwald\Typo3Forum\Domain\Model\NotifiableInterface;
 use Mittwald\Typo3Forum\Domain\Model\ReadableInterface;
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 
@@ -63,7 +64,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 
 	/**
 	 * The user who created the topic.
-	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
+	 * @var FrontendUser
 	 */
 	protected $author;
 
@@ -249,7 +250,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 
 	/**
 	 * Gets the topic author.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser author
+	 * @return FrontendUser author
 	 */
 	public function getAuthor() {
 		if ($this->author === NULL) {
@@ -290,7 +291,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 
 	/**
 	 * Get the as solution marked post
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Post
+	 * @return Post
 	 */
 	public function getSolution() {
 		return $this->solution;
@@ -342,7 +343,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 
 	/**
 	 * Gets the last post.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Post lastPost
+	 * @return Post lastPost
 	 */
 	public function getLastPost() {
 		return $this->lastPost;
@@ -399,11 +400,11 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Determines whether this topic has been read by a certain user.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reader The user who is to be checked.
+	 * @param FrontendUser $reader The user who is to be checked.
 	 *
 	 * @return boolean                                           TRUE, if the user did read this topic, otherwise FALSE.
 	 */
-	public function hasBeenReadByUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reader = NULL) {
+	public function hasBeenReadByUser(FrontendUser $reader = NULL) {
 		return $reader ? $this->readers->contains($reader) : TRUE;
 	}
 
@@ -427,7 +428,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 
 	/**
 	 * Get the first post of a topic
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Post
+	 * @return Post
 	 */
 	public function getFirstPost() {
 		$this->getPosts()->rewind();
@@ -437,7 +438,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 
 	/**
 	 * Get the most supported post of a topic
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Post
+	 * @return Post
 	 * @todo refactor (Lazyloading or something else)
 	 */
 	public function getMostSupportedPost() {
@@ -455,19 +456,17 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Checks if a user may perform a certain operation (read, answer...) with this
 	 * topic.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user       The user.
-	 * @param string                                              $accessType The access type to be checked.
+	 * @param FrontendUser $user The user.
+	 * @param string $accessType The access type to be checked.
 	 *
 	 * @return boolean
 	 */
-	public function checkAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL, $accessType = 'read') {
+	public function checkAccess(FrontendUser $user = NULL, $accessType = Access::TYPE_READ) {
 		switch ($accessType) {
-			case 'newPost':
+			case Access::TYPE_NEW_POST:
 				return $this->checkNewPostAccess($user);
-			case 'moderate':
+			case Access::TYPE_MODERATE:
 				return $this->checkModerationAccess($user);
-			case 'solution':
-				return $this->checkSolutionAccess($user);
 			default:
 				return $this->forum->checkAccess($user, $accessType);
 		}
@@ -476,11 +475,11 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Checks if a user may reply to this topic.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @param FrontendUser $user
 	 *
 	 * @return boolean
 	 */
-	public function checkNewPostAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
+	public function checkNewPostAccess(FrontendUser $user = NULL) {
 		if ($user === NULL) {
 			return FALSE;
 		}
@@ -492,38 +491,22 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Checks if a user has moderative access to this topic.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
+	 * @param FrontendUser $user
 	 *
 	 * @return boolean
 	 */
-	public function checkModerationAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
+	public function checkModerationAccess(FrontendUser $user = NULL) {
 		return ($user === NULL) ? FALSE : $this->getForum()->checkModerationAccess($user);
-	}
-
-	/**
-	 * Checks if a user has solution access to this topic.
-	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
-	 *
-	 * @return boolean
-	 */
-	public function checkSolutionAccess(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL) {
-		if ($this->getAuthor()->getUid() == $user->getUid() || $this->checkModerationAccess($user)) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	/**
 	 * Adds a Post. By adding a new post, this topic is automatically marked unread
 	 * for all users who have read this topic before.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post The Post to be added
-	 *
+	 * @param Post $post The Post to be added
 	 * @return void
 	 */
-	public function addPost(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
+	public function addPost(Post $post) {
 		$this->posts->attach($post);
 		$post->setTopic($this);
 		$this->postCount++;
@@ -567,7 +550,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * @return void
 	 * @throws \Mittwald\Typo3Forum\Domain\Exception\InvalidOperationException
 	 */
-	public function removePost(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
+	public function removePost(Post $post) {
 		if ($this->postCount === 1) {
 			throw new \Mittwald\Typo3Forum\Domain\Exception\InvalidOperationException('You cannot delete the last post of a topic without deleting the topic itself (use \Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory::deleteTopic for that).', 1334603895);
 		}
@@ -592,11 +575,11 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Sets the topic author.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $author The topic author.
+	 * @param FrontendUser $author The topic author.
 	 *
 	 * @return void
 	 */
-	public function setAuthor(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $author) {
+	public function setAuthor(FrontendUser $author) {
 		$this->author = $author;
 	}
 
@@ -604,11 +587,11 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Sets the last post. This method is not publicy accessible; is is called
 	 * automatically when a new post is added to this topic.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $lastPost The last post.
+	 * @param Post $lastPost The last post.
 	 *
 	 * @return void
 	 */
-	protected function setLastPost(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $lastPost) {
+	protected function setLastPost(Post $lastPost) {
 		$this->lastPost = $lastPost;
 		$this->lastPostCrdate = $lastPost->getTimestamp();
 	}
@@ -627,11 +610,11 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Set a post as solution
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $solution
+	 * @param Post $solution
 	 *
 	 * @return void
 	 */
-	public function setSolution(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $solution) {
+	public function setSolution(Post $solution) {
 		$this->solution = $solution;
 	}
 
@@ -727,22 +710,22 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Marks this topic as read by a certain user.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reader The user who read this topic.
+	 * @param FrontendUser $reader The user who read this topic.
 	 *
 	 * @return void
 	 */
-	public function addReader(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reader) {
+	public function addReader(FrontendUser $reader) {
 		$this->readers->attach($reader);
 	}
 
 	/**
 	 * Mark this topic as unread for a certain user.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reader The user for whom to mark this topic as unread.
+	 * @param FrontendUser $reader The user for whom to mark this topic as unread.
 	 *
 	 * @return void
 	 */
-	public function removeReader(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $reader) {
+	public function removeReader(FrontendUser $reader) {
 		$this->readers->detach($reader);
 	}
 
@@ -757,31 +740,31 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Adds a new subscriber.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user The new subscriber.
+	 * @param FrontendUser $user The new subscriber.
 	 *
 	 * @return void
 	 */
-	public function addFavSubscriber(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
+	public function addFavSubscriber(FrontendUser $user) {
 		$this->favSubscribers->attach($user);
 	}
 
 	/**
 	 * Removes a subscriber.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user The subscriber to be removed.
+	 * @param FrontendUser $user The subscriber to be removed.
 	 */
-	public function removeFavSubscriber(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
+	public function removeFavSubscriber(FrontendUser $user) {
 		$this->favSubscribers->detach($user);
 	}
 
 	/**
 	 * Adds a new subscriber.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user The new subscriber.
+	 * @param FrontendUser $user The new subscriber.
 	 *
 	 * @return void
 	 */
-	public function addSubscriber(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
+	public function addSubscriber(FrontendUser $user) {
 		$this->subscribers->attach($user);
 	}
 
@@ -789,9 +772,9 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	/**
 	 * Removes a subscriber.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user The subscriber to be removed.
+	 * @param FrontendUser $user The subscriber to be removed.
 	 */
-	public function removeSubscriber(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
+	public function removeSubscriber(FrontendUser $user) {
 		$this->subscribers->detach($user);
 	}
 }

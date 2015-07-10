@@ -101,7 +101,6 @@
 			<label index="tx_typo3forum_domain_model_forum_access.operation.newPost">Write posts</label>
 			<label index="tx_typo3forum_domain_model_forum_access.operation.editPost">Edit posts</label>
 			<label index="tx_typo3forum_domain_model_forum_access.operation.newTopic">Create new topics</label>
-			<label index="tx_typo3forum_domain_model_forum_access.operation.newAttachment">Post attachments</label>
 			<label index="tx_typo3forum_domain_model_forum_access.operation.moderation">Moderate</label>
 			<label index="tx_typo3forum_domain_model_forum_access.operation.deletePost">Delete post</label>
 			<label index="tx_typo3forum_domain_model_forum_access.negate">Negate</label>

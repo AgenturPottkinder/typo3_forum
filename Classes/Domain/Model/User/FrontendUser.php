@@ -25,6 +25,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
  *                                                                      */
 
 use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Access;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use Mittwald\Typo3Forum\Domain\Model\ReadableInterface;
@@ -511,7 +512,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 * @param string $accessType
 	 * @return boolean
 	 */
-	public function checkAccess(FrontendUser $user = NULL, $accessType = 'moderate') {
+	public function checkAccess(FrontendUser $user = NULL, $accessType = Access::TYPE_MODERATE) {
+		// @todo: the $accessType and the switch statement are useless here
 		switch ($accessType) {
 			default:
 				foreach ($user->getUsergroup() as $group) {

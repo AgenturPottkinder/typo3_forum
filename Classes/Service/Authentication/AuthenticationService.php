@@ -26,6 +26,7 @@ namespace Mittwald\Typo3Forum\Service\Authentication;
 
 use Mittwald\Typo3Forum\Domain\Exception\Authentication\NoAccessException;
 use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Access;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
@@ -93,7 +94,7 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	 * @return void
 	 */
 	public function assertReadAuthorization(AccessibleInterface $object) {
-		$this->assertAuthorization($object, 'read');
+		$this->assertAuthorization($object, Access::TYPE_READ);
 	}
 
 	/**
@@ -104,7 +105,7 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	 * @return void
 	 */
 	public function assertNewTopicAuthorization(Forum $forum) {
-		$this->assertAuthorization($forum, 'newTopic');
+		$this->assertAuthorization($forum, Access::TYPE_NEW_TOPIC);
 	}
 
 
@@ -116,7 +117,7 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	 * @return void
 	 */
 	public function assertNewPostAuthorization(Topic $topic) {
-		$this->assertAuthorization($topic, 'newPost');
+		$this->assertAuthorization($topic, Access::TYPE_NEW_POST);
 	}
 
 
@@ -127,7 +128,7 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	 * @return void
 	 */
 	public function assertEditPostAuthorization(Post $post) {
-		$this->assertAuthorization($post, 'editPost');
+		$this->assertAuthorization($post, Access::TYPE_EDIT_POST);
 	}
 
 
@@ -138,7 +139,7 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	 * @return void
 	 */
 	public function assertDeletePostAuthorization(Post $post) {
-		$this->assertAuthorization($post, 'deletePost');
+		$this->assertAuthorization($post, Access::TYPE_DELETE_POST);
 	}
 
 
@@ -149,7 +150,7 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	 * @return void
 	 */
 	public function assertModerationAuthorization(AccessibleInterface $object) {
-		$this->assertAuthorization($object, 'moderate');
+		$this->assertAuthorization($object, Access::TYPE_MODERATE);
 	}
 
 
