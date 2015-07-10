@@ -1,0 +1,14 @@
+{
+	"name": "mittwald/typo3-forum",
+	"description": "Forum extension",
+	"type": "typo3-cms-extension",
+	"autoload": {
+		"psr-4": {
+			"Mittwald\\Typo3Forum\\": "Classes"
+		}
+	},
+	"require": {
+		"typo3/cms-core": "6.2.*"
+	},
+	"minimum-stability": "dev"
+}

@@ -98,6 +98,7 @@ class ForumController extends AbstractController {
 	 * This action method updates a forum. Admin authorization is required.
 	 *
 	 * @param Forum $forum The forum to be updated.
+	 * @return void
 	 * @dontverifyrequesthash
 	 */
 	public function updateAction(Forum $forum) {
