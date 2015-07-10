@@ -22,7 +22,7 @@ return [
 			'label' => $lllPath . 'message',
 			'config' => [
 				'type' => 'inline',
-				'foreign_table' => 'tx_typo3forum_domain_model_user_privatemessages_text',
+				'foreign_table' => 'tx_typo3forum_domain_model_user_privatemessage_text',
 				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\PrivateMessageText',
 				'maxitems' => 1,
 				'appearance' => [
