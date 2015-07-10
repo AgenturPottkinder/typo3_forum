@@ -42,4 +42,5 @@ class FrontendUserGroup extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGrou
 	public function getUserMod() {
 		return (int) $this->userMod;
 	}
+
 }

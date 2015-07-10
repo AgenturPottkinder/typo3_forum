@@ -126,6 +126,10 @@ class DatabaseMigrator extends AbstractTask {
 			if ($newTableName === 'tx_typo3forum_domain_model_moderation_reportworkflowstatus_followup') {
 				$newTableName = 'tx_typo3forum_domain_model_moderation_reportworkflowstatus_mm';
 			}
+			// special case for tx_typo3forum_domain_model_user_privatemessages which has been renamed to singluar
+			if ($newTableName === 'tx_typo3forum_domain_model_user_privatemessages') {
+				$newTableName = 'tx_typo3forum_domain_model_user_privatemessage';
+			}
 			if ($this->tableExists($legacyTableName)) {
 				if ($this->tableExists($newTableName)) {
 					if (!$this->tableIsEmpty($newTableName)) {

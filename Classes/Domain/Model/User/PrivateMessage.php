@@ -27,7 +27,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 
-class PrivateMessages extends AbstractEntity {
+class PrivateMessage extends AbstractEntity {
 
 	const TYPE_SENDER = 0;
 

@@ -24,7 +24,9 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-class PrivateMessagesText extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+
+class PrivateMessagesText extends AbstractEntity {
 
 	/**
 	 * The submitted text

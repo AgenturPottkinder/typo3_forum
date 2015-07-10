@@ -1,17 +1,16 @@
 <?php
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_typo3forum_domain_model_user_privatemessages');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_typo3forum_domain_model_user_privatemessage');
 
-$lllPath = 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_privatemessages.';
+$lllPath = 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_privatemessage.';
 
 return [
 	'ctrl' => [
-		'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_privatemessages',
+		'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_privatemessage',
 		'label' => 'uid',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
 		'delete' => 'deleted',
-		'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('typo3_forum') . 'Configuration/TCA/User/PrivateMessages.php',
 	],
 	'interface' => [
 		'showRecordFieldList' => 'message, feuser, opponent, type, user_read, crdate'
@@ -57,8 +56,8 @@ return [
 			'config' => [
 				'type' => 'radio',
 				'items' => [
-					['sender', \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessages::TYPE_SENDER],
-					['recipient', \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessages::TYPE_RECIPIENT],
+					['sender', \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessage::TYPE_SENDER],
+					['recipient', \Mittwald\Typo3Forum\Domain\Model\User\PrivateMessage::TYPE_RECIPIENT],
 				],
 				'default' => 0,
 			],
