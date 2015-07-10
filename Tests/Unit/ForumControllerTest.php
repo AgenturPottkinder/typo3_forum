@@ -15,7 +15,7 @@ class ForumControllerTest extends UnitTestCase {
 	 * @test
 	 */
 	public function mockIsBuildable() {
-		$this->forumController = $this->getAccessibleMock(ForumController::class);
+		$this->forumController = $this->getAccessibleMock('Mittwald\\Typo3Forum\\Controller\\ForumController');
 		$this->assertTrue($this->forumController instanceof ForumController);
 	}
 
