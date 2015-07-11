@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'typo3_forum'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="mlang_tabs_tab">typo3_forum</label>
+			<label index="mlang_labels_tablabel">typo3_forum Administration module</label>
+		</languageKey>
+	</data>
+</T3locallang>

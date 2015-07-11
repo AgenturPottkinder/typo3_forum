@@ -1,10 +1,10 @@
 <?php
 namespace Mittwald\Typo3Forum\Service\Authentication;
-
-/*                                                                      *
+/*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
+ *           Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,57 +24,92 @@ namespace Mittwald\Typo3Forum\Service\Authentication;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
-use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
-use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
-use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
+
 
 /**
+ *
  * An interface for authentication services, in case anyone wants to
  * implement his own solution... ;)
+ *
+ * @author     Martin Helmich <m.helmich@mittwald.de>
+ * @package    Typo3Forum
+ * @subpackage Domain_Service
+ * @version    $Id: AuthenticationServiceInterface.php 39978 2010-11-09 14:19:52Z mhelmich $
+ *
+ * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
+ *             Mittwald CM Service GmbH & Co. KG
+ *             http://www.mittwald.de
+ * @license    GNU Public License, version 2
+ *             http://opensource.org/licenses/gpl-license.php
+ *
  */
 interface AuthenticationServiceInterface {
 
-	/**
-	 * @param AccessibleInterface $object
-	 */
-	public function assertReadAuthorization(AccessibleInterface $object);
+
 
 	/**
-	 * @param Forum $forum
+	 * @param \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object
 	 */
-	public function assertNewTopicAuthorization(Forum $forum);
+	public function assertReadAuthorization(\Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object);
+
+
 
 	/**
-	 * @param Topic $topic
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
 	 */
-	public function assertNewPostAuthorization(Topic $topic);
+	public function assertNewTopicAuthorization(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum);
+
+
 
 	/**
-	 * @param Post $post
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
 	 */
-	public function assertEditPostAuthorization(Post $post);
+	public function assertNewPostAuthorization(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic);
+
+
 
 	/**
-	 * @param Post $post
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
 	 */
-	public function assertDeletePostAuthorization(Post $post);
+	public function assertEditPostAuthorization(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post);
+
+
 
 	/**
-	 * @param AccessibleInterface $object
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
 	 */
-	public function assertModerationAuthorization(AccessibleInterface $object);
+	public function assertDeletePostAuthorization(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post);
+
+
 
 	/**
-	 * @param AccessibleInterface $object
-	 * @param $action
+	 * @param \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object
 	 */
-	public function assertAuthorization(AccessibleInterface $object, $action);
+	public function assertModerationAuthorization(\Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object);
+
+
 
 	/**
-	 * @param AccessibleInterface $object
-	 * @param $action
+	 * @param \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object
 	 */
-	public function checkAuthorization(AccessibleInterface $object, $action);
+	public function assertAdministrationAuthorization(\Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object);
+
+
+
+	/**
+	 * @param \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object
+	 * @param                                            $action
+	 */
+	public function assertAuthorization(\Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object, $action);
+
+
+
+	/**
+	 * @param \Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object
+	 * @param                                            $action
+	 */
+	public function checkAuthorization(\Mittwald\Typo3Forum\Domain\Model\AccessibleInterface $object, $action);
+
+
 
 }

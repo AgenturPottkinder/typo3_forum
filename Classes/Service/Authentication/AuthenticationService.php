@@ -57,12 +57,30 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	protected $user = -1;
 
 	/**
+	 * TRUE to treat logged in backend users as administrators.
+	 * @var bool
+	 */
+	protected $implicitAdministratorInBackend = TRUE;
+
+	/**
 	 * An identifier for all user groups the current user is a member of.
 	 * This identifier will be used as part of a cache identifier.
 	 *
 	 * @var string
 	 */
 	private $userGroupIdentifier = NULL;
+
+
+	/**
+	 * Disables the implicit treatment of logged in backend users as administrator
+	 * users. This feature is necessary to make this class unittestable (probably bad
+	 * practice, feel free to correct this...).
+	 *
+	 * @return void
+	 */
+	public function disableImplicitAdministrationInBackend() {
+		$this->implicitAdministratorInBackend = FALSE;
+	}
 
 	/*
 	 * AUTHENTICATION METHODS
@@ -134,6 +152,20 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	public function assertModerationAuthorization(AccessibleInterface $object) {
 		$this->assertAuthorization($object, Access::TYPE_MODERATE);
 	}
+
+
+	/**
+	 * Asserts that the current user has administrative access to a certain
+	 * forum (note: administrative access is currently only possible from the
+	 * backend module!).
+	 *
+	 * @param AccessibleInterface $object
+	 * @return void
+	 */
+	public function assertAdministrationAuthorization(AccessibleInterface $object) {
+		$this->assertAuthorization($object, 'administrate');
+	}
+
 
 	/**
 	 * Asserts that the current user is authorized to perform a certain
