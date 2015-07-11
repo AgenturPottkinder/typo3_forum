@@ -64,7 +64,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 
 	/**
 	 * The user who created the topic.
-	 * @var FrontendUser
+	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 	 */
 	protected $author;
 
