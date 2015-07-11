@@ -160,9 +160,8 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	 * @return boolean TRUE, when the user is authorized, otherwise FALSE.
 	 */
 	public function checkAuthorization(AccessibleInterface $object, $action) {
-		// ACLs can be disabled for debugging. Also, in Backend mode, the ACL
-		// mechanism does not work (no fe_users!).
-		if ((isset($this->settings) && $this->settings['debug']['disableACLs']) || (TYPO3_MODE === 'BE' && $this->implicitAdministratorInBackend === TRUE)) {
+		// ACLs can be disabled for debugging.
+		if (isset($this->settings) && $this->settings['debug']['disableACLs']) {
 			return TRUE;
 		}
 
