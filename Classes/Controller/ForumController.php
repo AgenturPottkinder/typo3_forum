@@ -24,10 +24,11 @@ namespace Mittwald\Typo3Forum\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Domain\Exception\Authentication\NoAccessException;
 use Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class ForumController extends AbstractController {
 
@@ -96,24 +97,23 @@ class ForumController extends AbstractController {
 	/**
 	 * Mark a whole forum as read
 	 * @param Forum $forum
-	 *
 	 * @throws NotLoggedInException
 	 * @return void
 	 */
 	public function markReadAction(Forum $forum) {
 		$user = $this->getCurrentUser();
-		if ($user->isAnonymous()) {
-			throw new NotLoggedInException("You need to be logged in.", 1288084981);
+		if (!$user instanceof FrontendUser || $user->isAnonymous()) {
+			throw new NotLoggedInException('You need to be logged in.', 1288084981);
 		}
-		$forumStorage = [];
-		$forumStorage[] = $forum;
-		foreach ($forum->getChildren() AS $children) {
-			$forumStorage[] = $children;
+		$forumsToMarkAsRead = new ObjectStorage();
+		$forumsToMarkAsRead->attach($forum);
+		foreach ($forum->getChildren() as $child) {
+			$forumsToMarkAsRead->attach($child);
 		}
 
-		foreach ($forumStorage AS $checkForum) {
+		foreach ($forumsToMarkAsRead as $checkForum) {
 			/** @var Forum $checkForum */
-			foreach ($checkForum->getTopics() AS $topic) {
+			foreach ($checkForum->getTopics() as $topic) {
 				/** @var Topic $topic */
 				$topic->addReader($user);
 			}
@@ -127,20 +127,19 @@ class ForumController extends AbstractController {
 	/**
 	 * Show all unread topics of the current user
 	 * @param Forum $forum
-	 *
 	 * @throws NotLoggedInException
 	 * @return void
 	 */
 	public function showUnreadAction(Forum $forum) {
 		$user = $this->getCurrentUser();
-		if ($user->isAnonymous()) {
-			throw new NotLoggedInException('You need to be logged in.', 1288084981);
+		if (!$user instanceof FrontendUser || $user->isAnonymous()) {
+			throw new NotLoggedInException('You need to be logged in.', 1436620398);
 		}
 		$topics = [];
 		$unreadTopics = [];
 
 		$tmpTopics = $this->topicRepository->getUnreadTopics($forum, $user);
-		foreach ($tmpTopics AS $tmpTopic) {
+		foreach ($tmpTopics as $tmpTopic) {
 			$unreadTopics[] = $tmpTopic['uid'];
 		}
 		if (!empty($unreadTopics)) {
