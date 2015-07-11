@@ -68,8 +68,8 @@
 
 .markItUp .tx-typo3forum-miu-smileys li {
 	border: 1px solid #fff;
-	padding: 0px;
-	margin: 0px;
+	padding: 0;
+	margin: 0;
 	width: 25px;
 	height: 25px;
 	overflow: hidden;

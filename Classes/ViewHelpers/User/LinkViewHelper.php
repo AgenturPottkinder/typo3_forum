@@ -76,7 +76,7 @@ class LinkViewHelper extends CObjectViewHelper {
 		}
 		$moderatorMark = "";
 		if ($this->settings['moderatorMark']['image']) {
-			foreach ($user->getUsergroup() AS $group) {
+			foreach ($user->getUsergroup() as $group) {
 				/** @var FrontendUserGroup $group */
 				if ($group->getUserMod() === 1) {
 					$moderatorMark = '<img src="' . $this->settings['moderatorMark']['image'] . '" title="' . $this->settings['moderatorMark']['title'] . '" />';

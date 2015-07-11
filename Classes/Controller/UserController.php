@@ -232,7 +232,7 @@ class UserController extends AbstractController {
 				$partner = $opponent;
 			}
 
-			foreach ($dialog AS $pm) {
+			foreach ($dialog as $pm) {
 				if ($pm->getOpponent()->getUid() == $user->getUid()) {
 					if ($pm->getUserRead() == 1) break; // if user already read this message, the next should be already read
 					$pm->setUserRead(1);
@@ -306,7 +306,7 @@ class UserController extends AbstractController {
 		}
 		$notifications = $this->notificationRepository->findNotificationsForUser($user);
 
-		foreach ($notifications AS $notification) {
+		foreach ($notifications as $notification) {
 			if ($notification->getUserRead() == 1) break; // if user already read this notification, the next should be already read
 			$notification->setUserRead(1);
 			$this->notificationRepository->update($notification);

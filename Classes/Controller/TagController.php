@@ -155,7 +155,7 @@ class TagController extends AbstractController {
 	public function autoCompleteAction($value) {
 		$result = [];
 		$tagObj = $this->tagRepository->findTagLikeAName($value);
-		foreach ($tagObj AS $tag) {
+		foreach ($tagObj as $tag) {
 			$result[] = $tag->getName();
 		}
 		return json_encode($result);

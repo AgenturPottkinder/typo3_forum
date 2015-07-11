@@ -99,7 +99,7 @@ class TopicFactory extends AbstractFactory {
 			$topic->setTags($tags);
 		}
 		if (!empty($criteriaOptions)) {
-			foreach ($criteriaOptions AS $criteriaUid => $optionUid) {
+			foreach ($criteriaOptions as $criteriaUid => $optionUid) {
 				/** @var CriteriaOption $criteriaOption */
 				$criteriaOption = $this->criteriaOptionRepository->findByUid($optionUid);
 				if ($criteriaOption->getCriteria()->getUid() == $criteriaUid) {

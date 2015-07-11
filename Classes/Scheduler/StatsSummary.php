@@ -119,7 +119,7 @@ class StatsSummary extends AbstractTask {
 		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 		$results[] = (int)$row['counter'];
 
-		foreach ($results AS $typeUid => $amount) {
+		foreach ($results as $typeUid => $amount) {
 			$values = [
 				'pid' => (int)$this->getStatsPid(),
 				'tstamp' => time(),

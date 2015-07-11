@@ -4,8 +4,7 @@ namespace Mittwald\Typo3Forum\Scheduler;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Ruven Fehling <r.fehling@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -26,21 +25,20 @@ namespace Mittwald\Typo3Forum\Scheduler;
  *                                                                      */
 
 use TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface;
+use TYPO3\CMS\Scheduler\Controller\SchedulerModuleController;
+use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
-/**
- * Additional field provider for the notification generator task
- */
 class SessionResetterAdditionalFieldProvider implements AdditionalFieldProviderInterface {
 
 	/**
-	 * @param  array $taskInfo : reference to the array containing the info used in the add/edit form
-	 * @param  \TYPO3\CMS\Scheduler\Task\AbstractTask $task : when editing, reference to the current task object. Null when adding.
-	 * @param  \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule : reference to the calling object (Scheduler's BE module)
-	 * @return  array                            Array containg all the information pertaining to the additional fields
+	 * @param array $taskInfo : reference to the array containing the info used in the add/edit form
+	 * @param SessionResetter $task : when editing, reference to the current task object. Null when adding.
+	 * @param SchedulerModuleController $schedulerModule : reference to the calling object (Scheduler's BE module)
+	 * @return array Array containg all the information pertaining to the additional fields
 	 *                                    The array is multidimensional, keyed to the task class name and each field's id
 	 *                                    For each field it provides an associative sub-array with the following:
 	 */
-	public function getAdditionalFields(array &$taskInfo, $task, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule) {
+	public function getAdditionalFields(array &$taskInfo, $task, SchedulerModuleController $schedulerModule) {
 		$additionalFields = [];
 
 		if ($schedulerModule->CMD == 'add') {
@@ -66,10 +64,10 @@ class SessionResetterAdditionalFieldProvider implements AdditionalFieldProviderI
 	 * class is not relevant, the method is expected to return TRUE
 	 *
 	 * @param  array $submittedData : reference to the array containing the data submitted by the user
-	 * @param  \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule : reference to the calling object (Scheduler's BE module)
+	 * @param  SchedulerModuleController $schedulerModule : reference to the calling object (Scheduler's BE module)
 	 * @return  boolean                            True if validation was ok (or selected class is not relevant), FALSE otherwise
 	 */
-	public function validateAdditionalFields(array &$submittedData, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule) {
+	public function validateAdditionalFields(array &$submittedData, SchedulerModuleController $schedulerModule) {
 		$submittedData['SessionResetter_userPid'] = (int)$submittedData['SessionResetter_userPid'];
 		return true;
 	}
@@ -79,9 +77,10 @@ class SessionResetterAdditionalFieldProvider implements AdditionalFieldProviderI
 	 * class matches.
 	 *
 	 * @param  array $submittedData : array containing the data submitted by the user
-	 * @param  \TYPO3\CMS\Scheduler\Task\AbstractTask $task : reference to the current task object
+	 * @param  AbstractTask $task : reference to the current task object
 	 */
-	public function saveAdditionalFields(array $submittedData, \TYPO3\CMS\Scheduler\Task\AbstractTask $task) {
+	public function saveAdditionalFields(array $submittedData, AbstractTask $task) {
+		/** @var SessionResetter $task */
 		$task->setUserPid($submittedData['SessionResetter_userPid']);
 	}
 }

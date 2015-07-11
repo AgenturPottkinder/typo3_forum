@@ -207,7 +207,7 @@ class TopicController extends AbstractController {
 
 		if ($tags) {
 			$tags = $this->tagService->initTags($tags);
-			foreach ($tags AS $tag) {
+			foreach ($tags as $tag) {
 				if ($tag->getUid === NULL) {
 					$this->tagRepository->add($tag);
 				}

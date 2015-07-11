@@ -23,7 +23,7 @@ class AttachmentService implements SingletonInterface {
 		/* @var \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment */
 		$objAttachments = new ObjectStorage();
 
-		foreach($attachments AS $attachmentID => $attachment) {
+		foreach($attachments as $attachmentID => $attachment) {
 			if($attachment['name'] == '') continue;
 			$attachmentObj = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Attachment');
 			$tmp_name = $_FILES['tx_typo3forum_pi1']['tmp_name']['attachments'][$attachmentID];

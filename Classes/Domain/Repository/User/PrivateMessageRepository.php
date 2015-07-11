@@ -92,7 +92,7 @@ class PrivateMessageRepository extends Repository {
 		$query->setOrderings(['crdate' => 'DESC']);
 		$result = $query->execute();
 		//Parse result for the user ListBox
-		foreach ($result AS $entry) {
+		foreach ($result as $entry) {
 			if (array_search($entry->getOpponent()->getUid(), $userInArray) === false) {
 				$userInArray[] = $entry->getOpponent()->getUid();
 				$userResult[] = $entry;

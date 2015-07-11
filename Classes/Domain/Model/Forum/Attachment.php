@@ -127,7 +127,7 @@ class Attachment extends AbstractEntity {
 		if (empty($mime_types)) {
 			$res = ['text/plain'];
 		} else {
-			foreach ($mime_types AS $mime_type) {
+			foreach ($mime_types as $mime_type) {
 				$res[] = trim($mime_type);
 			}
 		}
