@@ -12,7 +12,7 @@ $_EXTKEY = 'typo3_forum';
 	'Mittwald.Typo3Forum',
 	'Pi1',
 	[
-		'Forum' => 'index, show, create, update, delete, markRead, showUnread',
+		'Forum' => 'index, show, markRead, showUnread',
 		'Topic' => 'show, new, create, solution, listLatest',
 		'Post' => 'show, new, create, edit, update, delete',
 		'User' => 'showMyProfile, index, list, subscribe, favSubscribe, show, disableUser, unDisableUser, listNotifications, listMessages, createMessage, newMessage',
