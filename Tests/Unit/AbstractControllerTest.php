@@ -24,7 +24,7 @@ abstract class AbstractControllerTest extends UnitTestCase {
 	public function setUp() {
 		$this->authenticationServiceMock = $this->getMock('Mittwald\\Typo3Forum\\Service\\Authentication\\AuthenticationService');
 		$this->viewMock = $this->getMockBuilder('TYPO3\\CMS\\Fluid\\View\\TemplateView')
-			->setMethods(['__construct', 'assign'])
+			->setMethods(['__construct', 'assign', 'assignMultiple'])
 			->disableOriginalConstructor()
 			->getMock();
 	}
