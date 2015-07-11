@@ -94,48 +94,6 @@ class ForumController extends AbstractController {
 	}
 
 	/**
-	 * Updates a forum.
-	 * This action method updates a forum. Admin authorization is required.
-	 *
-	 * @param Forum $forum The forum to be updated.
-	 * @return void
-	 * @dontverifyrequesthash
-	 */
-	public function updateAction(Forum $forum) {
-		$this->authenticationService->assertAdministrationAuthorization($forum);
-
-		$this->forumRepository->update($forum);
-
-		$this->clearCacheForCurrentPage();
-		$this->addLocalizedFlashmessage('Forum_Update_Success');
-		$this->redirect('index');
-	}
-
-	/**
-	 * Creates a forum.
-	 * This action method creates a new forum. Admin authorization is required for
-	 * creating child forums, root forums may only be created from backend.
-	 *
-	 * @param Forum $forum The forum to be created.
-	 *
-	 * @throws NoAccessException
-	 * @dontverifyrequesthash
-	 */
-	public function createAction(Forum $forum) {
-		if ($forum->getParent() !== NULL) {
-			$this->authenticationService->assertAdministrationAuthorization($forum->getParent());
-		} /** @noinspection PhpUndefinedConstantInspection */ elseif (TYPO3_MODE !== 'BE') {
-			throw new NoAccessException('This operation is allowed only from the TYPO3 backend.');
-		}
-
-		$this->forumRepository->add($forum);
-
-		$this->clearCacheForCurrentPage();
-		$this->addLocalizedFlashmessage('Forum_Create_Success');
-		$this->redirect('index');
-	}
-
-	/**
 	 * Mark a whole forum as read
 	 * @param Forum $forum
 	 *
