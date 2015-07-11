@@ -109,10 +109,10 @@ class BBCode extends AbstractTextParserElement implements MarkItUpExportableInte
 	 * @return array A plain array describing this bb code
 	 */
 	public function exportForMarkItUp() {
-		return array('name' => $this->getName(),
+		return ['name' => $this->getName(),
 			'className' => $this->getIconClass(),
 			'openWith' => $this->getLeftBBCode(),
-			'closeWith' => $this->getRightBBCode());
+			'closeWith' => $this->getRightBBCode()];
 	}
 
 	/**

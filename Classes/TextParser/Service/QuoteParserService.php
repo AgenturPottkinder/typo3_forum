@@ -50,10 +50,10 @@ class QuoteParserService extends AbstractTextParserService {
 	 */
 	public function getParsedText($text) {
 		do {
-			$text = preg_replace_callback('/\[quote](.*?)\[\/quote\]\w*/is', array($this, 'replaceSingleCallback'), $text, -1, $c);
+			$text = preg_replace_callback('/\[quote](.*?)\[\/quote\]\w*/is', [$this, 'replaceSingleCallback'], $text, -1, $c);
 		} while ($c > 0);
 		do {
-			$text = preg_replace_callback('/\[quote=([0-9]+)\](.*?)\[\/quote\]\w*/is', array($this, 'replaceCallback'), $text, -1, $c);
+			$text = preg_replace_callback('/\[quote=([0-9]+)\](.*?)\[\/quote\]\w*/is', [$this, 'replaceCallback'], $text, -1, $c);
 		} while ($c > 0);
 		return $text;
 	}

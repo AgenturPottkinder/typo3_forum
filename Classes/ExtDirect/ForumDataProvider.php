@@ -57,9 +57,9 @@ class ForumDataProvider extends AbstractDataProvider {
 			$forumId = (int)str_replace('forum-', '', $nodeId);
 			$forums = $this->forumRepository->findByUid($forumId)->getChildren();
 		}
-		$result = array();
+		$result = [];
 		foreach ($forums as $forum) {
-			$forumNode = array('text' => $forum->getTitle(),
+			$forumNode = ['text' => $forum->getTitle(),
 				'title' => $forum->getTitle(),
 				'topicCount' => $forum->getTopicCount(),
 				'postCount' => $forum->getPostCount(),
@@ -68,12 +68,12 @@ class ForumDataProvider extends AbstractDataProvider {
 				'draggable' => TRUE,
 				'allowDrop' => TRUE,
 				'isTarget' => TRUE,
-				'__identity' => $forum->getUid());
+				'__identity' => $forum->getUid()];
 
 			if (count($forum->getChildren()) === 0) {
 				#$forumNode['leaf'] = TRUE;
 				$forumNode['expanded'] = TRUE;
-				$forumNode['children'] = array();
+				$forumNode['children'] = [];
 			}
 
 			$result[] = $forumNode;
@@ -94,10 +94,10 @@ class ForumDataProvider extends AbstractDataProvider {
 		if ($forum === NULL) {
 			throw new \Exception("The forum $forumId does not exist!", 1332447187);
 		}
-		return array('success' => true,
-			'data' => array('title' => $forum->getTitle(),
+		return ['success' => true,
+			'data' => ['title' => $forum->getTitle(),
 				'description' => $forum->getDescription(),
-				'__identity' => $forum->getUid()));
+				'__identity' => $forum->getUid()]];
 	}
 
 
@@ -128,8 +128,8 @@ class ForumDataProvider extends AbstractDataProvider {
 	 * @return mixed
 	 */
 	public function updateForumTitle($id, $title) {
-		$this->extBaseConnector->setParameters(array('forum' => array('__identity' => $id,
-			'title' => $title)));
+		$this->extBaseConnector->setParameters(['forum' => ['__identity' => $id,
+			'title' => $title]]);
 		return unserialize($this->extBaseConnector->runControllerAction('Forum', 'update'));
 	}
 

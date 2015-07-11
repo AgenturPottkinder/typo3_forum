@@ -84,7 +84,7 @@ class PlainMailingService extends \Mittwald\Typo3Forum\Service\Mailing\AbstractM
 	public function sendMail(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $recipient, $subject, $bodyText) {
 		if ($recipient->getEmail()) {
 			$mail = new \TYPO3\CMS\Core\Mail\MailMessage();
-			$mail->setTo(array($recipient->getEmail()))
+			$mail->setTo([$recipient->getEmail()])
 				->setFrom($this->getDefaultSenderAddress(),$this->getDefaultSenderName())
 				->setSubject($subject)
 				->setBody($bodyText)
@@ -108,8 +108,8 @@ class PlainMailingService extends \Mittwald\Typo3Forum\Service\Mailing\AbstractM
 	 *
 	 */
 	protected function getHeaders() {
-		$headerArray  = array('From'         => $this->getDefaultSender(),
-		                      'Content-Type' => 'text/plain; charset=' . $this->getCharset());
+		$headerArray  = ['From'         => $this->getDefaultSender(),
+		                      'Content-Type' => 'text/plain; charset=' . $this->getCharset()];
 		$headerString = "";
 
 		foreach ($headerArray as $headerKey => $headerValue) {

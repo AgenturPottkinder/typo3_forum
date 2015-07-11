@@ -41,7 +41,7 @@ class SessionResetterAdditionalFieldProvider implements AdditionalFieldProviderI
 	 *                                    For each field it provides an associative sub-array with the following:
 	 */
 	public function getAdditionalFields(array &$taskInfo, $task, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule) {
-		$additionalFields = array();
+		$additionalFields = [];
 
 		if ($schedulerModule->CMD == 'add') {
 			$taskInfo['SessionResetter_userPid'] = 1337;
@@ -51,12 +51,12 @@ class SessionResetterAdditionalFieldProvider implements AdditionalFieldProviderI
 			$taskInfo['SessionResetter_userPid'] = $task->getUserPid();
 		}
 
-		$additionalFields['SessionResetter_userPid'] = array(
+		$additionalFields['SessionResetter_userPid'] = [
 			'code' => '<input type="text" name="tx_scheduler[SessionResetter_userPid]" value="' . (int)$taskInfo['SessionResetter_userPid'] . '" />',
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_sessionResetter_userPid',
 			'cshKey' => '',
 			'cshLabel' => ''
-		);
+		];
 
 		return $additionalFields;
 	}

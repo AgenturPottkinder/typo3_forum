@@ -43,7 +43,7 @@ class UpdateJson extends \TYPO3\CMS\Extbase\Mvc\View\AbstractView {
 
 
 	public function render() {
-		return serialize(array('success' => TRUE));
+		return serialize(['success' => TRUE]);
 	}
 
 

@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\ViewHelpers\Forum;
+
 /* *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -23,12 +24,14 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\Forum\ShadowTopic;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 
 /**
  * ViewHelper that renders a topic icon.
  */
-class TopicIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper {
+class TopicIconViewHelper extends CObjectViewHelper {
 
 	/**
 	 * The frontend user repository.
@@ -44,29 +47,25 @@ class TopicIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper
 	 *
 	 */
 	public function initializeArguments() {
-		$this->registerArgument('important', 'integer',
-		                        'Amount of posts required for a topic to contain in order to be marked as important',
-		                        FALSE, 15);
+		$this->registerArgument('important', 'integer', 'Amount of posts required for a topic to contain in order to be marked as important', FALSE, 15);
 	}
 
 	/**
 	 *
 	 * Renders the topic icon.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
-	 *                                                         The topic for which the icon is to be rendered.
-	 * @param integer                             $width      Image width
-	 * @return string             The rendered icon.
-	 *
+	 * @param Topic $topic The topic for which the icon is to be rendered.
+	 * @param integer $width Image width
+	 * @return string The rendered icon.
 	 */
-	public function render(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic = NULL, $width = NULL) {
-        $data =  $this->getDataArray($topic);
+	public function render(Topic $topic = NULL, $width = NULL) {
+		$data = $this->getDataArray($topic);
 
-        if($data['new']){
-            return parent::render('plugin.tx_typo3forum.renderer.icons.topic_new',$data);
-        }else{
-            return parent::render('plugin.tx_typo3forum.renderer.icons.topic',$data);
-        }
+		if ($data['new']) {
+			return parent::render('plugin.tx_typo3forum.renderer.icons.topic_new', $data);
+		} else {
+			return parent::render('plugin.tx_typo3forum.renderer.icons.topic', $data);
+		}
 
 	}
 
@@ -74,22 +73,24 @@ class TopicIconViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper
 	 *
 	 * Generates a data array that will be passed to the typoscript object for
 	 * rendering the icon.
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
-	 *                             The topic for which the icon is to be displayed.
-	 * @return array               The data array for the typoscript object.
+	 * @param Topic $topic The topic for which the icon is to be displayed.
+	 * @return array The data array for the typoscript object.
 	 *
 	 */
-	protected function getDataArray(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic = NULL) {
+	protected function getDataArray(Topic $topic = NULL) {
 		if ($topic === NULL) {
-			return array();
-		} elseif ($topic instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\ShadowTopic) {
-			return array('moved' => TRUE);
+			return [];
+		} elseif ($topic instanceof ShadowTopic) {
+			return ['moved' => TRUE];
 		} else {
-			return array('important' => $topic->getPostCount() >= $this->arguments['important'],
-			             'new'       => !$topic->hasBeenReadByUser($this->frontendUserRepository->findCurrent()),
-			             'closed'    => $topic->isClosed(),
-			             'sticky'    => $topic->isSticky(),
-			             'solved'    => $topic->getIsSolved());
+			$isImportant = $topic->getPostCount() >= $this->arguments['important'];
+			return [
+				'important' => $isImportant,
+				'new' => !$topic->hasBeenReadByUser($this->frontendUserRepository->findCurrent()),
+				'closed' => $topic->isClosed(),
+				'sticky' => $topic->isSticky(),
+				'solved' => $topic->getIsSolved(),
+			];
 		}
 	}
 }

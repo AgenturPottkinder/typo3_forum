@@ -42,7 +42,7 @@ class ForumReadAdditionalFieldProvider implements AdditionalFieldProviderInterfa
 	 *                                    For each field it provides an associative sub-array with the following:
 	 */
 	public function getAdditionalFields(array &$taskInfo, $task, SchedulerModuleController $schedulerModule) {
-		$additionalFields = array();
+		$additionalFields = [];
 
 		if ($schedulerModule->CMD == 'add') {
 			$taskInfo['ForumRead_forumPid'] = 1337;
@@ -54,19 +54,19 @@ class ForumReadAdditionalFieldProvider implements AdditionalFieldProviderInterfa
 			$taskInfo['ForumRead_userPid'] = $task->getUserPid();
 		}
 
-		$additionalFields['ForumRead_forumPid'] = array(
+		$additionalFields['ForumRead_forumPid'] = [
 			'code' => '<input type="text" name="tx_scheduler[ForumRead_forumPid]" value="' . (int)$taskInfo['ForumRead_forumPid'] . '" />',
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_forumRead_forumPid',
 			'cshKey' => '',
 			'cshLabel' => ''
-		);
+		];
 
-		$additionalFields['ForumRead_userPid'] = array(
+		$additionalFields['ForumRead_userPid'] = [
 			'code' => '<input type="text" name="tx_scheduler[ForumRead_userPid]" value="' . (int)$taskInfo['ForumRead_userPid'] . '" />',
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_forumRead_userPid',
 			'cshKey' => '',
 			'cshLabel' => ''
-		);
+		];
 
 		return $additionalFields;
 	}

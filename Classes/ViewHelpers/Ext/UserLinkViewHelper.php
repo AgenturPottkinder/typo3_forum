@@ -74,7 +74,7 @@ class UserLinkViewHelper extends CObjectViewHelper {
 		$user = $this->authenticationService->getUser();
 		if($link){
 				$uriBuilder = $this->controllerContext->getUriBuilder();
-				$uri = $uriBuilder->setTargetPageUid($this->settings['pids']['UserShow'])->setArguments(array('tx_typo3forum_pi1[user]' => $user->getUid(), 'tx_typo3forum_pi1[controller]' => 'User', 'tx_typo3forum_pi1[action]' => 'show'))->build();
+				$uri = $uriBuilder->setTargetPageUid($this->settings['pids']['UserShow'])->setArguments(['tx_typo3forum_pi1[user]' => $user->getUid(), 'tx_typo3forum_pi1[controller]' => 'User', 'tx_typo3forum_pi1[action]' => 'show'])->build();
 				return '<a href="' . $uri . '" title="' . $user->getUsername() . '">' . $user->getUsername() . '</a>';
 		}else{
 			return $user->getUsername();

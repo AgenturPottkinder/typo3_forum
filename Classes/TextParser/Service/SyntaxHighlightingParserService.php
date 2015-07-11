@@ -59,7 +59,7 @@ class SyntaxHighlightingParserService extends \Mittwald\Typo3Forum\TextParser\Se
 	 */
 	public function getParsedText($text) {
 		return preg_replace_callback(',\[code language=([a-z0-9]+)\](.*?)\[\/code\],is',
-		                             array($this, 'parseSourceCode'), $text);
+		                             [$this, 'parseSourceCode'], $text);
 	}
 
 

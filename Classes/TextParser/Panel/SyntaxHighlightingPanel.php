@@ -50,15 +50,15 @@ class SyntaxHighlightingPanel extends \Mittwald\Typo3Forum\TextParser\Panel\Abst
 	 * @return array<array>
 	 */
 	public function getItems() {
-		$result = array();
+		$result = [];
 
 		foreach ($this->syntaxHighlightings as $syntaxHighlighting) {
 			$result[] = $syntaxHighlighting->exportForMarkItUp();
 		}
-		return array(array('name'      => $this->settings['title'],
+		return [['name'      => $this->settings['title'],
 		                   'className' => $this->settings['iconClassName'],
 		                   'openWith'  => '[code]',
 		                   'closeWith' => '[/code]',
-		                   'dropMenu'  => $result));
+		                   'dropMenu'  => $result]];
 	}
 }

@@ -51,7 +51,7 @@ class RankRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	public function findRankByUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
 		$query = $this->createQuery();
 		$query->matching($query->lessThan('point_limit', $user->getPoints()));
-		$query->setOrderings(array('point_limit' => 'DESC'));
+		$query->setOrderings(['point_limit' => 'DESC']);
 		$query->setLimit(1);
 
 		return $query->execute();
@@ -68,7 +68,7 @@ class RankRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	public function findRankByPoints($points) {
 		$query = $this->createQuery();
 		$query->matching($query->greaterThan('point_limit', (int)$points));
-		$query->setOrderings(array('point_limit' => 'ASC'));
+		$query->setOrderings(['point_limit' => 'ASC']);
 		$query->setLimit(1);
 
 		return $query->execute();
@@ -84,7 +84,7 @@ class RankRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	public function findOneRankByPoints($points) {
 		$query = $this->createQuery();
 		$query->matching($query->greaterThan('point_limit', (int)$points));
-		$query->setOrderings(array('point_limit' => 'ASC'));
+		$query->setOrderings(['point_limit' => 'ASC']);
 		$query->setLimit(1);
 
 		$result = $query->execute();
@@ -102,7 +102,7 @@ class RankRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 */
 	public function findAllForRankingOverview() {
 		$query = $this->createQuery();
-		$query->setOrderings(array('point_limit' => 'ASC'));
+		$query->setOrderings(['point_limit' => 'ASC']);
 
 		return $query->execute();
 	}

@@ -36,11 +36,11 @@ class FileSizeViewHelper extends AbstractViewHelper {
 	 * Diffentently scaled units for file sizes.
 	 * @var array
 	 */
-	protected $suffixes = array(0 => 'B',
+	protected $suffixes = [0 => 'B',
 	                            1 => 'KiB',
 	                            2 => 'MiB',
 	                            3 => 'GiB',
-	                            4 => 'TiB');
+	                            4 => 'TiB'];
 
 	/**
 	 * Renders the file size.

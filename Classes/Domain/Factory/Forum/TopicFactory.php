@@ -84,7 +84,7 @@ class TopicFactory extends AbstractFactory {
 	 *
 	 * @return Topic The new topic.
 	 */
-	public function createTopic(Forum $forum, Post $firstPost, $subject, $question = 0, array $criteriaOptions = array(), $tags = NULL, $subscribe = 0) {
+	public function createTopic(Forum $forum, Post $firstPost, $subject, $question = 0, array $criteriaOptions = [], $tags = NULL, $subscribe = 0) {
 		/** @var $topic Topic */
 		$topic = $this->getClassInstance();
 		$user = $this->getCurrentUser();
@@ -165,7 +165,7 @@ class TopicFactory extends AbstractFactory {
 		$shadowTopic = GeneralUtility::makeInstance('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\ShadowTopic');
 		$shadowTopic->setTarget($topic);
 
-		Return $shadowTopic;
+		return $shadowTopic;
 	}
 
 	/**

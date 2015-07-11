@@ -86,7 +86,7 @@ class ForumRead extends AbstractTask {
 		while ($forumRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($forumRes)) {
 			$query = "SELECT uid FROM tx_typo3forum_domain_model_forum_topic WHERE forum=" . $forumRow['forum'];
 			$topicRes = $GLOBALS['TYPO3_DB']->sql_query($query);
-			$topics = array();
+			$topics = [];
 			while ($topicRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($topicRes)) {
 				$topics[] = $topicRow['uid'];
 			}
@@ -107,11 +107,11 @@ class ForumRead extends AbstractTask {
 				$GLOBALS['TYPO3_DB']->sql_query($query);
 
 				if ($forumRow['topic_amount'] == $userRow['read_amount']) {
-					$insert = array(
+					$insert = [
 						'uid_local' => $userRow['uid'],
 						'uid_foreign' => $forumRow['forum'],
 
-					);
+					];
 					$query = $GLOBALS['TYPO3_DB']->INSERTquery('tx_typo3forum_domain_model_user_readforum', $insert);
 					$GLOBALS['TYPO3_DB']->sql_query($query);
 				}

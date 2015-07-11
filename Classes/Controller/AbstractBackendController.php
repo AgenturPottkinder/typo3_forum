@@ -101,7 +101,7 @@ abstract class AbstractBackendController extends ActionController {
 
 		$this->pageId = (int)GeneralUtility::_GP('id');
 
-		$this->pageRenderer->addInlineLanguageLabelArray(array('title' => $this->languageService->getLL('title'),
+		$this->pageRenderer->addInlineLanguageLabelArray(['title' => $this->languageService->getLL('title'),
 			'path' => $this->languageService->sL('LLL:EXT:lang/locallang_core.xml:labels.path'),
 			'table' => $this->languageService->sL('LLL:EXT:lang/locallang_core.xml:labels.table'),
 			'depth' => $this->languageService->sL('LLL:EXT:lang/locallang_mod_web_perm.xml:Depth'),
@@ -110,7 +110,7 @@ abstract class AbstractBackendController extends ActionController {
 			'depth_2' => $this->languageService->sL('LLL:EXT:lang/locallang_core.xml:labels.depth_2'),
 			'depth_3' => $this->languageService->sL('LLL:EXT:lang/locallang_core.xml:labels.depth_3'),
 			'depth_4' => $this->languageService->sL('LLL:EXT:lang/locallang_core.xml:labels.depth_4'),
-			'depth_infi' => $this->languageService->sL('LLL:EXT:lang/locallang_core.xml:labels.depth_infi'),));
+			'depth_infi' => $this->languageService->sL('LLL:EXT:lang/locallang_core.xml:labels.depth_infi'),]);
 
 		$this->pageRenderer->addInlineLanguageLabelFile('EXT:typo3_forum/Resources/Private/Language/locallang_mod.xml');
 

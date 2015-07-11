@@ -113,11 +113,11 @@ class NotificationService extends \Mittwald\Typo3Forum\Service\AbstractService
 		$messageTemplate = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate("Mail_Subscribe_NewPost_Body", 'typo3_forum');
 		$postAuthor = $post->getAuthor()->getUsername();
 		$uriBuilder = $this->uriBuilder;
-		$arguments = array(
+		$arguments = [
 			'tx_typo3forum_pi1[controller]' => 'Topic',
 			'tx_typo3forum_pi1[action]' => 'show',
 			'tx_typo3forum_pi1[topic]' => $topic->getUid()
-		);
+		];
 		$pageNumber = $post->getTopic()->getPageCount();
 		if ($pageNumber > 1) {
 			$arguments['@widget_0']['currentPage'] = $pageNumber;
@@ -126,17 +126,17 @@ class NotificationService extends \Mittwald\Typo3Forum\Service\AbstractService
 		$topicLink = $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments($arguments)->build();
 		$topicLink = '<a href="' . $topicLink . '">' . $topic->getTitle() . '</a>';
 		$uriBuilder->reset();
-		$unSubscribeLink = $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments(array('tx_typo3forum_pi1[topic]' => $topic->getUid(), 'tx_typo3forum_pi1[controller]' => 'User', 'tx_typo3forum_pi1[action]' => 'subscribe', 'tx_typo3forum_pi1[unsubscribe]' => 1))->build();
+		$unSubscribeLink = $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments(['tx_typo3forum_pi1[topic]' => $topic->getUid(), 'tx_typo3forum_pi1[controller]' => 'User', 'tx_typo3forum_pi1[action]' => 'subscribe', 'tx_typo3forum_pi1[unsubscribe]' => 1])->build();
 		$unSubscribeLink = '<a href="' . $unSubscribeLink . '">' . $unSubscribeLink . '</a>';
 		foreach ($topic->getSubscribers() AS $subscriber) {
 			if ($subscriber != $post->getAuthor()) {
-				$marker = array(
+				$marker = [
 					'###RECIPIENT###' => $subscriber->getUsername(),
 					'###POST_AUTHOR###' => $postAuthor,
 					'###TOPIC_LINK###' => $topicLink,
 					'###UNSUBSCRIBE_LINK###' => $unSubscribeLink,
 					'###FORUM_NAME###' => $this->settings['mailing']['sender']['name']
-				);
+				];
 				$message = $messageTemplate;
 				foreach ($marker As $name => $value) {
 					$message = str_replace($name, $value, $message);

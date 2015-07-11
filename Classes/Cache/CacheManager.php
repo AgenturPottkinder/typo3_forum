@@ -32,7 +32,7 @@ class CacheManager {
 	/**
 	 * @var array
 	 */
-	protected $fileCachePaths = array('typo3temp/typo3_forum', 'typo3temp/typo3_forum/gravatar');
+	protected $fileCachePaths = ['typo3temp/typo3_forum', 'typo3temp/typo3_forum/gravatar'];
 
 	/**
 	 *

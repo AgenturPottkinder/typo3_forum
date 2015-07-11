@@ -199,7 +199,7 @@ abstract class AbstractController extends ActionController {
 	 *
 	 * @return void
 	 */
-	protected function addLocalizedFlashmessage($key, array $arguments = array(), $titleKey = NULL, $severity = FlashMessage::OK) {
+	protected function addLocalizedFlashmessage($key, array $arguments = [], $titleKey = NULL, $severity = FlashMessage::OK) {
 		$message = new FlashMessage(Localization::translate($key, 'Typo3Forum', $arguments), Localization::translate($titleKey, 'Typo3Forum'), $severity);
 		$this->controllerContext->getFlashMessageQueue()->enqueue($message);
 	}
@@ -247,7 +247,7 @@ abstract class AbstractController extends ActionController {
 		curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PURGE");
 		curl_setopt($curl, CURLOPT_HEADER, TRUE);
 		curl_setopt($curl, CURLOPT_NOBODY, true);
-		curl_setopt($curl, CURLOPT_HTTPHEADER, array('Host:' . $_SERVER['HTTP_HOST']));
+		curl_setopt($curl, CURLOPT_HTTPHEADER, ['Host:' . $_SERVER['HTTP_HOST']]);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
 		$result = curl_exec($curl);
 		return $result;

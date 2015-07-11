@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\ViewHelpers\Social;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -23,12 +24,13 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Social;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
-class FacebookShareLinkViewHelper extends AbstractTagBasedViewHelper  {
+class FacebookShareLinkViewHelper extends AbstractTagBasedViewHelper {
 
 	/**
-	 * @var	string
+	 * @var  string
 	 */
 	protected $tagName = 'a';
 
@@ -48,10 +50,9 @@ class FacebookShareLinkViewHelper extends AbstractTagBasedViewHelper  {
 	 * @param string $text
 	 * @param string $image
 	 * @param string $shareUrl
-	 *
 	 * @return string
 	 */
-	public function render($title = NULL,  $text = NULL, $image = NULL, $shareUrl = NULL) {
+	public function render($title = NULL, $text = NULL, $image = NULL, $shareUrl = NULL) {
 
 		// check defaults
 		if (empty($this->arguments['name'])) {
@@ -70,24 +71,25 @@ class FacebookShareLinkViewHelper extends AbstractTagBasedViewHelper  {
 
 		if ($shareUrl) {
 			$url .= urldecode($shareUrl);
-		}else{
-			$url .= urldecode(\TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'));
+		} else {
+			$url .= urldecode(GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'));
 		}
 
 		if ($title) {
-			$url .= '&p[title]='.urldecode($title);
+			$url .= '&p[title]=' . urldecode($title);
 		}
 
 		if ($text) {
-			$url .= '&p[summary]='.urldecode($text);
+			$url .= '&p[summary]=' . urldecode($text);
 		}
 
 		if ($image) {
-			$url .= '&p[images][0]='.urldecode($image);
+			$url .= '&p[images][0]=' . urldecode($image);
 		}
 
 		$this->tag->addAttribute('href', $url);
 		$this->tag->setContent($this->renderChildren());
 		return $this->tag->render();
 	}
+
 }

@@ -987,7 +987,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	public function getContactData() {
 		$decoded = json_decode($this->contact, TRUE);
 		if ($decoded === NULL) {
-			return array();
+			return [];
 		}
 
 		return $decoded;

@@ -1,6 +1,10 @@
 <?php
 namespace Mittwald\Typo3Forum\Service;
-class TagService implements \TYPO3\CMS\Core\SingletonInterface {
+
+use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
+class TagService implements SingletonInterface {
 
 	/**
 	 * An instance of the Extbase object manager.
@@ -19,18 +23,20 @@ class TagService implements \TYPO3\CMS\Core\SingletonInterface {
 	/**
 	 * Converts string of tags to an object
 	 * @param string $tags
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+	 * @return ObjectStorage
 	 */
 	public function initTags($tags) {
 		/* @var \Mittwald\Typo3Forum\Domain\Model\Forum\Tag */
-		$objTags = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$objTags = new ObjectStorage();
 
 		$tagArray = array_unique(explode(',', $tags));
-		foreach ($tagArray AS $tagName) {
+		foreach ($tagArray as $tagName) {
 			$tagName = ucfirst(trim($tagName));
-			if($tagName == "") continue;
+			if($tagName === '') {
+				continue;
+			}
 			$searchResult = $this->tagRepository->findTagWithSpecificName($tagName);
-			if($searchResult[0] != false) {
+			if($searchResult[0]) {
 				$searchResult[0]->increaseTopicCount();
 				$objTags->attach($searchResult[0]);
 			} else {

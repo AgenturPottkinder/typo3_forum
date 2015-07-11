@@ -76,7 +76,7 @@ abstract class AbstractUserfield extends AbstractValueObject {
 	public function getValueForUser(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user) {
 		if ($this->isMappedToUserObject()) {
 			$propertyNames = explode('|', $this->getUserObjectPropertyName());
-			$propertyValues = array();
+			$propertyValues = [];
 			foreach ($propertyNames as $propertyName) {
 				$propertyValues[] = $user->_getProperty($propertyName);
 			}
@@ -85,7 +85,7 @@ abstract class AbstractUserfield extends AbstractValueObject {
 		} else {
 			foreach ($user->getUserfieldValues() as $userfieldValue) {
 				if ($userfieldValue->getUserfield() == $userfield) {
-					return array($userfieldValue->getValue());
+					return [$userfieldValue->getValue()];
 				}
 			}
 

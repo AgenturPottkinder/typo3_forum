@@ -113,7 +113,7 @@ class AjaxController extends AbstractController {
 	 */
 	public function mainAction($displayedUser = "", $postSummarys = "", $topicIcons = "", $forumIcons = "", $displayedTopics = "", $displayOnlinebox = 0, $displayedPosts = "", $displayedForumMenus = "", $displayedAds = "") {
 		// json array
-		$content = array();
+		$content = [];
 		if (!empty($displayedUser)) {
 			$content['onlineUser'] = $this->_getOnlineUser($displayedUser);
 		}
@@ -161,10 +161,10 @@ class AjaxController extends AbstractController {
 	 * @return array
 	 */
 	private function _getOnlinebox(){
-		$data = array();
+		$data = [];
 		$data['count'] = $this->frontendUserRepository->countByFilter(TRUE);
 		$this->request->setFormat('html');
-		$users = $this->frontendUserRepository->findByFilter((int)$this->settings['widgets']['onlinebox']['limit'], array(), TRUE);
+		$users = $this->frontendUserRepository->findByFilter((int)$this->settings['widgets']['onlinebox']['limit'], [], TRUE);
 		$this->view->assign('users', $users);
 		$data['html'] = $this->view->render('Onlinebox');
 		$this->request->setFormat('json');
@@ -175,7 +175,7 @@ class AjaxController extends AbstractController {
 	 * @return array
 	 */
 	private function _getForumMenus($displayedForumMenus){
-		$data = array();
+		$data = [];
 		$displayedForumMenus = json_decode($displayedForumMenus);
 		if(count($displayedForumMenus) < 1) return $data;
 		$this->request->setFormat('html');
@@ -196,7 +196,7 @@ class AjaxController extends AbstractController {
 	 * @return array
 	 */
 	private function _getPosts($displayedPosts){
-		$data = array();
+		$data = [];
 		$displayedPosts = json_decode($displayedPosts);
 		if(count($displayedPosts) < 1) return $data;
 		$this->request->setFormat('html');
@@ -222,7 +222,7 @@ class AjaxController extends AbstractController {
 	 * @return array
 	 */
 	private function _getTopics($displayedTopics){
-		$data = array();
+		$data = [];
 		$displayedTopics = json_decode($displayedTopics);
 		if(count($displayedTopics) < 1) return $data;
 		$this->request->setFormat('html');
@@ -244,7 +244,7 @@ class AjaxController extends AbstractController {
 	 * @return array
 	 */
 	private function _getTopicIcons($topicIcons){
-		$data = array();
+		$data = [];
 		$topicIcons = json_decode($topicIcons);
 		if(count($topicIcons) < 1) return $data;
 			$this->request->setFormat('html');
@@ -265,7 +265,7 @@ class AjaxController extends AbstractController {
 	 * @return array
 	 */
 	private function _getForumIcons($forumIcons){
-		$data = array();
+		$data = [];
 		$forumIcons = json_decode($forumIcons);
 		if(count($forumIcons) < 1) return $data;
 		$this->request->setFormat('html');
@@ -287,7 +287,7 @@ class AjaxController extends AbstractController {
 	 */
 	private function _getPostSummarys($postSummarys) {
 		$postSummarys = json_decode($postSummarys);
-		$data = array();
+		$data = [];
 		$counter = 0;
 		$this->request->setFormat('html');
 		foreach($postSummarys as $summary){
@@ -323,7 +323,7 @@ class AjaxController extends AbstractController {
 	private function _getOnlineUser($displayedUser) {
 		// OnlineUser
 		$displayedUser = json_decode($displayedUser);
-		$onlineUsers = $this->frontendUserRepository->findByFilter("", array(), true, $displayedUser);
+		$onlineUsers = $this->frontendUserRepository->findByFilter("", [], true, $displayedUser);
 		// write online user
 		foreach ($onlineUsers as $onlineUser) {
 			$output[] = $onlineUser->getUid();
@@ -338,7 +338,7 @@ class AjaxController extends AbstractController {
 	 */
 	private function _getAds(\stdClass $meta){
 		$count = (int)$meta->count;
-		$result = array();
+		$result = [];
 		$this->request->setFormat('html');
 
 		$actDatetime = new \DateTime();

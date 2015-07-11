@@ -23,32 +23,30 @@ namespace Mittwald\Typo3Forum\ViewHelpers\User;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\ViewHelpers\IfViewHelper;
 
 /**
  * ViewHelper that renders its contents, when a certain user has subscribed
  * a specific object.
  */
-
 class IfFavSubscribedViewHelper extends IfViewHelper {
 
 	/**
 	 * Renders the contents of this view helper, when a user has subscribed a
 	 * specific subscribeable object.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $object
-	 *                             The object that needs to be subscribed in order
-	 *                             for the contents to be rendered.
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser      $user
+	 * @param SubscribeableInterface $object The object that needs to be subscribed in order for the contents to be rendered.
+	 * @param FrontendUser $user
 	 * @return string
-	 *
 	 */
-	public function render(\Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $object,
-	                       \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser      $user = NULL) {
+	public function render(SubscribeableInterface $object, FrontendUser $user = NULL) {
 		if ($user === NULL) {
-			$user =& \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Mittwald\\Typo3Forum\\Domain\\Repository\\User\\FrontendUserRepository')->findCurrent();
+			$user =& GeneralUtility::makeInstance('Mittwald\\Typo3Forum\\Domain\\Repository\\User\\FrontendUserRepository')->findCurrent();
 		}
-		foreach ($object->getFavSubscribers() As $subscriber) {
+		foreach ($object->getSubscribers() As $subscriber) {
 			if ($subscriber->getUid() == $user->getUid()) {
 				return $this->renderThenChild();
 			}

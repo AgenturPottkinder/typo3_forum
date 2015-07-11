@@ -37,7 +37,7 @@ class BBCodeRepository extends AbstractRepository {
 	 */
 	public function findAll() {
 		$query = $this->createQueryWithFallbackStoragePage();
-		$query->setOrderings(array('uid' => 'ASC'));
+		$query->setOrderings(['uid' => 'ASC']);
 
 		return $query->execute();
 	}

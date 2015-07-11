@@ -89,7 +89,7 @@ class ForumController extends AbstractController {
 		$this->authenticationService->assertReadAuthorization($forum);
 		$this->view->assignMultiple([
 			'forum' => $forum,
-			'topics' => $topics
+			'topics' => $topics,
 		]);
 	}
 
@@ -147,7 +147,7 @@ class ForumController extends AbstractController {
 		if ($user->isAnonymous()) {
 			throw new NotLoggedInException("You need to be logged in.", 1288084981);
 		}
-		$forumStorage = array();
+		$forumStorage = [];
 		$forumStorage[] = $forum;
 		foreach ($forum->getChildren() AS $children) {
 			$forumStorage[] = $children;
@@ -163,7 +163,7 @@ class ForumController extends AbstractController {
 			$this->forumRepository->update($checkForum);
 		}
 
-		$this->redirect('show', 'Forum', NULL, array('forum' => $forum));
+		$this->redirect('show', 'Forum', NULL, ['forum' => $forum]);
 	}
 
 	/**
@@ -178,8 +178,8 @@ class ForumController extends AbstractController {
 		if ($user->isAnonymous()) {
 			throw new NotLoggedInException('You need to be logged in.', 1288084981);
 		}
-		$topics = array();
-		$unreadTopics = array();
+		$topics = [];
+		$unreadTopics = [];
 
 		$tmpTopics = $this->topicRepository->getUnreadTopics($forum, $user);
 		foreach ($tmpTopics AS $tmpTopic) {

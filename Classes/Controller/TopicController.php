@@ -190,7 +190,7 @@ class TopicController extends AbstractController {
 	 * @validate $attachments \Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator
 	 * @validate $subject NotEmpty
 	 */
-	public function createAction(Forum $forum, Post $post, $subject, $attachments = array(), $question = '', $criteria = array(), $tags = '', $subscribe = '') {
+	public function createAction(Forum $forum, Post $post, $subject, $attachments = [], $question = '', $criteria = [], $tags = '', $subscribe = '') {
 
 		// Assert authorization
 		$this->authenticationService->assertNewTopicAuthorization($forum);
@@ -222,10 +222,10 @@ class TopicController extends AbstractController {
 		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Topic', 'topicCreated', ['topic' => $topic]);
 		$this->clearCacheForCurrentPage();
 		$uriBuilder = $this->controllerContext->getUriBuilder();
-		$uri = $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments(array('tx_typo3forum_pi1[forum]' => $forum->getUid(), 'tx_typo3forum_pi1[controller]' => 'Forum', 'tx_typo3forum_pi1[action]' => 'show'))->build();
+		$uri = $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments(['tx_typo3forum_pi1[forum]' => $forum->getUid(), 'tx_typo3forum_pi1[controller]' => 'Forum', 'tx_typo3forum_pi1[action]' => 'show'])->build();
 		$this->purgeUrl('http://' . $_SERVER['HTTP_HOST'] . '/' . $uri);
 		// Redirect to single forum display view
-		$this->redirect('show', 'Forum', NULL, array('forum' => $forum));
+		$this->redirect('show', 'Forum', NULL, ['forum' => $forum]);
 	}
 
 	/**
@@ -240,7 +240,7 @@ class TopicController extends AbstractController {
 			throw new NoAccessException('Not allowed to set solution by current user.');
 		}
 		$this->topicFactory->setPostAsSolution($post->getTopic(), $post);
-		$this->redirect('show', 'Topic', NULL, array('topic' => $post->getTopic()));
+		$this->redirect('show', 'Topic', NULL, ['topic' => $post->getTopic()]);
 	}
 
 	/**

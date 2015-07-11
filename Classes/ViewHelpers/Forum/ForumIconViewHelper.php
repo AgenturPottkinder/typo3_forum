@@ -80,11 +80,11 @@ class ForumIconViewHelper extends CObjectViewHelper {
 	 */
 	protected function getDataArray(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum = NULL) {
 		if ($forum === NULL) {
-			return array();
+			return [];
 		} else {
 			$user = & $this->frontendUserRepository->findCurrent();
-			return array('new'    => !$forum->hasBeenReadByUser($user),
-			             'closed' => !$forum->checkNewPostAccess($user));
+			return ['new'    => !$forum->hasBeenReadByUser($user),
+			             'closed' => !$forum->checkNewPostAccess($user)];
 		}
 	}
 }

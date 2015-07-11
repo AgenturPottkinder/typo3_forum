@@ -39,7 +39,7 @@ class PostRepository extends AbstractRepository {
 	 *                               The selected subset of posts
 	 *
 	 */
-	public function findByFilter($limit = '', $orderings = array()) {
+	public function findByFilter($limit = '', $orderings = []) {
 		$query = $this->createQuery();
 		if (!empty($limit)) {
 			$query->setLimit($limit);
@@ -64,7 +64,7 @@ class PostRepository extends AbstractRepository {
 	public function findByUids($uids) {
 
 		$query = $this->createQuery();
-		$constraints = array();
+		$constraints = [];
 		if (!empty($uids)) {
 			$constraints[] = $query->in('uid', $uids);
 		}
@@ -92,7 +92,7 @@ class PostRepository extends AbstractRepository {
 		$query->getQuerySettings()->setRespectSysLanguage(FALSE);
 
 		return $query->matching($query->equals('topic', $topic))
-			->setOrderings(array('crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING))
+			->setOrderings(['crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING])
 			->setLimit(1000000)
 			->execute();
 	}
@@ -115,7 +115,7 @@ class PostRepository extends AbstractRepository {
 	public function findLastByTopic(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic, $offset = 0) {
 		$query = $this->createQuery();
 		$query->matching($query->equals('topic', $topic))
-			->setOrderings(Array('crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING))->setLimit(1);
+			->setOrderings(['crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING])->setLimit(1);
 		if ($offset > 0) {
 			$query->setOffset($offset);
 		}
@@ -140,7 +140,7 @@ class PostRepository extends AbstractRepository {
 	public function findLastByForum(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum, $offset = 0) {
 		$query = $this->createQuery();
 		$query->matching($query->equals('topic.forum', $forum))
-			->setOrderings(array('crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING))->setLimit(1);
+			->setOrderings(['crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING])->setLimit(1);
 		if ($offset > 0) {
 			$query->setOffset($offset);
 		}

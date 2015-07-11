@@ -49,14 +49,14 @@ class SmileyPanel extends AbstractPanel {
 			return FALSE;
 		}
 
-		$result = array();
+		$result = [];
 		foreach ($this->smileys as $smiley) {
 			$result[] = $smiley->exportForMarkItUp();
 		}
-		return array(array('name' => $this->settings['title'],
+		return [['name' => $this->settings['title'],
 			'className' => $this->settings['iconClassName'],
 			'replaceWith' => $this->smileys[0]->getSmileyShortcut(),
-			'dropMenu' => $result));
+			'dropMenu' => $result]];
 	}
 
 }

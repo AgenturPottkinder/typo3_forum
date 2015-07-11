@@ -55,9 +55,9 @@ abstract class AbstractDataProvider {
 		$this->extBaseConnector = GeneralUtility::makeInstance('Mittwald\\Typo3Forum\\Service\\ExtBaseConnectorService');
 		$this->extBaseConnector->setExtensionKey('Typo3Forum');
 		$this->extBaseConnector->setModuleOrPluginKey($key);
-		$this->extBaseConnector->initialize(array('extensionName' => 'Typo3Forum',
+		$this->extBaseConnector->initialize(['extensionName' => 'Typo3Forum',
 			'pluginName' => 'web_Typo3ForumTxTypo3forumM1',
-			'switchableControllerActions' => array('Backend' => array('forumIndex')),));
+			'switchableControllerActions' => ['Backend' => ['forumIndex']],]);
 
 		$this->objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
 	}
@@ -94,11 +94,11 @@ abstract class AbstractDataProvider {
 		/** @noinspection PhpUndefinedFieldInspection */
 		$updatedRecords = $updatedRecords->records;
 		if (!is_array($updatedRecords)) {
-			$updatedRecords = array($updatedRecords);
+			$updatedRecords = [$updatedRecords];
 		}
 
 		try {
-			$data = array('records' => array(),);
+			$data = ['records' => [],];
 
 			foreach ($updatedRecords as $updatedRecord) {
 				$record = $this->updateRecord((array)$updatedRecord);
@@ -107,9 +107,9 @@ abstract class AbstractDataProvider {
 				}
 			}
 		} catch (\Exception $exception) {
-			$data = array('success' => FALSE,
+			$data = ['success' => FALSE,
 				'message' => $exception->getMessage(),
-				'records' => array(),);
+				'records' => [],];
 		}
 
 		return $data;
@@ -145,17 +145,17 @@ abstract class AbstractDataProvider {
 
 		$identifiers = $identifiers->records;
 		if (!is_array($identifiers)) {
-			$identifiers = array($identifiers);
+			$identifiers = [$identifiers];
 		}
 
 		try {
 			$this->destroyRecords($identifiers);
-			$data = array('success' => TRUE,
-				'records' => array());
+			$data = ['success' => TRUE,
+				'records' => []];
 		} catch (\Exception $exception) {
-			$data = array('success' => FALSE,
+			$data = ['success' => FALSE,
 				'message' => $exception->getMessage(),
-				'records' => array(),);
+				'records' => [],];
 		}
 
 		return $data;
@@ -172,12 +172,12 @@ abstract class AbstractDataProvider {
 	public function runTest($identity) {
 		try {
 			$data = $this->runTestForRecord($identity);
-			$result = array('success' => TRUE,
-				'data' => $data,);
+			$result = ['success' => TRUE,
+				'data' => $data,];
 		} catch (\Exception $exception) {
-			$result = array('success' => FALSE,
-				'data' => array('testResult' => \Tx_DfTools_Service_UrlChecker_AbstractService::SEVERITY_EXCEPTION,
-					'testMessage' => htmlspecialchars($exception->getMessage()),),);
+			$result = ['success' => FALSE,
+				'data' => ['testResult' => \Tx_DfTools_Service_UrlChecker_AbstractService::SEVERITY_EXCEPTION,
+					'testMessage' => htmlspecialchars($exception->getMessage()),],];
 		}
 
 		return $result;

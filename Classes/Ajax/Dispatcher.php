@@ -123,13 +123,13 @@ final class Dispatcher implements SingletonInterface {
 		$GLOBALS['TSFE']->no_cache = TRUE;
 		$GLOBALS['TSFE']->tmpl->start($GLOBALS['TSFE']->rootLine);
 		$GLOBALS['TSFE']->no_cache = FALSE;
-		$GLOBALS['TSFE']->config = array();
-		$GLOBALS['TSFE']->config['config'] = array('sys_language_mode' => 'content_fallback;0',
+		$GLOBALS['TSFE']->config = [];
+		$GLOBALS['TSFE']->config['config'] = ['sys_language_mode' => 'content_fallback;0',
 			'sys_language_overlay' => 'hideNonTranslated',
 			'sys_language_softMergeIfNotBlank' => '',
 			'sys_language_softExclude' => '',
 			'language' => $lang,
-		);
+		];
 
 		$GLOBALS['TSFE']->settingLanguage();
 	}
@@ -143,7 +143,7 @@ final class Dispatcher implements SingletonInterface {
 	 */
 	protected function initExtbase() {
 		$this->extbaseBootstap = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Core\Bootstrap');
-		$this->extbaseBootstap->initialize(array('extensionName' => $this->extensionKey, 'pluginName' => 'ajax'));
+		$this->extbaseBootstap->initialize(['extensionName' => $this->extensionKey, 'pluginName' => 'ajax']);
 		$this->objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
 	}
 
@@ -186,7 +186,7 @@ final class Dispatcher implements SingletonInterface {
 	 * @return string
 	 */
 	public function dispatch() {
-		return $this->extbaseBootstap->run('', array('extensionName' => $this->extensionKey, 'pluginName' => 'Ajax'));
+		return $this->extbaseBootstap->run('', ['extensionName' => $this->extensionKey, 'pluginName' => 'Ajax']);
 	}
 
 

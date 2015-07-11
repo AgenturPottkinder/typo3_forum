@@ -120,7 +120,7 @@ class UserController extends AbstractController {
 				$partial = 'User/ListTopUser';
 				break;
 			default:
-				$dataset['users'] = $this->frontendUserRepository->findByFilter(0, array('username' => 'ASC'));
+				$dataset['users'] = $this->frontendUserRepository->findByFilter(0, ['username' => 'ASC']);
 				$partial = 'User/List';
 				break;
 		}
@@ -345,7 +345,7 @@ class UserController extends AbstractController {
 
 		$user->setDisable(true);
 		$this->frontendUserRepository->update($user);
-		$this->redirect('show', 'User', 'typo3forum', array('user' => $user));
+		$this->redirect('show', 'User', 'typo3forum', ['user' => $user]);
 	}
 
 	/**
@@ -355,7 +355,7 @@ class UserController extends AbstractController {
 	 */
 	public function showAction(FrontendUser $user = NULL) {
 		if ($user === NULL) {
-			$this->redirect('show', NULL, NULL, array('user' => $this->getCurrentUser()));
+			$this->redirect('show', NULL, NULL, ['user' => $this->getCurrentUser()]);
 		}
 		$lastFiveTopics = $this->topicRepository
 			->findByPostAuthor($user)
@@ -511,10 +511,10 @@ class UserController extends AbstractController {
 	 */
 	protected function redirectToSubscriptionObject(SubscribeableInterface $object) {
 		if ($object instanceof Forum) {
-			$this->redirect('show', 'Forum', NULL, array('forum' => $object));
+			$this->redirect('show', 'Forum', NULL, ['forum' => $object]);
 		}
 		if ($object instanceof Topic) {
-			$this->redirect('show', 'Topic', NULL, array('topic' => $object, 'forum' => $object->getForum()));
+			$this->redirect('show', 'Topic', NULL, ['topic' => $object, 'forum' => $object->getForum()]);
 		}
 	}
 
@@ -529,7 +529,7 @@ class UserController extends AbstractController {
 	protected function getSubscriptionFlashMessage(SubscribeableInterface $object, $unsubscribe = FALSE) {
 		$type = array_pop(explode('_', get_class($object)));
 		$key = 'User_' . ($unsubscribe ? 'Uns' : 'S') . 'ubscribe_' . $type . '_Success';
-		return LocalizationUtility::translate($key, 'Typo3Forum', array($object->getTitle()));
+		return LocalizationUtility::translate($key, 'Typo3Forum', [$object->getTitle()]);
 	}
 
 }

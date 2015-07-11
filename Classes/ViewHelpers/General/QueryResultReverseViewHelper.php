@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\ViewHelpers\General;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -29,22 +30,19 @@ class QueryResultReverseViewHelper extends ActionViewHelper {
 
 	public function initializeArguments() {
 		parent::initializeArguments();
-
-		$this->registerArgument('array', 'array', 'Array to be reverted', TRUE, array());
+		$this->registerArgument('array', 'array', 'Array to be reverted', TRUE);
 	}
 
 	/**
-	 * render
-	 *
 	 * @return array
 	 */
 	public function render() {
 		$oldArray = $this->arguments['array'];
-		$newArray = array();
-		if($oldArray == false) return array();
-		for($j = count($oldArray)-1; $j >= 0; $j--) {
+		$newArray = [];
+		for ($j = count($oldArray) - 1; $j >= 0; $j--) {
 			$newArray[] = $oldArray[$j];
 		}
 		return $newArray;
 	}
+
 }

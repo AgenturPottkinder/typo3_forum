@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Utility;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -22,6 +23,7 @@ namespace Mittwald\Typo3Forum\Utility;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
+
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
@@ -35,13 +37,13 @@ class Localization {
 	 * offers the possibility to give a default value, in case that a label is not
 	 * found.
 	 *
-	 * @param string $key       The label key.
-	 * @param string $default   The default value.
-	 * @param array  $arguments Arguments that are to be replaced
+	 * @param string $key The label key.
+	 * @param string $default The default value.
+	 * @param array $arguments Arguments that are to be replaced
 	 *
-	 * @return string            The translated value.
+	 * @return string The translated value.
 	 */
-	public static function translate($key, $default = NULL, $arguments = array()) {
+	public static function translate($key, $default = NULL, $arguments = []) {
 		return LocalizationUtility::translate($key, 'Typo3Forum', $arguments) ?: $default;
 	}
 

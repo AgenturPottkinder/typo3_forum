@@ -80,7 +80,7 @@ class Cache implements SingletonInterface {
 		return $this->cacheInstance->get($identifier);
 	}
 
-	public function set($identifier, $value, array $tags = array(), $lifetime = NULL) {
+	public function set($identifier, $value, array $tags = [], $lifetime = NULL) {
 		$this->cacheInstance->set($identifier, $value, $tags, $lifetime);
 	}
 

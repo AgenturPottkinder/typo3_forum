@@ -237,7 +237,7 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 			if ($user === NULL) {
 				$this->userGroupIdentifier = 'n';
 			} else {
-				$groupUids = array();
+				$groupUids = [];
 				foreach ($user->getUsergroup() as $group) {
 					/** @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup $group */
 					$groupUids[] = $group->getUid();

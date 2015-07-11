@@ -108,9 +108,9 @@ class ExtBaseConnectorService extends Bootstrap {
 			throw new \InvalidArgumentException('Invalid Controller/Action Combination!');
 		}
 
-		$configuration = array('extensionName' => $this->extensionKey,
+		$configuration = ['extensionName' => $this->extensionKey,
 			'pluginName' => $this->moduleOrPluginKey,
-			'switchableControllerActions' => array($controller => array($action)),);
+			'switchableControllerActions' => [$controller => [$action]],];
 
 		$this->initialize($configuration);
 

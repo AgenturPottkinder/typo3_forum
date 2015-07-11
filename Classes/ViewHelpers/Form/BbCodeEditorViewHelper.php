@@ -57,7 +57,7 @@ class BbCodeEditorViewHelper extends TextareaViewHelper {
 	 * Panels that contain bb code buttons.
 	 * @var array<\Mittwald\Typo3Forum\TextParser\Panel\AbstractPanel>
 	 */
-	protected $panels = array();
+	protected $panels = [];
 
 	/**
 	 * An Instance of the Extbase Object Manager class.
@@ -131,23 +131,23 @@ class BbCodeEditorViewHelper extends TextareaViewHelper {
 	 * @return array
 	 */
 	protected function getPanelSettings() {
-		$settings = array();
+		$settings = [];
 		foreach ($this->panels as $panel) {
 			$items = $panel->getItems();
 			if (!empty($items)) {
 				$settings   = array_merge($settings, $items);
-				$settings[] = array('separator' => '---------------');
+				$settings[] = ['separator' => '---------------'];
 			}
 		}
 
-		$settings[] = array('name'      => 'Preview',
+		$settings[] = ['name'      => 'Preview',
 		                    'className' => 'preview',
-		                    'call'      => 'preview');
+		                    'call'      => 'preview'];
 
-		$editorSettings = array(
+		$editorSettings = [
 			'previewParserPath' => 'index.php?eID=typo3_forum&tx_typo3forum_ajax[controller]=Post&tx_typo3forum_ajax[action]=preview&id=' . $GLOBALS['TSFE']->id,
 			'previewParserVar'  => 'tx_typo3forum_ajax[text]',
-			'markupSet'         => $settings);
+			'markupSet'         => $settings];
 
 		if (isset($this->configuration['editorSettings.']) && is_array($this->configuration['editorSettings.'])) {
 			$editorSettings = array_merge($editorSettings, $this->configuration['editorSettings.']);

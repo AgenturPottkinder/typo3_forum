@@ -93,11 +93,11 @@ class RootlineViewHelper extends AbstractTagBasedViewHelper {
 		$pluginName = 'pi1';
 		if ($object instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Forum) {
 			$controller = 'Forum';
-			$arguments = array('forum' => $object);
+			$arguments = ['forum' => $object];
 			$icon = 'iconset-22-folder';
 		} else {
 			$controller = 'Topic';
-			$arguments = array('topic' => $object);
+			$arguments = ['topic' => $object];
 			$icon = 'iconset-22-balloon';
 		}
 		$fullTitle = htmlspecialchars($object->getTitle());

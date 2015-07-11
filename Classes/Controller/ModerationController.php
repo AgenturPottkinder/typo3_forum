@@ -158,7 +158,7 @@ class ModerationController extends AbstractController {
 		);
 
 		$this->clearCacheForCurrentPage();
-		$this->redirect('editReport', NULL, NULL, array('userReport' => $report));
+		$this->redirect('editReport', NULL, NULL, ['userReport' => $report]);
 
 	}
 
@@ -191,7 +191,7 @@ class ModerationController extends AbstractController {
 		);
 
 		$this->clearCacheForCurrentPage();
-		$this->redirect('editReport', NULL, NULL, array('postReport' => $report));
+		$this->redirect('editReport', NULL, NULL, ['postReport' => $report]);
 
 	}
 
@@ -213,16 +213,16 @@ class ModerationController extends AbstractController {
 		/** @var ReportComment $comment */
 		$comment = GeneralUtility::makeInstance('Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\ReportComment');
 		$comment->setAuthor($this->getCurrentUser());
-		$comment->setText(Localization::translate('Report_Edit_SetStatus', 'Typo3Forum', array($status->getName())));
+		$comment->setText(Localization::translate('Report_Edit_SetStatus', 'Typo3Forum', [$status->getName()]));
 		$report->addComment($comment);
 		$this->reportRepository->update($report);
 
 		// Add flash message and clear cache.
-		$this->addLocalizedFlashmessage('Report_UpdateStatus_Success', array($report->getUid(), $status->getName()));
+		$this->addLocalizedFlashmessage('Report_UpdateStatus_Success', [$report->getUid(), $status->getName()]);
 		$this->clearCacheForCurrentPage();
 
 		if ($redirect === 'show') {
-			$this->redirect('editReport', NULL, NULL, array('userReport' => $report));
+			$this->redirect('editReport', NULL, NULL, ['userReport' => $report]);
 		}
 
 		$this->redirect('indexReport');
@@ -247,16 +247,16 @@ class ModerationController extends AbstractController {
 		$comment = GeneralUtility::makeInstance('Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\ReportComment');
 		$comment->setAuthor($this->getCurrentUser());
 		$comment->setText(Localization::translate('Report_Edit_SetStatus', 'Typo3Forum',
-			array($status->getName())));
+			[$status->getName()]));
 		$report->addComment($comment);
 		$this->reportRepository->update($report);
 
 		// Add flash message and clear cache.
-		$this->addLocalizedFlashmessage('Report_UpdateStatus_Success', array($report->getUid(), $status->getName()));
+		$this->addLocalizedFlashmessage('Report_UpdateStatus_Success', [$report->getUid(), $status->getName()]);
 		$this->clearCacheForCurrentPage();
 
 		if ($redirect === 'show') {
-			$this->redirect('editReport', NULL, NULL, array('postReport' => $report));
+			$this->redirect('editReport', NULL, NULL, ['postReport' => $report]);
 		}
 
 		$this->redirect('indexReport');
@@ -291,7 +291,7 @@ class ModerationController extends AbstractController {
 			new FlashMessage(Localization::translate('Moderation_UpdateTopic_Success', 'Typo3Forum'))
 		);
 		$this->clearCacheForCurrentPage();
-		$this->redirect('show', 'Topic', NULL, Array('topic' => $topic));
+		$this->redirect('show', 'Topic', NULL, ['topic' => $topic]);
 	}
 
 	/**
@@ -312,6 +312,6 @@ class ModerationController extends AbstractController {
 		);
 		$this->clearCacheForCurrentPage();
 
-		$this->redirect('show', 'Forum', NULL, Array('forum' => $topic->getForum()));
+		$this->redirect('show', 'Forum', NULL, ['forum' => $topic->getForum()]);
 	}
 }
