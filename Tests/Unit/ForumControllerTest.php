@@ -38,6 +38,11 @@ class ForumControllerTest extends AbstractControllerTest {
 		$this->forumController = new ForumController();
 
 		$this->inject($this->forumController, 'authenticationService', $this->authenticationServiceMock);
+		$this->inject($this->forumController, 'frontendUserRepository', $this->frontendUserRepositoryMock);
+		$this->inject($this->forumController, 'objectManager', $this->objectManagerMock);
+		$this->inject($this->forumController, 'request', $this->requestMock);
+		$this->inject($this->forumController, 'response', $this->responseMock);
+		$this->inject($this->forumController, 'uriBuilder', $this->uriBuilderMock);
 		$this->inject($this->forumController, 'view', $this->viewMock);
 
 		// inject root forum mock
@@ -52,7 +57,7 @@ class ForumControllerTest extends AbstractControllerTest {
 		);
 		$this->inject($this->forumController, 'forumRepository', $this->forumRepositoryMock);
 
-		// inject forum repository mock
+		// inject topic repository mock
 		$this->topicRepositoryMock = $this->getMock(
 			'Mittwald\\Typo3Forum\\Domain\\Repository\\Forum\\TopicRepository',
 			[],
@@ -111,6 +116,71 @@ class ForumControllerTest extends AbstractControllerTest {
 				$this->arrayHasKey('topics')
 			));
 		$this->forumController->showAction($forum);
+	}
+
+	/**
+	 * @test
+	 * @expectedException \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
+	 * @expectedExceptionCode 1288084981
+	 */
+	public function markReadActionThrowsExceptionWhenNotLoggedIn() {
+		/** @var Forum $forum */
+		$forum = $this->getMock('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Forum');
+		$this->forumController->markReadAction($forum);
+	}
+
+	/**
+	 * @test
+	 * @expectedException \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
+	 * @expectedExceptionCode 1288084981
+	 */
+	public function markReadActionThrowsExceptionWhenAnonymous() {
+		/** @var Forum $forum */
+		$forum = $this->getMock('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Forum');
+		$anonymousFrontendUserMock = $this->getMock('Mittwald\\Typo3Forum\\Domain\\Model\\User\\AnonymousFrontendUser');
+		$anonymousFrontendUserMock->expects($this->once())
+			->method('isAnonymous')
+			->will($this->returnValue(TRUE));
+		$this->frontendUserRepositoryMock->expects($this->once())
+			->method('findCurrent')
+			->will($this->returnValue($anonymousFrontendUserMock));
+		$this->forumController->markReadAction($forum);
+	}
+
+	/**
+	 * @test
+	 * @expectedException \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
+	 */
+	public function markReadActionRedirectsToShowAction() {
+		/** @var \PHPUnit_Framework_MockObject_MockObject|Forum $forum */
+		$forum = $this->getMock('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Forum');
+		$forum->expects($this->once())
+			->method('getChildren')
+			->will($this->returnValue(new ObjectStorage()));
+		$forum->expects($this->once())
+			->method('getTopics')
+			->will($this->returnValue(new ObjectStorage()));
+		$frontendUserMock = $this->getMock('Mittwald\\Typo3Forum\\Domain\\Model\\User\\FrontendUser');
+		$frontendUserMock->expects($this->once())
+			->method('isAnonymous')
+			->will($this->returnValue(FALSE));
+		$this->frontendUserRepositoryMock->expects($this->once())
+			->method('findCurrent')
+			->will($this->returnValue($frontendUserMock));
+		$this->requestMock->expects($this->once())
+			->method('getFormat')
+			->will($this->returnValue('html'));
+		$this->uriBuilderMock->expects($this->once())
+			->method('uriFor')
+			->will($this->returnCallback(function($action) {
+				return 'url/to/' . $action;
+			}));
+		$this->responseMock->expects($this->once())
+			->method('setHeader')
+			->with($this->equalTo('Location'), $this->callback(function($url){
+				return array_pop(explode('/', $url)) === 'show';
+			}));
+		$this->forumController->markReadAction($forum);
 	}
 
 	/**
