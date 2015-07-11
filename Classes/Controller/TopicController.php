@@ -32,10 +32,10 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 class TopicController extends AbstractController {
 
 	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdsRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdRepository
 	 * @inject
 	 */
-	protected $adsRepository;
+	protected $adRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Service\AttachmentService

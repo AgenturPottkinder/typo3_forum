@@ -50,10 +50,10 @@ class ForumController extends AbstractController {
 	protected $topicRepository;
 
 	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdsRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdRepository
 	 * @inject
 	 */
-	protected $adsRepository;
+	protected $adRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\RootForum

@@ -62,13 +62,13 @@
 			<label index="tx_typo3forum_domain_model_forum_criteria_options.criteria">Criteria Option Relation</label>
 			<label index="tx_typo3forum_domain_model_forum_criteria_options.sorting">Sorting</label>
 
-			<label index="tx_typo3forum_domain_model_forum_ads">Advertisements</label>
-			<label index="tx_typo3forum_domain_model_forum_ads.name">Name</label>
-			<label index="tx_typo3forum_domain_model_forum_ads.url">URL</label>
-			<label index="tx_typo3forum_domain_model_forum_ads.alt">Alt-Text</label>
-			<label index="tx_typo3forum_domain_model_forum_ads.path">Path To Image</label>
-			<label index="tx_typo3forum_domain_model_forum_ads.category">Category</label>
-			<label index="tx_typo3forum_domain_model_forum_ads.active">Active</label>
+			<label index="tx_typo3forum_domain_model_forum_ad">Advertisement</label>
+			<label index="tx_typo3forum_domain_model_forum_ad.name">Name</label>
+			<label index="tx_typo3forum_domain_model_forum_ad.url">URL</label>
+			<label index="tx_typo3forum_domain_model_forum_ad.alt">Alt-Text</label>
+			<label index="tx_typo3forum_domain_model_forum_ad.path">Path To Image</label>
+			<label index="tx_typo3forum_domain_model_forum_ad.category">Category</label>
+			<label index="tx_typo3forum_domain_model_forum_ad.active">Active</label>
 
 			<label index="tx_typo3forum_domain_model_user_rank">User rank</label>
 			<label index="tx_typo3forum_domain_model_user_rank.name">Rank name</label>

@@ -26,7 +26,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-class Ads extends AbstractEntity {
+class Ad extends AbstractEntity {
 
 	/**
 	 * Flag if advertisement is visible

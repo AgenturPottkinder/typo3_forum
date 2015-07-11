@@ -27,14 +27,14 @@ namespace Mittwald\Typo3Forum\Domain\Repository\Forum;
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-class AdsRepository extends Repository {
+class AdRepository extends Repository {
 
 	/**
 	 * Find all advertisements for the forum view (random sort)
 	 *
 	 * @param int $limit How many results should come back
 	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Ads[]
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Ad[]
 	 */
 	public function findForForumView($limit = 0) {
 		return $this->findAdsByCategories([0, 1], $limit);
@@ -42,12 +42,12 @@ class AdsRepository extends Repository {
 
 	/**
 	 * Find all advertisements of a specific category
-	 * @TODO: If extbase 6.3 is released, don't use a sql statement -> http://forge.typo3.org/issues/14026
+	 * @TODO: RAND() will be available in extbase with 7.4 -> http://forge.typo3.org/issues/14026
 	 *
 	 * @param array $categories Which categories should be shown? (0=all,1=forum,2=topic)
 	 * @param int $limit How many results should come back
 	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Ads[]
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Ad[]
 	 */
 	private function findAdsByCategories(array $categories = [], $limit = 1) {
 		if (empty($categories))
@@ -57,7 +57,7 @@ class AdsRepository extends Repository {
 			$limit = 1;
 		}
 
-		$sql = 'SELECT * FROM tx_typo3forum_domain_model_forum_ads
+		$sql = 'SELECT * FROM tx_typo3forum_domain_model_forum_ad
 			   WHERE category IN (' . implode(',', $categories) . ') AND active=1
 			   ORDER BY RAND()
 			   LIMIT ' . $limit;
@@ -75,7 +75,7 @@ class AdsRepository extends Repository {
 	 *
 	 * @param int $limit How many results should come back
 	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Ads[]
+	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Ad[]
 	 */
 	public function findForTopicView($limit = 0) {
 		return $this->findAdsByCategories([0, 2], $limit);

@@ -298,8 +298,11 @@ class PostController extends AbstractController {
 		);
 
 		// Notify observers and clear cache.
-		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Post', 'postDeleted',
-			['post' => $post]);
+		$this->signalSlotDispatcher->dispatch(
+			'Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Post',
+			'postDeleted',
+			['post' => $post]
+		);
 		$this->clearCacheForCurrentPage();
 
 		// If there is still on post left in the topic, redirect to the topic
@@ -321,7 +324,7 @@ class PostController extends AbstractController {
 	}
 
 	/**
-	 * Downloads a attachment and increase the download counter
+	 * Downloads an attachment and increase the download counter
 	 * @param int $attachmentId Uid of Attachment
 	 */
 	public function downloadAttachmentAction($attachmentId) {

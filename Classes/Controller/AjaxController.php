@@ -29,10 +29,10 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 class AjaxController extends AbstractController {
 
 	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdsRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdRepository
 	 * @inject
 	 */
-	protected $adsRepository;
+	protected $adRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AttachmentRepository
@@ -351,9 +351,9 @@ class AjaxController extends AbstractController {
 		if ($actDatetime->getTimestamp() - $adDateTime->getTimestamp() > $this->settings['ads']['timeInterval'] && $count > 2) {
 			$this->sessionHandling->set('adTime', $actDatetime);
 			if ((int)$meta->mode === 0) {
-				$ads = $this->adsRepository->findForForumView(1);
+				$ads = $this->adRepository->findForForumView(1);
 			} else {
-				$ads = $this->adsRepository->findForTopicView(1);
+				$ads = $this->adRepository->findForTopicView(1);
 			}
 			if (!empty($ads)) {
 				$this->view->assign('ads', $ads);
