@@ -54,7 +54,7 @@ class TopicFactory extends AbstractFactory {
 	protected $postFactory = NULL;
 
 	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\PostRepository
 	 * @inject
 	 */
 	protected $postRepository = NULL;

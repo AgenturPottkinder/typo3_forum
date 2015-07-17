@@ -52,7 +52,7 @@ class PostController extends AbstractController {
 	protected $forumRepository;
 
 	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\PostRepository
 	 * @inject
 	 */
 	protected $postRepository;

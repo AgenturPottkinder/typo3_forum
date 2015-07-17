@@ -67,7 +67,7 @@ class TopicController extends AbstractController {
 	protected $postFactory;
 
 	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\PostRepository
 	 * @inject
 	 */
 	protected $postRepository;

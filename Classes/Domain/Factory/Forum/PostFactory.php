@@ -32,7 +32,7 @@ use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 class PostFactory extends AbstractFactory {
 
 	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\PostRepository
 	 * @inject
 	 */
 	protected $postRepository;
