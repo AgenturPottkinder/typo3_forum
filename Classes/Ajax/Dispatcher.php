@@ -70,7 +70,7 @@ final class Dispatcher implements SingletonInterface {
 	 * Initialize the dispatcher.
 	 */
 	protected function init() {
-		$this->initializeTsfe();
+        $this->initializeTsfe();
 		$this->initTYPO3();
 		$this->initExtbase();
 	}
@@ -143,7 +143,7 @@ final class Dispatcher implements SingletonInterface {
 	 */
 	protected function initExtbase() {
 		$this->extbaseBootstap = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Core\Bootstrap');
-		$this->extbaseBootstap->initialize(['extensionName' => $this->extensionKey, 'pluginName' => 'ajax']);
+		$this->extbaseBootstap->initialize(['extensionName' => $this->extensionKey, 'pluginName' => 'ajax', 'vendorName' => 'Mittwald']);
 		$this->objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
 	}
 
@@ -186,7 +186,7 @@ final class Dispatcher implements SingletonInterface {
 	 * @return string
 	 */
 	public function dispatch() {
-		return $this->extbaseBootstap->run('', ['extensionName' => $this->extensionKey, 'pluginName' => 'Ajax']);
+		return $this->extbaseBootstap->run('', ['extensionName' => $this->extensionKey, 'pluginName' => 'Ajax', 'vendorName' => 'Mittwald']);
 	}
 
 
