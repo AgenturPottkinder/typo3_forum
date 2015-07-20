@@ -98,7 +98,7 @@ class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronte
 	public function findByFilter($limit = 0, $orderings = [], $onlyOnline = FALSE, $uids = []) {
 		$query = $this->createQuery();
 		$constraints = [];
-		if ($limit !== 0) {
+		if ($limit > 0) {
 			$query->setLimit($limit);
 		}
 		if (!empty($orderings)) {
