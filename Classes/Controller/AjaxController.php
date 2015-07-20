@@ -41,12 +41,6 @@ class AjaxController extends AbstractController {
 	protected $attachmentRepository;
 
 	/**
-	 * @var \Mittwald\Typo3Forum\Service\AttachmentService
-	 * @inject
-	 */
-	protected $attachmentService = NULL;
-
-	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
 	 * @inject
 	 */
@@ -87,6 +81,18 @@ class AjaxController extends AbstractController {
 	 * @inject
 	 */
 	protected $typoScriptService = NULL;
+
+    /**
+     * @var \Mittwald\Typo3Forum\Service\SessionHandlingService
+     * @inject
+     */
+    protected $sessionHandlingService;
+
+    /**
+     * @var \Mittwald\Typo3Forum\Service\AttachmentService
+     * @inject
+     */
+    protected $attachmentService = NULL;
 
 	/**
 	 *
@@ -342,14 +348,14 @@ class AjaxController extends AbstractController {
 		$this->request->setFormat('html');
 
 		$actDatetime = new \DateTime();
-		if (!$this->sessionHandling->get('adTime')) {
-			$this->sessionHandling->set('adTime', $actDatetime);
+		if (!$this->sessionHandlingService->get('adTime')) {
+			$this->sessionHandlingService->set('adTime', $actDatetime);
 			$adDateTime = $actDatetime;
 		} else {
-			$adDateTime = $this->sessionHandling->get('adTime');
+			$adDateTime = $this->sessionHandlingService->get('adTime');
 		}
 		if ($actDatetime->getTimestamp() - $adDateTime->getTimestamp() > $this->settings['ads']['timeInterval'] && $count > 2) {
-			$this->sessionHandling->set('adTime', $actDatetime);
+			$this->sessionHandlingService->set('adTime', $actDatetime);
 			if ((int)$meta->mode === 0) {
 				$ads = $this->adRepository->findForForumView(1);
 			} else {
