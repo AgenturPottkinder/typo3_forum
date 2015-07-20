@@ -1,7 +1,9 @@
 <?php
 namespace Mittwald\Typo3Forum\TextParser\Service;
 
-class AbstractGeshiService{
+include("../../../Resources/Private/Libraries/GeSHi/geshi.php");
+
+class AbstractGeshiService {
 
 	/**
 	 * all allowed
@@ -14,9 +16,9 @@ class AbstractGeshiService{
 	 * @param array $configuration
 	 */
 	public function getFormattedText($sourceCode, $language = 'TypoScript', $configuration = []){
-		$geshi = new SourceCode($sourceCode, $language);
-		$geshi->setStrictMode(false);
-		$geshi->setLineNumbering(1);
-		return $geshi->getFormatedSourceCode();
+		$geshi = new \GeSHi($sourceCode, $language);
+		$geshi->strict_mode = false;
+		$geshi->line_numbers = true;
+		return $geshi->parse_code();
 	}
 }
