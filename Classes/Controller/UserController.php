@@ -480,16 +480,16 @@ class UserController extends AbstractController {
 	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
 	 */
 	public function dashboardAction() {
-		$user = $this->frontendUserRepository->findCurrent();
-		if (!$user || $user->isAnonymous()) {
+        $user = $this->getCurrentUser();
+        if (!is_object($user) || $user->isAnonymous()) {
 			throw new NotLoggedInException('You need to be logged in to view your dashboard!', 1335120249);
 		}
 		$this->view->assignMultiple([
-			'user', $user,
-			'myNotifications', $this->notificationRepository->findNotificationsForUser($user, 6),
-			'myMessages', $this->privateMessageRepository->findReceivedMessagesForUser($user, 6),
-			'myFavorites', $this->topicRepository->findTopicsFavSubscribedByUser($user, 6),
-			'myTopics', $this->topicRepository->findTopicsCreatedByAuthor($user, 6),
+			'user' => $user,
+			'myNotifications' => $this->notificationRepository->findNotificationsForUser($user, 6),
+			'myMessages' => $this->privateMessageRepository->findReceivedMessagesForUser($user, 6),
+			'myFavorites' => $this->topicRepository->findTopicsFavSubscribedByUser($user, 6),
+			'myTopics' => $this->topicRepository->findTopicsCreatedByAuthor($user, 6),
 		]);
 	}
 
