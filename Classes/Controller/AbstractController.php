@@ -138,9 +138,11 @@ abstract class AbstractController extends ActionController {
 		$this->className = array_pop(explode('_', get_class($this)));
 		$this->localSettings = $this->settings[lcfirst($this->className)];
 
-		foreach ($this->settings['pids'] as &$value) {
-			if (!$value) {
-				$value = $GLOBALS['TSFE']->id;
+		if (!empty($this->settings['pids'])) {
+			foreach ($this->settings['pids'] as &$value) {
+				if (!$value) {
+					$value = $GLOBALS['TSFE']->id;
+				}
 			}
 		}
 	}
