@@ -47,6 +47,7 @@ class Access extends AbstractValueObject {
 	const TYPE_EDIT_POST = 'editPost';
 	const TYPE_DELETE_POST = 'deletePost';
 	const TYPE_MODERATE = 'moderate';
+	const TYPE_SOLUTION = 'solution';
 
 	/**
 	 * Anyone.

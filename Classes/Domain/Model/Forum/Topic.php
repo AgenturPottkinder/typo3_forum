@@ -459,6 +459,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 				return $this->checkNewPostAccess($user);
 			case Access::TYPE_MODERATE:
 				return $this->checkModerationAccess($user);
+			case Access::TYPE_SOLUTION:
+				return $this->checkSolutionAccess($user);
 			default:
 				return $this->forum->checkAccess($user, $accessType);
 		}
@@ -489,6 +491,20 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 */
 	public function checkModerationAccess(FrontendUser $user = NULL) {
 		return ($user === NULL) ? FALSE : $this->getForum()->checkModerationAccess($user);
+	}
+
+	/**
+	 * Checks if a user has solution access to this topic.
+	 *
+	 * @param FrontendUser $user
+	 * @return boolean
+	 */
+	public function checkSolutionAccess(FrontendUser $user = NULL) {
+		if($this->getAuthor()->getUid() == $user->getUid() || $this->checkModerationAccess($user)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
