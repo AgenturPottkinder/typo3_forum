@@ -69,7 +69,7 @@ class PostController extends AbstractController {
 	 */
 	protected $topicRepository;
 
-	/**
+    /**
 	 * @param Post $post
 	 * @return string
 	 */
@@ -325,17 +325,16 @@ class PostController extends AbstractController {
 
 	/**
 	 * Downloads an attachment and increase the download counter
-	 * @param int $attachmentId Uid of Attachment
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment $attachment
 	 */
-	public function downloadAttachmentAction($attachmentId) {
-		$file = $this->attachmentRepository->findByUid((int)$attachmentId);
-		$file->increaseDownloadCount();
-		$this->attachmentRepository->update($file);
+	public function downloadAttachmentAction($attachment) {
+        $attachment->increaseDownloadCount();
+		$this->attachmentRepository->update($attachment);
 
-		header('Content-type: ' . $file->getMimeType());
-		header("Content-Type: application/download");
-		header('Content-Disposition: attachment; filename="' . $file->getFilename() . '"');
-		readfile($file->getAbsoluteFilename());
+        header('Content-type: ' . $attachment->getMimeType());
+        header("Content-Type: application/download");
+        header('Content-Disposition: attachment; filename="' . $attachment->getFilename() . '"');
+		readfile($attachment->getAbsoluteFilename());
 	}
 
 }
