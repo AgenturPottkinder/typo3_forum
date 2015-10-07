@@ -18,7 +18,7 @@
 		"bin-dir": "bin"
 	},
 	"require": {
-		"typo3/cms": "~6.2"
+		"typo3/cms-core": ">=6.2.*"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "4.7.*",
