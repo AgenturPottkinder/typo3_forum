@@ -1,6 +1,7 @@
 {
 	"name": "mittwald/typo3-forum",
 	"description": "Forum extension",
+	"license": "GPL-2",
 	"type": "typo3-cms-extension",
 	"autoload": {
 		"psr-4": {
