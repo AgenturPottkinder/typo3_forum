@@ -328,7 +328,7 @@ plugin.tx_typo3forum.settings {
 			basic = Mittwald\Typo3Forum\TextParser\Service\BasicParserService
 			bbCodes = Mittwald\Typo3Forum\TextParser\Service\BBCodeParserService
 			smileys = Mittwald\Typo3Forum\TextParser\Service\SmileyParserService
-			syntax = Mittwald\Typo3Forum\TextParser\Service\SyntaxHighlightingParserService
+			#syntax = Mittwald\Typo3Forum\TextParser\Service\SyntaxHighlightingParserService
 			quotes = Mittwald\Typo3Forum\TextParser\Service\QuoteParserService
 			quotes {
 				template = EXT:typo3_forum/Resources/Private/Partials/Format/Quote.html
