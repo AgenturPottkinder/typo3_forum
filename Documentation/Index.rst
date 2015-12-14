@@ -1,4 +1,4 @@
-.. ==================================================
+﻿.. ==================================================
 .. FOR YOUR INFORMATION
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
@@ -9,41 +9,41 @@
 .. _start:
 
 =============================================================
-typo3_forum
+web2pdf
 =============================================================
 
 .. only:: html
 
 	:Classification:
-			typo3_forum
+		typo3_forum
 
-		:Version:
-			1.0.0
+	:Version:
+		1.0.0
 
-		:Language:
-			en
+	:Language:
+		en
 
-		:Description:
-			Manual covering TYPO3 extension web2pdf
+	:Description:
+		Manual covering TYPO3 extension typo3_forum
 
-		:Keywords:
-			forum
+	:Keywords:
+		forum
 
-		:Copyright:
-			2015
+	:Copyright:
+		2015
 
-		:Author:
-			Mittwald CM Service GmbH & Co. KG
+	:Author:
+		Mittwald CM Service GmbH & Co. KG
 
-		:Email:
-			opensource@mittwald.de
+	:Email:
+		opensource@mittwald.de
 
-		:License:
-			This document is published under the GPL 2
-			available from https://www.gnu.org/licenses/gpl-2.0.html
+	:License:
+		This document is published under the Open Content License
+		available from http://www.opencontent.org/opl.shtml
 
 	:Rendered:
-			|today|
+		|today|
 
 	The content of this document is related to TYPO3,
 	a GNU/GPL CMS/Framework available from `www.typo3.org <http://www.typo3.org/>`_.
@@ -54,8 +54,7 @@ typo3_forum
 .. toctree::
 	:maxdepth: 3
 	:titlesonly:
-		:glob:
+	:glob:
 
-		Introduction/Index
-		Configuration/Index
-		KnownProblems/Index
+	Introduction/Index
+	Configuration/Index
