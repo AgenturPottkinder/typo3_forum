@@ -79,7 +79,7 @@ final class Dispatcher implements SingletonInterface {
 	 * Initializes TSFE.
 	 */
 	protected function initializeTsfe() {
-		$GLOBALS['TSFE'] = GeneralUtility::makeInstance('tslib_fe', $GLOBALS['TYPO3_CONF_VARS'], GeneralUtility::_GP('id'), GeneralUtility::_GP('type'), true);
+		$GLOBALS['TSFE'] = GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController', $GLOBALS['TYPO3_CONF_VARS'], GeneralUtility::_GP('id'), GeneralUtility::_GP('type'), true);
 		$GLOBALS['TSFE']->initFEuser();
 		$GLOBALS['TSFE']->initUserGroups();
 		$GLOBALS['TSFE']->checkAlternativeIdMethods();
