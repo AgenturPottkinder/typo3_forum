@@ -16,7 +16,7 @@ $EM_CONF[$_EXTKEY] = [
 	'version' => '1.0.0',
 	'constraints' => [
 		'depends' => [
-			'cms' => '6.2.0-7.99.99',
+			'typo3' => '6.2.0-7.99.99',
 			'static_info_tables' => '',
 			'php' => '5.4',
 		],
