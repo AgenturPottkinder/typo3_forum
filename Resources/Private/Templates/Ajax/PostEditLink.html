@@ -1,0 +1,14 @@
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
+<mmf:authentication.ifAccess object="{post.topic}" accessType="moderate">
+	<f:then>
+		<f:link.action controller="Post" action="edit" arguments="{post: post}">[<f:translate key="Button_Edit" />]</f:link.action>
+		<f:link.action controller="Post" action="delete" arguments="{post: post}">[<f:translate key="Button_Delete" />]</f:link.action>
+	</f:then>
+	<f:else>
+		<f:if condition="{user} == {post.author}">
+			<f:if condition="{post.uid} == {post.topic.lastPost.uid}">
+				<f:link.action controller="Post" action="edit" arguments="{post: post}">[<f:translate key="Button_Edit" />]</f:link.action>
+			</f:if>
+		</f:if>
+	</f:else>
+</mmf:authentication.ifAccess>

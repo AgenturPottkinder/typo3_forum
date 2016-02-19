@@ -1,0 +1,42 @@
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
+<mmf:authentication.ifLoggedIn>
+	<mmf:user.ifSubscribed object="{topic}">
+		<f:then>
+			<f:link.action pageUid="{forum.displayedPid}" controller="User" action="subscribe" arguments="{topic: topic, unsubscribe: 1}" title="{f:translate(key: 'Button_Unsubscribe')}"><i class="iconset-22-subs-active"></i></f:link.action>
+		</f:then>
+		<f:else>
+			<f:link.action pageUid="{forum.displayedPid}" controller="User" action="subscribe" arguments="{topic: topic}" title="{f:translate(key: 'Button_Subscribe')}"><i class="iconset-22-subs"></i></f:link.action>
+		</f:else>
+	</mmf:user.ifSubscribed>
+	<mmf:user.ifFavSubscribed object="{topic}">
+		<f:then>
+			<f:link.action pageUid="{forum.displayedPid}" controller="User" action="favSubscribe" arguments="{topic: topic, unsubscribe: 1}" title="{f:translate(key: 'Button_FavUnsubscribe')}">				<i class="iconset-22-favsubs-active"></i>
+			</f:link.action>
+		</f:then>
+		<f:else>
+			<f:link.action pageUid="{forum.displayedPid}" controller="User" action="favSubscribe" arguments="{topic: topic}" title="{f:translate(key: 'Button_FavSubscribe')}"><i class="iconset-22-favsubs"></i></f:link.action>
+		</f:else>
+	</mmf:user.ifFavSubscribed>
+	<mmf:authentication.ifAccess object="{topic}" accessType="moderate">
+		<div class="dropdown dropup">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#" title="{f:translate(key:'Button_Moderate')}">
+				<i class="iconset-22-moderate"></i>
+			</a>
+			<ul class="dropdown-menu">
+				<li>
+					<f:link.action pageUid="{forum.displayedPid}" controller="Moderation" action="editTopic" arguments="{topic: topic}">
+						<i class="iconset-b36h22-moderate"></i>
+						<f:translate key="Button_Moderate" />
+					</f:link.action>
+				</li>
+				<li class="divider"></li>
+				<li>
+					<f:link.action pageUid="{forum.displayedPid}" controller="Moderation" onclick="return confirm('{f:translate(key:'Confirm_Delete_Topic')}');" action="topicConformDelete" arguments="{topic: topic}">
+						<i class="iconset-22-report"></i>
+						<f:translate key="Button_Delete_Topic"/>
+					</f:link.action>
+				</li>
+			</ul>
+		</div>
+	</mmf:authentication.ifAccess>
+</mmf:authentication.ifLoggedIn>

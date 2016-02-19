@@ -1,0 +1,24 @@
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
+
+<div class="pull-right">
+	<mmf:authentication.ifAccess object="{forum}" accessType="newTopic">
+			<f:link.action pageUid="{forum.displayedPid}" controller="Topic" action="new" arguments="{forum: forum}" style="margin-right: 15px">
+				<i class="iconset-22-plus"></i> {f:translate(key:'Button_Topic_New')}
+			</f:link.action>
+	</mmf:authentication.ifAccess>
+
+	<mmf:authentication.ifLoggedIn>
+			<mmf:user.ifSubscribed object="{forum}">
+				<f:then>
+					<f:link.action pageUid="{forum.displayedPid}" controller="User" action="subscribe" arguments="{forum: forum, unsubscribe: 1}" title="{f:translate(key:'Button_Unsubscribe')}">
+						<i class="iconset-22-subs-active"></i>
+					</f:link.action>
+				</f:then>
+				<f:else>
+					<f:link.action pageUid="{forum.displayedPid}" controller="User" action="subscribe" arguments="{forum: forum}" title="{f:translate(key:'Button_Subscribe')}">
+						<i class="iconset-22-subs"></i>
+					</f:link.action>
+				</f:else>
+			</mmf:user.ifSubscribed>
+	</mmf:authentication.ifLoggedIn>
+</div>
