@@ -597,3 +597,6 @@ module.tx_typo3forum.persistence {
 plugin.tx_typo3forum.persistence {
 	storagePid = {$plugin.tx_typo3forum.persistence.storagePid}
 }
+
+lib.pageUid = TEXT
+lib.pageUid.data = page:uid

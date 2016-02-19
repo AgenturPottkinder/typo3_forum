@@ -1,16 +1,4 @@
 $(document).ready(function () {
-////////////////////// MM_FORUM_AJAX RELOADER
-
-
-	$.ajax({
-		type: "POST",
-		url: "index.php?id="+currentPageUid+"&eID=typo3_forum&language=de&tx_typo3forum_ajax[controller]=Ajax&tx_typo3forum_ajax[action]=loginbox",
-		async: true,
-		success: function (data) {
-					$('.loginbox').html(data);
-		}
-	});
-
 	// forum_last_post_summary
 	var postSummarys  = [];
 	var postSummarysCount  = 0;
