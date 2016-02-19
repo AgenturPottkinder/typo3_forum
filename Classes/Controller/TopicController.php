@@ -109,6 +109,38 @@ class TopicController extends AbstractController {
 		$this->databaseConnection = $GLOBALS['TYPO3_DB'];
 	}
 
+    /**
+     *  Listing Action.
+     * @return void
+     */
+    public function listAction() {
+
+        $showPaginate = FALSE;
+        switch ($this->settings['listTopics']) {
+            case '2':
+                $dataset = $this->topicRepository->findQuestions();
+                $showPaginate = TRUE;
+                $partial = 'Topic/List';
+                break;
+            case '3':
+                $dataset = $this->topicRepository->findQuestions(6);
+                $partial = 'Topic/QuestionBox';
+                break;
+            case '4':
+                $dataset = $this->topicRepository->findPopularTopics(intval($this->settings['popularTopicTimeDiff']),6);
+                $partial = 'Topic/ListBox';
+                break;
+            default:
+                $dataset      = $this->topicRepository->findAll();
+                $partial      = 'Topic/List';
+                $showPaginate = TRUE;
+                break;
+        }
+        $this->view->assign('showPaginate', $showPaginate);
+        $this->view->assign('partial', $partial);
+        $this->view->assign('topics', $dataset);
+    }
+
 	/**
 	 *  Listing Action.
 	 */
