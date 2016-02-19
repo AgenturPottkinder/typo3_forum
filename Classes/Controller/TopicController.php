@@ -175,7 +175,10 @@ class TopicController extends AbstractController {
 		if ($googlePlus) {
 			$this->response->addAdditionalHeaderData('<link rel="author" href="' . $googlePlus . '"/>');
 		}
-		// AdHandling End
+
+		// send signal for simple read count
+		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Topic', 'topicDisplayed', ['topic' => $topic]);
+
 		$this->authenticationService->assertReadAuthorization($topic);
 		$this->markTopicRead($topic);
 		$this->view->assignMultiple([
