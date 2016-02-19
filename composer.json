@@ -19,7 +19,8 @@
 		"bin-dir": "bin"
 	},
 	"require": {
-		"typo3/cms-core": ">=6.2.*"
+		"typo3/cms-core": ">=6.2",
+		"typo3-ter/static-info-tables": "6.3.*"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "4.7.*",
