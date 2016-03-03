@@ -590,6 +590,11 @@ page.includeJSFooter {
 	typo3forum = EXT:typo3_forum/Resources/Public/Javascript/forum.js
 }
 
+page.jsInline {
+ 10 = TEXT
+ 10.stdWrap.dataWrap = var currentPageUid ={TSFE:id};
+}
+
 module.tx_typo3forum.persistence {
 	storagePid = {$plugin.tx_typo3forum.persistence.storagePid}
 }
