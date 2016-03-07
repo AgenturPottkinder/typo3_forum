@@ -26,6 +26,7 @@ namespace Mittwald\Typo3Forum\Ajax;
 
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\Utility\EidUtility;
 use TYPO3\CMS\Extbase\Core\Bootstrap;
 use TYPO3\CMS\Extbase\Mvc\Dispatcher as ExtbaseDispatcher;
 use TYPO3\CMS\Extbase\Mvc\Web\RequestBuilder;
@@ -82,12 +83,11 @@ final class Dispatcher implements SingletonInterface {
 		$GLOBALS['TSFE'] = GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController', $GLOBALS['TYPO3_CONF_VARS'], GeneralUtility::_GP('id'), GeneralUtility::_GP('type'), true);
 		$GLOBALS['TSFE']->initFEuser();
 		$GLOBALS['TSFE']->initUserGroups();
+		EidUtility::initTCA();
 		$GLOBALS['TSFE']->checkAlternativeIdMethods();
 		$GLOBALS['TSFE']->determineId();
-		$GLOBALS['TSFE']->getCompressedTCarray();
 		$GLOBALS['TSFE']->sys_page =  GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Page\PageRepository');
 		$GLOBALS['TSFE']->initTemplate();
-		$GLOBALS['TSFE']->getConfigArray();
 		$GLOBALS['TSFE']->newCObj();
 	}
 
@@ -119,7 +119,7 @@ final class Dispatcher implements SingletonInterface {
 		$GLOBALS['TSFE']->forceTemplateParsing = TRUE;
 		$GLOBALS['TSFE']->initFEuser();
 		$GLOBALS['TSFE']->initUserGroups();
-		$GLOBALS['TSFE']->getCompressedTCarray();
+		EidUtility::initTCA();
 		$GLOBALS['TSFE']->no_cache = TRUE;
 		$GLOBALS['TSFE']->tmpl->start($GLOBALS['TSFE']->rootLine);
 		$GLOBALS['TSFE']->no_cache = FALSE;
