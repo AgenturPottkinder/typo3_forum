@@ -194,7 +194,9 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 */
 	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
 		$this->typoScriptService = $typoScriptService;
-		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
+		$fc = new \TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager;
+		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray($fc->getTypoScriptSetup());
+
 		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
 
