@@ -1,42 +1,63 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
-<mmf:authentication.ifLoggedIn>
-	<mmf:user.ifSubscribed object="{topic}">
-		<f:then>
-			<f:link.action pageUid="{forum.displayedPid}" controller="User" action="subscribe" arguments="{topic: topic, unsubscribe: 1}" title="{f:translate(key: 'Button_Unsubscribe')}"><i class="iconset-22-subs-active"></i></f:link.action>
-		</f:then>
-		<f:else>
-			<f:link.action pageUid="{forum.displayedPid}" controller="User" action="subscribe" arguments="{topic: topic}" title="{f:translate(key: 'Button_Subscribe')}"><i class="iconset-22-subs"></i></f:link.action>
-		</f:else>
-	</mmf:user.ifSubscribed>
-	<mmf:user.ifFavSubscribed object="{topic}">
-		<f:then>
-			<f:link.action pageUid="{forum.displayedPid}" controller="User" action="favSubscribe" arguments="{topic: topic, unsubscribe: 1}" title="{f:translate(key: 'Button_FavUnsubscribe')}">				<i class="iconset-22-favsubs-active"></i>
+
+<ul class="nav nav-pills">
+	<li>
+		<f:link.action controller="Forum" action="show" arguments="{forum: topic.forum}">
+			<i class="tx-typo3forum-icon-16-back"></i>
+			<f:translate key="Button_Back" />
+		</f:link.action>
+	</li>
+
+	<mmf:authentication.ifAccess object="{topic}" accessType="newPost">
+		<li>
+			<f:link.action controller="Post" action="new" arguments="{topic: topic}">
+				<i class="tx-typo3forum-icon-16-post-new"></i>
+				<f:translate key="Button_Reply" />
 			</f:link.action>
-		</f:then>
-		<f:else>
-			<f:link.action pageUid="{forum.displayedPid}" controller="User" action="favSubscribe" arguments="{topic: topic}" title="{f:translate(key: 'Button_FavSubscribe')}"><i class="iconset-22-favsubs"></i></f:link.action>
-		</f:else>
-	</mmf:user.ifFavSubscribed>
+		</li>
+	</mmf:authentication.ifAccess>
+
+	<mmf:authentication.ifLoggedIn>
+		<li>
+			<mmf:user.ifSubscribed object="{topic}">
+				<f:then>
+					<f:link.action controller="User" action="subscribe" arguments="{topic: topic, unsubscribe: 1}">
+						<i class="tx-typo3forum-icon-16-unsubscribe"></i>
+						<f:translate key="Button_Unsubscribe" />
+					</f:link.action>
+				</f:then>
+				<f:else>
+					<f:link.action controller="User" action="subscribe" arguments="{topic: topic}">
+						<i class="tx-typo3forum-icon-16-subscribe"></i>
+						<f:translate key="Button_Subscribe" />
+					</f:link.action>
+				</f:else>
+			</mmf:user.ifSubscribed>
+		</li>
+	</mmf:authentication.ifLoggedIn>
+
 	<mmf:authentication.ifAccess object="{topic}" accessType="moderate">
-		<div class="dropdown dropup">
-			<a class="dropdown-toggle" data-toggle="dropdown" href="#" title="{f:translate(key:'Button_Moderate')}">
-				<i class="iconset-22-moderate"></i>
+		<li class="dropdown dropup">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+				<i class="tx-typo3forum-icon-16-moderate"></i>
+				<f:translate key="Button_Moderate" />
+				<b class="caret"></b>
 			</a>
 			<ul class="dropdown-menu">
 				<li>
-					<f:link.action pageUid="{forum.displayedPid}" controller="Moderation" action="editTopic" arguments="{topic: topic}">
-						<i class="iconset-b36h22-moderate"></i>
+					<f:link.action controller="Moderation" action="editTopic" arguments="{topic: topic}">
+						<i class="tx-typo3forum-icon-16-moderate"></i>
 						<f:translate key="Button_Moderate" />
 					</f:link.action>
 				</li>
 				<li class="divider"></li>
 				<li>
-					<f:link.action pageUid="{forum.displayedPid}" controller="Moderation" onclick="return confirm('{f:translate(key:'Confirm_Delete_Topic')}');" action="topicConformDelete" arguments="{topic: topic}">
-						<i class="iconset-22-report"></i>
-						<f:translate key="Button_Delete_Topic"/>
+					<f:link.action controller="Moderation" action="topicConformDelete" arguments="{topic: topic}">
+						<i class="tx-typo3forum-icon-16-post-delete"></i>
+						Delete Topic
 					</f:link.action>
 				</li>
 			</ul>
-		</div>
+		</li>
 	</mmf:authentication.ifAccess>
-</mmf:authentication.ifLoggedIn>
+</ul>
