@@ -61,7 +61,7 @@ class ForumIconViewHelper extends AbstractViewHelper
      * @return string             The rendered icon.
      *
      */
-    public function render(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum = null)
+    public function render(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum = null, $width = 0, $alt = '')
     {
         $data = $this->getDataArray($forum);
 
