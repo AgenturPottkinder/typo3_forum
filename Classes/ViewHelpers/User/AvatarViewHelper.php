@@ -23,6 +23,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\User;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser;
 use TYPO3\CMS\Fluid\ViewHelpers\ImageViewHelper;
 
 /**
@@ -61,7 +62,7 @@ class AvatarViewHelper extends ImageViewHelper {
 		// if user ist not set
 		$avatarFilename = NULL;
 
-		if ($user != NULL) {
+		if (($user != NULL) && !($user instanceof AnonymousFrontendUser)) {
 			$avatarFilename = $user->getImagePath();
 		}
 
