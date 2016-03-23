@@ -578,15 +578,14 @@ page.includeCSS {
 	markitup_bb = EXT:typo3_forum/Resources/Public/Javascript/markitup-1.1.12/sets/typo3_forum/style.css
 }
 
-page.includeJS {
+page.includeJSFooterlibs {
 	jquery = https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js
 	jquery.external = 1
 	bootstrap = EXT:typo3_forum/Resources/Public/Bootstrap/js/bootstrap.min.js
-	markitup = EXT:typo3_forum/Resources/Public/Javascript/markitup-1.1.12/jquery.markitup.js
+    markitup = EXT:typo3_forum/Resources/Public/Javascript/markitup-1.1.12/jquery.markitup.js
 }
 
 page.includeJSFooter {
-	bootstrap = EXT:typo3_forum/Resources/Public/Bootstrap/js/bootstrap.min.js
 	typo3forum = EXT:typo3_forum/Resources/Public/Javascript/forum.js
 }
 
