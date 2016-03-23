@@ -579,14 +579,14 @@ page.includeCSS {
 }
 
 page.includeJSFooterlibs {
-	jquery = https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js
-	jquery.external = 1
-	bootstrap = EXT:typo3_forum/Resources/Public/Bootstrap/js/bootstrap.min.js
-    markitup = EXT:typo3_forum/Resources/Public/Javascript/markitup-1.1.12/jquery.markitup.js
+	typo3forum_jquery = https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js
+	typo3forum_jquery.external = 1
+	typo3forum_bootstrap = EXT:typo3_forum/Resources/Public/Bootstrap/js/bootstrap.min.js
+	typo3forum_markitup = EXT:typo3_forum/Resources/Public/Javascript/markitup-1.1.12/jquery.markitup.js
 }
 
 page.includeJSFooter {
-	typo3forum = EXT:typo3_forum/Resources/Public/Javascript/forum.js
+	typo3forum_main = EXT:typo3_forum/Resources/Public/Javascript/forum.js
 }
 
 module.tx_typo3forum.persistence {
