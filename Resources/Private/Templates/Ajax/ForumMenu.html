@@ -2,15 +2,10 @@
 
 <ul class="nav nav-pills">
 	<li>
-		<f:if condition="{forum.parent.parent}">
+		<f:if condition="{forum.parent}">
 			<f:then>
 				<f:link.action controller="Forum" action="show" arguments="{forum: forum.parent}">{f:translate(key:'Button_Back')}</f:link.action>
 			</f:then>
-			<f:else>
-				<f:link.action controller="Forum" action="index">
-					<i class="tx-typo3forum-icon-16-back"></i> {f:translate(key:'Button_Back')}
-				</f:link.action>
-			</f:else>
 		</f:if>
 	</li>
 

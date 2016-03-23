@@ -257,8 +257,8 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 		if ($forum->criteria !== NULL) {
 			$criteriaStorage->addAll($forum->criteria);
 		}
-		if ($forum->getParent()->getUid() > 0) {
-			list(, $criteriaStorage) = $this->getCriteriaRecursive([$forum->getParent(), $criteriaStorage]);
+		if(($parent = $forum->getParent()) && ($parent->getParent() != NULL)) {
+			list(, $criteriaStorage) = $this->getCriteriaRecursive([$parent, $criteriaStorage]);
 		}
 
 		return [$forum, $criteriaStorage];
@@ -321,10 +321,6 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * @return Forum The parent forum
 	 */
 	public function getForum() {
-		if ($this->forum == NULL) {
-			return $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\RootForum');
-		}
-
 		return $this->forum;
 	}
 
@@ -432,7 +428,10 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 		// the access check to the parent forum. If there is no parent forum
 		// either, simply deny access (except for 'read' operations).
 		if (count($this->acls) === 0) {
-			return $this->getParent()->checkAccess($user, $accessType);
+
+			if(($parent = $this->getParent())) {
+				return $this->getParent()->checkAccess($user, $accessType);
+            }
 		}
 
 		// Iterate over all access rules, until a matching rule is found
@@ -449,7 +448,9 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 			}
 		}
 
-		return $this->getParent()->checkAccess($user, $accessType);
+		if(($parent = $this->getParent())) {
+			return $this->getParent()->checkAccess($user, $accessType);
+		}
 	}
 
 
