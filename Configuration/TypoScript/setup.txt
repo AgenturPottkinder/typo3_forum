@@ -205,10 +205,14 @@ config.tx_extbase.persistence.classes {
 }
 
 plugin.tx_typo3forum.settings {
-	debug = 1
+	debug = {$plugin.tx_typo3forum.settings.debug}
 	debug {
 		disableACLs = 0
 	}
+
+	cutUsernameOnChar = {$plugin.tx_typo3forum.settings.cutUsernameOnChar}
+	cutBreadcrumbOnChar = {$plugin.tx_typo3forum.settings.cutBreadcrumbOnChar}
+	useSqlStatementsOnCriticalFunctions = {$plugin.tx_typo3forum.settings.useSqlStatementsOnCriticalFunctions}
 
 	images {
 		avatar.uploadDir = uploads/tx_srfeuserregister
@@ -218,11 +222,12 @@ plugin.tx_typo3forum.settings {
 	}
 
 	pids {
-		Forum =
-		UserShow =
-		UserList =
-		QuestionList =
-		AllQuestions =
+		Forum = {$plugin.tx_typo3forum.settings.pids.Forum}
+		UserShow = {$plugin.tx_typo3forum.settings.pids.UserShow}
+		UserList = {$plugin.tx_typo3forum.settings.pids.UserList}
+		UserEdit = {$plugin.tx_typo3forum.settings.pids.QuestionEdit}
+		Dashboard = {$plugin.tx_typo3forum.settings.pids.Dashboard}
+		AllQuestions = {$plugin.tx_typo3forum.settings.pids.AllQuestions}
 	}
 
 	user {
