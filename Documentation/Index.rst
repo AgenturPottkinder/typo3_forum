@@ -30,7 +30,7 @@ typo3_forum
 		forum
 
 	:Copyright:
-		2015
+		2016
 
 	:Author:
 		Mittwald CM Service GmbH & Co. KG
