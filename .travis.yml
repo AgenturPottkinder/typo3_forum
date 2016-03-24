@@ -17,5 +17,5 @@ before_script:
 
 script:
   - >
-    cd Documentation
+    cd Documentation &&
     sphinx-build -C . output
