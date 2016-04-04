@@ -1,0 +1,43 @@
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
+
+<div class="tx-typo3forum-message-box">
+    <div>
+
+        <f:if condition="{messages.0} == {NULL}">
+            <f:then>
+                <f:translate key="User_New_Message_NotFound"/>
+            </f:then>
+            <f:else>
+                <f:for each="{messages}" as="message" iteration="iteration">
+                    <f:link.action controller="User" action="listMessages" arguments="{opponent: message.feuser}">
+                        <div class="{f:if(condition:'{message.userRead} == 0',then:'',else:'')}">
+                            <div>
+                                <mmf:user.avatar user="{message.feuser}" width="40"
+                                                 alt="{message.feuser.username}"
+                                                 class="tx-typo3forum-topic-show-post-user-icon"/>
+                            </div>
+                            <div>
+                                {message.feuser.username}
+								<span>
+									<f:format.date format="d.m.Y">{message.crdate}</f:format.date>
+									<f:translate key="Date_At"/>
+									<f:format.date format="H:i">{message.crdate}</f:format.date>
+									<f:translate key="Date_Clock"/>
+								</span> <br/>
+                                {message.message.shortMessageText}
+                            </div>
+                        </div>
+
+                    </f:link.action>
+                </f:for>
+            </f:else>
+        </f:if>
+    </div>
+</div>
+
+<div>
+    <f:link.action pageUid="{settings.pids.UserShow}" controller="User" action="listMessages">
+        <i class="iconset-20-balloon"></i>
+        <f:translate key="User_Index_All_Messages"/>
+    </f:link.action>
+</div>

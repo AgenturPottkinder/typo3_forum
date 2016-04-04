@@ -73,9 +73,11 @@ class ForumController extends AbstractController {
 	 * @return void
 	 */
 	public function indexAction() {
-		$this->authenticationService->assertReadAuthorization($this->rootForum);
-		$forums = $this->forumRepository->findForIndex();
-		$this->view->assign('forums', $forums);
+		if(($forum = $this->forumRepository->findOneByForum(0))) {
+			$this->forward('show', 'Forum', 'Typo3Forum',array(
+				'forum' => $forum
+			));
+		}
 	}
 
 	/**

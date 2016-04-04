@@ -1,0 +1,30 @@
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
+<f:layout name="default"/>
+<f:section name="main">
+    <h2>
+        <f:translate key="Tags_New"/>
+    </h2>
+    <f:form controller="Tag" action="create">
+        <div>
+            <fieldset>
+                <b:form.row llLabel="Tags_New_Name" error="name" errorLLPrefix="Tags_New_Error_Name">
+                    <f:form.textfield name="name" value="{name}"/>
+                </b:form.row>
+                <br/>
+                <b:form.row>
+                    <label>
+                        <f:form.checkbox name="subscribe" value="1"/>
+                        <f:translate key="Tags_New_SubscribeTag"/>
+                    </label>
+                </b:form.row>
+                <br/>
+
+                <button>
+                    <f:translate key="Tags_New_Btn"/>
+                    <i class="iconset-14-chevron-right-inverse"></i></button>
+            </fieldset>
+        </div>
+    </f:form>
+
+</f:section>
+<f:section name="menu"/>

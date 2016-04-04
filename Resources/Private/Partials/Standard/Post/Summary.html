@@ -1,0 +1,14 @@
+<f:if condition="{post}">
+	<div>
+		<f:link.action controller="Post" action="show" arguments="{post: post}" pageUid="{settings.pids.Forum}">{post.topic.subject}</f:link.action>
+	</div>
+	<div>
+		<f:format.date format="d.m.Y H:i">{post.timestamp}</f:format.date> <f:translate key="Generic_By" />
+		<f:if condition="{post.author.anonymous}">
+			<f:then>{post.author.username}</f:then>
+			<f:else>
+				<f:link.action controller="User" action="show" arguments="{user : post.author}" pageUid="{settings.pids.UserShow}">{post.author.username}</f:link.action>
+			</f:else>
+		</f:if>
+	</div>
+</f:if>

@@ -72,7 +72,6 @@ class RootlineViewHelper extends AbstractTagBasedViewHelper {
 
 		$content = '';
 		foreach ($rootline as $element) {
-			if ($content == '') $content .= $this->renderMainForumNode();
 			$content .= $this->renderNavigationNode($element);
 		}
 		$content .= '';
@@ -113,21 +112,5 @@ class RootlineViewHelper extends AbstractTagBasedViewHelper {
 			->uriFor('show', $arguments, $controller, $extensionName, $pluginName);
 
 		return '<li><a href="' . $uri . '" title="' . $fullTitle . '"><i class="' . $icon . '"></i>' . $title . '</a></li>';
-	}
-
-	/**
-	 * renderMainForumNode
-	 *
-	 * @return string
-	 */
-	protected function renderMainForumNode() {
-		$extensionName = 'typo3forum';
-		$pluginName = 'pi1';
-		$controller = 'Forum';
-		$uriBuilder = $this->controllerContext->getUriBuilder();
-		$uri = $uriBuilder->reset()->setTargetPageUid((int)$this->settings['pids']['Forum'])
-			->uriFor(NULL, NULL, $controller, $extensionName, $pluginName);
-
-		return '<li><a href="' . $uri . '"><i class="iconset-22-folder"></i>Forum</a></li>';
 	}
 }

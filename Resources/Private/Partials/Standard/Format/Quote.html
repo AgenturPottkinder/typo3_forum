@@ -1,0 +1,7 @@
+<div class="tx-typo3forum-quote">
+	<div class="tx-typo3forum-quote-user">
+		<f:translate key="Post_Show_QuoteBy" />
+		<f:link.action controller="User" action="show" arguments="{user: post.author}" pageUid="{settings.pids.UserShow}">{post.author.username}</f:link.action>
+	</div>
+	<div class="tx-typo3forum-quote-text"><f:format.raw>{quote}</f:format.raw></div>
+</div>

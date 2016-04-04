@@ -1,0 +1,77 @@
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
+
+<table>
+    <colgroup>
+        <col width="32"/>
+        <col/>
+        <col width="5%"/>
+        <col width="5%"/>
+        <col width="20%"/>
+        <col width="15%"/>
+    </colgroup>
+    <thead>
+    <tr>
+        <th></th>
+        <th>
+            <f:translate key="Forum_Index_Name"/>
+        </th>
+        <th>
+            <f:translate key="Forum_Index_Topics"/>
+        </th>
+        <th>
+            <f:translate key="Forum_Index_Posts"/>
+        </th>
+        <th>
+            <f:translate key="Forum_Index_LastPost"/>
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <f:if condition="{forums}">
+        <f:then>
+            <f:for each="{forums}" as="forum">
+                <tr>
+                    <td>
+                        <mmf:forum.forumIcon forum="{forum}" width="32"/>
+                    </td>
+                    <td>
+                        <div>
+                            <f:link.action action="show" arguments="{forum : forum}" pageUid="{settings.pids.Forum}">
+                                {forum.title}
+                            </f:link.action>
+                        </div>
+                        <div>{forum.description}</div>
+                    </td>
+                    <td>{forum.topicCount}</td>
+                    <td>{forum.postCount}</td>
+                    <td>
+                        <f:render partial="Post/Summary" arguments="{post : forum.lastPost}"/>
+                    </td>
+                    <td>
+                        <div>
+                            <f:link.action controller="User"
+                                           action="subscribe"
+                                           arguments="{forum: forum, unsubscribe: 1}"
+                            >
+                                <f:translate key="User_ListSubscriptions_Unsubscribe"/>
+                            </f:link.action>
+                            <f:link.action controller="Topic" action="show" arguments="{topic: topic}"
+                                           pageUid="{settings.pids.Forum}">
+                                <f:translate key="User_ListSubscriptions_Goto"/>
+                            </f:link.action>
+                        </div>
+                    </td>
+                </tr>
+            </f:for>
+        </f:then>
+        <f:else>
+            <tr>
+                <td colspan="6">
+                    <f:translate key="Forum_Index_Empty"/>
+                </td>
+            </tr>
+        </f:else>
+    </f:if>
+    </tbody>
+</table>
