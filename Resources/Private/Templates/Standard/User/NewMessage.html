@@ -1,0 +1,43 @@
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
+{namespace b=Mittwald\Typo3Forum\ViewHelpers\Bootstrap}
+
+<f:layout name="default"/>
+
+<f:section name="main">
+
+    <f:render partial="FormErrors"/>
+
+    <h1>
+        <f:translate key="User_New_Message"/>
+    </h1>
+    <f:form controller="User" action="createMessage">
+        <div>
+            <fieldset>
+                <b:form.row llLabel="User_New_Message_Recipient" error="recipient"
+                            errorLLPrefix="User_New_Message_Recipient">
+                    <f:form.textfield name="recipient" value="{recipient}"
+                                      readonly="<f:if condition='{readonly} == 1'>readonly</f:if>"/>
+                </b:form.row>
+
+                <b:form.row error="text" errorLLPrefix="User_New_Message_Post_Text">
+                    <mmf:form.bbCodeEditor name="text" property="text" id="typo3forum_editor" rows="20" cols="40"/>
+                </b:form.row>
+            </fieldset>
+        </div>
+        <div>
+            <div>
+                <f:link.page pageUid="{settings.pids.Dashboard}">
+                    <i class="iconset-14-chevron-left-inverse"></i>
+                    <f:translate key="User_Index_Dashboard_Link"/>
+                </f:link.page>
+            </div>
+            <div>
+                <button>
+                    <f:translate key="Submit"/>
+                    <i class="iconset-14-chevron-right-inverse"></i></button>
+            </div>
+        </div>
+    </f:form>
+</f:section>
+
+<f:section name="menu"/>

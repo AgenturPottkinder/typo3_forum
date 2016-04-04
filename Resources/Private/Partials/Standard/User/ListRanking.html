@@ -1,0 +1,26 @@
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
+<table>
+    <thead>
+    <tr>
+        <th>
+            <f:translate key="User_Show_Rank"/>
+        </th>
+        <th>
+            <f:translate key="User_Show_Points"/>
+        </th>
+        <th>
+            <f:translate key="User_Show_Rank_UserAmount"/>
+        </th>
+    </tr>
+    </thead>
+    <f:for each="{dataset.ranks}" as="rank">
+        <tr>
+            <td>{rank.name}</td>
+            <td>
+                <f:translate key="User_Show_Rank_Points_Until"/>
+                {rank.pointLimit}
+            </td>
+            <td>{rank.userCount}</td>
+        </tr>
+    </f:for>
+</table>

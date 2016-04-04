@@ -1,0 +1,30 @@
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
+{namespace b=Mittwald\Typo3Forum\ViewHelpers\Bootstrap}
+<f:layout name="default"/>
+
+<f:section name="main">
+
+    <f:flashMessages/>
+
+    <f:form action="createReportComment" object="{comment}" name="comment">
+        <fieldset>
+            <legend>
+                <f:translate key="Report_NewComment"/>
+            </legend>
+            <b:form.row llLabel="Report_NewComment_Text" error="comment.text"
+                        errorLLPrefix="Report_NewComment_Error_Text">
+                <m:form.bbCodeEditor class="tx-typo3forum-editor" property="text" id="typo3forum_editor" rows="5"
+                                     cols="10"/>
+            </b:form.row>
+            <div>
+                <f:form.hidden name="report" value="{report}"/>
+                <f:form.submit value="{f:translate(key: 'Report_NewComment_Submit')}"/>
+                <a href="#" data-dismiss="modal">Close</a>
+            </div>
+        </fieldset>
+    </f:form>
+
+
+</f:section>
+
+<f:section name="menu"/>

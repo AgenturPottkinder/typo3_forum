@@ -1,0 +1,19 @@
+<f:layout name="default" />
+
+<f:section name="main">
+
+	<f:flashMessages />
+
+	<f:for each="{forums}" as="subForum">
+		<f:render partial="Forum/List" arguments="{category: subForum, header: subForum.title}" />
+	</f:for>
+
+	<f:widget.paginate objects="{topics}" as="paginatedTopics" configuration="{settings.forumController.show.pagebrowser}">
+		<f:render partial="Topic/List" arguments="{topics: paginatedTopics}" />
+	</f:widget.paginate>
+
+</f:section>
+
+<f:section name="menu">
+	<f:render partial="Forum/Menu" arguments="{forum: forum}" />
+</f:section>
