@@ -36,7 +36,7 @@ Fill out the fields 'Title' and 'Description' with the content you want.
 
 .. image:: ../Images/create-forum.png
 
-With the Option 'Children' you can create subforum directly in this forom record. You can define every option for the subforum seperatly.
+With the Option 'Children' you can create subforum directly in this forum record. You can define every option for the subforum seperatly.
 
 .. image:: ../Images/create-childeren.png
 
