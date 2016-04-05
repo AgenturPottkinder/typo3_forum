@@ -15,9 +15,6 @@ if lexers:
 
 extensions = ['sphinx.ext.intersphinx', 'sphinx.ext.todo', 'sphinx.ext.ifconfig']
 
-# Add any paths that contain templates here, relative to this directory.
-templates_path = ['../_templates']
-
 # The suffix of source filenames.
 source_suffix = '.rst'
 
@@ -25,17 +22,17 @@ source_suffix = '.rst'
 master_doc = 'Index'
 
 # General information about the project.
-project = u'ADW Template'
-copyright = u'2014, Daniel Beucke'
+project = u'typo3_forum'
+copyright = u'2016, Mittwald CM Service'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 # The short X.Y version.
-version = '2.5'
+version = '1.0'
 # The full version, including alpha/beta/rc tags.
-release = '2.5.0'
+release = '1.0.0'
 
 # Else, today_fmt is used as the format for a strftime call.
 today_fmt = '%Y-%m-%d %H:%M'
@@ -73,7 +70,7 @@ html_show_sphinx = False
 html_show_copyright = False
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'tmpl_adwdoc'
+htmlhelp_basename = 'typo3_forum'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -88,8 +85,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    ('Index', 'tmpl_adw.tex', u'ADW Template',
-     u'Daniel Beucke', 'manual'),
+    ('Index', 'typo3_forum.tex', u'typo3_forum',
+     u'Mittald CM Service', 'manual'),
 ]
 
 # -- Options for rst2pdf output ------------------------------------------------
@@ -102,8 +99,8 @@ latex_documents = [
 # would mean that specific document would be compressed
 # regardless of the global pdf_compressed setting.
 pdf_documents = [
-    ('Index', 'tmpl_adw', u'ADW Template',
-     u'Daniel Beucke'),
+    ('Index', 'typo3_forum', u'typo3_forum',
+     u'Mittald CM Service', 'manual'),
 ]
 
 # A comma-separated list of custom stylesheets. Example:
@@ -127,8 +124,8 @@ pdf_fit_background_mode = 'scale'
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('Index', 'tmpl_adw', u'ADW Template',
-     [u'Daniel Beucke'], 1)
+    ('Index', 'typo3_forum', u'typo3_forum',
+     [u'Mittald CM Service'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -140,8 +137,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    ('Index', 'tmpl_adw', u'ADW Template',
-     u'Daniel Beucke', 'ADW Template', 'One line description of project.',
+    ('Index', 'typo3_forum', u'typo3_forum',
+     u'Mittald CM Service', 'typo3_forum', ' forum plugin for TYPO3',
      'Miscellaneous'),
 ]
 
