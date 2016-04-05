@@ -19,7 +19,7 @@ extensions = ['sphinx.ext.intersphinx', 'sphinx.ext.todo', 'sphinx.ext.ifconfig'
 source_suffix = '.rst'
 
 # The master toctree document.
-master_doc = 'Index'
+master_doc = 'index'
 
 # General information about the project.
 project = u'typo3forum'
