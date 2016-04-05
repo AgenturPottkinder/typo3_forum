@@ -8,7 +8,7 @@
 
 .. _configuration:
 
-Configuration Reference
+Configuration
 =======================
 
 Target group: **Developers**
