@@ -30,7 +30,7 @@ typo3_forum
 		forum
 
 	:Copyright:
-		2016
+		2015
 
 	:Author:
 		Mittwald CM Service GmbH & Co. KG
@@ -46,15 +46,17 @@ typo3_forum
 		|today|
 
 	The content of this document is related to TYPO3,
-	a GNU/GPL CMS/Framework available from `www.typo3.org <http://www.typo3.org/>`_.
+	a GNU/GPL CMS/Framework available from `www.typo3.org <http://www.typo3.org/>`
 
 
 	**Table of Contents**
 
 .. toctree::
-	:maxdepth: 3
+	:maxdepth: 5
 	:titlesonly:
 	:glob:
 
 	Introduction/Index
 	Configuration/Index
+	UserManual/Index
+	KnownProblems/Index
