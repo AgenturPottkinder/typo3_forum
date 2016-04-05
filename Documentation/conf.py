@@ -85,7 +85,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    ('Index', 'typo3_forum.tex', u'typo3\_forum',
+    ('index', 'typo3_forum.tex', u'typo3\_forum',
      u'Mittwald CM Service', 'manual'),
 ]
 
@@ -99,7 +99,7 @@ latex_documents = [
 # would mean that specific document would be compressed
 # regardless of the global pdf_compressed setting.
 pdf_documents = [
-    ('Index', 'typo3_forum', u'typo3\_forum',
+    ('index', 'typo3_forum', u'typo3\_forum',
      u'Mittwald CM Service', 'manual'),
 ]
 
@@ -124,7 +124,7 @@ pdf_fit_background_mode = 'scale'
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('Index', 'typo3_forum', u'typo3_forum',
+    ('index', 'typo3_forum', u'typo3_forum',
      [u'Mittwald CM Service'], 1)
 ]
 
@@ -137,7 +137,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    ('Index', 'typo3_forum', u'typo3_forum',
+    ('index', 'typo3_forum', u'typo3_forum',
      u'Mittwald CM Service', 'typo3_forum', ' forum plugin for TYPO3',
      'Miscellaneous'),
 ]
