@@ -20,7 +20,7 @@ Please note that all permissions that you specify for top level categories are i
 
 The user and the usergroup must have the Record Type "typo3_fourm user" and "typo3_forum group". You must define it in the Extend Tab in the user or usergroup record. 
 
-The records must be created in your sysfolder fpr for the user data over the List-View
+The records must be created in your sysfolder for for the user data over the List-View
 
 .. image:: ../../Images/record-type-user-and-group.png
 
