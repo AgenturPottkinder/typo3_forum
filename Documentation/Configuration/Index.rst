@@ -30,14 +30,14 @@ TypoScript Reference
 	plugin.tx_typo3forum {
 		persistence {
 			# Pid for your main storage sysfolder
-			storagePid = 12
+			storagePid = pid
 		}
 		settings {
 			debug = 0
-			cutUsernameOnChar = 9
-			cutBreadcrumbOnChar = 40
-			popularTopicTimeDiff = 604800
-			useSqlStatementsOnCriticalFunctions = 1
+			cutUsernameOnChar = 
+			cutBreadcrumbOnChar = 
+			popularTopicTimeDiff = 
+			useSqlStatementsOnCriticalFunctions = 
 			
 			pids {
 				# Insert pid of page where the fourm plugin is on
