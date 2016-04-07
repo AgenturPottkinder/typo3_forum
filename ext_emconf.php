@@ -13,10 +13,10 @@ $EM_CONF[$_EXTKEY] = [
 	'createDirs' => 'typo3temp/typo3_forum,typo3temp/typo3_forum/gravatar',
 	'modify_tables' => 'fe_users',
 	'clearCacheOnLoad' => 0,
-	'version' => '1.0.0',
+	'version' => '1.0.1',
 	'constraints' => [
 		'depends' => [
-			'typo3' => '6.2.0-7.99.99',
+			'typo3' => '6.2.0-7.6.99',
 			'static_info_tables' => '',
 			'php' => '5.4',
 		],
