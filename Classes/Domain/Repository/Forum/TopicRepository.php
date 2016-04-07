@@ -44,7 +44,7 @@ class TopicRepository extends AbstractRepository {
 	 * @return Array<\Mittwald\Typo3Forum\Domain\Model\Forum\Topic> The selected subset of posts
 	 *
 	 */
-	public function findByFilter($limit = NULL, $orderings = array()) {
+	public function findByFilter($limit = NULL, $orderings = []) {
 		$query = $this->createQuery();
 		if (!empty($limit)) {
 			$query->setLimit($limit);
@@ -68,7 +68,7 @@ class TopicRepository extends AbstractRepository {
 	public function findByUids($uids) {
 
 		$query = $this->createQuery();
-		$constraints = array();
+		$constraints = [];
 		if (!empty($uids)) {
 			$constraints[] = $query->in('uid', $uids);
 		}
@@ -92,8 +92,8 @@ class TopicRepository extends AbstractRepository {
 		$query = $this->createQuery();
 		$query
 			->matching($query->equals('forum', $forum))
-			->setOrderings(array('sticky' => 'DESC',
-				'last_post_crdate' => 'DESC'));
+			->setOrderings(['sticky' => 'DESC',
+				'last_post_crdate' => 'DESC']);
 
 		return $query->execute();
 	}
@@ -111,15 +111,15 @@ class TopicRepository extends AbstractRepository {
 
 		$query = $this->createQuery();
 
-		$constraint = array($query->equals('question', '1'));
+		$constraint = [$query->equals('question', '1')];
 		if ($user != null) {
 			$constraint[] = $query->equals('author', $user);
 		}
 		if ($showAnswered == FALSE) {
 			$constraint[] = $query->equals('solution', 0);
 		}
-		$query->setOrderings(array('sticky' => 'DESC',
-			'posts.crdate' => 'DESC'));
+		$query->setOrderings(['sticky' => 'DESC',
+			'posts.crdate' => 'DESC']);
 		if ($limit != NULL && is_numeric($limit)) {
 			$query->setLimit($limit);
 		}
@@ -140,7 +140,7 @@ class TopicRepository extends AbstractRepository {
 		$query = $this->createQuery();
 		$query
 			->matching($query->equals('author', $user))
-			->setOrderings(array('crdate' => 'DESC'));
+			->setOrderings(['crdate' => 'DESC']);
 		if ($limit > 0) {
 			$query->setLimit($limit);
 		}
@@ -159,7 +159,7 @@ class TopicRepository extends AbstractRepository {
 	 */
 	public function findTopicsFavSubscribedByUser(FrontendUser $user, $limit = 0) {
 		$query = $this->createQuery();
-		$query->matching($query->contains('favSubscribers', $user))->setOrderings(array('crdate' => 'DESC'));
+		$query->matching($query->contains('favSubscribers', $user))->setOrderings(['crdate' => 'DESC']);
 		if ($limit > 0) {
 			$query->setLimit($limit);
 		}
@@ -186,7 +186,7 @@ class TopicRepository extends AbstractRepository {
 	 */
 	public function findByPostAuthor(FrontendUser $user) {
 		$query = $this->createQuery();
-		$query->matching($query->equals('posts.author', $user))->setOrderings(array('posts.crdate' => 'DESC'));
+		$query->matching($query->equals('posts.author', $user))->setOrderings(['posts.crdate' => 'DESC']);
 		return $query->execute();
 	}
 
@@ -200,7 +200,7 @@ class TopicRepository extends AbstractRepository {
 		$query = $this->createQuery();
 		$query
 			->matching($query->contains('subscribers', $user))
-			->setOrderings(array('lastPost.crdate' => 'ASC'));
+			->setOrderings(['lastPost.crdate' => 'ASC']);
 
 		return $query->execute();
 	}
@@ -215,7 +215,7 @@ class TopicRepository extends AbstractRepository {
 		$query = $this->createQuery();
 		$query
 			->matching($query->contains('tags', $tag))
-			->setOrderings(array('lastPost.crdate' => 'ASC'));
+			->setOrderings(['lastPost.crdate' => 'ASC']);
 
 		return $query->execute();
 	}
@@ -236,7 +236,7 @@ class TopicRepository extends AbstractRepository {
 
 		$query = $this->createQuery();
 		$query->matching($query->greaterThan('lastPost.crdate', $timeLimit));
-		$query->setOrderings(array('postCount' => 'DESC'));
+		$query->setOrderings(['postCount' => 'DESC']);
 		if ($displayLimit > 0) {
 			$query->setLimit($displayLimit);
 		}
@@ -256,7 +256,7 @@ class TopicRepository extends AbstractRepository {
 	public function findLastByForum(Forum $forum, $offset = 0) {
 		$query = $this->createQuery();
 		$query->matching($query->equals('forum', $forum))
-			->setOrderings(array('last_post_crdate' => QueryInterface::ORDER_DESCENDING))->setLimit(1);
+			->setOrderings(['last_post_crdate' => QueryInterface::ORDER_DESCENDING])->setLimit(1);
 		if ($offset > 0) {
 			$query->setOffset($offset);
 		}
@@ -275,7 +275,7 @@ class TopicRepository extends AbstractRepository {
 	 */
 	public function findLatest($offset = 0, $limit = 5) {
 		$query = $this->createQuery();
-		$query->setOrderings(array('last_post_crdate' => QueryInterface::ORDER_DESCENDING))
+		$query->setOrderings(['last_post_crdate' => QueryInterface::ORDER_DESCENDING])
 			->setLimit($limit);
 		if ($offset > 0) {
 			$query->setOffset($offset);

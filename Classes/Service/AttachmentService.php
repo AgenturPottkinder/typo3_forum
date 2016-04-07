@@ -1,6 +1,10 @@
 <?php
 namespace Mittwald\Typo3Forum\Service;
-class AttachmentService implements \TYPO3\CMS\Core\SingletonInterface {
+
+use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
+class AttachmentService implements SingletonInterface {
 
 
 	/**
@@ -13,13 +17,13 @@ class AttachmentService implements \TYPO3\CMS\Core\SingletonInterface {
 	/**
 	 * Converts HTML-array to an object
 	 * @param array $attachments
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+	 * @return ObjectStorage
 	 */
 	public function initAttachments(array $attachments){
 		/* @var \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment */
-		$objAttachments = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$objAttachments = new ObjectStorage();
 
-		foreach($attachments AS $attachmentID => $attachment) {
+		foreach($attachments as $attachmentID => $attachment) {
 			if($attachment['name'] == '') continue;
 			$attachmentObj = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Attachment');
 			$tmp_name = $_FILES['tx_typo3forum_pi1']['tmp_name']['attachments'][$attachmentID];

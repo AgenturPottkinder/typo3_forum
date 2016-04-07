@@ -50,7 +50,7 @@ class GenerateActionViewHelper extends AbstractTagBasedViewHelper {
 
 		$new = 1;
 		if (!empty($subscribedUser)) {
-			foreach ($subscribedUser AS $user) {
+			foreach ($subscribedUser as $user) {
 				if ($currentUser == $user) {
 					$new = 0;
 					break;

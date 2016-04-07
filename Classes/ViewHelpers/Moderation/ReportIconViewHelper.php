@@ -61,9 +61,9 @@ class ReportIconViewHelper extends CObjectViewHelper {
 	 */
 	protected function getDataArray(\Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report = NULL) {
 		if ($report === NULL) {
-			return array();
+			return [];
 		} else {
-			return array('statusIcon' => $report->getWorkflowStatus()->getIconFullpath());
+			return ['statusIcon' => $report->getWorkflowStatus()->getIconFullpath()];
 		}
 	}
 }

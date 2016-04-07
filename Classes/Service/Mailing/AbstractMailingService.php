@@ -1,10 +1,10 @@
 <?php
 namespace Mittwald\Typo3Forum\Service\Mailing;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,41 +24,27 @@ namespace Mittwald\Typo3Forum\Service\Mailing;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Service\AbstractService;
 
-
-/**
- *
- * Service class for notifications. This service notifies subscribers of
- * forums and topic about new posts within the subscribed objects.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Service_Mailing
- * @version    $Id$
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
- */
-abstract class AbstractMailingService extends \Mittwald\Typo3Forum\Service\AbstractService
-	implements \Mittwald\Typo3Forum\Service\Mailing\MailingServiceInterface {
-
+abstract class AbstractMailingService extends AbstractService implements MailingServiceInterface {
 
 	/**
-	 * An instance of the typo3_forum authentication service.
-	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @var \TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager
 	 * @inject
 	 */
-	protected $typoScriptService = NULL;
+	protected $frontendConfigurationManager;
 
 	/**
 	 * Whole TypoScript typo3_forum settings
 	 * @var array
 	 */
 	protected $settings;
+
+	/**
+	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @inject
+	 */
+	protected $typoScriptService = NULL;
 
 	/**
 	 * HTML mail format.
@@ -74,10 +60,10 @@ abstract class AbstractMailingService extends \Mittwald\Typo3Forum\Service\Abstr
 	 * The format in which this service sends mails. Usually, this would be either 'html' or 'txt'.
 	 * @var string
 	 */
-	protected $format = \Mittwald\Typo3Forum\Service\Mailing\AbstractMailingService::MAILING_FORMAT_HTML;
+	protected $format = self::MAILING_FORMAT_HTML;
 
 	public function initializeObject() {
-		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
+		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray($this->frontendConfigurationManager->getTypoScriptSetup());
 		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
 

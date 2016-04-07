@@ -534,9 +534,9 @@ CREATE TABLE tx_typo3forum_domain_model_forum_criteria_topic_options (
 );
 
 #
-# Table structure for table 'tx_typo3forum_domain_model_forum_ads'
+# Table structure for table 'tx_typo3forum_domain_model_forum_ad'
 #
-CREATE TABLE tx_typo3forum_domain_model_forum_ads (
+CREATE TABLE tx_typo3forum_domain_model_forum_ad (
   uid int(11) unsigned NOT NULL auto_increment,
   pid int(11) unsigned NOT NULL default '0',
   tstamp int(11) unsigned NOT NULL default '0',

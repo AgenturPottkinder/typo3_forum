@@ -1,10 +1,10 @@
 <?php
 namespace Mittwald\Typo3Forum\ViewHelpers\User;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,6 +24,9 @@ namespace Mittwald\Typo3Forum\ViewHelpers\User;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser;
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 
 /**
@@ -50,22 +53,21 @@ class AvatarUrlViewHelper extends CObjectViewHelper {
 	/**
 	 * Renders the avatar.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser|NULL $user
-	 *
-	 * @return null|string
+	 * @param FrontendUser $user
+	 * @return string
 	 */
-	public function render(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL ) {
+	public function render(FrontendUser $user = NULL) {
 		// if user ist not set
 		$avatarFilename = NULL;
 
-		if ($user != NULL) {
+		if (($user !== NULL) && !($user instanceof AnonymousFrontendUser)) {
 			$avatarFilename = $user->getImagePath();
 		}
 
 		if ($avatarFilename === NULL) {
-			$avatarFilename = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('typo3_forum') . 'Resources/Public/Images/Icons/AvatarEmpty.png';
+			$avatarFilename = ExtensionManagementUtility::siteRelPath('typo3_forum') . 'Resources/Public/Images/Icons/AvatarEmpty.png';
 		}
-		return $avatarFilename ;
-
+		return $avatarFilename;
 	}
+
 }

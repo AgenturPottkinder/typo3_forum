@@ -32,10 +32,10 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 class TopicController extends AbstractController {
 
 	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdsRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdRepository
 	 * @inject
 	 */
-	protected $adsRepository;
+	protected $adRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Service\AttachmentService
@@ -67,7 +67,7 @@ class TopicController extends AbstractController {
 	protected $postFactory;
 
 	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\PostRepository
 	 * @inject
 	 */
 	protected $postRepository;
@@ -109,6 +109,38 @@ class TopicController extends AbstractController {
 		$this->databaseConnection = $GLOBALS['TYPO3_DB'];
 	}
 
+    /**
+     *  Listing Action.
+     * @return void
+     */
+    public function listAction() {
+
+        $showPaginate = FALSE;
+        switch ($this->settings['listTopics']) {
+            case '2':
+                $dataset = $this->topicRepository->findQuestions();
+                $showPaginate = TRUE;
+                $partial = 'Topic/List';
+                break;
+            case '3':
+                $dataset = $this->topicRepository->findQuestions(6);
+                $partial = 'Topic/QuestionBox';
+                break;
+            case '4':
+                $dataset = $this->topicRepository->findPopularTopics(intval($this->settings['popularTopicTimeDiff']),6);
+                $partial = 'Topic/ListBox';
+                break;
+            default:
+                $dataset      = $this->topicRepository->findAll();
+                $partial      = 'Topic/List';
+                $showPaginate = TRUE;
+                break;
+        }
+        $this->view->assign('showPaginate', $showPaginate);
+        $this->view->assign('partial', $partial);
+        $this->view->assign('topics', $dataset);
+    }
+
 	/**
 	 *  Listing Action.
 	 */
@@ -143,7 +175,10 @@ class TopicController extends AbstractController {
 		if ($googlePlus) {
 			$this->response->addAdditionalHeaderData('<link rel="author" href="' . $googlePlus . '"/>');
 		}
-		// AdHandling End
+
+		// send signal for simple read count
+		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Topic', 'topicDisplayed', ['topic' => $topic]);
+
 		$this->authenticationService->assertReadAuthorization($topic);
 		$this->markTopicRead($topic);
 		$this->view->assignMultiple([
@@ -190,7 +225,7 @@ class TopicController extends AbstractController {
 	 * @validate $attachments \Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator
 	 * @validate $subject NotEmpty
 	 */
-	public function createAction(Forum $forum, Post $post, $subject, $attachments = array(), $question = '', $criteria = array(), $tags = '', $subscribe = '') {
+	public function createAction(Forum $forum, Post $post, $subject, $attachments = [], $question = '', $criteria = [], $tags = '', $subscribe = '') {
 
 		// Assert authorization
 		$this->authenticationService->assertNewTopicAuthorization($forum);
@@ -207,7 +242,7 @@ class TopicController extends AbstractController {
 
 		if ($tags) {
 			$tags = $this->tagService->initTags($tags);
-			foreach ($tags AS $tag) {
+			foreach ($tags as $tag) {
 				if ($tag->getUid === NULL) {
 					$this->tagRepository->add($tag);
 				}
@@ -222,10 +257,10 @@ class TopicController extends AbstractController {
 		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Topic', 'topicCreated', ['topic' => $topic]);
 		$this->clearCacheForCurrentPage();
 		$uriBuilder = $this->controllerContext->getUriBuilder();
-		$uri = $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments(array('tx_typo3forum_pi1[forum]' => $forum->getUid(), 'tx_typo3forum_pi1[controller]' => 'Forum', 'tx_typo3forum_pi1[action]' => 'show'))->build();
+		$uri = $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments(['tx_typo3forum_pi1[forum]' => $forum->getUid(), 'tx_typo3forum_pi1[controller]' => 'Forum', 'tx_typo3forum_pi1[action]' => 'show'])->build();
 		$this->purgeUrl('http://' . $_SERVER['HTTP_HOST'] . '/' . $uri);
 		// Redirect to single forum display view
-		$this->redirect('show', 'Forum', NULL, array('forum' => $forum));
+		$this->redirect('show', 'Forum', NULL, ['forum' => $forum]);
 	}
 
 	/**
@@ -240,7 +275,7 @@ class TopicController extends AbstractController {
 			throw new NoAccessException('Not allowed to set solution by current user.');
 		}
 		$this->topicFactory->setPostAsSolution($post->getTopic(), $post);
-		$this->redirect('show', 'Topic', NULL, array('topic' => $post->getTopic()));
+		$this->redirect('show', 'Topic', NULL, ['topic' => $post->getTopic()]);
 	}
 
 	/**

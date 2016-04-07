@@ -166,7 +166,7 @@ class Notification extends AbstractTask {
 					  	 	AND deleted=0 AND pid IN (' . $this->getForumPids() . ')';
 			$postRes = $GLOBALS['TYPO3_DB']->sql_query($query);
 			while ($postRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($postRes)) {
-				foreach ($involvedUser AS $user) {
+				foreach ($involvedUser as $user) {
 					if ($user['author'] == $postRow['author']) continue;
 					if ($user['firstPostOfUser'] > $postRow['uid']) continue;
 
@@ -217,7 +217,7 @@ class Notification extends AbstractTask {
 						  		AND p.crdate > ' . (int)$this->getLastExecutedCron() . ' AND pid IN (' . $this->getForumPids() . ')';
 			$postRes = $GLOBALS['TYPO3_DB']->sql_query($query);
 			while ($postRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($postRes)) {
-				foreach ($subscribedTagUser AS $userUid) {
+				foreach ($subscribedTagUser as $userUid) {
 
 					if ($postRow['author'] == $userUid) continue;
 

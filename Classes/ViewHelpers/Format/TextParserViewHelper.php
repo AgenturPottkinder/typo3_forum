@@ -40,7 +40,7 @@ class TextParserViewHelper extends AbstractViewHelper {
 	/**
 	 * An instance of the post repository class. The repository is needed
 	 * only when a rendered post text has to be persisted in the database.
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\PostRepository
 	 * @inject
 	 */
 	protected $postRepository;

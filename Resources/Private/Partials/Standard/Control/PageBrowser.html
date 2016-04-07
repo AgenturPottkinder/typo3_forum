@@ -1,0 +1,12 @@
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
+<f:if condition="{elements} > {configuration.itemsPerPage}">
+	<div class="tx-typo3forum-pages">
+		<mmf:control.pageBrowser elements="{elements}" currentPage="{currentPage}" itemsPerPage="{configuration.itemsPerPage}">
+			<f:if condition="{page} == {currentPage}">
+				<f:then>{pageLabel}</f:then>
+				<f:else><f:link.action controller="{controller}" action="{action}" arguments="{page: page}">{pageLabel}</f:link.action></f:else>
+			</f:if>
+		</mmf:control.pageBrowser>
+	</div>
+	<div style="clear:right"></div>
+</f:if>

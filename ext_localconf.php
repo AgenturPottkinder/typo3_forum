@@ -12,7 +12,7 @@ $_EXTKEY = 'typo3_forum';
 	'Mittwald.Typo3Forum',
 	'Pi1',
 	[
-		'Forum' => 'index, show, create, update, delete, markRead, showUnread',
+		'Forum' => 'index, show, markRead, showUnread',
 		'Topic' => 'show, new, create, solution, listLatest',
 		'Post' => 'show, new, create, edit, update, delete',
 		'User' => 'showMyProfile, index, list, subscribe, favSubscribe, show, disableUser, unDisableUser, listNotifications, listMessages, createMessage, newMessage',
@@ -60,7 +60,7 @@ $_EXTKEY = 'typo3_forum';
 );
 
 # TCE-Main hook for clearing all typo3_forum caches
-$TYPO3_CONF_VARS['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearCachePostProc'][] = '\Mittwald\Typo3Forum\Cache\CacheManager->clearAll';
+$TYPO3_CONF_VARS['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearCachePostProc'][] = 'Mittwald\Typo3Forum\Cache\CacheManager->clearAll';
 
 if (!is_array($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['typo3forum_main'])) {
 	$TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['typo3forum_main'] = [];
@@ -89,8 +89,8 @@ $TYPO3_CONF_VARS['FE']['eID_include']['typo3_forum'] = 'EXT:typo3_forum/Classes/
 // Connect signals to slots. Some parts of extbase suck, but the signal-slot
 // pattern is really cool! :P
 $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\SignalSlot\Dispatcher');
-$signalSlotDispatcher->connect('\Mittwald\Typo3Forum\Domain\Model\Forum\Post', 'postCreated', '\Mittwald\Typo3Forum\Service\Notification\SubscriptionListener', 'onPostCreated');
-$signalSlotDispatcher->connect('\Mittwald\Typo3Forum\Domain\Model\Forum\Topic', 'topicCreated', '\Mittwald\Typo3Forum\Service\Notification\SubscriptionListener', 'onTopicCreated');
+$signalSlotDispatcher->connect('Mittwald\Typo3Forum\Domain\Model\Forum\Post', 'postCreated', 'Mittwald\Typo3Forum\Service\Notification\SubscriptionListener', 'onPostCreated');
+$signalSlotDispatcher->connect('Mittwald\Typo3Forum\Domain\Model\Forum\Topic', 'topicCreated', 'Mittwald\Typo3Forum\Service\Notification\SubscriptionListener', 'onTopicCreated');
 
 // adding scheduler tasks
 

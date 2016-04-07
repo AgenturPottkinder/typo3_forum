@@ -1,0 +1,18 @@
+<div>
+    <h4>
+        <f:translate key="Error_Exception_Title"/>
+    </h4>
+    <f:translate key="Error_{exception.code}" default="[TRANSLATE: Error_{exception.code}] {exception.message}"/>
+</div>
+
+<f:if condition="{settings.debug}">
+    <div>
+        <h4>Still can't get enough?</h4>
+        <p>
+            Alright, here comes the exception trace. Have fun with it! Hint: Set
+            the typoscript property <code>plugin.tx_typo3forum.settings.debug</code>
+            to <code>0</code> to disable the display of this exception trace.
+        </p>
+        <pre>{exception.traceAsString}</pre>
+    </div>
+</f:if>

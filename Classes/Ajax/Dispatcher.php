@@ -26,6 +26,7 @@ namespace Mittwald\Typo3Forum\Ajax;
 
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\Utility\EidUtility;
 use TYPO3\CMS\Extbase\Core\Bootstrap;
 use TYPO3\CMS\Extbase\Mvc\Dispatcher as ExtbaseDispatcher;
 use TYPO3\CMS\Extbase\Mvc\Web\RequestBuilder;
@@ -70,7 +71,7 @@ final class Dispatcher implements SingletonInterface {
 	 * Initialize the dispatcher.
 	 */
 	protected function init() {
-		$this->initializeTsfe();
+        $this->initializeTsfe();
 		$this->initTYPO3();
 		$this->initExtbase();
 	}
@@ -79,15 +80,14 @@ final class Dispatcher implements SingletonInterface {
 	 * Initializes TSFE.
 	 */
 	protected function initializeTsfe() {
-		$GLOBALS['TSFE'] = GeneralUtility::makeInstance('tslib_fe', $GLOBALS['TYPO3_CONF_VARS'], GeneralUtility::_GP('id'), GeneralUtility::_GP('type'), true);
+		$GLOBALS['TSFE'] = GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController', $GLOBALS['TYPO3_CONF_VARS'], GeneralUtility::_GP('id'), GeneralUtility::_GP('type'), true);
 		$GLOBALS['TSFE']->initFEuser();
 		$GLOBALS['TSFE']->initUserGroups();
+		EidUtility::initTCA();
 		$GLOBALS['TSFE']->checkAlternativeIdMethods();
 		$GLOBALS['TSFE']->determineId();
-		$GLOBALS['TSFE']->getCompressedTCarray();
 		$GLOBALS['TSFE']->sys_page =  GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Page\PageRepository');
 		$GLOBALS['TSFE']->initTemplate();
-		$GLOBALS['TSFE']->getConfigArray();
 		$GLOBALS['TSFE']->newCObj();
 	}
 
@@ -119,17 +119,17 @@ final class Dispatcher implements SingletonInterface {
 		$GLOBALS['TSFE']->forceTemplateParsing = TRUE;
 		$GLOBALS['TSFE']->initFEuser();
 		$GLOBALS['TSFE']->initUserGroups();
-		$GLOBALS['TSFE']->getCompressedTCarray();
+		EidUtility::initTCA();
 		$GLOBALS['TSFE']->no_cache = TRUE;
 		$GLOBALS['TSFE']->tmpl->start($GLOBALS['TSFE']->rootLine);
 		$GLOBALS['TSFE']->no_cache = FALSE;
-		$GLOBALS['TSFE']->config = array();
-		$GLOBALS['TSFE']->config['config'] = array('sys_language_mode' => 'content_fallback;0',
+		$GLOBALS['TSFE']->config = [];
+		$GLOBALS['TSFE']->config['config'] = ['sys_language_mode' => 'content_fallback;0',
 			'sys_language_overlay' => 'hideNonTranslated',
 			'sys_language_softMergeIfNotBlank' => '',
 			'sys_language_softExclude' => '',
 			'language' => $lang,
-		);
+		];
 
 		$GLOBALS['TSFE']->settingLanguage();
 	}
@@ -143,7 +143,7 @@ final class Dispatcher implements SingletonInterface {
 	 */
 	protected function initExtbase() {
 		$this->extbaseBootstap = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Core\Bootstrap');
-		$this->extbaseBootstap->initialize(array('extensionName' => $this->extensionKey, 'pluginName' => 'ajax'));
+		$this->extbaseBootstap->initialize(['extensionName' => $this->extensionKey, 'pluginName' => 'ajax', 'vendorName' => 'Mittwald']);
 		$this->objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
 	}
 
@@ -186,7 +186,7 @@ final class Dispatcher implements SingletonInterface {
 	 * @return string
 	 */
 	public function dispatch() {
-		return $this->extbaseBootstap->run('', array('extensionName' => $this->extensionKey, 'pluginName' => 'Ajax'));
+		return $this->extbaseBootstap->run('', ['extensionName' => $this->extensionKey, 'pluginName' => 'Ajax', 'vendorName' => 'Mittwald']);
 	}
 
 

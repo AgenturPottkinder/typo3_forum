@@ -26,6 +26,7 @@ namespace Mittwald\Typo3Forum\Service\Authentication;
 
 use Mittwald\Typo3Forum\Domain\Exception\Authentication\NoAccessException;
 use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Access;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
@@ -56,30 +57,12 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	protected $user = -1;
 
 	/**
-	 * TRUE to treat logged in backend users as administrators.
-	 * @var bool
-	 */
-	protected $implicitAdministratorInBackend = TRUE;
-
-	/**
 	 * An identifier for all user groups the current user is a member of.
 	 * This identifier will be used as part of a cache identifier.
 	 *
 	 * @var string
 	 */
 	private $userGroupIdentifier = NULL;
-
-
-	/**
-	 * Disables the implicit treatment of logged in backend users as administrator
-	 * users. This feature is necessary to make this class unittestable (probably bad
-	 * practice, feel free to correct this...).
-	 *
-	 * @return void
-	 */
-	public function disableImplicitAdministrationInBackend() {
-		$this->implicitAdministratorInBackend = FALSE;
-	}
 
 	/*
 	 * AUTHENTICATION METHODS
@@ -93,7 +76,7 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	 * @return void
 	 */
 	public function assertReadAuthorization(AccessibleInterface $object) {
-		$this->assertAuthorization($object, 'read');
+		$this->assertAuthorization($object, Access::TYPE_READ);
 	}
 
 	/**
@@ -104,7 +87,7 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	 * @return void
 	 */
 	public function assertNewTopicAuthorization(Forum $forum) {
-		$this->assertAuthorization($forum, 'newTopic');
+		$this->assertAuthorization($forum, Access::TYPE_NEW_TOPIC);
 	}
 
 
@@ -116,7 +99,7 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	 * @return void
 	 */
 	public function assertNewPostAuthorization(Topic $topic) {
-		$this->assertAuthorization($topic, 'newPost');
+		$this->assertAuthorization($topic, Access::TYPE_NEW_POST);
 	}
 
 
@@ -127,7 +110,7 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	 * @return void
 	 */
 	public function assertEditPostAuthorization(Post $post) {
-		$this->assertAuthorization($post, 'editPost');
+		$this->assertAuthorization($post, Access::TYPE_EDIT_POST);
 	}
 
 
@@ -138,7 +121,7 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	 * @return void
 	 */
 	public function assertDeletePostAuthorization(Post $post) {
-		$this->assertAuthorization($post, 'deletePost');
+		$this->assertAuthorization($post, Access::TYPE_DELETE_POST);
 	}
 
 
@@ -149,22 +132,8 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	 * @return void
 	 */
 	public function assertModerationAuthorization(AccessibleInterface $object) {
-		$this->assertAuthorization($object, 'moderate');
+		$this->assertAuthorization($object, Access::TYPE_MODERATE);
 	}
-
-
-	/**
-	 * Asserts that the current user has administrative access to a certain
-	 * forum (note: administrative access is currently only possible from the
-	 * backend module!).
-	 *
-	 * @param AccessibleInterface $object
-	 * @return void
-	 */
-	public function assertAdministrationAuthorization(AccessibleInterface $object) {
-		$this->assertAuthorization($object, 'administrate');
-	}
-
 
 	/**
 	 * Asserts that the current user is authorized to perform a certain
@@ -191,9 +160,8 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	 * @return boolean TRUE, when the user is authorized, otherwise FALSE.
 	 */
 	public function checkAuthorization(AccessibleInterface $object, $action) {
-		// ACLs can be disabled for debugging. Also, in Backend mode, the ACL
-		// mechanism does not work (no fe_users!).
-		if ((isset($this->settings) && $this->settings['debug']['disableACLs']) || (TYPO3_MODE === 'BE' && $this->implicitAdministratorInBackend === TRUE)) {
+		// ACLs can be disabled for debugging.
+		if (isset($this->settings) && $this->settings['debug']['disableACLs']) {
 			return TRUE;
 		}
 
@@ -236,7 +204,7 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 			if ($user === NULL) {
 				$this->userGroupIdentifier = 'n';
 			} else {
-				$groupUids = array();
+				$groupUids = [];
 				foreach ($user->getUsergroup() as $group) {
 					/** @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup $group */
 					$groupUids[] = $group->getUid();

@@ -24,14 +24,15 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Authentication;
  *                                                                      */
 
 use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Access;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  *
  * ViewHelper that renders its contents if the current user has access to a
  * certain operation on a certain object.
  */
-class IfAccessViewHelper extends AbstractConditionViewHelper {
+class IfAccessViewHelper extends AbstractViewHelper {
 
 	/**
 	 * The frontend user repository.
@@ -48,11 +49,9 @@ class IfAccessViewHelper extends AbstractConditionViewHelper {
 	 * @param string $accessType The operation for which to check the access.
 	 * @return string The ViewHelper contents if the user has access to the specified operation.
 	 */
-	public function render(AccessibleInterface $object, $accessType = 'read') {
+	public function render(AccessibleInterface $object, $accessType = Access::TYPE_READ) {
 		if ($object->checkAccess($this->frontendUserRepository->findCurrent(), $accessType)) {
-			return $this->renderThenChild();
-		} else {
-			return $this->renderElseChild();
+			return $this->renderChildren();
 		}
 	}
 }

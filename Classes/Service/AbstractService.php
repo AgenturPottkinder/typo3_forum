@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Service;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *

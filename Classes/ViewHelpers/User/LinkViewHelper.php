@@ -59,7 +59,7 @@ class LinkViewHelper extends CObjectViewHelper {
 		}
 		// use uribuilder to genreate the uri for the userprofile
 		$uriBuilder = $this->controllerContext->getUriBuilder();
-		$uri = $uriBuilder->setTargetPageUid($this->settings['pids']['UserShow'])->setArguments(array('tx_typo3forum_pi1[user]' => $user->getUid(), 'tx_typo3forum_pi1[controller]' => 'User', 'tx_typo3forum_pi1[action]' => 'show'))->build();
+		$uri = $uriBuilder->setTargetPageUid($this->settings['pids']['UserShow'])->setArguments(['tx_typo3forum_pi1[user]' => $user->getUid(), 'tx_typo3forum_pi1[controller]' => 'User', 'tx_typo3forum_pi1[action]' => 'show'])->build();
 
 		$class = 'user-link';
 
@@ -76,7 +76,7 @@ class LinkViewHelper extends CObjectViewHelper {
 		}
 		$moderatorMark = "";
 		if ($this->settings['moderatorMark']['image']) {
-			foreach ($user->getUsergroup() AS $group) {
+			foreach ($user->getUsergroup() as $group) {
 				/** @var FrontendUserGroup $group */
 				if ($group->getUserMod() === 1) {
 					$moderatorMark = '<img src="' . $this->settings['moderatorMark']['image'] . '" title="' . $this->settings['moderatorMark']['title'] . '" />';

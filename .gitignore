@@ -1,3 +1,12 @@
 .idea
 nbproject
 Resources/Public/Stylesheets/.sass-cache/
+
+# composer related ignores:
+bin
+composer.lock
+index.php
+Packages
+typo3
+typo3_src
+typo3temp

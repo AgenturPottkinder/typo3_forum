@@ -125,9 +125,9 @@ class Attachment extends AbstractEntity {
 	public function getAllowedMimeTypes() {
 		$mime_types = explode(',', $this->settings['attachment']['allowedMimeTypes']);
 		if (empty($mime_types)) {
-			$res = array('text/plain');
+			$res = ['text/plain'];
 		} else {
-			foreach ($mime_types AS $mime_type) {
+			foreach ($mime_types as $mime_type) {
 				$res[] = trim($mime_type);
 			}
 		}

@@ -36,7 +36,7 @@ class TagRepository extends Repository {
 	 */
 	public function findAllOrderedByCounter() {
 		$query = $this->createQuery();
-		$query->setOrderings(array('topic_count' => 'DESC'));
+		$query->setOrderings(['topic_count' => 'DESC']);
 
 		return $query->execute();
 	}
@@ -70,7 +70,7 @@ class TagRepository extends Repository {
 		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 		$pids = $query->getQuerySettings()->getStoragePageIds();
 		$pid = (int)$pids[0];
-		$constraints = array();
+		$constraints = [];
 		$constraints[] = $query->like('name', "%" . $name . "%", false);
 		$constraints[] = $query->equals('pid', $pid);
 
@@ -89,7 +89,7 @@ class TagRepository extends Repository {
 	public function findTagsOfUser(FrontendUser $user) {
 		$query = $this->createQuery();
 		$query->matching($query->equals('feuser.uid', $user));
-		$query->setOrderings(array('name' => 'ASC'));
+		$query->setOrderings(['name' => 'ASC']);
 
 		return $query->execute();
 	}

@@ -4,10 +4,7 @@ namespace Mittwald\Typo3Forum\Controller;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2013 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Sebastian Gieselmann <s.gieselmann@mittwald.de>            *
- *           Ruven Fehling <r.fehling@mittwald.de>                      *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -32,22 +29,16 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 class AjaxController extends AbstractController {
 
 	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdsRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdRepository
 	 * @inject
 	 */
-	protected $adsRepository;
+	protected $adRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AttachmentRepository
 	 * @inject
 	 */
 	protected $attachmentRepository;
-
-	/**
-	 * @var \Mittwald\Typo3Forum\Service\AttachmentService
-	 * @inject
-	 */
-	protected $attachmentService = NULL;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
@@ -68,7 +59,7 @@ class AjaxController extends AbstractController {
 	protected $postFactory;
 
 	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\PostRepository
 	 * @inject
 	 */
 	protected $postRepository;
@@ -90,6 +81,18 @@ class AjaxController extends AbstractController {
 	 * @inject
 	 */
 	protected $typoScriptService = NULL;
+
+    /**
+     * @var \Mittwald\Typo3Forum\Service\SessionHandlingService
+     * @inject
+     */
+    protected $sessionHandlingService;
+
+    /**
+     * @var \Mittwald\Typo3Forum\Service\AttachmentService
+     * @inject
+     */
+    protected $attachmentService = NULL;
 
 	/**
 	 *
@@ -113,7 +116,7 @@ class AjaxController extends AbstractController {
 	 */
 	public function mainAction($displayedUser = "", $postSummarys = "", $topicIcons = "", $forumIcons = "", $displayedTopics = "", $displayOnlinebox = 0, $displayedPosts = "", $displayedForumMenus = "", $displayedAds = "") {
 		// json array
-		$content = array();
+		$content = [];
 		if (!empty($displayedUser)) {
 			$content['onlineUser'] = $this->_getOnlineUser($displayedUser);
 		}
@@ -138,11 +141,11 @@ class AjaxController extends AbstractController {
 		if (!empty($displayedPosts)) {
 			$content['posts'] = $this->_getPosts($displayedPosts);
 		}
-		if($displayOnlinebox == 1){
+		if ($displayOnlinebox == 1) {
 			$content['onlineBox'] = $this->_getOnlinebox();
 		}
 		$displayedAds = json_decode($displayedAds);
-		if((int)$displayedAds->count > 1) {
+		if ((int)$displayedAds->count > 1) {
 			$content['ads'] = $this->_getAds($displayedAds);
 		}
 
@@ -153,87 +156,90 @@ class AjaxController extends AbstractController {
 	/**
 	 * @return void
 	 */
-	public function loginboxAction(){
+	public function loginboxAction() {
 		$this->view->assign('user', $this->getCurrentUser());
 	}
 
 	/**
 	 * @return array
 	 */
-	private function _getOnlinebox(){
-		$data = array();
+	private function _getOnlinebox() {
+		$data = [];
 		$data['count'] = $this->frontendUserRepository->countByFilter(TRUE);
 		$this->request->setFormat('html');
-		$users = $this->frontendUserRepository->findByFilter((int)$this->settings['widgets']['onlinebox']['limit'], array(), TRUE);
+		$users = $this->frontendUserRepository->findByFilter((int)$this->settings['widgets']['onlinebox']['limit'], [], TRUE);
 		$this->view->assign('users', $users);
 		$data['html'] = $this->view->render('Onlinebox');
 		$this->request->setFormat('json');
 		return $data;
 	}
+
 	/**
 	 * @param string $displayedForumMenus
 	 * @return array
 	 */
-	private function _getForumMenus($displayedForumMenus){
-		$data = array();
+	private function _getForumMenus($displayedForumMenus) {
+		$data = [];
 		$displayedForumMenus = json_decode($displayedForumMenus);
-		if(count($displayedForumMenus) < 1) return $data;
+		if (count($displayedForumMenus) < 1) return $data;
 		$this->request->setFormat('html');
 		$foren = $this->forumRepository->findByUids($displayedForumMenus);
 		$counter = 0;
-		foreach($foren as $forum){
+		foreach ($foren as $forum) {
 			$this->view->assign('forum', $forum)
 				->assign('user', $this->getCurrentUser());
 			$data[$counter]['uid'] = $forum->getUid();
 			$data[$counter]['html'] = $this->view->render('ForumMenu');
-			$counter ++;
+			$counter++;
 		}
 		$this->request->setFormat('json');
 		return $data;
 	}
+
 	/**
 	 * @param string $displayedPosts
 	 * @return array
 	 */
-	private function _getPosts($displayedPosts){
-		$data = array();
+	private function _getPosts($displayedPosts) {
+		$data = [];
 		$displayedPosts = json_decode($displayedPosts);
-		if(count($displayedPosts) < 1) return $data;
+		if (count($displayedPosts) < 1) return $data;
 		$this->request->setFormat('html');
 		$posts = $this->postRepository->findByUids($displayedPosts);
 		$counter = 0;
-		foreach($posts as $post){
+		foreach ($posts as $post) {
 			/** @var Post $post */
 			$this->view->assign('post', $post)
-			->assign('user', $this->getCurrentUser());
+				->assign('user', $this->getCurrentUser());
 			$data[$counter]['uid'] = $post->getUid();
 			$data[$counter]['postHelpfulButton'] = $this->view->render('PostHelpfulButton');
 			$data[$counter]['postHelpfulCount'] = $post->getHelpfulCount();
 			$data[$counter]['postUserHelpfulCount'] = $post->getAuthor()->getHelpfulCount();
 			$data[$counter]['author']['uid'] = $post->getAuthor()->getUid();
 			$data[$counter]['postEditLink'] = $this->view->render('PostEditLink');
-			$counter ++;
+			$counter++;
 		}
 		$this->request->setFormat('json');
 		return $data;
 	}
+
 	/**
 	 * @param string $displayedTopics
 	 * @return array
 	 */
-	private function _getTopics($displayedTopics){
-		$data = array();
+	private function _getTopics($displayedTopics) {
+		$data = [];
 		$displayedTopics = json_decode($displayedTopics);
-		if(count($displayedTopics) < 1) return $data;
+		if (count($displayedTopics) < 1) return $data;
 		$this->request->setFormat('html');
 		$topicIcons = $this->topicRepository->findByUids($displayedTopics);
 		$counter = 0;
-		foreach($topicIcons as $topic){
+		foreach ($topicIcons as $topic) {
 			$this->view->assign('topic', $topic);
 			$data[$counter]['uid'] = $topic->getUid();
 			$data[$counter]['replyCount'] = $topic->getReplyCount();
 			$data[$counter]['topicListMenu'] = $this->view->render('topicListMenu');
-			$counter ++;
+			$counter++;
 		}
 		$this->request->setFormat('json');
 		return $data;
@@ -243,18 +249,18 @@ class AjaxController extends AbstractController {
 	 * @param string $topicIcons
 	 * @return array
 	 */
-	private function _getTopicIcons($topicIcons){
-		$data = array();
+	private function _getTopicIcons($topicIcons) {
+		$data = [];
 		$topicIcons = json_decode($topicIcons);
-		if(count($topicIcons) < 1) return $data;
-			$this->request->setFormat('html');
+		if (count($topicIcons) < 1) return $data;
+		$this->request->setFormat('html');
 		$topicIcons = $this->topicRepository->findByUids($topicIcons);
 		$counter = 0;
-		foreach($topicIcons as $topic){
+		foreach ($topicIcons as $topic) {
 			$this->view->assign('topic', $topic);
 			$data[$counter]['html'] = $this->view->render('topicIcon');
 			$data[$counter]['uid'] = $topic->getUid();
-			$counter ++;
+			$counter++;
 		}
 		$this->request->setFormat('json');
 		return $data;
@@ -264,18 +270,18 @@ class AjaxController extends AbstractController {
 	 * @param string $forumIcons
 	 * @return array
 	 */
-	private function _getForumIcons($forumIcons){
-		$data = array();
+	private function _getForumIcons($forumIcons) {
+		$data = [];
 		$forumIcons = json_decode($forumIcons);
-		if(count($forumIcons) < 1) return $data;
+		if (count($forumIcons) < 1) return $data;
 		$this->request->setFormat('html');
 		$forumIcons = $this->forumRepository->findByUids($forumIcons);
 		$counter = 0;
-		foreach($forumIcons as $forum){
+		foreach ($forumIcons as $forum) {
 			$this->view->assign('forum', $forum);
 			$data[$counter]['html'] = $this->view->render('forumIcon');
 			$data[$counter]['uid'] = $forum->getUid();
-			$counter ++;
+			$counter++;
 		}
 		$this->request->setFormat('json');
 		return $data;
@@ -287,29 +293,29 @@ class AjaxController extends AbstractController {
 	 */
 	private function _getPostSummarys($postSummarys) {
 		$postSummarys = json_decode($postSummarys);
-		$data = array();
+		$data = [];
 		$counter = 0;
 		$this->request->setFormat('html');
-		foreach($postSummarys as $summary){
+		foreach ($postSummarys as $summary) {
 			$post = false;
-			switch($summary->type){
+			switch ($summary->type) {
 				case 'lastForumPost':
-					$forum  = $this->forumRepository->findByUid($summary->uid);
+					$forum = $this->forumRepository->findByUid($summary->uid);
 					/* @var Post */
 					$post = $forum->getLastPost();
 					break;
 				case 'lastTopicPost':
-					$topic  = $this->topicRepository->findByUid($summary->uid);
+					$topic = $this->topicRepository->findByUid($summary->uid);
 					/* @var Post */
 					$post = $topic->getLastPost();
 					break;
 			}
-			if($post){
+			if ($post) {
 				$data[$counter] = $summary;
 				$this->view->assign('post', $post)
-							->assign('hiddenImage', $summary->hiddenimage);
+					->assign('hiddenImage', $summary->hiddenimage);
 				$data[$counter]->html = $this->view->render('postSummary');
-				$counter ++;
+				$counter++;
 			}
 		}
 		$this->request->setFormat('json');
@@ -323,7 +329,7 @@ class AjaxController extends AbstractController {
 	private function _getOnlineUser($displayedUser) {
 		// OnlineUser
 		$displayedUser = json_decode($displayedUser);
-		$onlineUsers = $this->frontendUserRepository->findByFilter("", array(), true, $displayedUser);
+		$onlineUsers = $this->frontendUserRepository->findByFilter("", [], true, $displayedUser);
 		// write online user
 		foreach ($onlineUsers as $onlineUser) {
 			$output[] = $onlineUser->getUid();
@@ -336,29 +342,29 @@ class AjaxController extends AbstractController {
 	 * @param \stdClass $meta
 	 * @return array
 	 */
-	private function _getAds(\stdClass $meta){
+	private function _getAds(\stdClass $meta) {
 		$count = (int)$meta->count;
-		$result = array();
+		$result = [];
 		$this->request->setFormat('html');
 
 		$actDatetime = new \DateTime();
-		if(!$this->sessionHandling->get('adTime')) {
-			$this->sessionHandling->set('adTime', $actDatetime);
+		if (!$this->sessionHandlingService->get('adTime')) {
+			$this->sessionHandlingService->set('adTime', $actDatetime);
 			$adDateTime = $actDatetime;
 		} else {
-			$adDateTime = $this->sessionHandling->get('adTime');
+			$adDateTime = $this->sessionHandlingService->get('adTime');
 		}
-		if($actDatetime->getTimestamp() - $adDateTime->getTimestamp() > $this->settings['ads']['timeInterval'] && $count > 2){
-			$this->sessionHandling->set('adTime', $actDatetime);
-			if((int)$meta->mode === 0) {
-				$ads = $this->adsRepository->findForForumView(1);
+		if ($actDatetime->getTimestamp() - $adDateTime->getTimestamp() > $this->settings['ads']['timeInterval'] && $count > 2) {
+			$this->sessionHandlingService->set('adTime', $actDatetime);
+			if ((int)$meta->mode === 0) {
+				$ads = $this->adRepository->findForForumView(1);
 			} else {
-				$ads = $this->adsRepository->findForTopicView(1);
+				$ads = $this->adRepository->findForTopicView(1);
 			}
-			if(!empty($ads)) {
+			if (!empty($ads)) {
 				$this->view->assign('ads', $ads);
 				$result['html'] = $this->view->render('ads');
-				$result['position'] = mt_rand(1,$count-2);
+				$result['position'] = mt_rand(1, $count - 2);
 			}
 		}
 		$this->request->setFormat('json');

@@ -54,7 +54,7 @@ class TopicFactory extends AbstractFactory {
 	protected $postFactory = NULL;
 
 	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\PostRepository
 	 * @inject
 	 */
 	protected $postRepository = NULL;
@@ -84,7 +84,7 @@ class TopicFactory extends AbstractFactory {
 	 *
 	 * @return Topic The new topic.
 	 */
-	public function createTopic(Forum $forum, Post $firstPost, $subject, $question = 0, array $criteriaOptions = array(), $tags = NULL, $subscribe = 0) {
+	public function createTopic(Forum $forum, Post $firstPost, $subject, $question = 0, array $criteriaOptions = [], $tags = NULL, $subscribe = 0) {
 		/** @var $topic Topic */
 		$topic = $this->getClassInstance();
 		$user = $this->getCurrentUser();
@@ -99,7 +99,7 @@ class TopicFactory extends AbstractFactory {
 			$topic->setTags($tags);
 		}
 		if (!empty($criteriaOptions)) {
-			foreach ($criteriaOptions AS $criteriaUid => $optionUid) {
+			foreach ($criteriaOptions as $criteriaUid => $optionUid) {
 				/** @var CriteriaOption $criteriaOption */
 				$criteriaOption = $this->criteriaOptionRepository->findByUid($optionUid);
 				if ($criteriaOption->getCriteria()->getUid() == $criteriaUid) {
@@ -165,7 +165,7 @@ class TopicFactory extends AbstractFactory {
 		$shadowTopic = GeneralUtility::makeInstance('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\ShadowTopic');
 		$shadowTopic->setTarget($topic);
 
-		Return $shadowTopic;
+		return $shadowTopic;
 	}
 
 	/**

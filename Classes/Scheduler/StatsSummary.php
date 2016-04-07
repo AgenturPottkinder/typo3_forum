@@ -111,15 +111,15 @@ class StatsSummary extends AbstractTask {
 		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 		$results[] = (int)$row['counter'];
 
-		$query = 'SELECT COUNT(*) AS counter
+		$query = "SELECT COUNT(*) AS counter
 				  FROM fe_users
-				  WHERE deleted=0 AND disable=0 AND tx_extbase_type = "\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser"
-				  		AND pid IN (' . $this->getUserPids() . ');';
+				  WHERE deleted=0 AND disable=0 AND tx_extbase_type LIKE 'Mittwald\\\\Typo3Forum\\\\Domain\\\\Model\\\\User\\\\FrontendUser' ESCAPE '|'
+				  		AND pid IN (" . $this->getUserPids() . ");";
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 		$results[] = (int)$row['counter'];
 
-		foreach ($results AS $typeUid => $amount) {
+		foreach ($results as $typeUid => $amount) {
 			$values = [
 				'pid' => (int)$this->getStatsPid(),
 				'tstamp' => time(),

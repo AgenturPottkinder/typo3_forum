@@ -43,7 +43,7 @@ class BbCodePanel extends AbstractPanel {
 		if ($this->bbCodes === NULL) {
 			$this->bbCodes = $this->bbCodeRepository->findAll();
 		}
-		$result = array();
+		$result = [];
 
 		foreach ($this->bbCodes as $bbCode) {
 			$result[] = $bbCode->exportForMarkItUp();

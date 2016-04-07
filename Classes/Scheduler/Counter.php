@@ -121,7 +121,7 @@ class Counter extends AbstractTask {
 		}
 		$lastCounter = 1;
 		$lastCounterArray = [];
-		foreach ($topicCount AS $topicUid => $postCount) {
+		foreach ($topicCount as $topicUid => $postCount) {
 			if ($lastCounter != $postCount) {
 				$query = 'UPDATE tx_typo3forum_domain_model_forum_topic SET post_count = ' . (int)$lastCounter . ' WHERE uid IN (' . implode(',', $lastCounterArray) . ')';
 				$GLOBALS['TYPO3_DB']->sql_query($query);
@@ -221,7 +221,7 @@ class Counter extends AbstractTask {
 		}
 
 		//Now check this giant array
-		foreach ($userUpdate AS $userUid => $array) {
+		foreach ($userUpdate as $userUid => $array) {
 			$points = 0;
 			$points = $points + (int)$array['post_count'] * (int)$rankScore['newPost'];
 			$points = $points + (int)$array['markSupport_count'] * (int)$rankScore['markHelpful'];
@@ -229,7 +229,7 @@ class Counter extends AbstractTask {
 			$points = $points + (int)$array['support_count'] * (int)$rankScore['gotHelpful'];
 
 			$lastPointLimit = 0;
-			foreach ($rankArray AS $key => $rank) {
+			foreach ($rankArray as $key => $rank) {
 				if ($points >= $lastPointLimit && $points < $rank['point_limit']) {
 					$array['rank'] = $rank['uid'];
 				}

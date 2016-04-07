@@ -58,9 +58,9 @@ class Smiley extends AbstractTextParserElement implements MarkItUpExportableInte
 	 * @return array A plain array describing this smiley
 	 */
 	public function exportForMarkItUp() {
-		return array('name' => $this->getName(),
+		return ['name' => $this->getName(),
 			'className' => $this->getIconClass(),
-			'replaceWith' => $this->getSmileyShortcut());
+			'replaceWith' => $this->getSmileyShortcut()];
 	}
 
 	/**

@@ -41,7 +41,7 @@ class StatsSummaryAdditionalFieldProvider implements AdditionalFieldProviderInte
 	 *                                    For each field it provides an associative sub-array with the following:
 	 */
 	public function getAdditionalFields(array &$taskInfo, $task, SchedulerModuleController $schedulerModule) {
-		$additionalFields = array();
+		$additionalFields = [];
 
 		if ($schedulerModule->CMD == 'add') {
 			$taskInfo['StatsSummary_forumPids'] = 1337;
@@ -55,26 +55,26 @@ class StatsSummaryAdditionalFieldProvider implements AdditionalFieldProviderInte
 			$taskInfo['StatsSummary_statsPid'] = $task->getStatsPid();
 		}
 
-		$additionalFields['StatsSummary_forumPids'] = array(
+		$additionalFields['StatsSummary_forumPids'] = [
 			'code' => '<input type="text" name="tx_scheduler[StatsSummary_forumPids]" value="' . htmlspecialchars($taskInfo['StatsSummary_forumPids']) . '" />',
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_statsSummary_forumPid',
 			'cshKey' => '',
 			'cshLabel' => ''
-		);
+		];
 
-		$additionalFields['StatsSummary_userPids'] = array(
+		$additionalFields['StatsSummary_userPids'] = [
 			'code' => '<input type="text" name="tx_scheduler[StatsSummary_userPids]" value="' . htmlspecialchars($taskInfo['StatsSummary_userPids']) . '" />',
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_statsSummary_userPid',
 			'cshKey' => '',
 			'cshLabel' => ''
-		);
+		];
 
-		$additionalFields['StatsSummary_statsPid'] = array(
+		$additionalFields['StatsSummary_statsPid'] = [
 			'code' => '<input type="text" name="tx_scheduler[StatsSummary_statsPid]" value="' . htmlspecialchars($taskInfo['StatsSummary_statsPid']) . '" />',
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_statsSummary_statsPid',
 			'cshKey' => '',
 			'cshLabel' => ''
-		);
+		];
 
 		return $additionalFields;
 	}

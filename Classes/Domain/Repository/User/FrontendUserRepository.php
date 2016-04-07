@@ -95,10 +95,10 @@ class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronte
 	 *                               The selected subset of posts
 	 *
 	 */
-	public function findByFilter($limit = 0, $orderings = array(), $onlyOnline = FALSE, $uids = array()) {
+	public function findByFilter($limit = 0, $orderings = [], $onlyOnline = FALSE, $uids = []) {
 		$query = $this->createQuery();
-		$constraints = array();
-		if ($limit !== 0) {
+		$constraints = [];
+		if ($limit > 0) {
 			$query->setLimit($limit);
 		}
 		if (!empty($orderings)) {
@@ -152,9 +152,9 @@ class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronte
 			$query->matching($query->like('username', '%' . $part . '%'));
 		}
 		if ($filter === NULL || $order === NULL) {
-			$query->setOrderings(array('username' => QueryInterface::ORDER_ASCENDING));
+			$query->setOrderings(['username' => QueryInterface::ORDER_ASCENDING]);
 		} else {
-			$query->setOrderings(array($filter => $order));
+			$query->setOrderings([$filter => $order]);
 		}
 		return $query->execute();
 	}

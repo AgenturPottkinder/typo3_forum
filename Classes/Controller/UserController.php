@@ -120,7 +120,7 @@ class UserController extends AbstractController {
 				$partial = 'User/ListTopUser';
 				break;
 			default:
-				$dataset['users'] = $this->frontendUserRepository->findByFilter(0, array('username' => 'ASC'));
+				$dataset['users'] = $this->frontendUserRepository->findByFilter(0, ['username' => 'ASC']);
 				$partial = 'User/List';
 				break;
 		}
@@ -232,7 +232,7 @@ class UserController extends AbstractController {
 				$partner = $opponent;
 			}
 
-			foreach ($dialog AS $pm) {
+			foreach ($dialog as $pm) {
 				if ($pm->getOpponent()->getUid() == $user->getUid()) {
 					if ($pm->getUserRead() == 1) break; // if user already read this message, the next should be already read
 					$pm->setUserRead(1);
@@ -306,7 +306,7 @@ class UserController extends AbstractController {
 		}
 		$notifications = $this->notificationRepository->findNotificationsForUser($user);
 
-		foreach ($notifications AS $notification) {
+		foreach ($notifications as $notification) {
 			if ($notification->getUserRead() == 1) break; // if user already read this notification, the next should be already read
 			$notification->setUserRead(1);
 			$this->notificationRepository->update($notification);
@@ -345,7 +345,7 @@ class UserController extends AbstractController {
 
 		$user->setDisable(true);
 		$this->frontendUserRepository->update($user);
-		$this->redirect('show', 'User', 'typo3forum', array('user' => $user));
+		$this->redirect('show', 'User', 'typo3forum', ['user' => $user]);
 	}
 
 	/**
@@ -355,7 +355,7 @@ class UserController extends AbstractController {
 	 */
 	public function showAction(FrontendUser $user = NULL) {
 		if ($user === NULL) {
-			$this->redirect('show', NULL, NULL, array('user' => $this->getCurrentUser()));
+			$this->redirect('show', NULL, NULL, ['user' => $this->getCurrentUser()]);
 		}
 		$lastFiveTopics = $this->topicRepository
 			->findByPostAuthor($user)
@@ -480,16 +480,16 @@ class UserController extends AbstractController {
 	 * @throws \Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException
 	 */
 	public function dashboardAction() {
-		$user = $this->frontendUserRepository->findCurrent();
-		if (!$user || $user->isAnonymous()) {
+        $user = $this->getCurrentUser();
+        if (!is_object($user) || $user->isAnonymous()) {
 			throw new NotLoggedInException('You need to be logged in to view your dashboard!', 1335120249);
 		}
 		$this->view->assignMultiple([
-			'user', $user,
-			'myNotifications', $this->notificationRepository->findNotificationsForUser($user, 6),
-			'myMessages', $this->privateMessageRepository->findReceivedMessagesForUser($user, 6),
-			'myFavorites', $this->topicRepository->findTopicsFavSubscribedByUser($user, 6),
-			'myTopics', $this->topicRepository->findTopicsCreatedByAuthor($user, 6),
+			'user' => $user,
+			'myNotifications' => $this->notificationRepository->findNotificationsForUser($user, 6),
+			'myMessages' => $this->privateMessageRepository->findReceivedMessagesForUser($user, 6),
+			'myFavorites' => $this->topicRepository->findTopicsFavSubscribedByUser($user, 6),
+			'myTopics' => $this->topicRepository->findTopicsCreatedByAuthor($user, 6),
 		]);
 	}
 
@@ -511,10 +511,10 @@ class UserController extends AbstractController {
 	 */
 	protected function redirectToSubscriptionObject(SubscribeableInterface $object) {
 		if ($object instanceof Forum) {
-			$this->redirect('show', 'Forum', NULL, array('forum' => $object));
+			$this->redirect('show', 'Forum', NULL, ['forum' => $object]);
 		}
 		if ($object instanceof Topic) {
-			$this->redirect('show', 'Topic', NULL, array('topic' => $object, 'forum' => $object->getForum()));
+			$this->redirect('show', 'Topic', NULL, ['topic' => $object, 'forum' => $object->getForum()]);
 		}
 	}
 
@@ -529,7 +529,7 @@ class UserController extends AbstractController {
 	protected function getSubscriptionFlashMessage(SubscribeableInterface $object, $unsubscribe = FALSE) {
 		$type = array_pop(explode('_', get_class($object)));
 		$key = 'User_' . ($unsubscribe ? 'Uns' : 'S') . 'ubscribe_' . $type . '_Success';
-		return LocalizationUtility::translate($key, 'Typo3Forum', array($object->getTitle()));
+		return LocalizationUtility::translate($key, 'Typo3Forum', [$object->getTitle()]);
 	}
 
 }

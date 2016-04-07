@@ -41,7 +41,7 @@ class NotificationRepository extends Repository {
 	public function findNotificationsForUser(FrontendUser $user, $limit = 0) {
 		$query = $this->createQuery();
 		$query->matching($query->equals('feuser', $user));
-		$query->setOrderings(array('post.crdate' => 'DESC'));
+		$query->setOrderings(['post.crdate' => 'DESC']);
 		if ($limit > 0) {
 			$query->setLimit($limit);
 		}

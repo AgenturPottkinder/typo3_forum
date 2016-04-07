@@ -107,6 +107,6 @@ class RowViewHelper extends AbstractTagBasedViewHelper {
 				return array_unique($error->getErrors());
 			}
 		}
-		return array();
+		return [];
 	}
 }

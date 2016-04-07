@@ -72,7 +72,7 @@ class UserfieldRepository extends AbstractRepository {
 	 * and merges the result with the core userfields that are loaded from the
 	 * typoscript setup.
 	 *
-	 * @return Traversable<\Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield>
+	 * @return \Traversable<\Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield>
 	 *                             All userfields, both from the database and
 	 *                             the core typoscript setup.
 	 */
@@ -94,7 +94,7 @@ class UserfieldRepository extends AbstractRepository {
 	protected function findCoreUserfields() {
 		if ($this->coreUserfields === NULL) {
 			$conf = $this->configurationManagerInterface->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-			$this->coreUserfields = array();
+			$this->coreUserfields = [];
 
 			foreach ($conf['settings']['userfields']['core_fields'] as $coreFieldKey => $coreFieldValues) {
 				$className = $coreFieldValues['class'];

@@ -1,0 +1,28 @@
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
+<f:layout name="default" />
+
+
+
+	<!-- MAIN Section -->
+<f:section name="main">
+
+	<h2>{forum.title}</h2>
+
+	<mmf:forum.rootline rootline="{forum.rootline}" />
+
+	<f:if condition="{forum.children}">
+		<f:render partial="Forum/List" arguments="{category: forum, header: 'Subforums'}" />
+	</f:if>
+
+	<f:widget.paginate objects="{topics}" as="paginatedTopics" configuration="{settings.forumController.show.pagebrowser}">
+		<f:render partial="Topic/List" arguments="{topics: paginatedTopics}" />
+	</f:widget.paginate>
+
+</f:section>
+
+
+
+	<!-- MENU Section -->
+<f:section name="menu">
+	<f:render partial="Forum/Menu" arguments="{forum: forum}" />
+</f:section>

@@ -106,7 +106,7 @@ class ReportController extends AbstractController {
 		$this->controllerContext->getFlashMessageQueue()->enqueue(
 			new FlashMessage(LocalizationUtility::translate('Report_New_Success', 'Typo3Forum'))
 		);
-		$this->redirect('show', 'User', NULL, array('user' => $user), $this->settings['pids']['UserShow']);
+		$this->redirect('show', 'User', NULL, ['user' => $user], $this->settings['pids']['UserShow']);
 	}
 
 	/**
@@ -131,7 +131,7 @@ class ReportController extends AbstractController {
 		$this->controllerContext->getFlashMessageQueue()->enqueue(
 			new FlashMessage(LocalizationUtility::translate('Report_New_Success', 'Typo3Forum'))
 		);
-		$this->redirect('show', 'Topic', NULL, array('topic' => $post->getTopic()));
+		$this->redirect('show', 'Topic', NULL, ['topic' => $post->getTopic()]);
 	}
 
 }

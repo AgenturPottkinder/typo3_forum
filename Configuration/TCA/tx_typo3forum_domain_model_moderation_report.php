@@ -44,8 +44,8 @@ return [
 			'config' => [
 				'type' => 'select',
 				'items' => [
-					[$lllPath . 'type.userReport', '\Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport'],
-					[$lllPath . 'type.postReport', '\Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport'],
+					[$lllPath . 'type.userReport', 'Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport'],
+					[$lllPath . 'type.postReport', 'Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport'],
 				],
 			],
 		],

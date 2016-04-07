@@ -3,8 +3,7 @@ namespace Mittwald\Typo3Forum\Service\Notification;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <m.helmich@mittwald.de>                     *
- *           Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,41 +23,36 @@ namespace Mittwald\Typo3Forum\Service\Notification;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\NotifiableInterface;
+use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
+use Mittwald\Typo3Forum\Service\AbstractService;
+use Mittwald\Typo3Forum\Utility\Localization;
 
 /**
- *
  * Service class for notifications. This service notifies subscribers of
  * forums and topic about new posts within the subscribed objects.
- *
- * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Service
- * @version    $Id: NotificationService.php 39978 2010-11-09 14:19:52Z mhelmich $
- *
- * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
- *             Mittwald CM Service GmbH & Co. KG
- *             http://www.mittwald.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class NotificationService extends \Mittwald\Typo3Forum\Service\AbstractService
-	implements \Mittwald\Typo3Forum\Service\Notification\NotificationServiceInterface {
+class NotificationService extends AbstractService implements NotificationServiceInterface {
+
+	/**
+	 * @var \TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager
+	 * @inject
+	 */
+	protected $frontendConfigurationManager;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Service\Mailing\HTMLMailingService
+	 * @inject
 	 */
 	protected $htmlMailingService;
 
-
 	/**
 	 * @var \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder
+	 * @inject
 	 */
 	protected $uriBuilder;
 
-
 	/**
-	 * An instance of the typo3_forum authentication service.
 	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
 	 * @inject
 	 */
@@ -70,19 +64,8 @@ class NotificationService extends \Mittwald\Typo3Forum\Service\AbstractService
 	 */
 	protected $settings;
 
-	/**
-	 * Constructor. Used primarily for dependency injection.
-	 *
-	 * @param \Mittwald\Typo3Forum\Service\Mailing\HTMLMailingService $htmlMailingService
-	 * @param \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder
-	 */
-	public function __construct(\Mittwald\Typo3Forum\Service\Mailing\HTMLMailingService $htmlMailingService, \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder) {
-		$this->htmlMailingService = $htmlMailingService;
-		$this->uriBuilder = $uriBuilder;
-	}
-
 	public function initializeObject() {
-		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
+		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray($this->frontendConfigurationManager->getTypoScriptSetup());
 		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
 
@@ -91,52 +74,47 @@ class NotificationService extends \Mittwald\Typo3Forum\Service\AbstractService
 	 * Notifies subscribers of a subscribeable objects about a new notifiable object
 	 * within the subscribeable object, e.g. of a new post within a subscribed topic.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $subscriptionObject
-	 *                             The subscribed object. This may for example be a
-	 *                             forum or a topic.
-	 * @param \Mittwald\Typo3Forum\Domain\Model\NotifiableInterface $notificationObject
-	 *                             The object that the subscriber is notified about.
-	 *                             This may for example be a new post within an
-	 *                             observed topic or forum or a new topic within an
-	 *                             observed forum.
-	 *
+	 * @param SubscribeableInterface $subscriptionObject The subscribed object. This may for example be a forum or a topic.
+	 * @param NotifiableInterface $notificationObject The object that the subscriber is notified about. This may for example be a new post within an observed topic or forum or a new topic within an observed forum.
 	 * @return void
 	 *
 	 */
-	public function notifySubscribers(\Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface $subscriptionObject,
-									  \Mittwald\Typo3Forum\Domain\Model\NotifiableInterface $notificationObject) {
+	public function notifySubscribers(SubscribeableInterface $subscriptionObject, NotifiableInterface $notificationObject) {
 		$topic = $subscriptionObject;
 		$post  = $notificationObject;
 
-
-		$subject = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate("Mail_Subscribe_NewPost_Subject", 'typo3_forum');
-		$messageTemplate = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate("Mail_Subscribe_NewPost_Body", 'typo3_forum');
+		$subject = Localization::translate('Mail_Subscribe_NewPost_Subject');
+		$messageTemplate = Localization::translate('Mail_Subscribe_NewPost_Body');
 		$postAuthor = $post->getAuthor()->getUsername();
-		$uriBuilder = $this->uriBuilder;
-		$arguments = array(
+		$arguments = [
 			'tx_typo3forum_pi1[controller]' => 'Topic',
 			'tx_typo3forum_pi1[action]' => 'show',
 			'tx_typo3forum_pi1[topic]' => $topic->getUid()
-		);
+		];
 		$pageNumber = $post->getTopic()->getPageCount();
 		if ($pageNumber > 1) {
 			$arguments['@widget_0']['currentPage'] = $pageNumber;
 		}
 
-		$topicLink = $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments($arguments)->build();
+		$topicLink = $this->uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments($arguments)->build();
 		$topicLink = '<a href="' . $topicLink . '">' . $topic->getTitle() . '</a>';
-		$uriBuilder->reset();
-		$unSubscribeLink = $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments(array('tx_typo3forum_pi1[topic]' => $topic->getUid(), 'tx_typo3forum_pi1[controller]' => 'User', 'tx_typo3forum_pi1[action]' => 'subscribe', 'tx_typo3forum_pi1[unsubscribe]' => 1))->build();
+		$this->uriBuilder->reset();
+		$unSubscribeLink = $this->uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments([
+			'tx_typo3forum_pi1[topic]' => $topic->getUid(),
+			'tx_typo3forum_pi1[controller]' => 'User',
+			'tx_typo3forum_pi1[action]' => 'subscribe',
+			'tx_typo3forum_pi1[unsubscribe]' => 1,
+		])->build();
 		$unSubscribeLink = '<a href="' . $unSubscribeLink . '">' . $unSubscribeLink . '</a>';
-		foreach ($topic->getSubscribers() AS $subscriber) {
+		foreach ($topic->getSubscribers() as $subscriber) {
 			if ($subscriber != $post->getAuthor()) {
-				$marker = array(
+				$marker = [
 					'###RECIPIENT###' => $subscriber->getUsername(),
 					'###POST_AUTHOR###' => $postAuthor,
 					'###TOPIC_LINK###' => $topicLink,
 					'###UNSUBSCRIBE_LINK###' => $unSubscribeLink,
 					'###FORUM_NAME###' => $this->settings['mailing']['sender']['name']
-				);
+				];
 				$message = $messageTemplate;
 				foreach ($marker As $name => $value) {
 					$message = str_replace($name, $value, $message);
@@ -145,4 +123,5 @@ class NotificationService extends \Mittwald\Typo3Forum\Service\AbstractService
 			}
 		}
 	}
+
 }

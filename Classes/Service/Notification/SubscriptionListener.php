@@ -1,9 +1,10 @@
 <?php
 namespace Mittwald\Typo3Forum\Service\Notification;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2012 Martin Helmich <typo3@martin-helmich.de>                   *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -22,29 +23,16 @@ namespace Mittwald\Typo3Forum\Service\Notification;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
-
+use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 
 
 /**
- *
  * Listener class for modifications. This class uses Extbase's Signal-/Slot
  * mechanism to "listen" for new posts and topics and notifies the subscribers
  * of the regarding objects.
- *
- * @author     Martin Helmich <typo3@martin-helmich.de>
- * @package    Typo3Forum
- * @subpackage Service\Notification
- * @version    $Id: NotificationService.php 39978 2010-11-09 14:19:52Z mhelmich $
- *
- * @copyright  2012 Martin Helmich <typo3@martin-helmich.de>
- *             http://www.martin-helmich.de
- * @license    GNU Public License, version 2
- *             http://opensource.org/licenses/gpl-license.php
- *
  */
 final class SubscriptionListener {
-
-
 
 	/**
 	 * An instance of the notification service.
@@ -56,25 +44,23 @@ final class SubscriptionListener {
 	/**
 	 * Is fired when a new post is created.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post Event data.
+	 * @param Post $post Event data.
 	 * @return void
 	 */
 	public function onPostCreated($post) {
-		if ($post instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Post) {
+		if ($post instanceof Post) {
 			$this->notificationService->notifySubscribers($post->getTopic(), $post);
 		}
 	}
 
-
-
 	/**
 	 * Is fired when a new topic is created.
 	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic Event data.
+	 * @param Topic $topic Event data.
 	 * @return void
 	 */
 	public function onTopicCreated($topic) {
-		if ($topic instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Topic) {
+		if ($topic instanceof Topic) {
 
 		}
 	}

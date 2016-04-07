@@ -52,7 +52,7 @@ class PostController extends AbstractController {
 	protected $forumRepository;
 
 	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\postRepository
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\PostRepository
 	 * @inject
 	 */
 	protected $postRepository;
@@ -69,6 +69,29 @@ class PostController extends AbstractController {
 	 */
 	protected $topicRepository;
 
+    /**
+     *  Listing Action.
+     * @return void
+     */
+    public function listAction() {
+
+        $showPaginate = FALSE;
+        switch($this->settings['listPosts']){
+            case '2':
+                $dataset = $this->postRepository->findByFilter(intval($this->settings['widgets']['newestPosts']['limit']), array('crdate' => 'DESC'));
+                $partial = 'Post/LatestBox';
+                break;
+            default:
+                $dataset = $this->postRepository->findByFilter();
+                $partial = 'Post/List';
+                $showPaginate = TRUE;
+                break;
+        }
+        $this->view->assign('showPaginate', $showPaginate);
+        $this->view->assign('partial', $partial);
+        $this->view->assign('posts',$dataset);
+    }
+
 	/**
 	 * @param Post $post
 	 * @return string
@@ -79,7 +102,7 @@ class PostController extends AbstractController {
 
 		// Return if User not logged in or user is post author or user has already supported the post
 		if ($currentUser === NULL || $currentUser->isAnonymous() || $currentUser === $post->getAuthor() || $post->hasBeenSupportedByUser($currentUser) || $post->getAuthor()->isAnonymous()) {
-			return json_encode(array('error' => TRUE, 'error_msg' => 'not_allowed'));
+			return json_encode(['error' => TRUE, 'error_msg' => 'not_allowed']);
 		}
 
 		// Set helpfulCount for Author
@@ -94,7 +117,7 @@ class PostController extends AbstractController {
 		$this->frontendUserRepository->update($currentUser);
 
 		// output new Data
-		return json_encode(array("error" => FALSE, "add" => 0, "postHelpfulCount" => $post->getHelpfulCount(), "userHelpfulCount" => $post->getAuthor()->getHelpfulCount()));
+		return json_encode(["error" => FALSE, "add" => 0, "postHelpfulCount" => $post->getHelpfulCount(), "userHelpfulCount" => $post->getAuthor()->getHelpfulCount()]);
 	}
 
 	/**
@@ -106,7 +129,7 @@ class PostController extends AbstractController {
 		$currentUser = $this->authenticationService->getUser();
 
 		if (!$post->hasBeenSupportedByUser($currentUser)) {
-			return json_encode(array("error" => true, "error_msg" => "not_allowed"));
+			return json_encode(["error" => true, "error_msg" => "not_allowed"]);
 		}
 
 		// Set helpfulCount for Author
@@ -120,7 +143,7 @@ class PostController extends AbstractController {
 		$this->frontendUserRepository->update($currentUser);
 
 		// output new Data
-		return json_encode(array("error" => false, "add" => 1, "postHelpfulCount" => $post->getHelpfulCount(), "userHelpfulCount" => $post->getAuthor()->getHelpfulCount()));
+		return json_encode(["error" => false, "add" => 1, "postHelpfulCount" => $post->getHelpfulCount(), "userHelpfulCount" => $post->getAuthor()->getHelpfulCount()]);
 
 	}
 
@@ -138,14 +161,14 @@ class PostController extends AbstractController {
 		// Assert authentication
 		$this->authenticationService->assertReadAuthorization($post);
 
-		$redirectArguments = array('topic' => $post->getTopic(), 'showForm' => $showForm);
+		$redirectArguments = ['topic' => $post->getTopic(), 'showForm' => $showForm];
 
 		if (!empty($quote)) {
 			$redirectArguments['quote'] = $quote;
 		}
 		$pageNumber = $post->getTopic()->getPageCount();
 		if ($pageNumber > 1) {
-			$redirectArguments['@widget_0'] = array('currentPage' => $pageNumber);
+			$redirectArguments['@widget_0'] = ['currentPage' => $pageNumber];
 		}
 
 		// Redirect to the topic->show action.
@@ -190,7 +213,7 @@ class PostController extends AbstractController {
 	 * @validate $attachments \Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator
 	 */
 
-	public function createAction(Topic $topic, Post $post, array $attachments = array()) {
+	public function createAction(Topic $topic, Post $post, array $attachments = []) {
 		// Assert authorization
 		$this->authenticationService->assertNewPostAuthorization($topic);
 
@@ -207,7 +230,7 @@ class PostController extends AbstractController {
 
 		// All potential listeners (Signal-Slot FTW!)
 		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Post', 'postCreated',
-			array('post' => $post));
+			['post' => $post]);
 
 		// Display flash message and redirect to topic->show action.
 		$this->controllerContext->getFlashMessageQueue()->enqueue(
@@ -215,10 +238,10 @@ class PostController extends AbstractController {
 		);
 		$this->clearCacheForCurrentPage();
 
-		$redirectArguments = array('topic' => $topic, 'forum' => $topic->getForum());
+		$redirectArguments = ['topic' => $topic, 'forum' => $topic->getForum()];
 		$pageNumber = $topic->getPageCount();
 		if ($pageNumber > 1) {
-			$redirectArguments['@widget_0'] = array('currentPage' => $pageNumber);
+			$redirectArguments['@widget_0'] = ['currentPage' => $pageNumber];
 		}
 		$this->redirect('show', 'Topic', NULL, $redirectArguments);
 	}
@@ -246,7 +269,7 @@ class PostController extends AbstractController {
 	 *
 	 * @return void
 	 */
-	public function updateAction(Post $post, array $attachments = array()) {
+	public function updateAction(Post $post, array $attachments = []) {
 		if ($post->getAuthor() != $this->authenticationService->getUser() || $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()) {
 			// Assert authorization
 			$this->authenticationService->assertModerationAuthorization($post->getTopic()->getForum());
@@ -260,12 +283,12 @@ class PostController extends AbstractController {
 		$this->postRepository->update($post);
 
 		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Post', 'postUpdated',
-			array('post' => $post));
+			['post' => $post]);
 		$this->controllerContext->getFlashMessageQueue()->enqueue(
 			new FlashMessage(Localization::translate('Post_Update_Success'))
 		);
 		$this->clearCacheForCurrentPage();
-		$this->redirect('show', 'Topic', NULL, array('topic' => $post->getTopic()));
+		$this->redirect('show', 'Topic', NULL, ['topic' => $post->getTopic()]);
 	}
 
 	/**
@@ -298,17 +321,20 @@ class PostController extends AbstractController {
 		);
 
 		// Notify observers and clear cache.
-		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Post', 'postDeleted',
-			array('post' => $post));
+		$this->signalSlotDispatcher->dispatch(
+			'Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Post',
+			'postDeleted',
+			['post' => $post]
+		);
 		$this->clearCacheForCurrentPage();
 
 		// If there is still on post left in the topic, redirect to the topic
 		// view. If we have deleted the last post of a topic (i.e. the topic
 		// itself), redirect to the forum view instead.
 		if ($postCount > 1) {
-			$this->redirect('show', 'Topic', NULL, array('topic' => $post->getTopic()));
+			$this->redirect('show', 'Topic', NULL, ['topic' => $post->getTopic()]);
 		} else {
-			$this->redirect('show', 'Forum', NULL, array('forum' => $post->getForum()));
+			$this->redirect('show', 'Forum', NULL, ['forum' => $post->getForum()]);
 		}
 	}
 
@@ -321,18 +347,17 @@ class PostController extends AbstractController {
 	}
 
 	/**
-	 * Downloads a attachment and increase the download counter
-	 * @param int $attachmentId Uid of Attachment
+	 * Downloads an attachment and increase the download counter
+	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment $attachment
 	 */
-	public function downloadAttachmentAction($attachmentId) {
-		$file = $this->attachmentRepository->findByUid((int)$attachmentId);
-		$file->increaseDownloadCount();
-		$this->attachmentRepository->update($file);
+	public function downloadAttachmentAction($attachment) {
+        $attachment->increaseDownloadCount();
+		$this->attachmentRepository->update($attachment);
 
-		header('Content-type: ' . $file->getMimeType());
-		header("Content-Type: application/download");
-		header('Content-Disposition: attachment; filename="' . $file->getFilename() . '"');
-		readfile($file->getAbsoluteFilename());
+        header('Content-type: ' . $attachment->getMimeType());
+        header("Content-Type: application/download");
+        header('Content-Disposition: attachment; filename="' . $attachment->getFilename() . '"');
+		readfile($attachment->getAbsoluteFilename());
 	}
 
 }

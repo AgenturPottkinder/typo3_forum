@@ -48,8 +48,8 @@ class RootForum extends Forum implements SingletonInterface {
 		return $this->forumRepository->findRootForums();
 	}
 
-	public function checkAccess(FrontendUser $user = NULL, $accessType = 'read') {
-		return $accessType === 'read';
+	public function checkAccess(FrontendUser $user = NULL, $accessType = Access::TYPE_READ) {
+		return $accessType === Access::TYPE_READ;
 	}
 
 }

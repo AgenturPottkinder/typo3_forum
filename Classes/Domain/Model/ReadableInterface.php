@@ -27,7 +27,7 @@ namespace Mittwald\Typo3Forum\Domain\Model;
 /**
  * Interface definition for objects that can be read by individual users.
  */
-interface Readableinterface {
+interface ReadableInterface {
 
 	/**
 	 * Adds a reader to this object.

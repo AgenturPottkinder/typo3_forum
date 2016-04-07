@@ -1,0 +1,48 @@
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
+<div class="tx-typo3forum-topic-question-box">
+    <div>
+        <f:if condition="{topics.0} == {NULL}">
+            <f:then>
+                <f:translate key="General_No_Entries"/>
+            </f:then>
+            <f:else>
+                <f:for each="{topics}" as="topic" iteration="iteration">
+                    <div>
+                        <div class="item">
+                            <mmf:user.avatar user="{topic.author}" width="40"
+                                             alt="{topic.author.username}"
+                                             class="tx-typo3forum-topic-show-post-user-icon"/>
+                            <h4>
+                                <f:link.action controller="Topic" action="show" arguments="{topic: topic}"
+                                               pageUid="{settings.pids.Forum}">{topic.subject}
+                                </f:link.action>
+                            </h4>
+                            <f:format.date format="d.m.Y H:i">{topic.timestamp}</f:format.date>
+                            -
+                            <f:translate key="Button_Reply"/>
+                            : {topic.replyCount} -
+                            <f:translate key="Generic_By"/>
+                            <mmf:user.link user="{topic.author}"/>
+                        </div>
+                    </div>
+                    <f:if condition="{0:iteration.total} == {0:iteration.cycle}">
+                        <f:else>
+                            <f:if condition="{iteration.cycle} % 2">
+                                <f:else>
+    </div>
+    <div>
+        </f:else>
+        </f:if>
+        </f:else>
+        </f:if>
+        </f:for>
+        </f:else>
+        </f:if>
+    </div>
+</div>
+<div>
+    <f:link.page pageUid="{settings.pids.AllQuestions}"><i
+            class="iconset-20-balloon"></i>
+        <f:translate key="Topic_All_Questions"/>
+    </f:link.page>
+</div>

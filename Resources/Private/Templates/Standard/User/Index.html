@@ -1,0 +1,58 @@
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
+<f:layout name="default"/>
+
+
+<!-- MAIN Section -->
+<f:section name="main">
+
+    <h2>
+        <f:translate key="User_Index"/>
+    </h2>
+    <f:widget.paginate objects="{users}" as="paginatedUsers"
+                       configuration="{settings.userController.index.pagebrowser}">
+        <table>
+            <thead>
+            <tr>
+                <th></th>
+                <th>
+                    <f:translate key="User_Index_Username"/>
+                </th>
+                <th>
+                    <f:translate key="User_Index_MemberSince"/>
+                </th>
+                <th>
+                    <f:translate key="User_Index_Posts"/>
+                </th>
+                <th>
+                    <f:translate key="User_Index_Contact"/>
+                </th>
+            </tr>
+            </thead>
+            <f:for each="{paginatedUsers}" as="user">
+                <tr>
+                    <td style="width:1px; padding: 0px;">
+                        <mmf:user.avatar user="{user}" width="36" alt=""/>
+                    </td>
+                    <td>
+                        <f:link.action controller="User" action="show" arguments="{user: user}"
+                                       pageUid="{settings.pids.UserShow}">{user.username}
+                        </f:link.action>
+                    </td>
+                    <td>
+                        <f:format.date format="d. m. Y">{user.timestamp}</f:format.date>
+                    </td>
+                    <td>{user.postCount}</td>
+                    <td>
+                        <f:translate key="User_Index_Message"/>
+                    </td>
+                </tr>
+            </f:for>
+        </table>
+    </f:widget.paginate>
+
+</f:section>
+
+
+<!-- MENU Section -->
+<f:section name="menu">
+</f:section>

@@ -1,0 +1,21 @@
+language: php
+
+php:
+#  - 5.5
+#  - 5.6
+  - 7.0
+
+sudo: false
+
+addons:
+  apt:
+    packages:
+      - python-sphinx
+
+before_script:
+  - ln -s Index.rst Documentation/contents.rst
+
+script:
+  - >
+    cd Documentation &&
+    sphinx-build -C . output

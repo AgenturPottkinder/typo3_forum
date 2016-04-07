@@ -115,7 +115,7 @@ class TagController extends AbstractController {
 		if ($user->isAnonymous()) {
 			throw new NotLoggedInException("You need to be logged in.", 1288084981);
 		}
-		$this->redirect('list', NULL, NULL, array('mine' => 1));
+		$this->redirect('list', NULL, NULL, ['mine' => 1]);
 	}
 
 	/**
@@ -130,7 +130,7 @@ class TagController extends AbstractController {
 		}
 		$tag->addFeuser($user);
 		$this->tagRepository->update($tag);
-		$this->redirect('list', NULL, NULL, array('mine' => $mine));
+		$this->redirect('list', NULL, NULL, ['mine' => $mine]);
 	}
 
 	/**
@@ -145,7 +145,7 @@ class TagController extends AbstractController {
 		}
 		$tag->removeFeuser($user);
 		$this->tagRepository->update($tag);
-		$this->redirect('list', NULL, NULL, array('mine' => $mine));
+		$this->redirect('list', NULL, NULL, ['mine' => $mine]);
 	}
 
 	/**
@@ -153,9 +153,9 @@ class TagController extends AbstractController {
 	 * @return string as json array
 	 */
 	public function autoCompleteAction($value) {
-		$result = array();
+		$result = [];
 		$tagObj = $this->tagRepository->findTagLikeAName($value);
-		foreach ($tagObj AS $tag) {
+		foreach ($tagObj as $tag) {
 			$result[] = $tag->getName();
 		}
 		return json_encode($result);

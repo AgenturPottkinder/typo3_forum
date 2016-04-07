@@ -38,7 +38,7 @@ class BasicParserService extends AbstractTextParserService {
 	 * Protected parts of the parsed text. In these parts, no parsing will be done.
 	 * @var array
 	 */
-	private $protectedParts = array();
+	private $protectedParts = [];
 
 	/**
 	 * Renders the parsed text.
@@ -68,7 +68,7 @@ class BasicParserService extends AbstractTextParserService {
 		if (empty($url))
 			return $matches[0];
 		// removed trailing [.,;:] from URL
-		if (in_array(substr($url, -1), array('.', ',', ';', ':')) === true) {
+		if (in_array(substr($url, -1), ['.', ',', ';', ':']) === true) {
 			$ret = substr($url, -1);
 			$url = substr($url, 0, strlen($url) - 1);
 		}
@@ -87,7 +87,7 @@ class BasicParserService extends AbstractTextParserService {
 		if (empty($dest))
 			return $matches[0];
 		// removed trailing [,;:] from URL
-		if (in_array(substr($dest, -1), array('.', ',', ';', ':')) === true) {
+		if (in_array(substr($dest, -1), ['.', ',', ';', ':']) === true) {
 			$ret = substr($dest, -1);
 			$dest = substr($dest, 0, strlen($dest) - 1);
 		}
@@ -109,9 +109,9 @@ class BasicParserService extends AbstractTextParserService {
 	protected function regUrls() {
 		$ret = ' ' . $this->text;
 		// in testing, using arrays here was found to be faster
-		$ret = preg_replace_callback('#([\s>])([\w]+?://[\w\\x80-\\xff\#$%&~/.\-;:=,?@\[\]+]*)#is', array(&$this, 'makeUrlClickable'), $ret);
-		$ret = preg_replace_callback('#([\s>])((www|ftp)\.[\w\\x80-\\xff\#$%&~/.\-;:=,?@\[\]+]*)#is', array(&$this, 'makeWebFtpClickable'), $ret);
-		$ret = preg_replace_callback('#([\s>])([.0-9a-z_+-]+)@(([0-9a-z-]+\.)+[0-9a-z]{2,})#i', array(&$this, 'makeEmailClickable'), $ret);
+		$ret = preg_replace_callback('#([\s>])([\w]+?://[\w\\x80-\\xff\#$%&~/.\-;:=,?@\[\]+]*)#is', [&$this, 'makeUrlClickable'], $ret);
+		$ret = preg_replace_callback('#([\s>])((www|ftp)\.[\w\\x80-\\xff\#$%&~/.\-;:=,?@\[\]+]*)#is', [&$this, 'makeWebFtpClickable'], $ret);
+		$ret = preg_replace_callback('#([\s>])([.0-9a-z_+-]+)@(([0-9a-z-]+\.)+[0-9a-z]{2,})#i', [&$this, 'makeEmailClickable'], $ret);
 
 		// this one is not in an array because we need it to run last, for cleanup of accidental links within links
 		$ret = preg_replace("#(<a( [^>]+?>|>))<a [^>]+?>([^>]+?)</a></a>#i", "$1$3</a>", $ret);
