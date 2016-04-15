@@ -58,7 +58,7 @@ return [
 					['', 0],
 				],
 				'foreign_table' => 'tx_typo3forum_domain_model_user_userfield_userfield',
-				'foreign_table_where' => 'AND tx_typo3forum_domain_model_user_userfield_userfield.uid=###REC_FIELD_l18n_parent### AND tx_typo3forum_domain_model_user_userfield_userfield.sys_language_uid IN (-1,0]',
+				'foreign_table_where' => 'AND tx_typo3forum_domain_model_user_userfield_userfield.uid=###REC_FIELD_l18n_parent### AND tx_typo3forum_domain_model_user_userfield_userfield.sys_language_uid IN (-1,0)',
 			],
 		],
 		'l18n_diffsource' => [
