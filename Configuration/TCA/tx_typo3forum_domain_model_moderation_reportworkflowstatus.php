@@ -6,7 +6,6 @@ return [
 	'ctrl' => [
 		'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportworkflowstatus',
 		'label' => 'name',
-		'type' => 'login_level',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
 		'versioningWS' => 2,
