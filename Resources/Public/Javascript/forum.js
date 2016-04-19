@@ -85,7 +85,7 @@ jQuery(document).ready(function($) {
     if (typeof currentPageUid !== 'undefined') {
         $.ajax({
             type: "POST",
-            url: "index.php?id=" + currentPageUid + "&eID=typo3_forum&language=de&tx_typo3forum_ajax[controller]=Ajax&tx_typo3forum_ajax[action]=main&tx_typo3forum_ajax[format]=json",
+            url: "?id=" + currentPageUid + "&eID=typo3_forum&language=de&tx_typo3forum_ajax[controller]=Ajax&tx_typo3forum_ajax[action]=main&tx_typo3forum_ajax[format]=json",
             async: true,
             data: {
                 "tx_typo3forum_ajax[displayedUser]": JSON.stringify(displayedUser),
