@@ -1,4 +1,4 @@
-$(document).ready(function () {
+jQuery(document).ready(function($) {
 	// forum_last_post_summary
 	var postSummarys  = [];
 	var postSummarysCount  = 0;
