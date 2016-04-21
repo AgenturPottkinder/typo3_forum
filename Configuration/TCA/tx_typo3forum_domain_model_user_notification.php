@@ -20,8 +20,8 @@ return [
 	],
 	'types' => [
 		'1' => ['showitem' => 'feuser,post,tag,user_read,type,crdate'],
-		'\Mittwald\Typo3Forum\Domain\Model\Forum\Post' => ['showitem' => 'feuser,post,user_read,type,crdate'],
-		'\Mittwald\Typo3Forum\Domain\Model\Forum\Tag' => ['showitem' => 'feuser,post,tag,user_read,type,crdate'],
+		'Mittwald\Typo3Forum\Domain\Model\Forum\Post' => ['showitem' => 'feuser,post,user_read,type,crdate'],
+		'Mittwald\Typo3Forum\Domain\Model\Forum\Tag' => ['showitem' => 'feuser,post,tag,user_read,type,crdate'],
 	],
 	'columns' => [
 		'crdate' => [
@@ -74,8 +74,8 @@ return [
 			'config' => [
 				'type' => 'select',
 				'items' => [
-					['LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_post', '\Mittwald\Typo3Forum\Domain\Model\Forum\Post'],
-					[$lllPath . 'tag', '\Mittwald\Typo3Forum\Domain\Model\Forum\Tag'],
+					['LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_post', 'Mittwald\Typo3Forum\Domain\Model\Forum\Post'],
+					[$lllPath . 'tag', 'Mittwald\Typo3Forum\Domain\Model\Forum\Tag'],
 				],
 			],
 		],

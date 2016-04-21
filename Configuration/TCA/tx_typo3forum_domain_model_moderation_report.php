@@ -20,8 +20,8 @@ return [
 	],
 	'types' => [
 		'1' => ['showitem' => 'type,reporter,moderator,workflow_status,comments'],
-		'\Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport' => ['showitem' => 'type,reporter,moderator,workflow_status,comments, feuser'],
-		'\Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport' => ['showitem' => 'type,reporter,moderator,workflow_status,comments, post'],
+		'Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport' => ['showitem' => 'type,reporter,moderator,workflow_status,comments, feuser'],
+		'Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport' => ['showitem' => 'type,reporter,moderator,workflow_status,comments, post'],
 	],
 	'columns' => [
 		'hidden' => [

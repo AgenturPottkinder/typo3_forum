@@ -31,8 +31,8 @@ return [
 	],
 	'types' => [
 		'0' => ['showitem' => 'type,name,map_to_user_object'],
-		'\Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield' => ['showitem' => 'type,name,typoscript_path,map_to_user_object'],
-		'\Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield' => ['showitem' => 'type,name,map_to_user_object'],
+		'Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield' => ['showitem' => 'type,name,typoscript_path,map_to_user_object'],
+		'Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield' => ['showitem' => 'type,name,map_to_user_object'],
 	],
 	'columns' => [
 		'sys_language_uid' => [
@@ -87,8 +87,8 @@ return [
 				'type' => 'select',
 				'items' => [
 					[$lllPath . 'type.undefined', 0],
-					[$lllPath . 'type.typoscript', '\Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield'],
-					[$lllPath . 'type.text', '\Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield'],
+					[$lllPath . 'type.typoscript', 'Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield'],
+					[$lllPath . 'type.text', 'Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield'],
 				],
 			],
 		],
