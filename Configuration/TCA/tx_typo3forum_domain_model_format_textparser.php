@@ -31,11 +31,11 @@ return [
 	],
 	'types' => [
 		'1' => ['showitem' => 'type'],
-		'\Mittwald\Typo3Forum\Domain\Model\Format\BBCode' => ['showitem' => 'type,name,icon_class,bbcode_wrap,regular_expression,regular_expression_replacement'],
-		'\Mittwald\Typo3Forum\Domain\Model\Format\QuoteBBCode' => ['showitem' => 'type,name,icon_class'],
-		'\Mittwald\Typo3Forum\Domain\Model\Format\ListBBCode' => ['showitem' => 'type,name,icon_class'],
-		'\Mittwald\Typo3Forum\Domain\Model\Format\Smiley' => ['showitem' => 'type,name,icon_class,smiley_shortcut'],
-		'\Mittwald\Typo3Forum\Domain\Model\Format\SyntaxHighlighting' => ['showitem' => 'type,name,icon,language'],
+		'Mittwald\Typo3Forum\Domain\Model\Format\BBCode' => ['showitem' => 'type,name,icon_class,bbcode_wrap,regular_expression,regular_expression_replacement'],
+		'Mittwald\Typo3Forum\Domain\Model\Format\QuoteBBCode' => ['showitem' => 'type,name,icon_class'],
+		'Mittwald\Typo3Forum\Domain\Model\Format\ListBBCode' => ['showitem' => 'type,name,icon_class'],
+		'Mittwald\Typo3Forum\Domain\Model\Format\Smiley' => ['showitem' => 'type,name,icon_class,smiley_shortcut'],
+		'Mittwald\Typo3Forum\Domain\Model\Format\SyntaxHighlighting' => ['showitem' => 'type,name,icon,language'],
 	],
 	'columns' => [
 		'sys_language_uid' => [
@@ -89,11 +89,11 @@ return [
 			'config' => [
 				'type' => 'select',
 				'items' => [
-					[$lllPath . 'type.bbcode', '\Mittwald\Typo3Forum\Domain\Model\Format\BBCode'],
-					[$lllPath . 'type.quote', '\Mittwald\Typo3Forum\Domain\Model\Format\QuoteBBCode'],
-					[$lllPath . 'type.list', '\Mittwald\Typo3Forum\Domain\Model\Format\ListBBCode'],
-					[$lllPath . 'type.smiley', '\Mittwald\Typo3Forum\Domain\Model\Format\Smiley'],
-					[$lllPath . 'type.syntax', '\Mittwald\Typo3Forum\Domain\Model\Format\SyntaxHighlighting'],
+					[$lllPath . 'type.bbcode', 'Mittwald\Typo3Forum\Domain\Model\Format\BBCode'],
+					[$lllPath . 'type.quote', 'Mittwald\Typo3Forum\Domain\Model\Format\QuoteBBCode'],
+					[$lllPath . 'type.list', 'Mittwald\Typo3Forum\Domain\Model\Format\ListBBCode'],
+					[$lllPath . 'type.smiley', 'Mittwald\Typo3Forum\Domain\Model\Format\Smiley'],
+					[$lllPath . 'type.syntax', 'Mittwald\Typo3Forum\Domain\Model\Format\SyntaxHighlighting'],
 				],
 			],
 		],
