@@ -22,7 +22,7 @@ return [
 			'disabled' => 'hidden'
 		],
 		'sortby' => 'sorting',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/Forum/Forum.png',
+		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/Forum/Forum.png',
 	],
 	'interface' => [
 		'showRecordFieldList' => 'title,description,children,acls,criteria,last_topic,last_post,displayed_pid',
@@ -36,6 +36,7 @@ return [
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.language',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_table' => 'sys_language',
 				'foreign_table_where' => 'ORDER BY sys_language.title',
 				'items' => [
@@ -110,6 +111,7 @@ return [
 				'type' => 'select',
 				'size' => 10,
 				'maxitems' => 99999,
+				'renderType' => 'selectMultipleSideBySide',
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_criteria',
 				'MM' => 'tx_typo3forum_domain_model_forum_criteria_forum'
 			],
@@ -161,6 +163,7 @@ return [
 			'label' => $lllPath . 'forum',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\Forum\Forum',
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_forum',
 				'maxitems' => 1
