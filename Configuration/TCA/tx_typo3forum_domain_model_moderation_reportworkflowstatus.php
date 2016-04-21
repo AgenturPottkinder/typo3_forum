@@ -6,7 +6,6 @@ return [
 	'ctrl' => [
 		'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportworkflowstatus',
 		'label' => 'name',
-		'type' => 'login_level',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
 		'versioningWS' => 2,
@@ -17,7 +16,7 @@ return [
 		'enablecolumns' => [
 			'disabled' => 'hidden'
 		],
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/Moderation/ReportWorkflowStatus.png'
+		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/Moderation/ReportWorkflowStatus.png'
 	],
 	'interface' => [
 		'showRecordFieldList' => 'name,icon,followup_status,initial,final'
@@ -53,6 +52,7 @@ return [
 			'label' => $lllPath . 'followup_status',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectMultipleSideBySide',
 				'foreign_table' => 'tx_typo3forum_domain_model_moderation_reportworkflowstatus',
 				'MM' => 'tx_typo3forum_domain_model_moderation_reportworkflowstatus_mm',
 				'maxitems' => 9999,

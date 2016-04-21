@@ -13,15 +13,15 @@ return [
 		'delete' => 'deleted',
 		'sortby' => 'crdate DESC',
 		'hideTable' => TRUE,
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/User/notification.png',
+		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/User/notification.png',
 	],
 	'interface' => [
 		'showRecordFieldList' => 'feuser,post,tag,user_read,type,crdate',
 	],
 	'types' => [
 		'1' => ['showitem' => 'feuser,post,tag,user_read,type,crdate'],
-		'\Mittwald\Typo3Forum\Domain\Model\Forum\Post' => ['showitem' => 'feuser,post,user_read,type,crdate'],
-		'\Mittwald\Typo3Forum\Domain\Model\Forum\Tag' => ['showitem' => 'feuser,post,tag,user_read,type,crdate'],
+		'Mittwald\Typo3Forum\Domain\Model\Forum\Post' => ['showitem' => 'feuser,post,user_read,type,crdate'],
+		'Mittwald\Typo3Forum\Domain\Model\Forum\Tag' => ['showitem' => 'feuser,post,tag,user_read,type,crdate'],
 	],
 	'columns' => [
 		'crdate' => [
@@ -37,6 +37,7 @@ return [
 			'label' => $lllPath . 'feuser',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_table' => 'fe_users',
 				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser',
 				'maxitems' => 1,
@@ -53,6 +54,7 @@ return [
 			'label' => $lllPath . 'post',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_post',
 				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\Forum\Post',
 				'maxitems' => 1,
@@ -63,6 +65,7 @@ return [
 			'label' => $lllPath . 'tag',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_tag',
 				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\Forum\Tag',
 				'maxitems' => 1,
@@ -73,9 +76,10 @@ return [
 			'label' => $lllPath . 'type',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'items' => [
-					['LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_post', '\Mittwald\Typo3Forum\Domain\Model\Forum\Post'],
-					[$lllPath . 'tag', '\Mittwald\Typo3Forum\Domain\Model\Forum\Tag'],
+					['LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_post', 'Mittwald\Typo3Forum\Domain\Model\Forum\Post'],
+					[$lllPath . 'tag', 'Mittwald\Typo3Forum\Domain\Model\Forum\Tag'],
 				],
 			],
 		],

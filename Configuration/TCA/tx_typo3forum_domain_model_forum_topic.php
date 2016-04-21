@@ -22,7 +22,7 @@ return [
 		'enablecolumns' => [
 			'disabled' => 'hidden'
 		],
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/Forum/Topic.png'
+		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/Forum/Topic.png'
 	],
 	'interface' => [
 		'showRecordFieldList' => 'type,subject,posts,author,subscribers,last_post,forum,target,question,criteria_options,solution,fav_subscribers,tags'
@@ -37,6 +37,7 @@ return [
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.language',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_table' => 'sys_language',
 				'foreign_table_where' => 'ORDER BY sys_language.title',
 				'items' => [
@@ -72,6 +73,7 @@ return [
 			'label' => $lllPath . 'type',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'maxitems' => 1,
 				'minitems' => 1,
 				'default' => 0,
@@ -115,6 +117,7 @@ return [
 			'label' => $lllPath . 'author',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_table' => 'fe_users',
 				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser',
 				'maxitems' => 1
@@ -124,6 +127,7 @@ return [
 			'label' => $lllPath . 'last_post',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_post',
 				'minitems' => 1,
 				'maxitems' => 1,
@@ -145,6 +149,7 @@ return [
 			'label' => $lllPath . 'solution',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\Forum\Post',
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_post',
 				'maxitems' => 1
@@ -154,6 +159,7 @@ return [
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_forum',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\Forum\Forum',
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_forum',
 				'maxitems' => 1
@@ -181,6 +187,7 @@ return [
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_criteria_options',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectMultipleSideBySide',
 				'size' => 10,
 				'maxitems' => 99999,
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_criteria_options',
@@ -191,6 +198,7 @@ return [
 			'label' => $lllPath . 'tags',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectMultipleSideBySide',
 				'size' => 10,
 				'maxitems' => 99999,
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_tag',
@@ -201,6 +209,7 @@ return [
 			'label' => $lllPath . 'subscribers',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectMultipleSideBySide',
 				'foreign_table' => 'fe_users',
 				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser',
 				'MM' => 'tx_typo3forum_domain_model_user_topicsubscription',
@@ -213,6 +222,7 @@ return [
 			'label' => $lllPath . 'fav_subscribers',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectMultipleSideBySide',
 				'foreign_table' => 'fe_users',
 				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser',
 				'MM' => 'tx_typo3forum_domain_model_user_topicfavsubscription',
@@ -225,6 +235,7 @@ return [
 			'label' => $lllPath . 'target',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_topic',
 				'minitems' => 1,
 				'maxitems' => 1,
@@ -234,6 +245,7 @@ return [
 			'label' => $lllPath . 'readers',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingleBox',
 				'foreign_table' => 'fe_users',
 				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser',
 				'MM' => 'tx_typo3forum_domain_model_user_readtopic',

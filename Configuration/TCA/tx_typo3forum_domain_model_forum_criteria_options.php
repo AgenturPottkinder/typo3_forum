@@ -9,7 +9,7 @@ return [
 		'tstamp' => 'tstamp',
 		'delete' => 'deleted',
 		'sortby' => 'sorting',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/Forum/CriteriaOption.png',
+		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/Forum/CriteriaOption.png',
 	],
 	'interface' => [
 		'showRecordFieldList' => 'name,criteria,sorting'
@@ -28,6 +28,7 @@ return [
 			'label' => $lllPath . 'criteria',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_criteria',
 				'maxitems' => 1,
 			],

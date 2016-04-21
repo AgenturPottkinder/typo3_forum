@@ -336,7 +336,7 @@ plugin.tx_typo3forum.settings {
             #syntax = Mittwald\Typo3Forum\TextParser\Service\SyntaxHighlightingParserService
             quotes = Mittwald\Typo3Forum\TextParser\Service\QuoteParserService
             quotes {
-                template = EXT:typo3_forum/Resources/Private/Partials/Format/Quote.html
+                template = {$plugin.tx_typo3forum.view.partialRootPath}/Format/Quote.html
             }
 
             lists = Mittwald\Typo3Forum\TextParser\Service\ListParserService
@@ -346,7 +346,7 @@ plugin.tx_typo3forum.settings {
             panels {
                 bbCodes {
                     className = Mittwald\Typo3Forum\TextParser\Panel\BbCodePanel
-                    title = LLL:LLLEXT:typo3_forum/Resources/Private/Language/locallang.xml:Editor_Panel_Formatting
+                    title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:Editor_Panel_Formatting
                 }
 
                 syntax {

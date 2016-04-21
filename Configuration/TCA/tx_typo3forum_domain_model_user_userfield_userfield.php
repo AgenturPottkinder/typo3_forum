@@ -24,15 +24,15 @@ return [
 		'enablecolumns' => [
 			'disabled' => 'hidden',
 		],
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/User/Userfield/Userfield.png',
+		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/User/Userfield/Userfield.png',
 	],
 	'interface' => [
 		'showRecordFieldList' => 'type,name,typoscript_path,map_to_user_object',
 	],
 	'types' => [
 		'0' => ['showitem' => 'type,name,map_to_user_object'],
-		'\Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield' => ['showitem' => 'type,name,typoscript_path,map_to_user_object'],
-		'\Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield' => ['showitem' => 'type,name,map_to_user_object'],
+		'Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield' => ['showitem' => 'type,name,typoscript_path,map_to_user_object'],
+		'Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield' => ['showitem' => 'type,name,map_to_user_object'],
 	],
 	'columns' => [
 		'sys_language_uid' => [
@@ -40,6 +40,7 @@ return [
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.language',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_table' => 'sys_language',
 				'foreign_table_where' => 'ORDER BY sys_language.title',
 				'items' => [
@@ -54,11 +55,12 @@ return [
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.l18n_parent',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'items' => [
 					['', 0],
 				],
 				'foreign_table' => 'tx_typo3forum_domain_model_user_userfield_userfield',
-				'foreign_table_where' => 'AND tx_typo3forum_domain_model_user_userfield_userfield.uid=###REC_FIELD_l18n_parent### AND tx_typo3forum_domain_model_user_userfield_userfield.sys_language_uid IN (-1,0]',
+				'foreign_table_where' => 'AND tx_typo3forum_domain_model_user_userfield_userfield.uid=###REC_FIELD_l18n_parent### AND tx_typo3forum_domain_model_user_userfield_userfield.sys_language_uid IN (-1,0)',
 			],
 		],
 		'l18n_diffsource' => [
@@ -85,10 +87,11 @@ return [
 			'label' => $lllPath . 'type',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'items' => [
 					[$lllPath . 'type.undefined', 0],
-					[$lllPath . 'type.typoscript', '\Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield'],
-					[$lllPath . 'type.text', '\Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield'],
+					[$lllPath . 'type.typoscript', 'Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield'],
+					[$lllPath . 'type.text', 'Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield'],
 				],
 			],
 		],

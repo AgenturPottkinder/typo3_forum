@@ -24,7 +24,7 @@ return [
 		'enablecolumns' => [
 			'disabled' => 'hidden'
 		],
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/Forum/Access.png',
+		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/Forum/Access.png',
 	],
 	'interface' => [
 		'showRecordFieldList' => 'login_level,operation,negate,forum,affected_group'
@@ -40,6 +40,7 @@ return [
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.language',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_table' => 'sys_language',
 				'foreign_table_where' => 'ORDER BY sys_language.title',
 				'items' => [
@@ -54,6 +55,7 @@ return [
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.l18n_parent',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'items' => [
 					['', 0],
 				],
@@ -86,6 +88,7 @@ return [
 			'label' => $lllPath . 'operation',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'maxitems' => 1,
 				'items' => [
 					[$lllPath . 'operation.read', \Mittwald\Typo3Forum\Domain\Model\Forum\Access::TYPE_READ],
@@ -110,6 +113,7 @@ return [
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_forum',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\Forum\Forum',
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_forum',
 				'maxitems' => 1
@@ -120,6 +124,7 @@ return [
 			'label' => $lllPath . 'group',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_table' => 'fe_groups',
 				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup',
 				'maxitems' => 1
@@ -130,6 +135,7 @@ return [
 			'label' => $lllPath . 'login_level',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'items' => [
 					[$lllPath . 'login_level.everyone', 0],
 					[$lllPath . 'login_level.anylogin', 1],
