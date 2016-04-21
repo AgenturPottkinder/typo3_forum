@@ -289,7 +289,7 @@ class TopicController extends AbstractController {
 		if ($currentUser === NULL || $currentUser->isAnonymous()) {
 			return;
 		} else {
-			if ($topic->hasBeenReadByUser($currentUser)) {
+			if ((false === $topic->hasBeenReadByUser($currentUser))) {
 				$currentUser->addReadObject($topic);
 				$this->frontendUserRepository->update($currentUser);
 			}
