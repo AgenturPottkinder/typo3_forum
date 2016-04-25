@@ -56,7 +56,9 @@ typo3_forum
 	:titlesonly:
 	:glob:
 
-	Introduction/Index
-	Configuration/Index
-	UsersManual/Index
-	KnownProblems/Index
+.. _introduction:
+
+Introduction
+============
+
+The Documentation of the Extension can be found here: http://typo3-forum.readthedocs.org/en/master/
