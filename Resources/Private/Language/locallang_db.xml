@@ -144,6 +144,8 @@
 			<label index="tx_typo3forum_domain_model_format_textparser.type.smiley">Smiley</label>
 			<label index="tx_typo3forum_domain_model_format_textparser.type.syntax">Syntax highlighting</label>
 			<label index="tx_typo3forum_domain_model_format_textparser.icon">Icon</label>
+			<label index="tx_typo3forum_domain_model_format_textparser.icon_class">Icon Klasse</label>
+			<label index="tx_typo3forum_domain_model_format_textparser.bbcode_wrap">BB Code Wrap</label>
 			<label index="tx_typo3forum_domain_model_format_textparser.regular_expression">Regular expression</label>
 			<label index="tx_typo3forum_domain_model_format_textparser.regular_expression_replacement">Replacement pattern</label>
 			<label index="tx_typo3forum_domain_model_format_textparser.smiley_shortcut">Smiley shortcut</label>
@@ -172,6 +174,7 @@
 			<label index="tx_typo3forum_domain_model_moderation_reportworkflowstatus.icon">Icon</label>
 			<label index="tx_typo3forum_domain_model_moderation_report.type">Type</label>
 
+			<label index="fe_users.user_mod">User mod</label>
 			<label index="fe_users.use_gravatar">Use gravatar image (if no local image)</label>
 			<label index="fe_users.contact">Contact addresses and social network profiles (JSON encoded)</label>
 			<label index="fe_users.tx_extbase_type.typo3_forum">typo3_forum user</label>

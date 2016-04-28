@@ -31,8 +31,8 @@ return [
 	],
 	'types' => [
 		'0' => ['showitem' => 'type,name,map_to_user_object'],
-		'\Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield' => ['showitem' => 'type,name,typoscript_path,map_to_user_object'],
-		'\Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield' => ['showitem' => 'type,name,map_to_user_object'],
+		'Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield' => ['showitem' => 'type,name,typoscript_path,map_to_user_object'],
+		'Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield' => ['showitem' => 'type,name,map_to_user_object'],
 	],
 	'columns' => [
 		'sys_language_uid' => [
@@ -58,7 +58,7 @@ return [
 					['', 0],
 				],
 				'foreign_table' => 'tx_typo3forum_domain_model_user_userfield_userfield',
-				'foreign_table_where' => 'AND tx_typo3forum_domain_model_user_userfield_userfield.uid=###REC_FIELD_l18n_parent### AND tx_typo3forum_domain_model_user_userfield_userfield.sys_language_uid IN (-1,0]',
+				'foreign_table_where' => 'AND tx_typo3forum_domain_model_user_userfield_userfield.uid=###REC_FIELD_l18n_parent### AND tx_typo3forum_domain_model_user_userfield_userfield.sys_language_uid IN (-1,0)',
 			],
 		],
 		'l18n_diffsource' => [
@@ -87,8 +87,8 @@ return [
 				'type' => 'select',
 				'items' => [
 					[$lllPath . 'type.undefined', 0],
-					[$lllPath . 'type.typoscript', '\Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield'],
-					[$lllPath . 'type.text', '\Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield'],
+					[$lllPath . 'type.typoscript', 'Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield'],
+					[$lllPath . 'type.text', 'Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield'],
 				],
 			],
 		],

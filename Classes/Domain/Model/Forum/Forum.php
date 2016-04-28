@@ -230,6 +230,16 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 
 
 	/**
+     * Return criteria without look recursive
+     *
+	 * @return ObjectStorage
+	 */
+	public function getCurrentCriteria()
+	{
+		return $this->criteria;
+	}
+
+	/**
 	 * Get all criterias of this forum.
 	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Criteria>
 	 */
@@ -254,8 +264,8 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 		/** @var Forum $forum */
 		/** @var ObjectStorage $criteriaStorage */
 		list($forum, $criteriaStorage) = $array;
-		if ($forum->criteria !== NULL) {
-			$criteriaStorage->addAll($forum->criteria);
+		if ($forum->getCurrentCriteria() !== NULL) {
+			$criteriaStorage->addAll($forum->getCurrentCriteria());
 		}
 		if(($parent = $forum->getParent()) && ($parent->getParent() != NULL)) {
 			list(, $criteriaStorage) = $this->getCriteriaRecursive([$parent, $criteriaStorage]);

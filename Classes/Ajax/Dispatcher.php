@@ -111,15 +111,8 @@ final class Dispatcher implements SingletonInterface {
 
 		// The following code was adapted from the df_tools extension.
 		// Credits go to Stefan Galinski.
-		$GLOBALS['TSFE'] = GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController',
-		$GLOBALS['TYPO3_CONF_VARS'], (int)$_GET['id'], 0);
-		$GLOBALS['TSFE']->sys_page = GeneralUtility::makeInstance('TYPO3\CMS\Frontend\Page\PageRepository');
 		$GLOBALS['TSFE']->getPageAndRootline();
-		$GLOBALS['TSFE']->initTemplate();
 		$GLOBALS['TSFE']->forceTemplateParsing = TRUE;
-		$GLOBALS['TSFE']->initFEuser();
-		$GLOBALS['TSFE']->initUserGroups();
-		EidUtility::initTCA();
 		$GLOBALS['TSFE']->no_cache = TRUE;
 		$GLOBALS['TSFE']->tmpl->start($GLOBALS['TSFE']->rootLine);
 		$GLOBALS['TSFE']->no_cache = FALSE;
