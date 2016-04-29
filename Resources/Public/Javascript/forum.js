@@ -3,6 +3,12 @@ jQuery(document).ready(function($) {
 	var postSummarys  = [];
 	var postSummarysCount  = 0;
 
+    $('body').on('click', '[data-toggle]', function (e) {
+        var $target = $(this).data('toggle');
+        $('#'  + $target).toggle();
+        e.preventDefault();
+    });
+
 	$('.post_summary_box').each(function (index) {
 		postSummarys[postSummarysCount] = {};
 		postSummarys[postSummarysCount]['type'] = $(this).data('type');
