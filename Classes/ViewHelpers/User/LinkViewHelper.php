@@ -24,34 +24,45 @@ namespace Mittwald\Typo3Forum\ViewHelpers\User;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup;
 
-class LinkViewHelper extends CObjectViewHelper {
+class LinkViewHelper extends AbstractViewHelper {
 
 	/**
 	 * @var array
 	 */
 	protected $settings = NULL;
 
+    /**
+     * Initialize viewHelper and add given settings
+     *
+     * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception\InvalidVariableException
+     */
 	public function initialize() {
 		parent::initialize();
 		$this->settings = $this->templateVariableContainer->get('settings');
 	}
 
+    /**
+     * Initialize required arguments
+     *
+     * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception
+     */
 	public function initializeArguments() {
 		parent::initializeArguments();
 		$this->registerArgument('class', 'string', 'CSS class.');
 		$this->registerArgument('style', 'string', 'CSS inline styles.');
 	}
 
-	/**
-	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user
-	 * @param boolean $showOnlineStatus
-	 * @param boolean $showOnline
-	 * @return string
-	 */
+    /**
+     * @param FrontendUser|null $user
+     * @param bool $showOnlineStatus
+     * @param bool $showOnline
+     * @return string
+     */
 	public function render(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL, $showOnlineStatus = TRUE, $showOnline = FALSE) {
 		// if user anonymous: show only the username
 		if ($user->isAnonymous()) {

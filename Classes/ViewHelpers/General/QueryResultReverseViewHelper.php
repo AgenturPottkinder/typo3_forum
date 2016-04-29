@@ -24,25 +24,29 @@ namespace Mittwald\Typo3Forum\ViewHelpers\General;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
-class QueryResultReverseViewHelper extends ActionViewHelper {
+class QueryResultReverseViewHelper extends AbstractViewHelper
+{
 
-	public function initializeArguments() {
-		parent::initializeArguments();
-		$this->registerArgument('array', 'array', 'Array to be reverted', TRUE);
-	}
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('array', 'array', 'Array to be reverted', true);
+    }
 
-	/**
-	 * @return array
-	 */
-	public function render() {
-		$oldArray = $this->arguments['array'];
-		$newArray = [];
-		for ($j = count($oldArray) - 1; $j >= 0; $j--) {
-			$newArray[] = $oldArray[$j];
-		}
-		return $newArray;
-	}
+    /**
+     * @return array
+     */
+    public function render()
+    {
+        $oldArray = $this->arguments['array'];
+        $newArray = [];
+        for ($j = count($oldArray) - 1; $j >= 0; $j--) {
+            $newArray[] = $oldArray[$j];
+        }
+
+        return $newArray;
+    }
 
 }
