@@ -88,7 +88,7 @@ class TagRepository extends Repository {
 	 */
 	public function findTagsOfUser(FrontendUser $user) {
 		$query = $this->createQuery();
-		$query->matching($query->equals('feuser.uid', $user));
+		$query->matching($query->contains('feuser', $user));
 		$query->setOrderings(['name' => 'ASC']);
 
 		return $query->execute();
