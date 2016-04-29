@@ -8,7 +8,7 @@ return [
 		'label' => 'name',
 		'tstamp' => 'tstamp',
 		'delete' => 'deleted',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/Forum/Ad.png',
+		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/Forum/Ad.png',
 	],
 	'interface' => [
 		'showRecordFieldList' => 'name,alt_text,url,path,active,category,groups',

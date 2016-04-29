@@ -24,7 +24,7 @@ return [
 		'enablecolumns' => [
 			'disabled' => 'hidden',
 		],
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/User/Userfield/Userfield.png',
+		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/User/Userfield/Userfield.png',
 	],
 	'interface' => [
 		'showRecordFieldList' => 'type,name,typoscript_path,map_to_user_object',
@@ -40,6 +40,7 @@ return [
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.language',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_table' => 'sys_language',
 				'foreign_table_where' => 'ORDER BY sys_language.title',
 				'items' => [
@@ -54,6 +55,7 @@ return [
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.l18n_parent',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'items' => [
 					['', 0],
 				],
@@ -85,6 +87,7 @@ return [
 			'label' => $lllPath . 'type',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'items' => [
 					[$lllPath . 'type.undefined', 0],
 					[$lllPath . 'type.typoscript', 'Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield'],

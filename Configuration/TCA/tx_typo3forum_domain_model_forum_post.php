@@ -21,7 +21,7 @@ return [
 		'enablecolumns' => [
 			'disabled' => 'hidden'
 		],
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/Forum/Post.png'
+		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/Forum/Post.png'
 	],
 	'interface' => [
 		'showRecordFieldList' => 'text,author,topic,attachments, helpful_count, supporters'
@@ -35,6 +35,7 @@ return [
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.language',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_table' => 'sys_language',
 				'foreign_table_where' => 'ORDER BY sys_language.title',
 				'items' => [
@@ -83,6 +84,7 @@ return [
 			'label' => $lllPath . 'author',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_table' => 'fe_users',
 				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser',
 				'maxitems' => 1
@@ -100,6 +102,7 @@ return [
 			'label' => $lllPath . 'topic',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\Forum\Topic',
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_topic',
 				'maxitems' => 1
@@ -125,6 +128,7 @@ return [
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_topic.supporters',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingleBox',
 				'foreign_table' => 'fe_users',
 				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser',
 				'MM' => 'tx_typo3forum_domain_model_user_supportpost',

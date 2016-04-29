@@ -15,7 +15,7 @@ return [
 		'crdate' => 'crdate',
 		'delete' => 'deleted',
 		'enablecolumns' => ['disabled' => 'hidden'],
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/Forum/Attachment.png'
+		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/Forum/Attachment.png'
 	],
 	'interface' => [
 		'showRecordFieldList' => 'filename,real_filename,mime_type,download_count'
@@ -51,6 +51,7 @@ return [
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_post.topic',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\Forum\Post',
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_post',
 				'maxitems' => 1
