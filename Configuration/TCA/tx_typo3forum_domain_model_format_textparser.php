@@ -24,7 +24,7 @@ return [
 		'enablecolumns' => [
 			'disabled' => 'hidden'
 		],
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/Format/Textparser.png'
+		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/Format/Textparser.png'
 	],
 	'interface' => [
 		'showRecordFieldList' => 'type,name,icon_class,bbcode_wrap,regular_expression,regular_expression_replacement,smiley_shortcut,language'
@@ -43,6 +43,7 @@ return [
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.language',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_table' => 'sys_language',
 				'foreign_table_where' => 'ORDER BY sys_language.title',
 				'items' => [
@@ -57,6 +58,7 @@ return [
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.l18n_parent',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'items' => [
 					['', 0],
 				],
@@ -88,6 +90,7 @@ return [
 			'label' => $lllPath . 'type',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'items' => [
 					[$lllPath . 'type.bbcode', 'Mittwald\Typo3Forum\Domain\Model\Format\BBCode'],
 					[$lllPath . 'type.quote', 'Mittwald\Typo3Forum\Domain\Model\Format\QuoteBBCode'],

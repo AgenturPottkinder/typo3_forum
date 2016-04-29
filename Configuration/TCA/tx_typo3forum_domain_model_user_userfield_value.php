@@ -24,7 +24,7 @@ return [
 		'enablecolumns' => [
 			'disabled' => 'hidden'
 		],
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/User/Userfield/Value.png'
+		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/User/Userfield/Value.png'
 	],
 	'interface' => [
 		'showRecordFieldList' => 'user,userfield,value'
@@ -38,6 +38,7 @@ return [
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.language',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_table' => 'sys_language',
 				'foreign_table_where' => 'ORDER BY sys_language.title',
 				'items' => [
@@ -52,6 +53,7 @@ return [
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.l18n_parent',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'items' => [
 					['', 0],
 				],
@@ -83,6 +85,7 @@ return [
 			'label' => $lllPath . 'user',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser',
 				'foreign_table' => 'fe_users',
 				'maxitems' => 1
@@ -93,6 +96,7 @@ return [
 			'label' => $lllPath . 'userfield',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_table' => 'tx_typo3forum_domain_model_user_userfield_value',
 				'maxitems' => 1
 			],

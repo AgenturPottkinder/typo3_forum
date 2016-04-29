@@ -8,7 +8,7 @@ return [
 		'label' => 'name',
 		'tstamp' => 'tstamp',
 		'delete' => 'deleted',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/Forum/Criteria.png',
+		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/Forum/Criteria.png',
 	],
 	'interface' => [
 		'showRecordFieldList' => 'name,options,default_option',
@@ -42,6 +42,7 @@ return [
 			'label' => $lllPath . 'default_option',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'maxitems' => 1,
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_criteria_options',
 				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption',

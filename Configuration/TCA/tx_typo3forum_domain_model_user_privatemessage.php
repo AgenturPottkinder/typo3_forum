@@ -9,7 +9,7 @@ return [
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
 		'delete' => 'deleted',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/User/pm.png',
+		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/User/pm.png',
 	],
 	'interface' => [
 		'showRecordFieldList' => 'message, feuser, opponent, type, user_read, crdate'
@@ -36,6 +36,7 @@ return [
 			'label' => $lllPath . 'feuser',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_table' => 'fe_users',
 				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser',
 				'maxitems' => 1
@@ -45,6 +46,7 @@ return [
 			'label' => $lllPath . 'opponent',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_table' => 'fe_users',
 				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser',
 				'maxitems' => 1

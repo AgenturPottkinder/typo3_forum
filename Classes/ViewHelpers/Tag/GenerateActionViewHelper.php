@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\ViewHelpers\Tag;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -23,41 +24,21 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Tag;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
-class GenerateActionViewHelper extends AbstractTagBasedViewHelper {
-
-	/**
-	 * Arguments initialization
-	 *
-	 * @return void
-	 */
-	public function initializeArguments() {
-		parent::initializeArguments();
-
-		$this->registerTagAttribute('currentUser', '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser', 'a');
-		$this->registerTagAttribute('subscribedUser', '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser[]', 'a');
-	}
-
-	/**
-	 * Render the link for adding or removing a tag
-	 *
-	 * @return string
-	 */
-	public function render() {
-		$currentUser = $this->arguments['currentUser'];
-		$subscribedUser = $this->arguments['subscribedUser'];
-
-		$new = 1;
-		if (!empty($subscribedUser)) {
-			foreach ($subscribedUser as $user) {
-				if ($currentUser == $user) {
-					$new = 0;
-					break;
-				}
-			}
-		}
-
-		return $new;
-	}
+class GenerateActionViewHelper extends AbstractTagBasedViewHelper
+{
+    /**
+     * Check if user is subscribed to tag
+     *
+     * @param FrontendUser $currentUser
+     * @param ObjectStorage $subscribedUsers
+     * @return string
+     */
+    public function render(FrontendUser $currentUser, ObjectStorage $subscribedUsers)
+    {
+        return $subscribedUsers->contains($currentUser);
+    }
 }
