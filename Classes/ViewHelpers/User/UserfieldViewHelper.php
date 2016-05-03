@@ -25,6 +25,8 @@ namespace Mittwald\Typo3Forum\ViewHelpers\User;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield;
 use Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield;
+use Mittwald\Typo3Forum\ViewHelpers\CObjectAwareViewHelperTrait;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 
 
@@ -33,7 +35,7 @@ use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
  * ViewHelper that renders the value of a specific userfield for a user.
  *
  */
-class UserfieldViewHelper extends CObjectViewHelper {
+class UserfieldViewHelper extends AbstractViewHelper {
 
 	/**
 	 *
@@ -50,7 +52,7 @@ class UserfieldViewHelper extends CObjectViewHelper {
 		}
 		$data = $userfield->getValueForUser($user);
 		$data = $this->convertDataToString($data);
-		return parent::render($userfield->getTyposcriptPath() . '.output', implode(' ', $data));
+		return $this->getCObjectViewHelper()->render($userfield->getTyposcriptPath() . '.output', implode(' ', $data));
 	}
 
 	/**
@@ -74,5 +76,13 @@ class UserfieldViewHelper extends CObjectViewHelper {
 				return $data;
 			}
 		}
+	}
+
+	/**
+	 * @return CObjectViewHelper
+	 */
+	protected function getCObjectViewHelper()
+	{
+		return $this->objectManager->get('TYPO3\\CMS\\Fluid\\ViewHelpers\\CObjectViewHelper');
 	}
 }

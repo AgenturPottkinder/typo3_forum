@@ -61,4 +61,4 @@ typo3_forum
 Introduction
 ============
 
-The Documentation of the Extension can be found here: http://typo3-forum.readthedocs.org/en/master/
+The Documentation of the Extension can be found here: http://typo3-forum.readthedocs.io/en/master/ 

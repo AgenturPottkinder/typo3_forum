@@ -29,7 +29,7 @@
 				<li><f:translate key="User_Index_Questions" />:  <f:link.action pageUid="{settings.pids.Forum}" controller="User" action="listQuestions">{user.questionCount}</f:link.action> </li>
 				<li><f:translate key="User_Show_Rank" />: {user.rank.name} </li>
 				<li><f:translate key="User_Show_Points" />: {user.points} </li>
-				<li><f:link.page pageUid="7"><f:translate key="Link_My_Profile" /></f:link.page></li>
+				<li><f:link.page pageUid="{settings.pids.UserShow}"><f:translate key="Link_My_Profile" /></f:link.page></li>
 				<li><f:link.page pageUid="374">
 					<f:translate
 							key="LLL:EXT:typo3net/Resources/Private/Language/locallang.xml:nav-top-sub-profile-settings"/>

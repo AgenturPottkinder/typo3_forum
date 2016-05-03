@@ -12,7 +12,7 @@ return [
 		'delete' => 'deleted',
 		'sortby' => 'tstamp DESC',
 		'hideTable' => TRUE,
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/Stats/summary.png',
+		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/Stats/summary.png',
 	],
 	'interface' => [
 		'showRecordFieldList' => 'type,amount,tstamp',

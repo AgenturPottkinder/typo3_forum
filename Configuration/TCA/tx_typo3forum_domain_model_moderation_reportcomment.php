@@ -11,7 +11,7 @@ return [
 		'enablecolumns' => [
 			'disabled' => 'hidden'
 		],
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('typo3_forum') . 'Resources/Public/Icons/Moderation/ReportComment.png'
+		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/Moderation/ReportComment.png'
 	],
 	'interface' => [
 		'showRecordFieldList' => 'report,author,text,tstamp'
@@ -39,6 +39,7 @@ return [
 			'label'   => $lllPath . 'report',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_table' => 'tx_typo3forum_domain_model_moderation_report',
 				'maxitems' => 1,
 			],
@@ -48,6 +49,7 @@ return [
 			'label'   => $lllPath . 'author',
 			'config' => [
 				'type' => 'select',
+				'renderType' => 'selectSingle',
 				'foreign_table' => 'fe_users',
 				'maxitems' => 1,
 			],

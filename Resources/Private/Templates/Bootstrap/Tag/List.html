@@ -45,16 +45,16 @@
 						</div>
 						<div class="span3">
 							<f:if condition="{user.anonymous} == {FALSE}">
-								<f:if condition="<mmf:tag.generateAction subscribedUser='{tag.feuser}' currentUser='{user}' /> == 1">
+								<f:if condition="<mmf:tag.generateAction subscribedUsers='{tag.feuser}' currentUser='{user}' />">
 									<f:then>
-										<f:link.action action="newUserTag" arguments="{tag: tag, mine: mine}">
-											<f:translate key="Tags_List_New" />
-										</f:link.action>
+                                        <f:link.action action="deleteUserTag" arguments="{tag: tag, mine: mine}">
+                                            <f:translate key="Tags_List_Remove" />
+                                        </f:link.action>
 									</f:then>
 									<f:else>
-										<f:link.action action="deleteUserTag" arguments="{tag: tag, mine: mine}">
-											<f:translate key="Tags_List_Remove" />
-										</f:link.action>
+                                        <f:link.action action="newUserTag" arguments="{tag: tag, mine: mine}">
+                                            <f:translate key="Tags_List_New" />
+                                        </f:link.action>
 									</f:else>
 								</f:if>
 							</f:if>

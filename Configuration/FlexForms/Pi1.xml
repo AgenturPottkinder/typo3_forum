@@ -23,7 +23,7 @@
 									<numIndex index="1">
 										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_User_Show</numIndex>
 										<numIndex index="1">User->show; User->disableUser; User->unDisableUser;
-											User->listSubscriptions;User->show;User->showMyProfile;User->listMessages;User->newMessage;User->createMessage;User->listNotifications
+											User->listSubscriptions;User->show;User->showMyProfile;User->listMessages;User->newMessage;User->createMessage;User->listNotifications, User->listPosts
 										</numIndex>
 									</numIndex>
 									<numIndex index="3">

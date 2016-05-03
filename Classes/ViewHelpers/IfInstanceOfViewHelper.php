@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\ViewHelpers;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -23,26 +24,37 @@ namespace Mittwald\Typo3Forum\ViewHelpers;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
 use TYPO3\CMS\Fluid\ViewHelpers\IfViewHelper;
 
 /**
  * ViewHelper that renders its contents if a certain object is an instance
  * of a specific class.
  */
-class IfInstanceOfViewHelper extends IfViewHelper {
+class IfInstanceOfViewHelper extends IfViewHelper
+{
 
-	/**
-	 *
-	 * Renders the contents of this view helper if $object is an instance of
-	 * $className.
-	 *
-	 * @param \TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject $object
-	 *                                                                   The object.
-	 * @param string                                       $className   The class.
-	 * @return string              HTML content.
-	 *
-	 */
-	public function render(\TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject $object, $className) {
-		return $object instanceof $className ? $this->renderThenChild() : $this->renderElseChild();
-	}
+
+    /**
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('object', AbstractDomainObject::class, 'Object to check', true);
+        $this->registerArgument('className', 'string', 'className which object has to be', true);
+    }
+
+    /**
+     * Check if object is instance of className
+     *
+     * @return string
+     */
+    public function render()
+    {
+        $object = $this->arguments['object'];
+        $className = $this->arguments['className'];
+
+        return $object instanceof $className ? $this->renderThenChild() : $this->renderElseChild();
+    }
 }
