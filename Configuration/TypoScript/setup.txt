@@ -210,8 +210,6 @@ plugin.tx_typo3forum.settings {
         disableACLs = 0
     }
 	
-	allowedLanguages = *
-	
     cutUsernameOnChar = {$plugin.tx_typo3forum.settings.cutUsernameOnChar}
     cutBreadcrumbOnChar = {$plugin.tx_typo3forum.settings.cutBreadcrumbOnChar}
     useSqlStatementsOnCriticalFunctions = {$plugin.tx_typo3forum.settings.useSqlStatementsOnCriticalFunctions}
