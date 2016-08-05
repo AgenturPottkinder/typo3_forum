@@ -98,16 +98,6 @@ final class Dispatcher implements SingletonInterface {
 	 * Galinski.
 	 */
 	protected function initTYPO3() {
-		//Check which language should be used
-		$ts = $this->loadTS((int)$_GET['id']);
-		$languages = explode(',',$ts['plugin.']['tx_typo3forum.']['settings.']['allowedLanguages']);
-		$submittedLang = trim($_GET['language']);
-
-		if($submittedLang == false || !array_search($submittedLang,$languages)) {
-			$lang = "default";
-		} else {
-			$lang = $submittedLang;
-		}
 
 		// The following code was adapted from the df_tools extension.
 		// Credits go to Stefan Galinski.
@@ -121,10 +111,11 @@ final class Dispatcher implements SingletonInterface {
 			'sys_language_overlay' => 'hideNonTranslated',
 			'sys_language_softMergeIfNotBlank' => '',
 			'sys_language_softExclude' => '',
-			'language' => $lang,
+			'language' => $GLOBALS['TSFE']->tmpl->setup['config.']['language'],
 		];
 
 		$GLOBALS['TSFE']->settingLanguage();
+        $GLOBALS['TSFE']->settingLocale();
 	}
 
 
