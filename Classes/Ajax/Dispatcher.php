@@ -103,7 +103,7 @@ final class Dispatcher implements SingletonInterface {
 		$languages = explode(',',$ts['plugin.']['tx_typo3forum.']['settings.']['allowedLanguages']);
 		$submittedLang = trim($_GET['language']);
 
-		if($submittedLang == false || !array_search($submittedLang,$languages)) {
+		if($submittedLang == false || !(array_search($submittedLang,$languages) || in_array('*',$languages))) {
 			$lang = "default";
 		} else {
 			$lang = $submittedLang;
