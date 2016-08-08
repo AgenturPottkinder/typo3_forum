@@ -112,6 +112,7 @@ final class Dispatcher implements SingletonInterface {
 			'sys_language_softMergeIfNotBlank' => '',
 			'sys_language_softExclude' => '',
 			'language' => $GLOBALS['TSFE']->tmpl->setup['config.']['language'],
+            'locale_all' => $GLOBALS['TSFE']->tmpl->setup['config.']['locale_all'],
 		];
 
 		$GLOBALS['TSFE']->settingLanguage();
