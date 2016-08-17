@@ -98,6 +98,15 @@ final class Dispatcher implements SingletonInterface {
 	 * Galinski.
 	 */
 	protected function initTYPO3() {
+		
+		$language = '';
+		if(isset($GLOBALS['TSFE']->tmpl->setup['config.']['language'])) {
+			$language = $GLOBALS['TSFE']->tmpl->setup['config.']['language'];	
+		}
+		$locale_all = '';
+		if(isset($GLOBALS['TSFE']->tmpl->setup['config.']['locale_all'])) {
+			$locale_all = $GLOBALS['TSFE']->tmpl->setup['config.']['locale_all'];
+		}
 
 		// The following code was adapted from the df_tools extension.
 		// Credits go to Stefan Galinski.
@@ -111,8 +120,8 @@ final class Dispatcher implements SingletonInterface {
 			'sys_language_overlay' => 'hideNonTranslated',
 			'sys_language_softMergeIfNotBlank' => '',
 			'sys_language_softExclude' => '',
-			'language' => $GLOBALS['TSFE']->tmpl->setup['config.']['language'],
-            'locale_all' => $GLOBALS['TSFE']->tmpl->setup['config.']['locale_all'],
+			'language' => $language,
+            'locale_all' => $locale_all,
 		];
 
 		$GLOBALS['TSFE']->settingLanguage();
