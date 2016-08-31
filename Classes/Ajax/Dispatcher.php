@@ -99,6 +99,15 @@ final class Dispatcher implements SingletonInterface {
 	 */
 	protected function initTYPO3() {
 		
+		
+
+		// The following code was adapted from the df_tools extension.
+		// Credits go to Stefan Galinski.
+		$GLOBALS['TSFE']->getPageAndRootline();
+		$GLOBALS['TSFE']->forceTemplateParsing = TRUE;
+		$GLOBALS['TSFE']->no_cache = TRUE;
+		$GLOBALS['TSFE']->tmpl->start($GLOBALS['TSFE']->rootLine);
+		
 		$language = '';
 		if(isset($GLOBALS['TSFE']->tmpl->setup['config.']['language'])) {
 			$language = $GLOBALS['TSFE']->tmpl->setup['config.']['language'];	
@@ -107,13 +116,7 @@ final class Dispatcher implements SingletonInterface {
 		if(isset($GLOBALS['TSFE']->tmpl->setup['config.']['locale_all'])) {
 			$locale_all = $GLOBALS['TSFE']->tmpl->setup['config.']['locale_all'];
 		}
-
-		// The following code was adapted from the df_tools extension.
-		// Credits go to Stefan Galinski.
-		$GLOBALS['TSFE']->getPageAndRootline();
-		$GLOBALS['TSFE']->forceTemplateParsing = TRUE;
-		$GLOBALS['TSFE']->no_cache = TRUE;
-		$GLOBALS['TSFE']->tmpl->start($GLOBALS['TSFE']->rootLine);
+		
 		$GLOBALS['TSFE']->no_cache = FALSE;
 		$GLOBALS['TSFE']->config = [];
 		$GLOBALS['TSFE']->config['config'] = ['sys_language_mode' => 'content_fallback;0',
