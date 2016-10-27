@@ -117,6 +117,10 @@ final class Dispatcher implements SingletonInterface {
         if(isset($GLOBALS['TSFE']->tmpl->setup['config.']['sys_language_uid'])) {
             $sys_language_uid = $GLOBALS['TSFE']->tmpl->setup['config.']['sys_language_uid'];
         }
+        $linkVars = '';
+        if(isset($GLOBALS['TSFE']->tmpl->setup['config.']['linkVars'])) {
+            $linkVars = $GLOBALS['TSFE']->tmpl->setup['config.']['linkVars'];
+        }
         $locale_all = '';
         if(isset($GLOBALS['TSFE']->tmpl->setup['config.']['locale_all'])) {
             $locale_all = $GLOBALS['TSFE']->tmpl->setup['config.']['locale_all'];
@@ -129,11 +133,13 @@ final class Dispatcher implements SingletonInterface {
 			'sys_language_softExclude' => '',
 			'language' => $language,
             'sys_language_uid' => $sys_language_uid,
+            'linkVars' => $linkVars,
             'locale_all' => $locale_all,
 		];
 
 		$GLOBALS['TSFE']->settingLanguage();
         $GLOBALS['TSFE']->settingLocale();
+        $GLOBALS['TSFE']->calculateLinkVars();
 	}
 
 
