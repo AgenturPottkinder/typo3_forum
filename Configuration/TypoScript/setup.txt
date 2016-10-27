@@ -209,7 +209,7 @@ plugin.tx_typo3forum.settings {
     debug {
         disableACLs = 0
     }
-
+	
     cutUsernameOnChar = {$plugin.tx_typo3forum.settings.cutUsernameOnChar}
     cutBreadcrumbOnChar = {$plugin.tx_typo3forum.settings.cutBreadcrumbOnChar}
     useSqlStatementsOnCriticalFunctions = {$plugin.tx_typo3forum.settings.useSqlStatementsOnCriticalFunctions}
@@ -600,6 +600,10 @@ page.includeJSLibs {
     typo3forum_bootstrap = EXT:typo3_forum/Resources/Public/Bootstrap/js/bootstrap.min.js
     typo3forum_markitup = EXT:typo3_forum/Resources/Public/Javascript/markitup-1.1.12/jquery.markitup.js
 }
+# add typo3 6.2 compatibility
+page.includeJSlibs.typo3forum_jquery < page.includeJSLibs.typo3forum_jquery
+page.includeJSlibs.typo3forum_bootstrap < page.includeJSLibs.typo3forum_bootstrap
+page.includeJSlibs.typo3forum_markitup < page.includeJSLibs.typo3forum_markitup
 
 page.includeJSFooter {
     typo3forum_main = EXT:typo3_forum/Resources/Public/Javascript/forum.js
