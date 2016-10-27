@@ -34,6 +34,7 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  */
 class ForumRepository extends Repository {
 
+	
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
@@ -41,6 +42,26 @@ class ForumRepository extends Repository {
 	 */
 	protected $authenticationService = NULL;
 
+	/**
+     * Returns a query for objects of this repository
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryInterface
+     * @api
+     */
+    public function createQuery() {
+        $query = $this->persistenceManager->createQueryForType($this->objectType);
+        if ($this->defaultOrderings !== array()) {
+            $query->setOrderings($this->defaultOrderings);
+        }
+        if ($this->defaultQuerySettings !== NULL) {
+            $query->setQuerySettings(clone $this->defaultQuerySettings);
+        }
+
+        // don't add sys_language_uid constraint
+        $query->getQuerySettings()->setRespectSysLanguage(FALSE);
+
+        return $query;
+    }
 
 	/**
 	 * Finds all forums for the index view.
