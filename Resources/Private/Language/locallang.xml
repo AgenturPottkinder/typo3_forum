@@ -310,7 +310,7 @@
 			<label index="Mail_Subscribe_NewPost_Body">Hello ###RECIPIENT###,
 
 ###POST_AUTHOR### answered in one of your subscribed topics: ###TOPIC_LINK###.
-If you don't want to get more notifications about this topic, you can unsubscribe this topic by this link: ##UNSUBSCRIBE_LINK###.
+If you don't want to get more notifications about this topic, you can unsubscribe this topic by this link: ###UNSUBSCRIBE_LINK###.
 
 
 Yours sincerely,
@@ -605,7 +605,7 @@ Your ###FORUM_NAME###-Team</label>
 			<label index="Mail_Subscribe_NewPost_Body">Ahoj  ###RECIPIENT###,
 
 				###POST_AUTHOR### odpověděl do jednoho z vašich odebíraných témat: ###TOPIC_LINK###.
-				Pokud si nepřejete dostávat více oznámení o tomto tématu, můžete se odhlásit z tohoto tématu tímto odkazem: ##UNSUBSCRIBE_LINK###.
+				Pokud si nepřejete dostávat více oznámení o tomto tématu, můžete se odhlásit z tohoto tématu tímto odkazem: ###UNSUBSCRIBE_LINK###.
 
 
 				S přátelským pozdravem,
@@ -1204,7 +1204,7 @@ Dein ###FORUM_NAME###-Team</label>
 			<label index="Mail_Subscribe_NewPost_Body">Hola ###RECIPIENT###,
 
 				###POST_AUTHOR### ha contestado con un mensaje en uno de los temas a los que está suscrito: ###TOPIC_LINK###.
-				Si no desea recibir más notificaciones sobre este tema, puede desactivar la suscripción en el siguiente enlace: ##UNSUBSCRIBE_LINK###.
+				Si no desea recibir más notificaciones sobre este tema, puede desactivar la suscripción en el siguiente enlace: ###UNSUBSCRIBE_LINK###.
 
 
 				Un cordial saludo,
@@ -1497,14 +1497,14 @@ Dein ###FORUM_NAME###-Team</label>
 			<label index="Submit">Envoyer</label>
 			<label index="Button_Helpful">Utile</label>
 			<label index="Mail_Subscribe_NewPost_Subject">Nouvelle intervention dans l'un des fils de discussion auxquels vous êtes abonné !</label>
-			<label index="Mail_Subscribe_NewPost_Body">Salut ###DESTINATAIRE###,
+			<label index="Mail_Subscribe_NewPost_Body">Salut ###RECIPIENT###,
 
-				###AUTEUR_INTERVENTION### a publié une réponse dans l'un des fils de discussion auxquels vous êtes abonné : ###LIEN_FIL###.
-				Si vous ne souhaitez plus recevoir de notifications pour ce fil de discussion, vous pouvez vous désabonner en cliquant sur le lien suivant : ##LIEN_DESABONNER###.
+				###POST_AUTHOR### a publié une réponse dans l'un des fils de discussion auxquels vous êtes abonné : ###TOPIC_LINK###.
+				Si vous ne souhaitez plus recevoir de notifications pour ce fil de discussion, vous pouvez vous désabonner en cliquant sur le lien suivant : ###UNSUBSCRIBE_LINK###.
 
 
 				Cordialement,
-				L'équipe de ###NOM_FORUM###</label>
+				L'équipe de ###FORUM_NAME###</label>
 		</languageKey>
 
 		<languageKey index="fr_CA"></languageKey>
@@ -1798,7 +1798,7 @@ Dein ###FORUM_NAME###-Team</label>
 			<label index="Mail_Subscribe_NewPost_Body">Ciao ###RECIPIENT###,
 
 				###POST_AUTHOR### ha risposto a uno dei tuoi topics sottoscritti: ###TOPIC_LINK###.
-				Se non desideri ricevere ulteriori notifiche su questo topic, rimuovi l'iscrizione facendo clic su questo link: ##UNSUBSCRIBE_LINK###.
+				Se non desideri ricevere ulteriori notifiche su questo topic, rimuovi l'iscrizione facendo clic su questo link: ###UNSUBSCRIBE_LINK###.
 
 
 				Distinti saluti,
@@ -2105,7 +2105,7 @@ Dein ###FORUM_NAME###-Team</label>
 			<label index="Mail_Subscribe_NewPost_Body">Привет ###RECIPIENT###,
 
 				###POST_AUTHOR### ответил в одной из абонированных Вами тем: ###TOPIC_LINK###.
-				Если Вы не хотите больше получать уведомлений по этой теме, щелкните в форуме по кнопке: ##UNSUBSCRIBE_LINK###.
+				Если Вы не хотите больше получать уведомлений по этой теме, щелкните в форуме по кнопке: ###UNSUBSCRIBE_LINK###.
 
 
 				С уважением,
