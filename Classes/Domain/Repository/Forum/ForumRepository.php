@@ -49,13 +49,7 @@ class ForumRepository extends Repository {
      * @api
      */
     public function createQuery() {
-        $query = $this->persistenceManager->createQueryForType($this->objectType);
-        if ($this->defaultOrderings !== array()) {
-            $query->setOrderings($this->defaultOrderings);
-        }
-        if ($this->defaultQuerySettings !== NULL) {
-            $query->setQuerySettings(clone $this->defaultQuerySettings);
-        }
+        $query = parent::createQuery();
 
         // don't add sys_language_uid constraint
         $query->getQuerySettings()->setRespectSysLanguage(FALSE);
