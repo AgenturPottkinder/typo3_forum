@@ -107,7 +107,7 @@ class NotificationService extends AbstractService implements NotificationService
 		])->build();
 		$unSubscribeLink = '<a href="' . $unSubscribeLink . '">' . $unSubscribeLink . '</a>';
 		foreach ($topic->getSubscribers() as $subscriber) {
-			if ($subscriber != $post->getAuthor()) {
+			if ($subscriber->getUid() != $post->getAuthor()->getUid() ) {
 				$marker = [
 					'###RECIPIENT###' => $subscriber->getUsername(),
 					'###POST_AUTHOR###' => $postAuthor,
