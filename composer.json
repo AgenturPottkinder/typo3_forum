@@ -4,7 +4,6 @@
 	"license": "GPL-2",
 	"type": "typo3-cms-extension",
 	"version": "1.0.3",
-	"minimum-stability": "stable",
 	"repositories": [
 		{
 			"type": "composer",
@@ -46,7 +45,7 @@
 	"scripts": {
 		"post-autoload-dump": [
 			"mkdir -p .Build/Web/typo3conf/ext/",
-			"[ -L .Build/Web/typo3conf/ext/typo3-forum ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/typo3-forum"
+			"[ -L .Build/Web/typo3conf/ext/typo3_forum ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/typo3_forum"
 		]
 	},
 	"extra": {
