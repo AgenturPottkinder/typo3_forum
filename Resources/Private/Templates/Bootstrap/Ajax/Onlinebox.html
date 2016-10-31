@@ -1,15 +1,15 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 <f:if condition="{users}">
 	<f:then>
-			<f:for each="{users}" as="user" iteration="iteration">
+			<f:for each="{users}" as="userOnline" iteration="iteration">
 				<div class="row-fluid">
 					<div class="item">
-						<mmf:user.avatar user="{user}" width="30"
-										 alt="{user.username}"
+						<mmf:user.avatar user="{userOnline}" width="30"
+										 alt="{userOnline.username}"
 										 class="tx-typo3forum-topic-show-post-user-icon img-polaroid img-rounded pull-left"/>
-						<mmf:user.link user="{user}" showOnline="1"/>
+						<mmf:user.link user="{userOnline}" showOnline="1"/>
 						<p>
-							{user.postCount} <f:translate key="Forum_Index_Posts" />
+							{userOnline.postCount} <f:translate key="Forum_Index_Posts" />
 						</p>
 					</div>
 				</div>
