@@ -41,7 +41,7 @@ class IfInstanceOfViewHelper extends IfViewHelper
     public function initializeArguments()
     {
         parent::initializeArguments();
-        $this->registerArgument('object', AbstractDomainObject::class, 'Object to check', true);
+        $this->registerArgument('object', 'TYPO3\\CMS\\Extbase\\DomainObject\\AbstractDomainObject', 'Object to check', true);
         $this->registerArgument('className', 'string', 'className which object has to be', true);
     }
 
