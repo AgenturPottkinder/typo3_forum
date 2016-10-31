@@ -24,13 +24,16 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Service\TypoScriptService;
 
 class Attachment extends AbstractEntity {
 
 	/**
 	 * The attachment file name.
-	 * @var Post
+	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Post
 	 * @lazy
 	 */
 	protected $post;
@@ -76,7 +79,7 @@ class Attachment extends AbstractEntity {
 	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
 	 */
 	public function initializeObject() {
-		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
+		$ts = $this->getTyposcriptService()->convertTypoScriptArrayToPlainArray($GLOBALS['TSFE']->tmpl->setup);
 		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
 	}
 
@@ -218,4 +221,24 @@ class Attachment extends AbstractEntity {
 	public function increaseDownloadCount() {
 		$this->downloadCount++;
 	}
+
+    /**
+     * Gets the whole TCA config of tx_typo3forum_domain_model_forum_attachment
+     * @return array The whole TCA config of tx_typo3forum_domain_model_forum_attachment
+     */
+    public function getTCAConfig() {
+        return $GLOBALS['TCA']['tx_typo3forum_domain_model_forum_attachment'];
+    }
+
+    /**
+     * @return TypoScriptService
+     */
+    private function getTyposcriptService()
+    {
+        if (is_null($this->typoScriptService)) {
+           $this->typoScriptService = GeneralUtility::makeInstance('\\TYPO3\\CMS\\Extbase\\Service\\TypoScriptService');
+        }
+
+        return $this->typoScriptService;
+    }
 }
