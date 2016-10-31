@@ -11,7 +11,7 @@
 	<h2>
 		<f:translate key="Topic_New"/>
 	</h2>
-	<f:form name="post" object="{post}" controller="Topic" action="create" id="topic" >
+	<f:form name="post" object="{post}" controller="Topic" action="create" id="topic" enctype="multipart/form-data">
 		<fieldset>
 			<legend>Create a new topic</legend>
 			<f:if condition="{currentUser.anonymous}">
