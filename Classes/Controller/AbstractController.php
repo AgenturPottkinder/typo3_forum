@@ -29,6 +29,7 @@ use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Utility\Localization;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 
 abstract class AbstractController extends ActionController {
 
@@ -82,9 +83,18 @@ abstract class AbstractController extends ActionController {
 	 */
 	protected $context = self::CONTEXT_WEB;
 
-	/*
-	 * METHODS
-	 */
+    /**
+     * @param ViewInterface $view
+     */
+    protected function initializeView(ViewInterface $view)
+    {
+        parent::initializeView($view);
+        $this->view->assign('currentUser', $this->getCurrentUser());
+    }
+
+    /*
+     * METHODS
+     */
 
 	/**
 	 *
