@@ -25,6 +25,7 @@ namespace Mittwald\Typo3Forum\Domain\Repository\User;
 	 *                                                                      */
 use Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use Mittwald\Typo3Forum\Domain\Repository\AbstractRepository;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 
@@ -44,7 +45,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository {
+class FrontendUserRepository extends AbstractRepository  {
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager
@@ -57,21 +58,7 @@ class FrontendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Fronte
 	 * @inject
 	 */
 	protected $typoScriptService = NULL;
-
-	/**
-	 * Whole TypoScript typo3_forum settings
-	 * @var array
-	 */
-	protected $settings;
-
-	public function initializeObject() {
-		$typoScriptArray = $this->frontendConfigurationManager->getTypoScriptSetup();
-		if (is_array($typoScriptArray)) {
-			$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray($typoScriptArray);
-			$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
-		}
-	}
-
+    
 	/**
 	 * Finds the user that is currently logged in, or NULL if no user is logged in.
 	 *
