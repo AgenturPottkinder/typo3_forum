@@ -21,7 +21,7 @@
 
     <mmf:authentication.ifLoggedIn>
         <li>
-            <mmf:user.ifSubscribed object="{forum}">
+            <mmf:user.ifSubscribed object="{forum}" user="{currentUser}">
                 <f:then>
                     <f:link.action controller="User" action="subscribe" arguments="{forum: forum, unsubscribe: 1}">
                         <i class="tx-typo3forum-icon-16-unsubscribe"></i> {f:translate(key:'Button_Unsubscribe')}
