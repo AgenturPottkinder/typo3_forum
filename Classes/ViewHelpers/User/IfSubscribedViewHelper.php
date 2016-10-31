@@ -49,29 +49,9 @@ class IfSubscribedViewHelper extends IfViewHelper
     {
         parent::initializeArguments();
         $this->registerArgument('object', SubscribeableInterface::class, 'Object to check', true);
-        $this->registerArgument('user', FrontendUser::class, 'className which object has to be', false, null);
+        $this->registerArgument('user', FrontendUser::class, 'className which object has to be', true);
     }
 
-    /**
-     * @return string
-     */
-    public function render()
-    {
-        $object = $this->getSubscribeableObject();
-        $user = $this->arguments['user'];
-
-        if ($user === null) {
-            $user = $this->frontendUserRepository->findCurrent();
-        }
-
-        foreach ($object->getSubscribers() As $subscriber) {
-            if ($subscriber->getUid() == $user->getUid()) {
-                return $this->renderThenChild();
-            }
-        }
-
-        return $this->renderElseChild();
-    }
 
     /**
      * @return SubscribeableInterface
@@ -79,5 +59,16 @@ class IfSubscribedViewHelper extends IfViewHelper
     protected function getSubscribeableObject()
     {
         return $this->arguments['object'];
+    }
+
+    /**
+     * This method decides if the condition is TRUE or FALSE. It can be overriden in extending viewhelpers to adjust functionality.
+     *
+     * @param array $arguments ViewHelper arguments to evaluate the condition for this ViewHelper, allows for flexiblity in overriding this method.
+     * @return bool
+     */
+    protected static function evaluateCondition($arguments = null)
+    {
+        return ($arguments['object']->getSubscribers()->contains($arguments['user']));
     }
 }
