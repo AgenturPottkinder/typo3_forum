@@ -24,7 +24,6 @@ namespace Mittwald\Typo3Forum\ViewHelpers;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
 use TYPO3\CMS\Fluid\ViewHelpers\IfViewHelper;
 
 /**
