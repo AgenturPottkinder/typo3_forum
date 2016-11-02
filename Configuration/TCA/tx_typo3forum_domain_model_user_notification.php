@@ -11,7 +11,7 @@ return [
 		'type' => 'type',
 		'crdate' => 'crdate',
 		'delete' => 'deleted',
-		'sortby' => 'ORDER BY crdate',
+		'sortby' => 'ORDER BY crdate DESC',
 		'hideTable' => TRUE,
 		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/User/notification.png',
 	],
