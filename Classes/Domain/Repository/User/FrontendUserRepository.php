@@ -54,12 +54,6 @@ class FrontendUserRepository extends AbstractRepository  {
 	protected $frontendConfigurationManager;
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
-	 * @inject
-	 */
-	protected $typoScriptService = NULL;
-    
-	/**
 	 * Finds the user that is currently logged in, or NULL if no user is logged in.
 	 *
 	 * @return FrontendUser The user that is currently logged in, or AnonymousFrontendUser if no user is logged in.
