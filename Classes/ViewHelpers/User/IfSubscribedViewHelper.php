@@ -25,8 +25,6 @@ namespace Mittwald\Typo3Forum\ViewHelpers\User;
  *                                                                      */
 
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
-use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
-use Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository;
 use TYPO3\CMS\Fluid\ViewHelpers\IfViewHelper;
 
 /**
@@ -48,8 +46,8 @@ class IfSubscribedViewHelper extends IfViewHelper
     public function initializeArguments()
     {
         parent::initializeArguments();
-        $this->registerArgument('object', SubscribeableInterface::class, 'Object to check', true);
-        $this->registerArgument('user', FrontendUser::class, 'className which object has to be', false, null);
+        $this->registerArgument('object', 'Mittwald\\Typo3Forum\\Domain\\Model\\SubscribeableInterface', 'Object to check', true);
+        $this->registerArgument('user', 'Mittwald\\Typo3Forum\\Domain\\Model\\User\\FrontendUser', 'className which object has to be', false, null);
     }
 
     /**
