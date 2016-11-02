@@ -697,7 +697,7 @@ CREATE TABLE fe_users (
   tx_typo3forum_post_count_session int(11) default '0',
   tx_typo3forum_signature text,
   tx_typo3forum_interests text,
-  tx_typo3forum_userfield_values int(11) unsigned default '0'
+  tx_typo3forum_userfield_values int(11) unsigned default '0',
   tx_typo3forum_read_forum int(11) unsigned default '0',
   tx_typo3forum_read_topics int(11) unsigned default '0',
   tx_typo3forum_support_posts int(11) unsigned default '0',
