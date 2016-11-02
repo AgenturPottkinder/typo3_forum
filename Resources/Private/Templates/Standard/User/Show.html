@@ -47,8 +47,8 @@
             <fieldset>
                 <legend>
                     <f:translate key="User_Show_LatestPosts"/>
-                    <f:link.action action="listPosts" arguments="{user: user}"
-                    <f:translate key="Generic_More"/>
+                    <f:link.action action="listPosts" arguments="{user: user}">
+                        <f:translate key="Generic_More"/>
                     </f:link.action>
                 </legend>
                 <f:render partial="Topic/List" arguments="{topics: topics}"/>
