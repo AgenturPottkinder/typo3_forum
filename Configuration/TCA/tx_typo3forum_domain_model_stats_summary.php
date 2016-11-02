@@ -10,7 +10,7 @@ return [
 		'label_alt_force' => true,
 		'tstamp' => 'tstamp',
 		'delete' => 'deleted',
-		'sortby' => 'tstamp DESC',
+		'default_sortby' => 'ORDER BY tstamp',
 		'hideTable' => TRUE,
 		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/Stats/summary.png',
 	],
