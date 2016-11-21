@@ -595,10 +595,11 @@ page.includeCSS {
 }
 
 page.includeJSLibs {
-    typo3forum_jquery = https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js
+    typo3forum_jquery = https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js
     typo3forum_jquery.external = 1
-    typo3forum_bootstrap = EXT:typo3_forum/Resources/Public/Bootstrap/js/bootstrap.min.js
-    typo3forum_markitup = EXT:typo3_forum/Resources/Public/Javascript/markitup-1.1.12/jquery.markitup.js
+    typo3forum_bootstrap = https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js
+    typo3forum_bootstrap.external = 1
+    typo3forum_markitup = EXT:typo3_forum/Resources/Public/Javascript/markitup/jquery.markitup.js
 }
 # add typo3 6.2 compatibility
 page.includeJSlibs.typo3forum_jquery < page.includeJSLibs.typo3forum_jquery
