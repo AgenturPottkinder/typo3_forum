@@ -591,7 +591,7 @@ plugin.tx_typo3forum.userfields {
 page.includeCSS {
     typo3_forum = EXT:typo3_forum/Resources/Public/Stylesheets/typo3_forum.css
     bootstrap = EXT:typo3_forum/Resources/Public/Bootstrap/css/bootstrap.css
-    markitup_bb = EXT:typo3_forum/Resources/Public/Javascript/markitup-1.1.12/sets/typo3_forum/style.css
+    markitup_bb = EXT:typo3_forum/Resources/Public/Javascript/markitup/sets/typo3_forum/style.css
 }
 
 page.includeJSLibs {
