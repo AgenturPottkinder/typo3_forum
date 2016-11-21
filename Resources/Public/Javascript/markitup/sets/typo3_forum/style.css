@@ -1,0 +1,85 @@
+/*                                                                    - *
+ *  COPYRIGHT NOTICE                                                    *
+ *                                                                      *
+ *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
+ *           All rights reserved                                        *
+ *                                                                      *
+ *  This script is part of the TYPO3 project. The TYPO3 project is      *
+ *  free software; you can redistribute it and/or modify                *
+ *  it under the terms of the GNU General Public License as published   *
+ *  by the Free Software Foundation; either version 2 of the License,   *
+ *  or (at your option) any later version.                              *
+ *                                                                      *
+ *  The GNU General Public License can be found at                      *
+ *  http://www.gnu.org/copyleft/gpl.html.                               *
+ *                                                                      *
+ *  This script is distributed in the hope that it will be useful,      *
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of      *
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the       *
+ *  GNU General Public License for more details.                        *
+ *                                                                      *
+ *  This copyright notice MUST APPEAR in all copies of the script!      *
+ *                                                                      */
+
+.markItUp .tx-typo3forum-miu-bold a {
+	background-image: url(images/bold.png);
+}
+
+.markItUp .tx-typo3forum-miu-italic a {
+	background-image: url(images/italic.png);
+}
+
+.markItUp .tx-typo3forum-miu-underline a {
+	background-image: url(images/underline.png);
+}
+
+.markItUp .tx-typo3forum-miu-picture a {
+	background-image: url(images/picture.png);
+}
+
+.markItUp .tx-typo3forum-miu-link a {
+	background-image: url(images/link.png);
+}
+
+.markItUp .tx-typo3forum-miu-ulist a {
+	background-image: url(images/list-bullet.png);
+}
+
+.markItUp .tx-typo3forum-miu-olist a {
+	background-image: url(images/list-numeric.png);
+}
+
+.markItUp .tx-typo3forum-miu-quote a {
+	background-image: url(images/quotes.png);
+}
+
+.markItUp .tx-typo3forum-miu-code a {
+	background-image: url(images/code.png);
+}
+
+.markItUp .tx-typo3forum-miu-smileys a {
+	background-image: url(images/smiley.png);
+}
+
+.markItUp .tx-typo3forum-miu-smileys ul {
+	width: 125px;
+	padding: 4px;
+}
+
+.markItUp .tx-typo3forum-miu-smileys li {
+	border: 1px solid #fff;
+	padding: 0;
+	margin: 0;
+	width: 25px;
+	height: 25px;
+	overflow: hidden;
+	float: left;
+}
+
+.markItUp .clean a {
+	background-image: url(images/clean.png);
+}
+
+.markItUp .preview a {
+	background-image: url(images/preview.png);
+}
