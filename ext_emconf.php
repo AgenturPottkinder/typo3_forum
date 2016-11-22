@@ -13,7 +13,10 @@ $EM_CONF[$_EXTKEY] = [
 	'createDirs' => 'typo3temp/typo3_forum,typo3temp/typo3_forum/gravatar',
 	'modify_tables' => 'fe_users',
 	'clearCacheOnLoad' => 0,
-	'version' => '1.0.3',
+
+	// NOTE: DO NOT CHANGE this version number manually.
+	// This is done by the build-release.sh script.
+	'version' => '1.0-dev',
 	'constraints' => [
 		'depends' => [
 			'typo3' => '6.2.0-7.6.99',
