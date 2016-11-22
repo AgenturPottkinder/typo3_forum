@@ -24,8 +24,11 @@ namespace Mittwald\Typo3Forum\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
+use TYPO3\CMS\Extbase\Service\TypoScriptService;
 
 /**
  *
@@ -43,20 +46,77 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  *             http://opensource.org/licenses/gpl-license.php
  *
  */
-abstract class AbstractRepository extends Repository {
+abstract class AbstractRepository extends Repository
+{
 
-	/**
-	 * @return QueryInterface
-	 */
-	protected function createQueryWithFallbackStoragePage() {
-		$query = $this->createQuery();
+    /**
+     * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+     * @inject
+     *
+     */
+    protected $typoScriptService;
 
-		$storagePageIds = $query->getQuerySettings()->getStoragePageIds();
-		$storagePageIds[] = 0;
+    /**
+     * @var array
+     */
+    protected $settings = [];
 
-		$query->getQuerySettings()->setStoragePageIds($storagePageIds);
+    /**
+     * @var array
+     */
+    protected $persistenceSettings = [];
 
-		return $query;
-	}
+    /**
+     *
+     */
+    public function initializeObject()
+    {
+        $ts = $this->getTypoScriptService()->convertTypoScriptArrayToPlainArray($GLOBALS['TSFE']->tmpl->setup);
+        $this->settings = $ts['plugin']['tx_typo3forum']['settings'];
+        $this->persistenceSettings = $ts['plugin']['tx_typo3forum']['persistence'];
+
+        if (isset($this->persistenceSettings['storagePid'])) {
+            $this->setDefaultQuerySettings(
+                $this->getQuerySettings()->setStoragePageIds(explode(',', $this->persistenceSettings['storagePid']))
+            );
+        }
+    }
+
+
+    /**
+     * @return QueryInterface
+     */
+    protected function createQueryWithFallbackStoragePage()
+    {
+        $query = $this->createQuery();
+
+        $storagePageIds = $query->getQuerySettings()->getStoragePageIds();
+        $storagePageIds[] = 0;
+
+        $query->getQuerySettings()->setStoragePageIds($storagePageIds);
+
+        return $query;
+    }
+
+
+    /**
+     * @return TypoScriptService
+     */
+    protected function getTypoScriptService()
+    {
+        if (is_null($this->typoScriptService)) {
+            $this->typoScriptService = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService');
+        }
+
+        return $this->typoScriptService;
+    }
+
+    /**
+     * @return QuerySettingsInterface
+     */
+    private function getQuerySettings()
+    {
+        return $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\QuerySettingsInterface');
+    }
 
 }

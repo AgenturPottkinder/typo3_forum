@@ -26,19 +26,17 @@
             <mmf:form.bbCodeEditor property="text" id="typo3forum_editor" rows="20" cols="40"
                                    class="tx-typo3forum-editor span8"/>
         </b:form.row>
-        <mmf:authentication.ifAccess object="{topic}" accessType="newAttachment">
-            <b:form.row llLabel="Post_New_Attachments">
-                <f:if condition="{post.attachments}">
-                    <f:for each="{post.attachments}" as="attachment">
-                        <div>
-                            {attachment.filename},
-                            <mmf:format.fileSize>{attachment.filesize}</mmf:format.fileSize>
-                        </div>
-                    </f:for>
-                </f:if>
-                <f:form.upload name="attachments[]"/>
-            </b:form.row>
-        </mmf:authentication.ifAccess>
+        <b:form.row llLabel="Post_New_Attachments">
+            <f:if condition="{post.attachments}">
+                <f:for each="{post.attachments}" as="attachment">
+                    <div>
+                        {attachment.filename},
+                        <mmf:format.fileSize>{attachment.filesize}</mmf:format.fileSize>
+                    </div>
+                </f:for>
+            </f:if>
+            <f:form.upload name="attachments[0]"/>
+        </b:form.row>
         <div>
             <f:form.hidden name="topic" value="{topic}"/>
             <f:form.submit value="{f:translate(key: 'Post_New_Submit')}"/>

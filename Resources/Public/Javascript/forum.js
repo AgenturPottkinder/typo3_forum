@@ -87,11 +87,28 @@ jQuery(document).ready(function($) {
 		displayedAds['mode'] = 1;
 
 	});
-
-    if (typeof currentPageUid !== 'undefined') {
+	/* 
+		support old layout versions
+	*/
+	if(typeof typo3_forum_ajaxUrl === 'undefined'
+		&& typeof currentPageUid !== 'undefined'
+	){
+        typo3_forum_ajaxUrl = "?id=" + currentPageUid + "&eID=typo3_forum&language=de&tx_typo3forum_ajax[controller]=Ajax&tx_typo3forum_ajax[action]=main&tx_typo3forum_ajax[format]=json";
+    }
+    if(typeof typo3_forum_ajaxUrl_helpful === 'undefined'
+    	&& typeof currentPageUid !== 'undefined'
+    ){
+        typo3_forum_ajaxUrl_helpful = "index.php?id=" + currentPageUid +
+            "&eID=" + "__typo3_forum_eid__" +
+            "&tx_typo3forum_ajax[controller]=Post" +
+            "&tx_typo3forum_ajax[action]=" + "__typo3_forum_action__" +
+            "&tx_typo3forum_ajax[post]=" + "__typo3_forum_post__";
+    }
+    
+    if (typeof typo3_forum_ajaxUrl !== 'undefined') {
         $.ajax({
             type: "POST",
-            url: "?id=" + currentPageUid + "&eID=typo3_forum&language=de&tx_typo3forum_ajax[controller]=Ajax&tx_typo3forum_ajax[action]=main&tx_typo3forum_ajax[format]=json",
+            url: typo3_forum_ajaxUrl,
             async: true,
             data: {
                 "tx_typo3forum_ajax[displayedUser]": JSON.stringify(displayedUser),
@@ -162,12 +179,19 @@ jQuery(document).ready(function($) {
                     var counttargetVal = $('.' + $(targetElement).attr('data-counttarget')).html();
                     var countusertargetVal = $('.' + $(targetElement).attr('data-countusertarget')).html();
                     var type = 'add';
+                    var action = 'addSupporter';
+                    var eID  = $(this).attr('data-eid');
+                    var post = $(this).attr('data-post');
                     if ($(targetElement).hasClass('supported')) {
                         type = 'remove';
+                        action = 'removeSupporter';
                     }
                     $.ajax({
                         type: "GET",
-                        url: "index.php?id=" + currentPageUid + "&eID=" + $(this).attr('data-eid') + "&tx_typo3forum_ajax[controller]=Post&tx_typo3forum_ajax[action]=" + type + "Supporter&tx_typo3forum_ajax[post]=" + $(this).attr('data-post'),
+                        url: typo3_forum_ajaxUrl_helpful
+                                .replace('__typo3_forum_eid__', eID)
+                                .replace('__typo3_forum_action__', action)
+                                .replace('__typo3_forum_post__',post),
                         async: false,
                         beforeSend: function (msg) {
                             $('.' + $(targetElement).attr('data-counttarget')).html('<div class="tx-typo3forum-ajax-loader"></div>');

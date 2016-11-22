@@ -98,16 +98,8 @@ final class Dispatcher implements SingletonInterface {
 	 * Galinski.
 	 */
 	protected function initTYPO3() {
-		//Check which language should be used
-		$ts = $this->loadTS((int)$_GET['id']);
-		$languages = explode(',',$ts['plugin.']['tx_typo3forum.']['settings.']['allowedLanguages']);
-		$submittedLang = trim($_GET['language']);
+		
 
-		if($submittedLang == false || !array_search($submittedLang,$languages)) {
-			$lang = "default";
-		} else {
-			$lang = $submittedLang;
-		}
 
 		// The following code was adapted from the df_tools extension.
 		// Credits go to Stefan Galinski.
@@ -116,15 +108,38 @@ final class Dispatcher implements SingletonInterface {
 		$GLOBALS['TSFE']->no_cache = TRUE;
 		$GLOBALS['TSFE']->tmpl->start($GLOBALS['TSFE']->rootLine);
 		$GLOBALS['TSFE']->no_cache = FALSE;
+
+        $language = '';
+        if(isset($GLOBALS['TSFE']->tmpl->setup['config.']['language'])) {
+            $language = $GLOBALS['TSFE']->tmpl->setup['config.']['language'];
+        }
+        $sys_language_uid = 0;
+        if(isset($GLOBALS['TSFE']->tmpl->setup['config.']['sys_language_uid'])) {
+            $sys_language_uid = $GLOBALS['TSFE']->tmpl->setup['config.']['sys_language_uid'];
+        }
+        $linkVars = '';
+        if(isset($GLOBALS['TSFE']->tmpl->setup['config.']['linkVars'])) {
+            $linkVars = $GLOBALS['TSFE']->tmpl->setup['config.']['linkVars'];
+        }
+        $locale_all = '';
+        if(isset($GLOBALS['TSFE']->tmpl->setup['config.']['locale_all'])) {
+            $locale_all = $GLOBALS['TSFE']->tmpl->setup['config.']['locale_all'];
+        }
+
 		$GLOBALS['TSFE']->config = [];
 		$GLOBALS['TSFE']->config['config'] = ['sys_language_mode' => 'content_fallback;0',
 			'sys_language_overlay' => 'hideNonTranslated',
 			'sys_language_softMergeIfNotBlank' => '',
 			'sys_language_softExclude' => '',
-			'language' => $lang,
+			'language' => $language,
+            'sys_language_uid' => $sys_language_uid,
+            'linkVars' => $linkVars,
+            'locale_all' => $locale_all,
 		];
 
 		$GLOBALS['TSFE']->settingLanguage();
+        $GLOBALS['TSFE']->settingLocale();
+        $GLOBALS['TSFE']->calculateLinkVars();
 	}
 
 

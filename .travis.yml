@@ -1,11 +1,20 @@
 language: php
-
 php:
-  - 5.5
-  - 5.6
-  - 7.0
-
+- 5.5
+- 5.6
+- 7.0
 sudo: false
-
 script:
-  - find Configuration Classes -name '*.php' | xargs -l1 php -l
+- find Configuration Classes -name '*.php' | xargs -l1 php -l
+before_deploy:
+  - ./build-release.sh ${TRAVIS_TAG/v/}
+deploy:
+  provider: releases
+  api_key:
+    secure: CRRre/wcpovNAH9ia20H9Asxa+EKRtyNEgn+LdADA/93/fqQ2CiS/UPOlKhhS/5ykH0soUfUvSmbQCRNd5iC3+8V8wDBp3NgD4/bzIynCwCP4AnqrBMzgQnstQTdE39dWTyJGYDrG1fEFYkQU7AVeFBvT4qr13kPZcdTdOp4ydsscoek084M2lcS25EBus8SaXEofGAHt6R58ox++BnCk1nYbHTVUioLxUqy4/H5nNUvqYWJ+lqRDgWTsjyj3sCZ+edmnulQTFeVlHE6Q+Sw1ddw6NTzdJM+a/Xvj98unfJB0Nm+1C6MV3TFGFU1od/oWaWCDlMN8GlVtyFhcn/7qnZqVt2vEq14qz0Ov9wTPVx84l/cn1GOr3+Mtuz4GiIB3fCdSa6fBcpPaK08i3lcZZ1Mh1tUO/XuQkYwS2HnNLTYJMYOyzvNQIGpq37fwIs0n9wL1DLGBpUih0KiWI9nY7x9GDk+d5q+ZguTI1BjQNpkNnjD+DzMbtBLts7+Muh0eb4BxOvfiAXi5aogAVcCgBTnej5TQXujnn/eW268rFO2/mB8BDrIu+02UHs7YxAzGTPK0gg/FYq6zSbNiuU6QVmCcCYyTgNivd1hrMSghZj+KZcNXAIYFZ1MBXXdQNJUFc0r29dhLlqNiUa6w9I3Gs8qP6G52qgdos8zemHV2bw=
+  file_glob: true
+  file: typo3_forum_*.zip
+  on:
+    repo: mittwald/typo3-forum
+    tags: true
+    php: 5.6
