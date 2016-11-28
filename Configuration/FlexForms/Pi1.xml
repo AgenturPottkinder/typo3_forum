@@ -120,7 +120,7 @@
 								<type>input</type>
 								<size>6</size>
 								<eval>int,required</eval>
-								<default>3</default>
+								<default>6</default>
 							</config>
 							<displayCond>FIELD:switchableControllerActions:=:Topic->list</displayCond>
 						</TCEforms>
