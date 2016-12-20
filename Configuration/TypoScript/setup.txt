@@ -215,7 +215,7 @@ plugin.tx_typo3forum.settings {
     useSqlStatementsOnCriticalFunctions = {$plugin.tx_typo3forum.settings.useSqlStatementsOnCriticalFunctions}
 
     images {
-        avatar.uploadDir = uploads/tx_srfeuserregister
+        avatar.uploadDir = uploads/pics
         # use following definitions to have different Default avatars for male and female
         #avatar.dummyMale = /uploads/path_to_male_avatar.jpg
         #avatar.dummyFemale = /uploads/path_to_female_avatar.jpg
