@@ -225,7 +225,7 @@ plugin.tx_typo3forum.settings {
         Forum = {$plugin.tx_typo3forum.settings.pids.Forum}
         UserShow = {$plugin.tx_typo3forum.settings.pids.UserShow}
         UserList = {$plugin.tx_typo3forum.settings.pids.UserList}
-        UserEdit = {$plugin.tx_typo3forum.settings.pids.QuestionEdit}
+        UserEdit = {$plugin.tx_typo3forum.settings.pids.UserEdit}
         Dashboard = {$plugin.tx_typo3forum.settings.pids.Dashboard}
         AllQuestions = {$plugin.tx_typo3forum.settings.pids.AllQuestions}
     }
