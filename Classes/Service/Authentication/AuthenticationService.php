@@ -31,6 +31,8 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use Mittwald\Typo3Forum\Service\AbstractService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * A service class that handles the entire authentication.
@@ -64,10 +66,20 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 	 */
 	private $userGroupIdentifier = NULL;
 
+	/**
+	 * @var TypoScriptFrontendController
+	 */
+	protected $typoScriptFrontendController;
+
+
+	public function __construct()
+	{
+		$this->typoScriptFrontendController = $GLOBALS['TSFE'];
+	}
+
 	/*
 	 * AUTHENTICATION METHODS
 	 */
-
 
 	/**
 	 * Asserts that the current user is authorized to read a specific object.
@@ -204,11 +216,8 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 			if ($user === NULL) {
 				$this->userGroupIdentifier = 'n';
 			} else {
-				$groupUids = [];
-				foreach ($user->getUsergroup() as $group) {
-					/** @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup $group */
-					$groupUids[] = $group->getUid();
-				}
+				$groupUids = GeneralUtility::trimExplode(',', $this->typoScriptFrontendController->gr_list);
+
 				$this->userGroupIdentifier = implode('g', $groupUids);
 			}
 		}

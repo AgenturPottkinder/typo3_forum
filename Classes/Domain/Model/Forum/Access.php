@@ -26,6 +26,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
 
 /**
@@ -94,6 +95,7 @@ class Access extends AbstractValueObject {
 	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup
 	 */
 	protected $affectedGroup;
+
 
 
 	public function __construct($operation = NULL, $level = NULL, \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup $group = NULL) {
@@ -184,16 +186,16 @@ class Access extends AbstractValueObject {
 				throw new \Exception('access record #' . $this->getUid() . ' is of login level type "specific", but has not valid affected user group', 1436527735);
 			}
 			if ($user !== NULL) {
-				foreach ($user->getUsergroup() as $group) {
-					/** @var $group \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup */
-					if ($group->getUid() === $this->affectedGroup->getUid()) {
+				$userGroupUids = GeneralUtility::trimExplode(',', $GLOBALS['TSFE']->gr_list);
+
+				foreach ($userGroupUids as $groupUid) {
+					if ((integer) $groupUid === $this->affectedGroup->getUid()) {
 						$result = TRUE;
 						break;
 					}
 				}
 			}
 		}
-
 		return $result;
 	}
 
