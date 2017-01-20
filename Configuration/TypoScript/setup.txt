@@ -21,7 +21,6 @@ config.tx_extbase.persistence.classes {
     Mittwald\Typo3Forum\Domain\Model\User\FrontendUser {
         mapping {
             tableName = fe_users
-            recordType = Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
 
             columns {
                 tx_typo3forum_signature.mapOnProperty = signature
@@ -57,7 +56,6 @@ config.tx_extbase.persistence.classes {
     Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup {
         mapping {
             tableName = fe_groups
-            recordType = Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup
             columns {
                 tx_typo3forum_user_mod.mapOnProperty = userMod
             }
