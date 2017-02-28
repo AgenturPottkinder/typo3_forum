@@ -28,43 +28,32 @@
 namespace Mittwald\Typo3Forum\Service\Migration;
 
 
+use TYPO3\CMS\Core\Messaging\FlashMessage;
+
+/**
+ * Class PostsMigrationService
+ * @package Mittwald\Typo3Forum\Service\Migration
+ */
 class PostsMigrationService extends AbstractMigrationService
 {
 
+    /**
+     * @return string
+     */
     public function migrate()
     {
         $this->truncateNewTable();
 
-        if (($posts = $this->databaseConnection->exec_SELECTquery('*', 'tx_mmforum_posts', '1=1'))) {
+        if (($posts = $this->getOldPosts())) {
             foreach ($posts as $post) {
-                $text = $this->databaseConnection->exec_SELECTgetSingleRow(
-                    '*',
-                    'tx_mmforum_posts_text',
-                    'post_id = '.$post['uid']
-                );
-
-                $newPost = [
-                    'uid' => $post['uid'],
-                    'pid' => $post['pid'],
-                    'topic' => $post['topic_id'],
-                    'text' => $text['post_text'],
-                    'rendered_text' => $text['cache_text'],
-                    'author' => $post['poster_id'],
-                    'tstamp' => $post['tstamp'],
-                    'crdate' => $post['crdate'],
-                    'deleted' => $post['deleted'],
-                    'hidden' => $post['hidden'],
-                    'attachments' => $post['attachment'],
-                ];
-
-                $this->databaseConnection->exec_INSERTquery(
-                    'tx_typo3forum_domain_model_forum_post',
-                    $newPost
-                );
+                if (($text = $this->getTextForCurrentPost($post['uid']))) {
+                    $newPost = $this->getNewPost(array_merge($post, $text));
+                    $this->persistNewPost($newPost);
+                }
             }
 
             $this->addMessage(
-                \TYPO3\CMS\Core\Messaging\FlashMessage::OK,
+                FlashMessage::OK,
                 'MIGRATED '.$this->getTitle(),
                 'MIGRATED '.$this->getTitle().'ENTRIES'
             );
@@ -86,7 +75,7 @@ class PostsMigrationService extends AbstractMigrationService
      */
     public function getOldTableName()
     {
-        return '';
+        return 'tx_mmforum_posts';
     }
 
     /**
@@ -104,4 +93,55 @@ class PostsMigrationService extends AbstractMigrationService
     {
         return 'POSTS';
     }
+
+    /**
+     * @return bool|\mysqli_result|object
+     */
+    private function getOldPosts()
+    {
+        return $this->databaseConnection->exec_SELECTquery('*', $this->getOldTableName(), '1=1');
+    }
+
+    /**
+     * @param array $newPost
+     */
+    private function persistNewPost(array $newPost)
+    {
+        $this->databaseConnection->exec_INSERTquery($this->getNewTableName(), $newPost);
+    }
+
+    /**
+     * @param $postId
+     * @return array|FALSE|NULL
+     */
+    private function getTextForCurrentPost($postId)
+    {
+        return $this->databaseConnection->exec_SELECTgetSingleRow(
+            '*',
+            'tx_mmforum_posts_text',
+            'post_id = '.$postId
+        );
+    }
+
+    /**
+     * @param $oldData
+     * @return array
+     */
+    private function getNewPost($oldData)
+    {
+        return [
+            'uid' => $oldData['uid'],
+            'pid' => $oldData['pid'],
+            'topic' => $oldData['topic_id'],
+            'text' => $oldData['post_text'],
+            'rendered_text' => $oldData['cache_text'],
+            'author' => $oldData['poster_id'],
+            'tstamp' => $oldData['tstamp'],
+            'crdate' => $oldData['crdate'],
+            'deleted' => $oldData['deleted'],
+            'hidden' => $oldData['hidden'],
+            'attachments' => $oldData['attachment'],
+        ];
+    }
+
 }
