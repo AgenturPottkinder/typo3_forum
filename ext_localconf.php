@@ -91,6 +91,7 @@ $TYPO3_CONF_VARS['FE']['eID_include']['typo3_forum'] = 'EXT:typo3_forum/Classes/
 $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\SignalSlot\Dispatcher');
 $signalSlotDispatcher->connect('Mittwald\Typo3Forum\Domain\Model\Forum\Post', 'postCreated', 'Mittwald\Typo3Forum\Service\Notification\SubscriptionListener', 'onPostCreated');
 $signalSlotDispatcher->connect('Mittwald\Typo3Forum\Domain\Model\Forum\Topic', 'topicCreated', 'Mittwald\Typo3Forum\Service\Notification\SubscriptionListener', 'onTopicCreated');
+$signalSlotDispatcher->connect('TYPO3\\CMS\\Extensionmanager\\Service\\ExtensionManagementService', 'hasInstalledExtensions', 'Mittwald\\Typo3Forum\\Service\\InstallService', 'checkForMigrationOption');
 
 // adding scheduler tasks
 
