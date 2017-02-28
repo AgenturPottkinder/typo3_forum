@@ -54,8 +54,8 @@ class PostsMigrationService extends AbstractMigrationService
 
             $this->addMessage(
                 FlashMessage::OK,
-                'MIGRATED '.$this->getTitle(),
-                'MIGRATED '.$this->getTitle().'ENTRIES'
+                'MIGRATED ' . $this->getTitle(),
+                'MIGRATED ' . $this->getTitle() . 'ENTRIES'
             );
         }
 
@@ -119,7 +119,7 @@ class PostsMigrationService extends AbstractMigrationService
         return $this->databaseConnection->exec_SELECTgetSingleRow(
             '*',
             'tx_mmforum_posts_text',
-            'post_id = '.$postId
+            'post_id = ' . $postId
         );
     }
 

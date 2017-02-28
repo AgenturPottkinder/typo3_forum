@@ -112,8 +112,8 @@ class ForumMigrationService extends AbstractMigrationService
      */
     private function addACL(array $row, $role, $operation, $loginLevel)
     {
-        if (($row[$role.'rights_'.$operation])) {
-            $groups = GeneralUtility::trimExplode(',', $row[$role.'rights_'.$operation]);
+        if (($row[$role . 'rights_' . $operation])) {
+            $groups = GeneralUtility::trimExplode(',', $row[$role . 'rights_' . $operation]);
             foreach ($groups as $group) {
                 $acl['pid'] = $row['pid'];
                 $acl['login_level'] = $loginLevel;

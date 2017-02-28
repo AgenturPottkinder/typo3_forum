@@ -136,21 +136,21 @@ abstract class AbstractMigrationService
         if (array_key_exists($oldTable, $this->getCurrentTables())) {
             $this->databaseConnection->exec_TRUNCATEquery($newTable);
             $result = $this->databaseConnection->admin_query(
-                'INSERT INTO '.$newTable.' ('.implode(',', $newFields).') SELECT '.implode(
+                'INSERT INTO ' . $newTable . ' (' . implode(',', $newFields) . ') SELECT ' . implode(
                     ',', $fields
-                ).' FROM '.$oldTable
+                ) . ' FROM ' . $oldTable
             );
 
             if ($result) {
                 $this->addMessage(
                     FlashMessage::OK,
-                    'MIGRATED '.$title,
-                    'MIGRATED '.$title.' ENTRIES'
+                    'MIGRATED ' . $title,
+                    'MIGRATED ' . $title . ' ENTRIES'
                 );
             } else {
                 $this->addMessage(
                     FlashMessage::ERROR,
-                    'ERROR ON MIGRATION OF '.$title,
+                    'ERROR ON MIGRATION OF ' . $title,
                     $this->databaseConnection->sql_error()
                 );
             }
