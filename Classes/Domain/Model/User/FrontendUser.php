@@ -24,6 +24,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Configuration\ConfigurationBuilder;
 use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Access;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
@@ -42,12 +43,6 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	const GENDER_MALE = 0;
 	const GENDER_FEMALE = 1;
 	const GENDER_PRIVATE = 99;
-
-	/**
-	 * @var \TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager
-	 * @inject
-	 */
-	protected $frontendConfigurationManager;
 
 	/**
 	 * The rank repository
@@ -292,13 +287,14 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 */
 	protected $settings = NULL;
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
-	 * @inject
-	 */
-	protected $typoScriptService;
+    /**
+     * @param ConfigurationBuilder $configurationBuilder
+     */
+    public function injectSettings(ConfigurationBuilder $configurationBuilder) {
+        $this->settings = $configurationBuilder->getSettings();
+    }
 
-	/**
+    /**
 	 * Constructor.
 	 *
 	 * @param string $username The user's username.
@@ -308,17 +304,6 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 		parent::__construct($username, $password);
 		$this->readTopics = new ObjectStorage();
 		$this->readForum = new ObjectStorage();
-	}
-
-	/**
-	 * @return array
-	 */
-	protected function getSettings() {
-		if ($this->settings === NULL) {
-			$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray($this->frontendConfigurationManager->getTypoScriptSetup());
-			$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
-		}
-		return $this->settings;
 	}
 
 	/**
@@ -615,7 +600,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	public function getImagePath() {
 
 		if ($this->image) {
-			$imageDirectoryName = $this->getSettings()['images']['avatar']['uploadDir'];
+			$imageDirectoryName = $this->settings['images']['avatar']['uploadDir'];
 			$imageFilename = rtrim($imageDirectoryName, '/') . '/' . $this->image;
 
 			return file_exists($imageFilename) ? $imageFilename : NULL;
@@ -638,10 +623,10 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 
 		switch ($this->gender) {
 			case self::GENDER_MALE:
-				$imageFilename = $this->getSettings()['images']['avatar']['dummyMale'];
+				$imageFilename = $this->settings['images']['avatar']['dummyMale'];
 				break;
 			case self::GENDER_FEMALE:
-				$imageFilename = $this->getSettings()['images']['avatar']['dummyFemale'];
+				$imageFilename = $this->settings['images']['avatar']['dummyFemale'];
 				break;
 		}
 

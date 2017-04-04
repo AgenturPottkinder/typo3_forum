@@ -24,6 +24,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Configuration\ConfigurationBuilder;
 use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
 use Mittwald\Typo3Forum\Domain\Model\NotifiableInterface;
 use Mittwald\Typo3Forum\Domain\Model\ReadableInterface;
@@ -174,12 +175,10 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 */
 	protected $topicRepository;
 
-	/**
-	 * An instance of the typo3_forum authentication service.
-	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
-	 * @inject
-	 */
-	protected $typoScriptService = NULL;
+    /**
+     * @var ConfigurationBuilder
+     */
+    protected $configurationBuilder;
 
 	/**
 	 * Whole TypoScript typo3_forum settings
@@ -187,17 +186,11 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 */
 	protected $settings;
 
-	/**
-	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
-	 *
-	 * @param \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
-	 */
-	public function injectTyposcriptService(\TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService) {
-		$this->typoScriptService = $typoScriptService;
-		$fc = new \TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager;
-		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray($fc->getTypoScriptSetup());
-
-		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
+    /**
+     * @param ConfigurationBuilder $configurationBuilder
+     */
+	public function injectSettings(ConfigurationBuilder $configurationBuilder) {
+		$this->settings = $configurationBuilder->getSettings();
 	}
 
 	/**

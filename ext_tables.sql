@@ -70,6 +70,7 @@ CREATE TABLE tx_typo3forum_domain_model_forum_access (
   l18n_diffsource mediumblob NOT NULL,
   PRIMARY KEY (uid),
   KEY parent (pid)
+  KEY forum (forum)
 );
 
 
@@ -132,7 +133,8 @@ CREATE TABLE tx_typo3forum_domain_model_forum_forum (
   l18n_parent int(11) NOT NULL default '0',
   l18n_diffsource mediumblob NOT NULL,
   PRIMARY KEY (uid),
-  KEY parent (pid)
+  KEY parent (pid),
+  KEY forum (forum)
 );
 
 
@@ -168,7 +170,9 @@ CREATE TABLE tx_typo3forum_domain_model_forum_post (
   supporters int(11) unsigned default '0',
   helpful_count int(11) unsigned NOT NULL default '0',
   PRIMARY KEY (uid),
-  KEY parent (pid)
+  KEY parent (pid),
+  KEY topic (topic),
+  KEY author (author)
 );
 
 
@@ -215,7 +219,9 @@ CREATE TABLE tx_typo3forum_domain_model_forum_topic (
   l18n_parent int(11) NOT NULL default '0',
   l18n_diffsource mediumblob NOT NULL,
   PRIMARY KEY (uid),
-  KEY parent (pid)
+  KEY parent (pid),
+  KEY forum (forum),
+  KEY author (author)
 );
 
 
