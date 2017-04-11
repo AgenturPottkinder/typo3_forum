@@ -69,7 +69,7 @@ CREATE TABLE tx_typo3forum_domain_model_forum_access (
   l18n_parent int(11) NOT NULL default '0',
   l18n_diffsource mediumblob NOT NULL,
   PRIMARY KEY (uid),
-  KEY parent (pid)
+  KEY parent (pid),
   KEY forum (forum)
 );
 
