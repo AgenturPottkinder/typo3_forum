@@ -27,6 +27,7 @@ use Mittwald\Typo3Forum\Domain\Model\NotifiableInterface;
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
 use Mittwald\Typo3Forum\Service\AbstractService;
 use Mittwald\Typo3Forum\Utility\Localization;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Service class for notifications. This service notifies subscribers of
@@ -97,6 +98,7 @@ class NotificationService extends AbstractService implements NotificationService
 		}
 
 		$topicLink = $this->uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments($arguments)->build();
+        $topicLink = \TYPO3\CMS\Core\Utility\GeneralUtility::locationHeaderUrl($topicLink);
 		$topicLink = '<a href="' . $topicLink . '">' . $topic->getTitle() . '</a>';
 		$this->uriBuilder->reset();
 		$unSubscribeLink = $this->uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments([
@@ -105,6 +107,7 @@ class NotificationService extends AbstractService implements NotificationService
 			'tx_typo3forum_pi1[action]' => 'subscribe',
 			'tx_typo3forum_pi1[unsubscribe]' => 1,
 		])->build();
+        $unSubscribeLink = \TYPO3\CMS\Core\Utility\GeneralUtility::locationHeaderUrl($unSubscribeLink);
 		$unSubscribeLink = '<a href="' . $unSubscribeLink . '">' . $unSubscribeLink . '</a>';
 		foreach ($topic->getSubscribers() as $subscriber) {
 			if ($subscriber->getUid() != $post->getAuthor()->getUid() ) {
