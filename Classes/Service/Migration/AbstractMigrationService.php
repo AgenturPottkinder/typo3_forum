@@ -134,7 +134,6 @@ abstract class AbstractMigrationService
         $title
     ) {
         if (array_key_exists($oldTable, $this->getCurrentTables())) {
-            $this->databaseConnection->exec_TRUNCATEquery($newTable);
             $result = $this->databaseConnection->admin_query(
                 'INSERT INTO ' . $newTable . ' (' . implode(',', $newFields) . ') SELECT ' . implode(
                     ',', $fields
