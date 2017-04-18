@@ -27,6 +27,7 @@
 use Mittwald\Typo3Forum\Service\Migration\AttachmentMigrationService;
 use Mittwald\Typo3Forum\Service\Migration\ForumMigrationService;
 use Mittwald\Typo3Forum\Service\Migration\PostsMigrationService;
+use Mittwald\Typo3Forum\Service\Migration\PrivateMessageMigrationService;
 use Mittwald\Typo3Forum\Service\Migration\TopicsMigrationService;
 use Mittwald\Typo3Forum\Service\Migration\UserMigrationService;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
@@ -62,6 +63,7 @@ class ext_update
             $objectManager->get(PostsMigrationService::class),
             $objectManager->get(AttachmentMigrationService::class),
             $objectManager->get(UserMigrationService::class),
+            $objectManager->get(PrivateMessageMigrationService::class),
         ];
 
         $this->objectManager = $objectManager;
