@@ -51,7 +51,8 @@ class TopicsMigrationService extends AbstractMigrationService
             'crdate' => 'crdate',
             'deleted' => 'deleted',
             'hidden' => 'hidden',
-            'cruser_id' => 'l18n_diffsource'
+            'cruser_id' => 'l18n_diffsource',
+            'topic_replies' => 'post_count',
         ];
     }
 
