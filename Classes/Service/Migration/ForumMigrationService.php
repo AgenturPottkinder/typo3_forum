@@ -66,6 +66,7 @@ class ForumMigrationService extends AbstractMigrationService
             'crdate' => 'crdate',
             'deleted' => 'deleted',
             'hidden' => 'hidden',
+            'cruser_id' => 'l18n_diffsource'
         ];
     }
 
@@ -141,6 +142,8 @@ class ForumMigrationService extends AbstractMigrationService
     private function persistACL(array $acl, $operation)
     {
         $acl['operation'] = $operation;
+        $acl['l18n_diffsource'] = '';
+        $acl['affected_group'] = (int)$acl['affected_group'];
         $this->databaseConnection->exec_INSERTquery('tx_typo3forum_domain_model_forum_access', $acl);
     }
 

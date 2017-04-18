@@ -51,6 +51,8 @@ class PrivateMessageMigrationService extends AbstractMigrationService
             );
         }
 
+        return $this->generateOutput();
+
     }
 
     /**
@@ -113,6 +115,7 @@ class PrivateMessageMigrationService extends AbstractMigrationService
         $fields = array_intersect_key($message, $this->getFieldsDefinition());
         $updateFields = array_combine($this->getFieldsDefinition(), array_values($fields));
         $updateFields['message'] = $messageId;
+        $updateFields['type'] = (int)$updateFields['type'];
         $this->databaseConnection->exec_INSERTquery($this->getNewTableName(), $updateFields);
     }
 

@@ -55,7 +55,7 @@ class PostsMigrationService extends AbstractMigrationService
             $this->addMessage(
                 FlashMessage::OK,
                 'MIGRATED ' . $this->getTitle(),
-                'MIGRATED ' . $this->getTitle() . 'ENTRIES'
+                'MIGRATED ' . $this->getTitle() . ' ENTRIES'
             );
         }
 
@@ -141,6 +141,7 @@ class PostsMigrationService extends AbstractMigrationService
             'deleted' => $oldData['deleted'],
             'hidden' => $oldData['hidden'],
             'attachments' => $oldData['attachment'],
+            'l18n_diffsource' => ''
         ];
     }
 
