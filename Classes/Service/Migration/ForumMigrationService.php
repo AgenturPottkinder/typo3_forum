@@ -45,7 +45,11 @@ class ForumMigrationService extends AbstractMigrationService
             }
         }
 
-        return parent::migrate();
+        $output = parent::migrate();
+
+        $this->createRootForums();
+
+        return $output;
     }
 
     /**
@@ -66,7 +70,7 @@ class ForumMigrationService extends AbstractMigrationService
             'crdate' => 'crdate',
             'deleted' => 'deleted',
             'hidden' => 'hidden',
-            'cruser_id' => 'l18n_diffsource'
+            'cruser_id' => 'l18n_diffsource',
         ];
     }
 
@@ -92,6 +96,45 @@ class ForumMigrationService extends AbstractMigrationService
     public function getTitle()
     {
         return 'FORUMS';
+    }
+
+    /**
+     *
+     */
+    protected function createRootForums()
+    {
+        if (($result = $this->databaseConnection->exec_SELECTquery(
+            'COUNT(*) AS count, pid', $this->getNewTableName(), 'forum = 0', 'pid'
+        ))
+        ) {
+            foreach ($result as $row) {
+                if (($row['count'] > 1)) {
+                    $this->createRootForum($row['pid']);
+                }
+            }
+        }
+    }
+
+    /**
+     * @param $pid
+     */
+    protected function createRootForum($pid)
+    {
+        $fields = [
+            'pid' => $pid,
+            'title' => 'Forum',
+            'l18n_diffsource' => '',
+        ];
+
+        $this->databaseConnection->exec_INSERTquery($this->getNewTableName(), $fields);
+        $rootForumId = $this->databaseConnection->sql_insert_id();
+        $updateFields = [
+            'forum' => $rootForumId,
+        ];
+
+        $this->databaseConnection->exec_UPDATEquery(
+            $this->getNewTableName(), 'pid = ' . $pid . ' AND forum = 0 AND uid <>' . $rootForumId, $updateFields
+        );
     }
 
     /**

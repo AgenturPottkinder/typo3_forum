@@ -140,7 +140,7 @@ class PostsMigrationService extends AbstractMigrationService
             'crdate' => $oldData['crdate'],
             'deleted' => $oldData['deleted'],
             'hidden' => $oldData['hidden'],
-            'attachments' => $oldData['attachment'],
+            'attachments' => (int) $oldData['attachment'],
             'l18n_diffsource' => ''
         ];
     }
