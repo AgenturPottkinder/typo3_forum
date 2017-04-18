@@ -28,8 +28,55 @@
 namespace Mittwald\Typo3Forum\Service\Migration;
 
 
+use TYPO3\CMS\Core\Messaging\FlashMessage;
+
 class TopicsMigrationService extends AbstractMigrationService
 {
+
+    protected function migrateTable(
+        $oldTable,
+        $newTable,
+        array $newFields,
+        array $fields,
+        $title
+    ) {
+        if (($oldTopics = $this->getOldData())) {
+            foreach ($oldTopics as $oldTopic) {
+                $this->createNewData($oldTopic);
+            }
+            $this->addMessage(
+                FlashMessage::OK, 'MIGRATED ' . $this->getTitle(), 'MIGRATED ' . $this->getTitle() . ' ENTITIES'
+            );
+        }
+    }
+
+    /**
+     * @param array $data
+     */
+    protected function createNewData(array $data)
+    {
+        if (($fields = array_intersect_key($data, $this->getFieldsDefinition()))) {
+            $updateFields = [];
+
+            foreach ($this->getFieldsDefinition() as $oldKey => $newKey) {
+                $updateFields[$newKey] = $fields[$oldKey];
+            }
+
+            $updateFields['post_count'] += 1;
+
+            $this->databaseConnection->exec_INSERTquery($this->getNewTableName(), $updateFields);
+        }
+
+    }
+
+
+    /**
+     * @return bool|\mysqli_result|object
+     */
+    protected function getOldData()
+    {
+        return $this->databaseConnection->exec_SELECTquery('*', $this->getOldTableName(), '1=1');
+    }
 
     /**
      * @return array
