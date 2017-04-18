@@ -28,6 +28,7 @@ use Mittwald\Typo3Forum\Service\Migration\AttachmentMigrationService;
 use Mittwald\Typo3Forum\Service\Migration\ForumMigrationService;
 use Mittwald\Typo3Forum\Service\Migration\PostsMigrationService;
 use Mittwald\Typo3Forum\Service\Migration\TopicsMigrationService;
+use Mittwald\Typo3Forum\Service\Migration\UserMigrationService;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -36,8 +37,6 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
 /**
  * Class ext_update
  *
- * @todo Actually should use defined entity repositories but in case
- * @todo they depend on too much services it is not possible to init one of the repositories
  */
 class ext_update
 {
@@ -45,6 +44,11 @@ class ext_update
      * @var \Mittwald\Typo3Forum\Service\Migration\AbstractMigrationService[]
      */
     private $services = [];
+
+    /**
+     * @var ObjectManager
+     */
+    protected $objectManager;
 
     /**
      * ext_update constructor.
@@ -57,7 +61,10 @@ class ext_update
             $objectManager->get(TopicsMigrationService::class),
             $objectManager->get(PostsMigrationService::class),
             $objectManager->get(AttachmentMigrationService::class),
+            $objectManager->get(UserMigrationService::class),
         ];
+
+        $this->objectManager = $objectManager;
     }
 
     /**
@@ -75,20 +82,24 @@ class ext_update
      */
     public function main()
     {
+        if ((GeneralUtility::_POST('update') == true) && ($userPid = GeneralUtility::_POST('user_pid'))) {
+            return $this->processUpdates();
+        }
 
+        return $this->renderForm();
+    }
+
+    /**
+     * @return string
+     */
+    protected function processUpdates()
+    {
         $output = '';
         foreach ($this->services as $service) {
             $output .= $service->migrate();
         }
 
         return $output;
-//        if ((GeneralUtility::_POST('update') == true) && ($userPid = GeneralUtility::_POST('user_pid'))) {
-//            $this->processUpdates();
-//
-//            return $this->generateOutput();
-//        }
-//
-//        return $this->renderForm();
     }
 
     /**
