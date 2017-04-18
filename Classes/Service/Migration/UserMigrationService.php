@@ -47,18 +47,27 @@ class UserMigrationService extends AbstractMigrationService
         $this->changeTableDefinition();
 
 
-        if (($users = $this->databaseConnection->exec_SELECTquery(
-            '*', $this->getOldTableName(), 'pid = ' . $userPid
-        ))
-        ) {
+        if (($users = $this->getUsers($userPid))) {
             foreach ($users as $user) {
                 $this->updateUser($user);
             }
+
+            $this->addMessage(
+                FlashMessage::OK, 'MIGRATE ' . $this->getTitle(), 'MIGRATED ' . $this->getTitle() . 'ENTRIES'
+            );
         }
-        
-        $this->addMessage('success', 'MIGRATE USERS', 'PERFECT');
+
 
         return $this->generateOutput();
+    }
+
+    /**
+     * @param $pid
+     * @return bool|\mysqli_result|object
+     */
+    protected function getUsers($pid)
+    {
+        return $this->databaseConnection->exec_SELECTquery('*', $this->getOldTableName(), 'pid = ' . $pid);
     }
 
     /**
