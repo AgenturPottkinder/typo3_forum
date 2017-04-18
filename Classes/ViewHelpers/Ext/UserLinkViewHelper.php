@@ -27,12 +27,11 @@ use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 
 class UserLinkViewHelper extends CObjectViewHelper {
 
-	/**
-	 * An instance of the typo3_forum authentication service.
-	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
-	 * @inject
-	 */
-	protected $typoScriptService = NULL;
+    /**
+     * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
+     * @inject
+     */
+    protected $configurationBuilder;
 
 	/**
 	 * Whole TypoScript typo3_forum settings
@@ -49,8 +48,7 @@ class UserLinkViewHelper extends CObjectViewHelper {
 	protected $authenticationService = NULL;
 
 	public function initializeObject() {
-		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray(\TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager::getTypoScriptSetup());
-		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
+		$this->settings = $this->configurationBuilder->getSettings();
 	}
 
 	public function initialize() {

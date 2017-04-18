@@ -31,12 +31,6 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
 abstract class AbstractFactory implements SingletonInterface {
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager
-	 * @inject
-	 */
-	protected $frontendConfigurationManager;
-
-	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
 	 * @inject
 	 */
@@ -48,11 +42,11 @@ abstract class AbstractFactory implements SingletonInterface {
 	 */
 	protected $objectManager = NULL;
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
-	 * @inject
-	 */
-	protected $typoScriptService = NULL;
+    /**
+     * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
+     * @inject
+     */
+    protected $configurationBuilder;
 
 	/**
 	 * Whole TypoScript typo3_forum settings
@@ -64,8 +58,7 @@ abstract class AbstractFactory implements SingletonInterface {
 	 *
 	 */
 	public function initializeObject() {
-		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray($this->frontendConfigurationManager->getTypoScriptSetup());
-		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
+		$this->settings = $this->configurationBuilder->getSettings();
 	}
 
 	/**

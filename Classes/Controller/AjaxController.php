@@ -46,11 +46,12 @@ class AjaxController extends AbstractController {
 	 */
 	protected $forumRepository;
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager
-	 * @inject
-	 */
-	protected $frontendConfigurationManager;
+
+    /**
+     * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
+     * @inject
+     */
+    protected $configurationBuilder;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory
@@ -77,29 +78,22 @@ class AjaxController extends AbstractController {
 	protected $topicRepository;
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @var \Mittwald\Typo3Forum\Service\SessionHandlingService
 	 * @inject
 	 */
-	protected $typoScriptService = NULL;
+	protected $sessionHandlingService;
 
-    /**
-     * @var \Mittwald\Typo3Forum\Service\SessionHandlingService
-     * @inject
-     */
-    protected $sessionHandlingService;
-
-    /**
-     * @var \Mittwald\Typo3Forum\Service\AttachmentService
-     * @inject
-     */
-    protected $attachmentService = NULL;
+	/**
+	 * @var \Mittwald\Typo3Forum\Service\AttachmentService
+	 * @inject
+	 */
+	protected $attachmentService = NULL;
 
 	/**
 	 *
 	 */
 	public function initializeObject() {
-		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray($this->frontendConfigurationManager->getTypoScriptSetup());
-		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
+		$this->settings = $this->configurationBuilder->getSettings();
 	}
 
 	/**
