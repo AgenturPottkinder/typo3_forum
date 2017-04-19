@@ -89,22 +89,24 @@ class NotificationService extends AbstractService implements NotificationService
 			$arguments['@widget_0']['currentPage'] = $pageNumber;
 		}
 
-        $topicLink = $this->uriBuilder
-            ->setTargetPageUid($this->settings['pids']['Forum'])
-            ->setArguments($arguments)
-            ->setCreateAbsoluteUri(true)
-            ->build();
+		$topicLink = $this->uriBuilder
+			->setTargetPageUid($this->settings['pids']['Forum'])
+			->setArguments($arguments)
+			->setCreateAbsoluteUri(true)
+			->build();
 		$topicLink = '<a href="' . $topicLink . '">' . $topic->getTitle() . '</a>';
 		$this->uriBuilder->reset();
 		$unSubscribeLink = $this->uriBuilder
-            ->setTargetPageUid($this->settings['pids']['Forum'])
-            ->setArguments([
-			'tx_typo3forum_pi1[topic]' => $topic->getUid(),
-			'tx_typo3forum_pi1[controller]' => 'User',
-			'tx_typo3forum_pi1[action]' => 'subscribe',
-			'tx_typo3forum_pi1[unsubscribe]' => 1,])
-            ->setCreateAbsoluteUri(true)
-            ->build();
+			->setTargetPageUid($this->settings['pids']['Forum'])
+			->setArguments([
+				'tx_typo3forum_pi1[topic]' => $topic->getUid(),
+				'tx_typo3forum_pi1[controller]' => 'User',
+				'tx_typo3forum_pi1[action]' => 'subscribe',
+				'tx_typo3forum_pi1[unsubscribe]' => 1,
+			])
+			->setCreateAbsoluteUri(true)
+			->build();
+
 		$unSubscribeLink = '<a href="' . $unSubscribeLink . '">' . $unSubscribeLink . '</a>';
 		foreach ($topic->getSubscribers() as $subscriber) {
 			if ($subscriber->getUid() != $post->getAuthor()->getUid() ) {
