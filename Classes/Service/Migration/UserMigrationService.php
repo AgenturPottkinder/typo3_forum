@@ -67,7 +67,7 @@ class UserMigrationService extends AbstractMigrationService
      */
     protected function getUsers($pid)
     {
-        return $this->databaseConnection->exec_SELECTquery('*', $this->getOldTableName(), 'pid = ' . $pid);
+        return $this->databaseConnection->exec_SELECTquery('*', $this->getOldTableName(), 'pid = ' . (int)$pid);
     }
 
     /**
