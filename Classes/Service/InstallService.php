@@ -45,16 +45,7 @@ class InstallService
     /**
      * @var string
      */
-    protected $messageQueueByIdentifier = '';
-
-    /**
-     * Initializes the install service
-     */
-    public function __construct()
-    {
-
-        $this->messageQueueByIdentifier = 'extbase.flashmessages.tx_extensionmanager_tools_extensionmanagerextensionmanager';
-    }
+    protected $messageQueueByIdentifier = 'extbase.flashmessages.tx_extensionmanager_tools_extensionmanagerextensionmanager';
 
     /**
      * @param null $extensionKey
