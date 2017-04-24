@@ -110,7 +110,7 @@ class ext_update
     protected function renderForm()
     {
         /* @var $partial \TYPO3\CMS\Fluid\View\StandaloneView */
-        $partial = $this->objectManager->get('TYPO3\CMS\Fluid\View\StandaloneView');
+        $partial = $this->objectManager->get(\TYPO3\CMS\Fluid\View\StandaloneView::class);
         $partial->setTemplatePathAndFilename(
             GeneralUtility::getFileAbsFileName(
                 'EXT:typo3_forum/Resources/Private/Templates/Backend/Update/Form.html'
