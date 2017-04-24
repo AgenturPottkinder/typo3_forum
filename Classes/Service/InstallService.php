@@ -28,6 +28,7 @@ namespace Mittwald\Typo3Forum\Service;
 
 
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -86,7 +87,7 @@ class InstallService
     {
         if ($flashMessage) {
             /** @var $flashMessageService \TYPO3\CMS\Core\Messaging\FlashMessageService */
-            $flashMessageService = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Messaging\\FlashMessageService');
+            $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
             /** @var $flashMessageQueue \TYPO3\CMS\Core\Messaging\FlashMessageQueue */
             $flashMessageQueue = $flashMessageService->getMessageQueueByIdentifier($this->messageQueueByIdentifier);
 
