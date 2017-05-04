@@ -1,0 +1,12 @@
+<form action="{action}" method="POST">
+    <div class="form-group">
+        <label for="user_pid">
+            <f:translate key="LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:backend.update.user_pid"/>
+        </label>
+        <input required class="form-control" id="user_pid" type="number" name="user_pid">
+    </div>
+    <input type="hidden" name="update" value="1"/>
+    <button class="btn btn-success">
+        <f:translate key="LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:backend.update.run"/>
+    </button>
+</form>
