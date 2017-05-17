@@ -242,7 +242,7 @@ class Counter extends AbstractTask {
 				'tx_typo3forum_question_count' => (int)$array['question_count'],
 				'tx_typo3forum_helpful_count' => (int)$array['support_count'],
 				'tx_typo3forum_points' => (int)$points,
-				't_typo3forum_rank' => (int)$array['rank'],
+				'tx_typo3forum_rank' => (int)$array['rank'],
 			];
 
 			$query = $GLOBALS['TYPO3_DB']->UPDATEquery('fe_users', 'uid=' . (int)$userUid, $values);
