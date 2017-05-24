@@ -25,6 +25,9 @@ namespace Mittwald\Typo3Forum\Controller;
  *                                                                      */
 
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Fluid\View\StandaloneView;
 
 class AjaxController extends AbstractController {
 
@@ -45,7 +48,6 @@ class AjaxController extends AbstractController {
 	 * @inject
 	 */
 	protected $forumRepository;
-
 
     /**
      * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
@@ -176,17 +178,26 @@ class AjaxController extends AbstractController {
 		$data = [];
 		$displayedForumMenus = json_decode($displayedForumMenus);
 		if (count($displayedForumMenus) < 1) return $data;
-		$this->request->setFormat('html');
+
+        $extbaseSettings = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK, 'Typo3Forum');
+		$templateRootPath = $extbaseSettings['view']['templateRootPaths'][10];
+		
+		/* @var StandaloneView $standaloneView */
+		$standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
+		$standaloneView->setTemplatePathAndFilename($templateRootPath . '/Ajax/ForumMenu.html');
+		$standaloneView->setControllerContext($this->controllerContext);
+		
 		$foren = $this->forumRepository->findByUids($displayedForumMenus);
 		$counter = 0;
 		foreach ($foren as $forum) {
-			$this->view->assign('forum', $forum)
-				->assign('user', $this->getCurrentUser());
+            $standaloneView->assignMultiple([
+                'forum' => $forum,
+				'user' => $this->getCurrentUser()
+            ]);
 			$data[$counter]['uid'] = $forum->getUid();
-			$data[$counter]['html'] = $this->view->render('ForumMenu');
+			$data[$counter]['html'] = $standaloneView->render();
 			$counter++;
 		}
-		$this->request->setFormat('json');
 		return $data;
 	}
 
@@ -330,7 +341,6 @@ class AjaxController extends AbstractController {
 		}
 		if (!empty($output)) return $output;
 	}
-
 
 	/**
 	 * @param \stdClass $meta

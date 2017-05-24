@@ -59,7 +59,7 @@ jQuery(document).ready(function($) {
 	});
 
 	var displayOnlinebox = 0;
-	if($('.user_online_box').length > 0){
+	if ($('.user_online_box').length > 0){
 		displayOnlinebox = 1;
 	}
 
@@ -70,7 +70,6 @@ jQuery(document).ready(function($) {
 		displayedPosts[displayedPostCount] = $(this).data('uid');
 		displayedPostCount = displayedPostCount + 1;
 	});
-
 
 	// ads
 	var displayedAds = {};
@@ -219,8 +218,4 @@ jQuery(document).ready(function($) {
             }
         });
     }
-
 });
-
-
-
