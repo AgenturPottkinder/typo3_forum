@@ -283,7 +283,7 @@ class UserController extends AbstractController {
 			throw new NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 		/** @var PrivateMessageText $message */
-		$message = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\User\\PrivateMessageText');
+		$message = $this->objectManager->get(PrivateMessageText::class);
 		$message->setMessageText($text);
 		$pmFeUser = $this->privateMessageFactory->createPrivateMessage($user, $recipient, $message, PrivateMessage::TYPE_SENDER, 1);
 		$pmRecipient = $this->privateMessageFactory->createPrivateMessage($recipient, $user, $message, PrivateMessage::TYPE_RECIPIENT, 0);

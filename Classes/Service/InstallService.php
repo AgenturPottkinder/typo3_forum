@@ -1,4 +1,6 @@
 <?php
+namespace Mittwald\Typo3Forum\Service;
+
 /**
  *
  * COPYRIGHT NOTICE
@@ -24,10 +26,8 @@
  *
  */
 
-namespace Mittwald\Typo3Forum\Service;
-
-
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Messaging\FlashMessageQueue;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -37,7 +37,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class InstallService
 {
-
     /**
      * @var string
      */
@@ -53,10 +52,10 @@ class InstallService
      */
     public function checkForMigrationOption($extensionKey = null)
     {
-
         if (($extensionKey === $this->extensionKey) && ($this->isUseful())) {
+            /* @var FlashMessage $flashMessage */
             $flashMessage = GeneralUtility::makeInstance(
-                'TYPO3\\CMS\\Core\\Messaging\\FlashMessage',
+                FlashMessage::class,
                 'Use update script for typo3_forum',
                 'Use of mm_forum detected. You can use the update script of typo3_forum in extension manager',
                 FlashMessage::NOTICE,
@@ -86,12 +85,11 @@ class InstallService
     protected function addFlashMessage(FlashMessage $flashMessage)
     {
         if ($flashMessage) {
-            /** @var $flashMessageService \TYPO3\CMS\Core\Messaging\FlashMessageService */
+            /** @var $flashMessageService FlashMessageService */
             $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
-            /** @var $flashMessageQueue \TYPO3\CMS\Core\Messaging\FlashMessageQueue */
+            /** @var $flashMessageQueue FlashMessageQueue */
             $flashMessageQueue = $flashMessageService->getMessageQueueByIdentifier($this->messageQueueByIdentifier);
-
-            return $flashMessageQueue->enqueue($flashMessage);
+            $flashMessageQueue->enqueue($flashMessage);
         }
     }
 }

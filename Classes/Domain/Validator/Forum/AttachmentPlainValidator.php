@@ -24,6 +24,7 @@ namespace Mittwald\Typo3Forum\Domain\Validator\Forum;
 *  This copyright notice MUST APPEAR in all copies of the script!      *
 *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\Forum\Attachment;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 
 class AttachmentPlainValidator extends AbstractValidator {
@@ -45,7 +46,7 @@ class AttachmentPlainValidator extends AbstractValidator {
 	 */
 	public function isValid($value) {
 		$result = TRUE;
-		$attachmentObj = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Attachment');
+		$attachmentObj = $this->objectManager->get(Attachment::class);
 		foreach ($value as $attachment) {
 			if (empty($attachment['name']))
 				continue;
