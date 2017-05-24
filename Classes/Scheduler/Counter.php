@@ -26,6 +26,7 @@ namespace Mittwald\Typo3Forum\Scheduler;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
 /**
@@ -85,9 +86,9 @@ class Counter extends AbstractTask {
 	 * @return void
 	 */
 	public function setSettings() {
-		$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+		$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 		/** @var ConfigurationManagerInterface $configurationManager */
-		$configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
+		$configurationManager = $objectManager->get(ConfigurationManagerInterface::class);
 		$this->settings = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
 		$this->settings = $this->settings['plugin.']['tx_typo3forum.']['settings.'];
 	}

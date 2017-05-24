@@ -24,7 +24,6 @@ namespace Mittwald\Typo3Forum\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Domain\Model\Forum\Attachment;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
@@ -229,7 +228,7 @@ class PostController extends AbstractController {
 		$this->topicRepository->update($topic);
 
 		// All potential listeners (Signal-Slot FTW!)
-		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Post', 'postCreated',
+		$this->signalSlotDispatcher->dispatch(Post::class, 'postCreated',
 			['post' => $post]);
 
 		// Display flash message and redirect to topic->show action.
@@ -282,7 +281,7 @@ class PostController extends AbstractController {
 		}
 		$this->postRepository->update($post);
 
-		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Post', 'postUpdated',
+		$this->signalSlotDispatcher->dispatch(Post::class, 'postUpdated',
 			['post' => $post]);
 		$this->controllerContext->getFlashMessageQueue()->enqueue(
 			new FlashMessage(Localization::translate('Post_Update_Success'))
@@ -322,7 +321,7 @@ class PostController extends AbstractController {
 
 		// Notify observers and clear cache.
 		$this->signalSlotDispatcher->dispatch(
-			'Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Post',
+			Post::class,
 			'postDeleted',
 			['post' => $post]
 		);

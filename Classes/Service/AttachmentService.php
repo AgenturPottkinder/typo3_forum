@@ -25,7 +25,7 @@ class AttachmentService implements SingletonInterface {
 
 		foreach($attachments as $attachmentID => $attachment) {
 			if($attachment['name'] == '') continue;
-			$attachmentObj = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Attachment');
+			$attachmentObj = $this->objectManager->get(\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment::class);
 			$tmp_name = $_FILES['tx_typo3forum_pi1']['tmp_name']['attachments'][$attachmentID];
 			$mime_type = mime_content_type($tmp_name);
 

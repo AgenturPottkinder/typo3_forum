@@ -26,6 +26,7 @@ namespace Mittwald\Typo3Forum\Controller;
 
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport;
+use Mittwald\Typo3Forum\Domain\Model\Moderation\Report;
 use Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment;
 use Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
@@ -100,7 +101,7 @@ class ReportController extends AbstractController {
 		$this->userReportRepository->add($report);
 
 		// Notify observers.
-		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\Report', 'reportCreated', ['report' => $report]);
+		$this->signalSlotDispatcher->dispatch(Report::class, 'reportCreated', ['report' => $report]);
 
 		// Display success message and redirect to topic->show action.
 		$this->controllerContext->getFlashMessageQueue()->enqueue(
@@ -125,7 +126,7 @@ class ReportController extends AbstractController {
 		$this->postReportRepository->add($report);
 
 		// Notify observers.
-		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\Report', 'reportCreated', ['report' => $report]);
+		$this->signalSlotDispatcher->dispatch(Report::class, 'reportCreated', ['report' => $report]);
 
 		// Display success message and redirect to topic->show action.
 		$this->controllerContext->getFlashMessageQueue()->enqueue(
