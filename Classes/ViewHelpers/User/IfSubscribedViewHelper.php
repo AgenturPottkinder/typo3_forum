@@ -25,7 +25,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\User;
  *                                                                      */
 
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
-use TYPO3\CMS\Fluid\ViewHelpers\IfViewHelper;
+use TYPO3Fluid\Fluid\ViewHelpers\IfViewHelper;
 
 /**
  * ViewHelper that renders its contents, when a certain user has subscribed
@@ -46,8 +46,8 @@ class IfSubscribedViewHelper extends IfViewHelper
     public function initializeArguments()
     {
         parent::initializeArguments();
-        $this->registerArgument('object', 'Mittwald\\Typo3Forum\\Domain\\Model\\SubscribeableInterface', 'Object to check', true);
-        $this->registerArgument('user', 'Mittwald\\Typo3Forum\\Domain\\Model\\User\\FrontendUser', 'className which object has to be', false, null);
+        $this->registerArgument('object', \Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface::class, 'Object to check', true);
+        $this->registerArgument('user', \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser::class, 'className which object has to be', false, null);
     }
 
     /**

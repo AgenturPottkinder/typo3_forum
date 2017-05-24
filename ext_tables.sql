@@ -32,9 +32,9 @@ CREATE TABLE tx_typo3forum_domain_model_format_textparser (
   t3ver_tstamp int(11) NOT NULL default '0',
   t3ver_move_id int(11) NOT NULL default '0',
   t3_origuid int(11) NOT NULL default '0',
-  sys_language_uid int(11) NOT NULL default '0',
-  l18n_parent int(11) NOT NULL default '0',
-  l18n_diffsource mediumblob NOT NULL,
+  sys_language_uid int(11) DEFAULT '0' NOT NULL,
+  l18n_parent int(11) DEFAULT '0' NOT NULL,
+  l18n_diffsource mediumblob,
   PRIMARY KEY (uid),
   KEY parent (pid)
 );
@@ -65,9 +65,9 @@ CREATE TABLE tx_typo3forum_domain_model_forum_access (
   t3ver_tstamp int(11) NOT NULL default '0',
   t3ver_move_id int(11) NOT NULL default '0',
   t3_origuid int(11) NOT NULL default '0',
-  sys_language_uid int(11) NOT NULL default '0',
-  l18n_parent int(11) NOT NULL default '0',
-  l18n_diffsource mediumblob NOT NULL,
+  sys_language_uid int(11) DEFAULT '0' NOT NULL,
+  l18n_parent int(11) DEFAULT '0' NOT NULL,
+  l18n_diffsource mediumblob,
   PRIMARY KEY (uid),
   KEY parent (pid),
   KEY forum (forum)
@@ -129,9 +129,9 @@ CREATE TABLE tx_typo3forum_domain_model_forum_forum (
   t3ver_tstamp int(11) NOT NULL default '0',
   t3ver_move_id int(11) NOT NULL default '0',
   t3_origuid int(11) NOT NULL default '0',
-  sys_language_uid int(11) NOT NULL default '0',
-  l18n_parent int(11) NOT NULL default '0',
-  l18n_diffsource mediumblob NOT NULL,
+  sys_language_uid int(11) DEFAULT '0' NOT NULL,
+  l18n_parent int(11) DEFAULT '0' NOT NULL,
+  l18n_diffsource mediumblob,
   PRIMARY KEY (uid),
   KEY parent (pid),
   KEY forum (forum)
@@ -163,9 +163,9 @@ CREATE TABLE tx_typo3forum_domain_model_forum_post (
   t3ver_tstamp int(11) NOT NULL default '0',
   t3ver_move_id int(11) NOT NULL default '0',
   t3_origuid int(11) NOT NULL default '0',
-  sys_language_uid int(11) NOT NULL default '0',
-  l18n_parent int(11) NOT NULL default '0',
-  l18n_diffsource mediumblob NOT NULL,
+  sys_language_uid int(11) DEFAULT '0' NOT NULL,
+  l18n_parent int(11) DEFAULT '0' NOT NULL,
+  l18n_diffsource mediumblob,
   attachments int(11) unsigned NOT NULL default '0',
   supporters int(11) unsigned default '0',
   helpful_count int(11) unsigned NOT NULL default '0',
@@ -215,9 +215,9 @@ CREATE TABLE tx_typo3forum_domain_model_forum_topic (
   t3ver_tstamp int(11) NOT NULL default '0',
   t3ver_move_id int(11) NOT NULL default '0',
   t3_origuid int(11) NOT NULL default '0',
-  sys_language_uid int(11) NOT NULL default '0',
-  l18n_parent int(11) NOT NULL default '0',
-  l18n_diffsource mediumblob NOT NULL,
+  sys_language_uid int(11) DEFAULT '0' NOT NULL,
+  l18n_parent int(11) DEFAULT '0' NOT NULL,
+  l18n_diffsource mediumblob,
   PRIMARY KEY (uid),
   KEY parent (pid),
   KEY forum (forum),
@@ -289,9 +289,9 @@ CREATE TABLE tx_typo3forum_domain_model_moderation_reportworkflowstatus (
   t3ver_tstamp int(11) NOT NULL default '0',
   t3ver_move_id int(11) NOT NULL default '0',
   t3_origuid int(11) NOT NULL default '0',
-  sys_language_uid int(11) NOT NULL default '0',
-  l18n_parent int(11) NOT NULL default '0',
-  l18n_diffsource mediumblob NOT NULL,
+  sys_language_uid int(11) DEFAULT '0' NOT NULL,
+  l18n_parent int(11) DEFAULT '0' NOT NULL,
+  l18n_diffsource mediumblob,
   PRIMARY KEY (uid),
   KEY parent (pid)
 );
@@ -441,9 +441,9 @@ CREATE TABLE tx_typo3forum_domain_model_user_userfield_userfield (
   t3ver_tstamp int(11) NOT NULL default '0',
   t3ver_move_id int(11) NOT NULL default '0',
   t3_origuid int(11) NOT NULL default '0',
-  sys_language_uid int(11) NOT NULL default '0',
-  l18n_parent int(11) NOT NULL default '0',
-  l18n_diffsource mediumblob NOT NULL,
+  sys_language_uid int(11) DEFAULT '0' NOT NULL,
+  l18n_parent int(11) DEFAULT '0' NOT NULL,
+  l18n_diffsource mediumblob,
   PRIMARY KEY (uid),
   KEY parent (pid)
 );
@@ -472,9 +472,9 @@ CREATE TABLE tx_typo3forum_domain_model_user_userfield_value (
   t3ver_tstamp int(11) NOT NULL default '0',
   t3ver_move_id int(11) NOT NULL default '0',
   t3_origuid int(11) NOT NULL default '0',
-  sys_language_uid int(11) NOT NULL default '0',
-  l18n_parent int(11) NOT NULL default '0',
-  l18n_diffsource mediumblob NOT NULL,
+  sys_language_uid int(11) DEFAULT '0' NOT NULL,
+  l18n_parent int(11) DEFAULT '0' NOT NULL,
+  l18n_diffsource mediumblob,
   PRIMARY KEY (uid),
   KEY parent (pid)
 );
@@ -737,7 +737,7 @@ CREATE TABLE tx_typo3forum_cache (
   lifetime int(11) unsigned default '0',
   PRIMARY KEY (id),
   KEY cache_id (identifier)
-) ENGINE=InnoDB default CHARSET=utf8;
+) ENGINE=InnoDB CHARACTER SET=utf8;
 
 
 #
@@ -750,6 +750,4 @@ CREATE TABLE tx_typo3forum_cache_tags (
   PRIMARY KEY (id),
   KEY cache_id (identifier),
   KEY cache_tag (tag)
-) ENGINE=InnoDB default CHARSET=utf8;
-
-
+) ENGINE=InnoDB CHARACTER SET=utf8;
