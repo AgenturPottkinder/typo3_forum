@@ -50,11 +50,10 @@ abstract class AbstractRepository extends Repository
 {
 
     /**
-     * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+     * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
      * @inject
-     *
      */
-    protected $typoScriptService;
+    protected $configurationBuilder;
 
     /**
      * @var array
@@ -71,9 +70,8 @@ abstract class AbstractRepository extends Repository
      */
     public function initializeObject()
     {
-        $ts = $this->getTypoScriptService()->convertTypoScriptArrayToPlainArray($GLOBALS['TSFE']->tmpl->setup);
-        $this->settings = $ts['plugin']['tx_typo3forum']['settings'];
-        $this->persistenceSettings = $ts['plugin']['tx_typo3forum']['persistence'];
+        $this->settings = $this->configurationBuilder->getSettings();
+        $this->persistenceSettings = $this->configurationBuilder->getPersistenceSettings();
 
         if (isset($this->persistenceSettings['storagePid'])) {
             $this->setDefaultQuerySettings(
@@ -96,19 +94,6 @@ abstract class AbstractRepository extends Repository
         $query->getQuerySettings()->setStoragePageIds($storagePageIds);
 
         return $query;
-    }
-
-
-    /**
-     * @return TypoScriptService
-     */
-    protected function getTypoScriptService()
-    {
-        if (is_null($this->typoScriptService)) {
-            $this->typoScriptService = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService');
-        }
-
-        return $this->typoScriptService;
     }
 
     /**

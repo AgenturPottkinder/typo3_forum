@@ -29,22 +29,16 @@ use Mittwald\Typo3Forum\Service\AbstractService;
 abstract class AbstractMailingService extends AbstractService implements MailingServiceInterface {
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager
-	 * @inject
-	 */
-	protected $frontendConfigurationManager;
-
-	/**
 	 * Whole TypoScript typo3_forum settings
 	 * @var array
 	 */
 	protected $settings;
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
-	 * @inject
-	 */
-	protected $typoScriptService = NULL;
+    /**
+     * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
+     * @inject
+     */
+    protected $configurationBuilder;
 
 	/**
 	 * HTML mail format.
@@ -63,8 +57,7 @@ abstract class AbstractMailingService extends AbstractService implements Mailing
 	protected $format = self::MAILING_FORMAT_HTML;
 
 	public function initializeObject() {
-		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray($this->frontendConfigurationManager->getTypoScriptSetup());
-		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
+		$this->settings = $this->configurationBuilder->getSettings();
 	}
 
 	/**

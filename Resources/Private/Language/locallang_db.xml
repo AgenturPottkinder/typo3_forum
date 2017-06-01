@@ -202,6 +202,8 @@
 			<label index="fe_users.tx_typo3forum_points">Points</label>
 
 			<label index="fe_groups.tx_extbase_type.typo3_forum">typo3_forum group</label>
+			<label index="backend.update.user_pid">Where are fe_users and fe_groups for usage of forum located?</label>
+			<label index="backend.update.run">Update database!</label>
 		</languageKey>
 	</data>
 </T3locallang>

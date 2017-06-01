@@ -6,7 +6,7 @@
 	"repositories": [
 		{
 			"type": "composer",
-			"url": "http://composer.typo3.org/"
+			"url": "https://composer.typo3.org/"
 		}
 	],
 	"require": {
@@ -19,7 +19,7 @@
 		"phpunit/phpunit": "^4.7 || ^5.0"
 	},
 	"replace": {
-		"typo3-forum": "self.version",
+		"typo3_forum": "self.version",
 		"typo3-ter/typo3-forum": "self.version"
 	},
 	"config": {

@@ -63,11 +63,10 @@ class Attachment extends AbstractEntity {
 	protected $downloadCount;
 
 	/**
-	 * An instance of the typo3_forum authentication service.
-	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+	 * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
 	 * @inject
 	 */
-	protected $typoScriptService = NULL;
+	protected $configurationBuilder;
 
 	/**
 	 * Whole TypoScript typo3_forum settings
@@ -79,8 +78,7 @@ class Attachment extends AbstractEntity {
 	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
 	 */
 	public function initializeObject() {
-		$ts = $this->getTyposcriptService()->convertTypoScriptArrayToPlainArray($GLOBALS['TSFE']->tmpl->setup);
-		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
+		$this->settings = $this->configurationBuilder->getSettings();
 	}
 
 	/**
@@ -230,15 +228,4 @@ class Attachment extends AbstractEntity {
         return $GLOBALS['TCA']['tx_typo3forum_domain_model_forum_attachment'];
     }
 
-    /**
-     * @return TypoScriptService
-     */
-    private function getTyposcriptService()
-    {
-        if (is_null($this->typoScriptService)) {
-           $this->typoScriptService = GeneralUtility::makeInstance('\\TYPO3\\CMS\\Extbase\\Service\\TypoScriptService');
-        }
-
-        return $this->typoScriptService;
-    }
 }

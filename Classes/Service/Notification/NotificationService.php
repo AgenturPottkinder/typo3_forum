@@ -35,12 +35,6 @@ use Mittwald\Typo3Forum\Utility\Localization;
 class NotificationService extends AbstractService implements NotificationServiceInterface {
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager
-	 * @inject
-	 */
-	protected $frontendConfigurationManager;
-
-	/**
 	 * @var \Mittwald\Typo3Forum\Service\Mailing\HTMLMailingService
 	 * @inject
 	 */
@@ -52,11 +46,11 @@ class NotificationService extends AbstractService implements NotificationService
 	 */
 	protected $uriBuilder;
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
-	 * @inject
-	 */
-	protected $typoScriptService = NULL;
+    /**
+     * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
+     * @inject
+     */
+    protected $configurationBuilder;
 
 	/**
 	 * Whole TypoScript typo3_forum settings
@@ -65,8 +59,7 @@ class NotificationService extends AbstractService implements NotificationService
 	protected $settings;
 
 	public function initializeObject() {
-		$ts = $this->typoScriptService->convertTypoScriptArrayToPlainArray($this->frontendConfigurationManager->getTypoScriptSetup());
-		$this->settings = $ts['plugin']['tx_typo3forum']['settings'];
+		$this->settings = $this->configurationBuilder->getSettings();
 	}
 
 	/**
@@ -96,15 +89,24 @@ class NotificationService extends AbstractService implements NotificationService
 			$arguments['@widget_0']['currentPage'] = $pageNumber;
 		}
 
-		$topicLink = $this->uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments($arguments)->build();
+		$topicLink = $this->uriBuilder
+			->setTargetPageUid($this->settings['pids']['Forum'])
+			->setArguments($arguments)
+			->setCreateAbsoluteUri(true)
+			->build();
 		$topicLink = '<a href="' . $topicLink . '">' . $topic->getTitle() . '</a>';
 		$this->uriBuilder->reset();
-		$unSubscribeLink = $this->uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments([
-			'tx_typo3forum_pi1[topic]' => $topic->getUid(),
-			'tx_typo3forum_pi1[controller]' => 'User',
-			'tx_typo3forum_pi1[action]' => 'subscribe',
-			'tx_typo3forum_pi1[unsubscribe]' => 1,
-		])->build();
+		$unSubscribeLink = $this->uriBuilder
+			->setTargetPageUid($this->settings['pids']['Forum'])
+			->setArguments([
+				'tx_typo3forum_pi1[topic]' => $topic->getUid(),
+				'tx_typo3forum_pi1[controller]' => 'User',
+				'tx_typo3forum_pi1[action]' => 'subscribe',
+				'tx_typo3forum_pi1[unsubscribe]' => 1,
+			])
+			->setCreateAbsoluteUri(true)
+			->build();
+
 		$unSubscribeLink = '<a href="' . $unSubscribeLink . '">' . $unSubscribeLink . '</a>';
 		foreach ($topic->getSubscribers() as $subscriber) {
 			if ($subscriber->getUid() != $post->getAuthor()->getUid() ) {
