@@ -26,6 +26,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 
 use Mittwald\Typo3Forum\Configuration\ConfigurationBuilder;
 use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
+use Mittwald\Typo3Forum\Domain\Model\ConfigurableInterface;
 use Mittwald\Typo3Forum\Domain\Model\NotifiableInterface;
 use Mittwald\Typo3Forum\Domain\Model\ReadableInterface;
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
@@ -38,7 +39,7 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  * posts. Topic are submitted to the access control mechanism and
  * can be subscribed by users.
  */
-class Topic extends AbstractEntity implements AccessibleInterface, SubscribeableInterface, NotifiableInterface, ReadableInterface {
+class Topic extends AbstractEntity implements AccessibleInterface, SubscribeableInterface, NotifiableInterface, ReadableInterface, ConfigurableInterface {
 
 	/**
 	 * The subject

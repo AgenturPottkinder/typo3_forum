@@ -26,6 +26,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
 
 use Mittwald\Typo3Forum\Configuration\ConfigurationBuilder;
 use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
+use Mittwald\Typo3Forum\Domain\Model\ConfigurableInterface;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Access;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
@@ -38,7 +39,7 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 /**
  * A frontend user.
  */
-class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implements AccessibleInterface {
+class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implements AccessibleInterface, ConfigurableInterface {
 
 	const GENDER_MALE = 0;
 	const GENDER_FEMALE = 1;
