@@ -23,7 +23,6 @@ namespace Mittwald\Typo3Forum\Service\Notification;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\NotifiableInterface;
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
 use Mittwald\Typo3Forum\Service\AbstractService;
@@ -75,9 +74,7 @@ class NotificationService extends AbstractService implements NotificationService
 	 */
 	public function notifySubscribers(SubscribeableInterface $subscriptionObject, NotifiableInterface $notificationObject) {
 		$topic = $subscriptionObject;
-		/** @var Post $post */
 		$post  = $notificationObject;
-		$post->getTopic()->injectSettings($this->configurationBuilder);
 
 		$subject = Localization::translate('Mail_Subscribe_NewPost_Subject');
 		$messageTemplate = Localization::translate('Mail_Subscribe_NewPost_Body');
