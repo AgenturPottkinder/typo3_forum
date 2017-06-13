@@ -24,14 +24,14 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Configuration\ConfigurationBuilder;
 use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
 use Mittwald\Typo3Forum\Domain\Model\NotifiableInterface;
 use Mittwald\Typo3Forum\Domain\Model\ReadableInterface;
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
-
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 /**
  * A single topic. Each topic can contain an infinite number of
@@ -175,22 +175,24 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 */
 	protected $topicRepository;
 
-    /**
-     * @var ConfigurationBuilder
-     */
-    protected $configurationBuilder;
-
 	/**
 	 * Whole TypoScript typo3_forum settings
 	 * @var array
 	 */
 	protected $settings;
 
-    /**
-     * @param ConfigurationBuilder $configurationBuilder
-     */
-	public function injectSettings(ConfigurationBuilder $configurationBuilder) {
-		$this->settings = $configurationBuilder->getSettings();
+	/**
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 */
+	protected $objectManager;
+
+	/**
+	 * @param ObjectManagerInterface $objectManager
+	 */
+	public function injectObjectManager(ObjectManagerInterface $objectManager) {
+		$this->objectManager = $objectManager;
+		$configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
+		$this->settings = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
 	}
 
 	/**
