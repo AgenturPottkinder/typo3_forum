@@ -202,7 +202,7 @@ class Counter extends AbstractTask {
 		//Find all users with their current rank
 		$query = 'SELECT fe.uid, fe.tx_typo3forum_rank
 				  FROM fe_users AS fe
-				  WHERE fe.disable=0 AND fe.deleted=0 AND fe.tx_extbase_type="\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser"
+				  WHERE fe.disable=0 AND fe.deleted=0 AND fe.tx_extbase_type="Mittwald\\\Typo3Forum\\\Domain\\\Model\\\User\\\FrontendUser"
 						AND fe.pid=' . (int)$this->getUserPid();
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
@@ -229,11 +229,16 @@ class Counter extends AbstractTask {
 			$points = $points + (int)$array['support_count'] * (int)$rankScore['gotHelpful'];
 
 			$lastPointLimit = 0;
+			$lastRankUid = 0;
 			foreach ($rankArray as $key => $rank) {
 				if ($points >= $lastPointLimit && $points < $rank['point_limit']) {
 					$array['rank'] = $rank['uid'];
 				}
 				$lastPointLimit = $rank['point_limit'];
+				$lastRankUid = $rank['uid'];
+			}
+			if ($lastRankUid > 0 && $points >= $lastPointLimit) {
+				$array['rank'] = $lastRankUid;
 			}
 
 			$values = [
@@ -242,7 +247,7 @@ class Counter extends AbstractTask {
 				'tx_typo3forum_question_count' => (int)$array['question_count'],
 				'tx_typo3forum_helpful_count' => (int)$array['support_count'],
 				'tx_typo3forum_points' => (int)$points,
-				't_typo3forum_rank' => (int)$array['rank'],
+				'tx_typo3forum_rank' => (int)$array['rank'],
 			];
 
 			$query = $GLOBALS['TYPO3_DB']->UPDATEquery('fe_users', 'uid=' . (int)$userUid, $values);
@@ -255,7 +260,7 @@ class Counter extends AbstractTask {
 		$GLOBALS['TYPO3_DB']->sql_query($query);
 		$query = 'SELECT tx_typo3forum_rank, COUNT(*) AS counter
 				  FROM fe_users
-				  WHERE disable=0 AND deleted=0 AND tx_extbase_type="\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser"
+				  WHERE disable=0 AND deleted=0 AND tx_extbase_type="Mittwald\\\Typo3Forum\\\Domain\\\Model\\\User\\\FrontendUser"
 				  		AND pid=' . (int)$this->getUserPid() . '
 				  GROUP BY tx_typo3forum_rank';
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
