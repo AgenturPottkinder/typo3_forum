@@ -236,17 +236,24 @@ class AjaxController extends AbstractController {
 		$data = [];
 		$displayedTopics = json_decode($displayedTopics);
 		if (count($displayedTopics) < 1) return $data;
-		$this->request->setFormat('html');
+
+        $extbaseSettings = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK, 'Typo3Forum');
+        $templateRootPath = $extbaseSettings['view']['templateRootPaths'][10];
+
+        /* @var StandaloneView $standaloneView */
+        $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
+        $standaloneView->setTemplatePathAndFilename($templateRootPath . '/Ajax/TopicListMenu.html');
+        $standaloneView->setControllerContext($this->controllerContext);
+
 		$topicIcons = $this->topicRepository->findByUids($displayedTopics);
 		$counter = 0;
 		foreach ($topicIcons as $topic) {
-			$this->view->assign('topic', $topic);
+            $standaloneView->assign('topic', $topic);
 			$data[$counter]['uid'] = $topic->getUid();
 			$data[$counter]['replyCount'] = $topic->getReplyCount();
-			$data[$counter]['topicListMenu'] = $this->view->render('topicListMenu');
+			$data[$counter]['topicListMenu'] = $standaloneView->render();
 			$counter++;
 		}
-		$this->request->setFormat('json');
 		return $data;
 	}
 
