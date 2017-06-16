@@ -47,6 +47,8 @@ class PostsMigrationService extends AbstractMigrationService
         if (($posts = $this->getOldPosts())) {
             foreach ($posts as $post) {
                 if (($text = $this->getTextForCurrentPost($post['uid']))) {
+                    // Preserves the tx_mmforum_posts.uid instead of tx_mmforum_posts_text.uid
+                    unset($text['uid']);
                     $newPost = $this->getNewPost(array_merge($post, $text));
                     $this->persistNewPost($newPost);
                 }
