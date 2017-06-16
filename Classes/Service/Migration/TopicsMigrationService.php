@@ -62,6 +62,7 @@ class TopicsMigrationService extends AbstractMigrationService
                 $updateFields[$newKey] = $fields[$oldKey];
             }
 
+            $updateFields['last_post_crdate'] = $this->getCrdateOfPost($updateFields['last_post']);
             $updateFields['post_count'] += 1;
 
             $this->databaseConnection->exec_INSERTquery($this->getNewTableName(), $updateFields);
@@ -125,5 +126,20 @@ class TopicsMigrationService extends AbstractMigrationService
     public function getTitle()
     {
         return 'TOPICS';
+    }
+
+    /**
+     * @param $postId
+     * @return int
+     */
+    private function getCrdateOfPost($postId)
+    {
+        $row = $this->databaseConnection->exec_SELECTgetSingleRow(
+            'crdate',
+            'tx_mmforum_posts',
+            'uid = ' . $postId
+        );
+
+        return (int)$row['crdate'];
     }
 }
