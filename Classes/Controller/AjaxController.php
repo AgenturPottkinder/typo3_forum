@@ -180,13 +180,15 @@ class AjaxController extends AbstractController {
 		if (count($displayedForumMenus) < 1) return $data;
 
         $extbaseSettings = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK, 'Typo3Forum');
-		$templateRootPath = $extbaseSettings['view']['templateRootPaths'][10];
-		
-		/* @var StandaloneView $standaloneView */
-		$standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
-		$standaloneView->setTemplatePathAndFilename($templateRootPath . '/Ajax/ForumMenu.html');
-		$standaloneView->setControllerContext($this->controllerContext);
-		
+        $templateRootPaths = $extbaseSettings['view']['templateRootPaths'];
+
+        /* @var StandaloneView $standaloneView */
+        $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
+        $standaloneView->setTemplateRootPaths($templateRootPaths);
+        $standaloneView->getRenderingContext()->setControllerName('Ajax');
+        $standaloneView->setTemplate('forumMenu');
+        $standaloneView->setFormat('html');
+
 		$foren = $this->forumRepository->findByUids($displayedForumMenus);
 		$counter = 0;
 		foreach ($foren as $forum) {
@@ -238,12 +240,14 @@ class AjaxController extends AbstractController {
 		if (count($displayedTopics) < 1) return $data;
 
         $extbaseSettings = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK, 'Typo3Forum');
-        $templateRootPath = $extbaseSettings['view']['templateRootPaths'][10];
+        $templateRootPaths = $extbaseSettings['view']['templateRootPaths'];
 
         /* @var StandaloneView $standaloneView */
         $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
-        $standaloneView->setTemplatePathAndFilename($templateRootPath . '/Ajax/TopicListMenu.html');
-        $standaloneView->setControllerContext($this->controllerContext);
+        $standaloneView->setTemplateRootPaths($templateRootPaths);
+        $standaloneView->getRenderingContext()->setControllerName('Ajax');
+        $standaloneView->setTemplate('topicListMenu');
+        $standaloneView->setFormat('html');
 
 		$topicIcons = $this->topicRepository->findByUids($displayedTopics);
 		$counter = 0;
