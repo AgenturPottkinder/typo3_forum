@@ -26,7 +26,10 @@ namespace Mittwald\Typo3Forum\Ajax;
  *                                                                      */
 
 use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\TypoScript\ExtendedTemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Frontend\Page\PageRepository;
 use TYPO3\CMS\Frontend\Utility\EidUtility;
 use TYPO3\CMS\Extbase\Core\Bootstrap;
 use TYPO3\CMS\Extbase\Mvc\Dispatcher as ExtbaseDispatcher;
@@ -38,36 +41,36 @@ final class Dispatcher implements SingletonInterface
     /**
      * @var string
      */
-    protected $extensionKey = 'Typo3Forum';
+    private $extensionKey = 'Typo3Forum';
 
     /**
      * An instance of the extbase bootstrapping class.
      * @var Bootstrap
      */
-    protected $extbaseBootstap = null;
+    private $extbaseBootstap = null;
 
     /**
      * An instance of the extbase object manager.
      * @var ObjectManagerInterface
      */
-    protected $objectManager = null;
+    private $objectManager = null;
 
     /**
      * An instance of the extbase request builder.
      * @var RequestBuilder
      */
-    protected $requestBuilder = null;
+    private $requestBuilder = null;
 
     /**
      * An instance of the extbase dispatcher.
      * @var ExtbaseDispatcher
      */
-    protected $dispatcher = null;
+    private $dispatcher = null;
 
     /**
      * Initialize the dispatcher.
      */
-    protected function init()
+    private function init()
     {
         $this->initializeTsfe();
         $this->initTYPO3();
@@ -77,12 +80,12 @@ final class Dispatcher implements SingletonInterface
     /**
      * Initializes TSFE.
      */
-    protected function initializeTsfe()
+    private function initializeTsfe()
     {
         $GLOBALS['TSFE'] = GeneralUtility::makeInstance(
             \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController::class,
-            null, 
-            GeneralUtility::_GP('id'), 
+            null,
+            GeneralUtility::_GP('id'),
             GeneralUtility::_GP('type'),
             true,
             GeneralUtility::_GP('cHash')
@@ -92,7 +95,7 @@ final class Dispatcher implements SingletonInterface
         EidUtility::initTCA();
         $GLOBALS['TSFE']->checkAlternativeIdMethods();
         $GLOBALS['TSFE']->determineId();
-        $GLOBALS['TSFE']->sys_page = GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\Page\PageRepository::class);
+        $GLOBALS['TSFE']->sys_page = GeneralUtility::makeInstance(PageRepository::class);
         $GLOBALS['TSFE']->initTemplate();
         $GLOBALS['TSFE']->newCObj();
     }
@@ -103,7 +106,7 @@ final class Dispatcher implements SingletonInterface
      * Most of the code was adapted from the df_tools extension by Stefan
      * Galinski.
      */
-    protected function initTYPO3()
+    private function initTYPO3()
     {
         // The following code was adapted from the df_tools extension.
         // Credits go to Stefan Galinski.
@@ -153,27 +156,27 @@ final class Dispatcher implements SingletonInterface
      *
      * @return void
      */
-    protected function initExtbase()
+    private function initExtbase()
     {
-        $this->extbaseBootstap = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Core\Bootstrap::class);
+        $this->extbaseBootstap = GeneralUtility::makeInstance(Bootstrap::class);
         $this->extbaseBootstap->initialize([
             'extensionName' => $this->extensionKey,
             'pluginName' => 'Ajax',
             'vendorName' => 'Mittwald'
         ]);
-        $this->objectManager = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class);
+        $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
     }
 
     /**
      * @param integer $pageUid
      */
-    protected function loadTS($pageUid = 0)
+    private function loadTS($pageUid = 0)
     {
-        $sysPageObj = GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\Page\PageRepository::class);
+        $sysPageObj = GeneralUtility::makeInstance(PageRepository::class);
 
         $rootLine = $sysPageObj->getRootLine($pageUid);
 
-        $typoscriptParser = GeneralUtility::makeInstance(\TYPO3\CMS\Core\TypoScript\ExtendedTemplateService::class);
+        $typoscriptParser = GeneralUtility::makeInstance(ExtendedTemplateService::class);
         $typoscriptParser->tt_track = 0;
         $typoscriptParser->init();
         $typoscriptParser->runThroughTemplates($rootLine);
