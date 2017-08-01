@@ -75,8 +75,14 @@ class UserMigrationService extends AbstractMigrationService
      */
     protected function updateUser(array $user)
     {
-        $fields = array_intersect_key($user, $this->getFieldsDefinition());
-        $updateFields = array_combine($this->getFieldsDefinition(), array_values($fields));
+        // The inputs of array_combine must be sorted to avoid wrong assignment
+        $sortedFieldDefinitions = $this->getFieldsDefinition();
+        ksort($sortedFieldDefinitions);
+
+        $fields = array_intersect_key($user, $sortedFieldDefinitions);
+        ksort($fields);
+
+        $updateFields = array_combine($sortedFieldDefinitions, array_values($fields));
         $updateFields['tx_extbase_type'] = self::EXTBASE_TYPE;
         $this->databaseConnection->exec_UPDATEquery($this->getNewTableName(), 'uid = ' . $user['uid'], $updateFields);
     }
@@ -87,6 +93,7 @@ class UserMigrationService extends AbstractMigrationService
     public function getFieldsDefinition()
     {
         return [
+            'tx_mmforum_avatar' => 'image',
             'tx_mmforum_user_sig' => 'tx_typo3forum_signature',
             'tx_mmforum_skype' => 'tx_typo3forum_skype',
         ];
