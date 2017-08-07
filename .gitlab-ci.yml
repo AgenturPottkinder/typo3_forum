@@ -1,0 +1,13 @@
+stages:
+  - test
+  - package
+
+build-version:
+  stage: package
+  script:
+    - build-release.sh ${CI_COMMIT_TAG/v/}
+  artifacts:
+    paths:
+      - typo3_forum_${CI_COMMIT_TAG/v/}.zip
+  only:
+    - tags
