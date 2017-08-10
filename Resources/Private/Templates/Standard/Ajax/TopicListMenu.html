@@ -52,7 +52,7 @@
                 </li>
                 <li></li>
                 <li>
-                    <f:link.action controller="Moderation" action="topicConformDelete" arguments="{topic: topic}">
+                    <f:link.action controller="Moderation" action="topicConformDelete" arguments="{topic: topic}" onclick="return confirm('{f:translate(key:'Confirm_Delete_Topic')}')">
                         <i class="tx-typo3forum-icon-16-post-delete"></i>
                         <f:translate key="Button_Delete_Topic"/>
                     </f:link.action>
