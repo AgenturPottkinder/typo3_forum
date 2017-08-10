@@ -1,5 +1,5 @@
 {
-	"name": "mittwald/typo3-forum",
+	"name": "mittwald/typo3_forum",
 	"description": "Forum extension",
 	"license": "GPL-2",
 	"type": "typo3-cms-extension",
@@ -20,7 +20,8 @@
 	},
 	"replace": {
 		"typo3_forum": "self.version",
-		"typo3-ter/typo3-forum": "self.version"
+		"typo3-ter/typo3-forum": "self.version",
+		"typo3-ter/typo3_forum": "self.version"
 	},
 	"config": {
 		"vendor-dir": ".Build/vendor",
