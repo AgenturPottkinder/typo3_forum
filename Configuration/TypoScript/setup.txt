@@ -209,7 +209,7 @@ plugin.tx_typo3forum.settings {
     debug {
         disableACLs = 0
     }
-	
+
     cutUsernameOnChar = {$plugin.tx_typo3forum.settings.cutUsernameOnChar}
     cutBreadcrumbOnChar = {$plugin.tx_typo3forum.settings.cutBreadcrumbOnChar}
     useSqlStatementsOnCriticalFunctions = {$plugin.tx_typo3forum.settings.useSqlStatementsOnCriticalFunctions}
@@ -278,7 +278,7 @@ plugin.tx_typo3forum.settings {
             inactiveLinkWrap = <li>|</li>
         }
 
-        topicShow < default
+        topicShow < .default
         topicShow {
             insertAbove = 1
             itemsPerPage = 10
