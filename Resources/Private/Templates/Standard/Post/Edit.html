@@ -1,10 +1,7 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 <f:layout name="default"/>
-
 <f:section name="main">
 	<f:render partial="FormErrors"/>
 	<f:render partial="Post/Form" arguments="{post: post, topic: post.topic, action: 'update'}"/>
 </f:section>
-
-
 <f:section name="menu"/>

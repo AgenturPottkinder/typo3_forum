@@ -2,14 +2,9 @@
 {namespace b=Mittwald\Typo3Forum\ViewHelpers\Bootstrap}
 
 <f:layout name="default"/>
-
 <f:section name="main">
-
     <f:render partial="FormErrors"/>
-
-    <h1>
-        <f:translate key="User_New_Message"/>
-    </h1>
+    <h1><f:translate key="User_New_Message"/></h1>
     <f:form controller="User" action="createMessage">
         <div>
             <fieldset>
@@ -18,7 +13,6 @@
                     <f:form.textfield name="recipient" value="{recipient}"
                                       readonly="<f:if condition='{readonly} == 1'>readonly</f:if>"/>
                 </b:form.row>
-
                 <b:form.row error="text" errorLLPrefix="User_New_Message_Post_Text">
                     <mmf:form.bbCodeEditor name="text" property="text" id="typo3forum_editor" rows="20" cols="40"/>
                 </b:form.row>
@@ -39,5 +33,4 @@
         </div>
     </f:form>
 </f:section>
-
 <f:section name="menu"/>

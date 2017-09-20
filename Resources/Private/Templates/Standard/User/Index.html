@@ -1,13 +1,7 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 <f:layout name="default"/>
-
-
-<!-- MAIN Section -->
 <f:section name="main">
-
-    <h2>
-        <f:translate key="User_Index"/>
-    </h2>
+    <h2><f:translate key="User_Index"/></h2>
     <f:widget.paginate objects="{users}" as="paginatedUsers"
                        configuration="{settings.userController.index.pagebrowser}">
         <table>
@@ -49,10 +43,5 @@
             </f:for>
         </table>
     </f:widget.paginate>
-
 </f:section>
-
-
-<!-- MENU Section -->
-<f:section name="menu">
-</f:section>
+<f:section name="menu" />

@@ -1,16 +1,9 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 {namespace b=Mittwald\Typo3Forum\ViewHelpers\Bootstrap}
 <f:layout name="default" />
-
-
-
 <f:section name="main">
 	<f:render partial="FormErrors" />
-
-	<h2>
-		<f:translate key="Report_NewPostReport"/>
-	</h2>
-
+	<h2><f:translate key="Report_NewPostReport"/></h2>
 	<f:form name="firstComment" object="{firstComment}" controller="Report" action="createPostReport" id="report" >
 		<fieldset>
 			<legend>
@@ -37,7 +30,4 @@
 		</fieldset>
 	</f:form>
 </f:section>
-
-
-
 <f:section name="menu" />

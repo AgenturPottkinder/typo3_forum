@@ -48,33 +48,30 @@ abstract class AbstractControllerTest extends UnitTestCase {
 	 */
 	protected $viewMock;
 
-	/**
-	 *
-	 */
 	public function setUp() {
-		$this->authenticationServiceMock = $this->getMock('Mittwald\\Typo3Forum\\Service\\Authentication\\AuthenticationService');
+		$this->authenticationServiceMock = $this->getMock(AuthenticationService::class);
 		$this->frontendUserRepositoryMock = $this->getMock(
-			'Mittwald\\Typo3Forum\\Domain\\Repository\\User\\FrontendUserRepository',
+			FrontendUserRepository::class,
 			[],
-			[$this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')]
+			[$this->getMock(ObjectManager::class)]
 		);
-		$this->objectManagerMock = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+		$this->objectManagerMock = $this->getMock(ObjectManager::class);
 		$this->objectManagerMock->expects($this->any())
 			->method('get')
 			->will($this->returnCallback(function($className) {
 				return $this->getMock($className);
 			}));
-		$this->requestMock = $this->getMock('TYPO3\\CMS\\Extbase\\Mvc\\Web\\Request');
-		$this->responseMock = $this->getMock('TYPO3\\CMS\\Extbase\\Mvc\\Web\\Response');
+		$this->requestMock = $this->getMock(Request::class);
+		$this->responseMock = $this->getMock(Response::class);
 		$this->responseMock->expects($this->any())->method('shutdown');
-		$this->uriBuilderMock = $this->getMock('TYPO3\\CMS\\Extbase\\Mvc\\Web\\Routing\\UriBuilder');
+		$this->uriBuilderMock = $this->getMock(UriBuilder::class);
 		$this->uriBuilderMock->expects($this->any())
 			->method('reset')
 			->will($this->returnValue($this->uriBuilderMock));
 		$this->uriBuilderMock->expects($this->any())
 			->method('setTargetPageUid')
 			->will($this->returnValue($this->uriBuilderMock));
-		$this->viewMock = $this->getMockBuilder('TYPO3\\CMS\\Fluid\\View\\TemplateView')
+		$this->viewMock = $this->getMockBuilder(TemplateView::class)
 			->setMethods(['__construct', 'assign', 'assignMultiple'])
 			->disableOriginalConstructor()
 			->getMock();
