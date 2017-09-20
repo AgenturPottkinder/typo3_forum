@@ -5,7 +5,7 @@ php:
 - 7.0
 sudo: false
 script:
-- find Configuration Classes -name '*.php' | xargs -l1 php -l
+  - find Configuration Classes -name '*.php' | xargs -l1 php -l
 before_deploy:
   - ./build-release.sh ${TRAVIS_TAG/v/}
 deploy:
