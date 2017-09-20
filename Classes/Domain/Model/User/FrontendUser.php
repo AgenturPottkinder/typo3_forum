@@ -1,7 +1,7 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\User;
 
-/*                                                                    - *
+/*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
  *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
@@ -289,23 +289,10 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	protected $settings = NULL;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Service\ImageService
-     */
-    protected $imageService;
-
-    /**
      * @param ConfigurationBuilder $configurationBuilder
      */
     public function injectSettings(ConfigurationBuilder $configurationBuilder) {
         $this->settings = $configurationBuilder->getSettings();
-    }
-
-    /**
-     * @param \TYPO3\CMS\Extbase\Service\ImageService $imageService
-     */
-    public function injectImageService(\TYPO3\CMS\Extbase\Service\ImageService $imageService)
-    {
-        $this->imageService = $imageService;
     }
 
     /**
