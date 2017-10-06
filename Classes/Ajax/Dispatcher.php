@@ -29,11 +29,10 @@ use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\TypoScript\ExtendedTemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Page\PageRepository;
 use TYPO3\CMS\Frontend\Utility\EidUtility;
 use TYPO3\CMS\Extbase\Core\Bootstrap;
-use TYPO3\CMS\Extbase\Mvc\Dispatcher as ExtbaseDispatcher;
-use TYPO3\CMS\Extbase\Mvc\Web\RequestBuilder;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 final class Dispatcher implements SingletonInterface
@@ -56,18 +55,6 @@ final class Dispatcher implements SingletonInterface
     private $objectManager = null;
 
     /**
-     * An instance of the extbase request builder.
-     * @var RequestBuilder
-     */
-    private $requestBuilder = null;
-
-    /**
-     * An instance of the extbase dispatcher.
-     * @var ExtbaseDispatcher
-     */
-    private $dispatcher = null;
-
-    /**
      * Initialize the dispatcher.
      */
     private function init()
@@ -83,7 +70,7 @@ final class Dispatcher implements SingletonInterface
     private function initializeTsfe()
     {
         $GLOBALS['TSFE'] = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController::class,
+            TypoScriptFrontendController::class,
             null,
             GeneralUtility::_GP('id'),
             GeneralUtility::_GP('type'),

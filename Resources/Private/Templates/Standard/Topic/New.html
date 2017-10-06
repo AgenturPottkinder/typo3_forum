@@ -2,12 +2,9 @@
 {namespace b=Mittwald\Typo3Forum\ViewHelpers\Bootstrap}
 
 <f:layout name="default"/>
-
 <f:section name="main">
 	<f:render partial="FormErrors"/>
-	<h2>
-		<f:translate key="Topic_New"/>
-	</h2>
+	<h2><f:translate key="Topic_New"/></h2>
 	<f:form name="post" object="{post}" controller="Topic" action="create" id="topic" enctype="multipart/form-data">
 		<fieldset>
 			<legend>Create a new topic</legend>
@@ -49,5 +46,4 @@
 		</fieldset>
 	</f:form>
 </f:section>
-
 <f:section name="menu"/>

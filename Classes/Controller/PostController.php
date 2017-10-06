@@ -116,7 +116,12 @@ class PostController extends AbstractController {
 		$this->frontendUserRepository->update($currentUser);
 
 		// output new Data
-		return json_encode(["error" => FALSE, "add" => 0, "postHelpfulCount" => $post->getHelpfulCount(), "userHelpfulCount" => $post->getAuthor()->getHelpfulCount()]);
+        return json_encode([
+            "error" => false,
+            "add" => 0,
+            "postHelpfulCount" => $post->getHelpfulCount(),
+            "userHelpfulCount" => $post->getAuthor()->getHelpfulCount()
+        ]);
 	}
 
 	/**
@@ -142,8 +147,12 @@ class PostController extends AbstractController {
 		$this->frontendUserRepository->update($currentUser);
 
 		// output new Data
-		return json_encode(["error" => false, "add" => 1, "postHelpfulCount" => $post->getHelpfulCount(), "userHelpfulCount" => $post->getAuthor()->getHelpfulCount()]);
-
+		return json_encode([
+		    "error" => false,
+            "add" => 1,
+            "postHelpfulCount" => $post->getHelpfulCount(),
+            "userHelpfulCount" => $post->getAuthor()->getHelpfulCount()
+        ]);
 	}
 
 	/**
@@ -211,7 +220,6 @@ class PostController extends AbstractController {
 	 * @validate $post \Mittwald\Typo3Forum\Domain\Validator\Forum\PostValidator
 	 * @validate $attachments \Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator
 	 */
-
 	public function createAction(Topic $topic, Post $post, array $attachments = []) {
 		// Assert authorization
 		$this->authenticationService->assertNewPostAuthorization($topic);
@@ -228,8 +236,7 @@ class PostController extends AbstractController {
 		$this->topicRepository->update($topic);
 
 		// All potential listeners (Signal-Slot FTW!)
-		$this->signalSlotDispatcher->dispatch(Post::class, 'postCreated',
-			['post' => $post]);
+		$this->signalSlotDispatcher->dispatch(Post::class, 'postCreated', ['post' => $post]);
 
 		// Display flash message and redirect to topic->show action.
 		$this->controllerContext->getFlashMessageQueue()->enqueue(
@@ -358,5 +365,4 @@ class PostController extends AbstractController {
         header('Content-Disposition: attachment; filename="' . $attachment->getFilename() . '"');
 		readfile($attachment->getAbsoluteFilename());
 	}
-
 }

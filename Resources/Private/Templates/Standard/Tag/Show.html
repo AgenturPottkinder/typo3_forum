@@ -1,9 +1,7 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 <f:layout name="default"/>
 <f:section name="main">
-	<h2>
-		<f:translate key="Tags_Show_Tag" />: {tag.name}
-	</h2>
+	<h2><f:translate key="Tags_Show_Tag" />: {tag.name}</h2>
 	<f:widget.paginate objects="{topics}" as="paginatedTopics" configuration="{settings.pagebrowser.default}">
 		<f:render partial="Topic/List" arguments="{topics: paginatedTopics}" />
 	</f:widget.paginate>
