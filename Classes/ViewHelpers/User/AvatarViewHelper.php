@@ -38,41 +38,28 @@ use TYPO3\CMS\Fluid\ViewHelpers\ImageViewHelper;
 class AvatarViewHelper extends ImageViewHelper
 {
 
+	/**
+	 * Initialize arguments.
+	 */
+	public function initializeArguments()
+	{
+		parent::initializeArguments();
+		$this->registerTagAttribute('user', 'Mittwald\Typo3Forum\Domain\Model\User\FrontendUser', 'fe_user object', false, null);
+	}
+
     /**
      * Avatar of user object
      *
      * @see https://docs.typo3.org/typo3cms/TyposcriptReference/ContentObjects/Image/
-     * @param FrontendUser $user user
-     * @param string $src a path to a file, a combined FAL identifier or an uid (int). If $treatIdAsReference is set, the integer is considered the uid of the sys_file_reference record. If you already got a FAL object, consider using the $image parameter instead
-     * @param string $width width of the image. This can be a numeric value representing the fixed width of the image in pixels. But you can also perform simple calculations by adding "m" or "c" to the value. See imgResource.width for possible options.
-     * @param string $height height of the image. This can be a numeric value representing the fixed height of the image in pixels. But you can also perform simple calculations by adding "m" or "c" to the value. See imgResource.width for possible options.
-     * @param int $minWidth minimum width of the image
-     * @param int $minHeight minimum height of the image
-     * @param int $maxWidth maximum width of the image
-     * @param int $maxHeight maximum height of the image
-     * @param bool $treatIdAsReference given src argument is a sys_file_reference record
-     * @param FileInterface|AbstractFileFolder $image a FAL object
-     * @param string|bool $crop overrule cropping of image (setting to FALSE disables the cropping set in FileReference)
-     * @param bool $absolute Force absolute URL
      *
      * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception
      * @return string Rendered tag
      */
-    public function render(
-        $src = null,
-        $width = null,
-        $height = null,
-        $minWidth = null,
-        $minHeight = null,
-        $maxWidth = null,
-        $maxHeight = null,
-        $treatIdAsReference = false,
-        $image = null,
-        $crop = null,
-        $absolute = false,
-        FrontendUser $user = null
-    ) {
+    public function render() {
         $avatarFilename = null;
+        $user = $this->arguments['user'];
+        $height = $this->arguments['height'];
+        $width = $this->arguments['width'];
 
         if (($user != null) && !($user instanceof AnonymousFrontendUser)) {
             $avatarFilename = $user->getImagePath();
@@ -85,6 +72,13 @@ class AvatarViewHelper extends ImageViewHelper
             $height = $width;
         }
 
-        return parent::render($avatarFilename, $width, $height);
+        $newArguments = array_merge($this->arguments, [
+			'src' => $avatarFilename,
+			'width' => $width,
+			'height' => $height
+		]);
+
+        $this->setArguments($newArguments);
+        return parent::render();
     }
 }
