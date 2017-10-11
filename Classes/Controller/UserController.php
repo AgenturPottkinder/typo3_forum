@@ -527,7 +527,7 @@ class UserController extends AbstractController {
 	 * @return string A flash message.
 	 */
 	protected function getSubscriptionFlashMessage(SubscribeableInterface $object, $unsubscribe = FALSE) {
-		$type = array_pop(explode('_', get_class($object)));
+		$type = array_pop(explode('\\', get_class($object)));
 		$key = 'User_' . ($unsubscribe ? 'Uns' : 'S') . 'ubscribe_' . $type . '_Success';
 		return LocalizationUtility::translate($key, 'Typo3Forum', [$object->getTitle()]);
 	}
