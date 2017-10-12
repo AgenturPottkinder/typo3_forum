@@ -89,7 +89,7 @@ class HelpfulButtonViewHelper extends CObjectViewHelper
         if ($post->hasBeenSupportedByUser($this->authenticationService->getUser())) {
             $class .= ' supported';
         }
-        $btn = '<div data-toogle="tooltip" title="' . $title . '" data-class="' . $class . '" data-countusertarget="' . $countUserTarget . '" data-counttarget="' . $countTarget . '" data-post="' . $post->getUid() . '" data-pageuid="' . $this->settings['pids']['Forum'] . '" data-eid="' . $this->settings['forum']['post']['helpfulBtn']['eID'] . '"></div>';
+        $btn = '<div data-toogle="tooltip" title="' . $title . '" class="' . $class . '" data-countusertarget="' . $countUserTarget . '" data-counttarget="' . $countTarget . '" data-post="' . $post->getUid() . '" data-pageuid="' . $this->settings['pids']['Forum'] . '" data-eid="' . $this->settings['forum']['post']['helpfulBtn']['eID'] . '"></div>';
         return $btn;
     }
 }

@@ -134,9 +134,6 @@ class AjaxController extends AbstractController {
 		if (!empty($displayedPosts)) {
 			$content['posts'] = $this->_getPosts($displayedPosts);
 		}
-		if (!empty($displayedPosts)) {
-			$content['posts'] = $this->_getPosts($displayedPosts);
-		}
 		if ($displayOnlinebox == 1) {
 			$content['onlineBox'] = $this->_getOnlinebox();
 		}
@@ -215,19 +212,41 @@ class AjaxController extends AbstractController {
 		$this->request->setFormat('html');
 		$posts = $this->postRepository->findByUids($displayedPosts);
 		$counter = 0;
-		foreach ($posts as $post) {
+
+        $extbaseSettings = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK, 'Typo3Forum');
+        $templateRootPaths = $extbaseSettings['view']['templateRootPaths'];
+
+        foreach ($posts as $post) {
+            /* @var StandaloneView $standaloneView */
+            $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
+            $standaloneView->setControllerContext($this->controllerContext);
+            $standaloneView->setTemplateRootPaths($templateRootPaths);
+            $standaloneView->getRenderingContext()->setControllerName('Ajax');
+            $standaloneView->setTemplate('PostHelpfulButton');
+            $standaloneView->setFormat('html');
 			/** @var Post $post */
-			$this->view->assign('post', $post)
+			$standaloneView->assign('settings',$extbaseSettings['settings'])->assign('post', $post)
 				->assign('user', $this->getCurrentUser());
-			$data[$counter]['uid'] = $post->getUid();
-			$data[$counter]['postHelpfulButton'] = $this->view->render('PostHelpfulButton');
+
+            $data[$counter]['uid'] = $post->getUid();
+			$data[$counter]['postHelpfulButton'] = $standaloneView->render();
 			$data[$counter]['postHelpfulCount'] = $post->getHelpfulCount();
 			$data[$counter]['postUserHelpfulCount'] = $post->getAuthor()->getHelpfulCount();
 			$data[$counter]['author']['uid'] = $post->getAuthor()->getUid();
-			$data[$counter]['postEditLink'] = $this->view->render('PostEditLink');
+
+            /* @var StandaloneView $standaloneView */
+            $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
+            $standaloneView->setControllerContext($this->controllerContext);
+            $standaloneView->setTemplateRootPaths($templateRootPaths);
+            $standaloneView->getRenderingContext()->setControllerName('Ajax');
+            $standaloneView->setTemplate('PostEditLink');
+            $standaloneView->setFormat('html');
+            $standaloneView->assign('settings',$extbaseSettings['settings'])->assign('post', $post)
+                ->assign('user', $this->getCurrentUser());
+			$data[$counter]['postEditLink'] = $standaloneView->render();
 			$counter++;
 		}
-		$this->request->setFormat('json');
+		#$this->request->setFormat('json');
 		return $data;
 	}
 
