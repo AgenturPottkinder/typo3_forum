@@ -45,6 +45,10 @@ class HTMLMailingService extends AbstractMailingService
      */
     public function sendMail(FrontendUser $recipient, $subject, $bodyText)
     {
+        if (empty($recipient->getEmail())) {
+            return;
+        }
+
         $typo3Mail = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
         $typo3Mail->setFrom([
                 $this->getDefaultSenderAddress() => $this->getDefaultSenderName()
