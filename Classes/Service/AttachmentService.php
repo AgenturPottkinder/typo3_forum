@@ -6,6 +6,7 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Attachment;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Core\Type\File\FileInfo;
 
 class AttachmentService implements SingletonInterface
 {
@@ -32,7 +33,9 @@ class AttachmentService implements SingletonInterface
             }
             $attachmentObj = $this->objectManager->get(Attachment::class);
             $tmp_name = $_FILES['tx_typo3forum_pi1']['tmp_name']['attachments'][$attachmentID];
-            $mime_type = mime_content_type($tmp_name);
+            $fileInfo = GeneralUtility::makeInstance(FileInfo::class,$tmp_name);
+
+            $mime_type = $fileInfo->getMimeType();
 
             //Save in ObjectStorage and in file system
             $attachmentObj->setFilename($attachment['name']);
