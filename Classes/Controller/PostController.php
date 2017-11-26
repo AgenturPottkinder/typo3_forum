@@ -364,5 +364,6 @@ class PostController extends AbstractController {
         header("Content-Type: application/download");
         header('Content-Disposition: attachment; filename="' . $attachment->getFilename() . '"');
 		readfile($attachment->getAbsoluteFilename());
+		exit;
 	}
 }
