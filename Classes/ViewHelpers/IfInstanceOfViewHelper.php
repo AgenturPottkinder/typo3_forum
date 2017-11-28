@@ -24,7 +24,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use TYPO3\CMS\Fluid\ViewHelpers\IfViewHelper;
+use TYPO3Fluid\Fluid\ViewHelpers\IfViewHelper;
 
 /**
  * ViewHelper that renders its contents if a certain object is an instance
