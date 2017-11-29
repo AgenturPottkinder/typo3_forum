@@ -14,8 +14,7 @@ return [
 		'label' => 'subject',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
-		'versioningWS' => 2,
-		'versioning_followPages' => TRUE,
+		'versioningWS' => true,
 		'origUid' => 't3_origuid',
 		'languageField' => 'sys_language_uid',
 		'delete' => 'deleted',
@@ -32,20 +31,26 @@ return [
 		'1' => ['showitem' => 'type,subject,forum,last_post,target'],
 	],
 	'columns' => [
-		'sys_language_uid' => [
-			'exclude' => 1,
-			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.language',
-			'config' => [
-				'type' => 'select',
-				'renderType' => 'selectSingle',
-				'foreign_table' => 'sys_language',
-				'foreign_table_where' => 'ORDER BY sys_language.title',
-				'items' => [
-					['LLL:EXT:lang/locallang_general.php:LGL.allLanguages', -1],
-					['LLL:EXT:lang/locallang_general.php:LGL.default_value', 0],
-				],
-			],
-		],
+        'sys_language_uid' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.language',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'sys_language',
+                'foreign_table_where' => 'ORDER BY sys_language.title',
+                'items' => [
+                    ['LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages', -1],
+                    ['LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.default_value', 0]
+                ],
+                'default' => 0,
+                'fieldWizard' => [
+                    'selectIcons' => [
+                        'disabled' => false,
+                    ],
+                ],
+            ]
+        ],
 		't3ver_label' => [
 			'displayCond' => 'FIELD:t3ver_label:REQ:true',
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.versionLabel',

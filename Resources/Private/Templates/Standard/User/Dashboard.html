@@ -1,10 +1,7 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 <f:layout name="default"/>
-
 <f:section name="main">
-    <h1>
-        <f:translate key="User_Index_Dashboard"/>
-    </h1>
+    <h1><f:translate key="User_Index_Dashboard"/></h1>
     <div>
         <div>
             <mmf:user.avatar user="{user}" width="150" height="150" alt="{user.username}"
@@ -67,37 +64,24 @@
             </ul>
         </div>
     </div>
-
     <div>
         <div>
-            <h1>
-                <f:translate key="User_Index_Notifications"/>
-            </h1>
+            <h1><f:translate key="User_Index_Notifications"/></h1>
             <f:render partial="User/NotificationBox"
                       arguments="{notifications: myNotifications, currentUser: user, noDetail: 1}"></f:render>
         </div>
         <div>
-            <h1>
-                <f:translate key="User_Index_Messages"/>
-            </h1>
+            <h1><f:translate key="User_Index_Messages"/></h1>
             <f:render partial="User/MessageBox" arguments="{messages: myMessages}"></f:render>
         </div>
     </div>
-
     <div>
-        <h1>
-            <f:translate key="User_Index_Favorites"/>
-        </h1>
+        <h1><f:translate key="User_Index_Favorites"/></h1>
         <f:render partial="User/FavoriteBox" arguments="{topics: myFavorites, noDetail: 1}"></f:render>
     </div>
     <div>
-        <h1>
-            <f:translate key="User_Index_MyTopics"/>
-        </h1>
+        <h1><f:translate key="User_Index_MyTopics"/></h1>
         <f:render partial="User/TopicsBox" arguments="{topics: myTopics, noDetail: 1, user: user}"></f:render>
     </div>
-
-
 </f:section>
-
 <f:section name="menu"/>

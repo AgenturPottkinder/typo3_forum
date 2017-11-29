@@ -1,15 +1,12 @@
 <f:layout name="default" />
-
-This template displays a EDIT form for the current domain object.
-
 <f:section name="main">
-<h1>Edit User</h1>
+	<h1>Edit User</h1>
 
-<f:flashMessages />
+	<f:flashMessages />
 
-<f:render partial="formErrors" />
+	<f:render partial="formErrors" />
 
-<f:form method="post" action="update" name="user" object="{user}">
-	<f:form.submit value="Edit" />
-</f:form>
+	<f:form method="post" action="update" name="user" object="{user}">
+		<f:form.submit value="Edit" />
+	</f:form>
 </f:section>

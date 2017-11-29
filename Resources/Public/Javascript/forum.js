@@ -59,7 +59,7 @@ jQuery(document).ready(function($) {
 	});
 
 	var displayOnlinebox = 0;
-	if($('.user_online_box').length > 0){
+	if ($('.user_online_box').length > 0){
 		displayOnlinebox = 1;
 	}
 
@@ -70,7 +70,6 @@ jQuery(document).ready(function($) {
 		displayedPosts[displayedPostCount] = $(this).data('uid');
 		displayedPostCount = displayedPostCount + 1;
 	});
-
 
 	// ads
 	var displayedAds = {};
@@ -188,10 +187,7 @@ jQuery(document).ready(function($) {
                     }
                     $.ajax({
                         type: "GET",
-                        url: typo3_forum_ajaxUrl_helpful
-                                .replace('__typo3_forum_eid__', eID)
-                                .replace('__typo3_forum_action__', action)
-                                .replace('__typo3_forum_post__',post),
+                        url: "index.php?id="+currentPageUid+"&eID=" + $(this).attr('data-eid') + "&tx_typo3forum_ajax[controller]=Post&tx_typo3forum_ajax[action]=" + type + "Supporter&tx_typo3forum_ajax[post]=" + $(this).attr('data-post')+'&no_cache=1',
                         async: false,
                         beforeSend: function (msg) {
                             $('.' + $(targetElement).attr('data-counttarget')).html('<div class="tx-typo3forum-ajax-loader"></div>');
@@ -219,8 +215,4 @@ jQuery(document).ready(function($) {
             }
         });
     }
-
 });
-
-
-

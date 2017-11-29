@@ -176,7 +176,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	protected $topicRepository;
 
     /**
-     * @var ConfigurationBuilder
+     * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
+     * @inject
      */
     protected $configurationBuilder;
 
@@ -186,12 +187,12 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 */
 	protected $settings;
 
-    /**
-     * @param ConfigurationBuilder $configurationBuilder
-     */
-	public function injectSettings(ConfigurationBuilder $configurationBuilder) {
-		$this->settings = $configurationBuilder->getSettings();
-	}
+//    /**
+//     * @param ConfigurationBuilder $configurationBuilder
+//     */
+//	public function injectSettings(ConfigurationBuilder $configurationBuilder) {
+//		$this->settings = $configurationBuilder->getSettings();
+//	}
 
 	/**
 	 * Constructor. Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage instances.
@@ -305,7 +306,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * @return integer Page count
 	 */
 	public function getPageCount() {
-		return ceil($this->postCount / (int)$this->settings['pagebrowser']['topicShow']['itemsPerPage']);
+		$settings = $this->configurationBuilder->getSettings();
+	    return ceil($this->postCount / (int)$settings['pagebrowser']['topicShow']['itemsPerPage']);
 	}
 
 	/**

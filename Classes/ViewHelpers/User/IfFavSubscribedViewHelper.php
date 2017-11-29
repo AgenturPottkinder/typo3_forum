@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\ViewHelpers\User;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -25,32 +26,36 @@ namespace Mittwald\Typo3Forum\ViewHelpers\User;
 
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\ViewHelpers\IfViewHelper;
+use TYPO3Fluid\Fluid\ViewHelpers\IfViewHelper;
 
 /**
  * ViewHelper that renders its contents, when a certain user has subscribed
  * a specific object.
  */
-class IfFavSubscribedViewHelper extends IfViewHelper {
-
-	/**
-	 * Renders the contents of this view helper, when a user has subscribed a
-	 * specific subscribeable object.
-	 *
-	 * @param SubscribeableInterface $object The object that needs to be subscribed in order for the contents to be rendered.
-	 * @param FrontendUser $user
-	 * @return string
-	 */
-	public function render(SubscribeableInterface $object, FrontendUser $user = NULL) {
-		if ($user === NULL) {
-			$user =& GeneralUtility::makeInstance('Mittwald\\Typo3Forum\\Domain\\Repository\\User\\FrontendUserRepository')->findCurrent();
-		}
-		foreach ($object->getSubscribers() As $subscriber) {
-			if ($subscriber->getUid() == $user->getUid()) {
-				return $this->renderThenChild();
-			}
-		}
-		return $this->renderElseChild();
-	}
+class IfFavSubscribedViewHelper extends IfViewHelper
+{
+    /**
+     * Renders the contents of this view helper, when a user has subscribed a
+     * specific subscribeable object.
+     *
+     * @param SubscribeableInterface $object The object that needs to be subscribed in order for the contents to be rendered.
+     * @param FrontendUser $user
+     * @return string
+     */
+    public function render()
+    {
+        /* @var FrontendUser $user */
+        $user = $this->arguments['user'];
+        if ($user === null) {
+            $user =& GeneralUtility::makeInstance(FrontendUserRepository::class)->findCurrent();
+        }
+        foreach ($this->arguments['object']->getSubscribers() as $subscriber) {
+            if ($subscriber->getUid() == $user->getUid()) {
+                return $this->renderThenChild();
+            }
+        }
+        return $this->renderElseChild();
+    }
 }

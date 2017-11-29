@@ -32,6 +32,7 @@ use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
  */
 class ForumIconViewHelper extends AbstractViewHelper
 {
+    protected $escapeOutput = false;
 
     /**
      * The frontend user repository.
@@ -40,18 +41,7 @@ class ForumIconViewHelper extends AbstractViewHelper
      */
     protected $frontendUserRepository = null;
 
-    /**
-     *
-     * Initializes the view helper arguments.
-     * @return void
-     *
-     */
-    public function initializeArguments()
-    {
-
-    }
-
-    /**
+      /**
      *
      * Renders the forum icon.
      *
@@ -65,12 +55,19 @@ class ForumIconViewHelper extends AbstractViewHelper
     {
         $data = $this->getDataArray($forum);
 
+        $cObjectViewHelper = $this->getCObjectViewHelper();
         if ($data['new']) {
-            return $this->getCObjectViewHelper()->render('plugin.tx_typo3forum.renderer.icons.forum_new', $data);
+            $cObjectViewHelper->setArguments([
+                'typoscriptObjectPath' => 'plugin.tx_typo3forum.renderer.icons.forum_new',
+                'data' => $data
+            ]);
         } else {
-            return $this->getCObjectViewHelper()->render('plugin.tx_typo3forum.renderer.icons.forum', $data);
+            $cObjectViewHelper->setArguments([
+                'typoscriptObjectPath' => 'plugin.tx_typo3forum.renderer.icons.forum',
+                'data' => $data
+            ]);
         }
-
+        return $cObjectViewHelper->render();
     }
 
     /**
@@ -101,6 +98,6 @@ class ForumIconViewHelper extends AbstractViewHelper
      */
     protected function getCObjectViewHelper()
     {
-        return $this->objectManager->get('TYPO3\\CMS\\Fluid\\ViewHelpers\\CObjectViewHelper');
+        return $this->objectManager->get(\TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper::class);
     }
 }
