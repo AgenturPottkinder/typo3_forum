@@ -28,7 +28,9 @@ use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
 use Mittwald\Typo3Forum\Domain\Model\NotifiableInterface;
 use Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -71,7 +73,8 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 
 	/**
 	 * The topic.
-	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Topic
+	 *
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Topic>
 	 */
 	protected $topic;
 
