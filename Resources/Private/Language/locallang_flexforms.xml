@@ -24,6 +24,7 @@
             <label index="Behaviour_Action_Topics_List">Topics List</label>
 			<label index="Display">Display View</label>
             <label index="Display_Latest_Box">Latest Posts Box</label>
+			<label index="Display_MaxTopicItems">Maximum items to display</label>
 			<label index="Display_Default">Default</label>
 			<label index="Display_Active_User_Widget">Active User</label>
 			<label index="Display_Helpful_User_Widget">Helpful User</label>

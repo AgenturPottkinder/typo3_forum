@@ -112,7 +112,19 @@
 							</config>
 							<displayCond>FIELD:switchableControllerActions:=:Topic->list</displayCond>
 						</TCEforms>
-					</settings.listTopics>                    
+					</settings.listTopics>
+					<settings.maxTopicItems>
+						<TCEforms>
+							<label>LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Display_MaxTopicItems</label>
+							<config>
+								<type>input</type>
+								<size>6</size>
+								<eval>int,required</eval>
+								<default>6</default>
+							</config>
+							<displayCond>FIELD:switchableControllerActions:=:Topic->list</displayCond>
+						</TCEforms>
+					</settings.maxTopicItems>
 					<settings.listUsers>
 						<TCEforms>
 							<label>LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Display</label>
