@@ -189,7 +189,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
     /**
      * @param ConfigurationBuilder $configurationBuilder
      */
-	public function injectSettings(ConfigurationBuilder $configurationBuilder) {
+	public function injectConfigurationBuilder(ConfigurationBuilder $configurationBuilder) {
 		$this->settings = $configurationBuilder->getSettings();
 	}
 
