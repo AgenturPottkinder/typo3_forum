@@ -1,5 +1,7 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\Authentication;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -25,17 +27,18 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Authentication;
 
 use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Access;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- *
  * ViewHelper that renders its contents if the current user has access to a
  * certain operation on a certain object.
  */
-class IfAccessViewHelper extends AbstractViewHelper {
-    
-    protected $escapeOutput = false;
-    protected $escapeChildren = false;
+class IfAccessViewHelper extends AbstractViewHelper
+{
+
+	protected $escapeOutput = false;
+
+	protected $escapeChildren = false;
 
 	/**
 	 * The frontend user repository.
@@ -45,14 +48,21 @@ class IfAccessViewHelper extends AbstractViewHelper {
 	 */
 	protected $frontendUserRepository;
 
+	public function initializeArguments() {
+		parent::initializeArguments();
+		$this->registerArgument('object', AccessibleInterface::class, 'Object to check access for', true);
+		$this->registerArgument('accessType', 'string', true, Access::TYPE_READ);
+	}
+
 	/**
 	 * Renders this ViewHelper
 	 *
-	 * @param AccessibleInterface $object The object for which the access is to be checked.
-	 * @param string $accessType The operation for which to check the access.
 	 * @return string The ViewHelper contents if the user has access to the specified operation.
 	 */
-	public function render(AccessibleInterface $object, $accessType = Access::TYPE_READ) {
+	public function render()
+	{
+		$object = $this->arguments['object'];
+		$accessType = $this->arguments['accessType'];
 		if ($object->checkAccess($this->frontendUserRepository->findCurrent(), $accessType)) {
 			return $this->renderChildren();
 		}
