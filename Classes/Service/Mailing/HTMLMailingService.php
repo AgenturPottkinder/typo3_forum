@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Service\Mailing;
 
 /*                                                                      *
@@ -30,26 +31,33 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * Service class for sending HTML mails.
  */
-class HTMLMailingService extends AbstractMailingService {
+class HTMLMailingService extends AbstractMailingService
+{
 
 
-	/**
-	 * Sends a mail with a certain subject and bodytext to a recipient in form of a frontend user.
-	 *
-	 * @param FrontendUser $recipient The recipient of the mail. This is a plain frontend user.
-	 * @param string $subject The mail's subject
-	 * @param string $bodyText The mail's bodytext
-	 * @return void
-	 */
-	public function sendMail(FrontendUser $recipient, $subject, $bodyText) {
-		$typo3Mail = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
-		$typo3Mail->setFrom([
-			$this->getDefaultSenderAddress() => $this->getDefaultSenderName()]
-		)
-			->setTo($recipient->getEmail())
-			->setSubject($subject)
-			->setBody($bodyText, 'text/html')
-			->send();
-	}
+    /**
+     * Sends a mail with a certain subject and bodytext to a recipient in form of a frontend user.
+     *
+     * @param FrontendUser $recipient The recipient of the mail. This is a plain frontend user.
+     * @param string $subject The mail's subject
+     * @param string $bodyText The mail's bodytext
+     * @return void
+     */
+    public function sendMail(FrontendUser $recipient, $subject, $bodyText)
+    {
+        if (empty($recipient->getEmail())) {
+            return;
+        }
+
+        $typo3Mail = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+        $typo3Mail->setFrom([
+                $this->getDefaultSenderAddress() => $this->getDefaultSenderName()
+            ]
+        )
+            ->setTo($recipient->getEmail())
+            ->setSubject($subject)
+            ->setBody($bodyText, 'text/html')
+            ->send();
+    }
 
 }
