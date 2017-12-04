@@ -24,10 +24,9 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
-use TYPO3\CMS\Extbase\Service\TypoScriptService;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 class Attachment extends AbstractEntity {
 
@@ -63,22 +62,23 @@ class Attachment extends AbstractEntity {
 	protected $downloadCount;
 
 	/**
-	 * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
-	 * @inject
-	 */
-	protected $configurationBuilder;
-
-	/**
 	 * Whole TypoScript typo3_forum settings
 	 * @var array
 	 */
 	protected $settings;
 
 	/**
-	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
+	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
 	 */
-	public function initializeObject() {
-		$this->settings = $this->configurationBuilder->getSettings();
+	protected $objectManager;
+
+	/**
+	 * @param ObjectManagerInterface $objectManager
+	 */
+	public function injectObjectManager(ObjectManagerInterface $objectManager) {
+		$this->objectManager = $objectManager;
+		$configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
+		$this->settings = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
 	}
 
 	/**
