@@ -54,7 +54,10 @@ class UserfieldViewHelper extends AbstractViewHelper
         }
         $data = $userfield->getValueForUser($user);
         $data = $this->convertDataToString($data);
-        return $this->getCObjectViewHelper()->render($userfield->getTyposcriptPath() . '.output', implode(' ', $data));
+        $cObjectViewHelper = $this->getCObjectViewHelper();
+        $cObjectViewHelper->arguments['typoscriptObjectPath'] = $userfield->getTyposcriptPath() . '.output';
+        $cObjectViewHelper->arguments['data'] = implode(' ', $data);
+        return $cObjectViewHelper->render();
     }
 
     /**

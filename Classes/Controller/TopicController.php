@@ -200,12 +200,18 @@ class TopicController extends AbstractController {
 	 */
 	public function newAction(Forum $forum, Post $post = NULL, $subject = NULL) {
 		$this->authenticationService->assertNewTopicAuthorization($forum);
+		if ($this->request->hasArgument('submit_type') && $this->request->getArgument('submit_type') == 'preview') {
+		    $renderPreview = true;
+        } else {
+		    $renderPreview = false;
+        }
 		$this->view->assignMultiple([
 			'criteria' => $forum->getCriteria(),
 			'currentUser' => $this->frontendUserRepository->findCurrent(),
 			'forum' => $forum,
 			'post' => $post,
 			'subject' => $subject,
+            'renderPreview' => $renderPreview
 		]);
 	}
 
@@ -229,6 +235,10 @@ class TopicController extends AbstractController {
 
 		// Assert authorization
 		$this->authenticationService->assertNewTopicAuthorization($forum);
+
+		if ($this->request->getArgument('submit_type') == 'preview') {
+		    $this->forward('new');
+        }
 
 		// Create the new post; add the new post to a new topic and add the new
 		// topic to the forum. Then persist the forum object. Not as complicated
