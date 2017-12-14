@@ -10,7 +10,7 @@
 CREATE TABLE tx_typo3forum_domain_model_format_textparser (
   uid int(11) NOT NULL auto_increment,
   pid int(11) NOT NULL default '0',
-  type varchar(64) NOT NULL default 'Mittwald\\Typo3Forum\\Domain\\Model\\Format\\BBCode',
+  type varchar(64) default 'Mittwald\\Typo3Forum\\Domain\\Model\\Format\\BBCode' NOT NULL,
   name tinytext,
   icon_class tinytext,
   bbcode_wrap varchar(64) default '',
@@ -233,7 +233,7 @@ CREATE TABLE tx_typo3forum_domain_model_moderation_report (
   pid int(11) NOT NULL default '0',
   post int(11) unsigned NOT NULL default '0',
   feuser int(11) unsigned NOT NULL default '0',
-  type varchar(64) NOT NULL default 'Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\UserReport',
+  type varchar(64) default 'Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\UserReport' NOT NULL,
   reporter int(11) unsigned NOT NULL default '0',
   moderator int(11) unsigned default '0',
   workflow_status int(11) unsigned default '0',
@@ -610,7 +610,7 @@ CREATE TABLE tx_typo3forum_domain_model_user_notification (
   feuser int(11) unsigned default NULL,
   post int(11) unsigned NOT NULL default '0',
   user_read tinyint(3) default '0',
-  type varchar(64) NOT NULL default 'Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Post',
+  type varchar(64) default 'Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Post' NOT NULL,
   tag int(11) unsigned default NULL,
   PRIMARY KEY (uid),
   KEY user (feuser,post),
@@ -737,7 +737,7 @@ CREATE TABLE tx_typo3forum_cache (
   lifetime int(11) unsigned default '0',
   PRIMARY KEY (id),
   KEY cache_id (identifier)
-) ENGINE=InnoDB default CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8;
 
 
 #
@@ -750,6 +750,6 @@ CREATE TABLE tx_typo3forum_cache_tags (
   PRIMARY KEY (id),
   KEY cache_id (identifier),
   KEY cache_tag (tag)
-) ENGINE=InnoDB default CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8;
 
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\Forum;
 
 /* *
@@ -35,77 +36,93 @@ use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 class TopicIconViewHelper extends AbstractViewHelper
 {
 
-    /**
-     * The frontend user repository.
-     * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
-     * @inject
-     */
-    protected $frontendUserRepository = null;
+	/**
+	 * @var bool
+	 */
+	protected $escapeOutput = false;
 
-    /**
-     *
-     * Initializes the view helper arguments.
-     * @return void
-     *
-     */
-    public function initializeArguments()
-    {
-        $this->registerArgument('important', 'integer',
-            'Amount of posts required for a topic to contain in order to be marked as important', false, 15);
-    }
+	/**
+	 * The frontend user repository.
+	 *
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
+	 * @inject
+	 */
+	protected $frontendUserRepository = null;
 
-    /**
-     *
-     * Renders the topic icon.
-     *
-     * @param Topic $topic The topic for which the icon is to be rendered.
-     * @param integer $width Image width
-     * @return string The rendered icon.
-     */
-    public function render(Topic $topic = null, $width = null)
-    {
-        $data = $this->getDataArray($topic);
+	/**
+	 * Initializes the view helper arguments.
+	 *
+	 * @return void
+	 */
+	public function initializeArguments()
+	{
+		$this->registerArgument('important', 'integer',
+			'Amount of posts required for a topic to contain in order to be marked as important', false, 15);
+		$this->registerArgument('topic', Topic::class, 'The Topic object', true);
+		$this->registerArgument('width', 'integer', 'width of topic icon', false, 50);
+	}
 
-        if ($data['new']) {
-            return $this->getCObjectViewHelper()->render('plugin.tx_typo3forum.renderer.icons.topic_new', $data);
-        } else {
-            return $this->getCObjectViewHelper()->render('plugin.tx_typo3forum.renderer.icons.topic', $data);
-        }
+	/**
+	 * Renders the topic icon.
+	 *
+	 * @param Topic $topic The topic for which the icon is to be rendered.
+	 * @param integer $width Image width
+	 * @return string The rendered icon.
+	 */
+	public function render()
+	{
+		$topic = $this->arguments['topic'];
+		$width = $this->arguments['width'];
+		$data = $this->getDataArray($topic);
 
-    }
+		$cObjectViewHelper = $this->getCObjectViewHelper();
 
-    /**
-     *
-     * Generates a data array that will be passed to the typoscript object for
-     * rendering the icon.
-     * @param Topic $topic The topic for which the icon is to be displayed.
-     * @return array The data array for the typoscript object.
-     *
-     */
-    protected function getDataArray(Topic $topic = null)
-    {
-        if ($topic === null) {
-            return [];
-        } elseif ($topic instanceof ShadowTopic) {
-            return ['moved' => true];
-        } else {
-            $isImportant = $topic->getPostCount() >= $this->arguments['important'];
+		if ($data['new']) {
+			$cObjectViewHelper->setArguments([
+				'typoscriptObjectPath' => 'plugin.tx_typo3forum.renderer.icons.topic_new',
+				'data' => $data
+			]);
+		} else {
+			$cObjectViewHelper = $this->getCObjectViewHelper();
+			$cObjectViewHelper->setArguments([
+				'typoscriptObjectPath' => 'plugin.tx_typo3forum.renderer.icons.topic',
+				'data' => $data
+				]);
+		}
+		return $this->getCObjectViewHelper()->render();
+	}
 
-            return [
-                'important' => $isImportant,
-                'new' => !$topic->hasBeenReadByUser($this->frontendUserRepository->findCurrent()),
-                'closed' => $topic->isClosed(),
-                'sticky' => $topic->isSticky(),
-                'solved' => $topic->getIsSolved(),
-            ];
-        }
-    }
+	/**
+	 * Generates a data array that will be passed to the typoscript object for
+	 * rendering the icon.
+	 *
+	 * @param Topic $topic The topic for which the icon is to be displayed.
+	 * @return array The data array for the typoscript object.
+	 */
+	protected function getDataArray(Topic $topic = null)
+	{
+		if ($topic === null) {
+			return [];
+		} elseif ($topic instanceof ShadowTopic) {
+			return ['moved' => true];
+		} else {
+			$isImportant = $topic->getPostCount() >= $this->arguments['important'];
 
-    /**
-     * @return CObjectViewHelper
-     */
-    protected function getCObjectViewHelper()
-    {
-        return $this->objectManager->get('TYPO3\\CMS\\Fluid\\ViewHelpers\\CObjectViewHelper');
-    }
+			return [
+				'important' => $isImportant,
+				'new' => !$topic->hasBeenReadByUser($this->frontendUserRepository->findCurrent()),
+				'closed' => $topic->isClosed(),
+				'sticky' => $topic->isSticky(),
+				'solved' => $topic->getIsSolved(),
+			];
+		}
+	}
+
+	/**
+	 * @return CObjectViewHelper
+	 */
+	protected function getCObjectViewHelper()
+	{
+		return $this->objectManager->get(\TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper::class);
+	}
 }
