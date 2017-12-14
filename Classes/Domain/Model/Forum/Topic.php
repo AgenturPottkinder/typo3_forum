@@ -269,6 +269,16 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 		return $this->subscribers;
 	}
 
+    /**
+     * Gets all users who have subscribes to this forum.
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
+     */
+    public function getFavSubscribers()
+    {
+        return $this->favSubscribers;
+    }
+
 	public function getIsSolved() {
 		if ($this->isSolved == 1 || $this->getSolution() != null) {
 			return true;

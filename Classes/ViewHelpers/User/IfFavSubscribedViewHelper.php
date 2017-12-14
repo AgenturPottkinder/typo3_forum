@@ -36,12 +36,21 @@ use TYPO3Fluid\Fluid\ViewHelpers\IfViewHelper;
  */
 class IfFavSubscribedViewHelper extends IfViewHelper
 {
+
+    /**
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('object', SubscribeableInterface::class, 'Object to check', true);
+        $this->registerArgument('user', FrontendUser::class, 'className which object has to be', false, null);
+    }
+
     /**
      * Renders the contents of this view helper, when a user has subscribed a
      * specific subscribeable object.
      *
-     * @param SubscribeableInterface $object The object that needs to be subscribed in order for the contents to be rendered.
-     * @param FrontendUser $user
      * @return string
      */
     public function render()
@@ -51,7 +60,7 @@ class IfFavSubscribedViewHelper extends IfViewHelper
         if ($user === null) {
             $user =& GeneralUtility::makeInstance(FrontendUserRepository::class)->findCurrent();
         }
-        foreach ($this->arguments['object']->getSubscribers() as $subscriber) {
+        foreach ($this->arguments['object']->getFavSubscribers() as $subscriber) {
             if ($subscriber->getUid() == $user->getUid()) {
                 return $this->renderThenChild();
             }

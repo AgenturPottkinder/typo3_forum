@@ -196,17 +196,24 @@ class PostController extends AbstractController {
 	public function newAction(Topic $topic, Post $post = NULL, Post $quote = NULL) {
 		// Assert authorization
 		$this->authenticationService->assertNewPostAuthorization($topic);
-
+        if ($this->request->hasArgument('submit_type') && $this->request->getArgument('submit_type') == 'preview') {
+            $renderPreview = true;
+        } else {
+            $renderPreview = false;
+        }
 		// If no post is specified, create an optionally pre-filled post (if a
 		// quoted post was specified).
 		if ($post === NULL) {
 			$post = ($quote !== NULL) ? $this->postFactory->createPostWithQuote($quote) : $this->postFactory->createEmptyPost();
+			// set given topic for this post, too
+            $post->setTopic($topic);
 		}
 
 		$this->view->assignMultiple([
 			'topic' => $topic,
 			'post' => $post,
-			'currentUser' => $this->frontendUserRepository->findCurrent()
+			'currentUser' => $this->frontendUserRepository->findCurrent(),
+            'renderPreview' => $renderPreview
 		]);
 	}
 
@@ -223,6 +230,10 @@ class PostController extends AbstractController {
 	public function createAction(Topic $topic, Post $post, array $attachments = []) {
 		// Assert authorization
 		$this->authenticationService->assertNewPostAuthorization($topic);
+
+        if ($this->request->getArgument('submit_type') == 'preview') {
+            $this->forward('new');
+        }
 
 		// Create new post, add the new post to the topic and persist the topic.
 		$this->postFactory->assignUserToPost($post);
