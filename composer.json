@@ -1,5 +1,5 @@
 {
-	"name": "mittwald/typo3_forum",
+	"name": "mittwald/typo3-forum",
 	"description": "Forum extension",
 	"license": "GPL-2",
 	"type": "typo3-cms-extension",
