@@ -169,6 +169,7 @@ CREATE TABLE tx_typo3forum_domain_model_forum_post (
   attachments int(11) unsigned NOT NULL default '0',
   supporters int(11) unsigned default '0',
   helpful_count int(11) unsigned NOT NULL default '0',
+  tablename tinytext,
   PRIMARY KEY (uid),
   KEY parent (pid),
   KEY topic (topic),
