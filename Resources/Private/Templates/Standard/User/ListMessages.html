@@ -2,17 +2,14 @@
 {namespace b=Mittwald\Typo3Forum\ViewHelpers\Bootstrap}
 
 <f:layout name="default"/>
-
 <f:section name="main">
     <div>
         <div>
-            <h1>
-                <f:translate key="User_Index_MyMessages"/>
-            </h1>
+            <h1><f:translate key="User_Index_MyMessages"/></h1>
         </div>
     </div>
     <div>
-        <f:comment>UserList Box (left)</f:comment>
+        <f:comment><!-- UserList Box (left) --></f:comment>
         <div>
             <div>
                 <h4>
@@ -57,76 +54,71 @@
             </f:link.action>
         </div>
 
-
-        <f:comment>Dialog Box (center)</f:comment>
+        <f:comment><!-- Dialog Box (center) --></f:comment>
         <div class="span8">
-            <h4>
-                <f:if condition="{dialog.0.uid} == {NULL}">
-                    <f:then>
-                        <f:translate key="User_Show_Messages_Conversation_NotFound"/>
-            </h4>
-            </f:then>
-            <f:else>
-                <f:translate key="User_Show_Messages_Conversation_With"/>
-                <mmf:user.link user="{partner}"/>
-                </h4>
-                <f:widget.paginate objects="{dialog}" as="paginatedMessages"
-                                   configuration="{settings.pagebrowser.default}">
-                    <f:for each="<mmf:general.queryResultReverse array='{paginatedMessages}' />" as="message">
-                        <div class="{f:if(condition:'{partner} == {message.opponent.username}',then:'single right',else:'single')}">
-                            <div class="message-information">
-                                <div class="padding">
-                                    <mmf:user.avatar user="{message.feuser}" width="40"
-                                                     alt="{message.feuser.username}"
-                                                     class="img-rounded"/>
-                                    <div>
-                                        <mmf:user.link user="{message.feuser}"/>
+            <f:if condition="{dialog.0.uid} == {NULL}">
+                <f:then>
+                    <h4><f:translate key="User_Show_Messages_Conversation_NotFound"/></h4>
+                </f:then>
+                <f:else>
+                    <h4>
+                        <f:translate key="User_Show_Messages_Conversation_With"/>
+                        <mmf:user.link user="{partner}"/>
+                    </h4>
+                    <f:widget.paginate objects="{dialog}" as="paginatedMessages"
+                                       configuration="{settings.pagebrowser.default}">
+                        <f:for each="<mmf:general.queryResultReverse array='{paginatedMessages}' />" as="message">
+                            <div class="{f:if(condition:'{partner} == {message.opponent.username}',then:'single right',else:'single')}">
+                                <div class="message-information">
+                                    <div class="padding">
+                                        <mmf:user.avatar user="{message.feuser}" width="40"
+                                                         alt="{message.feuser.username}"
+                                                         class="img-rounded"/>
+                                        <div>
+                                            <mmf:user.link user="{message.feuser}"/>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="message-content">
-                                <div>
+                                <div class="message-content">
+                                    <div>
                                         <span class="muted">
                                             <f:format.date format="d.m.Y [H:i]">{message.crdate}</f:format.date>
                                         </span>
-                                    <mmf:format.textParser content="{message.message.messageText}"/>
+                                        <mmf:format.textParser content="{message.message.messageText}"/>
+                                    </div>
                                 </div>
+                                <div class="clearfix"></div>
                             </div>
-                            <div class="clearfix"></div>
+                        </f:for>
+                    </f:widget.paginate>
+
+                    <div class="post-create-container margin-top">
+                        <div class="row-fluid">
+
+                            <a class="button button-default slide-toggle pull-right {f:if(condition:'{showForm}',then:'even',else:'')}"
+                               data-toggle="createPost">
+                                <f:translate key="User_Show_Messages_Conversation_Answer"/>
+                            </a>
                         </div>
-                    </f:for>
-                </f:widget.paginate>
-
-                <div class="post-create-container margin-top">
-                    <div class="row-fluid">
-
-                        <a class="button button-default slide-toggle pull-right {f:if(condition:'{showForm}',then:'even',else:'')}"
-                           data-toggle="createPost">
-                            <f:translate key="User_Show_Messages_Conversation_Answer"/>
-                        </a>
+                        <div id="createPost" class="sub-part {f:if(condition:'{showForm}',then:'',else:'hide')}">
+                            <a name="post-create"></a>
+                            <f:form controller="User" action="createMessage" class="form-horizontal">
+                                <b:form.row error="post" errorLLPrefix="Post_New_Error_Text">
+                                    <mmf:form.bbCodeEditor class="tx-typo3forum-editor" name="text" property="text"
+                                                           id="typo3forum_editor" rows="20"
+                                                           class="input-block-level"/>
+                                </b:form.row>
+                                <f:form.hidden name="recipient" value="{partner.username}"/>
+                                <div class="row-fluid">
+                                    <f:form.submit value="{f:translate(key: 'User_New_Message')}"
+                                                   class="button-inverse pull-right"/>
+                                </div>
+                            </f:form>
+                        </div>
                     </div>
-                    <div id="createPost" class="sub-part {f:if(condition:'{showForm}',then:'',else:'hide')}">
-                        <a name="post-create"></a>
-                        <f:form controller="User" action="createMessage" class="form-horizontal">
-                            <b:form.row error="post" errorLLPrefix="Post_New_Error_Text">
-                                <mmf:form.bbCodeEditor class="tx-typo3forum-editor" name="text" property="text"
-                                                       id="typo3forum_editor" rows="20"
-                                                       class="input-block-level"/>
-                            </b:form.row>
-                            <f:form.hidden name="recipient" value="{partner.username}"/>
-                            <div class="row-fluid">
-                                <f:form.submit value="{f:translate(key: 'User_New_Message')}"
-                                               class="button-inverse pull-right"/>
-                            </div>
-                        </f:form>
-                    </div>
-                </div>
-            </f:else>
+                </f:else>
             </f:if>
         </div>
     </div>
-
 </f:section>
-
-
 <f:section name="menu"/>

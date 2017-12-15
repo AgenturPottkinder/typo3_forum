@@ -177,7 +177,7 @@ class TopicController extends AbstractController {
 		}
 
 		// send signal for simple read count
-		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Topic', 'topicDisplayed', ['topic' => $topic]);
+		$this->signalSlotDispatcher->dispatch(Topic::class, 'topicDisplayed', ['topic' => $topic]);
 
 		$this->authenticationService->assertReadAuthorization($topic);
 		$this->markTopicRead($topic);
@@ -200,12 +200,18 @@ class TopicController extends AbstractController {
 	 */
 	public function newAction(Forum $forum, Post $post = NULL, $subject = NULL) {
 		$this->authenticationService->assertNewTopicAuthorization($forum);
+		if ($this->request->hasArgument('submit_type') && $this->request->getArgument('submit_type') == 'preview') {
+		    $renderPreview = true;
+        } else {
+		    $renderPreview = false;
+        }
 		$this->view->assignMultiple([
 			'criteria' => $forum->getCriteria(),
 			'currentUser' => $this->frontendUserRepository->findCurrent(),
 			'forum' => $forum,
 			'post' => $post,
 			'subject' => $subject,
+            'renderPreview' => $renderPreview
 		]);
 	}
 
@@ -229,6 +235,10 @@ class TopicController extends AbstractController {
 
 		// Assert authorization
 		$this->authenticationService->assertNewTopicAuthorization($forum);
+
+		if ($this->request->getArgument('submit_type') == 'preview') {
+		    $this->forward('new');
+        }
 
 		// Create the new post; add the new post to a new topic and add the new
 		// topic to the forum. Then persist the forum object. Not as complicated
@@ -254,7 +264,7 @@ class TopicController extends AbstractController {
 		$topic = $this->topicFactory->createTopic($forum, $post, $subject, (int)$question, $criteria, $tags, (int)$subscribe);
 
 		// Notify potential listeners.
-		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Topic', 'topicCreated', ['topic' => $topic]);
+		$this->signalSlotDispatcher->dispatch(Topic::class, 'topicCreated', ['topic' => $topic]);
 		$this->clearCacheForCurrentPage();
 		$uriBuilder = $this->controllerContext->getUriBuilder();
 		$uri = $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments(['tx_typo3forum_pi1[forum]' => $forum->getUid(), 'tx_typo3forum_pi1[controller]' => 'Forum', 'tx_typo3forum_pi1[action]' => 'show'])->build();

@@ -24,7 +24,6 @@ namespace Mittwald\Typo3Forum\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Domain\Model\Forum\Attachment;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
@@ -117,7 +116,12 @@ class PostController extends AbstractController {
 		$this->frontendUserRepository->update($currentUser);
 
 		// output new Data
-		return json_encode(["error" => FALSE, "add" => 0, "postHelpfulCount" => $post->getHelpfulCount(), "userHelpfulCount" => $post->getAuthor()->getHelpfulCount()]);
+        return json_encode([
+            "error" => false,
+            "add" => 0,
+            "postHelpfulCount" => $post->getHelpfulCount(),
+            "userHelpfulCount" => $post->getAuthor()->getHelpfulCount()
+        ]);
 	}
 
 	/**
@@ -143,8 +147,12 @@ class PostController extends AbstractController {
 		$this->frontendUserRepository->update($currentUser);
 
 		// output new Data
-		return json_encode(["error" => false, "add" => 1, "postHelpfulCount" => $post->getHelpfulCount(), "userHelpfulCount" => $post->getAuthor()->getHelpfulCount()]);
-
+		return json_encode([
+		    "error" => false,
+            "add" => 1,
+            "postHelpfulCount" => $post->getHelpfulCount(),
+            "userHelpfulCount" => $post->getAuthor()->getHelpfulCount()
+        ]);
 	}
 
 	/**
@@ -188,17 +196,24 @@ class PostController extends AbstractController {
 	public function newAction(Topic $topic, Post $post = NULL, Post $quote = NULL) {
 		// Assert authorization
 		$this->authenticationService->assertNewPostAuthorization($topic);
-
+        if ($this->request->hasArgument('submit_type') && $this->request->getArgument('submit_type') == 'preview') {
+            $renderPreview = true;
+        } else {
+            $renderPreview = false;
+        }
 		// If no post is specified, create an optionally pre-filled post (if a
 		// quoted post was specified).
 		if ($post === NULL) {
 			$post = ($quote !== NULL) ? $this->postFactory->createPostWithQuote($quote) : $this->postFactory->createEmptyPost();
+			// set given topic for this post, too
+            $post->setTopic($topic);
 		}
 
 		$this->view->assignMultiple([
 			'topic' => $topic,
 			'post' => $post,
-			'currentUser' => $this->frontendUserRepository->findCurrent()
+			'currentUser' => $this->frontendUserRepository->findCurrent(),
+            'renderPreview' => $renderPreview
 		]);
 	}
 
@@ -212,10 +227,13 @@ class PostController extends AbstractController {
 	 * @validate $post \Mittwald\Typo3Forum\Domain\Validator\Forum\PostValidator
 	 * @validate $attachments \Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator
 	 */
-
 	public function createAction(Topic $topic, Post $post, array $attachments = []) {
 		// Assert authorization
 		$this->authenticationService->assertNewPostAuthorization($topic);
+
+        if ($this->request->getArgument('submit_type') == 'preview') {
+            $this->forward('new');
+        }
 
 		// Create new post, add the new post to the topic and persist the topic.
 		$this->postFactory->assignUserToPost($post);
@@ -229,8 +247,7 @@ class PostController extends AbstractController {
 		$this->topicRepository->update($topic);
 
 		// All potential listeners (Signal-Slot FTW!)
-		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Post', 'postCreated',
-			['post' => $post]);
+		$this->signalSlotDispatcher->dispatch(Post::class, 'postCreated', ['post' => $post]);
 
 		// Display flash message and redirect to topic->show action.
 		$this->controllerContext->getFlashMessageQueue()->enqueue(
@@ -282,7 +299,7 @@ class PostController extends AbstractController {
 		}
 		$this->postRepository->update($post);
 
-		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Post', 'postUpdated',
+		$this->signalSlotDispatcher->dispatch(Post::class, 'postUpdated',
 			['post' => $post]);
 		$this->controllerContext->getFlashMessageQueue()->enqueue(
 			new FlashMessage(Localization::translate('Post_Update_Success'))
@@ -322,7 +339,7 @@ class PostController extends AbstractController {
 
 		// Notify observers and clear cache.
 		$this->signalSlotDispatcher->dispatch(
-			'Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Post',
+			Post::class,
 			'postDeleted',
 			['post' => $post]
 		);
@@ -358,6 +375,6 @@ class PostController extends AbstractController {
         header("Content-Type: application/download");
         header('Content-Disposition: attachment; filename="' . $attachment->getFilename() . '"');
 		readfile($attachment->getAbsoluteFilename());
+		exit;
 	}
-
 }

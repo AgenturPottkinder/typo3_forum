@@ -283,7 +283,7 @@ class UserController extends AbstractController {
 			throw new NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 		/** @var PrivateMessageText $message */
-		$message = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\User\\PrivateMessageText');
+		$message = $this->objectManager->get(PrivateMessageText::class);
 		$message->setMessageText($text);
 		$pmFeUser = $this->privateMessageFactory->createPrivateMessage($user, $recipient, $message, PrivateMessage::TYPE_SENDER, 1);
 		$pmRecipient = $this->privateMessageFactory->createPrivateMessage($recipient, $user, $message, PrivateMessage::TYPE_RECIPIENT, 0);
@@ -447,7 +447,7 @@ class UserController extends AbstractController {
 
 		# Update user and redirect to subscription object.
 		$this->frontendUserRepository->update($user);
-		$this->frontendUserRepository->update($topic->getAuthor());
+		//$this->frontendUserRepository->update($topic->getAuthor());
 		$this->controllerContext->getFlashMessageQueue()->enqueue(
 			new FlashMessage($this->getSubscriptionFlashMessage($object, $unsubscribe))
 		);
@@ -527,7 +527,7 @@ class UserController extends AbstractController {
 	 * @return string A flash message.
 	 */
 	protected function getSubscriptionFlashMessage(SubscribeableInterface $object, $unsubscribe = FALSE) {
-		$type = array_pop(explode('_', get_class($object)));
+		$type = array_pop(explode('\\', get_class($object)));
 		$key = 'User_' . ($unsubscribe ? 'Uns' : 'S') . 'ubscribe_' . $type . '_Success';
 		return LocalizationUtility::translate($key, 'Typo3Forum', [$object->getTitle()]);
 	}

@@ -34,8 +34,6 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  */
 class ForumRepository extends Repository {
 
-	
-
 	/**
 	 * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
 	 * @inject
@@ -96,12 +94,10 @@ class ForumRepository extends Repository {
 	}
 
 	/**
-	 *
 	 * Finds forum for a specific filterset. Page navigation is possible.
 	 *
 	 * @param array $uids
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[] The selected subset of topcis
-	 *
 	 */
 	public function findByUids($uids) {
 

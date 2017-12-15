@@ -211,7 +211,7 @@ class ModerationController extends AbstractController {
 		// documents the status change.
 		$report->setWorkflowStatus($status);
 		/** @var ReportComment $comment */
-		$comment = GeneralUtility::makeInstance('Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\ReportComment');
+		$comment = GeneralUtility::makeInstance(ReportComment::class);
 		$comment->setAuthor($this->getCurrentUser());
 		$comment->setText(Localization::translate('Report_Edit_SetStatus', 'Typo3Forum', [$status->getName()]));
 		$report->addComment($comment);
@@ -244,7 +244,7 @@ class ModerationController extends AbstractController {
 		// documents the status change.
 		$report->setWorkflowStatus($status);
 		/** @var ReportComment $comment */
-		$comment = GeneralUtility::makeInstance('Mittwald\\Typo3Forum\\Domain\\Model\\Moderation\\ReportComment');
+		$comment = GeneralUtility::makeInstance(ReportComment::class);
 		$comment->setAuthor($this->getCurrentUser());
 		$comment->setText(Localization::translate('Report_Edit_SetStatus', 'Typo3Forum',
 			[$status->getName()]));

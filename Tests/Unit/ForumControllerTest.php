@@ -4,8 +4,11 @@ namespace Mittwald\Typo3Forum\Tests\Unit;
 use Mittwald\Typo3Forum\Controller\ForumController;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
 use Mittwald\Typo3Forum\Domain\Model\Forum\RootForum;
+use Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser;
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository;
 use Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class ForumControllerTest extends AbstractControllerTest {
@@ -30,9 +33,6 @@ class ForumControllerTest extends AbstractControllerTest {
 	 */
 	protected $topicRepositoryMock;
 
-	/**
-	 *
-	 */
 	public function setUp() {
 		parent::setUp();
 		$this->forumController = new ForumController();
@@ -46,22 +46,22 @@ class ForumControllerTest extends AbstractControllerTest {
 		$this->inject($this->forumController, 'view', $this->viewMock);
 
 		// inject root forum mock
-		$this->rootForumMock = $this->getMock('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\RootForum');
+		$this->rootForumMock = $this->getMock(RootForum::class);
 		$this->inject($this->forumController, 'rootForum', $this->rootForumMock);
 
 		// inject forum repository mock
 		$this->forumRepositoryMock = $this->getMock(
-			'Mittwald\\Typo3Forum\\Domain\\Repository\\Forum\\ForumRepository',
+            ForumRepository::class,
 			[],
-			[$this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')]
+			[$this->getMock(ObjectManager::class)]
 		);
 		$this->inject($this->forumController, 'forumRepository', $this->forumRepositoryMock);
 
 		// inject topic repository mock
 		$this->topicRepositoryMock = $this->getMock(
-			'Mittwald\\Typo3Forum\\Domain\\Repository\\Forum\\TopicRepository',
+            TopicRepository::class,
 			[],
-			[$this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager')]
+			[$this->getMock(ObjectManager::class)]
 		);
 		$this->inject($this->forumController, 'topicRepository', $this->topicRepositoryMock);
 
@@ -94,7 +94,7 @@ class ForumControllerTest extends AbstractControllerTest {
 	 */
 	public function showActionAssertsReadAuthorization() {
 		/** @var Forum $forum */
-		$forum = $this->getMock('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Forum');
+		$forum = $this->getMock(Forum::class);
 		$this->assertReadAuthorizationForForum($forum);
 		$this->forumController->showAction($forum);
 	}
@@ -104,7 +104,7 @@ class ForumControllerTest extends AbstractControllerTest {
 	 */
 	public function showActionAssignsForumAndFoundTopicsToView() {
 		/** @var Forum $forum */
-		$forum = $this->getMock('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Forum');
+		$forum = $this->getMock(Forum::class);
 		$foundTopics = new ObjectStorage();
 		$this->topicRepositoryMock->expects($this->once())
 			->method('findForIndex')
@@ -125,7 +125,7 @@ class ForumControllerTest extends AbstractControllerTest {
 	 */
 	public function markReadActionThrowsExceptionWhenNotLoggedIn() {
 		/** @var Forum $forum */
-		$forum = $this->getMock('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Forum');
+		$forum = $this->getMock(Forum::class);
 		$this->forumController->markReadAction($forum);
 	}
 
@@ -136,8 +136,8 @@ class ForumControllerTest extends AbstractControllerTest {
 	 */
 	public function markReadActionThrowsExceptionWhenAnonymous() {
 		/** @var Forum $forum */
-		$forum = $this->getMock('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Forum');
-		$anonymousFrontendUserMock = $this->getMock('Mittwald\\Typo3Forum\\Domain\\Model\\User\\AnonymousFrontendUser');
+		$forum = $this->getMock(Forum::class);
+		$anonymousFrontendUserMock = $this->getMock(AnonymousFrontendUser::class);
 		$anonymousFrontendUserMock->expects($this->once())
 			->method('isAnonymous')
 			->will($this->returnValue(TRUE));
@@ -153,14 +153,14 @@ class ForumControllerTest extends AbstractControllerTest {
 	 */
 	public function markReadActionRedirectsToShowAction() {
 		/** @var \PHPUnit_Framework_MockObject_MockObject|Forum $forum */
-		$forum = $this->getMock('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Forum');
+		$forum = $this->getMock(Forum::class);
 		$forum->expects($this->once())
 			->method('getChildren')
 			->will($this->returnValue(new ObjectStorage()));
 		$forum->expects($this->once())
 			->method('getTopics')
 			->will($this->returnValue(new ObjectStorage()));
-		$frontendUserMock = $this->getMock('Mittwald\\Typo3Forum\\Domain\\Model\\User\\FrontendUser');
+		$frontendUserMock = $this->getMock(FrontendUser::class);
 		$frontendUserMock->expects($this->once())
 			->method('isAnonymous')
 			->will($this->returnValue(FALSE));
@@ -192,5 +192,4 @@ class ForumControllerTest extends AbstractControllerTest {
 			->with($this->equalTo($forum))
 			->will($this->returnValue(TRUE));
 	}
-
 }

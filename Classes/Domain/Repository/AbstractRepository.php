@@ -25,10 +25,8 @@ namespace Mittwald\Typo3Forum\Domain\Repository;
  *                                                                      */
 
 use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
-use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
-use TYPO3\CMS\Extbase\Service\TypoScriptService;
 
 /**
  *
@@ -101,7 +99,7 @@ abstract class AbstractRepository extends Repository
      */
     private function getQuerySettings()
     {
-        return $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\QuerySettingsInterface');
+        return $this->objectManager->get(QuerySettingsInterface::class);
     }
 
 }

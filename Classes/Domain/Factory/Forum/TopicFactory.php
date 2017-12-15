@@ -162,7 +162,7 @@ class TopicFactory extends AbstractFactory {
 	 */
 	public function createShadowTopic(Topic $topic) {
 		/** @var $shadowTopic ShadowTopic */
-		$shadowTopic = GeneralUtility::makeInstance('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\ShadowTopic');
+		$shadowTopic = GeneralUtility::makeInstance(ShadowTopic::class);
 		$shadowTopic->setTarget($topic);
 
 		return $shadowTopic;

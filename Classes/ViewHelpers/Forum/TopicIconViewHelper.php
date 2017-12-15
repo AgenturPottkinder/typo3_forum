@@ -34,6 +34,7 @@ use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
  */
 class TopicIconViewHelper extends AbstractViewHelper
 {
+    protected $escapeOutput = false;
 
     /**
      * The frontend user repository.
@@ -66,12 +67,20 @@ class TopicIconViewHelper extends AbstractViewHelper
     {
         $data = $this->getDataArray($topic);
 
+        $cObjectViewHelper = $this->getCObjectViewHelper();
         if ($data['new']) {
-            return $this->getCObjectViewHelper()->render('plugin.tx_typo3forum.renderer.icons.topic_new', $data);
+            $cObjectViewHelper->setArguments([
+                'typoscriptObjectPath' => 'plugin.tx_typo3forum.renderer.icons.topic_new',
+                'data' => $data
+            ]);
         } else {
-            return $this->getCObjectViewHelper()->render('plugin.tx_typo3forum.renderer.icons.topic', $data);
+            $cObjectViewHelper = $this->getCObjectViewHelper();
+            $cObjectViewHelper->setArguments([
+                'typoscriptObjectPath' => 'plugin.tx_typo3forum.renderer.icons.topic',
+                'data' => $data
+            ]);
         }
-
+        return $cObjectViewHelper->render();
     }
 
     /**
@@ -106,6 +115,6 @@ class TopicIconViewHelper extends AbstractViewHelper
      */
     protected function getCObjectViewHelper()
     {
-        return $this->objectManager->get('TYPO3\\CMS\\Fluid\\ViewHelpers\\CObjectViewHelper');
+        return $this->objectManager->get(\TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper::class);
     }
 }

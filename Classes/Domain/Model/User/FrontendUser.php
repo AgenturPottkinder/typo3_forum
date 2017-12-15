@@ -1,7 +1,7 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\User;
 
-/*                                                                    - *
+/*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
  *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
@@ -31,6 +31,7 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use Mittwald\Typo3Forum\Domain\Model\ReadableInterface;
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
+use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -601,9 +602,12 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 
 		if ($this->image) {
 			$imageDirectoryName = $this->settings['images']['avatar']['uploadDir'];
-			$imageFilename = rtrim($imageDirectoryName, '/') . '/' . $this->image;
-
-			return file_exists($imageFilename) ? $imageFilename : NULL;
+            foreach ($this->image as $image) {
+                /* @var FileReference $image */
+                $singleImage = $image->getOriginalFile();
+                $imageFilename = rtrim($imageDirectoryName, '/') . '/' . $singleImage->getPublicUrl();
+                return file_exists($imageFilename) ? $imageFilename : NULL;
+			}
 		}
 
 		// If the user enabled the use of "Gravatars", then load this user's

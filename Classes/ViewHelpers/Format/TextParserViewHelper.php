@@ -23,6 +23,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Format;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -45,30 +46,34 @@ class TextParserViewHelper extends AbstractViewHelper {
 	 */
 	protected $postRepository;
 
+	protected $escapeOutput = false;
+
+    /**
+     * Initialize arguments.
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('configuration', 'string', 'The configuration path', false, 'plugin.tx_typo3forum.settings.textParsing');
+        $this->registerArgument('post', Post::class, '', false, null);
+        $this->registerArgument('content', 'string', 'The content to be rendered. If NULL, the node content will be rendered instead.', false, null);
+    }
+
 	/**
-	 *
 	 * Renders the input text.
 	 *
-	 * @param string                             $configuration The configuration path
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post
-	 * @param string                             $content       The content to be rendered. If NULL, the node
-	 *                                                           content will be rendered instead.
-	 * @return string                The rendered text
-	 *
+	 * @return string The rendered text
 	 */
-	public function render($configuration = 'plugin.tx_typo3forum.settings.textParsing',
-	                       \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post = NULL, $content = NULL) {
+	public function render() {
 		$this->textParserService->setControllerContext($this->controllerContext);
-		$this->textParserService->loadConfiguration($configuration);
+		$this->textParserService->loadConfiguration($this->arguments['configuration']);
 
+		/* @var Post $post */
+		$post = $this->arguments['post'];
 		if ($post !== NULL) {
-			#if(!$post->_getProperty('renderedText')) {
 			$renderedText = $this->textParserService->parseText($post->getText());
-			#	$post->_setProperty('renderedText', $renderedText);
-			#	$this->postRepository->update($post);
-			#} else $renderedText = $post->_getProperty('renderedText');
 		} else {
-			$renderedText = $this->textParserService->parseText($content ? $content : trim($this->renderChildren()));
+			$renderedText = $this->textParserService->parseText($this->arguments['content'] ?: trim($this->renderChildren()));
 		}
 
 		return $renderedText;

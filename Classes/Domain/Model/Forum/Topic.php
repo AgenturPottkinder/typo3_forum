@@ -176,7 +176,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	protected $topicRepository;
 
     /**
-     * @var ConfigurationBuilder
+     * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
+     * @inject
      */
     protected $configurationBuilder;
 
@@ -186,12 +187,12 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 */
 	protected $settings;
 
-    /**
-     * @param ConfigurationBuilder $configurationBuilder
-     */
-	public function injectSettings(ConfigurationBuilder $configurationBuilder) {
-		$this->settings = $configurationBuilder->getSettings();
-	}
+//    /**
+//     * @param ConfigurationBuilder $configurationBuilder
+//     */
+//	public function injectSettings(ConfigurationBuilder $configurationBuilder) {
+//		$this->settings = $configurationBuilder->getSettings();
+//	}
 
 	/**
 	 * Constructor. Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage instances.
@@ -268,6 +269,16 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 		return $this->subscribers;
 	}
 
+    /**
+     * Gets all users who have subscribes to this forum.
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
+     */
+    public function getFavSubscribers()
+    {
+        return $this->favSubscribers;
+    }
+
 	public function getIsSolved() {
 		if ($this->isSolved == 1 || $this->getSolution() != null) {
 			return true;
@@ -305,7 +316,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * @return integer Page count
 	 */
 	public function getPageCount() {
-		return ceil($this->postCount / (int)$this->settings['pagebrowser']['topicShow']['itemsPerPage']);
+		$settings = $this->configurationBuilder->getSettings();
+	    return ceil($this->postCount / (int)$settings['pagebrowser']['topicShow']['itemsPerPage']);
 	}
 
 	/**
