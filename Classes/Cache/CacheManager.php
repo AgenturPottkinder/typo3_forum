@@ -51,6 +51,12 @@ class CacheManager {
 	protected function deleteTemporaryFiles() {
 		foreach ($this->fileCachePaths as $fileCachePath) {
 			$files = glob(PATH_site . $fileCachePath . '/*');
+
+			if(!is_array($files)) {
+				// skip
+				continue;
+			}
+
 			foreach ($files as $file) {
 				if (is_file($file)) {
 					unlink($file);

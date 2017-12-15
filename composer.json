@@ -21,7 +21,8 @@
 	},
 	"replace": {
 		"typo3_forum": "self.version",
-		"typo3-ter/typo3-forum": "self.version"
+		"typo3-ter/typo3-forum": "self.version",
+		"typo3-ter/typo3_forum": "self.version"
 	},
 	"config": {
 		"vendor-dir": ".Build/vendor",

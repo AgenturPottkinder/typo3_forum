@@ -123,11 +123,11 @@ class TopicController extends AbstractController {
                 $partial = 'Topic/List';
                 break;
             case '3':
-                $dataset = $this->topicRepository->findQuestions(6);
+                $dataset = $this->topicRepository->findQuestions(intval($this->settings['maxTopicItems']));
                 $partial = 'Topic/QuestionBox';
                 break;
             case '4':
-                $dataset = $this->topicRepository->findPopularTopics(intval($this->settings['popularTopicTimeDiff']),6);
+                $dataset = $this->topicRepository->findPopularTopics(intval($this->settings['popularTopicTimeDiff']), intval($this->settings['maxTopicItems']));
                 $partial = 'Topic/ListBox';
                 break;
             default:

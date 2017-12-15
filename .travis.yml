@@ -15,6 +15,6 @@ deploy:
   file_glob: true
   file: typo3_forum_*.zip
   on:
-    repo: mittwald/typo3-forum
+    repo: mittwald/typo3_forum
     tags: true
     php: 5.6

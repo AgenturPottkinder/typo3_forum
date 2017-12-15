@@ -24,6 +24,7 @@ namespace Mittwald\Typo3Forum\Scheduler;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -200,14 +201,17 @@ class Counter extends AbstractTask {
 			$userUpdate[$row['uid_local']]['markSupport_count'] = $row['counter'];
 		}
 
-		//Find all users with their current rank
-		$query = 'SELECT fe.uid, fe.tx_typo3forum_rank
+        //Find all users with their current rank
+        $class = mysqli_real_escape_string($GLOBALS['TYPO3_DB']->getDatabaseHandle(),FrontendUser::class);
+        $query = 'SELECT fe.uid, fe.tx_typo3forum_rank
 				  FROM fe_users AS fe
-				  WHERE fe.disable=0 AND fe.deleted=0 AND fe.tx_extbase_type="\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser"
+				  WHERE fe.disable=0 AND fe.deleted=0 AND fe.tx_extbase_type="' . $class . '"
 						AND fe.pid=' . (int)$this->getUserPid();
-		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
-		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-			$userUpdate[$row['author']]['rank'] = $row['tx_typo3forum_rank'];
+
+        $res = $GLOBALS['TYPO3_DB']->sql_query($query);
+
+        while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+            $userUpdate[$row['author']]['rank'] = $row['tx_typo3forum_rank'];
 		}
 
 		//Find all ranks
@@ -230,11 +234,17 @@ class Counter extends AbstractTask {
 			$points = $points + (int)$array['support_count'] * (int)$rankScore['gotHelpful'];
 
 			$lastPointLimit = 0;
-			foreach ($rankArray as $key => $rank) {
+            $lastRankUid = 0;
+
+            foreach ($rankArray as $key => $rank) {
 				if ($points >= $lastPointLimit && $points < $rank['point_limit']) {
 					$array['rank'] = $rank['uid'];
 				}
 				$lastPointLimit = $rank['point_limit'];
+                $lastRankUid = $rank['uid'];
+            }
+            if ($lastRankUid > 0 && $points >= $lastPointLimit) {
+                $array['rank'] = $lastRankUid;
 			}
 
 			$values = [
@@ -243,7 +253,7 @@ class Counter extends AbstractTask {
 				'tx_typo3forum_question_count' => (int)$array['question_count'],
 				'tx_typo3forum_helpful_count' => (int)$array['support_count'],
 				'tx_typo3forum_points' => (int)$points,
-				't_typo3forum_rank' => (int)$array['rank'],
+				'tx_typo3forum_rank' => (int)$array['rank'],
 			];
 
 			$query = $GLOBALS['TYPO3_DB']->UPDATEquery('fe_users', 'uid=' . (int)$userUid, $values);
@@ -254,9 +264,11 @@ class Counter extends AbstractTask {
 		//At last, update the rank count
 		$query = $GLOBALS['TYPO3_DB']->UPDATEquery('tx_typo3forum_domain_model_user_rank', '1=1', ['user_count' => 0]);
 		$GLOBALS['TYPO3_DB']->sql_query($query);
-		$query = 'SELECT tx_typo3forum_rank, COUNT(*) AS counter
+        $class = mysqli_real_escape_string($GLOBALS['TYPO3_DB']->getDatabaseHandle(),FrontendUser::class);
+
+        $query = 'SELECT tx_typo3forum_rank, COUNT(*) AS counter
 				  FROM fe_users
-				  WHERE disable=0 AND deleted=0 AND tx_extbase_type="\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser"
+				  WHERE disable=0 AND deleted=0 AND tx_extbase_type="' . $class . '"
 				  		AND pid=' . (int)$this->getUserPid() . '
 				  GROUP BY tx_typo3forum_rank';
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
