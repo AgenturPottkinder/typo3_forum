@@ -215,7 +215,7 @@ plugin.tx_typo3forum.settings {
     useSqlStatementsOnCriticalFunctions = {$plugin.tx_typo3forum.settings.useSqlStatementsOnCriticalFunctions}
 
     images {
-        avatar.uploadDir = uploads/tx_srfeuserregister
+        avatar.uploadDir = uploads/pics
         # use following definitions to have different Default avatars for male and female
         #avatar.dummyMale = /uploads/path_to_male_avatar.jpg
         #avatar.dummyFemale = /uploads/path_to_female_avatar.jpg
@@ -586,11 +586,13 @@ plugin.tx_typo3forum.userfields {
     }
 }
 
+[globalVar = LIT:1 = {$plugin.tx_typo3forum.settings.useDefaultCSS}]
 page.includeCSS {
     typo3_forum = EXT:typo3_forum/Resources/Public/Stylesheets/typo3_forum.css
     bootstrap = EXT:typo3_forum/Resources/Public/Bootstrap/css/bootstrap.css
     markitup_bb = EXT:typo3_forum/Resources/Public/Javascript/markitup/sets/typo3_forum/style.css
 }
+[global]
 
 page.includeJSLibs {
     typo3forum_jquery = https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js
