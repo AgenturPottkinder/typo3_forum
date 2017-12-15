@@ -20,3 +20,9 @@ The extension currently consists of 10 different plugins. These plugins provide 
 Migration is only possible from `mm_forum` 1.0. until typo3_forum version 1.1.0
 
 You will find more details in the Documenation: http://typo3-forum.readthedocs.io/en/master/UsersManual/MigrationfromMm_forum/Index.html
+
+## Update your database
+
+With version / commit 8fcfc40fbe8aa0ae97e3d63d1abb49388dbbef92 from 12/15/2017 you need to set the tablename field as follows.
+Query to perform:
+` UPDATE tx_typo3forum_domain_model_forum_post SET tablename = 'tx_typo3forum_domain_model_forum_topic';`
