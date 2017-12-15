@@ -3,7 +3,6 @@
 	"description": "Forum extension",
 	"license": "GPL-2",
 	"type": "typo3-cms-extension",
-    "version": "1.0.0",
 	"repositories": [
 		{
 			"type": "composer",
