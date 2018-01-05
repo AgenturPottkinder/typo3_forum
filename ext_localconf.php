@@ -92,6 +92,7 @@ $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TY
 $signalSlotDispatcher->connect('Mittwald\Typo3Forum\Domain\Model\Forum\Post', 'postCreated', 'Mittwald\Typo3Forum\Service\Notification\SubscriptionListener', 'onPostCreated');
 $signalSlotDispatcher->connect('Mittwald\Typo3Forum\Domain\Model\Forum\Topic', 'topicCreated', 'Mittwald\Typo3Forum\Service\Notification\SubscriptionListener', 'onTopicCreated');
 $signalSlotDispatcher->connect('TYPO3\\CMS\\Extensionmanager\\Service\\ExtensionManagementService', 'hasInstalledExtensions', 'Mittwald\\Typo3Forum\\Service\\InstallService', 'checkForMigrationOption');
+$signalSlotDispatcher->connect('TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper', 'afterMappingSingleRow', 'Mittwald\Typo3Forum\Service\SettingsHydrator', 'hydrateSettings');
 
 // adding scheduler tasks
 
