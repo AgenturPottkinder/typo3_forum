@@ -1,6 +1,6 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 {namespace b=Mittwald\Typo3Forum\ViewHelpers\Bootstrap}
-<f:form name="post" object="{post}" controller="Post" action="{action}" id="post">
+<f:form name="post" object="{post}" controller="Post" action="{action}" id="post" enctype="multipart/form-data">
     <fieldset>
         <legend>
             <f:if condition="{post.uid}">
