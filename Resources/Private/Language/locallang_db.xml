@@ -90,7 +90,7 @@
 
 			<label index="tx_typo3forum_domain_model_forum_tag">Tags</label>
 			<label index="tx_typo3forum_domain_model_forum_tag.crdate">Creation Date</label>
-			<label index="tx_typo3forum_domain_model_forum_tag.feuser">Topic Count</label>
+			<label index="tx_typo3forum_domain_model_forum_tag.feuser">User</label>
 			<label index="tx_typo3forum_domain_model_forum_tag.name">Name</label>
 			<label index="tx_typo3forum_domain_model_forum_tag.topicCount">Topic Count</label>
 			<label index="tx_typo3forum_domain_model_forum_tag.tstamp">Timestamp</label>
