@@ -589,7 +589,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	public function getImagePath() {
 
 		if ($this->image) {
-			$imageDirectoryName = $this->settings['images']['avatar']['uploadDir'];
+			$imageDirectoryName = $this->getSettings()['images']['avatar']['uploadDir'];
 			$imageFilename = rtrim($imageDirectoryName, '/') . '/' . $this->image;
 
 			return file_exists($imageFilename) ? $imageFilename : NULL;
@@ -612,10 +612,10 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 
 		switch ($this->gender) {
 			case self::GENDER_MALE:
-				$imageFilename = $this->settings['images']['avatar']['dummyMale'];
+				$imageFilename = $this->getSettings()['images']['avatar']['dummyMale'];
 				break;
 			case self::GENDER_FEMALE:
-				$imageFilename = $this->settings['images']['avatar']['dummyFemale'];
+				$imageFilename = $this->getSettings()['images']['avatar']['dummyFemale'];
 				break;
 		}
 

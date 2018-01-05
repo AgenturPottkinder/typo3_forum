@@ -111,7 +111,7 @@ class Attachment extends AbstractEntity implements ConfigurableInterface {
 	 * @return array The allowed mime types.
 	 */
 	public function getAllowedMimeTypes() {
-		$mime_types = explode(',', $this->settings['attachment']['allowedMimeTypes']);
+		$mime_types = explode(',', $this->getSettings()['attachment']['allowedMimeTypes']);
 		if (empty($mime_types)) {
 			$res = ['text/plain'];
 		} else {
@@ -128,10 +128,10 @@ class Attachment extends AbstractEntity implements ConfigurableInterface {
 	 * @return int The allowed max size of a attachment.
 	 */
 	public function getAllowedMaxSize() {
-		if ($this->settings['attachment']['allowedSizeInByte'] == false) {
+		if ($this->getSettings()['attachment']['allowedSizeInByte'] == false) {
 			return 4096;
 		} else {
-			return (int)$this->settings['attachment']['allowedSizeInByte'];
+			return (int)$this->getSettings()['attachment']['allowedSizeInByte'];
 		}
 	}
 

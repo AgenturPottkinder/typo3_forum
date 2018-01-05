@@ -38,10 +38,15 @@ trait ConfigurableEntityTrait
 {
 
     /**
+     * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
+     */
+    protected $configurationBuilder;
+
+    /**
      * Whole TypoScript typo3_forum settings
      * @var array
      */
-    protected $settings;
+    private $settings;
 
     /**
      * @param ConfigurationBuilder $configurationBuilder
@@ -49,5 +54,27 @@ trait ConfigurableEntityTrait
     public function injectSettings(ConfigurationBuilder $configurationBuilder)
     {
         $this->settings = $configurationBuilder->getSettings();
+    }
+
+    /**
+     * injectConfigurationBuilder.
+     * @param ConfigurationBuilder $configurationBuilder
+     */
+    public function injectConfigurationBuilder(ConfigurationBuilder $configurationBuilder)
+    {
+        $this->configurationBuilder = $configurationBuilder;
+    }
+
+    /**
+     * getSettings.
+     * @return array
+     */
+    public function getSettings()
+    {
+        if (empty($this->settings)) {
+            $this->settings = $this->configurationBuilder->getSettings();
+        }
+
+        return $this->settings;
     }
 }

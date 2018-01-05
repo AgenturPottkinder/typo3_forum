@@ -290,7 +290,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * @return integer Page count
 	 */
 	public function getPageCount() {
-		return ceil($this->postCount / (int)$this->settings['pagebrowser']['topicShow']['itemsPerPage']);
+		return ceil($this->postCount / (int)$this->getSettings()['pagebrowser']['topicShow']['itemsPerPage']);
 	}
 
 	/**
