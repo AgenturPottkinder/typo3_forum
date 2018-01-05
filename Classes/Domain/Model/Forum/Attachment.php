@@ -24,13 +24,13 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager;
+use Mittwald\Typo3Forum\Domain\Model\ConfigurableEntityTrait;
+use Mittwald\Typo3Forum\Domain\Model\ConfigurableInterface;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
-use TYPO3\CMS\Extbase\Service\TypoScriptService;
 
-class Attachment extends AbstractEntity {
+class Attachment extends AbstractEntity implements ConfigurableInterface {
 
+    use ConfigurableEntityTrait;
 	/**
 	 * The attachment file name.
 	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Post
@@ -67,19 +67,6 @@ class Attachment extends AbstractEntity {
 	 * @inject
 	 */
 	protected $configurationBuilder;
-
-	/**
-	 * Whole TypoScript typo3_forum settings
-	 * @var array
-	 */
-	protected $settings;
-
-	/**
-	 * Injects an instance of the \TYPO3\CMS\Extbase\Service\TypoScriptService.
-	 */
-	public function initializeObject() {
-		$this->settings = $this->configurationBuilder->getSettings();
-	}
 
 	/**
 	 * Gets the attachment's filename on file system.
