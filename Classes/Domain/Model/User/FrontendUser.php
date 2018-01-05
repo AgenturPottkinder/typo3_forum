@@ -24,8 +24,8 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Configuration\ConfigurationBuilder;
 use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
+use Mittwald\Typo3Forum\Domain\Model\ConfigurableEntityTrait;
 use Mittwald\Typo3Forum\Domain\Model\ConfigurableInterface;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Access;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
@@ -44,6 +44,8 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	const GENDER_MALE = 0;
 	const GENDER_FEMALE = 1;
 	const GENDER_PRIVATE = 99;
+
+	use ConfigurableEntityTrait;
 
 	/**
 	 * The rank repository
@@ -280,20 +282,6 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup>
 	 */
 	protected $usergroup;
-
-	/**
-	 * Whole TypoScript typo3_forum settings
-	 *
-	 * @var array
-	 */
-	protected $settings = NULL;
-
-    /**
-     * @param ConfigurationBuilder $configurationBuilder
-     */
-    public function injectSettings(ConfigurationBuilder $configurationBuilder) {
-        $this->settings = $configurationBuilder->getSettings();
-    }
 
     /**
 	 * Constructor.

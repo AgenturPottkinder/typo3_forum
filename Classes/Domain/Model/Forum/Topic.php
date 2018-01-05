@@ -24,8 +24,8 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Configuration\ConfigurationBuilder;
 use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
+use Mittwald\Typo3Forum\Domain\Model\ConfigurableEntityTrait;
 use Mittwald\Typo3Forum\Domain\Model\ConfigurableInterface;
 use Mittwald\Typo3Forum\Domain\Model\NotifiableInterface;
 use Mittwald\Typo3Forum\Domain\Model\ReadableInterface;
@@ -40,6 +40,8 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  * can be subscribed by users.
  */
 class Topic extends AbstractEntity implements AccessibleInterface, SubscribeableInterface, NotifiableInterface, ReadableInterface, ConfigurableInterface {
+
+    use ConfigurableEntityTrait;
 
 	/**
 	 * The subject
@@ -175,24 +177,6 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * @inject
 	 */
 	protected $topicRepository;
-
-    /**
-     * @var ConfigurationBuilder
-     */
-    protected $configurationBuilder;
-
-	/**
-	 * Whole TypoScript typo3_forum settings
-	 * @var array
-	 */
-	protected $settings;
-
-    /**
-     * @param ConfigurationBuilder $configurationBuilder
-     */
-	public function injectSettings(ConfigurationBuilder $configurationBuilder) {
-		$this->settings = $configurationBuilder->getSettings();
-	}
 
 	/**
 	 * Constructor. Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage instances.
