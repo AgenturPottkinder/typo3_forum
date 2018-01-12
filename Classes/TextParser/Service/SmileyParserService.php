@@ -51,8 +51,26 @@ class SmileyParserService extends AbstractTextParserService {
 			$this->smileys = $this->smileyRepository->findAll();
 		}
 		foreach ($this->smileys as $smiley) {
-			$text = str_replace($smiley->getSmileyShortcut(), $this->getSmileyIcon($smiley), $text);
-		}
+
+		    if(':/' === $smiley->getSmileyShortcut()) {
+		        $lastPos = 0;
+		        while(($lastPos = strpos($text, $smiley->getSmileyShortcut(), $lastPos)) !== false) {
+                    $before =substr($text, $lastPos-4, 4);
+                    $currentPos = $lastPos;
+                    $lastPos = $lastPos + strlen($smiley->getSmileyShortcut());
+                    if(($before === 'http') || ($before === 'ttps')) {
+                        continue;
+                    }
+                    $text = substr_replace($text, $this->getSmileyIcon($smiley), $currentPos, strlen($smiley->getSmileyShortcut()));
+
+                }
+
+            } else {
+
+                $text = str_replace($smiley->getSmileyShortcut(), $this->getSmileyIcon($smiley), $text);
+            }
+
+        }
 		return $text;
 	}
 
