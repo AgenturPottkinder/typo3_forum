@@ -193,7 +193,9 @@ class PostController extends AbstractController {
 		// quoted post was specified).
 		if ($post === NULL) {
 			$post = ($quote !== NULL) ? $this->postFactory->createPostWithQuote($quote) : $this->postFactory->createEmptyPost();
-		}
+		} else {
+            $this->authenticationService->assertEditPostAuthorization($post);
+        }
 
 		$this->view->assignMultiple([
 			'topic' => $topic,
