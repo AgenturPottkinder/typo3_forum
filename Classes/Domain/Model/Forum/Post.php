@@ -275,7 +275,7 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 * @param string $operation
 	 * @return boolean TRUE, if the user is allowed to edit this post, otherwise FALSE.
 	 */
-	public function checkEditOrDeletePostAccess(FrontendUser $user, $operation) {
+	public function checkEditOrDeletePostAccess(FrontendUser $user = NULL, $operation) {
 		if ($user === NULL || $user->isAnonymous()) {
 			return FALSE;
 		} else {
