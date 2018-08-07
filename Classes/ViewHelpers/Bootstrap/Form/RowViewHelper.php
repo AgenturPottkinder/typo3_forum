@@ -23,6 +23,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Bootstrap\Form;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /**
@@ -50,10 +51,11 @@ class RowViewHelper extends AbstractTagBasedViewHelper {
 		$this->registerArgument('label', 'string', 'Hardcoded label (better to use llLabel instead).', FALSE, '');
 		$this->registerArgument('error', 'string', 'Error property path.', FALSE);
 		$this->registerArgument('errorLLPrefix', 'string', 'Error label locallang prefix.', FALSE);
+		$this->registerArgument('class', 'string', 'CSS class to render', false, 'control-group');
 	}
 
 	public function render() {
-		$class = 'control-group';
+		$class = $this->arguments['class'];
 
 		if ($this->arguments['llLabel']) {
 			$label = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($this->arguments['llLabel'], 'typo3_forum');
@@ -85,7 +87,7 @@ class RowViewHelper extends AbstractTagBasedViewHelper {
 			$errorText = '';
 		}
 
-		$label   = '<label>' . $label . '</label>';
+		$label   = '<h3>' . $label . '</h3>';
 		$content = '<div>' . $this->renderChildren() . $errorContent . '</div>';
 
 		$this->tag->addAttribute('class', $class);

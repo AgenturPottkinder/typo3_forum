@@ -123,11 +123,11 @@ class TopicController extends AbstractController {
                 $partial = 'Topic/List';
                 break;
             case '3':
-                $dataset = $this->topicRepository->findQuestions(6);
+                $dataset = $this->topicRepository->findQuestions(intval($this->settings['maxTopicItems']));
                 $partial = 'Topic/QuestionBox';
                 break;
             case '4':
-                $dataset = $this->topicRepository->findPopularTopics(intval($this->settings['popularTopicTimeDiff']),6);
+                $dataset = $this->topicRepository->findPopularTopics(intval($this->settings['popularTopicTimeDiff']), intval($this->settings['maxTopicItems']));
                 $partial = 'Topic/ListBox';
                 break;
             default:
@@ -200,12 +200,18 @@ class TopicController extends AbstractController {
 	 */
 	public function newAction(Forum $forum, Post $post = NULL, $subject = NULL) {
 		$this->authenticationService->assertNewTopicAuthorization($forum);
+		if ($this->request->hasArgument('submit_type') && $this->request->getArgument('submit_type') == 'preview') {
+		    $renderPreview = true;
+        } else {
+		    $renderPreview = false;
+        }
 		$this->view->assignMultiple([
 			'criteria' => $forum->getCriteria(),
 			'currentUser' => $this->frontendUserRepository->findCurrent(),
 			'forum' => $forum,
 			'post' => $post,
 			'subject' => $subject,
+            'renderPreview' => $renderPreview
 		]);
 	}
 
@@ -229,6 +235,10 @@ class TopicController extends AbstractController {
 
 		// Assert authorization
 		$this->authenticationService->assertNewTopicAuthorization($forum);
+
+		if ($this->request->getArgument('submit_type') == 'preview') {
+		    $this->forward('new');
+        }
 
 		// Create the new post; add the new post to a new topic and add the new
 		// topic to the forum. Then persist the forum object. Not as complicated

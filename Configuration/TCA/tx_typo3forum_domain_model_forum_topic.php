@@ -101,9 +101,9 @@ return [
 			'label' => $lllPath . 'posts',
 			'config' => [
 				'type' => 'inline',
-				'foreign_sortby' => 'uid',
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_post',
 				'foreign_field' => 'topic',
+                'foreign_table_field' => 'tablename',
 				'maxitems' => 9999,
 				'appearance' => [
 					'collapse' => 0,

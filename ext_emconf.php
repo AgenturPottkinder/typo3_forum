@@ -9,8 +9,8 @@ $EM_CONF[$_EXTKEY] = [
 	'author_company' => 'Mittwald CM Service',
 	'dependencies' => 'cms,extbase,fluid,sr_feuser_register,static_info_tables',
 	'state' => 'stable',
-	'uploadfolder' => 0,
-	'createDirs' => 'typo3temp/typo3_forum,typo3temp/typo3_forum/gravatar',
+	'uploadfolder' => 1,
+	'createDirs' => 'typo3temp/typo3_forum,typo3temp/typo3_forum/gravatar,uploads/tx_typo3forum/attachments',
 	'modify_tables' => 'fe_users',
 	'clearCacheOnLoad' => 0,
 

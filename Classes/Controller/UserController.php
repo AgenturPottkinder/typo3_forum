@@ -447,7 +447,7 @@ class UserController extends AbstractController {
 
 		# Update user and redirect to subscription object.
 		$this->frontendUserRepository->update($user);
-		$this->frontendUserRepository->update($topic->getAuthor());
+		//$this->frontendUserRepository->update($topic->getAuthor());
 		$this->controllerContext->getFlashMessageQueue()->enqueue(
 			new FlashMessage($this->getSubscriptionFlashMessage($object, $unsubscribe))
 		);

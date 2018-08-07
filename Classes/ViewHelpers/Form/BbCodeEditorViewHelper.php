@@ -96,14 +96,18 @@ class BbCodeEditorViewHelper extends TextareaViewHelper {
 			return $this->javascriptSetup = $this->cache->get('bbcodeeditor-jsonconfig');
 		}
 
-		foreach ($this->configuration['panels.'] as $key => $panelConfiguration) {
-			$panel = $this->objectManager->get($panelConfiguration['className']);
-			if (!$panel instanceof \Mittwald\Typo3Forum\TextParser\Panel\PanelInterface) {
-				throw new \TYPO3\CMS\Extbase\Object\InvalidClassException('Expected an implementation of the \Mittwald\Typo3Forum\TextParser\Panel\PanelInterface interface!', 1315835842);
-			}
-			$panel->setSettings($panelConfiguration);
-			$this->panels[] = $panel;
-		}
+		if (is_array($this->configuration['panels.'])) {
+            foreach ($this->configuration['panels.'] as $key => $panelConfiguration) {
+                $panel = $this->objectManager->get($panelConfiguration['className']);
+                if (!$panel instanceof \Mittwald\Typo3Forum\TextParser\Panel\PanelInterface) {
+                    throw new \TYPO3\CMS\Extbase\Object\InvalidClassException('Expected an implementation of the \Mittwald\Typo3Forum\TextParser\Panel\PanelInterface interface!',
+                        1315835842);
+                }
+                $panel->setSettings($panelConfiguration);
+                $this->panels[] = $panel;
+            }
+        }
+
 
 		$this->javascriptSetup = '<script>' .
             'var bbcodeSettings = ' .
@@ -144,7 +148,7 @@ class BbCodeEditorViewHelper extends TextareaViewHelper {
 		}
 
         $settings[] = [
-            'name' => 'Preview',
+            'name' => $this->configuration['labels.']['preview'],
             'className' => 'preview',
             'call' => 'preview'
         ];
