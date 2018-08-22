@@ -103,11 +103,10 @@ class BbCodeEditorViewHelper extends TextareaViewHelper {
 		}
 
 		$this->javascriptSetup = '
-		<script language="javascript">
-		' . 'var bbcodeSettings = ' . json_encode($this->getPanelSettings()) . ';' . '$(document).ready(function()	{' . '$(\'#' . $this->arguments['id'] . '\').markItUp(bbcodeSettings);' . '}); </script>';
+			' . 'var bbcodeSettings = ' . json_encode($this->getPanelSettings()) . ';' . '$(document).ready(function()	{' . '$(\'#' . $this->arguments['id'] . '\').markItUp(bbcodeSettings);' . '});';
 		$this->cache->set('bbcodeeditor-jsonconfig', $this->javascriptSetup);
 		return $this->javascriptSetup;
-	}
+    }
 
 	/**
 	 *
@@ -121,9 +120,10 @@ class BbCodeEditorViewHelper extends TextareaViewHelper {
 	public function render() {
 
 		$this->initializeJavascriptSetupFromConfiguration($this->arguments['configuration']);
+		$GLOBALS['TSFE']->getPageRenderer()->addJsFooterInlineCode('some_random_string', $this->javascriptSetup);
 
-		return $this->javascriptSetup . parent::render();
-	}
+		return parent::render();
+    }
 
 	/**
 	 * getPanelSettings
