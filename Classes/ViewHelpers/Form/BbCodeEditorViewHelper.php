@@ -96,18 +96,17 @@ class BbCodeEditorViewHelper extends TextareaViewHelper {
 		foreach ($this->configuration['panels.'] as $key => $panelConfiguration) {
 			$panel = $this->objectManager->get($panelConfiguration['className']);
 			if (!$panel instanceof \Mittwald\Typo3Forum\TextParser\Panel\PanelInterface) {
-				throw new \TYPO3\CMS\Extbase\Object\InvalidClassException('Expected an implementation of the \Mittwald\Typo3Forum\TextParser\Panel\PanelInterface interface!', 1315835842);
+			throw new \TYPO3\CMS\Extbase\Object\InvalidClassException('Expected an implementation of the \Mittwald\Typo3Forum\TextParser\Panel\PanelInterface interface!', 1315835842);
 			}
 			$panel->setSettings($panelConfiguration);
 			$this->panels[] = $panel;
 		}
 
 		$this->javascriptSetup = '
-		<script language="javascript">
-		' . 'var bbcodeSettings = ' . json_encode($this->getPanelSettings()) . ';' . '$(document).ready(function()	{' . '$(\'#' . $this->arguments['id'] . '\').markItUp(bbcodeSettings);' . '}); </script>';
+			' . 'var bbcodeSettings = ' . json_encode($this->getPanelSettings()) . ';' . '$(document).ready(function()	{' . '$(\'#' . $this->arguments['id'] . '\').markItUp(bbcodeSettings);' . '});';
 		$this->cache->set('bbcodeeditor-jsonconfig', $this->javascriptSetup);
 		return $this->javascriptSetup;
-	}
+    }
 
 	/**
 	 *
@@ -121,9 +120,10 @@ class BbCodeEditorViewHelper extends TextareaViewHelper {
 	public function render() {
 
 		$this->initializeJavascriptSetupFromConfiguration($this->arguments['configuration']);
+		$GLOBALS['TSFE']->getPageRenderer()->addJsFooterInlineCode('some_random_string', $this->javascriptSetup);
 
-		return $this->javascriptSetup . parent::render();
-	}
+		return parent::render();
+    }
 
 	/**
 	 * getPanelSettings
