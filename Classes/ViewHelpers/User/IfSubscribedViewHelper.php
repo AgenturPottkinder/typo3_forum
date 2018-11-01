@@ -1,10 +1,11 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\User;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2018 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -26,20 +27,35 @@ namespace Mittwald\Typo3Forum\ViewHelpers\User;
 
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
-use TYPO3Fluid\Fluid\ViewHelpers\IfViewHelper;
+use Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
 
 /**
  * ViewHelper that renders its contents, when a certain user has subscribed
  * a specific object.
  */
-class IfSubscribedViewHelper extends IfViewHelper
+class IfSubscribedViewHelper extends AbstractConditionViewHelper
 {
 
     /**
      * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
-     * @inject
      */
     protected $frontendUserRepository;
+
+
+    /**
+     * @var
+     */
+    protected $forumRepository;
+
+    /**
+     * @var ObjectManagerInterface
+     */
+    protected $objectManager;
+
 
     /**
      * @return void
@@ -52,31 +68,42 @@ class IfSubscribedViewHelper extends IfViewHelper
     }
 
     /**
-     * @return string
+     * evaluateCondition.
+     * @todo get rid of foreach loop
+     * @param null $arguments
+     * @return bool
      */
-    public function render()
+    protected static function evaluateCondition($arguments = null): bool
     {
-        $object = $this->getSubscribeableObject();
-        $user = $this->arguments['user'];
+        $user = $arguments['user'];
+        $object = $arguments['object'];
 
-        if ($user === null) {
-            $user = $this->frontendUserRepository->findCurrent();
+        if (!($object instanceof SubscribeableInterface) || !($user instanceof FrontendUser) && !($user = self::getFrontendUserRepository()->findCurrent())) {
+            return false;
         }
 
         foreach ($object->getSubscribers() as $subscriber) {
-            if ($subscriber->getUid() == $user->getUid()) {
-                return $this->renderThenChild();
+            if (($subscriber === $user)) {
+                return true;
             }
         }
 
-        return $this->renderElseChild();
+        return false;
     }
 
     /**
-     * @return SubscribeableInterface
+     * @return FrontendUserRepository
      */
-    protected function getSubscribeableObject()
+    public static function getFrontendUserRepository(): FrontendUserRepository
     {
-        return $this->arguments['object'];
+        return self::getObjectManager()->get(FrontendUserRepository::class);
+    }
+
+    /**
+     * @return ObjectManagerInterface
+     */
+    public static function getObjectManager(): ObjectManagerInterface
+    {
+        return GeneralUtility::makeInstance(ObjectManager::class);
     }
 }
