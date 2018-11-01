@@ -177,7 +177,7 @@ class TopicController extends AbstractController {
 		}
 
 		// send signal for simple read count
-		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Topic', 'topicDisplayed', ['topic' => $topic]);
+		$this->signalSlotDispatcher->dispatch(Topic::class, 'topicDisplayed', ['topic' => $topic]);
 
 		$this->authenticationService->assertReadAuthorization($topic);
 		$this->markTopicRead($topic);
@@ -254,7 +254,7 @@ class TopicController extends AbstractController {
 		$topic = $this->topicFactory->createTopic($forum, $post, $subject, (int)$question, $criteria, $tags, (int)$subscribe);
 
 		// Notify potential listeners.
-		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Topic', 'topicCreated', ['topic' => $topic]);
+		$this->signalSlotDispatcher->dispatch(Topic::class, 'topicCreated', ['topic' => $topic]);
 		$this->clearCacheForCurrentPage();
 		$uriBuilder = $this->controllerContext->getUriBuilder();
 		$uri = $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments(['tx_typo3forum_pi1[forum]' => $forum->getUid(), 'tx_typo3forum_pi1[controller]' => 'Forum', 'tx_typo3forum_pi1[action]' => 'show'])->build();

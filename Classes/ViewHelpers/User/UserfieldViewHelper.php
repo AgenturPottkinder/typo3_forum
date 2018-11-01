@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\ViewHelpers\User;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -22,67 +23,69 @@ namespace Mittwald\Typo3Forum\ViewHelpers\User;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
+
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield;
 use Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield;
-use Mittwald\Typo3Forum\ViewHelpers\CObjectAwareViewHelperTrait;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
-
 
 /**
  *
  * ViewHelper that renders the value of a specific userfield for a user.
  *
  */
-class UserfieldViewHelper extends AbstractViewHelper {
+class UserfieldViewHelper extends AbstractViewHelper
+{
 
-	/**
-	 *
-	 * Renders the userfield value.
-	 *
-	 * @param FrontendUser $user The user for whom the userfield value is to be rendered.
-	 * @param AbstractUserfield $userfield The userfield
-	 * @return string HTML content
-	 *
-	 */
-	public function render(FrontendUser $user, AbstractUserfield $userfield) {
-		if (!$userfield instanceof TyposcriptUserfield) {
-			return new \InvalidArgumentException('Only userfields of type TyposcriptUserField are supported', 1435048481);
-		}
-		$data = $userfield->getValueForUser($user);
-		$data = $this->convertDataToString($data);
-		return $this->getCObjectViewHelper()->render($userfield->getTyposcriptPath() . '.output', implode(' ', $data));
-	}
+    /**
+     *
+     * Renders the userfield value.
+     *
+     * @param FrontendUser $user The user for whom the userfield value is to be rendered.
+     * @param AbstractUserfield $userfield The userfield
+     * @return string HTML content
+     *
+     */
+    public function render(FrontendUser $user, AbstractUserfield $userfield)
+    {
+        if (!$userfield instanceof TyposcriptUserfield) {
+            return new \InvalidArgumentException('Only userfields of type TyposcriptUserField are supported', 1435048481);
+        }
+        $data = $userfield->getValueForUser($user);
+        $data = $this->convertDataToString($data);
+        return $this->getCObjectViewHelper()->render($userfield->getTyposcriptPath() . '.output', implode(' ', $data));
+    }
 
-	/**
-	 *
-	 * Helper method that converts any type of variable to a string.
-	 *
-	 * @param mixed $data Anything
-	 * @return string Anything converted to a string
-	 *
-	 */
-	protected function convertDataToString($data) {
-		if (is_array($data)) {
-			foreach ($data as $k => &$v) {
-				$v = $this->convertDataToString($v);
-			}
-			return $data;
-		} else {
-			if ($data instanceof \DateTime) {
-				return $data->format('U');
-			} else {
-				return $data;
-			}
-		}
-	}
+    /**
+     *
+     * Helper method that converts any type of variable to a string.
+     *
+     * @param mixed $data Anything
+     * @return string Anything converted to a string
+     *
+     */
+    protected function convertDataToString($data)
+    {
+        if (is_array($data)) {
+            foreach ($data as $k => &$v) {
+                $v = $this->convertDataToString($v);
+            }
+            return $data;
+        } else {
+            if ($data instanceof \DateTime) {
+                return $data->format('U');
+            } else {
+                return $data;
+            }
+        }
+    }
 
-	/**
-	 * @return CObjectViewHelper
-	 */
-	protected function getCObjectViewHelper()
-	{
-		return $this->objectManager->get('TYPO3\\CMS\\Fluid\\ViewHelpers\\CObjectViewHelper');
-	}
+    /**
+     * @return CObjectViewHelper
+     */
+    protected function getCObjectViewHelper()
+    {
+        return $this->objectManager->get(CObjectViewHelper::class);
+    }
 }

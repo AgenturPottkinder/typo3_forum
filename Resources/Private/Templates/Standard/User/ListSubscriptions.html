@@ -1,26 +1,12 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 <f:layout name="default"/>
-
-
-<!-- MAIN Section -->
 <f:section name="main">
-
-    <h2>
-        <f:translate key="User_ListSubscriptions"/>
-        <small>{user.username}</small>
-    </h2>
-
+    <h2><f:translate key="User_ListSubscriptions"/> <small>{user.username}</small></h2>
     <f:widget.paginate objects="{topics}" as="paginatedTopics">
         <f:render partial="User/ListSubscribedTopics" arguments="{topics: paginatedTopics}"/>
     </f:widget.paginate>
-
     <f:widget.paginate objects="{forums}" as="paginatedForums">
         <f:render partial="User/ListSubscribedForums" arguments="{forums: paginatedForums}"/>
     </f:widget.paginate>
-
 </f:section>
-
-
-<!-- MENU Section -->
-<f:section name="menu">
-</f:section>
+<f:section name="menu" />

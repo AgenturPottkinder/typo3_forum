@@ -11,7 +11,7 @@
 	],
 	"require": {
 		"typo3/cms-core": "^6.2|| ^7.6 || ^8.0",
-		"typo3-ter/static-info-tables": "6.3.*"
+		"typo3-ter/static-info-tables": "^6.4.0"
 	},
 	"require-dev": {
 		"namelesscoder/typo3-repository-client": "^1.2",

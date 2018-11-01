@@ -181,7 +181,7 @@ abstract class AbstractMigrationService
             foreach ($this->messages as $messageItem) {
                 /** @var FlashMessage $flashMessage */
                 $flashMessage = GeneralUtility::makeInstance(
-                    'TYPO3\\CMS\\Core\\Messaging\\FlashMessage',
+                    FlashMessage::class,
                     $messageItem[2],
                     $messageItem[1],
                     $messageItem[0]
@@ -205,5 +205,4 @@ abstract class AbstractMigrationService
     {
         return $this->objectManager->get(FlashMessageService::class);
     }
-
 }

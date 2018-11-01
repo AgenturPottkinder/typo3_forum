@@ -22,15 +22,14 @@ namespace Mittwald\Typo3Forum\Configuration;
  ***************************************************************/
 
 use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Service\TypoScriptService;
 
 class ConfigurationBuilder implements SingletonInterface {
 
     /**
-     * @var \TYPO3\CMS\Extbase\Service\TypoScriptService
+     * @var \TYPO3\CMS\Core\TypoScript\TypoScriptService
      * @inject
-     *
      */
     protected $typoScriptService;
 
@@ -87,10 +86,9 @@ class ConfigurationBuilder implements SingletonInterface {
     protected function getTypoScriptService()
     {
         if (is_null($this->typoScriptService)) {
-            $this->typoScriptService = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService');
+            $this->typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
         }
 
         return $this->typoScriptService;
     }
-
 }

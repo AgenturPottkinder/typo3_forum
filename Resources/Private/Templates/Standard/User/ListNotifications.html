@@ -1,11 +1,9 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 <f:layout name="default"/>
 <f:section name="main">
-	<h2>
-		<f:translate key="User_Show_Notification_All" />
-	</h2>
-	<div >
-		<div >
+	<h2><f:translate key="User_Show_Notification_All" /></h2>
+	<div>
+		<div>
 			<f:widget.paginate objects="{notifications}" as="paginatedNotification" configuration="{settings.pagebrowser.default}">
 				<f:for each="{paginatedNotification}" as="notification" iteration="iteration">
 					<div class="{f:if(condition:'{notification.userRead} == 0',then:'well',else:'')} {f:if(condition:'{iteration.circle} == 0',then:'margin-top',else:'')}" style="margin-bottom: 30px;">

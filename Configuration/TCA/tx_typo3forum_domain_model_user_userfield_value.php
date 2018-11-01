@@ -14,8 +14,7 @@ return [
 		'type' => 'user',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
-		'versioningWS' => 2,
-		'versioning_followPages' => TRUE,
+		'versioningWS' => true,
 		'origUid' => 't3_origuid',
 		'languageField' => 'sys_language_uid',
 		'transOrigPointerField' => 'l18n_parent',
@@ -33,20 +32,26 @@ return [
 		'0' => ['showitem' => 'user,userfield,value'],
 	],
 	'columns' => [
-		'sys_language_uid' => [
-			'exclude' => 1,
-			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.language',
-			'config' => [
-				'type' => 'select',
-				'renderType' => 'selectSingle',
-				'foreign_table' => 'sys_language',
-				'foreign_table_where' => 'ORDER BY sys_language.title',
-				'items' => [
-					['LLL:EXT:lang/locallang_general.php:LGL.allLanguages', -1],
-					['LLL:EXT:lang/locallang_general.php:LGL.default_value', 0],
-				],
-			],
-		],
+        'sys_language_uid' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.language',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'sys_language',
+                'foreign_table_where' => 'ORDER BY sys_language.title',
+                'items' => [
+                    ['LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages', -1],
+                    ['LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.default_value', 0]
+                ],
+                'default' => 0,
+                'fieldWizard' => [
+                    'selectIcons' => [
+                        'disabled' => false,
+                    ],
+                ],
+            ]
+        ],
 		'l18n_parent' => [
 			'displayCond' => 'FIELD:sys_language_uid:>:0',
 			'exclude' => 1,
@@ -63,7 +68,8 @@ return [
 		],
 		'l18n_diffsource' => [
 			'config' => [
-				'type' => 'passthrough'],
+				'type' => 'passthrough'
+            ],
 		],
 		't3ver_label' => [
 			'displayCond' => 'FIELD:t3ver_label:REQ:true',
