@@ -107,8 +107,8 @@ class UserController extends AbstractController {
 				$partial = 'User/HelpfulBox';
 				break;
 			case 'onlineUserWidget':
-				//NO DATA - Ajax Reload
-				$dataset['count'] = 0;
+                $dataset['count'] = $this->frontendUserRepository->countByFilter(TRUE);
+                $dataset['users'] = $this->frontendUserRepository->findByFilter((int)$this->settings['widgets']['onlinebox']['limit'], [], TRUE);
 				$partial = 'User/OnlineBox';
 				break;
 			case 'rankingList':
