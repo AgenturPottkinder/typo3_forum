@@ -28,12 +28,20 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Moderation;
 use Mittwald\Typo3Forum\Domain\Model\Moderation\Report;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithContentArgumentAndRenderStatic;
 
 class ReportIconViewHelper extends AbstractViewHelper
 {
+
+    use CompileWithContentArgumentAndRenderStatic;
+    
+    /**
+     * @var bool
+     */
+    protected $escapeOutput = false;
 
     /**
      *
@@ -105,7 +113,7 @@ class ReportIconViewHelper extends AbstractViewHelper
      * getObjectManager.
      * @return ObjectManager
      */
-    protected function getObjectManager()
+    protected static function getObjectManager()
     {
         return GeneralUtility::makeInstance(ObjectManager::class);
     }
