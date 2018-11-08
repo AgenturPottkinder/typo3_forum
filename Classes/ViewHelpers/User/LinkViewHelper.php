@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\User;
 
 /*                                                                    - *
@@ -25,6 +26,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\User;
  *                                                                      */
 
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup;
@@ -32,7 +34,7 @@ use Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup;
 class LinkViewHelper extends AbstractViewHelper
 {
     protected $escapeOutput = false;
-    
+
     /**
      * @var array
      */
@@ -59,22 +61,28 @@ class LinkViewHelper extends AbstractViewHelper
         parent::initializeArguments();
         $this->registerArgument('class', 'string', 'CSS class.');
         $this->registerArgument('style', 'string', 'CSS inline styles.');
+        $this->registerArgument('user', FrontendUser::class, 'User', true);
+        $this->registerArgument('showOnlineStatus', 'boolean', 'Show if user is online', false, true);
+        $this->registerArgument('showOnline', 'boolean', 'Is user online?', false, false);
     }
 
     /**
-     * @param FrontendUser|null $user
-     * @param bool $showOnlineStatus
-     * @param bool $showOnline
+     * render.
      * @return string
      */
-    public function render(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = null, $showOnlineStatus = true, $showOnline = false)
+    public function render()
     {
+
+        $user = $this->arguments['user'];
+        $showOnlineStatus = $this->arguments['showOnlineStatus'];
+        $showOnline = $this->arguments['showOnline'];
+
         // if user anonymous: show only the username
         if ($user->isAnonymous()) {
             return $user->getUsername();
         }
 
-        $uriBuilder = $this->controllerContext->getUriBuilder();
+        $uriBuilder = $this->getUriBuilder();
         $uri = $uriBuilder->setTargetPageUid($this->settings['pids']['UserShow'])->setArguments([
             'tx_typo3forum_pi1[user]' => $user->getUid(),
             'tx_typo3forum_pi1[controller]' => 'User',
@@ -117,6 +125,15 @@ class LinkViewHelper extends AbstractViewHelper
         }
 
         return $link;
+    }
+
+    /**
+     * getUriBuilder.
+     * @return UriBuilder
+     */
+    private function getUriBuilder()
+    {
+        return $this->renderingContext->getControllerContext()->getUriBuilder();
     }
 }
 

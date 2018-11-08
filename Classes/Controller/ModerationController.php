@@ -127,7 +127,7 @@ class ModerationController extends AbstractController {
 	 * @param Report $report
 	 * @param ReportComment $comment
 	 *
-	 * @dontvalidate $comment
+	 * @ignorevalidation $comment
 	 */
 	public function newReportCommentAction(Report $report, ReportComment $comment = NULL) {
 		$this->view->assignMultiple([

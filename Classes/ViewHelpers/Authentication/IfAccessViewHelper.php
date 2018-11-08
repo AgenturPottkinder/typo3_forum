@@ -1,5 +1,7 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\Authentication;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -32,29 +34,47 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  * ViewHelper that renders its contents if the current user has access to a
  * certain operation on a certain object.
  */
-class IfAccessViewHelper extends AbstractViewHelper {
-    
+class IfAccessViewHelper extends AbstractViewHelper
+{
+    /**
+     * @var bool
+     */
     protected $escapeOutput = false;
+
+    /**
+     * @var bool
+     */
     protected $escapeChildren = false;
 
-	/**
-	 * The frontend user repository.
-	 *
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
-	 * @inject
-	 */
-	protected $frontendUserRepository;
+    /**
+     * The frontend user repository.
+     *
+     * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
+     * @inject
+     */
+    protected $frontendUserRepository;
 
-	/**
-	 * Renders this ViewHelper
-	 *
-	 * @param AccessibleInterface $object The object for which the access is to be checked.
-	 * @param string $accessType The operation for which to check the access.
-	 * @return string The ViewHelper contents if the user has access to the specified operation.
-	 */
-	public function render(AccessibleInterface $object, $accessType = Access::TYPE_READ) {
-		if ($object->checkAccess($this->frontendUserRepository->findCurrent(), $accessType)) {
-			return $this->renderChildren();
-		}
-	}
+    /**
+     * initializeArguments.
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('object', AccessibleInterface::class, 'Object to check', true);
+        $this->registerArgument('accessType', 'string', 'Type of access', false, Access::TYPE_READ);
+    }
+
+    /**
+     * render.
+     * @return mixed
+     */
+    public function render()
+    {
+        $object = $this->arguments['object'];
+        $accessType = $this->arguments['accessType'];
+
+        if ($object->checkAccess($this->frontendUserRepository->findCurrent(), $accessType)) {
+            return $this->renderChildren();
+        }
+    }
 }

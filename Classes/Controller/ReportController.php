@@ -65,7 +65,7 @@ class ReportController extends AbstractController {
 	 * @param FrontendUser $user
 	 * @param ReportComment $firstComment
 	 *
-	 * @dontvalidate $firstComment
+	 * @ignorevalidation $firstComment
 	 */
 	public function newUserReportAction(FrontendUser $user, ReportComment $firstComment = NULL) {
 		$this->view->assignMultiple([
@@ -80,7 +80,7 @@ class ReportController extends AbstractController {
 	 * @param Post $post
 	 * @param ReportComment $firstComment
 	 *
-	 * @dontvalidate $firstComment
+	 * @ignorevalidation $firstComment
 	 */
 	public function newPostReportAction(Post $post, ReportComment $firstComment = NULL) {
 		$this->authenticationService->assertReadAuthorization($post);

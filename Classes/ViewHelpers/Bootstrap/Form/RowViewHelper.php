@@ -62,7 +62,7 @@ class RowViewHelper extends AbstractTagBasedViewHelper {
 		}
 
 		if ($this->arguments['error']) {
-			$results = $this->controllerContext->getRequest()->getOriginalRequestMappingResults()->getSubResults();
+			$results = $this->renderingContext->getControllerContext()->getRequest()->getOriginalRequestMappingResults()->getSubResults();
 
 			$propertyPath = explode('.', $this->arguments['error']);
             $errors = [];

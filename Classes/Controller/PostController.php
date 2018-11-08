@@ -186,7 +186,7 @@ class PostController extends AbstractController {
 	/**
 	 * Displays the form for creating a new post.
 	 *
-	 * @dontvalidate $post
+	 * @ignorevalidation $post
 	 *
 	 * @param Topic $topic The topic in which the new post is to be created.
 	 * @param Post $post The new post.
@@ -257,7 +257,7 @@ class PostController extends AbstractController {
 	/**
 	 * Displays a form for editing a post.
 	 *
-	 * @dontvalidate $post
+	 * @ignorevalidation $post
 	 * @param Post $post The post that is to be edited.
 	 * @return void
 	 */
