@@ -30,6 +30,7 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderableClosure;
 
 /**
  * ViewHelper that renders a topic icon.
@@ -90,7 +91,7 @@ class TopicIconViewHelper extends AbstractViewHelper
             ];
         }
 
-        return $cObjectViewHelper::renderStatic($renderData, $this->renderChildrenClosure, $this->renderingContext);
+        return $cObjectViewHelper::renderStatic($renderData, function () {}, $this->renderingContext);
     }
 
     /**
