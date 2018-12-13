@@ -46,7 +46,7 @@ class AttachmentService implements SingletonInterface
             $tca = $attachmentObj->getTCAConfig();
             $path = $tca['columns']['real_filename']['config']['uploadfolder'];
             if (!file_exists($path)) {
-                mkdir($path, 0777, true);
+                GeneralUtility::mkdir($path);
             }
 
             //upload file and put in object storage
