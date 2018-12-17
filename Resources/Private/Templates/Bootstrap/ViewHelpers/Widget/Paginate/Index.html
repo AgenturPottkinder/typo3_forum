@@ -12,10 +12,10 @@
 <f:section name="paginator">
 	<div class="pagination pagination-right">
 		<ul>
-			<f:if condition="{pagination.previousPage}">
+			<f:if condition="{pagination.previousPage} > 1">
 				<f:then>
 					<li>
-						<f:widget.link arguments="{currentPage: pagination.previousPage}">&larr;</f:widget.link>
+						<f:widget.link useCacheHash="1" addQueryStringMethod="{configuration.addQueryStringMethod}" section="{configuration.section}" arguments="{currentPage: pagination.previousPage}">&larr;</f:widget.link>
 					</li>
 				</f:then>
 				<f:else>
@@ -26,7 +26,7 @@
 			</f:if>
 			<f:if condition="{pagination.displayRangeStart} > 1">
 				<li class="first">
-					<f:widget.link>1</f:widget.link>
+					<f:widget.link useCacheHash="1">1</f:widget.link>
 				</li>
 			</f:if>
 			<f:if condition="{pagination.hasLessPages}">
@@ -43,10 +43,10 @@
 						<li>
 							<f:if condition="{page.number} > 1">
 								<f:then>
-									<f:widget.link arguments="{currentPage: page.number}">{page.number}</f:widget.link>
+									<f:widget.link useCacheHash="1" arguments="{currentPage: page.number}">{page.number}</f:widget.link>
 								</f:then>
 								<f:else>
-									<f:widget.link>{page.number}</f:widget.link>
+									<f:widget.link useCacheHash="1">{page.number}</f:widget.link>
 								</f:else>
 							</f:if>
 						</li>
@@ -64,12 +64,12 @@
 			<f:if condition="{pagination.nextPage}">
 				<f:then>
 					<li>
-						<f:widget.link arguments="{currentPage: pagination.nextPage}">&rarr;</f:widget.link>
+                        <f:widget.link useCacheHash="1" rel="next" arguments="{currentPage: pagination.nextPage}" addQueryStringMethod="{configuration.addQueryStringMethod}" section="{configuration.section}">&rarr;</f:widget.link>
 					</li>
 				</f:then>
 				<f:else>
 					<li class="disabled">
-						<f:widget.link arguments="{currentPage: pagination.nextPage}">&rarr;</f:widget.link>
+						<a href="#">&rarr;</a>
 					</li>
 				</f:else>
 			</f:if>
