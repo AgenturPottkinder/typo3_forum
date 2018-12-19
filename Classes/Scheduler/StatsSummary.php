@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Scheduler;
 
 /*                                                                    - *
@@ -24,112 +25,144 @@ namespace Mittwald\Typo3Forum\Scheduler;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
 /**
  * Count all Topics, Posts and Users and write result into summary table
  */
-class StatsSummary extends AbstractTask {
+class StatsSummary extends AbstractDatabaseTask
+{
 
-	/**
-	 * @var string
-	 */
-	protected $forumPids;
+    /**
+     * @var string
+     */
+    protected $forumPids;
 
-	/**
-	 * @var string
-	 */
-	protected $userPids;
+    /**
+     * @var string
+     */
+    protected $userPids;
 
-	/**
-	 * @var int
-	 */
-	protected $statsPid;
+    /**
+     * @var int
+     */
+    protected $statsPid;
 
-	/**
-	 * @return string
-	 */
-	public function getForumPids() {
-		return $this->forumPids;
-	}
+    /**
+     * @return string
+     */
+    public function getForumPids()
+    {
+        return $this->forumPids;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getUserPids() {
-		return $this->userPids;
-	}
+    /**
+     * @return string
+     */
+    public function getUserPids()
+    {
+        return $this->userPids;
+    }
 
-	/**
-	 * @return int
-	 */
-	public function getStatsPid() {
-		return $this->statsPid;
-	}
+    /**
+     * @return int
+     */
+    public function getStatsPid()
+    {
+        return $this->statsPid;
+    }
 
-	/**
-	 * @param string $forumPids
-	 */
-	public function setForumPids($forumPids) {
-		$this->forumPids = $forumPids;
-	}
+    /**
+     * @param string $forumPids
+     */
+    public function setForumPids($forumPids)
+    {
+        $this->forumPids = $forumPids;
+    }
 
-	/**
-	 * @param string $userPids
-	 */
-	public function setUserPids($userPids) {
-		$this->userPids = $userPids;
-	}
+    /**
+     * @param string $userPids
+     */
+    public function setUserPids($userPids)
+    {
+        $this->userPids = $userPids;
+    }
 
-	/**
-	 * @param int $statsPid
-	 */
-	public function setStatsPid($statsPid) {
-		$this->statsPid = $statsPid;
-	}
+    /**
+     * @param int $statsPid
+     */
+    public function setStatsPid($statsPid)
+    {
+        $this->statsPid = $statsPid;
+    }
 
-	/**
-	 * @return bool
-	 */
-	public function execute() {
-		if (!$this->getForumPids() || !$this->getUserPids() || !$this->getStatsPid()) {
-			return FALSE;
-		}
-		$results = [];
+    /**
+     * @return bool
+     */
+    public function execute()
+    {
+        if (!$this->getForumPids() || !$this->getUserPids() || !$this->getStatsPid()) {
+            return false;
+        }
+        $results = [];
 
-		$query = 'SELECT COUNT(*) AS counter
-				  FROM tx_typo3forum_domain_model_forum_post
-				  WHERE deleted=0 AND pid IN (' . $this->getForumPids() . ');';
-		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
-		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
-		$results[] = (int)$row['counter'];
+        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_post');
+        $queryBuilder->from('tx_typo3forum_domain_model_forum_post', 'post');
+        $queryBuilder->addSelectLiteral(
+            $queryBuilder->expr()->count('*', 'counter')
+        );
+        $queryBuilder->andWhere($queryBuilder->expr()->in('post.pid', $this->getForumPids()));
 
-		$query = 'SELECT COUNT(*) AS counter
-				  FROM tx_typo3forum_domain_model_forum_topic
-				  WHERE deleted=0 AND pid IN (' . $this->getForumPids() . ');';
-		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
-		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
-		$results[] = (int)$row['counter'];
+        $res = $queryBuilder->execute();
+        $row = $res->fetch();
 
-		$query = "SELECT COUNT(*) AS counter
-				  FROM fe_users
-				  WHERE deleted=0 AND disable=0 AND tx_extbase_type LIKE 'Mittwald\\\\Typo3Forum\\\\Domain\\\\Model\\\\User\\\\FrontendUser' ESCAPE '|'
-				  		AND pid IN (" . $this->getUserPids() . ");";
-		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
-		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
-		$results[] = (int)$row['counter'];
+        $results[] = (int)$row['counter'];
 
-		foreach ($results as $typeUid => $amount) {
-			$values = [
-				'pid' => (int)$this->getStatsPid(),
-				'tstamp' => time(),
-				'type' => (int)$typeUid,
-				'amount' => (int)$amount,
-			];
-			$query = $GLOBALS['TYPO3_DB']->INSERTquery('tx_typo3forum_domain_model_stats_summary', $values);
-			$GLOBALS['TYPO3_DB']->sql_query($query);
-		}
+        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_topic');
+        $queryBuilder->from('tx_typo3forum_domain_model_forum_topic', 'topic');
+        $queryBuilder->addSelectLiteral(
+            $queryBuilder->expr()->count('*', 'counter')
+        );
+        $queryBuilder->andWhere($queryBuilder->expr()->in('topic.pid', $this->getForumPids()));
 
-		return true;
-	}
+        $res = $queryBuilder->execute();
+        $row = $res->fetch();
+
+        $results[] = (int)$row['counter'];
+
+        $queryBuilder = $this->getDatabaseConnection('fe_users');
+        $queryBuilder->from('fe_users', 'users');
+        $queryBuilder->addSelectLiteral(
+            $queryBuilder->expr()->count('*', 'counter')
+        );
+        $queryBuilder->andWhere(
+            $queryBuilder->expr()->in('users.pid', $this->getForumPids()),
+            $queryBuilder->expr()->eq('users.tx_extbase_type',
+                $queryBuilder->createNamedParameter(FrontendUser::class, \PDO::PARAM_STR))
+        );
+
+        $res = $queryBuilder->execute();
+        $row = $res->fetch();
+
+        $results[] = (int)$row['counter'];
+
+        foreach ($results as $typeUid => $amount) {
+            $values = [
+                'pid' => (int)$this->getStatsPid(),
+                'tstamp' => time(),
+                'type' => (int)$typeUid,
+                'amount' => (int)$amount,
+            ];
+
+
+            $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_stats_summary');
+            $queryBuilder->insert('tx_typo3forum_domain_model_stats_summary');
+            $queryBuilder->values($values);
+            $queryBuilder->execute();
+
+        }
+
+        return true;
+    }
 }

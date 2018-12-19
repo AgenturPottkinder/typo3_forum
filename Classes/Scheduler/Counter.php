@@ -39,7 +39,7 @@ use TYPO3\CMS\Scheduler\Task\AbstractTask;
  * @package  TYPO3
  * @subpackage  typo3_forum
  */
-class Counter extends AbstractTask
+class Counter extends AbstractDatabaseTask
 {
 
     /**
@@ -405,25 +405,5 @@ class Counter extends AbstractTask
 
             $queryBuilder->execute();
         }
-    }
-
-    /**
-     * getDatabaseConnection.
-     * @param string $table
-     * @return \TYPO3\CMS\Core\Database\Query\QueryBuilder
-     */
-    protected function getDatabaseConnection($table = 'tx_typo3forum_domain_model_forum_post')
-    {
-        return $this->getConnectionPool()->getQueryBuilderForTable($table);
-    }
-
-
-    /**
-     * getConnectionPool.
-     * @return ConnectionPool|object
-     */
-    protected function getConnectionPool()
-    {
-        return GeneralUtility::makeInstance(ConnectionPool::class);
     }
 }

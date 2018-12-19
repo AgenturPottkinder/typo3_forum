@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Scheduler;
 
 /*                                                                    - *
@@ -26,45 +27,64 @@ namespace Mittwald\Typo3Forum\Scheduler;
 
 use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
-class SessionResetter extends AbstractTask {
+class SessionResetter extends AbstractDatabaseTask
+{
 
-	/**
-	 * @var int
-	 */
-	protected $userPid;
+    /**
+     * @var int
+     */
+    protected $userPid;
 
-	/**
-	 * @return int
-	 */
-	public function getUserPid() {
-		return $this->userPid;
-	}
+    /**
+     * @return int
+     */
+    public function getUserPid()
+    {
+        return $this->userPid;
+    }
 
-	/**
-	 * @param int $userPid
-	 */
-	public function setUserPid($userPid) {
-		$this->userPid = $userPid;
-	}
+    /**
+     * @param int $userPid
+     */
+    public function setUserPid($userPid)
+    {
+        $this->userPid = $userPid;
+    }
 
-	/**
-	 * @return bool
-	 */
-	public function execute() {
-		if ((int)$this->getUserPid() === 0) {
-			return FALSE;
-		}
+    /**
+     * @return bool
+     */
+    public function execute()
+    {
+        if ((int)$this->getUserPid() === 0) {
+            return false;
+        }
 
-		$updateArray = [
-			'tx_typo3forum_helpful_count_session' => 0,
-			'tx_typo3forum_post_count_session' => 0,
-		];
-		$query = $GLOBALS['TYPO3_DB']->UPDATEquery('fe_users', 'pid=' . (int)$this->getUserPid(), $updateArray);
-		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
-		if (!$res) {
-			return FALSE;
-		} else {
-			return TRUE;
-		}
-	}
+        $updateArray = [
+            'tx_typo3forum_helpful_count_session' => 0,
+            'tx_typo3forum_post_count_session' => 0,
+        ];
+
+
+        $queryBuilder = $this->getDatabaseConnection('fe_users');
+        $queryBuilder->update('fe_users', 'users');
+        $queryBuilder->andWhere(
+            $queryBuilder->expr()->eq(
+                'users.pid',
+                $queryBuilder->createNamedParameter($this->getUserPid(), \PDO::PARAM_INT)
+            )
+        );
+
+        foreach ($updateArray as $key => $value) {
+            $queryBuilder->set($key, $value);
+        }
+
+        $res = $queryBuilder->execute();
+
+        if (!$res) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
