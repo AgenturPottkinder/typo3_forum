@@ -42,12 +42,12 @@ class AttachmentService implements SingletonInterface
             $attachmentObj->setRealFilename(sha1($attachment['name'] . time()));
             $attachmentObj->setMimeType($mime_type);
 
-            //Create dir if not exists
-            $tca = $attachmentObj->getTCAConfig();
-            $path = $tca['columns']['real_filename']['config']['uploadfolder'];
-            if (!file_exists($path)) {
+			//Create dir if not exists
+			$tca = $attachmentObj->getTCAConfig();
+			$path = $tca['columns']['real_filename']['config']['uploadfolder'];
+			if(!file_exists($path)) {
                 GeneralUtility::mkdir($path);
-            }
+			}
 
             //upload file and put in object storage
             $res = GeneralUtility::upload_copy_move($tmp_name, $attachmentObj->getAbsoluteFilename());
