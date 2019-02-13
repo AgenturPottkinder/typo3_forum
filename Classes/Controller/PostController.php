@@ -193,7 +193,9 @@ class PostController extends AbstractController {
 		// quoted post was specified).
 		if ($post === NULL) {
 			$post = ($quote !== NULL) ? $this->postFactory->createPostWithQuote($quote) : $this->postFactory->createEmptyPost();
-		}
+		} else {
+            $this->authenticationService->assertEditPostAuthorization($post);
+        }
 
 		$this->view->assignMultiple([
 			'topic' => $topic,
@@ -354,10 +356,15 @@ class PostController extends AbstractController {
         $attachment->increaseDownloadCount();
 		$this->attachmentRepository->update($attachment);
 
+		//Enforce persistence, since it will not happen regularly because of die() at the end
+		$persistenceManager = $this->objectManager->get("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
+		$persistenceManager->persistAll();
+
         header('Content-type: ' . $attachment->getMimeType());
         header("Content-Type: application/download");
         header('Content-Disposition: attachment; filename="' . $attachment->getFilename() . '"');
 		readfile($attachment->getAbsoluteFilename());
+		die();
 	}
 
 }

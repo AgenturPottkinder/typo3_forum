@@ -1,9 +1,11 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\Moderation;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2018 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -23,47 +25,71 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Moderation;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\Moderation\Report;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 
-class ReportIconViewHelper extends CObjectViewHelper {
+class ReportIconViewHelper extends AbstractViewHelper
+{
 
-	/**
-	 * Initializes the view helper arguments.
-	 * @return void
-	 */
-	public function initializeArguments() {
+    const TYPOSCRIPT_PATH = 'plugin.tx_typo3forum.renderer.icons.report';
 
-	}
+    /**
+     * initializeArguments.
+     */
+    public function initializeArguments()
+    {
+        $this->registerArgument('report', Report::class, 'The report for which the icon is to be rendered.');
+        $this->registerArgument('width', 'int', 'Image width');
+        $this->registerArgument('alt', 'string', 'Alt text');
+    }
 
-	/**
-	 *
-	 * Renders the report icon.
-	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report
-	 *                                                               The report for which the icon is to be rendered.
-	 * @param integer                                   $width      Image width
-	 * @param string                                    $alt        Alt text
-	 * @return string             The rendered icon.
-	 *
-	 */
-	public function render(\Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report = NULL, $width = NULL, $alt = "") {
-		return parent::render('plugin.tx_typo3forum.renderer.icons.report', $this->getDataArray($report));
-	}
+    /**
+     *
+     * Renders the report icon.
+     *
+     * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report The report for which the icon is to be rendered.
+     * @param integer $width Image width
+     * @param string $alt Alt text
+     * @return string             The rendered icon.
+     *
+     */
+    public function render()
+    {
+        $report = $this->arguments['report'];
 
-	/**
-	 *
-	 * Generates a data array that will be passed to the typoscript object for
-	 * rendering the icon.
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report
-	 *                             The report for which the icon is to be displayed.
-	 * @return array               The data array for the typoscript object.
-	 *
-	 */
-	protected function getDataArray(\Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report = NULL) {
-		if ($report === NULL) {
-			return [];
-		} else {
-			return ['statusIcon' => $report->getWorkflowStatus()->getIconFullpath()];
-		}
-	}
+        return $this->getCObjectViewHelper()
+            ->render(self::TYPOSCRIPT_PATH, $this->getDataArray($report));
+    }
+
+    /**
+     *
+     * Generates a data array that will be passed to the typoscript object for
+     * rendering the icon.
+     * @param Report $report The report for which the icon is to be displayed.
+     * @return array The data array for the typoscript object.
+     *
+     */
+    protected function getDataArray(Report $report = null)
+    {
+        $data = [];
+        if (!is_null($report)) {
+            $data = [
+                'statusIcon' => $report->getWorkflowStatus()->getIconFullpath(),
+                'width' => $this->arguments['width'],
+                'alt' => $this->arguments['alt'],
+            ];
+        }
+
+        return $data;
+    }
+
+    /**
+     * getCObjectViewHelper.
+     * @return CObjectViewHelper
+     */
+    protected function getCObjectViewHelper()
+    {
+        return $this->objectManager->get(CObjectViewHelper::class);
+    }
 }

@@ -36,6 +36,7 @@ plugin.tx_typo3forum {
         cutBreadcrumbOnChar = 40
         # cat=typo3_forum: config/110/190; type=boolean; label= Use SQL statements on critical function
         useSqlStatementsOnCriticalFunctions = 1
-
+        # cat=typo3_forum: config/110/200; type=boolean; label= Use default css
+        useDefaultCSS = 1
     }
 }

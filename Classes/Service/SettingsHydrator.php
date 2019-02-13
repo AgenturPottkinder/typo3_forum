@@ -1,11 +1,9 @@
 <?php
 
-namespace Mittwald\Typo3Forum\Service\Mailing;
-
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
- *  (c) 2015 Mittwald CM Service GmbH & Co KG                           *
+ *  (c) 2017 Mittwald CM Service GmbH & Co KG                           *
  *           All rights reserved                                        *
  *                                                                      *
  *  This script is part of the TYPO3 project. The TYPO3 project is      *
@@ -24,40 +22,39 @@ namespace Mittwald\Typo3Forum\Service\Mailing;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
-use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+namespace Mittwald\Typo3Forum\Service;
 
 
-/**
- * Service class for sending HTML mails.
- */
-class HTMLMailingService extends AbstractMailingService
+use Mittwald\Typo3Forum\Configuration\ConfigurationBuilder;
+use Mittwald\Typo3Forum\Domain\Model\ConfigurableInterface;
+use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
+
+class SettingsHydrator
 {
-
+    /**
+     * @var ConfigurationBuilder
+     */
+    private $configurationBuilder;
 
     /**
-     * Sends a mail with a certain subject and bodytext to a recipient in form of a frontend user.
-     *
-     * @param FrontendUser $recipient The recipient of the mail. This is a plain frontend user.
-     * @param string $subject The mail's subject
-     * @param string $bodyText The mail's bodytext
-     * @return void
+     * injectConfigurationBuilder.
+     * @param ConfigurationBuilder $configurationBuilder
      */
-    public function sendMail(FrontendUser $recipient, $subject, $bodyText)
+    public function injectConfigurationBuilder(\Mittwald\Typo3Forum\Configuration\ConfigurationBuilder $configurationBuilder)
     {
-        if (empty($recipient->getEmail())) {
-            return;
-        }
-
-        $typo3Mail = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
-        $typo3Mail->setFrom([
-                $this->getDefaultSenderAddress() => $this->getDefaultSenderName()
-            ]
-        )
-            ->setTo($recipient->getEmail())
-            ->setSubject($subject)
-            ->setBody($bodyText, 'text/html')
-            ->send();
+        $this->configurationBuilder = $configurationBuilder;
     }
 
+    /**
+     * hydrateSettings.
+     * @param DomainObjectInterface $object
+     */
+    public function hydrateSettings(DomainObjectInterface $object)
+    {
+        if ($object instanceof ConfigurableInterface) {
+            $object->injectSettings($this->configurationBuilder);
+        }
+    }
 }
