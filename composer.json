@@ -10,13 +10,13 @@
 		}
 	],
 	"require": {
-		"typo3/cms-core": "^6.2|| ^7.6 || ^8.0",
-		"typo3-ter/static-info-tables": "6.3.*"
+		"typo3/cms-core": "^8.7 || ^9.5",
+		"typo3-ter/static-info-tables": "^6.4.0"
 	},
 	"require-dev": {
 		"namelesscoder/typo3-repository-client": "^1.2",
 		"mikey179/vfsStream": "^1.4",
-		"phpunit/phpunit": "^4.7 || ^5.0"
+		"phpunit/phpunit": "^5.0 || ^6.5"
 	},
 	"replace": {
 		"typo3_forum": "self.version",

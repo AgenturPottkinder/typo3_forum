@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\User;
 
 /*                                                                    - *
@@ -25,89 +26,114 @@ namespace Mittwald\Typo3Forum\ViewHelpers\User;
  *                                                                      */
 
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup;
 
-class LinkViewHelper extends AbstractViewHelper {
+class LinkViewHelper extends AbstractViewHelper
+{
+    protected $escapeOutput = false;
 
-	/**
-	 * @var array
-	 */
-	protected $settings = NULL;
+    /**
+     * @var array
+     */
+    protected $settings = null;
 
     /**
      * Initialize viewHelper and add given settings
      *
      * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception\InvalidVariableException
      */
-	public function initialize() {
-		parent::initialize();
-		$this->settings = $this->templateVariableContainer->get('settings');
-	}
+    public function initialize()
+    {
+        parent::initialize();
+        $this->settings = $this->templateVariableContainer->get('settings');
+    }
 
     /**
      * Initialize required arguments
      *
      * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception
      */
-	public function initializeArguments() {
-		parent::initializeArguments();
-		$this->registerArgument('class', 'string', 'CSS class.');
-		$this->registerArgument('style', 'string', 'CSS inline styles.');
-	}
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('class', 'string', 'CSS class.');
+        $this->registerArgument('style', 'string', 'CSS inline styles.');
+        $this->registerArgument('user', FrontendUser::class, 'User', true);
+        $this->registerArgument('showOnlineStatus', 'boolean', 'Show if user is online', false, true);
+        $this->registerArgument('showOnline', 'boolean', 'Is user online?', false, false);
+    }
 
     /**
-     * @param FrontendUser|null $user
-     * @param bool $showOnlineStatus
-     * @param bool $showOnline
+     * render.
      * @return string
      */
-	public function render(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user = NULL, $showOnlineStatus = TRUE, $showOnline = FALSE) {
-		// if user anonymous: show only the username
-		if ($user->isAnonymous()) {
-			return $user->getUsername();
-		}
-		// use uribuilder to genreate the uri for the userprofile
-		$uriBuilder = $this->controllerContext->getUriBuilder();
-		$uri = $uriBuilder->setTargetPageUid($this->settings['pids']['UserShow'])->setArguments(['tx_typo3forum_pi1[user]' => $user->getUid(), 'tx_typo3forum_pi1[controller]' => 'User', 'tx_typo3forum_pi1[action]' => 'show'])->build();
+    public function render()
+    {
 
-		$class = 'user-link';
+        $user = $this->arguments['user'];
+        $showOnlineStatus = $this->arguments['showOnlineStatus'];
+        $showOnline = $this->arguments['showOnline'];
 
-		if ($this->hasArgument('class')) {
-			$class .= ' ' . $this->arguments['class'];
-		}
+        // if user anonymous: show only the username
+        if ($user->isAnonymous()) {
+            return $user->getUsername();
+        }
 
-		$fullUsername = htmlspecialchars($user->getUsername());
-		$limit = (int)$this->settings['cutUsernameOnChar'];
-		if ($limit == 0 || strlen($fullUsername) <= $limit) {
-			$username = $fullUsername;
-		} else {
-			$username = substr($fullUsername, 0, $limit) . "...";
-		}
-		$moderatorMark = "";
-		if ($this->settings['moderatorMark']['image']) {
-			foreach ($user->getUsergroup() as $group) {
-				/** @var FrontendUserGroup $group */
-				if ($group->getUserMod() === 1) {
-					$moderatorMark = '<img src="' . $this->settings['moderatorMark']['image'] . '" title="' . $this->settings['moderatorMark']['title'] . '" />';
-					break;
-				}
-			}
-		}
+        $uriBuilder = $this->getUriBuilder();
+        $uri = $uriBuilder->setTargetPageUid($this->settings['pids']['UserShow'])->setArguments([
+            'tx_typo3forum_pi1[user]' => $user->getUid(),
+            'tx_typo3forum_pi1[controller]' => 'User',
+            'tx_typo3forum_pi1[action]' => 'show'
+        ])->build();
 
-		if ($showOnlineStatus) {
-			if ($showOnline) {
-				$onlineStatus = 'user_onlinepoint iconset-8-user-online';
-			} else {
-				$onlineStatus = 'user_onlinepoint iconset-8-user-offline';
-			}
-			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $fullUsername . '">' . $username . ' <i class="' . $onlineStatus . '" data-uid="' . $user->getUid() . '"></i> ' . $moderatorMark . '</a>';
-		} else {
-			$link = '<a href="' . $uri . '" class="' . $class . '" title="' . $fullUsername . '">' . $username . ' ' . $moderatorMark . '</a>';
-		}
+        $class = 'user-link';
 
-		return $link;
-	}
+        if ($this->hasArgument('class')) {
+            $class .= ' ' . $this->arguments['class'];
+        }
+
+        $fullUsername = htmlspecialchars($user->getUsername());
+        $limit = (int)$this->settings['cutUsernameOnChar'];
+        if ($limit == 0 || strlen($fullUsername) <= $limit) {
+            $username = $fullUsername;
+        } else {
+            $username = substr($fullUsername, 0, $limit) . '...';
+        }
+        $moderatorMark = '';
+        if ($this->settings['moderatorMark']['image']) {
+            foreach ($user->getUsergroup() as $group) {
+                /** @var FrontendUserGroup $group */
+                if ($group->getUserMod() === 1) {
+                    $moderatorMark = '<img src="' . $this->settings['moderatorMark']['image'] . '" title="' . $this->settings['moderatorMark']['title'] . '" />';
+                    break;
+                }
+            }
+        }
+
+        if ($showOnlineStatus) {
+            if ($showOnline) {
+                $onlineStatus = 'user_onlinepoint iconset-8-user-online';
+            } else {
+                $onlineStatus = 'user_onlinepoint iconset-8-user-offline';
+            }
+            $link = '<a href="' . $uri . '" class="' . $class . '" title="' . $fullUsername . '">' . $username . ' <i class="' . $onlineStatus . '" data-uid="' . $user->getUid() . '"></i> ' . $moderatorMark . '</a>';
+        } else {
+            $link = '<a href="' . $uri . '" class="' . $class . '" title="' . $fullUsername . '">' . $username . ' ' . $moderatorMark . '</a>';
+        }
+
+        return $link;
+    }
+
+    /**
+     * getUriBuilder.
+     * @return UriBuilder
+     */
+    private function getUriBuilder()
+    {
+        return $this->renderingContext->getControllerContext()->getUriBuilder();
+    }
 }
 

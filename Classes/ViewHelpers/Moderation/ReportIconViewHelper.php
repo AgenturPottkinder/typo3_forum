@@ -26,12 +26,26 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Moderation;
  *                                                                      */
 
 use Mittwald\Typo3Forum\Domain\Model\Moderation\Report;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithContentArgumentAndRenderStatic;
 
 class ReportIconViewHelper extends AbstractViewHelper
 {
 
+    use CompileWithContentArgumentAndRenderStatic;
+    
+    /**
+     * @var bool
+     */
+    protected $escapeOutput = false;
+
+    /**
+     *
+     */
     const TYPOSCRIPT_PATH = 'plugin.tx_typo3forum.renderer.icons.report';
 
     /**
@@ -45,22 +59,24 @@ class ReportIconViewHelper extends AbstractViewHelper
     }
 
     /**
-     *
-     * Renders the report icon.
-     *
-     * @param \Mittwald\Typo3Forum\Domain\Model\Moderation\Report $report The report for which the icon is to be rendered.
-     * @param integer $width Image width
-     * @param string $alt Alt text
-     * @return string             The rendered icon.
-     *
+     * renderStatic.
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     * @return mixed
      */
-    public function render()
-    {
-        $report = $this->arguments['report'];
+    public static function renderStatic(
+        array $arguments,
+        \Closure $renderChildrenClosure,
+        RenderingContextInterface $renderingContext
+    ) {
+        $report = $arguments['report'];
 
-        return $this->getCObjectViewHelper()
-            ->render(self::TYPOSCRIPT_PATH, $this->getDataArray($report));
+        $renderArguemnts['typoscriptObjectPath'] = self::TYPOSCRIPT_PATH;
+
+        return self::getCObjectViewHelper()::renderStatic($renderArguemnts, $renderChildrenClosure, $renderingContext);
     }
+
 
     /**
      *
@@ -70,14 +86,14 @@ class ReportIconViewHelper extends AbstractViewHelper
      * @return array The data array for the typoscript object.
      *
      */
-    protected function getDataArray(Report $report = null)
+    protected static function getDataArray(Report $report = null, array $arguments = [])
     {
         $data = [];
         if (!is_null($report)) {
             $data = [
                 'statusIcon' => $report->getWorkflowStatus()->getIconFullpath(),
-                'width' => $this->arguments['width'],
-                'alt' => $this->arguments['alt'],
+                'width' => $arguments['width'],
+                'alt' => $arguments['alt'],
             ];
         }
 
@@ -88,8 +104,17 @@ class ReportIconViewHelper extends AbstractViewHelper
      * getCObjectViewHelper.
      * @return CObjectViewHelper
      */
-    protected function getCObjectViewHelper()
+    protected static function getCObjectViewHelper()
     {
-        return $this->objectManager->get(CObjectViewHelper::class);
+        return self::getObjectManager()->get(CObjectViewHelper::class);
+    }
+
+    /**
+     * getObjectManager.
+     * @return ObjectManager
+     */
+    protected static function getObjectManager()
+    {
+        return GeneralUtility::makeInstance(ObjectManager::class);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Scheduler;
 
 /*                                                                    - *
@@ -25,8 +26,10 @@ namespace Mittwald\Typo3Forum\Scheduler;
  *                                                                      */
 
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
 /**
@@ -36,246 +39,371 @@ use TYPO3\CMS\Scheduler\Task\AbstractTask;
  * @package  TYPO3
  * @subpackage  typo3_forum
  */
-class Counter extends AbstractTask {
+class Counter extends AbstractDatabaseTask
+{
 
-	/**
-	 * @var int
-	 */
-	protected $forumPid;
+    /**
+     * @var int
+     */
+    protected $forumPid;
 
-	/**
-	 * @var int
-	 */
-	protected $userPid;
+    /**
+     * @var int
+     */
+    protected $userPid;
 
-	/**
-	 * @var array
-	 */
-	private $settings;
-
-
-	/**
-	 * @return int
-	 */
-	public function getForumPid() {
-		return $this->forumPid;
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getUserPid() {
-		return $this->userPid;
-	}
-
-	/**
-	 * @param int $forumPid
-	 */
-	public function setForumPid($forumPid) {
-		$this->forumPid = $forumPid;
-	}
-
-	/**
-	 * @param int $userPid
-	 */
-	public function setUserPid($userPid) {
-		$this->userPid = $userPid;
-	}
-
-	/**
-	 * @return void
-	 */
-	public function setSettings() {
-		$objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-		/** @var ConfigurationManagerInterface $configurationManager */
-		$configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
-		$this->settings = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-		$this->settings = $this->settings['plugin.']['tx_typo3forum.']['settings.'];
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function execute() {
-		if ($this->getForumPid() == false || $this->getUserPid() == false) return false;
-		$this->setSettings();
-
-		$this->updateTopic();
-		$this->updateUser();
-		return true;
-	}
+    /**
+     * @var array
+     */
+    private $settings;
 
 
-	/**
-	 * @return void
-	 */
-	private function updateTopic() {
-		$topicCount = [];
-		$query = 'SELECT COUNT(*) AS counter, p.topic FROM tx_typo3forum_domain_model_forum_post AS p
-				  INNER JOIN tx_typo3forum_domain_model_forum_topic AS t ON t.uid = p.topic
-				  WHERE p.pid=' . (int)$this->getForumPid() . ' AND p.deleted=0 AND t.deleted=0
-				  GROUP BY p.topic
-				  ORDER BY counter ASC';
-		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
-		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-			$topicCount[$row['topic']] = $row['counter'];
-		}
-		$lastCounter = 1;
-		$lastCounterArray = [];
-		foreach ($topicCount as $topicUid => $postCount) {
-			if ($lastCounter != $postCount) {
-				$query = 'UPDATE tx_typo3forum_domain_model_forum_topic SET post_count = ' . (int)$lastCounter . ' WHERE uid IN (' . implode(',', $lastCounterArray) . ')';
-				$GLOBALS['TYPO3_DB']->sql_query($query);
-				$lastCounterArray = [];
-			}
-			$lastCounterArray[] = (int)$topicUid;
-			$lastCounter = $postCount;
-		}
-	}
+    /**
+     * @return int
+     */
+    public function getForumPid()
+    {
+        return $this->forumPid;
+    }
 
-	/**
-	 * @return void
-	 */
-	private function updateUser() {
-		$forumPid = (int)$this->getForumPid();
-		$userUpdate = [];
-		$rankScore = $this->settings['rankScore.'];
+    /**
+     * @return int
+     */
+    public function getUserPid()
+    {
+        return $this->userPid;
+    }
 
-		//Find any post_count
-		$query = 'SELECT p.author, COUNT(*) AS counter
-				  FROM tx_typo3forum_domain_model_forum_post AS p
-				  WHERE p.deleted=0 AND p.hidden=0 AND p.author > 0 AND p.pid=' . $forumPid . '
-				  GROUP BY p.author';
-		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
-		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-			$userUpdate[$row['author']]['post_count'] = $row['counter'];
-		}
+    /**
+     * @param int $forumPid
+     */
+    public function setForumPid($forumPid)
+    {
+        $this->forumPid = $forumPid;
+    }
 
-		//Find any topic count
-		$query = 'SELECT author, COUNT(*) AS counter
-				  FROM tx_typo3forum_domain_model_forum_topic
-				  WHERE deleted=0 AND hidden=0 AND author > 0 AND pid=' . $forumPid . '
-				  GROUP BY author';
-		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
-		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-			$userUpdate[$row['author']]['topic_count'] = $row['counter'];
-		}
+    /**
+     * @param int $userPid
+     */
+    public function setUserPid($userPid)
+    {
+        $this->userPid = $userPid;
+    }
 
-		// Find any question topic count
-		$query = 'SELECT author, COUNT(*) AS counter
-				  FROM tx_typo3forum_domain_model_forum_topic
-				  WHERE deleted=0 AND hidden=0 AND author > 0 AND pid=' . $forumPid . ' AND question=1
-				  GROUP BY author';
-		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
-		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-			$userUpdate[$row['author']]['question_count'] = $row['counter'];
-		}
+    /**
+     * @return void
+     */
+    public function setSettings()
+    {
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        /** @var ConfigurationManagerInterface $configurationManager */
+        $configurationManager = $objectManager->get(ConfigurationManagerInterface::class);
+        $this->settings = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+        $this->settings = $this->settings['plugin.']['tx_typo3forum.']['settings.'];
+    }
 
-		// Find any favorite count
-		$query = 'SELECT t.author, COUNT(*) AS counter
-				  FROM tx_typo3forum_domain_model_user_topicfavsubscription AS s
-				  INNER JOIN tx_typo3forum_domain_model_forum_topic AS t ON t.uid = s.uid_foreign
-				  GROUP BY uid_local';
-		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
-		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-			$userUpdate[$row['author']]['favorite_count'] = $row['counter'];
-		}
+    /**
+     * @return bool
+     */
+    public function execute()
+    {
+        if ($this->getForumPid() == false || $this->getUserPid() == false) {
+            return false;
+        }
+        $this->setSettings();
 
-		//Supported Post User X got
-		$query = 'SELECT p.author, COUNT(*) AS counter
-				  FROM tx_typo3forum_domain_model_user_supportpost AS s
-				  INNER JOIN tx_typo3forum_domain_model_forum_post AS p ON p.uid = s.uid_foreign
-				  GROUP BY p.author';
-		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
-		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-			$userUpdate[$row['author']]['support_count'] = $row['counter'];
-		}
+        $this->updateTopic();
+        $this->updateUser();
+        return true;
+    }
 
-		//Supported Post User X set
-		$query = 'SELECT s.uid_local, COUNT(*) AS counter
-				  FROM tx_typo3forum_domain_model_user_supportpost AS s
-				  GROUP BY uid_local';
-		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
-		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-			$userUpdate[$row['uid_local']]['markSupport_count'] = $row['counter'];
-		}
+
+    /**
+     * @return void
+     */
+    private function updateTopic()
+    {
+        $topicCount = [];
+
+        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_post');
+        $queryBuilder->from('tx_typo3forum_domain_model_forum_post', 'post');
+        $queryBuilder->select('post.topic');
+        $queryBuilder->addSelectLiteral(
+            $queryBuilder->expr()->count('post.uid', 'counter')
+        );
+        $queryBuilder->join('post', 'tx_typo3forum_domain_model_forum_topic', 'topic',
+            $queryBuilder->expr()->eq('post.topic', 'topic.uid'));
+        $queryBuilder->andWhere(
+            $queryBuilder->expr()->eq(
+                'post.pid',
+                $queryBuilder->createNamedParameter($this->getForumPid(), \PDO::PARAM_INT)
+            )
+        );
+
+        $queryBuilder->addGroupBy('post.topic');
+        $queryBuilder->addOrderBy('counter', 'ASC');
+
+        $result = $queryBuilder->execute();
+
+        while ($row = $result->fetch()) {
+            $topicCount[$row['topic']] = $row['counter'];
+        }
+
+        $lastCounter = 1;
+        $lastCounterArray = [];
+        foreach ($topicCount as $topicUid => $postCount) {
+            if ($lastCounter != $postCount) {
+
+                $updateQueryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_topic');
+                $updateQueryBuilder->update('tx_typo3forum_domain_model_forum_topic', 'topic');
+                $updateQueryBuilder->andWhere(
+                    $updateQueryBuilder->expr()->in('topic.uid', $lastCounterArray)
+                );
+                $updateQueryBuilder->set('topic.post_count', $lastCounter);
+
+                $updateQueryBuilder->execute();
+                $lastCounterArray = [];
+            }
+            $lastCounterArray[] = (int)$topicUid;
+            $lastCounter = $postCount;
+        }
+    }
+
+    /**
+     * @return void
+     */
+    private function updateUser()
+    {
+        $forumPid = (int)$this->getForumPid();
+        $userUpdate = [];
+        $rankScore = $this->settings['rankScore.'];
+
+        //Find any post_count
+        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_post');
+        $queryBuilder->from('tx_typo3forum_domain_model_forum_post', 'post');
+        $queryBuilder->select('post.author');
+        $queryBuilder->addSelectLiteral($queryBuilder->expr()->count('post.uid', 'counter'));
+        $queryBuilder->andWhere(
+            $queryBuilder->expr()->gt('post.author', 0),
+            $queryBuilder->expr()->eq('post.pid', $queryBuilder->createNamedParameter($forumPid, \PDO::PARAM_INT))
+        );
+        $queryBuilder->addGroupBy('post.author');
+        $result = $queryBuilder->execute();
+
+        while ($row = $result->fetch()) {
+            $userUpdate[$row['author']]['post_count'] = $row['counter'];
+        }
+
+
+        //Find any topic count
+        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_topic');
+        $queryBuilder->from('tx_typo3forum_domain_model_forum_topic', 'topic');
+        $queryBuilder->select('topic.author');
+        $queryBuilder->addSelectLiteral($queryBuilder->expr()->count('topic.uid', 'counter'));
+        $queryBuilder->andWhere(
+            $queryBuilder->expr()->gt('topic.author', 0),
+            $queryBuilder->expr()->eq('topic.pid', $queryBuilder->createNamedParameter($forumPid, \PDO::PARAM_INT))
+        );
+        $queryBuilder->addGroupBy('topic.author');
+        $result = $queryBuilder->execute();
+
+
+        while ($row = $result->fetch()) {
+            $userUpdate[$row['author']]['topic_count'] = $row['counter'];
+        }
+
+        // Find any question topic count
+        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_topic');
+        $queryBuilder->from('tx_typo3forum_domain_model_forum_topic', 'topic');
+        $queryBuilder->select('topic.author');
+        $queryBuilder->addSelectLiteral($queryBuilder->expr()->count('topic.uid', 'counter'));
+        $queryBuilder->andWhere(
+            $queryBuilder->expr()->gt('topic.author', 0),
+            $queryBuilder->expr()->eq('topic.question', true),
+            $queryBuilder->expr()->eq('topic.pid', $queryBuilder->createNamedParameter($forumPid, \PDO::PARAM_INT))
+        );
+        $queryBuilder->addGroupBy('topic.author');
+        $result = $queryBuilder->execute();
+
+        while ($row = $result->fetch()) {
+            $userUpdate[$row['author']]['question_count'] = $row['counter'];
+        }
+
+        // Find any favorite count
+        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_user_topicfavsubscription');
+        $queryBuilder->from('tx_typo3forum_domain_model_user_topicfavsubscription', 'subscription');
+        $queryBuilder->join(
+            'subscription',
+            'tx_typo3forum_domain_model_forum_topic',
+            'topic',
+            $queryBuilder->expr()->eq('subscription.uid_foreign', 'topic.uid')
+        );
+        $queryBuilder->select('topic.author');
+        $queryBuilder->addSelectLiteral($queryBuilder->expr()->count('*', 'counter'));
+        $queryBuilder->addGroupBy('subscription.uid_local');
+        $queryBuilder->addGroupBy('topic.author');
+        $result = $queryBuilder->execute();
+
+
+        while ($row = $result->fetch()) {
+            $userUpdate[$row['author']]['favorite_count'] = $row['counter'];
+        }
+
+        //Supported Post User X got
+        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_user_supportpost');
+        $queryBuilder->from('tx_typo3forum_domain_model_user_supportpost', 'support');
+        $queryBuilder->join(
+            'support',
+            'tx_typo3forum_domain_model_forum_post',
+            'post',
+            $queryBuilder->expr()->eq('support.uid_foreign', 'post.uid')
+        );
+        $queryBuilder->select('post.author');
+        $queryBuilder->addSelectLiteral($queryBuilder->expr()->count('*', 'counter'));
+        $queryBuilder->addGroupBy('post.author');
+        $result = $queryBuilder->execute();
+
+
+        while ($row = $result->fetch()) {
+            $userUpdate[$row['author']]['support_count'] = $row['counter'];
+        }
+
+
+        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_user_supportpost');
+        $queryBuilder->from('tx_typo3forum_domain_model_user_supportpost', 'support');
+        $queryBuilder->select('support.uid_local');
+        $queryBuilder->addSelectLiteral($queryBuilder->expr()->count('*', 'counter'));
+        $queryBuilder->addGroupBy('support.uid_local');
+        $result = $queryBuilder->execute();
+
+        while ($row = $result->fetch()) {
+            $userUpdate[$row['uid_local']]['markSupport_count'] = $row['counter'];
+        }
 
         //Find all users with their current rank
-        $class = mysqli_real_escape_string($GLOBALS['TYPO3_DB']->getDatabaseHandle(),FrontendUser::class);
-        $query = 'SELECT fe.uid, fe.tx_typo3forum_rank
-				  FROM fe_users AS fe
-				  WHERE fe.disable=0 AND fe.deleted=0 AND fe.tx_extbase_type="' . $class . '"
-						AND fe.pid=' . (int)$this->getUserPid();
+        $queryBuilder = $this->getDatabaseConnection('fe_users');
+        $queryBuilder->from('fe_users', 'user');
+        $queryBuilder->select('user.uid AS author', 'user.tx_typo3forum_rank');
+        $queryBuilder->andWhere(
+            $queryBuilder->expr()->eq(
+                'user.pid',
+                $queryBuilder->createNamedParameter($this->getUserPid(), \PDO::PARAM_INT)
+            ),
+            $queryBuilder->expr()->eq(
+                'user.tx_extbase_type',
+                $queryBuilder->createNamedParameter(FrontendUser::class, \PDO::PARAM_STR)
+            )
+        );
+        $result = $queryBuilder->execute();
 
-        $res = $GLOBALS['TYPO3_DB']->sql_query($query);
 
-        while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+        while ($row = $result->fetch()) {
             $userUpdate[$row['author']]['rank'] = $row['tx_typo3forum_rank'];
-		}
+        }
 
-		//Find all ranks
-		$query = 'SELECT uid, point_limit
-				  FROM  tx_typo3forum_domain_model_user_rank
-				  WHERE deleted=0 AND pid=' . (int)$this->getUserPid() . '
-				  ORDER BY point_limit ASC';
-		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
-		$rankArray = [];
-		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-			$rankArray[$row['uid']] = $row;
-		}
+        //Find all ranks
+        $rankArray = [];
 
-		//Now check this giant array
-		foreach ($userUpdate as $userUid => $array) {
-			$points = 0;
-			$points = $points + (int)$array['post_count'] * (int)$rankScore['newPost'];
-			$points = $points + (int)$array['markSupport_count'] * (int)$rankScore['markHelpful'];
-			$points = $points + (int)$array['favorite_count'] * (int)$rankScore['gotFavorite'];
-			$points = $points + (int)$array['support_count'] * (int)$rankScore['gotHelpful'];
 
-			$lastPointLimit = 0;
+        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_user_rank');
+        $queryBuilder->from('tx_typo3forum_domain_model_user_rank', 'rank');
+        $queryBuilder->select('rank.uid', 'rank.point_limit');
+        $queryBuilder->andWhere(
+            $queryBuilder->expr()->eq(
+                'rank.pid',
+                $queryBuilder->createNamedParameter($this->getUserPid(), \PDO::PARAM_INT)
+            )
+        );
+        $queryBuilder->addOrderBy('point_limit', 'ASC');
+        $result = $queryBuilder->execute();
+
+        while ($row = $result->fetch()) {
+            $rankArray[$row['uid']] = $row;
+        }
+
+
+        //Now check this giant array
+        foreach ($userUpdate as $userUid => $array) {
+            $points = 0;
+            $points = $points + (int)$array['post_count'] * (int)$rankScore['newPost'];
+            $points = $points + (int)$array['markSupport_count'] * (int)$rankScore['markHelpful'];
+            $points = $points + (int)$array['favorite_count'] * (int)$rankScore['gotFavorite'];
+            $points = $points + (int)$array['support_count'] * (int)$rankScore['gotHelpful'];
+
+            $lastPointLimit = 0;
             $lastRankUid = 0;
 
             foreach ($rankArray as $key => $rank) {
-				if ($points >= $lastPointLimit && $points < $rank['point_limit']) {
-					$array['rank'] = $rank['uid'];
-				}
-				$lastPointLimit = $rank['point_limit'];
+                if ($points >= $lastPointLimit && $points < $rank['point_limit']) {
+                    $array['rank'] = $rank['uid'];
+                }
+                $lastPointLimit = $rank['point_limit'];
                 $lastRankUid = $rank['uid'];
             }
             if ($lastRankUid > 0 && $points >= $lastPointLimit) {
                 $array['rank'] = $lastRankUid;
-			}
+            }
 
-			$values = [
-				'tx_typo3forum_post_count' => (int)$array['post_count'],
-				'tx_typo3forum_topic_count' => (int)$array['topic_count'],
-				'tx_typo3forum_question_count' => (int)$array['question_count'],
-				'tx_typo3forum_helpful_count' => (int)$array['support_count'],
-				'tx_typo3forum_points' => (int)$points,
-				'tx_typo3forum_rank' => (int)$array['rank'],
-			];
-
-			$query = $GLOBALS['TYPO3_DB']->UPDATEquery('fe_users', 'uid=' . (int)$userUid, $values);
-			$res = $GLOBALS['TYPO3_DB']->sql_query($query);
-		}
+            $values = [
+                'tx_typo3forum_post_count' => (int)$array['post_count'],
+                'tx_typo3forum_topic_count' => (int)$array['topic_count'],
+                'tx_typo3forum_question_count' => (int)$array['question_count'],
+                'tx_typo3forum_helpful_count' => (int)$array['support_count'],
+                'tx_typo3forum_points' => (int)$points,
+                'tx_typo3forum_rank' => (int)$array['rank'],
+            ];
 
 
-		//At last, update the rank count
-		$query = $GLOBALS['TYPO3_DB']->UPDATEquery('tx_typo3forum_domain_model_user_rank', '1=1', ['user_count' => 0]);
-		$GLOBALS['TYPO3_DB']->sql_query($query);
-        $class = mysqli_real_escape_string($GLOBALS['TYPO3_DB']->getDatabaseHandle(),FrontendUser::class);
+            $queryBuilder = $this->getDatabaseConnection('fe_users');
+            $queryBuilder->update('fe_users', 'user');
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->eq('user.uid', $queryBuilder->createNamedParameter($userUid, \PDO::PARAM_INT))
+            );
 
-        $query = 'SELECT tx_typo3forum_rank, COUNT(*) AS counter
-				  FROM fe_users
-				  WHERE disable=0 AND deleted=0 AND tx_extbase_type="' . $class . '"
-				  		AND pid=' . (int)$this->getUserPid() . '
-				  GROUP BY tx_typo3forum_rank';
-		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
-		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-			$query = $GLOBALS['TYPO3_DB']->UPDATEquery(
-				'tx_typo3forum_domain_model_user_rank', 'uid=' . (int)$row['tx_typo3forum_rank'],
-				['user_count' => (int)$row['counter']]);
-			$GLOBALS['TYPO3_DB']->sql_query($query);
-		}
-	}
+            foreach ($values as $field => $value) {
+                $queryBuilder->set($field, $value);
+            }
+
+            $queryBuilder->execute();
+        }
+
+
+        //At last, update the rank count
+        $queryBuilder = $this->getDatabaseConnection('fe_users');
+        $queryBuilder->from('fe_users', 'user');
+        $queryBuilder->select('user.tx_typo3forum_rank');
+        $queryBuilder->addSelectLiteral(
+            $queryBuilder->expr()->count('*', 'counter')
+        );
+        $queryBuilder->andWhere(
+            $queryBuilder->expr()->eq(
+                'user.pid',
+                $queryBuilder->createNamedParameter($this->getUserPid(), \PDO::PARAM_INT)
+            ),
+            $queryBuilder->expr()->eq(
+                'user.tx_extbase_type',
+                $queryBuilder->createNamedParameter(FrontendUser::class, \PDO::PARAM_STR)
+            )
+        );
+        $queryBuilder->addGroupBy('tx_typo3forum_rank');
+        $result = $queryBuilder->execute();
+
+        while ($row = $result->fetch()) {
+
+            $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_user_rank');
+            $queryBuilder->update('tx_typo3forum_domain_model_user_rank', 'rank');
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->eq(
+                    'rank.uid',
+                    $queryBuilder->createNamedParameter($row['tx_typo3forum_rank'], \PDO::PARAM_INT)
+                )
+            );
+            $queryBuilder->set(
+                'rank.user_count',
+                $queryBuilder->createNamedParameter($row['counter'], \PDO::PARAM_INT)
+            );
+
+            $queryBuilder->execute();
+        }
+    }
 }

@@ -24,7 +24,8 @@ namespace Mittwald\Typo3Forum\ViewHelpers;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use TYPO3\CMS\Fluid\ViewHelpers\IfViewHelper;
+use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
+use TYPO3Fluid\Fluid\ViewHelpers\IfViewHelper;
 
 /**
  * ViewHelper that renders its contents if a certain object is an instance
@@ -32,15 +33,13 @@ use TYPO3\CMS\Fluid\ViewHelpers\IfViewHelper;
  */
 class IfInstanceOfViewHelper extends IfViewHelper
 {
-
-
     /**
      * @return void
      */
     public function initializeArguments()
     {
         parent::initializeArguments();
-        $this->registerArgument('object', 'TYPO3\\CMS\\Extbase\\DomainObject\\AbstractDomainObject', 'Object to check', true);
+        $this->registerArgument('object', AbstractDomainObject::class, 'Object to check', true);
         $this->registerArgument('className', 'string', 'className which object has to be', true);
     }
 

@@ -1,9 +1,7 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 <f:layout name="default"/>
 <f:section name="main">
-	<h2>
-		<f:translate key="Topic_All_Questions_Of" /> <mmf:user.link user="{user}" />
-	</h2>
+	<h2><f:translate key="Topic_All_Questions_Of" /> <mmf:user.link user="{user}" /></h2>
 	<f:if condition="{showPaginate}">
 		<f:then>
 			<f:widget.paginate objects="{topics}" as="paginatedTopics" configuration="{settings.pagebrowser.default}">

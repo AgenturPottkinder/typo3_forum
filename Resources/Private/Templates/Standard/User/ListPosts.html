@@ -1,22 +1,9 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 <f:layout name="default" />
-
-
-
-	<!-- MAIN Section -->
 <f:section name="main">
-
-	<h2>
-		<f:translate key="User_ListPosts" arguments="{0: user.username}" />
-	</h2>
+	<h2><f:translate key="User_ListPosts" arguments="{0: user.username}" /></h2>
 	<f:widget.paginate objects="{topics}" as="paginatedTopics" configuration="{settings.userController.listPosts.pagebrowser}">
 		<f:render partial="Topic/List" arguments="{topics: paginatedTopics}" />
 	</f:widget.paginate>
-
 </f:section>
-
-
-
-	<!-- MENU Section -->
-<f:section name="menu">
-</f:section>
+<f:section name="menu" />

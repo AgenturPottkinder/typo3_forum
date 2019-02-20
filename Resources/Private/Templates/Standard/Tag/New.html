@@ -1,9 +1,7 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 <f:layout name="default"/>
 <f:section name="main">
-    <h2>
-        <f:translate key="Tags_New"/>
-    </h2>
+    <h2><f:translate key="Tags_New"/></h2>
     <f:form controller="Tag" action="create">
         <div>
             <fieldset>
@@ -18,13 +16,11 @@
                     </label>
                 </b:form.row>
                 <br/>
-
                 <button>
                     <f:translate key="Tags_New_Btn"/>
                     <i class="iconset-14-chevron-right-inverse"></i></button>
             </fieldset>
         </div>
     </f:form>
-
 </f:section>
 <f:section name="menu"/>

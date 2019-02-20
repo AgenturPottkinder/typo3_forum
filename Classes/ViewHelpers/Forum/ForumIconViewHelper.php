@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\Forum;
 
 /*                                                                    - *
@@ -24,14 +25,18 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderableClosure;
 
 /**
  * ViewHelper that renders a forum icon.
  */
 class ForumIconViewHelper extends AbstractViewHelper
 {
+    protected $escapeOutput = false;
 
     /**
      * The frontend user repository.
@@ -40,37 +45,41 @@ class ForumIconViewHelper extends AbstractViewHelper
      */
     protected $frontendUserRepository = null;
 
-    /**
-     *
-     * Initializes the view helper arguments.
-     * @return void
-     *
-     */
     public function initializeArguments()
     {
-
+        parent::initializeArguments();
+        $this->registerArgument('forum', Forum::class, 'Current forum', true);
+        $this->registerArgument('width', 'integer', 'icon width', false, 0);
+        $this->registerArgument('alt', 'string', 'icon alt text', false, '');
     }
 
     /**
-     *
-     * Renders the forum icon.
-     *
-     * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum The forum for which the icon is to be rendered.
-     * @param integer $width Image width
-     * @param string $alt Alt text
-     * @return string             The rendered icon.
-     *
+     * render.
+     * @return string
      */
-    public function render(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum = null, $width = 0, $alt = '')
+    public function render()
     {
+
+        $forum = $this->arguments['forum'];
+        $width = $this->arguments['width'];
+        $alt = $this->arguments['alt'];
+
         $data = $this->getDataArray($forum);
 
+        $cObjectViewHelper = $this->getCObjectViewHelper();
         if ($data['new']) {
-            return $this->getCObjectViewHelper()->render('plugin.tx_typo3forum.renderer.icons.forum_new', $data);
+            $renderData = [
+                'typoscriptObjectPath' => 'plugin.tx_typo3forum.renderer.icons.forum_new',
+                'data' => $data
+            ];
         } else {
-            return $this->getCObjectViewHelper()->render('plugin.tx_typo3forum.renderer.icons.forum', $data);
+            $renderData = [
+                'typoscriptObjectPath' => 'plugin.tx_typo3forum.renderer.icons.forum',
+                'data' => $data
+            ];
         }
 
+        return $cObjectViewHelper::renderStatic($renderData, function () {}, $this->renderingContext);
     }
 
     /**
@@ -101,6 +110,6 @@ class ForumIconViewHelper extends AbstractViewHelper
      */
     protected function getCObjectViewHelper()
     {
-        return $this->objectManager->get('TYPO3\\CMS\\Fluid\\ViewHelpers\\CObjectViewHelper');
+        return GeneralUtility::makeInstance(CObjectViewHelper::class);
     }
 }

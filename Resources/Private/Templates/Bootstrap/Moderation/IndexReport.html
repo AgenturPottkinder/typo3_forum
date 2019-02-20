@@ -9,23 +9,6 @@
 		<f:translate key="Moderation_Index_Reports" />
 	</h2>
 
-	<f:if condition="{settings.debug}">
-		<div class="alert alert-info alert-block">
-			<h4>Security notice!</h4>
-			<p>
-				This view contains a list of all reported posts. However, it does
-				<b>not</b> perform any access checks, so you should protect this
-				content element or the entire page from unauthorized access!
-			</p>
-			<p>
-				<strong>Note:</strong> Disable this notice by setting
-				<code>plugin.tx_typo3forum.settings.debug</code>
-				to
-				<code>0</code>.
-			</p>
-		</div>
-	</f:if>
-
 	<f:widget.paginate objects="{postReports}" as="paginatedReports" configuration="{settings.topicController.show.pagebrowser}">
 		<table class="table table-striped">
 			<colgroup>

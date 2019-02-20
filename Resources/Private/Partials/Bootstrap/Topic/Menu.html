@@ -1,3 +1,5 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 
-<div class="topic_list_menu" data-uid="{topic.uid}"></div>
+<div class="topic_list_menu" data-uid="{topic.uid}">
+    <f:render partial="../../Templates/Bootstrap/Ajax/TopicListMenu" arguments="{_all}"/>
+</div>

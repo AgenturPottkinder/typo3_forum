@@ -1,5 +1,4 @@
 <?php
-
 namespace Mittwald\Typo3Forum\Service\Mailing;
 
 /*                                                                      *
@@ -24,16 +23,15 @@ namespace Mittwald\Typo3Forum\Service\Mailing;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
+use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-
 
 /**
  * Service class for sending HTML mails.
  */
 class HTMLMailingService extends AbstractMailingService
 {
-
 
     /**
      * Sends a mail with a certain subject and bodytext to a recipient in form of a frontend user.
@@ -45,19 +43,13 @@ class HTMLMailingService extends AbstractMailingService
      */
     public function sendMail(FrontendUser $recipient, $subject, $bodyText)
     {
-        if (empty($recipient->getEmail())) {
-            return;
-        }
-
-        $typo3Mail = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+        $typo3Mail = GeneralUtility::makeInstance(MailMessage::class);
         $typo3Mail->setFrom([
-                $this->getDefaultSenderAddress() => $this->getDefaultSenderName()
-            ]
+            $this->getDefaultSenderAddress() => $this->getDefaultSenderName()]
         )
             ->setTo($recipient->getEmail())
             ->setSubject($subject)
             ->setBody($bodyText, 'text/html')
             ->send();
     }
-
 }

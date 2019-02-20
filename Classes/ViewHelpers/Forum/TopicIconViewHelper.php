@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\Forum;
 
 /* *
@@ -26,14 +27,20 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Forum;
 
 use Mittwald\Typo3Forum\Domain\Model\Forum\ShadowTopic;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderableClosure;
 
 /**
  * ViewHelper that renders a topic icon.
  */
 class TopicIconViewHelper extends AbstractViewHelper
 {
+    /**
+     * @var bool
+     */
+    protected $escapeOutput = false;
 
     /**
      * The frontend user repository.
@@ -52,26 +59,39 @@ class TopicIconViewHelper extends AbstractViewHelper
     {
         $this->registerArgument('important', 'integer',
             'Amount of posts required for a topic to contain in order to be marked as important', false, 15);
+        $this->registerArgument('topic', Topic::class, 'Current topic', true);
+        $this->registerArgument('width', 'integer', 'width of icon');
     }
 
     /**
      *
      * Renders the topic icon.
      *
-     * @param Topic $topic The topic for which the icon is to be rendered.
-     * @param integer $width Image width
      * @return string The rendered icon.
      */
-    public function render(Topic $topic = null, $width = null)
+    public function render()
     {
+
+        $topic = $this->arguments['topic'];
+        $width = $this->arguments['width'];
+
         $data = $this->getDataArray($topic);
 
+        $cObjectViewHelper = $this->getCObjectViewHelper();
+
         if ($data['new']) {
-            return $this->getCObjectViewHelper()->render('plugin.tx_typo3forum.renderer.icons.topic_new', $data);
+            $renderData = [
+                'typoscriptObjectPath' => 'plugin.tx_typo3forum.renderer.icons.topic_new',
+                'data' => $data
+            ];
         } else {
-            return $this->getCObjectViewHelper()->render('plugin.tx_typo3forum.renderer.icons.topic', $data);
+            $renderData = [
+                'typoscriptObjectPath' => 'plugin.tx_typo3forum.renderer.icons.topic',
+                'data' => $data
+            ];
         }
 
+        return $cObjectViewHelper::renderStatic($renderData, function () {}, $this->renderingContext);
     }
 
     /**
@@ -106,6 +126,6 @@ class TopicIconViewHelper extends AbstractViewHelper
      */
     protected function getCObjectViewHelper()
     {
-        return $this->objectManager->get('TYPO3\\CMS\\Fluid\\ViewHelpers\\CObjectViewHelper');
+        return GeneralUtility::makeInstance(CObjectViewHelper::class);
     }
 }
