@@ -26,10 +26,10 @@ return [
 		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/Forum/Forum.png',
 	],
 	'interface' => [
-		'showRecordFieldList' => 'title,description,children,acls,criteria,last_topic,last_post,displayed_pid',
+		'showRecordFieldList' => 'title,slug,description,children,acls,criteria,last_topic,last_post,displayed_pid',
 	],
 	'types' => [
-		'1' => ['showitem' => 'title,description,children,acls,criteria'],
+		'1' => ['showitem' => 'title,slug,description,children,acls,criteria'],
 	],
     'palettes' => [
         'language' => ['showitem' => 'sys_language_uid, l18n_parent'],
@@ -100,6 +100,18 @@ return [
 				'eval' => 'trim,required',
 			],
 		],
+        'slug' => [
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:pages.slug',
+            'exclude' => 1,
+            'config' => [
+                'type' => 'slug',
+                'generatorOptions' => [
+                    'fields' => ['title']
+                ],
+                'fallbackCharacter' => '-',
+                'eval' => 'uniqueInPid',
+            ],
+        ],
 		'description' => [
 			'exclude' => 1,
 			'label' => $lllPath . 'description',
