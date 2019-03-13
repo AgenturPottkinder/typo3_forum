@@ -590,12 +590,10 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	public function getImagePath() {
 
 		if ($this->image) {
-			$imageDirectoryName = $this->settings['images']['avatar']['uploadDir'];
             foreach ($this->image as $image) {
-                /* @var FileReference $image */
-                $singleImage = $image->getOriginalFile();
-                $imageFilename = rtrim($imageDirectoryName, '/') . '/' . $singleImage->getPublicUrl();
-                return file_exists($imageFilename) ? $imageFilename : NULL;
+                /* @var \TYPO3\CMS\Extbase\Domain\Model\FileReference $image */
+                $singleImage = $image->getOriginalResource();
+                return $singleImage->getPublicUrl();
 			}
 		}
 
