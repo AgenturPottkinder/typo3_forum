@@ -350,8 +350,9 @@ class PostController extends AbstractController {
 	 * Displays a preview of a rendered post text.
 	 * @param string $text The content.
 	 */
-	public function previewAction($text) {
-		$this->view->assign('text', $text);
+	public function previewAction() {
+
+        $this->view->assign('text', 'MEIN GEILER TEXT');
 	}
 
 	/**

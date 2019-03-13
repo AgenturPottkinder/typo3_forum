@@ -154,8 +154,8 @@ class BbCodeEditorViewHelper extends TextareaViewHelper {
         $uri = $uriBuilder
             ->reset()
             ->setTargetPageUid($GLOBALS['TSFE']->id)
-            ->setArguments(['eID' => 'typo3_forum'])
-            ->uriFor('preview', [], 'Post', 'Typo3Forum', 'Ajax');
+            ->setArguments(['type' => 43568275])
+            ->uriFor('preview', [], 'Ajax', 'Typo3Forum', 'Ajax');
 
         $editorSettings = [
             'previewParserPath' => $uri,

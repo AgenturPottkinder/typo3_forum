@@ -50,12 +50,12 @@ $_EXTKEY = 'typo3_forum';
 		'Forum' => 'index',
 		'Post' => 'preview, addSupporter, removeSupporter',
 		'Tag' => 'autoComplete',
-		'Ajax' => 'main, postSummary, loginbox'
+		'Ajax' => 'main, postSummary, loginbox, preview'
 	],
 	[
 		'Forum' => 'index',
 		'Post' => 'preview, addSupporter, removeSupporter',
-		'Ajax' => 'main, postSummary, loginbox',
+		'Ajax' => 'main, postSummary, loginbox, preview',
 	]
 );
 

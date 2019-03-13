@@ -407,4 +407,17 @@ class AjaxController extends AbstractController {
 		return $result;
 	}
 
+    /**
+     * previewAction.
+     */
+    public function previewAction()
+    {
+        $text = '';
+        if (($this->request->hasArgument('text'))) {
+            $text = $this->request->getArgument('text');
+        }
+
+        $this->view->assign('text', $text);
+    }
+
 }

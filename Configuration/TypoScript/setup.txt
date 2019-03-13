@@ -587,11 +587,11 @@ plugin.tx_typo3forum.userfields {
 }
 
 [globalVar = LIT:1 = {$plugin.tx_typo3forum.settings.useDefaultCSS}]
-page.includeCSS {
-    typo3_forum = EXT:typo3_forum/Resources/Public/Stylesheets/typo3_forum.css
-    bootstrap = EXT:typo3_forum/Resources/Public/Bootstrap/css/bootstrap.css
-    markitup_bb = EXT:typo3_forum/Resources/Public/Javascript/markitup/sets/typo3_forum/style.css
-}
+    page.includeCSS {
+        typo3_forum = EXT:typo3_forum/Resources/Public/Stylesheets/typo3_forum.css
+        bootstrap = EXT:typo3_forum/Resources/Public/Bootstrap/css/bootstrap.css
+        markitup_bb = EXT:typo3_forum/Resources/Public/Javascript/markitup/sets/typo3_forum/style.css
+    }
 [global]
 
 page.includeJSLibs {
@@ -601,6 +601,7 @@ page.includeJSLibs {
     typo3forum_bootstrap.external = 1
     typo3forum_markitup = EXT:typo3_forum/Resources/Public/Javascript/markitup/jquery.markitup.js
 }
+
 # add typo3 6.2 compatibility
 page.includeJSlibs.typo3forum_jquery < page.includeJSLibs.typo3forum_jquery
 page.includeJSlibs.typo3forum_bootstrap < page.includeJSLibs.typo3forum_bootstrap
@@ -620,3 +621,51 @@ plugin.tx_typo3forum.persistence {
 
 lib.pageUid = TEXT
 lib.pageUid.data = page:uid
+
+plugin.tx_typo3forum_ajax = USER
+plugin.tx_typo3forum_ajax {
+    userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+    pluginName = Pi1
+    extensionName = Typo3Forum
+    vendorName = Mittwald
+    action = list
+    controller = Forum
+    htmlSpecialChars = 1
+    switchableControllerActions {
+        Ajax {
+            1 = preview
+        }
+    }
+
+    view =< plugin.tx_typo3forum.view
+    persistence =< plugin.tx_typo3forum.persistence
+}
+
+ajaxCall = PAGE
+ajaxCall {
+    typeNum = 43568275
+    config {
+        disableAllHeaderCode = 1
+        debug = 0
+        no_cache = 1
+    }
+
+    10 = USER
+    10 {
+        userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+        pluginName = Ajax
+        extensionName = Typo3Forum
+        vendorName = Mittwald
+        action = preview
+        controller = Ajax
+        htmlSpecialChars = 1
+        switchableControllerActions {
+            Ajax {
+                1 = preview
+            }
+        }
+
+        view =< plugin.tx_typo3forum.view
+        persistence =< plugin.tx_typo3forum.persistence
+    }
+}
