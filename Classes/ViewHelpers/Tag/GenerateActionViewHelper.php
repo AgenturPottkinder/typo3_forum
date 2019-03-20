@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\Tag;
 
 /*                                                                      *
@@ -30,15 +31,26 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 class GenerateActionViewHelper extends AbstractTagBasedViewHelper
 {
+
     /**
-     * Check if user is subscribed to tag
-     *
-     * @param FrontendUser $currentUser
-     * @param ObjectStorage $subscribedUsers
+     * initializeArguments.
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('currentUser', FrontendUser::class, 'Current frontend user', true);
+        $this->registerArgument('subscribedUsers', ObjectStorage::class, 'Subscribed users', true);
+    }
+
+    /**
+     * render.
      * @return string
      */
-    public function render(FrontendUser $currentUser, ObjectStorage $subscribedUsers)
+    public function render()
     {
+        $currentUser = $this->arguments['currentUser'];
+        $subscribedUsers = $this->arguments['subscribedUsers'];
+
         return $subscribedUsers->contains($currentUser);
     }
 }

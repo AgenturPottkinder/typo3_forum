@@ -1,39 +1,33 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 
-<ul class="nav nav-pills">
-	<li>
-		<f:link.action controller="Forum" action="show" arguments="{forum: topic.forum}">
+		<f:link.action controller="Forum" action="show" class="btn btn-primary ml-1" arguments="{forum: topic.forum}">
 			<i class="tx-typo3forum-icon-16-back"></i>
 			<f:translate key="Button_Back" />
 		</f:link.action>
-	</li>
+
 
 	<mmf:authentication.ifAccess object="{topic}" accessType="newPost">
-		<li>
-			<f:link.action controller="Post" action="new" arguments="{topic: topic}">
+			<f:link.action controller="Post" action="new" class="btn btn-primary ml-1" arguments="{topic: topic}">
 				<i class="tx-typo3forum-icon-16-post-new"></i>
 				<f:translate key="Button_Reply" />
 			</f:link.action>
-		</li>
 	</mmf:authentication.ifAccess>
 
 	<mmf:authentication.ifLoggedIn>
-		<li>
 			<mmf:user.ifSubscribed object="{topic}">
 				<f:then>
-					<f:link.action controller="User" action="subscribe" arguments="{topic: topic, unsubscribe: 1}">
+					<f:link.action controller="User" class="btn btn-primary ml-1" action="subscribe" arguments="{topic: topic, unsubscribe: 1}">
 						<i class="tx-typo3forum-icon-16-unsubscribe"></i>
 						<f:translate key="Button_Unsubscribe" />
 					</f:link.action>
 				</f:then>
 				<f:else>
-					<f:link.action controller="User" action="subscribe" arguments="{topic: topic}">
+					<f:link.action controller="User" class="btn btn-primary ml-1" action="subscribe" arguments="{topic: topic}">
 						<i class="tx-typo3forum-icon-16-subscribe"></i>
 						<f:translate key="Button_Subscribe" />
 					</f:link.action>
 				</f:else>
 			</mmf:user.ifSubscribed>
-		</li>
 	</mmf:authentication.ifLoggedIn>
 
 	<mmf:authentication.ifAccess object="{topic}" accessType="moderate">
@@ -60,4 +54,3 @@
 			</ul>
 		</li>
 	</mmf:authentication.ifAccess>
-</ul>

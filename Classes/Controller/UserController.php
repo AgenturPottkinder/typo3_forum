@@ -107,8 +107,8 @@ class UserController extends AbstractController {
 				$partial = 'User/HelpfulBox';
 				break;
 			case 'onlineUserWidget':
-				//NO DATA - Ajax Reload
-				$dataset['count'] = 0;
+                $dataset['count'] = $this->frontendUserRepository->countByFilter(TRUE);
+                $dataset['users'] = $this->frontendUserRepository->findByFilter((int)$this->settings['widgets']['onlinebox']['limit'], [], TRUE);
 				$partial = 'User/OnlineBox';
 				break;
 			case 'rankingList':
@@ -283,7 +283,7 @@ class UserController extends AbstractController {
 			throw new NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 		/** @var PrivateMessageText $message */
-		$message = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\User\\PrivateMessageText');
+		$message = $this->objectManager->get(PrivateMessageText::class);
 		$message->setMessageText($text);
 		$pmFeUser = $this->privateMessageFactory->createPrivateMessage($user, $recipient, $message, PrivateMessage::TYPE_SENDER, 1);
 		$pmRecipient = $this->privateMessageFactory->createPrivateMessage($recipient, $user, $message, PrivateMessage::TYPE_RECIPIENT, 0);
@@ -527,7 +527,7 @@ class UserController extends AbstractController {
 	 * @return string A flash message.
 	 */
 	protected function getSubscriptionFlashMessage(SubscribeableInterface $object, $unsubscribe = FALSE) {
-		$type = array_pop(explode('_', get_class($object)));
+		$type = array_pop(explode('\\', get_class($object)));
 		$key = 'User_' . ($unsubscribe ? 'Uns' : 'S') . 'ubscribe_' . $type . '_Success';
 		return LocalizationUtility::translate($key, 'Typo3Forum', [$object->getTitle()]);
 	}

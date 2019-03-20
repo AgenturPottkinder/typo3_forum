@@ -1,55 +1,75 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
-
-<div class="well">
-	<div class="tx-typo3forum-topic-show-post-menu">
-		<f:render partial="Post/Menu" arguments="{post: post}"/>
-	</div>
-	<f:if condition="{post.author.anonymous}">
-		<f:then>
-			<f:render partial="User/AnonymousInformationRow" arguments="{user: post.author}"/>
-		</f:then>
-		<f:else>
-			<f:render partial="User/InformationRow" arguments="{user: post.author}"/>
-		</f:else>
-	</f:if>
-	<div class="tx-typo3forum-topic-show-post-text">
-		<mmf:format.textParser post="{post}"/>
-
-		<f:if condition="{post.attachments}">
-			<div class="tx-typo3forum-topic-show-post-attachments">
-				<div class="tx-typo3forum-topic-show-post-attachments-header">
-					<f:translate key="Post_Show_Attachments"/>
-					(
-					<f:count subject="{post.attachments}"/>
-					)
-				</div>
-				<table>
-					<f:for each="{post.attachments}" as="attachment">
-						<tr>
-							<td>
-								<f:link.action controller="Post" action="downloadAttachment" arguments="{attachment: attachment}">
-									{attachment.filename}
-								</f:link.action>
-							</td>
-							<td>{attachment.mimeType}</td>
-							<td>
-								<mmf:format.fileSize>{attachment.filesize}</mmf:format.fileSize>
-							</td>
-							<td>
-								<f:translate key="Post_Show_Attachment_DownloadCount" arguments="{0: attachment.downloadCount}"/>
-							</td>
-						</tr>
-					</f:for>
-				</table>
+<div class="card">
+	<section class="row">
+		<section class="col-9">
+			<div class="card-body">
+				<p class="card-text"><mmf:format.textParser post="{post}"/></p>
+				<f:if condition="{post.attachments}">
+					<div class="card">
+						<div class="card-header">
+							<f:translate key="Post_Show_Attachments"/>
+							(
+							<f:count subject="{post.attachments}"/>
+							)
+						</div>
+						<div class="card-body">
+							<f:for each="{post.attachments}" as="attachment">
+								<div class="container">
+									<div class="row">
+										<div class="col">
+											<f:link.action controller="Post" action="downloadAttachment" arguments="{attachment: attachment}">
+												{attachment.filename}
+											</f:link.action>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col">
+											{attachment.mimeType}
+										</div>
+										<div class="col">
+											<mmf:format.fileSize>{attachment.filesize}</mmf:format.fileSize>
+										</div>
+										<div class="col">
+											<f:translate key="Post_Show_Attachment_DownloadCount" arguments="{0: attachment.downloadCount}"/>
+										</div>
+									</div>
+								</div>
+							</f:for>
+						</div>
+					</div>
+				</f:if>
+				<f:if condition="{post.author.signature}">
+					<hr>
+					<div class="tx-typo3forum-topic-show-post-signature">
+						<mmf:format.textParser content="{post.author.signature}"/>
+					</div>
+				</f:if>
 			</div>
-		</f:if>
-	</div>
-	<f:if condition="{post.author.signature}">
-		<div class="tx-typo3forum-topic-show-post-signature">
-			<mmf:format.textParser content="{post.author.signature}"/>
-		</div>
-	</f:if>
-	<div class="tx-typo3forum-topic-show-post-date">
-		<f:format.date format="{settings.format.dateTimeFormat}">{post.timestamp}</f:format.date>
+		</section>
+
+		<section id="user-description"class="col-3 border-left">
+			<div class="card-body">
+				<f:if condition="{post.author.anonymous}">
+					<f:then>
+						<f:render partial="User/AnonymousInformationRow" arguments="{user: post.author}"/>
+					</f:then>
+					<f:else>
+						<f:render partial="User/InformationRow" arguments="{user: post.author}"/>
+					</f:else>
+				</f:if>
+			</div>
+		</section>
+	</section>
+	<div class="card-footer">
+		<section class="row">
+			<section class="col-3">
+				<f:format.date format="{settings.format.dateTimeFormat}">{post.timestamp}</f:format.date>
+			</section>
+			<section class="col-9">
+				<div class="tx-typo3forum-topic-show-post-menu">
+					<f:render partial="Post/Menu" arguments="{post: post}"/>
+				</div>
+			</section>
 	</div>
 </div>
+<br>

@@ -1,36 +1,28 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 
-<ul class="nav nav-pills">
-	<li>
-		<f:if condition="{forum.parent}">
-			<f:then>
-				<f:link.action controller="Forum" action="show" arguments="{forum: forum.parent}">{f:translate(key:'Button_Back')}</f:link.action>
-			</f:then>
-		</f:if>
-	</li>
+	<f:if condition="{forum.parent}">
+		<f:then>
+				<f:link.action controller="Forum" action="show" class="btn btn-primary" arguments="{forum: forum.parent}"><i class="tx-typo3forum-icon-16-back"></i>{f:translate(key:'Button_Back')}</f:link.action>
+		</f:then>
+	</f:if>
 
 	<mmf:authentication.ifAccess object="{forum}" accessType="newTopic">
-		<li>
-			<f:link.action controller="Topic" action="new" arguments="{forum: forum}">
+			<f:link.action controller="Topic" action="new" class="btn btn-primary" arguments="{forum: forum}">
 				<i class="tx-typo3forum-icon-16-topic-new"></i> {f:translate(key:'Button_Topic_New')}
 			</f:link.action>
-		</li>
 	</mmf:authentication.ifAccess>
 
 	<mmf:authentication.ifLoggedIn>
-		<li>
 			<mmf:user.ifSubscribed object="{forum}">
-				<f:then>
-					<f:link.action controller="User" action="subscribe" arguments="{forum: forum, unsubscribe: 1}">
-						<i class="tx-typo3forum-icon-16-unsubscribe"></i> {f:translate(key:'Button_Unsubscribe')}
-					</f:link.action>
-				</f:then>
-				<f:else>
-					<f:link.action controller="User" action="subscribe" arguments="{forum: forum}">
-						<i class="tx-typo3forum-icon-16-subscribe"></i> {f:translate(key:'Button_Subscribe')}
-					</f:link.action>
-				</f:else>
+					<f:then>
+							<f:link.action controller="User" action="subscribe" class="btn btn-primary" arguments="{forum: forum, unsubscribe: 1}">
+								<i class="tx-typo3forum-icon-16-unsubscribe"></i> {f:translate(key:'Button_Unsubscribe')}
+							</f:link.action>
+					</f:then>
+					<f:else>
+							<f:link.action controller="User" action="subscribe" class="btn btn-primary" arguments="{forum: forum}">
+								<i class="tx-typo3forum-icon-16-subscribe"></i> {f:translate(key:'Button_Subscribe')}
+							</f:link.action>
+					</f:else>
 			</mmf:user.ifSubscribed>
-		</li>
 	</mmf:authentication.ifLoggedIn>
-</ul>

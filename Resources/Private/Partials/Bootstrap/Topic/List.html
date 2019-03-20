@@ -11,16 +11,16 @@
 	<thead>
 	<tr>
 		<th></th>
-		<th>
+		<th scope="col">
 			<f:translate key="Forum_Show_Topic_Subject"/>
 		</th>
-		<th>
+		<th scope="col">
 			<f:translate key="Forum_Show_Topic_Author"/>
 		</th>
-		<th>
+		<th scope="col">
 			<f:translate key="Forum_Show_Topic_Posts"/>
 		</th>
-		<th>
+		<th scope="col">
 			<f:translate key="Forum_Show_Topic_LastPost"/>
 		</th>
 	</tr>
@@ -34,8 +34,8 @@
 		</f:then>
 		<f:else>
 			<tr>
-				<td colspan="5">
-					<div class="alert alert-info">
+				<td cope="row" colspan="5">
+					<div class="alert alert-info" role="alert">
 						<f:translate key="Forum_Show_Empty"/>
 					</div>
 				</td>
@@ -59,7 +59,7 @@
 </f:section>
 
 <f:section name="regularTopic">
-	<td style="width:1px;">
+	<td scope="row">
 		<mmf:forum.topicIcon topic="{topic}" width="32"/>
 	</td>
 	<td>
@@ -77,7 +77,7 @@
 </f:section>
 
 <f:section name="shadowTopic">
-	<td style="width:1px;">
+	<td scope="row"  style="width:1px;">
 		<mmf:forum.topicIcon topic="{topic}" width="32"/>
 	</td>
 	<td><f:translate key="Forum_Show_Topic_Moved"/>:
@@ -85,5 +85,5 @@
 			{topic.target.subject}
 		</f:link.action>
 	</td>
-	<td colspan="3" align="center"><f:translate key="Forum_Show_Topic_Moved"/></td>
+	<td scope="row" colspan="3" align="center"><f:translate key="Forum_Show_Topic_Moved"/></td>
 </f:section>

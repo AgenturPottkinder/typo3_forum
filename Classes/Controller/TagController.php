@@ -91,7 +91,7 @@ class TagController extends AbstractController {
 			throw new NotLoggedInException("You need to be logged in.", 1288084981);
 		}
 		/** @var Tag $tag */
-		$tag = $this->objectManager->get('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Tag');
+		$tag = $this->objectManager->get(Tag::class);
 		$tag->setName($name);
 		$tag->setCrdate(new \DateTime());
 		if ((int)$subscribe === 1) {

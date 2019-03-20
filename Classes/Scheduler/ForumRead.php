@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Scheduler;
 
 /*                                                                    - *
@@ -24,100 +25,160 @@ namespace Mittwald\Typo3Forum\Scheduler;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
 /**
  * Check for any user which forum is read and which not. Best way to ensure performance.
  */
-class ForumRead extends AbstractTask {
+class ForumRead extends AbstractDatabaseTask
+{
 
-	/**
-	 * @var int
-	 */
-	protected $forumPid;
+    /**
+     * @var int
+     */
+    protected $forumPid;
 
-	/**
-	 * @var int
-	 */
-	protected $userPid;
+    /**
+     * @var int
+     */
+    protected $userPid;
 
 
-	/**
-	 * @return int
-	 */
-	public function getForumPid() {
-		return $this->forumPid;
-	}
+    /**
+     * @return int
+     */
+    public function getForumPid()
+    {
+        return $this->forumPid;
+    }
 
-	/**
-	 * @return int
-	 */
-	public function getUserPid() {
-		return $this->userPid;
-	}
+    /**
+     * @return int
+     */
+    public function getUserPid()
+    {
+        return $this->userPid;
+    }
 
-	/**
-	 * @param int $forumPid
-	 */
-	public function setForumPid($forumPid) {
-		$this->forumPid = $forumPid;
-	}
+    /**
+     * @param int $forumPid
+     */
+    public function setForumPid($forumPid)
+    {
+        $this->forumPid = $forumPid;
+    }
 
-	/**
-	 * @param int $userPid
-	 */
-	public function setUserPid($userPid) {
-		$this->userPid = $userPid;
-	}
+    /**
+     * @param int $userPid
+     */
+    public function setUserPid($userPid)
+    {
+        $this->userPid = $userPid;
+    }
 
-	/**
-	 * @return bool
-	 */
-	public function execute() {
-		if ($this->getForumPid() == false || $this->getUserPid() == false) return false;
+    /**
+     * @return bool
+     */
+    public function execute()
+    {
+        if ($this->getForumPid() == false || $this->getUserPid() == false) {
+            return false;
+        }
 
-		$limit = 86400;
+        $limit = 86400;
 
-		$query = 'SELECT t.forum, COUNT(*) AS topic_amount
-					  FROM tx_typo3forum_domain_model_forum_topic AS t
-					  WHERE t.pid=' . (int)$this->getForumPid() . '
-					  GROUP BY t.forum';
-		$forumRes = $GLOBALS['TYPO3_DB']->sql_query($query);
-		while ($forumRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($forumRes)) {
-			$query = "SELECT uid FROM tx_typo3forum_domain_model_forum_topic WHERE forum=" . $forumRow['forum'];
-			$topicRes = $GLOBALS['TYPO3_DB']->sql_query($query);
-			$topics = [];
-			while ($topicRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($topicRes)) {
-				$topics[] = $topicRow['uid'];
-			}
+        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_topic');
+        $queryBuilder->from('tx_typo3forum_domain_model_forum_topic', 'topic');
+        $queryBuilder->select('topic.forum');
+        $queryBuilder->addSelectLiteral(
+            $queryBuilder->expr()->count('*', 'topic_amount')
+        );
 
-			$query = 'SELECT fe.uid, COUNT(*) AS read_amount
-					  FROM fe_users AS fe
-					  LEFT JOIN tx_typo3forum_domain_model_user_readtopic AS rt ON rt.uid_local = fe.uid
-								AND rt.uid_foreign IN (' . implode(',', $topics) . ')
-					  WHERE fe.disable=0 AND fe.deleted=0 AND fe.tx_extbase_type="\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser"
-						AND fe.pid=' . (int)$this->getUserPid() . ' AND fe.lastlogin > ' . (time() - $limit) . '
-						GROUP BY fe.uid';
-			$userRes = $GLOBALS['TYPO3_DB']->sql_query($query);
-			while ($userRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($userRes)) {
-				//First delete all entries for a user to resolve duplicate primaries
-				$query = "DELETE FROM tx_typo3forum_domain_model_user_readforum
-										WHERE uid_local=" . (int)$userRow['uid'] . '
-											 AND uid_foreign=' . (int)$forumRow['forum'];
-				$GLOBALS['TYPO3_DB']->sql_query($query);
+        $queryBuilder->andWhere(
+            $queryBuilder->expr()->eq('topic.pid',
+                $queryBuilder->createNamedParameter($this->getForumPid(), \PDO::PARAM_INT))
+        );
 
-				if ($forumRow['topic_amount'] == $userRow['read_amount']) {
-					$insert = [
-						'uid_local' => $userRow['uid'],
-						'uid_foreign' => $forumRow['forum'],
+        $queryBuilder->addGroupBy('topic.forum');
+        $result = $queryBuilder->execute();
 
-					];
-					$query = $GLOBALS['TYPO3_DB']->INSERTquery('tx_typo3forum_domain_model_user_readforum', $insert);
-					$GLOBALS['TYPO3_DB']->sql_query($query);
-				}
-			}
-		}
 
-		return TRUE;
-	}
+        while ($forumRow = $result->fetch()) {
+            $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_topic');
+            $queryBuilder->from('tx_typo3forum_domain_model_forum_topic', 'topic');
+            $queryBuilder->select('topic.uid');
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->eq('topic.forum',
+                    $queryBuilder->createNamedParameter($forumRow['forum'], \PDO::PARAM_INT))
+            );
+
+            $topicResult = $queryBuilder->execute();
+
+            $topics = [];
+            while ($topicRow = $topicResult->fetch()) {
+                $topics[] = $topicRow['uid'];
+            }
+
+            $queryBuilder = $this->getDatabaseConnection('fe_users');
+            $queryBuilder->from('fe_users', 'users');
+            $queryBuilder->select('users.uid');
+            $queryBuilder->addSelectLiteral(
+                $queryBuilder->expr()->count('*', 'read_amount')
+            );
+            $queryBuilder->leftJoin('users', 'tx_typo3forum_domain_model_user_readtopic', 'read',
+                $queryBuilder->expr()->andX()->addMultiple([
+                        $queryBuilder->expr()->eq('read.uid_local', 'users.uid'),
+                        $queryBuilder->expr()->in('read.uid_foreign', $topics)
+                    ]
+                )
+            );
+
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->eq('users.tx_extbase_type',
+                    $queryBuilder->createNamedParameter(FrontendUser::class, \PDO::PARAM_STR)),
+                $queryBuilder->expr()->eq('users.pid',
+                    $queryBuilder->createNamedParameter($this->getUserPid(), \PDO::PARAM_INT)),
+                $queryBuilder->expr()->gt('users.lastLogin', (time() - $limit))
+            );
+
+            $queryBuilder->addGroupBy('users.uid');
+
+            $userResult = $queryBuilder->execute();
+
+
+            while ($userRow = $userResult->fetch()) {
+                $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_user_readforum');
+                $queryBuilder->delete('tx_typo3forum_domain_model_user_readforum');
+                $queryBuilder->andWhere(
+                    $queryBuilder->expr()->eq(
+                        'uid_local',
+                        $queryBuilder->createNamedParameter($userRow['uid'], \PDO::PARAM_INT)
+                    ),
+                    $queryBuilder->expr()->eq(
+                        'uid_foreign',
+                        $queryBuilder->createNamedParameter($forumRow['forum'], \PDO::PARAM_INT)
+                    )
+                );
+
+                $queryBuilder->execute();
+
+
+                if ($forumRow['topic_amount'] == $userRow['read_amount']) {
+                    $insert = [
+                        'uid_local' => $userRow['uid'],
+                        'uid_foreign' => $forumRow['forum'],
+
+                    ];
+
+                    $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_user_readforum');
+                    $queryBuilder->insert('tx_typo3forum_domain_model_user_readforum');
+                    $queryBuilder->values($insert)->execute();
+
+                }
+            }
+        }
+
+        return true;
+    }
 }

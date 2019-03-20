@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Scheduler;
 
 /*                                                                    - *
@@ -24,254 +25,367 @@ namespace Mittwald\Typo3Forum\Scheduler;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use TYPO3\CMS\Scheduler\Task\AbstractTask;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Tag;
 
-class Notification extends AbstractTask {
+class Notification extends AbstractDatabaseTask
+{
 
-	/**
-	 * @var string
-	 */
-	protected $forumPids;
+    /**
+     * @var string
+     */
+    protected $forumPids;
 
-	/**
-	 * @var string
-	 */
-	protected $userPids;
+    /**
+     * @var string
+     */
+    protected $userPids;
 
-	/**
-	 * @var int
-	 */
-	protected $notificationPid;
+    /**
+     * @var int
+     */
+    protected $notificationPid;
 
-	/**
-	 * @var int
-	 */
-	protected $lastExecutedCron = 0;
+    /**
+     * @var int
+     */
+    protected $lastExecutedCron = 0;
 
-	/**
-	 * @var int
-	 */
-	protected $executedOn = 0;
+    /**
+     * @var int
+     */
+    protected $executedOn = 0;
 
-	/**
-	 * @return string
-	 */
-	public function getForumPids() {
-		return $this->forumPids;
-	}
+    /**
+     * @return string
+     */
+    public function getForumPids()
+    {
+        return $this->forumPids;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getUserPids() {
-		return $this->userPids;
-	}
+    /**
+     * @return string
+     */
+    public function getUserPids()
+    {
+        return $this->userPids;
+    }
 
-	/**
-	 * @return int
-	 */
-	public function getNotificationPid() {
-		return $this->notificationPid;
-	}
-
-
-	/**
-	 * @return int
-	 */
-	public function getLastExecutedCron() {
-		return (int)$this->lastExecutedCron;
-	}
+    /**
+     * @return int
+     */
+    public function getNotificationPid()
+    {
+        return $this->notificationPid;
+    }
 
 
-	/**
-	 * @return int
-	 */
-	public function getExecutedOn() {
-		return (int)$this->executedOn;
-	}
-
-	/**
-	 * @param string $forumPids
-	 */
-	public function setForumPids($forumPids) {
-		$this->forumPids = $forumPids;
-	}
-
-	/**
-	 * @param string $userPids
-	 */
-	public function setUserPids($userPids) {
-		$this->userPids = $userPids;
-	}
-
-	/**
-	 * @param int $notificationPid
-	 */
-	public function setNotificationPid($notificationPid) {
-		$this->notificationPid = $notificationPid;
-	}
-
-	/**
-	 * @param int $lastExecutedCron
-	 * @return void
-	 */
-	public function setLastExecutedCron($lastExecutedCron) {
-		$this->lastExecutedCron = $lastExecutedCron;
-	}
+    /**
+     * @return int
+     */
+    public function getLastExecutedCron()
+    {
+        return (int)$this->lastExecutedCron;
+    }
 
 
-	/**
-	 * @param int $executedOn
-	 * @return void
-	 */
-	public function setExecutedOn($executedOn) {
-		$this->executedOn = $executedOn;
-	}
+    /**
+     * @return int
+     */
+    public function getExecutedOn()
+    {
+        return (int)$this->executedOn;
+    }
 
-	/**
-	 * @return bool
-	 */
-	public function execute() {
-		if ($this->getForumPids() == false || $this->getUserPids() == false) return false;
+    /**
+     * @param string $forumPids
+     */
+    public function setForumPids($forumPids)
+    {
+        $this->forumPids = $forumPids;
+    }
 
-		$this->setLastExecutedCron((int)$this->findLastCronExecutionDate());
-		$this->setExecutedOn(time());
+    /**
+     * @param string $userPids
+     */
+    public function setUserPids($userPids)
+    {
+        $this->userPids = $userPids;
+    }
 
-		$this->checkPostNotifications();
-		$this->checkTagsNotification();
+    /**
+     * @param int $notificationPid
+     */
+    public function setNotificationPid($notificationPid)
+    {
+        $this->notificationPid = $notificationPid;
+    }
 
-		return true;
-	}
+    /**
+     * @param int $lastExecutedCron
+     * @return void
+     */
+    public function setLastExecutedCron($lastExecutedCron)
+    {
+        $this->lastExecutedCron = $lastExecutedCron;
+    }
 
-	/**
-	 * @return void
-	 */
-	private function checkPostNotifications() {
 
-		$query = 'SELECT t.uid
-				  FROM tx_typo3forum_domain_model_forum_topic AS t
-				  INNER JOIN tx_typo3forum_domain_model_forum_post AS p ON p.uid = t.last_post
-				  WHERE t.pid IN (' . $this->getForumPids() . ') AND t.deleted=0
-				  		AND p.crdate > ' . $this->getLastExecutedCron() . '
-				  GROUP BY t.uid
-				  ORDER BY t.last_post DESC';
+    /**
+     * @param int $executedOn
+     * @return void
+     */
+    public function setExecutedOn($executedOn)
+    {
+        $this->executedOn = $executedOn;
+    }
 
-		$topicRes = $GLOBALS['TYPO3_DB']->sql_query($query);
+    /**
+     * @return bool
+     */
+    public function execute()
+    {
+        if ($this->getForumPids() == false || $this->getUserPids() == false) {
+            return false;
+        }
 
-		while ($topicRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($topicRes)) {
-			$involvedUser = $this->getUserInvolvedInTopic($topicRow['uid']);
-			$query = 'SELECT uid, author
-					  FROM tx_typo3forum_domain_model_forum_post
-					  WHERE topic=' . (int)$topicRow['uid'] . ' AND crdate > ' . $this->getLastExecutedCron() . '
-					  	 	AND deleted=0 AND pid IN (' . $this->getForumPids() . ')';
-			$postRes = $GLOBALS['TYPO3_DB']->sql_query($query);
-			while ($postRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($postRes)) {
-				foreach ($involvedUser as $user) {
-					if ($user['author'] == $postRow['author']) continue;
-					if ($user['firstPostOfUser'] > $postRow['uid']) continue;
+        $this->setLastExecutedCron((int)$this->findLastCronExecutionDate());
+        $this->setExecutedOn(time());
 
-					$insert = [
-						'crdate' => $this->getExecutedOn(),
-						'pid' => $this->getNotificationPid(),
-						'feuser' => (int)$user['author'],
-						'post' => (int)$postRow['uid'],
-						'type' => '\Mittwald\Typo3Forum\Domain\Model\Forum\Post',
-						'user_read' => (($this->getLastExecutedCron() == 0) ? 1 : 0)
+        $this->checkPostNotifications();
+        $this->checkTagsNotification();
 
-					];
-					$GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_typo3forum_domain_model_user_notification', $insert);
-				}
-			}
-		}
-	}
+        return true;
+    }
 
-	/**
-	 * @return boolean
-	 */
-	private function checkTagsNotification() {
-		$query = 'SELECT tg.uid AS tagUid, t.uid AS topicUid
-				 FROM tx_typo3forum_domain_model_forum_tag AS tg
-				 INNER JOIN tx_typo3forum_domain_model_forum_tag_topic AS mm ON mm.uid_foreign = tg.uid
-				 INNER JOIN tx_typo3forum_domain_model_forum_topic AS t ON t.uid = mm.uid_local
-				 INNER JOIN tx_typo3forum_domain_model_forum_post AS p ON p.uid = t.last_post
-				 WHERE tg.deleted=0 AND t.deleted=0 AND tg.pid IN (' . $this->getForumPids() . ')
-				 	   AND p.crdate > ' . $this->getLastExecutedCron() . '
-				 ORDER BY t.last_post DESC';
-		$tagsRes = $GLOBALS['TYPO3_DB']->sql_query($query);
+    /**
+     * @return void
+     */
+    private function checkPostNotifications()
+    {
+        $topicResult = $this->getNotifiablePosts();
 
-		while ($tagsRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($tagsRes)) {
-			$subscribedTagUser = [];
-			$query = 'SELECT fe.uid
-					  FROM tx_typo3forum_domain_model_forum_tag AS tg
-					  INNER JOIN tx_typo3forum_domain_model_forum_tag_user AS mm ON mm.uid_local = tg.uid
-					  INNER JOIN fe_users AS fe ON fe.uid = mm.uid_foreign
-					  WHERE tg.uid=' . (int)$tagsRow['tagUid'];
-			$userRes = $GLOBALS['TYPO3_DB']->sql_query($query);
-			while ($userRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($userRes)) {
-				$subscribedTagUser[] = $userRow['uid'];
-			}
+        while ($topicRow = $topicResult->fetch()) {
+            $involvedUser = $this->getUserInvolvedInTopic($topicRow['uid']);
+            $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_post');
+            $queryBuilder->from('tx_typo3forum_domain_model_forum_post', 'post');
+            $queryBuilder->select('post.uid', 'post.author');
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->eq('post.topic',
+                    $queryBuilder->createNamedParameter($topicRow['uid'], \PDO::PARAM_INT)),
+                $queryBuilder->expr()->gt('post.crdate',
+                    $queryBuilder->createNamedParameter($this->getLastExecutedCron(), \PDO::PARAM_INT)),
+                $queryBuilder->expr()->in('post.pid', $this->getForumPids())
+            );
 
-			$query = 'SELECT *
-						  FROM tx_typo3forum_domain_model_forum_post AS p
-						  WHERE p.topic=' . (int)$tagsRow['topicUid'] . ' AND p.deleted=0 AND p.author > 0
-						  		AND p.crdate > ' . (int)$this->getLastExecutedCron() . ' AND pid IN (' . $this->getForumPids() . ')';
-			$postRes = $GLOBALS['TYPO3_DB']->sql_query($query);
-			while ($postRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($postRes)) {
-				foreach ($subscribedTagUser as $userUid) {
+            $postResult = $queryBuilder->execute();
 
-					if ($postRow['author'] == $userUid) continue;
 
-					$insert = [
-						'crdate' => $this->getExecutedOn(),
-						'pid' => $this->getNotificationPid(),
-						'feuser' => (int)$userUid,
-						'post' => (int)$postRow['uid'],
-						'tag' => (int)$tagsRow['tagUid'],
-						'type' => '\Mittwald\Typo3Forum\Domain\Model\Forum\Tag',
-						'user_read' => (($this->getLastExecutedCron() == 0) ? 1 : 0)
+            while ($postRow = $postResult->fetch()) {
+                foreach ($involvedUser as $user) {
+                    if ($user['author'] == $postRow['author']) {
+                        continue;
+                    }
+                    if ($user['firstPostOfUser'] > $postRow['uid']) {
+                        continue;
+                    }
 
-					];
-					$GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_typo3forum_domain_model_user_notification', $insert);
-				}
-			}
-		}
-		return TRUE;
-	}
+                    $insert = [
+                        'crdate' => $this->getExecutedOn(),
+                        'pid' => $this->getNotificationPid(),
+                        'feuser' => (int)$user['author'],
+                        'post' => (int)$postRow['uid'],
+                        'type' => Post::class,
+                        'user_read' => (($this->getLastExecutedCron() == 0) ? 1 : 0)
 
-	/**
-	 * Get the CrDate of the last inserted notification
-	 * @return int
-	 */
-	private function findLastCronExecutionDate() {
-		$query = 'SELECT crdate
-				  FROM tx_typo3forum_domain_model_user_notification
-				  WHERE pid =' . $this->getNotificationPid() . '
-				  ORDER BY crdate DESC
-				  LIMIT 1';
-		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
-		$row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
-		return (int)$row['crdate'];
-	}
+                    ];
 
-	/**
-	 * Get all users who are involved in this topic
-	 * @param int $topicUid
-	 * @return array
-	 */
-	private function getUserInvolvedInTopic($topicUid) {
-		$user = [];
-		$query = 'SELECT author, uid
-				  FROM tx_typo3forum_domain_model_forum_post
-				  WHERE pid IN (' . $this->getForumPids() . ') AND deleted=0 AND author > 0
-				  		AND topic=' . (int)$topicUid . '
-				  GROUP BY author';
-		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
-		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-			$user[] = [
-				'author' => (int)$row['author'],
-				'firstPostOfUser' => (int)$row['uid'],
-			];
-		}
-		return $user;
-	}
+
+                    $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_user_notification');
+                    $queryBuilder->insert('tx_typo3forum_domain_model_user_notification');
+                    $queryBuilder->values($insert);
+                    $queryBuilder->execute();
+                }
+            }
+        }
+    }
+
+    /**
+     * @return boolean
+     */
+    private function checkTagsNotification()
+    {
+        $tagsResult = $this->getNotifiableTags();
+
+        while ($tagsRow = $tagsResult->fetch()) {
+            $subscribedTagUser = [];
+            $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_tag');
+            $queryBuilder->from('tx_typo3forum_domain_model_forum_tag', 'tag');
+            $queryBuilder->select('users.uid');
+            $queryBuilder->join(
+                'tag',
+                'tx_typo3forum_domain_model_forum_tag_user',
+                'mm',
+                $queryBuilder->expr()->eq('mm.uid_local', 'tag.uid')
+            );
+
+            $queryBuilder->join('mm', 'fe_users', 'users', $queryBuilder->expr()->eq('users.uid', 'mm.uid_foreign'));
+            $queryBuilder->andWhere($queryBuilder->expr()->eq(
+                'tag.uid',
+                $queryBuilder->createNamedParameter($tagsRow['tagUid'], \PDO::PARAM_INT)
+            ));
+
+            $userResult = $queryBuilder->execute();
+
+
+            while ($userRow = $userResult->fetch()) {
+                $subscribedTagUser[] = $userRow['uid'];
+            }
+            $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_post');
+            $queryBuilder->from('tx_typo3forum_domain_model_forum_post', 'post');
+            $queryBuilder->select('*');
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->eq('post.topic',
+                    $queryBuilder->createNamedParameter($tagsRow['topicUid'], \PDO::PARAM_INT)),
+                $queryBuilder->expr()->gt('post.author', 0),
+                $queryBuilder->expr()->gt('post.crdate',
+                    $queryBuilder->createNamedParameter($this->getLastExecutedCron(), \PDO::PARAM_INT)),
+                $queryBuilder->expr()->in('post.pid', $this->getForumPids())
+            );
+
+
+            $postResult = $queryBuilder->execute();
+
+            while ($postRow = $postResult->fetch()) {
+                foreach ($subscribedTagUser as $userUid) {
+
+                    if ($postRow['author'] == $userUid) {
+                        continue;
+                    }
+
+                    $insert = [
+                        'crdate' => $this->getExecutedOn(),
+                        'pid' => $this->getNotificationPid(),
+                        'feuser' => (int)$userUid,
+                        'post' => (int)$postRow['uid'],
+                        'tag' => (int)$tagsRow['tagUid'],
+                        'type' => Tag::class,
+                        'user_read' => (($this->getLastExecutedCron() == 0) ? 1 : 0)
+
+                    ];
+
+                    $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_user_notification');
+                    $queryBuilder->insert('tx_typo3forum_domain_model_user_notification');
+                    $queryBuilder->values($insert);
+                    $queryBuilder->execute();
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Get the CrDate of the last inserted notification
+     * @return int
+     */
+    private function findLastCronExecutionDate()
+    {
+        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_user_notification');
+        $queryBuilder->from('tx_typo3forum_domain_model_user_notification', 'notification');
+        $queryBuilder->select('notification.crdate');
+        $queryBuilder->andWhere(
+            $queryBuilder->expr()->eq('notification.pid',
+                $queryBuilder->createNamedParameter($this->getNotificationPid(), \PDO::PARAM_INT))
+        );
+        $queryBuilder->addOrderBy('notification.crdate', 'DESC');
+        $queryBuilder->setMaxResults(1);
+        $result = $queryBuilder->execute();
+        $row = $result->fetch();
+        return (int)$row['crdate'];
+    }
+
+    /**
+     * Get all users who are involved in this topic
+     * @param int $topicUid
+     * @return array
+     */
+    private function getUserInvolvedInTopic($topicUid)
+    {
+        $user = [];
+        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_post');
+        $queryBuilder->from('tx_typo3forum_domain_model_forum_post', 'post');
+        $queryBuilder->select('post.author', 'post.uid');
+        $queryBuilder->andWhere(
+            $queryBuilder->expr()->in('post.pid', $this->getForumPids()),
+            $queryBuilder->expr()->gt('post.author', 0),
+            $queryBuilder->expr()->eq('post.topic', $queryBuilder->createNamedParameter($topicUid, \PDO::PARAM_INT))
+        );
+        $queryBuilder->addGroupBy('post.author');
+        $queryBuilder->addGroupBy('post.uid');
+
+        $result = $queryBuilder->execute();
+
+
+        while ($row = $result->fetch()) {
+            $user[] = [
+                'author' => (int)$row['author'],
+                'firstPostOfUser' => (int)$row['uid'],
+            ];
+        }
+
+        return $user;
+    }
+
+    /**
+     * getNotifiableTags.
+     * @return \Doctrine\DBAL\Driver\Statement|int
+     */
+    private function getNotifiableTags()
+    {
+        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_tag');
+        $queryBuilder->from('tx_typo3forum_domain_model_forum_tag', 'tag');
+        $queryBuilder->select('tag.uid AS tagUid', 'topic.uid AS topicUid');
+        $queryBuilder->join('tag', 'tx_typo3forum_domain_model_forum_tag_topic', 'mm',
+            $queryBuilder->expr()->eq('mm.uid_foreign', 'tag.uid'));
+        $queryBuilder->join('mm', 'tx_typo3forum_domain_model_forum_topic', 'topic',
+            $queryBuilder->expr()->eq('mm.uid_local', 'topic.uid'));
+        $queryBuilder->join('topic', 'tx_typo3forum_domain_model_forum_post', 'post',
+            $queryBuilder->expr()->eq('post.uid', 'topic.last_post'));
+        $queryBuilder->andWhere(
+            $queryBuilder->expr()->in('tag.pid', $this->getForumPids()),
+            $queryBuilder->expr()->gt('post.crdate',
+                $queryBuilder->createNamedParameter($this->getLastExecutedCron(), \PDO::PARAM_INT))
+        );
+
+        $queryBuilder->addOrderBy('topic.last_post', 'DESC');
+
+        return $queryBuilder->execute();
+    }
+
+    /**
+     * getNotifiablePosts.
+     * @return \Doctrine\DBAL\Driver\Statement|int
+     */
+    private function getNotifiablePosts()
+    {
+        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_topic');
+        $queryBuilder->from('tx_typo3forum_domain_model_forum_topic', 'topic');
+        $queryBuilder->select('topic.uid');
+        $queryBuilder->join(
+            'topic',
+            'tx_typo3forum_domain_model_forum_post',
+            'post',
+            $queryBuilder->expr()->eq('post.uid', 'topic.last_post')
+        );
+        $queryBuilder->andWhere(
+            $queryBuilder->expr()->in('topic.pid', $this->getForumPids()),
+            $queryBuilder->expr()->gt('post.crdate',
+                $queryBuilder->createNamedParameter($this->getLastExecutedCron(), \PDO::PARAM_INT))
+        );
+        $queryBuilder->addGroupBy('topic.uid');
+        $queryBuilder->addOrderBy('topic.last_post', 'DESC');
+
+        return $queryBuilder->execute();
+    }
 }

@@ -66,11 +66,14 @@ class BbCodeEditorViewHelper extends TextareaViewHelper {
 	 */
 	protected $objectManager = NULL;
 
-	/**
-	 *
+    /**
+     * @var string
+     */
+	protected $javascriptSetup;
+
+    /**
 	 * Initializes the view helper arguments.
 	 * @return void
-	 *
 	 */
 	public function initializeArguments() {
 		parent::initializeArguments();
@@ -102,28 +105,28 @@ class BbCodeEditorViewHelper extends TextareaViewHelper {
 			$this->panels[] = $panel;
 		}
 
-		$this->javascriptSetup = '
-		<script language="javascript">
-		' . 'var bbcodeSettings = ' . json_encode($this->getPanelSettings()) . ';' . '$(document).ready(function()	{' . '$(\'#' . $this->arguments['id'] . '\').markItUp(bbcodeSettings);' . '}); </script>';
+		$this->javascriptSetup = '<script>' .
+            'var bbcodeSettings = ' .
+            json_encode($this->getPanelSettings()) . ';' .
+            '$(document).ready(function() {' .
+            '$(\'#' . $this->arguments['id'] . '\').markItUp(bbcodeSettings);' .
+            '});</script>';
 		$this->cache->set('bbcodeeditor-jsonconfig', $this->javascriptSetup);
 		return $this->javascriptSetup;
 	}
 
 	/**
-	 *
 	 * Renders the editor. This method first adds some javascript inclusions to the
 	 * page header, then renders the options panel and finally renders the main
 	 * textarea using the inherited render() method.
 	 *
 	 * @return string HTML content
-	 *
 	 */
-	public function render() {
-
-		$this->initializeJavascriptSetupFromConfiguration($this->arguments['configuration']);
-
-		return $this->javascriptSetup . parent::render();
-	}
+    public function render()
+    {
+        $this->initializeJavascriptSetupFromConfiguration($this->arguments['configuration']);
+        return $this->javascriptSetup . parent::render();
+    }
 
 	/**
 	 * getPanelSettings
@@ -140,14 +143,25 @@ class BbCodeEditorViewHelper extends TextareaViewHelper {
 			}
 		}
 
-		$settings[] = ['name'      => 'Preview',
-		                    'className' => 'preview',
-		                    'call'      => 'preview'];
+        $settings[] = [
+            'name' => 'Preview',
+            'className' => 'preview',
+            'call' => 'preview'
+        ];
 
-		$editorSettings = [
-			'previewParserPath' => 'index.php?eID=typo3_forum&tx_typo3forum_ajax[controller]=Post&tx_typo3forum_ajax[action]=preview&id=' . $GLOBALS['TSFE']->id,
-			'previewParserVar'  => 'tx_typo3forum_ajax[text]',
-			'markupSet'         => $settings];
+		/* @var \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder */
+        $uriBuilder = $this->renderingContext->getControllerContext()->getUriBuilder();
+        $uri = $uriBuilder
+            ->reset()
+            ->setTargetPageUid($GLOBALS['TSFE']->id)
+            ->setArguments(['type' => 43568275])
+            ->uriFor('preview', [], 'Ajax', 'Typo3Forum', 'Ajax');
+
+        $editorSettings = [
+            'previewParserPath' => $uri,
+            'previewParserVar' => 'tx_typo3forum_ajax[text]',
+            'markupSet' => $settings
+        ];
 
 		if (isset($this->configuration['editorSettings.']) && is_array($this->configuration['editorSettings.'])) {
 			$editorSettings = array_merge($editorSettings, $this->configuration['editorSettings.']);

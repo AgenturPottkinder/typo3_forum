@@ -48,7 +48,7 @@ class TopicRepository extends AbstractRepository {
 
         return $query;
     }
-	
+
 	/**
 	 *
 	 * Finds topics for a specific filterset. Page navigation is possible.
@@ -201,7 +201,7 @@ class TopicRepository extends AbstractRepository {
 	 */
 	public function findByPostAuthor(FrontendUser $user) {
 		$query = $this->createQuery();
-		$query->matching($query->equals('posts.author', $user))->setOrderings(['posts.crdate' => 'DESC']);
+		$query->matching($query->equals('posts.author', $user))->setOrderings(['crdate' => 'DESC']);
 		return $query->execute();
 	}
 

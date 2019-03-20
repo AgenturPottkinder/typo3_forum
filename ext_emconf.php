@@ -10,7 +10,7 @@ $EM_CONF[$_EXTKEY] = [
 	'dependencies' => 'cms,extbase,fluid,sr_feuser_register,static_info_tables',
 	'state' => 'stable',
 	'uploadfolder' => 0,
-	'createDirs' => 'typo3temp/typo3_forum,typo3temp/typo3_forum/gravatar',
+	'createDirs' => 'typo3temp/typo3_forum,typo3temp/typo3_forum/gravatar, typo3temp/typo3_forum/workflowstatus',
 	'modify_tables' => 'fe_users',
 	'clearCacheOnLoad' => 0,
 
@@ -19,12 +19,9 @@ $EM_CONF[$_EXTKEY] = [
 	'version' => '1.0-dev',
 	'constraints' => [
 		'depends' => [
-			'typo3' => '6.2.0-7.6.99',
+			'typo3' => '8.7.0 - 9.5.99',
 			'static_info_tables' => '',
-			'php' => '5.4',
-		],
-		'suggests' => [
-			'sr_feuser_register' => '',
-		],
+			'php' => '7.1',
+		]
 	],
 ];

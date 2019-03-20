@@ -1,45 +1,45 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 {namespace b=Mittwald\Typo3Forum\ViewHelpers\Bootstrap}
 <f:form name="post" object="{post}" controller="Post" action="{action}" id="post" class="form-horizontal" enctype="multipart/form-data">
-	<fieldset>
-		<legend>
-			<f:if condition="{post.uid}">
-				<f:then>
-					<f:translate key="Post_Edit" arguments="{0: topic.subject}"/>
-				</f:then>
-				<f:else>
-					<f:translate key="Post_New" arguments="{0: topic.subject}"/>
-				</f:else>
-			</f:if>
-		</legend>
-		<f:if condition="{currentUser.anonymous}">
-			<f:then>
-				<b:form.row llLabel="Post_New_Author" error="post.authorName" errorLLPrefix="Post_New_Error_Author">
-					<f:form.textfield property="authorName" class="span8"/>
+	<div class="card">
+			<div class="card-header">
+				<b:form.row llLabel="Topic_New_Subject">
+					<span class="input-xlarge uneditable-input span8">{topic.subject}</span>
 				</b:form.row>
-			</f:then>
-		</f:if>
-		<b:form.row llLabel="Topic_New_Subject">
-			<span class="input-xlarge uneditable-input span8">{topic.subject}</span>
-		</b:form.row>
-		<b:form.row llLabel="Post_New_Text" error="post.text" errorLLPrefix="Post_New_Error_Text">
-			<mmf:form.bbCodeEditor property="text" id="typo3forum_editor" rows="20" cols="40" class="tx-typo3forum-editor span8"/>
-		</b:form.row>
-		<b:form.row llLabel="Post_New_Attachments">
-			<f:if condition="{post.attachments}">
-				<f:for each="{post.attachments}" as="attachment">
-					<div>
-						{attachment.filename},
-						<mmf:format.fileSize>{attachment.filesize}</mmf:format.fileSize>
+			</div>
+				<div class="card-body">
+						<f:if condition="{currentUser.anonymous}">
+							<f:then>
+								<div class="form-group">
+									<b:form.row llLabel="Post_New_Author" error="post.authorName" errorLLPrefix="Post_New_Error_Author">
+										<f:form.textfield property="authorName" class="form-control"/>
+									</b:form.row>
+								</div>
+							</f:then>
+						</f:if>
+					<div class="form-group">
+						<b:form.row llLabel="Post_New_Text" error="post.text" errorLLPrefix="Post_New_Error_Text">
+							<mmf:form.bbCodeEditor property="text" id="typo3forum_editor" rows="20" class="tx-typo3forum-editor form-control"/>
+						</b:form.row>
 					</div>
-				</f:for>
-			</f:if>
-			<f:form.upload name="attachments[0]"/>
-		</b:form.row>
-		<div class="form-actions">
-			<f:form.hidden name="topic" value="{topic}"/>
-			<f:form.submit value="{f:translate(key: 'Post_New_Submit')}" class="btn btn-primary"/>
-			<b:button controller="Topic" action="show" arguments="{topic:topic}" label="Button_Back"/>
+					<div class="form-group">
+						<b:form.row llLabel="Post_New_Attachments">
+							<f:if condition="{post.attachments}">
+								<f:for each="{post.attachments}" as="attachment">
+									<div>
+										{attachment.filename},
+										<mmf:format.fileSize>{attachment.filesize}</mmf:format.fileSize>
+									</div>
+								</f:for>
+							</f:if>
+							<f:form.upload name="attachments[0]"/>
+						</b:form.row>
+					</div>
+					<div class="form-actions">
+						<f:form.hidden name="topic" value="{topic}"/>
+						<f:form.submit value="{f:translate(key: 'Post_New_Submit')}" class="btn btn-primary"/>
+						<b:button controller="Topic" action="show" arguments="{topic:topic}" label="Button_Back"/>
+					</div>
+				</div>
 		</div>
-	</fieldset>
 </f:form>

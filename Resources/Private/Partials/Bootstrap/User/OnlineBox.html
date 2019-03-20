@@ -2,7 +2,7 @@
 <div class="user_online_box">
 <h1><span class="user_online_count">{dataset.count}</span> <f:translate key="Members_Online" /></h1>
 <div class="well well-activeUserBoxTop items">
-
+	<f:render partial="../../Templates/Bootstrap/Ajax/Onlinebox" arguments="{users: dataset.users}"/>
 </div>
 <div class="well well-activeUserBoxBottom">
 	<f:link.page pageUid="{settings.pids.UserList}">

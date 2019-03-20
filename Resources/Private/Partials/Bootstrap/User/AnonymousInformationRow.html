@@ -1,8 +1,8 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 
-<div class="tx-typo3forum-topic-show-post-user">
-	<mmf:user.avatar user="{user}" width="64" alt="{user.username}" class="tx-typo3forum-topic-show-post-user-icon" />
-	<div>
+<div class="text-center">
+	<div class="card-title">
 		<span class="tx-typo3forum-topic-show-post-user-link">{user.username}</span>
 	</div>
+	<mmf:user.avatar user="{user}" width="64" alt="{user.username}" class="tx-typo3forum-topic-show-post-user-icon" />
 </div>

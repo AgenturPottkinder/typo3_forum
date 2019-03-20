@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\ViewHelpers\Forum;
 
 /*                                                                    - *
@@ -24,93 +25,118 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /**
  * ViewHelper that renders a big button.
  */
-class RootlineViewHelper extends AbstractTagBasedViewHelper {
+class RootlineViewHelper extends AbstractTagBasedViewHelper
+{
 
-	/**
-	 * @var string
-	 */
-	protected $tagName = 'ul';
+    /**
+     * @var string
+     */
+    protected $tagName = 'ul';
 
-	/**
-	 * @var array
-	 */
-	protected $settings = NULL;
+    /**
+     * @var array
+     */
+    protected $settings = null;
 
-	public function initializeArguments() {
-		parent::initializeArguments();
-		$this->registerUniversalTagAttributes();
-	}
+    /**
+     * initializeArguments.
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerUniversalTagAttributes();
+        $this->registerArgument('rootline', 'array', 'array of rootline elements', true);
+        $this->registerArgument('reverse', 'boolean', '');
+    }
 
-	public function initialize() {
-		parent::initialize();
-		$this->settings = $this->templateVariableContainer->get('settings');
-	}
+    /**
+     * initialize.
+     */
+    public function initialize()
+    {
+        parent::initialize();
+        $this->settings = $this->templateVariableContainer->get('settings');
+    }
 
-	/**
-	 * render
-	 *
-	 * @param array $rootline
-	 * @param bool|FALSE $reverse
-	 *
-	 * @return string
-	 */
-	public function render(array $rootline, $reverse = FALSE) {
-		if ($reverse) {
-			array_reverse($rootline);
-		}
+    /**
+     * render.
+     * @return string
+     */
+    public function render()
+    {
 
-		$class = 'nav nav-pills nav-pills-condensed';
-		if ($this->arguments['class']) {
-			$class .= ' ' . $this->arguments['class'];
-		}
-		$this->tag->addAttribute('class', $class);
+        $rootline = $this->arguments['rootline'];
+        $reverse = $this->arguments['reverse'];
 
-		$content = '';
-		foreach ($rootline as $element) {
-			$content .= $this->renderNavigationNode($element);
-		}
-		$content .= '';
 
-		$this->tag->setContent($content);
-		return $this->tag->render();
-	}
+        if ($reverse) {
+            array_reverse($rootline);
+        }
 
-	/**
-	 * renderNavigationNode
-	 *
-	 * @param $object
-	 *
-	 * @return string
-	 */
-	protected function renderNavigationNode($object) {
-		$extensionName = 'typo3forum';
-		$pluginName = 'pi1';
-		if ($object instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Forum) {
-			$controller = 'Forum';
-			$arguments = ['forum' => $object];
-			$icon = 'iconset-22-folder';
-		} else {
-			$controller = 'Topic';
-			$arguments = ['topic' => $object];
-			$icon = 'iconset-22-balloon';
-		}
-		$fullTitle = htmlspecialchars($object->getTitle());
-		$limit = (int)$this->settings['cutBreadcrumbOnChar'];
-		if ($limit == 0 || strlen($fullTitle) < $limit) {
-			$title = $fullTitle;
-		} else {
-			$title = substr($fullTitle, 0, $limit) . "...";
-		}
+        $class = 'nav nav-pills nav-pills-condensed';
+        if ($this->arguments['class']) {
+            $class .= ' ' . $this->arguments['class'];
+        }
+        $this->tag->addAttribute('class', $class);
 
-		$uriBuilder = $this->controllerContext->getUriBuilder();
-		$uri = $uriBuilder->reset()->setTargetPageUid((int)$this->settings['pids']['Forum'])
-			->uriFor('show', $arguments, $controller, $extensionName, $pluginName);
+        $content = '';
+        foreach ($rootline as $element) {
+            $content .= $this->renderNavigationNode($element);
+        }
+        $content .= '';
 
-		return '<li><a href="' . $uri . '" title="' . $fullTitle . '"><i class="' . $icon . '"></i>' . $title . '</a></li>';
-	}
+        $this->tag->setContent($content);
+        return $this->tag->render();
+    }
+
+    /**
+     * renderNavigationNode
+     *
+     * @param $object
+     *
+     * @return string
+     */
+    protected function renderNavigationNode($object)
+    {
+        $extensionName = 'typo3forum';
+        $pluginName = 'pi1';
+        if ($object instanceof \Mittwald\Typo3Forum\Domain\Model\Forum\Forum) {
+            $controller = 'Forum';
+            $arguments = ['forum' => $object];
+            $icon = 'iconset-22-folder';
+        } else {
+            $controller = 'Topic';
+            $arguments = ['topic' => $object];
+            $icon = 'iconset-22-balloon';
+        }
+        $fullTitle = htmlspecialchars($object->getTitle());
+        $limit = (int)$this->settings['cutBreadcrumbOnChar'];
+        if ($limit == 0 || strlen($fullTitle) < $limit) {
+            $title = $fullTitle;
+        } else {
+            $title = substr($fullTitle, 0, $limit) . "...";
+        }
+
+        $uriBuilder = $this->getUriBuilder();
+        $uri = $uriBuilder->reset()->setTargetPageUid((int)$this->settings['pids']['Forum'])
+            ->uriFor('show', $arguments, $controller, $extensionName, $pluginName);
+
+        return '<li><a href="' . $uri . '" title="' . $fullTitle . '"><i class="' . $icon . '"></i>' . $title . '</a></li>';
+    }
+
+
+    /**
+     * getUriBuilder.
+     * @return UriBuilder
+     */
+    private function getUriBuilder()
+    {
+        return $this->renderingContext->getControllerContext()->getUriBuilder();
+    }
 }

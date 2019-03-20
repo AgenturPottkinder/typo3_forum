@@ -24,7 +24,6 @@ namespace Mittwald\Typo3Forum\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Domain\Model\Forum\Attachment;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
@@ -117,7 +116,12 @@ class PostController extends AbstractController {
 		$this->frontendUserRepository->update($currentUser);
 
 		// output new Data
-		return json_encode(["error" => FALSE, "add" => 0, "postHelpfulCount" => $post->getHelpfulCount(), "userHelpfulCount" => $post->getAuthor()->getHelpfulCount()]);
+        return json_encode([
+            "error" => false,
+            "add" => 0,
+            "postHelpfulCount" => $post->getHelpfulCount(),
+            "userHelpfulCount" => $post->getAuthor()->getHelpfulCount()
+        ]);
 	}
 
 	/**
@@ -143,8 +147,12 @@ class PostController extends AbstractController {
 		$this->frontendUserRepository->update($currentUser);
 
 		// output new Data
-		return json_encode(["error" => false, "add" => 1, "postHelpfulCount" => $post->getHelpfulCount(), "userHelpfulCount" => $post->getAuthor()->getHelpfulCount()]);
-
+		return json_encode([
+		    "error" => false,
+            "add" => 1,
+            "postHelpfulCount" => $post->getHelpfulCount(),
+            "userHelpfulCount" => $post->getAuthor()->getHelpfulCount()
+        ]);
 	}
 
 	/**
@@ -178,7 +186,7 @@ class PostController extends AbstractController {
 	/**
 	 * Displays the form for creating a new post.
 	 *
-	 * @dontvalidate $post
+	 * @ignorevalidation $post
 	 *
 	 * @param Topic $topic The topic in which the new post is to be created.
 	 * @param Post $post The new post.
@@ -214,7 +222,6 @@ class PostController extends AbstractController {
 	 * @validate $post \Mittwald\Typo3Forum\Domain\Validator\Forum\PostValidator
 	 * @validate $attachments \Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator
 	 */
-
 	public function createAction(Topic $topic, Post $post, array $attachments = []) {
 		// Assert authorization
 		$this->authenticationService->assertNewPostAuthorization($topic);
@@ -231,8 +238,7 @@ class PostController extends AbstractController {
 		$this->topicRepository->update($topic);
 
 		// All potential listeners (Signal-Slot FTW!)
-		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Post', 'postCreated',
-			['post' => $post]);
+		$this->signalSlotDispatcher->dispatch(Post::class, 'postCreated', ['post' => $post]);
 
 		// Display flash message and redirect to topic->show action.
 		$this->controllerContext->getFlashMessageQueue()->enqueue(
@@ -251,7 +257,7 @@ class PostController extends AbstractController {
 	/**
 	 * Displays a form for editing a post.
 	 *
-	 * @dontvalidate $post
+	 * @ignorevalidation $post
 	 * @param Post $post The post that is to be edited.
 	 * @return void
 	 */
@@ -284,7 +290,7 @@ class PostController extends AbstractController {
 		}
 		$this->postRepository->update($post);
 
-		$this->signalSlotDispatcher->dispatch('Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Post', 'postUpdated',
+		$this->signalSlotDispatcher->dispatch(Post::class, 'postUpdated',
 			['post' => $post]);
 		$this->controllerContext->getFlashMessageQueue()->enqueue(
 			new FlashMessage(Localization::translate('Post_Update_Success'))
@@ -324,7 +330,7 @@ class PostController extends AbstractController {
 
 		// Notify observers and clear cache.
 		$this->signalSlotDispatcher->dispatch(
-			'Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Post',
+			Post::class,
 			'postDeleted',
 			['post' => $post]
 		);
@@ -344,8 +350,9 @@ class PostController extends AbstractController {
 	 * Displays a preview of a rendered post text.
 	 * @param string $text The content.
 	 */
-	public function previewAction($text) {
-		$this->view->assign('text', $text);
+	public function previewAction() {
+
+        $this->view->assign('text', 'MEIN GEILER TEXT');
 	}
 
 	/**
@@ -366,5 +373,4 @@ class PostController extends AbstractController {
 		readfile($attachment->getAbsoluteFilename());
 		die();
 	}
-
 }
