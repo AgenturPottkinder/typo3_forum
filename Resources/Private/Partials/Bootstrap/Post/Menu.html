@@ -1,43 +1,36 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 
-<div class="btn-group">
-	<a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#">
-		<i class="icon-cog"></i>
-		<span class="caret"></span>
-	</a>
-	<ul class="dropdown-menu pull-right">
+<ul class="nav nav-pills">
 		<mmf:authentication.ifAccess object="{post.topic}" accessType="newPost">
-			<li>
-				<f:link.action controller="Post" action="new" arguments="{topic: post.topic, quote: post}">
+			<li class="nav-item">
+				<f:link.action controller="Post" class="btn btn-primary ml-1" action="new" arguments="{topic: post.topic, quote: post}">
 					<i class="tx-typo3forum-icon-16-quote"></i>
 					<f:translate key="Button_Quote" />
 				</f:link.action>
 			</li>
 		</mmf:authentication.ifAccess>
 		<mmf:authentication.ifLoggedIn>
-			<li>
-				<f:link.action controller="Report" action="newPostReport" arguments="{post: post}">
+			<li class="nav-item">
+				<f:link.action controller="Report" class="btn btn-primary ml-1" action="newPostReport" arguments="{post: post}">
 					<i class="tx-typo3forum-icon-16-report-new"></i>
 					<f:translate key="Button_Report" />
 				</f:link.action>
 			</li>
 		</mmf:authentication.ifLoggedIn>
 		<mmf:authentication.ifAccess object="{post}" accessType="editPost">
-			<li>
-				<f:link.action controller="Post" action="edit" arguments="{post: post}">
+			<li class="nav-item">
+				<f:link.action controller="Post" class="btn btn-primary ml-1" action="edit" arguments="{post: post}">
 					<i class="tx-typo3forum-icon-16-post-edit"></i>
 					<f:translate key="Button_Edit" />
 				</f:link.action>
 			</li>
 		</mmf:authentication.ifAccess>
 		<mmf:authentication.ifAccess object="{post}" accessType="deletePost">
-			<li>
-				<f:link.action controller="Post"  action="confirmDelete" arguments="{post: post}">
+			<li class="nav-item">
+				<f:link.action controller="Post" class="btn btn-primary ml-1"  action="confirmDelete" arguments="{post: post}">
 					<i class="tx-typo3forum-icon-16-post-delete"></i>
 					<f:translate key="Button_Delete" />
 				</f:link.action>
 			</li>
 		</mmf:authentication.ifAccess>
-	</ul>
-</div>
-
+</ul>

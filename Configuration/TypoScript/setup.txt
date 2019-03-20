@@ -589,16 +589,17 @@ plugin.tx_typo3forum.userfields {
 [globalVar = LIT:1 = {$plugin.tx_typo3forum.settings.useDefaultCSS}]
     page.includeCSS {
         typo3_forum = EXT:typo3_forum/Resources/Public/Stylesheets/typo3_forum.css
-        bootstrap = EXT:typo3_forum/Resources/Public/Bootstrap/css/bootstrap.css
+        bootstrap = EXT:typo3_forum/Resources/Public/Bootstrap/css/bootstrap.min.css
         markitup_bb = EXT:typo3_forum/Resources/Public/Javascript/markitup/sets/typo3_forum/style.css
     }
 [global]
 
 page.includeJSLibs {
-    typo3forum_jquery = https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js
+    typo3forum_jquery = https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
     typo3forum_jquery.external = 1
-    typo3forum_bootstrap = https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js
-    typo3forum_bootstrap.external = 1
+    typo3forum_popperjs = https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js
+    typo3forum_popperjs.external = 1
+    typo3forum_bootstrap = EXT:typo3_forum/Resources/Public/Bootstrap/js/bootstrap.min.js
     typo3forum_markitup = EXT:typo3_forum/Resources/Public/Javascript/markitup/jquery.markitup.js
 }
 
