@@ -15,6 +15,7 @@ deploy:
     secure: tEEZNRYnzzDUso/BtPWC35KwPMUmK9oHug6y+Wixn2TWQ/WV4UOY7SuMgU6TyVoC767lEKYmNhjecFomZB0peFDuIuca/g04faJAMUUtWwKQIRupro05btpJheKAb7lafDYChlLQP0mjJdP6I5MYpmBCzDrpwCPhgqsfEKe+bG/7Od4ltKceljHlcS1V1LRGATCZxCGXO1JuizBY8YAhNR2n9U8aDTYlKJBK9f46tYWtpqeDBdehcbiKYy6M0pUFFmZhF+N6XpEv50TwIJd8Bh+xLLoLhV8mttgr4Jgd80daWgCrc5SjQ8yAjNzIEX2MidQti/hAv8mAs3JBX4y9OqMes6hhjI4P3+ftatfc8uFVcdH8dt29Tmc2vBCPinajmFtY25e7aAfgoRlpWNmdE+XfEk8VFwiS0H+HJ0NaofjQrycSUIeFOiLVuZmw00HuD5/NtB5xlymvgawQUs6Wzua5lLH1nGtRW5xh/dAUfGh63sL1rvLEE/ua4VJhVFo4QsuZOfk4Br23sfmmiowx4y/jXhoHNGRS3GVE4u5n3FQJEPRsa0fWuKRMLiygBGOAT9r/NR/lYSmFfrZx6dokaCQZSU/YilhxzWGaOTvxGHf2/5LH1GsJgq+kmtQagIHvVsy+ejIczZw4P8vC3krRODtQFBZolkTGpVPCDXOhZlo=
   file_glob: true
   file: typo3_forum_*.zip
+  skip_cleanup: true
   on:
     repo: mittwald/typo3_forum
     tags: true
