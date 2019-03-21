@@ -24,11 +24,11 @@ return [
 		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/Forum/Topic.png'
 	],
 	'interface' => [
-		'showRecordFieldList' => 'type,subject,posts,author,subscribers,last_post,forum,target,question,criteria_options,solution,fav_subscribers,tags'
+		'showRecordFieldList' => 'type,subject,slug,posts,author,subscribers,last_post,forum,target,question,criteria_options,solution,fav_subscribers,tags'
 	],
 	'types' => [
-		'0' => ['showitem' => 'type,subject,posts,author,subscribers,last_post,forum,readers,question,solution,fav_subscribers,tags'],
-		'1' => ['showitem' => 'type,subject,forum,last_post,target'],
+		'0' => ['showitem' => 'type,subject,slug,posts,author,subscribers,last_post,forum,readers,question,solution,fav_subscribers,tags'],
+		'1' => ['showitem' => 'type,subject,slug,forum,last_post,target'],
 	],
 	'columns' => [
         'sys_language_uid' => [
@@ -97,6 +97,18 @@ return [
 				'eval' => 'trim,required'
 			],
 		],
+        'slug' => [
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:pages.slug',
+            'exclude' => 1,
+            'config' => [
+                'type' => 'slug',
+                'generatorOptions' => [
+                    'fields' => ['subject']
+                ],
+                'fallbackCharacter' => '-',
+                'eval' => 'uniqueInPid',
+            ],
+        ],
 		'posts' => [
 			'label' => $lllPath . 'posts',
 			'config' => [
