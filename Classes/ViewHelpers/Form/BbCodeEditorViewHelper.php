@@ -120,7 +120,7 @@ class BbCodeEditorViewHelper extends TextareaViewHelper {
 	public function render() {
 
 		$this->initializeJavascriptSetupFromConfiguration($this->arguments['configuration']);
-		$GLOBALS['TSFE']->getPageRenderer()->addJsFooterInlineCode('some_random_string', $this->javascriptSetup);
+		$GLOBALS['TSFE']->getPageRenderer()->addJsFooterInlineCode('typo3_forum_js_inline', $this->javascriptSetup);
 
 		return parent::render();
     }
