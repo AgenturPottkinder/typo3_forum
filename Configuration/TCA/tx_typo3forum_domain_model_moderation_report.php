@@ -59,7 +59,7 @@ return [
 		],
 		'feuser' => [
 			'exclude' => 1,
-			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.user',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.feuser',
 			'config' => [
 				'type' => 'select',
 				'renderType' => 'selectSingle',

@@ -233,7 +233,7 @@ $tempColumns = [
 	],
 	'tx_typo3forum_private_messages' => [
 		'exclude' => 1,
-		'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_pm',
+		'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_typo3forum_domain_model_user_pm',
 		'config' => [
 			'type' => 'inline',
 			'foreign_table' => 'tx_typo3forum_domain_model_user_privatemessage',

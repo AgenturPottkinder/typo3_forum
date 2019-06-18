@@ -12,6 +12,8 @@
 			<label index="tx_typo3forum_domain_model_forum_forum.description">Description</label>
 			<label index="tx_typo3forum_domain_model_forum_forum.children">Children</label>
 			<label index="tx_typo3forum_domain_model_forum_forum.topics">Topics</label>
+			<label index="tx_typo3forum_domain_model_forum_forum.topic_count">Topic count</label>
+			<label index="tx_typo3forum_domain_model_forum_forum.post_count">Post count</label>
 			<label index="tx_typo3forum_domain_model_forum_forum.acls">Acls</label>
 			<label index="tx_typo3forum_domain_model_forum_forum.last_topic">Last Topic</label>
 			<label index="tx_typo3forum_domain_model_forum_forum.last_post">Last Post</label>
@@ -28,10 +30,15 @@
 			<label index="tx_typo3forum_domain_model_forum_topic.subject">Subject</label>
 			<label index="tx_typo3forum_domain_model_forum_topic.solution">Solution</label>
 			<label index="tx_typo3forum_domain_model_forum_topic.posts">Posts</label>
+			<label index="tx_typo3forum_domain_model_forum_topic.post_count">Post count</label>
 			<label index="tx_typo3forum_domain_model_forum_topic.author">Author</label>
 			<label index="tx_typo3forum_domain_model_forum_topic.last_post">Last Post</label>
+			<label index="tx_typo3forum_domain_model_forum_topic.last_post_crdate">Creation time of Last Post</label>
+			<label index="tx_typo3forum_domain_model_forum_topic.is_solved">Is topic solved</label>
 			<label index="tx_typo3forum_domain_model_forum_topic.subscribers">Subscribers</label>
+			<label index="tx_typo3forum_domain_model_forum_topic.fav_subscribers">Favorite subscribers</label>
 			<label index="tx_typo3forum_domain_model_forum_topic.target">Target topic</label>
+			<label index="tx_typo3forum_domain_model_forum_topic.readers">Readers</label>
 			<label index="tx_typo3forum_domain_model_forum_topic.closed">Closed</label>
 			<label index="tx_typo3forum_domain_model_forum_topic.sticky">Sticky</label>
 			<label index="tx_typo3forum_domain_model_forum_topic.question">Question</label>
@@ -40,6 +47,7 @@
 
 			<label index="tx_typo3forum_domain_model_forum_post">Post</label>
 			<label index="tx_typo3forum_domain_model_forum_post.text">Text</label>
+			<label index="tx_typo3forum_domain_model_forum_post.rendered_text">Rendered text</label>
 			<label index="tx_typo3forum_domain_model_forum_post.author">Author</label>
 			<label index="tx_typo3forum_domain_model_forum_post.author_name">Author name (if posted by anonymous user)</label>
 			<label index="tx_typo3forum_domain_model_forum_post.topic">Topic</label>
@@ -184,6 +192,7 @@
 			<label index="fe_users.tx_typo3forum_helpful_count">Helpful count</label>
 			<label index="fe_users.tx_typo3forum_helpful_count_session">Helpful count session</label>
 			<label index="fe_users.tx_typo3forum_question_count">Question count</label>
+			<label index="fe_users.tx_typo3forum_topic_favsubscriptions">Subscribed favorite topics</label>
 			<label index="fe_users.tx_typo3forum_topic_subscriptions">Subscribed topics</label>
 			<label index="fe_users.tx_typo3forum_forum_subscriptions">Subscribed forums</label>
 			<label index="fe_users.tx_typo3forum.tab.settings">typo3_forum Settings</label>
@@ -199,6 +208,7 @@
 			<label index="fe_users.tx_typo3forum_skype">Skype</label>
 			<label index="fe_users.tx_typo3forum_job">Job</label>
 			<label index="fe_users.tx_typo3forum_working_environment">Arbeitsumfeld</label>
+			<label index="fe_users.tx_typo3forum_domain_model_user_pm">Private messages</label>
 			<label index="fe_users.tx_typo3forum_points">Points</label>
 
 			<label index="fe_groups.tx_extbase_type.typo3_forum">typo3_forum group</label>
