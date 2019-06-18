@@ -43,7 +43,6 @@ return [
 				'renderType' => 'selectSingle',
 				'maxitems' => 1,
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_criteria_options',
-				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption',
 			],
 		],
 	],

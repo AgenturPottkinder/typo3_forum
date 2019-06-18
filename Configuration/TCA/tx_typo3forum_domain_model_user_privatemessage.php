@@ -21,7 +21,6 @@ return [
 			'config' => [
 				'type' => 'inline',
 				'foreign_table' => 'tx_typo3forum_domain_model_user_privatemessage_text',
-				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\PrivateMessageText',
 				'maxitems' => 1,
 				'appearance' => [
 					'collapseAll' => 1,
@@ -36,7 +35,6 @@ return [
 				'type' => 'select',
 				'renderType' => 'selectSingle',
 				'foreign_table' => 'fe_users',
-				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser',
 				'maxitems' => 1
 			],
 		],
@@ -46,7 +44,6 @@ return [
 				'type' => 'select',
 				'renderType' => 'selectSingle',
 				'foreign_table' => 'fe_users',
-				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser',
 				'maxitems' => 1
 			],
 		],
