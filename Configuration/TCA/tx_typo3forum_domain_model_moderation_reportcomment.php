@@ -20,14 +20,14 @@ return [
 	'columns' => [
 		'hidden' => [
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
+			'label'   => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
 			'config'  => [
 				'type' => 'check',
 			],
 		],
 		'tstamp' => [
 			'exclude' => 1,
-			'label'   => 'LLL:EXT:lang/locallang_general.xml:LGL.tstamp',
+			'label'   => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.timestamp',
 			'config'  => [
 				'type' => 'passthrough',
 			],
