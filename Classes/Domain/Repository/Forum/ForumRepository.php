@@ -41,21 +41,6 @@ class ForumRepository extends Repository {
 	protected $authenticationService = NULL;
 
 	/**
-     * Returns a query for objects of this repository
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryInterface
-     * @api
-     */
-    public function createQuery() {
-        $query = parent::createQuery();
-
-        // don't add sys_language_uid constraint
-        $query->getQuerySettings()->setRespectSysLanguage(FALSE);
-
-        return $query;
-    }
-
-	/**
 	 * Finds all forums for the index view.
 	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Forum[] All forums for the index view.
 	 */
