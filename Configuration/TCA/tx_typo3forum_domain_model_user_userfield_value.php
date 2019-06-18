@@ -1,12 +1,5 @@
 <?php
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
-	'tx_typo3forum_domain_model_user_userfield_value',
-	'EXT:typo3_forum/Resources/Private/Language/locallang_csh_tx_typo3forum_domain_model_user_userfield_value.xml'
-);
-
-$lllPath = 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_value.';
-
 return [
 	'ctrl' => [
 		'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_value',
@@ -88,7 +81,7 @@ return [
 		],
 		'user' => [
 			'exclude' => 1,
-			'label' => $lllPath . 'user',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_value.user',
 			'config' => [
 				'type' => 'select',
 				'renderType' => 'selectSingle',
@@ -99,7 +92,7 @@ return [
 		],
 		'userfield' => [
 			'exclude' => 1,
-			'label' => $lllPath . 'userfield',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_value.userfield',
 			'config' => [
 				'type' => 'select',
 				'renderType' => 'selectSingle',
@@ -109,7 +102,7 @@ return [
 		],
 		'value' => [
 			'exclude' => 1,
-			'label' => $lllPath . 'value',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_value.value',
 			'config' => [
 				'type' => 'none',
 			],

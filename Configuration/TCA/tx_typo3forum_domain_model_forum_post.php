@@ -1,12 +1,5 @@
 <?php
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
-	'tx_typo3forum_domain_model_forum_post',
-	'EXT:typo3_forum/Resources/Private/Language/locallang_csh_tx_typo3forum_domain_model_forum_post.xml'
-);
-
-$lllPath = 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_post.';
-
 return [
 	'ctrl' => [
 		'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_post',
@@ -72,21 +65,21 @@ return [
 			],
 		],
 		'text' => [
-			'label' => $lllPath . 'text',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_post.text',
 			'config' => [
 				'type' => 'text'
 			],
 		],
 		'rendered_text' => [
 			'exclude' => 1,
-			'label' => $lllPath . 'rendered_text',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_post.rendered_text',
 			'config' => [
 				'type' => 'text'
 			],
 		],
 		'author' => [
 			'exclude' => 1,
-			'label' => $lllPath . 'author',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_post.author',
 			'config' => [
 				'type' => 'select',
 				'renderType' => 'selectSingle',
@@ -97,14 +90,14 @@ return [
 		],
 		'author_name' => [
 			'exclude' => 1,
-			'label' => $lllPath . 'author_name',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_post.author_name',
 			'config' => [
 				'type' => 'text'
 			],
 		],
 		'topic' => [
 			'exclude' => 1,
-			'label' => $lllPath . 'topic',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_post.topic',
 			'config' => [
 				'type' => 'select',
 				'renderType' => 'selectSingle',
@@ -115,7 +108,7 @@ return [
 		],
 		'attachments' => [
 			'exclude' => 1,
-			'label' => $lllPath . 'attachments',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_post.attachments',
 			'config' => [
 				'type' => 'inline',
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_attachment',
@@ -124,7 +117,7 @@ return [
 			],
 		],
 		'helpful_count' => [
-			'label' => $lllPath . 'helpful_count',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_post.helpful_count',
 			'config' => [
 				'type' => 'none'
 			],

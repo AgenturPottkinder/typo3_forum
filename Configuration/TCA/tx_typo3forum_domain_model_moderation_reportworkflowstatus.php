@@ -1,7 +1,5 @@
 <?php
 
-$lllPath = 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportworkflowstatus.';
-
 return [
 	'ctrl' => [
 		'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportworkflowstatus',
@@ -39,7 +37,7 @@ return [
 			],
 		],
 		'name' => [
-			'label' => $lllPath . 'name',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportworkflowstatus.name',
 			'config' => [
 				'type' => 'input',
 				'size' => 30,
@@ -48,7 +46,7 @@ return [
 		],
 		'followup_status' => [
 			'exclude' => 1,
-			'label' => $lllPath . 'followup_status',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportworkflowstatus.followup_status',
 			'config' => [
 				'type' => 'select',
 				'renderType' => 'selectMultipleSideBySide',
@@ -59,19 +57,19 @@ return [
 			],
 		],
 		'initial' => [
-			'label' => $lllPath . 'initial',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportworkflowstatus.initial',
 			'config' => [
 				'type' => 'check'
 			],
 		],
 		'final' => [
-			'label' => $lllPath . 'final',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportworkflowstatus.final',
 			'config' => [
 				'type' => 'check'
 			],
 		],
 		'icon' => [
-			'label' => $lllPath . 'icon',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportworkflowstatus.icon',
 			'config' => [
 				'type' => 'group',
 				'internal_type' => 'file',
