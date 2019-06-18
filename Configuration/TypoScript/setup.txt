@@ -212,7 +212,6 @@ plugin.tx_typo3forum.settings {
 
     cutUsernameOnChar = {$plugin.tx_typo3forum.settings.cutUsernameOnChar}
     cutBreadcrumbOnChar = {$plugin.tx_typo3forum.settings.cutBreadcrumbOnChar}
-    useSqlStatementsOnCriticalFunctions = {$plugin.tx_typo3forum.settings.useSqlStatementsOnCriticalFunctions}
 
     images {
         avatar.uploadDir = uploads/pics

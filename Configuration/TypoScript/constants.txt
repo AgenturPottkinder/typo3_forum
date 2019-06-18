@@ -34,8 +34,6 @@ plugin.tx_typo3forum {
         cutUsernameOnChar = 9
         # cat=typo3_forum: config/110/180; type=int; label= Trim breadcrumb after chars
         cutBreadcrumbOnChar = 40
-        # cat=typo3_forum: config/110/190; type=boolean; label= Use SQL statements on critical function
-        useSqlStatementsOnCriticalFunctions = 1
         # cat=typo3_forum: config/110/200; type=boolean; label= Use default css
         useDefaultCSS = 1
     }
