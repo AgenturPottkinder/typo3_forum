@@ -153,8 +153,9 @@ jQuery(document).ready(function($) {
 				}
 				if (json.onlineUser) {
 					json.onlineUser.forEach(function(entry) {
-						$('.user_onlinepoint[data-uid="' + entry + '"]').removeClass('iconset-14-user-offline');
-						$('.user_onlinepoint[data-uid="' + entry + '"]').addClass('iconset-14-user-online');
+						$('.user_onlinepoint[data-uid="' + entry + '"]')
+							.removeClass('iconset-14-user-offline')
+							.addClass('iconset-14-user-online');
 					});
 				}
 				if (json.onlineBox) {
@@ -163,15 +164,15 @@ jQuery(document).ready(function($) {
 				}
 
 				if (json.ads) {
-					if ($('#infomation-' + json.ads.position).length > 0) {
-						$('#infomation-' + json.ads.position).html(json.ads.html).show();
-					}
+					$('#infomation-' + json.ads.position).html(json.ads.html).show();
 				}
 
 				$('.tx-typo3forum-helpfull-btn').click(function() {
 					var targetElement = this;
-					var counttargetVal = $('.' + $(targetElement).attr('data-counttarget')).html();
-					var countusertargetVal = $('.' + $(targetElement).attr('data-countusertarget')).html();
+					var $countTarget = $('.' + $(targetElement).attr('data-counttarget'));
+					var counttargetVal = $countTarget.html();
+					var $countUserTarget = $('.' + $(targetElement).attr('data-countusertarget'));
+					var countusertargetVal = $countUserTarget.html();
 					var type = 'add';
 					var action = 'addSupporter';
 					var eID = $(this).attr('data-eid');
@@ -185,25 +186,25 @@ jQuery(document).ready(function($) {
 						url: "index.php?id=" + currentPageUid + "&eID=" + $(this).attr('data-eid') + "&tx_typo3forum_ajax[controller]=Post&tx_typo3forum_ajax[action]=" + type + "Supporter&tx_typo3forum_ajax[post]=" + $(this).attr('data-post') + '&no_cache=1',
 						async: false,
 						beforeSend: function(msg) {
-							$('.' + $(targetElement).attr('data-counttarget')).html('<div class="tx-typo3forum-ajax-loader"></div>');
-							$('.' + $(targetElement).attr('data-countusertarget')).html('<div class="tx-typo3forum-ajax-loader"></div>');
+							$countTarget.html('<div class="tx-typo3forum-ajax-loader"></div>');
+							$countUserTarget.html('<div class="tx-typo3forum-ajax-loader"></div>');
 						},
 						success: function(data) {
 							var json = $.parseJSON(data);
 							if (json.error) {
-								$('.' + $(targetElement).attr('data-counttarget')).html(counttargetVal);
-								$('.' + $(targetElement).attr('data-countusertarget')).html(countusertargetVal);
+								$countTarget.html(counttargetVal);
+								$countUserTarget.html(countusertargetVal);
 								return
 							}
-							if (type == 'add') {
+							if (type === 'add') {
 								$(targetElement).addClass('supported');
 							} else {
 								if ($(targetElement).hasClass('supported')) {
 									$(targetElement).removeClass('supported');
 								}
 							}
-							$('.' + $(targetElement).attr('data-counttarget')).html(json.postHelpfulCount);
-							$('.' + $(targetElement).attr('data-countusertarget')).html(json.userHelpfulCount);
+							$countTarget.html(json.postHelpfulCount);
+							$countUserTarget.html(json.userHelpfulCount);
 						}
 					});
 				});
