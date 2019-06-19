@@ -157,7 +157,10 @@ return [
 				'renderType' => 'selectSingle',
 				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\Forum\Post',
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_post',
-				'maxitems' => 1
+				'maxitems' => 1,
+				'items' => [
+					['-', '0'],
+				],
 			],
 		],
 		'forum' => [
