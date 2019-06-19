@@ -183,7 +183,7 @@ jQuery(document).ready(function($) {
 					}
 					$.ajax({
 						type: "GET",
-						url: "index.php?id=" + currentPageUid + "&eID=" + $(this).attr('data-eid') + "&tx_typo3forum_ajax[controller]=Post&tx_typo3forum_ajax[action]=" + type + "Supporter&tx_typo3forum_ajax[post]=" + $(this).attr('data-post') + '&no_cache=1',
+						url: "index.php?id=" + currentPageUid + "&eID=" + eID + "&tx_typo3forum_ajax[controller]=Post&tx_typo3forum_ajax[action]=" + action + "Supporter&tx_typo3forum_ajax[post]=" + post + '&no_cache=1',
 						async: false,
 						beforeSend: function(msg) {
 							$countTarget.html('<div class="tx-typo3forum-ajax-loader"></div>');
