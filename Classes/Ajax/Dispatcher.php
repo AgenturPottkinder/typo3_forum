@@ -26,14 +26,13 @@ namespace Mittwald\Typo3Forum\Ajax;
  *                                                                      */
 
 use TYPO3\CMS\Core\SingletonInterface;
-use TYPO3\CMS\Core\TypoScript\ExtendedTemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Core\Bootstrap;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Page\PageRepository;
 use TYPO3\CMS\Frontend\Utility\EidUtility;
-use TYPO3\CMS\Extbase\Core\Bootstrap;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 final class Dispatcher implements SingletonInterface
 {
@@ -46,7 +45,7 @@ final class Dispatcher implements SingletonInterface
      * An instance of the extbase bootstrapping class.
      * @var Bootstrap
      */
-    private $extbaseBootstap = null;
+    private $extbaseBootstrap = null;
 
     /**
      * An instance of the extbase object manager.
@@ -145,31 +144,13 @@ final class Dispatcher implements SingletonInterface
      */
     private function initExtbase()
     {
-        $this->extbaseBootstap = GeneralUtility::makeInstance(Bootstrap::class);
-        $this->extbaseBootstap->initialize([
+        $this->extbaseBootstrap = GeneralUtility::makeInstance(Bootstrap::class);
+        $this->extbaseBootstrap->initialize([
             'extensionName' => $this->extensionKey,
             'pluginName' => 'Ajax',
             'vendorName' => 'Mittwald'
         ]);
         $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-    }
-
-    /**
-     * @param integer $pageUid
-     */
-    private function loadTS($pageUid = 0)
-    {
-        $sysPageObj = GeneralUtility::makeInstance(PageRepository::class);
-
-        $rootLine = $sysPageObj->getRootLine($pageUid);
-
-        $typoscriptParser = GeneralUtility::makeInstance(ExtendedTemplateService::class);
-        $typoscriptParser->tt_track = 0;
-        $typoscriptParser->init();
-        $typoscriptParser->runThroughTemplates($rootLine);
-        $typoscriptParser->generateConfig();
-
-        return $typoscriptParser->setup;
     }
 
     /*
@@ -191,7 +172,7 @@ final class Dispatcher implements SingletonInterface
      */
     public function dispatch()
     {
-        return $this->extbaseBootstap->run('', [
+        return $this->extbaseBootstrap->run('', [
             'extensionName' => $this->extensionKey,
             'pluginName' => 'Ajax',
             'vendorName' => 'Mittwald'
