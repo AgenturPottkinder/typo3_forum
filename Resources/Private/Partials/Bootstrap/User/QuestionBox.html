@@ -2,51 +2,50 @@
 <div class="tx-typo3forum-topic-question-box">
 	<f:if condition="{topics}">
 		<f:then>
-	<div class="row-fluid">
-
-		<f:for each="{topics}" as="topic" iteration="iteration">
-			<div class="span6">
-				<div class="item">
-					<div class="pull-left">
-						<mmf:forum.topicIcon topic="{topic}" width="32"/>
+			<div class="row-fluid">
+				<f:for each="{topics}" as="topic" iteration="iteration">
+					<div class="span6">
+						<div class="item">
+							<div class="pull-left">
+								<mmf:forum.topicIcon topic="{topic}" width="32"/>
+							</div>
+							<h4>
+								<f:link.action controller="Topic" action="show" arguments="{topic: topic}"
+											   pageUid="{settings.pids.Forum}">{topic.subject}
+								</f:link.action>
+							</h4>
+							<f:translate key="Generic_By"/>
+							<mmf:user.link user="{topic.author}"/>
+							,
+							<f:format.date format="d.m.Y H:i">{topic.timestamp}</f:format.date>
+							-
+							<f:translate key="Button_Replay"/>
+							: {topic.replyCount}
+						</div>
 					</div>
-					<h4>
-						<f:link.action controller="Topic" action="show" arguments="{topic: topic}"
-									   pageUid="{settings.pids.Forum}">{topic.subject}
-						</f:link.action>
-					</h4>
-					<f:translate key="Generic_By"/>
-					<mmf:user.link user="{topic.author}"/>
-					,
-					<f:format.date format="d.m.Y H:i">{topic.timestamp}</f:format.date>
-					-
-					<f:translate key="Button_Replay"/>
-					: {topic.replyCount}
+					<f:if condition="{0:iteration.total} == {0:iteration.cycle}">
+						<f:else>
+							<f:if condition="{iteration.cycle} % 2">
+								<f:else>
+									</div>
+									<div class="row-fluid">
+								</f:else>
+							</f:if>
+						</f:else>
+					</f:if>
+				</f:for>
+			</div>
+		</f:then>
+		<f:else>
+			<div class="row-fluid">
+				<div class="alert alert-info">
+					<strong>
+						<f:translate key="Notice"/>
+					</strong>
+					<f:translate key="General_No_Entries"/>
 				</div>
 			</div>
-			<f:if condition="{0:iteration.total} == {0:iteration.cycle}">
-				<f:else>
-					<f:if condition="{iteration.cycle} % 2">
-						<f:else>
-	</div>
-	<div class="row-fluid">
 		</f:else>
-		</f:if>
-		</f:else>
-		</f:if>
-		</f:for>
-	</div>
-	</f:then>
-	<f:else>
-		<div class="row-fluid">
-			<div class="alert alert-info">
-				<strong>
-					<f:translate key="Notice"/>
-				</strong>
-				<f:translate key="General_No_Entries"/>
-			</div>
-		</div>
-	</f:else>
 	</f:if>
 </div>
 <div class="row-fluid row-footer">
@@ -67,6 +66,5 @@
 			</f:link.page>
 		</f:else>
 	</f:if>
-
 
 </div>

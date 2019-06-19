@@ -42,14 +42,14 @@
                         <f:else>
                             <f:if condition="{iteration.cycle} % 2">
                                 <f:else>
-    </div>
-    <div>
-        </f:else>
-        </f:if>
-        </f:else>
-        </f:if>
-        </f:for>
-        </f:else>
+									</div>
+									<div>
+								</f:else>
+							</f:if>
+						</f:else>
+					</f:if>
+				</f:for>
+			</f:else>
         </f:if>
     </div>
 </div>
@@ -57,8 +57,7 @@
 
 <f:if condition="{noDetail} == 1">
     <div>
-        <f:link.action pageUid="{settings.pids.Forum}" controller="User" action="listFavorites" arguments="{user: user}"
-        >
+        <f:link.action pageUid="{settings.pids.Forum}" controller="User" action="listFavorites" arguments="{user: user}">
             <i class="iconset-20-balloon"></i>
             <f:translate key="User_Index_All_Favorites"/>
         </f:link.action>

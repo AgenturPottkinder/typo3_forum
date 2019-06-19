@@ -9,7 +9,6 @@
                         <div>
                             <mmf:forum.topicIcon topic="{topic}" width="32"/>
                             <h4>
-
                                 <f:link.action controller="Topic" action="show" arguments="{topic: topic}"
                                                pageUid="{settings.pids.Forum}">
                                     <f:if condition="{topic.question} == 1">
@@ -32,33 +31,32 @@
                         <f:else>
                             <f:if condition="{iteration.cycle} % 2">
                                 <f:else>
-            </div>
-            <div>
-                </f:else>
-    </f:if>
-    </f:else>
-    </f:if>
-    </f:for>
-</div>
-</f:then>
-<f:else>
-    <div>
-        <div>
-            <strong>
-                <f:translate key="Notice"/>
-            </strong>
-            <f:translate key="General_No_Entries"/>
-        </div>
-    </div>
-</f:else>
-</f:if>
+									</div>
+									<div>
+								</f:else>
+							</f:if>
+						</f:else>
+					</f:if>
+				</f:for>
+			</div>
+		</f:then>
+		<f:else>
+			<div>
+				<div>
+					<strong>
+						<f:translate key="Notice"/>
+					</strong>
+					<f:translate key="General_No_Entries"/>
+				</div>
+			</div>
+		</f:else>
+	</f:if>
 </div>
 
 
 <f:if condition="{noDetail} == 1">
     <div>
-        <f:link.action pageUid="{settings.pids.Forum}" controller="User" action="listTopics" arguments="{user: user}"
-        >
+        <f:link.action pageUid="{settings.pids.Forum}" controller="User" action="listTopics" arguments="{user: user}">
             <i class="iconset-20-balloon"></i>
             <f:translate key="User_Index_All_MyTopics"/>
             ({user.topicCount})
