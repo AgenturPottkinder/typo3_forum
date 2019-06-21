@@ -46,7 +46,7 @@ trait ConfigurableEntityTrait
      * Whole TypoScript typo3_forum settings
      * @var array
      */
-    private $settings;
+	protected $settings;
 
     /**
      * @param ConfigurationBuilder $configurationBuilder
