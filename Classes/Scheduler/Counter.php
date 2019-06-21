@@ -113,6 +113,7 @@ class Counter extends AbstractDatabaseTask
         $this->setSettings();
 
         $this->updateTopic();
+        $this->updateForum();
         $this->updateUser();
         return true;
     }
@@ -168,6 +169,60 @@ class Counter extends AbstractDatabaseTask
             $lastCounter = $postCount;
         }
     }
+
+	private function updateForum() {
+
+		$queryBuilderTopic = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_topic');
+		$statement = $queryBuilderTopic
+			->select('forum')
+			->addSelectLiteral($queryBuilderTopic->expr()->count('uid', 'topic_count'))
+			->addSelectLiteral($queryBuilderTopic->expr()->sum('post_count', 'post_count'))
+			->from('tx_typo3forum_domain_model_forum_topic')
+			->where(
+				$queryBuilderTopic->expr()->eq(
+					'pid',
+					$queryBuilderTopic->createNamedParameter($this->getForumPid(), \PDO::PARAM_INT)
+				)
+			)
+			->groupBy('forum')
+			->execute();
+
+		$postAndTopicCountPerForum = [];
+
+		while ($forum = $statement->fetch()) {
+			$postAndTopicCountPerForum[(int)$forum['forum']] = [
+				'topic_count' => (int)$forum['topic_count'],
+				'post_count' => (int)$forum['post_count']
+			];
+		}
+
+		$queryBuilderForum = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_forum');
+		$statement = $queryBuilderForum
+			->select('uid')
+			->from('tx_typo3forum_domain_model_forum_forum')
+			->where(
+				$queryBuilderForum->expr()->eq(
+					'pid',
+					$queryBuilderForum->createNamedParameter($this->getForumPid(), \PDO::PARAM_INT)
+				)
+			)
+			->execute();
+
+		$updateForumConnection = $this->getConnectionPool()->getConnectionForTable('tx_typo3forum_domain_model_forum_forum');
+
+		while ($forum = $statement->fetch()) {
+			$forumUid = (int)$forum['uid'];
+			$updateForumConnection->update(
+				'tx_typo3forum_domain_model_forum_forum',
+				[
+					'topic_count' => (int)$postAndTopicCountPerForum[$forumUid]['topic_count'],
+					'post_count' => (int)$postAndTopicCountPerForum[$forumUid]['post_count']
+				],
+				['uid' => $forumUid],
+				[\PDO::PARAM_INT, \PDO::PARAM_INT, \PDO::PARAM_INT]
+			);
+		}
+	}
 
     /**
      * @return void
