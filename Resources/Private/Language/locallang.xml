@@ -306,15 +306,26 @@
 			<label index="Tags_New_SubscribeTag">Subscribe this tag</label>
 			<label index="Submit">Submit</label>
 			<label index="Button_Helpful">Helpful</label>
-			<label index="Mail_Subscribe_NewPost_Subject">New pos in one of your subscribed topics!</label>
+			<label index="Mail_Subscribe_NewPost_Subject">New post in one of your subscribed topics!</label>
 			<label index="Mail_Subscribe_NewPost_Body">Hello ###RECIPIENT###,
 
 ###POST_AUTHOR### answered in one of your subscribed topics: ###TOPIC_LINK###.
-If you don't want to get more notifications about this topic, you can unsubscribe this topic by this link: ###UNSUBSCRIBE_LINK###.
+
+If you don't want to get more notifications about this topic, you can unsubscribe from this topic in the forum or using this link: ###UNSUBSCRIBE_LINK###
 
 
 Yours sincerely,
-Your ###FORUM_NAME###-Team</label>
+Your ###FORUM_TEAM###-Team</label>
+			<label index="Mail_Subscribe_NewPost_Subject">New topic in one of your subscribed forums!</label>
+			<label index="Mail_Subscribe_NewPost_Body">Hello ###RECIPIENT###,
+
+###POST_AUTHOR### created a new topic ###TOPIC_LINK### in one of your subscribed forums ###FORUM_NAME###.
+
+If you don't want to get more notifications about this forum, you can unsubscribe from this forum in the forum or using this link: ###UNSUBSCRIBE_LINK###
+
+
+Yours sincerely,
+Your ###FORUM_TEAM###-Team</label>
 		</languageKey>
 		<languageKey index="af"></languageKey>
 		<languageKey index="ar"></languageKey>
@@ -609,8 +620,8 @@ Your ###FORUM_NAME###-Team</label>
 
 
 				S přátelským pozdravem,
-				Váš tým ###FORUM_NAME###</label></languageKey>
-
+				Váš tým ###FORUM_TEAM###</label>
+		</languageKey>
 		<languageKey index="da"></languageKey>
 		<languageKey index="de" type="array">
 			<label index="Button_Back">Zurück</label>
@@ -912,11 +923,22 @@ Your ###FORUM_NAME###-Team</label>
 			<label index="Mail_Subscribe_NewPost_Body">Hallo ###RECIPIENT###,
 
 ###POST_AUTHOR### hat einen Beitrag in dem von dir abonnierten Thema ###TOPIC_LINK### erstellt.
-Falls Du keine Benachrichtigungen mehr erhalten möchtest, klicke im Forum auf den Button ###UNSUBSCRIBE_LINK###.
+
+Falls Du keine Benachrichtigungen zu diesem Thema mehr erhalten möchtest, kannst Du diese im Forum oder mit folgendem Link abbestellen: ###UNSUBSCRIBE_LINK###
 
 
-Liebe Grüße
-Dein ###FORUM_NAME###-Team</label>
+Liebe Grüße,
+Dein ###FORUM_TEAM###-Team</label>
+			<label index="Mail_Subscribe_NewTopic_Subject">Neues Thema in einem von Dir abonnierten Forum!</label>
+			<label index="Mail_Subscribe_NewTopic_Body">Hallo ###RECIPIENT###,
+
+###POST_AUTHOR### hat das Thema ###TOPIC_LINK### in dem von dir abonnierten Forum ###FORUM_NAME### erstellt.
+
+Falls Du keine Benachrichtigungen zu diesem Forum mehr erhalten möchtest, kannst Du diese im Forum oder mit folgendem Link abbestellen: ###UNSUBSCRIBE_LINK###
+
+
+Liebe Grüße,
+Dein ###FORUM_TEAM###-Team</label>
 		</languageKey>
 		<languageKey index="el"></languageKey>
 		<languageKey index="eo"></languageKey>
@@ -1208,7 +1230,7 @@ Dein ###FORUM_NAME###-Team</label>
 
 
 				Un cordial saludo,
-				El equipo de ###FORUM_NAME###</label>
+				El equipo de ###FORUM_TEAM###</label>
 		</languageKey>
 
 		<languageKey index="et"></languageKey>
@@ -1504,7 +1526,7 @@ Dein ###FORUM_NAME###-Team</label>
 
 
 				Cordialement,
-				L'équipe de ###FORUM_NAME###</label>
+				L'équipe de ###FORUM_TEAM###</label>
 		</languageKey>
 
 		<languageKey index="fr_CA"></languageKey>
@@ -1802,7 +1824,7 @@ Dein ###FORUM_NAME###-Team</label>
 
 
 				Distinti saluti,
-				il tuo team ###FORUM_NAME###</label>
+				il tuo team ###FORUM_TEAM###</label>
 		</languageKey>
 
 
@@ -2109,7 +2131,7 @@ Dein ###FORUM_NAME###-Team</label>
 
 
 				С уважением,
-				Ваша ###FORUM_NAME###-команда</label>
+				Ваша ###FORUM_TEAM###-команда</label>
 		</languageKey>
 
 

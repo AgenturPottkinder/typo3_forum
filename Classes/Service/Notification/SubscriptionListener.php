@@ -23,6 +23,7 @@ namespace Mittwald\Typo3Forum\Service\Notification;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
+
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 
@@ -61,7 +62,7 @@ final class SubscriptionListener {
 	 */
 	public function onTopicCreated($topic) {
 		if ($topic instanceof Topic) {
-
+			$this->notificationService->notifySubscribers($topic->getForum(), $topic);
 		}
 	}
 }
