@@ -21,6 +21,7 @@ namespace Mittwald\Typo3Forum\Configuration;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Resource\Exception\InvalidConfigurationException;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -43,12 +44,13 @@ class ConfigurationBuilder implements SingletonInterface {
      */
     protected $persistenceSettings = [];
 
-    /**
-     * @return array
-     */
+	/**
+	 * @return array
+	 * @throws InvalidConfigurationException
+	 */
     public function getSettings()
     {
-        if (!count($this->settings)) {
+        if (empty($this->settings)) {
             $this->loadTypoScript();
         }
 
@@ -56,12 +58,13 @@ class ConfigurationBuilder implements SingletonInterface {
     }
 
 
-    /**
-     * @return array
-     */
+	/**
+	 * @return array
+	 * @throws InvalidConfigurationException
+	 */
     public function getPersistenceSettings()
     {
-        if (!count($this->persistenceSettings)) {
+        if (empty($this->persistenceSettings)) {
             $this->loadTypoScript();
         }
 
@@ -69,8 +72,14 @@ class ConfigurationBuilder implements SingletonInterface {
     }
 
 
-    protected function loadTypoScript()
+	/**
+	 * @throws InvalidConfigurationException
+	 */
+	protected function loadTypoScript()
     {
+		if (empty($GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_typo3forum.'])) {
+            throw new InvalidConfigurationException('The TypoScript configuration for typo3_forum is missing. Include it via a template or a TypoScript file.', 1561441468);
+		}
         $typoScript = $this->getTypoScriptService()->convertTypoScriptArrayToPlainArray($GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_typo3forum.']);
         $this->settings = $typoScript['settings'];
         $this->persistenceSettings = $typoScript['persistence'];
@@ -85,7 +94,7 @@ class ConfigurationBuilder implements SingletonInterface {
      */
     protected function getTypoScriptService()
     {
-        if (is_null($this->typoScriptService)) {
+        if (!$this->typoScriptService) {
             $this->typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
         }
 
