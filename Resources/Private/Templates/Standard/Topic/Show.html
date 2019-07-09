@@ -2,7 +2,7 @@
 <f:layout name="default" />
 <f:section name="main">
 	<h2 class="topic_entry" data-uid="{topic.uid}">{topic.subject}</h2>
-	<mmf:forum.rootline rootline="{topic.rootline}" />
+	<mmf:forum.rootline rootline="{topic.rootline}" forumicon="iconset-22-folder" topicicon="iconset-22-balloon" />
 	<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.topicController.show.pagebrowser}">
 		<f:for each="{paginatedPosts}" as="post">
 			<f:render partial="Post/Single" arguments="{post: post}" />
