@@ -19,10 +19,10 @@ return [
 		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/Forum/Forum.png',
 	],
 	'interface' => [
-		'showRecordFieldList' => 'title,description,children,acls,criteria,last_topic,last_post,displayed_pid',
+		'showRecordFieldList' => 'hidden,title,description,children,acls,criteria,topics,topic_count,post_count,last_topic,last_post,forum,subscribers,readers,displayed_pid',
 	],
 	'types' => [
-		'1' => ['showitem' => 'title,description,children,acls,criteria'],
+		'1' => ['showitem' => 'hidden,title,description,children,acls,criteria,topics,last_topic,last_post,forum,subscribers,readers'],
 	],
     'palettes' => [
         'language' => ['showitem' => 'sys_language_uid, l18n_parent'],
@@ -103,6 +103,7 @@ return [
 			],
 		],
 		'children' => [
+			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_forum.children',
 			'config' => [
 				'type' => 'inline',
@@ -117,6 +118,7 @@ return [
 			]
 		],
 		'topics' => [
+			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_forum.topics',
 			'config' => [
 				'type' => 'inline',
@@ -130,6 +132,7 @@ return [
 			]
 		],
 		'criteria' => [
+			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_criteria',
 			'config' => [
 				'type' => 'select',
@@ -153,6 +156,7 @@ return [
 			]
 		],
 		'acls' => [
+			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_forum.acls',
 			'config' => [
 				'type' => 'inline',
@@ -166,6 +170,7 @@ return [
 			]
 		],
 		'last_topic' => [
+			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_forum.last_topic',
 			'config' => [
 				'type' => 'none',
@@ -175,6 +180,7 @@ return [
 			]
 		],
 		'last_post' => [
+			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_forum.last_post',
 			'config' => [
 				'type' => 'none',
@@ -184,15 +190,20 @@ return [
 			]
 		],
 		'forum' => [
+			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_forum.forum',
 			'config' => [
 				'type' => 'select',
 				'renderType' => 'selectSingle',
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_forum',
+				'items' => [
+					['-', 0],
+				],
 				'maxitems' => 1
 			]
 		],
 		'subscribers' => [
+			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_forum.subscribers',
 			'config' => [
 				'type' => 'inline',
@@ -204,6 +215,7 @@ return [
 			]
 		],
 		'readers' => [
+			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_forum.readers',
 			'config' => [
 				'type' => 'inline',
