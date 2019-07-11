@@ -9,6 +9,6 @@
 					   class="tx-typo3forum-topic-show-post-user-link"
 					   pageUid="{settings.pids.UserShow}">{user.username}</f:link.action>
 	</div>
-	<div><f:translate key="User_Show_MemberSince" /> <f:format.date format="d. m. Y">{user.timestamp}</f:format.date></div>
+	<div><f:translate key="User_Show_MemberSince" /> <f:format.date format="{settings.format.dateFormat}">{user.timestamp}</f:format.date></div>
 	<div><f:translate key="User_Show_PostCount" arguments="{0: user.postCount}" /></div>
 </div>

@@ -8,6 +8,6 @@
 					   pageUid="{settings.pids.UserShow}">{user.username}</f:link.action>
 	</div>
 	<mmf:user.avatar user="{user}" width="64" alt="{user.username}" />
-	<div><f:translate key="User_Show_MemberSince" /> <f:format.date format="d. m. Y">{user.timestamp}</f:format.date></div>
+	<div><f:translate key="User_Show_MemberSince" /> <f:format.date format="{settings.format.dateFormat}">{user.timestamp}</f:format.date></div>
 	<div><f:translate key="User_Show_PostCount" arguments="{0: user.postCount}" /></div>
 </div>
