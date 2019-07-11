@@ -32,7 +32,6 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use Mittwald\Typo3Forum\Domain\Model\ReadableInterface;
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
-use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -488,16 +487,13 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 	 * @return boolean
 	 */
 	public function checkAccess(FrontendUser $user = NULL, $accessType = Access::TYPE_MODERATE) {
-		// @todo: the $accessType and the switch statement are useless here
-		switch ($accessType) {
-			default:
-				foreach ($user->getUsergroup() as $group) {
-					if ($group->getUserMod()) {
-						return TRUE;
-					}
-				}
-				return FALSE;
+		foreach ($user->getUsergroup() as $group) {
+			if ($group->getUserMod()) {
+				return TRUE;
+			}
 		}
+
+		return FALSE;
 	}
 
 	/**
