@@ -279,6 +279,10 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 		if ($user === NULL || $user->isAnonymous()) {
 			return FALSE;
 		} else {
+			if ($user->checkAccess($user, Access::TYPE_MODERATE)) {
+				return TRUE;
+			}
+
 			if ($this->getForum()->checkModerationAccess($user)) {
 				return TRUE;
 			}
