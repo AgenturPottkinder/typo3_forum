@@ -235,7 +235,7 @@ plugin.tx_typo3forum.settings {
     }
 
     attachment {
-        allowedMimeTypes = image/gif,image/jpeg,image/png,application/pdf,application/xml,text/plain
+        allowedMimeTypes = image/gif,image/jpeg,image/png,application/pdf,application/xml,text/xml,text/plain
         allowedSizeInByte = 4096
         #uploadfolder can be found in the Attachment TCA
     }

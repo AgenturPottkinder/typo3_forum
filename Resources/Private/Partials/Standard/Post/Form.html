@@ -13,20 +13,17 @@
             </f:if>
         </legend>
         <f:if condition="{currentUser.anonymous}">
-            <f:then>
-                <b:form.row llLabel="Post_New_Author" error="post.authorName" errorLLPrefix="Post_New_Error_Author">
-                    <f:form.textfield property="authorName"/>
-                </b:form.row>
-            </f:then>
+			<b:form.row llLabel="Post_New_Author" labelFor="authorName" error="post.authorName" errorLLPrefix="Post_New_Error_Author">
+				<f:form.textfield property="authorName" id="authorName" required="true"/>
+			</b:form.row>
         </f:if>
         <b:form.row llLabel="Topic_New_Subject">
             <span class="input-xlarge uneditable-input span8">{topic.subject}</span>
         </b:form.row>
-        <b:form.row llLabel="Post_New_Text" error="post.text" errorLLPrefix="Post_New_Error_Text">
-            <mmf:form.bbCodeEditor property="text" id="typo3forum_editor" rows="20" cols="40"
-                                   class="tx-typo3forum-editor span8"/>
+        <b:form.row llLabel="Post_New_Text" labelFor="typo3forum_editor" error="post.text" errorLLPrefix="Post_New_Error_Text">
+            <mmf:form.bbCodeEditor property="text" id="typo3forum_editor" rows="20" cols="40" class="tx-typo3forum-editor span8"/>
         </b:form.row>
-        <b:form.row llLabel="Post_New_Attachments">
+        <b:form.row llLabel="Post_New_Attachments" labelFor="attachments" error="attachments" errorLLPrefix="Topic_New_Error_Attachment_Text">
             <f:if condition="{post.attachments}">
                 <f:for each="{post.attachments}" as="attachment">
                     <div>
@@ -35,12 +32,12 @@
                     </div>
                 </f:for>
             </f:if>
-            <f:form.upload name="attachments[0]"/>
+            <f:form.upload id="attachments" name="attachments[0]"/>
         </b:form.row>
         <div>
             <f:form.hidden name="topic" value="{topic}"/>
             <f:form.submit value="{f:translate(key: 'Post_New_Submit')}"/>
-            <b:button controller="Topic" action="show" arguments="{topic:topic}" label="Button_Back"/>
+            <b:button primary="1" icon="back" controller="Topic" action="show" arguments="{topic:topic}" label="Button_Back"/>
         </div>
     </fieldset>
 </f:form>
