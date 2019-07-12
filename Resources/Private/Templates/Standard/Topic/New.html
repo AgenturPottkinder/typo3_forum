@@ -9,19 +9,17 @@
 		<fieldset>
 			<legend>Create a new topic</legend>
 			<f:if condition="{currentUser.anonymous}">
-				<f:then>
-					<b:form.row llLabel="Post_New_Author" error="post.authorName" errorLLPrefix="Post_New_Error_Author">
-						<f:form.textfield property="authorName" />
-					</b:form.row>
-				</f:then>
+				<b:form.row llLabel="Post_New_Author" labelFor="authorName" error="post.authorName" errorLLPrefix="Post_New_Error_Author">
+					<f:form.textfield property="authorName" id="authorName"/>
+				</b:form.row>
 			</f:if>
-			<b:form.row llLabel="Topic_New_Subject" error="subject" errorLLPrefix="Topic_New_Error_Subject">
-				<f:form.textfield name="subject" value="{subject}" />
+			<b:form.row llLabel="Topic_New_Subject" labelFor="subject" error="subject" errorLLPrefix="Topic_New_Error_Subject">
+				<f:form.textfield name="subject" id="subject" value="{subject}" required="true" />
 			</b:form.row>
-			<b:form.row llLabel="Topic_New_Text" error="post.text" errorLLPrefix="Topic_New_Error_Post_Text">
+			<b:form.row llLabel="Topic_New_Text" labelFor="typo3forum_editor" error="post.text" errorLLPrefix="Topic_New_Error_Post_Text">
 				<mmf:form.bbCodeEditor property="text" id="typo3forum_editor" rows="20" cols="40" />
 			</b:form.row>
-			<b:form.row llLabel="Topic_New_Attachments">
+			<b:form.row llLabel="Topic_New_Attachments" labelFor="attachment-upload">
 				<f:if condition="{post.attachments}">
 					<f:for each="{post.attachments}" as="attachment">
 						<div>
@@ -30,18 +28,16 @@
 						</div>
 					</f:for>
 				</f:if>
-				<f:form.upload name="attachments[0]"/>
+				<f:form.upload id="attachment-upload" name="attachments[0]"/>
 			</b:form.row>
-			<b:form.row llLabel="Topic_New_Subscribe">
-				<label >
-					<f:form.checkbox name="subscribe" value="1"/>
-					<f:translate key="Topic_New_SubscribeMore"/>
-				</label>
+			<b:form.row llLabel="Topic_New_Subscribe" labelFor="subscribe">
+				<f:form.checkbox name="subscribe" id="subscribe" value="1"/>
+				<f:translate key="Topic_New_SubscribeMore"/>
 			</b:form.row>
-			<div >
+			<div>
 				<f:form.hidden name="forum" value="{forum}"/>
+				<b:button primary="1" icon="back"controller="Forum" action="show" arguments="{forum: forum}" label="Button_Back"/>
 				<f:form.submit value="{f:translate(key:'Topic_New_Submit')}"/>
-				<b:button controller="Forum" action="show" arguments="{forum: forum}" label="Button_Back"/>
 			</div>
 		</fieldset>
 	</f:form>
