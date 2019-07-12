@@ -29,6 +29,12 @@ use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 class PostValidator extends AbstractValidator {
 
 	/**
+	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
+	 * @inject
+	 */
+	protected $userRepository = NULL;
+
+	/**
 	 * Check if $value is valid. If it is not valid, needs to add an error
 	 * to Result.
 	 *
@@ -41,6 +47,16 @@ class PostValidator extends AbstractValidator {
 		if (trim($post->getText()) === '') {
 			$this->addError('The post can\'t be empty!.', 1221560718);
 			$result = FALSE;
+		}
+
+		if ($this->userRepository->findCurrent()->isAnonymous()) {
+			if (empty($post->getAuthorName())) {
+				$this->addError('Author name must be present when post is created by anonymous user.', 1335106565);
+				$result = FALSE;
+			} elseif (strlen($post->getAuthorName()) < 3) {
+				$this->addError('Author name must be at least three characters long.', 1335106566);
+				$result = FALSE;
+			}
 		}
 
 		return $result;
