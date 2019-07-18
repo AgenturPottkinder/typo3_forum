@@ -26,7 +26,6 @@ namespace Mittwald\Typo3Forum\Scheduler;
  *                                                                      */
 
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
-use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
 /**
  * Check for any user which forum is read and which not. Best way to ensure performance.
@@ -139,7 +138,7 @@ class ForumRead extends AbstractDatabaseTask
                     $queryBuilder->createNamedParameter(FrontendUser::class, \PDO::PARAM_STR)),
                 $queryBuilder->expr()->eq('users.pid',
                     $queryBuilder->createNamedParameter($this->getUserPid(), \PDO::PARAM_INT)),
-                $queryBuilder->expr()->gt('users.lastLogin', (time() - $limit))
+                $queryBuilder->expr()->gt('users.lastlogin', (time() - $limit))
             );
 
             $queryBuilder->addGroupBy('users.uid');
