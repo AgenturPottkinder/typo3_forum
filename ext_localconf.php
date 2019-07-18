@@ -26,7 +26,7 @@ $_EXTKEY = 'typo3_forum';
 		'Post' => 'new, create, edit, update, delete',
 		'User' => 'showMyProfile, dashboard, subscribe, favSubscribe, listFavorites, listNotifications, listTopics, listMessages, createMessage,listPosts',
 		'Report' => 'newUserReport, newPostReport, createUserReport, createPostReport',
-		'Moderation' => 'indexReport, updateTopic, updateUserReportStatus, updatePostReportStatus, newReportComment, createUserReportComment, createPostReportComment',
+		'Moderation' => 'indexReport, updateTopic, topicConformDelete, updateUserReportStatus, updatePostReportStatus, newReportComment, createUserReportComment, createPostReportComment',
 		'Tag' => 'list, show, new, create, listUserTags, newUserTag, deleteUserTag',
 	]
 );
