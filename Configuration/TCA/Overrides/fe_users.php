@@ -23,7 +23,6 @@ $tempColumns = [
 			'type' => 'select',
 			'renderType' => 'selectSingle',
 			'foreign_table' => 'tx_typo3forum_domain_model_user_rank',
-			'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\Rank',
 			'maxitems' => 1,
 		],
 	],

@@ -117,7 +117,6 @@ return [
 				'type' => 'select',
 				'renderType' => 'selectSingle',
 				'foreign_table' => 'fe_users',
-				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser',
 				'maxitems' => 1
 			],
 		],
@@ -148,7 +147,6 @@ return [
 			'config' => [
 				'type' => 'select',
 				'renderType' => 'selectSingle',
-				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\Forum\Post',
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_post',
 				'maxitems' => 1
 			],
@@ -158,7 +156,6 @@ return [
 			'config' => [
 				'type' => 'select',
 				'renderType' => 'selectSingle',
-				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\Forum\Forum',
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_forum',
 				'maxitems' => 1
 			],
@@ -209,7 +206,6 @@ return [
 				'type' => 'select',
 				'renderType' => 'selectMultipleSideBySide',
 				'foreign_table' => 'fe_users',
-				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser',
 				'MM' => 'tx_typo3forum_domain_model_user_topicsubscription',
 				'MM_opposite_field' => 'tx_typo3forum_topic_subscriptions',
 				'maxitems' => 9999,
@@ -222,7 +218,6 @@ return [
 				'type' => 'select',
 				'renderType' => 'selectMultipleSideBySide',
 				'foreign_table' => 'fe_users',
-				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser',
 				'MM' => 'tx_typo3forum_domain_model_user_topicfavsubscription',
 				'MM_opposite_field' => 'tx_typo3forum_topic_favsubscriptions',
 				'maxitems' => 9999,
@@ -245,7 +240,6 @@ return [
 				'type' => 'select',
 				'renderType' => 'selectSingleBox',
 				'foreign_table' => 'fe_users',
-				'foreign_class' => '\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser',
 				'MM' => 'tx_typo3forum_domain_model_user_readtopic',
 				'MM_opposite_field' => 'tx_typo3forum_read_topics',
 				'size' => 10
