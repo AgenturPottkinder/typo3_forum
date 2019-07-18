@@ -605,11 +605,6 @@ page.includeJSLibs {
     typo3forum_markitup = EXT:typo3_forum/Resources/Public/Javascript/markitup/jquery.markitup.js
 }
 
-# add typo3 6.2 compatibility
-page.includeJSlibs.typo3forum_jquery < page.includeJSLibs.typo3forum_jquery
-page.includeJSlibs.typo3forum_bootstrap < page.includeJSLibs.typo3forum_bootstrap
-page.includeJSlibs.typo3forum_markitup < page.includeJSLibs.typo3forum_markitup
-
 page.includeJSFooter {
     typo3forum_main = EXT:typo3_forum/Resources/Public/Javascript/forum.js
 }
