@@ -94,7 +94,6 @@ return [
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_topic.posts',
 			'config' => [
 				'type' => 'inline',
-				'foreign_sortby' => 'uid',
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_post',
 				'foreign_field' => 'topic',
 				'maxitems' => 9999,
