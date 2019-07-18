@@ -3,7 +3,6 @@
     <f:if condition="{topics}">
         <f:then>
             <div>
-
                 <f:for each="{topics}" as="topic" iteration="iteration">
                     <div>
                         <div>
@@ -28,29 +27,29 @@
                         <f:else>
                             <f:if condition="{iteration.cycle} % 2">
                                 <f:else>
-            </div>
-            <div>
-                </f:else>
-    </f:if>
-    </f:else>
-    </f:if>
-    </f:for>
+									</div>
+									<div>
+         				       </f:else>
+						    </f:if>
+  						</f:else>
+    				</f:if>
+    			</f:for>
+			</div>
+		</f:then>
+		<f:else>
+			<div>
+				<div>
+					<strong>
+						<f:translate key="Notice"/>
+					</strong>
+					<f:translate key="General_No_Entries"/>
+				</div>
+			</div>
+		</f:else>
+	</f:if>
 </div>
-</f:then>
-<f:else>
-    <div>
-        <div>
-            <strong>
-                <f:translate key="Notice"/>
-            </strong>
-            <f:translate key="General_No_Entries"/>
-        </div>
-    </div>
-</f:else>
-</f:if>
-</div>
-<div>
 
+<div>
     <f:if condition="{user}">
         <f:then>
             <f:link.action pageUid="{settings.pids.Forum}" controller="User" action="listQuestions"
@@ -67,6 +66,4 @@
             </f:link.page>
         </f:else>
     </f:if>
-
-
 </div>

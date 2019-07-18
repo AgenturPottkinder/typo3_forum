@@ -12,36 +12,36 @@
 		<small>{report.topic.subject}</small>
 	</h2>
 
-	<div >
-		<div >
-			<fieldset >
+	<div>
+		<div>
+			<fieldset>
 				<legend>
 					<f:translate key="Report_Edit_General" />
 				</legend>
-				<div >
-					<div >
+				<div>
+					<div>
 						<f:translate key="Report_Edit_Reporter" />
 					</div>
-					<div >
+					<div>
 						<mmf:user.link user="{report.reporter}"  />
 					</div>
 				</div>
-				<div >
-					<div >
+				<div>
+					<div>
 						<f:translate key="Report_Edit_Date" />
 					</div>
-					<div >
+					<div>
 						<p style="margin-top: 5px;">
 							<f:format.date format="{settings.format.dateTimeFormat}">{report.crdate}</f:format.date>
 						</p>
 					</div>
 				</div>
-				<div >
-					<div >
+				<div>
+					<div>
 						<f:translate key="Report_Edit_Status" />
 					</div>
-					<div >
-						<div >
+					<div>
+						<div>
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 								<i class="tx-typo3forum-icon-16-advanced" style="background-image: url({report.workflowStatus.iconFullpath});"></i>
 							{report.workflowStatus.name}
@@ -61,32 +61,32 @@
 					</div>
 				</div>
 			</fieldset>
-			<fieldset >
+			<fieldset>
 				<legend>
 					<f:translate key="Report_Edit_Post" />
 				</legend>
 
-				<div >
-					<div >
+				<div>
+					<div>
 						<f:translate key="Report_Edit_Reportee" />
 					</div>
-					<div >
+					<div>
 						<mmf:user.link user="{report.post.author}"  />
 					</div>
 				</div>
 
-				<div >
-					<div >
+				<div>
+					<div>
 						<f:translate key="Report_Edit_Topic" />
 					</div>
-					<div >
+					<div>
 						<mmf:forum.rootline rootline="{report.topic.rootline}" style="margin-bottommf: 0px;" />
 					</div>
 				</div>
 				<f:render partial="Post/Single" arguments="{post: report.post}" />
 			</fieldset>
 		</div>
-		<div >
+		<div>
 			<fieldset>
 				<legend>
 					<f:translate key="Report_Edit_Comments" />
@@ -94,7 +94,7 @@
 						<f:translate key="Report_Edit_Comments_New" />
 					</f:link.action>
 				</legend>
-				<table >
+				<table>
 					<thead>
 						<tr>
 							<th>#</th>
@@ -121,7 +121,8 @@
 				</table>
 			</fieldset>
 		</div>
+	</div>
 
-	</f:section>
+</f:section>
 
-	<f:section name="menu" />
+<f:section name="menu" />

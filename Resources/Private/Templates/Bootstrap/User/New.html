@@ -3,13 +3,15 @@
 This template displays a NEW form for the current domain object.
 
 <f:section name="main">
-<h1>New User</h1>
 
-<f:flashMessages />
+	<h1>New User</h1>
 
-<f:render partial="formErrors" />
+	<f:flashMessages />
 
-<f:form method="post" action="create" name="newUser" object="{newUser}">
-	<f:form.submit value="Create new" />
-</f:form>
+	<f:render partial="formErrors" />
+
+	<f:form method="post" action="create" name="newUser" object="{newUser}">
+		<f:form.submit value="Create new" />
+	</f:form>
+
 </f:section>
