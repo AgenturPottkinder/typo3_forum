@@ -246,6 +246,7 @@ plugin.tx_typo3forum.settings {
                 iconClass = iconset-22-helpful
                 eID = typo3_forum
             }
+			showImagesInline = {$plugin.tx_typo3forum.settings.showPostImagesInline}
         }
     }
 

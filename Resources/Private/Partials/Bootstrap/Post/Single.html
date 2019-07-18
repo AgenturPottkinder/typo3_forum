@@ -18,7 +18,13 @@
 									<div class="row">
 										<div class="col">
 											<f:link.action controller="Post" action="downloadAttachment" arguments="{attachment: attachment}">
-												{attachment.filename}
+												<f:if condition="{settings.forum.post.showImagesInline} && ({attachment.mimetype} == 'image/jpeg' || {attachment.mimetype} == 'image/png')">
+													<f:then>
+														<f:image src="{attachment.absoluteFilename}" alt="{attachment.filename}" class="img-fluid"
+																 title="{attachment.filename}"/>
+													</f:then>
+													<f:else>{attachment.filename}</f:else>
+												</f:if>
 											</f:link.action>
 										</div>
 									</div>

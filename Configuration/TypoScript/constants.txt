@@ -36,5 +36,7 @@ plugin.tx_typo3forum {
         cutBreadcrumbOnChar = 40
         # cat=typo3_forum: config/110/200; type=boolean; label= Use default css
         useDefaultCSS = 1
+        # cat=typo3_forum: config/110/210; type=boolean; label=Show images in posts inline (Views will not be counted)
+		showPostImagesInline = 0
     }
 }
