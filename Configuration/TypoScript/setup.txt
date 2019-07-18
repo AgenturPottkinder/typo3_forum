@@ -212,7 +212,6 @@ plugin.tx_typo3forum.settings {
 
     cutUsernameOnChar = {$plugin.tx_typo3forum.settings.cutUsernameOnChar}
     cutBreadcrumbOnChar = {$plugin.tx_typo3forum.settings.cutBreadcrumbOnChar}
-    useSqlStatementsOnCriticalFunctions = {$plugin.tx_typo3forum.settings.useSqlStatementsOnCriticalFunctions}
 
     images {
         avatar.uploadDir = uploads/pics
@@ -308,6 +307,9 @@ plugin.tx_typo3forum.settings {
         dateFormat = d. m. Y
         dateTimeFormat = d. m. Y, H:i
     }
+
+	# Use HTTP-"PURGE" to clear cache of a forum on creating a new topic - for use with a caching proxy like varnish
+	purgeCache = 1
 
     widgets {
         newestPosts.limit = 6

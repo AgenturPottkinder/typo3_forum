@@ -1,7 +1,5 @@
 <?php
 
-$lllPath = 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_privatemessage_text.';
-
 return [
 	'ctrl' => [
 		'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_privatemessage_text',
@@ -16,7 +14,7 @@ return [
 	],
 	'columns' => [
 		'message_text' => [
-			'label' => $lllPath . 'message_text',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_privatemessage_text.message_text',
 			'config' => [
 				'type' => 'text',
 			],

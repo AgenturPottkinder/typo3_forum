@@ -256,9 +256,13 @@ class TopicController extends AbstractController {
 		// Notify potential listeners.
 		$this->signalSlotDispatcher->dispatch(Topic::class, 'topicCreated', ['topic' => $topic]);
 		$this->clearCacheForCurrentPage();
-		$uriBuilder = $this->controllerContext->getUriBuilder();
-		$uri = $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments(['tx_typo3forum_pi1[forum]' => $forum->getUid(), 'tx_typo3forum_pi1[controller]' => 'Forum', 'tx_typo3forum_pi1[action]' => 'show'])->build();
-		$this->purgeUrl('http://' . $_SERVER['HTTP_HOST'] . '/' . $uri);
+
+		if ($this->settings['purgeCache']) {
+			$uriBuilder = $this->controllerContext->getUriBuilder();
+			$uri = $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments(['tx_typo3forum_pi1[forum]' => $forum->getUid(), 'tx_typo3forum_pi1[controller]' => 'Forum', 'tx_typo3forum_pi1[action]' => 'show'])->build();
+			$this->purgeUrl('http://' . $_SERVER['HTTP_HOST'] . '/' . $uri);
+		}
+
 		// Redirect to single forum display view
 		$this->redirect('show', 'Forum', NULL, ['forum' => $forum]);
 	}

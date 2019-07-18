@@ -1,7 +1,5 @@
 <?php
 
-$lllPath = 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_rank.';
-
 return [
 	'ctrl' => [
 		'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_rank',
@@ -17,20 +15,20 @@ return [
 	],
 	'columns' => [
 		'name' => [
-			'label' => $lllPath . 'name',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_rank.name',
 			'config' => [
 				'type' => 'input',
 			],
 		],
 		'point_limit' => [
-			'label' => $lllPath . 'point_limit',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_rank.point_limit',
 			'config' => [
 				'type' => 'input',
 			],
 		],
 		'user_count' => [
 			'exclude' => 1,
-			'label' => $lllPath . 'user_count',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_rank.user_count',
 			'config' => [
 				'type' => 'none',
 			],
