@@ -65,6 +65,7 @@ return [
 				'type' => 'group',
 				'internal_type' => 'file',
 				'uploadfolder' => 'uploads/tx_typo3forum/attachments/',
+				'size' => 1,
 				'minitems' => 1,
 				'maxitems' => 1,
 				'allowed' => '*',
