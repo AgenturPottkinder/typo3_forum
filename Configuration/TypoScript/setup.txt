@@ -308,6 +308,9 @@ plugin.tx_typo3forum.settings {
         dateTimeFormat = d. m. Y, H:i
     }
 
+	# Use HTTP-"PURGE" to clear cache of a forum on creating a new topic - for use with a caching proxy like varnish
+	purgeCache = 1
+
     widgets {
         newestPosts.limit = 6
         questionPosts.limit = 6
