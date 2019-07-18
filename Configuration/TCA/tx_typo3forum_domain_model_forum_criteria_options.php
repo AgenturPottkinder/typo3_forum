@@ -1,7 +1,5 @@
 <?php
 
-$lllPath = 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_criteria_options.';
-
 return [
 	'ctrl' => [
 		'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_criteria_options',
@@ -19,13 +17,13 @@ return [
 	],
 	'columns' => [
 		'name' => [
-			'label' => $lllPath . 'name',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_criteria_options.name',
 			'config' => [
 				'type' => 'text',
 			],
 		],
 		'criteria' => [
-			'label' => $lllPath . 'criteria',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_criteria_options.criteria',
 			'config' => [
 				'type' => 'select',
 				'renderType' => 'selectSingle',
@@ -34,7 +32,7 @@ return [
 			],
 		],
 		'sorting' => [
-			'label' => $lllPath . 'sorting',
+			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_criteria_options.sorting',
 			'config' => [
 				'type' => 'input',
 				'size' => 11,
