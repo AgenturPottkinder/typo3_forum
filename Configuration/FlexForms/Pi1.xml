@@ -17,7 +17,7 @@
 									<numIndex index="0">
 										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Behaviour_Action_Forum</numIndex>
 										<numIndex index="1">
-											Forum->index;Forum->show;Forum->markRead;Forum->showUnread;Topic->show;Topic->new;Topic->create;Topic->solution;Post->show;Post->new;Post->create;Post->edit;Post->update;Post->confirmDelete;Post->delete;Post->downloadAttachment;User->subscribe;User->favSubscribe;Report->newUserReport;Report->createUserReport;Report->newPostReport;Report->createPostReport;Moderation->editTopic;Moderation->updateTopic;Moderation->topicConformDelete;Tag->show;User->listMessages;User->newMessage;User->createMessage;User->listPosts;User->listTopics;User->subscribe;User->listFavorites;User->listPosts;User->listQuestions
+											Forum->index;Forum->show;Forum->markRead;Forum->showUnread;Topic->show;Topic->new;Topic->create;Topic->solution;Post->show;Post->new;Post->create;Post->edit;Post->update;Post->confirmDelete;Post->delete;Post->downloadAttachment;User->subscribe;User->favSubscribe;Report->newUserReport;Report->createUserReport;Report->newPostReport;Report->createPostReport;Moderation->editTopic;Moderation->updateTopic;Moderation->deleteTopic;Tag->show;User->listMessages;User->newMessage;User->createMessage;User->listPosts;User->listTopics;User->subscribe;User->listFavorites;User->listPosts;User->listQuestions
 										</numIndex>
 									</numIndex>
 									<numIndex index="1">
