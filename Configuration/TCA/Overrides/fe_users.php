@@ -246,7 +246,7 @@ $tempColumns = [
 		],
 	],
 ];
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('fe_users', $tempColumns, 1);
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('fe_users', $tempColumns);
 
 $GLOBALS['TCA']['fe_users']['types']['Mittwald\Typo3Forum\Domain\Model\User\FrontendUser'] = $GLOBALS['TCA']['fe_users']['types']['0'];
 
