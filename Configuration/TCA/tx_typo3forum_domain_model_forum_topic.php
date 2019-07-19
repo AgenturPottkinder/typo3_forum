@@ -17,11 +17,12 @@ return [
 		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/Forum/Topic.png'
 	],
 	'interface' => [
-		'showRecordFieldList' => 'type,subject,posts,author,subscribers,last_post,forum,target,question,criteria_options,solution,fav_subscribers,tags'
+		'showRecordFieldList' => 'hidden,type,subject,posts,post_count,author,last_post,last_post_crdate,forum,target,question,solution,closed,sticky'
+			.',criteria_options,tags,subscribers,fav_subscribers,readers'
 	],
 	'types' => [
-		'0' => ['showitem' => 'type,subject,posts,author,subscribers,last_post,forum,readers,question,solution,fav_subscribers,tags'],
-		'1' => ['showitem' => 'type,subject,forum,last_post,target'],
+		'0' => ['showitem' => 'hidden,type,subject,posts,author,last_post,forum,readers,question,solution,closed,sticky,criteria_options,tags,subscribers,fav_subscribers,readers'],
+		'1' => ['showitem' => 'hidden,type,subject,forum,last_post,target'],
 	],
 	'columns' => [
         'sys_language_uid' => [
@@ -91,6 +92,7 @@ return [
 			],
 		],
 		'posts' => [
+			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_topic.posts',
 			'config' => [
 				'type' => 'inline',
@@ -111,6 +113,7 @@ return [
 			],
 		],
 		'author' => [
+			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_topic.author',
 			'config' => [
 				'type' => 'select',
@@ -120,6 +123,7 @@ return [
 			],
 		],
 		'last_post' => [
+			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_topic.last_post',
 			'config' => [
 				'type' => 'select',
@@ -142,6 +146,7 @@ return [
 			],
 		],
 		'solution' => [
+			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_topic.solution',
 			'config' => [
 				'type' => 'select',
@@ -163,24 +168,28 @@ return [
 			],
 		],
 		'closed' => [
+			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_topic.closed',
 			'config' => [
 				'type' => 'check'
 			],
 		],
 		'sticky' => [
+			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_topic.sticky',
 			'config' => [
 				'type' => 'check'
 			],
 		],
 		'question' => [
+			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_topic.question',
 			'config' => [
 				'type' => 'check'
 			],
 		],
 		'criteria_options' => [
+			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_criteria_options',
 			'config' => [
 				'type' => 'select',
@@ -192,6 +201,7 @@ return [
 			],
 		],
 		'tags' => [
+			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_topic.tags',
 			'config' => [
 				'type' => 'select',
@@ -203,6 +213,7 @@ return [
 			],
 		],
 		'subscribers' => [
+			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_topic.subscribers',
 			'config' => [
 				'type' => 'select',
@@ -215,6 +226,7 @@ return [
 			],
 		],
 		'fav_subscribers' => [
+			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_topic.fav_subscribers',
 			'config' => [
 				'type' => 'select',
@@ -227,6 +239,7 @@ return [
 			],
 		],
 		'target' => [
+			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_topic.target',
 			'config' => [
 				'type' => 'select',
@@ -237,6 +250,7 @@ return [
 			],
 		],
 		'readers' => [
+			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_topic.readers',
 			'config' => [
 				'type' => 'select',

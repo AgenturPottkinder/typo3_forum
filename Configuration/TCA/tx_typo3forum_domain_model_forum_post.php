@@ -16,10 +16,10 @@ return [
 		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/Forum/Post.png'
 	],
 	'interface' => [
-		'showRecordFieldList' => 'text,author,topic,attachments, helpful_count, supporters'
+		'showRecordFieldList' => 'hidden,text,author,author_name,topic,attachments,helpful_count,supporters'
 	],
 	'types' => [
-		'1' => ['showitem' => 'text,author,topic,attachments, helpful_count, supporters'],
+		'1' => ['showitem' => 'hidden,text,author,author_name,topic,attachments,helpful_count,supporters'],
 	],
 	'columns' => [
         'sys_language_uid' => [
@@ -115,12 +115,14 @@ return [
 			],
 		],
 		'helpful_count' => [
+			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_post.helpful_count',
 			'config' => [
 				'type' => 'none'
 			],
 		],
 		'supporters' => [
+			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_topic.supporters',
 			'config' => [
 				'type' => 'select',
