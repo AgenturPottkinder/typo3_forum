@@ -50,7 +50,7 @@ class AttachmentPlainValidator extends AbstractValidator {
 		foreach ($value as $attachment) {
 			if (empty($attachment['name']))
 				continue;
-			if (array_search($attachment['type'], $attachmentObj->getAllowedMimeTypes()) == false) {
+			if (!in_array($attachment['type'], $attachmentObj->getAllowedMimeTypes())) {
 				$this->addError('The submitted mime-type is not allowed!.', 1371041777);
 				$result = FALSE;
 			}
