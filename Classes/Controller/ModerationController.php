@@ -295,13 +295,13 @@ class ModerationController extends AbstractController {
 	}
 
 	/**
-	 * Delete a topic from repository!
+	 * Delete a topic from repository
 	 *
-	 * @param Topic $topic The topic that is be deleted.
+	 * @param Topic $topic The topic to be deleted
 	 *
 	 * @return void
 	 */
-	public function topicConformDeleteAction(Topic $topic) {
+	public function deleteTopicAction(Topic $topic) {
 		$this->authenticationService->assertModerationAuthorization($topic->getForum());
 		foreach ($topic->getPosts() as $post) {
 			$this->postRepository->remove($post);

@@ -17,7 +17,7 @@ $_EXTKEY = 'typo3_forum';
 		'Post' => 'show, new, create, edit, update, delete',
 		'User' => 'showMyProfile, index, list, subscribe, favSubscribe, show, disableUser, unDisableUser, listNotifications, listMessages, createMessage, newMessage, listPosts',
 		'Report' => 'newUserReport, newPostReport, createUserReport, createPostReport',
-		'Moderation' => 'indexReport, editReport, newReportComment, editTopic, updateTopic, updateUserReportStatus, updatePostReportStatus, createUserReportComment, createPostReportComment, topicConformDelete',
+		'Moderation' => 'indexReport, editReport, newReportComment, editTopic, updateTopic, deleteTopic, updateUserReportStatus, updatePostReportStatus, createUserReportComment, createPostReportComment',
 		'Tag' => 'list, show, new, create, listUserTags, newUserTag, deleteUserTag',
 	],
 	[
@@ -26,7 +26,7 @@ $_EXTKEY = 'typo3_forum';
 		'Post' => 'new, create, edit, update, delete',
 		'User' => 'showMyProfile, dashboard, subscribe, favSubscribe, listFavorites, listNotifications, listTopics, listMessages, createMessage,listPosts',
 		'Report' => 'newUserReport, newPostReport, createUserReport, createPostReport',
-		'Moderation' => 'indexReport, updateTopic, topicConformDelete, updateUserReportStatus, updatePostReportStatus, newReportComment, createUserReportComment, createPostReportComment',
+		'Moderation' => 'indexReport, updateTopic, deleteTopic, updateUserReportStatus, updatePostReportStatus, newReportComment, createUserReportComment, createPostReportComment',
 		'Tag' => 'list, show, new, create, listUserTags, newUserTag, deleteUserTag',
 	]
 );
