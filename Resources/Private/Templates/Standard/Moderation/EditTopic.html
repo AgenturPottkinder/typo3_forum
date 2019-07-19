@@ -32,8 +32,7 @@
                 </label>
                 <div>
                     <f:form.checkbox id="tx-typo3forum-movetopic" name="moveTopic" value="1"/>
-                    <mmf:form.forumSelect name="moveTopicTarget" value="{topic.forum}"
-                                          id="tx-typo3forum-movetopic-target" disabled="disabled"/>
+                    <mmf:form.forumSelect name="moveTopicTarget" value="{topic.forum}" id="tx-typo3forum-movetopic-target" disabled="disabled"/>
                 </div>
             </div>
             <div>
@@ -47,9 +46,11 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#tx-typo3forum-movetopic').click(function () {
-                if ($(this).attr('checked'))
+				if (this.checked) {
                     $('#tx-typo3forum-movetopic-target').removeAttr('disabled');
-                else $('#tx-typo3forum-movetopic-target').attr('disabled', 'disabled');
+                } else {
+                    $('#tx-typo3forum-movetopic-target').attr('disabled', 'disabled');
+                }
             });
         });
     </script>
