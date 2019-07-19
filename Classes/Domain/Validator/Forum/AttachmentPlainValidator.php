@@ -54,7 +54,7 @@ class AttachmentPlainValidator extends AbstractValidator {
 				$this->addError('The submitted mime-type is not allowed!.', 1371041777);
 				$result = FALSE;
 			}
-			if ($attachment->$attachment['size'] > $attachmentObj->getAllowedMaxSize()) {
+			if ($attachment['size'] > $attachmentObj->getAllowedMaxSize()) {
 				$this->addError('The submitted file is to big!.', 1371041888);
 				$result = FALSE;
 			}
