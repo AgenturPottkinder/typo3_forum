@@ -6,7 +6,7 @@
 
 	<h2>{forum.title}</h2>
 
-	<mmf:forum.rootline rootline="{forum.rootline}" />
+	<mmf:forum.rootline rootline="{forum.rootline}" breadcrumb="1" forumicon="iconset-22-folder" topicicon="iconset-22-balloon" />
 
 	<f:if condition="{forum.children}">
 		<f:render partial="Forum/List" arguments="{category: forum, header: 'Subforums'}" />
