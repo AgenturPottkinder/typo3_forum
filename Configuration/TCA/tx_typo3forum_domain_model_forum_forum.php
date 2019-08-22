@@ -123,6 +123,7 @@ return [
 			'config' => [
 				'type' => 'inline',
 				'foreign_table' => 'tx_typo3forum_domain_model_forum_topic',
+				'foreign_default_sortby' => 'ORDER BY tx_typo3forum_domain_model_forum_topic.sticky DESC, tx_typo3forum_domain_model_forum_topic.last_post_crdate DESC',
 				'foreign_field' => 'forum',
 				'maxitems' => 999999,
 				'appearance' => [
