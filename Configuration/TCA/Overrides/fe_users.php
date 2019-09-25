@@ -14,6 +14,7 @@ $tempColumns = [
 		'config' => ['type' => 'passthrough'],
 	],
 	'tx_typo3forum_rank' => [
+		'exclude' => 1,
 		'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_rank',
 		'config' => [
 			'type' => 'select',
@@ -159,12 +160,14 @@ $tempColumns = [
 		],
 	],
 	'tx_typo3forum_use_gravatar' => [
+		'exclude' => 1,
 		'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_users.use_gravatar',
 		'config' => [
 			'type' => 'check',
 		],
 	],
 	'tx_typo3forum_contact' => [
+		'exclude' => 1,
 		'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_users.contact',
 		'config' => [
 			'type' => 'none',
