@@ -9,10 +9,6 @@ $tempColumns = [
 		'exclude' => 1,
 		'config' => ['type' => 'passthrough'],
 	],
-	'disable' => [
-		'exclude' => 1,
-		'config' => ['type' => 'passthrough'],
-	],
 	'date_of_birth' => [
 		'exclude' => 1,
 		'config' => ['type' => 'passthrough'],
