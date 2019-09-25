@@ -21,7 +21,7 @@ return [
 			.',criteria_options,tags,subscribers,fav_subscribers,readers'
 	],
 	'types' => [
-		'0' => ['showitem' => 'hidden,type,subject,posts,author,last_post,forum,readers,question,solution,closed,sticky,criteria_options,tags,subscribers,fav_subscribers,readers'],
+		'0' => ['showitem' => 'hidden,type,subject,posts,author,last_post,forum,question,solution,closed,sticky,criteria_options,tags,subscribers,fav_subscribers,readers'],
 		'1' => ['showitem' => 'hidden,type,subject,forum,last_post,target'],
 	],
 	'columns' => [
