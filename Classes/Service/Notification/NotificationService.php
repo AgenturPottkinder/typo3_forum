@@ -148,6 +148,8 @@ class NotificationService extends AbstractService implements NotificationService
 		$marker = [
 			'###POST_AUTHOR###' => $post->getAuthor()->getUsername(),
 			'###FORUM_NAME###' => $forum->getTitle(),
+			'###FORUM_LINK###' => $this->getForumLink($topic->getForum()),
+			'###TOPIC_NAME###' => $topic->getName(),
 			'###TOPIC_LINK###' => $this->getTopicLink($forum, $topic),
 			'###UNSUBSCRIBE_LINK###' => $unsubscribeLink,
 			'###FORUM_TEAM###' => $this->settings['mailing']['sender']['name']
@@ -158,6 +160,23 @@ class NotificationService extends AbstractService implements NotificationService
 		}
 
 		return $message;
+	}
+
+	protected function getForumLink(Forum $forum) {
+		$arguments = [
+			'tx_typo3forum_pi1[controller]' => 'Forum',
+			'tx_typo3forum_pi1[action]' => 'show',
+			'tx_typo3forum_pi1[forum]' => $forum->getUid(),
+		];
+
+		$forumLink = $this->uriBuilder
+			->setTargetPageUid($this->settings['pids']['Forum'])
+			->setArguments($arguments)
+			->setCreateAbsoluteUri(TRUE)
+			->build();
+		$this->uriBuilder->reset();
+
+		return '<a href="' . $forumLink . '">"' . $forum->getTitle() . '"</a>';
 	}
 
 	protected function getTopicLink(Forum $forum, Topic $topic) {

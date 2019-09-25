@@ -932,7 +932,7 @@ Dein ###FORUM_TEAM###-Team</label>
 			<label index="Mail_Subscribe_NewTopic_Subject">Neues Thema in einem von Dir abonnierten Forum!</label>
 			<label index="Mail_Subscribe_NewTopic_Body">Hallo ###RECIPIENT###,
 
-###POST_AUTHOR### hat das Thema ###TOPIC_LINK### in dem von dir abonnierten Forum ###FORUM_NAME### erstellt.
+###POST_AUTHOR### hat das Thema "###TOPIC_NAME###" in dem von dir abonnierten Forum ###FORUM_LINK### erstellt.
 
 Falls Du keine Benachrichtigungen zu diesem Forum mehr erhalten möchtest, kannst Du diese im Forum oder mit folgendem Link abbestellen: ###UNSUBSCRIBE_LINK###
 
