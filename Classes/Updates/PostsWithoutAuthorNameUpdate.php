@@ -24,7 +24,6 @@
 
 namespace Mittwald\Typo3Forum\Updates;
 
-use PDO;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Expression\ExpressionBuilder;
@@ -144,7 +143,7 @@ class PostsWithoutAuthorNameUpdate extends AbstractUpdate {
 			)
 			->andWhere($queryBuilder->expr()->eq('author', $queryBuilder->createNamedParameter(0, Connection::PARAM_INT)))
 			->execute()
-			->fetch(PDO::FETCH_COLUMN);
+			->fetchColumn();
 
 		return (int)$numberOfPostsToUpdate > 0;
 	}
