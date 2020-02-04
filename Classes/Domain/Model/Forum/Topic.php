@@ -173,12 +173,6 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	protected $tags;
 
 	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
-	 * @inject
-	 */
-	protected $topicRepository;
-
-	/**
 	 * Constructor. Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage instances.
 	 *
 	 * @param string $subject The topic's subject.
