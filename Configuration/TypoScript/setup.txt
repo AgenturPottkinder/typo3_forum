@@ -5,10 +5,6 @@ plugin.tx_srfeuserregister_pi1 {
     }
 }
 
-config.tx_extbase.objects {
-    Mittwald\Typo3Forum\Service\Mailing\MailingServiceInterface.className = Mittwald\Typo3Forum\Service\Mailing\PlainMailingService
-}
-
 config.tx_extbase.persistence.classes {
     TYPO3\CMS\Extbase\Domain\Model\FrontendUser.subclasses {
         Mittwald\Typo3Forum\Domain\Model\User\FrontendUser = Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
