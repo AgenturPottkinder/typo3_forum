@@ -79,12 +79,16 @@ class MailingService extends AbstractService {
 	 * @return void
 	 */
 	public function sendMail(FrontendUser $recipient, $subject, $bodyText) {
-		GeneralUtility::makeInstance(MailMessage::class)
-			->setFrom($this->getDefaultSenderAddress(), $this->getDefaultSenderName())
-			->setTo($recipient->getEmail(), $recipient->getUsername())
-			->setSubject($subject)
-			->setBody($bodyText, 'text/html')
-			->send();
+		try {
+			GeneralUtility::makeInstance(MailMessage::class)
+				->setFrom($this->getDefaultSenderAddress(), $this->getDefaultSenderName())
+				->setTo($recipient->getEmail(), $recipient->getUsername())
+				->setSubject($subject)
+				->setBody($bodyText, 'text/html')
+				->send();
+		} catch (\Swift_RfcComplianceException $e) {
+			// Catch exceptions for invalid email addresses in setTo as MailMessage does not catch them
+		}
 	}
 
 }
