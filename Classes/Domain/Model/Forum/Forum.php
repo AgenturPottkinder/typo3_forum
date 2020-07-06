@@ -461,6 +461,12 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 		if(($parent = $this->getParent())) {
 			return $this->getParent()->checkAccess($user, $accessType);
 		}
+
+		if($accessType === Access::TYPE_READ) {
+			return true;
+		}
+
+		return false;
 	}
 
 
