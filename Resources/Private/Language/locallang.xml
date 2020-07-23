@@ -317,9 +317,9 @@ If you don't want to get more notifications about this topic, you can unsubscrib
 Yours sincerely,
 Your ###FORUM_TEAM###-Team</label>
 			<label index="Mail_Subscribe_NewPost_Subject">New topic in one of your subscribed forums!</label>
-			<label index="Mail_Subscribe_NewPost_Body">Hello ###RECIPIENT###,
+			<label index="Mail_Subscribe_NewTopic_Body">Hello ###RECIPIENT###,
 
-###POST_AUTHOR### created a new topic ###TOPIC_LINK### in one of your subscribed forums ###FORUM_NAME###.
+###POST_AUTHOR### created a new topic "###TOPIC_NAME###" in one your subscribed forum ###FORUM_LINK###.
 
 If you don't want to get more notifications about this forum, you can unsubscribe from this forum in the forum or using this link: ###UNSUBSCRIBE_LINK###
 
