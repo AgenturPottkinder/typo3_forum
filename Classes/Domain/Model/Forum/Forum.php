@@ -222,6 +222,10 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 		return $this->visibleChildren;
 	}
 
+	public function getVisibleChildren() {
+	    return $this->visibleChildren;
+    }
+
 
 	/**
 	 * Gets all topics.
@@ -718,6 +722,15 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 		$this->subscribers->detach($user);
 	}
 
+
+    /**
+     * Get the Readers
+     *
+     * @@return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
+     */
+    public function getReaders() {
+        return $this->readers;
+    }
 
 	/**
 	 * Marks this forum as read by a certain user.
