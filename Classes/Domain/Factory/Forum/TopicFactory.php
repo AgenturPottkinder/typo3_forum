@@ -138,6 +138,7 @@ class TopicFactory extends AbstractFactory {
 
 		$forum = $topic->getForum();
 		$forum->removeTopic($topic);
+		$this->forumRepository->update($forum);
 		$this->topicRepository->remove($topic);
 
 		$this->persistenceManager->persistAll();
