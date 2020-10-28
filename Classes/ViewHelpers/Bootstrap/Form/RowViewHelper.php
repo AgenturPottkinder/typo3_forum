@@ -24,7 +24,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Bootstrap\Form;
  *                                                                      */
 
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /**
  * ViewHelper that renders a form row.

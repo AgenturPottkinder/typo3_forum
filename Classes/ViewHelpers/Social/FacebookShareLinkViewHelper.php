@@ -25,7 +25,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Social;
  *                                                                      */
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 class FacebookShareLinkViewHelper extends AbstractTagBasedViewHelper {
 

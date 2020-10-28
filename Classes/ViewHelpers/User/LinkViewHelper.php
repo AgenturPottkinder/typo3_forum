@@ -27,8 +27,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\User;
 
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup;
 
 class LinkViewHelper extends AbstractViewHelper

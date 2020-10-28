@@ -23,7 +23,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Authentication;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * ViewHelper that renders its contents if there is a user currently logged
@@ -31,7 +31,7 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 
 class IfLoggedInViewHelper extends AbstractViewHelper {
-    
+
     protected $escapeOutput = false;
     protected $escapeChildren = false;
 

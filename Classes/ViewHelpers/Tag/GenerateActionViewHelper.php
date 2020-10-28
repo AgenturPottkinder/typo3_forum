@@ -27,7 +27,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Tag;
 
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 class GenerateActionViewHelper extends AbstractTagBasedViewHelper
 {

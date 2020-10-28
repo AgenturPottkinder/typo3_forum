@@ -26,7 +26,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Forum;
  *                                                                      */
 
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /**
  * ViewHelper that renders a rootline as nav-pills or breadcrumb.
