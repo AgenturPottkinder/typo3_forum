@@ -72,7 +72,8 @@
                             <label>LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Display</label>
                             <config>
                                 <type>select</type>
-                                <items type="array">
+								<renderType>selectSingle</renderType>
+								<items type="array">
                                     <numIndex index="0" type="array">
                                         <numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Display_Default</numIndex>
                                         <numIndex index="1">1</numIndex>
@@ -91,6 +92,7 @@
 							<label>LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Display</label>
 							<config>
 								<type>select</type>
+								<renderType>selectSingle</renderType>
 								<items type="array">
 									<numIndex index="0" type="array">
 										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Display_Default</numIndex>
@@ -130,6 +132,7 @@
 							<label>LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Display</label>
 							<config>
 								<type>select</type>
+								<renderType>selectSingle</renderType>
 								<items type="array">
 									<numIndex index="0" type="array">
 										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Display_Default</numIndex>
@@ -154,6 +157,7 @@
 							<label>LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Display</label>
 							<config>
 								<type>select</type>
+								<renderType>selectSingle</renderType>
 								<items type="array">
 									<numIndex index="0" type="array">
 										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Display_ActiveUser</numIndex>
