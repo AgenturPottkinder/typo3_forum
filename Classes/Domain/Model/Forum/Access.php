@@ -208,6 +208,13 @@ class Access extends AbstractValueObject {
 		$this->negate = $negate;
 	}
 
+    /**
+     * @return FrontendUserGroup
+     */
+	public function getAffectedGroup() {
+	    return $this->affectedGroup;
+    }
+
 	/**
 	 * Sets the group.
 	 *
