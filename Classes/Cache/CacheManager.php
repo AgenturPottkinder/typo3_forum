@@ -26,6 +26,7 @@ namespace Mittwald\Typo3Forum\Cache;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
+use \TYPO3\CMS\Core\Core\Environment;
 
 class CacheManager {
 
@@ -50,7 +51,7 @@ class CacheManager {
 	 */
 	protected function deleteTemporaryFiles() {
 		foreach ($this->fileCachePaths as $fileCachePath) {
-			$files = glob(PATH_site . $fileCachePath . '/*');
+			$files = glob(Environment::getPublicPath() . $fileCachePath . '/*');
 
 			if(!is_array($files)) {
 				// skip

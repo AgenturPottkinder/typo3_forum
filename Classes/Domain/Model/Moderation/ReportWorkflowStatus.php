@@ -25,6 +25,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
  *                                                                      */
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
+use \TYPO3\CMS\Core\Core\Environment;
 
 /**
  * A report workflow status.
@@ -147,12 +148,12 @@ class ReportWorkflowStatus extends AbstractValueObject {
 		$imageDirectoryName = $TCA[strtolower(__CLASS__)]['columns']['icon']['config']['uploadfolder'];
 		$imageFilename = rtrim($imageDirectoryName, '/') . '/' . $this->icon;
 
-		if (!file_exists(PATH_site . '/' . $imageFilename)) {
+		if (!file_exists(Environment::getPublicPath() . '/' . $imageFilename)) {
 			$imageDirectoryName = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('typo3_forum') . 'Resources/Public/Images/Icons/Moderation';
 			$imageFilename = "$imageDirectoryName/{$this->icon}";
 		}
 
-		return file_exists(PATH_site . '/' . $imageFilename) ? $imageFilename : NULL;
+		return file_exists(Environment::getPublicPath() . '/' . $imageFilename) ? $imageFilename : NULL;
 	}
 
 	/**

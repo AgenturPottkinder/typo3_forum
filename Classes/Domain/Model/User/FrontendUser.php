@@ -36,6 +36,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Annotation\Inject;
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
+use \TYPO3\CMS\Core\Core\Environment;
 
 
 /**
@@ -602,9 +603,9 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 		if ($this->useGravatar) {
 			$emailHash = md5(strtolower($this->email));
 			$temporaryFilename = 'typo3temp/typo3_forum/gravatar/' . $emailHash . '.jpg';
-			if (!file_exists(PATH_site . $temporaryFilename)) {
+			if (!file_exists(Environment::getPublicPath() . $temporaryFilename)) {
 				$image = GeneralUtility::getUrl('https://secure.gravatar.com/avatar/' . $emailHash . '.jpg');
-				file_put_contents(PATH_site . $temporaryFilename, $image);
+				file_put_contents(Environment::getPublicPath() . $temporaryFilename, $image);
 			}
 
 			return $temporaryFilename;
