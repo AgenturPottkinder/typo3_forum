@@ -28,7 +28,7 @@ use TYPO3\CMS\Extbase\Annotation\Inject;
 
 use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Access;
-use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractdViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  *
