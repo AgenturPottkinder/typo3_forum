@@ -1,6 +1,3 @@
-# Extension is searching a new maintainer: https://www.mittwald.de/blog/cms/typo3-cms/typo3-forum-extension-neuer-maintainer
-
-
 # TYPO3 Forum
 
 The typo3_forum is a frontend plugin that adds a discussion board to your TYPO3-based website. The extension was originally written to be used for discussing questions about TYPO3 in the TYPO3 portal TYPO3.net by Mittwald CM Service.
@@ -23,3 +20,15 @@ The extension currently consists of 10 different plugins. These plugins provide 
 Migration is only possible from `mm_forum` 1.0. until typo3_forum version 1.1.0
 
 You will find more details in the Documenation: http://typo3-forum.readthedocs.io/en/master/UsersManual/MigrationfromMm_forum/Index.html
+
+# Special Thanks
+
+Special Thanks to Philipp Stranghöner and the whole team of Mittwald for providing support and 
+
+# Contact Information
+
+This project was build from Mittwald and is now maintaned by us. We are the Pottkinders from Bochum.
+
+You can read more here: https://www.mittwald.de/blog/cms/typo3-cms/maintainer-fuer-typo3-forum-pottkinder
+
+If you need to contact us via mail use support@agentur-pottkinder.de please =).
