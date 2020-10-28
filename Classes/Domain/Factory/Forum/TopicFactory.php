@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Factory\Forum;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -37,37 +38,37 @@ class TopicFactory extends AbstractFactory {
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\CriteriaOptionRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $criteriaOptionRepository = NULL;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $forumRepository = NULL;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory
-	 * @inject
+	 * @Inject
 	 */
 	protected $postFactory = NULL;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\PostRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $postRepository = NULL;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $topicRepository = NULL;
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface
-	 * @inject
+	 * @Inject
 	 */
 	protected $persistenceManager;
 

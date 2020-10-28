@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\Forum;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -32,7 +33,8 @@ use Mittwald\Typo3Forum\Domain\Model\ReadableInterface;
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
-
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 
 /**
  * A single topic. Each topic can contain an infinite number of
@@ -47,14 +49,14 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * The subject
 	 *
 	 * @var string
-	 * @validate NotEmpty
+	 * @Validate("NotEmpty")
 	 */
 	protected $subject;
 
 	/**
 	 * The posts in this topic.
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Post>
-	 * @lazy
+	 * @Lazy
 	 */
 	protected $posts;
 
@@ -76,7 +78,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * All users who have subscribed this topic.
 	 *
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
-	 * @lazy
+	 * @Lazy
 	 */
 	protected $subscribers;
 
@@ -84,7 +86,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * All users who have subscribed this topic.
 	 *
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
-	 * @lazy
+	 * @Lazy
 	 */
 	protected $favSubscribers;
 
@@ -92,7 +94,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * The as solution marked post
 	 *
 	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Post
-	 * @lazy
+	 * @Lazy
 	 */
 	protected $solution;
 
@@ -153,7 +155,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * All users who have read this topic.
 	 *
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
-	 * @lazy
+	 * @Lazy
 	 */
 	protected $readers;
 
@@ -168,13 +170,13 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 * Get all tags of this topic
 	 *
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Tag>
-	 * @lazy
+	 * @Lazy
 	 */
 	protected $tags;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $topicRepository;
 

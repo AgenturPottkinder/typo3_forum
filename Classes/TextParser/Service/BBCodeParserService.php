@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\TextParser\Service;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -31,7 +32,7 @@ class BBCodeParserService extends AbstractTextParserService {
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Format\BBCodeRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $bbCodeRepository;
 

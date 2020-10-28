@@ -1,5 +1,7 @@
 <?php
 namespace Mittwald\Typo3Forum\ViewHelpers\Ext;
+use TYPO3\CMS\Extbase\Annotation\Inject;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -29,7 +31,7 @@ class UserLinkViewHelper extends CObjectViewHelper {
 
     /**
      * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
-     * @inject
+     * @Inject
      */
     protected $configurationBuilder;
 
@@ -43,7 +45,7 @@ class UserLinkViewHelper extends CObjectViewHelper {
 	 * An authentication service. Handles the authentication mechanism.
 	 *
 	 * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
-	 * @inject
+	 * @Inject
 	 */
 	protected $authenticationService = NULL;
 

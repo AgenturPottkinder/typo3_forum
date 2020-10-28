@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Service\Mailing;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -36,7 +37,7 @@ abstract class AbstractMailingService extends AbstractService implements Mailing
 
     /**
      * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
-     * @inject
+     * @Inject
      */
     protected $configurationBuilder;
 

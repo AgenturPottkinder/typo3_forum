@@ -35,54 +35,57 @@ use Mittwald\Typo3Forum\Utility\Localization;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
+use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
+use TYPO3\CMS\Extbase\Annotation\Inject;
+
 
 class ModerationController extends AbstractController {
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $forumRepository;
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface
-	 * @inject
+	 * @Inject
 	 */
 	protected $persistenceManager;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\PostReportRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $postReportRepository = NULL;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\PostRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $postRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $reportRepository = NULL;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory
-	 * @inject
+	 * @Inject
 	 */
 	protected $topicFactory;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $topicRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\UserReportRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $userReportRepository = NULL;
 
@@ -127,7 +130,7 @@ class ModerationController extends AbstractController {
 	 * @param Report $report
 	 * @param ReportComment $comment
 	 *
-	 * @ignorevalidation $comment
+	 * @IgnoreValidation("comment")
 	 */
 	public function newReportCommentAction(Report $report, ReportComment $comment = NULL) {
 		$this->view->assignMultiple([

@@ -7,13 +7,14 @@ use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Core\Type\File\FileInfo;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 class AttachmentService implements SingletonInterface
 {
     /**
      * An instance of the Extbase object manager.
      * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-     * @inject
+     * @Inject
      */
     protected $objectManager = null;
 

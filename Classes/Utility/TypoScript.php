@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Utility;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -36,7 +37,7 @@ class TypoScript {
 	/**
 	 * The extbase configuration manager.
 	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
-	 * @inject
+	 * @Inject
 	 */
 	protected $configurationManager = NULL;
 

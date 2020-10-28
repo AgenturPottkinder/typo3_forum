@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Cache;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -52,7 +53,7 @@ class Cache implements SingletonInterface {
 
 	/**
 	 * @var \TYPO3\CMS\Core\Cache\CacheManager
-	 * @inject
+	 * @Inject
 	 */
 	protected $cacheManager;
 

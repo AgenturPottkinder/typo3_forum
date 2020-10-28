@@ -31,6 +31,7 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use Mittwald\Typo3Forum\Service\AbstractService;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /**
  * A service class that handles the entire authentication.
@@ -39,14 +40,14 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $frontendUserRepository = NULL;
 
 	/**
 	 * An instance of the typo3_forum cache class.
 	 * @var \Mittwald\Typo3Forum\Cache\Cache
-	 * @inject
+	 * @Inject
 	 */
 	protected $cache = NULL;
 

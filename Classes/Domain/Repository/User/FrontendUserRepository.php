@@ -27,6 +27,7 @@ use Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Domain\Repository\AbstractRepository;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 
 /**
@@ -49,7 +50,7 @@ class FrontendUserRepository extends AbstractRepository  {
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager
-	 * @inject
+	 * @Inject
 	 */
 	protected $frontendConfigurationManager;
 

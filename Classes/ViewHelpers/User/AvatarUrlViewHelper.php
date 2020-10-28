@@ -1,5 +1,7 @@
 <?php
 namespace Mittwald\Typo3Forum\ViewHelpers\User;
+use TYPO3\CMS\Extbase\Annotation\Inject;
+
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -37,7 +39,7 @@ class AvatarUrlViewHelper extends CObjectViewHelper {
 	/**
 	 * An instance of the Extbase Signal-/Slot-Dispatcher.
 	 * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-	 * @inject
+	 * @Inject
 	 */
 	protected $slots;
 

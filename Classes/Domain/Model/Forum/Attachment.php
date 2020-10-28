@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\Forum;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -27,6 +28,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 use Mittwald\Typo3Forum\Domain\Model\ConfigurableEntityTrait;
 use Mittwald\Typo3Forum\Domain\Model\ConfigurableInterface;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 
 class Attachment extends AbstractEntity implements ConfigurableInterface {
 
@@ -34,7 +36,7 @@ class Attachment extends AbstractEntity implements ConfigurableInterface {
 	/**
 	 * The attachment file name.
 	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Post
-	 * @lazy
+	 * @Lazy
 	 */
 	protected $post;
 
@@ -64,7 +66,7 @@ class Attachment extends AbstractEntity implements ConfigurableInterface {
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
-	 * @inject
+	 * @Inject
 	 */
 	protected $configurationBuilder;
 

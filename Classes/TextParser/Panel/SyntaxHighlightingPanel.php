@@ -1,5 +1,7 @@
 <?php
 namespace Mittwald\Typo3Forum\TextParser\Panel;
+use TYPO3\CMS\Extbase\Annotation\Inject;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -29,7 +31,7 @@ class SyntaxHighlightingPanel extends \Mittwald\Typo3Forum\TextParser\Panel\Abst
 	 * TODO
 	 *
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Format\SyntaxHighlightingRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $syntaxHighlightingRepository = NULL;
 

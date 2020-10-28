@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Controller;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -33,37 +34,37 @@ class AjaxController extends AbstractController {
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $adRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AttachmentRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $attachmentRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $forumRepository;
 
     /**
      * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
-     * @inject
+     * @Inject
      */
     protected $configurationBuilder;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory
-	 * @inject
+	 * @Inject
 	 */
 	protected $postFactory;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\PostRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $postRepository;
 
@@ -75,19 +76,19 @@ class AjaxController extends AbstractController {
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $topicRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Service\SessionHandlingService
-	 * @inject
+	 * @Inject
 	 */
 	protected $sessionHandlingService;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Service\AttachmentService
-	 * @inject
+	 * @Inject
 	 */
 	protected $attachmentService = NULL;
 

@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\TextParser\Service;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 	/*                                                                      *
 	 *  COPYRIGHT NOTICE                                                    *
@@ -31,14 +32,14 @@ class QuoteParserService extends AbstractTextParserService {
 	/**
 	 * The post repository.
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\PostRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $postRepository;
 
 	/**
 	 * A standalone fluid view, used to render each individual quote.
 	 * @var \TYPO3\CMS\Fluid\View\StandaloneView
-	 * @inject
+	 * @Inject
 	 */
 	protected $view;
 

@@ -1,5 +1,7 @@
 <?php
 namespace Mittwald\Typo3Forum\ViewHelpers\Form;
+use TYPO3\CMS\Extbase\Annotation\Inject;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -34,7 +36,7 @@ class BbCodeEditorViewHelper extends TextareaViewHelper {
 	 * cache
 	 *
 	 * @var \Mittwald\Typo3Forum\Cache\Cache
-	 * @inject
+	 * @Inject
 	 */
 	protected $cache = NULL;
 
@@ -42,7 +44,7 @@ class BbCodeEditorViewHelper extends TextareaViewHelper {
 	 * Instance of the typo3_forum TypoScript reader class. This class is used
 	 * to read a bbcode editor's configuration from the typoscript setup.
 	 * @var \Mittwald\Typo3Forum\Utility\TypoScript
-	 * @inject
+	 * @Inject
 	 */
 	protected $typoscriptReader = NULL;
 
@@ -62,7 +64,7 @@ class BbCodeEditorViewHelper extends TextareaViewHelper {
 	/**
 	 * An Instance of the Extbase Object Manager class.
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-	 * @inject
+	 * @Inject
 	 */
 	protected $objectManager = NULL;
 

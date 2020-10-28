@@ -26,13 +26,14 @@ namespace Mittwald\Typo3Forum\Domain\Validator\Forum;
 
 use Mittwald\Typo3Forum\Domain\Model\Forum\Attachment;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 class AttachmentPlainValidator extends AbstractValidator {
 
 	/**
 	 * An instance of the extbase object manager.
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-	 * @inject
+	 * @Inject
 	 */
 	protected $objectManager = NULL;
 

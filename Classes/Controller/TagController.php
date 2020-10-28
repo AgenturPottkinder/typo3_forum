@@ -26,18 +26,21 @@ namespace Mittwald\Typo3Forum\Controller;
 
 use Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Tag;
+use TYPO3\CMS\Extbase\Annotation\Validate;
+use TYPO3\CMS\Extbase\Annotation\Inject;
+
 
 class TagController extends AbstractController {
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $tagRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $topicRepository;
 
@@ -82,7 +85,7 @@ class TagController extends AbstractController {
 	 * @param string $name
 	 * @param string $subscribe
 	 *
-	 * @validate $name \Mittwald\Typo3Forum\Domain\Validator\Forum\TagValidator
+     * @Validate("\Mittwald\Typo3Forum\Domain\Validator\Forum\TagValidator", param="name")
 	 * @throws NotLoggedInException
 	 */
 	public function createAction($name = '', $subscribe = '') {

@@ -25,6 +25,7 @@ namespace Mittwald\Typo3Forum\Domain\Repository\User;
  *                                                                      */
 
 use Mittwald\Typo3Forum\Domain\Repository\AbstractRepository;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /**
  *
@@ -42,7 +43,7 @@ class UserfieldRepository extends AbstractRepository {
 	/**
 	 * ConfigurationManagerInterface
 	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
-	 * @inject
+	 * @Inject
 	 */
 	protected $configurationManagerInterface = NULL;
 	/**

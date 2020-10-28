@@ -31,6 +31,7 @@ use Mittwald\Typo3Forum\Domain\Model\NotifiableInterface;
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
 use Mittwald\Typo3Forum\Service\AbstractService;
 use Mittwald\Typo3Forum\Utility\Localization;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /**
  * Service class for notifications. This service notifies subscribers of
@@ -40,19 +41,19 @@ class NotificationService extends AbstractService implements NotificationService
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Service\Mailing\HTMLMailingService
-	 * @inject
+	 * @Inject
 	 */
 	protected $htmlMailingService;
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder
-	 * @inject
+	 * @Inject
 	 */
 	protected $uriBuilder;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
-	 * @inject
+	 * @Inject
 	 */
 	protected $configurationBuilder;
 

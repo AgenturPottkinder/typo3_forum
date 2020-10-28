@@ -1,6 +1,7 @@
 <?php
 
 namespace Mittwald\Typo3Forum\ViewHelpers\Authentication;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -50,7 +51,7 @@ class IfAccessViewHelper extends AbstractViewHelper
      * The frontend user repository.
      *
      * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
-     * @inject
+     * @Inject
      */
     protected $frontendUserRepository;
 

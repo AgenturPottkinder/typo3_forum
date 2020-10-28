@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Factory\Moderation;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -34,7 +35,7 @@ class ReportFactory extends AbstractFactory {
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportWorkflowStatusRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $workflowStatusRepository;
 

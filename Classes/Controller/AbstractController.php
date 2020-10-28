@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Controller;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -40,7 +41,7 @@ abstract class AbstractController extends ActionController {
 	 * An authentication service. Handles the authentication mechanism.
 	 *
 	 * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
-	 * @inject
+	 * @Inject
 	 */
 	protected $authenticationService;
 
@@ -54,7 +55,7 @@ abstract class AbstractController extends ActionController {
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $frontendUserRepository;
 
@@ -70,7 +71,7 @@ abstract class AbstractController extends ActionController {
 	 * The global SignalSlot-Dispatcher.
 	 *
 	 * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-	 * @inject
+	 * @Inject
 	 */
 	protected $signalSlotDispatcher;
 

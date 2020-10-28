@@ -4,6 +4,7 @@ namespace Mittwald\Typo3Forum\Service;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Tag;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 class TagService implements SingletonInterface
 {
@@ -11,14 +12,14 @@ class TagService implements SingletonInterface
     /**
      * An instance of the Extbase object manager.
      * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-     * @inject
+     * @Inject
      */
     protected $objectManager = null;
 
     /**
      * An instance of the tag repository
      * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository
-     * @inject
+     * @Inject
      */
     protected $tagRepository;
 

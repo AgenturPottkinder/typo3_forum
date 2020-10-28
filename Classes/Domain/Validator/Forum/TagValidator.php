@@ -25,6 +25,7 @@ namespace Mittwald\Typo3Forum\Domain\Validator\Forum;
  *                                                                      */
 
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 class TagValidator extends AbstractValidator {
 
@@ -32,7 +33,7 @@ class TagValidator extends AbstractValidator {
 	/**
 	 * An instance of the tag repository.
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $tagRepository;
 

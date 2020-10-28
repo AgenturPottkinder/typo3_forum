@@ -29,42 +29,46 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Utility\Localization;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
+use TYPO3\CMS\Extbase\Annotation\Inject;
+use TYPO3\CMS\Extbase\Annotation\Validate;
+
 
 class PostController extends AbstractController {
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AttachmentRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $attachmentRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Service\AttachmentService
-	 * @inject
+	 * @Inject
 	 */
 	protected $attachmentService = NULL;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $forumRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\PostRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $postRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory
-	 * @inject
+	 * @Inject
 	 */
 	protected $postFactory;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $topicRepository;
 
@@ -186,7 +190,7 @@ class PostController extends AbstractController {
 	/**
 	 * Displays the form for creating a new post.
 	 *
-	 * @ignorevalidation $post
+	 * @IgnoreValidation("post")
 	 *
 	 * @param Topic $topic The topic in which the new post is to be created.
 	 * @param Post $post The new post.
@@ -219,9 +223,10 @@ class PostController extends AbstractController {
 	 * @param Post $post The new post.
 	 * @param array $attachments File attachments for the post.
 	 *
-	 * @validate $post \Mittwald\Typo3Forum\Domain\Validator\Forum\PostValidator
-	 * @validate $attachments \Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator
-	 */
+     * @Validate("\Mittwald\Typo3Forum\Domain\Validator\Forum\PostValidator", param="post")
+     * @Validate("\Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator", param="attachments")
+
+     */
 	public function createAction(Topic $topic, Post $post, array $attachments = []) {
 		// Assert authorization
 		$this->authenticationService->assertNewPostAuthorization($topic);
@@ -257,7 +262,7 @@ class PostController extends AbstractController {
 	/**
 	 * Displays a form for editing a post.
 	 *
-	 * @ignorevalidation $post
+	 * @IgnoreValidation("post")
 	 * @param Post $post The post that is to be edited.
 	 * @return void
 	 */

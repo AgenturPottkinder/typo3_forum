@@ -1,6 +1,7 @@
 <?php
 
 namespace Mittwald\Typo3Forum\ViewHelpers\Post;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -46,7 +47,7 @@ class HelpfulButtonViewHelper extends CObjectViewHelper
      * An authentication service. Handles the authentication mechanism.
      *
      * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
-     * @inject
+     * @Inject
      */
     protected $authenticationService;
 

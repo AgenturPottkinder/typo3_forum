@@ -28,6 +28,7 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Access;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /**
  * Repository class for forum objects.
@@ -36,7 +37,7 @@ class ForumRepository extends Repository {
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
-	 * @inject
+	 * @Inject
 	 */
 	protected $authenticationService = NULL;
 

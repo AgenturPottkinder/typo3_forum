@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Controller;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -28,7 +29,7 @@ class StatsController extends AbstractController {
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Stats\SummaryRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $summaryRepository;
 

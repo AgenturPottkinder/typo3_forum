@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\TextParser;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -36,7 +37,7 @@ class TextParserService extends AbstractService {
 	/**
 	 * An instance of the Extbase object manager.
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-	 * @inject
+	 * @Inject
 	 */
 	protected $objectManager;
 
@@ -45,7 +46,7 @@ class TextParserService extends AbstractService {
 	 * text parser's typoscript configuration.
 	 *
 	 * @var \Mittwald\Typo3Forum\Utility\TypoScript
-	 * @inject
+	 * @Inject
 	 */
 	protected $typoscriptReader;
 
@@ -60,7 +61,7 @@ class TextParserService extends AbstractService {
 	 * called from a viewHelper context.
 	 *
 	 * @var \TYPO3\CMS\Fluid\Core\ViewHelper\ViewHelperVariableContainer
-	 * @inject
+	 * @Inject
 	 */
 	protected $viewHelperVariableContainer;
 

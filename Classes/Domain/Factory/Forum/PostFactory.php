@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Factory\Forum;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -33,19 +34,19 @@ class PostFactory extends AbstractFactory {
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\PostRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $postRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory
-	 * @inject
+	 * @Inject
 	 */
 	protected $topicFactory;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $topicRepository;
 

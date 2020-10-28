@@ -28,24 +28,28 @@ use Mittwald\Typo3Forum\Domain\Exception\Authentication\NoAccessException;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
+use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
+use TYPO3\CMS\Extbase\Annotation\Inject;
+use TYPO3\CMS\Extbase\Annotation\Validate;
+
 
 class TopicController extends AbstractController {
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $adRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Service\AttachmentService
-	 * @inject
+	 * @Inject
 	 */
 	protected $attachmentService;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\CriteriaRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $criteraRepository;
 
@@ -56,49 +60,49 @@ class TopicController extends AbstractController {
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $forumRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory
-	 * @inject
+	 * @Inject
 	 */
 	protected $postFactory;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\PostRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $postRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Service\SessionHandlingService
-	 * @inject
+	 * @Inject
 	 */
 	protected $sessionHandling;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $tagRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Service\TagService
-	 * @inject
+	 * @Inject
 	 */
 	protected $tagService = NULL;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory
-	 * @inject
+	 * @Inject
 	 */
 	protected $topicFactory;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $topicRepository;
 
@@ -196,7 +200,7 @@ class TopicController extends AbstractController {
 	 * @param Post $post The first post of the new topic.
 	 * @param string $subject The subject of the new topic
 	 *
-	 * @ignorevalidation $post
+	 * @IgnoreValidation("post")
 	 */
 	public function newAction(Forum $forum, Post $post = NULL, $subject = NULL) {
 		$this->authenticationService->assertNewTopicAuthorization($forum);
@@ -221,10 +225,10 @@ class TopicController extends AbstractController {
 	 * @param string $tags All defined tags for this topic
 	 * @param string $subscribe The flag if the new topic is subscribed by author
 	 *
-	 * @validate $post \Mittwald\Typo3Forum\Domain\Validator\Forum\PostValidator
-	 * @validate $attachments \Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator
-	 * @validate $subject NotEmpty
-	 */
+     * @Validate("\Mittwald\Typo3Forum\Domain\Validator\Forum\PostValidator", param="post")
+     * @Validate("\Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator", param="attachments")
+     * @Validate("NotEmpty", param="subject")
+     */
 	public function createAction(Forum $forum, Post $post, $subject, $attachments = [], $question = '', $criteria = [], $tags = '', $subscribe = '') {
 
 		// Assert authorization

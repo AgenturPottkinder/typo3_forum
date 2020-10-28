@@ -26,6 +26,7 @@ namespace Mittwald\Typo3Forum\Service\Notification;
 
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 
 /**
@@ -38,7 +39,7 @@ final class SubscriptionListener {
 	/**
 	 * An instance of the notification service.
 	 * @var \Mittwald\Typo3Forum\Service\Notification\NotificationServiceInterface
-	 * @inject
+	 * @Inject
 	 */
 	protected $notificationService = NULL;
 

@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Configuration;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /***************************************************************
  *  Copyright (C) 2017 punkt.de GmbH
@@ -30,7 +31,7 @@ class ConfigurationBuilder implements SingletonInterface {
 
     /**
      * @var \TYPO3\CMS\Core\TypoScript\TypoScriptService
-     * @inject
+     * @Inject
      */
     protected $typoScriptService;
 

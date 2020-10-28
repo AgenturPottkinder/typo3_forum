@@ -34,48 +34,51 @@ use Mittwald\Typo3Forum\Domain\Model\User\PrivateMessageText;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\CMS\Extbase\Annotation\Inject;
+use TYPO3\CMS\Extbase\Annotation\Validate;
+
 
 class UserController extends AbstractController {
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $forumRepository = NULL;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\PrivateMessageRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $privateMessageRepository = NULL;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\NotificationRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $notificationRepository = NULL;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Factory\User\PrivateMessageFactory
-	 * @inject
+	 * @Inject
 	 */
 	protected $privateMessageFactory;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\RankRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $rankRepository = NULL;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $topicRepository = NULL;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\UserfieldRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $userfieldRepository = NULL;
 
@@ -274,8 +277,8 @@ class UserController extends AbstractController {
 	 * @param string $text
 	 *
 	 * @throws NotLoggedInException
-	 * @validate $recipient \Mittwald\Typo3Forum\Domain\Validator\User\PrivateMessageRecipientValidator
-	 */
+     * @Validate("\Mittwald\Typo3Forum\Domain\Validator\User\PrivateMessageRecipientValidator", param="recipient")
+     */
 	public function createMessageAction($recipient, $text) {
 		$user = $this->getCurrentUser();
 		$recipient = $this->frontendUserRepository->findOneByUsername($recipient);

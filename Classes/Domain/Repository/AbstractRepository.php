@@ -27,6 +27,7 @@ namespace Mittwald\Typo3Forum\Domain\Repository;
 use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /**
  *
@@ -49,7 +50,7 @@ abstract class AbstractRepository extends Repository
 
     /**
      * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
-     * @inject
+     * @Inject
      */
     protected $configurationBuilder;
 

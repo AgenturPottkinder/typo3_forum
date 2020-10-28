@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Controller;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -39,25 +40,25 @@ class ForumController extends AbstractController {
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $forumRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $topicRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $adRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\RootForum
-	 * @inject
+	 * @Inject
 	 */
 	protected $rootForum;
 

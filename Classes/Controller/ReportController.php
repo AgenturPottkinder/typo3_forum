@@ -32,30 +32,33 @@ use Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
+use TYPO3\CMS\Extbase\Annotation\Inject;
+
 
 class ReportController extends AbstractController {
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\PostReportRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $postReportRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Factory\Moderation\ReportFactory
-	 * @inject
+	 * @Inject
 	 */
 	protected $reportFactory;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $reportRepository;
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\UserReportRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $userReportRepository;
 
@@ -65,7 +68,7 @@ class ReportController extends AbstractController {
 	 * @param FrontendUser $user
 	 * @param ReportComment $firstComment
 	 *
-	 * @ignorevalidation $firstComment
+	 * @IgnoreValidation("firstComment")
 	 */
 	public function newUserReportAction(FrontendUser $user, ReportComment $firstComment = NULL) {
 		$this->view->assignMultiple([
@@ -80,7 +83,7 @@ class ReportController extends AbstractController {
 	 * @param Post $post
 	 * @param ReportComment $firstComment
 	 *
-	 * @ignorevalidation $firstComment
+     * @IgnoreValidation("firstComment")
 	 */
 	public function newPostReportAction(Post $post, ReportComment $firstComment = NULL) {
 		$this->authenticationService->assertReadAuthorization($post);

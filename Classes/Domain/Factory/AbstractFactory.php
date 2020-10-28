@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Factory;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -32,19 +33,19 @@ abstract class AbstractFactory implements SingletonInterface {
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $frontendUserRepository = NULL;
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-	 * @inject
+	 * @Inject
 	 */
 	protected $objectManager = NULL;
 
     /**
      * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
-     * @inject
+     * @Inject
      */
     protected $configurationBuilder;
 

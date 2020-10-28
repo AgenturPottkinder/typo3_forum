@@ -1,5 +1,7 @@
 <?php
 namespace Mittwald\Typo3Forum\TextParser\Panel;
+use TYPO3\CMS\Extbase\Annotation\Inject;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -27,7 +29,7 @@ class SmileyPanel extends AbstractPanel {
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\Format\SmileyRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $smileyRepository = NULL;
 

@@ -25,12 +25,13 @@ namespace Mittwald\Typo3Forum\Domain\Validator\Forum;
  *                                                                      */
 
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 class PostValidator extends AbstractValidator {
 
 	/**
 	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
-	 * @inject
+	 * @Inject
 	 */
 	protected $userRepository = NULL;
 

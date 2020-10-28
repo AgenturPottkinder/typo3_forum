@@ -1,6 +1,7 @@
 <?php
 
 namespace Mittwald\Typo3Forum\ViewHelpers\Format;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -37,7 +38,7 @@ class TextParserViewHelper extends AbstractViewHelper
     /**
      * The text parser service
      * @var \Mittwald\Typo3Forum\TextParser\TextParserService
-     * @inject
+     * @Inject
      */
     protected $textParserService;
 
@@ -45,7 +46,7 @@ class TextParserViewHelper extends AbstractViewHelper
      * An instance of the post repository class. The repository is needed
      * only when a rendered post text has to be persisted in the database.
      * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\PostRepository
-     * @inject
+     * @Inject
      */
     protected $postRepository;
 
