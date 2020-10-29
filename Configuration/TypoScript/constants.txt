@@ -1,42 +1,42 @@
 plugin.tx_typo3forum {
-    view {
-        # cat=typo3_forum: config/100/100; type=string; label=TemplateRootPath
-        templateRootPath = EXT:typo3_forum/Resources/Private/Templates/Standard
-        # cat=typo3_forum: config/100/110; type=string; label=PartialRootPath
-        partialRootPath = EXT:typo3_forum/Resources/Private/Partials/Standard
-        # cat=typo3_forum: config/100/120; type=string; label=LayoutRootPath
-        layoutRootPath = EXT:typo3_forum/Resources/Private/Layouts/Standard
-    }
+	view {
+		# cat=typo3_forum: config/100/100; type=string; label=TemplateRootPath
+		templateRootPath = EXT:typo3_forum/Resources/Private/Templates/Standard
+		# cat=typo3_forum: config/100/110; type=string; label=PartialRootPath
+		partialRootPath = EXT:typo3_forum/Resources/Private/Partials/Standard
+		# cat=typo3_forum: config/100/120; type=string; label=LayoutRootPath
+		layoutRootPath = EXT:typo3_forum/Resources/Private/Layouts/Standard
+	}
 
-    persistence {
-        # cat=typo3_forum: config/100/130; type=string; label= Storage Pid of Forum entities
-        storagePid = 0
-    }
+	persistence {
+		# cat=typo3_forum: config/100/130; type=string; label= Storage Pid of Forum entities
+		storagePid = 0
+	}
 
-    settings {
-        pids {
-            # cat=typo3_forum: config/110/100; type=int; label= PID where forum is located
-            Forum = 0
-            # cat=typo3_forum: config/110/110; type=int; label= PID where user profile is located
-            UserShow = 0
-            # cat=typo3_forum: config/110/120; type=int; label= PID where user list is located
-            UserList = 0
-            # cat=typo3_forum: config/110/130; type=int; label= PID where user edit form is located
-            UserEdit = 0
-            # cat=typo3_forum: config/110/140; type=int; label= PID where all questions are located
-            AllQuestions = 0
-            # cat=typo3_forum: config/110/150; type=int; label= PID where dashboard is loacted
-            Dashboard = 0
-        }
-        # cat=typo3_forum: config/110/160; type=boolean; label= Debug
-        debug = 0
-        # cat=typo3_forum: config/110/170; type=int; label= Trim username after chars
-        cutUsernameOnChar = 9
-        # cat=typo3_forum: config/110/180; type=int; label= Trim breadcrumb after chars
-        cutBreadcrumbOnChar = 40
-        # cat=typo3_forum: config/110/200; type=boolean; label= Use default css
-        useDefaultCSS = 1
-        # cat=typo3_forum: config/110/210; type=boolean; label=Show images in posts inline (Views will not be counted)
+	settings {
+		pids {
+			# cat=typo3_forum: config/110/100; type=int; label= PID where forum is located
+			Forum = 0
+			# cat=typo3_forum: config/110/110; type=int; label= PID where user profile is located
+			UserShow = 0
+			# cat=typo3_forum: config/110/120; type=int; label= PID where user list is located
+			UserList = 0
+			# cat=typo3_forum: config/110/130; type=int; label= PID where user edit form is located
+			UserEdit = 0
+			# cat=typo3_forum: config/110/140; type=int; label= PID where all questions are located
+			AllQuestions = 0
+			# cat=typo3_forum: config/110/150; type=int; label= PID where dashboard is loacted
+			Dashboard = 0
+		}
+		# cat=typo3_forum: config/110/160; type=boolean; label= Debug
+		debug = 0
+		# cat=typo3_forum: config/110/170; type=int; label= Trim username after chars
+		cutUsernameOnChar = 9
+		# cat=typo3_forum: config/110/180; type=int; label= Trim breadcrumb after chars
+		cutBreadcrumbOnChar = 40
+		# cat=typo3_forum: config/110/200; type=boolean; label= Use default css
+		useDefaultCSS = 1
+		# cat=typo3_forum: config/110/210; type=boolean; label=Show images in posts inline (Views will not be counted)
 		showPostImagesInline = 0
-    }
+	}
 }

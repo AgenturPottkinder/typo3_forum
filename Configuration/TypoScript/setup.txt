@@ -1,476 +1,545 @@
-plugin.tx_srfeuserregister_pi1 {
-    create {
-        overrideValues.tx_extbase_type = Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
-        fields := addToList(tx_extbase_type)
-    }
-}
-
 config.tx_extbase.objects {
-    Mittwald\Typo3Forum\Service\Mailing\MailingServiceInterface.className = Mittwald\Typo3Forum\Service\Mailing\PlainMailingService
+	Mittwald\Typo3Forum\Service\Mailing\MailingServiceInterface.className = Mittwald\Typo3Forum\Service\Mailing\PlainMailingService
 }
+plugin {
+	tx_srfeuserregister_pi1 {
+		create {
+			overrideValues.tx_extbase_type = Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
+			fields := addToList(tx_extbase_type)
+		}
+	}
+	tx_typo3forum {
+		settings {
+			debug = {$plugin.tx_typo3forum.settings.debug}
+			debug {
+				disableACLs = 0
+			}
 
-plugin.tx_typo3forum.settings {
-    debug = {$plugin.tx_typo3forum.settings.debug}
-    debug {
-        disableACLs = 0
-    }
 
-    cutUsernameOnChar = {$plugin.tx_typo3forum.settings.cutUsernameOnChar}
-    cutBreadcrumbOnChar = {$plugin.tx_typo3forum.settings.cutBreadcrumbOnChar}
 
-    images {
-        avatar.uploadDir = uploads/pics
-        # use following definitions to have different Default avatars for male and female
-        #avatar.dummyMale = /uploads/path_to_male_avatar.jpg
-        #avatar.dummyFemale = /uploads/path_to_female_avatar.jpg
-    }
+			cutUsernameOnChar = {$plugin.tx_typo3forum.settings.cutUsernameOnChar}
+			cutBreadcrumbOnChar = {$plugin.tx_typo3forum.settings.cutBreadcrumbOnChar}
 
-    pids {
-        Forum = {$plugin.tx_typo3forum.settings.pids.Forum}
-        UserShow = {$plugin.tx_typo3forum.settings.pids.UserShow}
-        UserList = {$plugin.tx_typo3forum.settings.pids.UserList}
-        UserEdit = {$plugin.tx_typo3forum.settings.pids.UserEdit}
-        Dashboard = {$plugin.tx_typo3forum.settings.pids.Dashboard}
-        AllQuestions = {$plugin.tx_typo3forum.settings.pids.AllQuestions}
-    }
+			images {
+				avatar.uploadDir = uploads/pics
+			}
 
-    user {
-        iconClass_online = iconset-14-user-online
-        iconClass_offline = iconset-14-user-offline
-    }
+			pids {
+				Forum = {$plugin.tx_typo3forum.settings.pids.Forum}
+				UserShow = {$plugin.tx_typo3forum.settings.pids.UserShow}
+				UserList = {$plugin.tx_typo3forum.settings.pids.UserList}
+				UserEdit = {$plugin.tx_typo3forum.settings.pids.UserEdit}
+				Dashboard = {$plugin.tx_typo3forum.settings.pids.Dashboard}
+				AllQuestions = {$plugin.tx_typo3forum.settings.pids.AllQuestions}
+			}
 
-    attachment {
-        allowedMimeTypes = image/gif,image/jpeg,image/png,application/pdf,application/xml,text/xml,text/plain
-        allowedSizeInByte = 4096
-        #uploadfolder can be found in the Attachment TCA
-    }
+			user {
+				iconClass_online = iconset-14-user-online
+				iconClass_offline = iconset-14-user-offline
+			}
 
-    forum {
-        post {
-            helpfulBtn {
-                iconClass = iconset-22-helpful
-                eID = typo3_forum
-            }
-			showImagesInline = {$plugin.tx_typo3forum.settings.showPostImagesInline}
-        }
-    }
+			attachment {
+				allowedMimeTypes = image/gif,image/jpeg,image/png,application/pdf,application/xml,text/xml,text/plain
+				allowedSizeInByte = 4096
+			}
 
-    ads {
-        timeInterval = 30
-    }
+			forum {
+				post {
+					helpfulBtn {
+						iconClass = iconset-22-helpful
+						eID = typo3_forum
+					}
+					showImagesInline = {$plugin.tx_typo3forum.settings.showPostImagesInline}
+				}
+			}
 
-    topicIcon {
-        basepath =
-    }
+			ads {
+				timeInterval = 30
+			}
 
-    forumIcon {
-        basepath =
-    }
+			topicIcon {
+				basepath =
+			}
 
-    pagebrowser {
-        default {
-            itemsPerPage = 20
-            showResultCount = 1
-            insertBelow = 1
-            maximumNumberOfLinks = 9
-            showFirstLast = 1
-            browseBoxWrap = <div class="tx-ttnews-browsebox"><p>|</ul></div>
-            showResultsWrap = |</p><ul>
-            LinksWrap = |
-            browseLinksWrap = |
-            activeLinkWrap = <li><strong>|</strong></li>
-            disabledLinkWrap = <li>|</li>
-            inactiveLinkWrap = <li>|</li>
-        }
+			forumIcon {
+				basepath =
+			}
 
-        topicShow < .default
-        topicShow {
-            insertAbove = 1
-            itemsPerPage = 10
-        }
-    }
+			pagebrowser {
+				default {
+					itemsPerPage = 20
+					showResultCount = 1
+					insertBelow = 1
+					maximumNumberOfLinks = 9
+					showFirstLast = 1
+					browseBoxWrap = <div class="tx-ttnews-browsebox"><p>|</ul></div>
+					showResultsWrap = |</p><ul>
+					LinksWrap = |
+					browseLinksWrap = |
+					activeLinkWrap = <li><strong>|</strong></li>
+					disabledLinkWrap = <li>|</li>
+					inactiveLinkWrap = <li>|</li>
+				}
 
-    forumController.show {
-        pagebrowser < plugin.tx_typo3forum.settings.pagebrowser.default
-    }
+				topicShow < .default
+				topicShow {
+					insertAbove = 1
+					itemsPerPage = 10
+				}
+			}
 
-    topicController.show {
-        pagebrowser < plugin.tx_typo3forum.settings.pagebrowser.default
-        pagebrowser {
-            itemsPerPage = 10
-        }
-    }
+			forumController.show {
+				pagebrowser < plugin.tx_typo3forum.settings.pagebrowser.default
+			}
 
-    userController.index {
-        pagebrowser < plugin.tx_typo3forum.settings.pagebrowser.default
-    }
+			topicController.show {
+				pagebrowser < plugin.tx_typo3forum.settings.pagebrowser.default
+				pagebrowser {
+					itemsPerPage = 10
+				}
+			}
 
-    userController.listPosts {
-        pagebrowser < plugin.tx_typo3forum.settings.pagebrowser.default
-    }
+			userController {
+				index {
+					pagebrowser < plugin.tx_typo3forum.settings.pagebrowser.default
+				}
+				listPosts {
+					pagebrowser < plugin.tx_typo3forum.settings.pagebrowser.default
+				}
+			}
 
-    format {
-        dateFormat = d. m. Y
-        dateTimeFormat = d. m. Y, H:i
-    }
+			format {
+				dateFormat = d. m. Y
+				dateTimeFormat = d. m. Y, H:i
+			}
 
-	# Use HTTP-"PURGE" to clear cache of a forum on creating a new topic - for use with a caching proxy like varnish
-	purgeCache = 1
+			# Use HTTP-"PURGE" to clear cache of a forum on creating a new topic - for use with a caching proxy like varnish
+			purgeCache = 1
 
-    widgets {
-        newestPosts.limit = 6
-        questionPosts.limit = 6
-        popularPosts.limit = 6
-        helpfulUser.limit = 4
-        activeUser.limit = 4
-        onlinebox {
-            limit = 6
-            timeInterval = 900
-        }
-    }
+			widgets {
+				newestPosts.limit = 6
+				questionPosts.limit = 6
+				popularPosts.limit = 6
+				helpfulUser.limit = 4
+				activeUser.limit = 4
+				onlinebox {
+					limit = 6
+					timeInterval = 900
+				}
+			}
 
-    mailing {
-        sender {
-            address = mail@mail.de
-            name = Absender
-        }
-    }
+			mailing {
+				sender {
+					address = mail@mail.de
+					name = Absender
+				}
+			}
 
-    textParsing {
-        enabledServices {
-            basic = Mittwald\Typo3Forum\TextParser\Service\BasicParserService
-            bbCodes = Mittwald\Typo3Forum\TextParser\Service\BBCodeParserService
-            smileys = Mittwald\Typo3Forum\TextParser\Service\SmileyParserService
-            #syntax = Mittwald\Typo3Forum\TextParser\Service\SyntaxHighlightingParserService
-            quotes = Mittwald\Typo3Forum\TextParser\Service\QuoteParserService
-            quotes {
-                template = {$plugin.tx_typo3forum.view.partialRootPath}/Format/Quote.html
-            }
+			textParsing {
+				enabledServices {
+					basic = Mittwald\Typo3Forum\TextParser\Service\BasicParserService
+					bbCodes = Mittwald\Typo3Forum\TextParser\Service\BBCodeParserService
+					smileys = Mittwald\Typo3Forum\TextParser\Service\SmileyParserService
+					quotes = Mittwald\Typo3Forum\TextParser\Service\QuoteParserService
+					quotes {
+						template = {$plugin.tx_typo3forum.view.partialRootPath}/Format/Quote.html
+					}
 
-            lists = Mittwald\Typo3Forum\TextParser\Service\ListParserService
-        }
+					lists = Mittwald\Typo3Forum\TextParser\Service\ListParserService
+				}
 
-        editorPanel {
-            panels {
-                bbCodes {
-                    className = Mittwald\Typo3Forum\TextParser\Panel\BbCodePanel
-                    title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:Editor_Panel_Formatting
-                }
+				editorPanel {
+					panels {
+						bbCodes {
+							className = Mittwald\Typo3Forum\TextParser\Panel\BbCodePanel
+							title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:Editor_Panel_Formatting
+						}
 
-                syntax {
-                    className = Mittwald\Typo3Forum\TextParser\Panel\SyntaxHighlightingPanel
-                    title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:Editor_Panel_SyntaxHighlighting
-                    iconClassName = tx-typo3forum-miu-code
-                }
+						syntax {
+							className = Mittwald\Typo3Forum\TextParser\Panel\SyntaxHighlightingPanel
+							title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:Editor_Panel_SyntaxHighlighting
+							iconClassName = tx-typo3forum-miu-code
+						}
 
-                smileys {
-                    className = Mittwald\Typo3Forum\TextParser\Panel\SmileyPanel
-                    title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:Editor_Panel_Smileys
-                    iconClassName = tx-typo3forum-miu-smileys
-                }
-            }
-        }
-    }
+						smileys {
+							className = Mittwald\Typo3Forum\TextParser\Panel\SmileyPanel
+							title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:Editor_Panel_Smileys
+							iconClassName = tx-typo3forum-miu-smileys
+						}
+					}
+				}
+			}
 
-    userfields.core_fields {
-        username {
-            class = Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield
-            properties {
-                name = LLL:EXT:typo3_forum/Resources/Private/Language/locallang_user.xml:Username
-                mapToUserObject = username
-            }
-        }
+			userfields.core_fields {
+				username {
+					class = Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield
+					properties {
+						name = LLL:EXT:typo3_forum/Resources/Private/Language/locallang_user.xml:Username
+						mapToUserObject = username
+					}
+				}
 
-        registered_since {
-            class = Mittwald\Typo3Forum\Domain\Model\User\Userfield\DateUserfield
-            properties {
-                name = LLL:EXT:typo3_forum/Resources/Private/Language/locallang_user.xml:RegisteredSince
-                mapToUserObject = crdate
-            }
-        }
+				registered_since {
+					class = Mittwald\Typo3Forum\Domain\Model\User\Userfield\DateUserfield
+					properties {
+						name = LLL:EXT:typo3_forum/Resources/Private/Language/locallang_user.xml:RegisteredSince
+						mapToUserObject = crdate
+					}
+				}
 
-        real_name {
-            class = Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield
-            properties {
-                name = LLL:EXT:typo3_forum/Resources/Private/Language/locallang_user.xml:RealName
-                mapToUserObject = name
-            }
-        }
-    }
-}
+				real_name {
+					class = Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield
+					properties {
+						name = LLL:EXT:typo3_forum/Resources/Private/Language/locallang_user.xml:RealName
+						mapToUserObject = name
+					}
+				}
+			}
+		}
+		view {
+			widget.TYPO3\CMS\Fluid\ViewHelpers\Widget\PaginateViewHelper.templateRootPath = {$plugin.tx_typo3forum.view.templateRootPath}
 
-plugin.tx_typo3forum.view {
-    widget.TYPO3\CMS\Fluid\ViewHelpers\Widget\PaginateViewHelper.templateRootPath = {$plugin.tx_typo3forum.view.templateRootPath}
+			templateRootPaths {
+				10 = {$plugin.tx_typo3forum.view.templateRootPath}
+			}
 
-    templateRootPaths {
-        10 = {$plugin.tx_typo3forum.view.templateRootPath}
-    }
+			partialRootPaths {
+				10 = {$plugin.tx_typo3forum.view.partialRootPath}
+			}
 
-    partialRootPaths {
-        10 = {$plugin.tx_typo3forum.view.partialRootPath}
-    }
+			layoutRootPaths {
+				10 = {$plugin.tx_typo3forum.view.layoutRootPath}
+			}
+		}
+		renderer {
+			navigation {
+				userlink = COA
+				userlink {
+					stdWrap.wrap = <li class="dropdown"> | </li>
 
-    layoutRootPaths {
-        10 = {$plugin.tx_typo3forum.view.layoutRootPath}
-    }
-}
+					10 = CASE
+					10 {
+						key.field = uid
+						0 = TEXT
+						0 {
+							field = username
+							noTrimWrap = |<a style="padding-top: 4px; padding-bottom: 4px;" href="#"> |</a>|
+						}
 
-plugin.tx_typo3forum.renderer.navigation {
-    userlink = COA
-    userlink {
-        stdWrap.wrap = <li class="dropdown"> | </li>
+						default = TEXT
+						default {
+							field = username
+							noTrimWrap = |<a class="dropdown-toggle" data-toggle="dropdown" href="#" style="padding-top: 4px; padding-bottom: 4px;"> | <b class="caret"></b></a>|
+						}
+					}
 
-        10 = CASE
-        10 {
-            key.field = uid
-            0 = TEXT
-            0.field = username
-            0.noTrimWrap = |<a style="padding-top: 4px; padding-bottom: 4px;" href="#"> |</a>|
+					20 = COA
+					20 {
+						stdWrap {
+							wrap = <ul class="dropdown-menu"> | </ul>
+							if {
+								value = 0
+								isGreaterThan.field = uid
+							}
+						}
 
-            default = TEXT
-            default.field = username
-            default.noTrimWrap = |<a class="dropdown-toggle" data-toggle="dropdown" href="#" style="padding-top: 4px; padding-bottom: 4px;"> | <b class="caret"></b></a>|
-        }
+						10 = TEXT
+						10 {
+							data = LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:Button_User_Profile
+							typolink {
+								parameter.field = profilePageUid
+								additionalParams {
+									field = uid
+									wrap = &tx_typo3forum_pi1[controller]=User&tx_typo3forum_pi1[action]=show&tx_typo3forum_pi1[user]=|
+								}
+								ATagBeforeWrap = 1
+								wrap = <i class="tx-typo3forum-icon-16-user-profile"></i>
+							}
+							wrap = <li>|</li>
+						}
 
-        20 = COA
-        20 {
-            stdWrap.wrap = <ul class="dropdown-menu"> | </ul>
-            stdWrap.if.value = 0
-            stdWrap.if.isGreaterThan.field = uid
+						50 = TEXT
+						50 {
+							if {
+								value.field = contact_twitter
+								isTrue = 1
+							}
+							value = Twitter
+							wrap = <li>|</li>
+							typolink {
+								extTarget = _blank
+								parameter {
+									field = contact_twitter
+									wrap = http://twitter.com/#!/|
+								}
+								ATagBeforeWrap = 1
+								wrap = <i class="tx-typo3forum-icon-16-user-twitter"></i>
+							}
+						}
+					}
+				}
+			}
+			icons {
+				abstract_icon = COA
+				abstract_icon {
+					10 = IMG_RESOURCE
+					10 {
+						file = EXT:typo3_forum/Resources/Public/Images/Icons/Forum/BaseIcon.png
+						stdWrap.wrap = <div class="tx-typo3forum-icon" style="background: url(|) no-repeat">
+					}
 
-            10 = TEXT
-            10.data = LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:Button_User_Profile
-            10.typolink {
-                parameter.field = profilePageUid
-                additionalParams.field = uid
-                additionalParams.wrap = &tx_typo3forum_pi1[controller]=User&tx_typo3forum_pi1[action]=show&tx_typo3forum_pi1[user]=|
-                ATagBeforeWrap = 1
-                wrap = <i class="tx-typo3forum-icon-16-user-profile"></i>
-            }
+					100 = TEXT
+					100.value = </div>
+				}
 
-            10.wrap = <li>|</li>
+				report < .abstract_icon
+				report {
+					10.file = EXT:typo3_forum/Resources/Public/Images/Icons/Moderation/Report-32.png
 
-            50 = TEXT
-            50.if.value.field = contact_twitter
-            50.if.isTrue = 1
-            50.value = Twitter
-            50.wrap = <li>|</li>
-            50.typolink {
-                extTarget = _blank
-                parameter.field = contact_twitter
-                parameter.wrap = http://twitter.com/#!/|
-                ATagBeforeWrap = 1
-                wrap = <i class="tx-typo3forum-icon-16-user-twitter"></i>
-            }
-        }
-    }
-}
+					21 = IMG_RESOURCE
+					21 {
+						file.import.field = statusIcon
+						stdWrap.wrap = <div class="tx-typo3forum-icon-overlay-br" style="background-image: url(|)"></div>
+					}
+				}
 
-plugin.tx_typo3forum.renderer.icons {
-    abstract_icon = COA
-    abstract_icon {
-        10 = IMG_RESOURCE
-        10.file = EXT:typo3_forum/Resources/Public/Images/Icons/Forum/BaseIcon.png
-        10.stdWrap.wrap = <div class="tx-typo3forum-icon" style="background: url(|) no-repeat">
+				forum < .abstract_icon
+				forum {
+					10.file = EXT:typo3_forum/Resources/Public/Images/Icons/Forum/BaseIcon.png
+					21 = IMG_RESOURCE
+					21 {
+						file = EXT:typo3_forum/Resources/Public/Images/Icons/Forum/OverlayLocked.png
+						stdWrap {
+							wrap = <div class="tx-typo3forum-icon-overlay-bl" style="background-image: url(|)" title="closed"></div>
+							if.isTrue.field = closed
+						}
+					}
+				}
 
-        100 = TEXT
-        100.value = </div>
-    }
+				forum_new < .forum
+				forum_new {
+					10.file = EXT:typo3_forum/Resources/Public/Images/Icons/Forum/BaseIcon.png
 
-    report < .abstract_icon
-    report {
-        10.file = EXT:typo3_forum/Resources/Public/Images/Icons/Moderation/Report-32.png
+					21 = IMG_RESOURCE
+					21 {
+						file = EXT:typo3_forum/Resources/Public/Images/Icons/Forum/OverlayLocked.png
+						stdWrap {
+							wrap = <div class="tx-typo3forum-icon-overlay-bl" style="background-image: url(|)" title="closed & new"></div>
+							if.isTrue.field = closed
+						}
+					}
 
-        21 = IMG_RESOURCE
-        21.file.import.field = statusIcon
-        21.stdWrap.wrap = <div class="tx-typo3forum-icon-overlay-br" style="background-image: url(|)"></div>
-    }
+					26 = IMG_RESOURCE
+					26 {
+						file = EXT:typo3_forum/Resources/Public/Images/Icons/Forum/OverlayNew.png
+						stdWrap {
+							wrap = <div class="tx-typo3forum-icon-overlay-bl" style="background-image: url(|)" title="new"></div>
+							if.isFalse.field = closed
+						}
+					}
+				}
 
-    forum < .abstract_icon
-    forum {
-        10.file = EXT:typo3_forum/Resources/Public/Images/Icons/Forum/BaseIcon.png
-        21 = IMG_RESOURCE
-        21.file = EXT:typo3_forum/Resources/Public/Images/Icons/Forum/OverlayLocked.png
-        21.stdWrap.wrap = <div class="tx-typo3forum-icon-overlay-bl" style="background-image: url(|)" title="closed"></div>
-        21.stdWrap.if.isTrue.field = closed
-    }
+				topic < .abstract_icon
+				topic {
+					10.file = EXT:typo3_forum/Resources/Public/Images/Icons/Topic/BaseIcon.png
 
-    forum_new < .forum
-    forum_new {
-        10.file = EXT:typo3_forum/Resources/Public/Images/Icons/Forum/BaseIcon.png
+					20 = IMG_RESOURCE
+					20 {
+						file = EXT:typo3_forum/Resources/Public/Images/Icons/Topic/OverlayImportant.png
+						stdWrap {
+							wrap = <div class="tx-typo3forum-icon-overlay-tl" style="background-image: url(|)" title="important"></div>
+							if.isTrue.field = important
+						}
+					}
 
-        21 = IMG_RESOURCE
-        21.file = EXT:typo3_forum/Resources/Public/Images/Icons/Forum/OverlayLocked.png
-        21.stdWrap.wrap = <div class="tx-typo3forum-icon-overlay-bl" style="background-image: url(|)" title="closed & new"></div>
-        21.stdWrap.if.isTrue.field = closed
+					22 = IMG_RESOURCE
+					22 {
+						file = EXT:typo3_forum/Resources/Public/Images/Icons/Topic/OverlayLocked.png
+						stdWrap {
+							wrap = <div class="tx-typo3forum-icon-overlay-bl" style="background-image: url(|)" title="closed"></div>
+							if.isTrue.field = closed
+						}
+					}
 
-        26 = IMG_RESOURCE
-        26.file = EXT:typo3_forum/Resources/Public/Images/Icons/Forum/OverlayNew.png
-        26.stdWrap.wrap = <div class="tx-typo3forum-icon-overlay-bl" style="background-image: url(|)" title="new"></div>
-        26.stdWrap.if.isFalse.field = closed
-    }
+					23 = IMG_RESOURCE
+					23 {
+						file = EXT:typo3_forum/Resources/Public/Images/Icons/Topic/OverlaySolved.png
+						stdWrap {
+							wrap = <div class="tx-typo3forum-icon-overlay-br" style="background-image: url(|)" title="solved"></div>
+							if.isTrue.field = solved
+						}
+					}
 
-    topic < .abstract_icon
-    topic {
-        10.file = EXT:typo3_forum/Resources/Public/Images/Icons/Topic/BaseIcon.png
+					24 = IMG_RESOURCE
+					24 {
+						file = EXT:typo3_forum/Resources/Public/Images/Icons/Topic/OverlayMoved.png
+						stdWrap {
+							wrap = <div class="tx-typo3forum-icon-overlay-br" style="background-image: url(|)" title="moved"></div>
+							if.isTrue.field = moved
+						}
+					}
 
-        20 = IMG_RESOURCE
-        20.file = EXT:typo3_forum/Resources/Public/Images/Icons/Topic/OverlayImportant.png
-        20.stdWrap.wrap = <div class="tx-typo3forum-icon-overlay-tl" style="background-image: url(|)" title="important"></div>
-        20.stdWrap.if.isTrue.field = important
+					25 = IMG_RESOURCE
+					25 {
+						file = EXT:typo3_forum/Resources/Public/Images/Icons/Topic/OverlaySticky.png
+						stdWrap {
+							wrap = <div class="tx-typo3forum-icon-overlay-tr" style="background-image: url(|)" title="sticky"></div>
+							if.isTrue.field = sticky
+						}
+					}
+				}
 
-        22 = IMG_RESOURCE
-        22.file = EXT:typo3_forum/Resources/Public/Images/Icons/Topic/OverlayLocked.png
-        22.stdWrap.wrap = <div class="tx-typo3forum-icon-overlay-bl" style="background-image: url(|)" title="closed"></div>
-        22.stdWrap.if.isTrue.field = closed
+				topic_new < .topic
+				topic_new {
+					10.file = EXT:typo3_forum/Resources/Public/Images/Icons/Topic/BaseIcon.png
 
-        23 = IMG_RESOURCE
-        23.file = EXT:typo3_forum/Resources/Public/Images/Icons/Topic/OverlaySolved.png
-        23.stdWrap.wrap = <div class="tx-typo3forum-icon-overlay-br" style="background-image: url(|)" title="solved"></div>
-        23.stdWrap.if.isTrue.field = solved
+					22 = IMG_RESOURCE
+					22 {
+						file = EXT:typo3_forum/Resources/Public/Images/Icons/Topic/OverlayLocked.png
+						stdWrap {
+							wrap = <div class="tx-typo3forum-icon-overlay-bl" style="background-image: url(|)" title="closed &amp; new"></div>
+							if.isTrue.field = closed
+						}
+					}
 
-        24 = IMG_RESOURCE
-        24.file = EXT:typo3_forum/Resources/Public/Images/Icons/Topic/OverlayMoved.png
-        24.stdWrap.wrap = <div class="tx-typo3forum-icon-overlay-br" style="background-image: url(|)" title="moved"></div>
-        24.stdWrap.if.isTrue.field = moved
+					26 = IMG_RESOURCE
+					26 {
+						file = EXT:typo3_forum/Resources/Public/Images/Icons/Topic/OverlayNew.png
+						stdWrap {
+							wrap = <div class="tx-typo3forum-icon-overlay-bl" style="background-image: url(|)" title="new"></div>
+							if.isFalse.field = closed
+						}
+					}
+				}
+			}
+		}
+		userfields {
+			text.output = TEXT
+			text.output {
+				current = 1
+			}
 
-        25 = IMG_RESOURCE
-        25.file = EXT:typo3_forum/Resources/Public/Images/Icons/Topic/OverlaySticky.png
-        25.stdWrap.wrap = <div class="tx-typo3forum-icon-overlay-tr" style="background-image: url(|)" title="sticky"></div>
-        25.stdWrap.if.isTrue.field = sticky
-    }
+			date.output = TEXT
+			date.output {
+				current = 1
+				date = d. m. Y
+			}
 
-    topic_new < .topic
-    topic_new {
-        10.file = EXT:typo3_forum/Resources/Public/Images/Icons/Topic/BaseIcon.png
+			country.output = CONTENT
+			country.output {
+				select {
+					selectFields = cn_official_name_local
+					andWhere {
+						current = 1
+						wrap = cn_iso_3="|"
+					}
+					pidInList = 0
+				}
 
-        22 = IMG_RESOURCE
-        22.file = EXT:typo3_forum/Resources/Public/Images/Icons/Topic/OverlayLocked.png
-        22.stdWrap.wrap = <div class="tx-typo3forum-icon-overlay-bl" style="background-image: url(|)" title="closed &amp; new"></div>
-        22.stdWrap.if.isTrue.field = closed
+				table = static_countries
+				renderObj = TEXT
+				renderObj.field = cn_official_name_local
+			}
 
-        26 = IMG_RESOURCE
-        26.file = EXT:typo3_forum/Resources/Public/Images/Icons/Topic/OverlayNew.png
-        26.stdWrap.wrap = <div class="tx-typo3forum-icon-overlay-bl" style="background-image: url(|)" title="new"></div>
-        26.stdWrap.if.isFalse.field = closed
-    }
-}
+			gender.output = CASE
+			gender.output {
+				0 = TEXT
+				0.value = Male
+				1 = TEXT
+				1.value = Female
+				99 = TEXT
+				99.value = Hidden
+				key.current = 1
+			}
+		}
+		persistence {
+			storagePid = {$plugin.tx_typo3forum.persistence.storagePid}
+		}
+	}
 
-plugin.tx_typo3forum.userfields {
-    text.output = TEXT
-    text.output {
-        current = 1
-    }
+	tx_typo3forum_ajax = USER
+	tx_typo3forum_ajax {
+		userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+		pluginName = Pi1
+		extensionName = Typo3Forum
+		vendorName = Mittwald
+		action = list
+		controller = Forum
+		htmlSpecialChars = 1
+		switchableControllerActions {
+			Ajax {
+				1 = preview
+			}
+		}
 
-    date.output = TEXT
-    date.output {
-        current = 1
-        date = d. m. Y
-    }
-
-    country.output = CONTENT
-    country.output {
-        select {
-            selectFields = cn_official_name_local
-            andWhere.current = 1
-            andWhere.wrap = cn_iso_3="|"
-            pidInList = 0
-        }
-
-        table = static_countries
-        renderObj = TEXT
-        renderObj.field = cn_official_name_local
-    }
-
-    gender.output = CASE
-    gender.output {
-        0 = TEXT
-        0.value = Male
-        1 = TEXT
-        1.value = Female
-        99 = TEXT
-        99.value = Hidden
-        key.current = 1
-    }
+		view =< plugin.tx_typo3forum.view
+		persistence =< plugin.tx_typo3forum.persistence
+	}
 }
 
 ["{$plugin.tx_typo3forum.settings.useDefaultCSS}" == "1"]
-
-page.includeCSS {
-        typo3_forum = EXT:typo3_forum/Resources/Public/Stylesheets/typo3_forum.css
-        bootstrap = EXT:typo3_forum/Resources/Public/Bootstrap/css/bootstrap.min.css
-        markitup_bb = EXT:typo3_forum/Resources/Public/Javascript/markitup/sets/typo3_forum/style.css
-    }
+page {
+	includeCSS {
+		typo3_forum = EXT:typo3_forum/Resources/Public/Stylesheets/typo3_forum.css
+		bootstrap = EXT:typo3_forum/Resources/Public/Bootstrap/css/bootstrap.min.css
+		markitup_bb = EXT:typo3_forum/Resources/Public/Javascript/markitup/sets/typo3_forum/style.css
+	}
+}
 [global]
 
-page.includeJSLibs {
-    typo3forum_jquery = https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
-    typo3forum_jquery.external = 1
-    typo3forum_popperjs = https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js
-    typo3forum_popperjs.external = 1
-    typo3forum_bootstrap = EXT:typo3_forum/Resources/Public/Bootstrap/js/bootstrap.min.js
-    typo3forum_markitup = EXT:typo3_forum/Resources/Public/Javascript/markitup/jquery.markitup.js
+page {
+	includeJSLibs {
+		typo3forum_jquery = https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
+		typo3forum_jquery.external = 1
+		typo3forum_popperjs = https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js
+		typo3forum_popperjs.external = 1
+		typo3forum_bootstrap = EXT:typo3_forum/Resources/Public/Bootstrap/js/bootstrap.min.js
+		typo3forum_markitup = EXT:typo3_forum/Resources/Public/Javascript/markitup/jquery.markitup.js
+	}
+	includeJSFooter {
+		typo3forum_main = EXT:typo3_forum/Resources/Public/Javascript/forum.js
+	}
 }
 
-page.includeJSFooter {
-    typo3forum_main = EXT:typo3_forum/Resources/Public/Javascript/forum.js
+
+module {
+	tx_typo3forum.persistence {
+		storagePid = {$plugin.tx_typo3forum.persistence.storagePid}
+	}
 }
 
-module.tx_typo3forum.persistence {
-    storagePid = {$plugin.tx_typo3forum.persistence.storagePid}
+lib {
+	pageUid = TEXT
+	pageUid.data = page:uid
 }
 
-plugin.tx_typo3forum.persistence {
-    storagePid = {$plugin.tx_typo3forum.persistence.storagePid}
-}
 
-lib.pageUid = TEXT
-lib.pageUid.data = page:uid
-
-plugin.tx_typo3forum_ajax = USER
-plugin.tx_typo3forum_ajax {
-    userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
-    pluginName = Pi1
-    extensionName = Typo3Forum
-    vendorName = Mittwald
-    action = list
-    controller = Forum
-    htmlSpecialChars = 1
-    switchableControllerActions {
-        Ajax {
-            1 = preview
-        }
-    }
-
-    view =< plugin.tx_typo3forum.view
-    persistence =< plugin.tx_typo3forum.persistence
-}
 
 ajaxCall = PAGE
 ajaxCall {
-    typeNum = 43568275
-    config {
-        disableAllHeaderCode = 1
-        debug = 0
-        no_cache = 1
-    }
+	typeNum = 43568275
+	config {
+		disableAllHeaderCode = 1
+		debug = 0
+		no_cache = 1
+	}
 
-    10 = USER
-    10 {
-        userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
-        pluginName = Ajax
-        extensionName = Typo3Forum
-        vendorName = Mittwald
-        action = preview
-        controller = Ajax
-        htmlSpecialChars = 1
-        switchableControllerActions {
-            Ajax {
-                1 = preview
-            }
-        }
+	10 = USER
+	10 {
+		userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+		pluginName = Ajax
+		extensionName = Typo3Forum
+		vendorName = Mittwald
+		action = preview
+		controller = Ajax
+		htmlSpecialChars = 1
+		switchableControllerActions {
+			Ajax {
+				1 = preview
+			}
+		}
 
-        view =< plugin.tx_typo3forum.view
-        persistence =< plugin.tx_typo3forum.persistence
-    }
+		view =< plugin.tx_typo3forum.view
+		persistence =< plugin.tx_typo3forum.persistence
+	}
 }
