@@ -24,18 +24,15 @@ namespace Mittwald\Typo3Forum\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Extbase\Annotation\Inject;
 use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
-use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /**
- *
  * Abstract base class for all typo3_forum repositories.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Repository_User
  * @version    $Id$
  *
  * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
@@ -43,7 +40,6 @@ use TYPO3\CMS\Extbase\Annotation\Inject;
  *             http://www.mittwald.de
  * @license    GNU Public License, version 2
  *             http://opensource.org/licenses/gpl-license.php
- *
  */
 abstract class AbstractRepository extends Repository
 {
@@ -64,9 +60,6 @@ abstract class AbstractRepository extends Repository
      */
     protected $persistenceSettings = [];
 
-    /**
-     *
-     */
     public function initializeObject()
     {
         $this->settings = $this->configurationBuilder->getSettings();
@@ -78,7 +71,6 @@ abstract class AbstractRepository extends Repository
             );
         }
     }
-
 
     /**
      * @return QueryInterface
@@ -102,5 +94,4 @@ abstract class AbstractRepository extends Repository
     {
         return $this->objectManager->get(QuerySettingsInterface::class);
     }
-
 }

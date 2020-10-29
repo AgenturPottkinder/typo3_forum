@@ -24,34 +24,32 @@ namespace Mittwald\Typo3Forum\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-interface SubscribeableInterface {
+interface SubscribeableInterface
+{
 
-	/**
-	 * Returns all users that have subscribed to this object.
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser> All subscribers.
-	 */
-	public function getSubscribers();
+    /**
+     * Returns all users that have subscribed to this object.
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser> All subscribers.
+     */
+    public function getSubscribers();
 
-	/**
-	 * Returns this object's title.
-	 * @return string This object's title.
-	 */
-	public function getTitle();
+    /**
+     * Returns this object's title.
+     * @return string This object's title.
+     */
+    public function getTitle();
 
-	/**
-	 * Adds a new subscriber.
-	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user The new subscriber.
-	 *
-	 * @return void
-	 */
-	public function addSubscriber(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user);
+    /**
+     * Adds a new subscriber.
+     *
+     * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user The new subscriber.
+     */
+    public function addSubscriber(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user);
 
-	/**
-	 * Removes a subscriber.
-	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user The subscriber to be removed.
-	 */
-	public function removeSubscriber(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user);
-
+    /**
+     * Removes a subscriber.
+     *
+     * @param \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user The subscriber to be removed.
+     */
+    public function removeSubscriber(\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser $user);
 }

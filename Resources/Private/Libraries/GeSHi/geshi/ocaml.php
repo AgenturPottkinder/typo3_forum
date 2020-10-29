@@ -39,26 +39,26 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'OCaml',
-    'COMMENT_SINGLE' => array(),
-    'COMMENT_MULTI' => array('(*' => '*)'),
-    'COMMENT_REGEXP' => array(1 => '/\(\*(?:(?R)|.)+?\*\)/s'),
+    'COMMENT_SINGLE' => [],
+    'COMMENT_MULTI' => ['(*' => '*)'],
+    'COMMENT_REGEXP' => [1 => '/\(\*(?:(?R)|.)+?\*\)/s'],
     'CASE_KEYWORDS' => 0,
-    'QUOTEMARKS' => array('"'),
-    'ESCAPE_CHAR' => "",
-    'KEYWORDS' => array(
+    'QUOTEMARKS' => ['"'],
+    'ESCAPE_CHAR' => '',
+    'KEYWORDS' => [
         /* main OCaml keywords */
-        1 => array(
+        1 => [
             'and', 'as', 'asr', 'begin', 'class', 'closed', 'constraint', 'do', 'done', 'downto', 'else',
             'end', 'exception', 'external', 'failwith', 'false', 'for', 'fun', 'function', 'functor',
             'if', 'in', 'include', 'inherit',  'incr', 'land', 'let', 'load', 'los', 'lsl', 'lsr', 'lxor',
             'match', 'method', 'mod', 'module', 'mutable', 'new', 'not', 'of', 'open', 'option', 'or', 'parser',
             'private', 'ref', 'rec', 'raise', 'regexp', 'sig', 'struct', 'stdout', 'stdin', 'stderr', 'then',
             'to', 'true', 'try', 'type', 'val', 'virtual', 'when', 'while', 'with'
-            ),
+            ],
         /* define names of main librarys, so we can link to it */
-        2 => array(
+        2 => [
             'Arg', 'Arith_status', 'Array', //'Array1', 'Array2', 'Array3',
             'ArrayLabels', 'Big_int', 'Bigarray', 'Buffer', 'Callback',
             'CamlinternalLazy', 'CamlinternalMod', 'CamlinternalOO', 'Char',
@@ -70,9 +70,9 @@ $language_data = array (
             'Random', 'Scanf', 'Set', 'Sort', 'Stack', 'StdLabels', 'Str',
             'Stream', 'String', 'StringLabels', 'Sys', 'Thread', 'ThreadUnix',
             'Tk', 'Unix', 'UnixLabels', 'Weak'
-            ),
+            ],
         /* just link to the Pervasives functions library, cause it's the default opened library when starting OCaml */
-        3 => array(
+        3 => [
             'abs', 'abs_float', 'acos', 'asin', 'at_exit', 'atan', 'atan2',
             'bool_of_string', 'ceil', 'char_of_int', 'classify_float',
             'close_in', 'close_in_noerr', 'close_out', 'close_out_noerr',
@@ -95,69 +95,69 @@ $language_data = array (
             'set_binary_mode_in', 'set_binary_mode_out', 'sin', 'sinh', 'snd',
             'sqrt', 'string_of_bool', 'string_of_float', 'string_of_format',
             'string_of_int', 'succ', 'tan', 'tanh', 'truncate'
-            ),
+            ],
         /* here Pervasives Types */
-        4 => array (
-            'array','bool','char','exn','file_descr','format','fpclass',
-            'in_channel','int','int32','int64','list','nativeint','open_flag',
-            'out_channel','string','Sys_error','unit'
-            ),
+        4 => [
+            'array', 'bool', 'char', 'exn', 'file_descr', 'format', 'fpclass',
+            'in_channel', 'int', 'int32', 'int64', 'list', 'nativeint', 'open_flag',
+            'out_channel', 'string', 'Sys_error', 'unit'
+            ],
         /* finally Pervasives Exceptions */
-        5 => array (
+        5 => [
             'Exit', 'Invalid_Argument', 'Failure', 'Division_by_zero'
-            )
-        ),
+            ]
+        ],
     /* highlighting symbols is really important in OCaml */
-    'SYMBOLS' => array(
+    'SYMBOLS' => [
         '+.', '-.', '*.', '/.', '[<', '>]',
         ';', '!', ':', '.', '=', '%', '^', '*', '-', '/', '+',
         '>', '<', '(', ')', '[', ']', '&', '|', '#', "'",
-        ),
-    'CASE_SENSITIVE' => array(
+        ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => true, /* functions name are case sensitive */
         3 => true, /* types name too */
         4 => true, /* pervasives types */
         5 => true  /* pervasives exceptions */
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+        ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #06c; font-weight: bold;', /* nice blue */
             2 => 'color: #06c; font-weight: bold;', /* nice blue */
             3 => 'color: #06c; font-weight: bold;', /* nice blue */
             4 => 'color: #06c; font-weight: bold;', /* nice blue */
             5 => 'color: #06c; font-weight: bold;' /* nice blue */
-            ),
-        'COMMENTS' => array(
+            ],
+        'COMMENTS' => [
             'MULTI' => 'color: #5d478b; font-style: italic;', /* light purple */
             1 => 'color: #5d478b; font-style: italic;' /* light purple */
-            ),
-        'ESCAPE_CHAR' => array(
-            ),
-        'BRACKETS' => array(
+            ],
+        'ESCAPE_CHAR' => [
+            ],
+        'BRACKETS' => [
             0 => 'color: #a52a2a;'
-            ),
-        'STRINGS' => array(
+            ],
+        'STRINGS' => [
             0 => 'color: #3cb371;' /* nice green */
-            ),
-        'NUMBERS' => array(
+            ],
+        'NUMBERS' => [
             0 => 'color: #c6c;' /* pink */
-            ),
-        'METHODS' => array(
+            ],
+        'METHODS' => [
             1 => 'color: #060;' /* dark green */
-            ),
-        'REGEXPS' => array(
+            ],
+        'REGEXPS' => [
             1 => 'font-weight:bold; color:#339933;',
             2 => 'font-weight:bold; color:#993399;'
-            ),
-        'SYMBOLS' => array(
+            ],
+        'SYMBOLS' => [
             0 => 'color: #a52a2a;' /* maroon */
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+            ],
+        'SCRIPT' => [
+            ]
+        ],
+    'URLS' => [
         /* some of keywords are Pervasives functions (land, lxor, asr, ...) */
         1 => '',
         /* link to the wanted library */
@@ -168,20 +168,18 @@ $language_data = array (
         4 => 'http://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html#TYPE{FNAME}',
         /* link to Pervasives exceptions */
         5 => 'http://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html#EXCEPTION{FNAME}'
-        ),
+        ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '.'
-        ),
-    'REGEXPS' => array(
+        ],
+    'REGEXPS' => [
         1 => '~\w+',
         2 => '`(?=(?-i:[a-z]))\w*',
-        ),
+        ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        )
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [
+        ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+        ]
+];

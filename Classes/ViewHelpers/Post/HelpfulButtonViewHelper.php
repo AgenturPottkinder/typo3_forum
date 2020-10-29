@@ -1,7 +1,8 @@
 <?php
 
 namespace Mittwald\Typo3Forum\ViewHelpers\Post;
-use TYPO3\CMS\Extbase\Annotation\Inject;
+
+use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -26,7 +27,7 @@ use TYPO3\CMS\Extbase\Annotation\Inject;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 
 class HelpfulButtonViewHelper extends CObjectViewHelper
@@ -35,13 +36,13 @@ class HelpfulButtonViewHelper extends CObjectViewHelper
     /**
      * @var array
      */
-    protected $settings = null;
+    protected $settings;
 
     /**
      * The frontend user repository.
      * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
      */
-    protected $frontendUserRepository = null;
+    protected $frontendUserRepository;
 
     /**
      * An authentication service. Handles the authentication mechanism.

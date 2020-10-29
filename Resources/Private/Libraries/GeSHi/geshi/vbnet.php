@@ -37,16 +37,16 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'vb.net',
-    'COMMENT_SINGLE' => array(1 => "'"),
-    'COMMENT_MULTI' => array(),
+    'COMMENT_SINGLE' => [1 => "'"],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
+    'QUOTEMARKS' => ['"'],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
+    'KEYWORDS' => [
         //Keywords
-        1 => array(
+        1 => [
             'AddHandler', 'AddressOf', 'Alias', 'And', 'AndAlso', 'As', 'ByRef', 'ByVal',
             'Call', 'Case', 'Catch', 'Char', 'Class', 'Const', 'Continue',
             'Declare', 'Default',
@@ -58,30 +58,30 @@ $language_data = array (
             'Narrowing', 'New', 'Next', 'Not', 'Nothing', 'NotInheritable', 'NotOverridable', 'Of', 'On',
             'Operator', 'Option', 'Optional', 'Or', 'OrElse', 'Out', 'Overloads', 'Overridable', 'Overrides',
             'ParamArray', 'Partial', 'Private', 'Property', 'Protected', 'Public', 'RaiseEvent', 'ReadOnly', 'ReDim',
-            'REM', 'RemoveHandler', 'Resume', 'Return', 'Select','Set', 'Shadows', 'Shared', 'Static', 'Step',
+            'REM', 'RemoveHandler', 'Resume', 'Return', 'Select', 'Set', 'Shadows', 'Shared', 'Static', 'Step',
             'Stop', 'Structure', 'Sub', 'SyncLock', 'Then', 'Throw', 'To', 'True', 'Try', 'TryCast', 'TypeOf',
             'Using', 'Wend', 'When', 'While', 'Widening', 'With', 'WithEvents', 'WriteOnly', 'Xor'
-            ),
+            ],
         //Data Types
-        2 => array(
+        2 => [
             'Boolean', 'Byte', 'Date', 'Decimal', 'Double', 'Integer', 'Long', 'Object',
             'SByte', 'Short', 'Single', 'String', 'UInteger', 'ULong', 'UShort'
-            ),
+            ],
         //Compiler Directives
-        3 => array(
+        3 => [
             '#Const', '#Else', '#ElseIf', '#End', '#If'
-            ),
+            ],
         //Constants
-        4 => array(
-            'CBool', 'CByte', 'CChar', 'CChr', 'CDate', 'CDbl', 'CDec','CInt', 'CLng', 'CLng8', 'CObj', 'CSByte', 'CShort',
+        4 => [
+            'CBool', 'CByte', 'CChar', 'CChr', 'CDate', 'CDbl', 'CDec', 'CInt', 'CLng', 'CLng8', 'CObj', 'CSByte', 'CShort',
             'CSng', 'CStr', 'CType', 'CUInt', 'CULng', 'CUShort'
-            ),
+            ],
         //Linq
-        5 => array(
-            'By','From','Group','Where'
-            ),
+        5 => [
+            'By', 'From', 'Group', 'Where'
+            ],
         //Built-in functions
-        7 => array(
+        7 => [
             'ABS', 'ARRAY', 'ASC', 'ASCB', 'ASCW', 'CALLBYNAME', 'CHOOSE', 'CHR', 'CHR$', 'CHRB', 'CHRB$', 'CHRW',
             'CLOSE', 'COMMAND', 'COMMAND$', 'CONVERSION',
             'COS', 'CREATEOBJECT', 'CURDIR', 'CVDATE', 'DATEADD',
@@ -100,13 +100,13 @@ $language_data = array (
             'STRCOMP', 'STRCONV', 'STRING$', 'STRREVERSE', 'SYD', 'TAB', 'TAN', 'TIMEOFDAY',
             'TIMER', 'TIMESERIAL', 'TIMEVALUE', 'TODAY', 'TRIM', 'TRIM$', 'TYPENAME', 'UBOUND',
             'UCASE', 'UCASE$', 'VAL', 'WEEKDAY', 'WEEKDAYNAME', 'YEAR'
-            ),
-        ),
-    'SYMBOLS' => array(
+            ],
+        ],
+    'SYMBOLS' => [
         '+', '-', '*', '?', '=', '/', '%', '&', '>', '<', '^', '!',
         '(', ')', '{', '}', '.'
-        ),
-    'CASE_SENSITIVE' => array(
+        ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
@@ -114,69 +114,67 @@ $language_data = array (
         4 => false,
         5 => false,
         7 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+        ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #0000FF; font-weight: bold;',  //Keywords
             2 => 'color: #6a5acd;',                     //primitive Data Types
             3 => 'color: #6a5acd; font-weight: bold;',  //preprocessor-commands
             4 => 'color: #cd6a5a;',                     //Constants
             5 => 'color: #cd6a5a; font-weight: bold;',  //LinQ
             7 => 'color: #000066;',                     //Built-in functions
-            ),
-        'COMMENTS' => array(
+            ],
+        'COMMENTS' => [
             1 => 'color: #008000; font-style: italic;',
             'MULTI' => 'color: #008000; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+            ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #008080; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+            ],
+        'BRACKETS' => [
             0 => 'color: #000000;'
-            ),
-        'STRINGS' => array(
+            ],
+        'STRINGS' => [
             0 => 'color: #a52a2a; back-color: #fffacd;'
-            ),
-        'NUMBERS' => array(
+            ],
+        'NUMBERS' => [
             0 => 'color: #a52a2a; back-color: #fffacd;'
-            ),
-        'METHODS' => array(
+            ],
+        'METHODS' => [
             1 => 'color: #000000;'
-            ),
-        'SYMBOLS' => array(
+            ],
+        'SYMBOLS' => [
             0 => 'color: #000000;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+            ],
+        'REGEXPS' => [
+            ],
+        'SCRIPT' => [
+            ]
+        ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => 'http://www.google.com/search?q={FNAMEU}+site:msdn.microsoft.com',
         4 => '',
         5 => '',
         7 => 'http://www.google.com/search?q={FNAMEU}+site:msdn.microsoft.com'
-        ),
+        ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 =>'.'
-        ),
-    'REGEXPS' => array(
-        ),
+        ],
+    'REGEXPS' => [
+        ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
-    'PARSER_CONTROL' => array(
-        'KEYWORDS' => array(
-            7 => array(
+    'SCRIPT_DELIMITERS' => [
+        ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+        ],
+    'PARSER_CONTROL' => [
+        'KEYWORDS' => [
+            7 => [
                 'DISALLOWED_AFTER' => '(?!\w)(?=\s*\()'
-                )
-            )
-        )
-);
-
-?>
+                ]
+            ]
+        ]
+];

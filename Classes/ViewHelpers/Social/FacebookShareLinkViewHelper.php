@@ -27,69 +27,69 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Social;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
-class FacebookShareLinkViewHelper extends AbstractTagBasedViewHelper {
+class FacebookShareLinkViewHelper extends AbstractTagBasedViewHelper
+{
 
-	/**
-	 * @var  string
-	 */
-	protected $tagName = 'a';
+    /**
+     * @var  string
+     */
+    protected $tagName = 'a';
 
-	/**
-	 * Arguments initialization
-	 *
-	 * @return void
-	 */
-	public function initializeArguments() {
-		$this->registerTagAttribute('target', 'string', 'Specifies where to open the linked document');
-	}
+    /**
+     * Arguments initialization
+     */
+    public function initializeArguments()
+    {
+        $this->registerTagAttribute('target', 'string', 'Specifies where to open the linked document');
+    }
 
-	/**
-	 * Render a share button
-	 *
-	 * @param string $title
-	 * @param string $text
-	 * @param string $image
-	 * @param string $shareUrl
-	 * @return string
-	 */
-	public function render($title = NULL, $text = NULL, $image = NULL, $shareUrl = NULL) {
+    /**
+     * Render a share button
+     *
+     * @param string $title
+     * @param string $text
+     * @param string $image
+     * @param string $shareUrl
+     * @return string
+     */
+    public function render($title = null, $text = null, $image = null, $shareUrl = null)
+    {
 
-		// check defaults
-		if (empty($this->arguments['name'])) {
-			$this->tag->addAttribute('name', 'fb_share');
-		}
+        // check defaults
+        if (empty($this->arguments['name'])) {
+            $this->tag->addAttribute('name', 'fb_share');
+        }
 
-		if (empty($this->arguments['type'])) {
-			$this->tag->addAttribute('type', 'link');
-		}
+        if (empty($this->arguments['type'])) {
+            $this->tag->addAttribute('type', 'link');
+        }
 
-		if (empty($this->arguments['target'])) {
-			$this->tag->addAttribute('target', '_blank');
-		}
+        if (empty($this->arguments['target'])) {
+            $this->tag->addAttribute('target', '_blank');
+        }
 
-		$url = 'https://www.facebook.com/sharer/sharer.php?s=100&p[url]=';
+        $url = 'https://www.facebook.com/sharer/sharer.php?s=100&p[url]=';
 
-		if ($shareUrl) {
-			$url .= urldecode($shareUrl);
-		} else {
-			$url .= urldecode(GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'));
-		}
+        if ($shareUrl) {
+            $url .= urldecode($shareUrl);
+        } else {
+            $url .= urldecode(GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'));
+        }
 
-		if ($title) {
-			$url .= '&p[title]=' . urldecode($title);
-		}
+        if ($title) {
+            $url .= '&p[title]=' . urldecode($title);
+        }
 
-		if ($text) {
-			$url .= '&p[summary]=' . urldecode($text);
-		}
+        if ($text) {
+            $url .= '&p[summary]=' . urldecode($text);
+        }
 
-		if ($image) {
-			$url .= '&p[images][0]=' . urldecode($image);
-		}
+        if ($image) {
+            $url .= '&p[images][0]=' . urldecode($image);
+        }
 
-		$this->tag->addAttribute('href', $url);
-		$this->tag->setContent($this->renderChildren());
-		return $this->tag->render();
-	}
-
+        $this->tag->addAttribute('href', $url);
+        $this->tag->setContent($this->renderChildren());
+        return $this->tag->render();
+    }
 }

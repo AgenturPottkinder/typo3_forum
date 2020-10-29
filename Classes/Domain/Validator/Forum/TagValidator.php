@@ -24,40 +24,41 @@ namespace Mittwald\Typo3Forum\Domain\Validator\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 use TYPO3\CMS\Extbase\Annotation\Inject;
+use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 
-class TagValidator extends AbstractValidator {
+class TagValidator extends AbstractValidator
+{
 
+    /**
+     * An instance of the tag repository.
+     * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository
+     * @Inject
+     */
+    protected $tagRepository;
 
-	/**
-	 * An instance of the tag repository.
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository
-	 * @Inject
-	 */
-	protected $tagRepository;
+    /**
+     * Check if $value is valid. If it is not valid, needs to add an error
+     * to Result.
+     *
+     * @param string $name
+     * @return bool
+     */
+    protected function isValid($name = '')
+    {
+        $result = true;
 
-	/**
-	 * Check if $value is valid. If it is not valid, needs to add an error
-	 * to Result.
-	 *
-	 * @param string $name
-	 * @return bool
-	 */
-	protected function isValid($name = "") {
-		$result = TRUE;
+        if (trim($name) === '') {
+            $this->addError('The name can\'t be empty!.', 1373871955);
+            $result = false;
+        }
+        $name = ucfirst($name);
+        $res = $this->tagRepository->findTagWithSpecificName($name);
+        if ($res[0] != false) {
+            $this->addError('The tag already exists!.', 1373871960);
+            $result = false;
+        }
 
-		if (trim($name) === '') {
-			$this->addError('The name can\'t be empty!.', 1373871955);
-			$result = FALSE;
-		}
-		$name = ucfirst($name);
-		$res = $this->tagRepository->findTagWithSpecificName($name);
-		if ($res[0] != false) {
-			$this->addError('The tag already exists!.', 1373871960);
-			$result = FALSE;
-		}
-
-		return $result;
-	}
+        return $result;
+    }
 }

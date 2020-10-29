@@ -26,105 +26,110 @@ namespace Mittwald\Typo3Forum\Domain\Repository\Forum;
 
 use Mittwald\Typo3Forum\Domain\Model\Forum\Access;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
-use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /**
  * Repository class for forum objects.
  */
-class ForumRepository extends Repository {
+class ForumRepository extends Repository
+{
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
-	 * @Inject
-	 */
-	protected $authenticationService = NULL;
+    /**
+     * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
+     * @Inject
+     */
+    protected $authenticationService;
 
-	/**
+    /**
      * Returns a query for objects of this repository
      *
      * @return \TYPO3\CMS\Extbase\Persistence\QueryInterface
      * @api
      */
-    public function createQuery() {
+    public function createQuery()
+    {
         $query = parent::createQuery();
 
         // don't add sys_language_uid constraint
-        $query->getQuerySettings()->setRespectSysLanguage(FALSE);
+        $query->getQuerySettings()->setRespectSysLanguage(false);
 
         return $query;
     }
 
-	/**
-	 * Finds all forums for the index view.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Forum[] All forums for the index view.
-	 */
-	public function findForIndex() {
-		return $this->findRootForums();
-	}
+    /**
+     * Finds all forums for the index view.
+     * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Forum[] All forums for the index view.
+     */
+    public function findForIndex()
+    {
+        return $this->findRootForums();
+    }
 
-	/**
-	 * Finds all root forums.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Forum[] All forums for the index view.
-	 */
-	public function findRootForums() {
-		$query = $this->createQuery();
-		$result = $query
-			->matching($query->equals('forum', 0))
-			->setOrderings(['sorting' => 'ASC', 'uid' => 'ASC'])
-			->execute();
+    /**
+     * Finds all root forums.
+     * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Forum[] All forums for the index view.
+     */
+    public function findRootForums()
+    {
+        $query = $this->createQuery();
+        $result = $query
+            ->matching($query->equals('forum', 0))
+            ->setOrderings(['sorting' => 'ASC', 'uid' => 'ASC'])
+            ->execute();
 
-		return $this->filterByAccess($result, Access::TYPE_READ);
-	}
+        return $this->filterByAccess($result, Access::TYPE_READ);
+    }
 
-	/**
-	 * @param QueryResultInterface $objects
-	 * @param string $action
-	 * @return array
-	 */
-	protected function filterByAccess(QueryResultInterface $objects, $action = Access::TYPE_READ) {
-		$result = [];
-		foreach ($objects as $forum) {
-			if ($this->authenticationService->checkAuthorization($forum, $action)) {
-				$result[] = $forum;
-			}
-		}
+    /**
+     * @param QueryResultInterface $objects
+     * @param string $action
+     * @return array
+     */
+    protected function filterByAccess(QueryResultInterface $objects, $action = Access::TYPE_READ)
+    {
+        $result = [];
+        foreach ($objects as $forum) {
+            if ($this->authenticationService->checkAuthorization($forum, $action)) {
+                $result[] = $forum;
+            }
+        }
 
-		return $result;
-	}
+        return $result;
+    }
 
-	/**
-	 * Finds forum for a specific filterset. Page navigation is possible.
-	 *
-	 * @param array $uids
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[] The selected subset of topcis
-	 */
-	public function findByUids($uids) {
+    /**
+     * Finds forum for a specific filterset. Page navigation is possible.
+     *
+     * @param array $uids
+     * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[] The selected subset of topcis
+     */
+    public function findByUids($uids)
+    {
+        $query = $this->createQuery();
+        $constraints = [];
+        if (!empty($uids)) {
+            $constraints[] = $query->in('uid', $uids);
+        }
+        if (!empty($constraints)) {
+            $query->matching($query->logicalAnd($constraints));
+        }
 
-		$query = $this->createQuery();
-		$constraints = [];
-		if (!empty($uids)) {
-			$constraints[] = $query->in('uid', $uids);
-		}
-		if (!empty($constraints)) {
-			$query->matching($query->logicalAnd($constraints));
-		}
+        return $query->execute();
+    }
 
-		return $query->execute();
-	}
+    /**
+     * @param FrontendUser $user
+     * @return QueryResultInterface
+     */
+    public function findBySubscriber(FrontendUser $user)
+    {
+        $query = $this->createQuery();
+        $query
+            ->matching($query->contains('subscribers', $user))
+            ->setOrderings(['lastPost.crdate' => 'ASC']);
 
-	/**
-	 * @param FrontendUser $user
-	 * @return QueryResultInterface
-	 */
-	public function findBySubscriber(FrontendUser $user) {
-		$query = $this->createQuery();
-		$query
-			->matching($query->contains('subscribers', $user))
-			->setOrderings(['lastPost.crdate' => 'ASC']);
-
-		return $query->execute();
-	}
-
+        return $query->execute();
+    }
 }

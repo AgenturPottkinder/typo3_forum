@@ -1,6 +1,7 @@
 <?php
 namespace Mittwald\Typo3Forum\Controller;
-use TYPO3\CMS\Extbase\Annotation\Inject;
+
+use Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -25,131 +26,129 @@ use TYPO3\CMS\Extbase\Annotation\Inject;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
-class ForumController extends AbstractController {
+class ForumController extends AbstractController
+{
 
-	/**
-	 * @var \TYPO3\CMS\Core\Database\DatabaseConnection
-	 */
-	protected $databaseConnection;
+    /**
+     * @var \TYPO3\CMS\Core\Database\DatabaseConnection
+     */
+    protected $databaseConnection;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
-	 * @Inject
-	 */
-	protected $forumRepository;
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
+     * @Inject
+     */
+    protected $forumRepository;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
-	 * @Inject
-	 */
-	protected $topicRepository;
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
+     * @Inject
+     */
+    protected $topicRepository;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdRepository
-	 * @Inject
-	 */
-	protected $adRepository;
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdRepository
+     * @Inject
+     */
+    protected $adRepository;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\RootForum
-	 * @Inject
-	 */
-	protected $rootForum;
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Model\Forum\RootForum
+     * @Inject
+     */
+    protected $rootForum;
 
-	/**
-	 *
-	 */
-	public function initializeAction() {
-		$this->databaseConnection = $GLOBALS['TYPO3_DB'];
-	}
+    public function initializeAction()
+    {
+        $this->databaseConnection = $GLOBALS['TYPO3_DB'];
+    }
 
-	/**
-	 * Index action. Displays the first two levels of the forum tree.
-	 * @return void
-	 */
-	public function indexAction() {
-		if(($forum = $this->forumRepository->findOneByForum(0))) {
-			$this->forward('show', 'Forum', 'Typo3Forum',array(
-				'forum' => $forum
-			));
-		}
-	}
+    /**
+     * Index action. Displays the first two levels of the forum tree.
+     */
+    public function indexAction()
+    {
+        if (($forum = $this->forumRepository->findOneByForum(0))) {
+            $this->forward('show', 'Forum', 'Typo3Forum', [
+                'forum' => $forum
+            ]);
+        }
+    }
 
-	/**
-	 * Show action. Displays a single forum, all subforums of this forum and the
-	 * topics contained in this forum.
-	 *
-	 * @param Forum $forum The forum that is to be displayed.
-	 * @return void
-	 */
-	public function showAction(Forum $forum) {
-		$topics = $this->topicRepository->findForIndex($forum);
-		$this->authenticationService->assertReadAuthorization($forum);
-		$this->view->assignMultiple([
-			'forum' => $forum,
-			'topics' => $topics,
-		]);
-	}
+    /**
+     * Show action. Displays a single forum, all subforums of this forum and the
+     * topics contained in this forum.
+     *
+     * @param Forum $forum The forum that is to be displayed.
+     */
+    public function showAction(Forum $forum)
+    {
+        $topics = $this->topicRepository->findForIndex($forum);
+        $this->authenticationService->assertReadAuthorization($forum);
+        $this->view->assignMultiple([
+            'forum' => $forum,
+            'topics' => $topics,
+        ]);
+    }
 
-	/**
-	 * Mark a whole forum as read
-	 * @param Forum $forum
-	 * @throws NotLoggedInException
-	 * @return void
-	 */
-	public function markReadAction(Forum $forum) {
-		$user = $this->getCurrentUser();
-		if (!$user instanceof FrontendUser || $user->isAnonymous()) {
-			throw new NotLoggedInException('You need to be logged in.', 1288084981);
-		}
-		$forumsToMarkAsRead = new ObjectStorage();
-		$forumsToMarkAsRead->attach($forum);
-		foreach ($forum->getChildren() as $child) {
-			$forumsToMarkAsRead->attach($child);
-		}
+    /**
+     * Mark a whole forum as read
+     * @param Forum $forum
+     * @throws NotLoggedInException
+     */
+    public function markReadAction(Forum $forum)
+    {
+        $user = $this->getCurrentUser();
+        if (!$user instanceof FrontendUser || $user->isAnonymous()) {
+            throw new NotLoggedInException('You need to be logged in.', 1288084981);
+        }
+        $forumsToMarkAsRead = new ObjectStorage();
+        $forumsToMarkAsRead->attach($forum);
+        foreach ($forum->getChildren() as $child) {
+            $forumsToMarkAsRead->attach($child);
+        }
 
-		foreach ($forumsToMarkAsRead as $checkForum) {
-			/** @var Forum $checkForum */
-			foreach ($checkForum->getTopics() as $topic) {
-				/** @var Topic $topic */
-				$topic->addReader($user);
-			}
-			$checkForum->addReader($user);
-			$this->forumRepository->update($checkForum);
-		}
+        foreach ($forumsToMarkAsRead as $checkForum) {
+            /** @var Forum $checkForum */
+            foreach ($checkForum->getTopics() as $topic) {
+                /** @var Topic $topic */
+                $topic->addReader($user);
+            }
+            $checkForum->addReader($user);
+            $this->forumRepository->update($checkForum);
+        }
 
-		$this->redirect('show', 'Forum', NULL, ['forum' => $forum]);
-	}
+        $this->redirect('show', 'Forum', null, ['forum' => $forum]);
+    }
 
-	/**
-	 * Show all unread topics of the current user
-	 * @param Forum $forum
-	 * @throws NotLoggedInException
-	 * @return void
-	 */
-	public function showUnreadAction(Forum $forum) {
-		$user = $this->getCurrentUser();
-		if (!$user instanceof FrontendUser || $user->isAnonymous()) {
-			throw new NotLoggedInException('You need to be logged in.', 1436620398);
-		}
-		$topics = [];
-		$unreadTopics = [];
+    /**
+     * Show all unread topics of the current user
+     * @param Forum $forum
+     * @throws NotLoggedInException
+     */
+    public function showUnreadAction(Forum $forum)
+    {
+        $user = $this->getCurrentUser();
+        if (!$user instanceof FrontendUser || $user->isAnonymous()) {
+            throw new NotLoggedInException('You need to be logged in.', 1436620398);
+        }
+        $topics = [];
+        $unreadTopics = [];
 
-		$tmpTopics = $this->topicRepository->getUnreadTopics($forum, $user);
-		foreach ($tmpTopics as $tmpTopic) {
-			$unreadTopics[] = $tmpTopic['uid'];
-		}
-		if (!empty($unreadTopics)) {
-			$topics = $this->topicRepository->findByUids($unreadTopics);
-		}
+        $tmpTopics = $this->topicRepository->getUnreadTopics($forum, $user);
+        foreach ($tmpTopics as $tmpTopic) {
+            $unreadTopics[] = $tmpTopic['uid'];
+        }
+        if (!empty($unreadTopics)) {
+            $topics = $this->topicRepository->findByUids($unreadTopics);
+        }
 
-		$this->view->assign('forum', $forum)->assign('topics', $topics);
-	}
-
+        $this->view->assign('forum', $forum)->assign('topics', $topics);
+    }
 }

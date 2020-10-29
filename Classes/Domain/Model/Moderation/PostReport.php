@@ -33,37 +33,38 @@ namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
  * These report objects can be assigned to moderators ans be organized in
  * different workflow stages. Moderators can post comments to each report.
  */
-class PostReport extends Report {
+class PostReport extends Report
+{
 
-	/**
-	 * A set of comments that are assigned to this report.
-	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Post
-	 */
-	protected $post;
+    /**
+     * A set of comments that are assigned to this report.
+     * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Post
+     */
+    protected $post;
 
-	/**
-	 * Gets the topic to which the reported post belongs to.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic The topic.
-	 */
-	public function getTopic() {
-		return $this->post->getTopic();
-	}
+    /**
+     * Gets the topic to which the reported post belongs to.
+     * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic The topic.
+     */
+    public function getTopic()
+    {
+        return $this->post->getTopic();
+    }
 
-	/**
-	 * Gets the topic to which the reported post belongs to.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Post The topic.
-	 */
-	public function getPost() {
-		return $this->post;
-	}
+    /**
+     * Gets the topic to which the reported post belongs to.
+     * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Post The topic.
+     */
+    public function getPost()
+    {
+        return $this->post;
+    }
 
-	/**
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post .
-	 *
-	 * @return void
-	 */
-	public function setPost(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post) {
-		$this->post = $post;
-	}
-
+    /**
+     * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Post $post .
+     */
+    public function setPost(\Mittwald\Typo3Forum\Domain\Model\Forum\Post $post)
+    {
+        $this->post = $post;
+    }
 }

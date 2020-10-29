@@ -34,9 +34,7 @@ use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- *
  * ViewHelper that renders the value of a specific userfield for a user.
- *
  */
 class UserfieldViewHelper extends AbstractViewHelper
 {
@@ -63,14 +61,14 @@ class UserfieldViewHelper extends AbstractViewHelper
         \Closure $renderChildrenClosure,
         RenderingContextInterface $renderingContext
     ) {
-
         $user = $arguments['user'];
         $userfield = $arguments['userfield'];
 
-
         if (!$userfield instanceof TyposcriptUserfield) {
-            return new \InvalidArgumentException('Only userfields of type TyposcriptUserField are supported',
-                1435048481);
+            return new \InvalidArgumentException(
+                'Only userfields of type TyposcriptUserField are supported',
+                1435048481
+            );
         }
         $data = $userfield->getValueForUser($user);
         $data = self::convertDataToString($data);
@@ -81,13 +79,11 @@ class UserfieldViewHelper extends AbstractViewHelper
     }
 
     /**
-     *
      * Helper method that converts any type of variable to a string.
      *
      *
      * @param mixed $data Anything
      * @return string Anything converted to a string
-     *
      */
     protected static function convertDataToString($data)
     {
@@ -96,13 +92,11 @@ class UserfieldViewHelper extends AbstractViewHelper
                 $v = self::convertDataToString($v);
             }
             return $data;
-        } else {
-            if ($data instanceof \DateTime) {
-                return $data->format('U');
-            } else {
-                return $data;
-            }
         }
+        if ($data instanceof \DateTime) {
+            return $data->format('U');
+        }
+        return $data;
     }
 
     /**

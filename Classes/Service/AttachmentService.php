@@ -4,10 +4,10 @@ namespace Mittwald\Typo3Forum\Service;
 
 use Mittwald\Typo3Forum\Domain\Model\Forum\Attachment;
 use TYPO3\CMS\Core\SingletonInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Core\Type\File\FileInfo;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation\Inject;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class AttachmentService implements SingletonInterface
 {
@@ -16,7 +16,7 @@ class AttachmentService implements SingletonInterface
      * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
      * @Inject
      */
-    protected $objectManager = null;
+    protected $objectManager;
 
     /**
      * Converts HTML-array to an object
@@ -34,7 +34,7 @@ class AttachmentService implements SingletonInterface
             }
             $attachmentObj = $this->objectManager->get(Attachment::class);
             $tmp_name = $_FILES['tx_typo3forum_pi1']['tmp_name']['attachments'][$attachmentID];
-            $fileInfo = GeneralUtility::makeInstance(FileInfo::class,$tmp_name);
+            $fileInfo = GeneralUtility::makeInstance(FileInfo::class, $tmp_name);
 
             $mime_type = $fileInfo->getMimeType();
 
@@ -43,12 +43,12 @@ class AttachmentService implements SingletonInterface
             $attachmentObj->setRealFilename(sha1($attachment['name'] . time()));
             $attachmentObj->setMimeType($mime_type);
 
-			//Create dir if not exists
-			$tca = $attachmentObj->getTCAConfig();
-			$path = $tca['columns']['real_filename']['config']['uploadfolder'];
-			if(!file_exists($path)) {
+            //Create dir if not exists
+            $tca = $attachmentObj->getTCAConfig();
+            $path = $tca['columns']['real_filename']['config']['uploadfolder'];
+            if (!file_exists($path)) {
                 GeneralUtility::mkdir($path);
-			}
+            }
 
             //upload file and put in object storage
             $res = GeneralUtility::upload_copy_move($tmp_name, $attachmentObj->getAbsoluteFilename());

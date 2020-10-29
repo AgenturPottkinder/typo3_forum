@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('TYPO3_MODE')) {
-	die('Access denied.');
+    die('Access denied.');
 }
 
 $_EXTKEY = 'typo3_forum';
@@ -9,57 +9,57 @@ $_EXTKEY = 'typo3_forum';
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:' . $_EXTKEY . '/Configuration/TSconfig/pageTS.txt">');
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	'Mittwald.Typo3Forum',
-	'Pi1',
-	[
-		'Forum' => 'index, show, markRead, showUnread',
-		'Topic' => 'show, new, create, solution, listLatest',
-		'Post' => 'show, new, create, edit, update, delete',
-		'User' => 'showMyProfile, index, list, subscribe, favSubscribe, show, disableUser, unDisableUser, listNotifications, listMessages, createMessage, newMessage, listPosts',
-		'Report' => 'newUserReport, newPostReport, createUserReport, createPostReport',
-		'Moderation' => 'indexReport, editReport, newReportComment, editTopic, updateTopic, deleteTopic, updateUserReportStatus, updatePostReportStatus, createUserReportComment, createPostReportComment',
-		'Tag' => 'list, show, new, create, listUserTags, newUserTag, deleteUserTag',
-	],
-	[
-		'Forum' => 'show, index, create, update, delete, markRead, showUnread',
-		'Topic' => 'create',
-		'Post' => 'new, create, edit, update, delete',
-		'User' => 'showMyProfile, dashboard, subscribe, favSubscribe, listFavorites, listNotifications, listTopics, listMessages, createMessage,listPosts',
-		'Report' => 'newUserReport, newPostReport, createUserReport, createPostReport',
-		'Moderation' => 'indexReport, updateTopic, deleteTopic, updateUserReportStatus, updatePostReportStatus, newReportComment, createUserReportComment, createPostReportComment',
-		'Tag' => 'list, show, new, create, listUserTags, newUserTag, deleteUserTag',
-	]
+    'Mittwald.Typo3Forum',
+    'Pi1',
+    [
+        'Forum' => 'index, show, markRead, showUnread',
+        'Topic' => 'show, new, create, solution, listLatest',
+        'Post' => 'show, new, create, edit, update, delete',
+        'User' => 'showMyProfile, index, list, subscribe, favSubscribe, show, disableUser, unDisableUser, listNotifications, listMessages, createMessage, newMessage, listPosts',
+        'Report' => 'newUserReport, newPostReport, createUserReport, createPostReport',
+        'Moderation' => 'indexReport, editReport, newReportComment, editTopic, updateTopic, deleteTopic, updateUserReportStatus, updatePostReportStatus, createUserReportComment, createPostReportComment',
+        'Tag' => 'list, show, new, create, listUserTags, newUserTag, deleteUserTag',
+    ],
+    [
+        'Forum' => 'show, index, create, update, delete, markRead, showUnread',
+        'Topic' => 'create',
+        'Post' => 'new, create, edit, update, delete',
+        'User' => 'showMyProfile, dashboard, subscribe, favSubscribe, listFavorites, listNotifications, listTopics, listMessages, createMessage,listPosts',
+        'Report' => 'newUserReport, newPostReport, createUserReport, createPostReport',
+        'Moderation' => 'indexReport, updateTopic, deleteTopic, updateUserReportStatus, updatePostReportStatus, newReportComment, createUserReportComment, createPostReportComment',
+        'Tag' => 'list, show, new, create, listUserTags, newUserTag, deleteUserTag',
+    ]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	'Mittwald.Typo3Forum',
-	'Widget',
-	[
-		'User' => 'list',
-		'Stats' => 'list',
-	],
-	[
-		'User' => 'list',
-	]
+    'Mittwald.Typo3Forum',
+    'Widget',
+    [
+        'User' => 'list',
+        'Stats' => 'list',
+    ],
+    [
+        'User' => 'list',
+    ]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	'Mittwald.Typo3Forum',
-	'Ajax',
-	[
-		'Forum' => 'index',
-		'Post' => 'preview, addSupporter, removeSupporter',
-		'Tag' => 'autoComplete',
-		'Ajax' => 'main, postSummary, loginbox, preview'
-	],
-	[
-		'Forum' => 'index',
-		'Post' => 'preview, addSupporter, removeSupporter',
-		'Ajax' => 'main, postSummary, loginbox, preview',
-	]
+    'Mittwald.Typo3Forum',
+    'Ajax',
+    [
+        'Forum' => 'index',
+        'Post' => 'preview, addSupporter, removeSupporter',
+        'Tag' => 'autoComplete',
+        'Ajax' => 'main, postSummary, loginbox, preview'
+    ],
+    [
+        'Forum' => 'index',
+        'Post' => 'preview, addSupporter, removeSupporter',
+        'Ajax' => 'main, postSummary, loginbox, preview',
+    ]
 );
 
-# TCE-Main hook for clearing all typo3_forum caches
+// TCE-Main hook for clearing all typo3_forum caches
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearCachePostProc'][] = 'Mittwald\Typo3Forum\Cache\CacheManager->clearAll';
 
 if (!is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['typo3forum_main'])) {
@@ -78,38 +78,38 @@ $signalSlotDispatcher->connect('TYPO3\CMS\Extbase\Persistence\Generic\Mapper\Dat
 // adding scheduler tasks
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Mittwald\Typo3Forum\Scheduler\Counter'] = [
-	'extension' => $_EXTKEY,
-	'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_counter_title',
-	'description' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_counter_description',
-	'additionalFields' => 'Mittwald\Typo3Forum\Scheduler\CounterAdditionalFieldProvider'
+    'extension' => $_EXTKEY,
+    'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_counter_title',
+    'description' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_counter_description',
+    'additionalFields' => 'Mittwald\Typo3Forum\Scheduler\CounterAdditionalFieldProvider'
 ];
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Mittwald\Typo3Forum\Scheduler\ForumRead'] = [
-	'extension' => $_EXTKEY,
-	'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_forumRead_title',
-	'description' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_forumRead_description',
-	'additionalFields' => 'Mittwald\Typo3Forum\Scheduler\ForumReadAdditionalFieldProvider',
+    'extension' => $_EXTKEY,
+    'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_forumRead_title',
+    'description' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_forumRead_description',
+    'additionalFields' => 'Mittwald\Typo3Forum\Scheduler\ForumReadAdditionalFieldProvider',
 ];
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Mittwald\Typo3Forum\Scheduler\Notification'] = [
-	'extension' => $_EXTKEY,
-	'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_notification_title',
-	'description' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_notification_description',
-	'additionalFields' => 'Mittwald\Typo3Forum\Scheduler\NotificationAdditionalFieldProvider',
+    'extension' => $_EXTKEY,
+    'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_notification_title',
+    'description' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_notification_description',
+    'additionalFields' => 'Mittwald\Typo3Forum\Scheduler\NotificationAdditionalFieldProvider',
 ];
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Mittwald\Typo3Forum\Scheduler\SessionResetter'] = [
-	'extension' => $_EXTKEY,
-	'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_sessionResetter_title',
-	'description' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_sessionResetter_description',
-	'additionalFields' => 'Mittwald\Typo3Forum\Scheduler\SessionResetterAdditionalFieldProvider',
+    'extension' => $_EXTKEY,
+    'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_sessionResetter_title',
+    'description' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_sessionResetter_description',
+    'additionalFields' => 'Mittwald\Typo3Forum\Scheduler\SessionResetterAdditionalFieldProvider',
 ];
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Mittwald\Typo3Forum\Scheduler\StatsSummary'] = [
-	'extension' => $_EXTKEY,
-	'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_statsSummary_title',
-	'description' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_statsSummary_description',
-	'additionalFields' => 'Mittwald\Typo3Forum\Scheduler\StatsSummaryAdditionalFieldProvider',
+    'extension' => $_EXTKEY,
+    'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_statsSummary_title',
+    'description' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_statsSummary_description',
+    'additionalFields' => 'Mittwald\Typo3Forum\Scheduler\StatsSummaryAdditionalFieldProvider',
 ];
 
 // Register upgrade wizard

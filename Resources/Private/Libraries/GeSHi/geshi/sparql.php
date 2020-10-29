@@ -37,119 +37,117 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'SPARQL',
-    'COMMENT_SINGLE' => array('#'),
-    'COMMENT_MULTI' => array('/*' => '*/' ),
-    'COMMENT_REGEXP' => array(
+    'COMMENT_SINGLE' => ['#'],
+    'COMMENT_MULTI' => ['/*' => '*/' ],
+    'COMMENT_REGEXP' => [
         //IRI (it's not a comment ;)
-        1 => "/<[^> ]*>/i"
-        ),
+        1 => '/<[^> ]*>/i'
+        ],
     'CASE_KEYWORDS' => 1,
-    'QUOTEMARKS' => array("'", '"', '`'),
+    'QUOTEMARKS' => ["'", '"', '`'],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        1 => array(
-            'BASE','PREFIX','SELECT','DISTINCT','REDUCED','CONSTRUCT','DESCRIBE','ASK','FROM',
-            'NAMED','WHERE','ORDER','BY','ASC','DESC','LIMIT','OFFSET','OPTIONAL','GRAPH',
-            'UNION','FILTER','STR','LANG','LANGMATCHES','DATATYPE','BOUND','SAMETERM',
-            'ISIRI','ISURI','ISBLANK',
-            'ISLITERAL','REGEX','SUBSTR','TRUE',
-            'FALSE','LOAD','CLEAR',
-            'DROP','ADD','MOVE','COPY',
-            'CREATE','DELETE','INSERT',
-            'USING','SILENT','DEFAULT','ALL',
-            'DATA','WITH','INTO','TO',
-            'AS','GROUP','HAVING','UNDEF',
-            'BINDINGS','SERVICE','BIND','MINUS_KEYWORD',
-            'IRI','URI', 'BNODE',
-            'RAND','ABS','CEIL','FLOOR','ROUND',
-            'CONCAT','STRLEN',
-            'UCASE','LCASE','ENCODE_FOR_URI',
-            'CONTAINS','STRSTARTS',
-            'STRENDS','STRBEFORE',
-            'STRAFTER','REPLACE',
-            'YEAR','MONTH',
-            'DAY','HOURS',
-            'MINUTES','SECONDS',
-            'TIMEZONE','TZ',
-            'NOW','MD5',
-            'SHA1','SHA224',
-            'SHA256','SHA384',
-            'SHA512','COALESCE',
-            'IF','STRLANG','STRDT',
-            'ISNUMERIC','COUNT',
-            'SUM','MIN',
-            'MAX','AVG','SAMPLE',
-            'GROUP_CONCAT ','NOT',
-            'IN','EXISTS','SEPARATOR'
-            )
-        ),
-    'REGEXPS' => array(
+    'KEYWORDS' => [
+        1 => [
+            'BASE', 'PREFIX', 'SELECT', 'DISTINCT', 'REDUCED', 'CONSTRUCT', 'DESCRIBE', 'ASK', 'FROM',
+            'NAMED', 'WHERE', 'ORDER', 'BY', 'ASC', 'DESC', 'LIMIT', 'OFFSET', 'OPTIONAL', 'GRAPH',
+            'UNION', 'FILTER', 'STR', 'LANG', 'LANGMATCHES', 'DATATYPE', 'BOUND', 'SAMETERM',
+            'ISIRI', 'ISURI', 'ISBLANK',
+            'ISLITERAL', 'REGEX', 'SUBSTR', 'TRUE',
+            'FALSE', 'LOAD', 'CLEAR',
+            'DROP', 'ADD', 'MOVE', 'COPY',
+            'CREATE', 'DELETE', 'INSERT',
+            'USING', 'SILENT', 'DEFAULT', 'ALL',
+            'DATA', 'WITH', 'INTO', 'TO',
+            'AS', 'GROUP', 'HAVING', 'UNDEF',
+            'BINDINGS', 'SERVICE', 'BIND', 'MINUS_KEYWORD',
+            'IRI', 'URI', 'BNODE',
+            'RAND', 'ABS', 'CEIL', 'FLOOR', 'ROUND',
+            'CONCAT', 'STRLEN',
+            'UCASE', 'LCASE', 'ENCODE_FOR_URI',
+            'CONTAINS', 'STRSTARTS',
+            'STRENDS', 'STRBEFORE',
+            'STRAFTER', 'REPLACE',
+            'YEAR', 'MONTH',
+            'DAY', 'HOURS',
+            'MINUTES', 'SECONDS',
+            'TIMEZONE', 'TZ',
+            'NOW', 'MD5',
+            'SHA1', 'SHA224',
+            'SHA256', 'SHA384',
+            'SHA512', 'COALESCE',
+            'IF', 'STRLANG', 'STRDT',
+            'ISNUMERIC', 'COUNT',
+            'SUM', 'MIN',
+            'MAX', 'AVG', 'SAMPLE',
+            'GROUP_CONCAT ', 'NOT',
+            'IN', 'EXISTS', 'SEPARATOR'
+            ]
+        ],
+    'REGEXPS' => [
         //Variables without braces
-        1 => "\\?[a-zA-Z_][a-zA-Z0-9_]*",
+        1 => '\\?[a-zA-Z_][a-zA-Z0-9_]*',
         //prefix
-        2 => "[a-zA-Z_.\\-0-9]*:",
+        2 => '[a-zA-Z_.\\-0-9]*:',
         //tag lang
-        3 => "@[^ .)}]*",
-        ),
-    'SYMBOLS' => array(
-        0 => array(
+        3 => '@[^ .)}]*',
+        ],
+    'SYMBOLS' => [
+        0 => [
             '{', '}' , '.', ';'
-            ),
-        1 => array(
+            ],
+        1 => [
             '^^',
-            '<=','>=','!=','=','<','>','|',
-            '&&','||',
-            '(',')','[', ']',
-            '+','-','*','!','/'
-            ),
-        ),
-    'CASE_SENSITIVE' => array(
+            '<=', '>=', '!=', '=', '<', '>', '|',
+            '&&', '||',
+            '(', ')', '[', ']',
+            '+', '-', '*', '!', '/'
+            ],
+        ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+        ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #993333; font-weight: bold;'
-            ),
-        'COMMENTS' => array(
+            ],
+        'COMMENTS' => [
             0 => 'color: #808080; font-style: italic;',
             1 => 'color: #000078;',
             //2 => 'color: #808080; font-style: italic;',
             'MULTI' => 'color: #808080; font-style: italic;',
-            ),
-        'ESCAPE_CHAR' => array(
+            ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(),
-        'STRINGS' => array(
+            ],
+        'BRACKETS' => [],
+        'STRINGS' => [
             0 => 'color: #ff0000;'
-            ),
-        'NUMBERS' => array(
+            ],
+        'NUMBERS' => [
             0 => 'color: #FF63C3;'
-            ),
-        'METHODS' => array(
-            ),
-        'SYMBOLS' => array(
+            ],
+        'METHODS' => [
+            ],
+        'SYMBOLS' => [
             0 => 'color: #0000FF;',
             1 => 'color: #FF8000; font-weight: bold;'
-            ),
-        'SCRIPT' => array(),
-        'REGEXPS' => array(
+            ],
+        'SCRIPT' => [],
+        'REGEXPS' => [
             1 => 'color: #007800;',
             2 => 'color: #780078;',
             3 => 'color: #005078;'
-            )
-        ),
-    'URLS' => array(
+            ]
+        ],
+    'URLS' => [
         1 => ''
-        ),
+        ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(),
+    'OBJECT_SPLITTERS' => [],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(),
-    'HIGHLIGHT_STRICT_BLOCK' => array()
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [],
+    'HIGHLIGHT_STRICT_BLOCK' => []
+];

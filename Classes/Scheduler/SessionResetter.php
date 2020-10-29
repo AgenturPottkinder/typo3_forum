@@ -25,8 +25,6 @@ namespace Mittwald\Typo3Forum\Scheduler;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use TYPO3\CMS\Scheduler\Task\AbstractTask;
-
 class SessionResetter extends AbstractDatabaseTask
 {
 
@@ -65,7 +63,6 @@ class SessionResetter extends AbstractDatabaseTask
             'tx_typo3forum_post_count_session' => 0,
         ];
 
-
         $queryBuilder = $this->getDatabaseConnection('fe_users');
         $queryBuilder->update('fe_users', 'users');
         $queryBuilder->andWhere(
@@ -83,8 +80,7 @@ class SessionResetter extends AbstractDatabaseTask
 
         if (!$res) {
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 }

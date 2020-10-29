@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\ViewHelpers\Control;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -28,47 +29,49 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 /**
  * ViewHelper that renders a page browser.
  */
+class PageBrowserViewHelper extends AbstractViewHelper
+{
 
-class PageBrowserViewHelper extends AbstractViewHelper {
+    /**
+     * Renders the page browser.
+     *
+     * @param int $elements     Number of elements
+     * @param int $itemsPerPage Number of items per page
+     * @param int $currentPage  Current page
+     * @return string               HTML content of the page browser.
+     */
+    public function render($elements, $itemsPerPage, $currentPage = 1)
+    {
+        $output    = '';
+        $pageCount = ceil($elements / $itemsPerPage);
 
-	/**
-	 * Renders the page browser.
-	 *
-	 * @param integer $elements     Number of elements
-	 * @param integer $itemsPerPage Number of items per page
-	 * @param integer $currentPage  Current page
-	 * @return string               HTML content of the page browser.
-	 */
-	public function render($elements, $itemsPerPage, $currentPage = 1) {
-		$output    = '';
-		$pageCount = ceil($elements / $itemsPerPage);
+        $output .= $this->renderChildItemWithPage(1, '«');
+        $output .= $this->renderChildItemWithPage(max($currentPage - 1, 1), '‹');
 
-		$output .= $this->renderChildItemWithPage(1, '«');
-		$output .= $this->renderChildItemWithPage(max($currentPage - 1, 1), '‹');
+        for ($page = 1; $page <= $pageCount; $page++) {
+            $output .= $this->renderChildItemWithPage($page, $page);
+        }
 
-		for ($page = 1; $page <= $pageCount; $page++) {
-			$output .= $this->renderChildItemWithPage($page, $page);
-		}
+        $output .= $this->renderChildItemWithPage(min($currentPage + 1, $pageCount), '›');
+        $output .= $this->renderChildItemWithPage($pageCount, '»');
 
-		$output .= $this->renderChildItemWithPage(min($currentPage + 1, $pageCount), '›');
-		$output .= $this->renderChildItemWithPage($pageCount, '»');
+        return $output;
+    }
 
-		return $output;
-	}
-
-	/**
-	 * Renders a single page link.
-	 *
-	 * @param integer $pageNum   The page number
-	 * @param integer $pageLabel Page label
-	 * @return string            Rendered page link
-	 */
-	private function renderChildItemWithPage($pageNum, $pageLabel) {
-		$this->templateVariableContainer->add('pageLabel', $pageLabel);
-		$this->templateVariableContainer->add('page', $pageNum);
-		$output = $this->renderChildren();
-		$this->templateVariableContainer->remove('pageLabel');
-		$this->templateVariableContainer->remove('page');
-		return $output;
-	}
+    /**
+     * Renders a single page link.
+     *
+     * @param int $pageNum   The page number
+     * @param int $pageLabel Page label
+     * @return string            Rendered page link
+     */
+    private function renderChildItemWithPage($pageNum, $pageLabel)
+    {
+        $this->templateVariableContainer->add('pageLabel', $pageLabel);
+        $this->templateVariableContainer->add('page', $pageNum);
+        $output = $this->renderChildren();
+        $this->templateVariableContainer->remove('pageLabel');
+        $this->templateVariableContainer->remove('page');
+        return $output;
+    }
 }

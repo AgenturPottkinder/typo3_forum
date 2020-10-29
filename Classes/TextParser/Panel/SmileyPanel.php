@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\TextParser\Panel;
+
 use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /*                                                                      *
@@ -25,40 +26,40 @@ use TYPO3\CMS\Extbase\Annotation\Inject;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-class SmileyPanel extends AbstractPanel {
+class SmileyPanel extends AbstractPanel
+{
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Format\SmileyRepository
-	 * @Inject
-	 */
-	protected $smileyRepository = NULL;
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Repository\Format\SmileyRepository
+     * @Inject
+     */
+    protected $smileyRepository;
 
-	/**
-	 * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\Smiley>
-	 */
-	protected $smileys = NULL;
+    /**
+     * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\Smiley>
+     */
+    protected $smileys;
 
-	/**
-	 * @return array
-	 */
-	public function getItems() {
+    /**
+     * @return array
+     */
+    public function getItems()
+    {
+        if ($this->smileys === null) {
+            $this->smileys = $this->smileyRepository->findAll();
+        }
 
-		if ($this->smileys === NULL) {
-			$this->smileys = $this->smileyRepository->findAll();
-		}
+        if (count($this->smileys) === 0) {
+            return false;
+        }
 
-		if (count($this->smileys) === 0) {
-			return FALSE;
-		}
-
-		$result = [];
-		foreach ($this->smileys as $smiley) {
-			$result[] = $smiley->exportForMarkItUp();
-		}
-		return [['name' => $this->settings['title'],
-			'className' => $this->settings['iconClassName'],
-			'replaceWith' => $this->smileys[0]->getSmileyShortcut(),
-			'dropMenu' => $result]];
-	}
-
+        $result = [];
+        foreach ($this->smileys as $smiley) {
+            $result[] = $smiley->exportForMarkItUp();
+        }
+        return [['name' => $this->settings['title'],
+            'className' => $this->settings['iconClassName'],
+            'replaceWith' => $this->smileys[0]->getSmileyShortcut(),
+            'dropMenu' => $result]];
+    }
 }

@@ -26,44 +26,45 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-class PrivateMessageText extends AbstractEntity {
+class PrivateMessageText extends AbstractEntity
+{
 
-	/**
-	 * The submitted text
-	 * @var string
-	 */
-	public $messageText;
+    /**
+     * The submitted text
+     * @var string
+     */
+    public $messageText;
 
-	/**
-	 * Get the short text of this pm
-	 * @return string The short text
-	 */
-	public function getShortMessageText() {
-		$limit = 80;
-		$text = $this->getMessageText();
-		if (strlen($text) < $limit) {
-			return $text;
-		} else {
-			return substr($text, 0, $limit) . "...";
-		}
-	}
+    /**
+     * Get the short text of this pm
+     * @return string The short text
+     */
+    public function getShortMessageText()
+    {
+        $limit = 80;
+        $text = $this->getMessageText();
+        if (strlen($text) < $limit) {
+            return $text;
+        }
+        return substr($text, 0, $limit) . '...';
+    }
 
-	/**
-	 * Get the text of this pm
-	 * @return string The text
-	 */
-	public function getMessageText() {
-		return $this->messageText;
-	}
+    /**
+     * Get the text of this pm
+     * @return string The text
+     */
+    public function getMessageText()
+    {
+        return $this->messageText;
+    }
 
-	/**
-	 * Sets the text
-	 *
-	 * @param string $messageText
-	 *
-	 * @return void
-	 */
-	public function setMessageText($messageText) {
-		$this->messageText = $messageText;
-	}
+    /**
+     * Sets the text
+     *
+     * @param string $messageText
+     */
+    public function setMessageText($messageText)
+    {
+        $this->messageText = $messageText;
+    }
 }

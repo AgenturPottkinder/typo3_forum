@@ -38,16 +38,16 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'ProFTPd configuration',
-    'COMMENT_SINGLE' => array(1 => '#'),
-    'COMMENT_MULTI' => array(),
+    'COMMENT_SINGLE' => [1 => '#'],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'", '"'),
+    'QUOTEMARKS' => ["'", '"'],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
+    'KEYWORDS' => [
         /*keywords*/
-        1 => array(
+        1 => [
             //mod_auth
             'AccessDenyMsg', 'AccessGrantMsg', 'AnonRejectePasswords',
             'AnonRequirePassword', 'AuthAliasOnly', 'AuthUsingAlias',
@@ -230,9 +230,9 @@ $language_data = array (
 
             //unknown
             'ScoreboardPath', 'ScoreboardScrub'
-            ),
+            ],
         /*keywords 3*/
-        3 => array(
+        3 => [
             //mod_core
             'Anonymous',
             'Class',
@@ -247,9 +247,9 @@ $language_data = array (
 
             //mod_version
             'IfVersion'
-            ),
+            ],
         /*permissions*/
-        4 => array(
+        4 => [
             //mod_core
             'ALL',
             'CDUP',
@@ -281,94 +281,92 @@ $language_data = array (
 
             //mod_site_misc
             'SITE_MKDIR', 'SITE_RMDIR', 'SITE_SYMLINK', 'SITE_UTIME',
-            ),
+            ],
         /*keywords 2*/
-        2 => array(
-            'all','on','off','yes','no',
+        2 => [
+            'all', 'on', 'off', 'yes', 'no',
             'standalone', 'inetd',
             'default', 'auth', 'write',
             'internet', 'local', 'limit', 'ip',
             'from'
-            ),
-        ),
-    'SYMBOLS' => array(
+            ],
+        ],
+    'SYMBOLS' => [
         '+', '-'
-        ),
-    'CASE_SENSITIVE' => array(
+        ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => false,
         4 => false,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+        ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #00007f;',
             2 => 'color: #0000ff;',
             3 => 'color: #000000; font-weight:bold;',
             4 => 'color: #000080; font-weight:bold;',
-            ),
-        'COMMENTS' => array(
+            ],
+        'COMMENTS' => [
             1 => 'color: #adadad; font-style: italic;',
-            ),
-        'ESCAPE_CHAR' => array(
+            ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+            ],
+        'BRACKETS' => [
             0 => 'color: #339933;'
-            ),
-        'STRINGS' => array(
+            ],
+        'STRINGS' => [
             0 => 'color: #7f007f;'
-            ),
-        'NUMBERS' => array(
+            ],
+        'NUMBERS' => [
             0 => 'color: #ff0000;'
-            ),
-        'METHODS' => array(
-            ),
-        'SYMBOLS' => array(
+            ],
+        'METHODS' => [
+            ],
+        'SYMBOLS' => [
             0 => 'color: #008000;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+            ],
+        'REGEXPS' => [
+            ],
+        'SCRIPT' => [
+            ]
+        ],
+    'URLS' => [
         1 => 'http://www.google.com/search?hl=en&amp;q={FNAMEL}+site:www.proftpd.org+inurl:docs&amp;btnI=I%27m%20Feeling%20Lucky',
         2 => '',
         3 => 'http://www.google.com/search?hl=en&amp;q={FNAMEL}+site:www.proftpd.org+inurl:docs&amp;btnI=I%27m%20Feeling%20Lucky',
         4 => ''
-        ),
+        ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
-    'REGEXPS' => array(
-        ),
+    'OBJECT_SPLITTERS' => [
+        ],
+    'REGEXPS' => [
+        ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
-    'PARSER_CONTROL' => array(
-        'ENABLE_FLAGS' => array(
+    'SCRIPT_DELIMITERS' => [
+        ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+        ],
+    'PARSER_CONTROL' => [
+        'ENABLE_FLAGS' => [
             'BRACKETS' => GESHI_NEVER,
             'SYMBOLS' => GESHI_NEVER
-        ),
-        'KEYWORDS' => array(
-            2 => array(
+        ],
+        'KEYWORDS' => [
+            2 => [
                 'DISALLOWED_BEFORE' => '(?<=\s)(?<!=)',
                 'DISALLOWED_AFTER' => '(?!\+)(?!\w)',
-            ),
-            3 => array(
+            ],
+            3 => [
                 'DISALLOWED_BEFORE' => '(?<=&lt;|&lt;\/)',
                 'DISALLOWED_AFTER' => '(?=\s|\/|&gt;)',
-            ),
-            4 => array(
+            ],
+            4 => [
                 'DISALLOWED_BEFORE' => '(?<=\s)(?<!=)',
                 'DISALLOWED_AFTER' => '(?!\+)(?=\/|(?:\s+\w+)*\s*&gt;)',
-            )
-        )
-    )
-);
-
-?>
+            ]
+        ]
+    ]
+];

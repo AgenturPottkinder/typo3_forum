@@ -33,99 +33,99 @@
  *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'Falcon',
-    'COMMENT_SINGLE' => array( 1 => '//' ),
-    'COMMENT_MULTI' => array( '/*' => '*/' ),
+    'COMMENT_SINGLE' => [ 1 => '//' ],
+    'COMMENT_MULTI' => [ '/*' => '*/' ],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array( "'", '"' ),
+    'QUOTEMARKS' => [ "'", '"' ],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        1 => array(
-            'break','case','catch','class','const','continue','def','default',
-            'dropping','elif','else','end','enum','for','forfirst','forlast',
-            'formiddle','from','function','global','if','init','innerfunc',
-            'launch','loop','object','raise','return','select','state','static',
-            'switch','try','while'
-        ),
-        2 => array(
-            'false','nil','true',
-        ),
-        3 => array(
-            'and','as','eq','fself','in','not','notin','or','provides','self','to'
-        ),
-        4 => array(
-            'directive','export','import','load','macro'
-        ),
-        5 => array(
-            'ArrayType','BooleanType','ClassMethodType','ClassType','DictionaryType',
-            'FunctionType','MemBufType','MethodType','NilType','NumericType','ObjectType',
-            'RangeType','StringType','LBindType'
-        ),
-        6 => array(
-            "CurrentTime","IOStream","InputStream","MemBufFromPtr","OutputStream",
-            "PageDict","ParseRFC2822","abs","acos","all",
-            "allp","any","anyp","argd","argv",
-            "arrayAdd","arrayBuffer","arrayCompact","arrayDel","arrayDelAll",
-            "arrayFill","arrayFind","arrayHead","arrayIns","arrayMerge",
-            "arrayNM","arrayRemove","arrayResize","arrayScan","arraySort",
-            "arrayTail","asin","assert","atan","atan2",
-            "attributes","baseClass","beginCritical","bless","brigade",
-            "broadcast","cascade","ceil","choice","chr",
-            "className","clone","combinations","compare","consume",
-            "cos","deg2rad","deoob","derivedFrom","describe",
-            "deserialize","dictBack","dictBest","dictClear","dictFill",
-            "dictFind","dictFront","dictGet","dictKeys","dictMerge",
-            "dictRemove","dictSet","dictValues","dirChange","dirCurrent",
-            "dirMake","dirMakeLink","dirReadLink","dirRemove","dolist",
-            "endCritical","epoch","eval","exit","exp",
-            "factorial","fileChgroup","fileChmod","fileChown","fileCopy",
-            "fileExt","fileMove","fileName","fileNameMerge","filePath",
-            "fileRemove","fileType","fileUnit","filter","fint",
-            "firstOf","floop","floor","fract","getAssert",
-            "getEnviron","getProperty","getSlot","getSystemEncoding","getenv",
-            "iff","include","input","inspect","int",
-            "isBound","isCallable","isoob","lbind","len",
-            "let","lit","log","map","max",
-            "metaclass","min","numeric","oob","ord",
-            "paramCount","paramIsRef","paramSet","parameter","passvp",
-            "permutations","pow","print","printl","properties",
-            "rad2deg","random","randomChoice","randomDice","randomGrab",
-            "randomPick","randomSeed","randomWalk","readURI","reduce",
-            "retract","round","seconds","serialize","set",
-            "setProperty","setenv","sin","sleep","stdErr",
-            "stdErrRaw","stdIn","stdInRaw","stdOut","stdOutRaw",
-            "strBack","strBackFind","strBackTrim","strBuffer","strCmpIgnoreCase",
-            "strEndsWith","strEscape","strEsq","strFill","strFind",
-            "strFromMemBuf","strFront","strFrontTrim","strLower","strMerge",
-            "strReplace","strReplicate","strSplit","strSplitTrimmed","strStartsWith",
-            "strToMemBuf","strTrim","strUnescape","strUnesq","strUpper",
-            "strWildcardMatch","subscribe","systemErrorDescription","tan","times",
-            "toString","transcodeFrom","transcodeTo","typeOf","unsetenv",
-            "unsubscribe","valof","vmFalconPath","vmIsMain","vmModuleName",
-            "vmModuleVersionInfo","vmSearchPath","vmSystemType","vmVersionInfo","vmVersionName",
-            "writeURI","xmap","yield","yieldOut"
-        ),
-        7 => array(
-            "AccessError","Array","BOM","Base64","Class",
-            "ClassMethod","CloneError","CmdlineParser","CodeError","Continuation",
-            "Dictionary","Directory","Error","FileStat","Format",
-            "Function","GarbagePointer","GenericError","Integer","InterruptedError",
-            "IoError","Iterator","LateBinding","List","MathError",
-            "MemoryBuffer","MessageError","Method","Numeric","Object",
-            "ParamError","ParseError","Path","Range","Semaphore",
-            "Sequence","Set","Stream","String","StringStream",
-            "SyntaxError","Table","TableError","TimeStamp","TimeZone",
-            "Tokenizer","TypeError","URI","VMSlot"
-        ),
-        8 => array(
-            "args","scriptName","scriptPath"
-        ),
-        9 => array(
-            "GC"
-        ),
-    ),
-    'URLS' => array(
+    'KEYWORDS' => [
+        1 => [
+            'break', 'case', 'catch', 'class', 'const', 'continue', 'def', 'default',
+            'dropping', 'elif', 'else', 'end', 'enum', 'for', 'forfirst', 'forlast',
+            'formiddle', 'from', 'function', 'global', 'if', 'init', 'innerfunc',
+            'launch', 'loop', 'object', 'raise', 'return', 'select', 'state', 'static',
+            'switch', 'try', 'while'
+        ],
+        2 => [
+            'false', 'nil', 'true',
+        ],
+        3 => [
+            'and', 'as', 'eq', 'fself', 'in', 'not', 'notin', 'or', 'provides', 'self', 'to'
+        ],
+        4 => [
+            'directive', 'export', 'import', 'load', 'macro'
+        ],
+        5 => [
+            'ArrayType', 'BooleanType', 'ClassMethodType', 'ClassType', 'DictionaryType',
+            'FunctionType', 'MemBufType', 'MethodType', 'NilType', 'NumericType', 'ObjectType',
+            'RangeType', 'StringType', 'LBindType'
+        ],
+        6 => [
+            'CurrentTime', 'IOStream', 'InputStream', 'MemBufFromPtr', 'OutputStream',
+            'PageDict', 'ParseRFC2822', 'abs', 'acos', 'all',
+            'allp', 'any', 'anyp', 'argd', 'argv',
+            'arrayAdd', 'arrayBuffer', 'arrayCompact', 'arrayDel', 'arrayDelAll',
+            'arrayFill', 'arrayFind', 'arrayHead', 'arrayIns', 'arrayMerge',
+            'arrayNM', 'arrayRemove', 'arrayResize', 'arrayScan', 'arraySort',
+            'arrayTail', 'asin', 'assert', 'atan', 'atan2',
+            'attributes', 'baseClass', 'beginCritical', 'bless', 'brigade',
+            'broadcast', 'cascade', 'ceil', 'choice', 'chr',
+            'className', 'clone', 'combinations', 'compare', 'consume',
+            'cos', 'deg2rad', 'deoob', 'derivedFrom', 'describe',
+            'deserialize', 'dictBack', 'dictBest', 'dictClear', 'dictFill',
+            'dictFind', 'dictFront', 'dictGet', 'dictKeys', 'dictMerge',
+            'dictRemove', 'dictSet', 'dictValues', 'dirChange', 'dirCurrent',
+            'dirMake', 'dirMakeLink', 'dirReadLink', 'dirRemove', 'dolist',
+            'endCritical', 'epoch', 'eval', 'exit', 'exp',
+            'factorial', 'fileChgroup', 'fileChmod', 'fileChown', 'fileCopy',
+            'fileExt', 'fileMove', 'fileName', 'fileNameMerge', 'filePath',
+            'fileRemove', 'fileType', 'fileUnit', 'filter', 'fint',
+            'firstOf', 'floop', 'floor', 'fract', 'getAssert',
+            'getEnviron', 'getProperty', 'getSlot', 'getSystemEncoding', 'getenv',
+            'iff', 'include', 'input', 'inspect', 'int',
+            'isBound', 'isCallable', 'isoob', 'lbind', 'len',
+            'let', 'lit', 'log', 'map', 'max',
+            'metaclass', 'min', 'numeric', 'oob', 'ord',
+            'paramCount', 'paramIsRef', 'paramSet', 'parameter', 'passvp',
+            'permutations', 'pow', 'print', 'printl', 'properties',
+            'rad2deg', 'random', 'randomChoice', 'randomDice', 'randomGrab',
+            'randomPick', 'randomSeed', 'randomWalk', 'readURI', 'reduce',
+            'retract', 'round', 'seconds', 'serialize', 'set',
+            'setProperty', 'setenv', 'sin', 'sleep', 'stdErr',
+            'stdErrRaw', 'stdIn', 'stdInRaw', 'stdOut', 'stdOutRaw',
+            'strBack', 'strBackFind', 'strBackTrim', 'strBuffer', 'strCmpIgnoreCase',
+            'strEndsWith', 'strEscape', 'strEsq', 'strFill', 'strFind',
+            'strFromMemBuf', 'strFront', 'strFrontTrim', 'strLower', 'strMerge',
+            'strReplace', 'strReplicate', 'strSplit', 'strSplitTrimmed', 'strStartsWith',
+            'strToMemBuf', 'strTrim', 'strUnescape', 'strUnesq', 'strUpper',
+            'strWildcardMatch', 'subscribe', 'systemErrorDescription', 'tan', 'times',
+            'toString', 'transcodeFrom', 'transcodeTo', 'typeOf', 'unsetenv',
+            'unsubscribe', 'valof', 'vmFalconPath', 'vmIsMain', 'vmModuleName',
+            'vmModuleVersionInfo', 'vmSearchPath', 'vmSystemType', 'vmVersionInfo', 'vmVersionName',
+            'writeURI', 'xmap', 'yield', 'yieldOut'
+        ],
+        7 => [
+            'AccessError', 'Array', 'BOM', 'Base64', 'Class',
+            'ClassMethod', 'CloneError', 'CmdlineParser', 'CodeError', 'Continuation',
+            'Dictionary', 'Directory', 'Error', 'FileStat', 'Format',
+            'Function', 'GarbagePointer', 'GenericError', 'Integer', 'InterruptedError',
+            'IoError', 'Iterator', 'LateBinding', 'List', 'MathError',
+            'MemoryBuffer', 'MessageError', 'Method', 'Numeric', 'Object',
+            'ParamError', 'ParseError', 'Path', 'Range', 'Semaphore',
+            'Sequence', 'Set', 'Stream', 'String', 'StringStream',
+            'SyntaxError', 'Table', 'TableError', 'TimeStamp', 'TimeZone',
+            'Tokenizer', 'TypeError', 'URI', 'VMSlot'
+        ],
+        8 => [
+            'args', 'scriptName', 'scriptPath'
+        ],
+        9 => [
+            'GC'
+        ],
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
@@ -135,8 +135,8 @@ $language_data = array (
         7 => 'http://falconpl.org/project_docs/core/class_{FNAME}.html',
         8 => 'http://falconpl.org/project_docs/core/globals.html#{FNAME}',
         9 => 'http://falconpl.org/project_docs/core/object_{FNAME}.html)'
-    ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => true,
         2 => true,
@@ -147,30 +147,30 @@ $language_data = array (
         7 => true,
         8 => true,
         9 => true
-    ),
-    'SYMBOLS' => array(
-        '(',')','$','%','&','/','{','[',']','=','}','?','+','-','#','*','@',
-        '<','>','|',',',':',';','\\','^'
-    ),
-    'REGEXPS' => array(
-        0 => array(
+    ],
+    'SYMBOLS' => [
+        '(', ')', '$', '%', '&', '/', '{', '[', ']', '=', '}', '?', '+', '-', '#', '*', '@',
+        '<', '>', '|', ',', ':', ';', '\\', '^'
+    ],
+    'REGEXPS' => [
+        0 => [
             GESHI_SEARCH => '(\[)([a-zA-Z_]|\c{C})(?:[a-zA-Z0-9_]|\p{C})*(\])',
             GESHI_REPLACE => '\\2',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '\\1',
             GESHI_AFTER => '\\3',
 
-        ),
-    ),
+        ],
+    ],
     'STRICT_MODE_APPLIES' => GESHI_MAYBE,
-    'SCRIPT_DELIMITERS' => array(
-        0 => array( '<?' => '?>' )
-    ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
+    'SCRIPT_DELIMITERS' => [
+        0 => [ '<?' => '?>' ]
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
         0 => true
-    ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #000080;font-weight:bold;',
             2 => 'color: #800000;font-weight:bold;',
             3 => 'color: #800000;font-weight:bold;',
@@ -179,40 +179,39 @@ $language_data = array (
             6 => 'font-weight:bold;',
             7 => 'font-weight:bold;',
             8 => 'font-weight:bold;'
-        ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #29B900;',
             'MULTI' => 'color: #008080'
-        ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #800000'
-        ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #000000'
-        ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #800000'
-        ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #000000'
-        ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             0 => 'color: #000000'
-        ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #8B0513'
-        ),
-        'SCRIPT' => array(
+        ],
+        'SCRIPT' => [
             0 => ''
-        ),
-        'REGEXPS' => array(
+        ],
+        'REGEXPS' => [
             0 => 'color: #FF00FF'
-        )
-    ),
+        ]
+    ],
 
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         '.'
-    )
-);
-?>
+    ]
+];

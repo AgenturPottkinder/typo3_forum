@@ -18,7 +18,8 @@ $time_start = explode(' ', microtime());
 
 //Handle crappy PHP magic:
 if (get_magic_quotes_gpc()) {
-    function stripslashes_deep($value) {
+    function stripslashes_deep($value)
+    {
         $value = is_array($value) ?
                     array_map('stripslashes_deep', $value) :
                     stripslashes($value);
@@ -32,51 +33,54 @@ if (get_magic_quotes_gpc()) {
     $_REQUEST = array_map('stripslashes_deep', $_REQUEST);
 }
 
-function htmlspecialchars_deep($value) {
+function htmlspecialchars_deep($value)
+{
     return is_array($value) ? array_map('htmlspecialchars_deep', $value) : htmlspecialchars($value);
 }
 
-define ('TYPE_NOTICE', 0);
-define ('TYPE_WARNING', 1);
-define ('TYPE_ERROR', 2);
+define('TYPE_NOTICE', 0);
+define('TYPE_WARNING', 1);
+define('TYPE_ERROR', 2);
 
 $error_abort = false;
-$error_cache = array();
-function output_error_cache(){
+$error_cache = [];
+function output_error_cache()
+{
     global $error_cache, $error_abort;
 
-    if(count($error_cache)) {
-        echo "<span style=\"color: #F00; font-weight: bold;\">Failed</span><br />";
+    if (count($error_cache)) {
+        echo '<span style="color: #F00; font-weight: bold;">Failed</span><br />';
         echo "<ol>\n";
-        foreach($error_cache as $error_msg) {
-            echo "<li>";
-            switch($error_msg['t']) {
+        foreach ($error_cache as $error_msg) {
+            echo '<li>';
+            switch ($error_msg['t']) {
                 case TYPE_NOTICE:
-                    echo "<span style=\"color: #080; font-weight: bold;\">NOTICE:</span>";
+                    echo '<span style="color: #080; font-weight: bold;">NOTICE:</span>';
                     break;
                 case TYPE_WARNING:
-                    echo "<span style=\"color: #CC0; font-weight: bold;\">WARNING:</span>";
+                    echo '<span style="color: #CC0; font-weight: bold;">WARNING:</span>';
                     break;
                 case TYPE_ERROR:
-                    echo "<span style=\"color: #F00; font-weight: bold;\">ERROR:</span>";
+                    echo '<span style="color: #F00; font-weight: bold;">ERROR:</span>';
                     break;
             }
-            echo " " . $error_msg['m'] . "</li>";
+            echo ' ' . $error_msg['m'] . '</li>';
         }
         echo "</ol>\n";
     } else {
-        echo "<span style=\"color: #080; font-weight: bold;\">OK</span><br />";
+        echo '<span style="color: #080; font-weight: bold;">OK</span><br />';
     }
     echo "\n";
 
-    $error_cache = array();
+    $error_cache = [];
 }
 
-function report_error($type, $message) {
+function report_error($type, $message)
+{
     global $error_cache, $error_abort;
 
-    $error_cache[] = array('t' => $type, 'm' => $message);
-    if(TYPE_ERROR == $type) {
+    $error_cache[] = ['t' => $type, 'm' => $message];
+    if (TYPE_ERROR == $type) {
         $error_abort = true;
     }
 }
@@ -181,37 +185,37 @@ if (is_readable('../geshi.php')) {
     report_error(TYPE_ERROR, 'Could not find geshi.php - make sure it is in your include path!');
 }
 
-if(!$error_abort) {
+if (!$error_abort) {
     require $path . 'geshi.php';
 
-    if(!class_exists('GeSHi')) {
+    if (!class_exists('GeSHi')) {
         report_error(TYPE_ERROR, 'The GeSHi class was not found, although it seemed we loaded the correct file!');
     }
 }
 
-if(!$error_abort) {
-    if(!defined('GESHI_LANG_ROOT')) {
+if (!$error_abort) {
+    if (!defined('GESHI_LANG_ROOT')) {
         report_error(TYPE_ERROR, 'There\'s no information present on where to find the language files!');
-    } elseif(!is_dir(GESHI_LANG_ROOT)) {
-        report_error(TYPE_ERROR, 'The path "'.GESHI_LANG_ROOT.'" given, does not ressemble a directory!');
-    } elseif(!is_readable(GESHI_LANG_ROOT)) {
-        report_error(TYPE_ERROR, 'The path "'.GESHI_LANG_ROOT.'" is not readable to this script!');
+    } elseif (!is_dir(GESHI_LANG_ROOT)) {
+        report_error(TYPE_ERROR, 'The path "' . GESHI_LANG_ROOT . '" given, does not ressemble a directory!');
+    } elseif (!is_readable(GESHI_LANG_ROOT)) {
+        report_error(TYPE_ERROR, 'The path "' . GESHI_LANG_ROOT . '" is not readable to this script!');
     }
 }
 
-if(!$error_abort) {
+if (!$error_abort) {
     if (!($dir = @opendir(GESHI_LANG_ROOT))) {
         report_error(TYPE_ERROR, 'Error requesting listing for available language files!');
     }
 
-    $languages = array();
+    $languages = [];
 
-    if(!$error_abort) {
+    if (!$error_abort) {
         while ($file = readdir($dir)) {
             if (!$file || $file[0] == '.' || strpos($file, '.') === false) {
                 continue;
             }
-            $lang = substr($file, 0,  strpos($file, '.'));
+            $lang = substr($file, 0, strpos($file, '.'));
             $languages[] = $lang;
         }
         closedir($dir);
@@ -220,121 +224,121 @@ if(!$error_abort) {
     $languages = array_unique($languages);
     sort($languages);
 
-    if(!count($languages)) {
-        report_error(TYPE_WARNING, 'Unable to locate any usable language files in "'.GESHI_LANG_ROOT.'"!');
+    if (!count($languages)) {
+        report_error(TYPE_WARNING, 'Unable to locate any usable language files in "' . GESHI_LANG_ROOT . '"!');
     }
 }
 
 output_error_cache();
 
 // --- empty variables for values of $_POST - begin ---
-$post_var_names = array('li', 'ai', 'ld');
+$post_var_names = ['li', 'ai', 'ld'];
 
-$li = array(
+$li = [
     'file' => 'example',
     'name' => 'Example'
-    );
+    ];
 
-$ai = array(
+$ai = [
     'name' => 'Benny Baumann',
     'email' => 'BenBE@geshi.org',
     'web' => 'http://qbnz.com/highlighter/'
-    );
+    ];
 
-$ld = array(
-    'cmt' => array(
-        'sl' => array(
-            1 => array(
+$ld = [
+    'cmt' => [
+        'sl' => [
+            1 => [
                 'start' => '//',
                 'style' => 'font-style: italic; color: #666666;'
-                ),
-            2 => array(
+                ],
+            2 => [
                 'start' => '#',
                 'style' => 'font-style: italic; color: #666666;'
-                )
-            ),
-        'ml' => array(
-            1 => array(
+                ]
+            ],
+        'ml' => [
+            1 => [
                 'start' => '/*',
                 'end' => '*/',
                 'style' => 'font-style: italic; color: #666666;'
-                ),
-            2 => array(
+                ],
+            2 => [
                 'start' => '/**',
                 'end' => '*/',
                 'style' => 'font-style: italic; color: #006600;'
-                )
-            ),
-        'rxc' => array(
-            1 => array(
+                ]
+            ],
+        'rxc' => [
+            1 => [
                 'rx' => '/Hello RegExp/',
                 'style' => 'font-style: italic; color: #666666;'
-                )
-            )
-        ),
-    'str' => array(
-        'qm' => array(
-            1 => array(
+                ]
+            ]
+        ],
+    'str' => [
+        'qm' => [
+            1 => [
                 'delim' => "'",
                 'style' => 'color: #0000FF;'
-                ),
-            2 => array(
-              'delim' => "&quot;",
+                ],
+            2 => [
+              'delim' => '&quot;',
                 'style' => 'color: #0000FF;'
-                )
-            ),
-        'ec' => array(
+                ]
+            ],
+        'ec' => [
             'char' => '\\',
             'style' => 'font-weight: bold; color: #000080;'
-            ),
-        'erx' => array(
-            1 => array(
+            ],
+        'erx' => [
+            1 => [
                 'rx' => '/\{\\\\$\w+\}/',
                 'style' => 'font-weight: bold; color: #008080;'
-                ),
-            2 => array(
+                ],
+            2 => [
                 'rx'=> '/\{\\\\$\w+\}/',
                 'style' => 'font-weight: bold; color: #008080;'
-                )
-            )
-        ),
+                ]
+            ]
+        ],
     'kw_case' => 'GESHI_CAPS_NO_CHANGE',
-    'kw' => array(
-        1 => array(
+    'kw' => [
+        1 => [
             'list' => '',
             'case' => '0',
             'style' => 'color: #0000FF; font-weight: bold;',
             'docs' => ''
-            )
-        ),
-    'sy' => array(
-        0 => array(
+            ]
+        ],
+    'sy' => [
+        0 => [
             'list' => '',
             'style' => 'color: #0000FF; font-weight: bold;'
-            )
-        )
-    );
+            ]
+        ]
+    ];
 
-$kw_case_sel = array(
+$kw_case_sel = [
     'GESHI_CAPS_NO_CHANGE' => '',
     'GESHI_CAPS_UPPER' => '',
     'GESHI_CAPS_LOWER' => ''
-    );
+    ];
 
-$kw_cases_sel = array(
-    1 => array(
+$kw_cases_sel = [
+    1 => [
         0 => '',
         1 => ''
-        )
-    );
+        ]
+    ];
 // --- empty variables for values of $_POST - end ---
 
-echo "<pre>";
+echo '<pre>';
 //var_dump($languages);
 
-foreach($post_var_names as $varName) { // export wanted variables of $_POST array...
-    if(array_key_exists($varName, $_POST)) {
-      $$varName = htmlspecialchars_deep($_POST[$varName]);
+foreach ($post_var_names as $varName) { // export wanted variables of $_POST array...
+    if (array_key_exists($varName, $_POST)) {
+        $$varName = htmlspecialchars_deep($_POST[$varName]);
     }
 }
 
@@ -342,13 +346,13 @@ foreach($post_var_names as $varName) { // export wanted variables of $_POST arra
 $kw_case_sel[$ld['kw_case']] = ' selected="selected"';
 
 // determine the selected kw_cases...
-for($i = 1; $i <= count($kw_cases_sel); $i += 1) {
-    $kw_cases_sel[$i][(int) $ld['kw'][$i]['case']] = ' selected="selected"';
+for ($i = 1; $i <= count($kw_cases_sel); $i += 1) {
+    $kw_cases_sel[$i][(int)$ld['kw'][$i]['case']] = ' selected="selected"';
 }
 
 $lang = validate_lang();
 var_dump($lang);
-echo "</pre>";
+echo '</pre>';
 
 ?>
 
@@ -801,7 +805,7 @@ echo "</pre>";
     <div id="langfile">
         <fieldset>
         <legend>Language File Source</legend>
-<?
+<?php
 $G = new GeSHi('', 'php');
 $langfile_source = gen_langfile($lang);
 $G->set_source($langfile_source);
@@ -814,95 +818,99 @@ unset($G);
     <input type="submit" name="btn" value="Send!" />
 </form>
 
-<p>Operation completed in <?
+<p>Operation completed in <?php
 $time_end = explode(' ', microtime());
 $time_diff = $time_end[0] + $time_end[1] - $time_start[0] - $time_start[1];
 
-echo sprintf("%.2f", $time_diff);
+echo sprintf('%.2f', $time_diff);
 ?> seconds.</p>
 
 <div id="footer">GeSHi &copy; 2004-2007 Nigel McNie, 2007-2009 Benny Baumann, released under the GNU GPL</div>
 </body>
 </html>
-<?
+<?php
 
-function str_to_phpstring($str, $doublequote = false){
-    if($doublequote) {
-        return '"' . strtr($str,
-            array(
-                "\"" => "\\\"",
-                "\\" => "\\\\",
-                "\0" => "\\0",
-                "\n" => "\\n",
-                "\r" => "\\r",
-                "\t" => "\\t",
-                "\$" => "\\\$"
-                )
-            ) . '"';
-    } else {
-        return "'" . strtr($str,
-            array(
-                "'" => "\\'",
-                "\\" => "\\\\"
-                )
-            ) . "'";
+function str_to_phpstring($str, $doublequote = false)
+{
+    if ($doublequote) {
+        return '"' . strtr(
+            $str,
+            [
+                '"' => '\\"',
+                '\\' => '\\\\',
+                "\0" => '\\0',
+                "\n" => '\\n',
+                "\r" => '\\r',
+                "\t" => '\\t',
+                '$' => '\\$'
+                ]
+        ) . '"';
     }
+    return "'" . strtr(
+        $str,
+        [
+                "'" => "\\'",
+                '\\' => '\\\\'
+                ]
+    ) . "'";
 }
 
-function validate_lang(){
-    $ai = array(
+function validate_lang()
+{
+    $ai = [
         'name' => 'Benny Baumann',
         'email' => 'BenBE@geshi.org',
         'web' => 'http://qbnz.com/highlighter/'
-        );
+        ];
 
-    $li = array(
+    $li = [
         'file' => 'example',
         'desc' => 'Example'
-        );
+        ];
 
-    if(isset($_POST['ld'])) {
+    if (isset($_POST['ld'])) {
         $ld = $_POST['ld'];
     } else {
-        $ld = array(
-            'cmt' => array(
-                'sl' => array(
-                    1 => array(
+        $ld = [
+            'cmt' => [
+                'sl' => [
+                    1 => [
                         'start' => '//',
                         'style' => 'test'
-                        )
-                    ),
-                'ml' => array(
-                    1 => array(
+                        ]
+                    ],
+                'ml' => [
+                    1 => [
                         'start' => '/*',
                         'end' => '*/',
                         'style' => 'font-style: italic; color: #666666;'
-                        )
-                    ),
-                'rxc' => array(
-                    1 => array(
+                        ]
+                    ],
+                'rxc' => [
+                    1 => [
                         'rx' => '/Hello/',
                         'style' => 'color: #00000'
-                        )
-                    )
-                ),
-            'str' => array(
-                'qm' => array(),
-                'ec' => array(
+                        ]
+                    ]
+                ],
+            'str' => [
+                'qm' => [],
+                'ec' => [
                     'char' => ''
-                    ),
-                'erx' => array()
-                ),
-            'kw' => array(),
+                    ],
+                'erx' => []
+                ],
+            'kw' => [],
             'kw_case' => 'GESHI_CAPS_NO_CHANGE',
-            'sy' => array()
-            );
-        }
+            'sy' => []
+            ];
+    }
 
-    return array('ai' => $ai, 'li' => $li, 'ld' => $ld);
+    return ['ai' => $ai, 'li' => $li, 'ld' => $ld];
 }
 
-function gen_langfile($lang){
+function gen_langfile($lang)
+{
     $langfile = $lang['li']['file'];
     $langdesc = $lang['li']['desc'];
 
@@ -916,7 +924,7 @@ function gen_langfile($lang){
     $langyear = date('Y');
 
     $i = '    ';
-    $i = array('', $i, $i.$i, $i.$i.$i);
+    $i = ['', $i, $i . $i, $i . $i . $i];
 
     $src = <<<GESHI_LANGFILE_HEAD
 <?php
@@ -964,22 +972,22 @@ function gen_langfile($lang){
 GESHI_LANGFILE_HEAD;
 
     //Language Name
-    $src .= $i[1] . "'LANG_NAME' => ".str_to_phpstring($langdesc).",\n";
+    $src .= $i[1] . "'LANG_NAME' => " . str_to_phpstring($langdesc) . ",\n";
 
     //Comments
     $src .= $i[1] . "'COMMENT_SINGLE' => array(\n";
-    foreach($lang['ld']['cmt']['sl'] as $idx_cmt_sl => $tmp_cmt_sl) {
-        $src .= $i[2] . ((int)$idx_cmt_sl). " => ". str_to_phpstring($tmp_cmt_sl['start']) . ",\n";
+    foreach ($lang['ld']['cmt']['sl'] as $idx_cmt_sl => $tmp_cmt_sl) {
+        $src .= $i[2] . ((int)$idx_cmt_sl) . ' => ' . str_to_phpstring($tmp_cmt_sl['start']) . ",\n";
     }
     $src .= $i[2] . "),\n";
     $src .= $i[1] . "'COMMENT_MULTI' => array(\n";
-    foreach($lang['ld']['cmt']['ml'] as $tmp_cmt_ml) {
-        $src .= $i[2] . str_to_phpstring($tmp_cmt_ml['start']). " => ". str_to_phpstring($tmp_cmt_ml['end']) . ",\n";
+    foreach ($lang['ld']['cmt']['ml'] as $tmp_cmt_ml) {
+        $src .= $i[2] . str_to_phpstring($tmp_cmt_ml['start']) . ' => ' . str_to_phpstring($tmp_cmt_ml['end']) . ",\n";
     }
     $src .= $i[2] . "),\n";
     $src .= $i[1] . "'COMMENT_REGEXP' => array(\n";
-    foreach($lang['ld']['cmt']['rxc'] as $idx_cmt_rxc => $tmp_cmt_rxc) {
-        $src .= $i[2] . ((int)$idx_cmt_rxc). " => ". str_to_phpstring($tmp_cmt_rxc['rx']) . ",\n";
+    foreach ($lang['ld']['cmt']['rxc'] as $idx_cmt_rxc => $tmp_cmt_rxc) {
+        $src .= $i[2] . ((int)$idx_cmt_rxc) . ' => ' . str_to_phpstring($tmp_cmt_rxc['rx']) . ",\n";
     }
     $src .= $i[2] . "),\n";
 
@@ -988,14 +996,14 @@ GESHI_LANGFILE_HEAD;
 
     //Quotes \ Strings
     $src .= $i[1] . "'QUOTEMARKS' => array(\n";
-    foreach($lang['ld']['str']['qm'] as $idx_str_qm => $tmp_str_qm) {
-        $src .= $i[2] . ((int)$idx_str_qm). " => ". str_to_phpstring($tmp_str_qm['delim']) . ",\n";
+    foreach ($lang['ld']['str']['qm'] as $idx_str_qm => $tmp_str_qm) {
+        $src .= $i[2] . ((int)$idx_str_qm) . ' => ' . str_to_phpstring($tmp_str_qm['delim']) . ",\n";
     }
     $src .= $i[2] . "),\n";
     $src .= $i[1] . "'ESCAPE_CHAR' => " . str_to_phpstring($lang['ld']['str']['ec']['char']) . ",\n";
     $src .= $i[1] . "'ESCAPE_REGEXP' => array(\n";
-    foreach($lang['ld']['str']['erx'] as $idx_str_erx => $tmp_str_erx) {
-        $src .= $i[2] . ((int)$idx_str_erx). " => ". str_to_phpstring($tmp_str_erx['rx']) . ",\n";
+    foreach ($lang['ld']['str']['erx'] as $idx_str_erx => $tmp_str_erx) {
+        $src .= $i[2] . ((int)$idx_str_erx) . ' => ' . str_to_phpstring($tmp_str_erx['rx']) . ",\n";
     }
     $src .= $i[2] . "),\n";
 
@@ -1013,9 +1021,9 @@ GESHI_LANGFILE_HEAD;
 
     //Keywords
     $src .= $i[1] . "'KEYWRODS' => array(\n";
-    foreach($lang['ld']['kw'] as $idx_kw => $tmp_kw) {
+    foreach ($lang['ld']['kw'] as $idx_kw => $tmp_kw) {
         $src .= $i[2] . ((int)$idx_kw) . " => array(\n";
-        if(!is_array($tmp_kw['list'])) {
+        if (!is_array($tmp_kw['list'])) {
             $tmp_kw['list'] = explode("\n", $tmp_kw['list']);
         }
         $tmp_kw['list'] = array_map('trim', $tmp_kw['list']);
@@ -1023,13 +1031,13 @@ GESHI_LANGFILE_HEAD;
         $kw_esc = array_map('str_to_phpstring', $tmp_kw['list']);
         $kw_nl = true;
         $kw_pos = 0;
-        foreach($kw_esc as $kw_data) {
-            if((strlen($kw_data) + $kw_pos > 79) && $kw_pos > strlen($i[3])) {
+        foreach ($kw_esc as $kw_data) {
+            if ((strlen($kw_data) + $kw_pos > 79) && $kw_pos > strlen($i[3])) {
                 $src .= "\n";
                 $kw_nl = true;
                 $kw_pos = 0;
             }
-            if($kw_nl) {
+            if ($kw_nl) {
                 $src .= $i[3];
                 $kw_pos += strlen($i[3]);
                 $kw_nl = false;
@@ -1044,27 +1052,27 @@ GESHI_LANGFILE_HEAD;
 
     //Case Sensitivity
     $src .= $i[1] . "'CASE_SENSITIVE' => array(\n";
-    foreach($lang['ld']['kw'] as $idx_kw => $tmp_kw) {
-        $src .= $i[2] . ((int)$idx_kw) . " => " . ($tmp_kw['case'] ? 'true' : 'false') . ",\n";
+    foreach ($lang['ld']['kw'] as $idx_kw => $tmp_kw) {
+        $src .= $i[2] . ((int)$idx_kw) . ' => ' . ($tmp_kw['case'] ? 'true' : 'false') . ",\n";
     }
     $src .= $i[2] . "),\n";
 
     //Symbols
     $src .= $i[1] . "'SYMBOLS' => array(\n";
-    foreach($lang['ld']['sy'] as $idx_kw => $tmp_kw) {
+    foreach ($lang['ld']['sy'] as $idx_kw => $tmp_kw) {
         $src .= $i[2] . ((int)$idx_kw) . " => array(\n";
         $tmp_kw['list'] = (array)$tmp_kw['list'];
         sort($tmp_kw['list']);
         $kw_esc = array_map('str_to_phpstring', $tmp_kw['list']);
         $kw_nl = true;
         $kw_pos = strlen($i[3]);
-        foreach($kw_esc as $kw_data) {
-            if((strlen($kw_data) + $kw_pos > 79) && $kw_pos > strlen($i[3])) {
+        foreach ($kw_esc as $kw_data) {
+            if ((strlen($kw_data) + $kw_pos > 79) && $kw_pos > strlen($i[3])) {
                 $src .= "\n";
                 $kw_nl = true;
                 $kw_pos = 0;
             }
-            if($kw_nl) {
+            if ($kw_nl) {
                 $src .= $i[3];
                 $kw_pos += strlen($i[3]);
                 $kw_nl = false;
@@ -1080,30 +1088,30 @@ GESHI_LANGFILE_HEAD;
     //Styles \ CSS
     $src .= $i[1] . "'STYLES' => array(\n";
     $src .= $i[2] . "'KEYWRODS' => array(\n";
-    foreach($lang['ld']['kw'] as $idx_kw => $tmp_kw) {
-        $src .= $i[3] . ((int)$idx_kw) . " => " . str_to_phpstring($tmp_kw['style']) . ",\n";
+    foreach ($lang['ld']['kw'] as $idx_kw => $tmp_kw) {
+        $src .= $i[3] . ((int)$idx_kw) . ' => ' . str_to_phpstring($tmp_kw['style']) . ",\n";
     }
     $src .= $i[3] . "),\n";
     $src .= $i[2] . "'COMMENTS' => array(\n";
-    foreach($lang['ld']['cmt']['sl'] as $idx_cmt_sl => $tmp_cmt_sl) {
-        $src .= $i[3] . ((int)$idx_cmt_sl) . " => " . str_to_phpstring($tmp_cmt_sl['style']) . ",\n";
+    foreach ($lang['ld']['cmt']['sl'] as $idx_cmt_sl => $tmp_cmt_sl) {
+        $src .= $i[3] . ((int)$idx_cmt_sl) . ' => ' . str_to_phpstring($tmp_cmt_sl['style']) . ",\n";
     }
-    foreach($lang['ld']['cmt']['rxc'] as $idx_cmt_rxc => $tmp_cmt_rxc) {
-        $src .= $i[3] . ((int)$idx_cmt_rxc) . " => " . str_to_phpstring($tmp_cmt_rxc['style']) . ",\n";
+    foreach ($lang['ld']['cmt']['rxc'] as $idx_cmt_rxc => $tmp_cmt_rxc) {
+        $src .= $i[3] . ((int)$idx_cmt_rxc) . ' => ' . str_to_phpstring($tmp_cmt_rxc['style']) . ",\n";
     }
     $src .= $i[3] . "'MULTI' => " . str_to_phpstring($lang['ld']['cmt']['ml'][1]['style']) . "\n";
     $src .= $i[3] . "),\n";
     $src .= $i[2] . "'ESCAPE_CHAR' => array(\n";
-    foreach($lang['ld']['str']['erx'] as $idx_str_erx => $tmp_str_erx) {
-        $src .= $i[3] . ((int)$idx_str_erx). " => ". str_to_phpstring($tmp_str_erx['style']) . ",\n";
+    foreach ($lang['ld']['str']['erx'] as $idx_str_erx => $tmp_str_erx) {
+        $src .= $i[3] . ((int)$idx_str_erx) . ' => ' . str_to_phpstring($tmp_str_erx['style']) . ",\n";
     }
     //    'HARD' => 'color: #000099; font-weight: bold;'
     $src .= $i[3] . "),\n";
     $src .= $i[2] . "'BRACKETS' => array(\n";
     $src .= $i[3] . "),\n";
     $src .= $i[2] . "'STRINGS' => array(\n";
-    foreach($lang['ld']['str']['qm'] as $idx_str_qm => $tmp_str_qm) {
-        $src .= $i[3] . ((int)$idx_str_qm). " => ". str_to_phpstring($tmp_str_qm['style']) . ",\n";
+    foreach ($lang['ld']['str']['qm'] as $idx_str_qm => $tmp_str_qm) {
+        $src .= $i[3] . ((int)$idx_str_qm) . ' => ' . str_to_phpstring($tmp_str_qm['style']) . ",\n";
     }
     //    'HARD' => 'color: #0000ff;'
     $src .= $i[3] . "),\n";
@@ -1112,8 +1120,8 @@ GESHI_LANGFILE_HEAD;
     $src .= $i[2] . "'METHODS' => array(\n";
     $src .= $i[3] . "),\n";
     $src .= $i[2] . "'SYMBOLS' => array(\n";
-    foreach($lang['ld']['sy'] as $idx_kw => $tmp_kw) {
-        $src .= $i[3] . ((int)$idx_kw) . " => " . str_to_phpstring($tmp_kw['style']) . ",\n";
+    foreach ($lang['ld']['sy'] as $idx_kw => $tmp_kw) {
+        $src .= $i[3] . ((int)$idx_kw) . ' => ' . str_to_phpstring($tmp_kw['style']) . ",\n";
     }
     $src .= $i[3] . "),\n";
     $src .= $i[2] . "'REGEXPS' => array(\n";
@@ -1124,8 +1132,8 @@ GESHI_LANGFILE_HEAD;
 
     //Keyword Documentation
     $src .= $i[1] . "'URLS' => array(\n";
-    foreach($lang['ld']['kw'] as $idx_kw => $tmp_kw) {
-        $src .= $i[2] . ((int)$idx_kw) . " => " . str_to_phpstring($tmp_kw['docs']) . ",\n";
+    foreach ($lang['ld']['kw'] as $idx_kw => $tmp_kw) {
+        $src .= $i[2] . ((int)$idx_kw) . ' => ' . str_to_phpstring($tmp_kw['docs']) . ",\n";
     }
     $src .= $i[2] . "),\n";
     $src .= $i[1] . "'OOLANG' => false,\n";

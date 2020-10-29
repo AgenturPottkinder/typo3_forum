@@ -24,52 +24,49 @@ namespace Mittwald\Typo3Forum\Domain\Validator\User;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 use TYPO3\CMS\Extbase\Annotation\Inject;
+use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 
 /**
- *
  * A validator class for author names. This class validates a username ONLY if
  * no user is currently logged in.
  *
  * @author     Ruven Fehling <r.fehling@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain\Validator\User
  * @version    $Id$
  *
  * @license    GNU Public License, version 2
  *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class PrivateMessageRecipientValidator extends AbstractValidator {
+class PrivateMessageRecipientValidator extends AbstractValidator
+{
 
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
+     * @Inject
+     */
+    protected $userRepository;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
-	 * @Inject
-	 */
-	protected $userRepository = NULL;
+    /**
+     * Check if $value is valid. If it is not valid, needs to add an error
+     * to Result.
+     *
+     * @param $value
+     * @return bool
+     */
+    protected function isValid($value)
+    {
+        $result = true;
 
-	/**
-	 * Check if $value is valid. If it is not valid, needs to add an error
-	 * to Result.
-	 *
-	 * @param $value
-	 * @return bool
-	 */
-	protected function isValid($value) {
-		$result = TRUE;
+        if (!$this->userRepository->findOneByUsername($value)) {
+            $this->addError('PM reciepient user not found!', 1372429326);
+            $result = false;
+        }
+        $user = $this->userRepository->findCurrent();
+        if ($user->getUsername() == $value) {
+            $this->addError('You can\'t write yourself a message :)', 1372682275);
+            $result = false;
+        }
 
-		if (!$this->userRepository->findOneByUsername($value)) {
-			$this->addError('PM reciepient user not found!', 1372429326);
-			$result = FALSE;
-		}
-		$user = $this->userRepository->findCurrent();
-		if ($user->getUsername() == $value) {
-			$this->addError('You can\'t write yourself a message :)', 1372682275);
-			$result = FALSE;
-		}
-
-		return $result;
-	}
+        return $result;
+    }
 }

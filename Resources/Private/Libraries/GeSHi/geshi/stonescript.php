@@ -38,26 +38,26 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'StoneScript',
-    'COMMENT_SINGLE' => array(1 => "--"),
-    'COMMENT_MULTI' => array("--[[" => "]]"),
-    'COMMENT_REGEXP' => array(
+    'COMMENT_SINGLE' => [1 => '--'],
+    'COMMENT_MULTI' => ['--[[' => ']]'],
+    'COMMENT_REGEXP' => [
         4 => '/<<\s*?(\w+)\\n.*?\\n\\1(?![a-zA-Z0-9])/si',
-        ),
+        ],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"', '`','\''),
+    'QUOTEMARKS' => ['"', '`', '\''],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
+    'KEYWORDS' => [
         // Blue - General Keywords
-        1 => array(
+        1 => [
                 'and', 'begin', 'break', 'do', 'else', 'elseif', 'end',
                 'for', 'if', 'in', 'while', 'next', 'not', 'or', 'redo',
                 'then', 'unless', 'until', 'when', 'false', 'nil', 'self',
                 'true', 'local', 'this', 'return',
-            ),
+            ],
         // Dark Blue - Main API names
-        2 => array(
+        2 => [
                 'animation', 'application', 'cache', 'camera', 'debug',
                 'dynamics', 'group', 'hashtable', 'hud', 'input', 'light',
                 'log', 'math', 'mesh', 'microphone', 'music', 'navigation',
@@ -68,10 +68,10 @@ $language_data = array (
                 'plasma', 'watersim',
                 'winDirectories',
                 'ActionSheet', 'Alert', 'Mail', 'Picker', 'StatusBar',
-            ),
+            ],
         // Constants
         // Can be commented out if performance is crucial -> then these keywords will appear in a slightly lighter color
-        3 => array(
+        3 => [
                 //Animation
                 'kPlaybackModeLoop', 'kPlaybackModeLoopMirrored', 'kPlaybackModeLoopReversed',
                 'kPlaybackModeOnce', 'kPlaybackModeOnceReversed',
@@ -97,7 +97,7 @@ $language_data = array (
                 'kAxisX', 'kAxisY', 'kAxisZ',
                 'kTypeBox', 'kTypeCapsule', 'kTypeSphere',
                 //HUD
-                'kAddressingModeClamp', 'kAddressingModeRepeat', 'kAlignCenter', 'kAlignJustify','kAlignLeft', 'kAlignRight',
+                'kAddressingModeClamp', 'kAddressingModeRepeat', 'kAlignCenter', 'kAlignJustify', 'kAlignLeft', 'kAlignRight',
                 'kAlignTop', 'kBlendModeAdd', 'kBlendModeDefault', 'kBlendModeModulate', 'kCaseFixed', 'kCaseVariable',
                 'kCommandTypeCallAction', 'kCommandTypeCopyCheckStateToRegister', 'kCommandTypeCopyEditTextToRegister',
                 'kCommandTypeCopyListItemTextToRegister', 'kCommandTypeCopyListLastSelectedItemToRegister',
@@ -198,110 +198,108 @@ $language_data = array (
                 'kLanguageSerboCroatian', 'kLanguageSlovak', 'kLanguageSpanish', 'kLanguageSwedish', 'kLanguageThai',
                 'kLanguageTurkish', 'kLanguageUnknown', 'kLanguageUrdu', 'kOSTypeAndroid', 'kOSTypeAngstrom', 'kOSTypeIPhone',
                 'kOSTypeLinux', 'kOSTypeMac', 'kOSTypePSP', 'kOSTypeSymbian', 'kOSTypeWii', 'kOSTypeWindows', 'kOSTypeWindowsCE',
-            ),
+            ],
         // Not used yet
-        4 => array(
+        4 => [
                 'dummycommand',
-            ),
-        ),
-    'SYMBOLS' => array(
+            ],
+        ],
+    'SYMBOLS' => [
         '(', ')', '[', ']', '{', '}', '%', '&', '*', '|', '/', '<', '>',
         '+', '-', '=>', '<<'
-        ),
-    'CASE_SENSITIVE' => array(
+        ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => false,
         4 => true,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+        ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color:#0000FF; font-weight:bold;',
             2 => 'color:#000088; font-weight:bold;',
             3 => 'color:#C088C0; font-weight:bold;',
             4 => 'color:#00FEFE; font-weight:bold;',
-            ),
-        'COMMENTS' => array(
+            ],
+        'COMMENTS' => [
             1 => 'color:#008000; font-style:italic;',
             4 => 'color: #cc0000; font-style: italic;',
             'MULTI' => 'color:#008000; font-style:italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+            ],
+        'ESCAPE_CHAR' => [
             0 => 'color:#000099;'
-            ),
-        'BRACKETS' => array(
+            ],
+        'BRACKETS' => [
             0 => 'color:#000000; font-weight:bold;'
-            ),
-        'STRINGS' => array(
+            ],
+        'STRINGS' => [
             0 => 'color:#888800;'
-            ),
-        'NUMBERS' => array(
+            ],
+        'NUMBERS' => [
             0 => 'color:#AA0000;'
-            ),
+            ],
         // names after "."
-        'METHODS' => array(
+        'METHODS' => [
             1 => 'color:#FF00FF; font-weight:bold;'
-            ),
-        'SYMBOLS' => array(
+            ],
+        'SYMBOLS' => [
             0 => 'color:#000000; font-weight:bold;'
-            ),
-        'REGEXPS' => array(
+            ],
+        'REGEXPS' => [
             0 => 'color:#ff6633; font-weight:bold;',
             1 => 'color:#0066ff; font-weight:bold;',
             2 => 'color:#6666ff; font-weight:bold;',
             3 => 'color:#ff3333; font-weight:bold;'
-            ),
-        'SCRIPT' => array(
+            ],
+        'SCRIPT' => [
             0 => '',
             1 => '',
             2 => '',
-            )
-        ),
-    'URLS' => array(
+            ]
+        ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
         4 => ''
-        ),
+        ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '.'
-        ),
-    'REGEXPS' => array(
-        0 => array(//Variables
-            GESHI_SEARCH => "([[:space:]])(\\$[a-zA-Z_][a-zA-Z0-9_]*)",
+        ],
+    'REGEXPS' => [
+        0 => [//Variables
+            GESHI_SEARCH => '([[:space:]])(\$[a-zA-Z_][a-zA-Z0-9_]*)',
             GESHI_REPLACE => '\\2',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '\\1',
             GESHI_AFTER => ''
-            ),
-        1 => array(//Arrays
-            GESHI_SEARCH => "([[:space:]])(@[a-zA-Z_][a-zA-Z0-9_]*)",
+            ],
+        1 => [//Arrays
+            GESHI_SEARCH => '([[:space:]])(@[a-zA-Z_][a-zA-Z0-9_]*)',
             GESHI_REPLACE => '\\2',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '\\1',
             GESHI_AFTER => ''
-            ),
-        2 => "([A-Z][a-zA-Z0-9_]*::)+[A-Z][a-zA-Z0-9_]*",//Static OOP symbols
-        3 => array(
+            ],
+        2 => '([A-Z][a-zA-Z0-9_]*::)+[A-Z][a-zA-Z0-9_]*', //Static OOP symbols
+        3 => [
             GESHI_SEARCH => "([[:space:]]|\[|\()(:[a-zA-Z_][a-zA-Z0-9_]*)",
             GESHI_REPLACE => '\\2',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '\\1',
             GESHI_AFTER => ''
-            )
-        ),
+            ]
+        ],
     'STRICT_MODE_APPLIES' => GESHI_MAYBE,
-    'SCRIPT_DELIMITERS' => array(
-        0 => array(
+    'SCRIPT_DELIMITERS' => [
+        0 => [
             '<%' => '%>'
-            )
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
+            ]
+        ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
         0 => true,
-        ),
+        ],
     'TAB_WIDTH' => 2
-);
-
-?>
+];

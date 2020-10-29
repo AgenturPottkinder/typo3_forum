@@ -27,26 +27,26 @@ namespace Mittwald\Typo3Forum\Domain\Repository\User;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-class NotificationRepository extends Repository {
+class NotificationRepository extends Repository
+{
 
+    /**
+     * Find notifications for a specific user
+     *
+     * @param FrontendUser $user
+     * @param int          $limit
+     *
+     * @return \Mittwald\Typo3Forum\Domain\Model\User\Notification[]
+     */
+    public function findNotificationsForUser(FrontendUser $user, $limit = 0)
+    {
+        $query = $this->createQuery();
+        $query->matching($query->equals('feuser', $user));
+        $query->setOrderings(['post.crdate' => 'DESC']);
+        if ($limit > 0) {
+            $query->setLimit($limit);
+        }
 
-	/**
-	 * Find notifications for a specific user
-	 *
-	 * @param FrontendUser $user
-	 * @param int          $limit
-	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\Notification[]
-	 */
-	public function findNotificationsForUser(FrontendUser $user, $limit = 0) {
-		$query = $this->createQuery();
-		$query->matching($query->equals('feuser', $user));
-		$query->setOrderings(['post.crdate' => 'DESC']);
-		if ($limit > 0) {
-			$query->setLimit($limit);
-		}
-
-		return $query->execute();
-	}
-
+        return $query->execute();
+    }
 }

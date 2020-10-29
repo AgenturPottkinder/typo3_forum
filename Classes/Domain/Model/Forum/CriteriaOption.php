@@ -26,69 +26,71 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-class CriteriaOption extends AbstractEntity {
+class CriteriaOption extends AbstractEntity
+{
 
-	/**
-	 * The criteria object.
-	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Criteria
-	 */
-	protected $criteria;
+    /**
+     * The criteria object.
+     * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Criteria
+     */
+    protected $criteria;
 
-	/**
-	 * The name of the option
-	 * @var string
-	 */
-	protected $name;
+    /**
+     * The name of the option
+     * @var string
+     */
+    protected $name;
 
-	/**
-	 * The sorting value of this option
-	 * @var int
-	 */
-	protected $sorting;
+    /**
+     * The sorting value of this option
+     * @var int
+     */
+    protected $sorting;
 
-	/**
-	 * Get the criteria object.
-	 * @return Criteria
-	 */
-	public function getCriteria() {
-		return $this->criteria;
-	}
+    /**
+     * Get the criteria object.
+     * @return Criteria
+     */
+    public function getCriteria()
+    {
+        return $this->criteria;
+    }
 
-	/**
-	 * Sets the criteria object.
-	 *
-	 * @param Criteria $criteria The criteria object
-	 * @return void
-	 */
-	public function setCriteria(Criteria $criteria) {
-		$this->criteria = $criteria;
-	}
+    /**
+     * Sets the criteria object.
+     *
+     * @param Criteria $criteria The criteria object
+     */
+    public function setCriteria(Criteria $criteria)
+    {
+        $this->criteria = $criteria;
+    }
 
-	/**
-	 * Gets the value of criteria.
-	 * @return string The name of a option.
-	 */
-	public function getName() {
-		return $this->name;
-	}
+    /**
+     * Gets the value of criteria.
+     * @return string The name of a option.
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
-	/**
-	 * Sets the value.
-	 *
-	 * @param string $name The name of a option
-	 *
-	 * @return void
-	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
+    /**
+     * Sets the value.
+     *
+     * @param string $name The name of a option
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
-	/**
-	 * Gets the sorting value of this option
-	 * @return int
-	 */
-	public function getSorting() {
-		return $this->sorting;
-	}
-
+    /**
+     * Gets the sorting value of this option
+     * @return int
+     */
+    public function getSorting()
+    {
+        return $this->sorting;
+    }
 }

@@ -35,6 +35,6 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  * These report objects can be assigned to moderators ans be organized in
  * different workflow stages. Moderators can post comments to each report.
  */
-class AbstractReport extends AbstractEntity {
-
+class AbstractReport extends AbstractEntity
+{
 }

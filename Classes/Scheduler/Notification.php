@@ -80,7 +80,6 @@ class Notification extends AbstractDatabaseTask
         return $this->notificationPid;
     }
 
-
     /**
      * @return int
      */
@@ -88,7 +87,6 @@ class Notification extends AbstractDatabaseTask
     {
         return (int)$this->lastExecutedCron;
     }
-
 
     /**
      * @return int
@@ -124,17 +122,14 @@ class Notification extends AbstractDatabaseTask
 
     /**
      * @param int $lastExecutedCron
-     * @return void
      */
     public function setLastExecutedCron($lastExecutedCron)
     {
         $this->lastExecutedCron = $lastExecutedCron;
     }
 
-
     /**
      * @param int $executedOn
-     * @return void
      */
     public function setExecutedOn($executedOn)
     {
@@ -159,9 +154,6 @@ class Notification extends AbstractDatabaseTask
         return true;
     }
 
-    /**
-     * @return void
-     */
     private function checkPostNotifications()
     {
         $topicResult = $this->getNotifiablePosts();
@@ -172,15 +164,18 @@ class Notification extends AbstractDatabaseTask
             $queryBuilder->from('tx_typo3forum_domain_model_forum_post', 'post');
             $queryBuilder->select('post.uid', 'post.author');
             $queryBuilder->andWhere(
-                $queryBuilder->expr()->eq('post.topic',
-                    $queryBuilder->createNamedParameter($topicRow['uid'], \PDO::PARAM_INT)),
-                $queryBuilder->expr()->gt('post.crdate',
-                    $queryBuilder->createNamedParameter($this->getLastExecutedCron(), \PDO::PARAM_INT)),
+                $queryBuilder->expr()->eq(
+                    'post.topic',
+                    $queryBuilder->createNamedParameter($topicRow['uid'], \PDO::PARAM_INT)
+                ),
+                $queryBuilder->expr()->gt(
+                    'post.crdate',
+                    $queryBuilder->createNamedParameter($this->getLastExecutedCron(), \PDO::PARAM_INT)
+                ),
                 $queryBuilder->expr()->in('post.pid', $this->getForumPids())
             );
 
             $postResult = $queryBuilder->execute();
-
 
             while ($postRow = $postResult->fetch()) {
                 foreach ($involvedUser as $user) {
@@ -201,7 +196,6 @@ class Notification extends AbstractDatabaseTask
 
                     ];
 
-
                     $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_user_notification');
                     $queryBuilder->insert('tx_typo3forum_domain_model_user_notification');
                     $queryBuilder->values($insert);
@@ -212,7 +206,7 @@ class Notification extends AbstractDatabaseTask
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     private function checkTagsNotification()
     {
@@ -238,7 +232,6 @@ class Notification extends AbstractDatabaseTask
 
             $userResult = $queryBuilder->execute();
 
-
             while ($userRow = $userResult->fetch()) {
                 $subscribedTagUser[] = $userRow['uid'];
             }
@@ -246,20 +239,22 @@ class Notification extends AbstractDatabaseTask
             $queryBuilder->from('tx_typo3forum_domain_model_forum_post', 'post');
             $queryBuilder->select('*');
             $queryBuilder->andWhere(
-                $queryBuilder->expr()->eq('post.topic',
-                    $queryBuilder->createNamedParameter($tagsRow['topicUid'], \PDO::PARAM_INT)),
+                $queryBuilder->expr()->eq(
+                    'post.topic',
+                    $queryBuilder->createNamedParameter($tagsRow['topicUid'], \PDO::PARAM_INT)
+                ),
                 $queryBuilder->expr()->gt('post.author', 0),
-                $queryBuilder->expr()->gt('post.crdate',
-                    $queryBuilder->createNamedParameter($this->getLastExecutedCron(), \PDO::PARAM_INT)),
+                $queryBuilder->expr()->gt(
+                    'post.crdate',
+                    $queryBuilder->createNamedParameter($this->getLastExecutedCron(), \PDO::PARAM_INT)
+                ),
                 $queryBuilder->expr()->in('post.pid', $this->getForumPids())
             );
-
 
             $postResult = $queryBuilder->execute();
 
             while ($postRow = $postResult->fetch()) {
                 foreach ($subscribedTagUser as $userUid) {
-
                     if ($postRow['author'] == $userUid) {
                         continue;
                     }
@@ -295,8 +290,10 @@ class Notification extends AbstractDatabaseTask
         $queryBuilder->from('tx_typo3forum_domain_model_user_notification', 'notification');
         $queryBuilder->select('notification.crdate');
         $queryBuilder->andWhere(
-            $queryBuilder->expr()->eq('notification.pid',
-                $queryBuilder->createNamedParameter($this->getNotificationPid(), \PDO::PARAM_INT))
+            $queryBuilder->expr()->eq(
+                'notification.pid',
+                $queryBuilder->createNamedParameter($this->getNotificationPid(), \PDO::PARAM_INT)
+            )
         );
         $queryBuilder->addOrderBy('notification.crdate', 'DESC');
         $queryBuilder->setMaxResults(1);
@@ -326,7 +323,6 @@ class Notification extends AbstractDatabaseTask
 
         $result = $queryBuilder->execute();
 
-
         while ($row = $result->fetch()) {
             $user[] = [
                 'author' => (int)$row['author'],
@@ -346,16 +342,30 @@ class Notification extends AbstractDatabaseTask
         $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_tag');
         $queryBuilder->from('tx_typo3forum_domain_model_forum_tag', 'tag');
         $queryBuilder->select('tag.uid AS tagUid', 'topic.uid AS topicUid');
-        $queryBuilder->join('tag', 'tx_typo3forum_domain_model_forum_tag_topic', 'mm',
-            $queryBuilder->expr()->eq('mm.uid_foreign', 'tag.uid'));
-        $queryBuilder->join('mm', 'tx_typo3forum_domain_model_forum_topic', 'topic',
-            $queryBuilder->expr()->eq('mm.uid_local', 'topic.uid'));
-        $queryBuilder->join('topic', 'tx_typo3forum_domain_model_forum_post', 'post',
-            $queryBuilder->expr()->eq('post.uid', 'topic.last_post'));
+        $queryBuilder->join(
+            'tag',
+            'tx_typo3forum_domain_model_forum_tag_topic',
+            'mm',
+            $queryBuilder->expr()->eq('mm.uid_foreign', 'tag.uid')
+        );
+        $queryBuilder->join(
+            'mm',
+            'tx_typo3forum_domain_model_forum_topic',
+            'topic',
+            $queryBuilder->expr()->eq('mm.uid_local', 'topic.uid')
+        );
+        $queryBuilder->join(
+            'topic',
+            'tx_typo3forum_domain_model_forum_post',
+            'post',
+            $queryBuilder->expr()->eq('post.uid', 'topic.last_post')
+        );
         $queryBuilder->andWhere(
             $queryBuilder->expr()->in('tag.pid', $this->getForumPids()),
-            $queryBuilder->expr()->gt('post.crdate',
-                $queryBuilder->createNamedParameter($this->getLastExecutedCron(), \PDO::PARAM_INT))
+            $queryBuilder->expr()->gt(
+                'post.crdate',
+                $queryBuilder->createNamedParameter($this->getLastExecutedCron(), \PDO::PARAM_INT)
+            )
         );
 
         $queryBuilder->addOrderBy('topic.last_post', 'DESC');
@@ -380,8 +390,10 @@ class Notification extends AbstractDatabaseTask
         );
         $queryBuilder->andWhere(
             $queryBuilder->expr()->in('topic.pid', $this->getForumPids()),
-            $queryBuilder->expr()->gt('post.crdate',
-                $queryBuilder->createNamedParameter($this->getLastExecutedCron(), \PDO::PARAM_INT))
+            $queryBuilder->expr()->gt(
+                'post.crdate',
+                $queryBuilder->createNamedParameter($this->getLastExecutedCron(), \PDO::PARAM_INT)
+            )
         );
         $queryBuilder->addGroupBy('topic.uid');
         $queryBuilder->addOrderBy('topic.last_post', 'DESC');

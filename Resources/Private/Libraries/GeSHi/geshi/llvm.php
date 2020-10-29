@@ -38,17 +38,17 @@
  *
  ************************************************************************************/
 
-$language_data = array(
+$language_data = [
     'LANG_NAME' => 'LLVM Intermediate Representation',
-    'COMMENT_SINGLE' => array(1 => ';'),
-    'COMMENT_MULTI' => array(),
-    'HARDQUOTE' => array("\"", "\""),
-    'HARDESCAPE' => array("\"", "\\"),
-    'HARDCHAR' => "\\",
+    'COMMENT_SINGLE' => [1 => ';'],
+    'COMMENT_MULTI' => [],
+    'HARDQUOTE' => ['"', '"'],
+    'HARDESCAPE' => ['"', '\\'],
+    'HARDCHAR' => '\\',
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
+    'QUOTEMARKS' => ['"'],
     'ESCAPE_CHAR' => '',
-    'ESCAPE_REGEXP' => array(
+    'ESCAPE_REGEXP' => [
         //Simple Single Char Escapes
         // 1 => "#\\\\[nfrtv\$\"\n\\\\]#i",
         //Hexadecimal Char Specs
@@ -61,134 +61,134 @@ $language_data = array(
         // 5 => "#\$[a-z0-9_]+(?:\[[a-z0-9_]+\]|->[a-z0-9_]+)?|(?:\{\$|\$\{)[a-z0-9_]+(?:\[('?)[a-z0-9_]*\\1\]|->[a-z0-9_]+)*\}|\{\$(?R)\}#i",
         //Format String support in ""-Strings
         // 6 => "#%(?:%|(?:\d+\\\\\\\$)?\\+?(?:\x20|0|'.)?-?(?:\d+|\\*)?(?:\.\d+)?[bcdefFosuxX])#"
-        ),
+        ],
     'NUMBERS' =>
     GESHI_NUMBER_INT_BASIC | GESHI_NUMBER_HEX_PREFIX | GESHI_NUMBER_FLT_SCI_ZERO,
-    'KEYWORDS' => array(
-        0 => array(
+    'KEYWORDS' => [
+        0 => [
             'to', 'nuw', 'nsw', 'align', 'inbounds', 'entry', 'return'
-            ),
+            ],
         //Terminator Instructions
-        1 => array(
+        1 => [
             'ret', 'br', 'switch', 'indirectbr', 'invoke', 'unwind', 'unreachable'
-            ),
+            ],
         //Binary Operations
-        2 => array(
+        2 => [
             'add', 'fadd', 'sub', 'fsub', 'mul', 'fmul', 'udiv', 'sdiv', 'fdiv', 'urem', 'frem', 'srem'
-            ),
+            ],
         //Bitwise Binary Operations
-        3 => array(
+        3 => [
             'shl', 'lshr', 'ashr', 'and', 'or', 'xor'
-            ),
+            ],
         //Vector Operations
-        4 => array(
+        4 => [
             'extractelement', 'insertelement', 'shufflevector'
-            ),
+            ],
         //Aggregate Operations
-        5 => array(
+        5 => [
             'extractvalue', 'insertvalue'
-            ),
+            ],
         //Memory Access and Addressing Operations
-        6 => array(
+        6 => [
             'alloca', 'load', 'store', 'getelementptr'
-            ),
+            ],
         //Conversion Operations
-        7 => array(
+        7 => [
             'trunc', 'zext', 'sext', 'fptrunc', 'fpext', 'fptoui', 'fptosi',
             'uitofp', 'sitofp', 'ptrtoint', 'inttoptr', 'bitcast'
-            ),
+            ],
         //Other Operations
-        8 => array(
+        8 => [
             'icmp', 'fcmp', 'phi', 'select', 'call', 'va_arg'
-            ),
+            ],
         //Linkage Types
-        9 => array(
+        9 => [
             'private', 'linker_private', 'linker_private_weak', 'linker_private_weak_def_auto',
             'internal', 'available_externally', 'linkonce', 'common', 'weak', 'appending',
             'extern_weak', 'linkonce_odr', 'weak_odr', 'externally visible', 'dllimport', 'dllexport',
-            ),
+            ],
         //Calling Conventions
-        10 => array(
+        10 => [
             'ccc', 'fastcc', 'coldcc', 'cc 10'
-            ),
+            ],
         //Named Types
-        11 => array(
+        11 => [
             'type'
-            ),
+            ],
         //Parameter Attributes
-        12 => array(
+        12 => [
             'zeroext', 'signext', 'inreg', 'byval', 'sret', 'noalias', 'nocapture', 'nest'
-            ),
+            ],
         //Function Attributes
-        13 => array(
+        13 => [
             'alignstack', 'alwaysinline', 'inlinehint', 'naked', 'noimplicitfloat', 'noinline', 'noredzone', 'noreturn',
             'nounwind', 'optsize', 'readnone', 'readonly', 'ssp', 'sspreq',
-            ),
+            ],
         //Module-Level Inline Assembly
-        14 => array(
+        14 => [
             'module asm'
-            ),
+            ],
         //Data Layout
-        15 => array(
+        15 => [
             'target datalayout'
-            ),
+            ],
         //Primitive Types
-        16 => array(
+        16 => [
             'x86mmx',
             'void',
             'label',
             'metadata',
             'opaque'
-            ),
+            ],
         //Floating Point Types
-        17 => array(
+        17 => [
             'float', 'double', 'fp128', 'x86_fp80', 'ppc_fp128',
-            ),
+            ],
         //Simple Constants
-        18 => array(
+        18 => [
             'false', 'true', 'null'
-            ),
+            ],
         //Global Variable and Function Addresses
-        19 => array(
+        19 => [
             'global', 'addrspace', 'constant', 'section'
-            ),
+            ],
         //Functions
-        20 => array(
+        20 => [
             'declare', 'define'
-            ),
+            ],
         //Complex Constants
-        21 => array(
+        21 => [
             'zeroinitializer'
-            ),
+            ],
         //Undefined Values
-        22 => array(
+        22 => [
             'undef'
-            ),
+            ],
         //Addresses of Basic Blocks
-        23 => array(
+        23 => [
             'blockaddress'
-            ),
+            ],
         //Visibility Styles
-        24 => array(
+        24 => [
             'default', 'hidden', 'protected'
-            ),
-        25 => array(
+            ],
+        25 => [
             'volatile'
-            ),
-        26 => array(
+            ],
+        26 => [
             'tail'
-            ),
-        ),
-    'SYMBOLS' => array(
-        0 => array(
+            ],
+        ],
+    'SYMBOLS' => [
+        0 => [
             '(', ')', '[', ']', '{', '}',
             '!', '@', '%', '&', '|', '/',
             '<', '>',
             '=', '-', '+', '*',
             '.', ':', ',', ';'
-            )
-        ),
-    'CASE_SENSITIVE' => array(
+            ]
+        ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => true,
         2 => true,
@@ -216,9 +216,9 @@ $language_data = array(
         24 => true,
         25 => true,
         26 => true,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+        ],
+    'STYLES' => [
+        'KEYWORDS' => [
             0 => 'color: #209090;',
             1 => 'color: #0000F0;',
             2 => 'color: #00F000; font-weight: bold;',
@@ -246,12 +246,12 @@ $language_data = array(
             24 => 'color: #F040F0; font-weight: bold;',
             25 => 'color: #40F0F0; font-weight: bold;',
             26 => 'color: #904040; font-weight: bold;',
-            ),
-        'COMMENTS' => array(
+            ],
+        'COMMENTS' => [
             1 => 'color: #666666; font-style: italic;',
             'MULTI' => 'color: #666666; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+            ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;',
             1 => 'color: #000099; font-weight: bold;',
             2 => 'color: #660099; font-weight: bold;',
@@ -260,28 +260,28 @@ $language_data = array(
             5 => 'color: #006699; font-weight: bold; font-style: italic;',
             6 => 'color: #009933; font-weight: bold;',
             'HARD' => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+            ],
+        'BRACKETS' => [
             0 => 'color: #009900;'
-            ),
-        'STRINGS' => array(
+            ],
+        'STRINGS' => [
             0 => 'color: #0000ff;',
             'HARD' => 'color: #0000ff;'
-            ),
-        'NUMBERS' => array(
+            ],
+        'NUMBERS' => [
             0 => 'color: #cc66cc;',
             GESHI_NUMBER_OCT_PREFIX => 'color: #208080;',
             GESHI_NUMBER_HEX_PREFIX => 'color: #208080;',
             GESHI_NUMBER_FLT_SCI_ZERO => 'color:#800080;',
-            ),
-        'METHODS' => array(
+            ],
+        'METHODS' => [
             1 => 'color: #004000;',
             2 => 'color: #004000;'
-            ),
-        'SYMBOLS' => array(
+            ],
+        'SYMBOLS' => [
             0 => 'color: #339933;',
-            ),
-        'REGEXPS' => array(
+            ],
+        'REGEXPS' => [
             0 => 'color: #007088;',
             1 => 'color: #007088;',
             // 2 => 'color: #000088;',
@@ -292,17 +292,17 @@ $language_data = array(
             // 7 => 'color: #616988;',
             // 8 => 'color: #616908;',
             9 => 'color: #6109F8;',
-            ),
-        'SCRIPT' => array(
+            ],
+        'SCRIPT' => [
             0 => '',
             1 => '',
             2 => '',
             3 => '',
             4 => '',
             5 => ''
-            )
-        ),
-    'URLS' => array(
+            ]
+        ],
+    'URLS' => [
         0 => '',
         1 => 'http://llvm.org/docs/LangRef.html#i_{FNAME}',
         2 => 'http://llvm.org/docs/LangRef.html#i_{FNAME}',
@@ -330,11 +330,11 @@ $language_data = array(
         24 => 'http://llvm.org/docs/LangRef.html#visibility',
         25 => 'http://llvm.org/docs/LangRef.html#volatile',
         26 => 'http://llvm.org/docs/LangRef.html#i_call',
-        ),
+        ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
-    'REGEXPS' => array(
+    'OBJECT_SPLITTERS' => [
+        ],
+    'REGEXPS' => [
         //Variables
         0 => '%[-a-zA-Z$\._][-a-zA-Z$\._0-9]*',
         //Labels
@@ -345,13 +345,13 @@ $language_data = array(
         //Unnamed variable slots
         3 => '%[-]?[0-9]+',
         //Integer Types
-        4 => array(
+        4 => [
             GESHI_SEARCH => '(?<!\w)i\d+(?!\w)',
             GESHI_REPLACE => '\\0',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '<a href="http://llvm.org/docs/LangRef.html#t_integer">',
             GESHI_AFTER => '</a>'
-            ),
+            ],
         //Comments
         // 5 => ';.*',
         //Integer literals
@@ -361,25 +361,23 @@ $language_data = array(
         //Hex constants
         // 8 => '\\b0x[0-9A-Fa-f]+\\b',
         //Global variables
-        9 => array(
+        9 => [
             GESHI_SEARCH => '@[-a-zA-Z$\._][-a-zA-Z$\._0-9]*',
             GESHI_REPLACE => '\\0',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '<a href="http://llvm.org/docs/LangRef.html#globalvars">',
             GESHI_AFTER => '</a>'
-            ),
-        ),
+            ],
+        ],
     'STRICT_MODE_APPLIES' => GESHI_MAYBE,
-    'HIGHLIGHT_STRICT_BLOCK' => array(
+    'HIGHLIGHT_STRICT_BLOCK' => [
         0 => true,
         1 => true,
         2 => true,
         3 => true,
         4 => true,
         5 => true
-        ),
-    'SCRIPT_DELIMITERS' => array(),
+        ],
+    'SCRIPT_DELIMITERS' => [],
     'TAB_WIDTH' => 4
-);
-
-?>
+];

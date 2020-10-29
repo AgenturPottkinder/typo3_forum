@@ -1,6 +1,7 @@
 <?php
 namespace Mittwald\Typo3Forum\Utility;
-use TYPO3\CMS\Extbase\Annotation\Inject;
+
+use Mittwald\Typo3Forum\Domain\Exception\TextParser\Exception;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -25,41 +26,42 @@ use TYPO3\CMS\Extbase\Annotation\Inject;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Domain\Exception\TextParser\Exception;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
  * Utility module for TypoScript related functions.
  */
-class TypoScript {
+class TypoScript
+{
 
-	/**
-	 * The extbase configuration manager.
-	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
-	 * @Inject
-	 */
-	protected $configurationManager = NULL;
+    /**
+     * The extbase configuration manager.
+     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+     * @Inject
+     */
+    protected $configurationManager;
 
-	/**
-	 * Loads the typoscript configuration from a certain setup path.
-	 *
-	 * @param string $configurationPath The typoscript path
-	 * @return array The typoscript configuration for the specified path.
-	 * @throws Exception
-	 */
-	public function loadTyposcriptFromPath($configurationPath) {
-		$setup = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-		$pathSegments = GeneralUtility::trimExplode('.', $configurationPath);
-		$lastSegment = array_pop($pathSegments);
-		foreach ($pathSegments As $segment) {
-			if (!array_key_exists($segment . '.', $setup)
-			) {
-				throw new Exception ('TypoScript object path "' . htmlspecialchars($configurationPath) . '" does not exist', 1253191023);
-			}
-			$setup = $setup[$segment . '.'];
-		}
-		return $setup[$lastSegment . '.'];
-	}
-
+    /**
+     * Loads the typoscript configuration from a certain setup path.
+     *
+     * @param string $configurationPath The typoscript path
+     * @return array The typoscript configuration for the specified path.
+     * @throws Exception
+     */
+    public function loadTyposcriptFromPath($configurationPath)
+    {
+        $setup = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+        $pathSegments = GeneralUtility::trimExplode('.', $configurationPath);
+        $lastSegment = array_pop($pathSegments);
+        foreach ($pathSegments as $segment) {
+            if (!array_key_exists($segment . '.', $setup)
+            ) {
+                throw new Exception('TypoScript object path "' . htmlspecialchars($configurationPath) . '" does not exist', 1253191023);
+            }
+            $setup = $setup[$segment . '.'];
+        }
+        return $setup[$lastSegment . '.'];
+    }
 }

@@ -39,30 +39,30 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'Python for S60',
-    'COMMENT_SINGLE' => array(1 => '#'),
-    'COMMENT_MULTI' => array(),
+    'COMMENT_SINGLE' => [1 => '#'],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"', "'", '"""',"'''",'""','""'),
+    'QUOTEMARKS' => ['"', "'", '"""', "'''", '""', '""'],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
+    'KEYWORDS' => [
 
         /*
          ** Set 1: reserved words
          ** http://python.org/doc/current/ref/keywords.html
          */
-        1 => array(
+        1 => [
             'and', 'del', 'for', 'is', 'raise', 'assert', 'elif', 'from', 'lambda', 'return', 'break',
             'else', 'global', 'not', 'try', 'class', 'except', 'if', 'or', 'while', 'continue', 'exec',
-            'import', 'pass', 'yield', 'def', 'finally', 'in', 'print', "<<", ">>", "as"
-            ),
+            'import', 'pass', 'yield', 'def', 'finally', 'in', 'print', '<<', '>>', 'as'
+            ],
 
         /*
          ** Set 2: builtins
          ** http://python.org/doc/current/lib/built-in-funcs.html
          */
-        2 => array(
+        2 => [
             '__import__', 'abs', 'basestring', 'bool', 'callable', 'chr', 'classmethod', 'cmp',
             'compile', 'complex', 'delattr', 'dict', 'dir', 'divmod', 'enumerate', 'eval', 'execfile',
             'file', 'filter', 'float', 'frozenset', 'getattr', 'globals', 'hasattr', 'hash', 'help',
@@ -84,16 +84,16 @@ $language_data = array (
             'UserWarning', 'DeprecationWarning', 'PendingDeprecationWarning', 'SyntaxWarning',
             'RuntimeWarning', 'FutureWarning',
             //Symbian Errors
-            "SymbianError", "KernelError",
+            'SymbianError', 'KernelError',
             // self: this is a common python convention (but not a reserved word)
             'self'
-            ),
+            ],
 
         /*
          ** Set 3: standard library
          ** http://python.org/doc/current/lib/modindex.html
          */
-        3 => array(
+        3 => [
             '__builtin__', '__future__', '__main__', '_winreg', 'aifc', 'AL', 'al', 'anydbm',
             'array', 'asynchat', 'asyncore', 'atexit', 'audioop', 'base64', 'BaseHTTPServer',
             'Bastion', 'binascii', 'binhex', 'bisect', 'bsddb', 'bz2', 'calendar', 'cd', 'cgi',
@@ -123,55 +123,55 @@ $language_data = array (
             'tokenize', 'traceback', 'tty', 'turtle', 'types', 'unicodedata', 'unittest', 'urllib2',
             'urllib', 'urlparse', 'user', 'UserDict', 'UserList', 'UserString', 'uu', 'warnings',
             'wave', 'weakref', 'webbrowser', 'whichdb', 'whrandom', 'winsound', 'xdrlib', 'xml',
-            'xmllib', 'xmlrpclib', 'zipfile', 'zipimport', 'zlib', "os.path", "sys.path",
+            'xmllib', 'xmlrpclib', 'zipfile', 'zipimport', 'zlib', 'os.path', 'sys.path',
 
             //PythonS60 Standard Library
             //http://pys60.garage.maemo.org/doc/s60/
             //These are the standard modules in the archive
 
-            "appuifw", "globalui","e32", "telephone", "aosocket", "btsocket",
-            "sysinfo","camera","graphics","keycapture","key_codes","topwindow", "gles",
-            "glcanvas","sensor", "audio","messaging", "inbox","location","positioning",
-            "contacts", "e32calendar", "e32db","e32dbm","logs","scriptext",
-            "series60_console",
+            'appuifw', 'globalui', 'e32', 'telephone', 'aosocket', 'btsocket',
+            'sysinfo', 'camera', 'graphics', 'keycapture', 'key_codes', 'topwindow', 'gles',
+            'glcanvas', 'sensor', 'audio', 'messaging', 'inbox', 'location', 'positioning',
+            'contacts', 'e32calendar', 'e32db', 'e32dbm', 'logs', 'scriptext',
+            'series60_console',
 
             //These are external but very often usable modules
 
-            "appuifw2","ArchetypeUI","elementtree","lightblue",
-            "activaprofile","Adjustor","akntextutils","aosocketnativenew",
-            "appreciation","applicationmanager","appswitch","atextit","bt_teror","btconsole",
-            "btswitch","cElementTree","cenrep","cerealizer","cl_gui","clipboard",
-            "clipboard_CHN","debugger","decompile2",
-            "dir_iter","download","easydb","ECenrep","Edit_find","efeature","elocation","envy",
-            "EProfile","erestart","error","esyagent","Execwap","exprofile","fastcamera",
-            "feature","fgimage","filebrowser","firmware","fold","fonts","fraction","FTP",
-            "ftplibnew","fy_manager","fy_menu","gles_utils","gps_location","hack",
-            "HTML2TXT","iapconnect","icon_image","image_decoder",
-            "ini","interactive_console","inting","key_modifiers","key_tricks","keypress",
-            "landmarks","lite_fm","locationacq","locationrequestor",
-            "logo","markupbase","mbm","mbm2","minidb","miniinfo","MISC",
-            "misty","Msg","ntpath","odict","Paintbox","pathinfo","pexif","pickcolor",
-            "powlite_fm","powlite_fm2","powlite_fm3","powlite_fme","prgbar","prodb",
-            "profileengine","progressbar","progressbartw","progressnotes",
-            "ProgressBarTW2","proshivka","py_upload","pyConnection","PyFileMan",
-            "pykeylock","PyPyc","pyqq","pys60crypto","pys60usb","rfc822",
-            "RUSOS","scmk","scrollpage","SISFIELDS","SISFIELD","sisfile",
-            "SISINFO","sisreader","Sistools","smidi","smsreject","speechy","sre_compile",
-            "sre_constants","sre_parse","sre","sysagent","syslang","TextMan",
-            "textrenderer","TextWrap","topwind","tsocket","uikludge","uikludges","uitricks",
-            "walkfile","wallpaper","wfm_lite",
-            "wif_keys","wif","window","wlanmgmt","wlantools","wt_color","wt_requesters",
-            "zhkey",
+            'appuifw2', 'ArchetypeUI', 'elementtree', 'lightblue',
+            'activaprofile', 'Adjustor', 'akntextutils', 'aosocketnativenew',
+            'appreciation', 'applicationmanager', 'appswitch', 'atextit', 'bt_teror', 'btconsole',
+            'btswitch', 'cElementTree', 'cenrep', 'cerealizer', 'cl_gui', 'clipboard',
+            'clipboard_CHN', 'debugger', 'decompile2',
+            'dir_iter', 'download', 'easydb', 'ECenrep', 'Edit_find', 'efeature', 'elocation', 'envy',
+            'EProfile', 'erestart', 'error', 'esyagent', 'Execwap', 'exprofile', 'fastcamera',
+            'feature', 'fgimage', 'filebrowser', 'firmware', 'fold', 'fonts', 'fraction', 'FTP',
+            'ftplibnew', 'fy_manager', 'fy_menu', 'gles_utils', 'gps_location', 'hack',
+            'HTML2TXT', 'iapconnect', 'icon_image', 'image_decoder',
+            'ini', 'interactive_console', 'inting', 'key_modifiers', 'key_tricks', 'keypress',
+            'landmarks', 'lite_fm', 'locationacq', 'locationrequestor',
+            'logo', 'markupbase', 'mbm', 'mbm2', 'minidb', 'miniinfo', 'MISC',
+            'misty', 'Msg', 'ntpath', 'odict', 'Paintbox', 'pathinfo', 'pexif', 'pickcolor',
+            'powlite_fm', 'powlite_fm2', 'powlite_fm3', 'powlite_fme', 'prgbar', 'prodb',
+            'profileengine', 'progressbar', 'progressbartw', 'progressnotes',
+            'ProgressBarTW2', 'proshivka', 'py_upload', 'pyConnection', 'PyFileMan',
+            'pykeylock', 'PyPyc', 'pyqq', 'pys60crypto', 'pys60usb', 'rfc822',
+            'RUSOS', 'scmk', 'scrollpage', 'SISFIELDS', 'SISFIELD', 'sisfile',
+            'SISINFO', 'sisreader', 'Sistools', 'smidi', 'smsreject', 'speechy', 'sre_compile',
+            'sre_constants', 'sre_parse', 'sre', 'sysagent', 'syslang', 'TextMan',
+            'textrenderer', 'TextWrap', 'topwind', 'tsocket', 'uikludge', 'uikludges', 'uitricks',
+            'walkfile', 'wallpaper', 'wfm_lite',
+            'wif_keys', 'wif', 'window', 'wlanmgmt', 'wlantools', 'wt_color', 'wt_requesters',
+            'zhkey',
 
             //These are recent additions
-            "miffile"
-            ),
+            'miffile'
+            ],
 
         /*
          ** Set 4: special methods
          ** http://python.org/doc/current/ref/specialnames.html
          */
-        4 => array(
+        4 => [
             ///*
             //// Iterator types: http://python.org/doc/current/lib/typeiter.html
             //'__iter__', 'next',
@@ -196,78 +196,76 @@ $language_data = array (
             '__len__', '__getitem__', '__setitem__', '__delitem__', '__iter__', '__contains__',
             '__getslice__', '__setslice__', '__delslice__',
             // Numeric types: http://python.org/doc/current/ref/numeric-types.html
-            '__abs__','__add__','__and__','__coerce__','__div__','__divmod__','__float__',
-            '__hex__','__iadd__','__isub__','__imod__','__idiv__','__ipow__','__iand__',
-            '__ior__','__ixor__', '__ilshift__','__irshift__','__invert__','__int__',
-            '__long__','__lshift__',
-            '__mod__','__mul__','__neg__','__oct__','__or__','__pos__','__pow__',
-            '__radd__','__rdiv__','__rdivmod__','__rmod__','__rpow__','__rlshift__','__rrshift__',
-            '__rshift__','__rsub__','__rmul__','__rand__','__rxor__','__ror__',
-            '__sub__','__xor__'
-            )
+            '__abs__', '__add__', '__and__', '__coerce__', '__div__', '__divmod__', '__float__',
+            '__hex__', '__iadd__', '__isub__', '__imod__', '__idiv__', '__ipow__', '__iand__',
+            '__ior__', '__ixor__', '__ilshift__', '__irshift__', '__invert__', '__int__',
+            '__long__', '__lshift__',
+            '__mod__', '__mul__', '__neg__', '__oct__', '__or__', '__pos__', '__pow__',
+            '__radd__', '__rdiv__', '__rdivmod__', '__rmod__', '__rpow__', '__rlshift__', '__rrshift__',
+            '__rshift__', '__rsub__', '__rmul__', '__rand__', '__rxor__', '__ror__',
+            '__sub__', '__xor__'
+            ]
 
-        ),
-    'SYMBOLS' => array(
+        ],
+    'SYMBOLS' => [
         '(', ')', '[', ']', '{', '}', '*', '&', '%', '!', ';', '<', '>', '?', '`'
-        ),
-    'CASE_SENSITIVE' => array(
+        ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => true,
         1 => true,
         2 => true,
         3 => true,
         4 => true
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+        ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #006000;font-weight:bold;',   // Reserved
             2 => 'color: #800950;font-size:105%',                  // Built-ins + self
             3 => 'color: #003399;font-size:106%',                  // Standard lib
             4 => 'color: #0000cd;'                  // Special methods
-            ),
-        'COMMENTS' => array(
+            ],
+        'COMMENTS' => [
             1 => 'color: #808080; font-style:italic;font-size:92%',
             'MULTI' => 'color: #808080; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+            ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #930; font-weight: bold;font-size:105%'
-            ),
-        'BRACKETS' => array(
+            ],
+        'BRACKETS' => [
             0 => 'color: maroon;font-size:102%;padding:2px'
-            ),
-        'STRINGS' => array(
+            ],
+        'STRINGS' => [
             0 => 'color: #666;'
-            ),
-        'NUMBERS' => array(
+            ],
+        'NUMBERS' => [
             0 => 'color: #2356F8;'
-            ),
-        'METHODS' => array(
+            ],
+        'METHODS' => [
             1 => 'color: navy;'
-            ),
-        'SYMBOLS' => array(
+            ],
+        'SYMBOLS' => [
             0 => 'color: #66ccFF;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+            ],
+        'REGEXPS' => [
+            ],
+        'SCRIPT' => [
+            ]
+        ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
         4 => ''
-        ),
+        ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '.'
-        ),
-    'REGEXPS' => array(
-        ),
+        ],
+    'REGEXPS' => [
+        ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        )
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [
+        ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+        ]
+];

@@ -29,4 +29,6 @@ use TYPO3\CMS\Core\SingletonInterface;
 /**
  * Abstract base class for all typo3_forum service classes.
  */
-abstract class AbstractService implements SingletonInterface {}
+abstract class AbstractService implements SingletonInterface
+{
+}

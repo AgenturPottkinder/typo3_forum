@@ -34,53 +34,53 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'FreeSWITCH',
-    'COMMENT_SINGLE' => array(1 => '#'),
-    'COMMENT_MULTI' => array(),
-    'COMMENT_REGEXP' => array(1 => "/^Comment:.*?$/m"),
+    'COMMENT_SINGLE' => [1 => '#'],
+    'COMMENT_MULTI' => [],
+    'COMMENT_REGEXP' => [1 => '/^Comment:.*?$/m'],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array(),
+    'QUOTEMARKS' => [],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
+    'KEYWORDS' => [
 //        1 => array(
 //            'Disallow', 'Request-rate', 'Robot-version',
 //            'Sitemap', 'User-agent', 'Visit-time'
 //            )
-        ),
-    'SYMBOLS' => array(
+        ],
+    'SYMBOLS' => [
 //        ':'
-        ),
-    'CASE_SENSITIVE' => array(
+        ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false
-        ),
+        ],
 
 //order is important. regexes will overwrite most things....
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    'STYLES' => [
+        'KEYWORDS' => [
 //            1 => 'color: #FF0000; font-weight: bold;',//red
-            ),
-        'COMMENTS' => array(
+            ],
+        'COMMENTS' => [
             1 => 'color: #808080; font-style: italic;',
-            ),
-        'ESCAPE_CHAR' => array(
+            ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+            ],
+        'BRACKETS' => [
 //            0 => 'color: #66cc66;'
-            ),
-        'STRINGS' => array(
+            ],
+        'STRINGS' => [
 //            0 => 'color: #ff0000;'
-            ),
-        'NUMBERS' => array(
+            ],
+        'NUMBERS' => [
 //            0 => 'color: #cc66cc;'
-            ),
-        'METHODS' => array(
-            ),
-        'SYMBOLS' => array(
+            ],
+        'METHODS' => [
+            ],
+        'SYMBOLS' => [
 //            0 => 'color: #66cc66;'
-            ),
-        'REGEXPS' => array(
+            ],
+        'REGEXPS' => [
             0 => 'color: firebrick; font-weight: bold;',
             1 => 'color: cornflowerblue; font-weight: bold;',
             2 => 'color: goldenrod; font-weight: bold;',
@@ -89,80 +89,78 @@ $language_data = array (
             5 => 'color: green; font-weight: bold;',
             6 => 'color: firebrick; font-weight: bold;',
             7 => 'color: indigo; font-weight: italic;'
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+            ],
+        'SCRIPT' => [
+            ]
+        ],
+    'URLS' => [
 //        1 => 'http://www.robotstxt.org/wc/norobots.html'
-        ),
+        ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
-    'REGEXPS' => array(
-        0 => array(
+    'OBJECT_SPLITTERS' => [
+        ],
+    'REGEXPS' => [
+        0 => [
             GESHI_SEARCH => '(^.*ERROR.*)',
             GESHI_REPLACE => '\\1',
             GESHI_MODIFIERS => 'im',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            ),
-        1 => array(
+            ],
+        1 => [
             GESHI_SEARCH => '(^.*NOTICE.*)',
             GESHI_REPLACE => '\\1',
             GESHI_MODIFIERS => 'im',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            ),
-        2 => array(
+            ],
+        2 => [
             GESHI_SEARCH => '(^.*DEBUG.*)',
             GESHI_REPLACE => '\\1',
             GESHI_MODIFIERS => 'm',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            ),
-        3 => array(
+            ],
+        3 => [
             GESHI_SEARCH => '(^.*INFO.*|.*info\(.*|^Channel.*|^Caller.*|^variable.*)',
             GESHI_REPLACE => '\\1',
             GESHI_MODIFIERS => 'm',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            ),
-        4 => array(
+            ],
+        4 => [
             GESHI_SEARCH => '(^Dialplan.*)',
             GESHI_REPLACE => '\\1',
             GESHI_MODIFIERS => 'im',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            ),
-        5 => array(
+            ],
+        5 => [
             GESHI_SEARCH => '(Regex\ \(PASS\))',
             GESHI_REPLACE => '\\1',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            ),
-        6 => array(
+            ],
+        6 => [
             GESHI_SEARCH => '(Regex\ \(FAIL\))',
             GESHI_REPLACE => '\\1',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            ),
-        7 => array(
+            ],
+        7 => [
             GESHI_SEARCH => '(\d{7,15})',
             GESHI_REPLACE => '\\1',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            )
-        ),
+            ]
+        ],
 
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        )
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [
+        ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+        ]
+];

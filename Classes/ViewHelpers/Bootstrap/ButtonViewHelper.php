@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\ViewHelpers\Bootstrap;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -28,35 +29,38 @@ use TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper;
 /**
  * ViewHelper that renders a big button.
  */
-class ButtonViewHelper extends ActionViewHelper {
+class ButtonViewHelper extends ActionViewHelper
+{
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
 
-	public function initializeArguments() {
-		parent::initializeArguments();
+        $this->registerArgument('primary', 'boolean', 'Primary button', false, false);
+        $this->registerArgument('label', 'string', 'Button label', true);
+        $this->registerArgument('icon', 'string', 'Icon', false, null);
+    }
 
-		$this->registerArgument('primary', 'boolean', 'Primary button', FALSE, FALSE);
-		$this->registerArgument('label', 'string', 'Button label', TRUE);
-		$this->registerArgument('icon', 'string', 'Icon', FALSE, NULL);
-	}
+    public function initialize()
+    {
+        parent::initialize();
 
-	public function initialize() {
-		parent::initialize();
+        $class = 'btn';
 
-		$class = 'btn';
+        if ($this->arguments['primary'] === true) {
+            $class .= ' btn-primary';
+        }
 
-		if ($this->arguments['primary'] === TRUE) {
-			$class .= ' btn-primary';
-		}
+        $this->tag->addAttribute('class', $class);
+    }
 
-		$this->tag->addAttribute('class', $class);
-	}
-
-	public function renderChildren() {
-		if ($this->arguments['icon']) {
-			$content = '<i class="tx-typo3forum-icon-16-' . $this->arguments['icon'] . '"></i> ';
-		} else {
-			$content = '';
-		}
-		$content .= \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($this->arguments['label'], 'typo3_forum');
-		return $content;
-	}
+    public function renderChildren()
+    {
+        if ($this->arguments['icon']) {
+            $content = '<i class="tx-typo3forum-icon-16-' . $this->arguments['icon'] . '"></i> ';
+        } else {
+            $content = '';
+        }
+        $content .= \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($this->arguments['label'], 'typo3_forum');
+        return $content;
+    }
 }

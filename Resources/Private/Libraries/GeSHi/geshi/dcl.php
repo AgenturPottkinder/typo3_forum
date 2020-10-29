@@ -37,22 +37,22 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'DCL',
-    'COMMENT_SINGLE' => array('$!', '!'),
-    'COMMENT_MULTI' => array(),
-    'COMMENT_REGEXP' => array(
+    'COMMENT_SINGLE' => ['$!', '!'],
+    'COMMENT_MULTI' => [],
+    'COMMENT_REGEXP' => [
         2 => '/(?<=\$)\s*sql\s+.*?(?:quit|exit);?\s*?$/sim' // do not highlight inline sql
-        ),
+        ],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
-    'HARDESCAPE' => array(),
+    'QUOTEMARKS' => ['"'],
+    'HARDESCAPE' => [],
     'ESCAPE_CHAR' => '',
-    'ESCAPE_REGEXP' => array(
+    'ESCAPE_REGEXP' => [
         1 => "/''[a-zA-Z\\-_]+'/"
-        ),
-    'KEYWORDS' => array(
-        1 => array( // commands
+        ],
+    'KEYWORDS' => [
+        1 => [ // commands
             'ACCOUNTING', 'ALLOCATE', 'ANALYZE', 'APPEND', 'ASSIGN', 'ATTACH', 'BACKUP',
             'CALL', 'CANCEL', 'CHECKSUM', 'CLOSE', 'CONNECT', 'CONTINUE', 'CONVERT',
             'COPY', 'CREATE', 'DEALLOCATE', 'DEASSIGN', 'DEBUG', 'DECK',
@@ -85,8 +85,8 @@ $language_data = array (
             'SHOW TRANSLATION', 'SHOW USERS', 'SHOW WORKING_SET', 'SHOW ZONE', 'SORT',
             'SPAWN', 'START', 'STOP', 'SUBMIT', 'SUBROUTINE', 'SYNCHRONIZE', 'TYPE',
             'UNLOCK', 'VIEW', 'WAIT', 'WRITE', 'XAUTH'
-            ),
-        2 => array( // lexical functions
+            ],
+        2 => [ // lexical functions
             'F$CONTEXT', 'F$CSID', 'F$CUNITS', 'F$CVSI', 'F$CVTIME', 'F$CVUI',
             'F$DELTA_TIME', 'F$DEVICE', 'F$DIRECTORY', 'F$EDIT', 'F$ELEMENT',
             'F$ENVIRONMENT', 'F$EXTRACT', 'F$FAO', 'F$FID_TO_NAME', 'F$FILE_ATTRIBUTES',
@@ -95,14 +95,14 @@ $language_data = array (
             'F$MODE', 'F$MULTIPATH', 'F$PARSE', 'F$PID', 'F$PRIVILEGE', 'F$PROCESS',
             'F$SEARCH', 'F$SETPRV', 'F$STRING', 'F$TIME', 'F$TRNLNM', 'F$TYPE', 'F$UNIQUE',
             'F$USER', 'F$VERIFY'
-            ),
-        3 => array( // special variables etc
+            ],
+        3 => [ // special variables etc
             'sql$database', 'P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8', 'P9',
             '$status', '$severity', 'sys$login', 'sys$system',
             'sys$input', 'sys$output', 'sys$pipe'
-            )
-        ),
-    'SYMBOLS' => array(
+            ]
+        ],
+    'SYMBOLS' => [
         '(', ')', '[', ']', '@', '&', '|', '<', '>', '-',
         '.eqs.', '.eq.', '.lt.', '.lts.', '.gt.', '.gts.', '.ne.', '.nes.',
         '.le.', '.ge.', '.ges.', '.les.',
@@ -111,82 +111,80 @@ $language_data = array (
         '.and.', '.or.', '.not.',
         '.AND.', '.OR.', '.NOT.',
         '==', ':==', '=', ':='
-        ),
-    'CASE_SENSITIVE' => array(
+        ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+        ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #000099; font-weight: bold;',
             2 => 'color: #0066FF;',
             3 => 'color: #993300;'
-            ),
-        'COMMENTS' => array(
+            ],
+        'COMMENTS' => [
             0 => 'color: #666666; font-style: italic;',
             1 => 'color: #666666; font-style: italic;',
             2 => 'color: #9999FF; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+            ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #006666;',
             1 => 'color: #0099FF;',
             2 => 'color: red;',
             3 => 'color: #007800;',
             4 => 'color: #007800;',
             5 => 'color: #780078;'
-            ),
-        'BRACKETS' => array(
+            ],
+        'BRACKETS' => [
             0 => 'color: #7a0874; font-weight: bold;'
-            ),
-        'STRINGS' => array(
+            ],
+        'STRINGS' => [
             0 => 'color: #009900;'
-            ),
-        'NUMBERS' => array(
+            ],
+        'NUMBERS' => [
             0 => 'color: #000000;'
-            ),
-        'METHODS' => array(
-            ),
-        'SYMBOLS' => array(
+            ],
+        'METHODS' => [
+            ],
+        'SYMBOLS' => [
             0 => 'color: #000000; font-weight: bold;'
-            ),
-        'REGEXPS' => array(
+            ],
+        'REGEXPS' => [
             0 => 'color: #0099FF;',                     // variables
             1 => 'color: #0000FF;',                     // qualifiers
             2 => 'color: #FF6600; font-weight: bold;'   // labels
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+            ],
+        'SCRIPT' => [
+            ]
+        ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => ''
-        ),
+        ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
-    'REGEXPS' => array(
+    'OBJECT_SPLITTERS' => [
+        ],
+    'REGEXPS' => [
         // variables
         0 => "'[a-zA-Z_\\-$]+'",
         // qualifiers and parameters
         1 => "(?:\/[a-zA-Z_\/]+)[\s=]",
         // labels
         2 => '(?<=\$)\s*[a-zA-Z\-_]+:'
-        ),
+        ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
+    'SCRIPT_DELIMITERS' => [
+        ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+        ],
     'TAB_WIDTH' => 4,
-    'PARSER_CONTROL' => array(
-        'COMMENTS' => array(
-        ),
-        'KEYWORDS' => array(
-        )
-    )
-);
-
-?>
+    'PARSER_CONTROL' => [
+        'COMMENTS' => [
+        ],
+        'KEYWORDS' => [
+        ]
+    ]
+];

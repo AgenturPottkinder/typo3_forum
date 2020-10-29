@@ -1,7 +1,8 @@
 <?php
 
 namespace Mittwald\Typo3Forum\ViewHelpers\Forum;
-use TYPO3\CMS\Extbase\Annotation\Inject;
+
+use Mittwald\Typo3Forum\Domain\Model\Forum\ShadowTopic;
 
 /* *
  *  COPYRIGHT NOTICE                                                    *
@@ -26,12 +27,11 @@ use TYPO3\CMS\Extbase\Annotation\Inject;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Domain\Model\Forum\ShadowTopic;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderableClosure;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * ViewHelper that renders a topic icon.
@@ -48,31 +48,31 @@ class TopicIconViewHelper extends AbstractViewHelper
      * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
      * @Inject
      */
-    protected $frontendUserRepository = null;
+    protected $frontendUserRepository;
 
     /**
-     *
      * Initializes the view helper arguments.
-     * @return void
-     *
      */
     public function initializeArguments()
     {
-        $this->registerArgument('important', 'integer',
-            'Amount of posts required for a topic to contain in order to be marked as important', false, 15);
+        $this->registerArgument(
+            'important',
+            'integer',
+            'Amount of posts required for a topic to contain in order to be marked as important',
+            false,
+            15
+        );
         $this->registerArgument('topic', Topic::class, 'Current topic', true);
         $this->registerArgument('width', 'integer', 'width of icon');
     }
 
     /**
-     *
      * Renders the topic icon.
      *
      * @return string The rendered icon.
      */
     public function render()
     {
-
         $topic = $this->arguments['topic'];
         $width = $this->arguments['width'];
 
@@ -92,34 +92,33 @@ class TopicIconViewHelper extends AbstractViewHelper
             ];
         }
 
-        return $cObjectViewHelper::renderStatic($renderData, function () {}, $this->renderingContext);
+        return $cObjectViewHelper::renderStatic($renderData, function () {
+        }, $this->renderingContext);
     }
 
     /**
-     *
      * Generates a data array that will be passed to the typoscript object for
      * rendering the icon.
      * @param Topic $topic The topic for which the icon is to be displayed.
      * @return array The data array for the typoscript object.
-     *
      */
     protected function getDataArray(Topic $topic = null)
     {
         if ($topic === null) {
             return [];
-        } elseif ($topic instanceof ShadowTopic) {
+        }
+        if ($topic instanceof ShadowTopic) {
             return ['moved' => true];
-        } else {
-            $isImportant = $topic->getPostCount() >= $this->arguments['important'];
+        }
+        $isImportant = $topic->getPostCount() >= $this->arguments['important'];
 
-            return [
+        return [
                 'important' => $isImportant,
                 'new' => !$topic->hasBeenReadByUser($this->frontendUserRepository->findCurrent()),
                 'closed' => $topic->isClosed(),
                 'sticky' => $topic->isSticky(),
                 'solved' => $topic->getIsSolved(),
             ];
-        }
     }
 
     /**

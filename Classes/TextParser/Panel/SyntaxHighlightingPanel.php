@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\TextParser\Panel;
+
 use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /*                                                                      *
@@ -25,42 +26,44 @@ use TYPO3\CMS\Extbase\Annotation\Inject;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-class SyntaxHighlightingPanel extends \Mittwald\Typo3Forum\TextParser\Panel\AbstractPanel {
+class SyntaxHighlightingPanel extends \Mittwald\Typo3Forum\TextParser\Panel\AbstractPanel
+{
 
-	/**
-	 * TODO
-	 *
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Format\SyntaxHighlightingRepository
-	 * @Inject
-	 */
-	protected $syntaxHighlightingRepository = NULL;
+    /**
+     * TODO
+     *
+     * @var \Mittwald\Typo3Forum\Domain\Repository\Format\SyntaxHighlightingRepository
+     * @Inject
+     */
+    protected $syntaxHighlightingRepository;
 
-	/**
-	 * TODO
-	 *
-	 * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\SyntaxHighlighting>
-	 */
-	protected $syntaxHighlightings = NULL;
+    /**
+     * TODO
+     *
+     * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\SyntaxHighlighting>
+     */
+    protected $syntaxHighlightings;
 
+    public function initializeObject()
+    {
+        $this->syntaxHighlightings          = $this->syntaxHighlightingRepository->findAll();
+    }
 
-	public function initializeObject() {
-		$this->syntaxHighlightings          = $this->syntaxHighlightingRepository->findAll();
-	}
+    /**
+     * TODO
+     * @return array<array>
+     */
+    public function getItems()
+    {
+        $result = [];
 
-	/**
-	 * TODO
-	 * @return array<array>
-	 */
-	public function getItems() {
-		$result = [];
-
-		foreach ($this->syntaxHighlightings as $syntaxHighlighting) {
-			$result[] = $syntaxHighlighting->exportForMarkItUp();
-		}
-		return [['name'      => $this->settings['title'],
-		                   'className' => $this->settings['iconClassName'],
-		                   'openWith'  => '[code]',
-		                   'closeWith' => '[/code]',
-		                   'dropMenu'  => $result]];
-	}
+        foreach ($this->syntaxHighlightings as $syntaxHighlighting) {
+            $result[] = $syntaxHighlighting->exportForMarkItUp();
+        }
+        return [['name'      => $this->settings['title'],
+                           'className' => $this->settings['iconClassName'],
+                           'openWith'  => '[code]',
+                           'closeWith' => '[/code]',
+                           'dropMenu'  => $result]];
+    }
 }

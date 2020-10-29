@@ -26,9 +26,9 @@ namespace Mittwald\Typo3Forum\ViewHelpers\User;
  *                                                                      */
 
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup;
 
 class LinkViewHelper extends AbstractViewHelper
 {
@@ -37,7 +37,7 @@ class LinkViewHelper extends AbstractViewHelper
     /**
      * @var array
      */
-    protected $settings = null;
+    protected $settings;
 
     /**
      * Initialize viewHelper and add given settings
@@ -71,7 +71,6 @@ class LinkViewHelper extends AbstractViewHelper
      */
     public function render()
     {
-
         $user = $this->arguments['user'];
         $showOnlineStatus = $this->arguments['showOnlineStatus'];
         $showOnline = $this->arguments['showOnline'];
@@ -135,4 +134,3 @@ class LinkViewHelper extends AbstractViewHelper
         return $this->renderingContext->getControllerContext()->getUriBuilder();
     }
 }
-

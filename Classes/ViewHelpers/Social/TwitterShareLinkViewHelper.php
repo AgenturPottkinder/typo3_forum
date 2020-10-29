@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\ViewHelpers\Social;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -25,65 +26,66 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Social;
 
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
-class TwitterShareLinkViewHelper extends AbstractTagBasedViewHelper  {
+class TwitterShareLinkViewHelper extends AbstractTagBasedViewHelper
+{
 
-	/**
-	 * @var	string
-	 */
-	protected $tagName = 'a';
+    /**
+     * @var	string
+     */
+    protected $tagName = 'a';
 
-	/**
-	 * Arguments initialization
-	 *
-	 * @return void
-	 */
-	public function initializeArguments() {
-		$this->registerTagAttribute('target', 'string', 'Specifies where to open the linked document');
-	}
+    /**
+     * Arguments initialization
+     */
+    public function initializeArguments()
+    {
+        $this->registerTagAttribute('target', 'string', 'Specifies where to open the linked document');
+    }
 
-	/**
-	 * Render a share button
-	 *
-	 * @param string $title Title for share
-	 * @param string $text Title for share
-	 * @param string $shareUrl Title for share
-	 * @return string
-	 */
-	public function render($title = NULL,  $text= NULL, $shareUrl = NULL) {
+    /**
+     * Render a share button
+     *
+     * @param string $title Title for share
+     * @param string $text Title for share
+     * @param string $shareUrl Title for share
+     * @return string
+     */
+    public function render($title = null, $text= null, $shareUrl = null)
+    {
 
-		// check defaults
-		if (empty($this->arguments['name'])) {
-			$this->tag->addAttribute('name', 'fb_share');
-		}
+        // check defaults
+        if (empty($this->arguments['name'])) {
+            $this->tag->addAttribute('name', 'fb_share');
+        }
 
-		if (empty($this->arguments['type'])) {
-			$this->tag->addAttribute('type', 'link');
-		}
+        if (empty($this->arguments['type'])) {
+            $this->tag->addAttribute('type', 'link');
+        }
 
-		if (empty($this->arguments['target'])) {
-			$this->tag->addAttribute('target', '_blank');
-		}
+        if (empty($this->arguments['target'])) {
+            $this->tag->addAttribute('target', '_blank');
+        }
 
-		$url = 'https://twitter.com/intent/tweet';
+        $url = 'https://twitter.com/intent/tweet';
 
-		$url .= '?original_referer='.urldecode(\TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'));
-		$url .= '&url=';
-		if ($shareUrl) {
-			$url .= urldecode($shareUrl);
-		}else{
-			$url .= urldecode(\TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'));
-		}
+        $url .= '?original_referer=' . urldecode(\TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'));
+        $url .= '&url=';
+        if ($shareUrl) {
+            $url .= urldecode($shareUrl);
+        } else {
+            $url .= urldecode(\TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'));
+        }
 
-		if ($title) {
-			$url .= '&p[title]='.urldecode($title);
-		}
+        if ($title) {
+            $url .= '&p[title]=' . urldecode($title);
+        }
 
-		if ($text) {
-			$url .= '&text='.urldecode($text);
-		}
+        if ($text) {
+            $url .= '&text=' . urldecode($text);
+        }
 
-		$this->tag->addAttribute('href', $url);
-		$this->tag->setContent($this->renderChildren());
-		return $this->tag->render();
-	}
+        $this->tag->addAttribute('href', $url);
+        $this->tag->setContent($this->renderChildren());
+        return $this->tag->render();
+    }
 }

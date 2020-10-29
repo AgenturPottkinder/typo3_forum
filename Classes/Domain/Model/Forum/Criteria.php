@@ -26,82 +26,82 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-class Criteria extends AbstractEntity {
+class Criteria extends AbstractEntity
+{
 
-	/**
-	 * The name of the criteria
-	 * @var string
-	 */
-	protected $name;
+    /**
+     * The name of the criteria
+     * @var string
+     */
+    protected $name;
 
+    /**
+     * The options of a criteria
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption>
+     */
+    protected $options;
 
-	/**
-	 * The options of a criteria
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption>
-	 */
-	protected $options;
+    /**
+     * The default option
+     * @var \Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption
+     */
+    protected $defaultOption;
 
+    /**
+     * Gets the absolute name of this criteria.
+     * @return string The name of criteria.
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
-	/**
-	 * The default option
-	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption
-	 */
-	protected $defaultOption;
+    /**
+     * Sets the name.
+     *
+     * @param string $name The name of a criteria
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
+    /**
+     * Get all options of this criteria.
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption>
+     *            All options of criteria.
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
 
-	/**
-	 * Gets the absolute name of this criteria.
-	 * @return string The name of criteria.
-	 */
-	public function getName() {
-		return $this->name;
-	}
+    /**
+     * Set a whole object storage as options for this criteria
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $options
+     */
+    public function setOptions(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $options)
+    {
+        $this->options = $options;
+    }
 
-	/**
-	 * Sets the name.
-	 *
-	 * @param string $name The name of a criteria
-	 *
-	 * @return void
-	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
+    /**
+     * Get the default option
+     * @return CriteriaOption
+     */
+    public function getDefaultOption()
+    {
+        return $this->defaultOption;
+    }
 
-	/**
-	 * Get all options of this criteria.
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\CriteriaOption>
-	 *            All options of criteria.
-	 */
-	public function getOptions() {
-		return $this->options;
-	}
-
-	/**
-	 * Set a whole object storage as options for this criteria
-	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $options
-	 */
-	public function setOptions(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $options) {
-		$this->options = $options;
-	}
-
-	/**
-	 * Get the default option
-	 * @return CriteriaOption
-	 */
-	public function getDefaultOption() {
-		return $this->defaultOption;
-	}
-
-	/**
-	 * Set the default option
-	 *
-	 * @param CriteriaOption $defaultOption
-	 *
-	 * @return void
-	 */
-	public function setDefaultOption(CriteriaOption $defaultOption) {
-		$this->defaultOption = $defaultOption;
-	}
+    /**
+     * Set the default option
+     *
+     * @param CriteriaOption $defaultOption
+     */
+    public function setDefaultOption(CriteriaOption $defaultOption)
+    {
+        $this->defaultOption = $defaultOption;
+    }
 }

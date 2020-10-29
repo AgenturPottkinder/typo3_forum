@@ -1,6 +1,7 @@
 <?php
 namespace Mittwald\Typo3Forum\Service\Mailing;
-use TYPO3\CMS\Extbase\Annotation\Inject;
+
+use Mittwald\Typo3Forum\Service\AbstractService;
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -25,15 +26,16 @@ use TYPO3\CMS\Extbase\Annotation\Inject;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Service\AbstractService;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
-abstract class AbstractMailingService extends AbstractService implements MailingServiceInterface {
+abstract class AbstractMailingService extends AbstractService implements MailingServiceInterface
+{
 
-	/**
-	 * Whole TypoScript typo3_forum settings
-	 * @var array
-	 */
-	protected $settings;
+    /**
+     * Whole TypoScript typo3_forum settings
+     * @var array
+     */
+    protected $settings;
 
     /**
      * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
@@ -41,73 +43,73 @@ abstract class AbstractMailingService extends AbstractService implements Mailing
      */
     protected $configurationBuilder;
 
-	/**
-	 * HTML mail format.
-	 */
-	const MAILING_FORMAT_HTML = 'html';
+    /**
+     * HTML mail format.
+     */
+    const MAILING_FORMAT_HTML = 'html';
 
-	/**
-	 * Plaintext mail format.
-	 */
-	const MAILING_FORMAT_PLAIN = 'txt';
+    /**
+     * Plaintext mail format.
+     */
+    const MAILING_FORMAT_PLAIN = 'txt';
 
-	/**
-	 * The format in which this service sends mails. Usually, this would be either 'html' or 'txt'.
-	 * @var string
-	 */
-	protected $format = self::MAILING_FORMAT_HTML;
+    /**
+     * The format in which this service sends mails. Usually, this would be either 'html' or 'txt'.
+     * @var string
+     */
+    protected $format = self::MAILING_FORMAT_HTML;
 
-	public function initializeObject() {
-		$this->settings = $this->configurationBuilder->getSettings();
-	}
+    public function initializeObject()
+    {
+        $this->settings = $this->configurationBuilder->getSettings();
+    }
 
-	/**
-	 * Gets the preferred format of this mailing service.
-	 * @return string The preferred format of this mailing service.
-	 */
-	public function getFormat() {
-		return $this->format;
-	}
+    /**
+     * Gets the preferred format of this mailing service.
+     * @return string The preferred format of this mailing service.
+     */
+    public function getFormat()
+    {
+        return $this->format;
+    }
 
-	/**
-	 * Gets the default sender name. Can be configured in the typoscript setup.
-	 * @return string The default sender name.
-	 */
-	protected function getDefaultSenderName() {
-		return trim($this->settings['mailing']['sender']['name']);
-	}
+    /**
+     * Gets the default sender name. Can be configured in the typoscript setup.
+     * @return string The default sender name.
+     */
+    protected function getDefaultSenderName()
+    {
+        return trim($this->settings['mailing']['sender']['name']);
+    }
 
+    /**
+     * Gets the default sender address. Can be configured in the typoscript setup.
+     * @return string The default sender address.
+     */
+    protected function getDefaultSenderAddress()
+    {
+        return trim($this->settings['mailing']['sender']['address']);
+    }
 
+    /**
+     * Gets the default sender. This is composed of the default sender name and the
+     * default sender address.
+     *
+     * @return string The default sender.
+     */
+    protected function getDefaultSender()
+    {
+        return $this->getDefaultSenderName() . ' <' . $this->getDefaultSenderAddress() . '>';
+    }
 
-	/**
-	 * Gets the default sender address. Can be configured in the typoscript setup.
-	 * @return string The default sender address.
-	 */
-	protected function getDefaultSenderAddress() {
-		return trim($this->settings['mailing']['sender']['address']);
-	}
-
-
-
-	/**
-	 * Gets the default sender. This is composed of the default sender name and the
-	 * default sender address.
-	 *
-	 * @return string The default sender.
-	 */
-	protected function getDefaultSender() {
-		return $this->getDefaultSenderName() . ' <' . $this->getDefaultSenderAddress() . '>';
-	}
-
-
-
-	/**
-	 * Gets the preferred character set for sent mails. This usually is TYPO3's
-	 * renderCharset.
-	 *
-	 * @return string The preferred charset.
-	 */
-	protected function getCharset() {
-		return $GLOBALS['TSFE']->renderCharset;
-	}
+    /**
+     * Gets the preferred character set for sent mails. This usually is TYPO3's
+     * renderCharset.
+     *
+     * @return string The preferred charset.
+     */
+    protected function getCharset()
+    {
+        return $GLOBALS['TSFE']->renderCharset;
+    }
 }

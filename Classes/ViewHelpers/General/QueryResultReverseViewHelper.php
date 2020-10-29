@@ -28,7 +28,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class QueryResultReverseViewHelper extends AbstractViewHelper
 {
-
     public function initializeArguments()
     {
         parent::initializeArguments();
@@ -48,5 +47,4 @@ class QueryResultReverseViewHelper extends AbstractViewHelper
 
         return $newArray;
     }
-
 }

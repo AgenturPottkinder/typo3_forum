@@ -28,12 +28,12 @@ namespace Mittwald\Typo3Forum\Ajax;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\TypoScript\ExtendedTemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Core\Bootstrap;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Page\PageRepository;
 use TYPO3\CMS\Frontend\Utility\EidUtility;
-use TYPO3\CMS\Extbase\Core\Bootstrap;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 final class Dispatcher implements SingletonInterface
 {
@@ -46,13 +46,13 @@ final class Dispatcher implements SingletonInterface
      * An instance of the extbase bootstrapping class.
      * @var Bootstrap
      */
-    private $extbaseBootstap = null;
+    private $extbaseBootstap;
 
     /**
      * An instance of the extbase object manager.
      * @var ObjectManagerInterface
      */
-    private $objectManager = null;
+    private $objectManager;
 
     /**
      * Initialize the dispatcher.
@@ -140,8 +140,6 @@ final class Dispatcher implements SingletonInterface
     /**
      * Initializes the Extbase framework by instantiating the bootstrap
      * class and the extbase object manager.
-     *
-     * @return void
      */
     private function initExtbase()
     {
@@ -155,7 +153,7 @@ final class Dispatcher implements SingletonInterface
     }
 
     /**
-     * @param integer $pageUid
+     * @param int $pageUid
      */
     private function loadTS($pageUid = 0)
     {

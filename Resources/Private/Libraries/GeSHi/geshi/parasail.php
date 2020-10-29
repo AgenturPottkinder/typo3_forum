@@ -39,95 +39,93 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'ParaSail',
-    'COMMENT_SINGLE' => array(1 => '//'),
-    'COMMENT_MULTI' => array('{' => '}'),
+    'COMMENT_SINGLE' => [1 => '//'],
+    'COMMENT_MULTI' => ['{' => '}'],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
+    'QUOTEMARKS' => ['"'],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             'all', 'block', 'case', 'continue', 'each',
             'else', 'elsif', 'exit', 'for',
             'forward', 'if', 'loop', 'return', 'reverse', 'some',
             'then', 'until', 'while', 'with'
-            ),
-        2 => array(
-            'abs', 'and','in', 'mod', 'not', 'null', 'or', 'rem', 'xor'
-            ),
-        3 => array(
+            ],
+        2 => [
+            'abs', 'and', 'in', 'mod', 'not', 'null', 'or', 'rem', 'xor'
+            ],
+        3 => [
             'abstract', 'class',
-            'concurrent', 'const', 
-            'end', 'extends', 'exports', 
+            'concurrent', 'const',
+            'end', 'extends', 'exports',
             'func', 'global', 'implements', 'import',
-            'interface', 'is', 'lambda', 'locked', 
+            'interface', 'is', 'lambda', 'locked',
             'new', 'of', 'op', 'optional',
             'private', 'queued', 'ref',
             'separate', 'type', 'var',
-            )
-        ),
-    'SYMBOLS' => array(
+            ]
+        ],
+    'SYMBOLS' => [
         '(', ')', '[', ']', '<', '>'
-        ),
-    'CASE_SENSITIVE' => array(
+        ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => false,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+        ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #00007f;',
             2 => 'color: #0000ff;',
             3 => 'color: #46aa03; font-weight:bold;',
-            ),
-        'BRACKETS' => array(
+            ],
+        'BRACKETS' => [
             0 => 'color: #66cc66;'
-            ),
-        'COMMENTS' => array(
+            ],
+        'COMMENTS' => [
             1 => 'color: #adadad; font-style: italic;',
             'MULTI' => 'color: #808080; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+            ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+            ],
+        'BRACKETS' => [
             0 => 'color: #66cc66;'
-            ),
-        'STRINGS' => array(
+            ],
+        'STRINGS' => [
             0 => 'color: #7f007f;'
-            ),
-        'NUMBERS' => array(
+            ],
+        'NUMBERS' => [
             0 => 'color: #ff0000;'
-            ),
-        'METHODS' => array(
+            ],
+        'METHODS' => [
             1 => 'color: #202020;'
-            ),
-        'SYMBOLS' => array(
+            ],
+        'SYMBOLS' => [
             0 => 'color: #66cc66;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+            ],
+        'REGEXPS' => [
+            ],
+        'SCRIPT' => [
+            ]
+        ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => ''
-        ),
+        ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '.'
-        ),
-    'REGEXPS' => array(
-        ),
+        ],
+    'REGEXPS' => [
+        ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        )
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [
+        ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+        ]
+];

@@ -26,4 +26,6 @@ namespace Mittwald\Typo3Forum\Domain\Repository\Forum;
 
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-class CriteriaOptionRepository extends Repository {}
+class CriteriaOptionRepository extends Repository
+{
+}

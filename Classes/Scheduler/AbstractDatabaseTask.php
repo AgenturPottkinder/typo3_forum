@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * COPYRIGHT NOTICE
  *
  *  (c) 2018 Mittwald CM Service GmbH & Co KG
@@ -21,14 +20,11 @@
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- *
  */
 
-declare(strict_types=1);
-
+declare(strict_types = 1);
 
 namespace Mittwald\Typo3Forum\Scheduler;
-
 
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -36,12 +32,10 @@ use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
 /**
  * Class AbstractDatabaseTask
- * @package Mittwald\Typo3Forum\Scheduler
  * @copyright 2018 Kevin Purrmann
  */
 abstract class AbstractDatabaseTask extends AbstractTask
 {
-
 
     /**
      * getDatabaseConnection.
@@ -52,7 +46,6 @@ abstract class AbstractDatabaseTask extends AbstractTask
     {
         return $this->getConnectionPool()->getQueryBuilderForTable($table);
     }
-
 
     /**
      * getConnectionPool.

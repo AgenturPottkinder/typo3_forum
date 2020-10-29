@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\TextParser\Panel;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -23,18 +24,19 @@ namespace Mittwald\Typo3Forum\TextParser\Panel;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-abstract class AbstractPanel implements PanelInterface {
+abstract class AbstractPanel implements PanelInterface
+{
 
-	/**
-	 * @var array
-	 */
-	protected $settings = NULL;
+    /**
+     * @var array
+     */
+    protected $settings;
 
-	/**
-	 * @param array $settings
-	 */
-	public function setSettings(array $settings) {
-		$this->settings = $settings;
-	}
-
+    /**
+     * @param array $settings
+     */
+    public function setSettings(array $settings)
+    {
+        $this->settings = $settings;
+    }
 }

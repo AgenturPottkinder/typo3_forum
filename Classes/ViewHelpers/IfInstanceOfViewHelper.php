@@ -33,9 +33,6 @@ use TYPO3Fluid\Fluid\ViewHelpers\IfViewHelper;
  */
 class IfInstanceOfViewHelper extends IfViewHelper
 {
-    /**
-     * @return void
-     */
     public function initializeArguments()
     {
         parent::initializeArguments();

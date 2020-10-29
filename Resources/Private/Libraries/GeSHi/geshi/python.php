@@ -43,36 +43,36 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'Python',
-    'COMMENT_SINGLE' => array(1 => '#'),
-    'COMMENT_MULTI' => array(),
+    'COMMENT_SINGLE' => [1 => '#'],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
     //Longest quotemarks ALWAYS first
-    'QUOTEMARKS' => array('"""', "'''", '"', "'"),
+    'QUOTEMARKS' => ['"""', "'''", '"', "'"],
     'ESCAPE_CHAR' => '\\',
     'NUMBERS' =>
         GESHI_NUMBER_INT_BASIC | GESHI_NUMBER_BIN_PREFIX_0B |
         GESHI_NUMBER_OCT_PREFIX_0O | GESHI_NUMBER_HEX_PREFIX |
         GESHI_NUMBER_FLT_NONSCI | GESHI_NUMBER_FLT_NONSCI_F |
         GESHI_NUMBER_FLT_SCI_SHORT | GESHI_NUMBER_FLT_SCI_ZERO,
-    'KEYWORDS' => array(
+    'KEYWORDS' => [
 
         /*
         ** Set 1: reserved words
         ** http://python.org/doc/current/ref/keywords.html
         */
-        1 => array(
+        1 => [
             'and', 'del', 'for', 'is', 'raise', 'assert', 'elif', 'from', 'lambda', 'return', 'break',
             'else', 'global', 'not', 'try', 'class', 'except', 'if', 'or', 'while', 'continue', 'exec',
             'import', 'pass', 'yield', 'def', 'finally', 'in', 'print', 'with', 'as', 'nonlocal'
-            ),
+            ],
 
         /*
         ** Set 2: builtins
         ** http://python.org/doc/current/lib/built-in-funcs.html
         */
-        2 => array(
+        2 => [
             '__import__', 'abs', 'basestring', 'bool', 'callable', 'chr', 'classmethod', 'cmp',
             'compile', 'complex', 'delattr', 'dict', 'dir', 'divmod', 'enumerate', 'eval', 'execfile',
             'file', 'filter', 'float', 'frozenset', 'getattr', 'globals', 'hasattr', 'hash', 'help',
@@ -97,13 +97,13 @@ $language_data = array (
             'self',
             // other
             'any', 'all'
-            ),
+            ],
 
         /*
         ** Set 3: standard library
         ** http://python.org/doc/current/lib/modindex.html
         */
-        3 => array(
+        3 => [
             '__builtin__', '__future__', '__main__', '_winreg', 'aifc', 'AL', 'al', 'anydbm',
             'array', 'asynchat', 'asyncore', 'atexit', 'audioop', 'base64', 'BaseHTTPServer',
             'Bastion', 'binascii', 'binhex', 'bisect', 'bsddb', 'bz2', 'calendar', 'cd', 'cgi',
@@ -136,13 +136,13 @@ $language_data = array (
             'xmllib', 'xmlrpclib', 'zipfile', 'zipimport', 'zlib',
             // Python 3.0
             'bytes', 'bytearray'
-            ),
+            ],
 
         /*
         ** Set 4: special methods
         ** http://python.org/doc/current/ref/specialnames.html
         */
-        4 => array(
+        4 => [
             /*
             // Iterator types: http://python.org/doc/current/lib/typeiter.html
             '__iter__', 'next',
@@ -166,79 +166,77 @@ $language_data = array (
             '__len__', '__getitem__', '__setitem__', '__delitem__', '__iter__', '__contains__',
             '__getslice__', '__setslice__', '__delslice__',
             // Numeric types: http://python.org/doc/current/ref/numeric-types.html
-            '__abs__','__add__','__and__','__coerce__','__div__','__divmod__','__float__',
-            '__hex__','__iadd__','__isub__','__imod__','__idiv__','__ipow__','__iand__',
-            '__ior__','__ixor__', '__ilshift__','__irshift__','__invert__','__int__',
-            '__long__','__lshift__',
-            '__mod__','__mul__','__neg__','__oct__','__or__','__pos__','__pow__',
-            '__radd__','__rdiv__','__rdivmod__','__rmod__','__rpow__','__rlshift__','__rrshift__',
-            '__rshift__','__rsub__','__rmul__','__rand__','__rxor__','__ror__',
-            '__sub__','__xor__'
-            )
-        ),
-    'SYMBOLS' => array(
+            '__abs__', '__add__', '__and__', '__coerce__', '__div__', '__divmod__', '__float__',
+            '__hex__', '__iadd__', '__isub__', '__imod__', '__idiv__', '__ipow__', '__iand__',
+            '__ior__', '__ixor__', '__ilshift__', '__irshift__', '__invert__', '__int__',
+            '__long__', '__lshift__',
+            '__mod__', '__mul__', '__neg__', '__oct__', '__or__', '__pos__', '__pow__',
+            '__radd__', '__rdiv__', '__rdivmod__', '__rmod__', '__rpow__', '__rlshift__', '__rrshift__',
+            '__rshift__', '__rsub__', '__rmul__', '__rand__', '__rxor__', '__ror__',
+            '__sub__', '__xor__'
+            ]
+        ],
+    'SYMBOLS' => [
         '<', '>', '=', '!', '<=', '>=',             //·comparison·operators
         '~', '@',                                   //·unary·operators
         ';', ','                                    //·statement·separator
-        ),
-    'CASE_SENSITIVE' => array(
+        ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => true,
         2 => true,
         3 => true,
         4 => true
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+        ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #ff7700;font-weight:bold;',    // Reserved
             2 => 'color: #008000;',                        // Built-ins + self
             3 => 'color: #dc143c;',                        // Standard lib
             4 => 'color: #0000cd;'                        // Special methods
-            ),
-        'COMMENTS' => array(
+            ],
+        'COMMENTS' => [
             1 => 'color: #808080; font-style: italic;',
             'MULTI' => 'color: #808080; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+            ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+            ],
+        'BRACKETS' => [
             0 => 'color: black;'
-            ),
-        'STRINGS' => array(
+            ],
+        'STRINGS' => [
             0 => 'color: #483d8b;'
-            ),
-        'NUMBERS' => array(
+            ],
+        'NUMBERS' => [
             0 => 'color: #ff4500;'
-            ),
-        'METHODS' => array(
+            ],
+        'METHODS' => [
             1 => 'color: black;'
-            ),
-        'SYMBOLS' => array(
+            ],
+        'SYMBOLS' => [
             0 => 'color: #66cc66;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+            ],
+        'REGEXPS' => [
+            ],
+        'SCRIPT' => [
+            ]
+        ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
         4 => ''
-        ),
+        ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '.'
-        ),
-    'REGEXPS' => array(
-        ),
+        ],
+    'REGEXPS' => [
+        ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        )
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [
+        ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+        ]
+];

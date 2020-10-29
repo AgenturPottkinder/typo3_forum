@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\ViewHelpers\Control;
+
 /* *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -23,15 +24,10 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Control;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\ViewHelpers\Control\BigButtonViewHelper;
-
 /**
- *
  * ViewHelper that renders a small button.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage ViewHelpers_Control
  * @version    $Id$
  *
  * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
@@ -39,19 +35,20 @@ use Mittwald\Typo3Forum\ViewHelpers\Control\BigButtonViewHelper;
  *             http://www.mittwald.de
  * @license    GNU Public License, version 2
  *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class SmallButtonViewHelper extends BigButtonViewHelper {
+class SmallButtonViewHelper extends BigButtonViewHelper
+{
 
-	/**
-	 * iconBaseClass
-	 *
-	 * @var string
-	 */
-	protected $iconBaseClass = 'tx-typo3forum-icon-16-';
+    /**
+     * iconBaseClass
+     *
+     * @var string
+     */
+    protected $iconBaseClass = 'tx-typo3forum-icon-16-';
 
-	public function initialize() {
-		parent::initialize();
-		$this->tag->addAttribute('class', 'tx-typo3forum-button-small');
-	}
+    public function initialize()
+    {
+        parent::initialize();
+        $this->tag->addAttribute('class', 'tx-typo3forum-button-small');
+    }
 }

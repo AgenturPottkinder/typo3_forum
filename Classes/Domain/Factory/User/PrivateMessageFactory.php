@@ -29,31 +29,30 @@ use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Domain\Model\User\PrivateMessage;
 use Mittwald\Typo3Forum\Domain\Model\User\PrivateMessageText;
 
-class PrivateMessageFactory extends AbstractFactory {
+class PrivateMessageFactory extends AbstractFactory
+{
 
-	/**
-	 *
-	 * Creates a new report.
-	 *
-	 * @param FrontendUser $opponent
-	 * @param FrontendUser $feUser
-	 * @param PrivateMessageText $text
-	 * @param int $type
-	 * @param int $userRead
-	 * @return PrivateMessage The new private message.
-	 *
-	 */
-	public function createPrivateMessage(FrontendUser $opponent, FrontendUser $feUser, PrivateMessageText $text, $type, $userRead) {
-		/** @var PrivateMessage $privateMessage */
-		$privateMessage = $this->getClassInstance();
-		$privateMessage->setFeuser($feUser);
-		$privateMessage->setOpponent($opponent);
-		$privateMessage->setType($type);
-		$privateMessage->setCrdate(new \DateTime());
-		$privateMessage->setUserRead($userRead);
-		$privateMessage->setMessage($text);
+    /**
+     * Creates a new report.
+     *
+     * @param FrontendUser $opponent
+     * @param FrontendUser $feUser
+     * @param PrivateMessageText $text
+     * @param int $type
+     * @param int $userRead
+     * @return PrivateMessage The new private message.
+     */
+    public function createPrivateMessage(FrontendUser $opponent, FrontendUser $feUser, PrivateMessageText $text, $type, $userRead)
+    {
+        /** @var PrivateMessage $privateMessage */
+        $privateMessage = $this->getClassInstance();
+        $privateMessage->setFeuser($feUser);
+        $privateMessage->setOpponent($opponent);
+        $privateMessage->setType($type);
+        $privateMessage->setCrdate(new \DateTime());
+        $privateMessage->setUserRead($userRead);
+        $privateMessage->setMessage($text);
 
-		return $privateMessage;
-	}
-
+        return $privateMessage;
+    }
 }

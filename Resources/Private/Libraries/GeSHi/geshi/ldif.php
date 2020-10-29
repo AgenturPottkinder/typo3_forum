@@ -37,65 +37,65 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'LDIF',
-    'COMMENT_SINGLE' => array(1 => '#'),
-    'COMMENT_MULTI' => array(),
+    'COMMENT_SINGLE' => [1 => '#'],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array(),
+    'QUOTEMARKS' => [],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
-        ),
-    'SYMBOLS' => array(
-        ),
-    'CASE_SENSITIVE' => array(
+    'KEYWORDS' => [
+        ],
+    'SYMBOLS' => [
+        ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
-            ),
-        'COMMENTS' => array(
+        ],
+    'STYLES' => [
+        'KEYWORDS' => [
+            ],
+        'COMMENTS' => [
             1 => 'color: #666666; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+            ],
+        'ESCAPE_CHAR' => [
             0 => ''
-            ),
-        'BRACKETS' => array(
+            ],
+        'BRACKETS' => [
             0 => ''
-            ),
-        'STRINGS' => array(
+            ],
+        'STRINGS' => [
             0 => 'color: #933;'
-            ),
-        'NUMBERS' => array(
+            ],
+        'NUMBERS' => [
             0 => ''
-            ),
-        'METHODS' => array(
+            ],
+        'METHODS' => [
             0 => ''
-            ),
-        'SYMBOLS' => array(
-            ),
-        'REGEXPS' => array(
+            ],
+        'SYMBOLS' => [
+            ],
+        'REGEXPS' => [
             0 => 'color: #000066; font-weight: bold;',
             1 => 'color: #FF0000;'
-            ),
-        'SCRIPT' => array(
+            ],
+        'SCRIPT' => [
             0 => ''
-            )
-        ),
-    'URLS' => array(
-        ),
+            ]
+        ],
+    'URLS' => [
+        ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
-    'REGEXPS' => array(
-        0 => array(
+    'OBJECT_SPLITTERS' => [
+        ],
+    'REGEXPS' => [
+        0 => [
             GESHI_SEARCH => '([a-zA-Z0-9_]+):(.+)',
             GESHI_REPLACE => '\\1',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '',
             GESHI_AFTER => ':\\2'
-            ),
-        1 => array(
+            ],
+        1 => [
             // Evil hackery to get around GeSHi bug: <>" and ; are added so <span>s can be matched
             // Explicit match on variable names because if a comment is before the first < of the span
             // gets chewed up...
@@ -104,13 +104,11 @@ $language_data = array (
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '\\1:',
             GESHI_AFTER => ''
-            )
-        ),
+            ]
+        ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        )
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [
+        ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+        ]
+];

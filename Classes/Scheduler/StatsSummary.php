@@ -26,7 +26,6 @@ namespace Mittwald\Typo3Forum\Scheduler;
  *                                                                      */
 
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
-use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
 /**
  * Count all Topics, Posts and Users and write result into summary table
@@ -138,8 +137,10 @@ class StatsSummary extends AbstractDatabaseTask
         );
         $queryBuilder->andWhere(
             $queryBuilder->expr()->in('users.pid', $this->getForumPids()),
-            $queryBuilder->expr()->eq('users.tx_extbase_type',
-                $queryBuilder->createNamedParameter(FrontendUser::class, \PDO::PARAM_STR))
+            $queryBuilder->expr()->eq(
+                'users.tx_extbase_type',
+                $queryBuilder->createNamedParameter(FrontendUser::class, \PDO::PARAM_STR)
+            )
         );
 
         $res = $queryBuilder->execute();
@@ -155,12 +156,10 @@ class StatsSummary extends AbstractDatabaseTask
                 'amount' => (int)$amount,
             ];
 
-
             $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_stats_summary');
             $queryBuilder->insert('tx_typo3forum_domain_model_stats_summary');
             $queryBuilder->values($values);
             $queryBuilder->execute();
-
         }
 
         return true;

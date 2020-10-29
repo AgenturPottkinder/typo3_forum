@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * COPYRIGHT NOTICE
  *
  *  (c) 2018 Mittwald CM Service GmbH & Co KG
@@ -21,18 +20,14 @@
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- *
  */
-
 namespace Mittwald\Typo3Forum\Domain\Model;
-
 
 use Mittwald\Typo3Forum\Configuration\ConfigurationBuilder;
 
 /**
  * Trait ConfigurableEntityTrait
  * Use this trait if an entity needs TypoScript settings and use ConfigurableInterface
- * @package Mittwald\Typo3Forum\Domain\Model
  */
 trait ConfigurableEntityTrait
 {
@@ -46,7 +41,7 @@ trait ConfigurableEntityTrait
      * Whole TypoScript typo3_forum settings
      * @var array
      */
-	protected $settings;
+    protected $settings;
 
     /**
      * @param ConfigurationBuilder $configurationBuilder

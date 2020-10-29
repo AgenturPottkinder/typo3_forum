@@ -33,11 +33,11 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'Urbi',
-    'COMMENT_SINGLE' => array(1 => '//'),
-    'COMMENT_MULTI' => array('/*' => '*/'),
-    'COMMENT_REGEXP' => array(
+    'COMMENT_SINGLE' => [1 => '//'],
+    'COMMENT_MULTI' => ['/*' => '*/'],
+    'COMMENT_REGEXP' => [
         //Multiline-continued single-line comments
         1 => '/\/\/(?:\\\\\\\\|\\\\\\n|.)*$/m',
         //Multiline-continued preprocessor define
@@ -52,15 +52,15 @@ $language_data = array (
         5 => '#\[00.*\].*#',
         // Nested comment. Max depth 4.
         7 => '#\/\*(.|\n)*\/\*(.|\n)*\*\/(.|\n)*\*\/#',
-        ),
+        ],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array(
+    'QUOTEMARKS' => [
         0 => '"',
         1 => '\'',
-        ),
+        ],
     // For Urbi, disable escape char is better.
     'ESCAPE_CHAR' => '\\',
-    'ESCAPE_REGEXP' => array(
+    'ESCAPE_REGEXP' => [
         //Simple Single Char Escapes
         1 => "#\\\\[abfnrtv\\\'\"?\n]#",
         //Hexadecimal Char Specs
@@ -70,15 +70,15 @@ $language_data = array (
         //Hexadecimal Char Specs
         4 => "#\\\\U[\da-fA-F]{8}#",
         //Octal Char Specs
-        5 => "#\\\\[0-7]{1,3}#",
-        ),
+        5 => '#\\\\[0-7]{1,3}#',
+        ],
     'NUMBERS' =>
         GESHI_NUMBER_INT_BASIC | GESHI_NUMBER_INT_CSTYLE | GESHI_NUMBER_BIN_PREFIX_0B |
         GESHI_NUMBER_OCT_PREFIX | GESHI_NUMBER_HEX_PREFIX | GESHI_NUMBER_FLT_NONSCI |
         GESHI_NUMBER_FLT_NONSCI_F | GESHI_NUMBER_FLT_SCI_SHORT | GESHI_NUMBER_FLT_SCI_ZERO,
-    'KEYWORDS' => array(
+    'KEYWORDS' => [
         // Condition keywords.
-        1 => array(
+        1 => [
             'at', 'at;', 'at|', 'at&', 'at,', 'break', 'call', 'case', 'catch', 'continue',
             'do', 'else', 'every', 'every&', 'every,', 'every;', 'every|', 'for', 'for&',
             'for,', 'for;', 'foreach', 'for|', 'freezeif', 'goto', 'if', 'in', 'loop',
@@ -86,48 +86,48 @@ $language_data = array (
             'waituntil', 'when', 'whenever', 'while', 'while&', 'while,', 'while;',
             'while|', 'throw', 'onleave', 'watch', 'return', 'and_eq', 'default', 'finally',
             'timeout', 'xor_eq'
-            ),
+            ],
         // Type.
-        2 => array(
+        2 => [
             'virtual', 'using', 'namespace', 'inline', 'protected', 'private', 'public',
             'typename', 'typeid', 'class', 'const_cast', 'dynamic_cast', 'friend',
             'template', 'enum', 'static_cast', 'reinterpret_cast', 'mutable', 'explicit'
-            ),
+            ],
         // Standard function.
-        3 => array(
+        3 => [
             'this', 'sizeof', 'delete', 'assert', 'isdef', 'compl', 'detach',
             'disown', '__HERE__', 'asm'
-            ),
+            ],
         // Type.
-        4 => array(
+        4 => [
             'char', 'const', 'double', 'int', 'long', 'typedef', 'union',
             'unsigned', 'var', 'short', 'wchar_t', 'volatile', 'signed', 'bool',
             'float', 'struct', 'auto', 'register', 'static', 'extern', 'function',
             'export', 'external', 'internal', 'closure', 'BIN'
-            ),
-        ),
-    'SYMBOLS' => array(
-        0 => array('(', ')', '{', '}', '[', ']'),
-        1 => array('<', '>','=', '!=', '==', '==='),
-        2 => array('+', '-', '*', '/', '%', 'bitand', 'bitor', 'xor'),
-        3 => array('!', '^', '&', '|'),
-        4 => array('?', ':', ';')
-        ),
-    'CASE_SENSITIVE' => array(
+            ],
+        ],
+    'SYMBOLS' => [
+        0 => ['(', ')', '{', '}', '[', ']'],
+        1 => ['<', '>', '=', '!=', '==', '==='],
+        2 => ['+', '-', '*', '/', '%', 'bitand', 'bitor', 'xor'],
+        3 => ['!', '^', '&', '|'],
+        4 => ['?', ':', ';']
+        ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => true,
         2 => true,
         3 => true,
         4 => true,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+        ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #0000ff;',
             2 => 'color: #0000ff;',
             3 => 'color: #0000dd;',
             4 => 'color: #0000ff;'
-            ),
-        'COMMENTS' => array(
+            ],
+        'COMMENTS' => [
             1 => 'color: #666666;',
             2 => 'color: #339900;',
             3 => 'color: #d46b0f;',
@@ -136,65 +136,63 @@ $language_data = array (
             6 => 'color: #a71616;',
             7 => 'color: #666666;',
             'MULTI' => 'color: #666666; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+            ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #ff0000;',
             1 => 'color: #ff0000;',
-            ),
-        'BRACKETS' => array(
+            ],
+        'BRACKETS' => [
             0 => 'color: #7a0874; font-weight: bold;'
-            ),
-        'STRINGS' => array(
+            ],
+        'STRINGS' => [
             0 => 'color: #ff0000;',
             1 => 'color: #007788;'
-            ),
-        'NUMBERS' => array(
+            ],
+        'NUMBERS' => [
             0 => 'color: #0000dd;'
-            ),
-        'METHODS' => array(
+            ],
+        'METHODS' => [
             1 => 'color: #007788;',
             2 => 'color: #007788;'
-            ),
-        'SYMBOLS' => array(
+            ],
+        'SYMBOLS' => [
             0 => 'color: #008000;',
             1 => 'color: #0000f8;',
             2 => 'color: #000040;',
             3 => 'color: #000040; font-weight: bold;',
             4 => 'color: #008080;'
-            ),
-        'REGEXPS' => array(
+            ],
+        'REGEXPS' => [
             0 => 'color: #0000dd',
             1 => 'color: #0000dd;',
             2 => 'color: #0000dd;',
             3 => 'color: #0000dd;',
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+            ],
+        'SCRIPT' => [
+            ]
+        ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
         4 => ''
-        ),
+        ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '.',
         2 => '::',
         // FIXME: add -> splitter.
-        ),
-    'REGEXPS' => array(
+        ],
+    'REGEXPS' => [
         0 => '0x[0-9a-fA-F]([0-9a-fA-F_]*[0-9a-fA-F])*',
         1 => '[0-9]([0-9_]*[0-9])*(e|E)(-|\+)?[0-9]([0-9_]*[0-9])*',
         2 => '[0-9]([0-9_]*[0-9])*(min|s|ms|h|d)',
         3 => '[0-9]+_([0-9_])*[0-9]',
-        ),
+        ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
+    'SCRIPT_DELIMITERS' => [
+        ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+        ],
     'TAB_WIDTH' => 4,
-);
-
-?>
+];

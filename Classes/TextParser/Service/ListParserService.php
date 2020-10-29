@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\TextParser\Service;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -27,26 +28,27 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * Text parser class for parsing complex lists.
  */
-class ListParserService extends AbstractTextParserService {
+class ListParserService extends AbstractTextParserService
+{
 
-	/**
-	 * The regular expression for matching lists.
-	 * @var string
-	 */
-	const PREG_MATCH_LIST = ',\[list\]\s*(.*?)\s*\[\/list\],is';
+    /**
+     * The regular expression for matching lists.
+     * @var string
+     */
+    const PREG_MATCH_LIST = ',\[list\]\s*(.*?)\s*\[\/list\],is';
 
-	/**
-	 * Parses lists inside a text.
-	 *
-	 * @param string $text The text
-	 * @return string       The parsed text.
-	 */
-	public function getParsedText($text) {
-		$callback = function($matches) {
-			$items = array_filter(GeneralUtility::trimExplode('[*]', $matches[1]));
-			return '<ul><li>' . implode('</li><li>', $items) . '</li></ul>';
-		};
-		return preg_replace_callback(self::PREG_MATCH_LIST, $callback, $text);
-	}
-
+    /**
+     * Parses lists inside a text.
+     *
+     * @param string $text The text
+     * @return string       The parsed text.
+     */
+    public function getParsedText($text)
+    {
+        $callback = function ($matches) {
+            $items = array_filter(GeneralUtility::trimExplode('[*]', $matches[1]));
+            return '<ul><li>' . implode('</li><li>', $items) . '</li></ul>';
+        };
+        return preg_replace_callback(self::PREG_MATCH_LIST, $callback, $text);
+    }
 }

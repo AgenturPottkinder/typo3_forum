@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\ViewHelpers\Control;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -28,6 +29,6 @@ use TYPO3\CMS\Fluid\ViewHelpers\Form\SubmitViewHelper;
 /**
  * ViewHelper that renders a big submit button.
  */
-class SubmitButtonViewHelper extends SubmitViewHelper {
-
+class SubmitButtonViewHelper extends SubmitViewHelper
+{
 }

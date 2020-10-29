@@ -31,111 +31,114 @@ use Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment;
 use Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use TYPO3\CMS\Extbase\Annotation\Inject;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
+class ReportController extends AbstractController
+{
 
-class ReportController extends AbstractController {
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\PostReportRepository
+     * @Inject
+     */
+    protected $postReportRepository;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\PostReportRepository
-	 * @Inject
-	 */
-	protected $postReportRepository;
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Factory\Moderation\ReportFactory
+     * @Inject
+     */
+    protected $reportFactory;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Factory\Moderation\ReportFactory
-	 * @Inject
-	 */
-	protected $reportFactory;
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportRepository
+     * @Inject
+     */
+    protected $reportRepository;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportRepository
-	 * @Inject
-	 */
-	protected $reportRepository;
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\UserReportRepository
+     * @Inject
+     */
+    protected $userReportRepository;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\UserReportRepository
-	 * @Inject
-	 */
-	protected $userReportRepository;
-
-	/**
-	 * Displays a form for creating a new post report.
-	 *
-	 * @param FrontendUser $user
-	 * @param ReportComment $firstComment
-	 *
-	 * @IgnoreValidation("firstComment")
-	 */
-	public function newUserReportAction(FrontendUser $user, ReportComment $firstComment = NULL) {
-		$this->view->assignMultiple([
-			'firstComment' => $firstComment,
-			'user' => $user,
-		]);
-	}
-
-	/**
-	 * Displays a form for creating a new post report.
-	 *
-	 * @param Post $post
-	 * @param ReportComment $firstComment
-	 *
+    /**
+     * Displays a form for creating a new post report.
+     *
+     * @param FrontendUser $user
+     * @param ReportComment $firstComment
+     *
      * @IgnoreValidation("firstComment")
-	 */
-	public function newPostReportAction(Post $post, ReportComment $firstComment = NULL) {
-		$this->authenticationService->assertReadAuthorization($post);
-		$this->view->assign('firstComment', $firstComment)->assign('post', $post);
-	}
+     */
+    public function newUserReportAction(FrontendUser $user, ReportComment $firstComment = null)
+    {
+        $this->view->assignMultiple([
+            'firstComment' => $firstComment,
+            'user' => $user,
+        ]);
+    }
 
-	/**
-	 * Creates a new post report and stores it into the database.
-	 *
-	 * @param FrontendUser $user
-	 * @param ReportComment $firstComment
-	 */
-	public function createUserReportAction(FrontendUser $user, ReportComment $firstComment = NULL) {
+    /**
+     * Displays a form for creating a new post report.
+     *
+     * @param Post $post
+     * @param ReportComment $firstComment
+     *
+     * @IgnoreValidation("firstComment")
+     */
+    public function newPostReportAction(Post $post, ReportComment $firstComment = null)
+    {
+        $this->authenticationService->assertReadAuthorization($post);
+        $this->view->assign('firstComment', $firstComment)->assign('post', $post);
+    }
 
-		/** @var UserReport $report */
-		$report = $this->reportFactory->createUserReport($firstComment);
-		$report->setUser($user);
-		$this->userReportRepository->add($report);
+    /**
+     * Creates a new post report and stores it into the database.
+     *
+     * @param FrontendUser $user
+     * @param ReportComment $firstComment
+     */
+    public function createUserReportAction(FrontendUser $user, ReportComment $firstComment = null)
+    {
 
-		// Notify observers.
-		$this->signalSlotDispatcher->dispatch(Report::class, 'reportCreated', ['report' => $report]);
+        /** @var UserReport $report */
+        $report = $this->reportFactory->createUserReport($firstComment);
+        $report->setUser($user);
+        $this->userReportRepository->add($report);
 
-		// Display success message and redirect to topic->show action.
-		$this->controllerContext->getFlashMessageQueue()->enqueue(
-			new FlashMessage(LocalizationUtility::translate('Report_New_Success', 'Typo3Forum'))
-		);
-		$this->redirect('show', 'User', NULL, ['user' => $user], $this->settings['pids']['UserShow']);
-	}
+        // Notify observers.
+        $this->signalSlotDispatcher->dispatch(Report::class, 'reportCreated', ['report' => $report]);
 
-	/**
-	 * Creates a new post report and stores it into the database.
-	 *
-	 * @param Post $post
-	 * @param ReportComment $firstComment
-	 */
-	public function createPostReportAction(Post $post, ReportComment $firstComment = NULL) {
-		// Assert authorization;
-		$this->authenticationService->assertReadAuthorization($post);
+        // Display success message and redirect to topic->show action.
+        $this->controllerContext->getFlashMessageQueue()->enqueue(
+            new FlashMessage(LocalizationUtility::translate('Report_New_Success', 'Typo3Forum'))
+        );
+        $this->redirect('show', 'User', null, ['user' => $user], $this->settings['pids']['UserShow']);
+    }
 
-		/** @var PostReport $report */
-		$report = $this->reportFactory->createPostReport($firstComment);
-		$report->setPost($post);
-		$this->postReportRepository->add($report);
+    /**
+     * Creates a new post report and stores it into the database.
+     *
+     * @param Post $post
+     * @param ReportComment $firstComment
+     */
+    public function createPostReportAction(Post $post, ReportComment $firstComment = null)
+    {
+        // Assert authorization;
+        $this->authenticationService->assertReadAuthorization($post);
 
-		// Notify observers.
-		$this->signalSlotDispatcher->dispatch(Report::class, 'reportCreated', ['report' => $report]);
+        /** @var PostReport $report */
+        $report = $this->reportFactory->createPostReport($firstComment);
+        $report->setPost($post);
+        $this->postReportRepository->add($report);
 
-		// Display success message and redirect to topic->show action.
-		$this->controllerContext->getFlashMessageQueue()->enqueue(
-			new FlashMessage(LocalizationUtility::translate('Report_New_Success', 'Typo3Forum'))
-		);
-		$this->redirect('show', 'Topic', NULL, ['topic' => $post->getTopic()]);
-	}
+        // Notify observers.
+        $this->signalSlotDispatcher->dispatch(Report::class, 'reportCreated', ['report' => $report]);
 
+        // Display success message and redirect to topic->show action.
+        $this->controllerContext->getFlashMessageQueue()->enqueue(
+            new FlashMessage(LocalizationUtility::translate('Report_New_Success', 'Typo3Forum'))
+        );
+        $this->redirect('show', 'Topic', null, ['topic' => $post->getTopic()]);
+    }
 }

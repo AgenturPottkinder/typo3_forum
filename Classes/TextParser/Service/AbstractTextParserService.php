@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\TextParser\Service;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -29,44 +30,44 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext;
 /**
  * Abstract base class for all kinds of text parsing services.
  */
-abstract class AbstractTextParserService extends AbstractService {
+abstract class AbstractTextParserService extends AbstractService
+{
 
-	/**
-	 * The configuration of this service.
-	 * @var array
-	 */
-	protected $settings = NULL;
+    /**
+     * The configuration of this service.
+     * @var array
+     */
+    protected $settings;
 
-	/**
-	 * The current controller context.
-	 * @var ControllerContext
-	 */
-	protected $controllerContext = NULL;
+    /**
+     * The current controller context.
+     * @var ControllerContext
+     */
+    protected $controllerContext;
 
-	/**
-	 * Injects this service's configuration.
-	 * @param array $settings The configuration for this service.
-	 * @return void
-	 */
-	public function setSettings(array $settings) {
-		$this->settings = $settings;
-	}
+    /**
+     * Injects this service's configuration.
+     * @param array $settings The configuration for this service.
+     */
+    public function setSettings(array $settings)
+    {
+        $this->settings = $settings;
+    }
 
-	/**
-	 * Sets the extbase controller context.
-	 * @param ControllerContext $controllerContext
-	 * @return void
-	 */
-	public function setControllerContext(ControllerContext $controllerContext) {
-		$this->controllerContext = $controllerContext;
-	}
+    /**
+     * Sets the extbase controller context.
+     * @param ControllerContext $controllerContext
+     */
+    public function setControllerContext(ControllerContext $controllerContext)
+    {
+        $this->controllerContext = $controllerContext;
+    }
 
-	/**
-	 * Renders the parsed text.
-	 *
-	 * @param string $text The text to be parsed.
-	 * @return string The parsed text.
-	 */
-	abstract function getParsedText($text);
-
+    /**
+     * Renders the parsed text.
+     *
+     * @param string $text The text to be parsed.
+     * @return string The parsed text.
+     */
+    abstract public function getParsedText($text);
 }

@@ -29,4 +29,6 @@ use Mittwald\Typo3Forum\Domain\Repository\AbstractRepository;
 /**
  * Repository class for report objects.
  */
-class PostReportRepository extends AbstractRepository {}
+class PostReportRepository extends AbstractRepository
+{
+}

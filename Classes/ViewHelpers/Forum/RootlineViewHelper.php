@@ -42,7 +42,7 @@ class RootlineViewHelper extends AbstractTagBasedViewHelper
     /**
      * @var array
      */
-    protected $settings = null;
+    protected $settings;
 
     /**
      * initializeArguments.
@@ -73,15 +73,14 @@ class RootlineViewHelper extends AbstractTagBasedViewHelper
      */
     public function render()
     {
-
         $rootline = $this->arguments['rootline'];
 
         if ($this->arguments['reverse']) {
-			$rootline = array_reverse($rootline);
-			$currentNodeIndex = 0;
+            $rootline = array_reverse($rootline);
+            $currentNodeIndex = 0;
         } else {
-			$currentNodeIndex = count($rootline) - 1;
-		}
+            $currentNodeIndex = count($rootline) - 1;
+        }
 
         $class = $this->arguments['breadcrumb'] ? 'breadcrumb' : 'nav nav-pills nav-pills-condensed';
         if ($this->arguments['class']) {
@@ -98,14 +97,14 @@ class RootlineViewHelper extends AbstractTagBasedViewHelper
         return $this->tag->render();
     }
 
-	/**
-	 * renderNavigationNode
-	 *
-	 * @param $object
-	 *
-	 * @param bool $isCurrentNode
-	 * @return string
-	 */
+    /**
+     * renderNavigationNode
+     *
+     * @param $object
+     *
+     * @param bool $isCurrentNode
+     * @return string
+     */
     protected function renderNavigationNode($object, bool $isCurrentNode)
     {
         $extensionName = 'typo3forum';
@@ -131,17 +130,16 @@ class RootlineViewHelper extends AbstractTagBasedViewHelper
         $uri = $uriBuilder->reset()->setTargetPageUid((int)$this->settings['pids']['Forum'])
             ->uriFor('show', $arguments, $controller, $extensionName, $pluginName);
 
-		if ($this->arguments['breadcrumb']) {
-			$liClass = ' class="breadcrumb-item' . ($isCurrentNode ? ' active' : '') . '"';
-		} else {
-			$liClass = '';
-		}
+        if ($this->arguments['breadcrumb']) {
+            $liClass = ' class="breadcrumb-item' . ($isCurrentNode ? ' active' : '') . '"';
+        } else {
+            $liClass = '';
+        }
 
-		$icon = empty($icon) ? '' : '<i class="' . $icon . '"></i>';
+        $icon = empty($icon) ? '' : '<i class="' . $icon . '"></i>';
 
-		return '<li' . $liClass . '><a href="' . $uri . '" title="' . $fullTitle . '">' . $icon . $title . '</a></li>';
+        return '<li' . $liClass . '><a href="' . $uri . '" title="' . $fullTitle . '">' . $icon . $title . '</a></li>';
     }
-
 
     /**
      * getUriBuilder.

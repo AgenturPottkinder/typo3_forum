@@ -1,6 +1,7 @@
 <?php
 namespace Mittwald\Typo3Forum\Configuration;
-use TYPO3\CMS\Extbase\Annotation\Inject;
+
+use TYPO3\CMS\Core\Resource\Exception\InvalidConfigurationException;
 
 /***************************************************************
  *  Copyright (C) 2017 punkt.de GmbH
@@ -22,12 +23,13 @@ use TYPO3\CMS\Extbase\Annotation\Inject;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Core\Resource\Exception\InvalidConfigurationException;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
-class ConfigurationBuilder implements SingletonInterface {
+class ConfigurationBuilder implements SingletonInterface
+{
 
     /**
      * @var \TYPO3\CMS\Core\TypoScript\TypoScriptService
@@ -45,10 +47,10 @@ class ConfigurationBuilder implements SingletonInterface {
      */
     protected $persistenceSettings = [];
 
-	/**
-	 * @return array
-	 * @throws InvalidConfigurationException
-	 */
+    /**
+     * @return array
+     * @throws InvalidConfigurationException
+     */
     public function getSettings()
     {
         if (empty($this->settings)) {
@@ -58,11 +60,10 @@ class ConfigurationBuilder implements SingletonInterface {
         return $this->settings;
     }
 
-
-	/**
-	 * @return array
-	 * @throws InvalidConfigurationException
-	 */
+    /**
+     * @return array
+     * @throws InvalidConfigurationException
+     */
     public function getPersistenceSettings()
     {
         if (empty($this->persistenceSettings)) {
@@ -72,20 +73,18 @@ class ConfigurationBuilder implements SingletonInterface {
         return $this->persistenceSettings;
     }
 
-
-	/**
-	 * @throws InvalidConfigurationException
-	 */
-	protected function loadTypoScript()
+    /**
+     * @throws InvalidConfigurationException
+     */
+    protected function loadTypoScript()
     {
-		if (empty($GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_typo3forum.'])) {
+        if (empty($GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_typo3forum.'])) {
             throw new InvalidConfigurationException('The TypoScript configuration for typo3_forum is missing. Include it via a template or a TypoScript file.', 1561441468);
-		}
+        }
         $typoScript = $this->getTypoScriptService()->convertTypoScriptArrayToPlainArray($GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_typo3forum.']);
         $this->settings = $typoScript['settings'];
         $this->persistenceSettings = $typoScript['persistence'];
     }
-
 
     /**
      * this method is taken from the old implementation in AbstractRepository. The reason this exists is that if somehow the

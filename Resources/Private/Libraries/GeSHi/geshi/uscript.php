@@ -42,18 +42,18 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'Unreal Script',
-    'COMMENT_SINGLE' => array(
+    'COMMENT_SINGLE' => [
             1 => '//',
             2 => '#'
-            ),
-    'COMMENT_MULTI' => array('/*' => '*/'),
+            ],
+    'COMMENT_MULTI' => ['/*' => '*/'],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'", '"'),
+    'QUOTEMARKS' => ["'", '"'],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        1 => array(        //declaration keywords
+    'KEYWORDS' => [
+        1 => [        //declaration keywords
             'simulated', 'state', 'class', 'function', 'event', 'var', 'local',
             'ignores', 'globalconfig', 'config', 'abstract', 'nativereplication', 'native',
             'auto', 'coerce', 'const', 'default',
@@ -63,14 +63,14 @@ $language_data = array (
             'private', 'public', 'protected', 'reliable', 'replication',
             'singular', 'static', 'struct', 'transient', 'unreliable',
             'hidedropdown', 'cacheexempt', 'exec', 'delegate', 'import', 'placeable', 'exportstructs'
-            ),
-        2 => array(        //control flow keywords
+            ],
+        2 => [        //control flow keywords
             'for', 'while', 'do', 'if', 'else', 'switch', 'case', 'return', 'break', 'continue',
             'begin', 'loop', 'assert',
             'foreach', 'AllActors', 'DynamicActors', 'ChildActors', 'BasedActors', 'TouchingActors',
             'TraceActors', 'RadiusActors', 'VisibleActors', 'CollidingActors', 'VisibleCollidingActors'
-            ),
-        3 => array(        //global (object) functions
+            ],
+        3 => [        //global (object) functions
             'log', 'warn', 'rot', 'vect', 'Rand', 'Min', 'Max', 'Clamp', 'Abs', 'Sin', 'ASin',
             'Cos', 'ACos', 'Tan', 'ATan', 'Exp', 'Loge', 'Sqrt', 'Square', 'FRand', 'FMin', 'FMax', 'FClamp',
             'Lerp', 'Smerp', 'Ceil', 'Round', 'VSize', 'Normal', 'Invert', 'VRand', 'MirrorVectorByNormal',
@@ -88,8 +88,8 @@ $language_data = array (
             'PlatformIsMacOS', 'PlatformIsUnix', 'PlatformIsWindows', 'PlatformIs64Bit',
             'BeginState', 'EndState', 'Created', 'AllObjects', 'GetReferencers', 'GetItemName',
             'ReplaceText', 'EatStr'
-            ),
-        4 => array(        //common almost-global (actor) functions
+            ],
+        4 => [        //common almost-global (actor) functions
             'ClientMessage', 'ConsoleCommand', 'CopyObjectToClipboard', 'TextToSpeech',
             'Error', 'Sleep', 'SetCollision', 'SetCollisionSize', 'SetDrawScale', 'SetDrawScale3D',
             'SetStaticMesh', 'SetDrawType', 'Move', 'SetLocation', 'SetRotation',
@@ -108,8 +108,8 @@ $language_data = array (
             'TraceThisActor', 'spawn', 'Destroy', 'TornOff', 'SetTimer', 'PlaySound', 'PlayOwnedSound',
             'GetSoundDuration', 'MakeNoise', 'BeginPlay', 'GetAllInt', 'RenderOverlays', 'RenderTexture',
             'PreBeginPlay', 'PostBeginPlay', 'PostNetBeginPlay', 'HurtRadius', 'Reset', 'Crash'
-            ),
-        5 => array(        //data types
+            ],
+        5 => [        //data types
             'none', 'null',
             'float', 'int', 'bool', 'byte', 'char', 'double', 'iterator', 'name', 'string',    //primitive
             'plane', 'rotator', 'vector', 'spline',    'coords', 'Quat', 'Range', 'RangeVector', //structs
@@ -125,11 +125,11 @@ $language_data = array (
             'FractalTexture', 'FireTexture', 'IceTexture', 'WaterTexture', 'FluidTexture', 'WaveTexture',
             'WetTexture', 'ConstantMaterial', 'ConstantColor', 'FadeColor', 'ParticleMaterial',
             'ProjectorMaterial', 'Shader', 'TerrainMaterial', 'VertexColor'
-            ),
-        6 => array(        //misc keywords
+            ],
+        6 => [        //misc keywords
             'false', 'true', 'self', 'super', 'MaxInt', 'Pi'
-            ),
-        7 => array(        //common actor enums & variables
+            ],
+        7 => [        //common actor enums & variables
             'DT_None', 'DT_Sprite', 'DT_Mesh', 'DT_Brush', 'DT_RopeSprite',
             'DT_VerticalSprite', 'DT_TerraForm', 'DT_SpriteAnimOnce', 'DT_StaticMesh', 'DT_DrawType',
             'DT_Particle', 'DT_AntiPortal', 'DT_FluidSurface',
@@ -151,8 +151,8 @@ $language_data = array (
             'RelativeLocation', 'RelativeRotation', 'DrawScale', 'DrawScale3D', 'Skins', 'Style',
             'SoundVolume', 'SoundPitch', 'SoundRadius', 'TransientSoundVolume', 'TransientSoundRadius',
             'CollisionRadius', 'CollisionHeight', 'Mass', 'Buoyancy', 'RotationRate', 'DesiredRotation'
-            ),
-        8 => array(        //common non-actor uscript classes
+            ],
+        8 => [        //common non-actor uscript classes
             'Object',
             'CacheManager', 'CameraEffect', 'Canvas', 'CheatManager', 'Commandlet', 'DecoText', 'GUI',
             'InteractionMaster', 'Interactions', 'Interaction', 'KarmaParamsCollision', 'KarmaParamsRBFull',
@@ -163,8 +163,8 @@ $language_data = array (
             'speciesType', 'StreamBase', 'Stream', 'EditorEngine', 'Engine', 'Time', 'WeaponFire',
             'WebApplication', 'WebRequest', 'WebResponse', 'WebSkin', 'xPawnGibGroup', 'xPawnSoundGroup',
             'xUtil'
-            ),
-        9 => array(        //common actor-based uscript classes
+            ],
+        9 => [        //common actor-based uscript classes
             'Actor',
             'Controller', 'AIController', 'ScriptedController', 'Bot', 'xBot',
             'PlayerController', 'UnrealPlayer', 'xPlayer',
@@ -186,16 +186,16 @@ $language_data = array (
             'Pickup', 'Ammo', 'UTAmmoPickup', 'ArmorPickup', 'KeyPickup', 'TournamentPickup',
             'Projectile', 'Projector', 'DynamicProjector', 'ShadowProjector', 'xScorch',
             'xEmitter', 'xPickupBase', 'xProcMesh', 'xWeatherEffect', 'PhysicsVolume', 'Volume'
-            ),
-        10 => array(    //symbol-like operators
-            'dot','cross'
-            )
-        ),
-    'SYMBOLS' => array(
-        '+','-','=','/','*','-','%','>','<','&','^','!','|','`','(',')','[',']','{','}',
-        '<<','>>','$','@'
-        ),
-    'CASE_SENSITIVE' => array(
+            ],
+        10 => [    //symbol-like operators
+            'dot', 'cross'
+            ]
+        ],
+    'SYMBOLS' => [
+        '+', '-', '=', '/', '*', '-', '%', '>', '<', '&', '^', '!', '|', '`', '(', ')', '[', ']', '{', '}',
+        '<<', '>>', '$', '@'
+        ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
@@ -207,9 +207,9 @@ $language_data = array (
         8 => false,
         9 => false,
         10 => false,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+        ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #0000FF;',
             2 => 'color: #0000FF;',
             3 => 'color: #0066AA;',
@@ -220,39 +220,39 @@ $language_data = array (
             8 => 'color: #AA6600;',
             9 => 'color: #FF8800;',
             10 => 'color: #0000FF;'
-            ),
-        'COMMENTS' => array(
+            ],
+        'COMMENTS' => [
             1 => 'color: #008080; font-style: italic;',
             2 => 'color: #000000; font-weight: bold;',
             'MULTI' => 'color: #008080; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+            ],
+        'ESCAPE_CHAR' => [
             0 => ''
-            ),
-        'BRACKETS' => array(
+            ],
+        'BRACKETS' => [
             0 => 'color: #000000;'
-            ),
-        'STRINGS' => array(
+            ],
+        'STRINGS' => [
             0 => 'color: #999999;'
-            ),
-        'NUMBERS' => array(
+            ],
+        'NUMBERS' => [
             0 => 'color: #FF0000;'
-            ),
-        'METHODS' => array(
+            ],
+        'METHODS' => [
             0 => 'color: #006600;'
-            ),
-        'SYMBOLS' => array(
+            ],
+        'SYMBOLS' => [
             0 => 'color: #669966;'
-            ),
-        'REGEXPS' => array(
+            ],
+        'REGEXPS' => [
             0 => 'color: #E000E0;',
             1 => 'color: #E000E0;'
-            ),
-        'SCRIPT' => array(
+            ],
+        'SCRIPT' => [
             0 => ''
-            )
-        ),
-    'URLS' => array(
+            ]
+        ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
@@ -263,37 +263,35 @@ $language_data = array (
         8 => 'http://wiki.beyondunreal.com/wiki?search={FNAME}',
         9 => 'http://wiki.beyondunreal.com/wiki?search={FNAME}',
         10 => ''
-        ),
+        ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array('.'),
-    'REGEXPS' => array(            //handle template-style variable definitions
-        0 => array(
+    'OBJECT_SPLITTERS' => ['.'],
+    'REGEXPS' => [            //handle template-style variable definitions
+        0 => [
             GESHI_SEARCH => '(class\s*)<(\s*(\w+)\s*)>',
-            GESHI_REPLACE => "\${1}",
+            GESHI_REPLACE => '${1}',
             GESHI_MODIFIERS => 'i',
             GESHI_BEFORE => '',
-            GESHI_AFTER => "< \${3} >"
-            ),
-        1 => array(
+            GESHI_AFTER => '< ${3} >'
+            ],
+        1 => [
             GESHI_SEARCH => '(array\s*)<(\s*(\w+)\s*)>',
-            GESHI_REPLACE => "\${1}",
+            GESHI_REPLACE => '${1}',
             GESHI_MODIFIERS => 'i',
             GESHI_BEFORE => '',
-            GESHI_AFTER => "< \${3} >"
-            )
-        ),
+            GESHI_AFTER => '< ${3} >'
+            ]
+        ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
-    'PARSER_CONTROL' => array(
-        'KEYWORDS' => array(
-            10 => array(
+    'SCRIPT_DELIMITERS' => [
+        ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+        ],
+    'PARSER_CONTROL' => [
+        'KEYWORDS' => [
+            10 => [
                 'DISALLOWED_BEFORE' => '(?<!<)(?=DOT>)'
-                )
-            )
-        )
-);
-
-?>
+                ]
+            ]
+        ]
+];

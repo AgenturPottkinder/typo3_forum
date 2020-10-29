@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\ViewHelpers\Format;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -25,16 +26,18 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Format;
 
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
-class JsonViewHelper extends AbstractViewHelper {
+class JsonViewHelper extends AbstractViewHelper
+{
 
-	/**
-	 * render
-	 *
-	 * @param array $data
-	 *
-	 * @return string
-	 */
-	public function render(array $data) {
-		return json_encode($data);
-	}
+    /**
+     * render
+     *
+     * @param array $data
+     *
+     * @return string
+     */
+    public function render(array $data)
+    {
+        return json_encode($data);
+    }
 }

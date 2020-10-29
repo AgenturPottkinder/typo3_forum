@@ -27,15 +27,16 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
 /**
  * A frontend user.
  */
-class AnonymousFrontendUser extends FrontendUser {
+class AnonymousFrontendUser extends FrontendUser
+{
+    public function __construct($username = '', $password = '')
+    {
+        parent::__construct($username, $password);
+        $this->uid = 0;
+    }
 
-	public function __construct($username = '', $password = '') {
-		parent::__construct($username, $password);
-		$this->uid = 0;
-	}
-
-
-	public function isAnonymous() {
-		return TRUE;
-	}
+    public function isAnonymous()
+    {
+        return true;
+    }
 }

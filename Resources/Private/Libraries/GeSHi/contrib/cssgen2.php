@@ -20,18 +20,14 @@
  *  along with GeSHi; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * @package    geshi
- * @subpackage contrib
  * @author     revulo <revulon@gmail.com>
  * @copyright  2008 revulo
  * @license    http://gnu.org/copyleft/gpl.html GNU GPL
- *
  */
-
-require dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'geshi.php';
+require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'geshi.php';
 $geshi = new GeSHi;
 
-$languages = array();
+$languages = [];
 if ($handle = opendir($geshi->language_path)) {
     while (($file = readdir($handle)) !== false) {
         $pos = strpos($file, '.');
@@ -46,9 +42,9 @@ sort($languages);
 header('Content-Type: application/octet-stream');
 header('Content-Disposition: attachment; filename="geshi.css"');
 
-echo "/**\n".
+echo "/**\n" .
      " * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann\n" .
-     " * (http://qbnz.com/highlighter/ and http://geshi.org/)\n".
+     " * (http://qbnz.com/highlighter/ and http://geshi.org/)\n" .
      " */\n";
 
 foreach ($languages as $language) {

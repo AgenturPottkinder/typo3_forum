@@ -50,20 +50,20 @@
  *
  ************************************************************************************/
 
-$language_data = array(
+$language_data = [
     'LANG_NAME' => 'Vim Script',
-    'COMMENT_SINGLE' => array(),
-    'COMMENT_REGEXP' => array(
+    'COMMENT_SINGLE' => [],
+    'COMMENT_REGEXP' => [
         1 => "/\s*\"[^\"]*?$/m",
         //Regular expressions (Ported from perl.php)
 //        2 => "/(?<=[\\s^])(s|tr|y)\\/(?:\\\\.|(?!\n)[^\\/\\\\])+\\/(?:\\\\.|(?!\n)[^\\/\\\\])*\\/[msixpogcde]*(?=[\\s$\\.\\;])|(?<=[\\s^(=])(m|q[qrwx]?)?\\/(?:\\\\.|(?!\n)[^\\/\\\\])+\\/[msixpogc]*(?=[\\s$\\.\\,\\;\\)])/iU",
-        ),
-    'COMMENT_MULTI' => array(),
+        ],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'", '"'),
+    'QUOTEMARKS' => ["'", '"'],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             'au', 'augroup', 'autocmd', 'brea', 'break', 'bufadd',
             'bufcreate', 'bufdelete', 'bufenter', 'buffilepost',
             'buffilepre', 'bufleave', 'bufnew', 'bufnewfile',
@@ -100,8 +100,8 @@ $language_data = array(
             'unlockva', 'unlockvar', 'user', 'usergettingbored',
             'vimenter', 'vimleave', 'vimleavepre', 'vimresized', 'wh',
             'whi', 'whil', 'while', 'winenter', 'winleave'
-            ),
-        2 => array(
+            ],
+        2 => [
             '&lt;CR&gt;', '&lt;Esc&gt;', '&lt;F1&gt;', '&lt;F10&gt;',
             '&lt;F11&gt;', '&lt;F12&gt;', '&lt;F2&gt;', '&lt;F3&gt;',
             '&lt;F4&gt;', '&lt;F5&gt;', '&lt;F6&gt;', '&lt;F7&gt;',
@@ -286,8 +286,8 @@ $language_data = array(
             'wiw', 'wm', 'wmh', 'wmnu', 'wmw', 'wop', 'wrap',
             'wrapmargin', 'wrapscan', 'write', 'writeany',
             'writebackup', 'writedelay', 'ws', 'ww'
-            ),
-        3 => array(
+            ],
+        3 => [
             'BufAdd', 'BufCreate', 'BufDelete', 'BufEnter', 'BufFilePost',
             'BufFilePre', 'BufHidden', 'BufLeave', 'BufNew', 'BufNewFile',
             'BufRead', 'BufReadCmd', 'BufReadPost', 'BufReadPre',
@@ -358,63 +358,61 @@ $language_data = array(
             'type', 'values', 'virtcol', 'visualmode', 'winbufnr',
             'wincol', 'winline', 'winnr', 'winrestcmd',
             'winrestview', 'winsaveview', 'writefile'
-            )
-        ),
-    'SYMBOLS' => array(
+            ]
+        ],
+    'SYMBOLS' => [
         '(', ')', '[', ']', '{', '}', '!', '%', '&', '*', '|', '/', '<', '>',
         '^', '-', '+', '~', '?', ':', '$', '@', '.'
-        ),
-    'CASE_SENSITIVE' => array(
+        ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => true,
         2 => true,
         3 => true
-        ),
-    'STYLES' => array(
-        'BRACKETS' => array(
+        ],
+    'STYLES' => [
+        'BRACKETS' => [
             0 => 'color: #000000;'
-            ),
-        'COMMENTS' => array(
+            ],
+        'COMMENTS' => [
             1 => 'color: #adadad; font-style: italic;',
 //            2 => 'color: #009966; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+            ],
+        'ESCAPE_CHAR' => [
             0 => ''
-            ),
-        'KEYWORDS' => array(
+            ],
+        'KEYWORDS' => [
             1 => 'color: #804040;',
             2 => 'color: #668080;',
             3 => 'color: #25BB4D;'
-            ),
-        'METHODS' => array(
+            ],
+        'METHODS' => [
             0 => 'color: #000000;',
-            ),
-        'NUMBERS' => array(
+            ],
+        'NUMBERS' => [
             0 => 'color: #000000; font-weight:bold;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
-            ),
-        'STRINGS' => array(
+            ],
+        'REGEXPS' => [
+            ],
+        'SCRIPT' => [
+            ],
+        'STRINGS' => [
             0 => 'color: #C5A22D;'
-            ),
-        'SYMBOLS' => array(
+            ],
+        'SYMBOLS' => [
             0 => 'color: #000000;'
-            )
-        ),
-    'URLS' => array(
+            ]
+        ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => ''
-        ),
+        ],
     'OOLANG' => false, //Save some time as OO identifiers aren't used
-    'OBJECT_SPLITTERS' => array(),
-    'REGEXPS' => array(
-        ),
+    'OBJECT_SPLITTERS' => [],
+    'REGEXPS' => [
+        ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(),
-    'HIGHLIGHT_STRICT_BLOCK' => array()
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [],
+    'HIGHLIGHT_STRICT_BLOCK' => []
+];

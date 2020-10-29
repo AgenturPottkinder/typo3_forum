@@ -26,85 +26,87 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-class Rank extends AbstractEntity {
+class Rank extends AbstractEntity
+{
 
-	/**
-	 * The name of this rank
-	 * @var string
-	 */
-	public $name;
+    /**
+     * The name of this rank
+     * @var string
+     */
+    public $name;
 
-	/**
-	 * The limit of points. If a user have less then this limit, this rank will be used.
-	 * @var int
-	 */
-	public $pointLimit;
+    /**
+     * The limit of points. If a user have less then this limit, this rank will be used.
+     * @var int
+     */
+    public $pointLimit;
 
-	/**
-	 * The amount of user
-	 * @var int
-	 */
-	public $userCount;
+    /**
+     * The amount of user
+     * @var int
+     */
+    public $userCount;
 
-	/**
-	 * Get the name of this rank
-	 * @return string
-	 */
-	public function getName() {
-		return $this->name;
-	}
+    /**
+     * Get the name of this rank
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
-	/**
-	 * Set the name of this rank
-	 *
-	 * @param string $name
-	 *
-	 * @return void
-	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
+    /**
+     * Set the name of this rank
+     *
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
-	/**
-	 * Get the limit of this rank
-	 * @return int
-	 */
-	public function getPointLimit() {
-		return $this->pointLimit;
-	}
+    /**
+     * Get the limit of this rank
+     * @return int
+     */
+    public function getPointLimit()
+    {
+        return $this->pointLimit;
+    }
 
-	/**
-	 * Set the limit of this rank
-	 *
-	 * @param int $pointLimit
-	 *
-	 * @return void
-	 */
-	public function setPointLimit($pointLimit) {
-		$this->pointLimit = $pointLimit;
-	}
+    /**
+     * Set the limit of this rank
+     *
+     * @param int $pointLimit
+     */
+    public function setPointLimit($pointLimit)
+    {
+        $this->pointLimit = $pointLimit;
+    }
 
-	/**
-	 * Get the amount of users of this rank
-	 * @return int
-	 */
-	public function getUserCount() {
-		return $this->userCount;
-	}
+    /**
+     * Get the amount of users of this rank
+     * @return int
+     */
+    public function getUserCount()
+    {
+        return $this->userCount;
+    }
 
-	/**
-	 * Set the counter of user count +1
-	 * @return void
-	 */
-	public function increaseUserCount() {
-		$this->userCount++;
-	}
+    /**
+     * Set the counter of user count +1
+     */
+    public function increaseUserCount()
+    {
+        $this->userCount++;
+    }
 
-	/**
-	 * Set the counter of user count -1
-	 * @return void
-	 */
-	public function decreaseUserCount() {
-		$this->userCount--;
-	}
+    /**
+     * Set the counter of user count -1
+     */
+    public function decreaseUserCount()
+    {
+        $this->userCount--;
+    }
 }

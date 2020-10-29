@@ -38,94 +38,92 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'DCPU-16 Assembly',
-    'COMMENT_SINGLE' => array(1 => ';'),
-    'COMMENT_MULTI' => array(),
+    'COMMENT_SINGLE' => [1 => ';'],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'", '"'),
+    'QUOTEMARKS' => ["'", '"'],
     'ESCAPE_CHAR' => '',
     'NUMBERS' => GESHI_NUMBER_INT_BASIC | GESHI_NUMBER_HEX_PREFIX,
-    'KEYWORDS' => array(
+    'KEYWORDS' => [
         /*CPU*/
-        1 => array(
-            'set','add','sub','mul','div','mod','shl','shr','and','bor','xor',
-            'ife','ifn','ifg','ifb',
+        1 => [
+            'set', 'add', 'sub', 'mul', 'div', 'mod', 'shl', 'shr', 'and', 'bor', 'xor',
+            'ife', 'ifn', 'ifg', 'ifb',
             'jsr'
-            ),
+            ],
         /*registers*/
-        2 => array(
-            'a','b','c','x','y','z','i','j',
-            'pc','sp','o',
-            'pop','peek','push' //Special cases with DCPU-16
-            ),
-        ),
-    'SYMBOLS' => array(
+        2 => [
+            'a', 'b', 'c', 'x', 'y', 'z', 'i', 'j',
+            'pc', 'sp', 'o',
+            'pop', 'peek', 'push' //Special cases with DCPU-16
+            ],
+        ],
+    'SYMBOLS' => [
         '[', ']', '+', '-', ','
-        ),
-    'CASE_SENSITIVE' => array(
+        ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+        ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #000088; font-weight:bold;',
             2 => 'color: #0000ff;'
-            ),
-        'COMMENTS' => array(
+            ],
+        'COMMENTS' => [
             1 => 'color: #adadad; font-style: italic;',
-            ),
-        'ESCAPE_CHAR' => array(
+            ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+            ],
+        'BRACKETS' => [
             0 => 'color: #000088;'
-            ),
-        'STRINGS' => array(
+            ],
+        'STRINGS' => [
             0 => 'color: #7f007f;'
-            ),
-        'NUMBERS' => array(
+            ],
+        'NUMBERS' => [
             0 => 'color: #880000;'
-            ),
-        'METHODS' => array(
-            ),
-        'SYMBOLS' => array(
+            ],
+        'METHODS' => [
+            ],
+        'SYMBOLS' => [
             0 => 'color: #008000;'
-            ),
-        'REGEXPS' => array(
+            ],
+        'REGEXPS' => [
             2 => 'color: #993333;'
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+            ],
+        'SCRIPT' => [
+            ]
+        ],
+    'URLS' => [
         1 => 'http://0x10c.com/doc/dcpu-16.txt',
         2 => ''
-        ),
+        ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
-    'REGEXPS' => array(
+    'OBJECT_SPLITTERS' => [
+        ],
+    'REGEXPS' => [
         //Hex numbers
         //0 => '0[0-9a-fA-F]{1,32}[hH]',
         //Binary numbers
         //1 => '\%[01]{1,64}|[01]{1,64}[bB]?(?![^<]*>)',
         //Labels
         2 => '^:[_a-zA-Z][_a-zA-Z0-9]?(?=\s|$)'
-        ),
+        ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
+    'SCRIPT_DELIMITERS' => [
+        ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+        ],
     'TAB_WIDTH' => 4,
-    'PARSER_CONTROL' => array(
-        'KEYWORDS' => array(
+    'PARSER_CONTROL' => [
+        'KEYWORDS' => [
             'DISALLOWED_BEFORE' => "(?<![a-zA-Z0-9\$_\|\#\/])",
             'DISALLOWED_AFTER' => "(?![a-zA-Z0-9_\|%\\-])"
-            )
-        )
-);
-
-?>
+            ]
+        ]
+];

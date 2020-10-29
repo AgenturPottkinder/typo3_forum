@@ -27,55 +27,55 @@ namespace Mittwald\Typo3Forum\Domain\Model\Format;
 use Mittwald\Typo3Forum\TextParser\Panel\MarkItUpExportableInterface;
 
 /**
- *
  * A smiley. This class implements the abstract AbstractTextParserElement class.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Model_Format
  * @version    $Id$
  * @license    GNU Public License, version 2
  *             http://opensource.org/licenses/gpl-license.php
- *
  */
-class Smiley extends AbstractTextParserElement implements MarkItUpExportableInterface {
+class Smiley extends AbstractTextParserElement implements MarkItUpExportableInterface
+{
 
-	/**
-	 * The smiley shortcut, e.g. ":)" or ":/"
-	 * @var string
-	 */
-	protected $smileyShortcut;
+    /**
+     * The smiley shortcut, e.g. ":)" or ":/"
+     * @var string
+     */
+    protected $smileyShortcut;
 
-	/**
-	 * The default smiley directory.
-	 * @var string
-	 */
-	protected $defaultIconDir = 'Smiley/';
+    /**
+     * The default smiley directory.
+     * @var string
+     */
+    protected $defaultIconDir = 'Smiley/';
 
-	/**
-	 * Exports this smiley object as a plain array, that can be used in
-	 * a MarkItUp configuration object.
-	 * @return array A plain array describing this smiley
-	 */
-	public function exportForMarkItUp() {
-		return ['name' => $this->getName(),
-			'className' => $this->getIconClass(),
-			'replaceWith' => $this->getSmileyShortcut()];
-	}
+    /**
+     * Exports this smiley object as a plain array, that can be used in
+     * a MarkItUp configuration object.
+     * @return array A plain array describing this smiley
+     */
+    public function exportForMarkItUp()
+    {
+        return ['name' => $this->getName(),
+            'className' => $this->getIconClass(),
+            'replaceWith' => $this->getSmileyShortcut()];
+    }
 
-	/**
-	 * Gets the smiley IconClass.
-	 * @return string The smiley IconClass.
-	 */
-	public function getIconClass() {
-		return $this->iconClass;
-	}
+    /**
+     * Gets the smiley IconClass.
+     * @return string The smiley IconClass.
+     */
+    public function getIconClass()
+    {
+        return $this->iconClass;
+    }
 
-	/**
-	 * Gets the smiley shortcut.
-	 * @return string The smiley shortcut.
-	 */
-	public function getSmileyShortcut() {
-		return $this->smileyShortcut;
-	}
+    /**
+     * Gets the smiley shortcut.
+     * @return string The smiley shortcut.
+     */
+    public function getSmileyShortcut()
+    {
+        return $this->smileyShortcut;
+    }
 }

@@ -34,287 +34,289 @@ use Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport;
 use Mittwald\Typo3Forum\Utility\Localization;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
 use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use TYPO3\CMS\Extbase\Annotation\Inject;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
 
+class ModerationController extends AbstractController
+{
 
-class ModerationController extends AbstractController {
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
+     * @Inject
+     */
+    protected $forumRepository;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
-	 * @Inject
-	 */
-	protected $forumRepository;
+    /**
+     * @var \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface
+     * @Inject
+     */
+    protected $persistenceManager;
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface
-	 * @Inject
-	 */
-	protected $persistenceManager;
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\PostReportRepository
+     * @Inject
+     */
+    protected $postReportRepository;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\PostReportRepository
-	 * @Inject
-	 */
-	protected $postReportRepository = NULL;
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\PostRepository
+     * @Inject
+     */
+    protected $postRepository;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\PostRepository
-	 * @Inject
-	 */
-	protected $postRepository;
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportRepository
+     * @Inject
+     */
+    protected $reportRepository;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportRepository
-	 * @Inject
-	 */
-	protected $reportRepository = NULL;
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory
+     * @Inject
+     */
+    protected $topicFactory;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory
-	 * @Inject
-	 */
-	protected $topicFactory;
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
+     * @Inject
+     */
+    protected $topicRepository;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
-	 * @Inject
-	 */
-	protected $topicRepository;
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\UserReportRepository
+     * @Inject
+     */
+    protected $userReportRepository;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\UserReportRepository
-	 * @Inject
-	 */
-	protected $userReportRepository = NULL;
+    public function indexReportAction()
+    {
+        $this->view->assign('postReports', $this->postReportRepository->findAll());
+        $this->view->assign('userReports', $this->userReportRepository->findAll());
+    }
 
-	/**
-	 * @return void
-	 */
-	public function indexReportAction() {
-		$this->view->assign('postReports', $this->postReportRepository->findAll());
-		$this->view->assign('userReports', $this->userReportRepository->findAll());
-	}
+    /**
+     * editReportAction
+     *
+     * @param UserReport $userReport
+     * @param PostReport|null $postReport
+     *
+     * @throws InvalidArgumentValueException
+     */
+    public function editReportAction(UserReport $userReport = null, PostReport $postReport = null)
+    {
+        // Validate arguments
+        if ($userReport === null && $postReport === null) {
+            throw new InvalidArgumentValueException('You need to show a user report or post report!', 1285059341);
+        }
+        if ($postReport) {
+            $report = $postReport;
+            $type = 'Post';
+            $this->authenticationService->assertModerationAuthorization($postReport->getTopic()->getForum());
+        } else {
+            $type = 'User';
+            $report = $userReport;
+        }
 
-	/**
-	 * editReportAction
-	 *
-	 * @param UserReport $userReport
-	 * @param PostReport|NULL $postReport
-	 *
-	 * @return void
-	 * @throws InvalidArgumentValueException
-	 */
-	public function editReportAction(UserReport $userReport = NULL, PostReport $postReport = NULL) {
-		// Validate arguments
-		if ($userReport === NULL && $postReport === NULL) {
-			throw new InvalidArgumentValueException("You need to show a user report or post report!", 1285059341);
-		}
-		if ($postReport) {
-			$report = $postReport;
-			$type = 'Post';
-			$this->authenticationService->assertModerationAuthorization($postReport->getTopic()->getForum());
-		} else {
-			$type = 'User';
-			$report = $userReport;
-		}
+        $this->view->assignMultiple([
+            'report' => $report,
+            'type' => $type,
+        ]);
+    }
 
-		$this->view->assignMultiple([
-			'report' => $report,
-			'type' => $type,
-		]);
-	}
+    /**
+     * @param Report $report
+     * @param ReportComment $comment
+     *
+     * @IgnoreValidation("comment")
+     */
+    public function newReportCommentAction(Report $report, ReportComment $comment = null)
+    {
+        $this->view->assignMultiple([
+            'comment' => $comment,
+            'report' => $report,
+        ]);
+    }
 
-	/**
-	 * @param Report $report
-	 * @param ReportComment $comment
-	 *
-	 * @IgnoreValidation("comment")
-	 */
-	public function newReportCommentAction(Report $report, ReportComment $comment = NULL) {
-		$this->view->assignMultiple([
-			'comment' => $comment,
-			'report' => $report,
-		]);
-	}
+    /**
+     * @param UserReport $report
+     * @param ReportComment $comment
+     * @throws InvalidArgumentValueException
+     */
+    public function createUserReportCommentAction(UserReport $report = null, ReportComment $comment)
+    {
 
-	/**
-	 * @param UserReport $report
-	 * @param ReportComment $comment
-	 * @return void
-	 * @throws InvalidArgumentValueException
-	 */
-	public function createUserReportCommentAction(UserReport $report = NULL, ReportComment $comment) {
+        // Validate arguments
+        if ($report === null) {
+            throw new InvalidArgumentValueException('You need to comment a user report!', 1285059341);
+        }
 
-		// Validate arguments
-		if ($report === NULL) {
-			throw new InvalidArgumentValueException("You need to comment a user report!", 1285059341);
-		}
+        $comment->setAuthor($this->authenticationService->getUser());
+        $report->addComment($comment);
+        $this->reportRepository->update($report);
 
-		$comment->setAuthor($this->authenticationService->getUser());
-		$report->addComment($comment);
-		$this->reportRepository->update($report);
+        $this->controllerContext->getFlashMessageQueue()->enqueue(
+            new FlashMessage(Localization::translate('Report_NewComment_Success'))
+        );
 
-		$this->controllerContext->getFlashMessageQueue()->enqueue(
-			new FlashMessage(Localization::translate('Report_NewComment_Success'))
-		);
+        $this->clearCacheForCurrentPage();
+        $this->redirect('editReport', null, null, ['userReport' => $report]);
+    }
 
-		$this->clearCacheForCurrentPage();
-		$this->redirect('editReport', NULL, NULL, ['userReport' => $report]);
+    /**
+     * createPostReportCommentAction
+     *
+     * @param PostReport|null $report
+     * @param ReportComment   $comment
+     *
+     * @throws InvalidArgumentValueException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     */
+    public function createPostReportCommentAction(PostReport $report = null, ReportComment $comment)
+    {
 
-	}
+        // Assert authorization
+        $this->authenticationService->assertModerationAuthorization($report->getTopic()->getForum());
 
-	/**
-	 * createPostReportCommentAction
-	 *
-	 * @param PostReport|NULL $report
-	 * @param ReportComment   $comment
-	 *
-	 * @return void
-	 * @throws InvalidArgumentValueException
-	 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
-	 */
-	public function createPostReportCommentAction(PostReport $report = NULL, ReportComment $comment) {
+        // Validate arguments
+        if ($report === null) {
+            throw new InvalidArgumentValueException('You need to comment a user report!', 1285059341);
+        }
 
-		// Assert authorization
-		$this->authenticationService->assertModerationAuthorization($report->getTopic()->getForum());
+        $comment->setAuthor($this->authenticationService->getUser());
+        $report->addComment($comment);
+        $this->reportRepository->update($report);
 
-		// Validate arguments
-		if ($report === NULL) {
-			throw new InvalidArgumentValueException("You need to comment a user report!", 1285059341);
-		}
+        $this->controllerContext->getFlashMessageQueue()->enqueue(
+            new FlashMessage(Localization::translate('Report_NewComment_Success'))
+        );
 
-		$comment->setAuthor($this->authenticationService->getUser());
-		$report->addComment($comment);
-		$this->reportRepository->update($report);
+        $this->clearCacheForCurrentPage();
+        $this->redirect('editReport', null, null, ['postReport' => $report]);
+    }
 
-		$this->controllerContext->getFlashMessageQueue()->enqueue(
-			new FlashMessage(Localization::translate('Report_NewComment_Success'))
-		);
+    /**
+     * Sets the workflow status of a report.
+     *
+     * @param UserReport $report
+     * @param ReportWorkflowStatus $status
+     * @param string $redirect
+     *
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     */
+    public function updateUserReportStatusAction(UserReport $report, ReportWorkflowStatus $status, $redirect = 'indexReport')
+    {
 
-		$this->clearCacheForCurrentPage();
-		$this->redirect('editReport', NULL, NULL, ['postReport' => $report]);
+        // Set status and update the report. Add a comment to the report that
+        // documents the status change.
+        $report->setWorkflowStatus($status);
+        /** @var ReportComment $comment */
+        $comment = GeneralUtility::makeInstance(ReportComment::class);
+        $comment->setAuthor($this->getCurrentUser());
+        $comment->setText(Localization::translate('Report_Edit_SetStatus', 'Typo3Forum', [$status->getName()]));
+        $report->addComment($comment);
+        $this->reportRepository->update($report);
 
-	}
+        // Add flash message and clear cache.
+        $this->addLocalizedFlashmessage('Report_UpdateStatus_Success', [$report->getUid(), $status->getName()]);
+        $this->clearCacheForCurrentPage();
 
-	/**
-	 * Sets the workflow status of a report.
-	 *
-	 * @param UserReport $report
-	 * @param ReportWorkflowStatus $status
-	 * @param string $redirect
-	 *
-	 * @return void
-	 * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
-	 */
-	public function updateUserReportStatusAction(UserReport $report, ReportWorkflowStatus $status, $redirect = 'indexReport') {
+        if ($redirect === 'show') {
+            $this->redirect('editReport', null, null, ['userReport' => $report]);
+        }
 
-		// Set status and update the report. Add a comment to the report that
-		// documents the status change.
-		$report->setWorkflowStatus($status);
-		/** @var ReportComment $comment */
-		$comment = GeneralUtility::makeInstance(ReportComment::class);
-		$comment->setAuthor($this->getCurrentUser());
-		$comment->setText(Localization::translate('Report_Edit_SetStatus', 'Typo3Forum', [$status->getName()]));
-		$report->addComment($comment);
-		$this->reportRepository->update($report);
+        $this->redirect('indexReport');
+    }
 
-		// Add flash message and clear cache.
-		$this->addLocalizedFlashmessage('Report_UpdateStatus_Success', [$report->getUid(), $status->getName()]);
-		$this->clearCacheForCurrentPage();
+    /**
+     * Sets the workflow status of a report.
+     *
+     * @param PostReport $report
+     * @param ReportWorkflowStatus $status
+     * @param string $redirect
+     */
+    public function updatePostReportStatusAction(PostReport $report, ReportWorkflowStatus $status, $redirect = 'indexReport')
+    {
 
-		if ($redirect === 'show') {
-			$this->redirect('editReport', NULL, NULL, ['userReport' => $report]);
-		}
+        // Assert authorization
+        $this->authenticationService->assertModerationAuthorization($report->getTopic()->getForum());
 
-		$this->redirect('indexReport');
-	}
+        // Set status and update the report. Add a comment to the report that
+        // documents the status change.
+        $report->setWorkflowStatus($status);
+        /** @var ReportComment $comment */
+        $comment = GeneralUtility::makeInstance(ReportComment::class);
+        $comment->setAuthor($this->getCurrentUser());
+        $comment->setText(Localization::translate(
+            'Report_Edit_SetStatus',
+            'Typo3Forum',
+            [$status->getName()]
+        ));
+        $report->addComment($comment);
+        $this->reportRepository->update($report);
 
-	/**
-	 * Sets the workflow status of a report.
-	 *
-	 * @param PostReport $report
-	 * @param ReportWorkflowStatus $status
-	 * @param string $redirect
-	 */
-	public function updatePostReportStatusAction(PostReport $report, ReportWorkflowStatus $status, $redirect = 'indexReport') {
+        // Add flash message and clear cache.
+        $this->addLocalizedFlashmessage('Report_UpdateStatus_Success', [$report->getUid(), $status->getName()]);
+        $this->clearCacheForCurrentPage();
 
-		// Assert authorization
-		$this->authenticationService->assertModerationAuthorization($report->getTopic()->getForum());
+        if ($redirect === 'show') {
+            $this->redirect('editReport', null, null, ['postReport' => $report]);
+        }
 
-		// Set status and update the report. Add a comment to the report that
-		// documents the status change.
-		$report->setWorkflowStatus($status);
-		/** @var ReportComment $comment */
-		$comment = GeneralUtility::makeInstance(ReportComment::class);
-		$comment->setAuthor($this->getCurrentUser());
-		$comment->setText(Localization::translate('Report_Edit_SetStatus', 'Typo3Forum',
-			[$status->getName()]));
-		$report->addComment($comment);
-		$this->reportRepository->update($report);
+        $this->redirect('indexReport');
+    }
 
-		// Add flash message and clear cache.
-		$this->addLocalizedFlashmessage('Report_UpdateStatus_Success', [$report->getUid(), $status->getName()]);
-		$this->clearCacheForCurrentPage();
+    /**
+     * Displays a form for editing a topic with special moderator-powers!
+     *
+     * @param Topic $topic The topic that is to be edited.
+     */
+    public function editTopicAction(Topic $topic)
+    {
+        $this->authenticationService->assertModerationAuthorization($topic->getForum());
+        $this->view->assign('topic', $topic);
+    }
 
-		if ($redirect === 'show') {
-			$this->redirect('editReport', NULL, NULL, ['postReport' => $report]);
-		}
+    /**
+     * Updates a forum with special super-moderator-powers!
+     *
+     * @param Topic $topic The topic that is be edited.
+     * @param bool $moveTopic TRUE, if the topic is to be moved to another forum.
+     * @param Forum $moveTopicTarget The forum to which the topic is to be moved.
+     */
+    public function updateTopicAction(Topic $topic, $moveTopic = false, Forum $moveTopicTarget = null)
+    {
+        $this->authenticationService->assertModerationAuthorization($topic->getForum());
+        $this->topicRepository->update($topic);
 
-		$this->redirect('indexReport');
-	}
+        if ($moveTopic) {
+            $this->topicFactory->moveTopic($topic, $moveTopicTarget);
+        }
 
-	/**
-	 * Displays a form for editing a topic with special moderator-powers!
-	 *
-	 * @param Topic $topic The topic that is to be edited.
-	 */
-	public function editTopicAction(Topic $topic) {
-		$this->authenticationService->assertModerationAuthorization($topic->getForum());
-		$this->view->assign('topic', $topic);
-	}
+        $this->controllerContext->getFlashMessageQueue()->enqueue(
+            new FlashMessage(Localization::translate('Moderation_UpdateTopic_Success', 'Typo3Forum'))
+        );
+        $this->clearCacheForCurrentPage();
+        $this->redirect('show', 'Topic', null, ['topic' => $topic]);
+    }
 
-	/**
-	 * Updates a forum with special super-moderator-powers!
-	 *
-	 * @param Topic $topic The topic that is be edited.
-	 * @param boolean $moveTopic TRUE, if the topic is to be moved to another forum.
-	 * @param Forum $moveTopicTarget The forum to which the topic is to be moved.
-	 */
-	public function updateTopicAction(Topic $topic, $moveTopic = FALSE, Forum $moveTopicTarget = NULL) {
-		$this->authenticationService->assertModerationAuthorization($topic->getForum());
-		$this->topicRepository->update($topic);
+    /**
+     * Delete a topic from repository
+     *
+     * @param Topic $topic The topic to be deleted
+     */
+    public function deleteTopicAction(Topic $topic)
+    {
+        $this->authenticationService->assertModerationAuthorization($topic->getForum());
+        foreach ($topic->getPosts() as $post) {
+            $this->postRepository->remove($post);
+        }
+        $this->topicRepository->remove($topic);
+        $this->controllerContext->getFlashMessageQueue()->enqueue(
+            new FlashMessage(Localization::translate('Moderation_DeleteTopic_Success', 'Typo3Forum'))
+        );
+        $this->clearCacheForCurrentPage();
 
-		if ($moveTopic) {
-			$this->topicFactory->moveTopic($topic, $moveTopicTarget);
-		}
-
-		$this->controllerContext->getFlashMessageQueue()->enqueue(
-			new FlashMessage(Localization::translate('Moderation_UpdateTopic_Success', 'Typo3Forum'))
-		);
-		$this->clearCacheForCurrentPage();
-		$this->redirect('show', 'Topic', NULL, ['topic' => $topic]);
-	}
-
-	/**
-	 * Delete a topic from repository
-	 *
-	 * @param Topic $topic The topic to be deleted
-	 *
-	 * @return void
-	 */
-	public function deleteTopicAction(Topic $topic) {
-		$this->authenticationService->assertModerationAuthorization($topic->getForum());
-		foreach ($topic->getPosts() as $post) {
-			$this->postRepository->remove($post);
-		}
-		$this->topicRepository->remove($topic);
-		$this->controllerContext->getFlashMessageQueue()->enqueue(
-			new FlashMessage(Localization::translate('Moderation_DeleteTopic_Success', 'Typo3Forum'))
-		);
-		$this->clearCacheForCurrentPage();
-
-		$this->redirect('show', 'Forum', NULL, ['forum' => $topic->getForum()]);
-	}
+        $this->redirect('show', 'Forum', null, ['forum' => $topic->getForum()]);
+    }
 }

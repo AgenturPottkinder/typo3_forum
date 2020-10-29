@@ -34,8 +34,6 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
  * A turtle with maths skills checks all counter columns of any user and update them on a error.
  *
  * @author  Ruven Fehling <r.fehling@mittwald.de>
- * @package  TYPO3
- * @subpackage  typo3_forum
  */
 class Counter extends AbstractDatabaseTask
 {
@@ -54,7 +52,6 @@ class Counter extends AbstractDatabaseTask
      * @var array
      */
     private $settings;
-
 
     /**
      * @return int
@@ -88,9 +85,6 @@ class Counter extends AbstractDatabaseTask
         $this->userPid = $userPid;
     }
 
-    /**
-     * @return void
-     */
     public function setSettings()
     {
         $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
@@ -116,10 +110,6 @@ class Counter extends AbstractDatabaseTask
         return true;
     }
 
-
-    /**
-     * @return void
-     */
     private function updateTopic()
     {
         $topicCount = [];
@@ -130,8 +120,12 @@ class Counter extends AbstractDatabaseTask
         $queryBuilder->addSelectLiteral(
             $queryBuilder->expr()->count('post.uid', 'counter')
         );
-        $queryBuilder->join('post', 'tx_typo3forum_domain_model_forum_topic', 'topic',
-            $queryBuilder->expr()->eq('post.topic', 'topic.uid'));
+        $queryBuilder->join(
+            'post',
+            'tx_typo3forum_domain_model_forum_topic',
+            'topic',
+            $queryBuilder->expr()->eq('post.topic', 'topic.uid')
+        );
         $queryBuilder->andWhere(
             $queryBuilder->expr()->eq(
                 'post.pid',
@@ -152,7 +146,6 @@ class Counter extends AbstractDatabaseTask
         $lastCounterArray = [];
         foreach ($topicCount as $topicUid => $postCount) {
             if ($lastCounter != $postCount) {
-
                 $updateQueryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_topic');
                 $updateQueryBuilder->update('tx_typo3forum_domain_model_forum_topic');
                 $updateQueryBuilder->andWhere(
@@ -168,63 +161,60 @@ class Counter extends AbstractDatabaseTask
         }
     }
 
-	private function updateForum() {
+    private function updateForum()
+    {
+        $queryBuilderTopic = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_topic');
+        $statement = $queryBuilderTopic
+            ->select('forum')
+            ->addSelectLiteral($queryBuilderTopic->expr()->count('uid', 'topic_count'))
+            ->addSelectLiteral($queryBuilderTopic->expr()->sum('post_count', 'post_count'))
+            ->from('tx_typo3forum_domain_model_forum_topic')
+            ->where(
+                $queryBuilderTopic->expr()->eq(
+                    'pid',
+                    $queryBuilderTopic->createNamedParameter($this->getForumPid(), \PDO::PARAM_INT)
+                )
+            )
+            ->groupBy('forum')
+            ->execute();
 
-		$queryBuilderTopic = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_topic');
-		$statement = $queryBuilderTopic
-			->select('forum')
-			->addSelectLiteral($queryBuilderTopic->expr()->count('uid', 'topic_count'))
-			->addSelectLiteral($queryBuilderTopic->expr()->sum('post_count', 'post_count'))
-			->from('tx_typo3forum_domain_model_forum_topic')
-			->where(
-				$queryBuilderTopic->expr()->eq(
-					'pid',
-					$queryBuilderTopic->createNamedParameter($this->getForumPid(), \PDO::PARAM_INT)
-				)
-			)
-			->groupBy('forum')
-			->execute();
+        $postAndTopicCountPerForum = [];
 
-		$postAndTopicCountPerForum = [];
+        while ($forum = $statement->fetch()) {
+            $postAndTopicCountPerForum[(int)$forum['forum']] = [
+                'topic_count' => (int)$forum['topic_count'],
+                'post_count' => (int)$forum['post_count']
+            ];
+        }
 
-		while ($forum = $statement->fetch()) {
-			$postAndTopicCountPerForum[(int)$forum['forum']] = [
-				'topic_count' => (int)$forum['topic_count'],
-				'post_count' => (int)$forum['post_count']
-			];
-		}
+        $queryBuilderForum = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_forum');
+        $statement = $queryBuilderForum
+            ->select('uid')
+            ->from('tx_typo3forum_domain_model_forum_forum')
+            ->where(
+                $queryBuilderForum->expr()->eq(
+                    'pid',
+                    $queryBuilderForum->createNamedParameter($this->getForumPid(), \PDO::PARAM_INT)
+                )
+            )
+            ->execute();
 
-		$queryBuilderForum = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_forum');
-		$statement = $queryBuilderForum
-			->select('uid')
-			->from('tx_typo3forum_domain_model_forum_forum')
-			->where(
-				$queryBuilderForum->expr()->eq(
-					'pid',
-					$queryBuilderForum->createNamedParameter($this->getForumPid(), \PDO::PARAM_INT)
-				)
-			)
-			->execute();
+        $updateForumConnection = $this->getConnectionPool()->getConnectionForTable('tx_typo3forum_domain_model_forum_forum');
 
-		$updateForumConnection = $this->getConnectionPool()->getConnectionForTable('tx_typo3forum_domain_model_forum_forum');
+        while ($forum = $statement->fetch()) {
+            $forumUid = (int)$forum['uid'];
+            $updateForumConnection->update(
+                'tx_typo3forum_domain_model_forum_forum',
+                [
+                    'topic_count' => (int)$postAndTopicCountPerForum[$forumUid]['topic_count'],
+                    'post_count' => (int)$postAndTopicCountPerForum[$forumUid]['post_count']
+                ],
+                ['uid' => $forumUid],
+                [\PDO::PARAM_INT, \PDO::PARAM_INT, \PDO::PARAM_INT]
+            );
+        }
+    }
 
-		while ($forum = $statement->fetch()) {
-			$forumUid = (int)$forum['uid'];
-			$updateForumConnection->update(
-				'tx_typo3forum_domain_model_forum_forum',
-				[
-					'topic_count' => (int)$postAndTopicCountPerForum[$forumUid]['topic_count'],
-					'post_count' => (int)$postAndTopicCountPerForum[$forumUid]['post_count']
-				],
-				['uid' => $forumUid],
-				[\PDO::PARAM_INT, \PDO::PARAM_INT, \PDO::PARAM_INT]
-			);
-		}
-	}
-
-    /**
-     * @return void
-     */
     private function updateUser()
     {
         $forumPid = (int)$this->getForumPid();
@@ -247,7 +237,6 @@ class Counter extends AbstractDatabaseTask
             $userUpdate[$row['author']]['post_count'] = $row['counter'];
         }
 
-
         //Find any topic count
         $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_topic');
         $queryBuilder->from('tx_typo3forum_domain_model_forum_topic', 'topic');
@@ -259,7 +248,6 @@ class Counter extends AbstractDatabaseTask
         );
         $queryBuilder->addGroupBy('topic.author');
         $result = $queryBuilder->execute();
-
 
         while ($row = $result->fetch()) {
             $userUpdate[$row['author']]['topic_count'] = $row['counter'];
@@ -297,7 +285,6 @@ class Counter extends AbstractDatabaseTask
         $queryBuilder->addGroupBy('topic.author');
         $result = $queryBuilder->execute();
 
-
         while ($row = $result->fetch()) {
             $userUpdate[$row['author']]['favorite_count'] = $row['counter'];
         }
@@ -316,11 +303,9 @@ class Counter extends AbstractDatabaseTask
         $queryBuilder->addGroupBy('post.author');
         $result = $queryBuilder->execute();
 
-
         while ($row = $result->fetch()) {
             $userUpdate[$row['author']]['support_count'] = $row['counter'];
         }
-
 
         $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_user_supportpost');
         $queryBuilder->from('tx_typo3forum_domain_model_user_supportpost', 'support');
@@ -349,14 +334,12 @@ class Counter extends AbstractDatabaseTask
         );
         $result = $queryBuilder->execute();
 
-
         while ($row = $result->fetch()) {
             $userUpdate[$row['author']]['rank'] = $row['tx_typo3forum_rank'];
         }
 
         //Find all ranks
         $rankArray = [];
-
 
         $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_user_rank');
         $queryBuilder->from('tx_typo3forum_domain_model_user_rank', 'rank');
@@ -374,7 +357,7 @@ class Counter extends AbstractDatabaseTask
             $rankArray[$row['uid']] = $row;
         }
 
-		$updateFeUserConnection = $this->getConnectionPool()->getConnectionForTable('fe_users');
+        $updateFeUserConnection = $this->getConnectionPool()->getConnectionForTable('fe_users');
 
         //Now check this giant array
         foreach ($userUpdate as $userUid => $array) {
@@ -398,21 +381,20 @@ class Counter extends AbstractDatabaseTask
                 $array['rank'] = $lastRankUid;
             }
 
-			$updateFeUserConnection->update(
-				'fe_users',
-				[
-					'tx_typo3forum_post_count' => (int)$array['post_count'],
-					'tx_typo3forum_topic_count' => (int)$array['topic_count'],
-					'tx_typo3forum_question_count' => (int)$array['question_count'],
-					'tx_typo3forum_helpful_count' => (int)$array['support_count'],
-					'tx_typo3forum_points' => (int)$points,
-					'tx_typo3forum_rank' => (int)$array['rank'],
-				],
-				['uid' => (int)$userUid],
-				[\PDO::PARAM_INT, \PDO::PARAM_INT, \PDO::PARAM_INT, \PDO::PARAM_INT, \PDO::PARAM_INT, \PDO::PARAM_INT, \PDO::PARAM_INT]
-			);
+            $updateFeUserConnection->update(
+                'fe_users',
+                [
+                    'tx_typo3forum_post_count' => (int)$array['post_count'],
+                    'tx_typo3forum_topic_count' => (int)$array['topic_count'],
+                    'tx_typo3forum_question_count' => (int)$array['question_count'],
+                    'tx_typo3forum_helpful_count' => (int)$array['support_count'],
+                    'tx_typo3forum_points' => (int)$points,
+                    'tx_typo3forum_rank' => (int)$array['rank'],
+                ],
+                ['uid' => (int)$userUid],
+                [\PDO::PARAM_INT, \PDO::PARAM_INT, \PDO::PARAM_INT, \PDO::PARAM_INT, \PDO::PARAM_INT, \PDO::PARAM_INT, \PDO::PARAM_INT]
+            );
         }
-
 
         //At last, update the rank count
         $queryBuilder = $this->getDatabaseConnection('fe_users');
@@ -434,14 +416,14 @@ class Counter extends AbstractDatabaseTask
         $queryBuilder->addGroupBy('tx_typo3forum_rank');
         $result = $queryBuilder->execute();
 
-		$updateRankConnection = $this->getConnectionPool()->getConnectionForTable('tx_typo3forum_domain_model_user_rank');
+        $updateRankConnection = $this->getConnectionPool()->getConnectionForTable('tx_typo3forum_domain_model_user_rank');
         while ($row = $result->fetch()) {
-			$updateRankConnection->update(
-				'tx_typo3forum_domain_model_user_rank',
-				['user_count' => (int)$row['counter']],
-				['uid' => (int)$row['tx_typo3forum_rank']],
-				[\PDO::PARAM_INT, \PDO::PARAM_INT]
-			);
+            $updateRankConnection->update(
+                'tx_typo3forum_domain_model_user_rank',
+                ['user_count' => (int)$row['counter']],
+                ['uid' => (int)$row['tx_typo3forum_rank']],
+                [\PDO::PARAM_INT, \PDO::PARAM_INT]
+            );
         }
     }
 }

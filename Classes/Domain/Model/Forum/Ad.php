@@ -26,168 +26,169 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-class Ad extends AbstractEntity {
+class Ad extends AbstractEntity
+{
 
-	/**
-	 * Flag if advertisement is visible
-	 * @var int
-	 */
-	protected $active;
+    /**
+     * Flag if advertisement is visible
+     * @var int
+     */
+    protected $active;
 
-	/**
-	 * The name of the advertisement
-	 * @var string
-	 */
-	protected $name;
+    /**
+     * The name of the advertisement
+     * @var string
+     */
+    protected $name;
 
-	/**
-	 * The url to a website
-	 * @var string
-	 */
-	protected $url;
+    /**
+     * The url to a website
+     * @var string
+     */
+    protected $url;
 
-	/**
-	 * The alt-text of the advertisement
-	 * @var string
-	 */
-	protected $altText;
+    /**
+     * The alt-text of the advertisement
+     * @var string
+     */
+    protected $altText;
 
-	/**
-	 * The path of the image
-	 * @var string
-	 */
-	protected $path;
+    /**
+     * The path of the image
+     * @var string
+     */
+    protected $path;
 
-	/**
-	 * The category of the advertisement
-	 * 0=all, 1=forum, 2=topic
-	 * @var int
-	 */
-	protected $category;
+    /**
+     * The category of the advertisement
+     * 0=all, 1=forum, 2=topic
+     * @var int
+     */
+    protected $category;
 
-	/**
-	 * Gets the flag if ad is visible as boolean.
-	 * @return bool The flag if the ad is visible
-	 */
-	public function isActive() {
-		if ($this->getActive() == 1) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+    /**
+     * Gets the flag if ad is visible as boolean.
+     * @return bool The flag if the ad is visible
+     */
+    public function isActive()
+    {
+        if ($this->getActive() == 1) {
+            return true;
+        }
+        return false;
+    }
 
-	/**
-	 * Gets the flag if ad is visible.
-	 * @return int The flag if the ad is visible
-	 */
-	public function getActive() {
-		return $this->active;
-	}
+    /**
+     * Gets the flag if ad is visible.
+     * @return int The flag if the ad is visible
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
 
-	/**
-	 * Sets the active flag.
-	 *
-	 * @param int $active Flag if ad is visible
-	 *
-	 * @return void
-	 */
-	public function setActive($active) {
-		$this->active = (int)$active;
-	}
+    /**
+     * Sets the active flag.
+     *
+     * @param int $active Flag if ad is visible
+     */
+    public function setActive($active)
+    {
+        $this->active = (int)$active;
+    }
 
-	/**
-	 * Gets the URL to a website.
-	 * @return string The URL to a website.
-	 */
-	public function getUrl() {
-		return $this->url;
-	}
+    /**
+     * Gets the URL to a website.
+     * @return string The URL to a website.
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
 
-	/**
-	 * Sets the url.
-	 *
-	 * @param string $url URL of a website
-	 *
-	 * @return void
-	 */
-	public function setUrl($url) {
-		$this->url = $url;
-	}
+    /**
+     * Sets the url.
+     *
+     * @param string $url URL of a website
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+    }
 
-	/**
-	 * Gets the alt-text of the advertisement
-	 * @return string The alt-text of the advertisement.
-	 */
-	public function getAltText() {
-		return $this->altText;
-	}
+    /**
+     * Gets the alt-text of the advertisement
+     * @return string The alt-text of the advertisement.
+     */
+    public function getAltText()
+    {
+        return $this->altText;
+    }
 
-	/**
-	 * Sets the alt-text.
-	 *
-	 * @param string $altText Alt-text for the image
-	 *
-	 * @return void
-	 */
-	public function setAltText($altText) {
-		$this->altText = $altText;
-	}
+    /**
+     * Sets the alt-text.
+     *
+     * @param string $altText Alt-text for the image
+     */
+    public function setAltText($altText)
+    {
+        $this->altText = $altText;
+    }
 
-	/**
-	 * Gets the absolute name of this advertisement.
-	 * @return string The name of the advertisement.
-	 */
-	public function getName() {
-		return $this->name;
-	}
+    /**
+     * Gets the absolute name of this advertisement.
+     * @return string The name of the advertisement.
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
-	/**
-	 * Sets the name.
-	 *
-	 * @param string $name The name of a advertisement
-	 *
-	 * @return void
-	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
+    /**
+     * Sets the name.
+     *
+     * @param string $name The name of a advertisement
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
-	/**
-	 * Gets the path of image.
-	 * @return string The path of the image.
-	 */
-	public function getPath() {
-		return $this->path;
-	}
+    /**
+     * Gets the path of image.
+     * @return string The path of the image.
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
 
-	/**
-	 * Sets the path.
-	 *
-	 * @param string $path The path to the image
-	 *
-	 * @return void
-	 */
-	public function setPath($path) {
-		$this->path = $path;
-	}
+    /**
+     * Sets the path.
+     *
+     * @param string $path The path to the image
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+    }
 
-	/**
-	 * Gets the category of this advertisement.
-	 * @return int The category of the advertisement.
-	 */
-	public function getCategory() {
-		return $this->category;
-	}
+    /**
+     * Gets the category of this advertisement.
+     * @return int The category of the advertisement.
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
 
-	/**
-	 * Sets the category.
-	 *
-	 * @param int $category The category of ad
-	 *
-	 * @return void
-	 */
-	public function setCategory($category) {
-		$this->category = $category;
-	}
+    /**
+     * Sets the category.
+     *
+     * @param int $category The category of ad
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+    }
 }

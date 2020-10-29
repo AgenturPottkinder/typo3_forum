@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\Controller;
+
 use TYPO3\CMS\Extbase\Annotation\Inject;
 
 /*                                                                      *
@@ -25,28 +26,28 @@ use TYPO3\CMS\Extbase\Annotation\Inject;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-class StatsController extends AbstractController {
+class StatsController extends AbstractController
+{
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Stats\SummaryRepository
-	 * @Inject
-	 */
-	protected $summaryRepository;
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Repository\Stats\SummaryRepository
+     * @Inject
+     */
+    protected $summaryRepository;
 
-	/**
-	 * Listing Action.
-	 * @return void
-	 */
-	public function listAction() {
-		switch ($this->settings['listStats']) {
-			default:
-			case 'summary':
-				$dataset['items'] = $this->summaryRepository->findLatestSummaryItems();
-				$partial = 'Stats/Summary';
-				break;
-		}
-		$this->view->assign('partial', $partial);
-		$this->view->assign('dataset', $dataset);
-	}
-
+    /**
+     * Listing Action.
+     */
+    public function listAction()
+    {
+        switch ($this->settings['listStats']) {
+            default:
+            case 'summary':
+                $dataset['items'] = $this->summaryRepository->findLatestSummaryItems();
+                $partial = 'Stats/Summary';
+                break;
+        }
+        $this->view->assign('partial', $partial);
+        $this->view->assign('dataset', $dataset);
+    }
 }

@@ -35,17 +35,13 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithContentArgumentAndRenderS
 
 class ReportIconViewHelper extends AbstractViewHelper
 {
-
     use CompileWithContentArgumentAndRenderStatic;
-    
+
     /**
      * @var bool
      */
     protected $escapeOutput = false;
 
-    /**
-     *
-     */
     const TYPOSCRIPT_PATH = 'plugin.tx_typo3forum.renderer.icons.report';
 
     /**
@@ -77,14 +73,11 @@ class ReportIconViewHelper extends AbstractViewHelper
         return self::getCObjectViewHelper()::renderStatic($renderArguemnts, $renderChildrenClosure, $renderingContext);
     }
 
-
     /**
-     *
      * Generates a data array that will be passed to the typoscript object for
      * rendering the icon.
      * @param Report $report The report for which the icon is to be displayed.
      * @return array The data array for the typoscript object.
-     *
      */
     protected static function getDataArray(Report $report = null, array $arguments = [])
     {

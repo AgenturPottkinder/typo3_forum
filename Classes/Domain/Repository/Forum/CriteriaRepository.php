@@ -30,4 +30,6 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 /**
  * Repository class for forum objects.
  */
-class CriteriaRepository extends Repository {}
+class CriteriaRepository extends Repository
+{
+}

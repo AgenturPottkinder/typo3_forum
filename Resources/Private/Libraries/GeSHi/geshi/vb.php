@@ -44,50 +44,50 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'Visual Basic',
-    'COMMENT_SINGLE' => array(),
-    'COMMENT_MULTI' => array(),
-    'COMMENT_REGEXP' => array(
+    'COMMENT_SINGLE' => [],
+    'COMMENT_MULTI' => [],
+    'COMMENT_REGEXP' => [
         // Comments (either single or multiline with _
         1 => '/\'.*(?<! _)\n/sU',
-        ),
+        ],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
+    'QUOTEMARKS' => ['"'],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             'Binary', 'Boolean', 'Byte', 'Currency', 'Date', 'Decimal', 'Double',
             'String', 'Enum', 'Integer', 'Long', 'Object', 'Single', 'Variant'
-            ),
-        2 => array(
+            ],
+        2 => [
             'CreateObject', 'GetObject', 'New', 'Option', 'Function',
             'Call', 'Private', 'Public', 'Sub', 'Explicit', 'Compare', 'Exit'
-            ),
-        3 => array(
+            ],
+        3 => [
             'And', 'Case', 'Do', 'Each', 'Else', 'ElseIf', 'For',
             'Goto', 'If', 'Is', 'Loop', 'Next', 'Not', 'Or', 'Select', 'Step',
             'Then', 'To', 'Until', 'While', 'With', 'Xor', 'WithEvents',
             'DoEvents', 'Close', 'Like', 'In', 'End'
-            ),
-        4 => array(
+            ],
+        4 => [
             'As', 'Dim', 'Get', 'Set', 'ReDim', 'Error',
             'Resume', 'Declare', 'Let', 'ByRef', 'ByVal',
             'Optional', 'Property', 'Control', 'UBound', 'Mod',
             'GoSub', 'Implements', 'Input', 'LBound', 'Static', 'Stop',
             'Type', 'TypeOf', 'On', 'Open', 'Output', 'ParamArray',
             'Preserve', 'Print', 'RaiseEvent', 'Random', 'Line'
-            ),
-        5 => array(
+            ],
+        5 => [
             'Nothing', 'False', 'True', 'Null', 'Empty'
-            ),
-        6 => array(
-            'ErrorHandler','ExitProc', 'PublishReport'
-            ),
-        ),
-    'SYMBOLS' => array(
-        ),
-    'CASE_SENSITIVE' => array(
+            ],
+        6 => [
+            'ErrorHandler', 'ExitProc', 'PublishReport'
+            ],
+        ],
+    'SYMBOLS' => [
+        ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
@@ -95,63 +95,61 @@ $language_data = array (
         4 => false,
         5 => false,
         6 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+        ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #F660AB; font-weight: bold;',
             2 => 'color: #E56717; font-weight: bold;',
             3 => 'color: #8D38C9; font-weight: bold;',
             4 => 'color: #151B8D; font-weight: bold;',
             5 => 'color: #00C2FF; font-weight: bold;',
             6 => 'color: #3EA99F; font-weight: bold;'
-            ),
-        'COMMENTS' => array(
+            ],
+        'COMMENTS' => [
             1 => 'color: #008000;'
-            ),
-        'BRACKETS' => array(
-            ),
-        'STRINGS' => array(
+            ],
+        'BRACKETS' => [
+            ],
+        'STRINGS' => [
             0 => 'color: #800000;'
-            ),
-        'NUMBERS' => array(
-            ),
-        'METHODS' => array(
-            ),
-        'SYMBOLS' => array(
-            ),
-        'ESCAPE_CHAR' => array(
+            ],
+        'NUMBERS' => [
+            ],
+        'METHODS' => [
+            ],
+        'SYMBOLS' => [
+            ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #800000; font-weight: bold;'
-            ),
-        'SCRIPT' => array(
-            ),
-        'REGEXPS' => array(
-            )
-        ),
-    'URLS' => array(
+            ],
+        'SCRIPT' => [
+            ],
+        'REGEXPS' => [
+            ]
+        ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
         4 => '',
         5 => '',
         6 => ''
-        ),
+        ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
-    'REGEXPS' => array(
-        ),
+    'OBJECT_SPLITTERS' => [
+        ],
+    'REGEXPS' => [
+        ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
-    'PARSER_CONTROL' => array(
-        'ENABLE_FLAGS' => array(
+    'SCRIPT_DELIMITERS' => [
+        ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+        ],
+    'PARSER_CONTROL' => [
+        'ENABLE_FLAGS' => [
             'BRACKETS' => GESHI_NEVER,
             'SYMBOLS' => GESHI_NEVER,
             'NUMBERS' => GESHI_NEVER
-            )
-        )
-);
-
-?>
+            ]
+        ]
+];

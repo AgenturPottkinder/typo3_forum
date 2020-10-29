@@ -1,7 +1,8 @@
 <?php
 
 namespace Mittwald\Typo3Forum\ViewHelpers\Authentication;
-use TYPO3\CMS\Extbase\Annotation\Inject;
+
+use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -26,12 +27,11 @@ use TYPO3\CMS\Extbase\Annotation\Inject;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Access;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- *
  * ViewHelper that renders its contents if the current user has access to a
  * certain operation on a certain object.
  */

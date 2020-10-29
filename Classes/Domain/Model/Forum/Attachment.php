@@ -1,6 +1,7 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\Forum;
-use TYPO3\CMS\Extbase\Annotation\Inject;
+
+use Mittwald\Typo3Forum\Domain\Model\ConfigurableEntityTrait;
 
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
@@ -25,196 +26,200 @@ use TYPO3\CMS\Extbase\Annotation\Inject;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Domain\Model\ConfigurableEntityTrait;
 use Mittwald\Typo3Forum\Domain\Model\ConfigurableInterface;
-use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-class Attachment extends AbstractEntity implements ConfigurableInterface {
-
+class Attachment extends AbstractEntity implements ConfigurableInterface
+{
     use ConfigurableEntityTrait;
-	/**
-	 * The attachment file name.
-	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Post
-	 * @Lazy
-	 */
-	protected $post;
+    /**
+     * The attachment file name.
+     * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Post
+     * @Lazy
+     */
+    protected $post;
 
-	/**
-	 * The attachment file name.
-	 * @var string
-	 */
-	protected $filename;
+    /**
+     * The attachment file name.
+     * @var string
+     */
+    protected $filename;
 
-	/**
-	 * The attachment file name on file system.
-	 * @var string
-	 */
-	protected $realFilename;
+    /**
+     * The attachment file name on file system.
+     * @var string
+     */
+    protected $realFilename;
 
-	/**
-	 * The MIME type of the attachment.
-	 * @var string
-	 */
-	protected $mimeType;
+    /**
+     * The MIME type of the attachment.
+     * @var string
+     */
+    protected $mimeType;
 
-	/**
-	 * A download counter.
-	 * @var integer
-	 */
-	protected $downloadCount;
+    /**
+     * A download counter.
+     * @var int
+     */
+    protected $downloadCount;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
-	 * @Inject
-	 */
-	protected $configurationBuilder;
+    /**
+     * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
+     * @Inject
+     */
+    protected $configurationBuilder;
 
-	/**
-	 * Gets the attachment's filename on file system.
-	 * @return Post
-	 */
-	public function getPost() {
-		return $this->post;
-	}
+    /**
+     * Gets the attachment's filename on file system.
+     * @return Post
+     */
+    public function getPost()
+    {
+        return $this->post;
+    }
 
-	/**
-	 * Sets the filename on file system.
-	 *
-	 * @param Post $post
-	 *
-	 * @return void
-	 */
-	public function setPost($post) {
-		$this->post = $post;
-	}
+    /**
+     * Sets the filename on file system.
+     *
+     * @param Post $post
+     */
+    public function setPost($post)
+    {
+        $this->post = $post;
+    }
 
-	/**
-	 * Gets the attachment's filename.
-	 * @return string The attachment's filename.
-	 */
-	public function getFilename() {
-		return $this->filename;
-	}
+    /**
+     * Gets the attachment's filename.
+     * @return string The attachment's filename.
+     */
+    public function getFilename()
+    {
+        return $this->filename;
+    }
 
-	/**
-	 * Sets the filename.
-	 *
-	 * @param string $filename The filename
-	 *
-	 * @return void
-	 */
-	public function setFilename($filename) {
-		$this->filename = $filename;
-	}
+    /**
+     * Sets the filename.
+     *
+     * @param string $filename The filename
+     */
+    public function setFilename($filename)
+    {
+        $this->filename = $filename;
+    }
 
-	/**
-	 * Gets the allowed mime types.
-	 * @return array The allowed mime types.
-	 */
-	public function getAllowedMimeTypes() {
-		$mime_types = explode(',', $this->getSettings()['attachment']['allowedMimeTypes']);
-		if (empty($mime_types)) {
-			$res = ['text/plain'];
-		} else {
-			foreach ($mime_types as $mime_type) {
-				$res[] = trim($mime_type);
-			}
-		}
+    /**
+     * Gets the allowed mime types.
+     * @return array The allowed mime types.
+     */
+    public function getAllowedMimeTypes()
+    {
+        $mime_types = explode(',', $this->getSettings()['attachment']['allowedMimeTypes']);
+        if (empty($mime_types)) {
+            $res = ['text/plain'];
+        } else {
+            foreach ($mime_types as $mime_type) {
+                $res[] = trim($mime_type);
+            }
+        }
 
-		return $res;
-	}
+        return $res;
+    }
 
-	/**
-	 * Gets the allowed max size of a attachment.
-	 * @return int The allowed max size of a attachment.
-	 */
-	public function getAllowedMaxSize() {
-		if ($this->getSettings()['attachment']['allowedSizeInByte'] == false) {
-			return 4096;
-		} else {
-			return (int)$this->getSettings()['attachment']['allowedSizeInByte'];
-		}
-	}
+    /**
+     * Gets the allowed max size of a attachment.
+     * @return int The allowed max size of a attachment.
+     */
+    public function getAllowedMaxSize()
+    {
+        if ($this->getSettings()['attachment']['allowedSizeInByte'] == false) {
+            return 4096;
+        }
+        return (int)$this->getSettings()['attachment']['allowedSizeInByte'];
+    }
 
-	/**
-	 * Gets the filesize.
-	 * @return integer The filesize.
-	 */
-	public function getFilesize() {
-		return filesize($this->getAbsoluteFilename());
-	}
+    /**
+     * Gets the filesize.
+     * @return int The filesize.
+     */
+    public function getFilesize()
+    {
+        return filesize($this->getAbsoluteFilename());
+    }
 
-	/**
-	 * Gets the absolute filename of this attachment.
-	 * @return string The absolute filename of this attachment.
-	 */
-	public function getAbsoluteFilename() {
-		$tca = $GLOBALS['TCA']['tx_typo3forum_domain_model_forum_attachment'];
-		$uploadPath = $tca['columns']['real_filename']['config']['uploadfolder'];
-		return $uploadPath . $this->getRealFilename();
-	}
+    /**
+     * Gets the absolute filename of this attachment.
+     * @return string The absolute filename of this attachment.
+     */
+    public function getAbsoluteFilename()
+    {
+        $tca = $GLOBALS['TCA']['tx_typo3forum_domain_model_forum_attachment'];
+        $uploadPath = $tca['columns']['real_filename']['config']['uploadfolder'];
+        return $uploadPath . $this->getRealFilename();
+    }
 
-	/**
-	 * Gets the attachment's filename on file system.
-	 * @return string The attachment's filename on file system.
-	 */
-	public function getRealFilename() {
-		return $this->realFilename;
-	}
+    /**
+     * Gets the attachment's filename on file system.
+     * @return string The attachment's filename on file system.
+     */
+    public function getRealFilename()
+    {
+        return $this->realFilename;
+    }
 
-	/**
-	 * Sets the filename on file system.
-	 *
-	 * @param string $realFilename The filename on file system
-	 *
-	 * @return void
-	 */
-	public function setRealFilename($realFilename) {
-		$this->realFilename = $realFilename;
-	}
+    /**
+     * Sets the filename on file system.
+     *
+     * @param string $realFilename The filename on file system
+     */
+    public function setRealFilename($realFilename)
+    {
+        $this->realFilename = $realFilename;
+    }
 
-	/**
-	 * Gets the MIME type.
-	 * @return string The MIME type.
-	 */
-	public function getMimeType() {
-		return $this->mimeType;
-	}
+    /**
+     * Gets the MIME type.
+     * @return string The MIME type.
+     */
+    public function getMimeType()
+    {
+        return $this->mimeType;
+    }
 
-	/**
-	 * Sets the MIME type.
-	 *
-	 * @param string $mimeType The MIME type.
-	 *
-	 * @return void
-	 */
-	public function setMimeType($mimeType) {
-		$this->mimeType = $mimeType;
-	}
+    /**
+     * Sets the MIME type.
+     *
+     * @param string $mimeType The MIME type.
+     */
+    public function setMimeType($mimeType)
+    {
+        $this->mimeType = $mimeType;
+    }
 
-	/**
-	 * Gets the download count.
-	 * @return integer The download count.
-	 */
-	public function getDownloadCount() {
-		return $this->downloadCount;
-	}
+    /**
+     * Gets the download count.
+     * @return int The download count.
+     */
+    public function getDownloadCount()
+    {
+        return $this->downloadCount;
+    }
 
-	/**
-	 * Increases the download counter by 1.
-	 * @return void
-	 */
-	public function increaseDownloadCount() {
-		$this->downloadCount++;
-	}
+    /**
+     * Increases the download counter by 1.
+     */
+    public function increaseDownloadCount()
+    {
+        $this->downloadCount++;
+    }
 
     /**
      * Gets the whole TCA config of tx_typo3forum_domain_model_forum_attachment
      * @return array The whole TCA config of tx_typo3forum_domain_model_forum_attachment
      */
-    public function getTCAConfig() {
+    public function getTCAConfig()
+    {
         return $GLOBALS['TCA']['tx_typo3forum_domain_model_forum_attachment'];
     }
-
 }

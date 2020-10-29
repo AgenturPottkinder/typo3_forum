@@ -24,11 +24,11 @@ namespace Mittwald\Typo3Forum\TextParser\Panel;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-interface MarkItUpExportableInterface {
+interface MarkItUpExportableInterface
+{
 
-	/**
-	 * @return array
-	 */
-	public function exportForMarkItUp();
-
+    /**
+     * @return array
+     */
+    public function exportForMarkItUp();
 }

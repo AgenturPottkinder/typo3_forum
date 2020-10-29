@@ -45,7 +45,6 @@ class IfSubscribedViewHelper extends AbstractConditionViewHelper
      */
     protected $frontendUserRepository;
 
-
     /**
      * @var
      */
@@ -56,10 +55,6 @@ class IfSubscribedViewHelper extends AbstractConditionViewHelper
      */
     protected $objectManager;
 
-
-    /**
-     * @return void
-     */
     public function initializeArguments()
     {
         parent::initializeArguments();

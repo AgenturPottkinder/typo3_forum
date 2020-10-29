@@ -1,6 +1,7 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Factory\Moderation;
-use TYPO3\CMS\Extbase\Annotation\Inject;
+
+use Mittwald\Typo3Forum\Domain\Factory\AbstractFactory;
 
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
@@ -25,70 +26,70 @@ use TYPO3\CMS\Extbase\Annotation\Inject;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Domain\Factory\AbstractFactory;
 use Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport;
 use Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment;
 use Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus;
 use Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 
-class ReportFactory extends AbstractFactory {
+class ReportFactory extends AbstractFactory
+{
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportWorkflowStatusRepository
-	 * @Inject
-	 */
-	protected $workflowStatusRepository;
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Repository\Moderation\ReportWorkflowStatusRepository
+     * @Inject
+     */
+    protected $workflowStatusRepository;
 
-	/**
-	 *
-	 * Creates a new User report.
-	 *
-	 * @param ReportComment $firstComment The first report comment for this report.
-	 *
-	 * @return UserReport
-	 *
-	 */
-	public function createUserReport(ReportComment $firstComment) {
-		$user = &$this->getCurrentUser();
-		$firstComment->setAuthor($user);
-		/** @var UserReport $report */
-		$report = $this->objectManager->get(UserReport::class);
-		$report->setWorkflowStatus($this->getInitialWorkflowStatus());
-		$report->setReporter($user);
-		$report->addComment($firstComment);
+    /**
+     * Creates a new User report.
+     *
+     * @param ReportComment $firstComment The first report comment for this report.
+     *
+     * @return UserReport
+     */
+    public function createUserReport(ReportComment $firstComment)
+    {
+        $user = &$this->getCurrentUser();
+        $firstComment->setAuthor($user);
+        /** @var UserReport $report */
+        $report = $this->objectManager->get(UserReport::class);
+        $report->setWorkflowStatus($this->getInitialWorkflowStatus());
+        $report->setReporter($user);
+        $report->addComment($firstComment);
 
-		return $report;
-	}
+        return $report;
+    }
 
-	/**
-	 *
-	 * Creates a new User report.
-	 *
-	 * @param ReportComment $firstComment The first report comment for this report.
-	 *
-	 * @return object
-	 */
-	public function createPostReport(ReportComment $firstComment) {
-		$user = &$this->getCurrentUser();
-		$firstComment->setAuthor($user);
-		$report = $this->objectManager->get(PostReport::class);
-		$report->setWorkflowStatus($this->getInitialWorkflowStatus());
-		$report->setReporter($user);
-		$report->addComment($firstComment);
+    /**
+     * Creates a new User report.
+     *
+     * @param ReportComment $firstComment The first report comment for this report.
+     *
+     * @return object
+     */
+    public function createPostReport(ReportComment $firstComment)
+    {
+        $user = &$this->getCurrentUser();
+        $firstComment->setAuthor($user);
+        $report = $this->objectManager->get(PostReport::class);
+        $report->setWorkflowStatus($this->getInitialWorkflowStatus());
+        $report->setReporter($user);
+        $report->addComment($firstComment);
 
-		return $report;
-	}
+        return $report;
+    }
 
-	/**
-	 * @return ReportWorkflowStatus
-	 * @throws \Exception
-	 */
-	protected function getInitialWorkflowStatus() {
-		$initialWorkStatus = $this->workflowStatusRepository->findInitial();
-		if (!$initialWorkStatus instanceof ReportWorkflowStatus) {
-			throw new \Exception('No initial workflow status configured', 1436529800);
-		}
-		return $initialWorkStatus;
-	}
-
+    /**
+     * @return ReportWorkflowStatus
+     * @throws \Exception
+     */
+    protected function getInitialWorkflowStatus()
+    {
+        $initialWorkStatus = $this->workflowStatusRepository->findInitial();
+        if (!$initialWorkStatus instanceof ReportWorkflowStatus) {
+            throw new \Exception('No initial workflow status configured', 1436529800);
+        }
+        return $initialWorkStatus;
+    }
 }

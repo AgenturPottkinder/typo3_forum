@@ -164,10 +164,10 @@ include_path, and that the language files are in a subdirectory of GeSHi's direc
 have that language file highlighted in PHP.</p>
 <?php
 if (isset($_POST['submit'])) {
-    // The fun part :)
-    echo $geshi->parse_code();
-    echo '<hr />';
-}
+        // The fun part :)
+        echo $geshi->parse_code();
+        echo '<hr />';
+    }
 ?>
 <form action="<?php echo basename($_SERVER['PHP_SELF']); ?>" method="post">
 <h3>Source to highlight</h3>
@@ -178,17 +178,17 @@ if (isset($_POST['submit'])) {
 <p>
 <select name="language" id="language">
 <?php
-if (!($dir = @opendir(dirname(__FILE__) . '/geshi'))) {
-    if (!($dir = @opendir(dirname(__FILE__) . '/../geshi'))) {
+if (!($dir = @opendir(__DIR__ . '/geshi'))) {
+    if (!($dir = @opendir(__DIR__ . '/../geshi'))) {
         echo '<option>No languages available!</option>';
     }
 }
-$languages = array();
+$languages = [];
 while ($file = readdir($dir)) {
-    if ( $file[0] == '.' || strpos($file, '.', 1) === false) {
+    if ($file[0] == '.' || strpos($file, '.', 1) === false) {
         continue;
     }
-    $lang = substr($file, 0,  strpos($file, '.'));
+    $lang = substr($file, 0, strpos($file, '.'));
     $languages[] = $lang;
 }
 closedir($dir);
@@ -199,7 +199,7 @@ foreach ($languages as $lang) {
     } else {
         $selected = '';
     }
-    echo '<option value="' . $lang . '" '. $selected .'>' . $lang . "</option>\n";
+    echo '<option value="' . $lang . '" ' . $selected . '>' . $lang . "</option>\n";
 }
 
 ?>

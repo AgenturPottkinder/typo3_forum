@@ -33,48 +33,48 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
  * An interface for authentication services, in case anyone wants to
  * implement his own solution... ;)
  */
-interface AuthenticationServiceInterface {
+interface AuthenticationServiceInterface
+{
 
-	/**
-	 * @param AccessibleInterface $object
-	 */
-	public function assertReadAuthorization(AccessibleInterface $object);
+    /**
+     * @param AccessibleInterface $object
+     */
+    public function assertReadAuthorization(AccessibleInterface $object);
 
-	/**
-	 * @param Forum $forum
-	 */
-	public function assertNewTopicAuthorization(Forum $forum);
+    /**
+     * @param Forum $forum
+     */
+    public function assertNewTopicAuthorization(Forum $forum);
 
-	/**
-	 * @param Topic $topic
-	 */
-	public function assertNewPostAuthorization(Topic $topic);
+    /**
+     * @param Topic $topic
+     */
+    public function assertNewPostAuthorization(Topic $topic);
 
-	/**
-	 * @param Post $post
-	 */
-	public function assertEditPostAuthorization(Post $post);
+    /**
+     * @param Post $post
+     */
+    public function assertEditPostAuthorization(Post $post);
 
-	/**
-	 * @param Post $post
-	 */
-	public function assertDeletePostAuthorization(Post $post);
+    /**
+     * @param Post $post
+     */
+    public function assertDeletePostAuthorization(Post $post);
 
-	/**
-	 * @param AccessibleInterface $object
-	 */
-	public function assertModerationAuthorization(AccessibleInterface $object);
+    /**
+     * @param AccessibleInterface $object
+     */
+    public function assertModerationAuthorization(AccessibleInterface $object);
 
-	/**
-	 * @param AccessibleInterface $object
-	 * @param $action
-	 */
-	public function assertAuthorization(AccessibleInterface $object, $action);
+    /**
+     * @param AccessibleInterface $object
+     * @param $action
+     */
+    public function assertAuthorization(AccessibleInterface $object, $action);
 
-	/**
-	 * @param AccessibleInterface $object
-	 * @param $action
-	 */
-	public function checkAuthorization(AccessibleInterface $object, $action);
-
+    /**
+     * @param AccessibleInterface $object
+     * @param $action
+     */
+    public function checkAuthorization(AccessibleInterface $object, $action);
 }

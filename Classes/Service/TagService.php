@@ -3,8 +3,8 @@ namespace Mittwald\Typo3Forum\Service;
 
 use Mittwald\Typo3Forum\Domain\Model\Forum\Tag;
 use TYPO3\CMS\Core\SingletonInterface;
-use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Annotation\Inject;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class TagService implements SingletonInterface
 {
@@ -14,7 +14,7 @@ class TagService implements SingletonInterface
      * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
      * @Inject
      */
-    protected $objectManager = null;
+    protected $objectManager;
 
     /**
      * An instance of the tag repository

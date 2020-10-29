@@ -36,196 +36,191 @@ use TYPO3\CMS\Extbase\Annotation\Inject;
 /**
  * A service class that handles the entire authentication.
  */
-class AuthenticationService extends AbstractService implements AuthenticationServiceInterface {
+class AuthenticationService extends AbstractService implements AuthenticationServiceInterface
+{
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
-	 * @Inject
-	 */
-	protected $frontendUserRepository = NULL;
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
+     * @Inject
+     */
+    protected $frontendUserRepository;
 
-	/**
-	 * An instance of the typo3_forum cache class.
-	 * @var \Mittwald\Typo3Forum\Cache\Cache
-	 * @Inject
-	 */
-	protected $cache = NULL;
+    /**
+     * An instance of the typo3_forum cache class.
+     * @var \Mittwald\Typo3Forum\Cache\Cache
+     * @Inject
+     */
+    protected $cache;
 
-	/**
-	 * The current frontend user.
-	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
-	 */
-	protected $user = -1;
+    /**
+     * The current frontend user.
+     * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
+     */
+    protected $user = -1;
 
-	/**
-	 * An identifier for all user groups the current user is a member of.
-	 * This identifier will be used as part of a cache identifier.
-	 *
-	 * @var string
-	 */
-	private $userGroupIdentifier = NULL;
+    /**
+     * An identifier for all user groups the current user is a member of.
+     * This identifier will be used as part of a cache identifier.
+     *
+     * @var string
+     */
+    private $userGroupIdentifier;
 
-	/*
-	 * AUTHENTICATION METHODS
-	 */
+    /*
+     * AUTHENTICATION METHODS
+     */
 
+    /**
+     * Asserts that the current user is authorized to read a specific object.
+     *
+     * @param AccessibleInterface $object The object that is to be accessed.
+     */
+    public function assertReadAuthorization(AccessibleInterface $object)
+    {
+        $this->assertAuthorization($object, Access::TYPE_READ);
+    }
 
-	/**
-	 * Asserts that the current user is authorized to read a specific object.
-	 *
-	 * @param AccessibleInterface $object The object that is to be accessed.
-	 * @return void
-	 */
-	public function assertReadAuthorization(AccessibleInterface $object) {
-		$this->assertAuthorization($object, Access::TYPE_READ);
-	}
+    /**
+     * Asserts that the current user is authorized to create a new topic in a
+     * certain forum.
+     *
+     * @param Forum $forum The forum in which the new topic is to be created.
+     */
+    public function assertNewTopicAuthorization(Forum $forum)
+    {
+        $this->assertAuthorization($forum, Access::TYPE_NEW_TOPIC);
+    }
 
-	/**
-	 * Asserts that the current user is authorized to create a new topic in a
-	 * certain forum.
-	 *
-	 * @param Forum $forum The forum in which the new topic is to be created.
-	 * @return void
-	 */
-	public function assertNewTopicAuthorization(Forum $forum) {
-		$this->assertAuthorization($forum, Access::TYPE_NEW_TOPIC);
-	}
+    /**
+     * Asserts that the current user is authorized to create a new post within a
+     * topic.
+     *
+     * @param Topic $topic The topic in which the new post is to be created.
+     */
+    public function assertNewPostAuthorization(Topic $topic)
+    {
+        $this->assertAuthorization($topic, Access::TYPE_NEW_POST);
+    }
 
+    /**
+     * Asserts that the current user is authorized to edit an existing post.
+     *
+     * @param Post $post The post that shall be edited.
+     */
+    public function assertEditPostAuthorization(Post $post)
+    {
+        $this->assertAuthorization($post, Access::TYPE_EDIT_POST);
+    }
 
-	/**
-	 * Asserts that the current user is authorized to create a new post within a
-	 * topic.
-	 *
-	 * @param Topic $topic The topic in which the new post is to be created.
-	 * @return void
-	 */
-	public function assertNewPostAuthorization(Topic $topic) {
-		$this->assertAuthorization($topic, Access::TYPE_NEW_POST);
-	}
+    /**
+     * Asserts that the current user is authorized to delete a post.
+     *
+     * @param Post $post The post that is to be deleted.
+     */
+    public function assertDeletePostAuthorization(Post $post)
+    {
+        $this->assertAuthorization($post, Access::TYPE_DELETE_POST);
+    }
 
+    /**
+     * Asserts that the current user has moderator access to a certain forum.
+     *
+     * @param AccessibleInterface $object The object that is to be moderated.
+     */
+    public function assertModerationAuthorization(AccessibleInterface $object)
+    {
+        $this->assertAuthorization($object, Access::TYPE_MODERATE);
+    }
 
-	/**
-	 * Asserts that the current user is authorized to edit an existing post.
-	 *
-	 * @param Post $post The post that shall be edited.
-	 * @return void
-	 */
-	public function assertEditPostAuthorization(Post $post) {
-		$this->assertAuthorization($post, Access::TYPE_EDIT_POST);
-	}
+    /**
+     * Asserts that the current user is authorized to perform a certain
+     * action on an potentially protected object.
+     *
+     * @param AccessibleInterface $object The object for which the access is to be checked.
+     * @param string $action The action for which the access check is to be performed.
+     * @throws NoAccessException
+     */
+    public function assertAuthorization(AccessibleInterface $object, $action)
+    {
+        if ($this->checkAuthorization($object, $action) === false) {
+            throw new NoAccessException('You are not authorized to perform this action!', 1284709852);
+        }
+    }
 
+    /**
+     * Checks whether the current user is authorized to perform a certain
+     * action on an object.
+     *
+     * @param AccessibleInterface $object The object for which the access is to be checked.
+     * @param string $action The action for which the access check is to be performed.
+     * @return bool TRUE, when the user is authorized, otherwise FALSE.
+     */
+    public function checkAuthorization(AccessibleInterface $object, $action)
+    {
+        // ACLs can be disabled for debugging.
+        if (isset($this->settings) && $this->settings['debug']['disableACLs']) {
+            return true;
+        }
 
-	/**
-	 * Asserts that the current user is authorized to delete a post.
-	 *
-	 * @param Post $post The post that is to be deleted.
-	 * @return void
-	 */
-	public function assertDeletePostAuthorization(Post $post) {
-		$this->assertAuthorization($post, Access::TYPE_DELETE_POST);
-	}
+        $cacheIdentifier = $this->getCacheIdentifier($object, $action);
+        if ($this->cache->has($cacheIdentifier)) {
+            $value = $this->cache->get($cacheIdentifier);
+        } else {
+            $this->cache->set($cacheIdentifier, $value = $object->checkAccess($this->getUser(), $action));
+        }
+        return $value;
+    }
 
+    /**
+     * Gets the cache identifier to use for a specific user/object/action
+     * check.
+     * INTERNAL USE ONLY!
+     *
+     * @param AccessibleInterface $object The object for which the access is to be checked.
+     * @param string $action The action for which the access check is to be performed.
+     * @return string              The cache identifier.
+     */
+    protected function getCacheIdentifier(AccessibleInterface $object, $action)
+    {
+        $objectName = explode('\\', get_class($object));
+        $className = array_pop($objectName);
+        /** @noinspection PhpUndefinedMethodInspection */
+        $cacheIdentifier = 'acl-' . $className . '-' . $object->getUid() . '-' . $this->getUserGroupIdentifier() . '-' . $action;
 
-	/**
-	 * Asserts that the current user has moderator access to a certain forum.
-	 *
-	 * @param AccessibleInterface $object The object that is to be moderated.
-	 * @return void
-	 */
-	public function assertModerationAuthorization(AccessibleInterface $object) {
-		$this->assertAuthorization($object, Access::TYPE_MODERATE);
-	}
+        return $cacheIdentifier;
+    }
 
-	/**
-	 * Asserts that the current user is authorized to perform a certain
-	 * action on an potentially protected object.
-	 *
-	 * @param AccessibleInterface $object The object for which the access is to be checked.
-	 * @param string $action The action for which the access check is to be performed.
-	 * @return void
-	 * @throws NoAccessException
-	 */
-	public function assertAuthorization(AccessibleInterface $object, $action) {
-		if ($this->checkAuthorization($object, $action) === FALSE) {
-			throw new NoAccessException("You are not authorized to perform this action!", 1284709852);
-		}
-	}
+    /**
+     * Generates an identifier for all user groups the current user is a member of. This identifier can then be used
+     * as part of a cache identifier.
+     *
+     * @return string An identifier for all current user groups.
+     */
+    protected function getUserGroupIdentifier()
+    {
+        if ($this->userGroupIdentifier === null) {
+            $user = $this->getUser();
+            if ($user === null) {
+                $this->userGroupIdentifier = 'n';
+            } elseif ($user->isAnonymous()) {
+                $this->userGroupIdentifier = 'a';
+            } else {
+                $groupUids = [];
+                foreach ($user->getUsergroup() as $group) {
+                    /** @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup $group */
+                    $groupUids[] = $group->getUid();
+                }
+                $this->userGroupIdentifier = implode('g', $groupUids);
+            }
+        }
+        return $this->userGroupIdentifier;
+    }
 
-
-	/**
-	 * Checks whether the current user is authorized to perform a certain
-	 * action on an object.
-	 *
-	 * @param AccessibleInterface $object The object for which the access is to be checked.
-	 * @param string $action The action for which the access check is to be performed.
-	 * @return boolean TRUE, when the user is authorized, otherwise FALSE.
-	 */
-	public function checkAuthorization(AccessibleInterface $object, $action) {
-		// ACLs can be disabled for debugging.
-		if (isset($this->settings) && $this->settings['debug']['disableACLs']) {
-			return TRUE;
-		}
-
-		$cacheIdentifier = $this->getCacheIdentifier($object, $action);
-		if ($this->cache->has($cacheIdentifier)) {
-			$value = $this->cache->get($cacheIdentifier);
-		} else {
-			$this->cache->set($cacheIdentifier, $value = $object->checkAccess($this->getUser(), $action));
-		}
-		return $value;
-	}
-
-
-	/**
-	 * Gets the cache identifier to use for a specific user/object/action
-	 * check.
-	 * INTERNAL USE ONLY!
-	 *
-	 * @param AccessibleInterface $object The object for which the access is to be checked.
-	 * @param string $action The action for which the access check is to be performed.
-	 * @return string              The cache identifier.
-	 * @access private
-	 */
-	protected function getCacheIdentifier(AccessibleInterface $object, $action) {
-		$objectName = explode('\\', get_class($object));
-		$className = array_pop($objectName);
-		/** @noinspection PhpUndefinedMethodInspection */
-		$cacheIdentifier = 'acl-' . $className . '-' . $object->getUid() . '-' . $this->getUserGroupIdentifier() . '-' . $action;
-
-		return $cacheIdentifier;
-	}
-
-
-	/**
-	 * Generates an identifier for all user groups the current user is a member of. This identifier can then be used
-	 * as part of a cache identifier.
-	 *
-	 * @return string An identifier for all current user groups.
-	 */
-	protected function getUserGroupIdentifier() {
-		if ($this->userGroupIdentifier === NULL) {
-			$user = $this->getUser();
-			if ($user === NULL) {
-				$this->userGroupIdentifier = 'n';
-			} elseif ($user->isAnonymous()) {
-				$this->userGroupIdentifier = 'a';
-			} else {
-				$groupUids = [];
-				foreach ($user->getUsergroup() as $group) {
-					/** @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup $group */
-					$groupUids[] = $group->getUid();
-				}
-				$this->userGroupIdentifier = implode('g', $groupUids);
-			}
-		}
-		return $this->userGroupIdentifier;
-	}
-
-	public function getUser() {
-		if ($this->user === -1) {
-			$this->user = $this->frontendUserRepository->findCurrent();
-		}
-		return $this->user;
-	}
-
+    public function getUser()
+    {
+        if ($this->user === -1) {
+            $this->user = $this->frontendUserRepository->findCurrent();
+        }
+        return $this->user;
+    }
 }
