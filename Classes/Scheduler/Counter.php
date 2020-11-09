@@ -122,50 +122,26 @@ class Counter extends AbstractDatabaseTask
      */
     private function updateTopic()
     {
-        $topicCount = [];
+		$queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_post');
+		$statement = $queryBuilder
+			->select('post.topic')
+			->addSelectLiteral($queryBuilder->expr()->count('post.uid', 'post_count'))
+			->from('tx_typo3forum_domain_model_forum_post', 'post')
+			->join('post', 'tx_typo3forum_domain_model_forum_topic', 'topic', $queryBuilder->expr()->eq('post.topic', 'topic.uid'))
+			->where($queryBuilder->expr()->eq('post.pid', $queryBuilder->createNamedParameter($this->getForumPid(), \PDO::PARAM_INT)))
+			->addGroupBy('post.topic')
+			->execute();
 
-        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_post');
-        $queryBuilder->from('tx_typo3forum_domain_model_forum_post', 'post');
-        $queryBuilder->select('post.topic');
-        $queryBuilder->addSelectLiteral(
-            $queryBuilder->expr()->count('post.uid', 'counter')
-        );
-        $queryBuilder->join('post', 'tx_typo3forum_domain_model_forum_topic', 'topic',
-            $queryBuilder->expr()->eq('post.topic', 'topic.uid'));
-        $queryBuilder->andWhere(
-            $queryBuilder->expr()->eq(
-                'post.pid',
-                $queryBuilder->createNamedParameter($this->getForumPid(), \PDO::PARAM_INT)
-            )
-        );
+		$updateTopicConnection = $this->getConnectionPool()->getConnectionForTable('tx_typo3forum_domain_model_forum_topic');
 
-        $queryBuilder->addGroupBy('post.topic');
-        $queryBuilder->addOrderBy('counter', 'ASC');
-
-        $result = $queryBuilder->execute();
-
-        while ($row = $result->fetch()) {
-            $topicCount[$row['topic']] = $row['counter'];
-        }
-
-        $lastCounter = 1;
-        $lastCounterArray = [];
-        foreach ($topicCount as $topicUid => $postCount) {
-            if ($lastCounter != $postCount) {
-
-                $updateQueryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_topic');
-                $updateQueryBuilder->update('tx_typo3forum_domain_model_forum_topic');
-                $updateQueryBuilder->andWhere(
-                    $updateQueryBuilder->expr()->in('uid', $lastCounterArray)
-                );
-                $updateQueryBuilder->set('post_count', $lastCounter);
-
-                $updateQueryBuilder->execute();
-                $lastCounterArray = [];
-            }
-            $lastCounterArray[] = (int)$topicUid;
-            $lastCounter = $postCount;
-        }
+		while ($topic = $statement->fetch()) {
+			$updateTopicConnection->update(
+				'tx_typo3forum_domain_model_forum_topic',
+				['post_count' => (int)$topic['post_count']],
+				['uid' => (int)$topic['topic']],
+				[\PDO::PARAM_INT, \PDO::PARAM_INT]
+			);
+		}
     }
 
 	private function updateForum() {
