@@ -61,16 +61,18 @@ return [
         'real_filename' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_attachment.real_filename',
-            'config' => [
-                'type' => 'group',
-                'internal_type' => 'file',
-                'uploadfolder' => 'uploads/tx_typo3forum/attachments/',
-                'size' => 1,
-                'minitems' => 1,
-                'maxitems' => 1,
-                'allowed' => '*',
-                'disallowed' => ''
-            ],
+            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
+                'real_filename',
+                [
+                    'foreign_match_fields' => [
+                        'fieldname' => 'real_filename',
+                        'tablenames' => 'tx_typo3forum_domain_model_forum_attachment',
+                        'table_local' => 'sys_file',
+                    ],
+                ],
+                '*'
+            ),
+
         ],
         'mime_type' => [
             'exclude' => 1,
