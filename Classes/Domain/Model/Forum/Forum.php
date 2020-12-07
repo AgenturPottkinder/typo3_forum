@@ -27,11 +27,13 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use Symfony\Component\Debug\Debug;
 use TYPO3\CMS\Extbase\Annotation\Inject;
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * A forum. Forums can be infinitely nested and contain a number of topics. Forums
@@ -450,7 +452,6 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
      */
     public function checkAccess(FrontendUser $user = null, $accessType = Access::TYPE_READ)
     {
-
         // If there aren't any access rules defined for this forum, delegate
         // the access check to the parent forum. If there is no parent forum
         // either, simply deny access (except for 'read' operations).

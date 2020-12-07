@@ -1,0 +1,7 @@
+parameters:
+    scanDirectories:
+      - .Build/
+    level: 6
+    paths:
+        - Configuration
+        - Classes

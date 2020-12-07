@@ -16,7 +16,13 @@
 	"require-dev": {
 		"namelesscoder/typo3-repository-client": "^1.2",
 		"mikey179/vfsStream": "^1.4",
-		"phpunit/phpunit": "^5.0 || ^6.5"
+		"phpunit/phpunit": "^5.0 || ^6.5",
+		"helmich/typo3-typoscript-lint": "^2.3",
+		"overtrue/phplint": "^2.1",
+		"friendsofphp/php-cs-fixer": "^2.16",
+		"phpmd/phpmd": "^2.9",
+		"phpstan/phpstan": "^0.12.52",
+		"psalm/phar": "^4.0"
 	},
 	"replace": {
 		"typo3_forum": "self.version",

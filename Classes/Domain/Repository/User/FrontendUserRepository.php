@@ -28,8 +28,9 @@ use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Domain\Repository\AbstractRepository;
 use TYPO3\CMS\Extbase\Annotation\Inject;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+    use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
-/**
+    /**
  * Repository class for frontend suers.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
@@ -58,7 +59,9 @@ class FrontendUserRepository extends AbstractRepository
     public function findCurrent()
     {
         $currentUserUid = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
-        return $currentUserUid ? $this->findByUid($currentUserUid) : new AnonymousFrontendUser();
+        $return = $currentUserUid ? $this->findByUid($currentUserUid) : new AnonymousFrontendUser();
+        $return->ensureObjectStorages();
+        return $return;
     }
 
     /**

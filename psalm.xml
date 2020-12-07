@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<psalm>
+    <projectFiles>
+        <directory name="Configuration" />
+        <directory name="Classes/Domain" />
+        <file name="ext_emconf.php" />
+        <file name="ext_localconf.php" />
+        <file name="ext_tables.php" />
+    </projectFiles>
+</psalm>
+

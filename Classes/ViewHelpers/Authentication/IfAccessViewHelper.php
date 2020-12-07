@@ -29,6 +29,7 @@ use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
 
 use Mittwald\Typo3Forum\Domain\Model\Forum\Access;
 use TYPO3\CMS\Extbase\Annotation\Inject;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -73,7 +74,6 @@ class IfAccessViewHelper extends AbstractViewHelper
     {
         $object = $this->arguments['object'];
         $accessType = $this->arguments['accessType'];
-
         if ($object->checkAccess($this->frontendUserRepository->findCurrent(), $accessType)) {
             return $this->renderChildren();
         }

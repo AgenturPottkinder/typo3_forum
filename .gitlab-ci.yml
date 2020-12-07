@@ -1,6 +1,77 @@
 stages:
+  - prelinting
+  - linting
   - test
   - package
+
+build_composer:
+  image: composer
+  stage: prelinting
+  script:
+    - composer install --dev
+    - composer dump-autoload -o
+  artifacts:
+    paths:
+      - .Build
+    expire_in: 1 hour
+
+
+lint_typo3scan:
+  image: composer
+  stage: linting
+  needs:
+    - build_composer
+  script:
+    - curl -L https://github.com/Tuurlijk/typo3scan/releases/download/1.6.3/typo3scan.phar -o typo3scan.phar
+    - php ./typo3scan.phar scan -t 10 .
+
+lint_typoscript:
+  image: composer
+  stage: linting
+  needs:
+    - build_composer
+  script:
+    - .Build/bin/typoscript-lint --fail-on-warnings
+
+lint_php:
+  image: composer
+  stage: linting
+  needs:
+    - build_composer
+  script:
+    - .Build/bin/phplint
+
+lint_php_codestyle:
+  image: composer
+  stage: linting
+  needs:
+    - build_composer
+  script:
+    - .Build/bin/php-cs-fixer fix --config=.php_cs.php --diff --diff-format=udiff --dry-run
+
+lint_phpmd:
+  image: composer
+  stage: linting
+  needs:
+    - build_composer
+  script:
+    - .Build/bin/phpmd Classes,Configuration text ./phpmd.xml
+
+lint_php_stan:
+  image: composer
+  stage: linting
+  needs:
+    - build_composer
+  script:
+    - .Build/bin/phpstan analyse Classes/ Configuration/
+
+lint_php_psalm:
+  image: composer
+  stage: linting
+  needs:
+    - build_composer
+  script:
+    - .Build/bin/psalm.phar --config=psalm.xml
 
 build-version:
   stage: package

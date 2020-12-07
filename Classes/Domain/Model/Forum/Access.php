@@ -27,6 +27,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup;
 use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Models a single ACL entry. This entry grants or denies access to a specific

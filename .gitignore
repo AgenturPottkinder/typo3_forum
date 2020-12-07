@@ -2,6 +2,10 @@
 nbproject
 Resources/Public/Stylesheets/.sass-cache/
 .Build
+typo3scan.phar
+.phplint-cache
+.phplint.cache
+
 
 # composer related ignores:
 bin

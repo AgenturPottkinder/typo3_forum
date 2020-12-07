@@ -37,6 +37,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation\Inject;
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * A frontend user.
@@ -294,9 +295,35 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
     public function __construct($username = '', $password = '')
     {
         parent::__construct($username, $password);
-        $this->readTopics = new ObjectStorage();
-        $this->readForum = new ObjectStorage();
+        $this->ensureObjectStorages();
     }
+
+    /**
+     * TODO: move this to constructor
+     */
+    public function ensureObjectStorages()
+    {
+        if($this->readTopics === null) {
+            $this->readTopics = new ObjectStorage();
+        }
+        if($this->readForum === null) {
+            $this->readForum = new ObjectStorage();
+        }
+        if($this->forumSubscriptions === null) {
+            $this->forumSubscriptions = new ObjectStorage();
+        }
+        if($this->topicSubscriptions === null) {
+            $this->topicSubscriptions = new ObjectStorage();
+        }
+        if($this->topicFavSubscriptions === null) {
+            $this->topicFavSubscriptions = new ObjectStorage();
+        }
+        if($this->forumFavSubscriptions === null) {
+            $this->forumFavSubscriptions = new ObjectStorage();
+        }
+    }
+
+
 
     /**
      * Gets the post count of this user.
@@ -681,6 +708,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
      */
     public function addFavSubscription(SubscribeableInterface $object)
     {
+        $this->ensureObjectStorages();
         if ($object instanceof Topic) {
             $this->topicFavSubscriptions->attach($object);
         } elseif ($object instanceof Forum) {
@@ -695,6 +723,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
      */
     public function removeFavSubscription(SubscribeableInterface $object)
     {
+        $this->ensureObjectStorages();
         if ($object instanceof Topic) {
             $this->topicFavSubscriptions->detach($object);
         } elseif ($object instanceof Forum) {
@@ -709,6 +738,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
      */
     public function addSubscription(SubscribeableInterface $object)
     {
+        $this->ensureObjectStorages();
         if ($object instanceof Topic) {
             $this->topicSubscriptions->attach($object);
         } elseif ($object instanceof Forum) {
@@ -723,6 +753,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
      */
     public function removeSubscription(SubscribeableInterface $object)
     {
+        $this->ensureObjectStorages();
         if ($object instanceof Topic) {
             $this->topicSubscriptions->detach($object);
         } elseif ($object instanceof Forum) {
@@ -737,6 +768,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
      */
     public function addReadObject(ReadableInterface $readObject)
     {
+        $this->ensureObjectStorages();
         if ($readObject instanceof Topic) {
             $this->readTopics->attach($readObject);
         }
@@ -749,6 +781,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
      */
     public function removeReadObject(ReadableInterface $readObject)
     {
+        $this->ensureObjectStorages();
         if ($readObject instanceof Topic) {
             $this->readTopics->detach($readObject);
         }
@@ -761,6 +794,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
      */
     public function addPrivateMessage(PrivateMessage $message)
     {
+        $this->ensureObjectStorages();
         $this->privateMessages->attach($message);
     }
 
@@ -771,6 +805,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
      */
     public function removePrivateMessage(PrivateMessage $message)
     {
+        $this->ensureObjectStorages();
         $this->privateMessages->detach($message);
     }
 
@@ -1038,5 +1073,69 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
             $by = 1;
         }
         $this->helpfulCountSession = $this->helpfulCountSession + $by;
+    }
+
+    /**
+     * @return ObjectStorage
+     */
+    public function getTopicFavSubscriptions()
+    {
+        return $this->topicFavSubscriptions;
+    }
+
+    /**
+     * @param ObjectStorage $topicFavSubscriptions
+     */
+    public function setTopicFavSubscriptions($topicFavSubscriptions)
+    {
+        $this->topicFavSubscriptions = $topicFavSubscriptions;
+    }
+
+    /**
+     * @return ObjectStorage
+     */
+    public function getForumFavSubscriptions()
+    {
+        return $this->forumFavSubscriptions;
+    }
+
+    /**
+     * @param ObjectStorage $forumFavSubscriptions
+     */
+    public function setForumFavSubscriptions($forumFavSubscriptions)
+    {
+        $this->forumFavSubscriptions = $forumFavSubscriptions;
+    }
+
+    /**
+     * @return ObjectStorage
+     */
+    public function getReadTopics()
+    {
+        return $this->readTopics;
+    }
+
+    /**
+     * @param ObjectStorage $readTopics
+     */
+    public function setReadTopics($readTopics)
+    {
+        $this->readTopics = $readTopics;
+    }
+
+    /**
+     * @return ObjectStorage
+     */
+    public function getReadForum()
+    {
+        return $this->readForum;
+    }
+
+    /**
+     * @param ObjectStorage $readForum
+     */
+    public function setReadForum($readForum)
+    {
+        $this->readForum = $readForum;
     }
 }

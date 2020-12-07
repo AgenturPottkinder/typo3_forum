@@ -36,6 +36,7 @@ use TYPO3\CMS\Extbase\Annotation\Inject;
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * A single topic. Each topic can contain an infinite number of
@@ -192,6 +193,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
         $this->tags = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->crdate = new \DateTime();
         $this->subject = $subject;
+        $this->favSubscribers = new ObjectStorage();
     }
 
     /**
@@ -774,5 +776,37 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
     public function removeSubscriber(FrontendUser $user)
     {
         $this->subscribers->detach($user);
+    }
+
+    /**
+     * @return ObjectStorage
+     */
+    public function getFavSubscribers()
+    {
+        return $this->favSubscribers;
+    }
+
+    /**
+     * @param ObjectStorage $favSubscribers
+     */
+    public function setFavSubscribers($favSubscribers)
+    {
+        $this->favSubscribers = $favSubscribers;
+    }
+
+    /**
+     * @return ObjectStorage
+     */
+    public function getReaders()
+    {
+        return $this->readers;
+    }
+
+    /**
+     * @param ObjectStorage $readers
+     */
+    public function setReaders($readers)
+    {
+        $this->readers = $readers;
     }
 }

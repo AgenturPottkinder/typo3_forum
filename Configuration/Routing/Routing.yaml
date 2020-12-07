@@ -1,0 +1,49 @@
+routeEnhancers:
+  Forum:
+    type: Extbase
+    extension: Typo3Forum
+    plugin: Pi1
+    routes:
+      -
+        routePath: '/{forum_alias}/{page}'
+        _controller: 'Forum::show'
+        _arguments:
+          forum_alias: forum
+          page: '@widget_0/currentPage'
+      -
+        routePath: '/{forum_alias}/{topic_alias}/{page}'
+        _controller: 'Topic::show'
+        _arguments:
+          topic_alias: topic
+          forum_alias: forum
+          page: '@widget_0/currentPage'
+      -
+        routePath: '/post/{post_id}/report'
+        _controller: 'Report::newPostReport'
+        _arguments:
+          post_id: post
+    defaultController: 'Forum::show'
+    defaults:
+      page: '1'
+    requirements:
+      page: '\d+'
+      forum_alias: '^[a-Z0-9]+$'
+      topic_alias: '^[a-Z0-9]+$'
+      post_id: '\d+'
+    aspects:
+      forum_alias:
+        type: PersistedAliasMapper
+        tableName: tx_typo3forum_domain_model_forum_forum
+        routeFieldName: slug
+      topic_alias:
+        type: PersistedAliasMapper
+        tableName: tx_typo3forum_domain_model_forum_topic
+        routeFieldName: slug
+      page:
+        type: StaticRangeMapper
+        start: '1'
+        end: '999'
+      post_id:
+        type: PersistedAliasMapper
+        tableName: tx_typo3forum_domain_model_forum_post
+        routeFieldName: uid

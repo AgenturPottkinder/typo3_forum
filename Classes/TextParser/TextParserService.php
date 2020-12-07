@@ -28,6 +28,7 @@ use Mittwald\Typo3Forum\Service\AbstractService;
 
 use TYPO3\CMS\Extbase\Annotation\Inject;
 use TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext;
+use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperVariableContainer;
 
 /**
  * Service class for parsing text values for display. This service handles
@@ -62,7 +63,7 @@ class TextParserService extends AbstractService
      * The viewHelper variable container. This needs to be set when this service is
      * called from a viewHelper context.
      *
-     * @var \TYPO3\CMS\Fluid\Core\ViewHelper\ViewHelperVariableContainer
+     * @var \TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperVariableContainer
      * @Inject
      */
     protected $viewHelperVariableContainer;

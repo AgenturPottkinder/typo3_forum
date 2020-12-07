@@ -19,10 +19,10 @@ return [
         'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/Forum/Forum.png',
     ],
     'interface' => [
-        'showRecordFieldList' => 'hidden,title,description,children,acls,criteria,topics,topic_count,post_count,last_topic,last_post,forum,subscribers,readers,displayed_pid',
+        'showRecordFieldList' => 'hidden,title,slug,description,children,acls,criteria,topics,topic_count,post_count,last_topic,last_post,forum,subscribers,readers,displayed_pid',
     ],
     'types' => [
-        '1' => ['showitem' => 'hidden,title,description,children,acls,criteria,topics,last_topic,last_post,forum,subscribers,readers'],
+        '1' => ['showitem' => 'hidden,title,slug,description,children,acls,criteria,topics,last_topic,last_post,forum,subscribers,readers'],
     ],
     'palettes' => [
         'language' => ['showitem' => 'sys_language_uid, l18n_parent'],
@@ -91,6 +91,18 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'trim,required',
+            ],
+        ],
+        'slug' => [
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:pages.slug',
+            'exclude' => 1,
+            'config' => [
+                'type' => 'slug',
+                'generatorOptions' => [
+                    'fields' => ['title']
+                ],
+                'fallbackCharacter' => '-',
+                'eval' => 'uniqueInPid',
             ],
         ],
         'description' => [
@@ -200,7 +212,8 @@ return [
                 'items' => [
                     ['-', 0],
                 ],
-                'maxitems' => 1
+                'maxitems' => 1,
+                'default' => 0
             ]
         ],
         'subscribers' => [
