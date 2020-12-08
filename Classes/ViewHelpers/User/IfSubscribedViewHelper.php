@@ -27,6 +27,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\User;
 
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository;
 use Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -41,12 +42,12 @@ class IfSubscribedViewHelper extends AbstractConditionViewHelper
 {
 
     /**
-     * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
+     * @var FrontendUserRepository
      */
     protected $frontendUserRepository;
 
     /**
-     * @var
+     * @var ForumRepository
      */
     protected $forumRepository;
 
