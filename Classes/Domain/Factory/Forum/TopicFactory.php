@@ -189,10 +189,10 @@ class TopicFactory extends AbstractFactory
         if ($topic instanceof ShadowTopic) {
             throw new InvalidClassException('Topic is already a shadow topic', 1288702422);
         }
-        $shadowTopic = $this->createShadowTopic($topic);
+        // $shadowTopic = $this->createShadowTopic($topic);
 
         $topic->getForum()->removeTopic($topic);
-        $topic->getForum()->addTopic($shadowTopic);
+        // $topic->getForum()->addTopic($shadowTopic);
         $targetForum->addTopic($topic);
 
         $this->forumRepository->update($topic->getForum());
