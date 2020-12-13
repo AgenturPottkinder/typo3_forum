@@ -68,6 +68,11 @@ interface AuthenticationServiceInterface
 
     /**
      * @param AccessibleInterface $object
+     */
+    public function assertDeleteTopicAuthorization(AccessibleInterface $object);
+
+    /**
+     * @param AccessibleInterface $object
      * @param $action
      */
     public function assertAuthorization(AccessibleInterface $object, $action);

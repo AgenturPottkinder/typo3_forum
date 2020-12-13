@@ -537,6 +537,21 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
     }
 
     /**
+     * Checks if a user has access to moderate in this forum.
+     *
+     * @param FrontendUser $user The user that is to be checked.
+     *
+     * @return bool TRUE if the user has access, otherwise FALSE.
+     */
+    public function checkDeleteTopicAccess(FrontendUser $user = null)
+    {
+        if ($user === null) {
+            return false;
+        }
+        return $this->checkAccess($user, Access::TYPE_DELETE_TOPIC);
+    }
+
+    /**
      * Sets the title.
      *
      * @param string $title The title of the forum

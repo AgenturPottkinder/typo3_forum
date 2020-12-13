@@ -111,6 +111,7 @@
 			<label index="tx_typo3forum_domain_model_forum_access.operation.newTopic">Create new topics</label>
 			<label index="tx_typo3forum_domain_model_forum_access.operation.moderation">Moderate</label>
 			<label index="tx_typo3forum_domain_model_forum_access.operation.deletePost">Delete post</label>
+			<label index="tx_typo3forum_domain_model_forum_access.operation.deleteTopic">Delete topic</label>
 			<label index="tx_typo3forum_domain_model_forum_access.negate">Negate</label>
 			<label index="tx_typo3forum_domain_model_forum_access.forum">Forum</label>
 			<label index="tx_typo3forum_domain_model_forum_access.group">Group</label>

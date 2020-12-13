@@ -44,13 +44,15 @@
 					<f:translate key="Button_Moderate" />
 				</f:link.action>
 			</li>
-			<li class="divider"></li>
-			<li>
-				<f:link.action controller="Moderation" action="deleteTopic" arguments="{topic: topic}">
-					<i class="tx-typo3forum-icon-16-post-delete"></i>
-					<f:translate key="Button_Delete_Topic"/>
-				</f:link.action>
-			</li>
+			<mmf:authentication.ifAccess object="{topic}" accessType="deleteTopic">
+				<li class="divider"></li>
+				<li>
+					<f:link.action controller="Moderation" action="deleteTopic" arguments="{topic: topic}">
+						<i class="tx-typo3forum-icon-16-post-delete"></i>
+						<f:translate key="Button_Delete_Topic"/>
+					</f:link.action>
+				</li>
+			</mmf:authentication.ifAccess>
 		</ul>
 	</li>
 </mmf:authentication.ifAccess>

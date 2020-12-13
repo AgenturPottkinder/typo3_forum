@@ -38,6 +38,13 @@ class FrontendUserGroup extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGrou
     protected $userMod;
 
     /**
+     * If set user is allowed to post links in postings
+     *
+     * @var int
+     */
+    protected $postlinks;
+
+    /**
      * Gets the status whether all users of this group have moderation permission
      *
      * @return int
@@ -45,5 +52,15 @@ class FrontendUserGroup extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGrou
     public function getUserMod()
     {
         return (int)$this->userMod;
+    }
+
+    /**
+     * Get weather the user is allowed to post links or not
+     *
+     * @return int
+     */
+    public function getPostLinks()
+    {
+        return $this->postlinks;
     }
 }

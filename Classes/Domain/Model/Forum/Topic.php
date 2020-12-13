@@ -468,6 +468,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
                 return $this->checkModerationAccess($user);
             case Access::TYPE_SOLUTION:
                 return $this->checkSolutionAccess($user);
+            case Access::TYPE_DELETE_TOPIC:
+                return $this->checkDeleteTopicAccess($user);
             default:
                 return $this->forum->checkAccess($user, $accessType);
         }
@@ -500,6 +502,18 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
     public function checkModerationAccess(FrontendUser $user = null)
     {
         return ($user === null) ? false : $this->getForum()->checkModerationAccess($user);
+    }
+
+    /**
+     * Checks if a user has delete topic access to this topic.
+     *
+     * @param FrontendUser $user
+     *
+     * @return bool
+     */
+    public function checkDeleteTopicAccess(FrontendUser $user = null)
+    {
+        return ($user === null) ? false : $this->getForum()->checkDeleteTopicAccess($user);
     }
 
     /**

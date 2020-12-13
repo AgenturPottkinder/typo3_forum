@@ -133,6 +133,16 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
     }
 
     /**
+     * Asserts that the current user has moderator access to a certain forum.
+     *
+     * @param AccessibleInterface $object The object that is to be moderated.
+     */
+    public function assertDeleteTopicAuthorization(AccessibleInterface $object)
+    {
+        $this->assertAuthorization($object, Access::TYPE_DELETE_TOPIC);
+    }
+
+    /**
      * Asserts that the current user is authorized to perform a certain
      * action on an potentially protected object.
      *
