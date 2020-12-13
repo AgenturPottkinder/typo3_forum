@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="messages" date="2020-12-13T08:08:09Z" product-name="typo3_forum" target-language="cs">
+    <header/>
+    <body>
+      <trans-unit id="text.description" xml:space="preserve">
+				<source>text</source>
+			<target state="needs-translation">text</target></trans-unit>
+      <trans-unit id="author.description" xml:space="preserve">
+				<source>author</source>
+			<target state="needs-translation">author</target></trans-unit>
+    </body>
+  </file>
+</xliff>
