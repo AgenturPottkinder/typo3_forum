@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="messages" date="2020-12-13T08:06:33Z" product-name="typo3_forum" target-language="pt-PT">
+    <header/>
+    <body>
+      <trans-unit id="tstamp" xml:space="preserve">
+				<source>Creation Time</source>
+			<target state="needs-translation">Creation Time</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_forum" xml:space="preserve">
+				<source>Forum</source>
+			<target state="needs-translation">Forum</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_forum.title" xml:space="preserve">
+				<source>Title</source>
+			<target state="needs-translation">Title</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_forum.description" xml:space="preserve">
+				<source>Description</source>
+			<target state="needs-translation">Description</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_forum.children" xml:space="preserve">
+				<source>Children</source>
+			<target state="needs-translation">Children</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_forum.topics" xml:space="preserve">
+				<source>Topics</source>
+			<target state="needs-translation">Topics</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_forum.topic_count" xml:space="preserve">
+				<source>Topic count</source>
+			<target state="needs-translation">Topic count</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_forum.post_count" xml:space="preserve">
+				<source>Post count</source>
+			<target state="needs-translation">Post count</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_forum.acls" xml:space="preserve">
+				<source>Acls</source>
+			<target state="needs-translation">Acls</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_forum.last_topic" xml:space="preserve">
+				<source>Last Topic</source>
+			<target state="needs-translation">Last Topic</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_forum.last_post" xml:space="preserve">
+				<source>Last Post</source>
+			<target state="needs-translation">Last Post</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_forum.forum" xml:space="preserve">
+				<source>Parent forum</source>
+			<target state="needs-translation">Parent forum</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_forum.subscribers" xml:space="preserve">
+				<source>Subscribers</source>
+			<target state="needs-translation">Subscribers</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_forum.readers" xml:space="preserve">
+				<source>Readers</source>
+			<target state="needs-translation">Readers</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_forum.displayed_pid" xml:space="preserve">
+				<source>Displayed PID</source>
+			<target state="needs-translation">Displayed PID</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_forum.sorting" xml:space="preserve">
+				<source>Sorting</source>
+			<target state="needs-translation">Sorting</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_topic" xml:space="preserve">
+				<source>Topic</source>
+			<target state="needs-translation">Topic</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_topic.type" xml:space="preserve">
+				<source>Type</source>
+			<target state="needs-translation">Type</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_topic.type.0" xml:space="preserve">
+				<source>Regular topic</source>
+			<target state="needs-translation">Regular topic</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_topic.type.1" xml:space="preserve">
+				<source>Shadow topic</source>
+			<target state="needs-translation">Shadow topic</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_topic.subject" xml:space="preserve">
+				<source>Subject</source>
+			<target state="needs-translation">Subject</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_topic.solution" xml:space="preserve">
+				<source>Solution</source>
+			<target state="needs-translation">Solution</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_topic.posts" xml:space="preserve">
+				<source>Posts</source>
+			<target state="needs-translation">Posts</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_topic.post_count" xml:space="preserve">
+				<source>Post count</source>
+			<target state="needs-translation">Post count</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_topic.author" xml:space="preserve">
+				<source>Author</source>
+			<target state="needs-translation">Author</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_topic.last_post" xml:space="preserve">
+				<source>Last Post</source>
+			<target state="needs-translation">Last Post</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_topic.last_post_crdate" xml:space="preserve">
+				<source>Creation time of Last Post</source>
+			<target state="needs-translation">Creation time of Last Post</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_topic.is_solved" xml:space="preserve">
+				<source>Is topic solved</source>
+			<target state="needs-translation">Is topic solved</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_topic.subscribers" xml:space="preserve">
+				<source>Subscribers</source>
+			<target state="needs-translation">Subscribers</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_topic.fav_subscribers" xml:space="preserve">
+				<source>Favorite subscribers</source>
+			<target state="needs-translation">Favorite subscribers</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_topic.target" xml:space="preserve">
+				<source>Target topic</source>
+			<target state="needs-translation">Target topic</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_topic.readers" xml:space="preserve">
+				<source>Readers</source>
+			<target state="needs-translation">Readers</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_topic.closed" xml:space="preserve">
+				<source>Closed</source>
+			<target state="needs-translation">Closed</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_topic.sticky" xml:space="preserve">
+				<source>Sticky</source>
+			<target state="needs-translation">Sticky</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_topic.question" xml:space="preserve">
+				<source>Question</source>
+			<target state="needs-translation">Question</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_topic.supporters" xml:space="preserve">
+				<source>Supporters</source>
+			<target state="needs-translation">Supporters</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_topic.tags" xml:space="preserve">
+				<source>Tags</source>
+			<target state="needs-translation">Tags</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_post" xml:space="preserve">
+				<source>Post</source>
+			<target state="needs-translation">Post</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_post.text" xml:space="preserve">
+				<source>Text</source>
+			<target state="needs-translation">Text</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_post.rendered_text" xml:space="preserve">
+				<source>Rendered text</source>
+			<target state="needs-translation">Rendered text</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_post.author" xml:space="preserve">
+				<source>Author</source>
+			<target state="needs-translation">Author</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_post.author_name" xml:space="preserve">
+				<source>Author name (if posted by anonymous user)</source>
+			<target state="needs-translation">Author name (if posted by anonymous user)</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_post.topic" xml:space="preserve">
+				<source>Topic</source>
+			<target state="needs-translation">Topic</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_post.attachments" xml:space="preserve">
+				<source>Attachments</source>
+			<target state="needs-translation">Attachments</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_post.helpful_count" xml:space="preserve">
+				<source>Helpful count</source>
+			<target state="needs-translation">Helpful count</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_attachment" xml:space="preserve">
+				<source>Attachment</source>
+			<target state="needs-translation">Attachment</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_attachment.filename" xml:space="preserve">
+				<source>Attachment Viewname</source>
+			<target state="needs-translation">Attachment Viewname</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_attachment.real_filename" xml:space="preserve">
+				<source>Attachment Filename (warning: no auto hash! Must be unique!)</source>
+			<target state="needs-translation">Attachment Filename (warning: no auto hash! Must be unique!)</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_attachment.mime_type" xml:space="preserve">
+				<source>MIME type</source>
+			<target state="needs-translation">MIME type</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_attachment.download_count" xml:space="preserve">
+				<source>Download count</source>
+			<target state="needs-translation">Download count</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_criteria" xml:space="preserve">
+				<source>Criteria</source>
+			<target state="needs-translation">Criteria</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_criteria.name" xml:space="preserve">
+				<source>Criteria Name</source>
+			<target state="needs-translation">Criteria Name</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_criteria.default_option" xml:space="preserve">
+				<source>Default Option</source>
+			<target state="needs-translation">Default Option</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_criteria.options" xml:space="preserve">
+				<source>Criteria Options</source>
+			<target state="needs-translation">Criteria Options</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_criteria_options" xml:space="preserve">
+				<source>Criteria Option</source>
+			<target state="needs-translation">Criteria Option</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_criteria_options.name" xml:space="preserve">
+				<source>Criteria Option Name</source>
+			<target state="needs-translation">Criteria Option Name</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_criteria_options.criteria" xml:space="preserve">
+				<source>Criteria Option Relation</source>
+			<target state="needs-translation">Criteria Option Relation</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_criteria_options.sorting" xml:space="preserve">
+				<source>Sorting</source>
+			<target state="needs-translation">Sorting</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_ad" xml:space="preserve">
+				<source>Advertisement</source>
+			<target state="needs-translation">Advertisement</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_ad.name" xml:space="preserve">
+				<source>Name</source>
+			<target state="needs-translation">Name</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_ad.url" xml:space="preserve">
+				<source>URL</source>
+			<target state="needs-translation">URL</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_ad.alt" xml:space="preserve">
+				<source>Alt-Text</source>
+			<target state="needs-translation">Alt-Text</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_ad.path" xml:space="preserve">
+				<source>Path To Image</source>
+			<target state="needs-translation">Path To Image</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_ad.category" xml:space="preserve">
+				<source>Category</source>
+			<target state="needs-translation">Category</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_ad.active" xml:space="preserve">
+				<source>Active</source>
+			<target state="needs-translation">Active</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_rank" xml:space="preserve">
+				<source>User rank</source>
+			<target state="needs-translation">User rank</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_rank.name" xml:space="preserve">
+				<source>Rank name</source>
+			<target state="needs-translation">Rank name</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_rank.point_limit" xml:space="preserve">
+				<source>Limit of points</source>
+			<target state="needs-translation">Limit of points</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_rank.user_count" xml:space="preserve">
+				<source>User Count</source>
+			<target state="needs-translation">User Count</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_notification" xml:space="preserve">
+				<source>User notification</source>
+			<target state="needs-translation">User notification</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_notification.feuser" xml:space="preserve">
+				<source>User</source>
+			<target state="needs-translation">User</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_notification.user_read" xml:space="preserve">
+				<source>User Read</source>
+			<target state="needs-translation">User Read</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_notification.post" xml:space="preserve">
+				<source>Post</source>
+			<target state="needs-translation">Post</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_notification.tag" xml:space="preserve">
+				<source>Tag</source>
+			<target state="needs-translation">Tag</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_notification.type" xml:space="preserve">
+				<source>Type</source>
+			<target state="needs-translation">Type</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_notification.crdate" xml:space="preserve">
+				<source>Cron executed timestamp</source>
+			<target state="needs-translation">Cron executed timestamp</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_stats_summary" xml:space="preserve">
+				<source>Summary Stats</source>
+			<target state="needs-translation">Summary Stats</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_stats_summary.amount" xml:space="preserve">
+				<source>Amount</source>
+			<target state="needs-translation">Amount</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_stats_summary.tstamp" xml:space="preserve">
+				<source>Timestamp</source>
+			<target state="needs-translation">Timestamp</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_stats_summary.type" xml:space="preserve">
+				<source>Type</source>
+			<target state="needs-translation">Type</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_tag" xml:space="preserve">
+				<source>Tags</source>
+			<target state="needs-translation">Tags</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_tag.crdate" xml:space="preserve">
+				<source>Creation Date</source>
+			<target state="needs-translation">Creation Date</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_tag.feuser" xml:space="preserve">
+				<source>User</source>
+			<target state="needs-translation">User</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_tag.name" xml:space="preserve">
+				<source>Name</source>
+			<target state="needs-translation">Name</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_tag.topicCount" xml:space="preserve">
+				<source>Topic Count</source>
+			<target state="needs-translation">Topic Count</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_tag.tstamp" xml:space="preserve">
+				<source>Timestamp</source>
+			<target state="needs-translation">Timestamp</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_access" xml:space="preserve">
+				<source>Access</source>
+			<target state="needs-translation">Access</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_access.operation" xml:space="preserve">
+				<source>Operation</source>
+			<target state="needs-translation">Operation</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_access.operation.read" xml:space="preserve">
+				<source>Read</source>
+			<target state="needs-translation">Read</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_access.operation.newPost" xml:space="preserve">
+				<source>Write posts</source>
+			<target state="needs-translation">Write posts</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_access.operation.editPost" xml:space="preserve">
+				<source>Edit posts</source>
+			<target state="needs-translation">Edit posts</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_access.operation.newTopic" xml:space="preserve">
+				<source>Create new topics</source>
+			<target state="needs-translation">Create new topics</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_access.operation.moderation" xml:space="preserve">
+				<source>Moderate</source>
+			<target state="needs-translation">Moderate</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_access.operation.deletePost" xml:space="preserve">
+				<source>Delete post</source>
+			<target state="needs-translation">Delete post</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_access.operation.deleteTopic" xml:space="preserve">
+				<source>Delete topic</source>
+			<target state="needs-translation">Delete topic</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_access.negate" xml:space="preserve">
+				<source>Negate</source>
+			<target state="needs-translation">Negate</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_access.forum" xml:space="preserve">
+				<source>Forum</source>
+			<target state="needs-translation">Forum</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_access.group" xml:space="preserve">
+				<source>Group</source>
+			<target state="needs-translation">Group</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_access.login_level" xml:space="preserve">
+				<source>Login level</source>
+			<target state="needs-translation">Login level</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_access.login_level.everyone" xml:space="preserve">
+				<source>Everyone</source>
+			<target state="needs-translation">Everyone</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_access.login_level.anylogin" xml:space="preserve">
+				<source>Any login</source>
+			<target state="needs-translation">Any login</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_forum_access.login_level.specific" xml:space="preserve">
+				<source>Specific group</source>
+			<target state="needs-translation">Specific group</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_privatemessage" xml:space="preserve">
+				<source>Private Message</source>
+			<target state="needs-translation">Private Message</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_privatemessage.feuser" xml:space="preserve">
+				<source>User</source>
+			<target state="needs-translation">User</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_privatemessage.opponent" xml:space="preserve">
+				<source>Opponent User</source>
+			<target state="needs-translation">Opponent User</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_privatemessage.message" xml:space="preserve">
+				<source>Message</source>
+			<target state="needs-translation">Message</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_privatemessage.type" xml:space="preserve">
+				<source>User Type</source>
+			<target state="needs-translation">User Type</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_privatemessage.user_read" xml:space="preserve">
+				<source>User Read</source>
+			<target state="needs-translation">User Read</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_privatemessage_text" xml:space="preserve">
+				<source>Message</source>
+			<target state="needs-translation">Message</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_privatemessage_text.message_text" xml:space="preserve">
+				<source>Text</source>
+			<target state="needs-translation">Text</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_userfield_userfield" xml:space="preserve">
+				<source>Userfield</source>
+			<target state="needs-translation">Userfield</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_userfield_userfield.name" xml:space="preserve">
+				<source>Name:</source>
+			<target state="needs-translation">Name:</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_userfield_userfield.type" xml:space="preserve">
+				<source>Type:</source>
+			<target state="needs-translation">Type:</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_userfield_userfield.type.undefined" xml:space="preserve">
+				<source>Undefined</source>
+			<target state="needs-translation">Undefined</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_userfield_userfield.type.typoscript" xml:space="preserve">
+				<source>TypoScript</source>
+			<target state="needs-translation">TypoScript</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_userfield_userfield.type.text" xml:space="preserve">
+				<source>Text</source>
+			<target state="needs-translation">Text</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_userfield_userfield.typoscript_path" xml:space="preserve">
+				<source>TypoScript path:</source>
+			<target state="needs-translation">TypoScript path:</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_userfield_userfield.map_to_user_object" xml:space="preserve">
+				<source>Map to fe_users column:</source>
+			<target state="needs-translation">Map to fe_users column:</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_userfield_value" xml:space="preserve">
+				<source>Userfield value</source>
+			<target state="needs-translation">Userfield value</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_userfield_value.user" xml:space="preserve">
+				<source>User</source>
+			<target state="needs-translation">User</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_userfield_value.userfield" xml:space="preserve">
+				<source>Userfield</source>
+			<target state="needs-translation">Userfield</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_user_userfield_value.value" xml:space="preserve">
+				<source>Value</source>
+			<target state="needs-translation">Value</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_format_textparser" xml:space="preserve">
+				<source>Text parsing component</source>
+			<target state="needs-translation">Text parsing component</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_format_textparser.name" xml:space="preserve">
+				<source>Name</source>
+			<target state="needs-translation">Name</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_format_textparser.type" xml:space="preserve">
+				<source>Type</source>
+			<target state="needs-translation">Type</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_format_textparser.type.bbcode" xml:space="preserve">
+				<source>BB Code</source>
+			<target state="needs-translation">BB Code</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_format_textparser.type.quote" xml:space="preserve">
+				<source>Quotation</source>
+			<target state="needs-translation">Quotation</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_format_textparser.type.list" xml:space="preserve">
+				<source>List</source>
+			<target state="needs-translation">List</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_format_textparser.type.smiley" xml:space="preserve">
+				<source>Smiley</source>
+			<target state="needs-translation">Smiley</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_format_textparser.type.syntax" xml:space="preserve">
+				<source>Syntax highlighting</source>
+			<target state="needs-translation">Syntax highlighting</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_format_textparser.icon" xml:space="preserve">
+				<source>Icon</source>
+			<target state="needs-translation">Icon</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_format_textparser.icon_class" xml:space="preserve">
+				<source>Icon Klasse</source>
+			<target state="needs-translation">Icon Klasse</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_format_textparser.bbcode_wrap" xml:space="preserve">
+				<source>BB Code Wrap</source>
+			<target state="needs-translation">BB Code Wrap</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_format_textparser.regular_expression" xml:space="preserve">
+				<source>Regular expression</source>
+			<target state="needs-translation">Regular expression</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_format_textparser.regular_expression_replacement" xml:space="preserve">
+				<source>Replacement pattern</source>
+			<target state="needs-translation">Replacement pattern</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_format_textparser.smiley_shortcut" xml:space="preserve">
+				<source>Smiley shortcut</source>
+			<target state="needs-translation">Smiley shortcut</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_format_textparser.language" xml:space="preserve">
+				<source>Language</source>
+			<target state="needs-translation">Language</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_moderation_report" xml:space="preserve">
+				<source>Report</source>
+			<target state="needs-translation">Report</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_moderation_report.feuser" xml:space="preserve">
+				<source>User</source>
+			<target state="needs-translation">User</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_moderation_report.post" xml:space="preserve">
+				<source>Post</source>
+			<target state="needs-translation">Post</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_moderation_report.reporter" xml:space="preserve">
+				<source>Reporter</source>
+			<target state="needs-translation">Reporter</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_moderation_report.moderator" xml:space="preserve">
+				<source>Assigned moderator</source>
+			<target state="needs-translation">Assigned moderator</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_moderation_report.comments" xml:space="preserve">
+				<source>Comments</source>
+			<target state="needs-translation">Comments</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_moderation_report.workflow_status" xml:space="preserve">
+				<source>Status</source>
+			<target state="needs-translation">Status</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_moderation_report.type.userReport" xml:space="preserve">
+				<source>User-Report</source>
+			<target state="needs-translation">User-Report</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_moderation_report.type.postReport" xml:space="preserve">
+				<source>Post-Report</source>
+			<target state="needs-translation">Post-Report</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_moderation_reportcomment" xml:space="preserve">
+				<source>Report comment</source>
+			<target state="needs-translation">Report comment</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_moderation_reportcomment.author" xml:space="preserve">
+				<source>Author</source>
+			<target state="needs-translation">Author</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_moderation_reportcomment.report" xml:space="preserve">
+				<source>Report</source>
+			<target state="needs-translation">Report</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_moderation_reportcomment.text" xml:space="preserve">
+				<source>Comment</source>
+			<target state="needs-translation">Comment</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_moderation_reportworkflowstatus" xml:space="preserve">
+				<source>Workflow status</source>
+			<target state="needs-translation">Workflow status</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_moderation_reportworkflowstatus.name" xml:space="preserve">
+				<source>Name</source>
+			<target state="needs-translation">Name</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_moderation_reportworkflowstatus.followup_status" xml:space="preserve">
+				<source>Followup status</source>
+			<target state="needs-translation">Followup status</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_moderation_reportworkflowstatus.initial" xml:space="preserve">
+				<source>Initial status</source>
+			<target state="needs-translation">Initial status</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_moderation_reportworkflowstatus.final" xml:space="preserve">
+				<source>Final status</source>
+			<target state="needs-translation">Final status</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_moderation_reportworkflowstatus.icon" xml:space="preserve">
+				<source>Icon</source>
+			<target state="needs-translation">Icon</target></trans-unit>
+      <trans-unit id="tx_typo3forum_domain_model_moderation_report.type" xml:space="preserve">
+				<source>Type</source>
+			<target state="needs-translation">Type</target></trans-unit>
+      <trans-unit id="fe_users.use_gravatar" xml:space="preserve">
+				<source>Use gravatar image (if no local image)</source>
+			<target state="needs-translation">Use gravatar image (if no local image)</target></trans-unit>
+      <trans-unit id="fe_users.contact" xml:space="preserve">
+				<source>Contact addresses and social network profiles (JSON encoded)</source>
+			<target state="needs-translation">Contact addresses and social network profiles (JSON encoded)</target></trans-unit>
+      <trans-unit id="fe_users.tx_extbase_type.typo3_forum" xml:space="preserve">
+				<source>typo3_forum user</source>
+			<target state="needs-translation">typo3_forum user</target></trans-unit>
+      <trans-unit id="fe_users.tx_typo3forum_post_count" xml:space="preserve">
+				<source>Post count</source>
+			<target state="needs-translation">Post count</target></trans-unit>
+      <trans-unit id="fe_users.tx_typo3forum_post_count_session" xml:space="preserve">
+				<source>Post count session</source>
+			<target state="needs-translation">Post count session</target></trans-unit>
+      <trans-unit id="fe_users.tx_typo3forum_topic_count" xml:space="preserve">
+				<source>Topic count</source>
+			<target state="needs-translation">Topic count</target></trans-unit>
+      <trans-unit id="fe_users.tx_typo3forum_helpful_count" xml:space="preserve">
+				<source>Helpful count</source>
+			<target state="needs-translation">Helpful count</target></trans-unit>
+      <trans-unit id="fe_users.tx_typo3forum_helpful_count_session" xml:space="preserve">
+				<source>Helpful count session</source>
+			<target state="needs-translation">Helpful count session</target></trans-unit>
+      <trans-unit id="fe_users.tx_typo3forum_question_count" xml:space="preserve">
+				<source>Question count</source>
+			<target state="needs-translation">Question count</target></trans-unit>
+      <trans-unit id="fe_users.tx_typo3forum_topic_favsubscriptions" xml:space="preserve">
+				<source>Subscribed favorite topics</source>
+			<target state="needs-translation">Subscribed favorite topics</target></trans-unit>
+      <trans-unit id="fe_users.tx_typo3forum_topic_subscriptions" xml:space="preserve">
+				<source>Subscribed topics</source>
+			<target state="needs-translation">Subscribed topics</target></trans-unit>
+      <trans-unit id="fe_users.tx_typo3forum_forum_subscriptions" xml:space="preserve">
+				<source>Subscribed forums</source>
+			<target state="needs-translation">Subscribed forums</target></trans-unit>
+      <trans-unit id="fe_users.tx_typo3forum.tab.settings" xml:space="preserve">
+				<source>typo3_forum Settings</source>
+			<target state="needs-translation">typo3_forum Settings</target></trans-unit>
+      <trans-unit id="fe_users.tx_typo3forum_signature" xml:space="preserve">
+				<source>Signatur</source>
+			<target state="needs-translation">Signatur</target></trans-unit>
+      <trans-unit id="fe_users.tx_typo3forum_interests" xml:space="preserve">
+				<source>Interessen</source>
+			<target state="needs-translation">Interessen</target></trans-unit>
+      <trans-unit id="fe_users.tx_typo3forum_read_forum" xml:space="preserve">
+				<source>Forum Read</source>
+			<target state="needs-translation">Forum Read</target></trans-unit>
+      <trans-unit id="fe_users.tx_typo3forum_read_topics" xml:space="preserve">
+				<source>Topic Read</source>
+			<target state="needs-translation">Topic Read</target></trans-unit>
+      <trans-unit id="fe_users.tx_typo3forum_userfield_values" xml:space="preserve">
+				<source>Userfield values</source>
+			<target state="needs-translation">Userfield values</target></trans-unit>
+      <trans-unit id="fe_users.tx_typo3forum_support_posts" xml:space="preserve">
+				<source>Supported posts</source>
+			<target state="needs-translation">Supported posts</target></trans-unit>
+      <trans-unit id="fe_users.tx_typo3forum_facebook" xml:space="preserve">
+				<source>Facebook</source>
+			<target state="needs-translation">Facebook</target></trans-unit>
+      <trans-unit id="fe_users.tx_typo3forum_twitter" xml:space="preserve">
+				<source>Twitter</source>
+			<target state="needs-translation">Twitter</target></trans-unit>
+      <trans-unit id="fe_users.tx_typo3forum_google" xml:space="preserve">
+				<source>Google</source>
+			<target state="needs-translation">Google</target></trans-unit>
+      <trans-unit id="fe_users.tx_typo3forum_skype" xml:space="preserve">
+				<source>Skype</source>
+			<target state="needs-translation">Skype</target></trans-unit>
+      <trans-unit id="fe_users.tx_typo3forum_job" xml:space="preserve">
+				<source>Job</source>
+			<target state="needs-translation">Job</target></trans-unit>
+      <trans-unit id="fe_users.tx_typo3forum_working_environment" xml:space="preserve">
+				<source>Arbeitsumfeld</source>
+			<target state="needs-translation">Arbeitsumfeld</target></trans-unit>
+      <trans-unit id="fe_users.tx_typo3forum_domain_model_user_pm" xml:space="preserve">
+				<source>Private messages</source>
+			<target state="needs-translation">Private messages</target></trans-unit>
+      <trans-unit id="fe_users.tx_typo3forum_points" xml:space="preserve">
+				<source>Points</source>
+			<target state="needs-translation">Points</target></trans-unit>
+      <trans-unit id="fe_groups.user_mod" xml:space="preserve">
+				<source>All members have moderation permission</source>
+			<target state="needs-translation">All members have moderation permission</target></trans-unit>
+      <trans-unit id="fe_groups.tx_extbase_type.typo3_forum" xml:space="preserve">
+				<source>typo3_forum group</source>
+			<target state="needs-translation">typo3_forum group</target></trans-unit>
+      <trans-unit id="backend.update.user_pid" xml:space="preserve">
+				<source>Where are fe_users and fe_groups for usage of forum located?</source>
+			<target state="needs-translation">Where are fe_users and fe_groups for usage of forum located?</target></trans-unit>
+      <trans-unit id="backend.update.run" xml:space="preserve">
+				<source>Update database!</source>
+			<target state="needs-translation">Update database!</target></trans-unit>
+    </body>
+  </file>
+</xliff>
