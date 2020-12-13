@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="messages" date="2020-12-13T08:08:34Z" product-name="typo3_forum" target-language="pt-PT">
+    <header/>
+    <body>
+      <trans-unit id="Behaviour" xml:space="preserve">
+				<source>Plugin behaviour</source>
+			<target state="needs-translation">Plugin behaviour</target></trans-unit>
+      <trans-unit id="Behaviour_Action" xml:space="preserve">
+				<source>Action</source>
+			<target state="needs-translation">Action</target></trans-unit>
+      <trans-unit id="Behaviour_Action_Forum" xml:space="preserve">
+				<source>Forum</source>
+			<target state="needs-translation">Forum</target></trans-unit>
+      <trans-unit id="Behaviour_Action_User_Index" xml:space="preserve">
+				<source>User List Views</source>
+			<target state="needs-translation">User List Views</target></trans-unit>
+      <trans-unit id="Behaviour_Action_User_Show" xml:space="preserve">
+				<source>User profile</source>
+			<target state="needs-translation">User profile</target></trans-unit>
+      <trans-unit id="Behaviour_Action_User_ListSubscriptions" xml:space="preserve">
+				<source>Subscribed topics and forums</source>
+			<target state="needs-translation">Subscribed topics and forums</target></trans-unit>
+      <trans-unit id="Behaviour_Action_Moderation_Reports" xml:space="preserve">
+				<source>Moderation/Reports: List and edit reports.</source>
+			<target state="needs-translation">Moderation/Reports: List and edit reports.</target></trans-unit>
+      <trans-unit id="Behaviour_Action_Support_Queries" xml:space="preserve">
+				<source>Support Queries Helpbox</source>
+			<target state="needs-translation">Support Queries Helpbox</target></trans-unit>
+      <trans-unit id="Behaviour_Action_Users_List" xml:space="preserve">
+				<source>Users List</source>
+			<target state="needs-translation">Users List</target></trans-unit>
+      <trans-unit id="Behaviour_Action_Posts_List" xml:space="preserve">
+				<source>Posts List</source>
+			<target state="needs-translation">Posts List</target></trans-unit>
+      <trans-unit id="Behaviour_Action_Dashboard" xml:space="preserve">
+				<source>Dashboard</source>
+			<target state="needs-translation">Dashboard</target></trans-unit>
+      <trans-unit id="Behaviour_Action_Stats_List" xml:space="preserve">
+				<source>Stats List</source>
+			<target state="needs-translation">Stats List</target></trans-unit>
+      <trans-unit id="Behaviour_Action_Tags" xml:space="preserve">
+				<source>Tags</source>
+			<target state="needs-translation">Tags</target></trans-unit>
+      <trans-unit id="Behaviour_Action_MyTags" xml:space="preserve">
+				<source>&quot;MyTags&quot; of a user</source>
+			<target state="needs-translation">"MyTags" of a user</target></trans-unit>
+      <trans-unit id="Behaviour_Action_PrivateMessage" xml:space="preserve">
+				<source>Private Messages</source>
+			<target state="needs-translation">Private Messages</target></trans-unit>
+      <trans-unit id="Behaviour_Action_Topics_List" xml:space="preserve">
+				<source>Topics List</source>
+			<target state="needs-translation">Topics List</target></trans-unit>
+      <trans-unit id="Display" xml:space="preserve">
+				<source>Display View</source>
+			<target state="needs-translation">Display View</target></trans-unit>
+      <trans-unit id="Display_Latest_Box" xml:space="preserve">
+				<source>Latest Posts Box</source>
+			<target state="needs-translation">Latest Posts Box</target></trans-unit>
+      <trans-unit id="Display_MaxTopicItems" xml:space="preserve">
+				<source>Maximum items to display</source>
+			<target state="needs-translation">Maximum items to display</target></trans-unit>
+      <trans-unit id="Display_Default" xml:space="preserve">
+				<source>Default</source>
+			<target state="needs-translation">Default</target></trans-unit>
+      <trans-unit id="Display_Active_User_Widget" xml:space="preserve">
+				<source>Active User</source>
+			<target state="needs-translation">Active User</target></trans-unit>
+      <trans-unit id="Display_Helpful_User_Widget" xml:space="preserve">
+				<source>Helpful User</source>
+			<target state="needs-translation">Helpful User</target></trans-unit>
+      <trans-unit id="Display_Online_User_Widget" xml:space="preserve">
+				<source>Online User</source>
+			<target state="needs-translation">Online User</target></trans-unit>
+      <trans-unit id="Display_Stats_Summary_Widget" xml:space="preserve">
+				<source>Summary</source>
+			<target state="needs-translation">Summary</target></trans-unit>
+      <trans-unit id="Display_Active_Box" xml:space="preserve">
+				<source>Active User Box</source>
+			<target state="needs-translation">Active User Box</target></trans-unit>
+      <trans-unit id="Display_Ranking_List" xml:space="preserve">
+				<source>Ranking List</source>
+			<target state="needs-translation">Ranking List</target></trans-unit>
+      <trans-unit id="Display_TopUser_List" xml:space="preserve">
+				<source>TopUser List</source>
+			<target state="needs-translation">TopUser List</target></trans-unit>
+      <trans-unit id="Pages" xml:space="preserve">
+				<source>Pages</source>
+			<target state="needs-translation">Pages</target></trans-unit>
+      <trans-unit id="Pages_Forum" xml:space="preserve">
+				<source>Forum page</source>
+			<target state="needs-translation">Forum page</target></trans-unit>
+      <trans-unit id="Pages_User_Show" xml:space="preserve">
+				<source>User profile</source>
+			<target state="needs-translation">User profile</target></trans-unit>
+      <trans-unit id="Display_QuestionBox" xml:space="preserve">
+				<source>Latest Questions Box</source>
+			<target state="needs-translation">Latest Questions Box</target></trans-unit>
+      <trans-unit id="Display_Questionslist" xml:space="preserve">
+				<source>Questions List</source>
+			<target state="needs-translation">Questions List</target></trans-unit>
+      <trans-unit id="Display_PopularBox" xml:space="preserve">
+				<source>Popular Topics Box</source>
+			<target state="needs-translation">Popular Topics Box</target></trans-unit>
+    </body>
+  </file>
+</xliff>
