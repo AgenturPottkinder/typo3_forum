@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="messages" date="2020-12-13T08:08:01Z" product-name="typo3_forum" target-language="ja">
+    <header/>
+    <body>
+      <trans-unit id="filename.description" xml:space="preserve">
+				<source>The filename</source>
+			<target state="needs-translation">The filename</target></trans-unit>
+      <trans-unit id="mime_type.description" xml:space="preserve">
+				<source>The MIME type</source>
+			<target state="needs-translation">The MIME type</target></trans-unit>
+      <trans-unit id="download_count.description" xml:space="preserve">
+				<source>How often this file was downloaded</source>
+			<target state="needs-translation">How often this file was downloaded</target></trans-unit>
+    </body>
+  </file>
+</xliff>
