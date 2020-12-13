@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="messages" date="2020-12-13T08:08:05Z" product-name="typo3_forum" target-language="sr">
+    <header/>
+    <body>
+      <trans-unit id="title.description" xml:space="preserve">
+				<source>The title of the forum</source>
+			<target state="needs-translation">The title of the forum</target></trans-unit>
+      <trans-unit id="description.description" xml:space="preserve">
+				<source>A description for the forum</source>
+			<target state="needs-translation">A description for the forum</target></trans-unit>
+      <trans-unit id="children.description" xml:space="preserve">
+				<source>children</source>
+			<target state="needs-translation">children</target></trans-unit>
+      <trans-unit id="topics.description" xml:space="preserve">
+				<source>topics</source>
+			<target state="needs-translation">topics</target></trans-unit>
+      <trans-unit id="acls.description" xml:space="preserve">
+				<source>acls</source>
+			<target state="needs-translation">acls</target></trans-unit>
+      <trans-unit id="last_topic.description" xml:space="preserve">
+				<source>lastTopic</source>
+			<target state="needs-translation">lastTopic</target></trans-unit>
+      <trans-unit id="last_post.description" xml:space="preserve">
+				<source>lastPost</source>
+			<target state="needs-translation">lastPost</target></trans-unit>
+    </body>
+  </file>
+</xliff>
