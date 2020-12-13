@@ -1,0 +1,937 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="messages" date="2020-12-13T08:05:53Z" product-name="typo3_forum" target-language="de">
+    <header/>
+    <body>
+      <trans-unit id="Button_Back" xml:space="preserve">
+				<source>Back</source>
+			<target state="needs-translation">Back</target></trans-unit>
+      <trans-unit id="Button_Delete" xml:space="preserve">
+				<source>Delete</source>
+			<target state="needs-translation">Delete</target></trans-unit>
+      <trans-unit id="Button_Delete_Topic" xml:space="preserve">
+				<source>Delete Topic</source>
+			<target state="needs-translation">Delete Topic</target></trans-unit>
+      <trans-unit id="Button_Edit" xml:space="preserve">
+				<source>Edit</source>
+			<target state="needs-translation">Edit</target></trans-unit>
+      <trans-unit id="Button_Moderate" xml:space="preserve">
+				<source>Moderate</source>
+			<target state="needs-translation">Moderate</target></trans-unit>
+      <trans-unit id="Button_Quote" xml:space="preserve">
+				<source>Quote</source>
+			<target state="needs-translation">Quote</target></trans-unit>
+      <trans-unit id="Button_Reply" xml:space="preserve">
+				<source>Reply</source>
+			<target state="needs-translation">Reply</target></trans-unit>
+      <trans-unit id="Button_Report" xml:space="preserve">
+				<source>Report</source>
+			<target state="needs-translation">Report</target></trans-unit>
+      <trans-unit id="Button_Close" xml:space="preserve">
+				<source>Close</source>
+			<target state="needs-translation">Close</target></trans-unit>
+      <trans-unit id="Button_Subscribe" xml:space="preserve">
+				<source>Subscribe</source>
+			<target state="needs-translation">Subscribe</target></trans-unit>
+      <trans-unit id="Button_Topic_New" xml:space="preserve">
+				<source>New topic</source>
+			<target state="needs-translation">New topic</target></trans-unit>
+      <trans-unit id="Button_Unsubscribe" xml:space="preserve">
+				<source>Unsubscribe</source>
+			<target state="needs-translation">Unsubscribe</target></trans-unit>
+      <trans-unit id="Button_User_Profile" xml:space="preserve">
+				<source>User profile</source>
+			<target state="needs-translation">User profile</target></trans-unit>
+      <trans-unit id="Button_More" xml:space="preserve">
+				<source>More</source>
+			<target state="needs-translation">More</target></trans-unit>
+      <trans-unit id="Editor_Panel_Formatting" xml:space="preserve">
+				<source>Formatting</source>
+			<target state="needs-translation">Formatting</target></trans-unit>
+      <trans-unit id="Editor_Panel_Smileys" xml:space="preserve">
+				<source>Smileys</source>
+			<target state="needs-translation">Smileys</target></trans-unit>
+      <trans-unit id="Editor_Panel_SyntaxHighlighting" xml:space="preserve">
+				<source>Syntax highlighting</source>
+			<target state="needs-translation">Syntax highlighting</target></trans-unit>
+      <trans-unit id="Error_1335120249" xml:space="preserve">
+				<source>You need to be logged in to view your own subscriptions.</source>
+			<target state="needs-translation">You need to be logged in to view your own subscriptions.</target></trans-unit>
+      <trans-unit id="Error_Exception_Title" xml:space="preserve">
+				<source>Whoops!</source>
+			<target state="needs-translation">Whoops!</target></trans-unit>
+      <trans-unit id="Error_Form_Body" xml:space="preserve">
+				<source>Some errors occurred while processing your input. Please check your inputs.</source>
+			<target state="needs-translation">Some errors occurred while processing your input. Please check your inputs.</target></trans-unit>
+      <trans-unit id="Error_Form_Title" xml:space="preserve">
+				<source>Whoopsi!</source>
+			<target state="needs-translation">Whoopsi!</target></trans-unit>
+      <trans-unit id="Forum_Index_Empty" xml:space="preserve">
+				<source>No forums found</source>
+			<target state="needs-translation">No forums found</target></trans-unit>
+      <trans-unit id="Forum_Index_LastPost" xml:space="preserve">
+				<source>Last post</source>
+			<target state="needs-translation">Last post</target></trans-unit>
+      <trans-unit id="Forum_Index_Name" xml:space="preserve">
+				<source>Forum</source>
+			<target state="needs-translation">Forum</target></trans-unit>
+      <trans-unit id="Forum_Index_Posts" xml:space="preserve">
+				<source>Posts</source>
+			<target state="needs-translation">Posts</target></trans-unit>
+      <trans-unit id="Forum_Index_Topic" xml:space="preserve">
+				<source>Topic</source>
+			<target state="needs-translation">Topic</target></trans-unit>
+      <trans-unit id="Forum_Index_Topics" xml:space="preserve">
+				<source>Topics</source>
+			<target state="needs-translation">Topics</target></trans-unit>
+      <trans-unit id="Forum_Show_Empty" xml:space="preserve">
+				<source>No topics</source>
+			<target state="needs-translation">No topics</target></trans-unit>
+      <trans-unit id="Forum_Show_UnreadTopicsIn" xml:space="preserve">
+				<source>Unread topics in</source>
+			<target state="needs-translation">Unread topics in</target></trans-unit>
+      <trans-unit id="Forum_Show_Topic_Author" xml:space="preserve">
+				<source>Author</source>
+			<target state="needs-translation">Author</target></trans-unit>
+      <trans-unit id="Forum_Show_Topic_LastPost" xml:space="preserve">
+				<source>Last post</source>
+			<target state="needs-translation">Last post</target></trans-unit>
+      <trans-unit id="Forum_Show_Topic_Moved" xml:space="preserve">
+				<source>Moved</source>
+			<target state="needs-translation">Moved</target></trans-unit>
+      <trans-unit id="Forum_Show_Topic_Posts" xml:space="preserve">
+				<source>Replies</source>
+			<target state="needs-translation">Replies</target></trans-unit>
+      <trans-unit id="Forum_Show_Topic_Question" xml:space="preserve">
+				<source>Question</source>
+			<target state="needs-translation">Question</target></trans-unit>
+      <trans-unit id="Forum_Show_Topic_Solved" xml:space="preserve">
+				<source>Solved</source>
+			<target state="needs-translation">Solved</target></trans-unit>
+      <trans-unit id="Forum_Show_Topic_Subject" xml:space="preserve">
+				<source>Subject</source>
+			<target state="needs-translation">Subject</target></trans-unit>
+      <trans-unit id="Forum_Index_HelpfulPosts" xml:space="preserve">
+				<source>Helpful posts</source>
+			<target state="needs-translation">Helpful posts</target></trans-unit>
+      <trans-unit id="Forum_PM_Send" xml:space="preserve">
+				<source>send private message</source>
+			<target state="needs-translation">send private message</target></trans-unit>
+      <trans-unit id="Forum_New" xml:space="preserve">
+				<source>New Forum</source>
+			<target state="needs-translation">New Forum</target></trans-unit>
+      <trans-unit id="Forum_Edit" xml:space="preserve">
+				<source>Edit Forum</source>
+			<target state="needs-translation">Edit Forum</target></trans-unit>
+      <trans-unit id="Forum_Manage" xml:space="preserve">
+				<source>Moderate Forum</source>
+			<target state="needs-translation">Moderate Forum</target></trans-unit>
+      <trans-unit id="Generic_By" xml:space="preserve">
+				<source>by</source>
+			<target state="needs-translation">by</target></trans-unit>
+      <trans-unit id="Generic_More" xml:space="preserve">
+				<source>more</source>
+			<target state="needs-translation">more</target></trans-unit>
+      <trans-unit id="Moderation_Index_Reports" xml:space="preserve">
+				<source>Reports</source>
+			<target state="needs-translation">Reports</target></trans-unit>
+      <trans-unit id="Moderation_Index_Topic" xml:space="preserve">
+				<source>Topic</source>
+			<target state="needs-translation">Topic</target></trans-unit>
+      <trans-unit id="Moderation_Index_Reporter" xml:space="preserve">
+				<source>Reporter</source>
+			<target state="needs-translation">Reporter</target></trans-unit>
+      <trans-unit id="Moderation_Index_Status" xml:space="preserve">
+				<source>Status</source>
+			<target state="needs-translation">Status</target></trans-unit>
+      <trans-unit id="Moderation_Index_Date" xml:space="preserve">
+				<source>Date</source>
+			<target state="needs-translation">Date</target></trans-unit>
+      <trans-unit id="Moderation_Index_GoToTopic" xml:space="preserve">
+				<source>Go to topic</source>
+			<target state="needs-translation">Go to topic</target></trans-unit>
+      <trans-unit id="Moderation_Index_NothingHere" xml:space="preserve">
+				<source>Nothing here!</source>
+			<target state="needs-translation">Nothing here!</target></trans-unit>
+      <trans-unit id="Moderation_Index_NoOpenReportsFound" xml:space="preserve">
+				<source>No open reports were found.</source>
+			<target state="needs-translation">No open reports were found.</target></trans-unit>
+      <trans-unit id="Moderation_EditTopic" xml:space="preserve">
+				<source>Moderate topic</source>
+			<target state="needs-translation">Moderate topic</target></trans-unit>
+      <trans-unit id="Moderation_EditTopic_Closed" xml:space="preserve">
+				<source>Closed</source>
+			<target state="needs-translation">Closed</target></trans-unit>
+      <trans-unit id="Moderation_EditTopic_Move" xml:space="preserve">
+				<source>Move</source>
+			<target state="needs-translation">Move</target></trans-unit>
+      <trans-unit id="Moderation_EditTopic_Sticky" xml:space="preserve">
+				<source>Sticky</source>
+			<target state="needs-translation">Sticky</target></trans-unit>
+      <trans-unit id="Moderation_EditTopic_Submit" xml:space="preserve">
+				<source>Submit</source>
+			<target state="needs-translation">Submit</target></trans-unit>
+      <trans-unit id="Moderation_UpdateTopic_Success" xml:space="preserve">
+				<source>The topic has successfully been updated.</source>
+			<target state="needs-translation">The topic has successfully been updated.</target></trans-unit>
+      <trans-unit id="Post_Create_Success" xml:space="preserve">
+				<source>The post has successfully been created.</source>
+			<target state="needs-translation">The post has successfully been created.</target></trans-unit>
+      <trans-unit id="Post_Delete_Success" xml:space="preserve">
+				<source>The post has successfully been deleted.</source>
+			<target state="needs-translation">The post has successfully been deleted.</target></trans-unit>
+      <trans-unit id="Post_Edit" xml:space="preserve">
+				<source>Edit post</source>
+			<target state="needs-translation">Edit post</target></trans-unit>
+      <trans-unit id="Post_Edit_Submit" xml:space="preserve">
+				<source>Update post</source>
+			<target state="needs-translation">Update post</target></trans-unit>
+      <trans-unit id="Post_New" xml:space="preserve">
+				<source>Reply to: %s</source>
+			<target state="needs-translation">Reply to: %s</target></trans-unit>
+      <trans-unit id="Post_New_Attachments" xml:space="preserve">
+				<source>Attachments</source>
+			<target state="needs-translation">Attachments</target></trans-unit>
+      <trans-unit id="Post_New_Author" xml:space="preserve">
+				<source>Your name</source>
+			<target state="needs-translation">Your name</target></trans-unit>
+      <trans-unit id="Post_New_Error_Author_1335106565" xml:space="preserve">
+				<source>Please specify your name or log in with your user account.</source>
+			<target state="needs-translation">Please specify your name or log in with your user account.</target></trans-unit>
+      <trans-unit id="Post_New_Error_Text_1221560718" xml:space="preserve">
+				<source>Please specify a content for the new post.</source>
+			<target state="needs-translation">Please specify a content for the new post.</target></trans-unit>
+      <trans-unit id="Post_New_Submit" xml:space="preserve">
+				<source>Create post</source>
+			<target state="needs-translation">Create post</target></trans-unit>
+      <trans-unit id="Post_New_Text" xml:space="preserve">
+				<source>Post text</source>
+			<target state="needs-translation">Post text</target></trans-unit>
+      <trans-unit id="Post_New_Additional_Attachment" xml:space="preserve">
+				<source>Additional attachment</source>
+			<target state="needs-translation">Additional attachment</target></trans-unit>
+      <trans-unit id="Post_Show_Attachment_DownloadCount" xml:space="preserve">
+				<source>Downloaded %d times</source>
+			<target state="needs-translation">Downloaded %d times</target></trans-unit>
+      <trans-unit id="Post_Show_Attachments" xml:space="preserve">
+				<source>Attachments</source>
+			<target state="needs-translation">Attachments</target></trans-unit>
+      <trans-unit id="Post_Show_QuoteBy" xml:space="preserve">
+				<source>Quote by</source>
+			<target state="needs-translation">Quote by</target></trans-unit>
+      <trans-unit id="Post_Show_Solution_New" xml:space="preserve">
+				<source>Is solution</source>
+			<target state="needs-translation">Is solution</target></trans-unit>
+      <trans-unit id="Post_Show_Solution_Edit" xml:space="preserve">
+				<source>Replace solution</source>
+			<target state="needs-translation">Replace solution</target></trans-unit>
+      <trans-unit id="Post_Update_Success" xml:space="preserve">
+				<source>The post has successfully been updated.</source>
+			<target state="needs-translation">The post has successfully been updated.</target></trans-unit>
+      <trans-unit id="Post_Not_Found" xml:space="preserve">
+				<source>Post not found.</source>
+			<target state="needs-translation">Post not found.</target></trans-unit>
+      <trans-unit id="Report" xml:space="preserve">
+				<source>Reports</source>
+			<target state="needs-translation">Reports</target></trans-unit>
+      <trans-unit id="Report_Detail" xml:space="preserve">
+				<source>Reports Detail</source>
+			<target state="needs-translation">Reports Detail</target></trans-unit>
+      <trans-unit id="Report_Index_reportedUser" xml:space="preserve">
+				<source>Reported User</source>
+			<target state="needs-translation">Reported User</target></trans-unit>
+      <trans-unit id="Report_Index_reportedPosts" xml:space="preserve">
+				<source>Reported Posts</source>
+			<target state="needs-translation">Reported Posts</target></trans-unit>
+      <trans-unit id="Report_Index_UserDetail" xml:space="preserve">
+				<source>User Details</source>
+			<target state="needs-translation">User Details</target></trans-unit>
+      <trans-unit id="Report_Index_Post" xml:space="preserve">
+				<source>Post</source>
+			<target state="needs-translation">Post</target></trans-unit>
+      <trans-unit id="Report_Index_PostedIn" xml:space="preserve">
+				<source>Posted in</source>
+			<target state="needs-translation">Posted in</target></trans-unit>
+      <trans-unit id="Report_Index_Action" xml:space="preserve">
+				<source>Action</source>
+			<target state="needs-translation">Action</target></trans-unit>
+      <trans-unit id="Report_Edit_Comments" xml:space="preserve">
+				<source>Comments</source>
+			<target state="needs-translation">Comments</target></trans-unit>
+      <trans-unit id="Report_Edit_Comments_New" xml:space="preserve">
+				<source>New comment</source>
+			<target state="needs-translation">New comment</target></trans-unit>
+      <trans-unit id="Report_Edit_Content" xml:space="preserve">
+				<source>Content</source>
+			<target state="needs-translation">Content</target></trans-unit>
+      <trans-unit id="Report_Edit_Author" xml:space="preserve">
+				<source>Author</source>
+			<target state="needs-translation">Author</target></trans-unit>
+      <trans-unit id="Report_Edit_User" xml:space="preserve">
+				<source>User</source>
+			<target state="needs-translation">User</target></trans-unit>
+      <trans-unit id="Report_Edit_Date" xml:space="preserve">
+				<source>Date</source>
+			<target state="needs-translation">Date</target></trans-unit>
+      <trans-unit id="Report_Edit_General" xml:space="preserve">
+				<source>General report information</source>
+			<target state="needs-translation">General report information</target></trans-unit>
+      <trans-unit id="Report_Edit_Post" xml:space="preserve">
+				<source>Reported post</source>
+			<target state="needs-translation">Reported post</target></trans-unit>
+      <trans-unit id="Report_Edit_Reportee" xml:space="preserve">
+				<source>Post's author</source>
+			<target state="needs-translation">Post's author</target></trans-unit>
+      <trans-unit id="Report_Edit_Reporter" xml:space="preserve">
+				<source>Reported by</source>
+			<target state="needs-translation">Reported by</target></trans-unit>
+      <trans-unit id="Report_Edit_SetStatus" xml:space="preserve">
+				<source>Set status to &quot;%s&quot;</source>
+			<target state="needs-translation">Set status to "%s"</target></trans-unit>
+      <trans-unit id="Report_Edit_Status" xml:space="preserve">
+				<source>Current workflow status</source>
+			<target state="needs-translation">Current workflow status</target></trans-unit>
+      <trans-unit id="Report_Edit_Topic" xml:space="preserve">
+				<source>Topic</source>
+			<target state="needs-translation">Topic</target></trans-unit>
+      <trans-unit id="Report_New" xml:space="preserve">
+				<source>Report this post</source>
+			<target state="needs-translation">Report this post</target></trans-unit>
+      <trans-unit id="Report_NewPostReport" xml:space="preserve">
+				<source>Report this post</source>
+			<target state="needs-translation">Report this post</target></trans-unit>
+      <trans-unit id="Report_NewComment" xml:space="preserve">
+				<source>Write a new comment</source>
+			<target state="needs-translation">Write a new comment</target></trans-unit>
+      <trans-unit id="Report_NewComment_Error_Text_1221560718" xml:space="preserve">
+				<source>Please specify a comment.</source>
+			<target state="needs-translation">Please specify a comment.</target></trans-unit>
+      <trans-unit id="Report_NewComment_Submit" xml:space="preserve">
+				<source>Create comment</source>
+			<target state="needs-translation">Create comment</target></trans-unit>
+      <trans-unit id="Report_NewComment_Success" xml:space="preserve">
+				<source>The comment has successfully been saved.</source>
+			<target state="needs-translation">The comment has successfully been saved.</target></trans-unit>
+      <trans-unit id="Report_NewComment_Text" xml:space="preserve">
+				<source>Comment text</source>
+			<target state="needs-translation">Comment text</target></trans-unit>
+      <trans-unit id="Report_New_Author" xml:space="preserve">
+				<source>Post author</source>
+			<target state="needs-translation">Post author</target></trans-unit>
+      <trans-unit id="Report_New_Error_Reason_1221560718" xml:space="preserve">
+				<source>Please specify a reason why you believe this post to be inappropriate.</source>
+			<target state="needs-translation">Please specify a reason why you believe this post to be inappropriate.</target></trans-unit>
+      <trans-unit id="Report_New_OriginalText" xml:space="preserve">
+				<source>Original post text</source>
+			<target state="needs-translation">Original post text</target></trans-unit>
+      <trans-unit id="Report_New_Reason" xml:space="preserve">
+				<source>Reason</source>
+			<target state="needs-translation">Reason</target></trans-unit>
+      <trans-unit id="Report_New_Submit" xml:space="preserve">
+				<source>Report post</source>
+			<target state="needs-translation">Report post</target></trans-unit>
+      <trans-unit id="Report_New_Success" xml:space="preserve">
+				<source>Your report has been submitted to a forum moderator.</source>
+			<target state="needs-translation">Your report has been submitted to a forum moderator.</target></trans-unit>
+      <trans-unit id="Report_UpdateStatus_Success" xml:space="preserve">
+				<source>The status of report #%s has successfully been set to %s.</source>
+			<target state="needs-translation">The status of report #%s has successfully been set to %s.</target></trans-unit>
+      <trans-unit id="Topic_Create_Success" xml:space="preserve">
+				<source>The topic has successfully been created.</source>
+			<target state="needs-translation">The topic has successfully been created.</target></trans-unit>
+      <trans-unit id="Topic_New" xml:space="preserve">
+				<source>New topic</source>
+			<target state="needs-translation">New topic</target></trans-unit>
+      <trans-unit id="Topic_New_Attachments" xml:space="preserve">
+				<source>Attachments</source>
+			<target state="needs-translation">Attachments</target></trans-unit>
+      <trans-unit id="Topic_New_Error_Post_Text_1221560718" xml:space="preserve">
+				<source>Please specify a content for the new topic.</source>
+			<target state="needs-translation">Please specify a content for the new topic.</target></trans-unit>
+      <trans-unit id="Topic_New_Error_Subject_1221560718" xml:space="preserve">
+				<source>Please specify a subject for the new topic.</source>
+			<target state="needs-translation">Please specify a subject for the new topic.</target></trans-unit>
+      <trans-unit id="Topic_New_Error_Attachment_Text_1371041777" xml:space="preserve">
+				<source>Your submitted Mime-Type is not allowed!</source>
+			<target state="needs-translation">Your submitted Mime-Type is not allowed!</target></trans-unit>
+      <trans-unit id="Topic_New_Error_Attachment_Text_1371041888" xml:space="preserve">
+				<source>Your attachment size is to big!</source>
+			<target state="needs-translation">Your attachment size is to big!</target></trans-unit>
+      <trans-unit id="Topic_New_Tags" xml:space="preserve">
+				<source>Tags</source>
+			<target state="needs-translation">Tags</target></trans-unit>
+      <trans-unit id="Topic_New_Subject" xml:space="preserve">
+				<source>Subject</source>
+			<target state="needs-translation">Subject</target></trans-unit>
+      <trans-unit id="Topic_New_Submit" xml:space="preserve">
+				<source>Create topic</source>
+			<target state="needs-translation">Create topic</target></trans-unit>
+      <trans-unit id="Topic_New_Subscribe" xml:space="preserve">
+				<source>Subscribe</source>
+			<target state="needs-translation">Subscribe</target></trans-unit>
+      <trans-unit id="Topic_New_SubscribeMore" xml:space="preserve">
+				<source>Notify me via email when someone answers this topic.</source>
+			<target state="needs-translation">Notify me via email when someone answers this topic.</target></trans-unit>
+      <trans-unit id="Topic_New_Text" xml:space="preserve">
+				<source>Post text</source>
+			<target state="needs-translation">Post text</target></trans-unit>
+      <trans-unit id="Topic_New_Question" xml:space="preserve">
+				<source>Mark as question</source>
+			<target state="needs-translation">Mark as question</target></trans-unit>
+      <trans-unit id="Topic_All_Questions" xml:space="preserve">
+				<source>All Questions</source>
+			<target state="needs-translation">All Questions</target></trans-unit>
+      <trans-unit id="Topic_All_Questions_Of" xml:space="preserve">
+				<source>All questions of</source>
+			<target state="needs-translation">All questions of</target></trans-unit>
+      <trans-unit id="User_Index" xml:space="preserve">
+				<source>User list</source>
+			<target state="needs-translation">User list</target></trans-unit>
+      <trans-unit id="User_Index_Display_All" xml:space="preserve">
+				<source>Display all User</source>
+			<target state="needs-translation">Display all User</target></trans-unit>
+      <trans-unit id="User_Index_Search" xml:space="preserve">
+				<source>User search</source>
+			<target state="needs-translation">User search</target></trans-unit>
+      <trans-unit id="User_Index_Search_Header" xml:space="preserve">
+				<source>User with the names</source>
+			<target state="needs-translation">User with the names</target></trans-unit>
+      <trans-unit id="User_Index_Search_Order_ASC" xml:space="preserve">
+				<source>Ascending</source>
+			<target state="needs-translation">Ascending</target></trans-unit>
+      <trans-unit id="User_Index_Search_Order_DESC" xml:space="preserve">
+				<source>Descending</source>
+			<target state="needs-translation">Descending</target></trans-unit>
+      <trans-unit id="User_Index_Search_Filter_Name" xml:space="preserve">
+				<source>Username</source>
+			<target state="needs-translation">Username</target></trans-unit>
+      <trans-unit id="User_Index_Search_Filter_MemberSince" xml:space="preserve">
+				<source>Member Since</source>
+			<target state="needs-translation">Member Since</target></trans-unit>
+      <trans-unit id="User_Index_Search_Filter_Post" xml:space="preserve">
+				<source>Posts</source>
+			<target state="needs-translation">Posts</target></trans-unit>
+      <trans-unit id="User_Index_Search_Filter_Helpful" xml:space="preserve">
+				<source>Helpful Posts</source>
+			<target state="needs-translation">Helpful Posts</target></trans-unit>
+      <trans-unit id="User_Index_Contact" xml:space="preserve">
+				<source>Contact</source>
+			<target state="needs-translation">Contact</target></trans-unit>
+      <trans-unit id="User_Index_MemberSince" xml:space="preserve">
+				<source>Registered since</source>
+			<target state="needs-translation">Registered since</target></trans-unit>
+      <trans-unit id="User_Index_Message" xml:space="preserve">
+				<source>Message</source>
+			<target state="needs-translation">Message</target></trans-unit>
+      <trans-unit id="User_Index_Messages" xml:space="preserve">
+				<source>Messages</source>
+			<target state="needs-translation">Messages</target></trans-unit>
+      <trans-unit id="User_Index_Notifications" xml:space="preserve">
+				<source>Notifications</source>
+			<target state="needs-translation">Notifications</target></trans-unit>
+      <trans-unit id="User_Index_Favorites_NotFound" xml:space="preserve">
+				<source>No favorites found</source>
+			<target state="needs-translation">No favorites found</target></trans-unit>
+      <trans-unit id="User_Index_Favorites" xml:space="preserve">
+				<source>My favorites</source>
+			<target state="needs-translation">My favorites</target></trans-unit>
+      <trans-unit id="User_Index_MyTopics" xml:space="preserve">
+				<source>My topics</source>
+			<target state="needs-translation">My topics</target></trans-unit>
+      <trans-unit id="User_Index_MyPosts" xml:space="preserve">
+				<source>My posts</source>
+			<target state="needs-translation">My posts</target></trans-unit>
+      <trans-unit id="User_Index_MyQuestions" xml:space="preserve">
+				<source>My questions</source>
+			<target state="needs-translation">My questions</target></trans-unit>
+      <trans-unit id="User_Index_MyMessages" xml:space="preserve">
+				<source>My messages</source>
+			<target state="needs-translation">My messages</target></trans-unit>
+      <trans-unit id="User_Index_Dashboard" xml:space="preserve">
+				<source>My dashboard</source>
+			<target state="needs-translation">My dashboard</target></trans-unit>
+      <trans-unit id="User_Index_Dashboard_Link" xml:space="preserve">
+				<source>Back to dashboard</source>
+			<target state="needs-translation">Back to dashboard</target></trans-unit>
+      <trans-unit id="User_Index_Topics_Of" xml:space="preserve">
+				<source>Topics of</source>
+			<target state="needs-translation">Topics of</target></trans-unit>
+      <trans-unit id="User_Index_Favorites_Of" xml:space="preserve">
+				<source>Favorites of</source>
+			<target state="needs-translation">Favorites of</target></trans-unit>
+      <trans-unit id="User_Index_All_Notifications" xml:space="preserve">
+				<source>all notifications</source>
+			<target state="needs-translation">all notifications</target></trans-unit>
+      <trans-unit id="User_Index_All_Messages" xml:space="preserve">
+				<source>all messages</source>
+			<target state="needs-translation">all messages</target></trans-unit>
+      <trans-unit id="User_Index_All_Favorites" xml:space="preserve">
+				<source>all favorites</source>
+			<target state="needs-translation">all favorites</target></trans-unit>
+      <trans-unit id="User_Index_All_MyTopics" xml:space="preserve">
+				<source>all topics</source>
+			<target state="needs-translation">all topics</target></trans-unit>
+      <trans-unit id="User_Index_Questions" xml:space="preserve">
+				<source>Questions</source>
+			<target state="needs-translation">Questions</target></trans-unit>
+      <trans-unit id="User_Index_Posts" xml:space="preserve">
+				<source>Posts</source>
+			<target state="needs-translation">Posts</target></trans-unit>
+      <trans-unit id="User_Index_Helpful_Posts" xml:space="preserve">
+				<source>Helpful Posts</source>
+			<target state="needs-translation">Helpful Posts</target></trans-unit>
+      <trans-unit id="User_Index_Username" xml:space="preserve">
+				<source>Username</source>
+			<target state="needs-translation">Username</target></trans-unit>
+      <trans-unit id="User_New" xml:space="preserve">
+				<source>New User</source>
+			<target state="needs-translation">New User</target></trans-unit>
+      <trans-unit id="User_Edit" xml:space="preserve">
+				<source>Edit User</source>
+			<target state="needs-translation">Edit User</target></trans-unit>
+      <trans-unit id="User_ListPosts" xml:space="preserve">
+				<source>All posts of %s</source>
+			<target state="needs-translation">All posts of %s</target></trans-unit>
+      <trans-unit id="User_ListSubscriptions" xml:space="preserve">
+				<source>Subscribed Topics</source>
+			<target state="needs-translation">Subscribed Topics</target></trans-unit>
+      <trans-unit id="User_ListSubscriptions_Goto" xml:space="preserve">
+				<source>Go to</source>
+			<target state="needs-translation">Go to</target></trans-unit>
+      <trans-unit id="User_ListSubscriptions_Unsubscribe" xml:space="preserve">
+				<source>Unsubscribe</source>
+			<target state="needs-translation">Unsubscribe</target></trans-unit>
+      <trans-unit id="User_New_Message" xml:space="preserve">
+				<source>New Message</source>
+			<target state="needs-translation">New Message</target></trans-unit>
+      <trans-unit id="User_New_Message_Recipient" xml:space="preserve">
+				<source>Recipient</source>
+			<target state="needs-translation">Recipient</target></trans-unit>
+      <trans-unit id="User_New_Message_Post_Text" xml:space="preserve">
+				<source>Message</source>
+			<target state="needs-translation">Message</target></trans-unit>
+      <trans-unit id="User_New_Message_NotFound" xml:space="preserve">
+				<source>No received Messages found</source>
+			<target state="needs-translation">No received Messages found</target></trans-unit>
+      <trans-unit id="User_New_Message_Recipient_1372429326" xml:space="preserve">
+				<source>User does not exists!</source>
+			<target state="needs-translation">User does not exists!</target></trans-unit>
+      <trans-unit id="User_New_Message_Recipient_1372682275" xml:space="preserve">
+				<source>You can't write yourself a message!</source>
+			<target state="needs-translation">You can't write yourself a message!</target></trans-unit>
+      <trans-unit id="User_New_Message_Post_Text_1221560718" xml:space="preserve">
+				<source>Please enter a message!</source>
+			<target state="needs-translation">Please enter a message!</target></trans-unit>
+      <trans-unit id="User_Show" xml:space="preserve">
+				<source>User details</source>
+			<target state="needs-translation">User details</target></trans-unit>
+      <trans-unit id="User_Show_LastPosts" xml:space="preserve">
+				<source>Last posts</source>
+			<target state="needs-translation">Last posts</target></trans-unit>
+      <trans-unit id="User_Show_MemberSince" xml:space="preserve">
+				<source>Member since</source>
+			<target state="needs-translation">Member since</target></trans-unit>
+      <trans-unit id="User_Show_PostCount" xml:space="preserve">
+				<source>%d posts</source>
+			<target state="needs-translation">%d posts</target></trans-unit>
+      <trans-unit id="User_Show_Rank" xml:space="preserve">
+				<source>Rank</source>
+			<target state="needs-translation">Rank</target></trans-unit>
+      <trans-unit id="User_Show_Rank_Points_Until" xml:space="preserve">
+				<source>Until</source>
+			<target state="needs-translation">Until</target></trans-unit>
+      <trans-unit id="User_Show_Rank_UserAmount" xml:space="preserve">
+				<source>Amount of user</source>
+			<target state="needs-translation">Amount of user</target></trans-unit>
+      <trans-unit id="User_Show_Points" xml:space="preserve">
+				<source>Points</source>
+			<target state="needs-translation">Points</target></trans-unit>
+      <trans-unit id="User_Show_Points_Needed" xml:space="preserve">
+				<source>Points</source>
+			<target state="needs-translation">Points</target></trans-unit>
+      <trans-unit id="User_Show_Notification_All" xml:space="preserve">
+				<source>All Notifications</source>
+			<target state="needs-translation">All Notifications</target></trans-unit>
+      <trans-unit id="User_Show_Notification_Author_1" xml:space="preserve">
+				<source>answered to </source>
+			<target state="needs-translation">answered to </target></trans-unit>
+      <trans-unit id="User_Show_Notification_Author_2" xml:space="preserve">
+				<source/>
+			</trans-unit>
+      <trans-unit id="User_Show_Notification_Common_1" xml:space="preserve">
+				<source>answered in </source>
+			<target state="needs-translation">answered in </target></trans-unit>
+      <trans-unit id="User_Show_Notification_Common_2" xml:space="preserve">
+				<source/>
+			</trans-unit>
+      <trans-unit id="User_Show_Notification_NotFound" xml:space="preserve">
+				<source>No notification found!</source>
+			<target state="needs-translation">No notification found!</target></trans-unit>
+      <trans-unit id="User_Show_Notification_Tag_1" xml:space="preserve">
+				<source>answered in a</source>
+			<target state="needs-translation">answered in a</target></trans-unit>
+      <trans-unit id="User_Show_Notification_Tag_2" xml:space="preserve">
+				<source>with the tag</source>
+			<target state="needs-translation">with the tag</target></trans-unit>
+      <trans-unit id="User_Show_Notification_Tag_3" xml:space="preserve">
+				<source/>
+			</trans-unit>
+      <trans-unit id="User_Show_Messages_Conversation" xml:space="preserve">
+				<source>Conversation</source>
+			<target state="needs-translation">Conversation</target></trans-unit>
+      <trans-unit id="User_Show_Messages_Conversation_New" xml:space="preserve">
+				<source>New conversation</source>
+			<target state="needs-translation">New conversation</target></trans-unit>
+      <trans-unit id="User_Show_Messages_Conversation_NotFound" xml:space="preserve">
+				<source>No active conversation found!</source>
+			<target state="needs-translation">No active conversation found!</target></trans-unit>
+      <trans-unit id="User_Show_Messages_Conversation_With" xml:space="preserve">
+				<source>Conversation with</source>
+			<target state="needs-translation">Conversation with</target></trans-unit>
+      <trans-unit id="User_Show_Messages_Conversation_Answer" xml:space="preserve">
+				<source>Answer</source>
+			<target state="needs-translation">Answer</target></trans-unit>
+      <trans-unit id="User_Show_GeneralInformation" xml:space="preserve">
+				<source>General information</source>
+			<target state="needs-translation">General information</target></trans-unit>
+      <trans-unit id="User_Show_LatestPosts" xml:space="preserve">
+				<source>Latest posts</source>
+			<target state="needs-translation">Latest posts</target></trans-unit>
+      <trans-unit id="User_Subscribe_Forum_Success" xml:space="preserve">
+				<source>The Forum &quot;%s&quot; has successfully been subscribed.</source>
+			<target state="needs-translation">The Forum "%s" has successfully been subscribed.</target></trans-unit>
+      <trans-unit id="User_Subscribe_Topic_Success" xml:space="preserve">
+				<source>The Topic &quot;%s&quot; has successfully been subscribed.</source>
+			<target state="needs-translation">The Topic "%s" has successfully been subscribed.</target></trans-unit>
+      <trans-unit id="User_Unsubscribe_Forum_Success" xml:space="preserve">
+				<source>The Forum &quot;%s&quot; has successfully been unsubscribed.</source>
+			<target state="needs-translation">The Forum "%s" has successfully been unsubscribed.</target></trans-unit>
+      <trans-unit id="User_Unsubscribe_Topic_Success" xml:space="preserve">
+				<source>The Topic &quot;%s&quot; has successfully been unsubscribed.</source>
+			<target state="needs-translation">The Topic "%s" has successfully been unsubscribed.</target></trans-unit>
+      <trans-unit id="Stats_Summary_Type_Post" xml:space="preserve">
+				<source>Posts</source>
+			<target state="needs-translation">Posts</target></trans-unit>
+      <trans-unit id="Stats_Summary_Type_Topic" xml:space="preserve">
+				<source>Topics</source>
+			<target state="needs-translation">Topics</target></trans-unit>
+      <trans-unit id="Stats_Summary_Type_User" xml:space="preserve">
+				<source>Members</source>
+			<target state="needs-translation">Members</target></trans-unit>
+      <trans-unit id="Subforums" xml:space="preserve">
+				<source>Subforums</source>
+			<target state="needs-translation">Subforums</target></trans-unit>
+      <trans-unit id="Notice" xml:space="preserve">
+				<source>Notice:</source>
+			<target state="needs-translation">Notice:</target></trans-unit>
+      <trans-unit id="Date_Clock" xml:space="preserve">
+				<source>o'clock</source>
+			<target state="needs-translation">o'clock</target></trans-unit>
+      <trans-unit id="Date_At" xml:space="preserve">
+				<source>at</source>
+			<target state="needs-translation">at</target></trans-unit>
+      <trans-unit id="tx_typo3forum_scheduler_counter_title" xml:space="preserve">
+				<source>Count-Checker</source>
+			<target state="needs-translation">Count-Checker</target></trans-unit>
+      <trans-unit id="tx_typo3forum_scheduler_counter_description" xml:space="preserve">
+				<source>A turtle with maths skills checks all counter columns of any user and update them on a error.</source>
+			<target state="needs-translation">A turtle with maths skills checks all counter columns of any user and update them on a error.</target></trans-unit>
+      <trans-unit id="tx_typo3forum_scheduler_counter_forumPid" xml:space="preserve">
+				<source>Forum pid</source>
+			<target state="needs-translation">Forum pid</target></trans-unit>
+      <trans-unit id="tx_typo3forum_scheduler_counter_userPid" xml:space="preserve">
+				<source>User pid</source>
+			<target state="needs-translation">User pid</target></trans-unit>
+      <trans-unit id="tx_typo3forum_scheduler_databaseMigrator_title" xml:space="preserve">
+				<source>Database Migrator</source>
+			<target state="needs-translation">Database Migrator</target></trans-unit>
+      <trans-unit id="tx_typo3forum_scheduler_databaseMigrator_description" xml:space="preserve">
+				<source>Renames your database tables when you applied the change from mm_forum to typo3_forum. This will NOT migrate your data from mm_forum 1.x, but from 2.0.</source>
+			<target state="needs-translation">Renames your database tables when you applied the change from mm_forum to typo3_forum. This will NOT migrate your data from mm_forum 1.x, but from 2.0.</target></trans-unit>
+      <trans-unit id="tx_typo3forum_scheduler_forumRead_title" xml:space="preserve">
+				<source>Forum-Read Setter</source>
+			<target state="needs-translation">Forum-Read Setter</target></trans-unit>
+      <trans-unit id="tx_typo3forum_scheduler_forumRead_description" xml:space="preserve">
+				<source>Check for any user which forum is read and which not. Best way to ensure performance.</source>
+			<target state="needs-translation">Check for any user which forum is read and which not. Best way to ensure performance.</target></trans-unit>
+      <trans-unit id="tx_typo3forum_scheduler_forumRead_forumPid" xml:space="preserve">
+				<source>Forum pid</source>
+			<target state="needs-translation">Forum pid</target></trans-unit>
+      <trans-unit id="tx_typo3forum_scheduler_forumRead_userPid" xml:space="preserve">
+				<source>User pid</source>
+			<target state="needs-translation">User pid</target></trans-unit>
+      <trans-unit id="tx_typo3forum_scheduler_notification_title" xml:space="preserve">
+				<source>Notifications Generator</source>
+			<target state="needs-translation">Notifications Generator</target></trans-unit>
+      <trans-unit id="tx_typo3forum_scheduler_notification_description" xml:space="preserve">
+				<source>Generate all new notifications of all users.</source>
+			<target state="needs-translation">Generate all new notifications of all users.</target></trans-unit>
+      <trans-unit id="tx_typo3forum_scheduler_notification_forumPid" xml:space="preserve">
+				<source>Forum pids (comma-seperated is allowed)</source>
+			<target state="needs-translation">Forum pids (comma-seperated is allowed)</target></trans-unit>
+      <trans-unit id="tx_typo3forum_scheduler_notification_userPid" xml:space="preserve">
+				<source>User pids (comma-seperated is allowed)</source>
+			<target state="needs-translation">User pids (comma-seperated is allowed)</target></trans-unit>
+      <trans-unit id="tx_typo3forum_scheduler_notification_notificationPid" xml:space="preserve">
+				<source>Notification Pid</source>
+			<target state="needs-translation">Notification Pid</target></trans-unit>
+      <trans-unit id="tx_typo3forum_scheduler_sessionResetter_title" xml:space="preserve">
+				<source>Session Count Resetter</source>
+			<target state="needs-translation">Session Count Resetter</target></trans-unit>
+      <trans-unit id="tx_typo3forum_scheduler_sessionResetter_description" xml:space="preserve">
+				<source>Reset the session counter of a forum. (Used for the widgets)</source>
+			<target state="needs-translation">Reset the session counter of a forum. (Used for the widgets)</target></trans-unit>
+      <trans-unit id="tx_typo3forum_scheduler_sessionResetter_userPid" xml:space="preserve">
+				<source>User pid</source>
+			<target state="needs-translation">User pid</target></trans-unit>
+      <trans-unit id="tx_typo3forum_scheduler_statsSummary_title" xml:space="preserve">
+				<source>Stats Summary Generator</source>
+			<target state="needs-translation">Stats Summary Generator</target></trans-unit>
+      <trans-unit id="tx_typo3forum_scheduler_statsSummary_description" xml:space="preserve">
+				<source>Generate summary stats for the StatsSummary widget.</source>
+			<target state="needs-translation">Generate summary stats for the StatsSummary widget.</target></trans-unit>
+      <trans-unit id="tx_typo3forum_scheduler_statsSummary_forumPid" xml:space="preserve">
+				<source>Forum pids (comma-seperated is allowed)</source>
+			<target state="needs-translation">Forum pids (comma-seperated is allowed)</target></trans-unit>
+      <trans-unit id="tx_typo3forum_scheduler_statsSummary_userPid" xml:space="preserve">
+				<source>User pids (comma-seperated is allowed)</source>
+			<target state="needs-translation">User pids (comma-seperated is allowed)</target></trans-unit>
+      <trans-unit id="tx_typo3forum_scheduler_statsSummary_statsPid" xml:space="preserve">
+				<source>Stats pid</source>
+			<target state="needs-translation">Stats pid</target></trans-unit>
+      <trans-unit id="Link_My_Profile" xml:space="preserve">
+				<source>My profile</source>
+			<target state="needs-translation">My profile</target></trans-unit>
+      <trans-unit id="Profile" xml:space="preserve">
+				<source>Profile</source>
+			<target state="needs-translation">Profile</target></trans-unit>
+      <trans-unit id="Working_Environment_0" xml:space="preserve">
+				<source>-</source>
+			<target state="needs-translation">-</target></trans-unit>
+      <trans-unit id="Working_Environment_1" xml:space="preserve">
+				<source>Agency</source>
+			<target state="needs-translation">Agency</target></trans-unit>
+      <trans-unit id="Working_Environment_2" xml:space="preserve">
+				<source>Company</source>
+			<target state="needs-translation">Company</target></trans-unit>
+      <trans-unit id="Working_Environment_3" xml:space="preserve">
+				<source>Freelancer</source>
+			<target state="needs-translation">Freelancer</target></trans-unit>
+      <trans-unit id="Working_Environment_4" xml:space="preserve">
+				<source>Public service</source>
+			<target state="needs-translation">Public service</target></trans-unit>
+      <trans-unit id="Facebook" xml:space="preserve">
+				<source>Facebook</source>
+			<target state="needs-translation">Facebook</target></trans-unit>
+      <trans-unit id="Twitter" xml:space="preserve">
+				<source>Twitter</source>
+			<target state="needs-translation">Twitter</target></trans-unit>
+      <trans-unit id="Google_plus" xml:space="preserve">
+				<source>Google+</source>
+			<target state="needs-translation">Google+</target></trans-unit>
+      <trans-unit id="Skype" xml:space="preserve">
+				<source>Skype</source>
+			<target state="needs-translation">Skype</target></trans-unit>
+      <trans-unit id="Solution" xml:space="preserve">
+				<source>Solution</source>
+			<target state="needs-translation">Solution</target></trans-unit>
+      <trans-unit id="Forum_Most_Supported_Post" xml:space="preserve">
+				<source>most supported post</source>
+			<target state="needs-translation">most supported post</target></trans-unit>
+      <trans-unit id="Button_Email" xml:space="preserve">
+				<source>Email</source>
+			<target state="needs-translation">Email</target></trans-unit>
+      <trans-unit id="Button_FavSubscribe" xml:space="preserve">
+				<source>Fav subscribe</source>
+			<target state="needs-translation">Fav subscribe</target></trans-unit>
+      <trans-unit id="Button_FavUnsubscribe" xml:space="preserve">
+				<source>Fav unsubscribe</source>
+			<target state="needs-translation">Fav unsubscribe</target></trans-unit>
+      <trans-unit id="Button_Report_User" xml:space="preserve">
+				<source>Report user</source>
+			<target state="needs-translation">Report user</target></trans-unit>
+      <trans-unit id="Confirm_Ban_User" xml:space="preserve">
+				<source>Are u Sure?</source>
+			<target state="needs-translation">Are u Sure?</target></trans-unit>
+      <trans-unit id="Button_Ban_User" xml:space="preserve">
+				<source>Ban user</source>
+			<target state="needs-translation">Ban user</target></trans-unit>
+      <trans-unit id="Button_Mark_Read" xml:space="preserve">
+				<source>Mark as read</source>
+			<target state="needs-translation">Mark as read</target></trans-unit>
+      <trans-unit id="Button_Show_Unread" xml:space="preserve">
+				<source>Show all unread topics</source>
+			<target state="needs-translation">Show all unread topics</target></trans-unit>
+      <trans-unit id="User_Age" xml:space="preserve">
+				<source>Age</source>
+			<target state="needs-translation">Age</target></trans-unit>
+      <trans-unit id="User_City" xml:space="preserve">
+				<source>City</source>
+			<target state="needs-translation">City</target></trans-unit>
+      <trans-unit id="User_Company" xml:space="preserve">
+				<source>Company</source>
+			<target state="needs-translation">Company</target></trans-unit>
+      <trans-unit id="User_Working_Environment" xml:space="preserve">
+				<source>Working Environment</source>
+			<target state="needs-translation">Working Environment</target></trans-unit>
+      <trans-unit id="User_Interests" xml:space="preserve">
+				<source>Interests</source>
+			<target state="needs-translation">Interests</target></trans-unit>
+      <trans-unit id="User_Signature" xml:space="preserve">
+				<source>Signature</source>
+			<target state="needs-translation">Signature</target></trans-unit>
+      <trans-unit id="User_Open_Questions" xml:space="preserve">
+				<source>Open questions</source>
+			<target state="needs-translation">Open questions</target></trans-unit>
+      <trans-unit id="User_Last_Posts" xml:space="preserve">
+				<source>Last post</source>
+			<target state="needs-translation">Last post</target></trans-unit>
+      <trans-unit id="User_All_Posts" xml:space="preserve">
+				<source>All posts</source>
+			<target state="needs-translation">All posts</target></trans-unit>
+      <trans-unit id="User_Last_Topics" xml:space="preserve">
+				<source>Last topics</source>
+			<target state="needs-translation">Last topics</target></trans-unit>
+      <trans-unit id="User_Working_As" xml:space="preserve">
+				<source>Working as</source>
+			<target state="needs-translation">Working as</target></trans-unit>
+      <trans-unit id="User_Email" xml:space="preserve">
+				<source>Email</source>
+			<target state="needs-translation">Email</target></trans-unit>
+      <trans-unit id="User_Web" xml:space="preserve">
+				<source>Web</source>
+			<target state="needs-translation">Web</target></trans-unit>
+      <trans-unit id="General_No_Entries" xml:space="preserve">
+				<source>No entries found</source>
+			<target state="needs-translation">No entries found</target></trans-unit>
+      <trans-unit id="Not_Logged_In" xml:space="preserve">
+				<source>Sie sind nicht angemeldet.</source>
+			<target state="needs-translation">Sie sind nicht angemeldet.</target></trans-unit>
+      <trans-unit id="Post_In" xml:space="preserve">
+				<source>Post in</source>
+			<target state="needs-translation">Post in</target></trans-unit>
+      <trans-unit id="Facebook_Share_Text" xml:space="preserve">
+				<source>Typo3.Net - Post by</source>
+			<target state="needs-translation">Typo3.Net - Post by</target></trans-unit>
+      <trans-unit id="Twitter_Share_Text" xml:space="preserve">
+				<source>Typo3.Net - Post by</source>
+			<target state="needs-translation">Typo3.Net - Post by</target></trans-unit>
+      <trans-unit id="Topic_Moved" xml:space="preserve">
+				<source>moved</source>
+			<target state="needs-translation">moved</target></trans-unit>
+      <trans-unit id="Confirm_Delete_Topic" xml:space="preserve">
+				<source>Are u Sure?</source>
+			<target state="needs-translation">Are u Sure?</target></trans-unit>
+      <trans-unit id="Members_Online" xml:space="preserve">
+				<source>members online</source>
+			<target state="needs-translation">members online</target></trans-unit>
+      <trans-unit id="Members_Not_Online" xml:space="preserve">
+				<source>no members online</source>
+			<target state="needs-translation">no members online</target></trans-unit>
+      <trans-unit id="Members_All" xml:space="preserve">
+				<source>All members</source>
+			<target state="needs-translation">All members</target></trans-unit>
+      <trans-unit id="Topic_Question_Help" xml:space="preserve">
+				<source>Mark as question</source>
+			<target state="needs-translation">Mark as question</target></trans-unit>
+      <trans-unit id="Tags_Show_Tag" xml:space="preserve">
+				<source>Tag</source>
+			<target state="needs-translation">Tag</target></trans-unit>
+      <trans-unit id="Tags_List_All" xml:space="preserve">
+				<source>All tags</source>
+			<target state="needs-translation">All tags</target></trans-unit>
+      <trans-unit id="Tags_List_NotFound" xml:space="preserve">
+				<source>No tags found!</source>
+			<target state="needs-translation">No tags found!</target></trans-unit>
+      <trans-unit id="Tags_List_Name" xml:space="preserve">
+				<source>Name</source>
+			<target state="needs-translation">Name</target></trans-unit>
+      <trans-unit id="Tags_List_TopicAmount" xml:space="preserve">
+				<source>Amount of topics</source>
+			<target state="needs-translation">Amount of topics</target></trans-unit>
+      <trans-unit id="Tags_List_Subscribers" xml:space="preserve">
+				<source>Amount of subscribers</source>
+			<target state="needs-translation">Amount of subscribers</target></trans-unit>
+      <trans-unit id="Tags_List_New" xml:space="preserve">
+				<source>Add to my tags</source>
+			<target state="needs-translation">Add to my tags</target></trans-unit>
+      <trans-unit id="Tags_List_Remove" xml:space="preserve">
+				<source>Remove from my tags</source>
+			<target state="needs-translation">Remove from my tags</target></trans-unit>
+      <trans-unit id="Tags_ListUserTags" xml:space="preserve">
+				<source>My tags</source>
+			<target state="needs-translation">My tags</target></trans-unit>
+      <trans-unit id="Tags_List_Link_All" xml:space="preserve">
+				<source>Display all tags</source>
+			<target state="needs-translation">Display all tags</target></trans-unit>
+      <trans-unit id="Tags_List_Link_Mine" xml:space="preserve">
+				<source>Display mine tags</source>
+			<target state="needs-translation">Display mine tags</target></trans-unit>
+      <trans-unit id="Tags_New" xml:space="preserve">
+				<source>New Tag</source>
+			<target state="needs-translation">New Tag</target></trans-unit>
+      <trans-unit id="Tags_New_Btn" xml:space="preserve">
+				<source>Create new tag</source>
+			<target state="needs-translation">Create new tag</target></trans-unit>
+      <trans-unit id="Tags_New_Name" xml:space="preserve">
+				<source>Name</source>
+			<target state="needs-translation">Name</target></trans-unit>
+      <trans-unit id="Tags_New_Error_Name_1373871955" xml:space="preserve">
+				<source>Name can't be empty</source>
+			<target state="needs-translation">Name can't be empty</target></trans-unit>
+      <trans-unit id="Tags_New_Error_Name_1373871960" xml:space="preserve">
+				<source>Tag already exists</source>
+			<target state="needs-translation">Tag already exists</target></trans-unit>
+      <trans-unit id="Tags_New_SubscribeTag" xml:space="preserve">
+				<source>Subscribe this tag</source>
+			<target state="needs-translation">Subscribe this tag</target></trans-unit>
+      <trans-unit id="Submit" xml:space="preserve">
+				<source>Submit</source>
+			<target state="needs-translation">Submit</target></trans-unit>
+      <trans-unit id="Button_Helpful" xml:space="preserve">
+				<source>Helpful</source>
+			<target state="needs-translation">Helpful</target></trans-unit>
+      <trans-unit id="Mail_Subscribe_NewPost_Subject" xml:space="preserve">
+				<source>New topic in one of your subscribed forums!</source>
+			<target state="needs-translation">New topic in one of your subscribed forums!</target></trans-unit>
+      <trans-unit id="Mail_Subscribe_NewPost_Body" xml:space="preserve">
+				<source>Hello ###RECIPIENT###,
+
+###POST_AUTHOR### answered in one of your subscribed topics: ###TOPIC_LINK###.
+
+If you don't want to get more notifications about this topic, you can unsubscribe from this topic in the forum or using this link: ###UNSUBSCRIBE_LINK###
+
+
+Yours sincerely,
+Your ###FORUM_TEAM###-Team</source>
+			<target state="needs-translation">Hello ###RECIPIENT###,
+
+###POST_AUTHOR### answered in one of your subscribed topics: ###TOPIC_LINK###.
+
+If you don't want to get more notifications about this topic, you can unsubscribe from this topic in the forum or using this link: ###UNSUBSCRIBE_LINK###
+
+
+Yours sincerely,
+Your ###FORUM_TEAM###-Team</target></trans-unit>
+      <trans-unit id="Mail_Subscribe_NewTopic_Body" xml:space="preserve">
+				<source>Hello ###RECIPIENT###,
+
+###POST_AUTHOR### created a new topic &quot;###TOPIC_NAME###&quot; in one your subscribed forum ###FORUM_LINK###.
+
+If you don't want to get more notifications about this forum, you can unsubscribe from this forum in the forum or using this link: ###UNSUBSCRIBE_LINK###
+
+
+Yours sincerely,
+Your ###FORUM_TEAM###-Team</source>
+			<target state="needs-translation">Hello ###RECIPIENT###,
+
+###POST_AUTHOR### created a new topic "###TOPIC_NAME###" in one your subscribed forum ###FORUM_LINK###.
+
+If you don't want to get more notifications about this forum, you can unsubscribe from this forum in the forum or using this link: ###UNSUBSCRIBE_LINK###
+
+
+Yours sincerely,
+Your ###FORUM_TEAM###-Team</target></trans-unit>
+    </body>
+  </file>
+</xliff>
