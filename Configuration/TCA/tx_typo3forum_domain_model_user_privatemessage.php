@@ -2,7 +2,7 @@
 
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_privatemessage',
+        'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_user_privatemessage',
         'label' => 'uid',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -17,7 +17,7 @@ return [
     ],
     'columns' => [
         'message' => [
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_privatemessage.message',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_user_privatemessage.message',
             'config' => [
                 'type' => 'inline',
                 'foreign_table' => 'tx_typo3forum_domain_model_user_privatemessage_text',
@@ -30,7 +30,7 @@ return [
             ],
         ],
         'feuser' => [
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_privatemessage.feuser',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_user_privatemessage.feuser',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -39,7 +39,7 @@ return [
             ],
         ],
         'opponent' => [
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_privatemessage.opponent',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_user_privatemessage.opponent',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -48,7 +48,7 @@ return [
             ],
         ],
         'type' => [
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_privatemessage.type',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_user_privatemessage.type',
             'config' => [
                 'type' => 'radio',
                 'items' => [
@@ -59,14 +59,14 @@ return [
             ],
         ],
         'user_read' => [
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_privatemessage.user_read',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_user_privatemessage.user_read',
             'config' => [
                 'type' => 'check'
             ],
         ],
         'crdate' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tstamp',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tstamp',
             'config' => [
                 'type' => 'none',
                 'format' => 'date',

@@ -2,7 +2,7 @@
 
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report',
+        'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_moderation_report',
         'label' => 'post',
         'type' => 'type',
         'tstamp' => 'tstamp',
@@ -38,18 +38,18 @@ return [
         ],
         'type' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.type',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_moderation_report.type',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.type.userReport', 'Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport'],
-                    ['LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.type.postReport', 'Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport'],
+                    ['LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_moderation_report.type.userReport', 'Mittwald\Typo3Forum\Domain\Model\Moderation\UserReport'],
+                    ['LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_moderation_report.type.postReport', 'Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport'],
                 ],
             ],
         ],
         'post' => [
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.post',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_moderation_report.post',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -59,7 +59,7 @@ return [
         ],
         'feuser' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.feuser',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_moderation_report.feuser',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -69,7 +69,7 @@ return [
         ],
         'reporter' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.reporter',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_moderation_report.reporter',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -79,7 +79,7 @@ return [
         ],
         'moderator' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.moderator',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_moderation_report.moderator',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -89,7 +89,7 @@ return [
         ],
         'workflow_status' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.workflow_status',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_moderation_report.workflow_status',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -99,7 +99,7 @@ return [
         ],
         'comments' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.comments',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_moderation_report.comments',
             'config' => [
                 'type' => 'inline',
                 'foreign_table' => 'tx_typo3forum_domain_model_moderation_reportcomment',

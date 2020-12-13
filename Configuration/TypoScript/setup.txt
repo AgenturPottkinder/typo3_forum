@@ -152,18 +152,18 @@ plugin {
 					panels {
 						bbCodes {
 							className = Mittwald\Typo3Forum\TextParser\Panel\BbCodePanel
-							title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:Editor_Panel_Formatting
+							title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xlf:Editor_Panel_Formatting
 						}
 
 						syntax {
 							className = Mittwald\Typo3Forum\TextParser\Panel\SyntaxHighlightingPanel
-							title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:Editor_Panel_SyntaxHighlighting
+							title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xlf:Editor_Panel_SyntaxHighlighting
 							iconClassName = tx-typo3forum-miu-code
 						}
 
 						smileys {
 							className = Mittwald\Typo3Forum\TextParser\Panel\SmileyPanel
-							title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:Editor_Panel_Smileys
+							title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xlf:Editor_Panel_Smileys
 							iconClassName = tx-typo3forum-miu-smileys
 						}
 					}
@@ -174,7 +174,7 @@ plugin {
 				username {
 					class = Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield
 					properties {
-						name = LLL:EXT:typo3_forum/Resources/Private/Language/locallang_user.xml:Username
+						name = LLL:EXT:typo3_forum/Resources/Private/Language/locallang_user.xlf:Username
 						mapToUserObject = username
 					}
 				}
@@ -182,7 +182,7 @@ plugin {
 				registered_since {
 					class = Mittwald\Typo3Forum\Domain\Model\User\Userfield\DateUserfield
 					properties {
-						name = LLL:EXT:typo3_forum/Resources/Private/Language/locallang_user.xml:RegisteredSince
+						name = LLL:EXT:typo3_forum/Resources/Private/Language/locallang_user.xlf:RegisteredSince
 						mapToUserObject = crdate
 					}
 				}
@@ -190,7 +190,7 @@ plugin {
 				real_name {
 					class = Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield
 					properties {
-						name = LLL:EXT:typo3_forum/Resources/Private/Language/locallang_user.xml:RealName
+						name = LLL:EXT:typo3_forum/Resources/Private/Language/locallang_user.xlf:RealName
 						mapToUserObject = name
 					}
 				}
@@ -245,7 +245,7 @@ plugin {
 
 						10 = TEXT
 						10 {
-							data = LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:Button_User_Profile
+							data = LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xlf:Button_User_Profile
 							typolink {
 								parameter.field = profilePageUid
 								additionalParams {
@@ -488,9 +488,10 @@ page {
 [global]
 
 page {
-	includeJSLibs {
-		typo3forum_jquery = https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
-		typo3forum_jquery.external = 1
+	includeJSFooterlibs {
+#       TODO Move all of this inside the extension and make it optional
+#		typo3forum_jquery = https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
+#		typo3forum_jquery.external = 1
 		typo3forum_popperjs = https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js
 		typo3forum_popperjs.external = 1
 		typo3forum_bootstrap = EXT:typo3_forum/Resources/Public/Bootstrap/js/bootstrap.min.js

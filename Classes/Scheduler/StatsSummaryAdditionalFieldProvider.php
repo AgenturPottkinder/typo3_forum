@@ -59,21 +59,21 @@ class StatsSummaryAdditionalFieldProvider implements AdditionalFieldProviderInte
 
         $additionalFields['StatsSummary_forumPids'] = [
             'code' => '<input type="text" name="tx_scheduler[StatsSummary_forumPids]" value="' . htmlspecialchars($taskInfo['StatsSummary_forumPids']) . '" />',
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_statsSummary_forumPid',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xlf:tx_typo3forum_scheduler_statsSummary_forumPid',
             'cshKey' => '',
             'cshLabel' => ''
         ];
 
         $additionalFields['StatsSummary_userPids'] = [
             'code' => '<input type="text" name="tx_scheduler[StatsSummary_userPids]" value="' . htmlspecialchars($taskInfo['StatsSummary_userPids']) . '" />',
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_statsSummary_userPid',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xlf:tx_typo3forum_scheduler_statsSummary_userPid',
             'cshKey' => '',
             'cshLabel' => ''
         ];
 
         $additionalFields['StatsSummary_statsPid'] = [
             'code' => '<input type="text" name="tx_scheduler[StatsSummary_statsPid]" value="' . htmlspecialchars($taskInfo['StatsSummary_statsPid']) . '" />',
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_statsSummary_statsPid',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xlf:tx_typo3forum_scheduler_statsSummary_statsPid',
             'cshKey' => '',
             'cshLabel' => ''
         ];

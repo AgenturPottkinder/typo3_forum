@@ -2,7 +2,7 @@
 
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_tag',
+        'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_forum_tag',
         'label' => 'name',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -17,13 +17,13 @@ return [
     ],
     'columns' => [
         'name' => [
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_tag.name',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_forum_tag.name',
             'config' => [
                 'type' => 'input',
             ]
         ],
         'tstamp' => [
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_tag.tstamp',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_forum_tag.tstamp',
             'config' => [
                 'type' => 'none',
                 'format' => 'date',
@@ -31,7 +31,7 @@ return [
             ]
         ],
         'crdate' => [
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_tag.crdate',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_forum_tag.crdate',
             'config' => [
                 'type' => 'none',
                 'format' => 'date',
@@ -39,13 +39,13 @@ return [
             ]
         ],
         'topic_count' => [
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_tag.topicCount',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_forum_tag.topicCount',
             'config' => [
                 'type' => 'none',
             ],
         ],
         'feuser' => [
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_tag.feuser',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_forum_tag.feuser',
             'config' => [
                 'type' => 'select',
                 'size' => 10,

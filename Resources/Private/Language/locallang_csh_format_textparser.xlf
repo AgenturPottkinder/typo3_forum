@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" datatype="plaintext" original="messages" date="2020-12-13T08:07:40Z" product-name="typo3_forum">
+		<header/>
+		<body>
+			<trans-unit id="type.description" xml:space="preserve">
+				<source>Type of textparser element</source>
+			</trans-unit>
+			<trans-unit id="name.description" xml:space="preserve">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="icon.description" xml:space="preserve">
+				<source>Icon used for buttons and smiley substitution</source>
+			</trans-unit>
+			<trans-unit id="regular_expression.description" xml:space="preserve">
+				<source>Regular expression used to match bb code usages.</source>
+			</trans-unit>
+			<trans-unit id="regular_expression_replacement.description" xml:space="preserve">
+				<source>Replacement pattern for bb codes.</source>
+			</trans-unit>
+			<trans-unit id="smiley_shortcut.description" xml:space="preserve">
+				<source>Shortcut for smileys. Will be substituted with smiley image.</source>
+			</trans-unit>
+			<trans-unit id="language.description" xml:space="preserve">
+				<source>Language to be highlighted.</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

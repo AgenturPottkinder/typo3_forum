@@ -2,7 +2,7 @@
 
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_stats_summary',
+        'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_stats_summary',
         'label' => 'type',
         'label_alt' => 'tstamp',
         'label_alt_force' => true,
@@ -20,7 +20,7 @@ return [
     ],
     'columns' => [
         'type' => [
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_stats_summary.type',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_stats_summary.type',
             'config' => [
                 'type' => 'radio',
                 'items' => [
@@ -32,13 +32,13 @@ return [
             ],
         ],
         'amount' => [
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_stats_summary.amount',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_stats_summary.amount',
             'config' => [
                 'type' => 'input',
             ],
         ],
         'tstamp' => [
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_stats_summary.tstamp',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_stats_summary.tstamp',
             'config' => [
                 'type' => 'none',
                 'format' => 'date',

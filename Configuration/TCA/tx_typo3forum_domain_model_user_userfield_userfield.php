@@ -2,7 +2,7 @@
 
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_userfield',
+        'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_user_userfield_userfield',
         'label' => 'name',
         'type' => 'type',
         'tstamp' => 'tstamp',
@@ -82,20 +82,20 @@ return [
             ],
         ],
         'type' => [
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_userfield.type',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_user_userfield_userfield.type',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_userfield.type.undefined', 0],
-                    ['LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_userfield.type.typoscript', 'Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield'],
-                    ['LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_userfield.type.text', 'Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield'],
+                    ['LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_user_userfield_userfield.type.undefined', 0],
+                    ['LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_user_userfield_userfield.type.typoscript', 'Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield'],
+                    ['LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_user_userfield_userfield.type.text', 'Mittwald\Typo3Forum\Domain\Model\User\Userfield\TextUserfield'],
                 ],
             ],
         ],
         'name' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_userfield.name',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_user_userfield_userfield.name',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -104,7 +104,7 @@ return [
         ],
         'typoscript_path' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_userfield.typoscript_path',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_user_userfield_userfield.typoscript_path',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -113,7 +113,7 @@ return [
         ],
         'map_to_user_object' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_userfield.map_to_user_object',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_user_userfield_userfield.map_to_user_object',
             'config' => [
                 'type' => 'input',
                 'size' => 30,

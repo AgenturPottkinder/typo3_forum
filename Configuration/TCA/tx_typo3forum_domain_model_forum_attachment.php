@@ -2,7 +2,7 @@
 
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_attachment',
+        'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_forum_attachment',
         'label' => 'name',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -41,7 +41,7 @@ return [
         ],
         'post' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_post.topic',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_forum_post.topic',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -51,7 +51,7 @@ return [
         ],
         'filename' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_attachment.filename',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_forum_attachment.filename',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -60,7 +60,7 @@ return [
         ],
         'real_filename' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_attachment.real_filename',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_forum_attachment.real_filename',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
                 'real_filename',
                 [
@@ -76,7 +76,7 @@ return [
         ],
         'mime_type' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_attachment.mime_type',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_forum_attachment.mime_type',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -85,7 +85,7 @@ return [
         ],
         'download_count' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_attachment.download_count',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_forum_attachment.download_count',
             'config' => [
                 'type' => 'none'
             ],

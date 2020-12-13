@@ -2,7 +2,7 @@
 
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportcomment',
+        'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_moderation_reportcomment',
         'label' => 'text',
         'tstamp' => 'tstamp',
         'delete' => 'deleted',
@@ -34,7 +34,7 @@ return [
         ],
         'report' => [
             'exclude' => 1,
-            'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportcomment.report',
+            'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_moderation_reportcomment.report',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -44,7 +44,7 @@ return [
         ],
         'author' => [
             'exclude' => 1,
-            'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportcomment.author',
+            'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_moderation_reportcomment.author',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -54,7 +54,7 @@ return [
         ],
         'text' => [
             'exclude' => 1,
-            'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_report.moderator',
+            'label'   => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_moderation_report.moderator',
             'config' => [
                 'type' => 'text',
             ],

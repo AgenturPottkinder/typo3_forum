@@ -58,14 +58,14 @@ class CounterAdditionalFieldProvider implements AdditionalFieldProviderInterface
 
         $additionalFields['Counter_forumPid'] = [
             'code' => '<input type="text" name="tx_scheduler[Counter_forumPid]" value="' . (int)$taskInfo['Counter_forumPid'] . '" />',
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_counter_forumPid',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xlf:tx_typo3forum_scheduler_counter_forumPid',
             'cshKey' => '',
             'cshLabel' => '',
         ];
 
         $additionalFields['Counter_userPid'] = [
             'code' => '<input type="text" name="tx_scheduler[Counter_userPid]" value="' . (int)$taskInfo['Counter_userPid'] . '" />',
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_counter_userPid',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xlf:tx_typo3forum_scheduler_counter_userPid',
             'cshKey' => '',
             'cshLabel' => '',
         ];

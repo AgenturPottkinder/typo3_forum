@@ -2,7 +2,7 @@
 
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_criteria_options',
+        'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_forum_criteria_options',
         'label' => 'name',
         'tstamp' => 'tstamp',
         'delete' => 'deleted',
@@ -17,13 +17,13 @@ return [
     ],
     'columns' => [
         'name' => [
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_criteria_options.name',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_forum_criteria_options.name',
             'config' => [
                 'type' => 'text',
             ],
         ],
         'criteria' => [
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_criteria_options.criteria',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_forum_criteria_options.criteria',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -32,7 +32,7 @@ return [
             ],
         ],
         'sorting' => [
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_criteria_options.sorting',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_forum_criteria_options.sorting',
             'config' => [
                 'type' => 'input',
                 'size' => 11,

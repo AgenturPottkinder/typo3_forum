@@ -2,7 +2,7 @@
 
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_value',
+        'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_user_userfield_value',
         'label' => 'uid',
         'type' => 'user',
         'tstamp' => 'tstamp',
@@ -81,7 +81,7 @@ return [
         ],
         'user' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_value.user',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_user_userfield_value.user',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -91,7 +91,7 @@ return [
         ],
         'userfield' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_value.userfield',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_user_userfield_value.userfield',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -101,7 +101,7 @@ return [
         ],
         'value' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_userfield_value.value',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_user_userfield_value.value',
             'config' => [
                 'type' => 'none',
             ],

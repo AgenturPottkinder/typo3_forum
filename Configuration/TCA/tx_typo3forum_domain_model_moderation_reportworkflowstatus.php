@@ -2,7 +2,7 @@
 
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportworkflowstatus',
+        'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_moderation_reportworkflowstatus',
         'label' => 'name',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -37,7 +37,7 @@ return [
             ],
         ],
         'name' => [
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportworkflowstatus.name',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_moderation_reportworkflowstatus.name',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -46,7 +46,7 @@ return [
         ],
         'followup_status' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportworkflowstatus.followup_status',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_moderation_reportworkflowstatus.followup_status',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
@@ -57,19 +57,19 @@ return [
             ],
         ],
         'initial' => [
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportworkflowstatus.initial',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_moderation_reportworkflowstatus.initial',
             'config' => [
                 'type' => 'check'
             ],
         ],
         'final' => [
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportworkflowstatus.final',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_moderation_reportworkflowstatus.final',
             'config' => [
                 'type' => 'check'
             ],
         ],
         'icon' => [
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_moderation_reportworkflowstatus.icon',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_moderation_reportworkflowstatus.icon',
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'file',

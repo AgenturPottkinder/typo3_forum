@@ -60,21 +60,21 @@ class NotificationAdditionalFieldProvider implements AdditionalFieldProviderInte
 
         $additionalFields['Notification_forumPids'] = [
             'code' => '<input type="text" name="tx_scheduler[Notification_forumPids]" value="' . htmlspecialchars($taskInfo['Notification_forumPids']) . '" />',
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_notification_forumPid',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xlf:tx_typo3forum_scheduler_notification_forumPid',
             'cshKey' => '',
             'cshLabel' => ''
         ];
 
         $additionalFields['Notification_userPids'] = [
             'code' => '<input type="text" name="tx_scheduler[Notification_userPids]" value="' . htmlspecialchars($taskInfo['Notification_userPids']) . '" />',
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_notification_userPid',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xlf:tx_typo3forum_scheduler_notification_userPid',
             'cshKey' => '',
             'cshLabel' => ''
         ];
 
         $additionalFields['Notification_notificationPid'] = [
             'code' => '<input type="text" name="tx_scheduler[Notification_notificationPid]" value="' . (int)$taskInfo['Notification_notificationPid'] . '" />',
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_notification_notificationPid',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xlf:tx_typo3forum_scheduler_notification_notificationPid',
             'cshKey' => '',
             'cshLabel' => ''
         ];

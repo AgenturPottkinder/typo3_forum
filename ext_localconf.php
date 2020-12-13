@@ -66,7 +66,7 @@ if (!is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['typo3forum_main'] = [];
 }
 
-$GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['typo3_forum'] = 'EXT:typo3_forum/Classes/Ajax/Dispatcher.php';
+$GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['typo3_forum'] = \Mittwald\Typo3Forum\Ajax\Dispatcher::class . '::processRequest';
 
 // Connect signals to slots. Some parts of extbase suck, but the signal-slot
 // pattern is really cool! :P
@@ -79,36 +79,36 @@ $signalSlotDispatcher->connect('TYPO3\CMS\Extbase\Persistence\Generic\Mapper\Dat
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Mittwald\Typo3Forum\Scheduler\Counter'] = [
     'extension' => $_EXTKEY,
-    'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_counter_title',
-    'description' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_counter_description',
+    'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xlf:tx_typo3forum_scheduler_counter_title',
+    'description' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xlf:tx_typo3forum_scheduler_counter_description',
     'additionalFields' => 'Mittwald\Typo3Forum\Scheduler\CounterAdditionalFieldProvider'
 ];
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Mittwald\Typo3Forum\Scheduler\ForumRead'] = [
     'extension' => $_EXTKEY,
-    'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_forumRead_title',
-    'description' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_forumRead_description',
+    'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xlf:tx_typo3forum_scheduler_forumRead_title',
+    'description' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xlf:tx_typo3forum_scheduler_forumRead_description',
     'additionalFields' => 'Mittwald\Typo3Forum\Scheduler\ForumReadAdditionalFieldProvider',
 ];
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Mittwald\Typo3Forum\Scheduler\Notification'] = [
     'extension' => $_EXTKEY,
-    'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_notification_title',
-    'description' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_notification_description',
+    'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xlf:tx_typo3forum_scheduler_notification_title',
+    'description' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xlf:tx_typo3forum_scheduler_notification_description',
     'additionalFields' => 'Mittwald\Typo3Forum\Scheduler\NotificationAdditionalFieldProvider',
 ];
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Mittwald\Typo3Forum\Scheduler\SessionResetter'] = [
     'extension' => $_EXTKEY,
-    'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_sessionResetter_title',
-    'description' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_sessionResetter_description',
+    'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xlf:tx_typo3forum_scheduler_sessionResetter_title',
+    'description' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xlf:tx_typo3forum_scheduler_sessionResetter_description',
     'additionalFields' => 'Mittwald\Typo3Forum\Scheduler\SessionResetterAdditionalFieldProvider',
 ];
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Mittwald\Typo3Forum\Scheduler\StatsSummary'] = [
     'extension' => $_EXTKEY,
-    'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_statsSummary_title',
-    'description' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_statsSummary_description',
+    'title' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xlf:tx_typo3forum_scheduler_statsSummary_title',
+    'description' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xlf:tx_typo3forum_scheduler_statsSummary_description',
     'additionalFields' => 'Mittwald\Typo3Forum\Scheduler\StatsSummaryAdditionalFieldProvider',
 ];
 

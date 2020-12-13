@@ -2,7 +2,7 @@
 
 $tempColumns = [
     'tx_typo3forum_user_mod' => [
-        'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_groups.user_mod',
+        'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:fe_groups.user_mod',
         'config' => [
             'type' => 'check',
         ],
@@ -14,10 +14,10 @@ $GLOBALS['TCA']['fe_groups']['types']['Mittwald\Typo3Forum\Domain\Model\User\Fro
     'fe_groups',
     'tx_extbase_type',
     [
-        'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_groups.tx_extbase_type.typo3_forum',
+        'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:fe_groups.tx_extbase_type.typo3_forum',
         'Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup',
     ]
 );
 $GLOBALS['TCA']['fe_groups']['types']['Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup']['showitem'] .=
-    ',--div--;LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:fe_users.tx_typo3forum.tab.settings,' .
+    ',--div--;LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:fe_users.tx_typo3forum.tab.settings,' .
     'tx_typo3forum_user_mod';

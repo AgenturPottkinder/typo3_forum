@@ -53,7 +53,7 @@ class SessionResetterAdditionalFieldProvider implements AdditionalFieldProviderI
 
         $additionalFields['SessionResetter_userPid'] = [
             'code' => '<input type="text" name="tx_scheduler[SessionResetter_userPid]" value="' . (int)$taskInfo['SessionResetter_userPid'] . '" />',
-            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xml:tx_typo3forum_scheduler_sessionResetter_userPid',
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang.xlf:tx_typo3forum_scheduler_sessionResetter_userPid',
             'cshKey' => '',
             'cshLabel' => ''
         ];
