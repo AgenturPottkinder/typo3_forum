@@ -111,7 +111,7 @@ class ReportController extends AbstractController
 
         // Display success message and redirect to topic->show action.
         $this->controllerContext->getFlashMessageQueue()->enqueue(
-            new FlashMessage(LocalizationUtility::translate('Report_New_Success', 'Typo3Forum'))
+            new FlashMessage(LocalizationUtility::translate('LLL:EXT:Typo3Forum/Resources/Private/Language/locallang.xlf:Report_New_Success', 'Typo3Forum'))
         );
         $this->redirect('show', 'User', null, ['user' => $user], $this->settings['pids']['UserShow']);
     }

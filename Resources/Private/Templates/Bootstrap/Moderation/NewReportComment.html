@@ -6,13 +6,13 @@
 
 	<f:flashMessages />
 
-	<f:form action="createReportComment" object="{comment}" name="comment" class="form-horizontal">
+	<f:form action="createPostReportComment" object="{comment}" name="comment" class="form-horizontal">
 		<fieldset>
 			<legend>
 				<f:translate key="Report_NewComment" />
 			</legend>
 			<b:form.row llLabel="Report_NewComment_Text" error="comment.text" errorLLPrefix="Report_NewComment_Error_Text">
-				<m:form.bbCodeEditor class="tx-typo3forum-editor" property="text" id="typo3forum_editor" rows="5" cols="10" />
+				<mmf:form.bbCodeEditor class="tx-typo3forum-editor" property="text" id="typo3forum_editor" rows="5" cols="10" />
 			</b:form.row>
 			<div class="form-actions">
 				<f:form.hidden name="report" value="{report}" />

@@ -255,8 +255,9 @@ class ModerationController extends AbstractController
         $report->addComment($comment);
         $this->reportRepository->update($report);
 
-        // Add flash message and clear cache.
-        $this->addLocalizedFlashmessage('Report_UpdateStatus_Success', [$report->getUid(), $status->getName()]);
+        // TODO Add flash message and clear cache.
+        // $this->addLocalizedFlashmessage('LLL:EXT:Typo3Forum/Resources/Private/Language/locallang.xlf:Report_UpdateStatus_Success', [$report->getUid(), $status->getName()]);
+
         $this->clearCacheForCurrentPage();
 
         if ($redirect === 'show') {

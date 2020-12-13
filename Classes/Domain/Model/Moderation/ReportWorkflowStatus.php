@@ -25,6 +25,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\Moderation;
  *                                                                      */
 
 use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
 

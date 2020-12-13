@@ -70,15 +70,17 @@ return [
         ],
         'icon' => [
             'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_moderation_reportworkflowstatus.icon',
-            'config' => [
-                'type' => 'group',
-                'internal_type' => 'file',
-                'uploadfolder' => 'uploads/tx_typo3forum/workflowstatus/',
-                'minitems' => 1,
-                'maxitems' => 1,
-                'allowed' => '*',
-                'disallowed' => ''
-            ],
+            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
+                'icon',
+                [
+                    'foreign_match_fields' => [
+                        'fieldname' => 'icon',
+                        'tablenames' => 'tx_typo3forum_domain_model_forum_reportworkflowstatus',
+                        'table_local' => 'sys_file',
+                    ],
+                ],
+                '*'
+            ),
         ],
     ],
 ];

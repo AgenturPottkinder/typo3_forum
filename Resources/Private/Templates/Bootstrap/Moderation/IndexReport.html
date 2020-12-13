@@ -41,7 +41,7 @@
 								</td>
 								<td>{report.uid}</td>
 								<td>
-									<f:link.action action="reportShow" arguments="{report: report}">{report.topic.subject}</f:link.action>
+									<f:link.action action="editReport" arguments="{postReport: report}">{report.topic.subject}</f:link.action>
 								</td>
 								<td>
 									<f:link.action controller="User" action="show" arguments="{user : report.reporter}" pageUid="{settings.pids.UserShow}">{report.reporter.username}</f:link.action>
