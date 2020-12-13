@@ -310,10 +310,13 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
         foreach ($this->getChildren() as $child) {
             /** @var $child Forum */
             /** @noinspection PhpUndefinedMethodInspection */
-            if ($lastTopic === null || ($child->getLastTopic() !== null && $child->getLastTopic()->getLastPost()
-                        ->getTimestamp() > $lastTopic->getLastPost()->getTimestamp())
-            ) {
-                $lastTopic = $child->getLastTopic();
+            if($lastTopic !== null && $lastTopic->getLastPost() !== null && $child->getLastTopic() !== null && $child->getLastTopic()->getLastPost() !== null) {
+                if ($lastTopic === null || ($child->getLastTopic() !== null &&
+                        $child->getLastTopic()->getLastPost()->getTimestamp() >
+                        $lastTopic->getLastPost()->getTimestamp())
+                ) {
+                    $lastTopic = $child->getLastTopic();
+                }
             }
         }
 
