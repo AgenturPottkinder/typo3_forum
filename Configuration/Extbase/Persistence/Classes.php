@@ -103,8 +103,8 @@ return [
         'tableName' => 'fe_groups',
         'recordType' => \Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup::class,
         'properties' => [
-            'tx_typo3forum_user_mod' => [
-                'fieldName' => 'userMod'
+            'userMod' => [
+                'fieldName' => 'tx_typo3forum_user_mod'
             ]
         ]
     ],
@@ -112,83 +112,83 @@ return [
         'tableName' => 'fe_users',
         'recordType' => \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser::class,
         'properties' => [
-            'tx_typo3forum_signature' => [
-                'fieldName' => 'signature'
+            'signature' => [
+                'fieldName' => 'tx_typo3forum_signature'
             ],
-            'tx_typo3forum_post_count' => [
-                'fieldName' => 'postCount'
+            'postCount' => [
+                'fieldName' => 'tx_typo3forum_post_count'
             ],
-            'tx_typo3forum_post_count_session' => [
-                'fieldName' => 'postCountSession'
+            'postCountSession' => [
+                'fieldName' => 'tx_typo3forum_post_count_session'
             ],
-            'tx_typo3forum_topic_count' => [
-                'fieldName' => 'topicCount'
+            'topicCount' => [
+                'fieldName' => 'tx_typo3forum_topic_count'
             ],
-            'tx_typo3forum_helpful_count' => [
-                'fieldName' => 'helpfulCount'
+            'helpfulCount' => [
+                'fieldName' => 'tx_typo3forum_helpful_count'
             ],
-            'tx_typo3forum_helpful_count_session' => [
-                'fieldName' => 'helpfulCountSession'
+            'helpfulCountSession' => [
+                'fieldName' => 'tx_typo3forum_helpful_count_session'
             ],
-            'tx_typo3forum_question_count' => [
-                'fieldName' => 'questionCount'
+            'questionCount' => [
+                'fieldName' => 'tx_typo3forum_question_count'
             ],
-            'tx_typo3forum_support_posts' => [
-                'fieldName' => 'supportPosts'
+            'supportPosts' => [
+                'fieldName' => 'tx_typo3forum_support_posts'
             ],
-            'tx_typo3forum_facebook' => [
-                'fieldName' => 'facebook'
+            'facebook' => [
+                'fieldName' => 'tx_typo3forum_facebook'
             ],
-            'tx_typo3forum_twitter' => [
-                'fieldName' => 'twitter'
+            'twitter' => [
+                'fieldName' => 'tx_typo3forum_twitter'
             ],
-            'tx_typo3forum_google' => [
-                'fieldName' => 'google'
+            'google' => [
+                'fieldName' => 'tx_typo3forum_google'
             ],
-            'tx_typo3forum_skype' => [
-                'fieldName' => 'skype'
+            'skype' => [
+                'fieldName' => 'tx_typo3forum_skype'
             ],
-            'tx_typo3forum_job' => [
-                'fieldName' => 'job'
+            'job' => [
+                'fieldName' => 'tx_typo3forum_job'
             ],
-            'tx_typo3forum_interests' => [
-                'fieldName' => 'interests'
+            'interests' => [
+                'fieldName' => 'tx_typo3forum_interests'
             ],
-            'tx_typo3forum_working_environment' => [
-                'fieldName' => 'workingEnvironment'
+            'workingEnvironment' => [
+                'fieldName' => 'tx_typo3forum_working_environment'
             ],
-            'tx_typo3forum_topic_favsubscriptions' => [
-                'fieldName' => 'topicFavSubscriptions'
+            'topicFavSubscriptions' => [
+                'fieldName' => 'tx_typo3forum_topic_favsubscriptions'
             ],
-            'tx_typo3forum_topic_subscriptions' => [
-                'fieldName' => 'topicSubscriptions'
+            'topicSubscriptions' => [
+                'fieldName' => 'tx_typo3forum_topic_subscriptions'
             ],
-            'tx_typo3forum_forum_subscriptions' => [
-                'fieldName' => 'forumSubscriptions'
+            'forumSubscriptions' => [
+                'fieldName' => 'tx_typo3forum_forum_subscriptions'
             ],
-            'tx_typo3forum_read_topics' => [
-                'fieldName' => 'readTopics'
+            'readTopics' => [
+                'fieldName' => 'tx_typo3forum_read_topics'
             ],
-            'tx_typo3forum_read_forum' => [
-                'fieldName' => 'readForum'
+            'readForum' => [
+                'fieldName' => 'tx_typo3forum_read_forum'
             ],
-            'tx_typo3forum_use_gravatar' => [
-                'fieldName' => 'useGravatar'
+            'useGravatar' => [
+                'fieldName' => 'tx_typo3forum_use_gravatar'
             ],
-            'tx_typo3forum_contact' => [
-                'fieldName' => 'contact'
+            'contact' => [
+                'fieldName' => 'tx_typo3forum_contact'
             ],
-            'tx_typo3forum_private_messages' => [
-                'fieldName' => 'privateMessages'
+            'privateMessages' => [
+                'fieldName' => 'tx_typo3forum_private_messages'
             ],
-            'tx_typo3forum_rank' => [
-                'fieldName' => 'rank'
+            'rank' => [
+                'fieldName' => 'tx_typo3forum_rank'
             ],
-            'tx_typo3forum_points' => [
-                'fieldName' => 'points'
+            'points' => [
+                'fieldName' => 'tx_typo3forum_points'
             ],
-            'date_of_birth' => [
-                'fieldName' => 'dateOfBirth'
+            'dateOfBirth' => [
+                'fieldName' => 'date_of_birth'
             ],
         ]
     ],
