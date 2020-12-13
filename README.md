@@ -1,5 +1,8 @@
 # TYPO3 Forum
 
+[![Crowdin](https://badges.crowdin.net/typo3-extension-typo3forum/localized.svg)](https://crowdin.com/project/typo3-extension-typo3forum)
+
+
 The typo3_forum is a frontend plugin that adds a discussion board to your TYPO3-based website. The extension was originally written to be used for discussing questions about TYPO3 in the TYPO3 portal TYPO3.net by Mittwald CM Service.
 
 The extension currently consists of 10 different plugins. These plugins provide the following features:
@@ -32,3 +35,17 @@ This project was build from Mittwald and is now maintaned by us. We are the Pott
 You can read more here: https://www.mittwald.de/blog/cms/typo3-cms/maintainer-fuer-typo3-forum-pottkinder
 
 If you need to contact us via mail use support@agentur-pottkinder.de please =).
+
+# TODOs
+
+* TopicFactory reenable ShadowTopics
+* Repair EditTopic
+* Move everything from dispatcher to middleware
+* Simple WYSIWYG implementation ( https://github.com/tinymce/tinymce ; https://www.tiny.cloud/docs/plugins/opensource/bbcode/ ; https://www.tiny.cloud/docs/plugins/opensource/autoresize/ ; https://www.tiny.cloud/docs/general-configuration-guide/use-tinymce-distraction-free/ (?) )
+* UnitTesting
+* Change Icons to a modern layout
+* Remove Layout without Bootstrap ( if someone wants this without Bootstrap he / she has to adopt the template )
+* CleanUp FileUpload
+* Adjust Multilanguality
+* Unload Bootstrap CSS and JS from Template and set this to own template
+* File Upload
