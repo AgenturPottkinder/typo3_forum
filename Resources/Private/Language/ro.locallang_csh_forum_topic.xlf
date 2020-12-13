@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="messages" date="2020-12-13T08:08:14Z" product-name="typo3_forum" target-language="ro">
+    <header/>
+    <body>
+      <trans-unit id="subject.description" xml:space="preserve">
+				<source>subject</source>
+			<target state="needs-translation">subject</target></trans-unit>
+      <trans-unit id="posts.description" xml:space="preserve">
+				<source>posts</source>
+			<target state="needs-translation">posts</target></trans-unit>
+      <trans-unit id="author.description" xml:space="preserve">
+				<source>author</source>
+			<target state="needs-translation">author</target></trans-unit>
+      <trans-unit id="last_post.description" xml:space="preserve">
+				<source>lastPost</source>
+			<target state="needs-translation">lastPost</target></trans-unit>
+    </body>
+  </file>
+</xliff>
