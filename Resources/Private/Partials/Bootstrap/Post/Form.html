@@ -20,6 +20,8 @@
 					<mmf:form.bbCodeEditor property="text" id="typo3forum_editor" rows="20" class="tx-typo3forum-editor form-control"/>
 				</b:form.row>
 			</div>
+			<f:comment>
+				<!-- TODO: Disable File Upload as long as it is not working... -->
 			<div class="form-group">
 				<b:form.row llLabel="Post_New_Attachments" labelFor="attachments" error="attachments" errorLLPrefix="Topic_New_Error_Attachment_Text">
 					<f:if condition="{post.attachments}">
@@ -33,6 +35,7 @@
 					<f:form.upload id="attachments" name="attachments[0]"/>
 				</b:form.row>
 			</div>
+			</f:comment>
 			<div class="form-actions">
 				<f:form.hidden name="topic" value="{topic}"/>
 				<f:form.submit value="{f:translate(key: 'Post_New_Submit')}" class="btn btn-primary"/>
