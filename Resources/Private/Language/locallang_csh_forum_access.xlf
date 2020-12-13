@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" datatype="plaintext" original="messages" date="2020-12-13T08:07:50Z" product-name="typo3_forum">
+		<header/>
+		<body>
+			<trans-unit id="login_level.description" xml:space="preserve">
+				<source>The required login level. This defines whether this access entry affects all users, only users that are currently logged in, or users that are members of a specific user group.</source>
+			</trans-unit>
+			<trans-unit id="operation.description" xml:space="preserve">
+				<source>The operation that is described by this access entry.</source>
+			</trans-unit>
+			<trans-unit id="negate.description" xml:space="preserve">
+				<source>Check this field in order to negate this access entry. So instead of explicitly granting access to a certain operation, you now deny it.</source>
+			</trans-unit>
+			<trans-unit id="forum.description" xml:space="preserve">
+				<source>The forum that this access entry is assigned to.</source>
+			</trans-unit>
+			<trans-unit id="group.alttitle" xml:space="preserve">
+				<source>User group</source>
+			</trans-unit>
+			<trans-unit id="group.description" xml:space="preserve">
+				<source>The user group that this access entry is assigned to.</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
