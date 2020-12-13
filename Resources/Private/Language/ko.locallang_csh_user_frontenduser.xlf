@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="messages" date="2020-12-13T08:08:18Z" product-name="typo3_forum" target-language="ko">
+    <header/>
+    <body>
+      <trans-unit id="post_count.description" xml:space="preserve">
+				<source>Forum post count</source>
+			<target state="needs-translation">Forum post count</target></trans-unit>
+      <trans-unit id="topic_subscriptions.description" xml:space="preserve">
+				<source>topicSubscriptions</source>
+			<target state="needs-translation">topicSubscriptions</target></trans-unit>
+      <trans-unit id="forum_subscriptions.description" xml:space="preserve">
+				<source>forumSubscriptions</source>
+			<target state="needs-translation">forumSubscriptions</target></trans-unit>
+    </body>
+  </file>
+</xliff>
