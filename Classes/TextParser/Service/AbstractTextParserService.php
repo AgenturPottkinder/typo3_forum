@@ -24,6 +24,7 @@ namespace Mittwald\Typo3Forum\TextParser\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Service\AbstractService;
 use TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext;
 
@@ -67,7 +68,8 @@ abstract class AbstractTextParserService extends AbstractService
      * Renders the parsed text.
      *
      * @param string $text The text to be parsed.
+     * @param Post $post The post object if available
      * @return string The parsed text.
      */
-    abstract public function getParsedText($text);
+    abstract public function getParsedText($text, $post = null);
 }

@@ -19,11 +19,11 @@ return [
         'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/Format/Textparser.png'
     ],
     'interface' => [
-        'showRecordFieldList' => 'type,name,icon_class,bbcode_wrap,regular_expression,regular_expression_replacement,smiley_shortcut,language'
+        'showRecordFieldList' => 'type,name,icon_class,bbcode_wrap,regular_expression,regular_expression_replacement,regular_expression_replacement_blocked,smiley_shortcut,groups,language'
     ],
     'types' => [
         '1' => ['showitem' => 'type'],
-        'Mittwald\Typo3Forum\Domain\Model\Format\BBCode' => ['showitem' => 'type,name,icon_class,bbcode_wrap,regular_expression,regular_expression_replacement'],
+        'Mittwald\Typo3Forum\Domain\Model\Format\BBCode' => ['showitem' => 'type,name,icon_class,bbcode_wrap,regular_expression,regular_expression_replacement,regular_expression_replacement_blocked,groups'],
         'Mittwald\Typo3Forum\Domain\Model\Format\QuoteBBCode' => ['showitem' => 'type,name,icon_class'],
         'Mittwald\Typo3Forum\Domain\Model\Format\ListBBCode' => ['showitem' => 'type,name,icon_class'],
         'Mittwald\Typo3Forum\Domain\Model\Format\Smiley' => ['showitem' => 'type,name,icon_class,smiley_shortcut'],
@@ -143,6 +143,15 @@ return [
                 'eval' => 'trim,required'
             ],
         ],
+        'regular_expression_replacement_blocked' => [
+            'exclude' => 1,
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_format_textparser.regular_expression_replacement_blocked',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim,required'
+            ],
+        ],
         'smiley_shortcut' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_format_textparser.smiley_shortcut',
@@ -150,6 +159,15 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'trim,required'
+            ],
+        ],
+        'groups' => [
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_format_textparser.groups',
+            'exclude' => 1,
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
+                'foreign_table' => 'fe_groups',
             ],
         ],
         'language' => [

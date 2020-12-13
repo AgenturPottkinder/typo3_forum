@@ -24,6 +24,7 @@ namespace Mittwald\Typo3Forum\TextParser\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class BasicParserService extends AbstractTextParserService
@@ -44,10 +45,11 @@ class BasicParserService extends AbstractTextParserService
     /**
      * Renders the parsed text.
      *
-     * @param string $text The text to be parsed.
+     * @param string $text The text that is to be parsed.
+     * @param Post $post The post object
      * @return string       The parsed text.
      */
-    public function getParsedText($text)
+    public function getParsedText($text, $post = null)
     {
         $this->text = $text;
         $this->extractProtectedParts();

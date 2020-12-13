@@ -48,10 +48,11 @@ class QuoteParserService extends AbstractTextParserService
     /**
      * Renders the parsed text.
      *
-     * @param string $text The text to be parsed.
-     * @return string The parsed text.
+     * @param string $text The text that is to be parsed.
+     * @param Post $post The post object
+     * @return string       The parsed text.
      */
-    public function getParsedText($text)
+    public function getParsedText($text, $post = null)
     {
         do {
             $text = preg_replace_callback('/\[quote](.*?)\[\/quote\]\w*/is', [$this, 'replaceSingleCallback'], $text, -1, $c);

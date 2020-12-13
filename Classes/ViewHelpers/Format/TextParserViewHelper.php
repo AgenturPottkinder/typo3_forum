@@ -80,7 +80,7 @@ class TextParserViewHelper extends AbstractViewHelper
         /* @var Post $post */
         $post = $this->arguments['post'];
         if ($post !== null) {
-            $renderedText = $this->textParserService->parseText($post->getText());
+            $renderedText = $this->textParserService->parseText($post->getText(), $post);
         } else {
             $renderedText = $this->textParserService->parseText($this->arguments['content'] ?: trim($this->renderChildren()));
         }

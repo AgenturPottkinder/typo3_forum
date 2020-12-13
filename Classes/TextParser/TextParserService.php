@@ -1,6 +1,7 @@
 <?php
 namespace Mittwald\Typo3Forum\TextParser;
 
+use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Service\AbstractService;
 
 /*                                                                    - *
@@ -117,10 +118,11 @@ class TextParserService extends AbstractService
      * Parses a certain input text.
      *
      * @param string $text The text that is to be parsed.
+     * @param Post $post The post object to render
      * @return string       The parsed text
      * @throws \Mittwald\Typo3Forum\Domain\Exception\TextParser\Exception
      */
-    public function parseText($text)
+    public function parseText($text, $post = null)
     {
         if ($this->settings === null) {
             throw new \Mittwald\Typo3Forum\Domain\Exception\TextParser\Exception('The textparser is not configured!', 1284730639);
@@ -128,7 +130,7 @@ class TextParserService extends AbstractService
 
         foreach ($this->parsingServices as &$parsingService) {
             /** @var $parsingService \Mittwald\Typo3Forum\TextParser\Service\AbstractTextParserService */
-            $text = $parsingService->getParsedText($text);
+            $text = $parsingService->getParsedText($text, $post);
         }
         return $text;
     }

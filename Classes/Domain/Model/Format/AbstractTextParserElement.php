@@ -52,6 +52,11 @@ abstract class AbstractTextParserElement extends AbstractValueObject
     protected $defaultIconDir = 'Editor/';
 
     /**
+     * @var string $groups
+     */
+    protected $groups;
+
+    /**
      * Gets the icon filename.
      * @return string The icon filename.
      */
@@ -95,5 +100,10 @@ abstract class AbstractTextParserElement extends AbstractValueObject
     public function setDefaultIconDir($defaultIconDir)
     {
         $this->defaultIconDir = $defaultIconDir;
+    }
+
+    public function getIdsOfGroups() : array
+    {
+        return explode(',', $this->groups);
     }
 }

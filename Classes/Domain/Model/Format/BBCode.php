@@ -51,6 +51,12 @@ class BBCode extends AbstractTextParserElement implements MarkItUpExportableInte
     protected $regularExpressionReplacement;
 
     /**
+     * The replacement pattern or the regular expression.
+     * @var string
+     */
+    protected $regularExpressionReplacementBlocked;
+
+    /**
      * The bb code wrap. This string specifies which bb codes are to be inserted into
      * the post text by the bb code editor.
      * @var string
@@ -63,12 +69,14 @@ class BBCode extends AbstractTextParserElement implements MarkItUpExportableInte
      * @param string $bbcodeWrap
      * @param string $regularExpression
      * @param string $regularExpressionReplacement
+     * @param string $regularExpressionReplacementBlocked
      */
-    public function __construct($bbcodeWrap = null, $regularExpression = null, $regularExpressionReplacement = null)
+    public function __construct($bbcodeWrap = null, $regularExpression = null, $regularExpressionReplacement = null, $regularExpressionReplacementBlocked = null)
     {
         $this->bbcodeWrap = $bbcodeWrap;
         $this->regularExpression = $regularExpression;
         $this->regularExpressionReplacement = $regularExpressionReplacement;
+        $this->regularExpressionReplacementBlocked = $regularExpressionReplacementBlocked;
     }
 
     /**
@@ -103,6 +111,22 @@ class BBCode extends AbstractTextParserElement implements MarkItUpExportableInte
     public function setRegularExpressionReplacement($regularExpressionReplacement)
     {
         $this->regularExpressionReplacement = $regularExpressionReplacement;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRegularExpressionReplacementBlocked()
+    {
+        return $this->regularExpressionReplacementBlocked;
+    }
+
+    /**
+     * @param string $regularExpressionReplacementBlocked
+     */
+    public function setRegularExpressionReplacementBlocked($regularExpressionReplacementBlocked)
+    {
+        $this->regularExpressionReplacementBlocked = $regularExpressionReplacementBlocked;
     }
 
     /**
