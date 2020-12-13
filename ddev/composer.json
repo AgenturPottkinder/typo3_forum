@@ -23,6 +23,7 @@
 		"helhum/typo3-console": "^6.3",
 		"mittwald/typo3_forum": "v10.x-dev",
 		"typo3/cms-about": "^10.4",
+		"typo3/cms-lowlevel": "^10.4",
 		"typo3/cms-backend": "^10.4",
 		"typo3/cms-belog": "^10.4",
 		"typo3/cms-beuser": "^10.4",
