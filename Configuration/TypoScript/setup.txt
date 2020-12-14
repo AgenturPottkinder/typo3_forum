@@ -109,8 +109,8 @@ plugin {
 			}
 
 			format {
-				dateFormat = d. m. Y
-				dateTimeFormat = d. m. Y, H:i
+				dateFormat = d.m.Y
+				dateTimeFormat = d.m.Y, H:i
 			}
 
 			# Use HTTP-"PURGE" to clear cache of a forum on creating a new topic - for use with a caching proxy like varnish
