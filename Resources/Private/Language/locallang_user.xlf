@@ -7,7 +7,7 @@
 				<source>Username</source>
 			</trans-unit>
 			<trans-unit id="RegisteredSince" xml:space="preserve">
-				<source>Registered Since</source>
+				<source>Registered since</source>
 			</trans-unit>
 			<trans-unit id="RealName" xml:space="preserve">
 				<source>Real name</source>
