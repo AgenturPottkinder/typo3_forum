@@ -483,6 +483,9 @@ page {
 		typo3_forum = EXT:typo3_forum/Resources/Public/Stylesheets/typo3_forum.css
 		bootstrap = EXT:typo3_forum/Resources/Public/Bootstrap/css/bootstrap.min.css
 		markitup_bb = EXT:typo3_forum/Resources/Public/Javascript/markitup/sets/typo3_forum/style.css
+		fontawesome = https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css
+		fontawesome.external = 1
+		fontawesome.excludeFromConcatenation = 1
 	}
 }
 [global]
