@@ -1,7 +1,7 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 <div class="card mb-4">
 	<section class="row">
-		<section class="col-9">
+		<section class="col-md-9">
 			<div class="card-body">
 				<p class="card-text"><mmf:format.textParser post="{post}"/></p>
 				<f:if condition="{post.attachments}">
@@ -53,7 +53,7 @@
 			</div>
 		</section>
 
-		<section id="user-description" class="col-3 border-left">
+		<section id="user-description" class="col-md-3">
 			<div class="card-body">
 				<f:if condition="{post.author.anonymous}">
 					<f:then>
@@ -68,10 +68,10 @@
 	</section>
 	<div class="card-footer">
 		<section class="row">
-			<section class="col-3">
+			<section class="col-6">
 				<f:format.date format="{settings.format.dateTimeFormat}">{post.timestamp}</f:format.date>
 			</section>
-			<section class="col-9">
+			<section class="col-6">
 				<div class="tx-typo3forum-topic-show-post-menu">
 					<f:render partial="Post/Menu" arguments="{post: post}"/>
 				</div>

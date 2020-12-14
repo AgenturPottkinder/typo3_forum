@@ -333,6 +333,19 @@ div.tx-typo3forum-icon {
  * TOPIC SHOW ACTION
 */
 
+#user-description .card-body {
+	border-top: 1px solid $lineColor;
+}
+
+@media (min-width : 768px) {
+	#user-description .card-body {
+		border-top: none;
+	}
+	#user-description {
+		border-left: 1px solid $lineColor;
+	}
+}
+
 div.tx-typo3forum-topic-show-post-user {
 	/*padding: 0.3em;
 	border-bottom: 1px solid #e0e0e0;
