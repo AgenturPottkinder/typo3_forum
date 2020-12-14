@@ -37,10 +37,13 @@
 				</div>
 			</div>
 			<div class="form-actions">
-				<f:link.action controller="Topic" action="show" arguments="{topic: topic}" class="btn">
+				<div class="mb-5">
+					<f:form.submit value="{f:translate(key:'Moderation_EditTopic_Submit', default:'TODO: Submit')}" class="btn btn-primary" />
+				</div>
+				<f:link.action controller="Topic" action="show" class="btn btn-secondary" arguments="{topic: topic}">
+					<i class="fas fa-chevron-left mr-1"></i>
 					<f:translate key="Button_Back" />
 				</f:link.action>
-				<f:form.submit value="{f:translate(key:'Moderation_EditTopic_Submit', default:'TODO: Submit')}" class="btn btn-primary" />
 			</div>
 		</fieldset>
 	</f:form>

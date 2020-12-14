@@ -51,9 +51,14 @@
 					</b:form.row>
 				</div>
 				<div class="form-actions">
-					<f:form.hidden name="forum" value="{forum}"/>
-					<f:form.submit class="btn btn-primary ml-1" value="{f:translate(key:'Topic_New_Submit')}"/>
-					<b:button primary="1" icon="back" controller="Forum" action="show" arguments="{forum: forum}" label="Button_Back"/>
+					<div class="mb-5">
+						<f:form.hidden name="forum" value="{forum}"/>
+						<f:form.submit class="btn btn-primary" value="{f:translate(key:'Topic_New_Submit')}"/>
+					</div>
+					<f:link.action controller="Forum" action="show" class="btn btn-secondary" arguments="{forum: forum}">
+						<i class="fas fa-chevron-left mr-1"></i>
+						<f:translate key="Button_Back" />
+					</f:link.action>
 				</div>
 			</div>
 		</div>

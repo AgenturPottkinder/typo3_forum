@@ -1,58 +1,45 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 
-<f:link.action controller="Forum" action="show" class="btn btn-primary ml-1" arguments="{forum: topic.forum}">
-	<i class="fas fa-chevron-left"></i>
-	<f:translate key="Button_Back" />
-</f:link.action>
-
-
-<mmf:authentication.ifAccess object="{topic}" accessType="newPost">
-		<f:link.action controller="Post" action="new" class="btn btn-primary ml-1" arguments="{topic: topic}">
-			<i class="fas fa-plus"></i>
+<div class="mb-5">
+	<mmf:authentication.ifAccess object="{topic}" accessType="newPost">
+		<f:link.action controller="Post" action="new" class="btn btn-primary mr-1 mb-1" arguments="{topic: topic}">
+			<i class="fas fa-plus mr-1"></i>
 			<f:translate key="Button_Reply" />
 		</f:link.action>
-</mmf:authentication.ifAccess>
+	</mmf:authentication.ifAccess>
 
-<mmf:authentication.ifLoggedIn>
+	<mmf:authentication.ifLoggedIn>
 		<mmf:user.ifSubscribed object="{topic}">
 			<f:then>
-				<f:link.action controller="User" class="btn btn-primary ml-1" action="subscribe" arguments="{topic: topic, unsubscribe: 1}">
-					<i class="fas fa-bell-slash"></i>
+				<f:link.action controller="User" class="btn btn-primary mr-1 mb-1" action="subscribe" arguments="{topic: topic, unsubscribe: 1}">
+					<i class="fas fa-bell-slash mr-1"></i>
 					<f:translate key="Button_Unsubscribe" />
 				</f:link.action>
 			</f:then>
 			<f:else>
-				<f:link.action controller="User" class="btn btn-primary ml-1" action="subscribe" arguments="{topic: topic}">
-					<i class="fas fa-bell"></i>
+				<f:link.action controller="User" class="btn btn-primary mr-1 mb-1" action="subscribe" arguments="{topic: topic}">
+					<i class="fas fa-bell mr-1"></i>
 					<f:translate key="Button_Subscribe" />
 				</f:link.action>
 			</f:else>
 		</mmf:user.ifSubscribed>
-</mmf:authentication.ifLoggedIn>
+	</mmf:authentication.ifLoggedIn>
 
-<mmf:authentication.ifAccess object="{topic}" accessType="moderate">
-	<li class="dropdown dropup">
-		<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-			<i class="fas fa-cog"></i>
+	<mmf:authentication.ifAccess object="{topic}" accessType="moderate">
+		<f:link.action controller="Moderation" class="btn btn-primary mr-1 mb-1" action="editTopic" arguments="{topic: topic}">
+			<i class="fas fa-cog mr-1"></i>
 			<f:translate key="Button_Moderate" />
-			<b class="caret"></b>
-		</a>
-		<ul class="dropdown-menu">
-			<li>
-				<f:link.action controller="Moderation" action="editTopic" arguments="{topic: topic}">
-					<i class="fas fa-cog"></i>
-					<f:translate key="Button_Moderate" />
-				</f:link.action>
-			</li>
-			<mmf:authentication.ifAccess object="{topic}" accessType="deleteTopic">
-				<li class="divider"></li>
-				<li>
-					<f:link.action controller="Moderation" action="deleteTopic" arguments="{topic: topic}">
-						<i class="fas fa-trash-alt"></i>
-						<f:translate key="Button_Delete_Topic"/>
-					</f:link.action>
-				</li>
-			</mmf:authentication.ifAccess>
-		</ul>
-	</li>
-</mmf:authentication.ifAccess>
+		</f:link.action>
+	</mmf:authentication.ifAccess>
+	<mmf:authentication.ifAccess object="{topic}" accessType="deleteTopic">
+		<f:link.action controller="Moderation" class="btn btn-primary mr-1 mb-1" action="deleteTopic" arguments="{topic: topic}">
+			<i class="fas fa-trash-alt mr-1"></i>
+			<f:translate key="Button_Delete_Topic"/>
+		</f:link.action>
+	</mmf:authentication.ifAccess>
+</div>
+
+<f:link.action controller="Forum" action="show" class="btn btn-secondary" arguments="{forum: topic.forum}">
+	<i class="fas fa-chevron-left mr-1"></i>
+	<f:translate key="Button_Back" />
+</f:link.action>

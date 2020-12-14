@@ -37,9 +37,14 @@
 			</div>
 			</f:comment>
 			<div class="form-actions">
-				<f:form.hidden name="topic" value="{topic}"/>
-				<f:form.submit value="{f:translate(key: 'Post_New_Submit')}" class="btn btn-primary"/>
-				<b:button primary="1" icon="back" controller="Topic" action="show" arguments="{topic:topic}" label="Button_Back"/>
+				<div class="mb-5">
+					<f:form.hidden name="topic" value="{topic}"/>
+					<f:form.submit value="{f:translate(key: 'Post_New_Submit')}" class="btn btn-primary"/>
+				</div>
+				<f:link.action controller="Topic" action="show" class="btn btn-secondary" arguments="{topic: topic}">
+					<i class="fas fa-chevron-left mr-1"></i>
+					<f:translate key="Button_Back" />
+				</f:link.action>
 			</div>
 		</div>
 	</div>
