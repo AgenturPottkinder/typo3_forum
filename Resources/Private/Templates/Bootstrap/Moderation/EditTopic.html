@@ -5,35 +5,40 @@
 
 <f:section name="main">
 	<f:render partial="FormErrors" />
-
+	<h2>
+		<f:translate key="Moderation_EditTopic" default="TODO: Moderate topic" />
+	</h2>
 	<f:form name="topic" object="{topic}" controller="Moderation" action="updateTopic" id="topic" class="form-horizontal">
 		<fieldset>
-			<legend>
-				<f:translate key="Moderation_EditTopic" default="TODO: Moderate topic" />
-			</legend>
-			<div class="control-group">
-				<label for="sticky" class="control-label">
-					<f:translate key="Moderation_EditTopic_Sticky" default="TODO: Sticky" />
-				</label>
-				<div class="controls">
-					<f:form.checkbox property="sticky" value="1" />
+			<div class="form-group">
+				<div class="control-group">
+					<label for="sticky" class="control-label">
+						<f:translate key="Moderation_EditTopic_Sticky" default="TODO: Sticky" />
+					</label>
+					<div class="controls">
+						<f:form.checkbox property="sticky" name="sticky" value="1" />
+					</div>
 				</div>
 			</div>
-			<div class="control-group">
-				<label for="closed" class="control-label">
-					<f:translate key="Moderation_EditTopic_Closed" default="TODO: Closed" />
-				</label>
-				<div class="controls">
-					<f:form.checkbox property="closed" value="1" />
+			<div class="form-group">
+				<div class="control-group">
+					<label for="closed" class="control-label">
+						<f:translate key="Moderation_EditTopic_Closed" default="TODO: Closed" />
+					</label>
+					<div class="controls">
+						<f:form.checkbox property="closed" name="closed" value="1" />
+					</div>
 				</div>
 			</div>
-			<div class="control-group">
-				<label for="moveTopicTarget" class="control-label">
-					<f:translate key="Moderation_EditTopic_Move" default="TODO: Move" />
-				</label>
-				<div class="controls">
-					<input type="checkbox" name="tx_typo3forum_pi1[moveTopic]" value="1" id="tx-typo3forum-movetopic" />
-					<mmf:form.forumSelect name="moveTopicTarget" value="{topic.forum}" id="tx-typo3forum-movetopic-target" disabled="disabled" />
+			<div class="form-group">
+				<div class="control-group">
+					<label for="moveTopicTarget" class="control-label">
+						<f:translate key="Moderation_EditTopic_Move" default="TODO: Move" />
+					</label>
+					<div class="controls">
+						<input type="checkbox" name="tx_typo3forum_pi1[moveTopic]" value="1" id="tx-typo3forum-movetopic" />
+						<mmf:form.forumSelect name="moveTopicTarget" value="{topic.forum}" id="tx-typo3forum-movetopic-target" disabled="disabled" />
+					</div>
 				</div>
 			</div>
 			<div class="form-actions">
