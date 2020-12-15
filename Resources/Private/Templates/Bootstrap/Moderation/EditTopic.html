@@ -11,20 +11,24 @@
 			<legend>
 				<f:translate key="Moderation_EditTopic" default="TODO: Moderate topic" />
 			</legend>
-			<div class="control-group">
-				<label for="sticky" class="control-label">
-					<f:translate key="Moderation_EditTopic_Sticky" default="TODO: Sticky" />
-				</label>
-				<div class="controls">
-					<f:form.checkbox property="sticky" value="1" />
+			<div class="form-group">
+				<div class="control-group">
+					<label for="sticky" class="control-label">
+						<f:translate key="Moderation_EditTopic_Sticky" default="TODO: Sticky" />
+					</label>
+					<div class="controls">
+						<f:form.checkbox name="sticky" property="sticky" value="1" />
+					</div>
 				</div>
 			</div>
-			<div class="control-group">
-				<label for="closed" class="control-label">
-					<f:translate key="Moderation_EditTopic_Closed" default="TODO: Closed" />
-				</label>
-				<div class="controls">
-					<f:form.checkbox property="closed" value="1" />
+			<div class="form-group">
+				<div class="control-group">
+					<label for="closed" class="control-label">
+						<f:translate key="Moderation_EditTopic_Closed" default="TODO: Closed" />
+					</label>
+					<div class="controls">
+						<f:form.checkbox name="closed" property="closed" value="1" />
+					</div>
 				</div>
 			</div>
 			<mmf:authentication.ifAccess object="{topic}" accessType="moveTopic">
@@ -39,10 +43,13 @@
 			</div>
 			</mmf:authentication.ifAccess>
 			<div class="form-actions">
-				<f:link.action controller="Topic" action="show" arguments="{topic: topic}" class="btn">
+				<div class="mb-5">
+					<f:form.submit value="{f:translate(key:'Moderation_EditTopic_Submit', default:'TODO: Submit')}" class="btn btn-primary" />
+				</div>
+				<f:link.action controller="Topic" action="show" arguments="{topic: topic}" class="btn btn-secondary">
+					<i class="fas fa-chevron-left mr-1"></i>
 					<f:translate key="Button_Back" />
 				</f:link.action>
-				<f:form.submit value="{f:translate(key:'Moderation_EditTopic_Submit', default:'TODO: Submit')}" class="btn btn-primary" />
 			</div>
 		</fieldset>
 	</f:form>
