@@ -8,7 +8,7 @@
 	<f:flashMessages />
 
 	<h2>
-		Edit Report
+		<f:translate key="Report_Edit" />
 		<small>{report.topic.subject}</small>
 	</h2>
 
@@ -42,16 +42,14 @@
 					</div>
 					<div class="controls">
 						<div class="btn-group">
-							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-								<i class="tx-typo3forum-icon-16-advanced" style="background-image: url({report.workflowStatus.iconFullpath});"></i>
-							{report.workflowStatus.name}
+							<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+								{report.workflowStatus.name}
 								<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
 								<f:for each="{report.workflowStatus.followupStatus}" as="followupStatus">
-									<li>
+									<li class="dropdown-item">
 										<f:link.action action="updatePostReportStatus" arguments="{report: report, status: followupStatus, redirect: 'show'}">
-											<i class="tx-typo3forum-icon-16-advanced" style="background-image: url({followupStatus.iconFullpath});"></i>
 											<f:translate key="Report_Edit_SetStatus" arguments="{0: followupStatus.name}" />
 										</f:link.action>
 									</li>
@@ -80,8 +78,7 @@
 						<f:translate key="Report_Edit_Topic" />
 					</div>
 					<div class="controls">
-						<mmf:forum.rootline rootline="{report.topic.rootline}" breadcrumb="1" forumicon="iconset-22-folder" topicicon="iconset-22-balloon"
-											class="mb-0"/>
+						<mmf:forum.rootline rootline="{report.topic.rootline}" breadcrumb="1" />
 					</div>
 				</div>
 				<f:render partial="Post/Single" arguments="{post: report.post}" />
@@ -91,16 +88,13 @@
 			<fieldset>
 				<legend>
 					<f:translate key="Report_Edit_Comments" />
-					<f:link.action action="newReportComment" arguments="{report: report}" class="btn btn-primary btn-small" style="float: right;">
-						<f:translate key="Report_Edit_Comments_New" />
-					</f:link.action>
 				</legend>
 				<table class="table table-striped">
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>Author</th>
-							<th>Content</th>
+							<th><f:translate key="Report_Edit_Author" /></th>
+							<th><f:translate key="Report_Edit_Content" /></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -120,6 +114,9 @@
 						</f:for>
 					</tbody>
 				</table>
+				<f:link.action action="newReportComment" arguments="{report: report}" class="btn btn-primary">
+					<f:translate key="Report_Edit_Comments_New" />
+				</f:link.action>
 			</fieldset>
 		</div>
 	</div>

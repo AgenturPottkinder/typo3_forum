@@ -49,3 +49,4 @@ If you need to contact us via mail use support@agentur-pottkinder.de please =).
 * Adjust Multilanguality
 * Unload Bootstrap CSS and JS from Template and set this to own template
 * File Upload
+* Remove report workflow icons field from backend and database
