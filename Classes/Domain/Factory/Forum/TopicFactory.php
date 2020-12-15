@@ -191,12 +191,17 @@ class TopicFactory extends AbstractFactory
         }
         // $shadowTopic = $this->createShadowTopic($topic);
 
+        // TODO Remove this redundancy
+        $topic->setForum($targetForum);
+
         $topic->getForum()->removeTopic($topic);
         // $topic->getForum()->addTopic($shadowTopic);
         $targetForum->addTopic($topic);
 
         $this->forumRepository->update($topic->getForum());
         $this->forumRepository->update($targetForum);
+        // TODO Remove this redundancy
+        $this->topicRepository->update($topic);
     }
 
     /**

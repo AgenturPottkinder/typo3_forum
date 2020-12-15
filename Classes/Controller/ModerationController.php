@@ -37,6 +37,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use TYPO3\CMS\Extbase\Annotation\Inject;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 class ModerationController extends AbstractController
 {
@@ -293,6 +294,7 @@ class ModerationController extends AbstractController
         if ($moveTopic) {
             $this->topicFactory->moveTopic($topic, $moveTopicTarget);
         }
+        (GeneralUtility::makeInstance(PersistenceManager::class))->persistAll();
 
         $this->controllerContext->getFlashMessageQueue()->enqueue(
             new FlashMessage(Localization::translate('Moderation_UpdateTopic_Success', 'Typo3Forum'))

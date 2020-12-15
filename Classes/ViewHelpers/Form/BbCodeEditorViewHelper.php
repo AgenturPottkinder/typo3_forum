@@ -102,7 +102,8 @@ class BbCodeEditorViewHelper extends TextareaViewHelper
     protected function initializeJavascriptSetupFromConfiguration($configurationPath)
     {
         $this->configuration = $this->typoscriptReader->loadTyposcriptFromPath($configurationPath);
-        if ($this->cache->has('bbcodeeditor-jsonconfig')) {
+        // TODO reenable cache of bbcodeeditor
+        if (false && $this->cache->has('bbcodeeditor-jsonconfig')) {
             return $this->javascriptSetup = $this->cache->get('bbcodeeditor-jsonconfig');
         }
 

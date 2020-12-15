@@ -51,6 +51,8 @@ class BbCodePanel extends AbstractPanel
         $result = [];
 
         foreach ($this->bbCodes as $bbCode) {
+            // TODO move this to a service and check if usergroup is working
+
             $result[] = $bbCode->exportForMarkItUp();
         }
         return $result;
