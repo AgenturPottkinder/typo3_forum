@@ -22,5 +22,7 @@
 
 	<!-- MENU section -->
 <f:section name="menu">
-	<f:render partial="Topic/Menu" arguments="{topic: topic}" />
+	<div class="topic_list_menu" data-uid="{topic.uid}">
+		<f:render partial="Topic/Menu" arguments="{topic: topic}" />
+	</div>
 </f:section>
