@@ -540,7 +540,7 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
     }
 
     /**
-     * Checks if a user has access to moderate in this forum.
+     * Checks if a user has access to delete topic in this forum.
      *
      * @param FrontendUser $user The user that is to be checked.
      *
@@ -552,6 +552,21 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
             return false;
         }
         return $this->checkAccess($user, Access::TYPE_DELETE_TOPIC);
+    }
+
+    /**
+     * Checks if a user has access to move topic in this forum.
+     *
+     * @param FrontendUser $user The user that is to be checked.
+     *
+     * @return bool TRUE if the user has access, otherwise FALSE.
+     */
+    public function checkMoveTopicAccess(FrontendUser $user = null)
+    {
+        if ($user === null) {
+            return false;
+        }
+        return $this->checkAccess($user, Access::TYPE_MOVE_TOPIC);
     }
 
     /**

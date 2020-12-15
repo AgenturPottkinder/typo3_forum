@@ -48,6 +48,7 @@ class Access extends AbstractValueObject
     const TYPE_MODERATE = 'moderate';
     const TYPE_SOLUTION = 'solution';
     const TYPE_DELETE_TOPIC = 'deleteTopic';
+    const TYPE_MOVE_TOPIC = 'moveTopic';
 
     /**
      * Anyone.

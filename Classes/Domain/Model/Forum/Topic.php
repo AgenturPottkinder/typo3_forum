@@ -470,6 +470,8 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
                 return $this->checkSolutionAccess($user);
             case Access::TYPE_DELETE_TOPIC:
                 return $this->checkDeleteTopicAccess($user);
+            case Access::TYPE_MOVE_TOPIC:
+                return $this->checkMoveTopicAccess($user);
             default:
                 return $this->forum->checkAccess($user, $accessType);
         }
@@ -514,6 +516,18 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
     public function checkDeleteTopicAccess(FrontendUser $user = null)
     {
         return ($user === null) ? false : $this->getForum()->checkDeleteTopicAccess($user);
+    }
+
+    /**
+     * Checks if a user has move topic access to this topic.
+     *
+     * @param FrontendUser $user
+     *
+     * @return bool
+     */
+    public function checkMoveTopicAccess(FrontendUser $user = null)
+    {
+        return ($user === null) ? false : $this->getForum()->checkMoveTopicAccess($user);
     }
 
     /**

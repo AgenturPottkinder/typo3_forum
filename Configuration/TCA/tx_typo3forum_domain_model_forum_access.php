@@ -96,6 +96,7 @@ return [
                     ['LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_forum_access.operation.deletePost', \Mittwald\Typo3Forum\Domain\Model\Forum\Access::TYPE_DELETE_POST],
                     ['LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_forum_access.operation.moderation', \Mittwald\Typo3Forum\Domain\Model\Forum\Access::TYPE_MODERATE],
                     ['LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_forum_access.operation.deleteTopic', \Mittwald\Typo3Forum\Domain\Model\Forum\Access::TYPE_DELETE_TOPIC],
+                    ['LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xlf:tx_typo3forum_domain_model_forum_access.operation.moveTopic', \Mittwald\Typo3Forum\Domain\Model\Forum\Access::TYPE_MOVE_TOPIC],
                 ],
             ],
         ],
