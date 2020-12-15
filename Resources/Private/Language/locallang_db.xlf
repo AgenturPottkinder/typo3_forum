@@ -411,6 +411,9 @@
 			<trans-unit id="tx_typo3forum_domain_model_format_textparser.regular_expression_replacement" xml:space="preserve">
 				<source>Replacement pattern</source>
 			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_format_textparser.regular_expression_replacement_blocked" xml:space="preserve">
+				<source>Replacement when blocked</source>
+			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_format_textparser.smiley_shortcut" xml:space="preserve">
 				<source>Smiley shortcut</source>
 			</trans-unit>
