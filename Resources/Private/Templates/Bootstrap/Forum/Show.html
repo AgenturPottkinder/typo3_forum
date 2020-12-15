@@ -20,5 +20,7 @@
 
 <!-- MENU Section -->
 <f:section name="menu">
-	<f:render partial="Forum/Menu" arguments="{forum: forum}" />
+	<div class="forum_menu" data-uid="{forum.uid}">
+		<f:render partial="Forum/Menu" arguments="{forum: forum}" />
+	</div>
 </f:section>
