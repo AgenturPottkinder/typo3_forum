@@ -553,7 +553,7 @@
 				<source>Job</source>
 			</trans-unit>
 			<trans-unit id="fe_users.tx_typo3forum_working_environment" xml:space="preserve">
-				<source>Working_environment</source>
+				<source>Working environment</source>
 			</trans-unit>
 			<trans-unit id="fe_users.tx_typo3forum_domain_model_user_pm" xml:space="preserve">
 				<source>Private messages</source>
