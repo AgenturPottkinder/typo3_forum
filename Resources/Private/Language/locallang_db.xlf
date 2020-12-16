@@ -4,7 +4,7 @@
 		<header/>
 		<body>
 			<trans-unit id="tstamp" xml:space="preserve">
-				<source>Creation Time</source>
+				<source>Creation time</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_forum_forum" xml:space="preserve">
 				<source>Forum</source>
@@ -28,13 +28,13 @@
 				<source>Post count</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_forum_forum.acls" xml:space="preserve">
-				<source>Acls</source>
+				<source>Access control lists</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_forum_forum.last_topic" xml:space="preserve">
-				<source>Last Topic</source>
+				<source>Last topic</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_forum_forum.last_post" xml:space="preserve">
-				<source>Last Post</source>
+				<source>Last post</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_forum_forum.forum" xml:space="preserve">
 				<source>Parent forum</source>
@@ -79,10 +79,10 @@
 				<source>Author</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_forum_topic.last_post" xml:space="preserve">
-				<source>Last Post</source>
+				<source>Last post</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_forum_topic.last_post_crdate" xml:space="preserve">
-				<source>Creation time of Last Post</source>
+				<source>Creation time of last post</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_forum_topic.is_solved" xml:space="preserve">
 				<source>Is topic solved</source>
@@ -142,10 +142,10 @@
 				<source>Attachment</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_forum_attachment.filename" xml:space="preserve">
-				<source>Attachment Viewname</source>
+				<source>Attachment viewname</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_forum_attachment.real_filename" xml:space="preserve">
-				<source>Attachment Filename (warning: no auto hash! Must be unique!)</source>
+				<source>Attachment filename (Warning: No auto hash! Must be unique!)</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_forum_attachment.mime_type" xml:space="preserve">
 				<source>MIME type</source>
@@ -157,22 +157,22 @@
 				<source>Criteria</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_forum_criteria.name" xml:space="preserve">
-				<source>Criteria Name</source>
+				<source>Criteria name</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_forum_criteria.default_option" xml:space="preserve">
-				<source>Default Option</source>
+				<source>Default option</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_forum_criteria.options" xml:space="preserve">
-				<source>Criteria Options</source>
+				<source>Criteria options</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_forum_criteria_options" xml:space="preserve">
-				<source>Criteria Option</source>
+				<source>Criteria option</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_forum_criteria_options.name" xml:space="preserve">
-				<source>Criteria Option Name</source>
+				<source>Criteria option name</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_forum_criteria_options.criteria" xml:space="preserve">
-				<source>Criteria Option Relation</source>
+				<source>Criteria option relation</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_forum_criteria_options.sorting" xml:space="preserve">
 				<source>Sorting</source>
@@ -187,10 +187,10 @@
 				<source>URL</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_forum_ad.alt" xml:space="preserve">
-				<source>Alt-Text</source>
+				<source>Alternative text</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_forum_ad.path" xml:space="preserve">
-				<source>Path To Image</source>
+				<source>Path to image</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_forum_ad.category" xml:space="preserve">
 				<source>Category</source>
@@ -208,7 +208,7 @@
 				<source>Limit of points</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_user_rank.user_count" xml:space="preserve">
-				<source>User Count</source>
+				<source>User count</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_user_notification" xml:space="preserve">
 				<source>User notification</source>
@@ -217,7 +217,7 @@
 				<source>User</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_user_notification.user_read" xml:space="preserve">
-				<source>User Read</source>
+				<source>User read</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_user_notification.post" xml:space="preserve">
 				<source>Post</source>
@@ -232,7 +232,7 @@
 				<source>Cron executed timestamp</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_stats_summary" xml:space="preserve">
-				<source>Summary Stats</source>
+				<source>Summary stats</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_stats_summary.amount" xml:space="preserve">
 				<source>Amount</source>
@@ -247,7 +247,7 @@
 				<source>Tags</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_forum_tag.crdate" xml:space="preserve">
-				<source>Creation Date</source>
+				<source>Creation date</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_forum_tag.feuser" xml:space="preserve">
 				<source>User</source>
@@ -256,7 +256,7 @@
 				<source>Name</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_forum_tag.topicCount" xml:space="preserve">
-				<source>Topic Count</source>
+				<source>Topic count</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_forum_tag.tstamp" xml:space="preserve">
 				<source>Timestamp</source>
@@ -313,22 +313,22 @@
 				<source>Specific group</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_user_privatemessage" xml:space="preserve">
-				<source>Private Message</source>
+				<source>Private message</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_user_privatemessage.feuser" xml:space="preserve">
 				<source>User</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_user_privatemessage.opponent" xml:space="preserve">
-				<source>Opponent User</source>
+				<source>Opponent user</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_user_privatemessage.message" xml:space="preserve">
 				<source>Message</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_user_privatemessage.type" xml:space="preserve">
-				<source>User Type</source>
+				<source>User type</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_user_privatemessage.user_read" xml:space="preserve">
-				<source>User Read</source>
+				<source>User read</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_user_privatemessage_text" xml:space="preserve">
 				<source>Message</source>
@@ -340,10 +340,10 @@
 				<source>Userfield</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_user_userfield_userfield.name" xml:space="preserve">
-				<source>Name:</source>
+				<source>Name</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_user_userfield_userfield.type" xml:space="preserve">
-				<source>Type:</source>
+				<source>Type</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_user_userfield_userfield.type.undefined" xml:space="preserve">
 				<source>Undefined</source>
@@ -355,10 +355,10 @@
 				<source>Text</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_user_userfield_userfield.typoscript_path" xml:space="preserve">
-				<source>TypoScript path:</source>
+				<source>TypoScript path</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_user_userfield_userfield.map_to_user_object" xml:space="preserve">
-				<source>Map to fe_users column:</source>
+				<source>Map to fe_users column</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_user_userfield_value" xml:space="preserve">
 				<source>Userfield value</source>
@@ -442,10 +442,10 @@
 				<source>Status</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_moderation_report.type.userReport" xml:space="preserve">
-				<source>User-Report</source>
+				<source>User report</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_moderation_report.type.postReport" xml:space="preserve">
-				<source>Post-Report</source>
+				<source>Post report</source>
 			</trans-unit>
 			<trans-unit id="tx_typo3forum_domain_model_moderation_reportcomment" xml:space="preserve">
 				<source>Report comment</source>
@@ -484,7 +484,7 @@
 				<source>Use gravatar image (if no local image)</source>
 			</trans-unit>
 			<trans-unit id="fe_users.contact" xml:space="preserve">
-				<source>Contact addresses and social network profiles (JSON encoded)</source>
+				<source>Contact addresses and social media profiles (JSON encoded)</source>
 			</trans-unit>
 			<trans-unit id="fe_users.tx_extbase_type.typo3_forum" xml:space="preserve">
 				<source>typo3_forum user</source>
@@ -517,19 +517,19 @@
 				<source>Subscribed forums</source>
 			</trans-unit>
 			<trans-unit id="fe_users.tx_typo3forum.tab.settings" xml:space="preserve">
-				<source>typo3_forum Settings</source>
+				<source>typo3_forum settings</source>
 			</trans-unit>
 			<trans-unit id="fe_users.tx_typo3forum_signature" xml:space="preserve">
-				<source>Signatur</source>
+				<source>Signature</source>
 			</trans-unit>
 			<trans-unit id="fe_users.tx_typo3forum_interests" xml:space="preserve">
-				<source>Interessen</source>
+				<source>Interests</source>
 			</trans-unit>
 			<trans-unit id="fe_users.tx_typo3forum_read_forum" xml:space="preserve">
-				<source>Forum Read</source>
+				<source>Forum read</source>
 			</trans-unit>
 			<trans-unit id="fe_users.tx_typo3forum_read_topics" xml:space="preserve">
-				<source>Topic Read</source>
+				<source>Topic read</source>
 			</trans-unit>
 			<trans-unit id="fe_users.tx_typo3forum_userfield_values" xml:space="preserve">
 				<source>Userfield values</source>
@@ -553,7 +553,7 @@
 				<source>Job</source>
 			</trans-unit>
 			<trans-unit id="fe_users.tx_typo3forum_working_environment" xml:space="preserve">
-				<source>Arbeitsumfeld</source>
+				<source>Working environment</source>
 			</trans-unit>
 			<trans-unit id="fe_users.tx_typo3forum_domain_model_user_pm" xml:space="preserve">
 				<source>Private messages</source>
