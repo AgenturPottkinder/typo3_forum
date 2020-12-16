@@ -255,6 +255,9 @@
 			<trans-unit id="Report_Index_Action" xml:space="preserve">
 				<source>Action</source>
 			</trans-unit>
+			<trans-unit id="Report_Edit" xml:space="preserve">
+				<source>Edit Report</source>
+			</trans-unit>
 			<trans-unit id="Report_Edit_Comments" xml:space="preserve">
 				<source>Comments</source>
 			</trans-unit>
