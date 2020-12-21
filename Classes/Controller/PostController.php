@@ -68,6 +68,12 @@ class PostController extends AbstractController {
 	 */
 	protected $topicRepository;
 
+	/**
+	 * @var \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface
+	 * @inject
+	 */
+	protected $persistenceManager;
+
     /**
      *  Listing Action.
      * @return void
@@ -237,6 +243,9 @@ class PostController extends AbstractController {
 		$topic->addPost($post);
 		$this->topicRepository->update($topic);
 
+		// Persist in order to have an already persisted $post with uid in postCreated
+		$this->persistenceManager->persistAll();
+
 		// All potential listeners (Signal-Slot FTW!)
 		$this->signalSlotDispatcher->dispatch(Post::class, 'postCreated', ['post' => $post]);
 
@@ -363,9 +372,8 @@ class PostController extends AbstractController {
         $attachment->increaseDownloadCount();
 		$this->attachmentRepository->update($attachment);
 
-		//Enforce persistence, since it will not happen regularly because of die() at the end
-		$persistenceManager = $this->objectManager->get("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
-		$persistenceManager->persistAll();
+		//  Enforce persistence, since it will not happen regularly because of die() at the end
+		$this->persistenceManager->persistAll();
 
         header('Content-type: ' . $attachment->getMimeType());
         header("Content-Type: application/download");

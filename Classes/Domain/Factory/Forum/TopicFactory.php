@@ -120,6 +120,9 @@ class TopicFactory extends AbstractFactory {
 		}
 		$this->topicRepository->add($topic);
 
+		// Persist in order to have an already persisted $topic with uid in topicCreated
+		$this->persistenceManager->persistAll();
+
 		return $topic;
 	}
 
