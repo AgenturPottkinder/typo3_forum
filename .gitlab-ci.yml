@@ -25,6 +25,27 @@ lint_typo3scan:
     - curl -L https://github.com/Tuurlijk/typo3scan/releases/download/1.6.3/typo3scan.phar -o typo3scan.phar
     - php ./typo3scan.phar scan -t 10 .
 
+sonarqube-check:
+  image:
+    name: sonarsource/sonar-scanner-cli:latest
+    entrypoint: [""]
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
+    GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  script:
+    - sonar-scanner -Dsonar.qualitygate.wait=true
+  allow_failure: true
+  only:
+    - merge_requests
+    - master
+    - develop
+    - v10
+    - v10-sonar
+
 lint_typoscript:
   image: composer
   stage: linting
