@@ -116,12 +116,13 @@ class BbCodeEditorViewHelper extends TextareaViewHelper
             $this->panels[] = $panel;
         }
 
+        // TODO Remove this ugly hack to just wait 500ms
         $this->javascriptSetup = '<script>' .
             'var bbcodeSettings = ' .
             json_encode($this->getPanelSettings()) . ';' .
-            '$(document).ready(function() {' .
+            'window.setTimeout(function(){$(document).ready(function() {' .
             '$(\'#' . $this->arguments['id'] . '\').markItUp(bbcodeSettings);' .
-            '});</script>';
+            '});}, 500);</script>';
         $this->cache->set('bbcodeeditor-jsonconfig', $this->javascriptSetup);
         return $this->javascriptSetup;
     }

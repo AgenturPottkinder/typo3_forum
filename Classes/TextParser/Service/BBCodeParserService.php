@@ -87,7 +87,7 @@ class BBCodeParserService extends AbstractTextParserService
 
     protected function parserAllowedByUser(BBCode $bbCode) : bool
     {
-        if($bbCode->getIdsOfGroups() === []) {
+        if($bbCode->getIdsOfGroups() === [] || (count($bbCode->getIdsOfGroups()) === 1 && $bbCode->getIdsOfGroups()[0] === '')) {
             return true;
         }
         foreach($bbCode->getIdsOfGroups() as $group) {
