@@ -124,7 +124,7 @@ class RootlineViewHelper extends AbstractTagBasedViewHelper
         if ($limit == 0 || strlen($fullTitle) < $limit) {
             $title = $fullTitle;
         } else {
-            $title = substr($fullTitle, 0, $limit) . '...';
+            $title = mb_substr($fullTitle, 0, $limit) . '...';
         }
 
         $uriBuilder = $this->getUriBuilder();
