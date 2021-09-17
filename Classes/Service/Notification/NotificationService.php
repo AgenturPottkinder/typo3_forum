@@ -31,6 +31,7 @@ use Mittwald\Typo3Forum\Domain\Model\NotifiableInterface;
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
 use Mittwald\Typo3Forum\Service\AbstractService;
 use Mittwald\Typo3Forum\Utility\Localization;
+use TYPO3\CMS\Core\Resource\Exception\InvalidConfigurationException;
 
 /**
  * Service class for notifications. This service notifies subscribers of
@@ -39,10 +40,10 @@ use Mittwald\Typo3Forum\Utility\Localization;
 class NotificationService extends AbstractService implements NotificationServiceInterface {
 
 	/**
-	 * @var \Mittwald\Typo3Forum\Service\Mailing\HTMLMailingService
+	 * @var \Mittwald\Typo3Forum\Service\Mailing\MailingService
 	 * @inject
 	 */
-	protected $htmlMailingService;
+	protected $mailingService;
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder
@@ -63,6 +64,9 @@ class NotificationService extends AbstractService implements NotificationService
 	 */
 	protected $settings;
 
+	/**
+	 * @throws InvalidConfigurationException
+	 */
 	public function initializeObject() {
 		$this->settings = $this->configurationBuilder->getSettings();
 	}
@@ -116,7 +120,7 @@ class NotificationService extends AbstractService implements NotificationService
 		foreach ($topic->getSubscribers() as $subscriber) {
 			if ($forum->checkReadAccess($subscriber) && $subscriber->getUid() !== $postAuthorUid) {
 				$subscriberMessage = nl2br(str_replace('###RECIPIENT###', $subscriber->getUsername(), $message));
-				$this->htmlMailingService->sendMail($subscriber, $subject, $subscriberMessage);
+				$this->mailingService->sendMail($subscriber, $subject, $subscriberMessage);
 			}
 		}
 	}
@@ -135,7 +139,7 @@ class NotificationService extends AbstractService implements NotificationService
 			foreach ($forum->getSubscribers() as $subscriber) {
 				if (!$notifiedSubscribers[$subscriber->getUid()] && $forum->checkReadAccess($subscriber) && $subscriber->getUid() !== $postAuthorUid) {
 					$subscriberMessage = nl2br(str_replace('###RECIPIENT###', $subscriber->getUsername(), $message));
-					$this->htmlMailingService->sendMail($subscriber, $subject, $subscriberMessage);
+					$this->mailingService->sendMail($subscriber, $subject, $subscriberMessage);
 					$notifiedSubscribers[$subscriber->getUid()] = TRUE;
 				}
 			}

@@ -1,6 +1,4 @@
 <?php
-namespace Mittwald\Typo3Forum\Service\Mailing;
-
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -23,20 +21,54 @@ namespace Mittwald\Typo3Forum\Service\Mailing;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
+
+namespace Mittwald\Typo3Forum\Service\Mailing;
+
+use Mittwald\Typo3Forum\Service\AbstractService;
 use TYPO3\CMS\Core\Mail\MailMessage;
+use TYPO3\CMS\Core\Resource\Exception\InvalidConfigurationException;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
 
-/**
- * Service class for sending plain text emails.
- */
-class PlainMailingService extends AbstractMailingService {
+class MailingService extends AbstractService {
 
 	/**
-	 * The format in which this service sends mails.
+	 * Whole TypoScript typo3_forum settings
 	 *
-	 * @var string
+	 * @var array
 	 */
-	protected $format = AbstractMailingService::MAILING_FORMAT_PLAIN;
+	protected $settings;
+
+	/**
+	 * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
+	 * @inject
+	 */
+	protected $configurationBuilder;
+
+	/**
+	 * @throws InvalidConfigurationException
+	 */
+	public function initializeObject() {
+		$this->settings = $this->configurationBuilder->getSettings();
+	}
+
+	/**
+	 * Gets the default sender name. Can be configured in the typoscript setup.
+	 *
+	 * @return string The default sender name.
+	 */
+	protected function getDefaultSenderName() {
+		return trim($this->settings['mailing']['sender']['name']);
+	}
+
+	/**
+	 * Gets the default sender address. Can be configured in the typoscript setup.
+	 *
+	 * @return string The default sender address.
+	 */
+	protected function getDefaultSenderAddress() {
+		return trim($this->settings['mailing']['sender']['address']);
+	}
 
 	/**
 	 * Sends a mail with a certain subject and bodytext to a recipient in form of a frontend user.
@@ -47,35 +79,16 @@ class PlainMailingService extends AbstractMailingService {
 	 * @return void
 	 */
 	public function sendMail(FrontendUser $recipient, $subject, $bodyText) {
-		if ($recipient->getEmail()) {
-			$mail = new MailMessage();
-			$mail->setTo([$recipient->getEmail()])
+		try {
+			GeneralUtility::makeInstance(MailMessage::class)
 				->setFrom($this->getDefaultSenderAddress(), $this->getDefaultSenderName())
+				->setTo($recipient->getEmail(), $recipient->getUsername())
 				->setSubject($subject)
-				->setBody($bodyText)
+				->setBody($bodyText, 'text/html')
 				->send();
+		} catch (\Swift_RfcComplianceException $e) {
+			// Catch exceptions for invalid email addresses in setTo as MailMessage does not catch them
 		}
-	}
-
-	/**
-	 *
-	 * Generates the e-mail headers for a certain recipient, subject and bodytext.
-	 *
-	 * @return string The mail headers.
-	 *
-	 */
-	protected function getHeaders() {
-		$headerArray = [
-			'From' => $this->getDefaultSender(),
-			'Content-Type' => 'text/plain; charset=' . $this->getCharset(),
-		];
-		$headerString = '';
-
-		foreach ($headerArray as $headerKey => $headerValue) {
-			$headerString .= $headerKey . ':' . $headerValue . "\r\n";
-		}
-
-		return $headerString;
 	}
 
 }
