@@ -367,6 +367,10 @@ class PostController extends AbstractController {
 		$persistenceManager = $this->objectManager->get("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
 		$persistenceManager->persistAll();
 
+        // clear all output buffers
+        // without this the downloaded file is prepended with HTML echoed anywhere else
+        while (ob_get_level())  ob_end_clean();
+
         header('Content-type: ' . $attachment->getMimeType());
         header("Content-Type: application/download");
         header('Content-Disposition: attachment; filename="' . $attachment->getFilename() . '"');
