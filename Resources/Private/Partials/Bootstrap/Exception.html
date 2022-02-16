@@ -1,12 +1,12 @@
-
-<div class="alert alert-error alert-block">
-	<h4>
+<div class="alert alert-danger" role="alert">
+	<h4 class="alert-heading">
 		<f:translate key="Error_Exception_Title" />
 	</h4>
+	<hr>
 	<f:translate key="Error_{exception.code}" default="[TRANSLATE: Error_{exception.code}] {exception.message}" />
 </div>
 
-<f:if condition="{settings.debug}">
+<f:if condition="{settings.debug._typoScriptNodeValue}">
 	<div class="alert alert-info alert-block">
 		<h4>Still can't get enough?</h4>
 		<p>
