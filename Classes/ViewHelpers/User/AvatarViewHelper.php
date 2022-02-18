@@ -60,7 +60,7 @@ class AvatarViewHelper extends ImageViewHelper
             $avatarFilename = $user->getImagePath();
         }
 
-        if ($avatarFilename === null || !file_exists(avatarFilename)) {
+        if ($avatarFilename === null || !file_exists($avatarFilename)) {
             $avatarFilename = ExtensionManagementUtility::siteRelPath('typo3_forum') . 'Resources/Public/Images/Icons/AvatarEmpty.png';
         }
 
