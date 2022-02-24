@@ -123,7 +123,12 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 */
 	protected $title;
 
-	/**
+    /**
+     * @var string
+     */
+    protected $slug;
+
+    /**
 	 * Amount of topics in this forum.
 	 * @var int
 	 */
@@ -877,4 +882,19 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 		$this->topicCount = count($this->topics);
 	}
 
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     */
+    public function setSlug(string $slug): void
+    {
+        $this->slug = $slug;
+    }
 }

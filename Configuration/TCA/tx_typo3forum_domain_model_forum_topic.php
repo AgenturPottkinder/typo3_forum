@@ -17,12 +17,12 @@ return [
 		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/Forum/Topic.png'
 	],
 	'interface' => [
-		'showRecordFieldList' => 'hidden,type,subject,posts,post_count,author,last_post,last_post_crdate,forum,target,question,solution,closed,sticky'
+		'showRecordFieldList' => 'hidden,type,subject,slug,posts,post_count,author,last_post,last_post_crdate,forum,target,question,solution,closed,sticky'
 			.',criteria_options,tags,subscribers,fav_subscribers,readers'
 	],
 	'types' => [
-		'0' => ['showitem' => 'hidden,type,subject,posts,author,last_post,forum,question,solution,closed,sticky,criteria_options,tags,subscribers,fav_subscribers,readers'],
-		'1' => ['showitem' => 'hidden,type,subject,forum,last_post,target'],
+		'0' => ['showitem' => 'hidden,type,subject,slug,posts,author,last_post,forum,question,solution,closed,sticky,criteria_options,tags,subscribers,fav_subscribers,readers'],
+		'1' => ['showitem' => 'hidden,type,subject,slug,forum,last_post,target'],
 	],
 	'columns' => [
         'sys_language_uid' => [
@@ -91,6 +91,21 @@ return [
 				'eval' => 'trim,required'
 			],
 		],
+        'slug' => [
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:pages.slug',
+            'exclude' => 1,
+            'config' => [
+                'type' => 'slug',
+                'generatorOptions' => [
+                    'fields' => ['subject'],
+                    'replacements' => [
+                        '/' => '-'
+                    ],
+                ],
+                'fallbackCharacter' => '-',
+                'eval' => 'uniqueInPid',
+            ],
+        ],
 		'posts' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_topic.posts',

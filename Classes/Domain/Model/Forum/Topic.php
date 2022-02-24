@@ -51,6 +51,11 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 */
 	protected $subject;
 
+    /**
+     * @var string
+     */
+    protected $slug;
+
 	/**
 	 * The posts in this topic.
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Post>
@@ -765,4 +770,20 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
 	public function removeSubscriber(FrontendUser $user) {
 		$this->subscribers->detach($user);
 	}
+
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     */
+    public function setSlug(string $slug): void
+    {
+        $this->slug = $slug;
+    }
 }
