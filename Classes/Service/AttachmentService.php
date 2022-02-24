@@ -39,11 +39,12 @@ class AttachmentService implements SingletonInterface
 
             //Save in ObjectStorage and in file system
             $attachmentObj->setFilename($attachment['name']);
-            $attachmentObj->setRealFilename(sha1($attachment['name'] . time()));
+
+            $attachmentObj->setRealFilename(sha1($attachment['name'] . time()) . '.' . $fileInfo->getMimeExtensions()[0]);
             $attachmentObj->setMimeType($mime_type);
 
 			//Create dir if not exists
-			$tca = $attachmentObj->getTCAConfig();
+			$tca  = $attachmentObj->getTCAConfig();
 			$path = $tca['columns']['real_filename']['config']['uploadfolder'];
 			if(!file_exists($path)) {
                 GeneralUtility::mkdir($path);

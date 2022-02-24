@@ -27,10 +27,12 @@ namespace Mittwald\Typo3Forum\Controller;
 use Mittwald\Typo3Forum\Domain\Exception\AbstractException;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Utility\Localization;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerInterface;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
-abstract class AbstractController extends ActionController {
+abstract class AbstractController extends ActionController implements LoggerAwareInterface {
 
 	const CONTEXT_WEB = 0;
 	const CONTEXT_AJAX = 1;
@@ -87,6 +89,23 @@ abstract class AbstractController extends ActionController {
 	 */
 
 	/**
+	 * @var LoggerInterface
+	 */
+	private $logger;
+
+	/**
+	 * Inject the logger
+	 *
+	 * @param LoggerInterface $logger
+	 *
+	 * @return void
+	 */
+	public function setLogger(LoggerInterface $logger)
+	{
+		$this->logger = $logger;
+	}
+
+	/**
 	 *
 	 * Handles an exception. This methods modifies the controller context for the
 	 * template view, causing the view class to look in the same directory regardless
@@ -123,6 +142,7 @@ abstract class AbstractController extends ActionController {
 			parent::callActionMethod();
 		} catch (AbstractException $e) {
 			$this->handleError($e);
+			$this->logger->error($e->getMessage(), ["exception" => $e]);
 		}
 	}
 
@@ -132,10 +152,12 @@ abstract class AbstractController extends ActionController {
 	 * like instantiating required repositories and services.
 	 *
 	 * @return void
-	 *
 	 */
 	protected function initializeAction() {
-		$this->className = array_pop(explode('_', get_class($this)));
+
+		$className = explode('_', get_class($this));
+
+		$this->className = array_pop($className);
 		$this->localSettings = $this->settings[lcfirst($this->className)];
 
 		if (!empty($this->settings['pids'])) {

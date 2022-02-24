@@ -24,11 +24,17 @@ namespace Mittwald\Typo3Forum\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Utility\Localization;
+use TYPO3\CMS\Core\Exception;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
+use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 class PostController extends AbstractController {
 
@@ -93,7 +99,10 @@ class PostController extends AbstractController {
 
 	/**
 	 * @param Post $post
+	 *
 	 * @return string
+	 * @throws IllegalObjectTypeException
+	 * @throws UnknownObjectException
 	 */
 	public function addSupporterAction(Post $post) {
 		/** @var FrontendUser $currentUser */
@@ -126,7 +135,10 @@ class PostController extends AbstractController {
 
 	/**
 	 * @param Post $post
+	 *
 	 * @return string
+	 * @throws IllegalObjectTypeException
+	 * @throws UnknownObjectException
 	 */
 	public function removeSupporterAction(Post $post) {
 		/** @var FrontendUser $currentUser */
@@ -160,9 +172,10 @@ class PostController extends AbstractController {
 	 * topic that contains the requested post.
 	 * This function is called by post summaries (last post link)
 	 *
-	 * @param Post $post The post
-	 * @param Post $quote The Quote
-	 * @param int $showForm ShowForm
+	 * @param Post      $post     The post
+	 * @param Post|null $quote    The Quote
+	 * @param int       $showForm ShowForm
+	 *
 	 * @return void
 	 */
 	public function showAction(Post $post, Post $quote = NULL, $showForm = 0) {
@@ -186,11 +199,12 @@ class PostController extends AbstractController {
 	/**
 	 * Displays the form for creating a new post.
 	 *
-	 * @ignorevalidation $post
+	 * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("post")
 	 *
-	 * @param Topic $topic The topic in which the new post is to be created.
-	 * @param Post $post The new post.
-	 * @param Post $quote An optional post that will be quoted within the bodytext of the new post.
+	 * @param Topic     $topic The topic in which the new post is to be created.
+	 * @param Post|null $post  The new post.
+	 * @param Post|null $quote An optional post that will be quoted within the bodytext of the new post.
+	 *
 	 * @return void
 	 */
 	public function newAction(Topic $topic, Post $post = NULL, Post $quote = NULL) {
@@ -215,12 +229,19 @@ class PostController extends AbstractController {
 	/**
 	 * Creates a new post.
 	 *
-	 * @param Topic $topic The topic in which the new post is to be created.
-	 * @param Post $post The new post.
+	 * @param Topic $topic       The topic in which the new post is to be created.
+	 * @param Post  $post        The new post.
 	 * @param array $attachments File attachments for the post.
 	 *
-	 * @validate $post \Mittwald\Typo3Forum\Domain\Validator\Forum\PostValidator
-	 * @validate $attachments \Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator
+	 * @throws IllegalObjectTypeException
+	 * @throws UnknownObjectException
+	 * @throws NotLoggedInException
+	 * @throws Exception
+	 * @throws InvalidSlotException
+	 * @throws InvalidSlotReturnException
+	 * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("topic")
+	 * @TYPO3\CMS\Extbase\Annotation\Validate("\Mittwald\Typo3Forum\Domain\Validator\Forum\PostValidator", param="post")
+	 * @TYPO3\CMS\Extbase\Annotation\Validate("\Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator", param="attachments")
 	 */
 	public function createAction(Topic $topic, Post $post, array $attachments = []) {
 		// Assert authorization
