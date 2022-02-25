@@ -27,8 +27,12 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use TYPO3\CMS\Core\Log\LogManager;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 
 /**
@@ -155,6 +159,11 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	protected $sorting;
 
 	/**
+	 * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+	 */
+	protected $image;
+
+	/**
 	 * Constructor. Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage instances.
 	 *
 	 * @param string $title The forum title.
@@ -263,12 +272,12 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	private function getCriteriaRecursive($array) {
 		/** @var Forum $forum */
 		/** @var ObjectStorage $criteriaStorage */
-		list($forum, $criteriaStorage) = $array;
+		[$forum, $criteriaStorage] = $array;
 		if ($forum->getCurrentCriteria() !== NULL) {
 			$criteriaStorage->addAll($forum->getCurrentCriteria());
 		}
 		if(($parent = $forum->getParent()) && ($parent->getParent() != NULL)) {
-			list(, $criteriaStorage) = $this->getCriteriaRecursive([$parent, $criteriaStorage]);
+			[, $criteriaStorage] = $this->getCriteriaRecursive([$parent, $criteriaStorage]);
 		}
 
 		return [$forum, $criteriaStorage];
@@ -388,6 +397,41 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 		return $this->sorting;
 	}
 
+	/**
+	 * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference
+	 */
+	public function getImage()
+	{
+		return $this->image;
+	}
+
+	/**
+	 * Returns the image of first post of the topic which was updated last.
+	 *
+	 * @return string|null
+	 */
+	public function getImageFromLastPost()
+	{
+		try {
+			$attachments = $this->getLastPost()->getTopic()->getFirstPost()->getAttachments()->toArray();
+		} catch (\Exception $exception) {
+			GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->error($exception->getMessage());
+			return null;
+		}
+
+		if (empty($attachments)) {
+			return null;
+		}
+
+		/** @var Attachment $attachment */
+		$attachment = reset($attachments);
+
+		if (false === $attachment instanceof Attachment) {
+			return null;
+		}
+
+		return $attachment->getAbsoluteFilename();
+	}
 
 	/**
 	 * Determines if this forum (i.e. all topics in it) has been read by the

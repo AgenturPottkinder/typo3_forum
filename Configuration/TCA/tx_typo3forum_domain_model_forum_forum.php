@@ -19,10 +19,10 @@ return [
 		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/Forum/Forum.png',
 	],
 	'interface' => [
-		'showRecordFieldList' => 'hidden,title,description,children,acls,criteria,topics,topic_count,post_count,last_topic,last_post,forum,subscribers,readers,displayed_pid',
+		'showRecordFieldList' => 'hidden,title,image,description,children,acls,criteria,topics,topic_count,post_count,last_topic,last_post,forum,subscribers,readers,displayed_pid',
 	],
 	'types' => [
-		'1' => ['showitem' => 'hidden,title,description,children,acls,criteria,topics,last_topic,last_post,forum,subscribers,readers'],
+		'1' => ['showitem' => 'hidden,title,image,description,children,acls,criteria,topics,last_topic,last_post,forum,subscribers,readers'],
 	],
     'palettes' => [
         'language' => ['showitem' => 'sys_language_uid, l18n_parent'],
@@ -237,6 +237,18 @@ return [
 			'config' => [
 				'type' => 'none',
 			],
+		],
+		'image' => [
+			'exclude' => true,
+			'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.image',
+			'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
+				'image',
+				[
+					'maxitems' => 6,
+					'minitems'=> 0
+				],
+				$GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
+			)
 		],
 	],
 ];
