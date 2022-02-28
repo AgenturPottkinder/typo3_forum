@@ -406,34 +406,6 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	}
 
 	/**
-	 * Returns the image of first post of the topic which was updated last.
-	 *
-	 * @return string|null
-	 */
-	public function getImageFromLastPost()
-	{
-		try {
-			$attachments = $this->getLastPost()->getTopic()->getFirstPost()->getAttachments()->toArray();
-		} catch (\Exception $exception) {
-			GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->error($exception->getMessage());
-			return null;
-		}
-
-		if (empty($attachments)) {
-			return null;
-		}
-
-		/** @var Attachment $attachment */
-		$attachment = reset($attachments);
-
-		if (false === $attachment instanceof Attachment) {
-			return null;
-		}
-
-		return $attachment->getAbsoluteFilename();
-	}
-
-	/**
 	 * Determines if this forum (i.e. all topics in it) has been read by the
 	 * currently logged in user.
 	 *
