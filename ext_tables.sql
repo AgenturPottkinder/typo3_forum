@@ -132,6 +132,7 @@ CREATE TABLE tx_typo3forum_domain_model_forum_forum (
   sys_language_uid int(11) DEFAULT '0' NOT NULL,
   l18n_parent int(11) DEFAULT '0' NOT NULL,
   l18n_diffsource mediumblob,
+  image tinytext,
   PRIMARY KEY (uid),
   KEY parent (pid),
   KEY forum (forum)
