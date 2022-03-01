@@ -645,6 +645,7 @@ CREATE TABLE tx_typo3forum_domain_model_forum_tag (
   tstamp int(11) unsigned NOT NULL default '0',
   deleted tinyint(3) unsigned NOT NULL default '0',
   name varchar(64) NOT NULL default '',
+  slug varchar(2048) NOT NULL default '',
   topic_count int(11) unsigned NOT NULL default '0',
   feuser int(11) unsigned NOT NULL default '0',
   PRIMARY KEY (uid)

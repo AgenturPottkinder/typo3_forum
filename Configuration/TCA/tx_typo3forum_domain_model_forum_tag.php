@@ -10,10 +10,10 @@ return [
 		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/Forum/Tag.png',
 	],
 	'interface' => [
-		'showRecordFieldList' => 'name,tstamp,crdate,topic_count,feuser',
+		'showRecordFieldList' => 'name,slug,tstamp,crdate,topic_count,feuser',
 	],
 	'types' => [
-		'1' => ['showitem' => 'name,tstamp,crdate,topic_count,feuser'],
+		'1' => ['showitem' => 'name,slug,tstamp,crdate,topic_count,feuser'],
 	],
 	'columns' => [
 		'name' => [
@@ -22,6 +22,21 @@ return [
 				'type' => 'input',
 			]
 		],
+        'slug' => [
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:pages.slug',
+            'exclude' => 1,
+            'config' => [
+                'type' => 'slug',
+                'generatorOptions' => [
+                    'fields' => ['title'],
+                    'replacements' => [
+                        '/' => '-'
+                    ],
+                ],
+                'fallbackCharacter' => '-',
+                'eval' => 'uniqueInPid',
+            ],
+        ],
 		'tstamp' => [
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_tag.tstamp',
 			'config' => [
