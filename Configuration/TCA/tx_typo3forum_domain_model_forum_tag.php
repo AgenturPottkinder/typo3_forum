@@ -28,7 +28,7 @@ return [
             'config' => [
                 'type' => 'slug',
                 'generatorOptions' => [
-                    'fields' => ['title'],
+                    'fields' => ['name'],
                     'replacements' => [
                         '/' => '-'
                     ],
