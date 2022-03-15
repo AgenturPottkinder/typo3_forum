@@ -1,4 +1,5 @@
 <?php
+
 namespace Mittwald\Typo3Forum\Cache;
 
 /*                                                                    - *
@@ -24,6 +25,7 @@ namespace Mittwald\Typo3Forum\Cache;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
@@ -35,14 +37,17 @@ class CacheManager {
 	protected $fileCachePaths = ['typo3temp/typo3_forum', 'typo3temp/typo3_forum/gravatar'];
 
 	/**
-	 *
+	 * @param array $_params ['table' => $table, 'uid' => $uid, 'uid_page' => $pageUid, 'TSConfig' => $TSConfig]
+	 * @param DataHandler $dataHandler
 	 */
-	public function clearAll() {
-		/** @var ObjectManager $objectManager */
-		$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-		$cache = $objectManager->get(Cache::class);
-		$cache->flush();
-		$this->deleteTemporaryFiles();
+	public function clearAll(array $_params, DataHandler $dataHandler) {
+		if ($_params['table'] === 'fe_users' || $_params['table'] === 'fe_groups' || strpos($_params['table'], 'tx_typo3forum_') === 0) {
+			/** @var ObjectManager $objectManager */
+			$objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+			$cache = $objectManager->get(Cache::class);
+			$cache->flush();
+			$this->deleteTemporaryFiles();
+		}
 	}
 
 	/**
@@ -52,7 +57,7 @@ class CacheManager {
 		foreach ($this->fileCachePaths as $fileCachePath) {
 			$files = glob(PATH_site . $fileCachePath . '/*');
 
-			if(!is_array($files)) {
+			if (!is_array($files)) {
 				// skip
 				continue;
 			}
