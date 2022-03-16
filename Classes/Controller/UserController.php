@@ -31,6 +31,7 @@ use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Domain\Model\User\PrivateMessage;
 use Mittwald\Typo3Forum\Domain\Model\User\PrivateMessageText;
+use Mittwald\Typo3Forum\Service\FrontendUserService;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentValueException;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -79,7 +80,25 @@ class UserController extends AbstractController {
 	 */
 	protected $userfieldRepository = NULL;
 
-	/**
+    /**
+     * @var FrontendUserService
+     */
+    private FrontendUserService $frontendUserService;
+
+    /**
+     * Constructor.
+     *
+     * @param FrontendUserService $frontendUserService
+     */
+    public function __construct(
+        FrontendUserService $frontendUserService
+    ) {
+        parent::__construct();
+
+        $this->frontendUserService = $frontendUserService;
+    }
+
+    /**
 	 * Displays a list of all existing users.
 	 */
 	public function indexAction() {
@@ -351,12 +370,14 @@ class UserController extends AbstractController {
 	/**
 	 * Displays a single user.
 	 *
-	 * @param FrontendUser $user The user whose profile is to be displayed.
+	 * @param null|FrontendUser $user The user whose profile is to be displayed.
 	 */
-	public function showAction(FrontendUser $user = NULL) {
-		if ($user === NULL) {
+	public function showAction(FrontendUser $user = NULL)
+    {
+		if (!$this->frontendUserService->isLoggedIn($user)) {
 			$this->redirect('show', NULL, NULL, ['user' => $this->getCurrentUser()]);
 		}
+
 		$lastFiveTopics = $this->topicRepository
 			->findByPostAuthor($user)
 			->getQuery()
