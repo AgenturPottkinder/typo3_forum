@@ -114,3 +114,6 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Mittwald\Typo3F
 
 // Register upgrade wizard
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['postsWithoutAuthorName'] = \Mittwald\Typo3Forum\Updates\PostsWithoutAuthorNameUpdate::class;
+
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['populateTypo3ForumSlugs']
+    = \Mittwald\Typo3Forum\Updates\PopulateTypo3ForumSlugs::class;
