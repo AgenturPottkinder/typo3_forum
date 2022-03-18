@@ -51,7 +51,7 @@ class PopulateTypo3ForumSlugs implements UpgradeWizardInterface
      */
     public function getTitle(): string
     {
-        return '(typo3_forum) Introduce URL parts ("slugs") to all typo3_forum tables';
+        return '[typo3_forum]: Introduce URL parts ("slugs") to all typo3_forum tables';
     }
 
     /**
