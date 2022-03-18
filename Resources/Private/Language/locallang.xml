@@ -736,7 +736,7 @@ Your ###FORUM_TEAM###-Team</label>
 			<label index="Report_UpdateStatus_Success">Der Status der Meldung #%s wurde erfolgreich an %s  übermittelt.</label>
 			<label index="Topic_Create_Success">Das Thema wurde erfolgreich erstellt.</label>
 			<label index="Topic_New">Neues Thema</label>
-			<label index="Topic_New_Attachments">Anhänge</label>
+			<label index="Topic_New_Attachments">Anhänge (jpg/gif/png)</label>
 			<label index="Topic_New_Error_Post_Text_1221560718">Bitte geben Sie einen Inhalt an.</label>
 			<label index="Topic_New_Error_Subject_1221560718">Bitte geben Sie einen Betreff an.</label>
 			<label index="Topic_New_Error_Attachment_Text_1371041777">Der Dateityp ist nicht erlaubt!</label>
