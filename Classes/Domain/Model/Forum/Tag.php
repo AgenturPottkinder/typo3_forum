@@ -35,6 +35,11 @@ class Tag extends AbstractEntity {
 	 */
 	protected $name;
 
+    /**
+     * @var string
+     */
+    protected $slug;
+
 	/**
 	 * Timestamp of this tag
 	 * @var \DateTime
@@ -153,4 +158,20 @@ class Tag extends AbstractEntity {
 	public function removeFeuser(FrontendUser $feuser) {
 		$this->feuser->detach($feuser);
 	}
+
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     */
+    public function setSlug($slug): void
+    {
+        $this->slug = $slug;
+    }
 }

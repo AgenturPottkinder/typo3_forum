@@ -103,6 +103,7 @@ CREATE TABLE tx_typo3forum_domain_model_forum_forum (
   displayed_pid int(11) unsigned NOT NULL default '0',
   forum int(11) unsigned NOT NULL default '0',
   title tinytext,
+  slug varchar(2048) NOT NULL default '',
   description tinytext,
   children int(11) unsigned NOT NULL default '0',
   topics int(11) unsigned NOT NULL default '0',
@@ -186,6 +187,7 @@ CREATE TABLE tx_typo3forum_domain_model_forum_topic (
   type tinyint(1) NOT NULL default '0',
   forum int(11) unsigned NOT NULL default '0',
   subject tinytext,
+  slug varchar(2048) NOT NULL default '',
   posts int(11) unsigned NOT NULL default '0',
   post_count int(11) unsigned NOT NULL default '0',
   author int(11) unsigned default '0',
@@ -643,6 +645,7 @@ CREATE TABLE tx_typo3forum_domain_model_forum_tag (
   tstamp int(11) unsigned NOT NULL default '0',
   deleted tinyint(3) unsigned NOT NULL default '0',
   name varchar(64) NOT NULL default '',
+  slug varchar(2048) NOT NULL default '',
   topic_count int(11) unsigned NOT NULL default '0',
   feuser int(11) unsigned NOT NULL default '0',
   PRIMARY KEY (uid)

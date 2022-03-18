@@ -27,12 +27,8 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
-use TYPO3\CMS\Core\Log\LogManager;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 
 /**
@@ -123,7 +119,12 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 	 */
 	protected $title;
 
-	/**
+    /**
+     * @var string
+     */
+    protected $slug;
+
+    /**
 	 * Amount of topics in this forum.
 	 * @var int
 	 */
@@ -877,4 +878,19 @@ class Forum extends AbstractEntity implements AccessibleInterface, Subscribeable
 		$this->topicCount = count($this->topics);
 	}
 
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     */
+    public function setSlug(string $slug): void
+    {
+        $this->slug = $slug;
+    }
 }

@@ -115,8 +115,12 @@ class RootlineViewHelper extends AbstractTagBasedViewHelper
             $arguments = ['forum' => $object];
             $icon = $this->arguments['forumicon'];
         } else {
+            /** @var \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $object */
             $controller = 'Topic';
-            $arguments = ['topic' => $object];
+            $arguments = [
+                'topic' => $object,
+                'forum' => $object->getForum(),
+            ];
             $icon = $this->arguments['topicicon'];
         }
         $fullTitle = htmlspecialchars($object->getTitle());

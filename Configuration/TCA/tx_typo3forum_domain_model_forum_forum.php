@@ -19,10 +19,10 @@ return [
 		'iconfile' => 'EXT:typo3_forum/Resources/Public/Icons/Forum/Forum.png',
 	],
 	'interface' => [
-		'showRecordFieldList' => 'hidden,title,image,description,children,acls,criteria,topics,topic_count,post_count,last_topic,last_post,forum,subscribers,readers,displayed_pid',
+		'showRecordFieldList' => 'hidden,title,slug,image,description,children,acls,criteria,topics,topic_count,post_count,last_topic,last_post,forum,subscribers,readers,displayed_pid',
 	],
 	'types' => [
-		'1' => ['showitem' => 'hidden,title,image,description,children,acls,criteria,topics,last_topic,last_post,forum,subscribers,readers'],
+		'1' => ['showitem' => 'hidden,title,slug,image,description,children,acls,criteria,topics,last_topic,last_post,forum,subscribers,readers'],
 	],
     'palettes' => [
         'language' => ['showitem' => 'sys_language_uid, l18n_parent'],
@@ -93,6 +93,21 @@ return [
 				'eval' => 'trim,required',
 			],
 		],
+        'slug' => [
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:pages.slug',
+            'exclude' => 1,
+            'config' => [
+                'type' => 'slug',
+                'generatorOptions' => [
+                    'fields' => ['title'],
+                    'replacements' => [
+                        '/' => '-'
+                    ],
+                ],
+                'fallbackCharacter' => '-',
+                'eval' => 'uniqueInPid',
+            ],
+        ],
 		'description' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_forum_forum.description',

@@ -30,6 +30,8 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\ShadowTopic;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
+use TYPO3\CMS\Core\DataHandling\Model\RecordStateFactory;
+use TYPO3\CMS\Core\DataHandling\SlugHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\InvalidClassException;
 
@@ -94,6 +96,7 @@ class TopicFactory extends AbstractFactory {
 		$topic->setAuthor($user);
 		$topic->setQuestion($question);
 		$topic->addPost($firstPost);
+        $topic->setSlug($this->getSlug($subject));
 
 		if ($tags != NULL) {
 			$topic->setTags($tags);
@@ -122,6 +125,40 @@ class TopicFactory extends AbstractFactory {
 
 		return $topic;
 	}
+
+    /**
+     * Returns a valid slug for given value.
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    private function getSlug(string $value): string
+    {
+        $value = $this
+            ->getSlugHelper('tx_typo3forum_domain_model_forum_topic', 'slug')
+            ->sanitize($value);
+
+        return substr($value, 0, 2048);
+    }
+
+    /**
+     * Get slug helper instance.
+     *
+     * @param string $table
+     * @param string $fieldName
+     *
+     * @return SlugHelper
+     */
+    private function getSlugHelper(string $table, string $fieldName): SlugHelper
+    {
+        return GeneralUtility::makeInstance(
+            SlugHelper::class,
+            $table,
+            $fieldName,
+            $GLOBALS['TCA'][$table]['columns'][$fieldName]['config']
+        );
+    }
 
 	/**
 	 * Deletes a topic and all posts contained in it.
