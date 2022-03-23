@@ -154,7 +154,7 @@ class Notification extends AbstractDatabaseTask
         $this->setExecutedOn(time());
 
         $this->checkPostNotifications();
-        $this->checkTagsNotification();
+        $this->checkTagsNotifications();
 
         return true;
     }
@@ -214,7 +214,7 @@ class Notification extends AbstractDatabaseTask
     /**
      * @return boolean
      */
-    private function checkTagsNotification()
+    private function checkTagsNotifications()
     {
         $tagsResult = $this->getNotifiableTags();
 
