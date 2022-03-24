@@ -11,10 +11,9 @@ declare(strict_types = 1);
 
 namespace Mittwald\Typo3Forum\Updates;
 
+use Mittwald\Typo3Forum\Service\SlugService;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
-use TYPO3\CMS\Core\DataHandling\Model\RecordStateFactory;
-use TYPO3\CMS\Core\DataHandling\SlugHelper;
 use TYPO3\CMS\Core\Exception\SiteNotFoundException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
@@ -132,41 +131,12 @@ class PopulateTypo3ForumSlugs implements UpgradeWizardInterface
             )
             ->execute();
 
-        $fieldConfig = $GLOBALS['TCA'][$table]['columns'][$this->fieldName]['config'];
-
-        $evalInfo = !empty($fieldConfig['eval'])
-            ? GeneralUtility::trimExplode(',', $fieldConfig['eval'], true)
-            : [];
-
-        $hasToBeUniqueInSite = in_array('uniqueInSite', $evalInfo, true);
-        $hasToBeUniqueInPid  = in_array('uniqueInPid', $evalInfo, true);
-
-        // Get slug helper instance
-        $slugHelper = GeneralUtility::makeInstance(
-            SlugHelper::class,
-            $table,
-            $this->fieldName,
-            $fieldConfig
-        );
+        /** @var SlugService $slugService */
+        $slugService = GeneralUtility::makeInstance(SlugService::class, $table, $this->fieldName);
 
         while ($record = $statement->fetch()) {
             $recordId = (int) $record['uid'];
-            $pid      = (int) $record['pid'];
-            $slug     = '';
-
-            if (empty($slug)) {
-                $slug = $slugHelper->generate($record, $pid);
-            }
-
-            $state = RecordStateFactory::forName($table)
-                ->fromArray($record, $pid, $recordId);
-
-            if ($hasToBeUniqueInSite && !$slugHelper->isUniqueInSite($slug, $state)) {
-                $slug = $slugHelper->buildSlugForUniqueInSite($slug, $state);
-            }
-            if ($hasToBeUniqueInPid && !$slugHelper->isUniqueInPid($slug, $state)) {
-                $slug = $slugHelper->buildSlugForUniqueInPid($slug, $state);
-            }
+            $slug     = $slugService->generateSlug($record);
 
             $connection->update(
                 $table,

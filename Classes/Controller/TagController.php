@@ -26,6 +26,7 @@ namespace Mittwald\Typo3Forum\Controller;
 
 use Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Tag;
+use Mittwald\Typo3Forum\Service\SlugService;
 use TYPO3\CMS\Core\DataHandling\SlugHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -42,6 +43,12 @@ class TagController extends AbstractController {
 	 * @inject
 	 */
 	protected $topicRepository;
+
+    /**
+     * @var \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface
+     * @inject
+     */
+    protected $persistenceManager;
 
 	/**
 	 * Listing all tags of this forum.
@@ -96,12 +103,23 @@ class TagController extends AbstractController {
 		$tag = $this->objectManager->get(Tag::class);
 		$tag->setName($name);
 		$tag->setCrdate(new \DateTime());
-        $tag->setSlug($this->getSlug($name));
 
 		if ((int)$subscribe === 1) {
 			$tag->addFeuser($user);
 		}
-		$this->tagRepository->add($tag);
+
+        $this->tagRepository->add($tag);
+        $this->persistenceManager->persistAll();
+
+        // Create slug after record has been created as we need a valid UID
+        $tag->setSlug(
+            $this->getSlugService()
+                ->generateSlugByUid($tag->getUid())
+        );
+
+        // Update record
+        $this->tagRepository->update($tag);
+        $this->persistenceManager->persistAll();
 
 		if ((int)$subscribe === 0) {
 			$this->redirect('list');
@@ -111,36 +129,16 @@ class TagController extends AbstractController {
 	}
 
     /**
-     * Returns a valid slug for given value.
-     *
-     * @param string $value
-     *
-     * @return string
-     */
-    private function getSlug(string $value): string
-    {
-        $value = $this
-            ->getSlugHelper('tx_typo3forum_domain_model_forum_tag', 'slug')
-            ->sanitize($value);
-
-        return substr($value, 0, 2048);
-    }
-
-    /**
      * Get slug helper instance.
-     *
-     * @param string $table
-     * @param string $fieldName
-     *
-     * @return SlugHelper
+     **
+     * @return SlugService
      */
-    private function getSlugHelper(string $table, string $fieldName): SlugHelper
+    private function getSlugService(): SlugService
     {
         return GeneralUtility::makeInstance(
-            SlugHelper::class,
-            $table,
-            $fieldName,
-            $GLOBALS['TCA'][$table]['columns'][$fieldName]['config']
+            SlugService::class,
+            'tx_typo3forum_domain_model_forum_tag',
+            'slug'
         );
     }
 
