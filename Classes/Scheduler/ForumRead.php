@@ -93,7 +93,7 @@ class ForumRead extends AbstractDatabaseTask
 		 *
 		 * @link https://forge.typo3.org/issues/86385
 		 */
-        $forumQueryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_topic');
+        $forumQueryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_forum_topic');
 		$forumQueryBuilder->getRestrictions()->removeAll();
 		$result = $forumQueryBuilder
 			->select('forum.uid AS forum')
@@ -133,7 +133,7 @@ class ForumRead extends AbstractDatabaseTask
 			->execute();
 
         while ($forumRow = $result->fetch()) {
-            $topicQueryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_topic');
+            $topicQueryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_forum_topic');
 			$topics = $topicQueryBuilder
 				->select('topic.uid')
 				->from('tx_typo3forum_domain_model_forum_topic', 'topic')
@@ -143,7 +143,7 @@ class ForumRead extends AbstractDatabaseTask
 				->execute()
 				->fetchAll(\PDO::FETCH_COLUMN);
 
-            $userQueryBuilder = $this->getDatabaseConnection('fe_users');
+            $userQueryBuilder = $this->getQueryBuilderForTable('fe_users');
 			$userQueryBuilder
 				->select('users.uid')
 				->from('fe_users', 'users');
@@ -174,7 +174,7 @@ class ForumRead extends AbstractDatabaseTask
 				->execute();
 
             while ($userRow = $userResult->fetch()) {
-                $deleteQueryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_user_readforum');
+                $deleteQueryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_user_readforum');
 				$deleteQueryBuilder->delete('tx_typo3forum_domain_model_user_readforum');
 				$deleteQueryBuilder->andWhere(
 					$deleteQueryBuilder->expr()->eq(
@@ -195,7 +195,7 @@ class ForumRead extends AbstractDatabaseTask
                         'uid_foreign' => $forumRow['forum'],
                     ];
 
-                    $insertQueryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_user_readforum');
+                    $insertQueryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_user_readforum');
 					$insertQueryBuilder->insert('tx_typo3forum_domain_model_user_readforum');
 					$insertQueryBuilder->values($insert)->execute();
 

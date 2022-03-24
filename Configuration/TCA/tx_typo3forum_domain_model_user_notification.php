@@ -66,6 +66,16 @@ return [
 				'maxitems' => 1,
 			],
 		],
+        'topic' => [
+            'exclude' => 1,
+            'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_notification.topic',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'tx_typo3forum_domain_model_forum_topic',
+                'maxitems' => 1,
+            ],
+        ],
 		'type' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:typo3_forum/Resources/Private/Language/locallang_db.xml:tx_typo3forum_domain_model_user_notification.type',

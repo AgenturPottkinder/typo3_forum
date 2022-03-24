@@ -107,7 +107,7 @@ class StatsSummary extends AbstractDatabaseTask
         }
         $results = [];
 
-        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_post');
+        $queryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_forum_post');
         $queryBuilder->from('tx_typo3forum_domain_model_forum_post', 'post');
         $queryBuilder->addSelectLiteral(
             $queryBuilder->expr()->count('*', 'counter')
@@ -119,7 +119,7 @@ class StatsSummary extends AbstractDatabaseTask
 
         $results[] = (int)$row['counter'];
 
-        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_topic');
+        $queryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_forum_topic');
         $queryBuilder->from('tx_typo3forum_domain_model_forum_topic', 'topic');
         $queryBuilder->addSelectLiteral(
             $queryBuilder->expr()->count('*', 'counter')
@@ -131,7 +131,7 @@ class StatsSummary extends AbstractDatabaseTask
 
         $results[] = (int)$row['counter'];
 
-        $queryBuilder = $this->getDatabaseConnection('fe_users');
+        $queryBuilder = $this->getQueryBuilderForTable('fe_users');
         $queryBuilder->from('fe_users', 'users');
         $queryBuilder->addSelectLiteral(
             $queryBuilder->expr()->count('*', 'counter')
@@ -156,7 +156,7 @@ class StatsSummary extends AbstractDatabaseTask
             ];
 
 
-            $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_stats_summary');
+            $queryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_stats_summary');
             $queryBuilder->insert('tx_typo3forum_domain_model_stats_summary');
             $queryBuilder->values($values);
             $queryBuilder->execute();

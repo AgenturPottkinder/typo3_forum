@@ -30,7 +30,9 @@ declare(strict_types=1);
 namespace Mittwald\Typo3Forum\Scheduler;
 
 
+use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
@@ -41,24 +43,36 @@ use TYPO3\CMS\Scheduler\Task\AbstractTask;
  */
 abstract class AbstractDatabaseTask extends AbstractTask
 {
-
-
     /**
-     * getDatabaseConnection.
+     * getQueryBuilderForTable.
+     *
      * @param string $table
-     * @return \TYPO3\CMS\Core\Database\Query\QueryBuilder
+     *
+     * @return QueryBuilder
      */
-    protected function getDatabaseConnection($table = 'tx_typo3forum_domain_model_forum_post')
+    protected function getQueryBuilderForTable(string $table = 'tx_typo3forum_domain_model_forum_post'): QueryBuilder
     {
         return $this->getConnectionPool()->getQueryBuilderForTable($table);
+    }
+
+    /**
+     * getQueryBuilderForTable.
+     *
+     * @param string $table
+     *
+     * @return Connection
+     */
+    protected function getDatabaseConnectionForTable(string $table = 'tx_typo3forum_domain_model_forum_post'): Connection
+    {
+        return $this->getConnectionPool()->getConnectionForTable($table);
     }
 
 
     /**
      * getConnectionPool.
-     * @return ConnectionPool|object
+     * @return ConnectionPool
      */
-    protected function getConnectionPool()
+    protected function getConnectionPool(): ConnectionPool
     {
         return GeneralUtility::makeInstance(ConnectionPool::class);
     }

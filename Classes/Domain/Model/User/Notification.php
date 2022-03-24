@@ -26,6 +26,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
 
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Tag;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 
@@ -56,6 +57,10 @@ class Notification extends AbstractEntity {
 	 */
 	public $tag;
 
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Topic
+     */
+    public $topic;
 
 	/**
 	 * The type of notification (Model Name)
@@ -160,6 +165,27 @@ class Notification extends AbstractEntity {
 		$this->tag = $tag;
 	}
 
+    /**
+     * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic
+     */
+    public function getTopic(): \Mittwald\Typo3Forum\Domain\Model\Forum\Topic
+    {
+        return $this->topic;
+    }
+
+    /**
+     * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
+     *
+     * @return Notification
+     */
+    public function setTopic(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic): Notification
+    {
+        $this->topic = $topic;
+        return $this;
+    }
+
+
+
 	/**
 	 * Get if the user already read this notification
 	 * @return int The flag
@@ -178,4 +204,51 @@ class Notification extends AbstractEntity {
 	public function setUserRead($userRead) {
 		$this->userRead = $userRead;
 	}
+
+    public function isTopicNotification(): bool
+    {
+        return $this->getType() === Topic::class;
+    }
+
+    public function getIsTopicNotification(): bool
+    {
+        return $this->isTopicNotification();
+    }
+
+    public function getAutor(): FrontendUser
+    {
+        if ($this->isTopicNotification()) {
+            return $this->getTopic()->getAuthor();
+        }
+
+        return $this->getPost()->getAuthor();
+    }
+
+    public function getSubject(): string
+    {
+        if ($this->isTopicNotification()) {
+            return $this->getTopic()->getSubject();
+        }
+
+        if (null === $this->getPost()->getTopic()) {
+            return "no topic";
+        }
+
+        return $this->getPost()->getTopic()->getSubject();
+    }
+
+    public function getTimestamp(): \DateTime
+    {
+        if ($this->isTopicNotification()) {
+            return $this->getTopic()->getTimestamp();
+        }
+
+        return $this->getPost()->getTimestamp();
+    }
+
+    public function getNotificationType()
+    {
+        $parts =  explode('\\', $this->getType());
+        return end($parts);
+    }
 }

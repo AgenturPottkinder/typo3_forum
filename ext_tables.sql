@@ -615,6 +615,7 @@ CREATE TABLE tx_typo3forum_domain_model_user_notification (
   user_read tinyint(3) default '0',
   type varchar(64) NOT NULL default 'Mittwald\\Typo3Forum\\Domain\\Model\\Forum\\Post',
   tag int(11) unsigned default NULL,
+  topic int(11) unsigned default NULL,
   PRIMARY KEY (uid),
   KEY user (feuser,post),
   KEY feuser (feuser),

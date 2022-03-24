@@ -122,7 +122,7 @@ class Counter extends AbstractDatabaseTask
      */
     private function updateTopic()
     {
-		$queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_post');
+		$queryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_forum_post');
 		$statement = $queryBuilder
 			->select('post.topic')
 			->addSelectLiteral($queryBuilder->expr()->count('post.uid', 'post_count'))
@@ -146,7 +146,7 @@ class Counter extends AbstractDatabaseTask
 
 	private function updateForum() {
 
-		$queryBuilderTopic = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_topic');
+		$queryBuilderTopic = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_forum_topic');
 		$statement = $queryBuilderTopic
 			->select('forum')
 			->addSelectLiteral($queryBuilderTopic->expr()->count('uid', 'topic_count'))
@@ -170,7 +170,7 @@ class Counter extends AbstractDatabaseTask
 			];
 		}
 
-		$queryBuilderForum = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_forum');
+		$queryBuilderForum = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_forum_forum');
 		$statement = $queryBuilderForum
 			->select('uid')
 			->from('tx_typo3forum_domain_model_forum_forum')
@@ -208,7 +208,7 @@ class Counter extends AbstractDatabaseTask
         $rankScore = $this->settings['rankScore.'];
 
         //Find any post_count
-        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_post');
+        $queryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_forum_post');
         $queryBuilder->from('tx_typo3forum_domain_model_forum_post', 'post');
         $queryBuilder->select('post.author');
         $queryBuilder->addSelectLiteral($queryBuilder->expr()->count('post.uid', 'counter'));
@@ -225,7 +225,7 @@ class Counter extends AbstractDatabaseTask
 
 
         //Find any topic count
-        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_topic');
+        $queryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_forum_topic');
         $queryBuilder->from('tx_typo3forum_domain_model_forum_topic', 'topic');
         $queryBuilder->select('topic.author');
         $queryBuilder->addSelectLiteral($queryBuilder->expr()->count('topic.uid', 'counter'));
@@ -242,7 +242,7 @@ class Counter extends AbstractDatabaseTask
         }
 
         // Find any question topic count
-        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_topic');
+        $queryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_forum_topic');
         $queryBuilder->from('tx_typo3forum_domain_model_forum_topic', 'topic');
         $queryBuilder->select('topic.author');
         $queryBuilder->addSelectLiteral($queryBuilder->expr()->count('topic.uid', 'counter'));
@@ -259,7 +259,7 @@ class Counter extends AbstractDatabaseTask
         }
 
         // Find any favorite count
-        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_user_topicfavsubscription');
+        $queryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_user_topicfavsubscription');
         $queryBuilder->from('tx_typo3forum_domain_model_user_topicfavsubscription', 'subscription');
         $queryBuilder->join(
             'subscription',
@@ -279,7 +279,7 @@ class Counter extends AbstractDatabaseTask
         }
 
         //Supported Post User X got
-        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_user_supportpost');
+        $queryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_user_supportpost');
         $queryBuilder->from('tx_typo3forum_domain_model_user_supportpost', 'support');
         $queryBuilder->join(
             'support',
@@ -298,7 +298,7 @@ class Counter extends AbstractDatabaseTask
         }
 
 
-        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_user_supportpost');
+        $queryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_user_supportpost');
         $queryBuilder->from('tx_typo3forum_domain_model_user_supportpost', 'support');
         $queryBuilder->select('support.uid_local');
         $queryBuilder->addSelectLiteral($queryBuilder->expr()->count('*', 'counter'));
@@ -310,7 +310,7 @@ class Counter extends AbstractDatabaseTask
         }
 
         //Find all users with their current rank
-        $queryBuilder = $this->getDatabaseConnection('fe_users');
+        $queryBuilder = $this->getQueryBuilderForTable('fe_users');
         $queryBuilder->from('fe_users', 'user');
         $queryBuilder->select('user.uid AS author', 'user.tx_typo3forum_rank');
         $queryBuilder->andWhere(
@@ -334,7 +334,7 @@ class Counter extends AbstractDatabaseTask
         $rankArray = [];
 
 
-        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_user_rank');
+        $queryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_user_rank');
         $queryBuilder->from('tx_typo3forum_domain_model_user_rank', 'rank');
         $queryBuilder->select('rank.uid', 'rank.point_limit');
         $queryBuilder->andWhere(
@@ -391,7 +391,7 @@ class Counter extends AbstractDatabaseTask
 
 
         //At last, update the rank count
-        $queryBuilder = $this->getDatabaseConnection('fe_users');
+        $queryBuilder = $this->getQueryBuilderForTable('fe_users');
         $queryBuilder->from('fe_users', 'user');
         $queryBuilder->select('user.tx_typo3forum_rank');
         $queryBuilder->addSelectLiteral(

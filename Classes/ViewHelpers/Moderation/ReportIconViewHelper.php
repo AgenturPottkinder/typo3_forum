@@ -37,7 +37,7 @@ class ReportIconViewHelper extends AbstractViewHelper
 {
 
     use CompileWithContentArgumentAndRenderStatic;
-    
+
     /**
      * @var bool
      */
@@ -53,7 +53,7 @@ class ReportIconViewHelper extends AbstractViewHelper
      */
     public function initializeArguments()
     {
-        $this->registerArgument('report', Report::class, 'The report for which the icon is to be rendered.');
+        $this->registerArgument('report', 'object|string', 'The report for which the icon is to be rendered.');
         $this->registerArgument('width', 'int', 'Image width');
         $this->registerArgument('alt', 'string', 'Alt text');
     }

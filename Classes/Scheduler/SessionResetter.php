@@ -66,7 +66,7 @@ class SessionResetter extends AbstractDatabaseTask
         ];
 
 
-        $queryBuilder = $this->getDatabaseConnection('fe_users');
+        $queryBuilder = $this->getQueryBuilderForTable('fe_users');
         $queryBuilder->update('fe_users', 'users');
         $queryBuilder->andWhere(
             $queryBuilder->expr()->eq(

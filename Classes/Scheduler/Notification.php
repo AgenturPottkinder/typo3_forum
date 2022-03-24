@@ -27,6 +27,7 @@ namespace Mittwald\Typo3Forum\Scheduler;
 
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Tag;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 
 class Notification extends AbstractDatabaseTask
 {
@@ -155,9 +156,71 @@ class Notification extends AbstractDatabaseTask
 
         $this->checkPostNotifications();
         $this->checkTagsNotifications();
+        $this->checkTopicNotifications();
 
         return true;
     }
+
+    private function checkTopicNotifications()
+    {
+        $forumUids = $this->getNotifiableTopics()->fetchFirstColumn();
+
+        if (empty($forumUids)) {
+            return;
+        }
+
+        $queryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_user_forumsubscription');
+
+        $formSubscriptions = $queryBuilder->from('tx_typo3forum_domain_model_user_forumsubscription')
+            ->select('uid_local', 'uid_foreign')
+            ->andWhere(
+                $queryBuilder->expr()->in('uid_foreign', $forumUids)
+            )->execute()->fetchAllAssociative();
+
+
+        $insertRows = [];
+
+        foreach ($formSubscriptions as $subscription) {
+            $queryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_forum_topic');
+
+            $topics = $queryBuilder->select('*')
+                ->from('tx_typo3forum_domain_model_forum_topic')
+                ->andWhere(
+                    $queryBuilder->expr()->gt(
+                        'crdate',
+                        $queryBuilder->createNamedParameter($this->getLastExecutedCron(), \PDO::PARAM_INT)
+                    ),
+                    $queryBuilder->expr()->eq('forum', $subscription['uid_foreign'])
+                )->execute()->fetchAllAssociative();
+
+            if (empty($topics)) {
+                return;
+            }
+
+            foreach ($topics as $topic) {
+                if ($subscription['uid_local'] === $topic['author']) {
+                    continue;
+                }
+                $insertRows[] = [
+                    'crdate' => $this->getExecutedOn(),
+                    'pid' => $this->getNotificationPid(),
+                    'feuser' => (int) $subscription['uid_local'],
+                    'topic' => (int) $topic['uid'],
+                    'type' => Topic::class,
+                    'user_read' => (($this->getLastExecutedCron() == 0) ? 1 : 0)
+                ];
+            }
+        }
+
+        $this->getDatabaseConnectionForTable('tx_typo3forum_domain_model_user_notification')
+                   ->bulkInsert(
+                       'tx_typo3forum_domain_model_user_notification',
+                       $insertRows,
+                       array_keys(reset($insertRows))
+                   );
+
+    }
+
 
     /**
      * @return void
@@ -168,7 +231,7 @@ class Notification extends AbstractDatabaseTask
 
         while ($topicRow = $topicResult->fetch()) {
             $involvedUser = $this->getUserInvolvedInTopic($topicRow['uid']);
-            $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_post');
+            $queryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_forum_post');
             $queryBuilder->from('tx_typo3forum_domain_model_forum_post', 'post');
             $queryBuilder->select('post.uid', 'post.author');
             $queryBuilder->andWhere(
@@ -202,7 +265,7 @@ class Notification extends AbstractDatabaseTask
                     ];
 
 
-                    $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_user_notification');
+                    $queryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_user_notification');
                     $queryBuilder->insert('tx_typo3forum_domain_model_user_notification');
                     $queryBuilder->values($insert);
                     $queryBuilder->execute();
@@ -220,7 +283,7 @@ class Notification extends AbstractDatabaseTask
 
         while ($tagsRow = $tagsResult->fetch()) {
             $subscribedTagUser = [];
-            $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_tag');
+            $queryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_forum_tag');
             $queryBuilder->from('tx_typo3forum_domain_model_forum_tag', 'tag');
             $queryBuilder->select('users.uid');
             $queryBuilder->join(
@@ -242,7 +305,7 @@ class Notification extends AbstractDatabaseTask
             while ($userRow = $userResult->fetch()) {
                 $subscribedTagUser[] = $userRow['uid'];
             }
-            $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_post');
+            $queryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_forum_post');
             $queryBuilder->from('tx_typo3forum_domain_model_forum_post', 'post');
             $queryBuilder->select('*');
             $queryBuilder->andWhere(
@@ -275,7 +338,7 @@ class Notification extends AbstractDatabaseTask
 
                     ];
 
-                    $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_user_notification');
+                    $queryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_user_notification');
                     $queryBuilder->insert('tx_typo3forum_domain_model_user_notification');
                     $queryBuilder->values($insert);
                     $queryBuilder->execute();
@@ -291,7 +354,7 @@ class Notification extends AbstractDatabaseTask
      */
     private function findLastCronExecutionDate()
     {
-        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_user_notification');
+        $queryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_user_notification');
         $queryBuilder->from('tx_typo3forum_domain_model_user_notification', 'notification');
         $queryBuilder->select('notification.crdate');
         $queryBuilder->andWhere(
@@ -313,7 +376,7 @@ class Notification extends AbstractDatabaseTask
     private function getUserInvolvedInTopic($topicUid)
     {
         $user = [];
-        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_post');
+        $queryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_forum_post');
         $queryBuilder->from('tx_typo3forum_domain_model_forum_post', 'post');
         $queryBuilder->select('post.author', 'post.uid');
         $queryBuilder->andWhere(
@@ -343,7 +406,7 @@ class Notification extends AbstractDatabaseTask
      */
     private function getNotifiableTags()
     {
-        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_tag');
+        $queryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_forum_tag');
         $queryBuilder->from('tx_typo3forum_domain_model_forum_tag', 'tag');
         $queryBuilder->select('tag.uid AS tagUid', 'topic.uid AS topicUid');
         $queryBuilder->join('tag', 'tx_typo3forum_domain_model_forum_tag_topic', 'mm',
@@ -369,7 +432,7 @@ class Notification extends AbstractDatabaseTask
      */
     private function getNotifiablePosts()
     {
-        $queryBuilder = $this->getDatabaseConnection('tx_typo3forum_domain_model_forum_topic');
+        $queryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_forum_topic');
         $queryBuilder->from('tx_typo3forum_domain_model_forum_topic', 'topic');
         $queryBuilder->select('topic.uid');
         $queryBuilder->join(
@@ -385,6 +448,30 @@ class Notification extends AbstractDatabaseTask
         );
         $queryBuilder->addGroupBy('topic.uid');
         $queryBuilder->addOrderBy('topic.last_post', 'DESC');
+
+        return $queryBuilder->execute();
+    }
+
+    private function getNotifiableTopics()
+    {
+        $queryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_forum_forum');
+
+        $queryBuilder->from('tx_typo3forum_domain_model_forum_forum', 'forum')
+            ->select('forum.uid')
+            ->join(
+                'forum',
+                'tx_typo3forum_domain_model_forum_topic',
+            'topic',
+                $queryBuilder->expr()->eq('topic.forum', 'forum.uid')
+            )->andWhere(
+                $queryBuilder->expr()->in('forum.pid', $this->getForumPids()),
+                $queryBuilder->expr()->gt(
+                    'topic.crdate',
+                    $queryBuilder->createNamedParameter($this->getLastExecutedCron(), \PDO::PARAM_INT)
+                )
+            )->addGroupBy(
+                'forum.uid'
+            )->addOrderBy('topic.crdate', 'DESC');
 
         return $queryBuilder->execute();
     }
