@@ -29,6 +29,7 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Tag;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class Notification extends AbstractEntity {
 
@@ -205,16 +206,31 @@ class Notification extends AbstractEntity {
 		$this->userRead = $userRead;
 	}
 
+    /**
+     * Return if the notification or not
+     *
+     * @return bool
+     */
     public function isTopicNotification(): bool
     {
         return $this->getType() === Topic::class;
     }
 
+    /**
+     * Wrapper for extbase
+     *
+     * @return bool
+     */
     public function getIsTopicNotification(): bool
     {
         return $this->isTopicNotification();
     }
 
+    /**
+     * Returns the author of the post or topic related to the notification
+     *
+     * @return FrontendUser
+     */
     public function getAutor(): FrontendUser
     {
         if ($this->isTopicNotification()) {
@@ -224,6 +240,11 @@ class Notification extends AbstractEntity {
         return $this->getPost()->getAuthor();
     }
 
+    /**
+     * Returns the subject of the topic related to the notification
+     *
+     * @return string
+     */
     public function getSubject(): string
     {
         if ($this->isTopicNotification()) {
@@ -231,12 +252,17 @@ class Notification extends AbstractEntity {
         }
 
         if (null === $this->getPost()->getTopic()) {
-            return "no topic";
+            return LocalizationUtility::translate('Topic_Deleted', 'typo3_forum');
         }
 
         return $this->getPost()->getTopic()->getSubject();
     }
 
+    /**
+     * Returns the timestamp of the post or topic related to this notification
+     *
+     * @return \DateTime
+     */
     public function getTimestamp(): \DateTime
     {
         if ($this->isTopicNotification()) {
@@ -246,9 +272,19 @@ class Notification extends AbstractEntity {
         return $this->getPost()->getTimestamp();
     }
 
-    public function getNotificationType()
+    /**
+     * Returns the type of the notification
+     *
+     * @return string
+     */
+    public function getNotificationType(): string
     {
         $parts =  explode('\\', $this->getType());
+
+        if (empty($parts) || false === is_array($parts)) {
+            return "None";
+        }
+
         return end($parts);
     }
 }
