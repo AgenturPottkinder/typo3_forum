@@ -25,6 +25,7 @@ namespace Mittwald\Typo3Forum\Scheduler;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Doctrine\DBAL\Driver\Statement;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Tag;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
@@ -161,6 +162,9 @@ class Notification extends AbstractDatabaseTask
         return true;
     }
 
+    /**
+     * @return void
+     */
     private function checkTopicNotifications()
     {
         $forumUids = $this->getNotifiableTopics()->fetchFirstColumn();
@@ -402,7 +406,8 @@ class Notification extends AbstractDatabaseTask
 
     /**
      * getNotifiableTags.
-     * @return \Doctrine\DBAL\Driver\Statement|int
+     *
+     * @return Statement|int
      */
     private function getNotifiableTags()
     {
@@ -428,7 +433,8 @@ class Notification extends AbstractDatabaseTask
 
     /**
      * getNotifiablePosts.
-     * @return \Doctrine\DBAL\Driver\Statement|int
+     *
+     * @return Statement|int
      */
     private function getNotifiablePosts()
     {
@@ -452,6 +458,9 @@ class Notification extends AbstractDatabaseTask
         return $queryBuilder->execute();
     }
 
+    /**
+     * @return Statement|int
+     */
     private function getNotifiableTopics()
     {
         $queryBuilder = $this->getQueryBuilderForTable('tx_typo3forum_domain_model_forum_forum');

@@ -134,6 +134,7 @@
 			<label index="Topic_New_Question">Mark as question</label>
 			<label index="Topic_All_Questions">All Questions</label>
 			<label index="Topic_All_Questions_Of">All questions of</label>
+			<label index="Topic_Deleted">deleted Topic</label>
 			<label index="User_Index">User list</label>
 			<label index="User_Index_Display_All">Display all User</label>
 			<label index="User_Index_Search">User search</label>
@@ -198,6 +199,9 @@
 			<label index="User_Show_Notification_Tag_1">answered in a</label>
 			<label index="User_Show_Notification_Tag_2">with the tag</label>
 			<label index="User_Show_Notification_Tag_3"></label>
+			<label index="User_Show_Notification_New_Topic">has opened the topic </label>
+			<label index="User_Show_Notification_New_Topic_Forum">in Forum </label>
+			<label index="User_Show_Notification_New_Topic_Opened">.</label>
 			<label index="User_Show_Messages_Conversation">Conversation</label>
 			<label index="User_Show_Messages_Conversation_New">New conversation</label>
 			<label index="User_Show_Messages_Conversation_NotFound">No active conversation found!</label>

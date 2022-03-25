@@ -1,4 +1,8 @@
-{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+	  data-namespace-typo3-fluid="true"
+	  xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+	  xmlns:mmf="http://typo3.org/ns/Mittwald/Typo3Forum/ViewHelpers"
+>
 <f:layout name="default"/>
 <f:section name="main">
 	<h2>
@@ -10,19 +14,19 @@
 				<f:for each="{paginatedNotification}" as="notification" iteration="iteration">
 					<div class="{f:if(condition:'{notification.userRead} == 0',then:'well',else:'')} {f:if(condition:'{iteration.circle} == 0',then:'margin-top',else:'')}" style="margin-bottom: 30px;">
 						<div>
-							<mmf:user.avatar user="{notification.post.author}" width="40"
-											 alt="{notification.post.author.username}"
+							<mmf:user.avatar user="{notification.author}" width="40"
+											 alt="{notification.author.username}"
 											 class="tx-typo3forum-topic-show-post-user-icon img-polaroid img-rounded pull-left"/>
 							<span class="muted">
-								<f:format.date format="d.m.Y">{notification.post.timestamp}</f:format.date>
+								<f:format.date format="d.m.Y">{notification.timestamp}</f:format.date>
 								<f:translate key="Date_At" />
-								<f:format.date format="H:i">{notification.post.timestamp}</f:format.date>
+								<f:format.date format="H:i">{notification.timestamp}</f:format.date>
 								<f:translate key="Date_Clock" />,
 							</span>
-							<mmf:user.link user="{notification.post.author}"/>
+							<mmf:user.link user="{notification.author}"/>
 						</div>
 						<div>
-							<f:if condition="{notification.tag} != {NULL}">
+							<f:if condition="{notification.typo} == 'Tag'">
 								<f:then>
 									<f:translate key="User_Show_Notification_Tag_1" />
 									<f:link.action pageUid="{settings.pids.Forum}" controller="Post" action="show" arguments="{post: notification.post}">
@@ -34,19 +38,32 @@
 									</f:link.action>
 									<f:translate key="User_Show_Notification_Tag_3" />
 								</f:then>
+								<f:else if="{notification.type} == 'Topic'">
+									<f:translate key="User_Show_Notification_New_Topic"/>
+									<f:link.action pageUid="{settings.pids.Forum}" controller="Topic" action="show"
+												   arguments="{topic: notification.topic}">
+										{notification.subject}
+									</f:link.action>
+									<f:translate key="User_Show_Notification_New_Topic_Forum"/>
+									<f:link.action pageUid="{settings.pids.Forum}" controller="Forum" action="show"
+												   arguments="{forum: notification.topic.forum}">
+										{notification.topic.forum.title}
+									</f:link.action>
+									<f:translate key="User_Show_Notification_New_Topic_Opened" />
+								</f:else>
 								<f:else>
-									<f:if condition="{currentUser} == {notification.post.topic.author}">
+									<f:if condition="{currentUser} == {notification.author}">
 										<f:then>
 											<f:translate key="User_Show_Notification_Author_1" /> <f:translate key="Forum_Index_Topic" />
 											<f:link.action pageUid="{settings.pids.Forum}" controller="Post" action="show" arguments="{post: notification.post}">
-												{notification.post.topic.subject}
+												{notification.subject}
 											</f:link.action>
 											<f:translate key="User_Show_Notification_Author_2" />
 										</f:then>
 										<f:else>
 											<f:translate key="User_Show_Notification_Common_1" /> <f:translate key="Forum_Index_Topic" />
 											<f:link.action pageUid="{settings.pids.Forum}" controller="Post" action="show" arguments="{post: notification.post}">
-												{notification.post.topic.subject}
+												{notification.subject}
 											</f:link.action>
 											<f:translate key="User_Show_Notification_Common_2" />
 										</f:else>
@@ -61,3 +78,4 @@
 	</div>
 </f:section>
 <f:section name="menu"/>
+</html>
