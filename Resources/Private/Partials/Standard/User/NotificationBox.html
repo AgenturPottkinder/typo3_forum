@@ -12,11 +12,11 @@
                         <div>
                             <div>
                                 <div>
-                                    <mmf:user.avatar user="{notification.post.author}" width="40"
-                                                     alt="{notification.post.author.username}"
+                                    <mmf:user.avatar user="{notification.author}" width="40"
+                                                     alt="{notification.author.username}"
                                                      class="tx-typo3forum-topic-show-post-user-icon"/>
                                 </div>
-                                <mmf:user.link user="{notification.post.author}"/>
+                                <mmf:user.link user="{notification.author}"/>
                             </div>
                             <div>
                                 <f:if condition="{notification.tag} != {NULL}">
@@ -34,7 +34,7 @@
                                         <f:translate key="User_Show_Notification_Tag_3"/>
                                     </f:then>
                                     <f:else>
-                                        <f:if condition="{currentUser} == {notification.post.topic.author}">
+                                        <f:if condition="{currentUser} == {notification.author}">
                                             <f:then>
                                                 <f:translate key="User_Show_Notification_Author_1"/>
                                                 <f:link.action pageUid="{settings.pids.Forum}" controller="Post"
@@ -56,9 +56,9 @@
                                 </f:if>
                                 <br>
 							<span>
-								<f:format.date format="d.m.Y">{notification.post.timestamp}</f:format.date>
+								<f:format.date format="d.m.Y">{notification.timestamp}</f:format.date>
 								<f:translate key="Date_At"/>
-								<f:format.date format="H:i">{notification.post.timestamp}</f:format.date>
+								<f:format.date format="H:i">{notification.timestamp}</f:format.date>
 								<f:translate key="Date_Clock"/>
 							</span>
                             </div>
