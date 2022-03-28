@@ -30,7 +30,7 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use Mittwald\Typo3Forum\Domain\Model\NotifiableInterface;
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
 use Mittwald\Typo3Forum\Service\AbstractService;
-use Mittwald\Typo3Forum\Utility\Localization;
+use \TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * Service class for notifications. This service notifies subscribers of
@@ -57,7 +57,7 @@ class NotificationService extends AbstractService implements NotificationService
 	protected $configurationBuilder;
 
 	/**
-	 * Whole TypoScript typo3_forum settings
+	 * Whole TypoScript Typo3Forum settings
 	 *
 	 * @var array
 	 */
@@ -103,12 +103,12 @@ class NotificationService extends AbstractService implements NotificationService
 	 */
 	protected function notifyTopicSubscribers(Forum $forum, Topic $topic, Post $post) {
 
-		$subject = Localization::translate('Mail_Subscribe_NewPost_Subject');
+		$subject = LocalizationUtility::translate('Mail_Subscribe_NewPost_Subject','Typo3Forum');
 		$message = $this->getMessage(
 			$forum,
 			$topic,
 			$post,
-			Localization::translate('Mail_Subscribe_NewPost_Body'),
+            LocalizationUtility::translate('Mail_Subscribe_NewPost_Body','Typo3Forum'),
 			$this->getTopicUnsubscribeLink($forum, $topic)
 		);
 		$postAuthorUid = $post->getAuthor()->getUid();
@@ -123,8 +123,8 @@ class NotificationService extends AbstractService implements NotificationService
 
 	protected function notifyForumSubscribers(Forum $forum, Topic $topic, Post $post) {
 
-		$subject = Localization::translate('Mail_Subscribe_NewTopic_Subject');
-		$messageTemplate = Localization::translate('Mail_Subscribe_NewTopic_Body');
+		$subject = LocalizationUtility::translate('Mail_Subscribe_NewTopic_Subject','Typo3Forum');
+		$messageTemplate = LocalizationUtility::translate('Mail_Subscribe_NewTopic_Body','Typo3Forum');
 		$postAuthorUid = $post->getAuthor()->getUid();
 
 		$notifiedSubscribers = [];
@@ -215,7 +215,7 @@ class NotificationService extends AbstractService implements NotificationService
 			->build();
 		$this->uriBuilder->reset();
 
-		return '<a href="' . $unSubscribeLink . '">' . Localization::translate('Button_Unsubscribe') . '</a>';
+		return '<a href="' . $unSubscribeLink . '">' . LocalizationUtility::translate('Button_Unsubscribe','Typo3Forum') . '</a>';
 	}
 
 	protected function getTopicUnsubscribeLink(Forum $forum, Topic $topic) {
@@ -232,7 +232,7 @@ class NotificationService extends AbstractService implements NotificationService
 			->build();
 		$this->uriBuilder->reset();
 
-		return '<a href="' . $unSubscribeLink . '">' . Localization::translate('Button_Unsubscribe') . '</a>';
+		return '<a href="' . $unSubscribeLink . '">' . LocalizationUtility::translate('Button_Unsubscribe','Typo3Forum') . '</a>';
 	}
 
 }

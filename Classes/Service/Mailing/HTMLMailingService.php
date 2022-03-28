@@ -43,6 +43,8 @@ class HTMLMailingService extends AbstractMailingService
      */
     public function sendMail(FrontendUser $recipient, $subject, $bodyText)
     {
+        $bodyText = str_replace('<br />', '', $bodyText);
+
         $typo3Mail = GeneralUtility::makeInstance(MailMessage::class);
         $typo3Mail->setFrom([
             $this->getDefaultSenderAddress() => $this->getDefaultSenderName()]
@@ -50,6 +52,7 @@ class HTMLMailingService extends AbstractMailingService
             ->setTo($recipient->getEmail())
             ->setSubject($subject)
             ->setBody($bodyText, 'text/html')
+            ->setEncoder(new \Swift_Mime_ContentEncoder_PlainContentEncoder('8bit'))
             ->send();
     }
 }
