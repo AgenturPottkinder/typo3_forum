@@ -374,9 +374,9 @@ class UserController extends AbstractController {
 	 */
 	public function showAction(FrontendUser $user = NULL)
     {
-		if (!$this->frontendUserService->isLoggedIn($user)) {
-			$this->redirect('show', NULL, NULL, ['user' => $this->getCurrentUser()]);
-		}
+        if ($user === null) {
+            $user = $this->getCurrentUser();
+        }
 
 		$lastFiveTopics = $this->topicRepository
 			->findByPostAuthor($user)
