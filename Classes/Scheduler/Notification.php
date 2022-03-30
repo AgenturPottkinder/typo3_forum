@@ -216,6 +216,10 @@ class Notification extends AbstractDatabaseTask
             }
         }
 
+        if (empty($insertRows)) {
+            return;
+        }
+
         $this->getDatabaseConnectionForTable('tx_typo3forum_domain_model_user_notification')
                    ->bulkInsert(
                        'tx_typo3forum_domain_model_user_notification',
