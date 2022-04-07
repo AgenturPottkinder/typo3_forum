@@ -29,7 +29,6 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Tag;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class Notification extends AbstractEntity {
 
@@ -169,7 +168,7 @@ class Notification extends AbstractEntity {
     /**
      * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic
      */
-    public function getTopic(): \Mittwald\Typo3Forum\Domain\Model\Forum\Topic
+    public function getTopic(): ?\Mittwald\Typo3Forum\Domain\Model\Forum\Topic
     {
         return $this->topic;
     }
@@ -184,8 +183,6 @@ class Notification extends AbstractEntity {
         $this->topic = $topic;
         return $this;
     }
-
-
 
 	/**
 	 * Get if the user already read this notification
@@ -251,10 +248,6 @@ class Notification extends AbstractEntity {
             return $this->getTopic()->getSubject();
         }
 
-        if (null === $this->getPost()->getTopic()) {
-            return LocalizationUtility::translate('Topic_Deleted', 'typo3_forum');
-        }
-
         return $this->getPost()->getTopic()->getSubject();
     }
 
@@ -286,5 +279,18 @@ class Notification extends AbstractEntity {
         }
 
         return end($parts);
+    }
+
+    public function getHideNotification()
+    {
+        try {
+            if (null === $this->getPost()->getTopic()) {
+                return true;
+            }
+
+            return false;
+        } catch (\Throwable $exception) {
+            return true;
+        }
     }
 }

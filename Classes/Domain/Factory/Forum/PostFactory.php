@@ -121,9 +121,11 @@ class PostFactory extends AbstractFactory {
 		if ($topic->getPostCount() === 1) {
 			$this->topicFactory->deleteTopic($topic);
 		} else {
-			$post->getAuthor()->decreasePostCount();
-			$post->getAuthor()->decreasePoints((int) $this->settings['rankScore']['newPost']);
-			$this->frontendUserRepository->update($post->getAuthor());
+            if ($post->getAuthor() instanceof FrontendUser && $post->getAuthor()->isAnonymous() === false) {
+                $post->getAuthor()->decreasePostCount();
+                $post->getAuthor()->decreasePoints((int) $this->settings['rankScore']['newPost']);
+                $this->frontendUserRepository->update($post->getAuthor());
+            }
 			$topic->removePost($post);
 			$this->topicRepository->update($topic);
 		}
