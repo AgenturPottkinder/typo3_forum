@@ -31,6 +31,7 @@ use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * A forum post. Forum posts are submitted to the access control mechanism and can be
@@ -180,7 +181,12 @@ class Post extends AbstractEntity implements AccessibleInterface, NotifiableInte
 	 */
 	public function getAuthorName() {
 		if ($this->getAuthor()->isAnonymous()) {
-			return $this->authorName;
+			$this->authorName ?? LocalizationUtility::translate('Anonymus', 'typo3_forum');
+            if (empty($this->authorName)) {
+                $this->authorName = "Anonym";
+            }
+
+            return $this->authorName;
 		} else {
 			return $this->getAuthor()->getUsername();
 		}
