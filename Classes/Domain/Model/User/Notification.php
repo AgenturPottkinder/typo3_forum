@@ -27,6 +27,7 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Tag;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 
@@ -230,11 +231,14 @@ class Notification extends AbstractEntity {
      */
     public function getAutor(): FrontendUser
     {
-        if ($this->isTopicNotification()) {
-            return $this->getTopic()->getAuthor();
+        try {
+            if ($this->isTopicNotification()) {
+                return $this->getTopic()->getAuthor();
+            }
+            return $this->getPost()->getAuthor();
+        } catch (\Throwable $exception) {
+            return GeneralUtility::makeInstance(AnonymousFrontendUser::class);
         }
-
-        return $this->getPost()->getAuthor();
     }
 
     /**
@@ -285,6 +289,10 @@ class Notification extends AbstractEntity {
     {
         try {
             if (null === $this->getPost()->getTopic()) {
+                return true;
+            }
+
+            if ($this->isTopicNotification() && $this->getTopic() === null) {
                 return true;
             }
 
