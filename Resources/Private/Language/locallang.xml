@@ -7,6 +7,7 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
+			<label index="Anonymus">Anonymus</label>
 			<label index="Button_Back">Back</label>
 			<label index="Button_Delete">Delete</label>
 			<label index="Button_Delete_Topic">Delete Topic</label>
@@ -628,6 +629,7 @@ Your ###FORUM_TEAM###-Team</label>
 		</languageKey>
 		<languageKey index="da"></languageKey>
 		<languageKey index="de" type="array">
+			<label index="Anonymus">Anonym</label>
 			<label index="Button_Back">Zurück</label>
 			<label index="Button_Delete">Löschen</label>
 			<label index="Button_Delete_Topic">Thema Löschen</label>

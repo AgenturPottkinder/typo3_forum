@@ -27,9 +27,9 @@ namespace Mittwald\Typo3Forum\Domain\Model\User;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Tag;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class Notification extends AbstractEntity {
 
@@ -169,7 +169,7 @@ class Notification extends AbstractEntity {
     /**
      * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic
      */
-    public function getTopic(): \Mittwald\Typo3Forum\Domain\Model\Forum\Topic
+    public function getTopic(): ?\Mittwald\Typo3Forum\Domain\Model\Forum\Topic
     {
         return $this->topic;
     }
@@ -184,8 +184,6 @@ class Notification extends AbstractEntity {
         $this->topic = $topic;
         return $this;
     }
-
-
 
 	/**
 	 * Get if the user already read this notification
@@ -233,11 +231,14 @@ class Notification extends AbstractEntity {
      */
     public function getAutor(): FrontendUser
     {
-        if ($this->isTopicNotification()) {
-            return $this->getTopic()->getAuthor();
+        try {
+            if ($this->isTopicNotification()) {
+                return $this->getTopic()->getAuthor();
+            }
+            return $this->getPost()->getAuthor();
+        } catch (\Throwable $exception) {
+            return GeneralUtility::makeInstance(AnonymousFrontendUser::class);
         }
-
-        return $this->getPost()->getAuthor();
     }
 
     /**
@@ -249,10 +250,6 @@ class Notification extends AbstractEntity {
     {
         if ($this->isTopicNotification()) {
             return $this->getTopic()->getSubject();
-        }
-
-        if (null === $this->getPost()->getTopic()) {
-            return LocalizationUtility::translate('Topic_Deleted', 'typo3_forum');
         }
 
         return $this->getPost()->getTopic()->getSubject();
@@ -286,5 +283,22 @@ class Notification extends AbstractEntity {
         }
 
         return end($parts);
+    }
+
+    public function getHideNotification(): bool
+    {
+        try {
+            if (null === $this->getPost()->getTopic()) {
+                return true;
+            }
+
+            if ($this->isTopicNotification() && $this->getTopic() === null) {
+                return true;
+            }
+
+            return false;
+        } catch (\Throwable $exception) {
+            return true;
+        }
     }
 }
