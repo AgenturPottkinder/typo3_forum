@@ -29,6 +29,7 @@ use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUserGroup;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class LinkViewHelper extends AbstractViewHelper
 {
@@ -72,6 +73,9 @@ class LinkViewHelper extends AbstractViewHelper
     public function render()
     {
         $user = $this->arguments['user'];
+        if ($user->isAnonymous()) {
+            return LocalizationUtility::translate('Anonymus', 'typo3_forum');
+        }
         $showOnlineStatus = $this->arguments['showOnlineStatus'];
         $showOnline = $this->arguments['showOnline'];
 
