@@ -48,9 +48,9 @@ final class SubscriptionListener {
 	 * @param Post $post Event data.
 	 * @return void
 	 */
-	public function onPostCreated($post) {
+	public function onPostCreated($post, $context = null, $settings = null) {
 		if ($post instanceof Post) {
-			$this->notificationService->notifySubscribers($post->getTopic(), $post);
+			$this->notificationService->notifySubscribers($post->getTopic(), $post, $context, $settings);
 		}
 	}
 

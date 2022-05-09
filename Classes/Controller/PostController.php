@@ -259,7 +259,15 @@ class PostController extends AbstractController {
 		$this->topicRepository->update($topic);
 
 		// All potential listeners (Signal-Slot FTW!)
-		$this->signalSlotDispatcher->dispatch(Post::class, 'postCreated', ['post' => $post]);
+		$this->signalSlotDispatcher->dispatch(
+            Post::class,
+            'postCreated',
+            [
+                'post' => $post,
+                'controllerContext' => $this->controllerContext,
+                'settings' => $this->settings
+            ]
+        );
 
 		// Display flash message and redirect to topic->show action.
 		$this->controllerContext->getFlashMessageQueue()->enqueue(

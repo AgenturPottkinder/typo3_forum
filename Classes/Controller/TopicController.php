@@ -254,7 +254,15 @@ class TopicController extends AbstractController {
 		$topic = $this->topicFactory->createTopic($forum, $post, $subject, (int)$question, $criteria, $tags, (int)$subscribe);
 
 		// Notify potential listeners.
-		$this->signalSlotDispatcher->dispatch(Topic::class, 'topicCreated', ['topic' => $topic]);
+		$this->signalSlotDispatcher->dispatch(
+            Topic::class,
+            'topicCreated',
+            [
+                'topic' => $topic,
+                'controllerContext' => $this->controllerContext,
+                'settings' => $this->settings
+            ]
+        );
 		$this->clearCacheForCurrentPage();
 
 		if ($this->settings['purgeCache']) {
