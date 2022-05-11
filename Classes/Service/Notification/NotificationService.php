@@ -180,23 +180,20 @@ class NotificationService extends AbstractService implements NotificationService
 	}
 
 	protected function getTopicLink(Forum $forum, Topic $topic) {
-		$arguments = [
-			'tx_typo3forum_pi1[controller]' => 'Topic',
-			'tx_typo3forum_pi1[action]' => 'show',
-			'tx_typo3forum_pi1[topic]' => $topic->getUid(),
-			'tx_typo3forum_pi1[forum]' => $forum->getUid(),
-		];
+        $arguments = [
+            'topic' => $topic->getUid(),
+            'forum' => $forum->getUid(),
+        ];
 
 		$pageNumber = $topic->getPageCount();
 		if ($pageNumber > 1) {
 			$arguments['@widget_0']['currentPage'] = $pageNumber;
 		}
 
-		$topicLink = $this->uriBuilder
-			->setTargetPageUid($this->settings['pids']['Forum'])
-			->setArguments($arguments)
-			->setCreateAbsoluteUri(TRUE)
-			->build();
+        $topicLink = $this->uriBuilder
+            ->setTargetPageUid($this->settings['pids']['Forum'])
+            ->setCreateAbsoluteUri(TRUE)
+            ->uriFor('show', $arguments, 'Topic', 'Typo3Forum', 'Pi1');
 		$this->uriBuilder->reset();
 
 		return '<a href="' . $topicLink . '">"' . $topic->getTitle() . '"</a>';
