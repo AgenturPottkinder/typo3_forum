@@ -29,6 +29,7 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use Mittwald\Typo3Forum\Domain\Model\NotifiableInterface;
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Service\AbstractService;
 use \TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
@@ -71,8 +72,11 @@ class NotificationService extends AbstractService implements NotificationService
 	 * Notifies subscribers of a subscribeable objects about a new notifiable object
 	 * within the subscribeable object, e.g. of a new post within a subscribed topic.
 	 *
-	 * @param SubscribeableInterface $subscriptionObject The subscribed object. This may for example be a forum or a topic.
-	 * @param NotifiableInterface $notificationObject The object that the subscriber is notified about. This may for example be a new post within an observed topic or forum or a new topic within an observed forum.
+	 * @param SubscribeableInterface $subscriptionObject The subscribed object. This may for example be a forum or a
+	 *                                                   topic.
+	 * @param NotifiableInterface $notificationObject The object that the subscriber is notified about. This may for
+	 *                                                example be a new post within an observed topic or forum or a new
+	 *                                                topic within an observed forum.
 	 * @return void
 	 */
 	public function notifySubscribers(SubscribeableInterface $subscriptionObject, NotifiableInterface $notificationObject) {
@@ -113,7 +117,12 @@ class NotificationService extends AbstractService implements NotificationService
 		);
 		$postAuthorUid = $post->getAuthor()->getUid();
 
-		foreach ($topic->getSubscribers() as $subscriber) {
+        /** @var FrontendUser $subscriber */
+        foreach ($topic->getSubscribers() as $subscriber) {
+            if (false === $subscriber->hasEmailAddress()) {
+                continue;
+            }
+
 			if ($forum->checkReadAccess($subscriber) && $subscriber->getUid() !== $postAuthorUid) {
 				$subscriberMessage = nl2br(str_replace('###RECIPIENT###', $subscriber->getUsername(), $message));
 				$this->htmlMailingService->sendMail($subscriber, $subject, $subscriberMessage);
@@ -152,7 +161,7 @@ class NotificationService extends AbstractService implements NotificationService
 			'###TOPIC_NAME###' => $topic->getName(),
 			'###TOPIC_LINK###' => $this->getTopicLink($forum, $topic),
 			'###UNSUBSCRIBE_LINK###' => $unsubscribeLink,
-			'###FORUM_TEAM###' => $this->settings['mailing']['sender']['name']
+			'###FORUM_TEAM###' => $this->settings['mailing']['sender']['name'],
 		];
 		$message = $messageTemplate;
 		foreach ($marker as $name => $value) {

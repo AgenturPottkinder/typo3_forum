@@ -1017,4 +1017,9 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 		}
 		$this->helpfulCountSession = $this->helpfulCountSession + $by;
 	}
+
+    public function hasEmailAddress(): bool
+    {
+        return !empty($this->email);
+    }
 }
