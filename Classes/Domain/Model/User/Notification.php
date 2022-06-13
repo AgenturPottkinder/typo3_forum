@@ -288,15 +288,9 @@ class Notification extends AbstractEntity {
     public function getHideNotification(): bool
     {
         try {
-            if (null === $this->getPost()->getTopic()) {
-                return true;
-            }
-
-            if ($this->isTopicNotification() && $this->getTopic() === null) {
-                return true;
-            }
-
-            return false;
+            return $this->isTopicNotification() ?
+                null === $this->getTopic() :
+                null === $this->getPost()->getTopic();
         } catch (\Throwable $exception) {
             return true;
         }
