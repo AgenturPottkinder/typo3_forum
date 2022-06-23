@@ -316,4 +316,18 @@ class TopicRepository extends AbstractRepository {
 		return $query->execute()->toArray();
 	}
 
+    /**
+     * @param int $limit
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function getNewestTopics(int $limit = 0)
+    {
+        $query = $this->createQuery();
+        $query->setOrderings(['crdate' => 'DESC']);
+        if ($limit > 0) {
+            $query->setLimit($limit);
+        }
+
+        return $query->execute();
+    }
 }

@@ -108,6 +108,10 @@
 										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Display_PopularBox</numIndex>
 										<numIndex index="1">4</numIndex>
 									</numIndex>
+									<numIndex index="4" type="array">
+										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xml:Display_NewestBox</numIndex>
+										<numIndex index="1">5</numIndex>
+									</numIndex>
 								</items>
 							</config>
 							<displayCond>FIELD:switchableControllerActions:=:Topic->list</displayCond>

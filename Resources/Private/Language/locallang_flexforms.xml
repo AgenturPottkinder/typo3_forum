@@ -39,6 +39,7 @@
             <label index="Display_QuestionBox">Latest Questions Box</label>
             <label index="Display_Questionslist">Questions List</label>
             <label index="Display_PopularBox">Popular Topics Box</label>
+			<label index="Display_NewestBox">Newest Topics Box</label>
 		</languageKey>
 	</data>
 </T3locallang>
