@@ -1,5 +1,8 @@
 # TYPO3 Forum
 
+> **Note**
+> A running version for TYPO3 v11 is in the v11 branch. It is not fully tested and migration will require manual work. Please do not update without a testing system and a backup!
+
 The typo3_forum is a frontend plugin that adds a discussion board to your TYPO3-based website. The extension was originally written to be used for discussing questions about TYPO3 in the TYPO3 portal TYPO3.net by Mittwald CM Service.
 
 The extension currently consists of 10 different plugins. These plugins provide the following features:
