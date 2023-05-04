@@ -3,12 +3,16 @@
 <f:section name="main">
 	<f:if condition="{showPaginate}">
 		<f:then>
-			<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.pagebrowser.default}">
-				<f:render partial="{partial}" arguments="{posts: paginatedPosts}" />
-			</f:widget.paginate>
+			<h2><f:translate key="Forum_Index_Posts" /></h2>
+			<mmf:pagination.paginate objects="{posts}" as="paginatedPosts" page="{page}" configuration="{settings.pagebrowser.postList}" configAs="pagination">
+				<f:render partial="Post/List" arguments="{posts: paginatedPosts}" />
+
+				<f:render partial="Control/PageBrowser" arguments="{pagination: pagination, action: 'list'}" />
+			</mmf:pagination.paginate>
 		</f:then>
 		<f:else>
-			<f:render partial="{partial}" arguments="{posts: posts}" />
+			<h2><f:translate key="User_Show_LatestPosts" /></h2>
+			<f:render partial="Post/List" arguments="{posts: posts}" />
 		</f:else>
 	</f:if>
 </f:section>

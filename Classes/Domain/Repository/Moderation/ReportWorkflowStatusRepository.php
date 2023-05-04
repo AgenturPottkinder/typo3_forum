@@ -31,30 +31,31 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 /**
  * Repository class for workflow status objects.
  */
-class ReportWorkflowStatusRepository extends AbstractRepository {
+class ReportWorkflowStatusRepository extends AbstractRepository
+{
 
-	/**
-	 * Finds the initial status that is to be used for new reports.
-	 *
-	 * @return ReportWorkflowStatus The initial status that is to be used for new reports.
-	 */
-	public function findInitial() {
-		$query = $this->createQueryWithFallbackStoragePage();
-		return $query->matching($query->equals('initial', TRUE))->setLimit(1)->execute()->getFirst();
-	}
+    /**
+     * Finds the initial status that is to be used for new reports.
+     *
+     * @return ReportWorkflowStatus The initial status that is to be used for new reports.
+     */
+    public function findInitial()
+    {
+        $query = $this->createQueryWithFallbackStoragePage();
+        return $query->matching($query->equals('initial', true))->setLimit(1)->execute()->getFirst();
+    }
 
+    /**
+     * @return QueryInterface
+     */
+    public function createQuery()
+    {
+        $query = parent::createQuery();
 
-	/**
-	 * @return QueryInterface
-	 */
-	public function createQuery() {
-		$query = parent::createQuery();
+        $storagePageIds = $query->getQuerySettings()->getStoragePageIds();
+        $storagePageIds[] = 0;
 
-		$storagePageIds = $query->getQuerySettings()->getStoragePageIds();
-		$storagePageIds[] = 0;
-
-		$query->getQuerySettings()->setStoragePageIds($storagePageIds);
-		return $query;
-	}
-
+        $query->getQuerySettings()->setStoragePageIds($storagePageIds);
+        return $query;
+    }
 }

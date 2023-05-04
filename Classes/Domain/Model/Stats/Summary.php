@@ -24,73 +24,51 @@ namespace Mittwald\Typo3Forum\Domain\Model\Stats;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use DateTime;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-class Summary extends AbstractEntity {
+class Summary extends AbstractEntity
+{
+    protected string $type;
 
-	/**
-	 * Type of summary
-	 * @var string
-	 */
-	protected $type;
+    protected int $amount;
 
-	/**
-	 * Amount of the summary
-	 * @var int
-	 */
-	protected $amount;
+    protected DateTime $tstamp;
 
+    public function getType(): string
+    {
+        return $this->type;
+    }
 
-	/**
-	 * Timestamp of summary
-	 * @var int
-	 */
-	protected $tstamp;
+    public function setType(string $type): self
+    {
+        $this->type = $type;
 
+        return $this;
+    }
 
-	/**
-	 * Get the type of this summary
-	 * @return string
-	 */
-	public function getType() {
-		return $this->type;
-	}
+    public function getAmount(): int
+    {
+        return $this->amount;
+    }
 
-	/**
-	 * @param string $type
-	 */
-	public function setType($type) {
-		$this->type = $type;
-	}
+    public function setAmount(int $amount): self
+    {
+        $this->amount = $amount;
 
-	/**
-	 * Get the amount of this summary
-	 * @return int
-	 */
-	public function getAmount() {
-		return $this->amount;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param int $amount
-	 */
-	public function setAmount($amount) {
-		$this->amount = $amount;
-	}
+    /**
+     * Get the amount of this summary nicely formatted
+     */
+    public function getAmountAsString(): string
+    {
+        return number_format($this->amount, 0, '', '.');
+    }
 
-	/**
-	 * Get the amount of this summary nicely formatted
-	 * @return string
-	 */
-	public function getAmountNice() {
-		return number_format($this->amount, 0, '', '.');
-	}
-
-	/**
-	 * Get the timestamp of this summary
-	 * @return int
-	 */
-	public function getTstamp() {
-		return $this->tstamp;
-	}
+    public function getTstamp(): DateTime
+    {
+        return $this->tstamp;
+    }
 }

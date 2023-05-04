@@ -27,42 +27,41 @@ namespace Mittwald\Typo3Forum\Service\Notification;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 
-
 /**
  * Listener class for modifications. This class uses Extbase's Signal-/Slot
  * mechanism to "listen" for new posts and topics and notifies the subscribers
  * of the regarding objects.
  */
-final class SubscriptionListener {
+final class SubscriptionListener
+{
+    protected NotificationServiceInterface $notificationService;
 
-	/**
-	 * An instance of the notification service.
-	 * @var \Mittwald\Typo3Forum\Service\Notification\NotificationServiceInterface
-	 * @inject
-	 */
-	protected $notificationService = NULL;
+    public function __construct(NotificationServiceInterface $notificationService)
+    {
+        $this->notificationService = $notificationService;
+    }
 
-	/**
-	 * Is fired when a new post is created.
-	 *
-	 * @param Post $post Event data.
-	 * @return void
-	 */
-	public function onPostCreated($post) {
-		if ($post instanceof Post) {
-			$this->notificationService->notifySubscribers($post->getTopic(), $post);
-		}
-	}
+    /**
+     * Is fired when a new post is created.
+     *
+     * @param Post $post Event data.
+     */
+    public function onPostCreated($post)
+    {
+        if ($post instanceof Post) {
+            $this->notificationService->notifySubscribers($post->getTopic(), $post);
+        }
+    }
 
-	/**
-	 * Is fired when a new topic is created.
-	 *
-	 * @param Topic $topic Event data.
-	 * @return void
-	 */
-	public function onTopicCreated($topic) {
-		if ($topic instanceof Topic) {
-			$this->notificationService->notifySubscribers($topic->getForum(), $topic);
-		}
-	}
+    /**
+     * Is fired when a new topic is created.
+     *
+     * @param Topic $topic Event data.
+     */
+    public function onTopicCreated($topic)
+    {
+        if ($topic instanceof Topic) {
+            $this->notificationService->notifySubscribers($topic->getForum(), $topic);
+        }
+    }
 }

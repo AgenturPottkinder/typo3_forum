@@ -10,17 +10,21 @@
 		}
 	],
 	"require": {
-		"typo3/cms-core": "^8.7 || ^9.5",
-		"typo3-ter/static-info-tables": "^6.4.0"
+		"typo3/cms-core": "^11.5",
+		"sjbr/static-info-tables": "^11.5"
 	},
 	"require-dev": {
 		"namelesscoder/typo3-repository-client": "^1.2",
-		"mikey179/vfsStream": "^1.4",
-		"phpunit/phpunit": "^5.0 || ^6.5"
+		"mikey179/vfsstream": "^1.4",
+		"phpunit/phpunit": "^5.0 || ^6.5",
+		"helmich/typo3-typoscript-lint": "^2.3",
+		"overtrue/phplint": "^2.1",
+		"friendsofphp/php-cs-fixer": "^2.16",
+		"phpmd/phpmd": "^2.9",
+		"phpstan/phpstan": "^0.12.52",
+		"psalm/phar": "^4.0"
 	},
 	"replace": {
-		"typo3_forum": "self.version",
-		"typo3-ter/typo3-forum": "self.version",
 		"typo3-ter/typo3_forum": "self.version"
 	},
 	"config": {
@@ -43,9 +47,12 @@
 		}
 	},
 	"scripts": {
-		"post-autoload-dump": [
-			"mkdir -p .Build/Web/typo3conf/ext/",
-			"[ -L .Build/Web/typo3conf/ext/typo3_forum ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/typo3_forum"
+		"php-lint": [
+			".Build/vendor/overtrue/phplint/bin/phplint"
+		],
+		"php-cs-fixer": [
+			".Build/vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --config=.php_cs.php --dry-run --diff --diff-format=udiff Classes",
+			".Build/vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --config=.php_cs.php --dry-run --diff --diff-format=udiff Configuration"
 		]
 	},
 	"extra": {
@@ -53,6 +60,7 @@
 			"dev-master": "1.0.x-dev"
 		},
 		"typo3/cms": {
+			"extension-key": "typo3_forum",
 			"cms-package-dir": "{$vendor-dir}/typo3/cms",
 			"web-dir": ".Build/Web"
 		}

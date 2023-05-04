@@ -30,15 +30,15 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Access;
  * Interface definition for objects that are submitted to the access control
  * mechanism of the typo3_forum.
  */
-interface AccessibleInterface {
+interface AccessibleInterface
+{
 
-	/**
-	 * Checks if a certain frontend user has access to a specific operation.
-	 *
-	 * @param User\FrontendUser $user
-	 * @param string $accessType
-	 * @return boolean
-	 */
-	public function checkAccess(User\FrontendUser $user = NULL, $accessType = Access::TYPE_READ);
-
+    /**
+     * Checks if a certain frontend user has access to a specific operation.
+     *
+     * @param User\FrontendUser $user
+     * @param string $accessType
+     * @return bool
+     */
+    public function checkAccess(User\FrontendUser $user = null, $accessType = Access::TYPE_READ);
 }

@@ -28,21 +28,20 @@ namespace Mittwald\Typo3Forum\Domain\Model\User\Userfield;
  * Userfield that renders its content using a previously defined typoscript
  * object.
  */
-class TyposcriptUserfield extends AbstractUserfield {
+class TyposcriptUserfield extends AbstractUserfield
+{
+    /**
+     * The typoscript path that is to be used for rendering this field.
+     * @var string
+     */
+    protected $typoscriptPath;
 
-	/**
-	 * The typoscript path that is to be used for rendering this field.
-	 * @var string
-	 */
-	protected $typoscriptPath;
-
-	/**
-	 *
-	 * Gets the typoscript path.
-	 * @return string The typoscript path.
-	 *
-	 */
-	public function getTyposcriptPath() {
-		return $this->typoscriptPath;
-	}
+    /**
+     * Gets the typoscript path.
+     * @return string The typoscript path.
+     */
+    public function getTyposcriptPath()
+    {
+        return $this->typoscriptPath;
+    }
 }

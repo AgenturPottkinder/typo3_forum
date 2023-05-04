@@ -30,16 +30,13 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 /**
  * Repository class for bb codes.
  */
-class BBCodeRepository extends AbstractRepository {
+class BBCodeRepository extends AbstractRepository
+{
+    public function findAll(): QueryResultInterface
+    {
+        $query = $this->createQueryWithFallbackStoragePage();
+        $query->setOrderings(['uid' => 'ASC']);
 
-	/**
-	 * @return QueryResultInterface
-	 */
-	public function findAll() {
-		$query = $this->createQueryWithFallbackStoragePage();
-		$query->setOrderings(['uid' => 'ASC']);
-
-		return $query->execute();
-	}
-
+        return $query->execute();
+    }
 }

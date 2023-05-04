@@ -1,6 +1,8 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Model\Forum;
 
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -23,33 +25,33 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *                                                                      *
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
-use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Core\SingletonInterface;
-
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * A virtual root forum.
  * This class models a virtual root forum that is the parent forum of all
  * other forums.
  */
-class RootForum extends Forum implements SingletonInterface {
+class RootForum extends Forum implements SingletonInterface
+{
+    protected ForumRepository $forumRepository;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
-	 * @inject
-	 */
-	protected $forumRepository = NULL;
+    public function __construct(
+        ForumRepository $forumRepository
+    ) {
+        $this->uid = 0;
 
-	public function __construct() {
-		$this->uid = 0;
-	}
+        $this->forumRepository = $forumRepository;
+    }
 
-	public function getChildren() {
-		return $this->forumRepository->findRootForums();
-	}
+    public function getChildren(): ObjectStorage
+    {
+        return $this->forumRepository->findRootForums();
+    }
 
-	public function checkAccess(FrontendUser $user = NULL, $accessType = Access::TYPE_READ) {
-		return $accessType === Access::TYPE_READ;
-	}
-
+    public function checkAccess(FrontendUser $user = null, $accessType = Access::TYPE_READ)
+    {
+        return $accessType === Access::TYPE_READ;
+    }
 }

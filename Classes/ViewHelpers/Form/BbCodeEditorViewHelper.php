@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\ViewHelpers\Form;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -23,125 +24,125 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Form;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\TextParser\Panel\AbstractPanel;
+use Mittwald\Typo3Forum\TextParser\Panel\PanelInterface;
+use Mittwald\Typo3Forum\Utility\TypoScript;
+use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
+use TYPO3\CMS\Extbase\Persistence\Generic\Exception\InvalidClassException;
 use TYPO3\CMS\Fluid\ViewHelpers\Form\TextareaViewHelper;
 
 /**
  * ViewHelper that renders a textarea with additional bb code buttons.
  */
-class BbCodeEditorViewHelper extends TextareaViewHelper {
+class BbCodeEditorViewHelper extends TextareaViewHelper
+{
+    protected FrontendInterface $cache;
+    protected TypoScript $typoscriptReader;
+    protected UriBuilder $uriBuilder;
+    public function __construct(
+        FrontendInterface $cache,
+        TypoScript $typoscriptReader,
+        UriBuilder $uriBuilder
+    ) {
+        parent::__construct();
 
-	/**
-	 * cache
-	 *
-	 * @var \Mittwald\Typo3Forum\Cache\Cache
-	 * @inject
-	 */
-	protected $cache = NULL;
+        $this->cache = $cache;
+        $this->typoscriptReader = $typoscriptReader;
+        $this->uriBuilder = $uriBuilder;
+    }
 
-	/**
-	 * Instance of the typo3_forum TypoScript reader class. This class is used
-	 * to read a bbcode editor's configuration from the typoscript setup.
-	 * @var \Mittwald\Typo3Forum\Utility\TypoScript
-	 * @inject
-	 */
-	protected $typoscriptReader = NULL;
+    /**
+     * Configuration array. This array is read from the typoscript setup by
+     * the typoscript reader instance (see above).
+     * @var array
+     */
+    protected $configuration;
 
-	/**
-	 * Configuration array. This array is read from the typoscript setup by
-	 * the typoscript reader instance (see above).
-	 * @var array
-	 */
-	protected $configuration = NULL;
-
-	/**
-	 * Panels that contain bb code buttons.
-	 * @var array<\Mittwald\Typo3Forum\TextParser\Panel\AbstractPanel>
-	 */
-	protected $panels = [];
-
-	/**
-	 * An Instance of the Extbase Object Manager class.
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-	 * @inject
-	 */
-	protected $objectManager = NULL;
+    /**
+     * Panels that contain bb code buttons.
+     * @var AbstractPanel[]
+     */
+    protected array $panels = [];
 
     /**
      * @var string
      */
-	protected $javascriptSetup;
+    protected string $javascriptSetup;
 
     /**
-	 * Initializes the view helper arguments.
-	 * @return void
-	 */
-	public function initializeArguments() {
-		parent::initializeArguments();
-		$this->registerArgument('configuration', 'string', 'Path to TS configuration', FALSE,
-		                        'plugin.tx_typo3forum.settings.textParsing.editorPanel');
-	}
+     * Initializes the view helper arguments.
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument(
+            'configuration',
+            'string',
+            'Path to TS configuration',
+            false,
+            'plugin.tx_typo3forum.settings.textParsing.editorPanel'
+        );
+    }
 
-	/**
-	 * Loads the editor configuration
-	 *
-	 * @param string $configurationPath The typoscript setup path in which the
-	 *                                   editor configuration is stored.
-	 *
-	 * @return string
-	 * @throws \TYPO3\CMS\Extbase\Object\InvalidClassException
-	 */
-	protected function initializeJavascriptSetupFromConfiguration($configurationPath) {
-		$this->configuration = $this->typoscriptReader->loadTyposcriptFromPath($configurationPath);
-		if ($this->cache->has('bbcodeeditor-jsonconfig')) {
-			return $this->javascriptSetup = $this->cache->get('bbcodeeditor-jsonconfig');
-		}
+    /**
+     * Loads the editor configuration
+     * @throws \TYPO3\CMS\Extbase\Object\InvalidClassException
+     */
+    protected function initializeJavascriptSetupFromConfiguration(string $configurationPath): string
+    {
+        // TODO reenable cache of bbcodeeditor
+        if (false && $this->cache->has('bbcodeeditor-jsonconfig')) {
+            $this->javascriptSetup = $this->cache->get('bbcodeeditor-jsonconfig');
+            return $this->javascriptSetup;
+        }
 
-		foreach ($this->configuration['panels.'] as $key => $panelConfiguration) {
-			$panel = $this->objectManager->get($panelConfiguration['className']);
-			if (!$panel instanceof \Mittwald\Typo3Forum\TextParser\Panel\PanelInterface) {
-				throw new \TYPO3\CMS\Extbase\Object\InvalidClassException('Expected an implementation of the \Mittwald\Typo3Forum\TextParser\Panel\PanelInterface interface!', 1315835842);
-			}
-			$panel->setSettings($panelConfiguration);
-			$this->panels[] = $panel;
-		}
+        $this->configuration = $this->typoscriptReader->loadTyposcriptFromPath($configurationPath);
 
-		$this->javascriptSetup = '<script>' .
+        foreach ($this->configuration['panels.'] as $panelConfiguration) {
+            $panel = GeneralUtility::makeInstance($panelConfiguration['className']);
+            if (!$panel instanceof PanelInterface) {
+                throw new InvalidClassException('Expected an implementation of the ' . PanelInterface::class . ' interface!', 1315835842);
+            }
+            $panel->setSettings($panelConfiguration);
+            $this->panels[] = $panel;
+        }
+
+        $this->javascriptSetup = '<script>' .
             'var bbcodeSettings = ' .
             json_encode($this->getPanelSettings()) . ';' .
-            '$(document).ready(function() {' .
+            'window.setTimeout(function(){$(document).ready(function() {' .
             '$(\'#' . $this->arguments['id'] . '\').markItUp(bbcodeSettings);' .
-            '});</script>';
-		$this->cache->set('bbcodeeditor-jsonconfig', $this->javascriptSetup);
-		return $this->javascriptSetup;
-	}
+            '});}, 500);</script>';
+        $this->cache->set('bbcodeeditor-jsonconfig', $this->javascriptSetup);
+        return $this->javascriptSetup;
+    }
 
-	/**
-	 * Renders the editor. This method first adds some javascript inclusions to the
-	 * page header, then renders the options panel and finally renders the main
-	 * textarea using the inherited render() method.
-	 *
-	 * @return string HTML content
-	 */
-    public function render()
+    /**
+     * Renders the editor. This method first adds some javascript inclusions to the
+     * page header, then renders the options panel and finally renders the main
+     * textarea using the inherited render() method.
+     */
+    public function render(): string
     {
         $this->initializeJavascriptSetupFromConfiguration($this->arguments['configuration']);
         return $this->javascriptSetup . parent::render();
     }
 
-	/**
-	 * getPanelSettings
-	 *
-	 * @return array
-	 */
-	protected function getPanelSettings() {
-		$settings = [];
-		foreach ($this->panels as $panel) {
-			$items = $panel->getItems();
-			if (!empty($items)) {
-				$settings   = array_merge($settings, $items);
-				$settings[] = ['separator' => '---------------'];
-			}
-		}
+    /**
+     * getPanelSettings
+     */
+    protected function getPanelSettings(): array
+    {
+        $settings = [];
+        foreach ($this->panels as $panel) {
+            $items = $panel->getItems();
+            if ($items !== null && count($items) > 0) {
+                $settings = array_merge($settings, $items);
+                $settings[] = ['separator' => '---------------'];
+            }
+        }
 
         $settings[] = [
             'name' => 'Preview',
@@ -149,9 +150,7 @@ class BbCodeEditorViewHelper extends TextareaViewHelper {
             'call' => 'preview'
         ];
 
-		/* @var \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder */
-        $uriBuilder = $this->renderingContext->getControllerContext()->getUriBuilder();
-        $uri = $uriBuilder
+        $uri = $this->uriBuilder
             ->reset()
             ->setTargetPageUid($GLOBALS['TSFE']->id)
             ->setArguments(['type' => 43568275])
@@ -160,13 +159,13 @@ class BbCodeEditorViewHelper extends TextareaViewHelper {
         $editorSettings = [
             'previewParserPath' => $uri,
             'previewParserVar' => 'tx_typo3forum_ajax[text]',
-            'markupSet' => $settings
+            'markupSet' => $settings,
         ];
 
-		if (isset($this->configuration['editorSettings.']) && is_array($this->configuration['editorSettings.'])) {
-			$editorSettings = array_merge($editorSettings, $this->configuration['editorSettings.']);
-		}
+        if (isset($this->configuration['editorSettings.']) && is_array($this->configuration['editorSettings.'])) {
+            $editorSettings = array_merge($editorSettings, $this->configuration['editorSettings.']);
+        }
 
-		return $editorSettings;
-	}
+        return $editorSettings;
+    }
 }

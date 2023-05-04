@@ -25,90 +25,86 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Form;
  *                                                                      */
 
 use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
+use Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository;
 use TYPO3\CMS\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper;
 use TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper;
 
 /**
  * ViewHelper that renders a selectbox with a hierarchical list of all forums.
  */
-class ForumSelectViewHelper extends SelectViewHelper {
+class ForumSelectViewHelper extends SelectViewHelper
+{
+    protected ForumRepository $forumRepository;
 
-	/**
-	 * The forum repository.
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
-	 * @inject
-	 */
-	protected $forumRepository = NULL;
+    public function __construct(
+        ForumRepository $forumRepository
+    ) {
+        parent::__construct();
 
-	/**
-	 * Initializses the view helper arguments.
-	 * @return void
-	 */
-	public function initializeArguments() {
-		AbstractFormFieldViewHelper::initializeArguments();
-		$this->registerUniversalTagAttributes();
-		$this->registerTagAttribute('multiple', 'string', 'if set, multiple select field');
-		$this->registerTagAttribute('size', 'string', 'Size of input field');
-		$this->registerTagAttribute('disabled', 'string', 'Specifies that the input element should be disabled when the page loads');
-		$this->registerArgument('errorClass', 'string', 'CSS class to set if there are errors for this view helper', FALSE, 'f3-form-error');
-	}
+        $this->forumRepository = $forumRepository;
+    }
 
-	/**
-	 * Loads the option rows for this select field.
-	 * @return array All option rows.
-	 */
-	protected function getOptions() {
-		$rootForums = $this->forumRepository->findRootForums();
-		$values = [];
+    public function initializeArguments(): void
+    {
+        AbstractFormFieldViewHelper::initializeArguments();
+        $this->registerUniversalTagAttributes();
+        $this->registerTagAttribute('multiple', 'string', 'if set, multiple select field');
+        $this->registerTagAttribute('size', 'string', 'Size of input field');
+        $this->registerTagAttribute('disabled', 'string', 'Specifies that the input element should be disabled when the page loads');
+        $this->registerArgument('errorClass', 'string', 'CSS class to set if there are errors for this view helper', false, 'f3-form-error');
+    }
 
-		foreach ($rootForums As $rootForum) {
-			$values[] = $this->getForumOptionRow($rootForum, TRUE);
-		}
-		return $values;
-	}
+    protected function getOptions(): array
+    {
+        $rootForums = $this->forumRepository->findRootForums();
+        $values = [];
 
-	/**
-	 * Recursively generates option rows for a forum and each subforum of this forum.
-	 *
-	 * @param Forum $forum The forum for which to generate the option row.
-	 * @param boolean $isRoot TRUE, if the forum is a root category, otherwise FALSE.
-	 * @return array An option row for the specified forum.
-	 */
-	protected function getForumOptionRow(Forum $forum, $isRoot = FALSE) {
-		$result = [
-			'name' => $forum->getTitle(),
-			'uid' => $forum->getUid(),
-			'_isRoot' => $isRoot,
-			'_children' => []
-		];
-		foreach ($forum->getChildren() As $childForum) {
-			$result['_children'][] = $this->getForumOptionRow($childForum, FALSE);
-		}
-		return $result;
-	}
+        foreach ($rootForums as $rootForum) {
+            $values[] = $this->getForumOptionRow($rootForum, true);
+        }
+        return $values;
+    }
 
-	/**
-	 * Recursively renders all option tags.
-	 *
-	 * @param   array $options All option rows.
-	 * @param integer $nestingLevel The current nesting level. Required for correct formatting.
-	 * @return string
-	 */
-	protected function renderOptionTags($options, $nestingLevel = 1) {
-		$content = '';
-		foreach ($options as $option) {
-			if ($option['_isRoot']) {
-				$content .= '<optgroup label="' . htmlspecialchars($option['name']) . '">' . chr(10);
-				$content .= $this->renderOptionTags($option['_children'], $nestingLevel + 1);
-				$content .= '</optgroup>';
-			} else {
-				$isSelected = $this->isSelected($option['uid']);
-				$indent = ($nestingLevel - 1) * 20;
-				$style = 'padding-left: ' . $indent . 'px;';
-				$content .= '<option style="' . $style . '" value="' . $option['uid'] . '" ' . ($isSelected ? 'selected="selected"' : '') . '>' . htmlspecialchars($option['name']) . '</option>' . chr(10);
-				$content .= $this->renderOptionTags($option['_children'], $nestingLevel + 1);
-			}
-		}
-		return $content;
-	}
+    /**
+     * Recursively generates option rows for a forum and each subforum of this forum.
+     */
+    protected function getForumOptionRow(Forum $forum, bool $isRoot = false): array
+    {
+        $result = [
+            'name' => $forum->getTitle(),
+            'uid' => $forum->getUid(),
+            '_isRoot' => $isRoot,
+            '_children' => []
+        ];
+        foreach ($forum->getChildren() as $childForum) {
+            $result['_children'][] = $this->getForumOptionRow($childForum, false);
+        }
+        return $result;
+    }
+
+    /**
+     * Recursively renders all option tags.
+     *
+     * @param   array $options All option rows.
+     * @param int $nestingLevel The current nesting level. Required for correct formatting.
+     * @return string
+     */
+    protected function renderOptionTags($options, $nestingLevel = 1)
+    {
+        $content = '';
+        foreach ($options as $option) {
+            if ($option['_isRoot']) {
+                $content .= '<optgroup label="' . htmlspecialchars($option['name']) . '">' . chr(10);
+                $content .= $this->renderOptionTags($option['_children'], $nestingLevel + 1);
+                $content .= '</optgroup>';
+            } else {
+                $isSelected = $this->isSelected($option['uid']);
+                $indent = ($nestingLevel - 1) * 20;
+                $style = 'padding-left: ' . $indent . 'px;';
+                $content .= '<option style="' . $style . '" value="' . $option['uid'] . '" ' . ($isSelected ? 'selected="selected"' : '') . '>' . htmlspecialchars($option['name']) . '</option>' . chr(10);
+                $content .= $this->renderOptionTags($option['_children'], $nestingLevel + 1);
+            }
+        }
+        return $content;
+    }
 }

@@ -1,13 +1,43 @@
 stages:
-  - test
-  - package
+  - qa-setup
+  - qa-run
+  - deploy
 
-build-version:
-  stage: package
-  script:
-    - build-release.sh ${CI_COMMIT_TAG/v/}
-  artifacts:
+.qa-run_php:
+  image: composer:1.10
+  stage: qa-run
+  needs:
+    - qa-setup-typo3
+
+qa-setup-typo3:
+  image: composer:1.10
+  stage: qa-setup
+  cache:
+    key: "typo3-$CI_COMMIT_REF_SLUG"
     paths:
-      - typo3_forum_${CI_COMMIT_TAG/v/}.zip
+      - .Build/
+  artifacts:
+    expire_in: 1 hour
+    paths:
+      - .Build/
+  script:
+    - composer install --no-progress --optimize-autoloader --ignore-platform-reqs
+
+lint_php:
+  extends: .qa-run_php
+  script:
+    - composer run-script php-lint
+
+lint_php_codestyle:
+  extends: .qa-run_php
+  script:
+    - composer run-script php-cs-fixer
+
+deploy:
+  stage: deploy
+  image: composer:1.10
+  script:
+    - 'curl --header "Job-Token: $CI_JOB_TOKEN" --data tag=$CI_COMMIT_TAG "${CI_SERVER_URL}/api/v4/projects/${CI_PROJECT_ID}/packages/composer"'
   only:
     - tags
+

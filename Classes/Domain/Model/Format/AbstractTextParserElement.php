@@ -27,76 +27,79 @@ namespace Mittwald\Typo3Forum\Domain\Model\Format;
 use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
 
 /**
- *
  * An abstract text parser element. This may later be a bb code, a smiley or anything
  * you want.
  */
-abstract class AbstractTextParserElement extends AbstractValueObject {
+abstract class AbstractTextParserElement extends AbstractValueObject
+{
+    /**
+     * The path to the element's icon (in the panel and the output in case of smileys).
+     */
+    protected string $imagePath = 'undefined';
+    protected string $editorIconClass = 'tx-typo3forum-miu-undefined';
 
-	/**
-	 * The CSS class that will be used to render this element's button.
-	 * @var string
-	 */
-	protected $iconClass;
+    /**
+     * The name of this element. Can also be a locallang label.
+     */
+    protected string $name = '#undefined#';
+    protected string $groups = '';
 
-	/**
-	 * The name of this element. Can also be a locallang label.
-	 * @var string
-	 */
-	protected $name;
+    /**
+     * Gets the icon file.
+     */
+    public function getImagePath(): string
+    {
+        return $this->imagePath;
+    }
 
-	/**
-	 * The default icon directory. This may be overridden by subclasses.
-	 * @var string
-	 */
-	protected $defaultIconDir = 'Editor/';
+    /**
+     * Sets the icon path
+     */
+    public function setImagePath(string $imagePath): self
+    {
+        $this->imagePath = $imagePath;
 
-	/**
-	 *
-	 * Gets the icon filename.
-	 * @return string The icon filename.
-	 *
-	 */
-	public function getIconClass() {
-		return $this->iconClass;
-	}
+        return $this;
+    }
 
-	/**
-	 *
-	 * Sets the icon CSS class.
-	 *
-	 * @param string $iconClass The icon CSS class.
-	 *
-	 */
-	public function setIconClass($iconClass) {
-		$this->iconClass = $iconClass;
-	}
+    /**
+     * Gets the text parser element name.
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
 
-	/**
-	 *
-	 * Gets the text parser element name.
-	 * @return string The text parser element name
-	 *
-	 */
-	public function getName() {
-		return $this->name;
-	}
+    /**
+     * Sets the element name.
+     */
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
-	/**
-	 *
-	 * Sets the element name.
-	 *
-	 * @param string $name The element name.
-	 *
-	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param string $defaultIconDir
-	 */
-	public function setDefaultIconDir($defaultIconDir) {
-		$this->defaultIconDir = $defaultIconDir;
-	}
+    public function getIdsOfGroups(): array
+    {
+        return explode(',', $this->groups);
+    }
+
+    /**
+     * Get the value of editorIconClass
+     */
+    public function getEditorIconClass(): string
+    {
+        return $this->editorIconClass;
+    }
+
+    /**
+     * Set the value of editorIconClass
+     */
+    public function setEditorIconClass(string $editorIconClass): self
+    {
+        $this->editorIconClass = $editorIconClass;
+
+        return $this;
+    }
 }

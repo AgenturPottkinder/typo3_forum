@@ -2,6 +2,8 @@
 
 namespace Mittwald\Typo3Forum\ViewHelpers\Forum;
 
+use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
+use Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -25,11 +27,9 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderableClosure;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * ViewHelper that renders a forum icon.
@@ -37,20 +37,17 @@ use TYPO3Fluid\Fluid\Core\Rendering\RenderableClosure;
 class ForumIconViewHelper extends AbstractViewHelper
 {
     protected $escapeOutput = false;
+    protected FrontendUserRepository $frontendUserRepository;
 
-    /**
-     * The frontend user repository.
-     * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
-     * @inject
-     */
-    protected $frontendUserRepository = null;
+    public function __construct(FrontendUserRepository $frontendUserRepository)
+    {
+        $this->frontendUserRepository = $frontendUserRepository;
+    }
 
     public function initializeArguments()
     {
         parent::initializeArguments();
         $this->registerArgument('forum', Forum::class, 'Current forum', true);
-        $this->registerArgument('width', 'integer', 'icon width', false, 0);
-        $this->registerArgument('alt', 'string', 'icon alt text', false, '');
     }
 
     /**
@@ -59,10 +56,7 @@ class ForumIconViewHelper extends AbstractViewHelper
      */
     public function render()
     {
-
         $forum = $this->arguments['forum'];
-        $width = $this->arguments['width'];
-        $alt = $this->arguments['alt'];
 
         $data = $this->getDataArray($forum);
 
@@ -79,30 +73,28 @@ class ForumIconViewHelper extends AbstractViewHelper
             ];
         }
 
-        return $cObjectViewHelper::renderStatic($renderData, function () {}, $this->renderingContext);
+        return $cObjectViewHelper::renderStatic($renderData, function () {
+        }, $this->renderingContext);
     }
 
     /**
-     *
      * Generates a data array that will be passed to the typoscript object for
      * rendering the icon.
      * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
      *                             The topic for which the icon is to be displayed.
      * @return array               The data array for the typoscript object.
-     *
      */
     protected function getDataArray(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum = null)
     {
         if ($forum === null) {
             return [];
-        } else {
-            $user = &$this->frontendUserRepository->findCurrent();
+        }
+        $user = &$this->frontendUserRepository->findCurrent();
 
-            return [
+        return [
                 'new' => !$forum->hasBeenReadByUser($user),
                 'closed' => !$forum->checkNewPostAccess($user),
             ];
-        }
     }
 
     /**

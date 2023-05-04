@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" datatype="plaintext" original="messages" date="2020-12-13T08:06:33Z" product-name="typo3_forum">
+		<header/>
+		<body>
+			<trans-unit id="tstamp" xml:space="preserve">
+				<source>Creation time</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_forum" xml:space="preserve">
+				<source>Forum</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_forum.title" xml:space="preserve">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_forum.description" xml:space="preserve">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_forum.children" xml:space="preserve">
+				<source>Children</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_forum.topics" xml:space="preserve">
+				<source>Topics</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_forum.topic_count" xml:space="preserve">
+				<source>Topic count</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_forum.post_count" xml:space="preserve">
+				<source>Post count</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_forum.acls" xml:space="preserve">
+				<source>Access control lists</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_forum.last_topic" xml:space="preserve">
+				<source>Last topic</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_forum.last_post" xml:space="preserve">
+				<source>Last post</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_forum.forum" xml:space="preserve">
+				<source>Parent forum</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_forum.subscribers" xml:space="preserve">
+				<source>Subscribers</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_forum.readers" xml:space="preserve">
+				<source>Readers</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_forum.displayed_pid" xml:space="preserve">
+				<source>Displayed PID</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_forum.sorting" xml:space="preserve">
+				<source>Sorting</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_topic" xml:space="preserve">
+				<source>Topic</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_topic.type" xml:space="preserve">
+				<source>Type</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_topic.type.0" xml:space="preserve">
+				<source>Regular topic</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_topic.type.1" xml:space="preserve">
+				<source>Shadow topic</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_topic.subject" xml:space="preserve">
+				<source>Subject</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_topic.solution" xml:space="preserve">
+				<source>Solution</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_topic.posts" xml:space="preserve">
+				<source>Posts</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_topic.post_count" xml:space="preserve">
+				<source>Post count</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_topic.author" xml:space="preserve">
+				<source>Author</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_topic.last_post" xml:space="preserve">
+				<source>Last post</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_topic.last_post_crdate" xml:space="preserve">
+				<source>Creation time of last post</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_topic.solved" xml:space="preserve">
+				<source>Is topic solved</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_topic.subscribers" xml:space="preserve">
+				<source>Subscribers</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_topic.target" xml:space="preserve">
+				<source>Target topic</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_topic.readers" xml:space="preserve">
+				<source>Readers</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_topic.closed" xml:space="preserve">
+				<source>Closed</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_topic.sticky" xml:space="preserve">
+				<source>Sticky</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_topic.question" xml:space="preserve">
+				<source>Question</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_topic.supporters" xml:space="preserve">
+				<source>Supporters</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_topic.tags" xml:space="preserve">
+				<source>Tags</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_post" xml:space="preserve">
+				<source>Post</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_post.text" xml:space="preserve">
+				<source>Text</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_post.rendered_text" xml:space="preserve">
+				<source>Rendered text</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_post.author" xml:space="preserve">
+				<source>Author</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_post.author_name" xml:space="preserve">
+				<source>Author name (if posted by anonymous user)</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_post.topic" xml:space="preserve">
+				<source>Topic</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_post.attachments" xml:space="preserve">
+				<source>Attachments</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_post.helpful_count" xml:space="preserve">
+				<source>Helpful count</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_attachment" xml:space="preserve">
+				<source>Attachment</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_attachment.download_count" xml:space="preserve">
+				<source>Download count</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_attachment.referenced_files" xml:space="preserve">
+				<source>Referenced file</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_attachment.name" xml:space="preserve">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_criteria" xml:space="preserve">
+				<source>Criteria</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_criteria.name" xml:space="preserve">
+				<source>Criteria name</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_criteria.default_option" xml:space="preserve">
+				<source>Default option</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_criteria.options" xml:space="preserve">
+				<source>Criteria options</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_criteria_options" xml:space="preserve">
+				<source>Criteria option</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_criteria_options.name" xml:space="preserve">
+				<source>Criteria option name</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_criteria_options.criteria" xml:space="preserve">
+				<source>Criteria option relation</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_criteria_options.sorting" xml:space="preserve">
+				<source>Sorting</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_ad" xml:space="preserve">
+				<source>Advertisement</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_ad.name" xml:space="preserve">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_ad.url" xml:space="preserve">
+				<source>URL</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_ad.alt" xml:space="preserve">
+				<source>Alternative text</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_ad.path" xml:space="preserve">
+				<source>Path to image</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_ad.category" xml:space="preserve">
+				<source>Category</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_ad.active" xml:space="preserve">
+				<source>Active</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_user_rank" xml:space="preserve">
+				<source>User rank</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_user_rank.name" xml:space="preserve">
+				<source>Rank name</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_user_rank.point_limit" xml:space="preserve">
+				<source>Limit of points</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_user_rank.user_count" xml:space="preserve">
+				<source>User count</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_user_notification" xml:space="preserve">
+				<source>User notification</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_user_notification.feuser" xml:space="preserve">
+				<source>User</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_user_notification.user_read" xml:space="preserve">
+				<source>User read</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_user_notification.post" xml:space="preserve">
+				<source>Post</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_user_notification.tag" xml:space="preserve">
+				<source>Tag</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_user_notification.type" xml:space="preserve">
+				<source>Type</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_user_notification.crdate" xml:space="preserve">
+				<source>Cron executed timestamp</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_stats_summary" xml:space="preserve">
+				<source>Summary stats</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_stats_summary.amount" xml:space="preserve">
+				<source>Amount</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_stats_summary.tstamp" xml:space="preserve">
+				<source>Timestamp</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_stats_summary.type" xml:space="preserve">
+				<source>Type</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_color" xml:space="preserve">
+				<source>Color</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_color.name" xml:space="preserve">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_color.primary_color" xml:space="preserve">
+				<source>Primary color (foreground, text)</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_color.secondary_color" xml:space="preserve">
+				<source>Secondary color (background, accents)</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_tag" xml:space="preserve">
+				<source>Tag</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_tag.crdate" xml:space="preserve">
+				<source>Creation date</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_tag.name" xml:space="preserve">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_tag.topicCount" xml:space="preserve">
+				<source>Topic count</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_tag.color" xml:space="preserve">
+				<source>Color</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_tag.tstamp" xml:space="preserve">
+				<source>Timestamp</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_access" xml:space="preserve">
+				<source>Access</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_access.operation" xml:space="preserve">
+				<source>Operation</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_access.operation.read" xml:space="preserve">
+				<source>Read</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_access.operation.newPost" xml:space="preserve">
+				<source>Write posts</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_access.operation.editPost" xml:space="preserve">
+				<source>Edit posts</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_access.operation.newTopic" xml:space="preserve">
+				<source>Create new topics</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_access.operation.moderation" xml:space="preserve">
+				<source>Moderate</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_access.operation.deletePost" xml:space="preserve">
+				<source>Delete post</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_access.operation.deleteTopic" xml:space="preserve">
+				<source>Delete topic</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_access.negate" xml:space="preserve">
+				<source>Negate</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_access.forum" xml:space="preserve">
+				<source>Forum</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_access.group" xml:space="preserve">
+				<source>Group</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_access.login_level" xml:space="preserve">
+				<source>Login level</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_access.login_level.everyone" xml:space="preserve">
+				<source>Everyone</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_access.login_level.anylogin" xml:space="preserve">
+				<source>Any login</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_forum_access.login_level.specific" xml:space="preserve">
+				<source>Specific group</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_user_userfield_userfield" xml:space="preserve">
+				<source>Userfield</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_user_userfield_userfield.name" xml:space="preserve">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_user_userfield_userfield.type" xml:space="preserve">
+				<source>Type</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_user_userfield_userfield.type.undefined" xml:space="preserve">
+				<source>Undefined</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_user_userfield_userfield.type.typoscript" xml:space="preserve">
+				<source>TypoScript</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_user_userfield_userfield.type.text" xml:space="preserve">
+				<source>Text</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_user_userfield_userfield.typoscript_path" xml:space="preserve">
+				<source>TypoScript path</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_user_userfield_userfield.map_to_user_object" xml:space="preserve">
+				<source>Map to fe_users column</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_user_userfield_value" xml:space="preserve">
+				<source>Userfield value</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_user_userfield_value.user" xml:space="preserve">
+				<source>User</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_user_userfield_value.userfield" xml:space="preserve">
+				<source>Userfield</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_user_userfield_value.value" xml:space="preserve">
+				<source>Value</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_format_textparser" xml:space="preserve">
+				<source>Text parsing component</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_format_textparser.name" xml:space="preserve">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_format_textparser.type" xml:space="preserve">
+				<source>Type</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_format_textparser.type.bbcode" xml:space="preserve">
+				<source>BB Code</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_format_textparser.type.quote" xml:space="preserve">
+				<source>Quotation</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_format_textparser.type.list" xml:space="preserve">
+				<source>List</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_format_textparser.type.smiley" xml:space="preserve">
+				<source>Smiley</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_format_textparser.type.syntax" xml:space="preserve">
+				<source>Syntax highlighting</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_format_textparser.icon" xml:space="preserve">
+				<source>Icon</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_format_textparser.image_path" xml:space="preserve">
+				<source>Image Path</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_format_textparser.editor_icon_class" xml:space="preserve">
+				<source>Icon Class in Post Editor</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_format_textparser.bbcode_wrap" xml:space="preserve">
+				<source>BBCode Wrap</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_format_textparser.regular_expression" xml:space="preserve">
+				<source>Regular expression</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_format_textparser.regular_expression_replacement" xml:space="preserve">
+				<source>Replacement pattern</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_format_textparser.regular_expression_replacement_blocked" xml:space="preserve">
+				<source>Replacement when blocked</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_format_textparser.alias" xml:space="preserve">
+				<source>Alias</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_moderation_report" xml:space="preserve">
+				<source>Report</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_moderation_report.feuser" xml:space="preserve">
+				<source>User</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_moderation_report.post" xml:space="preserve">
+				<source>Post</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_moderation_report.reporter" xml:space="preserve">
+				<source>Reporter</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_moderation_report.moderator" xml:space="preserve">
+				<source>Assigned moderator</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_moderation_report.comments" xml:space="preserve">
+				<source>Comments</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_moderation_report.workflow_status" xml:space="preserve">
+				<source>Status</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_moderation_report.type.userReport" xml:space="preserve">
+				<source>User report</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_moderation_report.type.postReport" xml:space="preserve">
+				<source>Post report</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_moderation_reportcomment" xml:space="preserve">
+				<source>Report comment</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_moderation_reportcomment.author" xml:space="preserve">
+				<source>Author</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_moderation_reportcomment.report" xml:space="preserve">
+				<source>Report</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_moderation_reportcomment.text" xml:space="preserve">
+				<source>Comment</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_moderation_reportworkflowstatus" xml:space="preserve">
+				<source>Workflow status</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_moderation_reportworkflowstatus.name" xml:space="preserve">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_moderation_reportworkflowstatus.followup_status" xml:space="preserve">
+				<source>Followup status</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_moderation_reportworkflowstatus.initial" xml:space="preserve">
+				<source>Initial status</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_moderation_reportworkflowstatus.final" xml:space="preserve">
+				<source>Final status</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_moderation_reportworkflowstatus.icon" xml:space="preserve">
+				<source>Icon</source>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_domain_model_moderation_report.type" xml:space="preserve">
+				<source>Type</source>
+			</trans-unit>
+			<trans-unit id="fe_users.use_gravatar" xml:space="preserve">
+				<source>Use gravatar image (if no local image)</source>
+			</trans-unit>
+			<trans-unit id="fe_users.contact" xml:space="preserve">
+				<source>Contact addresses and social media profiles (JSON encoded)</source>
+			</trans-unit>
+			<trans-unit id="fe_users.tx_typo3forum_post_count" xml:space="preserve">
+				<source>Post count</source>
+			</trans-unit>
+			<trans-unit id="fe_users.tx_typo3forum_topic_count" xml:space="preserve">
+				<source>Topic count</source>
+			</trans-unit>
+			<trans-unit id="fe_users.tx_typo3forum_helpful_count" xml:space="preserve">
+				<source>Helpful count</source>
+			</trans-unit>
+			<trans-unit id="fe_users.tx_typo3forum_question_count" xml:space="preserve">
+				<source>Question count</source>
+			</trans-unit>
+			<trans-unit id="fe_users.tx_typo3forum_topic_subscriptions" xml:space="preserve">
+				<source>Your subscriptions</source>
+			</trans-unit>
+			<trans-unit id="fe_users.tx_typo3forum_forum_subscriptions" xml:space="preserve">
+				<source>Subscribed forums</source>
+			</trans-unit>
+			<trans-unit id="fe_users.tx_typo3forum.tab.settings" xml:space="preserve">
+				<source>TYPO3 Forum Settings</source>
+			</trans-unit>
+			<trans-unit id="fe_users.tx_typo3forum_signature" xml:space="preserve">
+				<source>Signature</source>
+			</trans-unit>
+			<trans-unit id="fe_users.tx_typo3forum_interests" xml:space="preserve">
+				<source>Interests</source>
+			</trans-unit>
+			<trans-unit id="fe_users.tx_typo3forum_read_forum" xml:space="preserve">
+				<source>Forum read</source>
+			</trans-unit>
+			<trans-unit id="fe_users.tx_typo3forum_read_topics" xml:space="preserve">
+				<source>Topic read</source>
+			</trans-unit>
+			<trans-unit id="fe_users.tx_typo3forum_userfield_values" xml:space="preserve">
+				<source>Userfield values</source>
+			</trans-unit>
+			<trans-unit id="fe_users.tx_typo3forum_support_posts" xml:space="preserve">
+				<source>Supported posts</source>
+			</trans-unit>
+			<trans-unit id="fe_users.tx_typo3forum_facebook" xml:space="preserve">
+				<source>Facebook</source>
+			</trans-unit>
+			<trans-unit id="fe_users.tx_typo3forum_twitter" xml:space="preserve">
+				<source>Twitter</source>
+			</trans-unit>
+			<trans-unit id="fe_users.tx_typo3forum_google" xml:space="preserve">
+				<source>Google</source>
+			</trans-unit>
+			<trans-unit id="fe_users.tx_typo3forum_skype" xml:space="preserve">
+				<source>Skype</source>
+			</trans-unit>
+			<trans-unit id="fe_users.tx_typo3forum_job" xml:space="preserve">
+				<source>Job</source>
+			</trans-unit>
+			<trans-unit id="fe_users.tx_typo3forum_working_environment" xml:space="preserve">
+				<source>Working environment</source>
+			</trans-unit>
+			<trans-unit id="fe_users.tx_typo3forum_points" xml:space="preserve">
+				<source>Points</source>
+			</trans-unit>
+			<trans-unit id="fe_groups.user_mod" xml:space="preserve">
+				<source>All members have moderation permission</source>
+			</trans-unit>
+			<trans-unit id="backend.update.user_pid" xml:space="preserve">
+				<source>Where are fe_users and fe_groups for usage of forum located?</source>
+			</trans-unit>
+			<trans-unit id="backend.update.run" xml:space="preserve">
+				<source>Update database!</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

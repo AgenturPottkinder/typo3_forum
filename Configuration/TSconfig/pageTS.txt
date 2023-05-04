@@ -1,3 +1,88 @@
 mod.web_list {
-	deniedNewTables := addToList(tx_typo3forum_domain_model_forum_access,tx_typo3forum_domain_model_forum_attachment,tx_typo3forum_domain_model_moderation_reportcomment,tx_typo3forum_domain_model_user_privatemessage_text)
+	deniedNewTables := addToList(tx_typo3forum_domain_model_forum_access,tx_typo3forum_domain_model_forum_attachment,tx_typo3forum_domain_model_moderation_reportcomment)
+}
+
+mod.wizards.newContentElement.wizardItems {
+	typo3_forum {
+
+		header = LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:ContentElement_Tab_Typo3Forum
+		show := addToList(typo3forum_dashboard, typo3forum_forum, typo3forum_statsbox, typo3forum_moderationreports, typo3forum_postlist, typo3forum_taglist, typo3forum_topiclist, typo3forum_userlist, typo3forum_userprofile)
+
+		elements {
+
+			typo3forum_dashboard {
+				iconIdentifier = typo3-forum-content-element
+				title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Behaviour_Action_Dashboard
+				tt_content_defValues {
+					CType = list
+					list_type = typo3forum_dashboard
+				}
+			}
+			typo3forum_forum {
+				iconIdentifier = typo3-forum-content-element
+				title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Behaviour_Action_Forum
+				tt_content_defValues {
+					CType = list
+					list_type = typo3forum_forum
+				}
+			}
+			typo3forum_statsbox {
+				iconIdentifier = typo3-forum-content-element
+				title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Behaviour_Widget_Stats_Box
+				tt_content_defValues {
+					CType = list
+					list_type = typo3forum_statsbox
+				}
+			}
+			typo3forum_moderationreports {
+				iconIdentifier = typo3-forum-content-element
+				title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Behaviour_Action_Moderation_Reports
+				tt_content_defValues {
+					CType = list
+					list_type = typo3forum_moderationreports
+				}
+			}
+			typo3forum_postlist {
+				iconIdentifier = typo3-forum-content-element
+				title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Behaviour_Action_Posts_List
+				tt_content_defValues {
+					CType = list
+					list_type = typo3forum_postlist
+				}
+			}
+			typo3forum_taglist {
+				iconIdentifier = typo3-forum-content-element
+				title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Behaviour_Action_Tags
+				tt_content_defValues {
+					CType = list
+					list_type = typo3forum_taglist
+				}
+			}
+			typo3forum_topiclist {
+				iconIdentifier = typo3-forum-content-element
+				title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Behaviour_Action_Topics_List
+				tt_content_defValues {
+					CType = list
+					list_type = typo3forum_topiclist
+				}
+			}
+			typo3forum_userlist {
+				iconIdentifier = typo3-forum-content-element
+				title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Behaviour_Action_Users_List
+				tt_content_defValues {
+					CType = list
+					list_type = typo3forum_userlist
+				}
+			}
+			typo3forum_userprofile {
+				iconIdentifier = typo3-forum-content-element
+				title = LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Behaviour_Action_User_Show
+				tt_content_defValues {
+					CType = list
+					list_type = typo3forum_userprofile
+				}
+			}
+
+		}
+	}
 }

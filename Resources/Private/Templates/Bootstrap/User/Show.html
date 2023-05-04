@@ -5,56 +5,65 @@
 
 	<h2>
 		<f:translate key="User_Show"/>
-		<small>{user.username}</small>
 	</h2>
 
-	<div class="row-fluid">
-		<div class="span6">
+	<table class="table">
+		<colgroup>
+			<col width="50%"/>
+			<col width="50%"/>
+		</colgroup>
+		<thead>
+			<tr>
+				<td colspan="2">
+					<f:render partial="User/InformationRow" arguments="{user: user, showHelpfulCount: 1, showPointCount: 1}"/>
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+			<f:for each="{userfields}" as="userfield">
+				<tr>
+					<td style="text-align: right;">
+						<f:translate key="{userfield.name}" default="{userfield.name}"/>
+					</td>
+					<td>
+						<mmf:user.userfield user="{user}" userfield="{userfield}"/>
+					</td>
+				</tr>
+			</f:for>
+		</tbody>
+	</table>
 
-			<fieldset class="form-horizontal">
-				<legend>
-					<f:translate key="User_Show_GeneralInformation"/>
-				</legend>
-
-				<table class="table">
-					<colgroup>
-						<col width="30%"/>
-						<col width="70%"/>
-					</colgroup>
-					<thead>
-					<tr>
-						<td colspan="2">
-							<f:render partial="User/InformationRow" arguments="{user: user}"/>
-						</td>
-					</tr>
-					</thead>
-					<tbody>
-					<f:for each="{userfields}" as="userfield">
-						<tr>
-							<td style="text-align: right;">
-								<f:translate key="{userfield.name}" default="{userfield.name}"/>
-							</td>
-							<td>
-								<mmf:user.userfield user="{user}" userfield="{userfield}"/>
-							</td>
-						</tr>
-					</f:for>
-					</tbody>
-				</table>
-			</fieldset>
-		</div>
-		<div class="span6">
-			<fieldset class="form-horizontal">
-				<legend>
-					<f:translate key="User_Show_LatestPosts"/>
-					<f:link.action action="listPosts" arguments="{user: user}" class="btn btn-small" style="float: right;">
-						<f:translate key="Generic_More"/>
-					</f:link.action>
-				</legend>
-				<f:render partial="Topic/List" arguments="{topics: topics}"/>
-			</fieldset>
-		</div>
+	<div class="mt-5">
+		<legend>
+			<f:translate key="User_Show_LatestPosts"/>
+		</legend>
+		<f:render partial="Post/List" arguments="{posts: posts}"/>
+		<f:link.action action="listPosts" arguments="{user: user}" class="btn btn-primary">
+			<f:translate key="Generic_More" />
+		</f:link.action>
 	</div>
+
+	<div class="mt-5">
+		<legend>
+			<f:translate key="User_Show_Topics"/>
+		</legend>
+		<f:render partial="Topic/List" arguments="{topics: topics}"/>
+		<f:link.action action="listTopics" arguments="{user: user}" class="btn btn-primary">
+			<f:translate key="Generic_More" />
+		</f:link.action>
+	</div>
+
+	<f:if condition="{openQuestions}">
+		<div class="mt-5">
+			<legend>
+				<f:translate key="User_Show_Questions"/>
+			</legend>
+			<f:render partial="Topic/List" arguments="{topics: openQuestions}"/>
+			<f:link.action action="listQuestions" arguments="{user: user}" class="btn btn-primary">
+				<f:translate key="Generic_More" />
+			</f:link.action>
+		</div>
+	</f:if>
 
 </f:section>
 

@@ -27,13 +27,14 @@ namespace Mittwald\Typo3Forum\Domain\Repository\Format;
 use Mittwald\Typo3Forum\Domain\Repository\AbstractRepository;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
-class SmileyRepository extends AbstractRepository {
+class SmileyRepository extends AbstractRepository
+{
 
-	/**
-	 * @return QueryResultInterface
-	 */
-	public function findAll() {
-		return $this->createQueryWithFallbackStoragePage()->execute();
-	}
-
+    /**
+     * @return QueryResultInterface
+     */
+    public function findAll()
+    {
+        return $this->createQueryWithFallbackStoragePage()->execute();
+    }
 }

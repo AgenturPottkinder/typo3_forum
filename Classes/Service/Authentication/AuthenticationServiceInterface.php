@@ -28,53 +28,35 @@ use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 
 /**
  * An interface for authentication services, in case anyone wants to
  * implement his own solution... ;)
  */
-interface AuthenticationServiceInterface {
+interface AuthenticationServiceInterface
+{
+    public function assertReadAuthorization(AccessibleInterface $object): void;
 
-	/**
-	 * @param AccessibleInterface $object
-	 */
-	public function assertReadAuthorization(AccessibleInterface $object);
+    public function assertNewTopicAuthorization(Forum $forum): void;
 
-	/**
-	 * @param Forum $forum
-	 */
-	public function assertNewTopicAuthorization(Forum $forum);
+    public function assertNewPostAuthorization(Topic $topic): void;
 
-	/**
-	 * @param Topic $topic
-	 */
-	public function assertNewPostAuthorization(Topic $topic);
+    public function assertEditPostAuthorization(Post $post): void;
 
-	/**
-	 * @param Post $post
-	 */
-	public function assertEditPostAuthorization(Post $post);
+    public function assertDeletePostAuthorization(Post $post): void;
 
-	/**
-	 * @param Post $post
-	 */
-	public function assertDeletePostAuthorization(Post $post);
+    public function assertModerationAuthorization(AccessibleInterface $object): void;
 
-	/**
-	 * @param AccessibleInterface $object
-	 */
-	public function assertModerationAuthorization(AccessibleInterface $object);
+    public function assertDeleteTopicAuthorization(AccessibleInterface $object): void;
 
-	/**
-	 * @param AccessibleInterface $object
-	 * @param $action
-	 */
-	public function assertAuthorization(AccessibleInterface $object, $action);
+    public function assertAuthorization(AccessibleInterface $object, string $action): void;
 
-	/**
-	 * @param AccessibleInterface $object
-	 * @param $action
-	 */
-	public function checkAuthorization(AccessibleInterface $object, $action);
+    public function checkReadAuthorization(AccessibleInterface $object): bool;
 
+    public function checkModerationAuthorization(AccessibleInterface $object): bool;
+
+    public function checkAuthorization(AccessibleInterface $object, string $action): bool;
+
+    public function getUser(): ?FrontendUser;
 }

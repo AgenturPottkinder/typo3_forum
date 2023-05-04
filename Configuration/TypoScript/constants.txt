@@ -1,42 +1,59 @@
 plugin.tx_typo3forum {
-    view {
-        # cat=typo3_forum: config/100/100; type=string; label=TemplateRootPath
-        templateRootPath = EXT:typo3_forum/Resources/Private/Templates/Standard
-        # cat=typo3_forum: config/100/110; type=string; label=PartialRootPath
-        partialRootPath = EXT:typo3_forum/Resources/Private/Partials/Standard
-        # cat=typo3_forum: config/100/120; type=string; label=LayoutRootPath
-        layoutRootPath = EXT:typo3_forum/Resources/Private/Layouts/Standard
-    }
+	view {
+		# cat=typo3_forum: config/100/100; type=string; label=TemplateRootPath
+		templateRootPath = EXT:typo3_forum/Resources/Private/Templates/Bootstrap
+		# cat=typo3_forum: config/100/110; type=string; label=PartialRootPath
+		partialRootPath = EXT:typo3_forum/Resources/Private/Partials/Bootstrap
+		# cat=typo3_forum: config/100/120; type=string; label=LayoutRootPath
+		layoutRootPath = EXT:typo3_forum/Resources/Private/Layouts/Bootstrap
+	}
 
-    persistence {
-        # cat=typo3_forum: config/100/130; type=string; label= Storage Pid of Forum entities
-        storagePid = 0
-    }
+	persistence {
+		# cat=typo3_forum: config/100/130; type=string; label=Storage Pid of Forum entities
+		storagePid = 0
+	}
 
-    settings {
-        pids {
-            # cat=typo3_forum: config/110/100; type=int; label= PID where forum is located
-            Forum = 0
-            # cat=typo3_forum: config/110/110; type=int; label= PID where user profile is located
-            UserShow = 0
-            # cat=typo3_forum: config/110/120; type=int; label= PID where user list is located
-            UserList = 0
-            # cat=typo3_forum: config/110/130; type=int; label= PID where user edit form is located
-            UserEdit = 0
-            # cat=typo3_forum: config/110/140; type=int; label= PID where all questions are located
-            AllQuestions = 0
-            # cat=typo3_forum: config/110/150; type=int; label= PID where dashboard is loacted
-            Dashboard = 0
-        }
-        # cat=typo3_forum: config/110/160; type=boolean; label= Debug
-        debug = 0
-        # cat=typo3_forum: config/110/170; type=int; label= Trim username after chars
-        cutUsernameOnChar = 9
-        # cat=typo3_forum: config/110/180; type=int; label= Trim breadcrumb after chars
-        cutBreadcrumbOnChar = 40
-        # cat=typo3_forum: config/110/200; type=boolean; label= Use default css
-        useDefaultCSS = 1
-        # cat=typo3_forum: config/110/210; type=boolean; label=Show images in posts inline (Views will not be counted)
-		showPostImagesInline = 0
-    }
+	settings {
+		pids {
+			# cat=typo3_forum: config/110/100; type=int; label=PID where forum is located
+			Forum = 0
+			# cat=typo3_forum: config/110/110; type=int; label=PID where user profile is located
+			UserShow = 0
+			# cat=typo3_forum: config/110/120; type=int; label=PID where user list is located
+			UserList = 0
+			# cat=typo3_forum: config/110/130; type=int; label=PID where user edit form is located
+			UserEdit = 0
+			# cat=typo3_forum: config/110/140; type=int; label=PID where dashboard is located
+			Dashboard = 0
+			# cat=typo3_forum: config/110/145; type=int; label=PID where tag list is located
+			TagList = 0
+			# cat=typo3_forum: config/110/150; type=int; label=PID where report list is located (Moderation plugin)
+			ReportList = 0
+		}
+		# cat=typo3_forum: config/110/160; type=boolean; label=Debug
+		debug = 0
+		# cat=typo3_forum: config/110/170; type=int; label=Trim username after chars
+		cutUsernameOnChar = 15
+		# cat=typo3_forum: config/110/180; type=int; label=Trim breadcrumb after chars
+		cutBreadcrumbOnChar = 40
+		# cat=typo3_forum: config/110/200; type=boolean; label=Use default css
+		useDefaultCSS = 1
+		# cat=typo3_forum: config/110/210; type=boolean; label=Show images in posts inline (Views will not be counted)
+		showPostImagesInline = 1
+		# cat=typo3_forum: config/110/220; type=boolean; label=Users are allowed to create tags
+		usersCanCreateTags = 1
+
+		rankScore {
+			# cat=typo3_forum: config/110/230; type=int; label=User rank points when receiving support
+			gotHelpful = 3
+			# cat=typo3_forum: config/110/240; type=int; label=User rank points when giving support
+			markHelpful = 1
+			# cat=typo3_forum: config/110/250; type=int; label=User rank points when creating a post
+			newPost = 1
+			# cat=typo3_forum: config/110/260; type=int; label=User rank points when selecting a post as a solution
+			selectedSolution = 2
+			# cat=typo3_forum: config/110/260; type=int; label=User rank points when your post is selected as solution
+			gaveSolution = 5
+		}
+	}
 }

@@ -29,24 +29,22 @@ use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
 /**
  * Interface descriptor for mailing services.
  */
+interface MailingServiceInterface
+{
 
-interface MailingServiceInterface {
+    /**
+     * Sends a mail with a certain subject and bodytext to a recipient in form of a
+     * frontend user.
+     *
+     * @param FrontendUser $recipient The recipient of the mail. This is a plain frontend user.
+     * @param string $subject The mail's subject.
+     * @param string $bodytext The mail's bodytext.
+     */
+    public function sendMail(FrontendUser $recipient, string $subject, string $bodytext): void;
 
-	/**
-	 * Sends a mail with a certain subject and bodytext to a recipient in form of a
-	 * frontend user.
-	 *
-	 * @param FrontendUser $recipient The recipient of the mail. This is a plain frontend user.
-	 * @param string $subject The mail's subject.
-	 * @param string $bodytext The mail's bodytext.
-	 * @return void
-	 */
-	public function sendMail(FrontendUser $recipient, $subject, $bodytext);
-
-	/**
-	 * Gets the preferred format of this mailing service.
-	 * @return string The preferred format of this mailing service.
-	 */
-	public function getFormat();
-
+    /**
+     * Gets the preferred format of this mailing service.
+     * @return string The preferred format of this mailing service.
+     */
+    public function getFormat(): string;
 }

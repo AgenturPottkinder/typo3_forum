@@ -26,127 +26,117 @@ namespace Mittwald\Typo3Forum\Domain\Repository\Forum;
 
 use Mittwald\Typo3Forum\Domain\Repository\AbstractRepository;
 
-class PostRepository extends AbstractRepository {
+class PostRepository extends AbstractRepository
+{
+    /**
+     * Finds posts for a specific filterset. Page navigation is possible.
+     *
+     * @param int $limit
+     * @param array   $orderings
+     *
+     * @return Array<\Mittwald\Typo3Forum\Domain\Model\Forum\Post>
+     *                               The selected subset of posts
+     */
+    public function findByFilter(?int $limit = null, ?array $orderings = null)
+    {
+        $query = $this->createQuery();
+        if ($limit !== null) {
+            $query->setLimit($limit);
+        }
+        if ($orderings !== null) {
+            $query->setOrderings($orderings);
+        }
 
-	/**
-	 *
-	 * Finds posts for a specific filterset. Page navigation is possible.
-	 *
-	 * @param integer $limit
-	 * @param array   $orderings
-	 *
-	 * @return Array<\Mittwald\Typo3Forum\Domain\Model\Forum\Post>
-	 *                               The selected subset of posts
-	 *
-	 */
-	public function findByFilter($limit = '', $orderings = []) {
-		$query = $this->createQuery();
-		if (!empty($limit)) {
-			$query->setLimit($limit);
-		}
-		if (!empty($orderings)) {
-			$query->setOrderings($orderings);
-		}
+        return $query->execute();
+    }
 
-		return $query->execute();
-	}
+    /**
+     * Finds topics for a specific filterset. Page navigation is possible.
+     *
+     * @param array $uids
+     *
+     * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[]
+     *                               The selected subset of topcis
+     */
+    public function findByUids($uids)
+    {
+        $query = $this->createQuery();
+        $constraints = [];
+        if (!empty($uids)) {
+            $constraints[] = $query->in('uid', $uids);
+        }
+        if (!empty($constraints)) {
+            $query->matching($query->logicalAnd($constraints));
+        }
 
-	/**
-	 *
-	 * Finds topics for a specific filterset. Page navigation is possible.
-	 *
-	 * @param array $uids
-	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[]
-	 *                               The selected subset of topcis
-	 *
-	 */
-	public function findByUids($uids) {
+        return $query->execute();
+    }
 
-		$query = $this->createQuery();
-		$constraints = [];
-		if (!empty($uids)) {
-			$constraints[] = $query->in('uid', $uids);
-		}
-		if (!empty($constraints)) {
-			$query->matching($query->logicalAnd($constraints));
-		}
+    /**
+     * Finds posts for a specific topic. Page navigation is possible.
+     *
+     * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
+     *                               The topic for which the posts are to be loaded.
+     *
+     * @return Array<\Mittwald\Typo3Forum\Domain\Model\Forum\Post>
+     *                               The selected subset of posts in the specified
+     *                               topic.
+     */
+    public function findForTopic(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic)
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectSysLanguage(false);
 
-		return $query->execute();
-	}
+        return $query->matching($query->equals('topic', $topic))
+            ->setOrderings(['crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING])
+            ->setLimit(1000000)
+            ->execute();
+    }
 
-	/**
-	 *
-	 * Finds posts for a specific topic. Page navigation is possible.
-	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
-	 *                               The topic for which the posts are to be loaded.
-	 *
-	 * @return Array<\Mittwald\Typo3Forum\Domain\Model\Forum\Post>
-	 *                               The selected subset of posts in the specified
-	 *                               topic.
-	 *
-	 */
-	public function findForTopic(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic) {
-		$query = $this->createQuery();
-		$query->getQuerySettings()->setRespectSysLanguage(FALSE);
+    /**
+     * Finds the last post in a topic.
+     *
+     * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
+     *                                The topic for which the last post is to be
+     *                                loaded.
+     * @param int                                            $offset
+     *                                If you want to get the next to last post post
+     *
+     * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Post
+     *                             The last post of the specified topic.
+     */
+    public function findLastByTopic(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic, $offset = 0)
+    {
+        $query = $this->createQuery();
+        $query->matching($query->equals('topic', $topic))
+            ->setOrderings(['crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING])->setLimit(1);
+        if ($offset > 0) {
+            $query->setOffset($offset);
+        }
 
-		return $query->matching($query->equals('topic', $topic))
-			->setOrderings(['crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING])
-			->setLimit(1000000)
-			->execute();
-	}
+        return $query->execute()->getFirst();
+    }
 
+    /**
+     * Finds the last post in a forum.
+     *
+     * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
+     *                                The forum for which to load the last post.
+     * @param int                                            $offset
+     *                                If you want to get the next to last post post
+     *
+     * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Post
+     *                             The last post of the specified forum.
+     */
+    public function findLastByForum(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum, $offset = 0)
+    {
+        $query = $this->createQuery();
+        $query->matching($query->equals('topic.forum', $forum))
+            ->setOrderings(['crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING])->setLimit(1);
+        if ($offset > 0) {
+            $query->setOffset($offset);
+        }
 
-	/**
-	 *
-	 * Finds the last post in a topic.
-	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic
-	 *                                The topic for which the last post is to be
-	 *                                loaded.
-	 * @param int                                            $offset
-	 *                                If you want to get the next to last post post
-	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Post
-	 *                             The last post of the specified topic.
-	 *
-	 */
-	public function findLastByTopic(\Mittwald\Typo3Forum\Domain\Model\Forum\Topic $topic, $offset = 0) {
-		$query = $this->createQuery();
-		$query->matching($query->equals('topic', $topic))
-			->setOrderings(['crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING])->setLimit(1);
-		if ($offset > 0) {
-			$query->setOffset($offset);
-		}
-
-		return $query->execute()->getFirst();
-	}
-
-
-	/**
-	 *
-	 * Finds the last post in a forum.
-	 *
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum
-	 *                                The forum for which to load the last post.
-	 * @param int                                            $offset
-	 *                                If you want to get the next to last post post
-	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Post
-	 *                             The last post of the specified forum.
-	 *
-	 */
-	public function findLastByForum(\Mittwald\Typo3Forum\Domain\Model\Forum\Forum $forum, $offset = 0) {
-		$query = $this->createQuery();
-		$query->matching($query->equals('topic.forum', $forum))
-			->setOrderings(['crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING])->setLimit(1);
-		if ($offset > 0) {
-			$query->setOffset($offset);
-		}
-
-		return $query->execute()->getFirst();
-	}
-
-
+        return $query->execute()->getFirst();
+    }
 }

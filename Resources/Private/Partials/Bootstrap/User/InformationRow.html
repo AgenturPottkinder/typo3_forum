@@ -1,13 +1,41 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 <div class="text-center">
-	<div class="card-title">
+	<div class="card-title mb-0">
 		<f:link.action controller="User"
-					   action="show"
-					   arguments="{user: user}"
-					   class="tx-typo3forum-topic-show-post-user-link"
-					   pageUid="{settings.pids.UserShow}">{user.username}</f:link.action>
+			action="show"
+			arguments="{user: user}"
+			pageUid="{settings.pids.UserShow}"
+			class="tx-typo3forum-user-link-big"
+		>
+			{user.username}
+		</f:link.action>
 	</div>
-	<mmf:user.avatar user="{user}" width="64" alt="{user.username}" />
-	<div><f:translate key="User_Show_MemberSince" /> <f:format.date format="{settings.format.dateFormat}">{user.timestamp}</f:format.date></div>
-	<div><f:translate key="User_Show_PostCount" arguments="{0: user.postCount}" /></div>
+	<f:if condition="!{hideRank} && {user.rank}">
+		<div class="mt-n2">
+			{user.rank.name}
+		</div>
+	</f:if>
+	<mmf:user.avatar user="{user}" width="64" alt="{user.username}" class="my-1" />
+	<f:if condition="!{hideMemberSince}">
+		<div><f:translate key="User_Show_MemberSince" /> <f:format.date format="{settings.format.dateFormat}">{user.timestamp}</f:format.date></div>
+	</f:if>
+	<f:if condition="!{hidePostCount}">
+		<div class="d-flex justify-content-center">
+			<div>
+				<f:translate key="User_Show_PostCount" arguments="{0: user.postCount}" />
+			</div>
+			<f:if condition="{showHelpfulCount}">
+				<div class="mx-2 text-light"><div class="border-start border-light h-100 my-1"></div></div>
+				<div>
+					<f:translate key="User_Show_HelpfulPostCount" arguments="{0: user.helpfulCount}" />
+				</div>
+			</f:if>
+			<f:if condition="{showPointCount}">
+				<div class="mx-2 text-light"><div class="border-start border-light h-100 my-1"></div></div>
+				<div>
+					<f:translate key="User_Show_PointsCollected" arguments="{0: user.points}" />
+				</div>
+			</f:if>
+		</div>
+	</f:if>
 </div>

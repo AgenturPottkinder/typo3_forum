@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\TextParser\Panel;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -23,17 +24,9 @@ namespace Mittwald\Typo3Forum\TextParser\Panel;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-interface PanelInterface {
+interface PanelInterface
+{
+    public function setSettings(array $settings): self;
 
-	/**
-	 * @param array $settings
-	 * @return void
-	 */
-	public function setSettings(array $settings);
-
-	/**
-	 * @return array
-	 */
-	public function getItems();
-
+    public function getItems(): ?array;
 }

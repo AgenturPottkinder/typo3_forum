@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * COPYRIGHT NOTICE
  *
  *  (c) 2018 Mittwald CM Service GmbH & Co KG
@@ -21,48 +20,23 @@
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- *
  */
-
 namespace Mittwald\Typo3Forum\Domain\Model;
 
-
 use Mittwald\Typo3Forum\Configuration\ConfigurationBuilder;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Trait ConfigurableEntityTrait
  * Use this trait if an entity needs TypoScript settings and use ConfigurableInterface
- * @package Mittwald\Typo3Forum\Domain\Model
  */
 trait ConfigurableEntityTrait
 {
+    protected array $settings = [];
 
-    /**
-     * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
-     */
-    protected $configurationBuilder;
-
-    /**
-     * Whole TypoScript typo3_forum settings
-     * @var array
-     */
-	protected $settings;
-
-    /**
-     * @param ConfigurationBuilder $configurationBuilder
-     */
-    public function injectSettings(ConfigurationBuilder $configurationBuilder)
+    public function injectSettings(ConfigurationBuilder $configurationBuilder): void
     {
         $this->settings = $configurationBuilder->getSettings();
-    }
-
-    /**
-     * injectConfigurationBuilder.
-     * @param ConfigurationBuilder $configurationBuilder
-     */
-    public function injectConfigurationBuilder(ConfigurationBuilder $configurationBuilder)
-    {
-        $this->configurationBuilder = $configurationBuilder;
     }
 
     /**
@@ -71,8 +45,8 @@ trait ConfigurableEntityTrait
      */
     public function getSettings()
     {
-        if (empty($this->settings)) {
-            $this->settings = $this->configurationBuilder->getSettings();
+        if (count($this->settings) === 0) {
+            $this->settings = GeneralUtility::makeInstance(ConfigurationBuilder::class)->getSettings();
         }
 
         return $this->settings;

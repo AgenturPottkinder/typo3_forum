@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\TextParser\Service;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -23,50 +24,34 @@ namespace Mittwald\Typo3Forum\TextParser\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
 use Mittwald\Typo3Forum\Service\AbstractService;
 use TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext;
 
 /**
  * Abstract base class for all kinds of text parsing services.
  */
-abstract class AbstractTextParserService extends AbstractService {
+abstract class AbstractTextParserService extends AbstractService
+{
+    protected array $settings = [];
+    protected ControllerContext $controllerContext;
 
-	/**
-	 * The configuration of this service.
-	 * @var array
-	 */
-	protected $settings = NULL;
+    public function setSettings(array $settings): self
+    {
+        $this->settings = $settings;
 
-	/**
-	 * The current controller context.
-	 * @var ControllerContext
-	 */
-	protected $controllerContext = NULL;
+        return $this;
+    }
 
-	/**
-	 * Injects this service's configuration.
-	 * @param array $settings The configuration for this service.
-	 * @return void
-	 */
-	public function setSettings(array $settings) {
-		$this->settings = $settings;
-	}
+    public function setControllerContext(ControllerContext $controllerContext): self
+    {
+        $this->controllerContext = $controllerContext;
 
-	/**
-	 * Sets the extbase controller context.
-	 * @param ControllerContext $controllerContext
-	 * @return void
-	 */
-	public function setControllerContext(ControllerContext $controllerContext) {
-		$this->controllerContext = $controllerContext;
-	}
+        return $this;
+    }
 
-	/**
-	 * Renders the parsed text.
-	 *
-	 * @param string $text The text to be parsed.
-	 * @return string The parsed text.
-	 */
-	abstract function getParsedText($text);
-
+    /**
+     * Renders the parsed text.
+     */
+    abstract public function getParsedText(string $text, ?Post $post = null): string;
 }

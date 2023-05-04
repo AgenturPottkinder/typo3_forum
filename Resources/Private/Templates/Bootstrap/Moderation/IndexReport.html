@@ -2,93 +2,76 @@
 <f:layout name="default" />
 
 <f:section name="main">
-
-	<f:flashMessages />
-
 	<h2>
 		<f:translate key="Moderation_Index_Reports" />
 	</h2>
 
-	<f:widget.paginate objects="{postReports}" as="paginatedReports" configuration="{settings.topicController.show.pagebrowser}">
+	<mmf:pagination.paginate objects="{postReports}" as="paginatedReports" page="{page}" configuration="{settings.reportController.list.pagebrowser}" configAs="pagination">
 		<table class="table table-striped">
 			<colgroup>
-				<col width="32" />
-				<col width="32" />
-				<col width="40%" />
+				<col width="1" />
+				<col width="15%" />
+				<col />
 				<col width="10%" />
 				<col width="10%" />
-				<col width="20%" />
+				<col width="10%" />
 				<col width="20%" />
 			</colgroup>
 			<thead>
 				<tr>
-					<th></th>
 					<th>#</th>
 					<th><f:translate key="Moderation_Index_Topic" /></th>
-					<th><f:translate key="Moderation_Index_Reporter" /></th>
-					<th><f:translate key="Moderation_Index_Status" /></th>
-					<th><f:translate key="Moderation_Index_Date" /></th>
-					<th></th>
+					<th><f:translate key="Moderation_Index_Message" /></th>
+					<th class="text-center"><f:translate key="Moderation_Index_Author" /></th>
+					<th class="text-center"><f:translate key="Moderation_Index_Status" /></th>
+					<th class="text-center"><f:translate key="Moderation_Index_Reporter" /></th>
+					<th class="text-center"><f:translate key="Moderation_Index_Date" /></th>
 				</tr>
 			</thead>
-			<tbody id="tx-typo3forum-reports">
+			<tbody>
 				<f:if condition="{paginatedReports}">
 					<f:then>
 						<f:for each="{paginatedReports}" as="report">
-							<tr rel="popover" data-content="{report.firstComment.text}" data-original-title="{report.topic.subject}">
-								<td style="width: 1px;">
-									<mmf:moderation.reportIcon report="{report}" width="32" />
-								</td>
-								<td>{report.uid}</td>
-								<td>
-									<f:link.action action="reportShow" arguments="{report: report}">{report.topic.subject}</f:link.action>
-								</td>
-								<td>
-									<f:link.action controller="User" action="show" arguments="{user : report.reporter}" pageUid="{settings.pids.UserShow}">{report.reporter.username}</f:link.action>
-								</td>
-								<td>{report.workflowStatus.name}</td>
-								<td>
-									<f:format.date format="{settings.format.dateTimeFormat}">{report.crdate}</f:format.date>
-								</td>
-								<td>
-									<div class="btn-group">
-										<f:link.action action="editReport" class="btn" arguments="{postReport: report}">
-											<i class="tx-typo3forum-icon-16-edit"></i>
-										<f:translate key="Button_Edit" />
-										</f:link.action>
-										<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-											<i class="tx-typo3forum-icon-16-advanced"></i>
-										<f:translate key="Button_More" />
-											<span class="caret"></span>
-										</a>
-										<ul class="dropdown-menu pull-right">
-											<mmf:authentication.ifAccess object="{report.topic}" accessType="read">
-												<li>
-													<f:link.action controller="Topic" action="show" arguments="{topic: report.topic}" pageUid="{settings.pids.Forum}">
-														<i class="tx-typo3forum-icon-16-topic-goto"></i>
-												<f:translate key="Moderation_Index_GoToTopic" />
-													</f:link.action>
-												</li>
-												<li class="divider"></li>
-												<f:for each="{report.workflowStatus.followupStatus}" as="followupStatus">
-													<li>
-														<f:link.action action="updatePostReportStatus" arguments="{report: report, status: followupStatus}">
-															<i class="tx-typo3forum-icon-16-advanced" style="background-image: url({followupStatus.iconFullpath});"></i>
-															<f:translate key="Report_Edit_SetStatus" arguments="{0: followupStatus.name}" />
-														</f:link.action>
-													</li>
-												</f:for>
-											</mmf:authentication.ifAccess>
-										</ul>
-									</div>
-								</td>
-							</tr>
+							<f:alias map="{
+								editReportUrl: '{f:uri.action(action: \'editReport\', arguments: \'{postReport: report}\')}'
+							}">
+								<tr
+									data-content="{report.firstComment.text}"
+									data-original-title="{report.topic.subject}"
+									class="cursor-pointer"
+									onclick="window.location = '{editReportUrl}';"
+								>
+									<td class="text-center align-middle">
+										{report.uid}
+									</td>
+									<td class="align-middle">
+										<a href="{editReportUrl}">{report.topic.subject}</a>
+									</td>
+									<td class="align-middle">
+										<div class="tx-typo3forum-parsed-text tx-typo3forum-gradient-preview tx-typo3forum-preview-150">
+											<mmf:format.textParser post="{report.post}" />
+										</div>
+									</td>
+									<td class="text-center align-middle">
+										<mmf:user.link user="{report.post.author}" />
+									</td>
+									<td class="text-center align-middle">
+										{report.workflowStatus.name}
+									</td>
+									<td class="text-center align-middle">
+										<mmf:user.link user="{report.reporter}" />
+									</td>
+									<td class="text-center align-middle">
+										<f:format.date format="{settings.format.dateTimeFormat}">{report.crdate}</f:format.date>
+									</td>
+								</tr>
+							</f:alias>
 						</f:for>
 					</f:then>
 					<f:else>
 						<tr>
-							<td colspan="7">
-								<div class="alert alert-info">
+							<td colspan="5">
+								<div class="alert alert-info m-0">
 									<strong><f:translate key="Moderation_Index_NothingHere" /></strong> <f:translate key="Moderation_Index_NoOpenReportsFound" />
 								</div>
 							</td>
@@ -97,14 +80,9 @@
 				</f:if>
 			</tbody>
 		</table>
-	</f:widget.paginate>
-	<script type="text/javascript">
-		<![CDATA[
-		$('#tx-typo3forum-reports > tr').popover({
-			placement: 'bottom'
-		});
-		]]>
-	</script>
+
+		<f:render partial="Control/PageBrowser" arguments="{pagination: pagination, action: 'indexReport'}"/>
+	</mmf:pagination.paginate>
 
 </f:section>
 

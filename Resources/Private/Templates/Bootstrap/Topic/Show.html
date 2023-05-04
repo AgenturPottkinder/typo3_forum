@@ -1,26 +1,62 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 <f:layout name="default" />
 
-
-
-	<!-- MAIN section -->
 <f:section name="main">
+	<f:if condition="{topic.closed}">
+		<div class="card card-body bg-dark border-0 text-white opacity-50 mb-4">
+			<div class="d-flex align-items-center">
+				<i class="fa-solid fa-lock fa-2xl me-3"></i>
+				<span class="fw-normal h3 m-0">
+					<f:translate key="Topic_Closed" />
+				</span>
+			</div>
+		</div>
+	</f:if>
 
-	<h2 class="topic_entry" data-uid="{topic.uid}">{topic.subject}</h2>
+	<div class="row mb-2">
+		<div class="col">
 
-	<mmf:forum.rootline rootline="{topic.rootline}" breadcrumb="1" forumicon="iconset-22-folder" topicicon="iconset-22-balloon" />
+			<h2 class="mb-0">
+				<f:if condition="{topic.question}">
+					<span class="fw-bold">
+						<f:translate key="Topic_Show_Question" />
+					</span>
+				</f:if>
+				{topic.subject}
+			</h2>
 
-	<f:widget.paginate objects="{posts}" as="paginatedPosts" configuration="{settings.topicController.show.pagebrowser}">
-		<f:for each="{paginatedPosts}" as="post">
+		</div>
+		<div class="col-auto">
+
+			<f:if condition="{topic.tags}">
+				<div class="d-flex flex-row flex-wrap align-items-center justify-content-end h-100 tx-typo3forum-tag-gap">
+					<f:for each="{topic.tags}" as="tag">
+						<f:render partial="Tag/Single" arguments="{tag: tag, linkToShowAction: 1}" />
+					</f:for>
+				</div>
+			</f:if>
+
+		</div>
+	</div>
+
+	<mmf:forum.rootline rootline="{topic.rootline}" forumicon="far fa-folder-open me-2" topicicon="far fa-comments me-2" />
+
+	<mmf:pagination.paginate objects="{posts}" as="paginatedPosts" page="{page}" configuration="{settings.topicController.show.pagebrowser}" configAs="pagination">
+		<f:render partial="Topic/PageBrowser" arguments="{pagination: pagination, topic: topic}"/>
+		<f:for each="{paginatedPosts}" as="post" iteration="iteration">
 			<f:render partial="Post/Single" arguments="{post: post}" />
+
+			<f:if condition="{topic.question} && {page} == 1 && {iteration.isFirst}">
+				<f:render partial="Post/Solution" arguments="{solution: topic.solution}" />
+			</f:if>
 		</f:for>
-	</f:widget.paginate>
+		<f:render partial="Topic/PageBrowser" arguments="{pagination: pagination, topic: topic}"/>
+	</mmf:pagination.paginate>
 
 </f:section>
 
-
-
-	<!-- MENU section -->
 <f:section name="menu">
-	<f:render partial="Topic/Menu" arguments="{topic: topic}" />
+	<div class="topic_list_menu" data-uid="{topic.uid}">
+		<f:render partial="Topic/Menu" arguments="{topic: topic}"/>
+	</div>
 </f:section>

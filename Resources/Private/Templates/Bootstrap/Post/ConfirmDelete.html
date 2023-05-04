@@ -1,22 +1,25 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 <f:layout name="default" />
 
-
-
 <f:section name="main">
-	<f:form action="delete">
-		<div class="alert alert-block">
-			<h4 class="alert-heading">Delete post</h4>
-			<p>Do you really want to delete this post?</p>
-			<p>
-				<f:form.hidden name="post" value="{post}" />
-				<f:form.submit value="Yes" class="btn btn-danger" />
-				<f:link.action action="show" arguments="{post: post}" class="btn">No</f:link.action>
-			</p>
+	<f:form action="delete" id="delete">
+		<div class="alert alert-danger">
+			<h2 class="alert-heading"><f:translate key="Post_ConfirmDelete_Header" /></h2>
+			<div>
+				<f:translate key="Post_ConfirmDelete_Body" />
+			</div>
+
+			<f:form.hidden name="post" value="{post}" />
 		</div>
+
+		<f:render partial="Post/Single" arguments="{post: post}" />
 	</f:form>
 </f:section>
 
-
-
-<f:section name="menu" />
+<f:section name="menu">
+	<f:link.action action="show" arguments="{post: post}" class="btn btn-info">
+		<i class="fas fa-chevron-left me-1"></i>
+		<f:translate key="Post_ConfirmDelete_No" />
+	</f:link.action>
+	<input type="submit" form="delete" value="{f:translate(key: 'Post_ConfirmDelete_Yes')}" class="btn btn-danger" />
+</f:section>

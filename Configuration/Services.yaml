@@ -1,0 +1,41 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Mittwald\Typo3Forum\:
+    resource: '../Classes/*'
+
+  cache.typo3forum_main:
+    class: TYPO3\CMS\Core\Cache\Frontend\FrontendInterface
+    factory: ['@TYPO3\CMS\Core\Cache\CacheManager', 'getCache']
+    arguments: ['typo3forum_main']
+
+  Mittwald\Typo3Forum\ViewHelpers\Form\BbCodeEditorViewHelper:
+    arguments:
+      $cache: '@cache.typo3forum_main'
+
+  Mittwald\Typo3Forum\Service\Authentication\AuthenticationService:
+    arguments:
+      $cache: '@cache.typo3forum_main'
+
+
+  Mittwald\Typo3Forum\Command\CounterUpdateCommand:
+    public: true
+    tags:
+      - name: console.command
+        command: 'forum:updateCounters'
+        description: 'Updates counters (post count, topic count, user count etc.).'
+  Mittwald\Typo3Forum\Command\MarkForumsReadCommand:
+    public: true
+    tags:
+      - name: console.command
+        command: 'forum:markForumsRead'
+        description: 'Update forum read status for all users.'
+  Mittwald\Typo3Forum\Command\StatsUpdateCommand:
+    public: true
+    tags:
+      - name: console.command
+        command: 'forum:updateStats'
+        description: 'Update current forum statistics.'

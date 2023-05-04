@@ -1,0 +1,83 @@
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
+
+<table class="table table-striped">
+	<colgroup>
+		<col width="56" />
+		<col width="56" />
+		<col />
+		<col width="20%" />
+		<col width="56" />
+	</colgroup>
+	<thead>
+		<tr>
+			<th></th>
+			<th class="text-center">
+				<f:translate key="Post_List_Author"/>
+			</th>
+			<th>
+				<f:translate key="Post_List_Message"/>
+			</th>
+			<th>
+				<f:translate key="Post_List_Topic"/>
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<f:if condition="{posts}">
+			<f:then>
+				<f:for each="{posts}" as="post">
+					<tr>
+						<td class="align-middle">
+							<mmf:user.avatar
+								user="{post.author}"
+								width="32"
+								alt="{post.author.username}"
+							/>
+						</td>
+						<td class="text-center align-middle">
+							<mmf:user.link user="{post.author}" />
+						</td>
+						<td class="align-middle">
+							<div class="tx-typo3forum-parsed-text tx-typo3forum-gradient-preview tx-typo3forum-preview-150">
+								<mmf:format.textParser post="{post}" />
+							</div>
+						</td>
+						<td class="align-middle">
+							<f:link.action
+								controller="Topic"
+								action="show"
+								arguments="{topic: post.topic}"
+								pageUid="{settings.pids.Forum}"
+							>
+								{post.topic.subject}
+							</f:link.action>
+						</td>
+						<td class="align-middle">
+							<div class="btn-group">
+								<f:link.action
+									controller="Post"
+									action="show"
+									arguments="{post: post}"
+									pageUid="{settings.pids.Forum}"
+									class="btn btn-info text-nowrap"
+								>
+									<f:translate key="User_ListSubscriptions_Goto"/>
+								</f:link.action>
+							</div>
+						</td>
+					</tr>
+				</f:for>
+			</f:then>
+			<f:else>
+				<tr>
+					<td colspan="6" class="align-middle">
+						<div class="alert alert-info m-0">
+							<f:translate key="General_No_Entries"/>
+						</div>
+					</td>
+				</tr>
+			</f:else>
+		</f:if>
+	</tbody>
+</table>

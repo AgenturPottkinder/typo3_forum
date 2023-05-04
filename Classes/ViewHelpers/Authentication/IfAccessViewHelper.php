@@ -2,6 +2,8 @@
 
 namespace Mittwald\Typo3Forum\ViewHelpers\Authentication;
 
+use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -25,12 +27,11 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Authentication;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Access;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- *
  * ViewHelper that renders its contents if the current user has access to a
  * certain operation on a certain object.
  */
@@ -46,13 +47,12 @@ class IfAccessViewHelper extends AbstractViewHelper
      */
     protected $escapeChildren = false;
 
-    /**
-     * The frontend user repository.
-     *
-     * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
-     * @inject
-     */
-    protected $frontendUserRepository;
+    protected FrontendUserRepository $frontendUserRepository;
+
+    public function __construct(FrontendUserRepository $frontendUserRepository)
+    {
+        $this->frontendUserRepository = $frontendUserRepository;
+    }
 
     /**
      * initializeArguments.
@@ -72,7 +72,6 @@ class IfAccessViewHelper extends AbstractViewHelper
     {
         $object = $this->arguments['object'];
         $accessType = $this->arguments['accessType'];
-
         if ($object->checkAccess($this->frontendUserRepository->findCurrent(), $accessType)) {
             return $this->renderChildren();
         }

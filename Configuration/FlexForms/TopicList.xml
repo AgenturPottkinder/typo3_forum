@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<T3DataStructure>
+	<sheets>
+		<behaviour>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Behaviour</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+
+					<settings.listTopics>
+						<TCEforms>
+							<label>LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Display</label>
+							<config>
+								<type>select</type>
+								<renderType>selectSingle</renderType>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Display_Default</numIndex>
+										<numIndex index="1">1</numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Display_PopularTopicsList</numIndex>
+										<numIndex index="1">4</numIndex>
+									</numIndex>
+									<numIndex index="2" type="array">
+										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Display_QuestionsList</numIndex>
+										<numIndex index="1">2</numIndex>
+									</numIndex>
+									<numIndex index="3" type="array">
+										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Display_OpenQuestionsList</numIndex>
+										<numIndex index="1">3</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</settings.listTopics>
+
+					<settings.maxItems>
+						<TCEforms>
+							<label>LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Display_MaxTopicItems</label>
+							<config>
+								<type>input</type>
+								<size>6</size>
+								<eval>null,int</eval>
+								<default>6</default>
+							</config>
+						</TCEforms>
+					</settings.maxItems>
+
+				</el>
+			</ROOT>
+		</behaviour>
+	</sheets>
+</T3DataStructure>

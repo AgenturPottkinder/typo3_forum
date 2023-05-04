@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" datatype="plaintext" original="messages" date="2020-12-13T08:07:01Z" product-name="typo3_forum">
+		<header/>
+		<body>
+			<trans-unit id="Username" xml:space="preserve">
+				<source>Username</source>
+			</trans-unit>
+			<trans-unit id="RegisteredSince" xml:space="preserve">
+				<source>Registered since</source>
+			</trans-unit>
+			<trans-unit id="RealName" xml:space="preserve">
+				<source>Real name</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

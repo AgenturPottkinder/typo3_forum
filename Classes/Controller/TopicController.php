@@ -25,279 +25,227 @@ namespace Mittwald\Typo3Forum\Controller;
  *                                                                      */
 
 use Mittwald\Typo3Forum\Domain\Exception\Authentication\NoAccessException;
+use Mittwald\Typo3Forum\Domain\Exception\InvalidOperationException;
+use Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory;
+use Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Tag;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
+use Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository;
+use Mittwald\Typo3Forum\Domain\Repository\Forum\PostRepository;
+use Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository;
+use Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository;
+use Mittwald\Typo3Forum\Service\AttachmentService;
+use Mittwald\Typo3Forum\Service\TagService;
+use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
+use TYPO3\CMS\Extbase\Annotation\Validate;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
-class TopicController extends AbstractController {
+class TopicController extends AbstractController
+{
+    protected AttachmentService $attachmentService;
+    protected ForumRepository $forumRepository;
+    protected PostFactory $postFactory;
+    protected PostRepository $postRepository;
+    protected TagRepository $tagRepository;
+    protected TagService $tagService;
+    protected TopicFactory $topicFactory;
+    protected TopicRepository $topicRepository;
+    protected PersistenceManager $persistenceManager;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AdRepository
-	 * @inject
-	 */
-	protected $adRepository;
-
-	/**
-	 * @var \Mittwald\Typo3Forum\Service\AttachmentService
-	 * @inject
-	 */
-	protected $attachmentService;
-
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\CriteriaRepository
-	 * @inject
-	 */
-	protected $criteraRepository;
-
-	/**
-	 * @var \TYPO3\CMS\Core\Database\DatabaseConnection
-	 */
-	protected $databaseConnection;
-
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
-	 * @inject
-	 */
-	protected $forumRepository;
-
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory
-	 * @inject
-	 */
-	protected $postFactory;
-
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\PostRepository
-	 * @inject
-	 */
-	protected $postRepository;
-
-	/**
-	 * @var \Mittwald\Typo3Forum\Service\SessionHandlingService
-	 * @inject
-	 */
-	protected $sessionHandling;
-
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository
-	 * @inject
-	 */
-	protected $tagRepository;
-
-	/**
-	 * @var \Mittwald\Typo3Forum\Service\TagService
-	 * @inject
-	 */
-	protected $tagService = NULL;
-
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory
-	 * @inject
-	 */
-	protected $topicFactory;
-
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
-	 * @inject
-	 */
-	protected $topicRepository;
-
-	/**
-	 *
-	 */
-	public function initializeObject() {
-		$this->databaseConnection = $GLOBALS['TYPO3_DB'];
-	}
+    public function __construct(
+        AttachmentService $attachmentService,
+        ForumRepository $forumRepository,
+        PostFactory $postFactory,
+        PostRepository $postRepository,
+        TagRepository $tagRepository,
+        TagService $tagService,
+        TopicFactory $topicFactory,
+        TopicRepository $topicRepository,
+        PersistenceManager $persistenceManager
+    ) {
+        $this->attachmentService = $attachmentService;
+        $this->forumRepository = $forumRepository;
+        $this->postFactory = $postFactory;
+        $this->postRepository = $postRepository;
+        $this->tagRepository = $tagRepository;
+        $this->tagService = $tagService;
+        $this->topicFactory = $topicFactory;
+        $this->topicRepository = $topicRepository;
+        $this->persistenceManager = $persistenceManager;
+    }
 
     /**
      *  Listing Action.
-     * @return void
      */
-    public function listAction() {
-
-        $showPaginate = FALSE;
+    public function listAction(int $page = 1): void
+    {
+        $showPaginate = false;
         switch ($this->settings['listTopics']) {
             case '2':
-                $dataset = $this->topicRepository->findQuestions();
-                $showPaginate = TRUE;
-                $partial = 'Topic/List';
+                $dataset = $this->topicRepository->findQuestions($this->settings['maxItems'] ?? null, true);
+                $showPaginate = true;
                 break;
             case '3':
-                $dataset = $this->topicRepository->findQuestions(intval($this->settings['maxTopicItems']));
-                $partial = 'Topic/QuestionBox';
+                $dataset = $this->topicRepository->findQuestions($this->settings['maxItems'] ?? null, false);
+                $showPaginate = true;
                 break;
             case '4':
-                $dataset = $this->topicRepository->findPopularTopics(intval($this->settings['popularTopicTimeDiff']), intval($this->settings['maxTopicItems']));
-                $partial = 'Topic/ListBox';
+                $dataset = $this->topicRepository->findPopularTopics((int)($this->settings['popularTopicTimeDiff']), $this->settings['maxItems'] ?? null);
                 break;
             default:
-                $dataset      = $this->topicRepository->findAll();
-                $partial      = 'Topic/List';
-                $showPaginate = TRUE;
+                $dataset = $this->topicRepository->findLatest(null, $this->settings['maxItems'] ?? null);
+                $showPaginate = true;
                 break;
         }
         $this->view->assign('showPaginate', $showPaginate);
-        $this->view->assign('partial', $partial);
         $this->view->assign('topics', $dataset);
+        $this->view->assign('page', $page);
     }
 
-	/**
-	 *  Listing Action.
-	 */
-	public function listLatestAction() {
-		if (!empty($this->settings['countLatestPost'])) {
-			$limit = (int)$this->settings['countLatestPost'];
-		} else {
-			$limit = 3;
-		}
+    /**
+     * Show action. Displays a single topic and all posts contained in this topic.
+     */
+    public function showAction(Topic $topic, Post $quote = null, int $page = 1): void
+    {
+        $posts = $this->postRepository->findForTopic($topic);
 
-		$topics = $this->topicRepository->findLatest(0, $limit);
-		$this->view->assign('topics', $topics);
-	}
+        if ($quote !== null) {
+            $this->view->assign('quote', $this->postFactory->createPostWithQuote($quote));
+        }
+        // Set Title
+        $GLOBALS['TSFE']->page['title'] = $topic->getTitle();
 
-	/**
-	 * Show action. Displays a single topic and all posts contained in this topic.
-	 *
-	 * @param Topic $topic The topic that is to be displayed.
-	 * @param Post $quote An optional post that will be quoted within the bodytext of the new post.
-	 * @param int $showForm ShowForm
-	 */
-	public function showAction(Topic $topic, Post $quote = NULL, $showForm = 0) {
-		$posts = $this->postRepository->findForTopic($topic);
+        // Send signal for read count
+        $this->signalSlotDispatcher->dispatch(Topic::class, 'topicDisplayed', [$topic]);
 
-		if ($quote != FALSE) {
-			$this->view->assign('quote', $this->postFactory->createPostWithQuote($quote));
-		}
-		// Set Title
-		$GLOBALS['TSFE']->page['title'] = $topic->getTitle();
+        $this->authenticationService->assertReadAuthorization($topic);
+        $this->markTopicRead($topic);
+        $this->view->assignMultiple([
+            'posts' => $posts,
+            'topic' => $topic,
+            'user' => $this->getCurrentUser(),
+            'page' => $page,
+        ]);
+    }
 
-		$googlePlus = $topic->getAuthor()->getGoogle();
-		if ($googlePlus) {
-			$this->response->addAdditionalHeaderData('<link rel="author" href="' . $googlePlus . '"/>');
-		}
+    /**
+     * New action. Displays a form for creating a new topic.
+     *
+     * @IgnoreValidation("post")
+     */
+    public function newAction(Forum $forum, Post $post = null, string $subject = ''): void
+    {
+        $this->authenticationService->assertNewTopicAuthorization($forum);
+        $this->view->assignMultiple([
+            'currentUser' => $this->frontendUserRepository->findCurrent(),
+            'forum' => $forum,
+            'post' => $post,
+            'subject' => $subject,
+            'availableTags' => $this->tagRepository->findAll(),
+        ]);
+    }
 
-		// send signal for simple read count
-		$this->signalSlotDispatcher->dispatch(Topic::class, 'topicDisplayed', ['topic' => $topic]);
+    /**
+     * Creates a new topic.
+     *
+     * @Validate("\Mittwald\Typo3Forum\Domain\Validator\Forum\PostValidator", param="post")
+     * @Validate("\Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator", param="attachments")
+     * @Validate("NotEmpty", param="subject")
+     */
+    public function createAction(
+        Forum $forum,
+        Post $post,
+        string $subject,
+        array $tags = [],
+        array $attachments = [],
+        bool $question = false,
+        bool $subscribe = false
+    ): void {
+        // Assert authorization
+        $this->authenticationService->assertNewTopicAuthorization($forum);
 
-		$this->authenticationService->assertReadAuthorization($topic);
-		$this->markTopicRead($topic);
-		$this->view->assignMultiple([
-			'posts' => $posts,
-			'showForm' => $showForm,
-			'topic' => $topic,
-			'user' => $this->authenticationService->getUser(),
-		]);
-	}
+        $this->postFactory->assignUserToPost($post);
 
-	/**
-	 * New action. Displays a form for creating a new topic.
-	 *
-	 * @param Forum $forum The forum in which the new topic is to be created.
-	 * @param Post $post The first post of the new topic.
-	 * @param string $subject The subject of the new topic
-	 *
-	 * @ignorevalidation $post
-	 */
-	public function newAction(Forum $forum, Post $post = NULL, $subject = NULL) {
-		$this->authenticationService->assertNewTopicAuthorization($forum);
-		$this->view->assignMultiple([
-			'criteria' => $forum->getCriteria(),
-			'currentUser' => $this->frontendUserRepository->findCurrent(),
-			'forum' => $forum,
-			'post' => $post,
-			'subject' => $subject,
-		]);
-	}
+        if (count($attachments) > 0) {
+            $attachments = $this->attachmentService->initAttachments($attachments);
+            $post->setAttachments($attachments);
+        }
 
-	/**
-	 * Creates a new topic.
-	 *
-	 * @param Forum $forum The forum in which the new topic is to be created.
-	 * @param Post $post The first post of the new topic.
-	 * @param string $subject The subject of the new topic
-	 * @param array $attachments File attachments for the post.
-	 * @param string $question The flag if the new topic is declared as question
-	 * @param array $criteria All submitted criteria with option.
-	 * @param string $tags All defined tags for this topic
-	 * @param string $subscribe The flag if the new topic is subscribed by author
-	 *
-	 * @validate $post \Mittwald\Typo3Forum\Domain\Validator\Forum\PostValidator
-	 * @validate $attachments \Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator
-	 * @validate $subject NotEmpty
-	 */
-	public function createAction(Forum $forum, Post $post, $subject, $attachments = [], $question = '', $criteria = [], $tags = '', $subscribe = '') {
+        $tags = $this->tagService->hydrateTags($tags);
 
-		// Assert authorization
-		$this->authenticationService->assertNewTopicAuthorization($forum);
+        $topic = $this->topicFactory->createTopic($forum, $post, $subject, $question, $tags, $subscribe);
 
-		// Create the new post; add the new post to a new topic and add the new
-		// topic to the forum. Then persist the forum object. Not as complicated
-		// as is sounds, honestly!
-		$this->postFactory->assignUserToPost($post);
+        // Persist early so we can redirect to the topic in event listeners.
+        $this->persistenceManager->persistAll();
 
-		if (!empty($attachments)) {
-			$attachments = $this->attachmentService->initAttachments($attachments);
-			$post->setAttachments($attachments);
-		}
+        // Notify potential listeners.
+        $this->signalSlotDispatcher->dispatch(Topic::class, 'topicCreated', [$topic]);
+        $this->clearCacheForCurrentPage();
 
-		if ($tags) {
-			$tags = $this->tagService->initTags($tags);
-			foreach ($tags as $tag) {
-				if ($tag->getUid === NULL) {
-					$this->tagRepository->add($tag);
-				}
-			}
-		} else {
-			$tags = NULL;
-		}
+        if ($this->settings['purgeCache']) {
+            $uriBuilder = $this->uriBuilder;
+            $uri = $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments(['tx_typo3forum_forum[forum]' => $forum->getUid(), 'tx_typo3forum_forum[controller]' => 'Forum', 'tx_typo3forum_forum[action]' => 'show'])->build();
+            $this->purgeUrl('http://' . $_SERVER['HTTP_HOST'] . '/' . $uri);
+        }
 
-		$topic = $this->topicFactory->createTopic($forum, $post, $subject, (int)$question, $criteria, $tags, (int)$subscribe);
+        // Redirect to single forum display view
+        $this->redirect('show', 'Topic', null, ['topic' => $topic]);
+    }
 
-		// Notify potential listeners.
-		$this->signalSlotDispatcher->dispatch(Topic::class, 'topicCreated', ['topic' => $topic]);
-		$this->clearCacheForCurrentPage();
+    /**
+     * Sets a post as solution.
+     *
+     * @throws NoAccessException
+     * @throws InvalidOperationException
+     */
+    public function solutionAction(Post $post): void
+    {
+        if (!$post->getTopic()->checkSolutionAccess($this->getCurrentUser())) {
+            throw new NoAccessException('Not allowed to set solution by current user.');
+        }
+        if ($post->isFirstPost()) {
+            throw new InvalidOperationException('The first post of a topic cannot be its solution.');
+        }
+        $this->topicFactory->setPostAsSolution($post->getTopic(), $post);
 
-		if ($this->settings['purgeCache']) {
-			$uriBuilder = $this->controllerContext->getUriBuilder();
-			$uri = $uriBuilder->setTargetPageUid($this->settings['pids']['Forum'])->setArguments(['tx_typo3forum_pi1[forum]' => $forum->getUid(), 'tx_typo3forum_pi1[controller]' => 'Forum', 'tx_typo3forum_pi1[action]' => 'show'])->build();
-			$this->purgeUrl('http://' . $_SERVER['HTTP_HOST'] . '/' . $uri);
-		}
+        $this->clearCacheForCurrentPage();
 
-		// Redirect to single forum display view
-		$this->redirect('show', 'Forum', NULL, ['forum' => $forum]);
-	}
+        $this->redirect('show', 'Topic', null, ['topic' => $post->getTopic()]);
+    }
 
-	/**
-	 * Sets a post as solution
-	 *
-	 * @param Post $post The post to be marked as solution.
-	 *
-	 * @throws NoAccessException
-	 */
-	public function solutionAction(Post $post) {
-		if (!$post->getTopic()->checkSolutionAccess($this->authenticationService->getUser())) {
-			throw new NoAccessException('Not allowed to set solution by current user.');
-		}
-		$this->topicFactory->setPostAsSolution($post->getTopic(), $post);
-		$this->redirect('show', 'Topic', NULL, ['topic' => $post->getTopic()]);
-	}
+    /**
+     * Removes the topic's solution.
+     *
+     * @throws NoAccessException
+     * @throws InvalidOperationException
+     */
+    public function removeSolutionAction(Topic $topic): void
+    {
+        if (!$topic->checkSolutionAccess($this->getCurrentUser())) {
+            throw new NoAccessException('Not allowed to remove solution by current user.');
+        }
+        $this->topicFactory->setPostAsSolution($topic, null);
 
-	/**
-	 * Marks a topic as read by the current user.
-	 *
-	 * @param Topic $topic The topic that is to be marked as read.
-	 *
-	 */
-	protected function markTopicRead(Topic $topic) {
-		$currentUser = $this->getCurrentUser();
-		if ($currentUser === NULL || $currentUser->isAnonymous()) {
-			return;
-		} else {
-			if ((false === $topic->hasBeenReadByUser($currentUser))) {
-				$currentUser->addReadObject($topic);
-				$this->frontendUserRepository->update($currentUser);
-			}
-		}
-	}
+        $this->clearCacheForCurrentPage();
 
+        $this->redirect('show', 'Topic', null, ['topic' => $topic]);
+    }
+
+    /**
+     * Marks a topic as read by the current user.
+     */
+    protected function markTopicRead(Topic $topic): void
+    {
+        $currentUser = $this->getCurrentUser();
+        if ($currentUser === null || $currentUser->isAnonymous()) {
+            return;
+        }
+        if ((false === $topic->hasBeenReadByUser($currentUser))) {
+            $currentUser->addReadObject($topic);
+            $this->frontendUserRepository->update($currentUser);
+        }
+    }
 }

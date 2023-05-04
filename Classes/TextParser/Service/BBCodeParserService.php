@@ -24,41 +24,81 @@ namespace Mittwald\Typo3Forum\TextParser\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Domain\Model\Format\ListBBCode;
-use Mittwald\Typo3Forum\Domain\Model\Format\QuoteBBCode;
+use Mittwald\Typo3Forum\Domain\Model\Format\BBCode;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
+use Mittwald\Typo3Forum\Domain\Repository\Format\BBCodeRepository;
 
-class BBCodeParserService extends AbstractTextParserService {
+class BBCodeParserService extends AbstractTextParserService
+{
+    protected BBCodeRepository $bbCodeRepository;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Format\BBCodeRepository
-	 * @inject
-	 */
-	protected $bbCodeRepository;
+    /**
+     * @var BBCode[]
+     */
+    protected array $bbCodes = [];
+    protected array $userGroupIds = [];
 
-	/**
-	 * All bb codes.
-	 * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\BBCode>
-	 */
-	protected $bbCodes = NULL;
+    public function __construct(BBCodeRepository $bbCodeRepository)
+    {
+        $this->bbCodeRepository = $bbCodeRepository;
+    }
 
-	/**
-	 * Parses the text. Replaces all bb codes in the text with appropriate HTML tags.
-	 *
-	 * @param string $text The text that is to be parsed.
-	 * @return string       The parsed text.
-	 */
-	public function getParsedText($text) {
-		if ($this->bbCodes === NULL) {
-			$this->bbCodes = $this->bbCodeRepository->findAll();
-		}
-		foreach ($this->bbCodes as $bbCode) {
-			/** @var $bbCode \Mittwald\Typo3Forum\Domain\Model\Format\BBCode */
-			if ($bbCode instanceof QuoteBBCode || $bbCode instanceof ListBBCode) {
-				continue;
-			}
-			$text = preg_replace($bbCode->getRegularExpression(), $bbCode->getRegularExpressionReplacement(), $text);
-		}
-		return $text;
-	}
+    /**
+     * Parses the text. Replaces all bb codes in the text with appropriate HTML tags.
+     *
+     * @param string $text The text that is to be parsed.
+     * @param Post $post The post object
+     * @return string       The parsed text.
+     */
+    public function getParsedText(string $text, ?Post $post = null): string
+    {
+        if (count($this->bbCodes) === 0) {
+            $this->bbCodes = $this->bbCodeRepository->findAll()->toArray();
+        }
+        if ($post !== null) {
+            $this->setUserGroupIds($post);
+        }
+        foreach ($this->bbCodes as $bbCode) {
+            /** @var $bbCode \Mittwald\Typo3Forum\Domain\Model\Format\BBCode */
+            if ($bbCode->getRegularExpression() === null || $bbCode->getRegularExpressionReplacement() === null) {
+                continue;
+            }
+            if ($post !== null) {
+                if ($this->parserAllowedByUser($bbCode)) {
+                    $text = preg_replace($bbCode->getRegularExpression(), $bbCode->getRegularExpressionReplacement(), $text);
+                } else {
+                    $text = preg_replace($bbCode->getRegularExpression(), $bbCode->getRegularExpressionReplacementBlocked(), $text);
+                }
+            } else {
+                $text = preg_replace($bbCode->getRegularExpression(), $bbCode->getRegularExpressionReplacement(), $text);
+            }
+        }
+        return $text;
+    }
 
+    protected function parserAllowedByUser(BBCode $bbCode): bool
+    {
+        if ($bbCode->getIdsOfGroups() === [] || (count($bbCode->getIdsOfGroups()) === 1 && $bbCode->getIdsOfGroups()[0] === '')) {
+            return true;
+        }
+        foreach ($bbCode->getIdsOfGroups() as $group) {
+            if (in_array($group, $this->userGroupIds)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected function setUserGroupIds(Post $post): self
+    {
+        $groups = [];
+        if ($post->getAuthor() !== null) {
+            foreach ($post->getAuthor()->getUsergroup() as $userGroup) {
+                $groups[] = $userGroup->getUid();
+            }
+        }
+        $this->userGroupIds = $groups;
+
+        return $this;
+    }
 }

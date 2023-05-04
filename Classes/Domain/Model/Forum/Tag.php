@@ -24,133 +24,102 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use DateTime;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-class Tag extends AbstractEntity {
+class Tag extends AbstractEntity
+{
+    protected string $name = '';
+    protected ?Color $color = null;
+    protected int $topicCount  = 0;
+    protected DateTime $tstamp;
+    protected DateTime $crdate;
 
-	/**
-	 * Tame of a tag
-	 * @var string
-	 */
-	protected $name;
+    /**
+     * Creates a new Tag.
+     */
+    public function __construct()
+    {
+        $this->initializeObject();
+    }
 
-	/**
-	 * Timestamp of this tag
-	 * @var \DateTime
-	 */
-	protected $tstamp;
+    public function initializeObject(): void
+    {
+        $this->ensureObjectStorages();
+    }
 
-	/**
-	 * Crdate of this tag
-	 * @var \DateTime
-	 */
-	protected $crdate;
+    protected function ensureObjectStorages(): void
+    {
+        if (!isset($this->tstamp)) {
+            $this->tstamp = new DateTime();
+        }
+        if (!isset($this->crdate)) {
+            $this->crdate = new DateTime();
+        }
+    }
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
 
-	/**
-	 * The amount of topics which are using this tag
-	 * @var int
-	 */
-	protected $topicCount;
+    public function getTstamp(): DateTime
+    {
+        return $this->tstamp;
+    }
 
+    public function getCrdate(): DateTime
+    {
+        return $this->crdate;
+    }
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
-	 */
-	protected $feuser;
+    public function setTstamp(DateTime $tstamp): self
+    {
+        $this->tstamp = $tstamp;
 
-	/**
-	 * Creates a new Tag.
-	 */
-	public function __construct() {
-		$this->feuser = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-	}
+        return $this;
+    }
 
-	/**
-	 * Get the name of this tag
-	 * @return string
-	 */
-	public function getName() {
-		return $this->name;
-	}
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
-	/**
-	 * Get the timestamp of this tag
-	 * @return \DateTime
-	 */
-	public function getTstamp() {
-		return $this->tstamp;
-	}
+        return $this;
+    }
 
-	/**
-	 * Get the crdate of this tag
-	 * @return \DateTime
-	 */
-	public function getCrdate() {
-		return $this->crdate;
-	}
+    public function getTopicCount(): int
+    {
+        return $this->topicCount;
+    }
 
-	/**
-	 * Get the amount of topics which are using this tag
-	 * @return int
-	 */
-	public function getTopicCount() {
-		return $this->topicCount;
-	}
+    public function setTopicCount(int $topicCount): self
+    {
+        $this->topicCount = $topicCount;
 
-	/**
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
-	 */
-	public function getFeuser() {
-		return $this->feuser;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param string $name
-	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
+    public function increaseTopicCount(int $by = 1): self
+    {
+        $this->topicCount += $by;
 
-	/**
-	 * @param \DateTime $crdate
-	 */
-	public function setCrdate($crdate) {
-		$this->crdate = $crdate;
-	}
+        return $this;
+    }
 
-	/**
-	 * Increases the topic count by 1
-	 * @return void
-	 */
-	public function increaseTopicCount() {
-		$this->topicCount++;
-	}
+    public function decreaseTopicCount(int $by = 1): self
+    {
+        return $this->increaseTopicCount(-$by);
+    }
 
-	/**
-	 * Decreases the topic count by 1
-	 * @return void
-	 */
-	public function decreaseTopicCount() {
-		$this->topicCount--;
-	}
+    public function getColor(): ?Color
+    {
+        return $this->color ?? Color::getDefaultColor();
+    }
 
-	/**
-	 * Add a user to this tag
-	 *
-	 * @param $feuser FrontendUser
-	 */
-	public function addFeuser(FrontendUser $feuser) {
-		$this->feuser->attach($feuser);
-	}
+    public function setColor(?Color $color): self
+    {
+        $this->color = $color;
 
-	/**
-	 * Removes a user from this tag
-	 *
-	 * @param $feuser FrontendUser
-	 */
-	public function removeFeuser(FrontendUser $feuser) {
-		$this->feuser->detach($feuser);
-	}
+        return $this;
+    }
 }

@@ -25,41 +25,37 @@ namespace Mittwald\Typo3Forum\Domain\Validator\Forum;
 *                                                                      */
 
 use Mittwald\Typo3Forum\Domain\Model\Forum\Attachment;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 
-class AttachmentPlainValidator extends AbstractValidator {
+class AttachmentPlainValidator extends AbstractValidator
+{
+    /**
+    * Check if $value is valid. If it is not valid, needs to add an error
+    * to Result.
+    *
+    * @param $value
+    *
+    * @return bool
+    */
+    public function isValid($value)
+    {
+        $result = true;
+        $attachmentObj = GeneralUtility::makeInstance(Attachment::class);
+        foreach ($value as $attachment) {
+            if (empty($attachment['name'])) {
+                continue;
+            }
+            if (!in_array($attachment['type'], $attachmentObj->getAllowedMimeTypes())) {
+                $this->addError('The submitted mime-type is not allowed!.', 1371041777);
+                $result = false;
+            }
+            if ($attachment['size'] > $attachmentObj->getAllowedMaxSize()) {
+                $this->addError('The submitted file is to big!.', 1371041888);
+                $result = false;
+            }
+        }
 
-	/**
-	 * An instance of the extbase object manager.
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-	 * @inject
-	 */
-	protected $objectManager = NULL;
-
-	/**
-	 * Check if $value is valid. If it is not valid, needs to add an error
-	 * to Result.
-	 *
-	 * @param $value
-	 *
-	 * @return bool
-	 */
-	public function isValid($value) {
-		$result = TRUE;
-		$attachmentObj = $this->objectManager->get(Attachment::class);
-		foreach ($value as $attachment) {
-			if (empty($attachment['name']))
-				continue;
-			if (!in_array($attachment['type'], $attachmentObj->getAllowedMimeTypes())) {
-				$this->addError('The submitted mime-type is not allowed!.', 1371041777);
-				$result = FALSE;
-			}
-			if ($attachment['size'] > $attachmentObj->getAllowedMaxSize()) {
-				$this->addError('The submitted file is to big!.', 1371041888);
-				$result = FALSE;
-			}
-		}
-
-		return $result;
-	}
+        return $result;
+    }
 }

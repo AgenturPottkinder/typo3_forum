@@ -34,16 +34,10 @@ use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- *
  * ViewHelper that renders the value of a specific userfield for a user.
- *
  */
 class UserfieldViewHelper extends AbstractViewHelper
 {
-
-    /**
-     * initializeArguments.
-     */
     public function initializeArguments()
     {
         parent::initializeArguments();
@@ -52,65 +46,45 @@ class UserfieldViewHelper extends AbstractViewHelper
     }
 
     /**
-     * renderStatic.
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     * @return \InvalidArgumentException|mixed
+     * @return mixed
      */
     public static function renderStatic(
         array $arguments,
         \Closure $renderChildrenClosure,
         RenderingContextInterface $renderingContext
     ) {
-
         $user = $arguments['user'];
         $userfield = $arguments['userfield'];
 
-
         if (!$userfield instanceof TyposcriptUserfield) {
-            return new \InvalidArgumentException('Only userfields of type TyposcriptUserField are supported',
-                1435048481);
+            return new \InvalidArgumentException(
+                'Only userfields of type TyposcriptUserField are supported',
+                1435048481
+            );
         }
-        $data = $userfield->getValueForUser($user);
-        $data = self::convertDataToString($data);
 
-        $arguments['typoscriptObjectPath'] = $userfield->getTyposcriptPath() . '.output';
-
-        return self::getCObjectViewHelper()::renderStatic($arguments, $renderChildrenClosure, $renderingContext);
-    }
-
-    /**
-     *
-     * Helper method that converts any type of variable to a string.
-     *
-     *
-     * @param mixed $data Anything
-     * @return string Anything converted to a string
-     *
-     */
-    protected static function convertDataToString($data)
-    {
-        if (is_array($data)) {
-            foreach ($data as $k => &$v) {
-                $v = self::convertDataToString($v);
-            }
-            return $data;
-        } else {
-            if ($data instanceof \DateTime) {
-                return $data->format('U');
-            } else {
-                return $data;
-            }
-        }
-    }
-
-    /**
-     * getCObjectViewHelper.
-     * @return CObjectViewHelper
-     */
-    protected static function getCObjectViewHelper()
-    {
-        return GeneralUtility::makeInstance(CObjectViewHelper::class);
+        return implode(
+            ', ',
+            array_filter(
+                array_map(
+                    function (string $propertyName) use ($renderingContext, $userfield, $user): string {
+                        return CObjectViewHelper::renderStatic(
+                            [
+                                'typoscriptObjectPath' => $userfield->getTyposcriptPath() . '.output',
+                                'currentValueKey' => $propertyName,
+                            ],
+                            function () use ($user) {
+                                return $user;
+                            },
+                            $renderingContext
+                        );
+                    },
+                    explode('|', $userfield->getUserObjectPropertyName())
+                ),
+                function (string $renderedItem): bool {
+                    return $renderedItem !== '';
+                }
+            )
+        );
     }
 }

@@ -1,6 +1,11 @@
 <?php
 namespace Mittwald\Typo3Forum\TextParser\Service;
 
+use Mittwald\Typo3Forum\Domain\Model\Format\Smiley;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
+use Mittwald\Typo3Forum\Domain\Repository\Format\SmileyRepository;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\PathUtility;
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -24,70 +29,62 @@ namespace Mittwald\Typo3Forum\TextParser\Service;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Domain\Model\Format\Smiley;
 
-class SmileyParserService extends AbstractTextParserService {
+class SmileyParserService extends AbstractTextParserService
+{
+    protected SmileyRepository $smileyRepository;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Format\SmileyRepository
-	 * @inject
-	 */
-	protected $smileyRepository;
+    /**
+     * @var Smiley[]
+     */
+    protected array $smileys = [];
 
-	/**
-	 * All smileys.
-	 * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\Smiley>
-	 */
-	protected $smileys = NULL;
+    public function __construct(SmileyRepository $smileyRepository)
+    {
+        $this->smileyRepository = $smileyRepository;
+    }
 
-	/**
-	 * Renders the parsed text.
-	 *
-	 * @param string $text The text to be parsed.
-	 * @return string The parsed text.
-	 */
-	public function getParsedText($text) {
-		if ($this->smileys === NULL) {
-			$this->smileys = $this->smileyRepository->findAll();
-		}
-		foreach ($this->smileys as $smiley) {
-
-		    if(':/' === $smiley->getSmileyShortcut()) {
-		        $lastPos = 0;
-		        while(($lastPos = strpos($text, $smiley->getSmileyShortcut(), $lastPos)) !== false) {
-                    $before =substr($text, $lastPos-4, 4);
+    /**
+     * Renders the parsed text.
+     */
+    public function getParsedText(string $text, ?Post $post = null): string
+    {
+        if (count($this->smileys) === 0) {
+            $this->smileys = $this->smileyRepository->findAll()->toArray();
+        }
+        foreach ($this->smileys as $smiley) {
+            if (':/' === $smiley->getSmileyShortcut()) {
+                // Prevent ":/" smiley from messing up URLs.
+                $lastPos = 0;
+                while (($lastPos = strpos($text, $smiley->getSmileyShortcut(), $lastPos)) !== false) {
+                    $before = substr($text, $lastPos-4, 4);
                     $currentPos = $lastPos;
                     $lastPos = $lastPos + strlen($smiley->getSmileyShortcut());
-                    if(($before === 'http') || ($before === 'ttps')) {
+                    if (($before === 'http') || ($before === 'ttps')) {
                         continue;
                     }
                     $text = substr_replace($text, $this->getSmileyIcon($smiley), $currentPos, strlen($smiley->getSmileyShortcut()));
-
                 }
-
             } else {
-
-                $text = str_replace($smiley->getSmileyShortcut(), $this->getSmileyIcon($smiley), $text);
+                $text = str_replace(htmlentities($smiley->getSmileyShortcut()), $this->getSmileyIcon($smiley), $text);
             }
-
         }
-		return $text;
-	}
+        return $text;
+    }
 
+    /**
+     * Renders a smiley icon.
+     */
+    protected function getSmileyIcon(Smiley $smiley): string
+    {
+        return '<i class="tx-typo3forum-smiley"><img src="'
+            . $this->resolveIconPath($smiley->getImagePath())
+            . '" /></i>'
+        ;
+    }
 
-
-	/**
-	 *
-	 * Renders a smiley icon.
-	 *
-	 * @param Smiley $smiley The smiley that is to be rendered.
-	 *
-	 * @return string The smiley as HTML code.
-	 *
-	 */
-
-	protected function getSmileyIcon(Smiley $smiley) {
-		return '<i class="' . $smiley->getIconClass() . '"></i>';
-	}
-
+    protected function resolveIconPath(string $iconPath): string
+    {
+        return PathUtility::getAbsoluteWebPath(GeneralUtility::getFileAbsFileName($iconPath));
+    }
 }

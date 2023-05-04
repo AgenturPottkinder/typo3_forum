@@ -3,11 +3,10 @@
 
 <f:layout name="default"/>
 
-
 <f:section name="main">
 
 	<f:render partial="FormErrors"/>
-	<f:form name="post" object="{post}" controller="Topic" action="create" id="topic" class="form-horizontal" enctype="multipart/form-data">
+	<f:form name="post" object="{post}" controller="Topic" action="create" id="topic" enctype="multipart/form-data">
 		<div class="card">
 			<div class="card-header">
 				<h3><f:translate key="Topic_New"/></h3>
@@ -16,44 +15,75 @@
 			<div class="card-body">
 				<f:if condition="{currentUser.anonymous}">
 					<div class="form-group">
-						<b:form.row llLabel="Post_New_Author" labelFor="authorName" error="post.authorName" errorLLPrefix="Post_New_Error_Author">
-							<f:form.textfield property="authorName" id="authorName" class="form-control" required="true"/>
-						</b:form.row>
+						<label for="authorName">
+							<f:translate key="Post_New_Author" />
+						</label>
+						<f:form.textfield property="authorName" id="authorName" class="form-control" required="true"/>
 					</div>
 				</f:if>
 				<div class="form-group">
-					<b:form.row llLabel="Topic_New_Subject" labelFor="subject" error="subject" errorLLPrefix="Topic_New_Error_Subject">
-						<f:form.textfield name="subject" id="subject" value="{subject}" class="form-control" required="true"/>
-					</b:form.row>
+					<label for="subject">
+						<f:translate key="Topic_New_Subject" />
+					</label>
+					<f:form.textfield name="subject" id="subject" value="{subject}" class="form-control" required="true"/>
 				</div>
 				<div class="form-group">
-					<b:form.row llLabel="Topic_New_Text" labelFor="typo3forum_editor" error="post.text" errorLLPrefix="Topic_New_Error_Post_Text">
-						<mmf:form.bbCodeEditor property="text" id="typo3forum_editor" rows="20" class="form-control"/>
-					</b:form.row>
+					<label for="editor">
+						<f:translate key="Topic_New_Text" />
+					</label>
+					<mmf:form.bbCodeEditor property="text" id="editor" rows="7" class="form-control"/>
 				</div>
 				<div class="form-group">
-					<b:form.row llLabel="Topic_New_Attachments" labelFor="attachments" error="attachments" errorLLPrefix="Topic_New_Error_Attachment_Text">
-						<f:if condition="{post.attachments}">
-							<f:for each="{post.attachments}" as="attachment">
-								<div>
-									{attachment.filename},
-									<mmf:format.fileSize>{attachment.filesize}</mmf:format.fileSize>
-								</div>
+					<label for="newAttachments">
+						<f:translate key="Topic_New_Attachments" />
+					</label>
+					<f:form.upload id="newAttachments" name="newAttachments" multiple="true" />
+				</div>
+				<f:if condition="{availableTags}">
+					<f:asset.script identifier="bootstrap-tags" src="EXT:typo3_forum/Resources/Public/Javascript/bootstrap-tags.js" type="module" />
+
+					<div class="form-group">
+						<label for="tags">
+							<f:translate key="Topic_New_Tags" />
+						</label>
+						<f:form.select name="tags" multiple="1" data="{
+							bootstrap-tag-input: true,
+							max: settings.forum.tag.maxPerTopic,
+							placeholder: '{f:translate(key: \'Topic_New_Tags_Placeholder\')}',
+							base-class: 'badge tx-typo3forum-var-color tx-typo3forum-var-background d-flex flex-row align-items-center h5 fw-bold m-0 px-2'
+						}">
+							<f:for each="{availableTags}" as="tag">
+								<f:form.select.option value="{tag.uid}" data="{background: tag.color.secondaryColor, color: tag.color.primaryColor}">{tag.name}</f:form.select.option>
 							</f:for>
-						</f:if>
-						<f:form.upload id="attachments" name="attachments[0]"/>
-					</b:form.row>
+						</f:form.select>
+					</div>
+				</f:if>
+				<div class="form-group">
+					<label for="question">
+						<f:translate key="Topic_New_Question" />
+						<div>
+							<f:form.checkbox class="form-check-input me-2" name="question" id="question" value="1"/>
+							<f:translate key="Topic_New_QuestionMore"/>
+						</div>
+					</label>
 				</div>
 				<div class="form-group">
-					<b:form.row llLabel="Topic_New_Subscribe" labelFor="subscribe">
-						<f:form.checkbox name="subscribe" id="subscribe" value="1"/>
-						<f:translate key="Topic_New_SubscribeMore"/>
-					</b:form.row>
+					<label for="subscribe">
+						<f:translate key="Topic_New_Subscribe" />
+						<div>
+							<f:form.checkbox class="form-check-input me-2" name="subscribe" id="subscribe" value="1"/>
+							<f:translate key="Topic_New_SubscribeMore"/>
+						</div>
+					</label>
 				</div>
+
 				<div class="form-actions">
+					<f:link.action controller="Forum" action="show" class="btn btn-info me-2" arguments="{forum: forum}">
+						<i class="fas fa-chevron-left me-1"></i>
+						<f:translate key="Button_Back" />
+					</f:link.action>
 					<f:form.hidden name="forum" value="{forum}"/>
-					<f:form.submit class="btn btn-primary ml-1" value="{f:translate(key:'Topic_New_Submit')}"/>
-					<b:button primary="1" icon="back" controller="Forum" action="show" arguments="{forum: forum}" label="Button_Back"/>
+					<f:form.submit class="btn btn-primary" value="{f:translate(key:'Topic_New_Submit')}"/>
 				</div>
 			</div>
 		</div>

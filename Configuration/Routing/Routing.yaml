@@ -1,0 +1,360 @@
+---
+# In order to use this add this to your config.yaml
+# imports:
+#  -
+#    resource: 'EXT:typo3_forum/Configuration/Routing/Routing.yaml'
+#
+
+routeEnhancers:
+  Typo3Forum_Forum:
+    type: Extbase
+    extension: Typo3Forum
+    plugin: Forum
+    routes:
+      - routePath: '/{forum_alias}'
+        _controller: 'Forum::show'
+        _arguments:
+          forum_alias: forum
+      - routePath: '/{forum_alias}/read'
+        _controller: 'Forum::markRead'
+        _arguments:
+          forum_alias: forum
+      - routePath: '/{forum_alias}/{subscribe_alias}/{redirect_alias}'
+        _controller: 'User::subscribe'
+        _arguments:
+          forum_alias: forum
+          subscribe_alias: unsubscribe
+          redirect_alias: prioritizeRefererRedirect
+      - routePath: '/{forum_alias}/{subscribe_alias}'
+        _controller: 'User::subscribe'
+        _arguments:
+          forum_alias: forum
+          subscribe_alias: unsubscribe
+      - routePath: '/{forum_alias}/new'
+        _controller: 'Topic::new'
+        _arguments:
+          forum_alias: forum
+
+      - routePath: '/topic/{topic_alias}/{subscribe_alias}/{redirect_alias}'
+        _controller: 'User::subscribe'
+        _arguments:
+          topic_alias: topic
+          subscribe_alias: unsubscribe
+          redirect_alias: prioritizeRefererRedirect
+      - routePath: '/topic/{topic_alias}/{subscribe_alias}'
+        _controller: 'User::subscribe'
+        _arguments:
+          topic_alias: topic
+          subscribe_alias: unsubscribe
+      - routePath: '/topic/{topic_alias}/delete'
+        _controller: 'Moderation::confirmDeleteTopic'
+        _arguments:
+          topic_alias: topic
+      - routePath: '/topic/{topic_alias}/moderate'
+        _controller: 'Moderation::editTopic'
+        _arguments:
+          topic_alias: topic
+      - routePath: '/topic/{topic_alias}/reply'
+        _controller: 'Post::new'
+        _arguments:
+          topic_alias: topic
+      - routePath: '/topic/{topic_alias}/quote/{quote_alias}'
+        _controller: 'Post::new'
+        _arguments:
+          topic_alias: topic
+          quote_alias: quote
+      - routePath: '/topic/{topic_alias}/solution/remove'
+        _controller: 'Topic::removeSolution'
+        _arguments:
+          topic_alias: topic
+
+      - routePath: '/post/{post_alias}/support/add'
+        _controller: 'Post::support'
+        _arguments:
+          post_alias: post
+      - routePath: '/post/{post_alias}/support/remove'
+        _controller: 'Post::unsupport'
+        _arguments:
+          post_alias: post
+      - routePath: '/post/{post_alias}/solution/mark'
+        _controller: 'Topic::solution'
+        _arguments:
+          post_alias: post
+      - routePath: '/post/{post_alias}/report'
+        _controller: 'Report::newPostReport'
+        _arguments:
+          post_alias: post
+      - routePath: '/post/{post_alias}/edit'
+        _controller: 'Post::edit'
+        _arguments:
+          post_alias: post
+      - routePath: '/post/{post_alias}/delete'
+        _controller: 'Post::confirmDelete'
+        _arguments:
+          post_alias: post
+      - routePath: '/post/{post_alias}'
+        _controller: 'Post::show'
+        _arguments:
+          post_alias: post
+
+      - routePath: '/topic/{topic_alias}/page/{page_number}'
+        _controller: 'Topic::show'
+        _arguments:
+          topic_alias: topic
+          page_number: page
+      - routePath: '/topic/{topic_alias}'
+        _controller: 'Topic::show'
+        _arguments:
+          topic_alias: topic
+
+      - routePath: '/tag/{tag_alias}'
+        _controller: 'Tag::show'
+        _arguments:
+            tag_alias: tag
+      - routePath: '/tag/{tag_alias}/page/{page_number}'
+        _controller: 'Tag::show'
+        _arguments:
+            tag_alias: tag
+            page_number: page
+    aspects:
+      forum_alias:
+        type: PersistedAliasMapper
+        tableName: tx_typo3forum_domain_model_forum_forum
+        routeFieldName: slug
+      topic_alias:
+        type: PersistedAliasMapper
+        tableName: tx_typo3forum_domain_model_forum_topic
+        routeFieldName: slug
+      post_alias:
+        type: PersistedAliasMapper
+        tableName: tx_typo3forum_domain_model_forum_post
+        routeFieldName: uid
+      tag_alias:
+        type: PersistedAliasMapper
+        tableName: tx_typo3forum_domain_model_forum_tag
+        routeFieldName: name
+      quote_alias:
+        type: PersistedAliasMapper
+        tableName: tx_typo3forum_domain_model_forum_post
+        routeFieldName: uid
+      subscribe_alias:
+        type: StaticValueMapper
+        map:
+          subscribe: 0
+          unsubscribe: 1
+      redirect_alias:
+        type: StaticValueMapper
+        map:
+          item: 0
+          back: 1
+      page_number:
+        type: StaticRangeMapper
+        start: '1'
+        end: '1000'
+
+  Typo3Forum_UserProfile:
+    type: Extbase
+    extension: Typo3Forum
+    plugin: UserProfile
+    routes:
+      - routePath: '/{user_alias}'
+        _controller: 'User::show'
+        _arguments:
+          user_alias: user
+
+      - routePath: '/{user_alias}/topics'
+        _controller: 'User::listTopics'
+        _arguments:
+          user_alias: user
+      - routePath: '/{user_alias}/topics/page/{page_number}'
+        _controller: 'User::listTopics'
+        _arguments:
+          user_alias: user
+          page_number: page
+      - routePath: '/{user_alias}/posts'
+        _controller: 'User::listPosts'
+        _arguments:
+          user_alias: user
+      - routePath: '/{user_alias}/posts/page/{page_number}'
+        _controller: 'User::listPosts'
+        _arguments:
+          user_alias: user
+          page_number: page
+      - routePath: '/{user_alias}/questions'
+        _controller: 'User::listQuestions'
+        _arguments:
+          user_alias: user
+      - routePath: '/{user_alias}/questions/page/{page_number}'
+        _controller: 'User::listQuestions'
+        _arguments:
+          user_alias: user
+          page_number: page
+    aspects:
+      user_alias:
+        type: PersistedAliasMapper
+        tableName: fe_users
+        routeFieldName: username
+      page_number:
+        type: StaticRangeMapper
+        start: '1'
+        end: '1000'
+
+  Typo3Forum_ModerationReports:
+    type: Extbase
+    extension: Typo3Forum
+    plugin: ModerationReports
+    routes:
+      - routePath: '/'
+        _controller: 'Moderation::indexReport'
+      - routePath: '/reports/{page_number}'
+        _controller: 'Moderation::indexReport'
+        _arguments:
+            page_number: page
+
+      - routePath: '/report/post/{report_alias}/edit'
+        _controller: 'Moderation::editReport'
+        _arguments:
+          report_alias: postReport
+      - routePath: '/report/user/{report_alias}/edit'
+        _controller: 'Moderation::editReport'
+        _arguments:
+          report_alias: userReport
+
+      - routePath: '/report/post/{report_alias}/status/{status_alias}'
+        _controller: 'Moderation::updatePostReportStatus'
+        _arguments:
+          report_alias: report
+          status_alias: status
+      - routePath: '/report/user/{report_alias}/status/{status_alias}'
+        _controller: 'Moderation::updateUserReportStatus'
+        _arguments:
+          report_alias: report
+          status_alias: status
+    aspects:
+      report_alias:
+        type: PersistedAliasMapper
+        tableName: tx_typo3forum_domain_model_moderation_report
+        routeFieldName: uid
+      status_alias:
+        type: PersistedAliasMapper
+        tableName: tx_typo3forum_domain_model_moderation_reportworkflowstatus
+        routeFieldName: uid
+      page_number:
+        type: StaticRangeMapper
+        start: '1'
+        end: '1000'
+
+  Typo3Forum_UserList:
+    type: Extbase
+    extension: Typo3Forum
+    plugin: UserList
+    routes:
+      - routePath: '/'
+        _controller: 'User::list'
+      - routePath: '/users/{page_number}'
+        _controller: 'User::list'
+        _arguments:
+            page_number: page
+      - routePath: '/users/{page_number}/search/{search_string}'
+        _controller: 'User::list'
+        _arguments:
+            page_number: page
+            search_string: nameSearch
+    aspects:
+      page_number:
+        type: StaticRangeMapper
+        start: '1'
+        end: '1000'
+
+  Typo3Forum_Dashboard:
+    type: Extbase
+    extension: Typo3Forum
+    plugin: Dashboard
+    routes:
+      - routePath: '/'
+        _controller: 'User::dashboard'
+
+      - routePath: '/subscriptions/'
+        _controller: 'User::listSubscriptions'
+      - routePath: '/subscriptions/topics/{page_number}'
+        _controller: 'User::listSubscriptions'
+        _arguments:
+            page_number: topicPage
+      - routePath: '/subscriptions/forums/{page_number}'
+        _controller: 'User::listSubscriptions'
+        _arguments:
+            page_number: forumPage
+      - routePath: '/subscriptions/topics/{page_number}/forums/{page_number_2}'
+        _controller: 'User::listSubscriptions'
+        _arguments:
+            page_number: topicPage
+            page_number_2: forumPage
+
+      - routePath: '/notifications/'
+        _controller: 'User::listNotifications'
+      - routePath: '/notifications/page/{page_number}'
+        _controller: 'User::listNotifications'
+        _arguments:
+            page_number: page
+    aspects:
+      page_number:
+        type: StaticRangeMapper
+        start: '1'
+        end: '100'
+      page_number_2:
+        type: StaticRangeMapper
+        start: '1'
+        end: '100'
+
+  Typo3Forum_TagList:
+    type: Extbase
+    extension: Typo3Forum
+    plugin: TagList
+    routes:
+      - routePath: '/'
+        _controller: 'Tag::list'
+      - routePath: '/tags/new'
+        _controller: 'Tag::new'
+      - routePath: '/tags/{page_number}'
+        _controller: 'Tag::list'
+        _arguments:
+            page_number: page
+    aspects:
+      page_number:
+        type: StaticRangeMapper
+        start: '1'
+        end: '1000'
+
+  Typo3Forum_PostList:
+    type: Extbase
+    extension: Typo3Forum
+    plugin: PostList
+    routes:
+      - routePath: '/'
+        _controller: 'Post::list'
+      - routePath: '/posts/{page_number}'
+        _controller: 'Post::list'
+        _arguments:
+            page_number: page
+    aspects:
+      page_number:
+        type: StaticRangeMapper
+        start: '1'
+        end: '1000'
+
+  Typo3Forum_TopicList:
+    type: Extbase
+    extension: Typo3Forum
+    plugin: TopicList
+    routes:
+      - routePath: '/'
+        _controller: 'Topic::list'
+      - routePath: '/topics/{page_number}'
+        _controller: 'Topic::list'
+        _arguments:
+            page_number: page
+    aspects:
+      page_number:
+        type: StaticRangeMapper
+        start: '1'
+        end: '1000'

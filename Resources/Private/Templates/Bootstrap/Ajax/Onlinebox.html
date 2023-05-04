@@ -4,9 +4,11 @@
 			<f:for each="{users}" as="userOnline" iteration="iteration">
 				<div class="row-fluid">
 					<div class="item">
-						<mmf:user.avatar user="{userOnline}" width="30"
-										 alt="{userOnline.username}"
-										 class="tx-typo3forum-topic-show-post-user-icon img-polaroid img-rounded pull-left"/>
+						<mmf:user.avatar
+							user="{userOnline}"
+							width="30"
+							alt="{userOnline.username}"
+						/>
 						<mmf:user.link user="{userOnline}" showOnline="1"/>
 						<p>
 							{userOnline.postCount} <f:translate key="Forum_Index_Posts" />

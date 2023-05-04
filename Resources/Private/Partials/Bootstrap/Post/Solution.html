@@ -1,0 +1,30 @@
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
+<f:if condition="{solution}">
+	<f:then>
+
+		<div class="card card-wrapper bg-success text-white mb-3">
+			<div class="card-header p-3">
+				<div class="d-flex align-items-center">
+					<i class="fa-solid fa-circle-check fa-2xl me-3"></i>
+					<span class="fw-normal h3 m-0">
+						<f:translate key="Topic_Solution_Marked" />
+					</span>
+				</div>
+			</div>
+			<f:render partial="Post/Single" arguments="{post: solution, disablePostId: 1}" />
+		</div>
+
+	</f:then>
+	<f:else>
+
+		<div class="card mb-4 text-white bg-warning border-4">
+			<div class="card-body d-flex flex-row align-items-center">
+				<i class="fas fa-circle-exclamation fa-2xl me-3"></i>
+				<span class="fw-normal h3 m-0">
+					<f:translate key="Topic_Solution_NoneGiven" />
+				</span>
+			</div>
+		</div>
+
+	</f:else>
+</f:if>

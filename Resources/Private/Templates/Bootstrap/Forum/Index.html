@@ -1,19 +1,25 @@
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 <f:layout name="default" />
 
 <f:section name="main">
-
 	<f:flashMessages />
+	<f:if condition="{forums}">
+		<f:for each="{forums}" as="subForum">
+			<f:render partial="Forum/List" arguments="{category: subForum, header: subForum.title}" />
+		</f:for>
 
-	<f:for each="{forums}" as="subForum">
-		<f:render partial="Forum/List" arguments="{category: subForum, header: subForum.title}" />
-	</f:for>
+		<mmf:pagination.paginate objects="{topics}" as="paginatedTopics" page="{page}" configuration="{settings.forumController.show.pagebrowser}" configAs="pagination">
+			<f:render partial="Topic/List" arguments="{topics: paginatedTopics}" />
 
-	<f:widget.paginate objects="{topics}" as="paginatedTopics" configuration="{settings.forumController.show.pagebrowser}">
-		<f:render partial="Topic/List" arguments="{topics: paginatedTopics}" />
-	</f:widget.paginate>
-
+			<f:render partial="Forum/PageBrowser" arguments="{pagination: pagination}" />
+		</mmf:pagination.paginate>
+	</f:if>
 </f:section>
 
 <f:section name="menu">
-	<f:render partial="Forum/Menu" arguments="{forum: forum}" />
+	<f:if condition="{forum}">
+		<div class="forum_menu" data-uid="{forum.uid}">
+			<f:render partial="Forum/Menu" arguments="{forum: forum}" />
+		</div>
+	</f:if>
 </f:section>

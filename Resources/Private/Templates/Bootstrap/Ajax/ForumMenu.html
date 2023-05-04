@@ -1,28 +1,3 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 
-	<f:if condition="{forum.parent}">
-		<f:then>
-				<f:link.action controller="Forum" action="show" class="btn btn-primary" arguments="{forum: forum.parent}"><i class="tx-typo3forum-icon-16-back"></i>{f:translate(key:'Button_Back')}</f:link.action>
-		</f:then>
-	</f:if>
-
-	<mmf:authentication.ifAccess object="{forum}" accessType="newTopic">
-			<f:link.action controller="Topic" action="new" class="btn btn-primary" arguments="{forum: forum}">
-				<i class="tx-typo3forum-icon-16-topic-new"></i> {f:translate(key:'Button_Topic_New')}
-			</f:link.action>
-	</mmf:authentication.ifAccess>
-
-	<mmf:authentication.ifLoggedIn>
-			<mmf:user.ifSubscribed object="{forum}">
-					<f:then>
-							<f:link.action controller="User" action="subscribe" class="btn btn-primary" arguments="{forum: forum, unsubscribe: 1}">
-								<i class="tx-typo3forum-icon-16-unsubscribe"></i> {f:translate(key:'Button_Unsubscribe')}
-							</f:link.action>
-					</f:then>
-					<f:else>
-							<f:link.action controller="User" action="subscribe" class="btn btn-primary" arguments="{forum: forum}">
-								<i class="tx-typo3forum-icon-16-subscribe"></i> {f:translate(key:'Button_Subscribe')}
-							</f:link.action>
-					</f:else>
-			</mmf:user.ifSubscribed>
-	</mmf:authentication.ifLoggedIn>
+<f:render partial="Forum/Menu" arguments="{forum: forum}" />

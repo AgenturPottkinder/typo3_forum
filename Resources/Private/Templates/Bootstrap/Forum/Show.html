@@ -1,24 +1,29 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 <f:layout name="default" />
 
-<!-- MAIN Section -->
 <f:section name="main">
+	<h1>{forum.title}</h1>
 
-	<h2>{forum.title}</h2>
-
-	<mmf:forum.rootline rootline="{forum.rootline}" breadcrumb="1" forumicon="iconset-22-folder" topicicon="iconset-22-balloon" />
+	<mmf:forum.rootline rootline="{forum.rootline}" forumicon="far fa-folder-open me-2" topicicon="far fa-comments me-2" />
 
 	<f:if condition="{forum.children}">
-		<f:render partial="Forum/List" arguments="{category: forum, header: 'Subforums'}" />
+		<div class="mt-5">
+			<f:render partial="Forum/List" arguments="{category: forum, header: '{f:translate(key: \'Subforums\')}'}" />
+		</div>
 	</f:if>
 
-	<f:widget.paginate objects="{topics}" as="paginatedTopics" configuration="{settings.forumController.show.pagebrowser}">
-		<f:render partial="Topic/List" arguments="{topics: paginatedTopics}" />
-	</f:widget.paginate>
+	<h2 class="mt-5">
+		<f:translate key="Forum_Show_Topics" />
+	</h2>
+	<mmf:pagination.paginate objects="{topics}" as="paginatedTopics" page="{page}" configuration="{settings.forumController.show.pagebrowser}" configAs="pagination">
+		<f:render partial="Topic/List" arguments="{topics: paginatedTopics, differentiateStickyTopics: 1}" />
 
+		<f:render partial="Forum/PageBrowser" arguments="{pagination: pagination, forum: forum}" />
+	</mmf:pagination.paginate>
 </f:section>
 
-<!-- MENU Section -->
 <f:section name="menu">
-	<f:render partial="Forum/Menu" arguments="{forum: forum}" />
+	<div class="forum_menu mt-5" data-uid="{forum.uid}">
+		<f:render partial="Forum/Menu" arguments="{forum: forum}" />
+	</div>
 </f:section>

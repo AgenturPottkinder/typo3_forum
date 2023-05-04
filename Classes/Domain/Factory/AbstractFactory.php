@@ -1,6 +1,9 @@
 <?php
 namespace Mittwald\Typo3Forum\Domain\Factory;
 
+use Mittwald\Typo3Forum\Configuration\ConfigurationBuilder;
+use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -24,73 +27,63 @@ namespace Mittwald\Typo3Forum\Domain\Factory;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
 
-abstract class AbstractFactory implements SingletonInterface {
+abstract class AbstractFactory implements SingletonInterface
+{
+    protected FrontendUserRepository $frontendUserRepository;
+    protected ConfigurationBuilder $configurationBuilder;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository
-	 * @inject
-	 */
-	protected $frontendUserRepository = NULL;
+    public function injectFrontendUserRepository(FrontendUserRepository $frontendUserRepository): void
+    {
+        $this->frontendUserRepository = $frontendUserRepository;
+    }
+    public function injectConfigurationBuilder(ConfigurationBuilder $configurationBuilder): void
+    {
+        $this->configurationBuilder = $configurationBuilder;
+    }
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-	 * @inject
-	 */
-	protected $objectManager = NULL;
+    protected array $settings = [];
+
+    public function initializeObject()
+    {
+        $this->settings = $this->configurationBuilder->getSettings();
+    }
 
     /**
-     * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
-     * @inject
+     * Determines the class name of the domain object this factory is used for.
+     *
+     * @return string The class name
      */
-    protected $configurationBuilder;
+    protected function getClassName()
+    {
+        $thisClass = get_class($this);
+        $thisClass = preg_replace('/Factory/', 'Model', $thisClass);
+        $thisClass = preg_replace('/Model$/', '', $thisClass);
 
-	/**
-	 * Whole TypoScript typo3_forum settings
-	 * @var array
-	 */
-	protected $settings;
+        return $thisClass;
+    }
 
-	/**
-	 *
-	 */
-	public function initializeObject() {
-		$this->settings = $this->configurationBuilder->getSettings();
-	}
+    /**
+     * Creates an instance of the domain object class.
+     *
+     * @return AbstractDomainObject An instance of the domain object.
+     */
+    protected function getClassInstance()
+    {
+        return GeneralUtility::makeInstance($this->getClassName());
+    }
 
-	/**
-	 * Determines the class name of the domain object this factory is used for.
-	 *
-	 * @return string The class name
-	 */
-	protected function getClassName() {
-		$thisClass = get_class($this);
-		$thisClass = preg_replace('/Factory/', 'Model', $thisClass);
-		$thisClass = preg_replace('/Model$/', '', $thisClass);
-
-		return $thisClass;
-	}
-
-	/**
-	 * Creates an instance of the domain object class.
-	 *
-	 * @return AbstractDomainObject An instance of the domain object.
-	 */
-	protected function getClassInstance() {
-		return $this->objectManager->get($this->getClassName());
-	}
-
-	/**
-	 * Gets the currently logged in user. Convenience wrapper for the findCurrent
-	 * method of the frontend user repository.
-	 *
-	 * @return FrontendUser The user that is currently logged in.
-	 */
-	protected function getCurrentUser() {
-		return $this->frontendUserRepository->findCurrent();
-	}
-
+    /**
+     * Gets the currently logged in user. Convenience wrapper for the findCurrent
+     * method of the frontend user repository.
+     *
+     * @return FrontendUser The user that is currently logged in.
+     */
+    protected function getCurrentUser()
+    {
+        return $this->frontendUserRepository->findCurrent();
+    }
 }

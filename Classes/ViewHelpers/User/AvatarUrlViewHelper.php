@@ -1,6 +1,8 @@
 <?php
 namespace Mittwald\Typo3Forum\ViewHelpers\User;
 
+use Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser;
+
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -24,50 +26,51 @@ namespace Mittwald\Typo3Forum\ViewHelpers\User;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\PathUtility;
+use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 
 /**
  * ViewHelper that renders a user's avatar.
  */
-class AvatarUrlViewHelper extends CObjectViewHelper {
+class AvatarUrlViewHelper extends CObjectViewHelper
+{
+    protected Dispatcher $slots;
 
-	/**
-	 * An instance of the Extbase Signal-/Slot-Dispatcher.
-	 * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-	 * @inject
-	 */
-	protected $slots;
+    public function __construct(
+        Dispatcher $slots
+    ) {
+        $this->slots = $slots;
+    }
 
-	/**
-	 *
-	 * Initializes the view helper's arguments.
-	 *
-	 */
-	public function initializeArguments() {
-		parent::initializeArguments();
-	}
+    /**
+     * Initializes the view helper's arguments.
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+    }
 
-	/**
-	 * Renders the avatar.
-	 *
-	 * @param FrontendUser $user
-	 * @return string
-	 */
-	public function render(FrontendUser $user = NULL) {
-		// if user ist not set
-		$avatarFilename = NULL;
+    /**
+     * Renders the avatar.
+     *
+     * @param FrontendUser $user
+     * @return string
+     */
+    public function render(FrontendUser $user = null)
+    {
+        // if user ist not set
+        $avatarFilename = null;
 
-		if (($user !== NULL) && !($user instanceof AnonymousFrontendUser)) {
-			$avatarFilename = $user->getImagePath();
-		}
+        if (($user !== null) && !($user instanceof AnonymousFrontendUser)) {
+            $avatarFilename = $user->getImagePath();
+        }
 
-		if ($avatarFilename === NULL) {
-			$avatarFilename = ExtensionManagementUtility::siteRelPath('typo3_forum') . 'Resources/Public/Images/Icons/AvatarEmpty.png';
-		}
-		return $avatarFilename;
-	}
-
+        if ($avatarFilename === null) {
+            $avatarFilename = PathUtility::stripPathSitePrefix(ExtensionManagementUtility::extPath('typo3_forum')) . 'Resources/Public/Images/Icons/AvatarEmpty.png';
+        }
+        return $avatarFilename;
+    }
 }

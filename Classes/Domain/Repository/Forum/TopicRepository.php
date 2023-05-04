@@ -31,289 +31,256 @@ use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Domain\Repository\AbstractRepository;
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
-class TopicRepository extends AbstractRepository {
-
-	/**
-     * Returns a query for objects of this repository
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryInterface
-     * @api
-     */
-    public function createQuery() {
+class TopicRepository extends AbstractRepository
+{
+    public function createQuery(): QueryInterface
+    {
         $query = parent::createQuery();
 
         // don't add sys_language_uid constraint
-        $query->getQuerySettings()->setRespectSysLanguage(FALSE);
+        $query->getQuerySettings()->setRespectSysLanguage(false);
 
         return $query;
     }
 
-	/**
-	 *
-	 * Finds topics for a specific filterset. Page navigation is possible.
-	 *
-	 * @param integer $limit
-	 * @param array $orderings
-	 *
-	 * @return Array<\Mittwald\Typo3Forum\Domain\Model\Forum\Topic> The selected subset of posts
-	 *
-	 */
-	public function findByFilter($limit = NULL, $orderings = []) {
-		$query = $this->createQuery();
-		if (!empty($limit)) {
-			$query->setLimit($limit);
-		}
-		if (!empty($orderings)) {
-			$query->setOrderings($orderings);
-		}
-		return $query->execute();
-	}
+    /**
+     * Finds topics for a specific filterset.
+     *
+     * @return QueryResultInterface<Topic>
+     */
+    public function findByFilter(?int $limit = null, ?array $orderings = null): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        if ($limit !== null) {
+            $query->setLimit($limit);
+        }
+        if (!empty($orderings)) {
+            $query->setOrderings($orderings);
+        }
+        return $query->execute();
+    }
 
-	/**
-	 *
-	 * Finds topics for a specific filterset. Page navigation is possible.
-	 *
-	 * @param array $uids
-	 *
-	 * @return Topic[]
-	 *                               The selected subset of topcis
-	 *
-	 */
-	public function findByUids($uids) {
+    /**
+     * @return QueryResultInterface<Topic>
+     */
+    public function findByUids(array $uids): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $constraints = [];
+        if (count($uids) > 0) {
+            $constraints[] = $query->in('uid', $uids);
+        }
+        if (!empty($constraints)) {
+            $query->matching($query->logicalAnd($constraints));
+        }
 
-		$query = $this->createQuery();
-		$constraints = [];
-		if (!empty($uids)) {
-			$constraints[] = $query->in('uid', $uids);
-		}
-		if (!empty($constraints)) {
-			$query->matching($query->logicalAnd($constraints));
-		}
+        return $query->execute();
+    }
 
-		return $query->execute();
-	}
+    /**
+     * Finds topics for the forum show view. Page navigation is possible.
+     *
+     * @return QueryResultInterface<Topic>
+     */
+    public function findForIndex(Forum $forum): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query
+            ->matching(
+                $query->equals('forum', $forum)
+            )
+            ->setOrderings(['sticky' => 'DESC',
+                'last_post_crdate' => 'DESC'])
+        ;
 
-	/**
-	 * Finds topics for the forum show view. Page navigation is possible.
-	 *
-	 * @param Forum $forum
-	 *                               The forum for which to load the topics.
-	 *
-	 * @return Topic[]
-	 *                               The selected subset of topics.
-	 */
-	public function findForIndex(Forum $forum) {
-		$query = $this->createQuery();
-		$query
-			->matching($query->equals('forum', $forum))
-			->setOrderings(['sticky' => 'DESC',
-				'last_post_crdate' => 'DESC']);
+        return $query->execute();
+    }
 
-		return $query->execute();
-	}
+    /**
+     * Finds topics with questions flag.
+     *
+     * @return QueryResultInterface<Topic>
+     */
+    public function findQuestions(?int $limit = null, bool $showAnswered = false, FrontendUser $user = null): QueryResultInterface
+    {
+        $query = $this->createQuery();
 
-	/**
-	 * Finds topics with questions flag.
-	 *
-	 * @param int $limit
-	 * @param bool $showAnswered
-	 * @param FrontendUser $user
-	 * @return Topic[]
-	 */
+        $constraint = [$query->equals('question', '1')];
+        if ($user != null) {
+            $constraint[] = $query->equals('author', $user);
+        }
+        if ($showAnswered === false) {
+            $constraint[] = $query->equals('solved', 0);
+        }
+        $query->setOrderings(['sticky' => 'DESC',
+            'posts.crdate' => 'DESC']);
+        if ($limit != null && is_numeric($limit)) {
+            $query->setLimit($limit);
+        }
+        $query->matching($query->logicalAnd($constraint));
 
-	public function findQuestions($limit = NULL, $showAnswered = FALSE, FrontendUser $user = NULL) {
+        return $query->execute();
+    }
 
-		$query = $this->createQuery();
+    /**
+     * Finds topics by post authors, i.e. all topics that contain at least one post
+     * by a specific author. Page navigation is possible.
+     */
+    public function findTopicsCreatedByAuthor(
+        FrontendUser $user,
+        ?int $limit = null,
+        bool $includeShadowTopics = true
+    ): QueryResultInterface {
+        $query = $this->createQuery();
 
-		$constraint = [$query->equals('question', '1')];
-		if ($user != null) {
-			$constraint[] = $query->equals('author', $user);
-		}
-		if ($showAnswered == FALSE) {
-			$constraint[] = $query->equals('solution', 0);
-		}
-		$query->setOrderings(['sticky' => 'DESC',
-			'posts.crdate' => 'DESC']);
-		if ($limit != NULL && is_numeric($limit)) {
-			$query->setLimit($limit);
-		}
-		$query->matching($query->logicalAnd($constraint));
+        $constraints = [
+            $query->equals('author', $user)
+        ];
 
-		return $query->execute();
-	}
+        if (!$includeShadowTopics) {
+            $constraints[] = $query->logicalNot($query->equals('type', 1));
+        }
 
-	/**
-	 * Finds topics by post authors, i.e. all topics that contain at least one post
-	 * by a specific author. Page navigation is possible.
-	 *
-	 * @param FrontendUser $user The frontend user whose topics are to be loaded.
-	 * @param int $limit
-	 * @return Topic[] All topics that contain a post by the specified user.
-	 */
-	public function findTopicsCreatedByAuthor(FrontendUser $user, $limit = 0) {
-		$query = $this->createQuery();
-		$query
-			->matching($query->equals('author', $user))
-			->setOrderings(['crdate' => 'DESC']);
-		if ($limit > 0) {
-			$query->setLimit($limit);
-		}
+        $query
+            ->matching($query->logicalAnd($constraints))
+            ->setOrderings(['crdate' => 'DESC']);
+        if ($limit !== null) {
+            $query->setLimit($limit);
+        }
 
-		return $query->execute();
-	}
+        return $query->execute();
+    }
 
-	/**
-	 * Finds topics by post authors, i.e. all topics that contain at least one post
-	 * by a specific author. Page navigation is possible.
-	 *
-	 * @param FrontendUser $user The frontend user whose topics are to be loaded.
-	 * @param int $limit
-	 *
-	 * @return Topic[] All topics that contain a post by the specified user
-	 */
-	public function findTopicsFavSubscribedByUser(FrontendUser $user, $limit = 0) {
-		$query = $this->createQuery();
-		$query->matching($query->contains('favSubscribers', $user))->setOrderings(['crdate' => 'DESC']);
-		if ($limit > 0) {
-			$query->setLimit($limit);
-		}
-		return $query->execute();
-	}
+    /**
+     * Counts topics by post authors. See findByPostAuthor.
+     */
+    public function countByPostAuthor(FrontendUser $user): int
+    {
+        return $this->findByPostAuthor($user)->count();
+    }
 
-	/**
-	 * Counts topics by post authors. See findByPostAuthor.
-	 *
-	 * @param FrontendUser $user The frontend user whose topics are to be loaded.
-	 * @return integer The number of topics that contain a post by the specified user.
-	 */
-	public function countByPostAuthor(FrontendUser $user) {
-		return $this->findByPostAuthor($user)->count();
-	}
+    /**
+     * Finds topics by post authors, i.e. all topics that contain at least one post
+     * by a specific author. Page navigation is possible.
+     *
+     * @return QueryResultInterface<Topic>
+     */
+    public function findByPostAuthor(FrontendUser $user): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query->matching($query->equals('posts.author', $user))->setOrderings(['crdate' => 'DESC']);
+        return $query->execute();
+    }
 
-	/**
-	 * Finds topics by post authors, i.e. all topics that contain at least one post
-	 * by a specific author. Page navigation is possible.
-	 *
-	 * @param FrontendUser $user
-	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-	 */
-	public function findByPostAuthor(FrontendUser $user) {
-		$query = $this->createQuery();
-		$query->matching($query->equals('posts.author', $user))->setOrderings(['crdate' => 'DESC']);
-		return $query->execute();
-	}
+    /**
+     * Finds all topic that have been subscribed by a certain user.
+     *
+     * @return QueryResultInterface<Topic>
+     */
+    public function findBySubscriber(FrontendUser $user): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query
+            ->matching($query->contains('subscribers', $user))
+            ->setOrderings(['lastPost.crdate' => 'ASC']);
 
-	/**
-	 * Finds all topic that have been subscribed by a certain user.
-	 *
-	 * @param FrontendUser $user The user for whom the subscribed topics are to be loaded.
-	 * @return QueryInterface The topics subscribed by the given user.
-	 */
-	public function findBySubscriber(FrontendUser $user) {
-		$query = $this->createQuery();
-		$query
-			->matching($query->contains('subscribers', $user))
-			->setOrderings(['lastPost.crdate' => 'ASC']);
+        return $query->execute();
+    }
 
-		return $query->execute();
-	}
+    /**
+     * Finds all topic that have a specific tag
+     *
+     * @param Tag $tag
+     * @return QueryResultInterface<Topic>
+     */
+    public function findByTag(Tag $tag): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query
+            ->matching($query->contains('tags', $tag))
+            ->setOrderings(['lastPost.crdate' => 'ASC']);
 
-	/**
-	 * Finds all topic that have a specific tag
-	 *
-	 * @param Tag $tag
-	 * @return QueryInterface The topics of this tag.
-	 */
-	public function findAllTopicsWithGivenTag(Tag $tag) {
-		$query = $this->createQuery();
-		$query
-			->matching($query->contains('tags', $tag))
-			->setOrderings(['lastPost.crdate' => 'ASC']);
+        return $query->execute();
+    }
 
-		return $query->execute();
-	}
+    /**
+     * Finds all popular topics
+     * @return QueryResultInterface<Topic>
+     */
+    public function findPopularTopics(int $timeDiff = 0, ?int $limit = null): QueryResultInterface
+    {
+        if ($timeDiff == 0) {
+            $timeLimit = 0;
+        } else {
+            $timeLimit = time() - $timeDiff;
+        }
 
-	/**
-	 * Finds all popular topics
-	 *
-	 * @param int $timeDiff
-	 * @param int $displayLimit
-	 * @return QueryInterface
-	 */
-	public function findPopularTopics($timeDiff = 0, $displayLimit = 0) {
-		if ($timeDiff == 0) {
-			$timeLimit = 0;
-		} else {
-			$timeLimit = time() - $timeDiff;
-		}
+        $query = $this->createQuery();
+        $query->matching(
+            $query->logicalAnd(
+                $query->logicalNot($query->equals('type', 1)),
+                $query->greaterThan('lastPost.crdate', $timeLimit)
+            )
+        );
+        $query->setOrderings(['postCount' => 'DESC']);
+        if ($limit !== null) {
+            $query->setLimit($limit);
+        }
 
-		$query = $this->createQuery();
-		$query->matching($query->greaterThan('lastPost.crdate', $timeLimit));
-		$query->setOrderings(['postCount' => 'DESC']);
-		if ($displayLimit > 0) {
-			$query->setLimit($displayLimit);
-		}
+        return $query->execute();
+    }
 
-		return $query->execute();
-	}
+    /**
+     * Finds the last topic in a forum.
+     */
+    public function findLastByForum(Forum $forum, ?int $offset = null): ?Topic
+    {
+        $query = $this->createQuery();
+        $query->matching($query->equals('forum', $forum))
+            ->setOrderings(['last_post_crdate' => QueryInterface::ORDER_DESCENDING])->setLimit(1);
+        if ($offset !== null) {
+            $query->setOffset($offset);
+        }
 
-	/**
-	 *
-	 * Finds the last topic in a forum.
-	 *
-	 * @param Forum $forum The forum for which to load the last topic.
-	 * @param int $offset If you want to get the next to last topic topic
-	 * @return Topic The last topic of the specified forum.
-	 *
-	 */
-	public function findLastByForum(Forum $forum, $offset = 0) {
-		$query = $this->createQuery();
-		$query->matching($query->equals('forum', $forum))
-			->setOrderings(['last_post_crdate' => QueryInterface::ORDER_DESCENDING])->setLimit(1);
-		if ($offset > 0) {
-			$query->setOffset($offset);
-		}
+        return $query->execute()->getFirst();
+    }
 
-		return $query->execute()->getFirst();
-	}
+    /**
+     * Finds the topics with the latest updates.
+     * @return QueryResultInterface<Topic>
+     */
+    public function findLatest(?int $offset = null, ?int $limit = null): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query
+            ->matching($query->logicalNot($query->equals('type', 1)))
+            ->setOrderings(['last_post_crdate' => QueryInterface::ORDER_DESCENDING])
+        ;
+        if ($offset !== null) {
+            $query->setOffset($offset);
+        }
+        if ($limit !== null) {
+            $query->setLimit($limit);
+        }
 
-	/**
-	 *
-	 * Finds the last topic in a forum.
-	 *
-	 * @param int $limit  The Limit
-	 * @param int $offset The Offset
-	 * @return Topic The last topics
-	 *
-	 */
-	public function findLatest($offset = 0, $limit = 5) {
-		$query = $this->createQuery();
-		$query->setOrderings(['last_post_crdate' => QueryInterface::ORDER_DESCENDING])
-			->setLimit($limit);
-		if ($offset > 0) {
-			$query->setOffset($offset);
-		}
+        return $query->execute();
+    }
 
-		return $query->execute();
-	}
-
-	/**
-	 * @param Forum $forum
-	 * @param FrontendUser $user
-	 * @return array
-	 */
-	public function getUnreadTopics(Forum $forum, FrontendUser $user) {
-		$sql = 'SELECT t.uid
-			   FROM tx_typo3forum_domain_model_forum_topic AS t
-			   LEFT JOIN tx_typo3forum_domain_model_user_readtopic AS rt
-					   ON rt.uid_foreign = t.uid AND rt.uid_local = ' . (int)$user->getUid() . '
-			   WHERE rt.uid_local IS NULL AND t.forum=' . (int)$forum->getUid();
-		/** @var Query $query */
-		$query = $this->createQuery();
-		$query->statement($sql);
-		return $query->execute()->toArray();
-	}
-
+    /**
+     * @return array<Topic>
+     */
+    public function getUnreadTopics(Forum $forum, FrontendUser $user): array
+    {
+        $sql = 'SELECT t.uid
+               FROM tx_typo3forum_domain_model_forum_topic AS t
+               LEFT JOIN tx_typo3forum_domain_model_user_readtopic AS rt
+                       ON rt.uid_foreign = t.uid AND rt.uid_local = ' . (int)$user->getUid() . '
+               WHERE rt.uid_local IS NULL AND t.forum=' . (int)$forum->getUid();
+        /** @var Query $query */
+        $query = $this->createQuery();
+        $query->statement($sql);
+        return $query->execute()->toArray();
+    }
 }

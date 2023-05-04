@@ -29,22 +29,23 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 /**
  * Utility module for localization related functions.
  */
-class Localization {
+class Localization
+{
 
-	/**
-	 * Translates something. Basically, this is just a wrapper function for the
-	 * Tx_Extbase_Utility_Localization::translate method. However, this methods
-	 * offers the possibility to give a default value, in case that a label is not
-	 * found.
-	 *
-	 * @param string $key The label key.
-	 * @param string $default The default value.
-	 * @param array $arguments Arguments that are to be replaced
-	 *
-	 * @return string The translated value.
-	 */
-	public static function translate($key, $default = NULL, $arguments = []) {
-		return LocalizationUtility::translate($key, 'Typo3Forum', $arguments) ?: $default;
-	}
-
+    /**
+     * Translates something. Basically, this is just a wrapper function for the
+     * Tx_Extbase_Utility_Localization::translate method. However, this methods
+     * offers the possibility to give a default value, in case that a label is not
+     * found.
+     *
+     * @param string $key The label key.
+     * @param string $default The default value.
+     * @param array $arguments Arguments that are to be replaced
+     *
+     * @return string The translated value.
+     */
+    public static function translate($key, $default = null, $arguments = [])
+    {
+        return LocalizationUtility::translate($key, 'Typo3Forum', $arguments) ?: $default;
+    }
 }

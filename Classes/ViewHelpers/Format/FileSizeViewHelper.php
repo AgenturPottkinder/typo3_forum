@@ -1,5 +1,6 @@
 <?php
 namespace Mittwald\Typo3Forum\ViewHelpers\Format;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -23,42 +24,48 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Format;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * ViewHelper that formats an integer value into a file size. The unit
  * which is to be used for the file size (B, KiB, MiB, ...) is determined
  * automatically.
  */
-class FileSizeViewHelper extends AbstractViewHelper {
+class FileSizeViewHelper extends AbstractViewHelper
+{
 
-	/**
-	 * Diffentently scaled units for file sizes.
-	 * @var array
-	 */
-	protected $suffixes = [0 => 'B',
-	                            1 => 'KiB',
-	                            2 => 'MiB',
-	                            3 => 'GiB',
-	                            4 => 'TiB'];
+    /**
+     * Diffentently scaled units for file sizes.
+     * @var array
+     */
+    protected $suffixes = [0 => 'B',
+                                1 => 'KiB',
+                                2 => 'MiB',
+                                3 => 'GiB',
+                                4 => 'TiB'];
 
-	/**
-	 * Renders the file size.
-	 *
-	 * @param int    $decimals
-	 * @param string $decimalSeparator
-	 * @param string $thousandsSeparator
-	 *
-	 * @return string
-	 */
-	public function render($decimals = 2, $decimalSeparator = ',', $thousandsSeparator = '.') {
-		$fileSize = $this->renderChildren();
-		$suffix   = 0;
-		while ($fileSize >= 1024) {
-			$fileSize /= 1024;
-			$suffix++;
-		}
-		return number_format($fileSize, $decimals, $decimalSeparator,
-		                     $thousandsSeparator) . ' ' . $this->suffixes[$suffix];
-	}
+    /**
+     * Renders the file size.
+     *
+     * @param int    $decimals
+     * @param string $decimalSeparator
+     * @param string $thousandsSeparator
+     *
+     * @return string
+     */
+    public function render($decimals = 2, $decimalSeparator = ',', $thousandsSeparator = '.')
+    {
+        $fileSize = $this->renderChildren();
+        $suffix   = 0;
+        while ($fileSize >= 1024) {
+            $fileSize /= 1024;
+            $suffix++;
+        }
+        return number_format(
+            $fileSize,
+            $decimals,
+            $decimalSeparator,
+            $thousandsSeparator
+        ) . ' ' . $this->suffixes[$suffix];
+    }
 }

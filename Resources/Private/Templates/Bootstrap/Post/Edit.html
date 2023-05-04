@@ -3,7 +3,14 @@
 
 <f:section name="main">
 	<f:render partial="FormErrors"/>
-	<f:render partial="Post/Form" arguments="{post: post, topic: post.topic, action: 'update'}"/>
+	<f:render partial="Post/Form" arguments="{
+		post: post,
+		topic: post.topic,
+		action: 'update',
+		header: '{f:translate(key: \'Post_Edit\', arguments: \'{0: post.topic.subject}\')}',
+		submitLabel: 'Post_Edit_Submit',
+		availableTags: availableTags
+	}"/>
 </f:section>
 
 

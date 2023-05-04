@@ -1,36 +1,96 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 
 <ul class="nav nav-pills">
-		<mmf:authentication.ifAccess object="{post.topic}" accessType="newPost">
-			<li class="nav-item">
-				<f:link.action controller="Post" class="btn btn-primary ml-1" action="new" arguments="{topic: post.topic, quote: post}">
-					<i class="tx-typo3forum-icon-16-quote"></i>
-					<f:translate key="Button_Quote" />
-				</f:link.action>
-			</li>
-		</mmf:authentication.ifAccess>
-		<mmf:authentication.ifLoggedIn>
-			<li class="nav-item">
-				<f:link.action controller="Report" class="btn btn-primary ml-1" action="newPostReport" arguments="{post: post}">
-					<i class="tx-typo3forum-icon-16-report-new"></i>
-					<f:translate key="Button_Report" />
-				</f:link.action>
-			</li>
-		</mmf:authentication.ifLoggedIn>
-		<mmf:authentication.ifAccess object="{post}" accessType="editPost">
-			<li class="nav-item">
-				<f:link.action controller="Post" class="btn btn-primary ml-1" action="edit" arguments="{post: post}">
-					<i class="tx-typo3forum-icon-16-post-edit"></i>
-					<f:translate key="Button_Edit" />
-				</f:link.action>
-			</li>
-		</mmf:authentication.ifAccess>
-		<mmf:authentication.ifAccess object="{post}" accessType="deletePost">
-			<li class="nav-item">
-				<f:link.action controller="Post" class="btn btn-primary ml-1"  action="confirmDelete" arguments="{post: post}">
-					<i class="tx-typo3forum-icon-16-post-delete"></i>
-					<f:translate key="Button_Delete" />
-				</f:link.action>
-			</li>
-		</mmf:authentication.ifAccess>
+	<mmf:authentication.ifLoggedIn>
+		<li class="nav-item border-end pe-3">
+			<mmf:user.isCurrentUser user="{post.author}">
+				<f:then>
+					<a href="#" class="text-decoration-none" onclick="return false;" title="{f:translate(key: 'Button_Support_Self')}">
+						{post.helpfulCount}
+						<i class="fas fa-heart ms-1"></i>
+					</a>
+				</f:then>
+				<f:else>
+					<mmf:post.ifSupports post="{post}">
+						<f:then>
+							<f:link.action
+								pageUid="{settings.pids.Forum}"
+								controller="Post"
+								action="unsupport"
+								arguments="{post: post}"
+								class="text-decoration-none"
+								title="{f:translate(key: 'Button_Unsupport')}"
+							>
+								{post.helpfulCount}
+								<i class="fas fa-heart ms-1"></i>
+							</f:link.action>
+						</f:then>
+						<f:else>
+							<f:link.action
+								pageUid="{settings.pids.Forum}"
+								controller="Post"
+								action="support"
+								arguments="{post: post}"
+								class="text-decoration-none"
+								title="{f:translate(key: 'Button_Support')}"
+							>
+								{post.helpfulCount}
+								<i class="far fa-heart ms-1"></i>
+							</f:link.action>
+						</f:else>
+					</mmf:post.ifSupports>
+				</f:else>
+			</mmf:user.isCurrentUser>
+		</li>
+	</mmf:authentication.ifLoggedIn>
+
+	<mmf:post.ifCanMarkSolution post="{post}">
+		<li class="nav-item">
+			<f:if condition="{post.solution}">
+				<f:then>
+
+					<f:link.action pageUid="{settings.pids.Forum}" controller="Topic" class="ms-3" action="removeSolution" arguments="{topic: post.topic}" title="{f:translate(key: 'Button_RemoveSolution')}">
+						<i class="far fa-square-minus"></i>
+					</f:link.action>
+
+				</f:then>
+				<f:else>
+
+					<f:link.action pageUid="{settings.pids.Forum}" controller="Topic" class="ms-3" action="solution" arguments="{post: post}" title="{f:translate(key: 'Button_Solution')}">
+						<i class="fas fa-square-check"></i>
+					</f:link.action>
+
+				</f:else>
+			</f:if>
+		</li>
+	</mmf:post.ifCanMarkSolution>
+
+	<mmf:authentication.ifAccess object="{post.topic}" accessType="newPost">
+		<li class="nav-item">
+			<f:link.action pageUid="{settings.pids.Forum}" controller="Post" class="ms-3" action="new" arguments="{topic: post.topic, quote: post}" title="{f:translate(key: 'Button_Quote')}">
+				<i class="fas fa-quote-right"></i>
+			</f:link.action>
+		</li>
+	</mmf:authentication.ifAccess>
+	<mmf:authentication.ifLoggedIn>
+		<li class="nav-item">
+			<f:link.action pageUid="{settings.pids.Forum}" controller="Report" class="ms-3" action="newPostReport" arguments="{post: post}" title="{f:translate(key: 'Button_Report')}">
+				<i class="fas fa-exclamation-triangle"></i>
+			</f:link.action>
+		</li>
+	</mmf:authentication.ifLoggedIn>
+	<mmf:authentication.ifAccess object="{post}" accessType="editPost">
+		<li class="nav-item">
+			<f:link.action pageUid="{settings.pids.Forum}" controller="Post" class="ms-3" action="edit" arguments="{post: post}" title="{f:translate(key: 'Button_Edit')}">
+				<i class="fas fa-edit"></i>
+			</f:link.action>
+		</li>
+	</mmf:authentication.ifAccess>
+	<mmf:authentication.ifAccess object="{post}" accessType="deletePost">
+		<li class="nav-item">
+			<f:link.action pageUid="{settings.pids.Forum}" controller="Post" class="ms-3"  action="confirmDelete" arguments="{post: post}" title="{f:translate(key: 'Button_Delete')}">
+				<i class="fas fa-trash-alt"></i>
+			</f:link.action>
+		</li>
+	</mmf:authentication.ifAccess>
 </ul>

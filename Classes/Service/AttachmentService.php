@@ -3,58 +3,78 @@
 namespace Mittwald\Typo3Forum\Service;
 
 use Mittwald\Typo3Forum\Domain\Model\Forum\Attachment;
+use TYPO3\CMS\Core\Resource\DuplicationBehavior;
+use TYPO3\CMS\Core\Resource\FileReference as CoreFileReference;
+use TYPO3\CMS\Core\Resource\ResourceFactory;
+use TYPO3\CMS\Core\Resource\ResourceStorage;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Domain\Model\FileReference as ExtbaseFileReference;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use TYPO3\CMS\Core\Type\File\FileInfo;
 
 class AttachmentService implements SingletonInterface
 {
-    /**
-     * An instance of the Extbase object manager.
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-     * @inject
-     */
-    protected $objectManager = null;
+    protected $storage;
+
+    public function __construct(
+        ResourceFactory $resourceFactory
+    ) {
+        $this->storage = $resourceFactory->getDefaultStorage();
+    }
 
     /**
      * Converts HTML-array to an object
      * @param array $attachments
      * @return ObjectStorage
      */
-    public function initAttachments(array $attachments)
+    public function initAttachments(array $uploadedAttachments)
     {
         /* @var \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment */
-        $objAttachments = new ObjectStorage();
+        $attachmentStorage = new ObjectStorage();
 
-        foreach ($attachments as $attachmentID => $attachment) {
-            if (!isset($attachment['name']) || $attachment['name'] == '') {
+        foreach ($uploadedAttachments as $attachmentData) {
+            if (!isset($attachmentData['name']) || $attachmentData['name'] == '') {
                 continue;
             }
-            $attachmentObj = $this->objectManager->get(Attachment::class);
-            $tmp_name = $_FILES['tx_typo3forum_pi1']['tmp_name']['attachments'][$attachmentID];
-            $fileInfo = GeneralUtility::makeInstance(FileInfo::class,$tmp_name);
 
-            $mime_type = $fileInfo->getMimeType();
-
-            //Save in ObjectStorage and in file system
-            $attachmentObj->setFilename($attachment['name']);
-            $attachmentObj->setRealFilename(sha1($attachment['name'] . time()));
-            $attachmentObj->setMimeType($mime_type);
-
-			//Create dir if not exists
-			$tca = $attachmentObj->getTCAConfig();
-			$path = $tca['columns']['real_filename']['config']['uploadfolder'];
-			if(!file_exists($path)) {
-                GeneralUtility::mkdir($path);
-			}
-
-            //upload file and put in object storage
-            $res = GeneralUtility::upload_copy_move($tmp_name, $attachmentObj->getAbsoluteFilename());
-            if ($res === true) {
-                $objAttachments->attach($attachmentObj);
+            // Build extbase file reference object to the uploaded file.
+            // TODO: Figure out where to grab the folder name from
+            $folderIdentifier = 'frontend_uploads';
+            if (!$this->storage->hasFolder($folderIdentifier)) {
+                $this->storage->createFolder($folderIdentifier);
             }
+
+            $falFile = $this->storage->addUploadedFile(
+                $attachmentData,
+                $this->storage->getFolder($folderIdentifier),
+                sha1($attachmentData['name'] . time()) . '.' . end(explode('.', $attachmentData['name'])),
+                DuplicationBehavior::REPLACE
+            );
+
+            $falFileReference = GeneralUtility::makeInstance(
+                CoreFileReference::class,
+                [
+                    'uid_local' => (int)$falFile->getProperty('uid'),
+                ]
+            );
+
+            $extbaseFileReference = GeneralUtility::makeInstance(ExtbaseFileReference::class);
+            $extbaseFileReference->setOriginalResource(
+                $falFileReference
+            );
+
+            // Hydrate Attachment
+            /** @var Attachment $attachment */
+            $attachment = GeneralUtility::makeInstance(Attachment::class);
+
+            $attachment
+                ->setFileReference($extbaseFileReference)
+                ->setName($attachmentData['name'])
+            ;
+
+            $attachmentStorage->attach($attachment);
         }
-        return $objAttachments;
+
+        return $attachmentStorage;
     }
 }

@@ -1,9 +1,7 @@
+---
 language: php
 php:
-  - 7.0
-  - 7.1
-  - 7.2
-  - 7.3
+  - 7.4
 sudo: false
 script:
   - find Configuration Classes -name '*.php' | xargs -l1 php -l
@@ -19,4 +17,4 @@ deploy:
   on:
     repo: mittwald/typo3_forum
     tags: true
-    php: 7.2
+    php: 7.4

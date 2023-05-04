@@ -1,7 +1,13 @@
+.scannerwork/
 .idea
 nbproject
-Resources/Public/Stylesheets/.sass-cache/
+Resources/Public/CSS/.sass-cache/
 .Build
+typo3scan.phar
+.phplint-cache
+.phplint.cache
+.php_cs.cache
+
 
 # composer related ignores:
 bin

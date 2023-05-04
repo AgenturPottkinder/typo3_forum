@@ -1,0 +1,56 @@
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
+<div class="card">
+	<div class="card-header px-3 py-2">
+		<f:translate key="Post_Show_Attachments"/>
+		(<f:count subject="{attachments}"/>)
+	</div>
+	<div class="card-body p-0">
+		<ul class="list-group list-group-flush rounded-bottom">
+			<f:for each="{attachments}" as="attachment">
+				<li class="list-group-item list-group-item-action">
+					<f:link.action controller="Post" action="downloadAttachment" arguments="{attachment: attachment}" pageUid="{settings.pids.Forum}" class="stretched-link">
+					</f:link.action>
+
+					<div class="row">
+						<f:if condition="{argumentName}">
+							<label class="col-auto d-flex" style="z-index: 500;" for="attachment-{attachment.uid}">
+								<div class="justify-content-center d-flex align-items-center">
+									<f:form.checkbox
+										id="attachment-{attachment.uid}"
+										name="{argumentName}[]"
+										class="form-check-input"
+										value="{attachment.uid}"
+										checked="checked"
+									/>
+								</div>
+							</label>
+						</f:if>
+						<f:if condition="{settings.forum.post.showImagesInline}">
+							<div class="col-auto justify-content-center d-flex align-items-center">
+								<f:alias map="{mimeType: attachment.fileReference.originalResource.mimeType}">
+									<f:if condition="{mimeType} == 'image/jpeg' || {mimeType} == 'image/png' || {mimeType} == 'image/gif'">
+										<f:image
+											src="{attachment.fileReference.originalResource.publicUrl}"
+											title="{attachment.name}"
+											maxHeight="32"
+											maxWidth="32"
+										/>
+									</f:if>
+								</f:alias>
+							</div>
+						</f:if>
+						<div class="col d-flex align-items-center">
+							{attachment.name}
+						</div>
+						<div class="col-2 justify-content-end d-flex align-items-center">
+							<mmf:format.fileSize>{attachment.fileReference.originalResource.size}</mmf:format.fileSize>
+						</div>
+						<div class="col-3 justify-content-end d-flex align-items-center">
+							<f:translate key="Post_Show_Attachment_DownloadCount" arguments="{0: attachment.downloadCount}"/>
+						</div>
+					</div>
+				</li>
+			</f:for>
+		</ul>
+	</div>
+</div>

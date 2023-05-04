@@ -6,15 +6,21 @@
 <f:section name="main">
 
 	<h2>
-		<f:translate key="User_Index_Topics_Of" /> <mmf:user.link user="{user}"/>
+		<f:translate key="User_Index_Topics_Of" arguments="{0: user.username}" />
 	</h2>
-	<f:widget.paginate objects="{topics}" as="paginatedTopics" configuration="{settings.pagebrowser.default}">
+	<mmf:pagination.paginate objects="{topics}" as="paginatedTopics" page="{page}" configuration="{settings.pagebrowser.topicList}" configAs="pagination">
 		<f:render partial="Topic/List" arguments="{topics: paginatedTopics}" />
-	</f:widget.paginate>
+
+		<f:render partial="User/UserPageBrowser" arguments="{pagination: pagination, user: user, action: 'listTopics'}" />
+	</mmf:pagination.paginate>
 
 </f:section>
 
 
 <!-- MENU Section -->
 <f:section name="menu">
+	<f:link.action controller="User" action="show" class="btn btn-info" arguments="{user: user}">
+		<i class="fas fa-chevron-left me-1"></i>
+		<f:translate key="Button_Back" />
+	</f:link.action>
 </f:section>

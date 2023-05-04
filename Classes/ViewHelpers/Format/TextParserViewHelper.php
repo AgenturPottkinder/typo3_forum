@@ -2,6 +2,9 @@
 
 namespace Mittwald\Typo3Forum\ViewHelpers\Format;
 
+use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
+use Mittwald\Typo3Forum\Domain\Repository\Forum\PostRepository;
+use Mittwald\Typo3Forum\TextParser\TextParserService;
 /*                                                                    - *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -25,29 +28,23 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Format;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * ViewHelper that performs text parsing operations on text input.
  */
 class TextParserViewHelper extends AbstractViewHelper
 {
+    protected TextParserService $textParserService;
+    protected PostRepository $postRepository;
 
-    /**
-     * The text parser service
-     * @var \Mittwald\Typo3Forum\TextParser\TextParserService
-     * @inject
-     */
-    protected $textParserService;
-
-    /**
-     * An instance of the post repository class. The repository is needed
-     * only when a rendered post text has to be persisted in the database.
-     * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\PostRepository
-     * @inject
-     */
-    protected $postRepository;
+    public function __construct(
+        TextParserService $textParserService,
+        PostRepository $postRepository
+    ) {
+        $this->textParserService = $textParserService;
+        $this->postRepository = $postRepository;
+    }
 
     /**
      * @var bool
@@ -75,10 +72,10 @@ class TextParserViewHelper extends AbstractViewHelper
         $this->textParserService->setControllerContext($this->renderingContext->getControllerContext());
         $this->textParserService->loadConfiguration($this->arguments['configuration']);
 
-        /* @var Post $post */
+        /** @var ?Post $post */
         $post = $this->arguments['post'];
         if ($post !== null) {
-            $renderedText = $this->textParserService->parseText($post->getText());
+            $renderedText = $this->textParserService->parseText($post->getText(), $post);
         } else {
             $renderedText = $this->textParserService->parseText($this->arguments['content'] ?: trim($this->renderChildren()));
         }

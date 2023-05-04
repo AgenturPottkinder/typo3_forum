@@ -1,0 +1,1132 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" target-language="af" datatype="plaintext" original="messages" date="2020-12-13T08:05:53Z" product-name="typo3_forum">
+		<header/>
+		<body>
+			<trans-unit id="Button_Back" xml:space="preserve" approved="yes">
+				<source>Back</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Button_Delete" xml:space="preserve" approved="yes">
+				<source>Delete</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Button_Delete_Topic" xml:space="preserve" approved="yes">
+				<source>Delete Topic</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Button_Edit" xml:space="preserve" approved="yes">
+				<source>Edit</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Button_Moderate" xml:space="preserve" approved="yes">
+				<source>Moderate</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Button_Quote" xml:space="preserve" approved="yes">
+				<source>Quote</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Button_Reply" xml:space="preserve" approved="yes">
+				<source>Reply</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Button_Report" xml:space="preserve" approved="yes">
+				<source>Report</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Button_Close" xml:space="preserve" approved="yes">
+				<source>Close</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Button_Subscribe" xml:space="preserve" approved="yes">
+				<source>Subscribe</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Button_Topic_New" xml:space="preserve" approved="yes">
+				<source>New topic</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Button_Unsubscribe" xml:space="preserve" approved="yes">
+				<source>Unsubscribe</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Button_User_Profile" xml:space="preserve" approved="yes">
+				<source>User profile</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Button_More" xml:space="preserve" approved="yes">
+				<source>More</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Editor_Panel_Formatting" xml:space="preserve" approved="yes">
+				<source>Formatting</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Editor_Panel_Smileys" xml:space="preserve" approved="yes">
+				<source>Smileys</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Editor_Panel_SyntaxHighlighting" xml:space="preserve" approved="yes">
+				<source>Syntax highlighting</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Error_1335120249" xml:space="preserve" approved="yes">
+				<source>You need to be logged in to view your own subscriptions.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Error_Exception_Title" xml:space="preserve" approved="yes">
+				<source>Whoops!</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Error_Form_Body" xml:space="preserve" approved="yes">
+				<source>Some errors occurred while processing your input. Please check your inputs.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Error_Form_Title" xml:space="preserve" approved="yes">
+				<source>Whoopsi!</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Forum_Index_Empty" xml:space="preserve" approved="yes">
+				<source>No forums found</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Forum_Index_LastPost" xml:space="preserve" approved="yes">
+				<source>Last post</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Forum_Index_Name" xml:space="preserve" approved="yes">
+				<source>Forum</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Forum_Index_Posts" xml:space="preserve" approved="yes">
+				<source>Posts</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Forum_Index_Topic" xml:space="preserve" approved="yes">
+				<source>Topic</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Forum_Index_Topics" xml:space="preserve" approved="yes">
+				<source>Topics</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Forum_Show_Empty" xml:space="preserve" approved="yes">
+				<source>No topics</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Forum_Show_UnreadTopicsIn" xml:space="preserve" approved="yes">
+				<source>Unread topics in</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Forum_Show_Topic_Author" xml:space="preserve" approved="yes">
+				<source>Author</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Forum_Show_Topic_LastPost" xml:space="preserve" approved="yes">
+				<source>Last post</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Forum_Show_Topic_Moved" xml:space="preserve" approved="yes">
+				<source>Moved</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Forum_Show_Topic_Posts" xml:space="preserve" approved="yes">
+				<source>Replies</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Forum_Show_Topic_Question" xml:space="preserve" approved="yes">
+				<source>Question</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Forum_Show_Topic_Solved" xml:space="preserve" approved="yes">
+				<source>Solved</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Forum_Show_Topic_Topic" xml:space="preserve" approved="yes">
+				<source>Topic</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Forum_Show_Topic_Subject" xml:space="preserve" approved="yes">
+				<source>Subject</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Forum_Index_HelpfulPosts" xml:space="preserve" approved="yes">
+				<source>Helpful posts</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Forum_New" xml:space="preserve" approved="yes">
+				<source>New Forum</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Forum_Edit" xml:space="preserve" approved="yes">
+				<source>Edit Forum</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Forum_Manage" xml:space="preserve" approved="yes">
+				<source>Moderate Forum</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Generic_By" xml:space="preserve" approved="yes">
+				<source>by</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Generic_More" xml:space="preserve" approved="yes">
+				<source>more</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Moderation_Index_Reports" xml:space="preserve" approved="yes">
+				<source>Reports</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Moderation_Index_Topic" xml:space="preserve" approved="yes">
+				<source>Topic</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Moderation_Index_Reporter" xml:space="preserve" approved="yes">
+				<source>Reporter</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Moderation_Index_Status" xml:space="preserve" approved="yes">
+				<source>Status</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Moderation_Index_Date" xml:space="preserve" approved="yes">
+				<source>Date</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Moderation_Index_GoToTopic" xml:space="preserve" approved="yes">
+				<source>Go to topic</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Moderation_Index_NothingHere" xml:space="preserve" approved="yes">
+				<source>Nothing here!</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Moderation_Index_NoOpenReportsFound" xml:space="preserve" approved="yes">
+				<source>No open reports were found.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Moderation_EditTopic" xml:space="preserve" approved="yes">
+				<source>Moderate topic: %s</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Moderation_EditTopic_Closed" xml:space="preserve" approved="yes">
+				<source>Closed</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Moderation_EditTopic_Move" xml:space="preserve" approved="yes">
+				<source>Move</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Moderation_EditTopic_Sticky" xml:space="preserve" approved="yes">
+				<source>Sticky</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Moderation_EditTopic_Submit" xml:space="preserve" approved="yes">
+				<source>Submit</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Moderation_UpdateTopic_Success" xml:space="preserve" approved="yes">
+				<source>The topic has successfully been updated.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Post_Create_Success" xml:space="preserve" approved="yes">
+				<source>The post has successfully been created.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Post_Delete_Success" xml:space="preserve" approved="yes">
+				<source>The post has successfully been deleted.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Post_Edit" xml:space="preserve" approved="yes">
+				<source>Edit post in topic: %s</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Post_Edit_Submit" xml:space="preserve" approved="yes">
+				<source>Update post</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Post_New" xml:space="preserve" approved="yes">
+				<source>Reply to: %s</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Post_New_Attachments" xml:space="preserve" approved="yes">
+				<source>Attachments</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Post_New_Author" xml:space="preserve" approved="yes">
+				<source>Your name</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Post_New_Error_Author_1335106565" xml:space="preserve" approved="yes">
+				<source>Please specify your name or log in with your user account.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Post_New_Error_Text_1221560718" xml:space="preserve" approved="yes">
+				<source>Please specify a content for the new post.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Post_New_Submit" xml:space="preserve" approved="yes">
+				<source>Create post</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Post_New_Text" xml:space="preserve" approved="yes">
+				<source>Post text</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Post_New_Additional_Attachment" xml:space="preserve" approved="yes">
+				<source>Additional attachment</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Post_Show_Attachment_DownloadCount" xml:space="preserve" approved="yes">
+				<source>Downloaded %d times</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Post_Show_Attachments" xml:space="preserve" approved="yes">
+				<source>Attachments</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Post_Show_QuoteBy" xml:space="preserve" approved="yes">
+				<source>Quote by</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Post_Show_Solution_New" xml:space="preserve" approved="yes">
+				<source>Is solution</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Post_Show_Solution_Edit" xml:space="preserve" approved="yes">
+				<source>Replace solution</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Post_Update_Success" xml:space="preserve" approved="yes">
+				<source>The post has successfully been updated.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Post_Not_Found" xml:space="preserve" approved="yes">
+				<source>Post not found.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report" xml:space="preserve" approved="yes">
+				<source>Reports</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_Detail" xml:space="preserve" approved="yes">
+				<source>Reports Detail</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_Index_reportedUser" xml:space="preserve" approved="yes">
+				<source>Reported User</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_Index_reportedPosts" xml:space="preserve" approved="yes">
+				<source>Reported Posts</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_Index_UserDetail" xml:space="preserve" approved="yes">
+				<source>User Details</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_Index_Post" xml:space="preserve" approved="yes">
+				<source>Post</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_Index_PostedIn" xml:space="preserve" approved="yes">
+				<source>Posted in</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_Index_Action" xml:space="preserve" approved="yes">
+				<source>Action</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_Edit_Comments" xml:space="preserve" approved="yes">
+				<source>Comments</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_Edit_Comments_New" xml:space="preserve" approved="yes">
+				<source>New comment</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_Edit_Content" xml:space="preserve" approved="yes">
+				<source>Comment</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_Edit_Author" xml:space="preserve" approved="yes">
+				<source>Author</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_Edit_User" xml:space="preserve" approved="yes">
+				<source>User</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_Edit_Date" xml:space="preserve" approved="yes">
+				<source>Date</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_Edit_General" xml:space="preserve" approved="yes">
+				<source>General report information</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_Edit_Post" xml:space="preserve" approved="yes">
+				<source>Reported post</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_Edit_Reportee" xml:space="preserve" approved="yes">
+				<source>Post's author</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_Edit_Reporter" xml:space="preserve" approved="yes">
+				<source>Reported by</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_Edit_SetStatus" xml:space="preserve" approved="yes">
+				<source>Set status to &quot;%s&quot;</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_Edit_Status" xml:space="preserve" approved="yes">
+				<source>Workflow status</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_Edit_Topic" xml:space="preserve" approved="yes">
+				<source>Topic</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_New" xml:space="preserve" approved="yes">
+				<source>Report this post</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_NewPostReport" xml:space="preserve" approved="yes">
+				<source>Report this post</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_NewComment" xml:space="preserve" approved="yes">
+				<source>Write a new comment</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_NewComment_Error_Text_1221560718" xml:space="preserve" approved="yes">
+				<source>Please specify a comment.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_NewComment_Submit" xml:space="preserve" approved="yes">
+				<source>Create comment</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_NewComment_Success" xml:space="preserve" approved="yes">
+				<source>The comment has successfully been saved.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_NewComment_Text" xml:space="preserve" approved="yes">
+				<source>Comment text</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_New_Author" xml:space="preserve" approved="yes">
+				<source>Post author</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_New_Error_Reason_1221560718" xml:space="preserve" approved="yes">
+				<source>Please specify a reason why you believe this post to be inappropriate.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_New_OriginalText" xml:space="preserve" approved="yes">
+				<source>Original post text</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_New_Reason" xml:space="preserve" approved="yes">
+				<source>Reason</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_New_Submit" xml:space="preserve" approved="yes">
+				<source>Report post</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_New_Success" xml:space="preserve" approved="yes">
+				<source>Your report has been submitted to a forum moderator.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Report_UpdateStatus_Success" xml:space="preserve" approved="yes">
+				<source>The status of report #%s has successfully been set to %s.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Topic_Create_Success" xml:space="preserve" approved="yes">
+				<source>The topic has successfully been created.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Topic_New" xml:space="preserve" approved="yes">
+				<source>New topic</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Topic_New_Attachments" xml:space="preserve" approved="yes">
+				<source>Attachments</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Topic_New_Error_Post_Text_1221560718" xml:space="preserve" approved="yes">
+				<source>Please specify a content for the new topic.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Topic_New_Error_Subject_1221560718" xml:space="preserve" approved="yes">
+				<source>Please specify a subject for the new topic.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Topic_New_Error_Attachment_Text_1371041777" xml:space="preserve" approved="yes">
+				<source>Your submitted Mime-Type is not allowed!</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Topic_New_Error_Attachment_Text_1371041888" xml:space="preserve" approved="yes">
+				<source>Your attachment size is to big!</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Topic_New_Tags" xml:space="preserve" approved="yes">
+				<source>Tags</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Topic_New_Subject" xml:space="preserve" approved="yes">
+				<source>Subject</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Topic_New_Submit" xml:space="preserve" approved="yes">
+				<source>Create topic</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Topic_New_Subscribe" xml:space="preserve" approved="yes">
+				<source>Subscribe</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Topic_New_SubscribeMore" xml:space="preserve" approved="yes">
+				<source>Notify me via email when someone answers this topic.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Topic_New_Text" xml:space="preserve" approved="yes">
+				<source>Post text</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Topic_New_Question" xml:space="preserve" approved="yes">
+				<source>Mark as question</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Topic_All_Questions" xml:space="preserve" approved="yes">
+				<source>All Questions</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Topic_All_Questions_Of" xml:space="preserve" approved="yes">
+				<source>%s's questions</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Index" xml:space="preserve" approved="yes">
+				<source>User list</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Index_Display_All" xml:space="preserve" approved="yes">
+				<source>Display all users</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Index_Search" xml:space="preserve" approved="yes">
+				<source>User search</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Index_Search_Header" xml:space="preserve" approved="yes">
+				<source>Users with the name</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Index_Search_Order_ASC" xml:space="preserve" approved="yes">
+				<source>Ascending</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Index_Search_Order_DESC" xml:space="preserve" approved="yes">
+				<source>Descending</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Index_Search_Filter_Name" xml:space="preserve" approved="yes">
+				<source>Username</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Index_Search_Filter_MemberSince" xml:space="preserve" approved="yes">
+				<source>Member Since</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Index_Search_Filter_Post" xml:space="preserve" approved="yes">
+				<source>Posts</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Index_Search_Filter_Helpful" xml:space="preserve" approved="yes">
+				<source>Helpful Posts</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Index_Contact" xml:space="preserve" approved="yes">
+				<source>Contact</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Index_MemberSince" xml:space="preserve" approved="yes">
+				<source>Registered since</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Index_Notifications" xml:space="preserve" approved="yes">
+				<source>Notifications</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Index_MyTopics" xml:space="preserve" approved="yes">
+				<source>Your topics</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Index_MyPosts" xml:space="preserve" approved="yes">
+				<source>My posts</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Index_MyQuestions" xml:space="preserve" approved="yes">
+				<source>My questions</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Index_Dashboard" xml:space="preserve" approved="yes">
+				<source>Dashboard</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Index_Dashboard_Link" xml:space="preserve" approved="yes">
+				<source>Back to dashboard</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Index_Topics_Of" xml:space="preserve" approved="yes">
+				<source>%s's topics</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Index_All_Notifications" xml:space="preserve" approved="yes">
+				<source>All notifications</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Index_All_MyTopics" xml:space="preserve" approved="yes">
+				<source>All topics</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Index_Questions" xml:space="preserve" approved="yes">
+				<source>Questions</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Index_Posts" xml:space="preserve" approved="yes">
+				<source>Posts</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Index_Helpful_Posts" xml:space="preserve" approved="yes">
+				<source>Helpful Posts</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Index_Username" xml:space="preserve" approved="yes">
+				<source>Username</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_New" xml:space="preserve" approved="yes">
+				<source>New User</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Edit" xml:space="preserve" approved="yes">
+				<source>Edit User</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_ListPosts" xml:space="preserve" approved="yes">
+				<source>%s's posts</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_ListSubscriptions" xml:space="preserve" approved="yes">
+				<source>Your subscriptions</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_ListSubscriptions_Goto" xml:space="preserve" approved="yes">
+				<source>Show</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_ListSubscriptions_Unsubscribe" xml:space="preserve" approved="yes">
+				<source>Unsubscribe</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Show" xml:space="preserve" approved="yes">
+				<source>User details</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Show_LastPosts" xml:space="preserve" approved="yes">
+				<source>Last posts</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Show_MemberSince" xml:space="preserve" approved="yes">
+				<source>Member since</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Show_PostCount" xml:space="preserve" approved="yes">
+				<source>%d posts</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Show_Rank" xml:space="preserve" approved="yes">
+				<source>Rank</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Show_Rank_Points_Until" xml:space="preserve" approved="yes">
+				<source>Until</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Show_Rank_UserAmount" xml:space="preserve" approved="yes">
+				<source>Amount of user</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Show_Points" xml:space="preserve" approved="yes">
+				<source>Points</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Show_Points_Needed" xml:space="preserve" approved="yes">
+				<source>Points</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Show_Notification_All" xml:space="preserve" approved="yes">
+				<source>All Notifications</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Show_Notification_Author_1" xml:space="preserve" approved="yes">
+				<source>answered to </source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Show_Notification_Author_2" xml:space="preserve" approved="yes">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Show_Notification_Common_1" xml:space="preserve" approved="yes">
+				<source>answered in </source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Show_Notification_Common_2" xml:space="preserve" approved="yes">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Show_Notification_NotFound" xml:space="preserve" approved="yes">
+				<source>No notifications found!</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Show_Notification_Tag_1" xml:space="preserve" approved="yes">
+				<source>answered in a</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Show_Notification_Tag_2" xml:space="preserve" approved="yes">
+				<source>with the tag</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Show_Notification_Tag_3" xml:space="preserve" approved="yes">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Show_GeneralInformation" xml:space="preserve" approved="yes">
+				<source>General information</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Show_LatestPosts" xml:space="preserve" approved="yes">
+				<source>Latest posts</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Subscribe_Forum_Success" xml:space="preserve" approved="yes">
+				<source>The Forum &quot;%s&quot; has successfully been subscribed.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Subscribe_Topic_Success" xml:space="preserve" approved="yes">
+				<source>The Topic &quot;%s&quot; has successfully been subscribed.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Unsubscribe_Forum_Success" xml:space="preserve" approved="yes">
+				<source>The Forum &quot;%s&quot; has successfully been unsubscribed.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Unsubscribe_Topic_Success" xml:space="preserve" approved="yes">
+				<source>The Topic &quot;%s&quot; has successfully been unsubscribed.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Stats_Summary_Type_Post" xml:space="preserve" approved="yes">
+				<source>Posts</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Stats_Summary_Type_Topic" xml:space="preserve" approved="yes">
+				<source>Topics</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Stats_Summary_Type_User" xml:space="preserve" approved="yes">
+				<source>Members</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Subforums" xml:space="preserve" approved="yes">
+				<source>Subforums</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Notice" xml:space="preserve" approved="yes">
+				<source>Notice:</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Date_Clock" xml:space="preserve" approved="yes">
+				<source>o'clock</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Date_At" xml:space="preserve" approved="yes">
+				<source>at</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_counter_title" xml:space="preserve" approved="yes">
+				<source>Count-Checker</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_counter_description" xml:space="preserve" approved="yes">
+				<source>A turtle with maths skills checks all counter columns of any user and update them on a error.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_counter_forumPid" xml:space="preserve" approved="yes">
+				<source>Forum pid</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_counter_userPid" xml:space="preserve" approved="yes">
+				<source>User pid</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_databaseMigrator_title" xml:space="preserve" approved="yes">
+				<source>Database Migrator</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_databaseMigrator_description" xml:space="preserve" approved="yes">
+				<source>Renames your database tables when you applied the change from mm_forum to typo3_forum. This will NOT migrate your data from mm_forum 1.x, but from 2.0.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_forumRead_title" xml:space="preserve" approved="yes">
+				<source>Forum-Read Setter</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_forumRead_description" xml:space="preserve" approved="yes">
+				<source>Check for any user which forum is read and which not. Best way to ensure performance.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_forumRead_forumPid" xml:space="preserve" approved="yes">
+				<source>Forum pid</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_forumRead_userPid" xml:space="preserve" approved="yes">
+				<source>User pid</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_notification_title" xml:space="preserve" approved="yes">
+				<source>Notifications Generator</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_notification_description" xml:space="preserve" approved="yes">
+				<source>Generate all new notifications of all users.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_notification_forumPid" xml:space="preserve" approved="yes">
+				<source>Forum pids (comma-seperated is allowed)</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_notification_userPid" xml:space="preserve" approved="yes">
+				<source>User pids (comma-seperated is allowed)</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_notification_notificationPid" xml:space="preserve" approved="yes">
+				<source>Notification Pid</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_sessionResetter_title" xml:space="preserve" approved="yes">
+				<source>Session Count Resetter</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_sessionResetter_description" xml:space="preserve" approved="yes">
+				<source>Reset the session counter of a forum. (Used for the widgets)</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_sessionResetter_userPid" xml:space="preserve" approved="yes">
+				<source>User pid</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_statsSummary_title" xml:space="preserve" approved="yes">
+				<source>Stats Summary Generator</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_statsSummary_description" xml:space="preserve" approved="yes">
+				<source>Generate summary stats for the StatsSummary widget.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_statsSummary_forumPid" xml:space="preserve" approved="yes">
+				<source>Forum pids (comma-seperated is allowed)</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_statsSummary_userPid" xml:space="preserve" approved="yes">
+				<source>User pids (comma-seperated is allowed)</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_statsSummary_statsPid" xml:space="preserve" approved="yes">
+				<source>Stats pid</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Link_My_Profile" xml:space="preserve" approved="yes">
+				<source>My profile</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Profile" xml:space="preserve" approved="yes">
+				<source>Profile</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Working_Environment_0" xml:space="preserve" approved="yes">
+				<source>-</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Working_Environment_1" xml:space="preserve" approved="yes">
+				<source>Agency</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Working_Environment_2" xml:space="preserve" approved="yes">
+				<source>Company</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Working_Environment_3" xml:space="preserve" approved="yes">
+				<source>Freelancer</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Working_Environment_4" xml:space="preserve" approved="yes">
+				<source>Public service</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Facebook" xml:space="preserve" approved="yes">
+				<source>Facebook</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Twitter" xml:space="preserve" approved="yes">
+				<source>Twitter</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Google_plus" xml:space="preserve" approved="yes">
+				<source>Google+</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Skype" xml:space="preserve" approved="yes">
+				<source>Skype</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Solution" xml:space="preserve" approved="yes">
+				<source>Solution</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Forum_Most_Supported_Post" xml:space="preserve" approved="yes">
+				<source>most supported post</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Button_Email" xml:space="preserve" approved="yes">
+				<source>Email</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Button_Report_User" xml:space="preserve" approved="yes">
+				<source>Report user</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Confirm_Ban_User" xml:space="preserve" approved="yes">
+				<source>Are u Sure?</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Button_Ban_User" xml:space="preserve" approved="yes">
+				<source>Ban user</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Button_Mark_Read" xml:space="preserve" approved="yes">
+				<source>Mark as read</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Button_Show_Unread" xml:space="preserve" approved="yes">
+				<source>Show all unread topics</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Age" xml:space="preserve" approved="yes">
+				<source>Age</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_City" xml:space="preserve" approved="yes">
+				<source>City</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Company" xml:space="preserve" approved="yes">
+				<source>Company</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Working_Environment" xml:space="preserve" approved="yes">
+				<source>Working Environment</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Interests" xml:space="preserve" approved="yes">
+				<source>Interests</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Signature" xml:space="preserve" approved="yes">
+				<source>Signature</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Open_Questions" xml:space="preserve" approved="yes">
+				<source>Open questions</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Last_Posts" xml:space="preserve" approved="yes">
+				<source>Last post</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_All_Posts" xml:space="preserve" approved="yes">
+				<source>All posts</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Last_Topics" xml:space="preserve" approved="yes">
+				<source>Last topics</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Working_As" xml:space="preserve" approved="yes">
+				<source>Working as</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Email" xml:space="preserve" approved="yes">
+				<source>Email</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Web" xml:space="preserve" approved="yes">
+				<source>Web</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="General_No_Entries" xml:space="preserve" approved="yes">
+				<source>No entries found</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Not_Logged_In" xml:space="preserve" approved="yes">
+				<source>Sie sind nicht angemeldet.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Post_In" xml:space="preserve" approved="yes">
+				<source>Post in</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Facebook_Share_Text" xml:space="preserve" approved="yes">
+				<source>Typo3.Net - Post by</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Twitter_Share_Text" xml:space="preserve" approved="yes">
+				<source>Typo3.Net - Post by</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Topic_Moved" xml:space="preserve" approved="yes">
+				<source>moved</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Confirm_Delete_Topic" xml:space="preserve" approved="yes">
+				<source>Are u Sure?</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Members_Online" xml:space="preserve" approved="yes">
+				<source>members online</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Members_Not_Online" xml:space="preserve" approved="yes">
+				<source>no members online</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Members_All" xml:space="preserve" approved="yes">
+				<source>All members</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Topic_Question_Help" xml:space="preserve" approved="yes">
+				<source>Mark as question</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Tags_Show_Tag" xml:space="preserve" approved="yes">
+				<source>Tag</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Tags_List_All" xml:space="preserve" approved="yes">
+				<source>Tags</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Tags_List_NotFound" xml:space="preserve" approved="yes">
+				<source>No tags found!</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Tags_List_Name" xml:space="preserve" approved="yes">
+				<source>Name</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Tags_List_TopicAmount" xml:space="preserve" approved="yes">
+				<source>Amount of topics</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Tags_List_Subscribers" xml:space="preserve" approved="yes">
+				<source>Amount of subscribers</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Tags_List_New" xml:space="preserve" approved="yes">
+				<source>Add to my tags</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Tags_List_Remove" xml:space="preserve" approved="yes">
+				<source>Remove from my tags</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Tags_ListUserTags" xml:space="preserve" approved="yes">
+				<source>My tags</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Tags_List_Link_All" xml:space="preserve" approved="yes">
+				<source>Display all tags</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Tags_List_Link_Mine" xml:space="preserve" approved="yes">
+				<source>Display my tags</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Tags_New" xml:space="preserve" approved="yes">
+				<source>New Tag</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Tags_New_Btn" xml:space="preserve" approved="yes">
+				<source>Create new tag</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Tags_New_Name" xml:space="preserve" approved="yes">
+				<source>Name</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Tags_New_Error_Name_1373871955" xml:space="preserve" approved="yes">
+				<source>Name can't be empty</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Tags_New_Error_Name_1373871960" xml:space="preserve" approved="yes">
+				<source>Tag already exists</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Tags_New_SubscribeTag" xml:space="preserve" approved="yes">
+				<source>Subscribe this tag</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Submit" xml:space="preserve" approved="yes">
+				<source>Submit</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Button_Helpful" xml:space="preserve" approved="yes">
+				<source>Helpful</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Mail_Subscribe_NewPost_Subject" xml:space="preserve" approved="yes">
+				<source>New topic in one of your subscribed forums!</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Mail_Subscribe_NewPost_Body" xml:space="preserve" approved="yes">
+				<source>Hello ###RECIPIENT###,
+
+###POST_AUTHOR### answered in one of your subscribed topics: ###TOPIC_LINK###.
+
+If you don't want to get more notifications about this topic, you can unsubscribe from this topic in the forum or using this link: ###UNSUBSCRIBE_LINK###
+
+
+Yours sincerely,
+Your ###FORUM_TEAM###-Team</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Mail_Subscribe_NewTopic_Body" xml:space="preserve" approved="yes">
+				<source>Hello ###RECIPIENT###,
+
+###POST_AUTHOR### created a new topic &quot;###TOPIC_NAME###&quot; in one of your subscribed forums: ###FORUM_LINK###.
+
+If you don't want to get more notifications about this forum, you can unsubscribe from this forum in the forum or using this link: ###UNSUBSCRIBE_LINK###
+
+
+Yours sincerely,
+Your ###FORUM_TEAM###-Team</source>
+				<target></target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

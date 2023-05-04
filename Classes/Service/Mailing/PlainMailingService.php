@@ -29,53 +29,50 @@ use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
 /**
  * Service class for sending plain text emails.
  */
-class PlainMailingService extends AbstractMailingService {
+class PlainMailingService extends AbstractMailingService
+{
 
-	/**
-	 * The format in which this service sends mails.
-	 *
-	 * @var string
-	 */
-	protected $format = AbstractMailingService::MAILING_FORMAT_PLAIN;
+    /**
+     * The format in which this service sends mails.
+     */
+    protected string $format = AbstractMailingService::MAILING_FORMAT_PLAIN;
 
-	/**
-	 * Sends a mail with a certain subject and bodytext to a recipient in form of a frontend user.
-	 *
-	 * @param FrontendUser $recipient The recipient of the mail. This is a plain frontend user.
-	 * @param string $subject The mail's subject
-	 * @param string $bodyText The mail's bodytext
-	 * @return void
-	 */
-	public function sendMail(FrontendUser $recipient, $subject, $bodyText) {
-		if ($recipient->getEmail()) {
-			$mail = new MailMessage();
-			$mail->setTo([$recipient->getEmail()])
-				->setFrom($this->getDefaultSenderAddress(), $this->getDefaultSenderName())
-				->setSubject($subject)
-				->setBody($bodyText)
-				->send();
-		}
-	}
+    /**
+     * Sends a mail with a certain subject and bodytext to a recipient in form of a frontend user.
+     *
+     * @param FrontendUser $recipient The recipient of the mail. This is a plain frontend user.
+     * @param string $subject The mail's subject
+     * @param string $bodyText The mail's bodytext
+     */
+    public function sendMail(FrontendUser $recipient, $subject, $bodyText): void
+    {
+        if ($recipient->getEmail()) {
+            $mail = new MailMessage();
+            $mail->setTo([$recipient->getEmail()])
+                ->setFrom($this->getDefaultSenderAddress(), $this->getDefaultSenderName())
+                ->setSubject($subject)
+                ->text($bodyText)
+                ->send();
+        }
+    }
 
-	/**
-	 *
-	 * Generates the e-mail headers for a certain recipient, subject and bodytext.
-	 *
-	 * @return string The mail headers.
-	 *
-	 */
-	protected function getHeaders() {
-		$headerArray = [
-			'From' => $this->getDefaultSender(),
-			'Content-Type' => 'text/plain; charset=' . $this->getCharset(),
-		];
-		$headerString = '';
+    /**
+     * Generates the e-mail headers for a certain recipient, subject and bodytext.
+     *
+     * @return string The mail headers.
+     */
+    protected function getHeaders(): string
+    {
+        $headerArray = [
+            'From' => $this->getDefaultSender(),
+            'Content-Type' => 'text/plain; charset=' . $this->getCharset(),
+        ];
+        $headerString = '';
 
-		foreach ($headerArray as $headerKey => $headerValue) {
-			$headerString .= $headerKey . ':' . $headerValue . "\r\n";
-		}
+        foreach ($headerArray as $headerKey => $headerValue) {
+            $headerString .= $headerKey . ':' . $headerValue . "\r\n";
+        }
 
-		return $headerString;
-	}
-
+        return $headerString;
+    }
 }

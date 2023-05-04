@@ -1,82 +1,51 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
-<div class="card">
-	<section class="row">
-		<section class="col-9">
-			<div class="card-body">
-				<p class="card-text"><mmf:format.textParser post="{post}"/></p>
+<div
+	class="card mb-4"
+	<f:if condition="!{disablePostId}">id="{mmf:format.replace(search: '|', replace: post.uid, subject: settings.topicController.show.postIdWrap)}"</f:if>
+>
+	<div class="row">
+		<div class="col-md-9">
+			<div class="card-body d-flex flex-column h-100">
+				<div class="tx-typo3forum-parsed-text card-text flex-grow-1">
+					<mmf:format.textParser post="{post}"/>
+				</div>
 				<f:if condition="{post.attachments}">
-					<div class="card">
-						<div class="card-header">
-							<f:translate key="Post_Show_Attachments"/>
-							(
-							<f:count subject="{post.attachments}"/>
-							)
-						</div>
-						<div class="card-body">
-							<f:for each="{post.attachments}" as="attachment">
-								<div class="container">
-									<div class="row">
-										<div class="col">
-											<f:link.action controller="Post" action="downloadAttachment" arguments="{attachment: attachment}">
-												<f:if condition="{settings.forum.post.showImagesInline} && ({attachment.mimetype} == 'image/jpeg' || {attachment.mimetype} == 'image/png')">
-													<f:then>
-														<f:image src="{attachment.absoluteFilename}" alt="{attachment.filename}" class="img-fluid"
-																 title="{attachment.filename}"/>
-													</f:then>
-													<f:else>{attachment.filename}</f:else>
-												</f:if>
-											</f:link.action>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col">
-											{attachment.mimeType}
-										</div>
-										<div class="col">
-											<mmf:format.fileSize>{attachment.filesize}</mmf:format.fileSize>
-										</div>
-										<div class="col">
-											<f:translate key="Post_Show_Attachment_DownloadCount" arguments="{0: attachment.downloadCount}"/>
-										</div>
-									</div>
-								</div>
-							</f:for>
-						</div>
+					<div class="mt-4">
+						<f:render partial="Attachment/List" arguments="{attachments: post.attachments}" />
 					</div>
 				</f:if>
 				<f:if condition="{post.author.signature}">
-					<hr>
-					<div class="tx-typo3forum-topic-show-post-signature">
-						<mmf:format.textParser content="{post.author.signature}"/>
+					<div class="mt-3">
+						<hr />
+						<div class="tx-typo3forum-parsed-text">
+							<mmf:format.textParser content="{post.author.signature}"/>
+						</div>
 					</div>
 				</f:if>
 			</div>
-		</section>
+		</div>
 
-		<section id="user-description" class="col-3 border-left">
-			<div class="card-body">
-				<f:if condition="{post.author.anonymous}">
-					<f:then>
-						<f:render partial="User/AnonymousInformationRow" arguments="{user: post.author}"/>
-					</f:then>
-					<f:else>
-						<f:render partial="User/InformationRow" arguments="{user: post.author}"/>
-					</f:else>
-				</f:if>
-			</div>
-		</section>
-	</section>
-	<div class="card-footer">
-		<section class="row">
-			<section class="col-3">
+		<div class="col-md-3 p-3 ps-0">
+			<f:if condition="{post.author.anonymous}">
+				<f:then>
+					<f:render partial="User/AnonymousInformationRow" arguments="{user: post.author}"/>
+				</f:then>
+				<f:else>
+					<f:render partial="User/InformationRow" arguments="{user: post.author}"/>
+				</f:else>
+			</f:if>
+		</div>
+	</div>
+	<div class="card-footer p-3">
+		<div class="row">
+			<div class="col-6 d-flex align-items-center">
 				<f:format.date format="{settings.format.dateTimeFormat}">{post.timestamp}</f:format.date>
-			</section>
-			<section class="col-9">
-				<div class="tx-typo3forum-topic-show-post-menu">
+			</div>
+			<div class="col-6 d-flex justify-content-end align-items-center">
+				<div class="px-2 py-1">
 					<f:render partial="Post/Menu" arguments="{post: post}"/>
 				</div>
-			</section>
-		</section>
+			</div>
+		</div>
 	</div>
 </div>
-<br>

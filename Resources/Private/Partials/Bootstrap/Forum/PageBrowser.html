@@ -1,12 +1,89 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
-<f:if condition="{elements} > {configuration.itemsPerPage}">
-	<div class="tx-typo3forum-pages">
-		<mmf:control.pageBrowser elements="{elements}" currentPage="{currentPage}" itemsPerPage="{configuration.itemsPerPage}">
-			<f:if condition="{page} == {currentPage}">
-				<f:then>{pageLabel}</f:then>
-				<f:else><f:link.action controller="Forum" action="show" arguments="{forum: forum, page: page}">{pageLabel}</f:link.action></f:else>
+
+<f:if condition="{pagination.maxPage} > 1">
+	<div aria-label="Page navigation">
+		<ul class="pagination">
+			<!-- Left side button -->
+			<f:if condition="1 != {pagination.currentPage}">
+				<f:then>
+					<li class="page-item" title="{f:translate(key: 'LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:previous')}">
+						<f:link.action class="page-link" action="show" arguments="{forum: forum, page: '{pagination.currentPage - 1}'}">
+							<span class="sr-only">
+								<f:translate key="LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:previous" />
+							</span>
+							<span aria-hidden="true">&#171;</span>
+						</f:link.action>
+					</li>
+				</f:then>
+				<f:else>
+					<li class="page-item disabled" title="{f:translate(key: 'LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:previous')}">
+						<a href="#" onclick="return false;" class="page-link">
+							<span class="sr-only">
+								<f:translate key="LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:previous" />
+							</span>
+							<span aria-hidden="true">&#171;</span>
+						</a>
+					</li>
+				</f:else>
 			</f:if>
-		</mmf:control.pageBrowser>
+	
+	
+			<!-- Page list -->
+			<f:for each="{pagination.listOfPagesToDisplay}" as="page">
+	
+				<f:if condition="{page} == {pagination.currentPage}">
+					<f:then>
+						<li class="page-item active" title="{page}">
+							<a href="#" onclick="return false;" class="page-link">
+								{page}
+							</a>
+						</li>
+					</f:then>
+					<f:else>
+	
+						<f:if condition="{page} == 0">
+							<f:then>
+								<li class="page-item disabled" title="{f:translate(key: 'LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:more')}">
+									<a href="#" class="page-link disabled" onclick="return false;">&hellip;</a>
+								</li>
+							</f:then>
+							<f:else>
+								<li class="page-item" title="{page}">
+									<f:link.action class="page-link" action="show" arguments="{forum: forum, page: page}">{page}</f:link.action>
+								</li>
+							</f:else>
+						</f:if>
+						
+					</f:else>
+				</f:if>
+	
+			</f:for>
+			
+			
+			<!-- Right side button -->
+			<f:if condition="{pagination.maxPage} != {pagination.currentPage}">
+				<f:then>
+					<li class="page-item" title="{f:translate(key: 'LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:next')}">
+						<f:link.action class="page-link" action="show" arguments="{forum: forum, page: '{pagination.currentPage + 1}'}">
+							<span class="sr-only">
+								<f:translate key="LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:next" />
+							</span>
+							<span aria-hidden="true">&#187;</span>
+						</f:link.action>
+					</li>
+				</f:then>
+				<f:else>
+					<li class="page-item disabled" title="{f:translate(key: 'LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:next')}">
+						<a href="#" onclick="return false;" class="page-link">
+							<span class="sr-only">
+								<f:translate key="LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:next" />
+							</span>
+							<span aria-hidden="true">&#187;</span>
+						</a>
+					</li>
+				</f:else>
+			</f:if>
+			
+		</ul>
 	</div>
-	<div style="clear:right"></div>
 </f:if>

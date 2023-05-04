@@ -24,74 +24,20 @@ namespace Mittwald\Typo3Forum\Domain\Repository\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-class TagRepository extends Repository {
+class TagRepository extends Repository
+{
+    /**
+     * Find all ordered by topic count
+     * @return QueryResultInterface<Tag>
+     */
+    public function findAllOrderedByCounter(): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query->setOrderings(['topic_count' => 'DESC']);
 
-
-	/**
-	 * Find all ordered by topic count
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag[]
-	 */
-	public function findAllOrderedByCounter() {
-		$query = $this->createQuery();
-		$query->setOrderings(['topic_count' => 'DESC']);
-
-		return $query->execute();
-	}
-
-
-	/**
-	 * Find a tag with a specific name
-	 *
-	 * @param $name
-	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag[]
-	 */
-	public function findTagWithSpecificName($name) {
-		$query = $this->createQuery();
-		$query->matching($query->equals('name', $name));
-		$query->setLimit(1);
-
-		return $query->execute();
-	}
-
-
-	/**
-	 * Find a tag including a specific name
-	 *
-	 * @param string $name
-	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag[]
-	 */
-	public function findTagLikeAName($name) {
-		$query = $this->createQuery();
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
-		$pids = $query->getQuerySettings()->getStoragePageIds();
-		$pid = (int)$pids[0];
-		$constraints = [];
-		$constraints[] = $query->like('name', "%" . $name . "%", false);
-		$constraints[] = $query->equals('pid', $pid);
-
-		$query->matching($query->logicalAnd($constraints));
-
-		return $query->execute();
-	}
-
-	/**
-	 * Find all tags of a specific user
-	 *
-	 * @param FrontendUser $user
-	 *
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Tag[]
-	 */
-	public function findTagsOfUser(FrontendUser $user) {
-		$query = $this->createQuery();
-		$query->matching($query->contains('feuser', $user));
-		$query->setOrderings(['name' => 'ASC']);
-
-		return $query->execute();
-	}
-
+        return $query->execute();
+    }
 }

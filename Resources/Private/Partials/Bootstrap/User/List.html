@@ -1,42 +1,81 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 
-<h1>
-	<f:translate key="User_Index" />
-</h1>
+<f:form action="list">
+	<div class="input-group mt-5 mb-3">
+		<f:form.textfield name="nameSearch" id="nameSearch" value="{nameSearch}" class="form-control" placeholder="{f:translate(key: 'User_Index_NameSearch_Placeholder')}" />
+		<f:if condition="{nameSearch}">
+			<div class="position-relative d-flex align-items-stretch">
+				<f:link.action class="tx-typo3forum-clear-button link-darker text-decoration-none" arguments="{nameSearch: '', page: 1}">
+					<i class="fa-solid fa-xmark fa-lg"></i>
+				</f:link.action>
+			</div>
+		</f:if>
+		<f:form.submit class="btn btn-primary" value="{f:translate(key: 'User_Index_NameSearch_Submit')}" />
+	</div>
+</f:form>
 
-<f:widget.paginate objects="{dataset.users}" as="paginatedUser" configuration="{settings.pagebrowser.default}">
-
+<mmf:pagination.paginate objects="{users}" as="paginatedUsers" page="{page}" configuration="{settings.pagebrowser.userList}" configAs="pagination">
 	<table class="table table-striped">
+		<colgroup>
+			<col width="56" />
+			<col />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="20%" />
+		</colgroup>
 		<thead>
 			<tr>
 				<th></th>
 				<th>
 					<f:translate key="User_Index_Username" />
 				</th>
-				<th>
-					<f:translate key="User_Index_MemberSince" />
-				</th>
-				<th>
+				<th class="text-center">
 					<f:translate key="User_Index_Posts" />
 				</th>
-				<th>
+				<th class="text-center">
 					<f:translate key="User_Index_Helpful_Posts" />
+				</th>
+				<th class="text-center">
+					<f:translate key="User_Index_MemberSince" />
 				</th>
 			</tr>
 		</thead>
-			<f:for each="{paginatedUser}" as="user">
+		<f:if condition="{paginatedUsers}">
+			<f:then>
+				<f:for each="{paginatedUsers}" as="user">
+					<tr>
+						<td class="align-middle">
+							<mmf:user.avatar user="{user}" width="36" alt="" class="img-polaroid img-rounded" />
+						</td>
+						<td class="align-middle">
+							<mmf:user.link user="{user}"/></td>
+						<td class="text-center align-middle">{user.postCount}</td>
+						<td class="text-center align-middle">{user.helpfulCount}</td>
+						<td class="text-center align-middle">
+							<f:format.date format="{settings.format.dateFormat}">{user.timestamp}</f:format.date>
+						</td>
+					</tr>
+				</f:for>
+			</f:then>
+			<f:else>
 				<tr>
-					<td>
-						<mmf:user.avatar user="{user}" width="36" alt="" class="img-polaroid img-rounded" />
+					<td scope="row" colspan="5">
+						<div class="alert alert-info m-0" role="alert">
+							<f:translate key="User_List_Empty"/>
+						</div>
 					</td>
-					<td>
-						<mmf:user.link user="{user}"/></td>
-					<td>
-						<f:format.date format="{settings.format.dateFormat}">{user.timestamp}</f:format.date>
-					</td>
-					<td>{user.postCount}</td>
-					<td>{user.helpfulCount}</td>
 				</tr>
-			</f:for>
+			</f:else>
+		</f:if>
 	</table>
-</f:widget.paginate>
+
+	<f:if condition="{nameSearch}">
+		<f:then>
+			<f:render partial="User/UserListPageBrowser" arguments="{pagination: pagination, action: 'list', nameSearch: nameSearch}"/>
+		</f:then>
+		<f:else>
+			<f:render partial="Control/PageBrowser" arguments="{pagination: pagination, action: 'list'}"/>
+		</f:else>
+	</f:if>
+
+</mmf:pagination.paginate>

@@ -1,5 +1,11 @@
 <?php
 namespace Mittwald\Typo3Forum\TextParser\Panel;
+
+use Mittwald\Typo3Forum\Domain\Model\Format\Smiley;
+use Mittwald\Typo3Forum\Domain\Repository\Format\SmileyRepository;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+
 /*                                                                      *
  *  COPYRIGHT NOTICE                                                    *
  *                                                                      *
@@ -23,40 +29,38 @@ namespace Mittwald\Typo3Forum\TextParser\Panel;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-class SmileyPanel extends AbstractPanel {
+class SmileyPanel extends AbstractPanel
+{
+    /**
+     * @var \Mittwald\Typo3Forum\Domain\Model\Format\Smiley[]|null
+     */
+    protected ?array $smileys = null;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Format\SmileyRepository
-	 * @inject
-	 */
-	protected $smileyRepository = NULL;
+    public function getItems(): ?array
+    {
+        if ($this->smileys === null) {
+            $this->smileys = GeneralUtility::makeInstance(SmileyRepository::class)
+                ->findAll()->toArray()
+            ;
+        }
 
-	/**
-	 * @var array<\Mittwald\Typo3Forum\Domain\Model\Format\Smiley>
-	 */
-	protected $smileys = NULL;
+        if (count($this->smileys) === 0) {
+            return null;
+        }
 
-	/**
-	 * @return array
-	 */
-	public function getItems() {
+        $result = array_map(
+            function (Smiley $smiley): array
+            {
+                return $smiley->exportForMarkItUp();
+            },
+            $this->smileys
+        );
 
-		if ($this->smileys === NULL) {
-			$this->smileys = $this->smileyRepository->findAll();
-		}
-
-		if (count($this->smileys) === 0) {
-			return FALSE;
-		}
-
-		$result = [];
-		foreach ($this->smileys as $smiley) {
-			$result[] = $smiley->exportForMarkItUp();
-		}
-		return [['name' => $this->settings['title'],
-			'className' => $this->settings['iconClassName'],
-			'replaceWith' => $this->smileys[0]->getSmileyShortcut(),
-			'dropMenu' => $result]];
-	}
-
+        return [[
+            'name' => LocalizationUtility::translate($this->settings['title']),
+            'className' => $this->settings['iconClassName'],
+            'replaceWith' => $this->smileys[0]->getSmileyShortcut(),
+            'dropMenu' => $result
+        ]];
+    }
 }

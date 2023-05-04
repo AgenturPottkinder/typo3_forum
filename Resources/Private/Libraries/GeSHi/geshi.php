@@ -28,7 +28,7 @@
  * @package    geshi
  * @subpackage core
  * @author     Nigel McNie <nigel@geshi.org>, Benny Baumann <BenBE@omorphia.de>
- * @copyright  (C) 2004 - 2007 Nigel McNie, (C) 2007 - 2008 Benny Baumann
+ * @copyright  (C) 2004 - 2007 Nigel McNie, (C) 2007 - 2014 Benny Baumann
  * @license    http://gnu.org/copyleft/gpl.html GNU GPL
  *
  */
@@ -41,7 +41,7 @@
 //
 
 /** The version of this GeSHi file */
-define('GESHI_VERSION', '1.0.8.11');
+define('GESHI_VERSION', '1.0.8.13');
 
 // Define the root directory for the GeSHi code tree
 if (!defined('GESHI_ROOT')) {
@@ -254,7 +254,7 @@ define('GESHI_ERROR_INVALID_LINE_NUMBER_TYPE', 5);
  *
  * @package   geshi
  * @author    Nigel McNie <nigel@geshi.org>, Benny Baumann <BenBE@omorphia.de>
- * @copyright (C) 2004 - 2007 Nigel McNie, (C) 2007 - 2008 Benny Baumann
+ * @copyright (C) 2004 - 2007 Nigel McNie, (C) 2007 - 2014 Benny Baumann
  */
 class GeSHi {
     /**#@+
@@ -594,11 +594,11 @@ class GeSHi {
      *               {@link GeSHi->set_language_path()}
      * @since 1.0.0
      */
-    function GeSHi($source = '', $language = '', $path = '') {
-        if (!empty($source)) {
+    function __construct($source = '', $language = '', $path = '') {
+        if ( is_string($source) && ($source !== '') ) {
             $this->set_source($source);
         }
-        if (!empty($language)) {
+        if ( is_string($language) && ($language !== '') ) {
             $this->set_language($language);
         }
         $this->set_language_path($path);
@@ -617,7 +617,7 @@ class GeSHi {
 
     /**
      * Returns an error message associated with the last GeSHi operation,
-     * or false if no error has occured
+     * or false if no error has occurred
      *
      * @return string|false An error message if there has been an error, else false
      * @since  1.0.0
@@ -674,6 +674,9 @@ class GeSHi {
      * @since 1.0.0
      */
     function set_language($language, $force_reset = false) {
+        $this->error = false;
+        $this->strict_mode = GESHI_NEVER;
+
         if ($force_reset) {
             $this->loaded_language = false;
         }
@@ -691,9 +694,6 @@ class GeSHi {
         }
 
         $this->language = $language;
-
-        $this->error = false;
-        $this->strict_mode = GESHI_NEVER;
 
         //Check if we can read the desired file
         if (!is_readable($file_name)) {
@@ -1019,10 +1019,20 @@ class GeSHi {
      */
     function set_keyword_group_style($key, $style, $preserve_defaults = false) {
         //Set the style for this keyword group
-        if (!$preserve_defaults) {
-            $this->language_data['STYLES']['KEYWORDS'][$key] = $style;
+        if('*' == $key) {
+            foreach($this->language_data['STYLES']['KEYWORDS'] as $_key => $_value) {
+                if (!$preserve_defaults) {
+                    $this->language_data['STYLES']['KEYWORDS'][$_key] = $style;
+                } else {
+                    $this->language_data['STYLES']['KEYWORDS'][$_key] .= $style;
+                }
+            }
         } else {
-            $this->language_data['STYLES']['KEYWORDS'][$key] .= $style;
+            if (!$preserve_defaults) {
+                $this->language_data['STYLES']['KEYWORDS'][$key] = $style;
+            } else {
+                $this->language_data['STYLES']['KEYWORDS'][$key] .= $style;
+            }
         }
 
         //Update the lexic permissions
@@ -1054,10 +1064,20 @@ class GeSHi {
      * @since 1.0.0
      */
     function set_comments_style($key, $style, $preserve_defaults = false) {
-        if (!$preserve_defaults) {
-            $this->language_data['STYLES']['COMMENTS'][$key] = $style;
+        if('*' == $key) {
+            foreach($this->language_data['STYLES']['COMMENTS'] as $_key => $_value) {
+                if (!$preserve_defaults) {
+                    $this->language_data['STYLES']['COMMENTS'][$_key] = $style;
+                } else {
+                    $this->language_data['STYLES']['COMMENTS'][$_key] .= $style;
+                }
+            }
         } else {
-            $this->language_data['STYLES']['COMMENTS'][$key] .= $style;
+            if (!$preserve_defaults) {
+                $this->language_data['STYLES']['COMMENTS'][$key] = $style;
+            } else {
+                $this->language_data['STYLES']['COMMENTS'][$key] .= $style;
+            }
         }
     }
 
@@ -1436,20 +1456,17 @@ class GeSHi {
         $this->enable_important_blocks = $flag;
     }
 
-	/**
-	 * Given a file extension, this method returns either a valid geshi language
-	 * name, or the empty string if it couldn't be found
-	 *
-	 * @param       $extension
-	 * @param array $lookup
-	 *
-	 * @return int|string
-	 * @since 1.0.5
-	 * @todo Re-think about how this method works (maybe make it private and/or make it
-	 *       a extension->lang lookup?)
-	 * @todo static?
-	 */
-    function get_language_name_from_extension( $extension, $lookup = array() ) {
+    /**
+     * Given a file extension, this method returns either a valid geshi language
+     * name, or the empty string if it couldn't be found
+     *
+     * @param string The extension to get a language name for
+     * @param array  A lookup array to use instead of the default one
+     * @since 1.0.5
+     * @todo Re-think about how this method works (maybe make it private and/or make it
+     *       a extension->lang lookup?)
+     */
+    static function get_language_name_from_extension( $extension, $lookup = array() ) {
         $extension = strtolower($extension);
 
         if ( !is_array($lookup) || empty($lookup)) {
@@ -1559,7 +1576,7 @@ class GeSHi {
     function load_from_file($file_name, $lookup = array()) {
         if (is_readable($file_name)) {
             $this->set_source(file_get_contents($file_name));
-            $this->set_language($this->get_language_name_from_extension(substr(strrchr($file_name, '.'), 1), $lookup));
+            $this->set_language(self::get_language_name_from_extension(substr(strrchr($file_name, '.'), 1), $lookup));
         } else {
             $this->error = GESHI_ERROR_FILE_NOT_READABLE;
         }
@@ -1612,17 +1629,15 @@ class GeSHi {
         }
     }
 
-	/**
-	 * add_keyword_group
-	 *
-     * @param int       $key
-	 * @param string    $styles
-	 * @param bool|true $case_sensitive
-	 * @param array     $words
-	 *
-	 * @return bool
-	 * @since 1.0.0
-	 */
+    /**
+     * Creates a new keyword group
+     *
+     * @param int    The key of the keyword group to create
+     * @param string The styles for the keyword group
+     * @param boolean Whether the keyword group is case sensitive ornot
+     * @param array  The words to use for the keyword group
+     * @since 1.0.0
+     */
     function add_keyword_group($key, $styles, $case_sensitive = true, $words = array()) {
         $words = (array) $words;
         if  (empty($words)) {
@@ -2136,7 +2151,7 @@ class GeSHi {
                 }
 
                 $this->language_data['NUMBERS_RXCACHE'][$key] =
-                    "/(?<!<\|\/)(?<!<\|!REG3XP)(?<!<\|\/NUM!)(?<!\d\/>)($regexp)(?!(?:<DOT>|(?>[^\<]))+>)(?![^<]*>)(?!\|>)(?!\/>)/i"; //
+                    "/(?<!<\|\/)(?<!<\|!REG3XP)(?<!<\|\/NUM!)(?<!\d\/>)($regexp)(?!(?:<DOT>|(?>[^\<]))+>)(?![^<]*>)(?!\|>)(?!\/>)/i";
             }
 
             if(!isset($this->language_data['PARSER_CONTROL']['NUMBERS']['PRECHECK_RX'])) {
@@ -3286,11 +3301,13 @@ class GeSHi {
                             '{FNAME}',
                             '{FNAMEL}',
                             '{FNAMEU}',
+                            '{FNAMEUF}',
                             '.'),
                         array(
                             str_replace('+', '%20', urlencode($this->hsc($word))),
                             str_replace('+', '%20', urlencode($this->hsc(strtolower($word)))),
                             str_replace('+', '%20', urlencode($this->hsc(strtoupper($word)))),
+                            str_replace('+', '%20', urlencode($this->hsc(ucfirst($word)))),
                             '<DOT>'),
                         $this->language_data['URLS'][$k]
                     ) . '">';
@@ -3350,17 +3367,15 @@ class GeSHi {
               . $after;
     }
 
-	/**
-	 * Takes a string that has no strings or comments in it, and highlights
-	 * stuff like keywords, numbers and methods.
-	 *
-	 * @param $stuff_to_parse
-	 *
-	 * @return string The string to parse for keyword, numbers etc.
-	 * @since 1.0.0
-	 * @access private
-	 * @todo BUGGY! Why? Why not build string and return?
-	 */
+    /**
+     * Takes a string that has no strings or comments in it, and highlights
+     * stuff like keywords, numbers and methods.
+     *
+     * @param string The string to parse for keyword, numbers etc.
+     * @since 1.0.0
+     * @access private
+     * @todo BUGGY! Why? Why not build string and return?
+     */
     function parse_non_string_part($stuff_to_parse) {
         $stuff_to_parse = ' ' . $this->hsc($stuff_to_parse);
 
@@ -3579,7 +3594,6 @@ class GeSHi {
                 $symbol_length = strlen($symbol_match);
                 $symbol_offset = $pot_symbols[$s_id][0][1];
                 unset($pot_symbols[$s_id]);
-                $symbol_end = $symbol_length + $symbol_offset;
                 $symbol_hl = "";
 
                 // if we have multiple styles, we have to handle them properly
@@ -3880,9 +3894,6 @@ class GeSHi {
             // If we're using the <pre> header, we shouldn't add newlines because
             // the <pre> will line-break them (and the <li>s already do this for us)
             $ls = ($this->header_type != GESHI_HEADER_PRE && $this->header_type != GESHI_HEADER_PRE_VALID) ? "\n" : '';
-
-            // Set vars to defaults for following loop
-            $i = 0;
 
             // Foreach line...
             for ($i = 0, $n = count($code); $i < $n;) {
@@ -4392,13 +4403,13 @@ class GeSHi {
                 " * --------------------------------------\n".
                 " * Dynamically generated stylesheet for {$this->language}\n".
                 " * CSS class: {$this->overall_class}, CSS id: {$this->overall_id}\n".
-                " * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann\n" .
+                " * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2014 Benny Baumann\n" .
                 " * (http://qbnz.com/highlighter/ and http://geshi.org/)\n".
                 " * --------------------------------------\n".
                 " */\n";
         } else {
             $stylesheet = "/**\n".
-                " * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann\n" .
+                " * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2014 Benny Baumann\n" .
                 " * (http://qbnz.com/highlighter/ and http://geshi.org/)\n".
                 " */\n";
         }
@@ -4555,15 +4566,13 @@ class GeSHi {
         return $stylesheet;
     }
 
-	/**
-	 * Get's the style that is used for the specified line
-	 *
-	 * @param int $line
-	 *
-	 * @return null|string
-	 * @access private
-	 * @since 1.0.7.21
-	 */
+    /**
+     * Get's the style that is used for the specified line
+     *
+     * @param int The line number information is requested for
+     * @access private
+     * @since 1.0.7.21
+     */
     function get_line_style($line) {
         //$style = null;
         $style = null;
@@ -4779,5 +4788,3 @@ if (!function_exists('geshi_highlight')) {
         return true;
     }
 }
-
-?>

@@ -1,0 +1,46 @@
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
+
+<f:if condition="{linkToShowAction}">
+	<f:then>
+
+		<f:link.action
+			pageUid="{settings.pids.Forum}"
+			controller="Tag"
+			action="show"
+			arguments="{tag: tag}"
+			class="text-decoration-none"
+		>
+			<f:render section="tagBody" arguments="{_all}" />
+		</f:link.action>
+
+	</f:then>
+	<f:else>
+
+		<f:render section="tagBody" arguments="{_all}" />
+
+	</f:else>
+
+</f:if>
+
+<f:section name="tagBody">
+
+	<div
+		class="badge position-relative text-decoration-none tx-typo3forum-var-background tx-typo3forum-var-color d-flex align-items-center
+			{f:if(condition: small, then: 'px-1', else: 'px-2')}
+		"
+		style="--tx-typo3forum-background: {tag.color.secondaryColor}; --tx-typo3forum-color: {tag.color.primaryColor};"
+	>
+		<f:if condition="{linkToShowAction}">
+			<div class="position-absolute rounded tx-typo3forum-tag-hover-lighten"></div>
+		</f:if>
+		<span class="m-0 {f:if(condition: small, then: 'small', else: 'h5 fw-bold')}">
+			{tag.name}
+			<f:if condition="{showTopicCount}">
+				<small>
+					({tag.topicCount})
+				</small>
+			</f:if>
+		</span>
+	</div>
+
+</f:section>

@@ -1,63 +1,68 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 <f:layout name="default" />
 
-
-
 <f:section name="main">
 	<f:render partial="FormErrors" />
 
-	<f:form name="topic" object="{topic}" controller="Moderation" action="updateTopic" id="topic" class="form-horizontal">
-		<fieldset>
-			<legend>
-				<f:translate key="Moderation_EditTopic" default="TODO: Moderate topic" />
-			</legend>
-			<div class="control-group">
-				<label for="sticky" class="control-label">
-					<f:translate key="Moderation_EditTopic_Sticky" default="TODO: Sticky" />
+	<h2>
+		<f:translate key="Moderation_EditTopic" arguments="{0: topic.subject}" />
+	</h2>
+	<f:form name="topic" object="{topic}" controller="Moderation" action="updateTopic" id="topic">
+		<div class="card card-body">
+			<div class="form-group row">
+				<label for="sticky" class="col-2 col-form-label">
+					<f:translate key="Moderation_EditTopic_Sticky" />
 				</label>
-				<div class="controls">
-					<f:form.checkbox property="sticky" value="1" />
+				<div class="col-10 col-form-label">
+					<f:form.checkbox class="form-check-input" name="sticky" property="sticky" value="1" id="sticky" />
 				</div>
 			</div>
-			<div class="control-group">
-				<label for="closed" class="control-label">
-					<f:translate key="Moderation_EditTopic_Closed" default="TODO: Closed" />
+
+			<div class="form-group row">
+				<label for="closed" class="col-2 col-form-label">
+					<f:translate key="Moderation_EditTopic_Closed" />
 				</label>
-				<div class="controls">
-					<f:form.checkbox property="closed" value="1" />
+				<div class="col-10 col-form-label">
+					<f:form.checkbox class="form-check-input" name="closed" property="closed" value="1" id="closed" />
 				</div>
 			</div>
-			<div class="control-group">
-				<label for="moveTopicTarget" class="control-label">
-					<f:translate key="Moderation_EditTopic_Move" default="TODO: Move" />
+
+			<div class="form-group row">
+				<label for="question" class="col-2 col-form-label">
+					<f:translate key="Moderation_EditTopic_Question" />
 				</label>
-				<div class="controls">
-					<f:form.checkbox id="tx-typo3forum-movetopic" name="moveTopic" value="1" />
-					<mmf:form.forumSelect name="moveTopicTarget" value="{topic.forum}" id="tx-typo3forum-movetopic-target" disabled="disabled" />
+				<div class="col-10 col-form-label">
+					<f:form.checkbox class="form-check-input" name="question" property="question" value="1" id="question" />
 				</div>
 			</div>
-			<div class="form-actions">
-				<f:link.action controller="Topic" action="show" arguments="{topic: topic}" class="btn">
-					<f:translate key="Button_Back" />
-				</f:link.action>
-				<f:form.submit value="{f:translate(key:'Moderation_EditTopic_Submit', default:'TODO: Submit')}" class="btn btn-primary" />
+
+			<div class="form-group row">
+				<label for="moveTopicTarget" class="col-2 col-form-label">
+					<f:translate key="Moderation_EditTopic_Move" />
+				</label>
+				<div class="col-auto">
+					<mmf:form.forumSelect name="moveTopicTarget" value="{topic.forum}" class="form-control" id="moveTopicTarget" />
+				</div>
 			</div>
-		</fieldset>
+
+			<div class="form-group row">
+				<label for="urlSegment" class="col-2 col-form-label">
+					<f:translate key="Moderation_EditTopic_Slug" />
+				</label>
+				<div class="col-auto">
+					<f:form.textfield class="form-control" name="urlSegment" property="slug" id="urlSegment" required="1" />
+				</div>
+			</div>
+		</div>
 	</f:form>
-	<script type="text/javascript">
-		$(document).ready(function () {
-			$('#tx-typo3forum-movetopic').click(function () {
-				if (this.checked) {
-					$('#tx-typo3forum-movetopic-target').removeAttr('disabled');
-				} else {
-					$('#tx-typo3forum-movetopic-target').attr('disabled', 'disabled');
-				}
-			});
-		});
-	</script>
 </f:section>
 
-
-
 <f:section name="menu">
+	<div class="form-actions">
+		<f:link.action controller="Topic" action="show" arguments="{topic: topic}" class="btn btn-info">
+			<i class="fas fa-chevron-left me-1"></i>
+			<f:translate key="Button_Back" />
+		</f:link.action>
+		<input type="submit" form="topic" value="{f:translate(key:'Moderation_EditTopic_Submit')}" class="btn btn-primary" />
+	</div>
 </f:section>

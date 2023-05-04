@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<T3DataStructure>
+	<sheets>
+		<behaviour>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Behaviour</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+
+					<settings.listPosts>
+						<TCEforms>
+							<label>LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Display</label>
+							<config>
+								<type>select</type>
+								<renderType>selectSingle</renderType>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Display_Default</numIndex>
+										<numIndex index="1">1</numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+									<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Display_Latest_Box</numIndex>
+										<numIndex index="1">2</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</settings.listPosts>
+
+					<settings.maxItems>
+						<TCEforms>
+							<label>LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Display_MaxPostItems</label>
+							<config>
+								<type>input</type>
+								<size>6</size>
+								<eval>null,int</eval>
+								<default>10</default>
+							</config>
+						</TCEforms>
+					</settings.maxItems>
+
+				</el>
+			</ROOT>
+		</behaviour>
+	</sheets>
+</T3DataStructure>

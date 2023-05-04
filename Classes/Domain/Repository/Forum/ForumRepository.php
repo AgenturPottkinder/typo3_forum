@@ -25,105 +25,102 @@ namespace Mittwald\Typo3Forum\Domain\Repository\Forum;
  *                                                                      */
 
 use Mittwald\Typo3Forum\Domain\Model\Forum\Access;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Forum;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
  * Repository class for forum objects.
  */
-class ForumRepository extends Repository {
+class ForumRepository extends Repository
+{
+    protected AuthenticationServiceInterface $authenticationService;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface
-	 * @inject
-	 */
-	protected $authenticationService = NULL;
+    public function injectAuthenticationService(AuthenticationServiceInterface $authenticationService): void
+    {
+        $this->authenticationService = $authenticationService;
+    }
 
-	/**
-     * Returns a query for objects of this repository
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryInterface
-     * @api
-     */
-    public function createQuery() {
+    public function createQuery(): QueryInterface
+    {
         $query = parent::createQuery();
 
         // don't add sys_language_uid constraint
-        $query->getQuerySettings()->setRespectSysLanguage(FALSE);
+        $query->getQuerySettings()->setRespectSysLanguage(false);
 
         return $query;
     }
 
-	/**
-	 * Finds all forums for the index view.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Forum[] All forums for the index view.
-	 */
-	public function findForIndex() {
-		return $this->findRootForums();
-	}
+    /**
+     * Finds all forums for the index view.
+     * @return ObjectStorage<Forum>
+     */
+    public function findForIndex(): ObjectStorage
+    {
+        return $this->findRootForums();
+    }
 
-	/**
-	 * Finds all root forums.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Forum[] All forums for the index view.
-	 */
-	public function findRootForums() {
-		$query = $this->createQuery();
-		$result = $query
-			->matching($query->equals('forum', 0))
-			->setOrderings(['sorting' => 'ASC', 'uid' => 'ASC'])
-			->execute();
+    /**
+     * Finds all root forums.
+     * @return ObjectStorage<Forum>
+     */
+    public function findRootForums(): ObjectStorage
+    {
+        $query = $this->createQuery();
+        $result = $query
+            ->matching($query->equals('forum', 0))
+            ->setOrderings(['sorting' => 'ASC', 'uid' => 'ASC'])
+            ->execute();
 
-		return $this->filterByAccess($result, Access::TYPE_READ);
-	}
+        return $this->filterByAccess($result, Access::TYPE_READ);
+    }
 
-	/**
-	 * @param QueryResultInterface $objects
-	 * @param string $action
-	 * @return array
-	 */
-	protected function filterByAccess(QueryResultInterface $objects, $action = Access::TYPE_READ) {
-		$result = [];
-		foreach ($objects as $forum) {
-			if ($this->authenticationService->checkAuthorization($forum, $action)) {
-				$result[] = $forum;
-			}
-		}
+    protected function filterByAccess(QueryResultInterface $objects, string $action = Access::TYPE_READ): ObjectStorage
+    {
+        $result = GeneralUtility::makeInstance(ObjectStorage::class);
+        foreach ($objects as $forum) {
+            if ($this->authenticationService->checkAuthorization($forum, $action)) {
+                $result->attach($forum);
+            }
+        }
 
-		return $result;
-	}
+        return $result;
+    }
 
-	/**
-	 * Finds forum for a specific filterset. Page navigation is possible.
-	 *
-	 * @param array $uids
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Forum\Topic[] The selected subset of topcis
-	 */
-	public function findByUids($uids) {
+    /**
+     * Finds forum for a specific filterset.
+     *
+     * @return QueryResultInterface<Forum>
+     */
+    public function findByUids(array $uids = []): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $constraints = [];
+        if (count($uids) > 0) {
+            $constraints[] = $query->in('uid', $uids);
+        }
+        if (count($constraints) > 0) {
+            $query->matching($query->logicalAnd($constraints));
+        }
 
-		$query = $this->createQuery();
-		$constraints = [];
-		if (!empty($uids)) {
-			$constraints[] = $query->in('uid', $uids);
-		}
-		if (!empty($constraints)) {
-			$query->matching($query->logicalAnd($constraints));
-		}
+        return $query->execute();
+    }
 
-		return $query->execute();
-	}
+    /**
+     * @return QueryResultInterface<Forum>
+     */
+    public function findBySubscriber(FrontendUser $user): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query
+            ->matching($query->contains('subscribers', $user))
+            ->setOrderings(['lastPost.crdate' => 'ASC']);
 
-	/**
-	 * @param FrontendUser $user
-	 * @return QueryResultInterface
-	 */
-	public function findBySubscriber(FrontendUser $user) {
-		$query = $this->createQuery();
-		$query
-			->matching($query->contains('subscribers', $user))
-			->setOrderings(['lastPost.crdate' => 'ASC']);
-
-		return $query->execute();
-	}
-
+        return $query->execute();
+    }
 }

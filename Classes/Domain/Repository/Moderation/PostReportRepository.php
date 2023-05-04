@@ -24,9 +24,35 @@ namespace Mittwald\Typo3Forum\Domain\Repository\Moderation;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\Moderation\PostReport;
 use Mittwald\Typo3Forum\Domain\Repository\AbstractRepository;
+use Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface;
 
 /**
  * Repository class for report objects.
  */
-class PostReportRepository extends AbstractRepository {}
+class PostReportRepository extends AbstractRepository
+{
+    protected AuthenticationServiceInterface $authenticationService;
+
+    public function injectAuthenticationService(AuthenticationServiceInterface $authenticationService): void
+    {
+        $this->authenticationService = $authenticationService;
+    }
+
+    public function findAllAuthorizedToEdit(): array
+    {
+        return array_filter(
+            $this->findAll()->toArray(),
+            function (PostReport $postReport): bool {
+                return
+                    $postReport->getTopic() !== null
+                    && $postReport->getTopic()->getForum() !== null
+                    && $this->authenticationService->checkModerationAuthorization(
+                        $postReport->getTopic()->getForum()
+                    )
+                ;
+            }
+        );
+    }
+}

@@ -1,14 +1,33 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
+
 <f:layout name="default"/>
 <f:section name="main">
+	<h2>
+		<f:switch expression="{settings.listTopics}">
+			<f:case value="2">
+				<f:translate key="Topic_List_Questions" />
+			</f:case>
+			<f:case value="3">
+				<f:translate key="Topic_List_OpenQuestions" />
+			</f:case>
+			<f:case value="4">
+				<f:translate key="Topic_List_PopularTopics" />
+			</f:case>
+			<f:defaultCase>
+				<f:translate key="Topic_List_Topics" />
+			</f:defaultCase>
+		</f:switch>
+	</h2>
 	<f:if condition="{showPaginate}">
 		<f:then>
-			<f:widget.paginate objects="{topics}" as="paginatedTopics" configuration="{settings.pagebrowser.default}">
-				<f:render partial="{partial}" arguments="{topics: paginatedTopics}" />
-			</f:widget.paginate>
+			<mmf:pagination.paginate objects="{topics}" as="paginatedTopics" page="{page}" configuration="{settings.pagebrowser.topicList}" configAs="pagination">
+				<f:render partial="Topic/List" arguments="{topics: paginatedTopics}" />
+
+				<f:render partial="Control/PageBrowser" arguments="{pagination: pagination, action: 'list'}" />
+			</mmf:pagination.paginate>
 		</f:then>
 		<f:else>
-			<f:render partial="{partial}" arguments="{topics: topics}" />
+			<f:render partial="Topic/List" arguments="{topics: topics}" />
 		</f:else>
 	</f:if>
 </f:section>

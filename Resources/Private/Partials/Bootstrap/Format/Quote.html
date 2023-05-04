@@ -1,9 +1,16 @@
 <div class="card">
-	<div class="card-header">
-		<f:translate key="Post_Show_QuoteBy" />
-		<f:link.action controller="User" action="show" arguments="{user: post.author}" pageUid="{settings.pids.UserShow}">{post.author.username}</f:link.action>
+	<div class="card-header py-2 px-3">
+		<f:if condition="{post}">
+			<f:then>
+				<f:translate key="Post_Show_QuoteBy" />
+				<f:link.action controller="User" action="show" arguments="{user: post.author}" pageUid="{settings.pids.UserShow}">{post.author.username}</f:link.action>
+			</f:then>
+			<f:else>
+				<f:translate key="Post_Show_Quote" />
+			</f:else>
+		</f:if>
 	</div>
-	<div class="card-body">
+	<div class="card-body p-2">
 		<blockquote class="blockquote mb-0">
 			<p><f:format.raw>{quote}</f:format.raw></p>
 		</blockquote>

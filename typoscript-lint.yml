@@ -1,0 +1,13 @@
+---
+sniffs:
+  - class: Indentation
+    parameters:
+      useSpaces: false
+      indentPerLevel: 1
+      indentConditions: false
+  - class: RepeatingRValue
+    disabled: true
+paths:
+  - Configuration/TSConfig
+  - Configuration/TypoScript
+

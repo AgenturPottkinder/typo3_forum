@@ -1,0 +1,1139 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" target-language="ru" datatype="plaintext" original="messages" date="2020-12-13T08:06:11Z" product-name="typo3_forum">
+		<header/>
+		<body>
+			<trans-unit id="Button_Back" xml:space="preserve" approved="yes">
+				<source>Back</source>
+				<target>Назад</target>
+			</trans-unit>
+			<trans-unit id="Button_Delete" xml:space="preserve" approved="yes">
+				<source>Delete</source>
+				<target>Удалить</target>
+			</trans-unit>
+			<trans-unit id="Button_Delete_Topic" xml:space="preserve" approved="yes">
+				<source>Delete Topic</source>
+				<target>Удалить тему</target>
+			</trans-unit>
+			<trans-unit id="Button_Edit" xml:space="preserve" approved="yes">
+				<source>Edit</source>
+				<target>Редактировать</target>
+			</trans-unit>
+			<trans-unit id="Button_Moderate" xml:space="preserve" approved="yes">
+				<source>Moderate</source>
+				<target>Модерировать</target>
+			</trans-unit>
+			<trans-unit id="Button_Quote" xml:space="preserve" approved="yes">
+				<source>Quote</source>
+				<target>Цитировать</target>
+			</trans-unit>
+			<trans-unit id="Button_Reply" xml:space="preserve" approved="yes">
+				<source>Reply</source>
+				<target>Ответить</target>
+			</trans-unit>
+			<trans-unit id="Button_Report" xml:space="preserve" approved="yes">
+				<source>Report</source>
+				<target>Сообщить</target>
+			</trans-unit>
+			<trans-unit id="Button_Close" xml:space="preserve" approved="yes">
+				<source>Close</source>
+				<target>Закрыть</target>
+			</trans-unit>
+			<trans-unit id="Button_Subscribe" xml:space="preserve" approved="yes">
+				<source>Subscribe</source>
+				<target>Абонировать</target>
+			</trans-unit>
+			<trans-unit id="Button_Topic_New" xml:space="preserve" approved="yes">
+				<source>New topic</source>
+				<target>Новая тема</target>
+			</trans-unit>
+			<trans-unit id="Button_Unsubscribe" xml:space="preserve" approved="yes">
+				<source>Unsubscribe</source>
+				<target>Больше не абонировать</target>
+			</trans-unit>
+			<trans-unit id="Button_User_Profile" xml:space="preserve" approved="yes">
+				<source>User profile</source>
+				<target>Профиль пользователя</target>
+			</trans-unit>
+			<trans-unit id="Button_More" xml:space="preserve" approved="yes">
+				<source>More</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Editor_Panel_Formatting" xml:space="preserve" approved="yes">
+				<source>Formatting</source>
+				<target>Форматирование</target>
+			</trans-unit>
+			<trans-unit id="Editor_Panel_Smileys" xml:space="preserve" approved="yes">
+				<source>Smileys</source>
+				<target>Смайлы</target>
+			</trans-unit>
+			<trans-unit id="Editor_Panel_SyntaxHighlighting" xml:space="preserve" approved="yes">
+				<source>Syntax highlighting</source>
+				<target>Подчеркнуть синтаксис</target>
+			</trans-unit>
+			<trans-unit id="Error_1335120249" xml:space="preserve" approved="yes">
+				<source>You need to be logged in to view your own subscriptions.</source>
+				<target>Вам нужно войти, чтобы увидеть Ваши абонементы</target>
+			</trans-unit>
+			<trans-unit id="Error_Exception_Title" xml:space="preserve" approved="yes">
+				<source>Whoops!</source>
+				<target>Ошибка!</target>
+			</trans-unit>
+			<trans-unit id="Error_Form_Body" xml:space="preserve" approved="yes">
+				<source>Some errors occurred while processing your input. Please check your inputs.</source>
+				<target>Неожиданная ошибка. Пожалуйста, проверьте Ваши введенные данные и попытайтесь снова.</target>
+			</trans-unit>
+			<trans-unit id="Error_Form_Title" xml:space="preserve" approved="yes">
+				<source>Whoopsi!</source>
+				<target>Ошибка!</target>
+			</trans-unit>
+			<trans-unit id="Forum_Index_Empty" xml:space="preserve" approved="yes">
+				<source>No forums found</source>
+				<target>Ни один форум не найден</target>
+			</trans-unit>
+			<trans-unit id="Forum_Index_LastPost" xml:space="preserve" approved="yes">
+				<source>Last post</source>
+				<target>Последнее сообщение</target>
+			</trans-unit>
+			<trans-unit id="Forum_Index_Name" xml:space="preserve" approved="yes">
+				<source>Forum</source>
+				<target>Форум</target>
+			</trans-unit>
+			<trans-unit id="Forum_Index_Posts" xml:space="preserve" approved="yes">
+				<source>Posts</source>
+				<target>Сообщения</target>
+			</trans-unit>
+			<trans-unit id="Forum_Index_Topic" xml:space="preserve" approved="yes">
+				<source>Topic</source>
+				<target>Тема</target>
+			</trans-unit>
+			<trans-unit id="Forum_Index_Topics" xml:space="preserve" approved="yes">
+				<source>Topics</source>
+				<target>Темы</target>
+			</trans-unit>
+			<trans-unit id="Forum_Show_Empty" xml:space="preserve" approved="yes">
+				<source>No topics</source>
+				<target>Нет тем</target>
+			</trans-unit>
+			<trans-unit id="Forum_Show_UnreadTopicsIn" xml:space="preserve" approved="yes">
+				<source>Unread topics in</source>
+				<target>Непрочитанные темы в</target>
+			</trans-unit>
+			<trans-unit id="Forum_Show_Topic_Author" xml:space="preserve" approved="yes">
+				<source>Author</source>
+				<target>Автор</target>
+			</trans-unit>
+			<trans-unit id="Forum_Show_Topic_LastPost" xml:space="preserve" approved="yes">
+				<source>Last post</source>
+				<target>Последнее сообщение</target>
+			</trans-unit>
+			<trans-unit id="Forum_Show_Topic_Moved" xml:space="preserve" approved="yes">
+				<source>Moved</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Forum_Show_Topic_Posts" xml:space="preserve" approved="yes">
+				<source>Replies</source>
+				<target>Ответы</target>
+			</trans-unit>
+			<trans-unit id="Forum_Show_Topic_Question" xml:space="preserve" approved="yes">
+				<source>Question</source>
+				<target>Вопрос</target>
+			</trans-unit>
+			<trans-unit id="Forum_Show_Topic_Solved" xml:space="preserve" approved="yes">
+				<source>Solved</source>
+				<target>Решен</target>
+			</trans-unit>
+			<trans-unit id="Forum_Show_Topic_Topic" xml:space="preserve" approved="yes">
+				<source>Topic</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Forum_Show_Topic_Subject" xml:space="preserve" approved="yes">
+				<source>Subject</source>
+				<target>Предмет обсуждения</target>
+			</trans-unit>
+			<trans-unit id="Forum_Index_HelpfulPosts" xml:space="preserve" approved="yes">
+				<source>Helpful posts</source>
+				<target>Полезные сообщения</target>
+			</trans-unit>
+			<trans-unit id="Forum_New" xml:space="preserve" approved="yes">
+				<source>New Forum</source>
+				<target>Новый форум</target>
+			</trans-unit>
+			<trans-unit id="Forum_Edit" xml:space="preserve" approved="yes">
+				<source>Edit Forum</source>
+				<target>Редактировать форум</target>
+			</trans-unit>
+			<trans-unit id="Forum_Manage" xml:space="preserve" approved="yes">
+				<source>Moderate Forum</source>
+				<target>Модерировать форум</target>
+			</trans-unit>
+			<trans-unit id="Generic_By" xml:space="preserve" approved="yes">
+				<source>by</source>
+				<target>от</target>
+			</trans-unit>
+			<trans-unit id="Generic_More" xml:space="preserve" approved="yes">
+				<source>more</source>
+				<target>больше</target>
+			</trans-unit>
+			<trans-unit id="Moderation_Index_Reports" xml:space="preserve" approved="yes">
+				<source>Reports</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Moderation_Index_Topic" xml:space="preserve" approved="yes">
+				<source>Topic</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Moderation_Index_Reporter" xml:space="preserve" approved="yes">
+				<source>Reporter</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Moderation_Index_Status" xml:space="preserve" approved="yes">
+				<source>Status</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Moderation_Index_Date" xml:space="preserve" approved="yes">
+				<source>Date</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Moderation_Index_GoToTopic" xml:space="preserve" approved="yes">
+				<source>Go to topic</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Moderation_Index_NothingHere" xml:space="preserve" approved="yes">
+				<source>Nothing here!</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Moderation_Index_NoOpenReportsFound" xml:space="preserve" approved="yes">
+				<source>No open reports were found.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="Moderation_EditTopic" xml:space="preserve" approved="yes">
+				<source>Moderate topic: %s</source>
+				<target>Модерировать тему</target>
+			</trans-unit>
+			<trans-unit id="Moderation_EditTopic_Closed" xml:space="preserve" approved="yes">
+				<source>Closed</source>
+				<target>Закрыт</target>
+			</trans-unit>
+			<trans-unit id="Moderation_EditTopic_Move" xml:space="preserve" approved="yes">
+				<source>Move</source>
+				<target>Переместить</target>
+			</trans-unit>
+			<trans-unit id="Moderation_EditTopic_Sticky" xml:space="preserve" approved="yes">
+				<source>Sticky</source>
+				<target>Важный</target>
+			</trans-unit>
+			<trans-unit id="Moderation_EditTopic_Submit" xml:space="preserve" approved="yes">
+				<source>Submit</source>
+				<target>Направить</target>
+			</trans-unit>
+			<trans-unit id="Moderation_UpdateTopic_Success" xml:space="preserve" approved="yes">
+				<source>The topic has successfully been updated.</source>
+				<target>Тема успешно обновлена.</target>
+			</trans-unit>
+			<trans-unit id="Post_Create_Success" xml:space="preserve" approved="yes">
+				<source>The post has successfully been created.</source>
+				<target>Сообщение создано успешно.</target>
+			</trans-unit>
+			<trans-unit id="Post_Delete_Success" xml:space="preserve" approved="yes">
+				<source>The post has successfully been deleted.</source>
+				<target>Сообщение успешно удалено.</target>
+			</trans-unit>
+			<trans-unit id="Post_Edit" xml:space="preserve" approved="yes">
+				<source>Edit post in topic: %s</source>
+				<target>Редактировать сообщение</target>
+			</trans-unit>
+			<trans-unit id="Post_Edit_Submit" xml:space="preserve" approved="yes">
+				<source>Update post</source>
+				<target>Обновить сообщение</target>
+			</trans-unit>
+			<trans-unit id="Post_New" xml:space="preserve" approved="yes">
+				<source>Reply to: %s</source>
+				<target>Ответ на: %s</target>
+			</trans-unit>
+			<trans-unit id="Post_New_Attachments" xml:space="preserve" approved="yes">
+				<source>Attachments</source>
+				<target>Вложения</target>
+			</trans-unit>
+			<trans-unit id="Post_New_Author" xml:space="preserve" approved="yes">
+				<source>Your name</source>
+				<target>Ваше имя</target>
+			</trans-unit>
+			<trans-unit id="Post_New_Error_Author_1335106565" xml:space="preserve" approved="yes">
+				<source>Please specify your name or log in with your user account.</source>
+				<target>Пожалуйста, введите Ваше имя или войдите с Вашей учетной записью</target>
+			</trans-unit>
+			<trans-unit id="Post_New_Error_Text_1221560718" xml:space="preserve" approved="yes">
+				<source>Please specify a content for the new post.</source>
+				<target>Пожалуйста, введите содержание сообщения.</target>
+			</trans-unit>
+			<trans-unit id="Post_New_Submit" xml:space="preserve" approved="yes">
+				<source>Create post</source>
+				<target>Создать сообщение</target>
+			</trans-unit>
+			<trans-unit id="Post_New_Text" xml:space="preserve" approved="yes">
+				<source>Post text</source>
+				<target>Текст сообщения</target>
+			</trans-unit>
+			<trans-unit id="Post_New_Additional_Attachment" xml:space="preserve" approved="yes">
+				<source>Additional attachment</source>
+				<target>Дополнительное приложение</target>
+			</trans-unit>
+			<trans-unit id="Post_Show_Attachment_DownloadCount" xml:space="preserve" approved="yes">
+				<source>Downloaded %d times</source>
+				<target>Загружено %d раз</target>
+			</trans-unit>
+			<trans-unit id="Post_Show_Attachments" xml:space="preserve" approved="yes">
+				<source>Attachments</source>
+				<target>Вложения</target>
+			</trans-unit>
+			<trans-unit id="Post_Show_QuoteBy" xml:space="preserve" approved="yes">
+				<source>Quote by</source>
+				<target>Цитируется из:</target>
+			</trans-unit>
+			<trans-unit id="Post_Show_Solution_New" xml:space="preserve" approved="yes">
+				<source>Is solution</source>
+				<target>Решение</target>
+			</trans-unit>
+			<trans-unit id="Post_Show_Solution_Edit" xml:space="preserve" approved="yes">
+				<source>Replace solution</source>
+				<target>Заменить решение</target>
+			</trans-unit>
+			<trans-unit id="Post_Update_Success" xml:space="preserve" approved="yes">
+				<source>The post has successfully been updated.</source>
+				<target>Сообщение успешно обновлено.</target>
+			</trans-unit>
+			<trans-unit id="Post_Not_Found" xml:space="preserve" approved="yes">
+				<source>Post not found.</source>
+				<target>Сообщение не найдено</target>
+			</trans-unit>
+			<trans-unit id="Report" xml:space="preserve" approved="yes">
+				<source>Reports</source>
+				<target>Отчеты</target>
+			</trans-unit>
+			<trans-unit id="Report_Detail" xml:space="preserve" approved="yes">
+				<source>Reports Detail</source>
+				<target>Детали отчетов</target>
+			</trans-unit>
+			<trans-unit id="Report_Index_reportedUser" xml:space="preserve" approved="yes">
+				<source>Reported User</source>
+				<target>Учтенный пользователь</target>
+			</trans-unit>
+			<trans-unit id="Report_Index_reportedPosts" xml:space="preserve" approved="yes">
+				<source>Reported Posts</source>
+				<target>Учтенные сообщения</target>
+			</trans-unit>
+			<trans-unit id="Report_Index_UserDetail" xml:space="preserve" approved="yes">
+				<source>User Details</source>
+				<target>Детали пользователя</target>
+			</trans-unit>
+			<trans-unit id="Report_Index_Post" xml:space="preserve" approved="yes">
+				<source>Post</source>
+				<target>Сообщение</target>
+			</trans-unit>
+			<trans-unit id="Report_Index_PostedIn" xml:space="preserve" approved="yes">
+				<source>Posted in</source>
+				<target>Объявлено в</target>
+			</trans-unit>
+			<trans-unit id="Report_Index_Action" xml:space="preserve" approved="yes">
+				<source>Action</source>
+				<target>Действие</target>
+			</trans-unit>
+			<trans-unit id="Report_Edit_Comments" xml:space="preserve" approved="yes">
+				<source>Comments</source>
+				<target>Комментарии</target>
+			</trans-unit>
+			<trans-unit id="Report_Edit_Comments_New" xml:space="preserve" approved="yes">
+				<source>New comment</source>
+				<target>Новый комментарий</target>
+			</trans-unit>
+			<trans-unit id="Report_Edit_Content" xml:space="preserve" approved="yes">
+				<source>Comment</source>
+				<target>Содержание</target>
+			</trans-unit>
+			<trans-unit id="Report_Edit_Author" xml:space="preserve" approved="yes">
+				<source>Author</source>
+				<target>Автор</target>
+			</trans-unit>
+			<trans-unit id="Report_Edit_User" xml:space="preserve" approved="yes">
+				<source>User</source>
+				<target>Пользователь</target>
+			</trans-unit>
+			<trans-unit id="Report_Edit_Date" xml:space="preserve" approved="yes">
+				<source>Date</source>
+				<target>Дата</target>
+			</trans-unit>
+			<trans-unit id="Report_Edit_General" xml:space="preserve" approved="yes">
+				<source>General report information</source>
+				<target>Общая информация отчета</target>
+			</trans-unit>
+			<trans-unit id="Report_Edit_Post" xml:space="preserve" approved="yes">
+				<source>Reported post</source>
+				<target>Учтенное сообщение</target>
+			</trans-unit>
+			<trans-unit id="Report_Edit_Reportee" xml:space="preserve" approved="yes">
+				<source>Post's author</source>
+				<target>Автор сообщения</target>
+			</trans-unit>
+			<trans-unit id="Report_Edit_Reporter" xml:space="preserve" approved="yes">
+				<source>Reported by</source>
+				<target>Сообщено (кем-то)</target>
+			</trans-unit>
+			<trans-unit id="Report_Edit_SetStatus" xml:space="preserve" approved="yes">
+				<source>Set status to &quot;%s&quot;</source>
+				<target>Установить статус на &quot;%s&quot;</target>
+			</trans-unit>
+			<trans-unit id="Report_Edit_Status" xml:space="preserve" approved="yes">
+				<source>Workflow status</source>
+				<target>Текущий статус</target>
+			</trans-unit>
+			<trans-unit id="Report_Edit_Topic" xml:space="preserve" approved="yes">
+				<source>Topic</source>
+				<target>Тема</target>
+			</trans-unit>
+			<trans-unit id="Report_New" xml:space="preserve" approved="yes">
+				<source>Report this post</source>
+				<target>Сообщить</target>
+			</trans-unit>
+			<trans-unit id="Report_NewPostReport" xml:space="preserve" approved="yes">
+				<source>Report this post</source>
+				<target>Сообщить</target>
+			</trans-unit>
+			<trans-unit id="Report_NewComment" xml:space="preserve" approved="yes">
+				<source>Write a new comment</source>
+				<target>Написать новый комментарий</target>
+			</trans-unit>
+			<trans-unit id="Report_NewComment_Error_Text_1221560718" xml:space="preserve" approved="yes">
+				<source>Please specify a comment.</source>
+				<target>Пожалуйста, выберите комментарий.</target>
+			</trans-unit>
+			<trans-unit id="Report_NewComment_Submit" xml:space="preserve" approved="yes">
+				<source>Create comment</source>
+				<target>Создать комментарий</target>
+			</trans-unit>
+			<trans-unit id="Report_NewComment_Success" xml:space="preserve" approved="yes">
+				<source>The comment has successfully been saved.</source>
+				<target>Комментарий успешно сохранен.</target>
+			</trans-unit>
+			<trans-unit id="Report_NewComment_Text" xml:space="preserve" approved="yes">
+				<source>Comment text</source>
+				<target>Текст комментария</target>
+			</trans-unit>
+			<trans-unit id="Report_New_Author" xml:space="preserve" approved="yes">
+				<source>Post author</source>
+				<target>Автор сообщения</target>
+			</trans-unit>
+			<trans-unit id="Report_New_Error_Reason_1221560718" xml:space="preserve" approved="yes">
+				<source>Please specify a reason why you believe this post to be inappropriate.</source>
+				<target>Пожалуйста, обоснуйте, почему Вы считаете это сообщение неуместным.</target>
+			</trans-unit>
+			<trans-unit id="Report_New_OriginalText" xml:space="preserve" approved="yes">
+				<source>Original post text</source>
+				<target>Текст исходного сообщения</target>
+			</trans-unit>
+			<trans-unit id="Report_New_Reason" xml:space="preserve" approved="yes">
+				<source>Reason</source>
+				<target>Основание</target>
+			</trans-unit>
+			<trans-unit id="Report_New_Submit" xml:space="preserve" approved="yes">
+				<source>Report post</source>
+				<target>Сообщить о посте</target>
+			</trans-unit>
+			<trans-unit id="Report_New_Success" xml:space="preserve" approved="yes">
+				<source>Your report has been submitted to a forum moderator.</source>
+				<target>Ваш отчет направлен модератору форума.</target>
+			</trans-unit>
+			<trans-unit id="Report_UpdateStatus_Success" xml:space="preserve" approved="yes">
+				<source>The status of report #%s has successfully been set to %s.</source>
+				<target>Статус отчета #%s успешно передан %s.</target>
+			</trans-unit>
+			<trans-unit id="Topic_Create_Success" xml:space="preserve" approved="yes">
+				<source>The topic has successfully been created.</source>
+				<target>Тема успешно создана.</target>
+			</trans-unit>
+			<trans-unit id="Topic_New" xml:space="preserve" approved="yes">
+				<source>New topic</source>
+				<target>Новая тема</target>
+			</trans-unit>
+			<trans-unit id="Topic_New_Attachments" xml:space="preserve" approved="yes">
+				<source>Attachments</source>
+				<target>Вложения</target>
+			</trans-unit>
+			<trans-unit id="Topic_New_Error_Post_Text_1221560718" xml:space="preserve" approved="yes">
+				<source>Please specify a content for the new topic.</source>
+				<target>Пожалуйста, определите содержание новой темы.</target>
+			</trans-unit>
+			<trans-unit id="Topic_New_Error_Subject_1221560718" xml:space="preserve" approved="yes">
+				<source>Please specify a subject for the new topic.</source>
+				<target>Пожалуйста, определите предмет новой темы.</target>
+			</trans-unit>
+			<trans-unit id="Topic_New_Error_Attachment_Text_1371041777" xml:space="preserve" approved="yes">
+				<source>Your submitted Mime-Type is not allowed!</source>
+				<target>Тип файла не разрешен!</target>
+			</trans-unit>
+			<trans-unit id="Topic_New_Error_Attachment_Text_1371041888" xml:space="preserve" approved="yes">
+				<source>Your attachment size is to big!</source>
+				<target>Размер Вашего вложения превышает допустимый!</target>
+			</trans-unit>
+			<trans-unit id="Topic_New_Tags" xml:space="preserve" approved="yes">
+				<source>Tags</source>
+				<target>Теги</target>
+			</trans-unit>
+			<trans-unit id="Topic_New_Subject" xml:space="preserve" approved="yes">
+				<source>Subject</source>
+				<target>Предмет обсуждения</target>
+			</trans-unit>
+			<trans-unit id="Topic_New_Submit" xml:space="preserve" approved="yes">
+				<source>Create topic</source>
+				<target>Создать тему</target>
+			</trans-unit>
+			<trans-unit id="Topic_New_Subscribe" xml:space="preserve" approved="yes">
+				<source>Subscribe</source>
+				<target>Абонировать</target>
+			</trans-unit>
+			<trans-unit id="Topic_New_SubscribeMore" xml:space="preserve" approved="yes">
+				<source>Notify me via email when someone answers this topic.</source>
+				<target>Сообщите мне по email, если кто-то сообщит по этой теме.</target>
+			</trans-unit>
+			<trans-unit id="Topic_New_Text" xml:space="preserve" approved="yes">
+				<source>Post text</source>
+				<target>Текст сообщения</target>
+			</trans-unit>
+			<trans-unit id="Topic_New_Question" xml:space="preserve" approved="yes">
+				<source>Mark as question</source>
+				<target>Отметьте как вопрос</target>
+			</trans-unit>
+			<trans-unit id="Topic_All_Questions" xml:space="preserve" approved="yes">
+				<source>All Questions</source>
+				<target>Все вопросы</target>
+			</trans-unit>
+			<trans-unit id="Topic_All_Questions_Of" xml:space="preserve" approved="yes">
+				<source>%s's questions</source>
+				<target>Все вопросы от</target>
+			</trans-unit>
+			<trans-unit id="User_Index" xml:space="preserve" approved="yes">
+				<source>User list</source>
+				<target>Список пользователей</target>
+			</trans-unit>
+			<trans-unit id="User_Index_Display_All" xml:space="preserve" approved="yes">
+				<source>Display all users</source>
+				<target>Показать всех пользователей</target>
+			</trans-unit>
+			<trans-unit id="User_Index_Search" xml:space="preserve" approved="yes">
+				<source>User search</source>
+				<target>Поиск пользователя</target>
+			</trans-unit>
+			<trans-unit id="User_Index_Search_Header" xml:space="preserve" approved="yes">
+				<source>Users with the name</source>
+				<target>Пользователи с именами</target>
+			</trans-unit>
+			<trans-unit id="User_Index_Search_Order_ASC" xml:space="preserve" approved="yes">
+				<source>Ascending</source>
+				<target>Пр возрастанию</target>
+			</trans-unit>
+			<trans-unit id="User_Index_Search_Order_DESC" xml:space="preserve" approved="yes">
+				<source>Descending</source>
+				<target>По убыванию</target>
+			</trans-unit>
+			<trans-unit id="User_Index_Search_Filter_Name" xml:space="preserve" approved="yes">
+				<source>Username</source>
+				<target>Имя пользователя</target>
+			</trans-unit>
+			<trans-unit id="User_Index_Search_Filter_MemberSince" xml:space="preserve" approved="yes">
+				<source>Member Since</source>
+				<target>Участник с</target>
+			</trans-unit>
+			<trans-unit id="User_Index_Search_Filter_Post" xml:space="preserve" approved="yes">
+				<source>Posts</source>
+				<target>Сообщения</target>
+			</trans-unit>
+			<trans-unit id="User_Index_Search_Filter_Helpful" xml:space="preserve" approved="yes">
+				<source>Helpful Posts</source>
+				<target>Полезные анализы</target>
+			</trans-unit>
+			<trans-unit id="User_Index_Contact" xml:space="preserve" approved="yes">
+				<source>Contact</source>
+				<target>Контакт</target>
+			</trans-unit>
+			<trans-unit id="User_Index_MemberSince" xml:space="preserve" approved="yes">
+				<source>Registered since</source>
+				<target>Зарегистрирован с</target>
+			</trans-unit>
+			<trans-unit id="User_Index_Notifications" xml:space="preserve" approved="yes">
+				<source>Notifications</source>
+				<target>Извещения</target>
+			</trans-unit>
+			<trans-unit id="User_Index_MyTopics" xml:space="preserve" approved="yes">
+				<source>Your topics</source>
+				<target>Мои темы</target>
+			</trans-unit>
+			<trans-unit id="User_Index_MyPosts" xml:space="preserve" approved="yes">
+				<source>My posts</source>
+				<target>Мои сообщения</target>
+			</trans-unit>
+			<trans-unit id="User_Index_MyQuestions" xml:space="preserve" approved="yes">
+				<source>My questions</source>
+				<target>Мои вопросы</target>
+			</trans-unit>
+			<trans-unit id="User_Index_Dashboard" xml:space="preserve" approved="yes">
+				<source>Dashboard</source>
+				<target>Моя панель инструментов</target>
+			</trans-unit>
+			<trans-unit id="User_Index_Dashboard_Link" xml:space="preserve" approved="yes">
+				<source>Back to dashboard</source>
+				<target>Назад к панели инструментов</target>
+			</trans-unit>
+			<trans-unit id="User_Index_Topics_Of" xml:space="preserve" approved="yes">
+				<source>%s's topics</source>
+				<target>Темы от</target>
+			</trans-unit>
+			<trans-unit id="User_Index_All_Notifications" xml:space="preserve" approved="yes">
+				<source>All notifications</source>
+				<target>Все уведомления</target>
+			</trans-unit>
+			<trans-unit id="User_Index_All_MyTopics" xml:space="preserve" approved="yes">
+				<source>All topics</source>
+				<target>Все темы</target>
+			</trans-unit>
+			<trans-unit id="User_Index_Questions" xml:space="preserve" approved="yes">
+				<source>Questions</source>
+				<target>Вопросы</target>
+			</trans-unit>
+			<trans-unit id="User_Index_Posts" xml:space="preserve" approved="yes">
+				<source>Posts</source>
+				<target>Сообщения</target>
+			</trans-unit>
+			<trans-unit id="User_Index_Helpful_Posts" xml:space="preserve" approved="yes">
+				<source>Helpful Posts</source>
+				<target>Полезные анализы</target>
+			</trans-unit>
+			<trans-unit id="User_Index_Username" xml:space="preserve" approved="yes">
+				<source>Username</source>
+				<target>Имя пользователя</target>
+			</trans-unit>
+			<trans-unit id="User_New" xml:space="preserve" approved="yes">
+				<source>New User</source>
+				<target>Новый пользователь</target>
+			</trans-unit>
+			<trans-unit id="User_Edit" xml:space="preserve" approved="yes">
+				<source>Edit User</source>
+				<target>Редактирую пользователя</target>
+			</trans-unit>
+			<trans-unit id="User_ListPosts" xml:space="preserve" approved="yes">
+				<source>%s's posts</source>
+				<target>Все сообщения от %s</target>
+			</trans-unit>
+			<trans-unit id="User_ListSubscriptions" xml:space="preserve" approved="yes">
+				<source>Your subscriptions</source>
+				<target>Абонированные темы</target>
+			</trans-unit>
+			<trans-unit id="User_ListSubscriptions_Goto" xml:space="preserve" approved="yes">
+				<source>Show</source>
+				<target>Перейти к</target>
+			</trans-unit>
+			<trans-unit id="User_ListSubscriptions_Unsubscribe" xml:space="preserve" approved="yes">
+				<source>Unsubscribe</source>
+				<target>Удалить</target>
+			</trans-unit>
+			<trans-unit id="User_Show" xml:space="preserve" approved="yes">
+				<source>User details</source>
+				<target>Профиль пользователя</target>
+			</trans-unit>
+			<trans-unit id="User_Show_LastPosts" xml:space="preserve" approved="yes">
+				<source>Last posts</source>
+				<target>Последние сообщения</target>
+			</trans-unit>
+			<trans-unit id="User_Show_MemberSince" xml:space="preserve" approved="yes">
+				<source>Member since</source>
+				<target>Участник с</target>
+			</trans-unit>
+			<trans-unit id="User_Show_PostCount" xml:space="preserve" approved="yes">
+				<source>%d posts</source>
+				<target>%d сообщения</target>
+			</trans-unit>
+			<trans-unit id="User_Show_Rank" xml:space="preserve" approved="yes">
+				<source>Rank</source>
+				<target>Ранг</target>
+			</trans-unit>
+			<trans-unit id="User_Show_Rank_Points_Until" xml:space="preserve" approved="yes">
+				<source>Until</source>
+				<target>До</target>
+			</trans-unit>
+			<trans-unit id="User_Show_Rank_UserAmount" xml:space="preserve" approved="yes">
+				<source>Amount of user</source>
+				<target>Количество пользователей</target>
+			</trans-unit>
+			<trans-unit id="User_Show_Points" xml:space="preserve" approved="yes">
+				<source>Points</source>
+				<target>Баллы</target>
+			</trans-unit>
+			<trans-unit id="User_Show_Points_Needed" xml:space="preserve" approved="yes">
+				<source>Points</source>
+				<target>Баллы</target>
+			</trans-unit>
+			<trans-unit id="User_Show_Notification_All" xml:space="preserve" approved="yes">
+				<source>All Notifications</source>
+				<target>Все уведомления</target>
+			</trans-unit>
+			<trans-unit id="User_Show_Notification_Author_1" xml:space="preserve" approved="yes">
+				<source>answered to </source>
+				<target>отвечено (кому-то) </target>
+			</trans-unit>
+			<trans-unit id="User_Show_Notification_Author_2" xml:space="preserve" approved="yes">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Show_Notification_Common_1" xml:space="preserve" approved="yes">
+				<source>answered in </source>
+				<target>отвечено в </target>
+			</trans-unit>
+			<trans-unit id="User_Show_Notification_Common_2" xml:space="preserve" approved="yes">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Show_Notification_NotFound" xml:space="preserve" approved="yes">
+				<source>No notifications found!</source>
+				<target>Не найдено уведомлений</target>
+			</trans-unit>
+			<trans-unit id="User_Show_Notification_Tag_1" xml:space="preserve" approved="yes">
+				<source>answered in a</source>
+				<target>отвечено в</target>
+			</trans-unit>
+			<trans-unit id="User_Show_Notification_Tag_2" xml:space="preserve" approved="yes">
+				<source>with the tag</source>
+				<target>с тегом</target>
+			</trans-unit>
+			<trans-unit id="User_Show_Notification_Tag_3" xml:space="preserve" approved="yes">
+				<source></source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Show_GeneralInformation" xml:space="preserve" approved="yes">
+				<source>General information</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Show_LatestPosts" xml:space="preserve" approved="yes">
+				<source>Latest posts</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="User_Subscribe_Forum_Success" xml:space="preserve" approved="yes">
+				<source>The Forum &quot;%s&quot; has successfully been subscribed.</source>
+				<target>Форум &quot;%s&quot; успешно абонирован.</target>
+			</trans-unit>
+			<trans-unit id="User_Subscribe_Topic_Success" xml:space="preserve" approved="yes">
+				<source>The Topic &quot;%s&quot; has successfully been subscribed.</source>
+				<target>Тема &quot;%s&quot; успешно абонирована.</target>
+			</trans-unit>
+			<trans-unit id="User_Unsubscribe_Forum_Success" xml:space="preserve" approved="yes">
+				<source>The Forum &quot;%s&quot; has successfully been unsubscribed.</source>
+				<target>Форум &quot;%s&quot; успешно удален из абонементов.</target>
+			</trans-unit>
+			<trans-unit id="User_Unsubscribe_Topic_Success" xml:space="preserve" approved="yes">
+				<source>The Topic &quot;%s&quot; has successfully been unsubscribed.</source>
+				<target>Тема &quot;%s&quot; успешно удалена из абонементов.</target>
+			</trans-unit>
+			<trans-unit id="Stats_Summary_Type_Post" xml:space="preserve" approved="yes">
+				<source>Posts</source>
+				<target>Сообщения</target>
+			</trans-unit>
+			<trans-unit id="Stats_Summary_Type_Topic" xml:space="preserve" approved="yes">
+				<source>Topics</source>
+				<target>Темы</target>
+			</trans-unit>
+			<trans-unit id="Stats_Summary_Type_User" xml:space="preserve" approved="yes">
+				<source>Members</source>
+				<target>Участники</target>
+			</trans-unit>
+			<trans-unit id="Subforums" xml:space="preserve" approved="yes">
+				<source>Subforums</source>
+				<target>Субфорумы</target>
+			</trans-unit>
+			<trans-unit id="Notice" xml:space="preserve" approved="yes">
+				<source>Notice:</source>
+				<target>Указание:</target>
+			</trans-unit>
+			<trans-unit id="Date_Clock" xml:space="preserve" approved="yes">
+				<source>o'clock</source>
+				<target>часов</target>
+			</trans-unit>
+			<trans-unit id="Date_At" xml:space="preserve" approved="yes">
+				<source>at</source>
+				<target>около</target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_counter_title" xml:space="preserve" approved="yes">
+				<source>Count-Checker</source>
+				<target>Средство контроля подсчета</target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_counter_description" xml:space="preserve" approved="yes">
+				<source>A turtle with maths skills checks all counter columns of any user and update them on a error.</source>
+				<target>Черепаха с математическими способностями, проверяющая все столбцы счетчиков в базе данных и обновляет их в случае ошибки.</target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_counter_forumPid" xml:space="preserve" approved="yes">
+				<source>Forum pid</source>
+				<target>ID форума</target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_counter_userPid" xml:space="preserve" approved="yes">
+				<source>User pid</source>
+				<target>ID пользователя</target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_databaseMigrator_title" xml:space="preserve" approved="yes">
+				<source>Database Migrator</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_databaseMigrator_description" xml:space="preserve" approved="yes">
+				<source>Renames your database tables when you applied the change from mm_forum to typo3_forum. This will NOT migrate your data from mm_forum 1.x, but from 2.0.</source>
+				<target></target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_forumRead_title" xml:space="preserve" approved="yes">
+				<source>Forum-Read Setter</source>
+				<target>Установщик чтения форума</target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_forumRead_description" xml:space="preserve" approved="yes">
+				<source>Check for any user which forum is read and which not. Best way to ensure performance.</source>
+				<target>Проверяет для любого пользователя, какой форум надо отметить как прочитанный, а какой нет. Это лучший способ обеспечить производительность.</target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_forumRead_forumPid" xml:space="preserve" approved="yes">
+				<source>Forum pid</source>
+				<target>ID форума</target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_forumRead_userPid" xml:space="preserve" approved="yes">
+				<source>User pid</source>
+				<target>ID пользователя</target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_notification_title" xml:space="preserve" approved="yes">
+				<source>Notifications Generator</source>
+				<target>Генератор уведомлений</target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_notification_description" xml:space="preserve" approved="yes">
+				<source>Generate all new notifications of all users.</source>
+				<target>Генерирует все новые уведомления всех пользователей.</target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_notification_forumPid" xml:space="preserve" approved="yes">
+				<source>Forum pids (comma-seperated is allowed)</source>
+				<target>Идентификаторы форума (разрешено разделение запятыми)</target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_notification_userPid" xml:space="preserve" approved="yes">
+				<source>User pids (comma-seperated is allowed)</source>
+				<target>Идентификаторы пользователей (разрешено разделение запятыми)</target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_notification_notificationPid" xml:space="preserve" approved="yes">
+				<source>Notification Pid</source>
+				<target>ID уведомлений</target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_sessionResetter_title" xml:space="preserve" approved="yes">
+				<source>Session Count Resetter</source>
+				<target>Регулировщик счетчика сезона</target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_sessionResetter_description" xml:space="preserve" approved="yes">
+				<source>Reset the session counter of a forum. (Used for the widgets)</source>
+				<target>Устанавливает счетчик сезона форума. (Используется для виджетов)</target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_sessionResetter_userPid" xml:space="preserve" approved="yes">
+				<source>User pid</source>
+				<target>ID пользователя</target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_statsSummary_title" xml:space="preserve" approved="yes">
+				<source>Stats Summary Generator</source>
+				<target>Генератор резюме статистики</target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_statsSummary_description" xml:space="preserve" approved="yes">
+				<source>Generate summary stats for the StatsSummary widget.</source>
+				<target>Генерирует все новые резюме для виджета StatsSummary.</target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_statsSummary_forumPid" xml:space="preserve" approved="yes">
+				<source>Forum pids (comma-seperated is allowed)</source>
+				<target>Идентификаторы форума (разрешено разделение запятыми)</target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_statsSummary_userPid" xml:space="preserve" approved="yes">
+				<source>User pids (comma-seperated is allowed)</source>
+				<target>Идентификаторы пользователей (разрешено разделение запятыми)</target>
+			</trans-unit>
+			<trans-unit id="tx_typo3forum_scheduler_statsSummary_statsPid" xml:space="preserve" approved="yes">
+				<source>Stats pid</source>
+				<target>ID статистики</target>
+			</trans-unit>
+			<trans-unit id="Link_My_Profile" xml:space="preserve" approved="yes">
+				<source>My profile</source>
+				<target>Мой профиль</target>
+			</trans-unit>
+			<trans-unit id="Profile" xml:space="preserve" approved="yes">
+				<source>Profile</source>
+				<target>Профиль</target>
+			</trans-unit>
+			<trans-unit id="Working_Environment_0" xml:space="preserve" approved="yes">
+				<source>-</source>
+				<target>-</target>
+			</trans-unit>
+			<trans-unit id="Working_Environment_1" xml:space="preserve" approved="yes">
+				<source>Agency</source>
+				<target>Агентство</target>
+			</trans-unit>
+			<trans-unit id="Working_Environment_2" xml:space="preserve" approved="yes">
+				<source>Company</source>
+				<target>Компания</target>
+			</trans-unit>
+			<trans-unit id="Working_Environment_3" xml:space="preserve" approved="yes">
+				<source>Freelancer</source>
+				<target>Свободный художник</target>
+			</trans-unit>
+			<trans-unit id="Working_Environment_4" xml:space="preserve" approved="yes">
+				<source>Public service</source>
+				<target>Государственная служба</target>
+			</trans-unit>
+			<trans-unit id="Facebook" xml:space="preserve" approved="yes">
+				<source>Facebook</source>
+				<target>Facebook</target>
+			</trans-unit>
+			<trans-unit id="Twitter" xml:space="preserve" approved="yes">
+				<source>Twitter</source>
+				<target>Twitter</target>
+			</trans-unit>
+			<trans-unit id="Google_plus" xml:space="preserve" approved="yes">
+				<source>Google+</source>
+				<target>Google+</target>
+			</trans-unit>
+			<trans-unit id="Skype" xml:space="preserve" approved="yes">
+				<source>Skype</source>
+				<target>Skype</target>
+			</trans-unit>
+			<trans-unit id="Solution" xml:space="preserve" approved="yes">
+				<source>Solution</source>
+				<target>Решение</target>
+			</trans-unit>
+			<trans-unit id="Forum_Most_Supported_Post" xml:space="preserve" approved="yes">
+				<source>most supported post</source>
+				<target>Наиболее поддерживаемое сообщение</target>
+			</trans-unit>
+			<trans-unit id="Button_Email" xml:space="preserve" approved="yes">
+				<source>Email</source>
+				<target>Email</target>
+			</trans-unit>
+			<trans-unit id="Button_Report_User" xml:space="preserve" approved="yes">
+				<source>Report user</source>
+				<target>Уведомить пользователя</target>
+			</trans-unit>
+			<trans-unit id="Confirm_Ban_User" xml:space="preserve" approved="yes">
+				<source>Are u Sure?</source>
+				<target>Вы уверены, что хотите заблокировать пользователя?</target>
+			</trans-unit>
+			<trans-unit id="Button_Ban_User" xml:space="preserve" approved="yes">
+				<source>Ban user</source>
+				<target>Заблокировать пользователя</target>
+			</trans-unit>
+			<trans-unit id="Button_Mark_Read" xml:space="preserve" approved="yes">
+				<source>Mark as read</source>
+				<target>Отметить как прочитанное</target>
+			</trans-unit>
+			<trans-unit id="Button_Show_Unread" xml:space="preserve" approved="yes">
+				<source>Show all unread topics</source>
+				<target>Показать все непрочитанные темы</target>
+			</trans-unit>
+			<trans-unit id="User_Age" xml:space="preserve" approved="yes">
+				<source>Age</source>
+				<target>Давность</target>
+			</trans-unit>
+			<trans-unit id="User_City" xml:space="preserve" approved="yes">
+				<source>City</source>
+				<target>Город</target>
+			</trans-unit>
+			<trans-unit id="User_Company" xml:space="preserve" approved="yes">
+				<source>Company</source>
+				<target>Компания</target>
+			</trans-unit>
+			<trans-unit id="User_Working_Environment" xml:space="preserve" approved="yes">
+				<source>Working Environment</source>
+				<target>Работающее окружение</target>
+			</trans-unit>
+			<trans-unit id="User_Interests" xml:space="preserve" approved="yes">
+				<source>Interests</source>
+				<target>Интересы</target>
+			</trans-unit>
+			<trans-unit id="User_Signature" xml:space="preserve" approved="yes">
+				<source>Signature</source>
+				<target>Подпись</target>
+			</trans-unit>
+			<trans-unit id="User_Open_Questions" xml:space="preserve" approved="yes">
+				<source>Open questions</source>
+				<target>Открытые вопросы</target>
+			</trans-unit>
+			<trans-unit id="User_Last_Posts" xml:space="preserve" approved="yes">
+				<source>Last post</source>
+				<target>Последнее сообщение</target>
+			</trans-unit>
+			<trans-unit id="User_All_Posts" xml:space="preserve" approved="yes">
+				<source>All posts</source>
+				<target>Все сообщения</target>
+			</trans-unit>
+			<trans-unit id="User_Last_Topics" xml:space="preserve" approved="yes">
+				<source>Last topics</source>
+				<target>Последние темы</target>
+			</trans-unit>
+			<trans-unit id="User_Working_As" xml:space="preserve" approved="yes">
+				<source>Working as</source>
+				<target>Работает как</target>
+			</trans-unit>
+			<trans-unit id="User_Email" xml:space="preserve" approved="yes">
+				<source>Email</source>
+				<target>Email</target>
+			</trans-unit>
+			<trans-unit id="User_Web" xml:space="preserve" approved="yes">
+				<source>Web</source>
+				<target>Интернет</target>
+			</trans-unit>
+			<trans-unit id="General_No_Entries" xml:space="preserve" approved="yes">
+				<source>No entries found</source>
+				<target>Записей не найдено</target>
+			</trans-unit>
+			<trans-unit id="Not_Logged_In" xml:space="preserve" approved="yes">
+				<source>Sie sind nicht angemeldet.</source>
+				<target>Вы не подали заявку.</target>
+			</trans-unit>
+			<trans-unit id="Post_In" xml:space="preserve" approved="yes">
+				<source>Post in</source>
+				<target>Сообщение в</target>
+			</trans-unit>
+			<trans-unit id="Facebook_Share_Text" xml:space="preserve" approved="yes">
+				<source>Typo3.Net - Post by</source>
+				<target>Typo3.Net - сообщение от</target>
+			</trans-unit>
+			<trans-unit id="Twitter_Share_Text" xml:space="preserve" approved="yes">
+				<source>Typo3.Net - Post by</source>
+				<target>Typo3.Net - сообщение от</target>
+			</trans-unit>
+			<trans-unit id="Topic_Moved" xml:space="preserve" approved="yes">
+				<source>moved</source>
+				<target>перемещено</target>
+			</trans-unit>
+			<trans-unit id="Confirm_Delete_Topic" xml:space="preserve" approved="yes">
+				<source>Are u Sure?</source>
+				<target>Вы уверены, что хотите заблокировать пользователя?</target>
+			</trans-unit>
+			<trans-unit id="Members_Online" xml:space="preserve" approved="yes">
+				<source>members online</source>
+				<target>Онлайн участники</target>
+			</trans-unit>
+			<trans-unit id="Members_Not_Online" xml:space="preserve" approved="yes">
+				<source>no members online</source>
+				<target>Нет онлайн участников</target>
+			</trans-unit>
+			<trans-unit id="Members_All" xml:space="preserve" approved="yes">
+				<source>All members</source>
+				<target>Все участники</target>
+			</trans-unit>
+			<trans-unit id="Topic_Question_Help" xml:space="preserve" approved="yes">
+				<source>Mark as question</source>
+				<target>Если Вы ставите вопрос, отметьте крестиком следующий квадратик. Так Вы попадаете в таблицу быстрой помощи на  стартовой странице</target>
+			</trans-unit>
+			<trans-unit id="Tags_Show_Tag" xml:space="preserve" approved="yes">
+				<source>Tag</source>
+				<target>Тег</target>
+			</trans-unit>
+			<trans-unit id="Tags_List_All" xml:space="preserve" approved="yes">
+				<source>Tags</source>
+				<target>Все теги</target>
+			</trans-unit>
+			<trans-unit id="Tags_List_NotFound" xml:space="preserve" approved="yes">
+				<source>No tags found!</source>
+				<target>Тегов не найдено!</target>
+			</trans-unit>
+			<trans-unit id="Tags_List_Name" xml:space="preserve" approved="yes">
+				<source>Name</source>
+				<target>Имя</target>
+			</trans-unit>
+			<trans-unit id="Tags_List_TopicAmount" xml:space="preserve" approved="yes">
+				<source>Amount of topics</source>
+				<target>Количество тем</target>
+			</trans-unit>
+			<trans-unit id="Tags_List_Subscribers" xml:space="preserve" approved="yes">
+				<source>Amount of subscribers</source>
+				<target>Количество абонентов</target>
+			</trans-unit>
+			<trans-unit id="Tags_List_New" xml:space="preserve" approved="yes">
+				<source>Add to my tags</source>
+				<target>Добавить к моим тегам</target>
+			</trans-unit>
+			<trans-unit id="Tags_List_Remove" xml:space="preserve" approved="yes">
+				<source>Remove from my tags</source>
+				<target>Удалить из моих тегов</target>
+			</trans-unit>
+			<trans-unit id="Tags_ListUserTags" xml:space="preserve" approved="yes">
+				<source>My tags</source>
+				<target>Мои теги</target>
+			</trans-unit>
+			<trans-unit id="Tags_List_Link_All" xml:space="preserve" approved="yes">
+				<source>Display all tags</source>
+				<target>Показывю все теги</target>
+			</trans-unit>
+			<trans-unit id="Tags_List_Link_Mine" xml:space="preserve" approved="yes">
+				<source>Display my tags</source>
+				<target>Показываю мои абонированные теги</target>
+			</trans-unit>
+			<trans-unit id="Tags_New" xml:space="preserve" approved="yes">
+				<source>New Tag</source>
+				<target>Новый тег</target>
+			</trans-unit>
+			<trans-unit id="Tags_New_Btn" xml:space="preserve" approved="yes">
+				<source>Create new tag</source>
+				<target>Создать новый тег</target>
+			</trans-unit>
+			<trans-unit id="Tags_New_Name" xml:space="preserve" approved="yes">
+				<source>Name</source>
+				<target>Имя</target>
+			</trans-unit>
+			<trans-unit id="Tags_New_Error_Name_1373871955" xml:space="preserve" approved="yes">
+				<source>Name can't be empty</source>
+				<target>Имя не должно быть пустым</target>
+			</trans-unit>
+			<trans-unit id="Tags_New_Error_Name_1373871960" xml:space="preserve" approved="yes">
+				<source>Tag already exists</source>
+				<target>Тег уже существует</target>
+			</trans-unit>
+			<trans-unit id="Tags_New_SubscribeTag" xml:space="preserve" approved="yes">
+				<source>Subscribe this tag</source>
+				<target>Абонировать этот тег</target>
+			</trans-unit>
+			<trans-unit id="Submit" xml:space="preserve" approved="yes">
+				<source>Submit</source>
+				<target>Направить</target>
+			</trans-unit>
+			<trans-unit id="Button_Helpful" xml:space="preserve" approved="yes">
+				<source>Helpful</source>
+				<target>Полезный</target>
+			</trans-unit>
+			<trans-unit id="Mail_Subscribe_NewPost_Subject" xml:space="preserve" approved="yes">
+				<source>New topic in one of your subscribed forums!</source>
+				<target>Новое сообщение в одной из абонированных Вами тем!</target>
+			</trans-unit>
+			<trans-unit id="Mail_Subscribe_NewPost_Body" xml:space="preserve" approved="yes">
+				<source>Hello ###RECIPIENT###,
+
+###POST_AUTHOR### answered in one of your subscribed topics: ###TOPIC_LINK###.
+
+If you don't want to get more notifications about this topic, you can unsubscribe from this topic in the forum or using this link: ###UNSUBSCRIBE_LINK###
+
+
+Yours sincerely,
+Your ###FORUM_TEAM###-Team</source>
+				<target>Привет ###RECIPIENT###,
+
+				###POST_AUTHOR### ответил в одной из абонированных Вами тем: ###TOPIC_LINK###.
+				Если Вы не хотите больше получать уведомлений по этой теме, щелкните в форуме по кнопке: ###UNSUBSCRIBE_LINK###.
+
+
+				С уважением,
+				Ваша ###FORUM_TEAM###-команда</target>
+			</trans-unit>
+			<trans-unit id="Mail_Subscribe_NewTopic_Body" xml:space="preserve" approved="yes">
+				<source>Hello ###RECIPIENT###,
+
+###POST_AUTHOR### created a new topic &quot;###TOPIC_NAME###&quot; in one of your subscribed forums: ###FORUM_LINK###.
+
+If you don't want to get more notifications about this forum, you can unsubscribe from this forum in the forum or using this link: ###UNSUBSCRIBE_LINK###
+
+
+Yours sincerely,
+Your ###FORUM_TEAM###-Team</source>
+				<target></target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

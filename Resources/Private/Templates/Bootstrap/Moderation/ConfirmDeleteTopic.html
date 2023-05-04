@@ -1,0 +1,25 @@
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
+<f:layout name="default" />
+
+<f:section name="main">
+	<f:form action="deleteTopic" id="deleteTopic">
+		<div class="alert alert-danger">
+			<h2 class="alert-heading"><f:translate key="Topic_ConfirmDelete_Header" arguments="{0: topic.subject}" /></h2>
+			<div>
+				<f:translate key="Topic_ConfirmDelete_Body" />
+			</div>
+
+			<f:form.hidden name="topic" value="{topic}" />
+		</div>
+
+		<f:render partial="Topic/List" arguments="{topics: {0: topic}}" />
+	</f:form>
+</f:section>
+
+<f:section name="menu">
+	<f:link.action controller="Topic" action="show" arguments="{topic: topic}" class="btn btn-info">
+		<i class="fas fa-chevron-left me-1"></i>
+		<f:translate key="Topic_ConfirmDelete_No" />
+	</f:link.action>
+	<input type="submit" form="deleteTopic" value="{f:translate(key: 'Topic_ConfirmDelete_Yes')}" class="btn btn-danger" />
+</f:section>

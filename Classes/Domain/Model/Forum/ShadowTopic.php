@@ -32,63 +32,54 @@ use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
  * the original forum, while the topic itself is moved to the
  * other forum.
  */
-class ShadowTopic extends Topic {
+class ShadowTopic extends Topic
+{
 
-	/**
-	 * The target topic, i.e. the topic this shadow is pointing to.
-	 * @var Topic
-	 */
-	protected $target = NULL;
+    /**
+     * The target topic, i.e. the topic this shadow is pointing to.
+     */
+    protected Topic $target;
 
-	/**
-	 * Gets the target topic, i.e. the topic this shadow is pointing to.
-	 * @return Topic The target topic
-	 */
-	public function getTarget() {
-		return $this->target;
-	}
+    /**
+     * Gets the target topic, i.e. the topic this shadow is pointing to.
+     */
+    public function getTarget(): Topic
+    {
+        return $this->target;
+    }
 
-	/**
-	 * Sets the target topic. Also reads the topic subject and the last post pointer
-	 * from the target object.
-	 *
-	 * @param Topic $topic The target topic.
-	 *
-	 * @return void
-	 */
-	public function setTarget(Topic $topic) {
-		$this->target = $topic;
-		$this->lastPost = $topic->getLastPost();
-		$this->lastPostCrdate = $this->lastPost->getTimestamp();
-		$this->subject = $topic->getSubject();
-	}
+    /**
+     * Sets the target topic. Also reads the topic subject and the last post pointer
+     * from the target object.
+     */
+    public function setTarget(Topic $topic): self
+    {
+        $this->target = $topic;
+        $this->lastPost = $topic->getLastPost();
+        $this->lastPostCrdate = $this->lastPost->getTimestamp();
+        $this->subject = $topic->getSubject();
+        $this->author = $topic->getAuthor();
 
-	/**
-	 * Checks if a user can create new posts inside this topic. Since this topic is
-	 * only a shadow topic, this method will ALWAYS return FALSE.
-	 *
-	 * @param FrontendUser $user The user.
-	 * @param string $accessType The access type to be checked.
-	 *
-	 * @return boolean TRUE, if the user can create new posts. Always FALSE.
-	 */
-	public function checkAccess(FrontendUser $user = NULL, $accessType = Access::TYPE_READ) {
-		if ($accessType === Access::TYPE_NEW_POST) {
-			return FALSE;
-		} else {
-			return parent::checkAccess($user, $accessType);
-		}
-	}
+        return $this;
+    }
 
-	/**
-	 * Checks if a user can create new posts inside this topic. Since this topic is
-	 * only a shadow topic, this method will ALWAYS return FALSE.
-	 *
-	 * @param FrontendUser $user The user.
-	 *
-	 * @return boolean TRUE, if the user can create new posts. Always FALSE.
-	 */
-	public function checkNewPostAccess(FrontendUser $user = NULL) {
-		return FALSE;
-	}
+    /**
+     * Checks if the user has access to this topic. Nobody can post in a shadow topic,
+     * so that access always returns false.
+     */
+    public function checkAccess(FrontendUser $user = null, $accessType = Access::TYPE_READ): bool
+    {
+        if ($accessType === Access::TYPE_NEW_POST) {
+            return false;
+        }
+        return parent::checkAccess($user, $accessType);
+    }
+
+    /**
+     * Nobody can post in a shadow topic, so new post access always returns false.
+     */
+    public function checkNewPostAccess(FrontendUser $user = null): bool
+    {
+        return false;
+    }
 }

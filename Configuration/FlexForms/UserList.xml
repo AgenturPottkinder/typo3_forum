@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<T3DataStructure>
+	<sheets>
+		<behaviour>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Behaviour</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+
+					<settings.listUsers>
+						<TCEforms>
+							<label>LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Display</label>
+							<config>
+								<type>select</type>
+								<renderType>selectSingle</renderType>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Display_Default</numIndex>
+										<numIndex index="1">default</numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Display_Helpful_User_Widget</numIndex>
+										<numIndex index="1">helpfulUsers</numIndex>
+									</numIndex>
+									<numIndex index="2" type="array">
+										<numIndex index="0">LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Display_Online_User_Widget</numIndex>
+										<numIndex index="1">onlineUsers</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</settings.listUsers>
+
+					<settings.maxItems>
+						<TCEforms>
+							<label>LLL:EXT:typo3_forum/Resources/Private/Language/locallang_flexforms.xlf:Display_MaxUserItems</label>
+							<config>
+								<type>input</type>
+								<size>6</size>
+								<eval>null,int</eval>
+								<default>5</default>
+							</config>
+						</TCEforms>
+					</settings.maxItems>
+
+				</el>
+			</ROOT>
+		</behaviour>
+	</sheets>
+</T3DataStructure>

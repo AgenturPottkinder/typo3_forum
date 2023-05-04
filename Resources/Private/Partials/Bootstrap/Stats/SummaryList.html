@@ -1,0 +1,30 @@
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
+<f:if condition="{summaries}">
+	<div class="card card-body bg-lighter border-0">
+		<div class="container">
+			<div class="row row-cols-3">
+				<f:for each="{summaries}" as="summary">
+					<div class="col">
+						<div class="row">
+							<div class="col-6 text-end pe-1">
+								<f:translate key="Stats_Summary_Type_{summary.type}">
+									<f:translate key="Stats_Summary_Type_Undefined" arguments="{0: 'Stats_Summary_Type_{summary.type}'}" />
+								</f:translate>
+							</div>
+							<div class="col-6 text-start ps-1">
+								{summary.amountAsString}
+							</div>
+						</div>
+					</div>
+				</f:for>
+			</div>
+		</div>
+	</div>
+	<div class="text-end opacity-75">
+		<small class="mt-n2">
+			<i class="text-muted">
+				<f:translate key="Stats_Summary_Caption" arguments="{0: '{f:format.date(date: summaries.0.tstamp, format: settings.format.dateTimeFormat)}'}" />
+			</i>
+		</small>
+	</div>
+</f:if>

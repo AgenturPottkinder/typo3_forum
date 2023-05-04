@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" datatype="plaintext" original="messages" date="2020-12-13T08:08:34Z" product-name="typo3_forum">
+		<header/>
+		<body>
+			<trans-unit id="ContentElement_Tab_Typo3Forum" xml:space="preserve">
+				<source>Forum</source>
+			</trans-unit>
+			<trans-unit id="Behaviour" xml:space="preserve">
+				<source>Plugin behaviour</source>
+			</trans-unit>
+			<trans-unit id="Behaviour_Action" xml:space="preserve">
+				<source>Action</source>
+			</trans-unit>
+			<trans-unit id="Behaviour_Widget_User_List" xml:space="preserve">
+				<source>Widget: User List</source>
+			</trans-unit>
+			<trans-unit id="Behaviour_Widget_Stats_Box" xml:space="preserve">
+				<source>Forum Statistics Box</source>
+			</trans-unit>
+			<trans-unit id="Behaviour_Action_Forum" xml:space="preserve">
+				<source>Forum</source>
+			</trans-unit>
+			<trans-unit id="Behaviour_Action_User_Index" xml:space="preserve">
+				<source>User List Views</source>
+			</trans-unit>
+			<trans-unit id="Behaviour_Action_User_Show" xml:space="preserve">
+				<source>User profile</source>
+			</trans-unit>
+			<trans-unit id="Behaviour_Action_User_ListSubscriptions" xml:space="preserve">
+				<source>Subscribed topics and forums</source>
+			</trans-unit>
+			<trans-unit id="Behaviour_Action_Moderation_Reports" xml:space="preserve">
+				<source>Moderation: Manage Reports</source>
+			</trans-unit>
+			<trans-unit id="Behaviour_Action_Support_Queries" xml:space="preserve">
+				<source>Support Queries Helpbox</source>
+			</trans-unit>
+			<trans-unit id="Behaviour_Action_Users_List" xml:space="preserve">
+				<source>User List</source>
+			</trans-unit>
+			<trans-unit id="Behaviour_Action_Posts_List" xml:space="preserve">
+				<source>Post List</source>
+			</trans-unit>
+			<trans-unit id="Behaviour_Action_Dashboard" xml:space="preserve">
+				<source>Dashboard</source>
+			</trans-unit>
+			<trans-unit id="Behaviour_Action_Stats_List" xml:space="preserve">
+				<source>Stats List</source>
+			</trans-unit>
+			<trans-unit id="Behaviour_Action_Tags" xml:space="preserve">
+				<source>Tag List</source>
+			</trans-unit>
+			<trans-unit id="Behaviour_Action_Topics_List" xml:space="preserve">
+				<source>Topic List</source>
+			</trans-unit>
+			<trans-unit id="Display" xml:space="preserve">
+				<source>Display View</source>
+			</trans-unit>
+			<trans-unit id="Display_Latest_Box" xml:space="preserve">
+				<source>Latest Posts Box</source>
+			</trans-unit>
+			<trans-unit id="Display_MaxTopicItems" xml:space="preserve">
+				<source>Maximum items to display</source>
+			</trans-unit>
+			<trans-unit id="Display_MaxUserItems" xml:space="preserve">
+				<source>Maximum items to display</source>
+			</trans-unit>
+			<trans-unit id="Display_MaxPostItems" xml:space="preserve">
+				<source>Maximum items to display</source>
+			</trans-unit>
+			<trans-unit id="Display_Default" xml:space="preserve">
+				<source>Default</source>
+			</trans-unit>
+			<trans-unit id="Display_Active_User_Widget" xml:space="preserve">
+				<source>Active User</source>
+			</trans-unit>
+			<trans-unit id="Display_Helpful_User_Widget" xml:space="preserve">
+				<source>Helpful User</source>
+			</trans-unit>
+			<trans-unit id="Display_Online_User_Widget" xml:space="preserve">
+				<source>Online User</source>
+			</trans-unit>
+			<trans-unit id="Display_Stats_Summary_Widget" xml:space="preserve">
+				<source>Summary</source>
+			</trans-unit>
+			<trans-unit id="Display_Active_Box" xml:space="preserve">
+				<source>Active User Box</source>
+			</trans-unit>
+			<trans-unit id="Display_TopUser_List" xml:space="preserve">
+				<source>TopUser List</source>
+			</trans-unit>
+			<trans-unit id="Pages" xml:space="preserve">
+				<source>Pages</source>
+			</trans-unit>
+			<trans-unit id="Pages_Forum" xml:space="preserve">
+				<source>Forum page</source>
+			</trans-unit>
+			<trans-unit id="Pages_User_Show" xml:space="preserve">
+				<source>User profile</source>
+			</trans-unit>
+			<trans-unit id="Display_QuestionsList" xml:space="preserve">
+				<source>Questions List</source>
+			</trans-unit>
+			<trans-unit id="Display_OpenQuestionsList" xml:space="preserve">
+				<source>Unsolved Questions List</source>
+			</trans-unit>
+			<trans-unit id="Display_PopularTopicsList" xml:space="preserve">
+				<source>Popular Topics List</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

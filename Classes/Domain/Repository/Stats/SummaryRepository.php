@@ -24,31 +24,11 @@ namespace Mittwald\Typo3Forum\Domain\Repository\Stats;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Model\Stats\Summary;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-class SummaryRepository extends Repository {
-
-	/**
-	 * The amount of types the summary includes (post,topic,user = 3)
-	 * @var int
-	 */
-	private $summaryItems = 3;
-
-	/**
-	 * Get the latest items of the summary
-	 * @return \Mittwald\Typo3Forum\Domain\Model\Stats\Summary[]
-	 */
-	public function findLatestSummaryItems() {
-		$query = $this->createQuery();
-		$ordering = [
-			'tstamp' => QueryInterface::ORDER_DESCENDING,
-			'type' => QueryInterface::ORDER_ASCENDING,
-		];
-		$query->setOrderings($ordering);
-		$query->setLimit($this->summaryItems);
-
-		return $query->execute();
-	}
-
+class SummaryRepository extends Repository
+{
 }

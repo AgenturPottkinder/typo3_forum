@@ -8,119 +8,129 @@
 	<f:flashMessages />
 
 	<h2>
-		Edit Report
-		<small>{report.topic.subject}</small>
+		<f:translate key="Report_Edit" arguments="{0: report.topic.subject}" />
 	</h2>
+	<div class="row">
+		<div class="col-12">
+			<legend>
+				<f:translate key="Report_Edit_General" />
+			</legend>
+			<div class="form-group row">
+				<label class="col-2 col-form-label">
+					<f:translate key="Report_Edit_Reporter" />
+				</label>
+				<div class="col-10 col-form-label">
+					<mmf:user.link user="{report.reporter}" />
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-2 col-form-label">
+					<f:translate key="Report_Edit_Date" />
+				</label>
+				<div class="col-10 col-form-label">
+					<f:format.date format="{settings.format.dateTimeFormat}">{report.crdate}</f:format.date>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-2 col-form-label">
+					<f:translate key="Report_Edit_Status" />
+				</label>
+				<div class="col-auto">
+					<select
+						{f:if(condition: report.workflowStatus.followupStatus, else: 'disabled="disabled"')}
+						class="form-control"
+						onchange="let url = this.options[this.selectedIndex].dataset.url; if (url !== '' && url !== undefined) window.location = this.options[this.selectedIndex].dataset.url;"
+					>
+						<option>{report.workflowStatus.name}</option>
+						<f:for each="{report.workflowStatus.followupStatus}" as="followupStatus">
+							<option data-url="{f:uri.action(action: 'updatePostReportStatus', arguments: {report: report, status: followupStatus})}">
+								<f:translate key="Report_Edit_SetStatus" arguments="{0: followupStatus.name}" />
+							</option>
+						</f:for>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row mt-4">
+		<div class="col-12">
+			<legend>
+				<f:translate key="Report_Edit_Post" />
+			</legend>
+			<f:if condition="{report.post}">
+				<f:then>
+					<mmf:forum.rootline rootline="{report.topic.rootline}" forumicon="far fa-folder-open me-2" topicicon="far fa-comments me-2" />
+					<f:render partial="Post/Single" arguments="{post: report.post}" />
+				</f:then>
+				<f:else>
+					<div class="card card-body bg-lighter border-0  d-flex flex-row align-items-center">
+						<i class="fas fa-trash-can fa-lg me-3"></i>
+						<span class="fw-normal h4 m-0">
+							<f:translate key="Moderation_Edit_Report_Post_Missing" />
+						</span>
+					</div>
+				</f:else>
+			</f:if>
+		</div>
+	</div>
 
-	<div class="row-fluid">
-		<div class="span6">
-			<fieldset class="form-horizontal">
-				<legend>
-					<f:translate key="Report_Edit_General" />
-				</legend>
-				<div class="control-group">
-					<div class="control-label">
-						<f:translate key="Report_Edit_Reporter" />
+	<div class="row mt-3">
+		<div class="col-12">
+			<legend>
+				<f:translate key="Report_Edit_Comments" />
+			</legend>
+
+			<table class="table table-striped">
+				<colgroup>
+					<col width="1" />
+					<col width="10%" />
+					<col />
+					<col width="15%" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th class="text-center">#</th>
+						<th class="text-center"><f:translate key="Report_Edit_Author" /></th>
+						<th><f:translate key="Report_Edit_Content" /></th>
+						<th class="text-center"><f:translate key="Report_Edit_Date" /></th>
+					</tr>
+				</thead>
+				<tbody>
+					<f:for each="{report.comments}" as="comment">
+						<tr>
+							<td class="text-center align-middle">{comment.uid}</td>
+							<td class="text-center align-middle">
+								<mmf:user.link user="{comment.author}" />
+							</td>
+							<td class="tx-typo3forum-parsed-text align-middle">
+								<mmf:format.textParser content="{comment.text}" />
+							</td>
+							<td class="text-center align-middle">
+								<f:format.date format="{settings.format.dateTimeFormat}">{comment.timestamp}</f:format.date>
+							</td>
+						</tr>
+					</f:for>
+				</tbody>
+			</table>
+
+			<f:form controller="Moderation" action="createPostReportComment">
+				<div class="card">
+					<div class="card-header">
+						<h2>
+							<f:translate key="Report_NewComment"/>
+						</h2>
 					</div>
-					<div class="controls">
-						<mmf:user.link user="{report.reporter}" class="nav-pills-condensed" />
-					</div>
-				</div>
-				<div class="control-group">
-					<div class="control-label">
-						<f:translate key="Report_Edit_Date" />
-					</div>
-					<div class="controls">
-						<p style="margin-top: 5px;">
-							<f:format.date format="{settings.format.dateTimeFormat}">{report.crdate}</f:format.date>
-						</p>
-					</div>
-				</div>
-				<div class="control-group">
-					<div class="control-label">
-						<f:translate key="Report_Edit_Status" />
-					</div>
-					<div class="controls">
-						<div class="btn-group">
-							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-								<i class="tx-typo3forum-icon-16-advanced" style="background-image: url({report.workflowStatus.iconFullpath});"></i>
-							{report.workflowStatus.name}
-								<span class="caret"></span>
-							</a>
-							<ul class="dropdown-menu">
-								<f:for each="{report.workflowStatus.followupStatus}" as="followupStatus">
-									<li>
-										<f:link.action action="updatePostReportStatus" arguments="{report: report, status: followupStatus, redirect: 'show'}">
-											<i class="tx-typo3forum-icon-16-advanced" style="background-image: url({followupStatus.iconFullpath});"></i>
-											<f:translate key="Report_Edit_SetStatus" arguments="{0: followupStatus.name}" />
-										</f:link.action>
-									</li>
-								</f:for>
-							</ul>
+					<div class="card-body">
+						<div class="form-group">
+							<mmf:form.bbCodeEditor name="comment[text]" class="form-control" id="editor" rows="7" cols="10" />
+						</div>
+						<div class="form-actions mt-4">
+							<f:form.hidden name="report" value="{report}" />
+							<f:form.submit value="{f:translate(key:'Report_NewComment_Submit')}" class="btn btn-primary" />
 						</div>
 					</div>
 				</div>
-			</fieldset>
-			<fieldset class="form-horizontal">
-				<legend>
-					<f:translate key="Report_Edit_Post" />
-				</legend>
-
-				<div class="control-group">
-					<div class="control-label">
-						<f:translate key="Report_Edit_Reportee" />
-					</div>
-					<div class="controls">
-						<mmf:user.link user="{report.post.author}" class="nav-pills-condensed" />
-					</div>
-				</div>
-
-				<div class="control-group">
-					<div class="control-label">
-						<f:translate key="Report_Edit_Topic" />
-					</div>
-					<div class="controls">
-						<mmf:forum.rootline rootline="{report.topic.rootline}" breadcrumb="1" forumicon="iconset-22-folder" topicicon="iconset-22-balloon"
-											class="mb-0"/>
-					</div>
-				</div>
-				<f:render partial="Post/Single" arguments="{post: report.post}" />
-			</fieldset>
-		</div>
-		<div class="span6">
-			<fieldset>
-				<legend>
-					<f:translate key="Report_Edit_Comments" />
-					<f:link.action action="newReportComment" arguments="{report: report}" class="btn btn-primary btn-small" style="float: right;">
-						<f:translate key="Report_Edit_Comments_New" />
-					</f:link.action>
-				</legend>
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th>#</th>
-							<th>Author</th>
-							<th>Content</th>
-						</tr>
-					</thead>
-					<tbody>
-						<f:for each="{report.comments}" as="comment">
-							<tr>
-								<td>{comment.uid}</td>
-								<td>
-									<mmf:user.link user="{comment.author}" class="nav-pills-inline" />
-								</td>
-								<td>
-									<div class="tx-typo3forum-topic-show-post-date">
-										<f:format.date format="{settings.format.dateTimeFormat}">{comment.timestamp}</f:format.date>
-									</div>
-									<mmf:format.textParser content="{comment.text}" />
-								</td>
-							</tr>
-						</f:for>
-					</tbody>
-				</table>
-			</fieldset>
+			</f:form>
 		</div>
 	</div>
 </f:section>

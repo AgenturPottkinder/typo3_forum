@@ -24,17 +24,16 @@ namespace Mittwald\Typo3Forum\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Configuration\ConfigurationBuilder;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
- *
  * Abstract base class for all typo3_forum repositories.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
- * @package    Typo3Forum
- * @subpackage Domain_Repository_User
  * @version    $Id$
  *
  * @copyright  2012 Martin Helmich <m.helmich@mittwald.de>
@@ -42,31 +41,19 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  *             http://www.mittwald.de
  * @license    GNU Public License, version 2
  *             http://opensource.org/licenses/gpl-license.php
- *
  */
 abstract class AbstractRepository extends Repository
 {
+    protected ConfigurationBuilder $configurationBuilder;
+    protected array $settings = [];
+    protected array $persistenceSettings = [];
 
-    /**
-     * @var \Mittwald\Typo3Forum\Configuration\ConfigurationBuilder
-     * @inject
-     */
-    protected $configurationBuilder;
+    public function injectConfigurationBuilder(ConfigurationBuilder $configurationBuilder): void
+    {
+        $this->configurationBuilder = $configurationBuilder;
+    }
 
-    /**
-     * @var array
-     */
-    protected $settings = [];
-
-    /**
-     * @var array
-     */
-    protected $persistenceSettings = [];
-
-    /**
-     *
-     */
-    public function initializeObject()
+    public function initializeObject(): void
     {
         $this->settings = $this->configurationBuilder->getSettings();
         $this->persistenceSettings = $this->configurationBuilder->getPersistenceSettings();
@@ -78,11 +65,7 @@ abstract class AbstractRepository extends Repository
         }
     }
 
-
-    /**
-     * @return QueryInterface
-     */
-    protected function createQueryWithFallbackStoragePage()
+    protected function createQueryWithFallbackStoragePage(): QueryInterface
     {
         $query = $this->createQuery();
 
@@ -94,12 +77,8 @@ abstract class AbstractRepository extends Repository
         return $query;
     }
 
-    /**
-     * @return QuerySettingsInterface
-     */
-    private function getQuerySettings()
+    protected function getQuerySettings(): QuerySettingsInterface
     {
-        return $this->objectManager->get(QuerySettingsInterface::class);
+        return GeneralUtility::makeInstance(QuerySettingsInterface::class);
     }
-
 }

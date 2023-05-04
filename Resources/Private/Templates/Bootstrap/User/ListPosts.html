@@ -1,21 +1,22 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 <f:layout name="default" />
 
-
-<!-- MAIN Section -->
 <f:section name="main">
 
 	<h2>
 		<f:translate key="User_ListPosts" arguments="{0: user.username}" />
 	</h2>
-	<f:widget.paginate objects="{topics}" as="paginatedTopics" configuration="{settings.userController.listPosts.pagebrowser}">
-		<f:render partial="Topic/List" arguments="{topics: paginatedTopics}" />
-	</f:widget.paginate>
+	<mmf:pagination.paginate objects="{posts}" as="paginatedPosts" page="{page}" configuration="{settings.userController.listPosts.pagebrowser}" configAs="pagination">
+		<f:render partial="Post/List" arguments="{posts: paginatedPosts}" />
+
+		<f:render partial="User/UserPageBrowser" arguments="{pagination: pagination, user: user, action: 'listPosts'}" />
+	</mmf:pagination.paginate>
 
 </f:section>
 
-
-
-<!-- MENU Section -->
 <f:section name="menu">
+	<f:link.action controller="User" action="show" class="btn btn-info" arguments="{user: user}">
+		<i class="fas fa-chevron-left me-1"></i>
+		<f:translate key="Button_Back" />
+	</f:link.action>
 </f:section>

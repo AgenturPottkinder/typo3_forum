@@ -24,10 +24,15 @@ namespace Mittwald\Typo3Forum\Domain\Model\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use DateTime;
 use Mittwald\Typo3Forum\Domain\Model\AccessibleInterface;
 use Mittwald\Typo3Forum\Domain\Model\NotifiableInterface;
 use Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use TYPO3\CMS\Core\Resource\Exception\FileDoesNotExistException;
+use TYPO3\CMS\Extbase\Annotation\ORM\Cascade;
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
@@ -36,401 +41,378 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  * A forum post. Forum posts are submitted to the access control mechanism and can be
  * subscribed by users.
  */
-class Post extends AbstractEntity implements AccessibleInterface, NotifiableInterface {
+class Post extends AbstractEntity implements AccessibleInterface, NotifiableInterface
+{
+    /**
+     * @Validate("NotEmpty")
+     */
+    protected string $text = '';
+    protected ?FrontendUser $author = null;
+    /**
+     * The author's username. Necessary for anonymous postings.
+     */
+    protected string $authorName = '';
+    protected ?Topic $topic = null;
+    protected DateTime $crdate;
 
-	/**
-	 * The post text.
-	 *
-	 * @var string
-	 * @validate NotEmpty
-	 */
-	protected $text;
+    /**
+     * @var ObjectStorage<FrontendUser>
+     * @Lazy
+     */
+    protected ObjectStorage $supporters;
 
-	/**
-	 * The rendered post text (contains raw HTML). This attribute has been
-	 * implemented for performance reasons. When being rendered (i.e. bb
-	 * codes being replaced with corresponding HTML codes, etc.), the
-	 * rendered output is cached in this property.
-	 *
-	 * @var string
-	 */
-	protected $renderedText;
+    /**
+     * @var ObjectStorage<Attachment>
+     * @Lazy
+     * @Cascade("remove")
+     */
+    protected ObjectStorage $attachments;
+    protected int $helpfulCount = 0;
 
-	/**
-	 * The post author.
-	 *
-	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
-	 */
-	protected $author;
+    public function __construct()
+    {
+        $this->initializeObject();
+    }
 
-	/**
-	 * The author's username. Necessary for anonymous postings.
-	 * @var string
-	 */
-	protected $authorName = '';
+    public function initializeObject(): void
+    {
+        $this->ensureObjectStorages();
+    }
 
-	/**
-	 * The topic.
-	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Topic
-	 */
-	protected $topic;
+    public function ensureObjectStorages(): void
+    {
+        if (!isset($this->attachments)) {
+            $this->attachments = new ObjectStorage();
+        }
+        if (!isset($this->supporters)) {
+            $this->supporters = new ObjectStorage();
+        }
+        if (!isset($this->crdate)) {
+            $this->crdate = new DateTime();
+        }
+    }
 
-	/**
-	 * Creation date.
-	 * @var \DateTime
-	 */
-	protected $crdate;
+    /**
+     * Gets all users who have subscribed to this forum.
+     *
+     * @return ObjectStorage<FrontendUser> All subscribers of this forum.
+     */
+    public function getSupporters(): ObjectStorage
+    {
+        return $this->supporters;
+    }
 
-	/**
-	 * All subscribers of this forum.
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser>
-	 * @lazy
-	 */
-	protected $supporters;
+    /**
+     * Gets the helpful count of this post.
+     */
+    public function getHelpfulCount(): int
+    {
+        return $this->helpfulCount;
+    }
 
-	/**
-	 * Attachments.
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment>
-	 * @lazy
-	 */
-	protected $attachments;
+    /**
+     * Gets the text.
+     */
+    public function getText(): string
+    {
+        return $this->text;
+    }
 
-	/**
-	 * helpfull count
-	 * @var integer
-	 */
-	protected $helpfulCount;
+    /**
+     * Gets the post name. This is just an alias for the topic->getTitle method.
+     */
+    public function getName(): string
+    {
+        return $this->topic->getTitle();
+    }
 
-	/**
-	 * Creates a new post.
-	 *
-	 * @param string $text The post text.
-	 */
-	public function __construct($text = '') {
-		$this->attachments = new ObjectStorage();
-		$this->supporters = new ObjectStorage();
-		$this->crdate = new \DateTime();
-		$this->text = $text;
-	}
+    /**
+     * Alias for getText(). Necessary to implement the NotifiableInterface.
+     */
+    public function getDescription(): string
+    {
+        return $this->getText();
+    }
 
-	/**
-	 * Gets all users who have subscribed to this forum.
-	 *
-	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\User\FrontendUser> All subscribers of this forum.
-	 */
-	public function getSupporters() {
-		return $this->supporters;
-	}
+    /**
+     * Gets the post author.
+     */
+    public function getAuthor(): FrontendUser
+    {
+        if ($this->author instanceof LazyLoadingProxy) {
+            $this->author->_loadRealInstance();
+        }
+        if ($this->author === null) {
+            $this->author = new AnonymousFrontendUser();
+            if ($this->authorName) {
+                $this->author->setUsername($this->authorName);
+            }
+        }
 
-	/**
-	 * Gets the helpful count of this post.
-	 * @return integer The helpful count.
-	 */
-	public function getHelpfulCount() {
-		return $this->helpfulCount;
-	}
+        return $this->author;
+    }
 
-	/**
-	 * Gets the text.
-	 * @return string The text
-	 */
-	public function getText() {
-		return $this->text;
-	}
+    /**
+     * Gets the post author's name. Diffentiates between posts created by logged in
+     * users (in this case this user's username is returned) and posts by anonymous
+     * users.
+     */
+    public function getAuthorName(): string
+    {
+        if ($this->getAuthor()->isAnonymous()) {
+            return $this->authorName;
+        }
+        return $this->getAuthor()->getUsername();
+    }
 
-	/**
-	 * Gets the post name. This is just an alias for the topic->getTitle method.
-	 * @return string The post name.
-	 */
-	public function getName() {
-		return $this->topic->getTitle();
-	}
+    /**
+     * Gets the topic.
+     */
+    public function getTopic(): ?Topic
+    {
+        return $this->topic;
+    }
 
-	/**
-	 * Alias for getText(). Necessary to implement the NotifiableInterface.
-	 * @return string The post text.
-	 */
-	public function getDescription() {
-		return $this->getText();
-	}
+    /**
+     * Gets the forum.
+     */
+    public function getForum(): Forum
+    {
+        return $this->topic->getForum();
+    }
 
-	/**
-	 * Gets the post author.
-	 * @return FrontendUser author
-	 */
-	public function getAuthor() {
-		if ($this->author instanceof LazyLoadingProxy) {
-			$this->author->_loadRealInstance();
-		}
-		if ($this->author === NULL) {
-			$this->author = new AnonymousFrontendUser();
-			if ($this->authorName) {
-				$this->author->setUsername($this->authorName);
-			}
-		}
+    /**
+     * Gets the post's timestamp.
+     */
+    public function getTimestamp(): DateTime
+    {
+        return $this->crdate;
+    }
 
-		return $this->author;
-	}
+    /**
+     * Gets the post's crdate.
+     */
+    public function getCrdate(): DateTime
+    {
+        return $this->crdate;
+    }
 
-	/**
-	 * Gets the post author's name. Diffentiates between posts created by logged in
-	 * users (in this case this user's username is returned) and posts by anonymous
-	 * users.
-	 * @return string The author's username.
-	 */
-	public function getAuthorName() {
-		if ($this->getAuthor()->isAnonymous()) {
-			return $this->authorName;
-		} else {
-			return $this->getAuthor()->getUsername();
-		}
-	}
+    /**
+     * Gets the post's attachments.
+     * @return ObjectStorage<Attachment>
+     */
+    public function getAttachments(): ObjectStorage
+    {
+        return $this->attachments;
+    }
 
-	/**
-	 * Gets the topic.
-	 * @return Topic A topic
-	 */
-	public function getTopic() {
-		return $this->topic;
-	}
+    /**
+     * Overrides the isPropertyDirty method. See http://forge.typo3.org/issues/8952
+     * for further information.
+     *
+     * @param mixed $previousValue
+     * @param mixed $currentValue
+     */
+    protected function isPropertyDirty($previousValue, $currentValue): bool
+    {
+        if ($currentValue instanceof Forum || $currentValue instanceof Topic) {
+            return false;
+        }
+        return parent::isPropertyDirty($previousValue, $currentValue);
+    }
 
-	/**
-	 * Gets the forum.
-	 * @return Forum
-	 */
-	public function getForum() {
-		return $this->topic->getForum();
-	}
+    /**
+     * Performs an access check for this post.
+     */
+    public function checkAccess(?FrontendUser $user = null, $accessType = Access::TYPE_READ): bool
+    {
+        switch ($accessType) {
+            case Access::TYPE_EDIT_POST:
+            case Access::TYPE_DELETE_POST:
+                return $this->checkEditOrDeletePostAccess($user, $accessType);
+            default:
+                return $this->topic === null
+                    ? false
+                    : $this->topic->checkAccess($user, $accessType)
+                ;
+        }
+    }
 
-	/**
-	 * Gets the post's timestamp.
-	 * @return \DateTime
-	 */
-	public function getTimestamp() {
-		return $this->crdate;
-	}
+    /**
+     * Determines if a user may edit this post. This is only possible if EITHER:
+     * a1.) The user is the author of this post, AND
+     * a2.) This post is the last post in the topic, AND
+     * a3.) The topic generally permits posts to be edited (this would not be the
+     *      case if the topic would e.g. be closed).
+     * OR:
+     * b.)  The current user has moderator access to the forum.
+     */
+    public function checkEditOrDeletePostAccess(?FrontendUser $user = null, string $operation = Access::TYPE_EDIT_POST): bool
+    {
+        if ($user === null || $user->isAnonymous()) {
+            return false;
+        }
+        if ($user->checkAccess($user, Access::TYPE_MODERATE)) {
+            return true;
+        }
 
-	/**
-	 * Gets the post's crdate.
-	 * @return \DateTime
-	 */
-	public function getCrdate() {
-		return $this->crdate;
-	}
+        if ($this->getForum()->checkModerationAccess($user)) {
+            return true;
+        }
 
-	/**
-	 * Gets the post's attachments.
-	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Forum\Attachment>
-	 */
-	public function getAttachments() {
-		return $this->attachments;
-	}
+        $currentUserIsAuthor = ($user === $this->getAuthor());
+        $postIsLastPostInTopic = ($this === $this->getTopic()->getLastPost());
+        $topicGrantsAccess = $this->getTopic()->checkAccess($user, $operation);
 
-	/**
-	 * Overrides the isPropertyDirty method. See http://forge.typo3.org/issues/8952
-	 * for further information.
-	 *
-	 * @param mixed $previousValue
-	 * @param mixed $currentValue
-	 *
-	 * @return boolean
-	 */
-	protected function isPropertyDirty($previousValue, $currentValue) {
-		if ($currentValue InstanceOf Forum || $currentValue InstanceOf Topic) {
-			return FALSE;
-		} else {
-			return parent::isPropertyDirty($previousValue, $currentValue);
-		}
-	}
+        if ($currentUserIsAuthor && $postIsLastPostInTopic && $topicGrantsAccess) {
+            return true;
+        }
 
-	/**
-	 * Performs an access check for this post.
-	 *
-	 * @access private
-	 *
-	 * @param FrontendUser $user
-	 * @param string $accessType
-	 * @return boolean
-	 */
-	public function checkAccess(FrontendUser $user = NULL, $accessType = Access::TYPE_READ) {
-		switch ($accessType) {
-			case Access::TYPE_EDIT_POST:
-			case Access::TYPE_DELETE_POST:
-				return $this->checkEditOrDeletePostAccess($user, $accessType);
-			default:
-				return $this->topic->checkAccess($user, $accessType);
-		}
-	}
+        return false;
+    }
 
-	/**
-	 * Determines if a user may edit this post. This is only possible if EITHER:
-	 * a1.) The user is the author of this post, AND
-	 * a2.) This post is the last post in the topic, AND
-	 * a3.) The topic generally permits posts to be edited (this would not be the
-	 *      case if the topic would e.g. be closed).
-	 * OR:
-	 * b.)  The current user has moderator access to the forum.
-	 *
-	 * @param FrontendUser $user The user for which the authenication is to be checked.
-	 * @param string $operation
-	 * @return boolean TRUE, if the user is allowed to edit this post, otherwise FALSE.
-	 */
-	public function checkEditOrDeletePostAccess(FrontendUser $user, $operation) {
-		if ($user === NULL || $user->isAnonymous()) {
-			return FALSE;
-		} else {
-			if ($user->checkAccess($user, Access::TYPE_MODERATE)) {
-				return TRUE;
-			}
+    /**
+     * Sets the city value
+     */
+    public function setHelpfulCount(int $count): self
+    {
+        $this->helpfulCount = $count;
 
-			if ($this->getForum()->checkModerationAccess($user)) {
-				return TRUE;
-			}
+        return $this;
+    }
 
-			$currentUserIsAuthor = ($user === $this->getAuthor());
-			$postIsLastPostInTopic = ($this === $this->getTopic()->getLastPost());
-			$topicGrantsAccess = $this->getTopic()->checkAccess($user, $operation);
+    /**
+     * Sets the post author.
+     */
+    public function setAuthor(FrontendUser $author): self
+    {
+        if ($author->isAnonymous()) {
+            $this->author = null;
+        } else {
+            $this->author = $author;
+        }
 
-			if ($currentUserIsAuthor && $postIsLastPostInTopic && $topicGrantsAccess) {
-				return TRUE;
-			}
-		}
+        return $this;
+    }
 
-		return FALSE;
-	}
+    /**
+     * Sets the post author's name. Necessary for anonymous postings.
+     */
+    public function setAuthorName(string $authorName): self
+    {
+        $this->authorName = $authorName;
 
-	/**
-	 * Sets the city value
-	 *
-	 * @param $count
-	 *
-	 * @return void
-	 * @api
-	 */
-	public function setHelpfulCount($count) {
-		$this->helpfulCount = $count;
-	}
+        return $this;
+    }
 
-	/**
-	 * Sets the post author.
-	 *
-	 * @param FrontendUser $author The post author.
-	 *
-	 * @return void
-	 */
-	public function setAuthor(FrontendUser $author) {
-		if ($author->isAnonymous()) {
-			$this->author = NULL;
-		} else {
-			$this->author = $author;
-		}
-	}
+    /**
+     * Sets the post text.
+     */
+    public function setText(string $text): self
+    {
+        $this->text = $text;
 
-	/**
-	 * Sets the post author's name. Necessary for anonymous postings.
-	 *
-	 * @param $authorName string The author's name.
-	 */
-	public function setAuthorName($authorName) {
-		$this->authorName = $authorName;
-	}
+        return $this;
+    }
 
-	/**
-	 * Sets the post text.
-	 *
-	 * @param string $text The post text.
-	 *
-	 * @return void
-	 */
-	public function setText($text) {
-		$this->text = $text;
-		// Reset the rendered text. It will be filled again when the post
-		// is rendered.
-		$this->renderedText = '';
-	}
+    /**
+     * Sets the attachments.
+     */
+    public function setAttachments(ObjectStorage $attachments): self
+    {
+        $this->attachments = $attachments;
 
-	/**
-	 * Sets the attachments.
-	 *
-	 * @param ObjectStorage $attachments The attachments.
-	 *
-	 * @return void
-	 */
-	public function setAttachments(ObjectStorage $attachments) {
-		$this->attachments = $attachments;
-	}
+        return $this;
+    }
 
-	/**
-	 * Adds an or more attachments.
-	 *
-	 * @param Attachment $attachments The attachment.
-	 * @return void
-	 */
-	public function addAttachments(Attachment $attachments) {
-		/* @var Attachment */
-		$this->attachments->attach($attachments);
-	}
+    /**
+     * Adds an or more attachments.
+     */
+    public function addAttachments(Attachment $attachment): self
+    {
+        $this->attachments->attach($attachment);
 
-	/**
-	 * Removes an attachment.
-	 *
-	 * @param Attachment $attachment The attachment.
-	 * @return void
-	 */
-	public function removeAttachment(Attachment $attachment) {
-		if (file_exists($attachment->getAbsoluteFilename())) {
-			unlink($attachment->getAbsoluteFilename());
-		}
-		$this->attachments->detach($attachment);
-	}
+        return $this;
+    }
 
-	/**
-	 * Determines whether this topic has been read by a certain user.
-	 *
-	 * @param FrontendUser $supporter The user who is to be checked.
-	 * @return boolean TRUE, if the user did read this topic, otherwise FALSE.
-	 */
-	public function hasBeenSupportedByUser(FrontendUser $supporter = NULL) {
-		return $supporter ? $this->supporters->contains($supporter) : TRUE;
-	}
+    /**
+     * Removes an attachment.
+     */
+    public function removeAttachment(Attachment $attachment): self
+    {
+        $fileReference = $attachment->getFileReference();
+        if ($fileReference !== null) {
+            try {
+                $fileReference->getOriginalResource()->getOriginalFile()->delete();
+            } catch (FileDoesNotExistException $e) {}
+        }
 
-	/**
-	 * @param Topic $topic
-	 * @return void
-	 */
-	public function setTopic(Topic $topic) {
-		$this->topic = $topic;
-	}
+        $this->attachments->detach($attachment);
 
-	/**
-	 * Marks this topic as read by a certain user.
-	 *
-	 * @param FrontendUser $supporter The user who read this topic.
-	 * @return void
-	 */
-	public function addSupporter(FrontendUser $supporter) {
-		$this->setHelpfulCount($this->getHelpfulCount() + 1);
-		$this->supporters->attach($supporter);
-	}
+        return $this;
+    }
 
-	/**
-	 * Mark this topic as unread for a certain user.
-	 *
-	 * @param FrontendUser $supporter The user for whom to mark this topic as unread.
-	 *
-	 * @return void
-	 */
-	public function removeSupporter(FrontendUser $supporter) {
-		$this->setHelpfulCount($this->getHelpfulCount() - 1);
-		$this->supporters->detach($supporter);
-	}
+    /**
+     * Determines whether this post has been supported by a user.
+     */
+    public function hasBeenSupportedByUser(?FrontendUser $user = null): bool
+    {
+        return $user !== null
+            ? $user->getUid() === $this->getAuthor()->getUid() || $this->supporters->contains($user)
+            : false
+        ;
+    }
 
-	/**
-	 * Mark this topic as unread for all users.
-	 * @return void
-	 */
-	public function removeAllSupporters() {
-		$this->supporters = new ObjectStorage();
-	}
+    public function setTopic(Topic $topic): self
+    {
+        $this->topic = $topic;
 
+        return $this;
+    }
+
+    /**
+     * Marks this topic as supported by a certain user.
+     */
+    public function addSupporter(FrontendUser $supporter): self
+    {
+        $this->setHelpfulCount($this->getHelpfulCount() + 1);
+        $this->supporters->attach($supporter);
+
+        return $this;
+    }
+
+    /**
+     * Mark this topic as unread for a certain user.
+     */
+    public function removeSupporter(FrontendUser $supporter): self
+    {
+        $this->setHelpfulCount($this->getHelpfulCount() - 1);
+        $this->supporters->detach($supporter);
+
+        return $this;
+    }
+
+    /**
+     * Mark this topic as unread for all users.
+     */
+    public function removeAllSupporters(): self
+    {
+        $this->supporters = new ObjectStorage();
+
+        return $this;
+    }
+
+    public function isFirstPost(): bool
+    {
+        return $this->getTopic() !== null && $this->getTopic()->getFirstPost()->getUid() === $this->getUid();
+    }
+
+    public function isSolution(): bool
+    {
+        if ($this->getTopic() === null) {
+            return false;
+        }
+        $solution = $this->getTopic()->getSolution();
+        return $this->topic->isQuestion() && $solution !== null && $solution->getUid() === $this->getUid();
+    }
 }

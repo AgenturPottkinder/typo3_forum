@@ -6,38 +6,38 @@
 
 <f:section name="main">
 	<f:render partial="FormErrors" />
-
 	<h2>
 		<f:translate key="Report_NewPostReport"/>
 	</h2>
-
-	<f:form name="firstComment" object="{firstComment}" controller="Report" action="createPostReport" id="report" class="form-horizontal">
-		<fieldset>
-			<legend>
-				<f:translate key="Report_New" />
-			</legend>
-			<b:form.row llLabel="Report_New_Author">
-				<span class="input-xlarge uneditable-input span8">
-					<f:link.action controller="User" action="show" arguments="{user: post.author}" pageUid="{settings.pids.UserShow}">{post.author.username}</f:link.action>
-				</span>
-			</b:form.row>
-			<b:form.row llLabel="Report_New_OriginalText">
-				<div class="well" style="margin-bottom: 0px;">
-					<mmf:format.textParser content="{post.text}" />
-				</div>
-			</b:form.row>
-			<b:form.row llLabel="Report_New_Reason" error="firstComment.text" errorLLPrefix="Report_New_Error_Reason">
-				<mmf:form.bbCodeEditor class="tx-typo3forum-editor" property="text" id="typo3forum_editor" rows="5" cols="80" class="span8" />
-			</b:form.row>
-			<div class="form-actions">
-				<f:form.hidden name="post" value="{post}" />
-				<f:form.submit value="{f:translate(key:'Report_New_Submit')}" class="btn btn-primary" />
-				<b:button controller="Topic" action="show" arguments="{topic: post.topic}" label="Button_Back" />
+	<f:form name="firstComment" object="{firstComment}" controller="Report" action="createPostReport" id="report">
+		<div class="row mt-4">
+			<div class="col-12">
+				<mmf:forum.rootline rootline="{post.topic.rootline}" forumicon="far fa-folder-open me-2" topicicon="far fa-comments me-2" />
+				<f:render partial="Post/Single" arguments="{post: post}" />
 			</div>
-		</fieldset>
+		</div>
+
+		<div class="card">
+			<div class="card-header">
+				<h2>
+					<f:translate key="Report_New_Reason"/>
+				</h2>
+			</div>
+			<div class="card-body">
+				<div class="form-group">
+					<mmf:form.bbCodeEditor class="form-control" property="text" id="editor" rows="7" cols="80" />
+				</div>
+				<div class="form-actions mt-4">
+					<f:link.action controller="Post" action="show" class="btn btn-info" arguments="{post: post}">
+						<i class="fas fa-chevron-left me-1"></i>
+						<f:translate key="Button_Back" />
+					</f:link.action>
+					<f:form.hidden name="post" value="{post}" />
+					<f:form.submit value="{f:translate(key:'Report_New_Submit')}" class="btn btn-primary" />
+				</div>
+			</div>
+		</div>
 	</f:form>
 </f:section>
-
-
 
 <f:section name="menu" />

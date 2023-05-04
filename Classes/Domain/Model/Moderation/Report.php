@@ -40,164 +40,170 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  * These report objects can be assigned to moderators ans be organized in
  * different workflow stages. Moderators can post comments to each report.
  */
-class Report extends AbstractEntity {
+class Report extends AbstractEntity
+{
 
-	/**
-	 * The frontend user that created this post.
-	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
-	 */
-	protected $reporter;
+    /**
+     * The frontend user that created this post.
+     * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
+     */
+    protected $reporter;
 
-	/**
-	 * The moderator that is assigned to this report.
-	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
-	 */
-	protected $moderator;
+    /**
+     * The moderator that is assigned to this report.
+     * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
+     */
+    protected $moderator;
 
-	/**
-	 * The current status of this report.
-	 * @var \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus
-	 */
-	protected $workflowStatus;
+    /**
+     * The current status of this report.
+     * @var \Mittwald\Typo3Forum\Domain\Model\Moderation\ReportWorkflowStatus
+     */
+    protected $workflowStatus;
 
-	/**
-	 * A set of comments that are assigned to this report.
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment>
-	 */
-	protected $comments;
+    /**
+     * A set of comments that are assigned to this report.
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment>
+     */
+    protected $comments;
 
-	/**
-	 * The creation timestamp of this report.
-	 * @var \DateTime
-	 */
-	protected $crdate;
+    /**
+     * The creation timestamp of this report.
+     * @var \DateTime
+     */
+    protected $crdate;
 
-	/**
-	 * Creates a new report.
-	 */
-	public function __construct() {
-		$this->comments = new ObjectStorage();
-	}
+    /**
+     * Creates a new report.
+     */
+    public function __construct()
+    {
+        $this->comments = new ObjectStorage();
+    }
 
-	/**
-	 * Gets the reporter of this report.
-	 * @return FrontendUser The reporter
-	 */
-	public function getReporter() {
-		if ($this->reporter instanceof LazyLoadingProxy) {
-			$this->reporter->_loadRealInstance();
-		}
-		if ($this->reporter === NULL) {
-			$this->reporter = new AnonymousFrontendUser();
-		}
+    /**
+     * Gets the reporter of this report.
+     * @return FrontendUser The reporter
+     */
+    public function getReporter()
+    {
+        if ($this->reporter instanceof LazyLoadingProxy) {
+            $this->reporter->_loadRealInstance();
+        }
+        if ($this->reporter === null) {
+            $this->reporter = new AnonymousFrontendUser();
+        }
 
-		return $this->reporter;
-	}
+        return $this->reporter;
+    }
 
-	/**
-	 * Sets the reporter.
-	 *
-	 * @param FrontendUser $reporter The reporter.
-	 * @return void
-	 */
-	public function setReporter(FrontendUser $reporter) {
-		$this->reporter = $reporter;
-	}
+    /**
+     * Sets the reporter.
+     *
+     * @param FrontendUser $reporter The reporter.
+     */
+    public function setReporter(FrontendUser $reporter)
+    {
+        $this->reporter = $reporter;
+    }
 
-	/**
-	 * Gets the moderator that is assigned to this report.
-	 * @return FrontendUser The moderator
-	 */
-	public function getModerator() {
-		if ($this->moderator instanceof LazyLoadingProxy) {
-			$this->moderator->_loadRealInstance();
-		}
-		if ($this->moderator === NULL) {
-			$this->moderator = new AnonymousFrontendUser();
-		}
+    /**
+     * Gets the moderator that is assigned to this report.
+     * @return FrontendUser The moderator
+     */
+    public function getModerator()
+    {
+        if ($this->moderator instanceof LazyLoadingProxy) {
+            $this->moderator->_loadRealInstance();
+        }
+        if ($this->moderator === null) {
+            $this->moderator = new AnonymousFrontendUser();
+        }
 
-		return $this->moderator;
-	}
+        return $this->moderator;
+    }
 
-	/**
-	 * Sets the moderator.
-	 *
-	 * @param FrontendUser $moderator The moderator.
-	 * @return void
-	 */
-	public function setModerator(FrontendUser $moderator) {
-		$this->moderator = $moderator;
-	}
+    /**
+     * Sets the moderator.
+     *
+     * @param FrontendUser $moderator The moderator.
+     */
+    public function setModerator(FrontendUser $moderator)
+    {
+        $this->moderator = $moderator;
+    }
 
-	/**
-	 * Gets the current status of this report.
-	 * @return ReportWorkflowStatus The current workflow status of this report.
-	 */
-	public function getWorkflowStatus() {
-		return $this->workflowStatus;
-	}
+    /**
+     * Gets the current status of this report.
+     * @return ReportWorkflowStatus The current workflow status of this report.
+     */
+    public function getWorkflowStatus()
+    {
+        return $this->workflowStatus;
+    }
 
-	/**
-	 * Sets the current workflow status.
-	 *
-	 * @param ReportWorkflowStatus $workflowStatus The workflow status.
-	 *
-	 * @return void
-	 */
-	public function setWorkflowStatus(ReportWorkflowStatus $workflowStatus) {
-		If (!$this->workflowStatus || ($this->workflowStatus && $this->workflowStatus->hasFollowupStatus($workflowStatus))) {
-			$this->workflowStatus = $workflowStatus;
-		}
-	}
+    /**
+     * Sets the current workflow status.
+     *
+     * @param ReportWorkflowStatus $workflowStatus The workflow status.
+     */
+    public function setWorkflowStatus(ReportWorkflowStatus $workflowStatus)
+    {
+        if (!$this->workflowStatus || ($this->workflowStatus && $this->workflowStatus->hasFollowupStatus($workflowStatus))) {
+            $this->workflowStatus = $workflowStatus;
+        }
+    }
 
-	/**
-	 * Gets all comments for this report.
-	 * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment>
-	 *                             All comments for this report.
-	 */
-	public function getComments() {
-		return $this->comments;
-	}
+    /**
+     * Gets all comments for this report.
+     * @return ObjectStorage<\Mittwald\Typo3Forum\Domain\Model\Moderation\ReportComment>
+     *                             All comments for this report.
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
 
-	/**
-	 * Returns the first comment for this report.
-	 * @return ReportComment The first comment.
-	 */
-	public function getFirstComment() {
-		return array_shift($this->comments->toArray());
-	}
+    /**
+     * Returns the first comment for this report.
+     * @return ReportComment The first comment.
+     */
+    public function getFirstComment()
+    {
+        return array_shift($this->comments->toArray());
+    }
 
-	/**
-	 * Returns the creation time of this report.
-	 * @return \DateTime The creation time.
-	 */
-	public function getCrdate() {
-		return $this->crdate;
-	}
+    /**
+     * Returns the creation time of this report.
+     * @return \DateTime The creation time.
+     */
+    public function getCrdate()
+    {
+        return $this->crdate;
+    }
 
-	/**
-	 * Adds a comment to this report.
-	 *
-	 * @param ReportComment $comment A comment
-	 *
-	 * @return void
-	 */
-	public function addComment(ReportComment $comment) {
-		$comment->setReport($this);
-		$this->comments->attach($comment);
-	}
+    /**
+     * Adds a comment to this report.
+     *
+     * @param ReportComment $comment A comment
+     */
+    public function addComment(ReportComment $comment)
+    {
+        $comment->setReport($this);
+        $this->comments->attach($comment);
+    }
 
-	/**
-	 * Removes a comment from this report.
-	 *
-	 * @param ReportComment $comment
-	 * @return void
-	 * @throws InvalidOperationException
-	 */
-	public function removeComment(ReportComment $comment) {
-		if (count($this->comments) === 1) {
-			throw new InvalidOperationException('You cannot delete the last remaining comment!', 1334687977);
-		}
-		$this->comments->detach($comment);
-	}
+    /**
+     * Removes a comment from this report.
+     *
+     * @param ReportComment $comment
+     * @throws InvalidOperationException
+     */
+    public function removeComment(ReportComment $comment)
+    {
+        if (count($this->comments) === 1) {
+            throw new InvalidOperationException('You cannot delete the last remaining comment!', 1334687977);
+        }
+        $this->comments->detach($comment);
+    }
 }

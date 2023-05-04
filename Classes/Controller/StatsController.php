@@ -24,28 +24,23 @@ namespace Mittwald\Typo3Forum\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
-class StatsController extends AbstractController {
+use Mittwald\Typo3Forum\Domain\Repository\Stats\SummaryRepository;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Stats\SummaryRepository
-	 * @inject
-	 */
-	protected $summaryRepository;
+class StatsController extends AbstractController
+{
+    protected SummaryRepository $summaryRepository;
 
-	/**
-	 * Listing Action.
-	 * @return void
-	 */
-	public function listAction() {
-		switch ($this->settings['listStats']) {
-			default:
-			case 'summary':
-				$dataset['items'] = $this->summaryRepository->findLatestSummaryItems();
-				$partial = 'Stats/Summary';
-				break;
-		}
-		$this->view->assign('partial', $partial);
-		$this->view->assign('dataset', $dataset);
-	}
+    public function __construct(
+        SummaryRepository $summaryRepository
+    ) {
+        $this->summaryRepository = $summaryRepository;
+    }
 
+    /**
+     * Listing Action.
+     */
+    public function listAction()
+    {
+        $this->view->assign('summaries', $this->summaryRepository->findAll());
+    }
 }

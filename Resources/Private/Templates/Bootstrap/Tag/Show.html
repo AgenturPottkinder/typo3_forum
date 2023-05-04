@@ -1,11 +1,22 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 <f:layout name="default"/>
 <f:section name="main">
-	<h2>
-		<f:translate key="Tags_Show_Tag" />: {tag.name}
+	<h2 class="d-flex flex-row align-items-center">
+		<span class="me-2">
+			<f:translate key="Tags_Show_Tag" />
+		</span>
+		<f:render partial="Tag/Single" arguments="{tag: tag, showTopicCount: 1}" />
 	</h2>
-	<f:widget.paginate objects="{topics}" as="paginatedTopics" configuration="{settings.pagebrowser.default}">
+	<mmf:pagination.paginate objects="{topics}" as="paginatedTopics" page="{page}" configuration="{settings.pagebrowser.topicList}" configAs="pagination">
 		<f:render partial="Topic/List" arguments="{topics: paginatedTopics}" />
-	</f:widget.paginate>
+
+		<f:render partial="Tag/PageBrowser" arguments="{pagination: pagination, action: 'show', tag: tag}" />
+	</mmf:pagination.paginate>
 </f:section>
-<f:section name="menu"/>
+
+<f:section name="menu">
+	<f:link.action pageUid="{settings.pids.TagList}" controller="Tag" action="list" class="btn btn-info">
+		<i class="fas fa-chevron-left me-1"></i>
+		<f:translate key="Button_Back" />
+	</f:link.action>
+</f:section>

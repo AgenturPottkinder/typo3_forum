@@ -24,353 +24,372 @@ namespace Mittwald\Typo3Forum\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory;
+use Mittwald\Typo3Forum\Domain\Factory\Forum\TopicFactory;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Attachment;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Post;
+use Mittwald\Typo3Forum\Domain\Model\Forum\Tag;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
+use Mittwald\Typo3Forum\Domain\Repository\Forum\AttachmentRepository;
+use Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository;
+use Mittwald\Typo3Forum\Domain\Repository\Forum\PostRepository;
+use Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository;
+use Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository;
+use Mittwald\Typo3Forum\Service\AttachmentService;
+use Mittwald\Typo3Forum\Service\TagService;
 use Mittwald\Typo3Forum\Utility\Localization;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
+use TYPO3\CMS\Extbase\Annotation\Validate;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
-class PostController extends AbstractController {
+class PostController extends AbstractController
+{
+    protected AttachmentRepository $attachmentRepository;
+    protected AttachmentService $attachmentService;
+    protected ForumRepository $forumRepository;
+    protected PostRepository $postRepository;
+    protected PostFactory $postFactory;
+    protected TopicRepository $topicRepository;
+    protected TopicFactory $topicFactory;
+    protected PersistenceManager $persistenceManager;
+    protected TagRepository $tagRepository;
+    protected TagService $tagService;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\AttachmentRepository
-	 * @inject
-	 */
-	protected $attachmentRepository;
+    public function __construct(
+        AttachmentRepository $attachmentRepository,
+        AttachmentService $attachmentService,
+        ForumRepository $forumRepository,
+        PostRepository $postRepository,
+        PostFactory $postFactory,
+        TopicRepository $topicRepository,
+        TopicFactory $topicFactory,
+        PersistenceManager $persistenceManager,
+        TagRepository $tagRepository,
+        TagService $tagService
+    ) {
+        $this->attachmentRepository = $attachmentRepository;
+        $this->attachmentService = $attachmentService;
+        $this->forumRepository = $forumRepository;
+        $this->postRepository = $postRepository;
+        $this->postFactory = $postFactory;
+        $this->topicRepository = $topicRepository;
+        $this->topicFactory = $topicFactory;
+        $this->persistenceManager = $persistenceManager;
+        $this->tagRepository = $tagRepository;
+        $this->tagService = $tagService;
+    }
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Service\AttachmentService
-	 * @inject
-	 */
-	protected $attachmentService = NULL;
-
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\ForumRepository
-	 * @inject
-	 */
-	protected $forumRepository;
-
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\PostRepository
-	 * @inject
-	 */
-	protected $postRepository;
-
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Factory\Forum\PostFactory
-	 * @inject
-	 */
-	protected $postFactory;
-
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
-	 * @inject
-	 */
-	protected $topicRepository;
-
-    /**
-     *  Listing Action.
-     * @return void
-     */
-    public function listAction() {
-
-        $showPaginate = FALSE;
-        switch($this->settings['listPosts']){
+    public function listAction(int $page = 1): void
+    {
+        $showPaginate = false;
+        switch ($this->settings['listPosts']) {
             case '2':
-                $dataset = $this->postRepository->findByFilter(intval($this->settings['widgets']['newestPosts']['limit']), array('crdate' => 'DESC'));
-                $partial = 'Post/LatestBox';
+                $posts = $this->postRepository->findByFilter(
+                    $this->settings['maxItems'] ?? null,
+                    ['crdate' => 'DESC']
+                );
                 break;
             default:
-                $dataset = $this->postRepository->findByFilter();
-                $partial = 'Post/List';
-                $showPaginate = TRUE;
+                $posts = $this->postRepository->findByFilter(
+                    $this->settings['maxItems'] ?? null,
+                    ['crdate' => 'DESC']
+                );
+                $showPaginate = true;
                 break;
         }
         $this->view->assign('showPaginate', $showPaginate);
-        $this->view->assign('partial', $partial);
-        $this->view->assign('posts',$dataset);
+        $this->view->assign('posts', $posts);
+        $this->view->assign('page', $page);
     }
 
-	/**
-	 * @param Post $post
-	 * @return string
-	 */
-	public function addSupporterAction(Post $post) {
-		/** @var FrontendUser $currentUser */
-		$currentUser = $this->authenticationService->getUser();
+    public function supportAction(Post $post): void
+    {
+        /** @var FrontendUser $currentUser */
+        $currentUser = $this->authenticationService->getUser();
 
-		// Return if User not logged in or user is post author or user has already supported the post
-		if ($currentUser === NULL || $currentUser->isAnonymous() || $currentUser === $post->getAuthor() || $post->hasBeenSupportedByUser($currentUser) || $post->getAuthor()->isAnonymous()) {
-			return json_encode(['error' => TRUE, 'error_msg' => 'not_allowed']);
-		}
+        // Return if User not logged in or user is post author or user has already supported the post
+        if ($currentUser === null || $currentUser->isAnonymous() || $post->hasBeenSupportedByUser($currentUser)) {
+            $this->redirect('show', 'Post', null, ['post' => $post]);
+        }
 
-		// Set helpfulCount for Author
-		$post->addSupporter($currentUser);
-		$this->postRepository->update($post);
+        // Set helpfulCount for Author
+        $post->addSupporter($currentUser);
+        $this->postRepository->update($post);
 
-		$post->getAuthor()->setHelpfulCount($post->getAuthor()->getHelpfulCount() + 1);
-		$post->getAuthor()->increasePoints((int)$this->settings['rankScore']['gotHelpful']);
-		$this->frontendUserRepository->update($post->getAuthor());
+        $post->getAuthor()->setHelpfulCount($post->getAuthor()->getHelpfulCount() + 1);
+        $post->getAuthor()->increasePoints((int)$this->settings['rankScore']['gotHelpful']);
+        $this->frontendUserRepository->update($post->getAuthor());
 
-		$currentUser->increasePoints((int)$this->settings['rankScore']['markHelpful']);
-		$this->frontendUserRepository->update($currentUser);
+        $currentUser->increasePoints((int)$this->settings['rankScore']['markHelpful']);
+        $this->frontendUserRepository->update($currentUser);
 
-		// output new Data
-        return json_encode([
-            "error" => false,
-            "add" => 0,
-            "postHelpfulCount" => $post->getHelpfulCount(),
-            "userHelpfulCount" => $post->getAuthor()->getHelpfulCount()
-        ]);
-	}
+        $this->clearCacheForCurrentPage();
 
-	/**
-	 * @param Post $post
-	 * @return string
-	 */
-	public function removeSupporterAction(Post $post) {
-		/** @var FrontendUser $currentUser */
-		$currentUser = $this->authenticationService->getUser();
+        $this->redirect('show', 'Post', null, ['post' => $post]);
+    }
 
-		if (!$post->hasBeenSupportedByUser($currentUser)) {
-			return json_encode(["error" => true, "error_msg" => "not_allowed"]);
-		}
+    public function unsupportAction(Post $post): void
+    {
+        /** @var FrontendUser $currentUser */
+        $currentUser = $this->authenticationService->getUser();
 
-		// Set helpfulCount for Author
-		$post->removeSupporter($currentUser);
-		$this->postRepository->update($post);
+        if (!$post->hasBeenSupportedByUser($currentUser)) {
+            $this->redirect('show', 'Post', null, ['post' => $post]);
+        }
 
-		$post->getAuthor()->setHelpfulCount($post->getAuthor()->getHelpfulCount() - 1);
-		$post->getAuthor()->decreasePoints((int)$this->settings['rankScore']['gotHelpful']);
-		$this->frontendUserRepository->update($post->getAuthor());
-		$currentUser->decreasePoints((int)$this->settings['rankScore']['markHelpful']);
-		$this->frontendUserRepository->update($currentUser);
+        // Set helpfulCount for Author
+        $post->removeSupporter($currentUser);
+        $this->postRepository->update($post);
 
-		// output new Data
-		return json_encode([
-		    "error" => false,
-            "add" => 1,
-            "postHelpfulCount" => $post->getHelpfulCount(),
-            "userHelpfulCount" => $post->getAuthor()->getHelpfulCount()
-        ]);
-	}
+        $post->getAuthor()->setHelpfulCount($post->getAuthor()->getHelpfulCount() - 1);
+        $post->getAuthor()->decreasePoints((int)$this->settings['rankScore']['gotHelpful']);
+        $this->frontendUserRepository->update($post->getAuthor());
+        $currentUser->decreasePoints((int)$this->settings['rankScore']['markHelpful']);
+        $this->frontendUserRepository->update($currentUser);
 
-	/**
-	 * Show action for a single post. The method simply redirects the user to the
-	 * topic that contains the requested post.
-	 * This function is called by post summaries (last post link)
-	 *
-	 * @param Post $post The post
-	 * @param Post $quote The Quote
-	 * @param int $showForm ShowForm
-	 * @return void
-	 */
-	public function showAction(Post $post, Post $quote = NULL, $showForm = 0) {
-		// Assert authentication
-		$this->authenticationService->assertReadAuthorization($post);
+        $this->clearCacheForCurrentPage();
 
-		$redirectArguments = ['topic' => $post->getTopic(), 'showForm' => $showForm];
+        $this->redirect('show', 'Post', null, ['post' => $post]);
+    }
 
-		if (!empty($quote)) {
-			$redirectArguments['quote'] = $quote;
-		}
-		$pageNumber = $post->getTopic()->getPageCount();
-		if ($pageNumber > 1) {
-			$redirectArguments['@widget_0'] = ['currentPage' => $pageNumber];
-		}
+    public function showAction(Post $post, Post $quote = null): void
+    {
+        // Assert authentication
+        $this->authenticationService->assertReadAuthorization($post);
 
-		// Redirect to the topic->show action.
-		$this->redirect('show', 'Topic', NULL, $redirectArguments);
-	}
+        // Get correct page for post.
+        $topic = $post->getTopic();
+        $pageWithPost = 1;
+        if ($topic->getPageCount() > 1) {
+            $postOffsetInTopic = array_search($post, $topic->getPosts()->toArray(), true);
 
-	/**
-	 * Displays the form for creating a new post.
-	 *
-	 * @ignorevalidation $post
-	 *
-	 * @param Topic $topic The topic in which the new post is to be created.
-	 * @param Post $post The new post.
-	 * @param Post $quote An optional post that will be quoted within the bodytext of the new post.
-	 * @return void
-	 */
-	public function newAction(Topic $topic, Post $post = NULL, Post $quote = NULL) {
-		// Assert authorization
-		$this->authenticationService->assertNewPostAuthorization($topic);
+            $pageWithPost = intdiv(
+                $postOffsetInTopic,
+                (int)($topic->getSettings()['pagebrowser']['topicShow']['itemsPerPage'] ?? 10)
+            ) + 1;
+            $pageWithPost = max(1, $pageWithPost);
+        }
 
-		// If no post is specified, create an optionally pre-filled post (if a
-		// quoted post was specified).
-		if ($post === NULL) {
-			$post = ($quote !== NULL) ? $this->postFactory->createPostWithQuote($quote) : $this->postFactory->createEmptyPost();
-		} else {
+        // Create target URL.
+        $sectionWrap = $this->settings['topicController']['show']['postIdWrap'] ?? 'post-|';
+        $targetUrl = $this->uriBuilder
+            ->reset()
+
+            ->setSection(str_replace('|', $post->getUid(), $sectionWrap))
+            ->uriFor(
+                'show',
+                [
+                    'topic' => $post->getTopic(),
+                    'quote' => $quote,
+                    'page' => $pageWithPost,
+                ],
+                'Topic',
+            )
+        ;
+        $this->redirectToUri($targetUrl);
+    }
+
+    /**
+     * Displays the form for creating a new post.
+     *
+     * @IgnoreValidation("post")
+     */
+    public function newAction(Topic $topic, Post $post = null, Post $quote = null): void
+    {
+        // Assert authorization
+        $this->authenticationService->assertNewPostAuthorization($topic);
+
+        // If no post is specified, create an optionally pre-filled post (if a
+        // quoted post was specified).
+        if ($post === null) {
+            $post = ($quote !== null) ? $this->postFactory->createPostWithQuote($quote) : $this->postFactory->createEmptyPost();
+        } else {
             $this->authenticationService->assertEditPostAuthorization($post);
         }
 
-		$this->view->assignMultiple([
-			'topic' => $topic,
-			'post' => $post,
-			'currentUser' => $this->frontendUserRepository->findCurrent()
-		]);
-	}
+        $this->view->assignMultiple([
+            'topic' => $topic,
+            'post' => $post,
+            'currentUser' => $this->frontendUserRepository->findCurrent()
+        ]);
+    }
 
-	/**
-	 * Creates a new post.
-	 *
-	 * @param Topic $topic The topic in which the new post is to be created.
-	 * @param Post $post The new post.
-	 * @param array $attachments File attachments for the post.
-	 *
-	 * @validate $post \Mittwald\Typo3Forum\Domain\Validator\Forum\PostValidator
-	 * @validate $attachments \Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator
-	 */
-	public function createAction(Topic $topic, Post $post, array $attachments = []) {
-		// Assert authorization
-		$this->authenticationService->assertNewPostAuthorization($topic);
+    /**
+     * Creates a new post.
+     *
+     * @Validate("\Mittwald\Typo3Forum\Domain\Validator\Forum\PostValidator", param="post")
+     * @Validate("\Mittwald\Typo3Forum\Domain\Validator\Forum\AttachmentPlainValidator", param="attachments")
+     */
+    public function createAction(Topic $topic, Post $post, array $attachments = []): void
+    {
+        // Assert authorization
+        $this->authenticationService->assertNewPostAuthorization($topic);
 
-		// Create new post, add the new post to the topic and persist the topic.
-		$this->postFactory->assignUserToPost($post);
+        // Create new post, add the new post to the topic and persist the topic.
+        $this->postFactory->assignUserToPost($post);
 
-		if (!empty($attachments)) {
-			$attachments = $this->attachmentService->initAttachments($attachments);
-			$post->setAttachments($attachments);
-		}
+        if (!empty($attachments)) {
+            $attachments = $this->attachmentService->initAttachments($attachments);
+            $post->setAttachments($attachments);
+        }
 
-		$topic->addPost($post);
-		$this->topicRepository->update($topic);
+        $topic->addPost($post);
+        $this->topicRepository->update($topic);
 
-		// All potential listeners (Signal-Slot FTW!)
-		$this->signalSlotDispatcher->dispatch(Post::class, 'postCreated', ['post' => $post]);
+        // Persist early so we can redirect to the post properly.
+        $this->persistenceManager->persistAll();
 
-		// Display flash message and redirect to topic->show action.
-		$this->controllerContext->getFlashMessageQueue()->enqueue(
-			new FlashMessage(Localization::translate('Post_Create_Success'))
-		);
-		$this->clearCacheForCurrentPage();
+        // All potential listeners
+        $this->signalSlotDispatcher->dispatch(Post::class, 'postCreated', [$post]);
 
-		$redirectArguments = ['topic' => $topic, 'forum' => $topic->getForum()];
-		$pageNumber = $topic->getPageCount();
-		if ($pageNumber > 1) {
-			$redirectArguments['@widget_0'] = ['currentPage' => $pageNumber];
-		}
-		$this->redirect('show', 'Topic', NULL, $redirectArguments);
-	}
+        // Display flash message and redirect to topic->show action.
+        $this->getFlashMessageQueue()->enqueue(
+            new FlashMessage(Localization::translate('Post_Create_Success'))
+        );
+        $this->clearCacheForCurrentPage();
 
-	/**
-	 * Displays a form for editing a post.
-	 *
-	 * @ignorevalidation $post
-	 * @param Post $post The post that is to be edited.
-	 * @return void
-	 */
-	public function editAction(Post $post) {
-		if ($post->getAuthor() != $this->authenticationService->getUser() || $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()) {
-			// Assert authorization
-			$this->authenticationService->assertModerationAuthorization($post->getTopic()->getForum());
-		}
-		$this->view->assign('post', $post);
-	}
+        $this->redirect('show', 'Post', null, ['post' => $post]);
+    }
 
-	/**
-	 * Updates a post.
-	 *
-	 * @param Post $post The post that is to be updated.
-	 * @param array $attachments File attachments for the post.
-	 *
-	 * @return void
-	 */
-	public function updateAction(Post $post, array $attachments = []) {
-		if ($post->getAuthor() != $this->authenticationService->getUser() || $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()) {
-			// Assert authorization
-			$this->authenticationService->assertModerationAuthorization($post->getTopic()->getForum());
-		}
-		if (!empty($attachments)) {
-			$attachments = $this->attachmentService->initAttachments($attachments);
-			foreach ($attachments as $attachment) {
-				$post->addAttachments($attachment);
-			}
-		}
-		$this->postRepository->update($post);
+    /**
+     * Displays a form for editing a post.
+     *
+     * @IgnoreValidation("post")
+     */
+    public function editAction(Post $post): void
+    {
+        if ($post->getAuthor() != $this->authenticationService->getUser() || $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()) {
+            $this->authenticationService->assertModerationAuthorization($post->getTopic()->getForum());
+        }
+        $this->view->assign('post', $post);
+        $this->view->assign('availableTags', $this->tagRepository->findAll());
+    }
 
-		$this->signalSlotDispatcher->dispatch(Post::class, 'postUpdated',
-			['post' => $post]);
-		$this->controllerContext->getFlashMessageQueue()->enqueue(
-			new FlashMessage(Localization::translate('Post_Update_Success'))
-		);
-		$this->clearCacheForCurrentPage();
-		$this->redirect('show', 'Topic', NULL, ['topic' => $post->getTopic()]);
-	}
+    /**
+     * Updates a post and its containing topic (if this is a first post).
+     */
+    public function updateAction(Post $post, array $newAttachments = [], array $keepAttachments = [], array $tags = []):  void
+    {
+        if (
+            $post->getAuthor()->getUid() != $this->getCurrentUser()->getUid()
+            || $post->getTopic()->getLastPost()->getAuthor() != $post->getAuthor()
+        ) {
+            $this->authenticationService->assertModerationAuthorization($post->getTopic()->getForum());
+        }
 
-	/**
-	 * Displays a confirmation screen in which the user is prompted if a post
-	 * should really be deleted.
-	 *
-	 * @param Post $post The post that is to be deleted.
-	 * @return void
-	 */
-	public function confirmDeleteAction(Post $post) {
-		$this->authenticationService->assertDeletePostAuthorization($post);
-		$this->view->assign('post', $post);
-	}
+        // Manage new and deleted attachments.
+        $keepAttachments = array_map('intval', $keepAttachments);
+        foreach ($post->getAttachments()->toArray() as $existingAttachment) {
+            if (!in_array($existingAttachment->getUid(), $keepAttachments)) {
+                $post->removeAttachment($existingAttachment);
+            }
+        }
 
-	/**
-	 * Deletes a post.
-	 *
-	 * @param Post $post The post that is to be deleted.
-	 * @return void
-	 */
-	public function deleteAction(Post $post) {
-		// Assert authorization
-		$this->authenticationService->assertDeletePostAuthorization($post);
+        if (count($newAttachments) > 0) {
+            $newAttachments = $this->attachmentService->initAttachments($newAttachments);
+            foreach ($newAttachments as $newAttachment) {
+                $post->addAttachments($newAttachment);
+            }
+        }
 
-		// Delete the post.
-		$postCount = $post->getTopic()->getPostCount();
-		$this->postFactory->deletePost($post);
-		$this->controllerContext->getFlashMessageQueue()->enqueue(
-			new FlashMessage(Localization::translate('Post_Delete_Success'))
-		);
+        // If a first post was being edited, update tags and tag topic counts.
+        $topic = $post->getTopic();
+        if ($post->isFirstPost()) {
+            $tags = $this->tagService->hydrateTags($tags);
 
-		// Notify observers and clear cache.
-		$this->signalSlotDispatcher->dispatch(
-			Post::class,
-			'postDeleted',
-			['post' => $post]
-		);
-		$this->clearCacheForCurrentPage();
+            $existingTags = $topic->getTags();
+            foreach ($existingTags->toArray() as $existingTag) {
+                /** @var Tag $existingTag */
+                $existingTag->decreaseTopicCount();
+                $existingTags->detach($existingTag);
+                $this->tagRepository->update($existingTag);
+            }
 
-		// If there is still on post left in the topic, redirect to the topic
-		// view. If we have deleted the last post of a topic (i.e. the topic
-		// itself), redirect to the forum view instead.
-		if ($postCount > 1) {
-			$this->redirect('show', 'Topic', NULL, ['topic' => $post->getTopic()]);
-		} else {
-			$this->redirect('show', 'Forum', NULL, ['forum' => $post->getForum()]);
-		}
-	}
+            foreach ($tags as $tag) {
+                $tag->increaseTopicCount();
+                $existingTags->attach($tag);
+                $this->tagRepository->update($tag);
+            }
+        }
 
-	/**
-	 * Displays a preview of a rendered post text.
-	 * @param string $text The content.
-	 */
-	public function previewAction() {
+        // If a first post was being edited, make sure that the topic is marked as
+        // unsolved when the question flag is unset.
+        if ($post->isFirstPost() && !$topic->isQuestion() && $topic->isSolved()) {
+            $this->topicFactory->setPostAsSolution($topic, null);
+        }
 
-        $this->view->assign('text', 'MEIN GEILER TEXT');
-	}
+        $this->postRepository->update($post);
 
-	/**
-	 * Downloads an attachment and increase the download counter
-	 * @param \Mittwald\Typo3Forum\Domain\Model\Forum\Attachment $attachment
-	 */
-	public function downloadAttachmentAction($attachment) {
+        $this->signalSlotDispatcher->dispatch(Post::class, 'postUpdated', [$post]);
+        $this->getFlashMessageQueue()->enqueue(
+            new FlashMessage(Localization::translate('Post_Update_Success'))
+        );
+        $this->clearCacheForCurrentPage();
+        $this->redirect('show', 'Post', null, ['post' => $post]);
+    }
+
+    /**
+     * Displays a confirmation screen in which the user is prompted if a post
+     * should really be deleted.
+     */
+    public function confirmDeleteAction(Post $post): void
+    {
+        $this->authenticationService->assertDeletePostAuthorization($post);
+
+        $this->view->assign('post', $post);
+    }
+
+    /**
+     * Deletes a post.
+     */
+    public function deleteAction(Post $post): void
+    {
+        // Assert authorization
+        $this->authenticationService->assertDeletePostAuthorization($post);
+
+        // Delete the post.
+        $postCount = $post->getTopic()->getPostCount();
+        $this->postFactory->deletePost($post);
+        $this->getFlashMessageQueue()->enqueue(
+            new FlashMessage(Localization::translate('Post_Delete_Success'))
+        );
+
+        // Notify observers and clear cache.
+        $this->signalSlotDispatcher->dispatch(Post::class, 'postDeleted', [$post]);
+        $this->clearCacheForCurrentPage();
+
+        // If there is still on post left in the topic, redirect to the topic
+        // view. If we have deleted the last post of a topic (i.e. the topic
+        // itself), redirect to the forum view instead.
+        if ($postCount > 1) {
+            $this->redirect('show', 'Topic', null, ['topic' => $post->getTopic()]);
+        } else {
+            $this->redirect('show', 'Forum', null, ['forum' => $post->getForum()]);
+        }
+    }
+
+    /**
+     * Downloads an attachment and increase the download counter
+     */
+    public function downloadAttachmentAction(Attachment $attachment): void
+    {
         $attachment->increaseDownloadCount();
-		$this->attachmentRepository->update($attachment);
+        $this->attachmentRepository->update($attachment);
 
-		//Enforce persistence, since it will not happen regularly because of die() at the end
-		$persistenceManager = $this->objectManager->get("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
-		$persistenceManager->persistAll();
+        //Enforce persistence, since it will not happen regularly because of die() at the end
+        $this->persistenceManager->persistAll();
 
-        header('Content-type: ' . $attachment->getMimeType());
-        header("Content-Type: application/download");
-        header('Content-Disposition: attachment; filename="' . $attachment->getFilename() . '"');
-		readfile($attachment->getAbsoluteFilename());
-		die();
-	}
+        while(ob_get_level() > 0) {
+            ob_end_clean();
+        }
+        ob_start();
+        header('Content-Type: ' . $attachment->getFileReference()->getOriginalResource()->getType());
+        header('Content-Type: application/download');
+        header('Content-Disposition: attachment; filename="' . $attachment->getName() . '"');
+        echo($attachment->getFileReference()->getOriginalResource()->getContents());
+        ob_flush();
+        exit();
+    }
 }

@@ -2,55 +2,39 @@
 namespace Mittwald\Typo3Forum\Service;
 
 use Mittwald\Typo3Forum\Domain\Model\Forum\Tag;
+use Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository;
 use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class TagService implements SingletonInterface
 {
+    protected TagRepository $tagRepository;
+
+    public function __construct(
+        TagRepository $tagRepository
+    ) {
+        $this->tagRepository = $tagRepository;
+    }
 
     /**
-     * An instance of the Extbase object manager.
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-     * @inject
+     * Converts array of tagUids to an ObjectStorage of Tags
+     *
+     * @return ObjectStorage<Tag>
      */
-    protected $objectManager = null;
-
-    /**
-     * An instance of the tag repository
-     * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository
-     * @inject
-     */
-    protected $tagRepository;
-
-    /**
-     * Converts string of tags to an object
-     * @param string $tags
-     * @return ObjectStorage
-     */
-    public function initTags($tags)
+    public function hydrateTags(array $tagUids): ObjectStorage
     {
-        /* @var Tag */
-        $objTags = new ObjectStorage();
+        $tags = new ObjectStorage();
 
-        $tagArray = array_unique(explode(',', $tags));
-        foreach ($tagArray as $tagName) {
-            $tagName = ucfirst(trim($tagName));
-            if ($tagName === '') {
-                continue;
-            }
-            $searchResult = $this->tagRepository->findTagWithSpecificName($tagName);
-            if ($searchResult[0]) {
-                $searchResult[0]->increaseTopicCount();
-                $objTags->attach($searchResult[0]);
-            } else {
-                /* @var Tag $tag */
-                $tag = $this->objectManager->get(Tag::class);
-                $tag->setName($tagName);
-                $tag->setCrdate(new \DateTime());
+        $tagUids = array_map('intval', array_unique($tagUids));
+        foreach ($tagUids as $tagUid) {
+            /** @var Tag $tag */
+            $tag = $this->tagRepository->findByUid($tagUid);
+            if ($tag !== null) {
                 $tag->increaseTopicCount();
-                $objTags->attach($tag);
+                $tags->attach($tag);
             }
         }
-        return $objTags;
+        return $tags;
     }
 }

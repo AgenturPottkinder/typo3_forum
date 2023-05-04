@@ -4,15 +4,17 @@
 	<h2>
 		<f:translate key="User_Show_Notification_All" />
 	</h2>
-	<div class="row-fluid">
-		<div class="span12">
-			<f:widget.paginate objects="{notifications}" as="paginatedNotification" configuration="{settings.pagebrowser.default}">
+	<div class="row">
+		<div class="col-md-12">
+			<mmf:pagination.paginate objects="{notifications}" as="paginatedNotification" page="{page}" configuration="{settings.pagebrowser.notificationList}" configAs="pagination">
 				<f:for each="{paginatedNotification}" as="notification" iteration="iteration">
 					<div class="{f:if(condition:'{notification.userRead} == 0',then:'well',else:'')} {f:if(condition:'{iteration.circle} == 0',then:'margin-top',else:'')}" style="margin-bottom: 30px;">
 						<div>
-							<mmf:user.avatar user="{notification.post.author}" width="40"
-											 alt="{notification.post.author.username}"
-											 class="tx-typo3forum-topic-show-post-user-icon img-polaroid img-rounded pull-left"/>
+							<mmf:user.avatar
+								user="{notification.post.author}"
+								width="40"
+								alt="{notification.post.author.username}"
+							/>
 							<span class="muted">
 								<f:format.date format="d.m.Y">{notification.post.timestamp}</f:format.date>
 								<f:translate key="Date_At" />
@@ -56,8 +58,16 @@
 						</div>
 					</div>
 				</f:for>
-			</f:widget.paginate>
+
+				<f:render partial="Control/PageBrowser" arguments="{pagination: pagination, action: 'listNotifications'}" />
+			</mmf:pagination.paginate>
 		</div>
 	</div>
 </f:section>
-<f:section name="menu"/>
+
+<f:section name="menu">
+	<f:link.action controller="User" action="show" class="btn btn-info" arguments="{user: user}">
+		<i class="fas fa-chevron-left me-1"></i>
+		<f:translate key="Button_Back" />
+	</f:link.action>
+</f:section>

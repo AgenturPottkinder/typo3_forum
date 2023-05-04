@@ -1,0 +1,21 @@
+{namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
+
+<div class="card card-body border-0 bg-lighter">
+	<div class="d-flex flex-row justify-content-around align-items-center">
+		<f:for each="{users}" as="user">
+			<div>
+				<mmf:user.avatar
+					user="{user}"
+					height="16"
+					alt="{user.username}"
+				/>
+				<mmf:user.link user="{user}" class="ms-1" />
+				<f:if condition="{showHelpfulCount}">
+					<small>
+						(<f:translate key="User_Show_HelpfulPostCount" arguments="{0: user.helpfulCount}" />)
+					</small>
+				</f:if>
+			</div>
+		</f:for>
+	</div>
+</div>

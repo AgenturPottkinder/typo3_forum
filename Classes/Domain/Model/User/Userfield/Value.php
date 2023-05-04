@@ -30,53 +30,51 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
  * A userfield value. This class models an association between userfields,
  * users and a specific userfield value.
  */
-class Value extends AbstractValueObject {
+class Value extends AbstractValueObject
+{
 
-	/**
-	 * The userfield.
-	 * @var \Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield
-	 */
-	protected $userfield;
+    /**
+     * The userfield.
+     * @var \Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield
+     */
+    protected $userfield;
 
-	/**
-	 * The user.
-	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
-	 */
-	protected $user;
+    /**
+     * The user.
+     * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
+     */
+    protected $user;
 
-	/**
-	 * The value.
-	 * @var string
-	 */
-	protected $value;
+    /**
+     * The value.
+     * @var string
+     */
+    protected $value;
 
-	/**
-	 *
-	 * Gets the userfield.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield The userfield.
-	 *
-	 */
-	public function getUserfield() {
-		return $this->userfield;
-	}
+    /**
+     * Gets the userfield.
+     * @return \Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield The userfield.
+     */
+    public function getUserfield()
+    {
+        return $this->userfield;
+    }
 
-	/**
-	 *
-	 * Gets the user.
-	 * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser The user
-	 *
-	 */
-	public function getUser() {
-		return $this->user;
-	}
+    /**
+     * Gets the user.
+     * @return \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser The user
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 
-	/**
-	 *
-	 * Gets the value.
-	 * @return string The value
-	 *
-	 */
-	public function getValue() {
-		return $this->value;
-	}
+    /**
+     * Gets the value.
+     * @return string The value
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
 }

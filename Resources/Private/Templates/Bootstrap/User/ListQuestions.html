@@ -1,18 +1,27 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 <f:layout name="default"/>
+
 <f:section name="main">
 	<h2>
-		<f:translate key="Topic_All_Questions_Of" /> <mmf:user.link user="{user}" />
+		<f:translate key="Topic_All_Questions_Of" arguments="{0: user.username}" />
 	</h2>
 	<f:if condition="{showPaginate}">
 		<f:then>
-			<f:widget.paginate objects="{topics}" as="paginatedTopics" configuration="{settings.pagebrowser.default}">
+			<mmf:pagination.paginate objects="{topics}" as="paginatedTopics" page="{page}" configuration="{settings.pagebrowser.topicList}" configAs="pagination">
 				<f:render partial="Topic/List" arguments="{topics: paginatedTopics}" />
-			</f:widget.paginate>
+
+				<f:render partial="User/UserPageBrowser" arguments="{pagination: pagination, user: user, action: 'listQuestions'}" />
+			</mmf:pagination.paginate>
 		</f:then>
 		<f:else>
 			<f:render partial="Topic/List" arguments="{topics: topics}" />
 		</f:else>
 	</f:if>
 </f:section>
-<f:section name="menu"/>
+
+<f:section name="menu">
+	<f:link.action controller="User" action="show" class="btn btn-info" arguments="{user: user}">
+		<i class="fas fa-chevron-left me-1"></i>
+		<f:translate key="Button_Back" />
+	</f:link.action>
+</f:section>

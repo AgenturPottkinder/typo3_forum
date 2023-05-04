@@ -31,12 +31,11 @@ use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
  * Service class for notifications. This service notifies subscribers of
  * forums and topic about new posts within the subscribed objects.
  */
-interface NotificationServiceInterface {
-
-	/**
-	 * @param SubscribeableInterface $subscriptionObject
-	 * @param NotifiableInterface $notificationObject
-	 */
-	public function notifySubscribers(SubscribeableInterface $subscriptionObject, NotifiableInterface $notificationObject);
-
+interface NotificationServiceInterface
+{
+    /**
+     * @param SubscribeableInterface $subscriptionObject
+     * @param NotifiableInterface $notificationObject
+     */
+    public function notifySubscribers(SubscribeableInterface $subscriptionObject, NotifiableInterface $notificationObject);
 }

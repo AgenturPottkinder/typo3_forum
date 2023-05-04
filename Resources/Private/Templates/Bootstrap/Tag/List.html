@@ -1,81 +1,38 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
-<f:layout name="default"/>
+<f:layout name="default" />
+
 <f:section name="main">
+
 	<h2>
-		<f:if condition="{mine} == {1}">
-			<f:then>
-				<f:translate key="Tags_List_All" />
-			</f:then>
-			<f:else>
-				<f:translate key="Tags_ListUserTags" />
-			</f:else>
-		</f:if>
+		<f:translate key="Tags_List_All" />
 	</h2>
-	<f:if condition="{tags.0} == {NULL}">
+	<f:if condition="{tags}">
 		<f:then>
-			<div class="margin-top">
-				<f:translate key="Tags_List_NotFound" />
+
+			<div class="card card-body flex-row flex-wrap align-items-center tx-typo3forum-tag-gap">
+				<mmf:pagination.paginate objects="{tags}" as="paginatedTags" page="{page}" configuration="{settings.pagebrowser.tagList}" configAs="pagination">
+					<f:for each="{paginatedTags}" as="tag">
+						<f:render partial="Tag/Single" arguments="{tag: tag, showTopicCount: 1, linkToShowAction: 1}" />
+					</f:for>
+
+					<div class="mt-3 mb-2">
+						<f:render partial="Control/PageBrowser" arguments="{pagination: pagination, action: 'list'}" />
+					</div>
+				</mmf:pagination.paginate>
 			</div>
+
 		</f:then>
 		<f:else>
-			<f:widget.paginate objects="{tags}" as="paginatedTags" configuration="{settings.pagebrowser.default}">
-				<div class="row-fluid margin-top">
-					<div class="span3">
-						<f:translate key="Tags_List_Name" />
-					</div>
-					<div class="span3 text-center">
-						<f:translate key="Tags_List_TopicAmount" />
-					</div>
-					<div class="span3 text-center">
-						<f:translate key="Tags_List_Subscribers" />
-					</div>
-				</div>
-				<f:for each="{paginatedTags}" as="tag">
-					<div class="row-fluid">
-						<div class="span3">
-							<f:link.action controller="Tag" action="show" arguments="{tag: tag}">
-								{tag.name}
-							</f:link.action>
-						</div>
-						<div class="span3 text-center">
-							{tag.topicCount}
-						</div>
-						<div class="span3 text-center">
-							<f:count>{tag.feuser}</f:count>
-						</div>
-						<div class="span3">
-							<f:if condition="{user.anonymous} == {FALSE}">
-								<f:if condition="<mmf:tag.generateAction subscribedUsers='{tag.feuser}' currentUser='{user}' />">
-									<f:then>
-                                        <f:link.action action="deleteUserTag" arguments="{tag: tag, mine: mine}">
-                                            <f:translate key="Tags_List_Remove" />
-                                        </f:link.action>
-									</f:then>
-									<f:else>
-                                        <f:link.action action="newUserTag" arguments="{tag: tag, mine: mine}">
-                                            <f:translate key="Tags_List_New" />
-                                        </f:link.action>
-									</f:else>
-								</f:if>
-							</f:if>
-						</div>
-					</div>
-				</f:for>
-			</f:widget.paginate>
+
+			<div class="alert alert-info m-0" role="alert">
+				<f:translate key="Tags_List_NotFound" />
+			</div>
+
 		</f:else>
 	</f:if>
 
-	<div class="row-fluid margin-top">
-		<div class="span12 margin-top">
-			<f:if condition="{user.anonymous} == {FALSE}">
-				<f:link.action controller="Tag" action="new">
-					<f:translate key="Tags_New_Btn" />
-				</f:link.action>
-			</f:if>
-		</div>
-	</div>
-	<div class="row-fluid">
-		<div class="span12">
+	<div class="row">
+		<div class="col-md-12">
 			<f:if condition="{mine} == 1">
 				<f:then>
 					<f:link.action controller="Tag" action="list" arguments="{mine: 0}">
@@ -94,4 +51,14 @@
 	</div>
 
 </f:section>
-<f:section name="menu"/>
+
+<f:section name="menu">
+
+	<mmf:tag.ifCanCreate>
+		<f:link.action controller="Tag" action="new" class="btn btn-primary">
+			<i class="fas fa-plus me-1"></i>
+			<f:translate key="Tags_New_Btn" />
+		</f:link.action>
+	</mmf:tag.ifCanCreate>
+
+</f:section>

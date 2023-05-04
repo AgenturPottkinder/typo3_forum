@@ -24,141 +24,92 @@ namespace Mittwald\Typo3Forum\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Mittwald\Typo3Forum\Domain\Exception\Authentication\NoAccessException;
 use Mittwald\Typo3Forum\Domain\Exception\Authentication\NotLoggedInException;
 use Mittwald\Typo3Forum\Domain\Model\Forum\Tag;
+use Mittwald\Typo3Forum\Domain\Repository\Forum\ColorRepository;
+use Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository;
+use Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 
-class TagController extends AbstractController {
+class TagController extends AbstractController
+{
+    protected TagRepository $tagRepository;
+    protected TopicRepository $topicRepository;
+    protected ColorRepository $colorRepository;
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TagRepository
-	 * @inject
-	 */
-	protected $tagRepository;
+    public function __construct(
+        TagRepository $tagRepository,
+        TopicRepository $topicRepository,
+        ColorRepository $colorRepository
+    ) {
+        $this->tagRepository = $tagRepository;
+        $this->topicRepository = $topicRepository;
+        $this->colorRepository = $colorRepository;
+    }
 
-	/**
-	 * @var \Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository
-	 * @inject
-	 */
-	protected $topicRepository;
+    /**
+     * Listing all tags of this forum.
+     */
+    public function listAction(int $page = 1): void
+    {
+        $tags = $this->tagRepository->findAllOrderedByCounter();
 
-	/**
-	 * Listing all tags of this forum.
-	 * @param int $mine
-	 */
-	public function listAction($mine = 0) {
-		$user = $this->getCurrentUser();
-		if ($mine == 0) {
-			$tags = $this->tagRepository->findAllOrderedByCounter();
-		} else {
-			$tags = $this->tagRepository->findTagsOfUser($user);
-		}
-		$this->view->assignMultiple([
-			'tags' => $tags,
-			'user' => $user,
-			'mine' => $mine
-		]);
-	}
+        $this->view->assignMultiple([
+            'tags' => $tags,
+            'page' => $page,
+        ]);
+    }
 
-	/**
-	 * Show all topics of a given tag
-	 * @param Tag $tag
-	 */
-	public function showAction(Tag $tag) {
-		$this->view->assign('tag', $tag);
-		$this->view->assign('topics', $this->topicRepository->findAllTopicsWithGivenTag($tag));
-	}
+    /**
+     * Show all topics of a given tag
+     * @param Tag $tag
+     */
+    public function showAction(Tag $tag, int $page = 1): void
+    {
+        $this->view->assign('tag', $tag);
+        $this->view->assign('topics', $this->topicRepository->findByTag($tag));
+        $this->view->assign('page', $page);
+    }
 
-	/**
-	 * @throws NotLoggedInException
-	 */
-	public function newAction() {
-		$user = $this->getCurrentUser();
-		if ($user->isAnonymous()) {
-			throw new NotLoggedInException('You need to be logged in.', 1288084981);
-		}
-	}
+    /**
+     * @throws NotLoggedInException
+     *
+     * @IgnoreValidation("tag")
+     */
+    public function newAction(?Tag $tag = null): void
+    {
+        $user = $this->getCurrentUser();
+        if ($user->isAnonymous()) {
+            throw new NotLoggedInException('You need to be logged in.', 1288084981);
+        }
+        if (!$user->canCreateTags()) {
+            throw new NoAccessException('You cannot create tags.', 1683144970);
+        }
 
-	/**
-	 * @param string $name
-	 * @param string $subscribe
-	 *
-	 * @validate $name \Mittwald\Typo3Forum\Domain\Validator\Forum\TagValidator
-	 * @throws NotLoggedInException
-	 */
-	public function createAction($name = '', $subscribe = '') {
-		$user = $this->getCurrentUser();
-		if ($user->isAnonymous()) {
-			throw new NotLoggedInException("You need to be logged in.", 1288084981);
-		}
-		/** @var Tag $tag */
-		$tag = $this->objectManager->get(Tag::class);
-		$tag->setName($name);
-		$tag->setCrdate(new \DateTime());
-		if ((int)$subscribe === 1) {
-			$tag->addFeuser($user);
-		}
-		$this->tagRepository->add($tag);
+        $this->view->assign('tag', $tag ?? GeneralUtility::makeInstance(Tag::class));
+        $this->view->assign('colors', $this->colorRepository->findAll());
+    }
 
-		if ((int)$subscribe === 0) {
-			$this->redirect('list');
-		} else {
-			$this->redirect('listUserTags');
-		}
-	}
+    /**
+     * @Validate("\Mittwald\Typo3Forum\Domain\Validator\Forum\TagValidator", param="tag")
+     * @throws NotLoggedInException
+     */
+    public function createAction(Tag $tag)
+    {
+        $user = $this->getCurrentUser();
+        if ($user->isAnonymous()) {
+            throw new NotLoggedInException('You need to be logged in.', 1288084981);
+        }
+        if (!$user->canCreateTags()) {
+            throw new NoAccessException('You cannot create tags.', 1683144970);
+        }
 
-	/**
-	 * List all subscribed tags of a user
-	 * @throws NotLoggedInException
-	 */
-	public function listUserTagsAction() {
-		$user = $this->getCurrentUser();
-		if ($user->isAnonymous()) {
-			throw new NotLoggedInException("You need to be logged in.", 1288084981);
-		}
-		$this->redirect('list', NULL, NULL, ['mine' => 1]);
-	}
+        $tag->setName(ucwords($tag->getName()));
+        $this->tagRepository->add($tag);
 
-	/**
-	 * @param Tag $tag
-	 * @param int $mine
-	 * @throws NotLoggedInException
-	 */
-	public function newUserTagAction(Tag $tag, $mine) {
-		$user = $this->getCurrentUser();
-		if ($user->isAnonymous()) {
-			throw new NotLoggedInException("You need to be logged in.", 1288084981);
-		}
-		$tag->addFeuser($user);
-		$this->tagRepository->update($tag);
-		$this->redirect('list', NULL, NULL, ['mine' => $mine]);
-	}
-
-	/**
-	 * @param Tag $tag
-	 * @param int $mine
-	 * @throws NotLoggedInException
-	 */
-	public function deleteUserTagAction(Tag $tag, $mine) {
-		$user = $this->getCurrentUser();
-		if ($user->isAnonymous()) {
-			throw new NotLoggedInException("You need to be logged in.", 1288084981);
-		}
-		$tag->removeFeuser($user);
-		$this->tagRepository->update($tag);
-		$this->redirect('list', NULL, NULL, ['mine' => $mine]);
-	}
-
-	/**
-	 * @param string $value
-	 * @return string as json array
-	 */
-	public function autoCompleteAction($value) {
-		$result = [];
-		$tagObj = $this->tagRepository->findTagLikeAName($value);
-		foreach ($tagObj as $tag) {
-			$result[] = $tag->getName();
-		}
-		return json_encode($result);
-	}
-
+        $this->redirect('list');
+    }
 }

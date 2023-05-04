@@ -1,5 +1,54 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 
-<div class="topic_list_menu" data-uid="{topic.uid}">
-    <f:render partial="../../Templates/Bootstrap/Ajax/TopicListMenu" arguments="{_all}"/>
+<div class="mb-2">
+	<f:if condition="{topic.closed}">
+		<button type="button" class="btn btn-dark me-1 mb-1" disabled>
+			<i class="fas fa-lock me-1"></i>
+			<f:translate key="Button_Closed" />
+		</button>
+	</f:if>
+
+	<mmf:authentication.ifAccess object="{topic}" accessType="newPost">
+		<f:link.action pageUid="{settings.pids.Forum}" controller="Post" action="new" class="btn btn-primary me-1 mb-1" arguments="{topic: topic}">
+			<i class="fas fa-reply me-1"></i>
+			<f:translate key="Button_Reply" />
+		</f:link.action>
+	</mmf:authentication.ifAccess>
+
+	<mmf:authentication.ifLoggedIn>
+		<f:if condition="!{topic.closed}">
+			<mmf:user.ifSubscribed object="{topic}">
+				<f:then>
+					<f:link.action pageUid="{settings.pids.Forum}" controller="User" class="btn btn-primary me-1 mb-1" action="subscribe" arguments="{topic: topic, unsubscribe: 1}">
+						<i class="fas fa-bell-slash me-1"></i>
+						<f:translate key="Button_Unsubscribe" />
+					</f:link.action>
+				</f:then>
+				<f:else>
+					<f:link.action pageUid="{settings.pids.Forum}" controller="User" class="btn btn-primary me-1 mb-1" action="subscribe" arguments="{topic: topic, unsubscribe: 0}">
+						<i class="fas fa-bell me-1"></i>
+						<f:translate key="Button_Subscribe" />
+					</f:link.action>
+				</f:else>
+			</mmf:user.ifSubscribed>
+		</f:if>
+	</mmf:authentication.ifLoggedIn>
+
+	<mmf:authentication.ifAccess object="{topic}" accessType="moderate">
+		<f:link.action pageUid="{settings.pids.Forum}" controller="Moderation" class="btn btn-warning me-1 mb-1" action="editTopic" arguments="{topic: topic}">
+			<i class="fas fa-cog me-1"></i>
+			<f:translate key="Button_Moderate" />
+		</f:link.action>
+	</mmf:authentication.ifAccess>
+	<mmf:authentication.ifAccess object="{topic}" accessType="deleteTopic">
+		<f:link.action pageUid="{settings.pids.Forum}" controller="Moderation" class="btn btn-danger me-1 mb-1" action="confirmDeleteTopic" arguments="{topic: topic}">
+			<i class="fas fa-trash-alt me-1"></i>
+			<f:translate key="Button_Delete_Topic"/>
+		</f:link.action>
+	</mmf:authentication.ifAccess>
 </div>
+
+<f:link.action pageUid="{settings.pids.Forum}" controller="Forum" action="show" class="btn btn-info" arguments="{forum: topic.forum}">
+	<i class="fas fa-chevron-left me-1"></i>
+	<f:translate key="Button_Back" />
+</f:link.action>

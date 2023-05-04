@@ -29,153 +29,155 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\Tag;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 
-class Notification extends AbstractEntity {
+// TODO: Implement notification usage for subscriptions, moderator actions etc.
+// TODO: Currently the notification feature is completely unused.
+class Notification extends AbstractEntity
+{
 
-	/**
-	 * The execution date of the cron
-	 * @var \DateTime
-	 */
-	public $crdate;
+    /**
+     * The execution date of the cron
+     * @var \DateTime
+     */
+    public $crdate;
 
-	/**
-	 * User who is related with this notification
-	 * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
-	 */
-	public $feuser;
+    /**
+     * User who is related with this notification
+     * @var \Mittwald\Typo3Forum\Domain\Model\User\FrontendUser
+     */
+    public $feuser;
 
+    /**
+     * Post which is related with this notification
+     * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Post
+     */
+    public $post;
 
-	/**
-	 * Post which is related with this notification
-	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Post
-	 */
-	public $post;
+    /**
+     * Tag which is related with this notification
+     * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Tag
+     */
+    public $tag;
 
-	/**
-	 * Tag which is related with this notification
-	 * @var \Mittwald\Typo3Forum\Domain\Model\Forum\Tag
-	 */
-	public $tag;
+    /**
+     * The type of notification (Model Name)
+     * @var string
+     */
+    public $type;
 
+    /**
+     * Flag if user already read this notification
+     * @var int
+     */
+    public $userRead;
 
-	/**
-	 * The type of notification (Model Name)
-	 * @var string
-	 */
-	public $type;
+    /**
+     * Get the date this notification has been sent
+     * @return \DateTime
+     */
+    public function getCrdate()
+    {
+        return $this->crdate;
+    }
 
-	/**
-	 * Flag if user already read this notification
-	 * @var int
-	 */
-	public $userRead;
+    /**
+     * Get the type of this notification (Model name)
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
 
-	/**
-	 * Get the date this message has been sent
-	 * @return \DateTime
-	 */
-	public function getCrdate() {
-		return $this->crdate;
-	}
+    /**
+     * Get the type of this notification (Model Name)
+     *
+     * @param string $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
 
-	/**
-	 * Get the type of this notification (Model name)
-	 * @return string
-	 */
-	public function getType() {
-		return $this->type;
-	}
+    /**
+     * Get the User who is related with this notification
+     * @return FrontendUser
+     */
+    public function getFeuser()
+    {
+        if ($this->feuser instanceof LazyLoadingProxy) {
+            $this->feuser->_loadRealInstance();
+        }
+        if ($this->feuser === null) {
+            $this->feuser = new AnonymousFrontendUser();
+        }
 
-	/**
-	 * Get the type of this notification (Model Name)
-	 *
-	 * @param string $type
-	 *
-	 * @return void
-	 */
-	public function setType($type) {
-		$this->type = $type;
-	}
+        return $this->feuser;
+    }
 
-	/**
-	 * Get the User who is related with this notification
-	 * @return FrontendUser
-	 */
-	public function getFeuser() {
-		if ($this->feuser instanceof LazyLoadingProxy) {
-			$this->feuser->_loadRealInstance();
-		}
-		if ($this->feuser === NULL) {
-			$this->feuser = new AnonymousFrontendUser();
-		}
+    /**
+     * Sets the user
+     *
+     * @param FrontendUser $feuser
+     */
+    public function setFeuser(FrontendUser $feuser)
+    {
+        $this->feuser = $feuser;
+    }
 
-		return $this->feuser;
-	}
+    /**
+     * Get the Post which is related with this notification
+     * @return Post
+     */
+    public function getPost()
+    {
+        return $this->post;
+    }
 
-	/**
-	 * Sets the user
-	 *
-	 * @param FrontendUser $feuser
-	 *
-	 * @return void
-	 */
-	public function setFeuser(FrontendUser $feuser) {
-		$this->feuser = $feuser;
-	}
+    /**
+     * Sets the post
+     *
+     * @param Post $post
+     */
+    public function setPost(Post $post)
+    {
+        $this->post = $post;
+    }
 
-	/**
-	 * Get the Post which is related with this notification
-	 * @return Post
-	 */
-	public function getPost() {
-		return $this->post;
-	}
+    /**
+     * Get the tag which is related with this notification
+     * @return Tag
+     */
+    public function getTag()
+    {
+        return $this->tag;
+    }
 
-	/**
-	 * Sets the post
-	 *
-	 * @param Post $post
-	 *
-	 * @return void
-	 */
-	public function setPost(Post $post) {
-		$this->post = $post;
-	}
+    /**
+     * Set the tag
+     *
+     * @param Tag $tag
+     */
+    public function setTag(Tag $tag)
+    {
+        $this->tag = $tag;
+    }
 
-	/**
-	 * Get the tag which is related with this notification
-	 * @return Tag
-	 */
-	public function getTag() {
-		return $this->tag;
-	}
+    /**
+     * Get if the user already read this notification
+     * @return int The flag
+     */
+    public function getUserRead()
+    {
+        return (int)$this->userRead;
+    }
 
-	/**
-	 * Set the tag
-	 *
-	 * @param Tag $tag
-	 *
-	 * @return void
-	 */
-	public function setTag(Tag $tag) {
-		$this->tag = $tag;
-	}
-
-	/**
-	 * Get if the user already read this notification
-	 * @return int The flag
-	 */
-	public function getUserRead() {
-		return (int)$this->userRead;
-	}
-
-	/**
-	 * Sets the flag
-	 *
-	 * @param int $userRead
-	 *
-	 * @return void
-	 */
-	public function setUserRead($userRead) {
-		$this->userRead = $userRead;
-	}
+    /**
+     * Sets the flag
+     *
+     * @param int $userRead
+     */
+    public function setUserRead($userRead)
+    {
+        $this->userRead = $userRead;
+    }
 }

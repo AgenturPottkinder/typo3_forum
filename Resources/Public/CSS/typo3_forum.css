@@ -1,0 +1,440 @@
+/*
+ * GENERAL STYLES AND TWEAKS
+*/
+.card-header h1,
+.card-header h2,
+.card-header h3,
+.card-header h4,
+.card-header h5 {
+	margin: 0;
+}
+
+.card-wrapper > .card {
+	margin: 0 !important;
+}
+
+.card-body img {
+	max-width: 100%;
+}
+
+.cursor-pointer {
+	cursor: pointer;
+}
+
+.breadcrumb {
+	padding: 12px 16px !important;
+	border-radius: .25rem !important;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+	background-color: rgba(0, 0, 0, .00067) !important;
+}
+
+.flex-grow-1 {
+	flex-grow: 1;
+}
+
+.tx-typo3forum-clear-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	position: absolute;
+	width: 40px;
+	top: 0; bottom: 0;
+	right: 0;
+}
+
+/*
+ * TAGS
+*/
+.tx-typo3forum-var-background {
+	background-color: var(--tx-typo3forum-background, #ff8000) !important;
+}
+.tx-typo3forum-var-color {
+	color: var(--tx-typo3forum-color, #222) !important;
+}
+.tx-typo3forum-text-shadow {
+	text-shadow: 0 1px 0 rgba(0, 0, 0, .85);
+}
+.tx-typo3forum-tag-gap {
+	gap: 8px 10px;
+}
+.tx-typo3forum-tag-gap-small {
+	gap: 4px 6px;
+}
+.tx-typo3forum-tag-hover-lighten {
+	top: 0; left: 0; right: 0; bottom: 0;
+}
+.tx-typo3forum-tag-hover-lighten:hover {
+	background: rgba(255, 255, 255, .18);
+}
+
+/*
+ * POST HIGHLIGHT ON LINK TARGET
+*/
+.card:target {
+	outline: 2px solid #319fc0;
+	animation: borderHighlight 2s ease-out .5s 1 forwards;
+}
+
+@keyframes borderHighlight {
+	from {
+		outline: 2px solid #319fc0;
+	}
+	to {
+		outline: 2px solid rgba(0, 0, 0, 0);
+	}
+}
+
+/*
+ * FORUM AND TOPIC ICONS
+*/
+div.tx-typo3forum-icon {
+	float: left;
+	width: 32px;
+	height: 32px;
+	margin-right: 8px;
+	position: relative;
+}
+
+div.tx-typo3forum-icon div.tx-typo3forum-icon-overlay, div.tx-typo3forum-icon div.tx-typo3forum-icon-overlay-tl, div.tx-typo3forum-icon div.tx-typo3forum-icon-overlay-bl, div.tx-typo3forum-icon div.tx-typo3forum-icon-overlay-tr, div.tx-typo3forum-icon div.tx-typo3forum-icon-overlay-br {
+	width: 16px;
+	height: 16px;
+	background-repeat: no-repeat;
+	position: absolute;
+}
+
+div.tx-typo3forum-icon div.tx-typo3forum-icon-overlay-bl {
+	top: 16px;
+}
+
+div.tx-typo3forum-icon div.tx-typo3forum-icon-overlay-tr {
+	left: 16px;
+}
+
+div.tx-typo3forum-icon div.tx-typo3forum-icon-overlay-br {
+	top: 16px;
+	left: 16px;
+}
+
+/*
+ * TOPIC SHOW ACTION
+*/
+.tx-typo3forum-user-link-big {
+	line-height: normal;
+	font-size: 1.5rem;
+}
+
+.tx-typo3forum-preview-150 {
+	max-height: 150px;
+}
+.tx-typo3forum-gradient-preview {
+	position: relative;
+	overflow: hidden;
+}
+.tx-typo3forum-gradient-preview:after {
+	content: "";
+	position: absolute;
+	top: max(30px, calc(100% * 0.6));
+	height: max(calc(60px, 100% * 0.4));
+	left: 0; right: 0;
+	background: linear-gradient(rgba(255, 255, 255, 0), #fff);
+}
+.table.table-striped tr:nth-child(odd) .tx-typo3forum-gradient-preview:after {
+	background: linear-gradient(rgba(255, 255, 255, 0), #f2f2f2);
+}
+
+/*
+* CONTAINER FOR PARSED POST TEXTS
+*/
+.tx-typo3forum-parsed-text {
+	font: 16px "Source Sans Pro", sans-serif;
+}
+.tx-typo3forum-parsed-text blockquote {
+	padding: 8px;
+}
+.tx-typo3forum-parsed-text p:last-child {
+	margin-bottom: 0;
+}
+.tx-typo3forum-parsed-text pre {
+	border: 1px solid rgba(0, 0, 0, .176);
+
+	padding: 4px;
+	margin-bottom: 16px;
+}
+.tx-typo3forum-parsed-text pre ol {
+	margin: 0;
+}
+.tx-typo3forum-parsed-text pre ol li {
+	padding: 2px;
+}
+.tx-typo3forum-parsed-text pre ol li:nth-child(even) {
+	background-color: rgba(0, 0, 0, .03);
+}
+
+i.tx-typo3forum-smiley {
+	display: inline-block;
+	width: 16px; height: 16px;
+}
+
+
+/*
+* MARKITUP STYLES
+*/
+
+.markItUpPreviewFrame {
+	border: 1px solid #ced4da;
+	border-radius: .25rem;
+}
+
+.markItUp * {
+	margin: 0px;
+	padding: 0px;
+	outline: none;
+}
+
+.markItUp a:link,
+.markItUp a:visited {
+	color: #000;
+	text-decoration: none;
+}
+
+.markItUp {
+	margin: 5px 0 5px 0;
+}
+
+.markItUpContainer {
+	font-size: 1em;
+}
+
+.markItUpEditor {
+	font: 1em monospace;
+	padding: 5px;
+	width: 100%;
+	height: 180px;
+	clear: both;
+	overflow: auto;
+}
+
+.markItUpPreviewFrame {
+	overflow: auto;
+	background-color: #FFF;
+	width: 99.9%;
+	height: 180px;
+	margin: 5px 0;
+}
+
+.markItUpPreviewDiv {
+	border: 1px solid #e0e0e0;
+	padding: 4px 8px 4px 40px;
+	margin-top: 8px;
+	min-height: 40px;
+	background-image: url(../Images/Icons/Topic/Preview.png);
+	background-repeat: no-repeat;
+	background-position: 4px 4px;
+}
+
+.markItUpPreviewDiv p {
+	font-size: 1em;
+}
+
+.markItUpFooter {
+	width: 100%;
+}
+
+.markItUpResizeHandle {
+	overflow: hidden;
+	width: 22px;
+	height: 5px;
+	margin-left: auto;
+	margin-right: auto;
+	cursor: n-resize;
+}
+
+.markItUp .tx-typo3forum-miu-bold a {
+	background-image: url('../Images/Icons/Editor/Bold.png');
+}
+
+.markItUp .tx-typo3forum-miu-italic a {
+	background-image: url('../Images/Icons/Editor/Italic.png');
+}
+
+.markItUp .tx-typo3forum-miu-underline a {
+	background-image: url('../Images/Icons/Editor/Underline.png');
+}
+
+.markItUp .tx-typo3forum-miu-picture a {
+	background-image: url('../Images/Icons/Editor/Image.png');
+}
+
+.markItUp .tx-typo3forum-miu-link a {
+	background-image: url('../Images/Icons/Editor/Link.png');
+}
+
+.markItUp .tx-typo3forum-miu-ul a {
+	background-image: url('../Images/Icons/Editor/BulletList.png');
+}
+
+.markItUp .tx-typo3forum-miu-quote a {
+	background-image: url('../Images/Icons/Editor/Quote.png');
+}
+
+.markItUp .tx-typo3forum-miu-code a {
+	background-image: url('../Images/Icons/Editor/Code.png');
+}
+
+.markItUpHeader > ul > li + li {
+	margin-left: 3px;
+}
+
+.markItUp li.tx-typo3forum-miu-button-container ul {
+	display: none;
+	width: 125px;
+	max-height: 250px;
+	overflow-y: auto;
+	transform: translate(0, -2px);
+	padding: 8px;
+}
+.markItUp li.tx-typo3forum-miu-button-container ul > li {
+	display: flex;
+	align-items: center;
+	border: none;
+	padding: 0;
+	margin: 0;
+}
+.markItUp li.tx-typo3forum-miu-button-container-textless ul {
+	width: 118px;
+}
+.markItUp li.tx-typo3forum-miu-button-container-textless ul > li {
+	float: left;
+	width: 25px;
+	height: 25px;
+	overflow: hidden;
+}
+.markItUp li.tx-typo3forum-miu-button-container-textless ul > li > a {
+	background-position: calc(50% - 3px) 50%;
+	width: 25px;
+	height: 25px;
+	overflow: hidden;
+}
+
+.markItUp li.tx-typo3forum-miu-smile_smiley > a {
+	background-image: url('/typo3conf/ext/typo3_forum/Resources/Public/Images/Icons/Smiley/smile.gif');
+}
+.markItUp li.tx-typo3forum-miu-wink_smiley > a {
+	background-image: url('/typo3conf/ext/typo3_forum/Resources/Public/Images/Icons/Smiley/wink.gif');
+}
+.markItUp li.tx-typo3forum-miu-neutral_smiley > a {
+	background-image: url('/typo3conf/ext/typo3_forum/Resources/Public/Images/Icons/Smiley/neutral.gif');
+}
+.markItUp li.tx-typo3forum-miu-angry_smiley > a {
+	background-image: url('/typo3conf/ext/typo3_forum/Resources/Public/Images/Icons/Smiley/mad.gif');
+}
+.markItUp li.tx-typo3forum-miu-sad_smiley > a {
+	background-image: url('/typo3conf/ext/typo3_forum/Resources/Public/Images/Icons/Smiley/sad.gif');
+}
+.markItUp li.tx-typo3forum-miu-confused_smiley > a {
+	background-image: url('/typo3conf/ext/typo3_forum/Resources/Public/Images/Icons/Smiley/confused.gif');
+}
+
+.markItUp .preview a {
+	background-image: url('../Images/Icons/Editor/Preview.png');
+}
+
+.markItUpEditor {
+	border-radius: 0 0 4px 4px !important;
+}
+
+.markItUpHeader {
+	padding: 8px;
+	border: 1px solid rgba(0, 0, 0, .176);
+	border-bottom: none;
+	border-radius: 4px 4px 0 0;
+	background: rgba(0, 0, 0, .03);
+}
+
+.markItUpHeader ul {
+	display: flex;
+}
+
+.markItUpHeader ul li {
+	list-style: none;
+	position: relative;
+}
+
+.markItUpHeader ul li:hover>ul {
+	display: block;
+}
+
+.markItUpHeader ul .markItUpDropMenu {
+	background: transparent url('../Images/Icons/Editor/Dropdown.png') no-repeat 16px 40%;
+	padding-right: 12px;
+}
+
+.markItUpHeader ul .markItUpDropMenu li {
+	margin-right: 0px;
+}
+
+/* Next rows of buttons */
+.markItUpHeader ul ul {
+	position: absolute;
+	top: 18px;
+	left: 0px;
+	background: #FFF;
+	border: 1px solid #e0e0e0;
+}
+
+.markItUpHeader ul ul li {
+	float: none;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+.markItUpHeader ul .markItUpSeparator {
+	margin: 0 10px;
+	width: 1px;
+	height: 16px;
+	overflow: hidden;
+	background-color: #CCC;
+}
+
+.markItUpHeader ul ul .markItUpSeparator {
+	width: auto;
+	height: 1px;
+	margin: 0px;
+}
+
+/* next rows of buttons */
+.markItUpHeader ul ul ul {
+	position: absolute;
+	top: -1px;
+	left: 150px;
+}
+
+.markItUpHeader > ul > ul > ul > li {
+	float: none;
+}
+
+.markItUpHeader ul a {
+	display: block;
+	width: 16px;
+	height: 16px;
+	text-indent: -10000px;
+	background-repeat: no-repeat;
+	padding: 3px;
+	margin: 0px;
+}
+
+.markItUpHeader ul ul a {
+	display: block;
+	padding-left: 0px;
+	text-indent: 0;
+	height: auto;
+	width: 120px;
+	padding: 5px 5px 5px 25px;
+	background-position: 2px 50%;
+}
+
+.markItUpHeader ul ul a:hover {
+	background-color: #f7f7f7;
+}
