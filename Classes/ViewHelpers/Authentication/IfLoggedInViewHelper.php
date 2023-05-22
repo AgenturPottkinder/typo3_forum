@@ -42,6 +42,9 @@ class IfLoggedInViewHelper extends AbstractViewHelper
      */
     public function render()
     {
-        return $GLOBALS['TSFE']->fe_user->user['uid'] ? $this->renderChildren() : '';
+        return ((int)(($GLOBALS['TSFE']->fe_user->user ?? [])['uid'] ?? 0)) > 0
+            ? $this->renderChildren()
+            : ''
+        ;
     }
 }

@@ -478,7 +478,7 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
      *
      * @return string The absolute path of this user's avatar image (if existent).
      */
-    public function getImagePath()
+    public function getImagePath(): ?string
     {
         if ($this->image) {
             foreach ($this->image as $image) {
@@ -505,17 +505,17 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser implemen
 
         switch ($this->gender) {
             case self::GENDER_MALE:
-                $imageFilename = $this->getSettings()['images']['avatar']['dummyMale'];
+                $imageFilename = $this->getSettings()['images']['avatar']['dummyMale'] ?? null;
                 break;
             case self::GENDER_FEMALE:
-                $imageFilename = $this->getSettings()['images']['avatar']['dummyFemale'];
+                $imageFilename = $this->getSettings()['images']['avatar']['dummyFemale'] ?? null;
                 break;
             case self::GENDER_OTHER:
-                $imageFilename = $this->getSettings()['images']['avatar']['dummyOther'];
+                $imageFilename = $this->getSettings()['images']['avatar']['dummyOther'] ?? null;
                 break;
         }
 
-        if (!isset($imageFilename) || !file_exists($imageFilename)) {
+        if ($imageFilename === null || !file_exists($imageFilename)) {
             return null;
         }
 

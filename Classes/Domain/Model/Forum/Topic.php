@@ -32,6 +32,7 @@ use Mittwald\Typo3Forum\Domain\Model\ConfigurableInterface;
 use Mittwald\Typo3Forum\Domain\Model\NotifiableInterface;
 use Mittwald\Typo3Forum\Domain\Model\ReadableInterface;
 use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
+use Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Domain\Repository\Forum\TopicRepository;
 use Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface;
@@ -73,7 +74,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
      * count($this->posts), however this is much more performant).
      */
     protected int $postCount = 0;
-    protected FrontendUser $author;
+    protected ?FrontendUser $author = null;
 
     /**
      * All users who have subscribed this topic.
@@ -253,7 +254,7 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
                 $posts = $this->posts->toArray();
                 $this->author = $posts[0]->getAuthor();
             } else {
-                $this->author = new \Mittwald\Typo3Forum\Domain\Model\User\AnonymousFrontendUser();
+                $this->author = new AnonymousFrontendUser();
             }
         }
 
@@ -574,9 +575,9 @@ class Topic extends AbstractEntity implements AccessibleInterface, Subscribeable
     /**
      * Sets the topic author.
      *
-     * @param FrontendUser $author The topic author.
+     * @param ?FrontendUser $author The topic author.
      */
-    public function setAuthor(FrontendUser $author): self
+    public function setAuthor(?FrontendUser $author): self
     {
         $this->author = $author;
 

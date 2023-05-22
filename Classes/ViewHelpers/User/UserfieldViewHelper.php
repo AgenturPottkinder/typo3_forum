@@ -28,7 +28,6 @@ namespace Mittwald\Typo3Forum\ViewHelpers\User;
 use Mittwald\Typo3Forum\Domain\Model\User\FrontendUser;
 use Mittwald\Typo3Forum\Domain\Model\User\Userfield\AbstractUserfield;
 use Mittwald\Typo3Forum\Domain\Model\User\Userfield\TyposcriptUserfield;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
@@ -72,6 +71,7 @@ class UserfieldViewHelper extends AbstractViewHelper
                             [
                                 'typoscriptObjectPath' => $userfield->getTyposcriptPath() . '.output',
                                 'currentValueKey' => $propertyName,
+                                'table' => '',
                             ],
                             function () use ($user) {
                                 return $user;

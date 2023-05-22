@@ -91,8 +91,10 @@ class TopicRepository extends AbstractRepository
             ->matching(
                 $query->equals('forum', $forum)
             )
-            ->setOrderings(['sticky' => 'DESC',
-                'last_post_crdate' => 'DESC'])
+            ->setOrderings([
+                'sticky' => 'DESC',
+                'last_post_crdate' => 'DESC'
+            ])
         ;
 
         return $query->execute();
@@ -114,8 +116,10 @@ class TopicRepository extends AbstractRepository
         if ($showAnswered === false) {
             $constraint[] = $query->equals('solved', 0);
         }
-        $query->setOrderings(['sticky' => 'DESC',
-            'posts.crdate' => 'DESC']);
+        $query->setOrderings([
+            'sticky' => 'DESC',
+            'last_post_crdate' => 'DESC'
+        ]);
         if ($limit != null && is_numeric($limit)) {
             $query->setLimit($limit);
         }

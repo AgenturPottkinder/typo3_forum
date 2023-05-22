@@ -87,7 +87,7 @@ class TextParserService extends AbstractService
             /** @var \Mittwald\Typo3Forum\TextParser\Service\AbstractTextParserService $newService */
             $newService = GeneralUtility::makeInstance($className);
             if ($newService instanceof \Mittwald\Typo3Forum\TextParser\Service\AbstractTextParserService) {
-                $newService->setSettings((array)$this->settings['enabledServices.'][$key . '.']);
+                $newService->setSettings((array)($this->settings['enabledServices.'][$key . '.'] ?? []));
                 $newService->setControllerContext($this->controllerContext);
                 $this->parsingServices[] = $newService;
             } else {

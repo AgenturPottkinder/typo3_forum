@@ -30,8 +30,8 @@ use TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
-    /**
- * Repository class for frontend suers.
+/**
+ * Repository class for frontend users.
  *
  * @author     Martin Helmich <m.helmich@mittwald.de>
  * @version    $Id$
@@ -56,7 +56,7 @@ class FrontendUserRepository extends AbstractRepository
      */
     public function findCurrent(): FrontendUser
     {
-        $currentUserUid = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
+        $currentUserUid = (int)(($GLOBALS['TSFE']->fe_user->user ?? [])['uid'] ?? 0);
         $return = $currentUserUid ? $this->findByUid($currentUserUid) : new AnonymousFrontendUser();
         $return->ensureObjectStorages();
         return $return;

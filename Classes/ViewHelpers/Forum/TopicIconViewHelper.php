@@ -29,7 +29,6 @@ use Mittwald\Typo3Forum\Domain\Model\Forum\ShadowTopic;
 
 use Mittwald\Typo3Forum\Domain\Model\Forum\Topic;
 use Mittwald\Typo3Forum\Domain\Repository\User\FrontendUserRepository;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\ViewHelpers\CObjectViewHelper;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -76,14 +75,14 @@ class TopicIconViewHelper extends AbstractViewHelper
 
         $data = $this->getDataArray($topic);
 
+        $renderData = [
+            'currentValueKey' => null,
+            'table' => '',
+        ];
         if ($data['new']) {
-            $renderData = [
-                'typoscriptObjectPath' => 'plugin.tx_typo3forum.renderer.icons.topic_new'
-            ];
+            $renderData['typoscriptObjectPath'] = 'plugin.tx_typo3forum.renderer.icons.topic_new';
         } else {
-            $renderData = [
-                'typoscriptObjectPath' => 'plugin.tx_typo3forum.renderer.icons.topic'
-            ];
+            $renderData['typoscriptObjectPath'] = 'plugin.tx_typo3forum.renderer.icons.topic';
         }
 
         return CObjectViewHelper::renderStatic(

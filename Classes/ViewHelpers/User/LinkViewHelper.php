@@ -100,12 +100,13 @@ class LinkViewHelper extends AbstractViewHelper
         } else {
             $username = substr($fullUsername, 0, $limit) . '...';
         }
-        $moderatorMark = '';
-        if ($this->settings['moderatorMark']['image']) {
+        $moderatorMarkImage = $this->settings['moderatorMark']['image'] ?? null;
+        $moderatorMarkHtml = '';
+        if ($moderatorMarkImage !== null) {
             /** @var FrontendUserGroup $group */
             foreach ($user->getUsergroup() as $group) {
                 if ($group->getUserMod()) {
-                    $moderatorMark = '<img src="' . $this->settings['moderatorMark']['image'] . '" title="' . $this->settings['moderatorMark']['title'] . '" />';
+                    $moderatorMarkHtml = '<img src="' . $moderatorMarkImage . '" title="' . ($this->settings['moderatorMark']['title'] ?? '') . '" />';
                     break;
                 }
             }
@@ -117,9 +118,9 @@ class LinkViewHelper extends AbstractViewHelper
             } else {
                 $onlineStatus = 'user_onlinepoint iconset-8-user-offline';
             }
-            $link = '<a href="' . $uri . '" class="' . $class . '" title="' . $fullUsername . '">' . $username . ' <i class="' . $onlineStatus . '" data-uid="' . $user->getUid() . '"></i> ' . $moderatorMark . '</a>';
+            $link = '<a href="' . $uri . '" class="' . $class . '" title="' . $fullUsername . '">' . $username . ' <i class="' . $onlineStatus . '" data-uid="' . $user->getUid() . '"></i> ' . $moderatorMarkHtml . '</a>';
         } else {
-            $link = '<a href="' . $uri . '" class="' . $class . '" title="' . $fullUsername . '">' . $username . ' ' . $moderatorMark . '</a>';
+            $link = '<a href="' . $uri . '" class="' . $class . '" title="' . $fullUsername . '">' . $username . ' ' . $moderatorMarkHtml . '</a>';
         }
 
         return $link;

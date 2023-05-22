@@ -1,8 +1,8 @@
 {namespace mmf=Mittwald\Typo3Forum\ViewHelpers}
 
 <div class="text-center">
-	<div class="card-title">
-		<a class="tx-typo3forum-user-link-big" href="#" onclick="return false;">{user.username}</a>
+	<div class="card-title mb-0">
+		<span class="tx-typo3forum-user-link-big">{user.username}</span>
 	</div>
-	<mmf:user.avatar user="{user}" width="64" alt="{user.username}" />
+	<mmf:user.avatar user="{user}" width="64" alt="{user.username}" class="my-1" />
 </div>

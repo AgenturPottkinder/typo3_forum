@@ -57,7 +57,8 @@ class ForumController extends AbstractController
     {
         if (($forum = $this->forumRepository->findOneByForum(0))) {
             $this->forward('show', 'Forum', 'Typo3Forum', [
-                'forum' => $forum
+                'forum' => $forum,
+                'page' => $page
             ]);
         }
 
