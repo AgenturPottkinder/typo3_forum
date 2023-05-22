@@ -39,4 +39,9 @@ class AnonymousFrontendUser extends FrontendUser
     {
         return true;
     }
+
+    public function increasePoints(int $by): AnonymousFrontendUser
+    {
+        return $this;
+    }
 }

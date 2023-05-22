@@ -118,9 +118,12 @@ class TopicFactory extends AbstractFactory
         foreach ($topic->getPosts() as $post) {
             /** @var Post $post */
             $postAuthor = $post->getAuthor();
-            $postAuthor->decreasePostCount();
-            $postAuthor->decreasePoints((int)$this->settings['rankScore']['newPost']);
-            $this->frontendUserRepository->update($postAuthor);
+
+            if (!$postAuthor->isAnonymous()) {
+                $postAuthor->decreasePostCount();
+                $postAuthor->decreasePoints((int)$this->settings['rankScore']['newPost']);
+                $this->frontendUserRepository->update($postAuthor);
+            }
         }
 
         $forum = $topic->getForum();
@@ -129,14 +132,14 @@ class TopicFactory extends AbstractFactory
 
         $this->persistenceManager->persistAll();
 
-        $user = $this->getCurrentUser();
+        $topicAuthor = $topic->getAuthor();
 
-        if (!$user->isAnonymous()) {
-            $user->decreaseTopicCount();
+        if (!$topicAuthor->isAnonymous()) {
+            $topicAuthor->decreaseTopicCount();
             if ($topic->isQuestion()) {
-                $user->decreaseQuestionCount();
+                $topicAuthor->decreaseQuestionCount();
             }
-            $this->frontendUserRepository->update($user);
+            $this->frontendUserRepository->update($topicAuthor);
         }
     }
 
