@@ -66,7 +66,7 @@ if (!is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['typo3forum_main'] = [];
 }
 
-$GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['typo3_forum'] = 'EXT:typo3_forum/Classes/Ajax/Dispatcher.php';
+$GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['typo3_forum'] = \Mittwald\Typo3Forum\Ajax\Dispatcher::class . '::processRequest';
 
 // Connect signals to slots. Some parts of extbase suck, but the signal-slot
 // pattern is really cool! :P
