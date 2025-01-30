@@ -18,7 +18,7 @@
                 </f:link.action>
             </li>
         </mmf:authentication.ifLoggedIn>
-        <mmf:authentication.ifAccess object="{post}" accessType="editPost">
+        <mmf:authentication.ifAccess object="{post.topic}" accessType="editPost">
             <li>
                 <f:link.action controller="Post" action="edit" arguments="{post: post}">
                     <i class="tx-typo3forum-icon-16-post-edit"></i>
@@ -26,7 +26,7 @@
                 </f:link.action>
             </li>
         </mmf:authentication.ifAccess>
-        <mmf:authentication.ifAccess object="{post}" accessType="deletePost">
+        <mmf:authentication.ifAccess object="{post.topic}" accessType="deletePost">
             <li>
                 <f:link.action controller="Post" action="confirmDelete" arguments="{post: post}">
                     <i class="tx-typo3forum-icon-16-post-delete"></i>
