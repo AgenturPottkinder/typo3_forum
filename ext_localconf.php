@@ -3,8 +3,6 @@ defined('TYPO3') || die();
 
 $extensionKey = 'typo3_forum';
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:' . $extensionKey . '/Configuration/TSconfig/pageTS.txt">');
-
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
     'typo3_forum',
     'Forum',

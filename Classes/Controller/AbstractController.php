@@ -32,6 +32,7 @@ use Mittwald\Typo3Forum\Service\Authentication\AuthenticationServiceInterface;
 use Mittwald\Typo3Forum\Utility\Localization;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Service\CacheService;
@@ -85,11 +86,6 @@ abstract class AbstractController extends ActionController
     // TODO: Test
     protected function handleError(RequestInterface $request, AbstractException $e)
     {
-        $controllerContext = $this->buildControllerContext();
-        $controllerContext->getRequest()->setControllerName('Default');
-        $controllerContext->getRequest()->setControllerActionName('error');
-        $this->view->setControllerContext($controllerContext);
-
         $content = $this->view->assign('exception', $e)->render('error');
 
         $response = $this->responseFactory->createResponse(400);
@@ -150,7 +146,8 @@ abstract class AbstractController extends ActionController
     */
     protected function clearCacheForCurrentPage()
     {
-        $this->cacheService->clearPageCache((int)$GLOBALS['TSFE']->id);
+        $pageId = (int)$this->request->getAttribute('frontend.page.information')?->getId();
+        $this->cacheService->clearPageCache($pageId);
     }
 
     /**
@@ -163,9 +160,9 @@ abstract class AbstractController extends ActionController
     *                                  flash messages.
     * @param array $arguments Arguments for the flash message.
     * @param string $titleKey Optional language key for the message's title.
-    * @param int $severity Message severity (see \TYPO3\CMS\Core\Messaging\FlashMessage::*)
+    * @param int $severity Message severity (see \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity)
     */
-    protected function addLocalizedFlashmessage($key, array $arguments = [], $titleKey = null, $severity = FlashMessage::OK)
+    protected function addLocalizedFlashmessage($key, array $arguments = [], $titleKey = null, ContextualFeedbackSeverity $severity = ContextualFeedbackSeverity::OK)
     {
         $message = new FlashMessage(Localization::translate($key, 'Typo3Forum', $arguments), Localization::translate($titleKey, 'Typo3Forum'), $severity);
 

@@ -103,13 +103,12 @@ abstract class AbstractMailingService extends AbstractService implements Mailing
     }
 
     /**
-     * Gets the preferred character set for sent mails. This usually is TYPO3's
-     * renderCharset.
+     * Gets the preferred character set for sent mails. TYPO3 always uses UTF-8.
      *
      * @return string The preferred charset.
      */
     protected function getCharset(): string
     {
-        return $GLOBALS['TSFE']->renderCharset;
+        return 'utf-8';
     }
 }

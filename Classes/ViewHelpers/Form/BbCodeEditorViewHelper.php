@@ -159,7 +159,9 @@ class BbCodeEditorViewHelper extends AbstractFormFieldViewHelper
 
         $uri = $this->uriBuilder
             ->reset()
-            ->setTargetPageUid($GLOBALS['TSFE']->id)
+            ->setTargetPageUid(
+                (int)($GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')?->getId() ?? 0)
+            )
             ->setArguments(['type' => 43568275])
             ->uriFor('preview', [], 'Ajax', 'Typo3Forum', 'Ajax');
 

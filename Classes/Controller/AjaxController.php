@@ -149,7 +149,7 @@ class AjaxController extends AbstractController
 
         /* @var StandaloneView $standaloneView */
         $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
-        $standaloneView->setControllerContext($this->controllerContext);
+        $standaloneView->setRequest($this->request);
         $standaloneView->setTemplateRootPaths($templateRootPaths);
         $standaloneView->getRenderingContext()->setControllerName('Ajax');
         $standaloneView->setTemplate('forumMenu');
@@ -190,7 +190,7 @@ class AjaxController extends AbstractController
         foreach ($posts as $post) {
             /* @var StandaloneView $standaloneView */
             $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
-            $standaloneView->setControllerContext($this->controllerContext);
+            $standaloneView->setRequest($this->request);
             $standaloneView->setTemplateRootPaths($templateRootPaths);
             $standaloneView->getRenderingContext()->setControllerName('Ajax');
             $standaloneView->setTemplate('PostHelpfulButton');
@@ -207,7 +207,7 @@ class AjaxController extends AbstractController
 
             /* @var StandaloneView $standaloneView */
             $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
-            $standaloneView->setControllerContext($this->controllerContext);
+            $standaloneView->setRequest($this->request);
             $standaloneView->setTemplateRootPaths($templateRootPaths);
             $standaloneView->getRenderingContext()->setControllerName('Ajax');
             $standaloneView->setTemplate('PostEditLink');
@@ -238,7 +238,7 @@ class AjaxController extends AbstractController
 
         /* @var StandaloneView $standaloneView */
         $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
-        $standaloneView->setControllerContext($this->controllerContext);
+        $standaloneView->setRequest($this->request);
         $standaloneView->setTemplateRootPaths($templateRootPaths);
         $standaloneView->getRenderingContext()->setControllerName('Ajax');
         $standaloneView->setTemplate('topicListMenu');
