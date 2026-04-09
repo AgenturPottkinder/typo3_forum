@@ -85,11 +85,12 @@ class TopicIconViewHelper extends AbstractViewHelper
         } else {
             $renderData['typoscriptObjectPath'] = 'plugin.tx_typo3forum.renderer.icons.topic';
         }
-        return CObjectViewHelper::renderStatic(
-            $renderData,
-            function () use ($data): array {return $data;},
-            $this->renderingContext
-        );
+        $cobjectViewHelper = GeneralUtility::makeInstance(CObjectViewHelper::class);
+        $cobjectViewHelper->setRenderingContext($this->renderingContext);
+        $cobjectViewHelper->initializeArguments();
+        $cobjectViewHelper->setArguments($renderData);
+        $cobjectViewHelper->setRenderChildrenClosure(function () use ($data): array { return $data; });
+        return $cobjectViewHelper->render();
     }
 
     /**

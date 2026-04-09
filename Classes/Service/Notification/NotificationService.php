@@ -33,6 +33,9 @@ use Mittwald\Typo3Forum\Domain\Model\SubscribeableInterface;
 use Mittwald\Typo3Forum\Service\AbstractService;
 use Mittwald\Typo3Forum\Service\Mailing\HTMLMailingService;
 use Mittwald\Typo3Forum\Utility\Localization;
+use TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters;
+use TYPO3\CMS\Extbase\Mvc\Request as ExtbaseRequest;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface as ExtbaseRequestInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 
@@ -62,6 +65,23 @@ class NotificationService extends AbstractService implements NotificationService
     public function initializeObject()
     {
         $this->settings = $this->configurationBuilder->getSettings();
+    }
+
+    private function initializeUriBuilder(): void
+    {
+        $request = $GLOBALS['TYPO3_REQUEST'] ?? null;
+        if ($request === null) {
+            return;
+        }
+        if ($request instanceof ExtbaseRequestInterface) {
+            $this->uriBuilder->setRequest($request);
+            return;
+        }
+        // Wrap PSR-7 request in Extbase Request, adding minimal ExtbaseRequestParameters if needed
+        if (!$request->getAttribute('extbase') instanceof ExtbaseRequestParameters) {
+            $request = $request->withAttribute('extbase', new ExtbaseRequestParameters());
+        }
+        $this->uriBuilder->setRequest(new ExtbaseRequest($request));
     }
 
     /**
@@ -162,6 +182,7 @@ class NotificationService extends AbstractService implements NotificationService
 
     protected function getForumLink(Forum $forum): string
     {
+        $this->initializeUriBuilder();
         $arguments = [
             'tx_typo3forum_forum[controller]' => 'Forum',
             'tx_typo3forum_forum[action]' => 'show',
@@ -180,6 +201,7 @@ class NotificationService extends AbstractService implements NotificationService
 
     protected function getTopicLink(Topic $topic)
     {
+        $this->initializeUriBuilder();
         $arguments = [
             'tx_typo3forum_forum[controller]' => 'Topic',
             'tx_typo3forum_forum[action]' => 'show',
@@ -199,6 +221,7 @@ class NotificationService extends AbstractService implements NotificationService
 
     protected function getPostLink(Post $post): string
     {
+        $this->initializeUriBuilder();
         $arguments = [
             'tx_typo3forum_forum[controller]' => 'Post',
             'tx_typo3forum_forum[action]' => 'show',
@@ -218,6 +241,7 @@ class NotificationService extends AbstractService implements NotificationService
 
     protected function getForumUnsubscribeLink(Forum $forum): string
     {
+        $this->initializeUriBuilder();
         $unSubscribeLink = $this->uriBuilder
             ->setTargetPageUid($this->settings['pids.']['Forum'])
             ->setArguments([
@@ -236,6 +260,7 @@ class NotificationService extends AbstractService implements NotificationService
 
     protected function getTopicUnsubscribeLink(Topic $topic): string
     {
+        $this->initializeUriBuilder();
         $unSubscribeLink = $this->uriBuilder
             ->setTargetPageUid($this->settings['pids.']['Forum'])
             ->setArguments([

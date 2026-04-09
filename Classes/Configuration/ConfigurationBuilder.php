@@ -70,7 +70,7 @@ class ConfigurationBuilder implements SingletonInterface
         }
         $typoScript = $this->getTypoScriptService()->getSetupArray()['plugin.']['tx_typo3forum.']?? [];
         $this->settings = $typoScript['settings.'];
-        $this->persistenceSettings = $typoScript['persistence.'];
+        $this->persistenceSettings = $typoScript['persistence.'] ?? [];
     }
 
     protected function getTypoScriptService(): FrontendTypoScript

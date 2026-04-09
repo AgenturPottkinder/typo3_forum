@@ -64,7 +64,7 @@ abstract class AbstractRepository extends Repository
         $this->settings = $this->configurationBuilder->getSettings();
         $this->persistenceSettings = $this->configurationBuilder->getPersistenceSettings();
 
-        if (isset($this->persistenceSettings['storagePid'])) {
+        if (isset($this->persistenceSettings['storagePid']) && is_numeric($this->persistenceSettings['storagePid'])) {
             $this->setDefaultQuerySettings(
                 $this->getQuerySettings()->setStoragePageIds(explode(',', $this->persistenceSettings['storagePid']))
             );
