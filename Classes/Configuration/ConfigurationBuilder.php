@@ -25,8 +25,6 @@ use TYPO3\CMS\Core\Resource\Exception\InvalidConfigurationException;
 
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\TypoScript\FrontendTypoScript;
-use TYPO3\CMS\Core\TypoScript\TypoScriptService;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class ConfigurationBuilder implements SingletonInterface
 {
@@ -66,12 +64,13 @@ class ConfigurationBuilder implements SingletonInterface
      */
     protected function loadTypoScript(): void
     {
-        if (empty($GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_typo3forum.'])) {
+        $typo3ForumConfig = $this->getTypoScriptService()->getSetupArray()['plugin.']['tx_typo3forum.'];
+        if (empty($typo3ForumConfig)) {
             throw new InvalidConfigurationException('The TypoScript configuration for typo3_forum is missing. Include it via a template or a TypoScript file.', 1561441468);
         }
         $typoScript = $this->getTypoScriptService()->getSetupArray()['plugin.']['tx_typo3forum.']?? [];
         $this->settings = $typoScript['settings.'];
-        $this->persistenceSettings = $typoScript['persistence.'];
+        $this->persistenceSettings = $typoScript['persistence.'] ?? [];
     }
 
     protected function getTypoScriptService(): FrontendTypoScript

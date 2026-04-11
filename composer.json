@@ -10,8 +10,8 @@
 		}
 	],
 	"require": {
-		"typo3/cms-core": "^12.4",
-		"sjbr/static-info-tables": "^12.4"
+		"typo3/cms-core": "^13.4",
+		"sjbr/static-info-tables": "^13.4"
 	},
 	"require-dev": {
 		"namelesscoder/typo3-repository-client": "^1.2",

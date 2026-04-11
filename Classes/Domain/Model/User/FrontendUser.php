@@ -634,7 +634,7 @@ class FrontendUser extends AbstractEntity
     /**
      * The creation date of this user.
      */
-    protected DateTime $crdate;
+    protected ?DateTime $crdate = null;
 
     /**
      * Userfield values.
@@ -827,7 +827,7 @@ class FrontendUser extends AbstractEntity
      */
     public function getRegistrationDate()
     {
-        return $this->crdate->format('d.m.Y');
+        return $this->crdate?->format('d.m.Y') ?? '';
     }
 
     /**

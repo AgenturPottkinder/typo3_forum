@@ -68,17 +68,18 @@ class UserfieldViewHelper extends AbstractViewHelper
             array_filter(
                 array_map(
                     function (string $propertyName) use ($renderingContext, $userfield, $user): string {
-                        return CObjectViewHelper::renderStatic(
-                            [
-                                'typoscriptObjectPath' => $userfield->getTyposcriptPath() . '.output',
-                                'currentValueKey' => $propertyName,
-                                'table' => 'fe_users'
-                            ],
-                            function () use ($user) {
-                                return $user;
-                            },
-                            $renderingContext
-                        );
+                        $cobjectViewHelper = GeneralUtility::makeInstance(CObjectViewHelper::class);
+                        $cobjectViewHelper->setRenderingContext($renderingContext);
+                        $cobjectViewHelper->initializeArguments();
+                        $cobjectViewHelper->setArguments([
+                            'typoscriptObjectPath' => $userfield->getTyposcriptPath() . '.output',
+                            'currentValueKey' => $propertyName,
+                            'table' => 'fe_users',
+                        ]);
+                        $cobjectViewHelper->setRenderChildrenClosure(function () use ($user) {
+                            return $user;
+                        });
+                        return $cobjectViewHelper->render();
                     },
                     explode('|', $userfield->getUserObjectPropertyName())
                 ),

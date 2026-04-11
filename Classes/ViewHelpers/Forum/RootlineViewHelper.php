@@ -25,6 +25,7 @@ namespace Mittwald\Typo3Forum\ViewHelpers\Forum;
  *  This copyright notice MUST APPEAR in all copies of the script!      *
  *                                                                      */
 
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
@@ -146,12 +147,11 @@ class RootlineViewHelper extends AbstractTagBasedViewHelper
      * getUriBuilder.
      * @return UriBuilder
      */
-    private function getUriBuilder()
+    private function getUriBuilder(): UriBuilder
     {
-        /**
-         * @var UriBuilder $uriBuilder
-         */
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+        $request = $this->renderingContext->getAttribute(ServerRequestInterface::class);
+        $uriBuilder->setRequest($request);
         return $uriBuilder;
     }
 }

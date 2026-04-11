@@ -1,8 +1,8 @@
 <?php
 namespace Mittwald\Typo3Forum\Utility;
 
+use Doctrine\DBAL\ParameterType;
 use Mittwald\Typo3Forum\Domain\Exception\TextParser\Exception;
-use PDO;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\DataHandling\Model\RecordStateFactory;
 use TYPO3\CMS\Core\DataHandling\SlugHelper;
@@ -25,7 +25,7 @@ class Slug
             ->where(
                 $queryBuilder->expr()->eq(
                     'uid',
-                    $queryBuilder->createNamedParameter($uid, PDO::PARAM_INT)
+                    $queryBuilder->createNamedParameter($uid, ParameterType::INTEGER)
                 )
             )
             ->executeQuery()
